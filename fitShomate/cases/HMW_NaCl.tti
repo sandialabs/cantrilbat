@@ -1,0 +1,90 @@
+##
+# $Id: HMW_NaCl.tti,v 1.3 2007/07/18 21:49:21 hkmoffa Exp $
+#
+# Template file for the cttables program
+#
+Number of Cantera Files = 1
+Cantera File Name = HMW_NaCl.xml
+#
+####################################################################
+# Output Units = [Kcal_cgs] , [KJoule]
+#
+####################################################################
+#Output Units = Kcal_cgs
+Output Units = KJoule
+#
+!----------------------------------------------------------------
+! DebugPrinting = [bool]
+!   (optional)
+!   This sets whether there will be extra debug printing or not
+!----------------------------------------------------------------
+DebugPrinting = true
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+!----------------------------------------------------------------
+!  Add Internal Energy Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the relative value of the internal energy.
+!----------------------------------------------------------------
+Add Internal Energy Column = false
+!----------------------------------------------------------------
+#
+###########################################################
+# Bath Temperature = [double]
+#  (required)
+#   Default temperature for all calculations
+###########################################################
+Bath Temperature = 298.15
+Bath  Pressure = 1.0 atm
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int] 
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 14
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 10.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 273.15.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 298.15
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+#
+start block Bath Specification for Phase NaCl_Electrolyte
+   Bath Species ID = H2O(L)
+   start block Bath Species Molalities
+       Na+ = 0.9 
+       K+  = 0.1
+       Cl- = 1.8
+       H+  = 0.8
+   End block Bath Species Molalities
+end block Bath Specification for Phase NaCl_Electrolyte
+
+# the above were empty lines

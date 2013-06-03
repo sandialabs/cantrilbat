@@ -1,0 +1,60 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Template Input file for changeHf
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+!--------------------------------------------------------
+! File Name = string
+!
+!   Input file name
+!   (required)
+!--------------------------------------------------------
+File Name = DH_NaCl.xml
+!--------------------------------------------------------
+! Destination File Name = string
+!
+!   Output file name
+!   (required)
+!--------------------------------------------------------
+Destination File Name = DH_NaCl_alt.xml
+!--------------------------------------------------------
+! Energy Units = [kJoule, Kcal_cgs]
+!
+!   Energy units for specification of the change
+!   in Enthalpy.
+!   (optional)
+!   (default = kJoule which means kJoule/gmol)
+!--------------------------------------------------------
+Energy Units = kJoule
+!--------------------------------------------------------
+!  Species Name = string
+!
+!   Species Name -> must match a species name in the
+!                   input file.
+!   (required)
+!--------------------------------------------------------
+Species Name = H2O(L)
+!--------------------------------------------------------
+! Delta Hf = value [Energy units]
+!
+!   Delta change in the Heat of formation from the 
+!   present value. The first number is required.
+!   The second number specifies the energy units of the
+!   delta.
+!   (either Delta or Absolute Hf are required)
+!--------------------------------------------------------
+! Delta Hf = -.0001 kJ / gmol
+!--------------------------------------------------------
+! Absolute Hf = value [Energy units]
+!
+!   Absolute value of the Heat of formation for the
+!   species. The first number is required.
+!   The second number specifies the energy units of the
+!   delta.
+!   (either Delta or Absolute Hf are required)
+!--------------------------------------------------------
+Absolute Hf = -285.0 kJ/gmol
+!--------------------------------------------------------
+!-                     END
+!--------------------------------------------------------
+
+

@@ -1,0 +1,6 @@
+*.d
+Makefile
+*.o
+solution.xml
+.depends
+xmlSolnDiff

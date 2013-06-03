@@ -1,0 +1,32 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2011/11/02 16:02:10 $
+#  $Revision: 1.2 $
+#
+###############################################################
+
+all:
+#	cd ndflame_test1; @MAKE@
+#	cd catcomb_stagflow_test1; @MAKE@
+
+test:
+#	cd ndflame_test1; @MAKE@ -s test
+#	cd catcomb_stagflow_test1; @MAKE@ -s test
+
+clean:
+	cd ndflame_test1; $(RM) .depends ; @MAKE@ clean
+	cd catcomb_stagflow_test1; $(RM) .depends ; @MAKE@ clean
+
+depends:
+#	cd ndflame_test1;                  @MAKE@ depends
+#	cd catcomb_stagflow_test1;         @MAKE@ depends
+
+rebaseline:
+	cd ndflame_test1;                  @MAKE@ rebaseline
+	cd catcomb_stagflow_test1;         @MAKE@ rebaseline
+
+install:
+
+# end of file
+

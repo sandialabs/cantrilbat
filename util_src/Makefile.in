@@ -1,0 +1,24 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2008/12/22 20:18:08 $
+#  $Revision: 1.1 $
+#
+###############################################################
+
+all:
+	cd src; @MAKE@
+
+clean:
+	cd src; $(RM) .depends ; @MAKE@ clean
+
+depends:
+	cd src; @MAKE@ depends
+
+install:
+	cd src; @MAKE@ install
+
+test:
+
+# end of file
+

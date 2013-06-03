@@ -1,0 +1,21 @@
+#
+# cttables 
+# This is comment line
+#
+#
+Bath Species ID = Al(S)
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+start block temperature table format
+  Added temperatures = 933.45
+end block temperature table format
+
+start block Bath Species Mole Fraction
+  Al(S) = 1.0
+End block Bath Species Mole Fraction
+
+# the above were empty lines

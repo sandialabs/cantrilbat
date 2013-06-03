@@ -1,0 +1,89 @@
+#!/bin/sh
+
+#------------------------  edit this block ---------------------------------
+
+# the name of the executable program to be created
+PROG_NAME = bcTest
+
+# the object files to be linked together. 
+OBJS = exp_BoundaryCondition.o 
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+#
+# The directory where Cantera include files may be found.
+#
+CANTERA_INCROOT=@ct_incroot@
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+
+RM = /bin/rm -f
+
+#---------------------------------------------------------------------------
+# You probably don't need to edit anything below.
+
+# the C++ compiler
+CXX = @CXX@
+
+# C++ compile flags
+CXX_FLAGS = @CXXFLAGS@
+
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+
+# the directory where the Cantera libraries are located
+CANTERA_LIBDIR=@ct_libdir@
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXXFLAGS = @LCXX_FLAGS@  
+
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)
+
+# how to compile C++ source files to object files
+.cpp.o:
+	$(CXX) -c $< $(INCLUDE_DIRS) $(CXX_FLAGS)
+
+PROGRAM = $(PROG_NAME)$(EXE_EXT)
+
+DEPENDS = $(OBJS:.o=.d)
+
+all: $(PROGRAM) diTest .depends
+
+$(PROGRAM): bcTest.o $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
+	$(CXX) -o $(PROGRAM) bcTest.o $(OBJS) $(LCXXFLAGS)\
+            $(CANTERA_TOTAL_LIBS)\
+            $(LCXX_END_LIBS)
+
+diTest: diTest.o $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
+	$(CXX) -o $(PROGRAM) diTest.o $(OBJS) $(LCXXFLAGS)\
+            $(CANTERA_TOTAL_LIBS)\
+            $(LCXX_END_LIBS)
+
+$(DEPENDS) $(OBJS): Makefile
+
+%.d:
+	$(CXX_DEPENDS) $(INCLUDE_DIRS) $(CXX_FLAGS) $*.cpp > $*.d
+
+clean:
+	$(RM) $(OBJS) $(PROGRAM)
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+TAGS: 
+	etags *.h *.cpp
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+
+
+
+

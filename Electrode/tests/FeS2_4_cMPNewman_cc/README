@@ -1,0 +1,13 @@
+
+
+
+This is the first test I constructed using the Electrode_MP_RxnExtent_FeS2 test
+The idea is that it should be the same as the   FeS2_4_MPNewman_cc  test 
+This test goes from Relative extent 1.75 to 4.0 using a constant current approximation.
+
+
+The idea is to keep these two tests synched until MP_RxnExtent is generalized enough that
+it can handle other cases than FeS2 electrodes.
+
+
+

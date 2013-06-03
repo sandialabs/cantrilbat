@@ -1,0 +1,164 @@
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+# $Id: Makefile.in,v 1.2 2009/08/02 16:54:29 hkmoffa Exp $
+#
+#
+#  Build mpequil through the CANTERA_INSTALL directories.
+#
+# Copywrite (2005) Sandia Corporation. Under the terms of 
+# Contract DE-AC04-94AL85000 with Sandia Corporation, the
+# U.S. Government retains certain rights in this software.
+#
+#
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+VCS_SRC=../../vcs/src
+
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+
+
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+
+
+
+UTILSRC_DIR=../util_src/src
+
+# These links are to Cantera's install space
+CT_LIBDIR =  @ct_libdir@
+CT_INCROOT =  @ct_incroot@
+F2C_INC=$(CT_INCROOT)/cantera
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+LDEFINES = -DDEBUG 
+GDEFINES = -DDEBUG_ROOT1D
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = -I$(CT_INCROOT)   \
+               -I$(CANTERA_BUILD_ROOT)/Cantera/src \
+               -I$(UTILSRC_DIR) -I$(VCS_SRC)
+
+all: changeHf copyXML
+
+OBJ_CH = changeHf.o chInput.o
+
+.SUFFIXES: .d
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+MDPLIB_DEP = $(UTILSRC_DIR)/libutil_src.a
+MDPLIB     = -L$(UTILSRC_DIR) -lutil_src
+
+CTPADDSLIB_DEP = $(VCS_SRC)/libctpadds.a
+CTPADDSLIB     = -L$(VCS_SRC) -lctpadds
+
+CTBLAS_DEP = $(CT_LIBDIR)/libctblas.a
+CTBLAS    = -L$(CT_LIBDIR) -lctblas
+
+CTMATH_DEP = $(CT_LIBDIR)/libctmath.a
+CTMATH    = -L$(CT_LIBDIR) -lctmath
+
+CTLAPACK_DEP = $(CT_LIBDIR)/libctlapack.a
+CTLAPACK    = -L$(CT_LIBDIR) -lctlapack
+
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.c.o:
+	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o:
+	$(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+.f:
+	$(F77) $(FFLAGS) -c $<
+	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
+
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+.cpp.d:
+	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends: $(DEPENDS)
+	cat *.d > .depends
+	$(RM) $(DEPENDS)
+
+##############################################################################
+BUILD_WITH_CTF2C=@build_with_f2c@
+
+changeHf: $(OBJ_CH) \
+           $(MDPLIB_DEP)    $(CANTERA_CORE_LIBS_DEP)
+	$(CXXLDR) $(LCXX_FLAGS) -o changeHf $(OBJ_CH) \
+                  $(MDPLIB)  $(CANTERA_TOTAL_LIBS)  $(CTMATH) $(CTLAPACK)  $(CTBLAS) \
+                  $(LIBF2C) $(LCXX_END_LIBS)
+
+copyXML: copyXML.o \
+            $(MDPLIB_DEP)   $(CANTERA_CORE_LIBS_DEP)
+	$(CXXLDR) $(LCXX_FLAGS) -o copyXML copyXML.o \
+                  $(MDPLIB) $(CANTERA_TOTAL_LIBS)  $(CTMATH) $(CTLAPACK)  $(CTBLAS) \
+                  $(LIBF2C) $(LCXX_END_LIBS)
+
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+tidy:
+	$(RM) Static.sadb .soft* debugdb.buttons .Stat*
+
+clean:
+	$(MAKE) tidy
+	$(RM) *.o 
+	$(RM) ${PROG} 
+

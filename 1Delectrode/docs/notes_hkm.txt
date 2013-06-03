@@ -1,0 +1,39 @@
+
+
+
+Notes on what I see 1/20/2011
+-----------------------------
+
+I noticed that in the beginning of the calculation (infPorous) the
+electrode actually goes backwards in the anode at the back of the
+anode. I'm not sure how this is done as I don't think there is any
+room for the electrons in the solid. This is probably an artificial
+result due to some sort of numerical roundoff.
+
+
+
+
+1/21/2011
+
+The infPorous run I'm taking as still good. It actually uses the base
+class of electrode and uses a different call to get the species
+reaction rates than the other methods.
+
+My first thought is to get the Porous example problem producing about
+the same results as the infPorous results. this is what I'm going
+after first. Currently the production rates from the Porous flow
+example runs at an unphysical 1.1 volts and productes 8 amps cm^-2
+current.
+This is in contrast to the 10^3 amps cm-2 at 1.9 volts for the
+infPorous flow case. Therefore, the results are totally different.
+
+I think the differences are due to the change in the surface area
+between the two cases. I have previously made sure that the two
+methods produced the same result. I'm going to revisit this work and
+see if I can get it to work again.
+
+
+In order to carry this out, I'll be adding more output to
+showSolution() to make sure that the two calculations are doing the
+same thing
+

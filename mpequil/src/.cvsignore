@@ -1,0 +1,4 @@
+Makefile
+.depends
+mpequil
+*.d

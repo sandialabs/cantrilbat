@@ -1,0 +1,143 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+  <!-- phase Pt_Electrode    -->
+  <phase dim="2" id="platinum_surface">
+    <elementArray datasrc="elements.xml"> H C E </elementArray>
+    <speciesArray datasrc="#species_PtH2electrode"> pt_site H*_site </speciesArray>
+  
+    <state>
+      <temperature units="K"> 300.0 </temperature>
+      <coverages> pt_site:0.9 H*_site:0.1 </coverages>
+    </state>
+    <thermo model="Surface">
+      <site_density units="mol/cm2">3e-09</site_density>
+    </thermo>
+    <kinetics model="Electrode"/>
+    <reactionArray datasrc="#reaction_data"/>
+
+    <transport model="None"/>
+    <phaseArray> Pt_H2electrons NaCl_electrolyte h2gas </phaseArray>
+  </phase>
+
+ <!-- phase Pt_H2electrons    -->
+  <phase dim="3" id="Pt_H2electrons">
+    <elementArray datasrc="elements.xml">
+        E
+    </elementArray>
+    <speciesArray datasrc="#species_PtH2electrode"> Pt_electron </speciesArray>
+    <thermo model="MetalSHEelectrons">
+       <referenceInterface> SHE </referenceInterface>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_PtH2electrode">
+
+    <species name="Pt_electron">
+      <atomArray> E:1  </atomArray>
+      <charge> -1 </charge>
+      <thermo>
+        <NASA Tmax="1000.0" Tmin="200.0" P0="100000.0">
+         <floatArray name="coeffs" size="7">
+          1.172165560E+00,   3.990260375E-03,  -9.739075500E-06,  1.007860470E-08,
+         -3.688058805E-12, -4.589675865E+02,  3.415051190E-01
+         </floatArray>
+        </NASA>
+        <NASA Tmax="6000.0" Tmin="1000.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             1.466432895E+00,  4.133039835E-04, -7.320116750E-08, 7.705017950E-12,
+            -3.444022160E-16, -4.065327985E+02, -5.121644350E-01
+          </floatArray>
+        </NASA>
+      </thermo>
+    </species>
+
+   <!-- species pt_site   -->
+    <species name="pt_site">
+      <atomArray>  </atomArray>
+      <thermo>
+        <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.15</t0>
+           <h0 units="kJ/mol">0.0</h0>
+           <s0 units="J/mol/K">0.0</s0>
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+    </species>
+
+   <!-- species H*_site   -->
+    <species name="H*_site">
+      <atomArray> H:1  </atomArray>
+      <thermo>
+        <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.15</t0>
+           <h0 units="kJ/mol">-15.0</h0>
+           <s0 units="J/mol/K"> 10.0</s0>
+           <cp0 units="J/mol/K">10.0</cp0>
+        </const_cp>
+      </thermo>
+    </species>
+
+  </speciesData>
+
+ <reactionData id="reaction_data">
+
+  <!-- reaction 0001   
+      Volmer reaction - rate limiting
+    -->
+    <reaction reversible="yes" type="surface" id="0001">
+      <equation> H+  + Pt_electron + pt_site [=] H*_site </equation>
+      <rateCoeff>
+        <electrochem beta="0.5"/>
+        <Arrhenius>
+           <A>1.11800E+5</A>
+           <b>0.0</b>
+           <E units="kJ/mol"> 40.000000 </E>
+        </Arrhenius>
+      </rateCoeff>
+      <reactants> H+:1.0  Pt_electron:1.0  pt_site:1.0 </reactants>
+      <products> H*_site:1.0 </products>
+    </reaction>
+
+  <!-- reaction 0002
+      Tafel reaction - fast
+    -->
+    <reaction reversible="yes" type="surface" id="0002">
+      <equation> 2 pt_side + H2 [=] 2 H*_site </equation>
+      <rateCoeff>
+        <Arrhenius>
+           <A>1.900000E+13</A>
+           <b>0.0</b>
+           <E units="kJ/mol"> 10.000000 </E>
+        </Arrhenius>
+      </rateCoeff>
+      <reactants> pt_site:2.0 H2:1.0 </reactants>
+      <products> H*_site:2.0 </products>
+    </reaction>
+
+ <!-- reaction 0003
+      Heyrovsky reaction - set to slow here
+    -->
+    <reaction reversible="yes" type="surface" id="0003">
+      <equation> pt_side + H2 [=]  H*_site +  H+  + Pt_electron </equation>
+      <rateCoeff>
+        <electrochem beta="0.5"/>
+        <Arrhenius>
+           <A>6.000000E-5</A>
+           <b>0.0</b>
+           <E units="kJ/mol"> 30.000000 </E>
+        </Arrhenius>
+      </rateCoeff>
+      <reactants> pt_site:1.0 H2:1.0 </reactants>
+      <products> H*_site:1.0 H+:1.0 Pt_electron:1.0 </products>
+    </reaction>
+
+
+  </reactionData>
+
+</ctml>

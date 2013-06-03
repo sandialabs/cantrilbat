@@ -1,0 +1,118 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = FeS2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = MP_RxnExtent
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = FeS2_A.xml
+Cantera File Name = FeS2_B.xml
+Cantera File Name = FeS2_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 723.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+
+!-------------------------------------------------------------------------
+! 
+! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]
+!  
+!  Level of output created - defaults to none
+!
+!
+Level of XML State Information Created = intermediateSteps
+!----------------------------------------------------------------
+
+!
+
+start block Bath Specification for Phase FeS2_A(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    FeS2_A(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_A(S)
+
+
+start block Bath Specification for Phase FeS2_B(S)
+  Phase Moles = 1.0E-3
+  start block Bath Species Mole Fraction
+    FeS2_B(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_B(S)
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.3
+      K+  = 0.2
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+Capacity Discharged Per Initial Mole = 1.7
+
+Number of Regions = 4
+
+Molar Volumes Region Boundaries =  26.7E-3   26.7E-3 26.7E-3 26.7E-3 26.7E-3
+
+
+

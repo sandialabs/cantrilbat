@@ -1,0 +1,47 @@
+a1 = 4e-10
+a2 = 3e-10
+            Name      Activity  ActCoeffMolal    MoleFract      Molality
+          H2O(L)      0.898745       1.21763      0.738112       55.5084
+             Na+       6.68144      0.714219      0.124395        9.3549
+             Cl-       5.86522      0.626967      0.124395        9.3549
+              H+   1.00022e-08       0.95268   1.39608e-10    1.0499e-08
+             OH-   9.26841e-07      0.673332   1.83037e-08    1.3765e-06
+        NaCl(aq)       0.98492             1     0.0130968       0.98492
+        NaOH(aq)    3.8836e-06             1   5.16414e-08    3.8836e-06
+        SiO2(aq)    5.8225e-05       1.92932   4.01299e-07    3.0179e-05
+    NaH3SiO4(aq)    6.8798e-05             1   9.14827e-07    6.8798e-05
+         H3SiO4-   7.30717e-07      0.714219   1.36045e-08    1.0231e-06
+           Species   Standard chemical potentials (kJ/gmol) 
+------------------------------------------------------------
+          H2O(L)      -306.685618
+             Na+      -257.766858
+             Cl-      -183.955283
+              H+                0
+             OH-      -226.848701
+        NaCl(aq)      -432.592742
+        NaOH(aq)      -483.460859
+        SiO2(aq)      -900.384007
+    NaH3SiO4(aq)      -1722.09356
+         H3SiO4-      -1457.76623
+------------------------------------------------------------
+ Some DeltaSS values:               Delta(mu_0)
+ NaOH(aq): Na+ + OH- -> NaOH(aq):         1.1547 kJ/gmol 
+                                :         0.4658 (dimensionless) 
+ NaOH(aq): Na+ + H2O(L) - H+ -> NaOH(aq):       80.99162 kJ/gmol 
+                                :       32.67161 (dimensionless) 
+ NaCl(aq): Na+ + Cl- -> NaCl(aq):       9.129399 kJ/gmol 
+                                :       3.682754 (dimensionless) 
+                                :         1.5994 (dimensionless/ln10) 
+ NaCl(S): Na+ + Cl- -> NaCl(S):       9.091741 kJ/gmol 
+                                :       3.667563 (dimensionless) 
+                                :       1.592802 (dimensionless/ln10) 
+ OH-: H2O(L) - H+ -> OH-:       79.83692 kJ/gmol 
+                                :       32.20581 (dimensionless) 
+                                :       13.98681 (dimensionless/ln10) 
+ NaH3SiO4(aq): -H+ +Na+ +2H2O + SiO2:       49.42854 kJ/gmol 
+                                :       19.93923 (dimensionless) 
+                                :       8.659497 (dimensionless/ln10) 
+ H3SiO4-: -H+  +2H2O + SiO2:       55.98901 kJ/gmol 
+                                :       22.58569 (dimensionless) 
+                                :       9.808839 (dimensionless/ln10) 
+------------------------------------------------------------

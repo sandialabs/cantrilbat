@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase FeS2(S)    -->
+  <phase dim="3" id="FeS2(S)">
+    <elementArray datasrc="elements.xml">
+      Fe S
+    </elementArray>
+    <speciesArray datasrc="#species_FeS2(S)"> FeS2(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 5.013581 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_FeS2(S)">
+
+    <!-- species FeS2(S)   -->
+    <!--      melting temperature = 1400 K -->
+    <species name="FeS2(S)">
+      <atomArray> Fe:1 S:2 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from Bernardi Newman -->
+        <molarVolume units="m3/kmol"> 0.02393 </molarVolume>
+      </standardState>
+      <!-- NIST -->
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1400.0" Tmin="298">
+          <floatArray size="7">
+             83.582315146088, -29.2630502118092, 41.1873013271502, -11.6739943754519, -1.4300344559024, -200.300588119137, 153.017593377169
+             <!-- pyrite JANAF fit  -->
+             <!-- maracasite JANAF  82.6560,  -24.7776,   36.2218,   -9.9591,   -1.4078, -193.9248,  151.8388-->
+             <!-- pyrite  JANAF 83.5823,  -29.2631,   41.1873,  -11.6740,   -1.4300, -200.3006,  153.0176 -->
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- M = 119.975, then evaluated from molarVolume -->
+      <density units="g/cm3"> 5.013581 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

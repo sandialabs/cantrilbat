@@ -1,0 +1,3549 @@
+
+================================================================================
+==================== electrode_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE anode.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiSi
+!
+!-------------------------------------------------------------------------
+Electrode Type = anode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimplePhaseChangeDiffusion
+ => Electrode Model Name = SimplePhaseChangeDiffusion
+ ====> ElectrodeModelName = SimplePhaseChangeDiffusion
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 6
+ => Number of Cantera Files ====> NumCanteraFiles = 6
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = LiSi_Ext_electrode.xml 
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = Li13Si4.xml
+Cantera File Name = Li7Si3.xml
+Cantera File Name = LiSi_InternalSurf.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 773.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 2.0 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+Electrode Porosity = 0.25
+
+!
+
+start block Bath Specification for Phase Li13Si4(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    Li13Si4(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  Li13Si4(S)
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.5
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = 1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE anode.inp, PASS # 1
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE anode.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiSi
+!
+!-------------------------------------------------------------------------
+Electrode Type = anode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimplePhaseChangeDiffusion
+ => Electrode Model Name = SimplePhaseChangeDiffusion
+ ====> ElectrodeModelName = SimplePhaseChangeDiffusion
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 6
+ => Number of Cantera Files ====> NumCanteraFiles = 6
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = LiSi_Ext_electrode.xml 
+ => Cantera File Name = LiSi_Ext_electrode.xml
+ ====> CanteraFileNames =  LiSi_Ext_electrode.xml
+Cantera File Name = metal_Li_LiCl_electrons.xml
+ => Cantera File Name = metal_Li_LiCl_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+ => Cantera File Name = LiKCl_recipmoltenSalt.xml
+ ====> CanteraFileNames =  LiKCl_recipmoltenSalt.xml
+Cantera File Name = Li13Si4.xml
+ => Cantera File Name = Li13Si4.xml
+ ====> CanteraFileNames =  Li13Si4.xml
+Cantera File Name = Li7Si3.xml
+ => Cantera File Name = Li7Si3.xml
+ ====> CanteraFileNames =  Li7Si3.xml
+Cantera File Name = LiSi_InternalSurf.xml
+ => Cantera File Name = LiSi_InternalSurf.xml
+ ====> CanteraFileNames =  LiSi_InternalSurf.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 773.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 2.0 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+Electrode Porosity = 0.25
+
+!
+
+start block Bath Specification for Phase Li13Si4(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    Li13Si4(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  Li13Si4(S)
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.5
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = 1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE anode.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE anode.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiSi
+ => Electrode Name = LiSi
+ ====> ElectrodeName = LiSi
+!
+!-------------------------------------------------------------------------
+Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 1
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimplePhaseChangeDiffusion
+ => Electrode Model Name = SimplePhaseChangeDiffusion
+ ====> ElectrodeModelName = SimplePhaseChangeDiffusion
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 6
+ => Number of Cantera Files ====> NumCanteraFiles = 6
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = LiSi_Ext_electrode.xml 
+ => Cantera File Name = LiSi_Ext_electrode.xml
+ ====> CanteraFileNames =  LiSi_Ext_electrode.xml
+Cantera File Name = metal_Li_LiCl_electrons.xml
+ => Cantera File Name = metal_Li_LiCl_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+ => Cantera File Name = LiKCl_recipmoltenSalt.xml
+ ====> CanteraFileNames =  LiKCl_recipmoltenSalt.xml
+Cantera File Name = Li13Si4.xml
+ => Cantera File Name = Li13Si4.xml
+ ====> CanteraFileNames =  Li13Si4.xml
+Cantera File Name = Li7Si3.xml
+ => Cantera File Name = Li7Si3.xml
+ ====> CanteraFileNames =  Li7Si3.xml
+Cantera File Name = LiSi_InternalSurf.xml
+ => Cantera File Name = LiSi_InternalSurf.xml
+ ====> CanteraFileNames =  LiSi_InternalSurf.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 773.15
+ => Temperature = 773.15
+ ====> Temperature = 773.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 2.0 microns
+ => Particle Diameter = 2.0 microns
+ ====> particleDiameter = 2e-06
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+ => Particle Number to Follow = 2.0E8
+ ====> particleNumbertoFollow = 2e+08
+!-------------------------------------------------------------------------
+Electrode Porosity = 0.25
+ => Electrode Porosity = 0.25
+ ====> electrodePorosity = 0.25
+
+!
+
+start block Bath Specification for Phase Li13Si4(S)
+  Phase Moles = 13.0
+ => Phase Moles = 13.0
+ ====> PhaseMoles = 13
+  start block Bath Species Mole Fraction
+    Li13Si4(S) =  1.0
+ => Li13Si4(S) = 1.0
+ ====> Li13Si4(S) = 1
+ End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ Li13Si4(S) : 0 ] = 1
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase  Li13Si4(S)
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+ => Phase Moles = 6.6
+ ====> PhaseMoles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.5
+ => Li+ = 0.5
+ ====> Li+ = 0.5
+      Cl- = 0.5
+ => Cl- = 0.5
+ ====> Cl- = 0.5
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ Li+ : 0 ] = 0.5
+	====>   XBathmol[ K+ : 1 ] = 0
+	====>   XBathmol[ Cl- : 2 ] = 0.5
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase LiKCl_electrolyte
+
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+ => Special Species = electron_Li_LiCl
+ ====> Special_Species = electron_Li_LiCl, list item 0
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+ => Reaction Index ====> ReactionIndex = 0
+     Reaction multiplier = 1.0
+ => Reaction Multiplier = 1.0
+ ====> ReactionMultiplier = 1
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE anode.inp, PASS # 3
+=========================================================
+Electrode::electrode_model_create 
+	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
+ MD_OuterSolidPhase_ = 10.4634
+ MD_int_    = 104.634
+Electrode::electrode_model_create 
+	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
+moleNum: Li13Si4(S) = 5.12808e-09,  Li7Si3() = 2.62975e-16
+molNum: Li(i) = 2.62975e-17
+molFrac: Li13Si4(S) = 1,  Li7Si3() = 1
+molFrac: Li(i) = 0.01
+ phase 0 = metal_Li_LiCl_electrons
+   electron_Li_LiCl    0 4.289E+08    4.289E+08   
+ phase 1 = LiKCl_electrolyte
+   Li+                 1 -4.667E+08   -4.860E+08  
+   K+                  2 -5.140E+08   -5.333E+08  
+   Cl-                 3 -4.456E+06   1.484E+07   
+ phase 2 = Li13Si4(S)
+   Li13Si4(S)          4 -8.131E+08   -8.131E+08  
+ phase 3 = Li7Si3(S)
+   Li7Si3(S)           5 -4.848E+08   -4.848E+08  
+ phase 4 = Li7Si3_Interstitial
+   Li(i)               6 -5.030E+07   -5.030E+07  
+   V(i)                7 -6.461E+04   -6.461E+04  
+ phase 5 = LiSi_surface
+   lisi_site           8 0.000E+00    0.000E+00   
+ phase 6 = LiSi_InternalSurf
+   lisi_internalsurf_site    9 0.000E+00    0.000E+00   
+deltag_ext (Li(i) -> E + Li+) =   -6.805E+06
+deltag_int (3./11. Li13Si4(S) -> 4/11 Li7Si3(S) + Li(i)) =   -4.842E+06
+   ===============================================================
+      Electrode at time final = 0
+                   time init  = 0
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  8.378E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0 coulombs = 0 Ah
+
+          followElectrolyteMoles = 1
+          ElectrolytePseudoMoles = -1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = NA amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   0.000E+00
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 5.12808e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  5.128E-09    5.128E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 2.62975e-16
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  2.630E-16    2.630E-16   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 2.62975e-15
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.000E-02  2.630E-17    2.630E-17   0.000E+00
+                V(i)                    9.900E-01  2.603E-15    2.603E-15   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00251327
+                surface area (init)  = 0.00251327
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.128806
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.312E-07
+                           Li+                     1.312E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.312E-07
+                           V(i)                    1.312E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00251327
+                surface area (init)  = 0.00251327
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -6.578E-07
+                           Li7Si3(S)               8.770E-07
+                           Li(i)                   2.412E-06
+                           V(i)                    6.359E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 4.62815e-09,  Li7Si3() = 6.66571e-10
+   ===============================================================
+      Electrode at time final = 2
+                   time init  = 0
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  8.198E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0.16366 coulombs = 4.5461e-05 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0818299 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.696E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.696E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 4.62815e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  4.628E-09    5.128E-09  -4.999E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.66571e-10
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.666E-10    2.630E-16   6.666E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.66571e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   2.053E-02  1.369E-10    2.630E-17   1.369E-10
+                V(i)                    9.795E-01  6.529E-09    2.603E-15   6.529E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00247721
+                surface area (init)  = 0.00251327
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0801662
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.424E-07
+                           Li+                     3.424E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.424E-07
+                           V(i)                    3.424E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00234715
+                surface area (init)  = 0.00251327
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.029E-07
+                           Li7Si3(S)               1.372E-07
+                           Li(i)                   3.772E-07
+                           V(i)                    9.945E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 4.13878e-09,  Li7Si3() = 1.31907e-09
+   ===============================================================
+      Electrode at time final = 4
+                   time init  = 2
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  8.022E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0.323995 coulombs = 8.99987e-05 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0801677 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.662E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.662E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 4.13878e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  4.139E-09    4.628E-09  -4.894E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 1.31907e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  1.319E-09    6.666E-10   6.525E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 1.31907e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   2.043E-02  2.695E-10    1.369E-10   1.326E-10
+                V(i)                    9.796E-01  1.292E-08    6.529E-09   6.392E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00244165
+                surface area (init)  = 0.00247721
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0805089
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.403E-07
+                           Li+                     3.403E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.403E-07
+                           V(i)                    3.403E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00217864
+                surface area (init)  = 0.00234715
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.082E-07
+                           Li7Si3(S)               1.442E-07
+                           Li(i)                   3.966E-07
+                           V(i)                    1.046E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 3.66035e-09,  Li7Si3() = 1.95697e-09
+   ===============================================================
+      Electrode at time final = 6
+                   time init  = 4
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  7.850E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0.480908 coulombs = 0.000133586 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0784565 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.626E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.626E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 3.66035e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  3.660E-09    4.139E-09  -4.784E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 1.95697e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  1.957E-09    1.319E-09   6.379E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 1.95697e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   2.031E-02  3.974E-10    2.695E-10   1.280E-10
+                V(i)                    9.797E-01  1.917E-08    1.292E-08   6.251E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00240664
+                surface area (init)  = 0.00244165
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0809114
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.379E-07
+                           Li+                     3.379E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.379E-07
+                           V(i)                    3.379E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00200733
+                surface area (init)  = 0.00217864
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.143E-07
+                           Li7Si3(S)               1.524E-07
+                           Li(i)                   4.192E-07
+                           V(i)                    1.105E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 3.19339e-09,  Li7Si3() = 2.57958e-09
+   ===============================================================
+      Electrode at time final = 8
+                   time init  = 6
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  7.682E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0.634265 coulombs = 0.000176185 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0766784 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.589E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.589E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 3.19339e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  3.193E-09    3.660E-09  -4.670E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 2.57958e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  2.580E-09    1.957E-09   6.226E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 2.57958e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   2.016E-02  5.202E-10    3.974E-10   1.228E-10
+                V(i)                    9.798E-01  2.528E-08    1.917E-08   6.103E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00237221
+                surface area (init)  = 0.00240664
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0813914
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.350E-07
+                           Li+                     3.350E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.350E-07
+                           V(i)                    3.350E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00183276
+                surface area (init)  = 0.00200733
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.217E-07
+                           Li7Si3(S)               1.622E-07
+                           Li(i)                   4.461E-07
+                           V(i)                    1.176E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 2.73863e-09,  Li7Si3() = 3.18593e-09
+   ===============================================================
+      Electrode at time final = 10
+                   time init  = 8
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  7.519E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0.783881 coulombs = 0.000217745 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.074808 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.551E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.551E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 2.73863e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  2.739E-09    3.193E-09  -4.548E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 3.18593e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  3.186E-09    2.580E-09   6.063E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 3.18593e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.999E-02  6.369E-10    5.202E-10   1.168E-10
+                V(i)                    9.800E-01  3.122E-08    2.528E-08   5.947E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00233845
+                surface area (init)  = 0.00237221
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0819743
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.316E-07
+                           Li+                     3.316E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.316E-07
+                           V(i)                    3.316E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00165434
+                surface area (init)  = 0.00183276
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.305E-07
+                           Li7Si3(S)               1.740E-07
+                           Li(i)                   4.784E-07
+                           V(i)                    1.261E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 2.29711e-09,  Li7Si3() = 3.77462e-09
+   ===============================================================
+      Electrode at time final = 12
+                   time init  = 10
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  7.360E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 0.929496 coulombs = 0.000258193 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0728073 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.509E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.509E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 2.29711e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  2.297E-09    2.739E-09  -4.415E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 3.77462e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  3.775E-09    3.186E-09   5.887E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 3.77462e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.978E-02  7.467E-10    6.369E-10   1.097E-10
+                V(i)                    9.802E-01  3.700E-08    3.122E-08   5.777E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00230543
+                surface area (init)  = 0.00233845
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0826978
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.273E-07
+                           Li+                     3.273E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.273E-07
+                           V(i)                    3.273E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00147138
+                surface area (init)  = 0.00165434
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.414E-07
+                           Li7Si3(S)               1.885E-07
+                           Li(i)                   5.183E-07
+                           V(i)                    1.366E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 1.87036e-09,  Li7Si3() = 4.34362e-09
+   ===============================================================
+      Electrode at time final = 14
+                   time init  = 12
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  7.207E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.07073 coulombs = 0.000297425 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0706176 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.464E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.464E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 1.87036e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  1.870E-09    2.297E-09  -4.268E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 4.34362e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  4.344E-09    3.775E-09   5.690E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 4.34362e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.951E-02  8.476E-10    7.467E-10   1.010E-10
+                V(i)                    9.805E-01  4.259E-08    3.700E-08   5.589E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00227329
+                surface area (init)  = 0.00230543
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0836215
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.220E-07
+                           Li+                     3.220E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.220E-07
+                           V(i)                    3.220E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00128298
+                surface area (init)  = 0.00147138
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.551E-07
+                           Li7Si3(S)               2.068E-07
+                           Li(i)                   5.686E-07
+                           V(i)                    1.499E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 1.46071e-09,  Li7Si3() = 4.88983e-09
+   ===============================================================
+      Electrode at time final = 16
+                   time init  = 14
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  7.060E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.20702 coulombs = 0.000335282 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0681428 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.413E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.413E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 1.46071e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  1.461E-09    1.870E-09  -4.097E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 4.88983e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  4.890E-09    4.344E-09   5.462E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 4.88983e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.917E-02  9.372E-10    8.476E-10   8.957E-11
+                V(i)                    9.808E-01  4.796E-08    4.259E-08   5.373E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00224223
+                surface area (init)  = 0.00227329
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0848438
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.150E-07
+                           Li+                     3.150E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.150E-07
+                           V(i)                    3.150E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00108804
+                surface area (init)  = 0.00128298
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.730E-07
+                           Li7Si3(S)               2.307E-07
+                           Li(i)                   6.344E-07
+                           V(i)                    1.672E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 1.07191e-09,  Li7Si3() = 5.40822e-09
+   ===============================================================
+      Electrode at time final = 18
+                   time init  = 16
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.920E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.33745 coulombs = 0.000371513 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0652153 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.352E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.352E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 1.07191e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  1.072E-09    1.461E-09  -3.888E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 5.40822e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  5.408E-09    4.890E-09   5.184E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 5.40822e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.869E-02  1.011E-09    9.372E-10   7.377E-11
+                V(i)                    9.813E-01  5.307E-08    4.796E-08   5.110E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00221254
+                surface area (init)  = 0.00224223
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.086541
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.055E-07
+                           Li+                     3.055E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.055E-07
+                           V(i)                    3.055E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.000885202
+                surface area (init)  = 0.00108804
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -1.974E-07
+                           Li7Si3(S)               2.632E-07
+                           Li(i)                   7.239E-07
+                           V(i)                    1.909E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 7.10522e-10,  Li7Si3() = 5.89007e-09
+   ===============================================================
+      Electrode at time final = 20
+                   time init  = 18
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.790E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.46048 coulombs = 0.000405689 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0615165 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.275E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.275E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 7.10522e-10
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  7.105E-10    1.072E-09  -3.614E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 5.89007e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  5.890E-09    5.408E-09   4.819E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 5.89007e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.801E-02  1.061E-09    1.011E-09   4.994E-11
+                V(i)                    9.820E-01  5.784E-08    5.307E-08   4.769E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00218477
+                surface area (init)  = 0.00221254
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.089061
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        2.918E-07
+                           Li+                     2.918E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -2.918E-07
+                           V(i)                    2.918E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.000672959
+                surface area (init)  = 0.000885202
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -2.327E-07
+                           Li7Si3(S)               3.103E-07
+                           Li(i)                   8.533E-07
+                           V(i)                    2.250E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 3.8912e-10,  Li7Si3() = 6.31861e-09
+   ===============================================================
+      Electrode at time final = 22
+                   time init  = 20
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.674E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.57322 coulombs = 0.000437006 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0563715 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.168E-09
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.168E-09
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 3.8912e-10
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  3.891E-10    7.105E-10  -3.214E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.31861e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.319E-09    5.890E-09   4.285E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.31861e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.695E-02  1.071E-09    1.061E-09   9.974E-12
+                V(i)                    9.831E-01  6.212E-08    5.784E-08   4.275E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00215992
+                surface area (init)  = 0.00218477
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.0931888
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        2.705E-07
+                           Li+                     2.705E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -2.705E-07
+                           V(i)                    2.705E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.000450463
+                surface area (init)  = 0.000672959
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -2.881E-07
+                           Li7Si3(S)               3.841E-07
+                           Li(i)                   1.056E-06
+                           V(i)                    2.785E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 1.34917e-10,  Li7Si3() = 6.65754e-09
+   ===============================================================
+      Electrode at time final = 24
+                   time init  = 22
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.583E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.66955 coulombs = 0.000463763 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0481624 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   9.983E-10
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   9.983E-10
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 1.34917e-10
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  1.349E-10    3.891E-10  -2.542E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.65754e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.658E-09    6.319E-09   3.389E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.65754e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.509E-02  1.005E-09    1.071E-09  -6.626E-11
+                V(i)                    9.849E-01  6.557E-08    6.212E-08   3.456E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00214016
+                surface area (init)  = 0.00215992
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.101051
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        2.332E-07
+                           Li+                     2.332E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -2.332E-07
+                           V(i)                    2.332E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.000222322
+                surface area (init)  = 0.000450463
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -3.856E-07
+                           Li7Si3(S)               5.141E-07
+                           Li(i)                   1.414E-06
+                           V(i)                    3.727E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 6.69632e-12,  Li7Si3() = 6.82851e-09
+   ===============================================================
+      Electrode at time final = 26
+                   time init  = 24
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.537E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.73597 coulombs = 0.000482213 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0332097 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   6.884E-10
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   6.884E-10
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 6.69632e-12
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  6.696E-12    1.349E-10  -1.282E-10
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.82851e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.829E-09    6.658E-09   1.710E-10
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.82851e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   1.152E-02  7.864E-10    1.005E-09  -2.182E-10
+                V(i)                    9.885E-01  6.750E-08    6.557E-08   1.928E-09
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00213016
+                surface area (init)  = 0.00214016
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.119301
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.616E-07
+                           Li+                     1.616E-07
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.616E-07
+                           V(i)                    1.616E-07
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 3.00258e-05
+                surface area (init)  = 0.000222322
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -5.759E-07
+                           Li7Si3(S)               7.679E-07
+                           Li(i)                   2.112E-06
+                           V(i)                    5.567E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+we are here
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 28
+                   time init  = 26
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.77038 coulombs = 0.000491771 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.0172051 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   3.566E-10
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   3.566E-10
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    6.696E-12  -6.696E-12
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.829E-09   8.928E-12
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   6.644E-03  4.543E-10    7.864E-10  -3.321E-10
+                V(i)                    9.934E-01  6.792E-08    6.750E-08   4.214E-10
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.156273
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        6.389E-08
+                           Li+                     6.389E-08
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -6.389E-08
+                           V(i)                    6.389E-08
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)             -8.414E-07
+                           Li7Si3(S)               1.122E-06
+                           Li(i)                   3.085E-06
+                           V(i)                    8.134E-06
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 30
+                   time init  = 28
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.78205 coulombs = 0.000495014 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.00583722 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.210E-10
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.210E-10
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   4.874E-03  3.333E-10    4.543E-10  -1.210E-10
+                V(i)                    9.951E-01  6.804E-08    6.792E-08   1.210E-10
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.177027
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        2.841E-08
+                           Li+                     2.841E-08
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -2.841E-08
+                           V(i)                    2.841E-08
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 32
+                   time init  = 30
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.78724 coulombs = 0.000496456 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.00259533 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   5.380E-11
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   5.380E-11
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   4.088E-03  2.795E-10    3.333E-10  -5.380E-11
+                V(i)                    9.959E-01  6.809E-08    6.804E-08   5.380E-11
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.188808
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.263E-08
+                           Li+                     1.263E-08
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.263E-08
+                           V(i)                    1.263E-08
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 34
+                   time init  = 32
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.78955 coulombs = 0.000497097 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.00115392 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   2.392E-11
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   2.392E-11
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.738E-03  2.556E-10    2.795E-10  -2.392E-11
+                V(i)                    9.963E-01  6.812E-08    6.809E-08   2.392E-11
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.194792
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        5.616E-09
+                           Li+                     5.616E-09
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -5.616E-09
+                           V(i)                    5.616E-09
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 36
+                   time init  = 34
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79058 coulombs = 0.000497382 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.000513053 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.063E-11
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.063E-11
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.582E-03  2.449E-10    2.556E-10  -1.063E-11
+                V(i)                    9.964E-01  6.813E-08    6.812E-08   1.063E-11
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.197635
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        2.497E-09
+                           Li+                     2.497E-09
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -2.497E-09
+                           V(i)                    2.497E-09
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 38
+                   time init  = 36
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79103 coulombs = 0.000497509 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.000228112 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   4.728E-12
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   4.728E-12
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.513E-03  2.402E-10    2.449E-10  -4.728E-12
+                V(i)                    9.965E-01  6.813E-08    6.813E-08   4.728E-12
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.198938
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.110E-09
+                           Li+                     1.110E-09
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.110E-09
+                           V(i)                    1.110E-09
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 40
+                   time init  = 38
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79124 coulombs = 0.000497565 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 0.000101422 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   2.102E-12
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   2.102E-12
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.482E-03  2.381E-10    2.402E-10  -2.102E-12
+                V(i)                    9.965E-01  6.814E-08    6.813E-08   2.102E-12
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199526
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        4.936E-10
+                           Li+                     4.936E-10
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -4.936E-10
+                           V(i)                    4.936E-10
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 42
+                   time init  = 40
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79133 coulombs = 0.00049759 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 4.5094e-05 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   9.347E-13
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   9.348E-13
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.469E-03  2.372E-10    2.381E-10  -9.347E-13
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   9.347E-13
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199789
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        2.195E-10
+                           Li+                     2.195E-10
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -2.195E-10
+                           V(i)                    2.195E-10
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 44
+                   time init  = 42
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79137 coulombs = 0.000497602 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 2.00495e-05 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   4.156E-13
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   4.156E-13
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.463E-03  2.367E-10    2.372E-10  -4.156E-13
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   4.156E-13
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199906
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        9.758E-11
+                           Li+                     9.758E-11
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -9.758E-11
+                           V(i)                    9.758E-11
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 46
+                   time init  = 44
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79138 coulombs = 0.000497607 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 8.91434e-06 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.848E-13
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.848E-13
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.460E-03  2.366E-10    2.367E-10  -1.848E-13
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   1.848E-13
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199958
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        4.339E-11
+                           Li+                     4.339E-11
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -4.339E-11
+                           V(i)                    4.339E-11
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 48
+                   time init  = 46
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79139 coulombs = 0.000497609 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 3.96346e-06 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   8.216E-14
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   8.216E-14
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.459E-03  2.365E-10    2.366E-10  -8.216E-14
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   8.216E-14
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199981
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.929E-11
+                           Li+                     1.929E-11
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.929E-11
+                           V(i)                    1.929E-11
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 50
+                   time init  = 48
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.79139 coulombs = 0.00049761 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 1.76222e-06 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   3.653E-14
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   3.653E-14
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.458E-03  2.364E-10    2.365E-10  -3.653E-14
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   3.653E-14
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199992
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        8.582E-12
+                           Li+                     8.582E-12
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -8.582E-12
+                           V(i)                    8.582E-12
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 52
+                   time init  = 50
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.7914 coulombs = 0.00049761 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 7.83511e-07 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.624E-14
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.626E-14
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.458E-03  2.364E-10    2.364E-10  -1.624E-14
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   1.624E-14
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199996
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.819E-12
+                           Li+                     3.819E-12
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.819E-12
+                           V(i)                    3.819E-12
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 54
+                   time init  = 52
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.7914 coulombs = 0.00049761 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 3.48362e-07 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   7.221E-15
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   7.216E-15
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.458E-03  2.364E-10    2.364E-10  -7.221E-15
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   7.221E-15
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199998
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.701E-12
+                           Li+                     1.701E-12
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.701E-12
+                           V(i)                    1.701E-12
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 56
+                   time init  = 54
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.7914 coulombs = 0.00049761 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 1.54887e-07 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   3.211E-15
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   3.220E-15
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.458E-03  2.364E-10    2.364E-10  -3.211E-15
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   3.211E-15
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.199999
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        7.592E-13
+                           Li+                     7.592E-13
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -7.592E-13
+                           V(i)                    7.592E-13
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 58
+                   time init  = 56
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.7914 coulombs = 0.00049761 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 6.88654e-08 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.427E-15
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   1.443E-15
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.458E-03  2.364E-10    2.364E-10  -1.427E-15
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   1.427E-15
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        3.406E-13
+                           Li+                     3.406E-13
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -3.406E-13
+                           V(i)                    3.406E-13
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
+   ===============================================================
+      Electrode at time final = 60
+                   time init  = 58
+   ===============================================================
+          Number of external surfaces = 1
+          Solid Volume =  6.535E-10
+          Total Volume =  1.366E-02
+          Temperature = 773.15
+          Pressure = 101325
+          Capacity Discharged = 1.7914 coulombs = 0.00049761 Ah
+
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 1
+     ===============================================================
+          Phase 0 metal_Li_LiCl_electrons 
+                Total moles = 0
+                Current = 3.06187e-08 amps 
+                  Voltage = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   6.347E-16
+     ===============================================================
+     ===============================================================
+          Phase 1 LiKCl_electrolyte 
+                Total moles = 1
+                  Voltage = -0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li+                     3.000E-01  3.000E-01    3.000E-01   6.106E-16
+                K+                      2.000E-01  2.000E-01    2.000E-01   0.000E+00
+                Cl-                     5.000E-01  5.000E-01    5.000E-01   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 2 Li13Si4(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li13Si4(S)              1.000E+00  0.000E+00    0.000E+00   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 3 Li7Si3(S) 
+                Total moles = 6.83743e-09
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li7Si3(S)               1.000E+00  6.837E-09    6.837E-09   0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 4 Li7Si3_Interstitial 
+                Total moles = 6.83743e-08
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(i)                   3.458E-03  2.364E-10    2.364E-10  -6.347E-16
+                V(i)                    9.965E-01  6.814E-08    6.814E-08   6.347E-16
+     ===============================================================
+     ===============================================================
+          Phase 5 LiSi_surface 
+                Total moles = 7.53982e-11
+                surface area (final) = 0.00212964
+                surface area (init)  = 0.00212964
+                IsExternalSurface = 1
+                 Open Circuit Voltage = 0.2
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_site               1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        1.544E-13
+                           Li+                     1.544E-13
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                  -1.544E-13
+                           V(i)                    1.544E-13
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+     ===============================================================
+          Phase 6 LiSi_InternalSurf 
+                Total moles = 7.53982e-11
+                surface area (final) = 0
+                surface area (init)  = 0
+                IsExternalSurface = 1
+
+                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
+
+                           spName                  Source (kmol/m2/s) 
+                           electron_Li_LiCl        0.000E+00
+                           Li+                     0.000E+00
+                           K+                      0.000E+00
+                           Cl-                     0.000E+00
+                           Li13Si4(S)              0.000E+00
+                           Li7Si3(S)               0.000E+00
+                           Li(i)                   0.000E+00
+                           V(i)                    0.000E+00
+                           lisi_site               0.000E+00
+                           lisi_internalsurf_site  0.000E+00
+     ===============================================================
+
+ Results from mpequil:
+
+Temperature = 773.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+electron_Li_LiCl     0.000000e+00    1.000000e+00     4.288771e+08
+Li+              3.000000e-01    3.000000e-01    -4.859825e+08
+K+               2.000000e-01    2.000000e-01    -5.332885e+08
+Cl-              5.000000e-01    5.000000e-01     1.484129e+07
+Li13Si4(S)       0.000000e+00    1.000000e+00    -8.130604e+08
+Li7Si3(S)        6.837435e-09    1.000000e+00    -4.847821e+08
+Li(i)            2.364164e-10    3.457677e-03    -5.712767e+07
+V(i)             6.813793e-08    9.965423e-01    -2.226559e+04
+lisi_site        7.539822e-11    1.000000e+00     0.000000e+00
+lisi_internalsurf_site     7.539822e-11    1.000000e+00     0.000000e+00
+-------------------------------------------------------------
+metal_Li_LiCl_electrons     0.000000e+00    0.000000e+00
+LiKCl_electrolyte     1.000000e+00   -2.000000e-01
+Li13Si4(S)       0.000000e+00    0.000000e+00
+Li7Si3(S)        6.837435e-09    0.000000e+00
+Li7Si3_Interstitial     6.837435e-08    0.000000e+00
+LiSi_surface     7.539822e-11    0.000000e+00
+LiSi_InternalSurf     7.539822e-11    0.000000e+00

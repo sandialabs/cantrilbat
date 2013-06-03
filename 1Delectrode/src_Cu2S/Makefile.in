@@ -1,0 +1,139 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile to compile and link a C++ application to 
+#  Cantera.
+#
+#############################################################################
+
+# addition to suffixes
+.SUFFIXES : .d
+
+
+# the name of the executable program to be created
+PROG_NAME = Cu2S_growth
+
+# the object files to be linked together. List those generated from Fortran
+# and from C/C++ separately
+OBJS = $(PROG_NAME).o  Cu2S_models.o m1d_DomainLayout_Cu2S.o \
+       m1d_TDGrowingFilm_dom1D.o m1d_BDT_Cu2S.o ReactionRate.o m1d_ReactingSurDomain.o m1d_SurDomain_Cu2S.o \
+       m1d_SDT_Mixed_Cu2S.o
+
+
+TOBJS =  $(OBJS) 
+
+#############################################################################
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+CANTERA_INSTALL_DIR = @ct_prefix@
+CANTERA_APPS_INSTALL_DIR =  @cta_prefix@
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+#
+#
+TRILINOS_DIR=@trilinos_root@
+TRILINOS_INC_DIR=$(TRILINOS_DIR)/include
+TRILINOS_INC=-I$(TRILINOS_DIR)/include
+TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
+
+include $(TRILINOS_INC_DIR)/Makefile.export.amesos
+include $(TRILINOS_INC_DIR)/Makefile.export.ifpack
+
+UTILSRC_DIR=../../util_src/src
+UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
+UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
+
+
+M1D_BASE_INC= -I../src_CanteraElectrode -I../src
+M1D_BASE_DEP= ../src/libm1d.a ../src_CanteraElectrode/libm1dcantera.a
+M1D_BASE_LIB= -L../src_CanteraElectrode -lm1dcantera -L../src -lm1d
+
+#
+# Current location of 2006
+#SEAMS_DIR=/usr/local/eng_sci/struct/i686/2006-03-16-32-GCC
+#SEAMS_DIR=/usr/local/eng_sci/struct/x86_64/current64-gcc
+#SEAMS_INC=-I$(SEAMS_DIR)/inc
+#SEAMS_LIBS=-L$(SEAMS_DIR)/lib -lexoIIv2c -lnetcdf
+
+# Check to see whether we are in the msvc++ environment
+os_is_win = @OS_IS_WIN@
+
+# the C++ compiler
+CXX = @MPICXX@
+#
+# The directory where Cantera include files may be found.
+#
+
+INCLUDE_DIRS = -I../src -I$(CANTERA_INCROOT) \
+               $(SEAMS_INC) $(TRILINOS_INC) \
+               -I$(UTILSRC_DIR) -I../..
+
+# C++ compile flags
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual  $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
+
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+LMPICXX_END_LIBS = @LMPICXX_END_LIBS@
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = @CXXFLAGS@
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) $(CXX_FLAGS) -c $< 
+
+# How to compile the dependency file
+.cpp.d:
+	@CXX_DEPENDS@  $(CXX_FLAGS) $< > $@
+
+# List of dependency files to be created
+DEPENDS=$(TOBJS:.o=.d)
+
+# Program Name
+PROGRAM = $(PROG_NAME)$(EXE_EXT)
+
+all:  .depends $(PROGRAM)
+
+rebaseline:
+
+$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) $(M1D_BASE_DEP)
+	$(CXX) -o $(PROGRAM) $(OBJS) $(M1D_BASE_LIB)  $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                  $(CANTERA_TOTAL_LIBS) $(UTILSRC_LIB) $(SEAMS_LIBS)  $(AMESOS_LIBS) $(IFPACK_LIBS) $(LMPICXX_END_LIBS)
+
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c $(PROGRAM) @cta_bindir@
+
+# depends target -> forces recalculation of dependencies
+# depends target -> forces recalculation of dependencies
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+# Do the test -> For the windows vc++ environment, we have to skip checking on
+#                whether the program is uptodate, because we don't utilize make
+#                in that environment to build programs.
+test:
+ifeq ($(os_is_win), 1)
+else
+	@MAKE@ $(PROGRAM)
+endif
+	./runtest
+
+clean:
+	$(RM) $(OBJS) *.o *.d $(PROGRAM) $(DEPENDS) .depends *~
+	(if test -d SunWS_cache ; then \
+           $(RM) -rf SunWS_cache ; \
+         fi )
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+

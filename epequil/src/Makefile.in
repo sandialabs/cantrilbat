@@ -1,0 +1,130 @@
+#
+#
+#  Makefile.in: 
+#     Makefile for epequil
+#
+# $Id: Makefile.in,v 1.10 2010/07/12 18:27:20 hkmoffa Exp $
+#
+#
+#  Build epequil through the CANTERA_INSTALL directories.
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+##########################################################################
+#
+##########################################################################
+#
+.SUFFIXES: .d
+#
+##########################################################################
+#           Setup The Cantera Directory locations
+##########################################################################
+#
+CANTERA_INCROOT=@ct_incroot@
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+#
+#
+UTILSRC_DIR=../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+#
+#########################################################################
+# Set up the various local and global defines
+#########################################################################
+LDEFINES = -DDEBUG 
+GDEFINES = -DDEBUG_ROOT1D
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
+
+all: .depends epequil
+
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+OBJ_EPEQUIL= epequil_main.o epequil_input.o epequil_prep.o
+
+
+OBJ_CANTERA_ADDONS =  importAllPhases.o IdealSolidSolnPhase.o
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+#CXXFLAGS = @CXXFLAGS@ -DDEBUG_HKM_EPEQUIL
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.cpp.o:
+	$(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = epequil_main.d epequil_input.d epequil_prep.d \
+          importAllPhases.d IdealSolidSolnPhase.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends: $(DEPENDS)
+	cat $(DEPENDS) > .depends
+
+##############################################################################
+BUILD_WITH_CTF2C=@build_with_f2c@
+ifeq ($(BUILD_WITH_CTF2C), 1)
+LIBF2C= -lctf2c
+endif
+
+epequil: $(OBJ_EPEQUIL) $(OBJ_CANTERA_ADDONS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) 
+	$(CXXLDR) $(LCXX_FLAGS) -o epequil $(OBJ_EPEQUIL) \
+	          $(OBJ_CANTERA_ADDONS) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+
+clean:
+	$(RM) *.o *.d .depends epequil *.~
+
+
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c epequil @cta_bindir@
+
+#############################################################################
+#          DEPENDS RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+

@@ -1,0 +1,26 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = DH_NaCl.xml
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+start block Bath specification for Phase NaCl_Electrolyte
+  Bath Species ID = H2O(L)
+  start block Bath Species Molalities
+     Na+ = 3.0
+     Cl- = 3.0
+  End block Bath Species Molalities
+end block Bath specification for Phase NaCl_Electrolyte
+
+
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+END BLOCK Temperature Table Format
+
+
+# the above were empty lines

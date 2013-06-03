@@ -1,0 +1,452 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample JP8 Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files = 1
+ ====> NumCanteraFiles = 1
+ => Number of Cantera Files = 1
+ ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = gri30.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 2000.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   C2H4  = 0.4
+   O2    = 0.4
+   N2    = 0.2
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample JP8 Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files = 1
+ ====> NumCanteraFiles = 1
+ => Number of Cantera Files = 1
+ ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = gri30.xml
+ => Cantera File Name = gri30.xml
+ ====> CanteraFileNames =  gri30.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 2000.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   C2H4  = 0.4
+   O2    = 0.4
+   N2    = 0.2
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample JP8 Problem
+ => Title = Sample JP8 Problem
+ ====> Title = Sample JP8 Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files = 1
+ ====> NumCanteraFiles = 1
+ => Number of Cantera Files = 1
+ ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = gri30.xml
+ => Cantera File Name = gri30.xml
+ ====> CanteraFileNames =  gri30.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 2000.
+ => Temperature = 2000.
+ ====> Temperature = 300
+ => Temperature = 2000.
+ ====> Temperature = 2000
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   C2H4  = 0.4
+ => C2H4 = 0.4
+ ====> C2H4 = -1.241e+11
+ => C2H4 = 0.4
+ ====> C2H4 = 0.4
+   O2    = 0.4
+ => O2 = 0.4
+ ====> O2 = -1.241e+11
+ => O2 = 0.4
+ ====> O2 = 0.4
+   N2    = 0.2
+ => N2 = 0.2
+ ====> N2 = -1.241e+11
+ => N2 = 0.2
+ ====> N2 = 0.2
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ H2 : 0 ] = 0
+	====>   MoleNumber[ H : 1 ] = 0
+	====>   MoleNumber[ O : 2 ] = 0
+	====>   MoleNumber[ O2 : 3 ] = 0.4
+	====>   MoleNumber[ OH : 4 ] = 0
+	====>   MoleNumber[ H2O : 5 ] = 0
+	====>   MoleNumber[ HO2 : 6 ] = 0
+	====>   MoleNumber[ H2O2 : 7 ] = 0
+	====>   MoleNumber[ C : 8 ] = 0
+	====>   MoleNumber[ CH : 9 ] = 0
+	====>   MoleNumber[ CH2 : 10 ] = 0
+	====>   MoleNumber[ CH2(S) : 11 ] = 0
+	====>   MoleNumber[ CH3 : 12 ] = 0
+	====>   MoleNumber[ CH4 : 13 ] = 0
+	====>   MoleNumber[ CO : 14 ] = 0
+	====>   MoleNumber[ CO2 : 15 ] = 0
+	====>   MoleNumber[ HCO : 16 ] = 0
+	====>   MoleNumber[ CH2O : 17 ] = 0
+	====>   MoleNumber[ CH2OH : 18 ] = 0
+	====>   MoleNumber[ CH3O : 19 ] = 0
+	====>   MoleNumber[ CH3OH : 20 ] = 0
+	====>   MoleNumber[ C2H : 21 ] = 0
+	====>   MoleNumber[ C2H2 : 22 ] = 0
+	====>   MoleNumber[ C2H3 : 23 ] = 0
+	====>   MoleNumber[ C2H4 : 24 ] = 0.4
+	====>   MoleNumber[ C2H5 : 25 ] = 0
+	====>   MoleNumber[ C2H6 : 26 ] = 0
+	====>   MoleNumber[ HCCO : 27 ] = 0
+	====>   MoleNumber[ CH2CO : 28 ] = 0
+	====>   MoleNumber[ HCCOH : 29 ] = 0
+	====>   MoleNumber[ N : 30 ] = 0
+	====>   MoleNumber[ NH : 31 ] = 0
+	====>   MoleNumber[ NH2 : 32 ] = 0
+	====>   MoleNumber[ NH3 : 33 ] = 0
+	====>   MoleNumber[ NNH : 34 ] = 0
+	====>   MoleNumber[ NO : 35 ] = 0
+	====>   MoleNumber[ NO2 : 36 ] = 0
+	====>   MoleNumber[ N2O : 37 ] = 0
+	====>   MoleNumber[ HNO : 38 ] = 0
+	====>   MoleNumber[ CN : 39 ] = 0
+	====>   MoleNumber[ HCN : 40 ] = 0
+	====>   MoleNumber[ H2CN : 41 ] = 0
+	====>   MoleNumber[ HCNN : 42 ] = 0
+	====>   MoleNumber[ HCNO : 43 ] = 0
+	====>   MoleNumber[ HOCN : 44 ] = 0
+	====>   MoleNumber[ HNCO : 45 ] = 0
+	====>   MoleNumber[ NCO : 46 ] = 0
+	====>   MoleNumber[ N2 : 47 ] = 0.2
+	====>   MoleNumber[ AR : 48 ] = 0
+	====>   MoleNumber[ C3H7 : 49 ] = 0
+	====>   MoleNumber[ C3H8 : 50 ] = 0
+	====>   MoleNumber[ CH2CHO : 51 ] = 0
+	====>   MoleNumber[ CH3CHO : 52 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+              H2          0          gri30_mix             0         
+               H          0          gri30_mix             0         
+               O          0          gri30_mix             0         
+              O2          0          gri30_mix             0.4       
+              OH          0          gri30_mix             0         
+             H2O          0          gri30_mix             0         
+             HO2          0          gri30_mix             0         
+            H2O2          0          gri30_mix             0         
+               C          0          gri30_mix             0         
+              CH          0          gri30_mix             0         
+             CH2          0          gri30_mix             0         
+          CH2(S)          0          gri30_mix             0         
+             CH3          0          gri30_mix             0         
+             CH4          0          gri30_mix             0         
+              CO          0          gri30_mix             0         
+             CO2          0          gri30_mix             0         
+             HCO          0          gri30_mix             0         
+            CH2O          0          gri30_mix             0         
+           CH2OH          0          gri30_mix             0         
+            CH3O          0          gri30_mix             0         
+           CH3OH          0          gri30_mix             0         
+             C2H          0          gri30_mix             0         
+            C2H2          0          gri30_mix             0         
+            C2H3          0          gri30_mix             0         
+            C2H4          0          gri30_mix             0.4       
+            C2H5          0          gri30_mix             0         
+            C2H6          0          gri30_mix             0         
+            HCCO          0          gri30_mix             0         
+           CH2CO          0          gri30_mix             0         
+           HCCOH          0          gri30_mix             0         
+               N          0          gri30_mix             0         
+              NH          0          gri30_mix             0         
+             NH2          0          gri30_mix             0         
+             NH3          0          gri30_mix             0         
+             NNH          0          gri30_mix             0         
+              NO          0          gri30_mix             0         
+             NO2          0          gri30_mix             0         
+             N2O          0          gri30_mix             0         
+             HNO          0          gri30_mix             0         
+              CN          0          gri30_mix             0         
+             HCN          0          gri30_mix             0         
+            H2CN          0          gri30_mix             0         
+            HCNN          0          gri30_mix             0         
+            HCNO          0          gri30_mix             0         
+            HOCN          0          gri30_mix             0         
+            HNCO          0          gri30_mix             0         
+             NCO          0          gri30_mix             0         
+              N2          0          gri30_mix             0.2       
+              AR          0          gri30_mix             0         
+            C3H7          0          gri30_mix             0         
+            C3H8          0          gri30_mix             0         
+          CH2CHO          0          gri30_mix             0         
+          CH3CHO          0          gri30_mix             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+       gri30_mix     0   no        53             0      1.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O           0.8 
+           H           1.6 
+           C           0.8 
+           N           0.4 
+          Ar             0 
+
+================================================================================
+==================== epequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+
+ Results from mpequil:
+
+Temperature = 2000 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2               7.981667e-01    4.433452e-01    -3.374411e+08
+H                1.950859e-03    1.083613e-03    -1.687206e+08
+O                2.252421e-10    1.251117e-10    -4.967757e+08
+O2               6.303524e-14    3.501320e-14    -9.935513e+08
+OH               1.261698e-07    7.008154e-08    -6.654962e+08
+H2O              5.176162e-04    2.875122e-04    -8.342168e+08
+HO2              7.161448e-17    3.977857e-17    -1.162272e+09
+H2O2             1.810495e-16    1.005647e-16    -1.330992e+09
+C                4.395388e-12    2.441438e-12    -8.794897e+07
+CH               1.575696e-11    8.752271e-12    -2.566695e+08
+CH2              1.852458e-09    1.028956e-09    -4.253901e+08
+CH2(S)           8.972443e-11    4.983782e-11    -4.253901e+08
+CH3              5.852471e-07    3.250781e-07    -5.941106e+08
+CH4              1.216095e-05    6.754853e-06    -7.628312e+08
+CO               7.992552e-01    4.439498e-01    -5.847246e+08
+CO2              1.132112e-04    6.288368e-05    -1.081500e+09
+HCO              3.122977e-07    1.734671e-07    -7.534452e+08
+CH2O             1.460574e-07    8.112824e-08    -9.221657e+08
+CH2OH            2.834816e-12    1.574611e-12    -1.090886e+09
+CH3O             3.763969e-14    2.090713e-14    -1.090886e+09
+CH3OH            8.607252e-12    4.780936e-12    -1.259607e+09
+C2H              1.806038e-10    1.003172e-10    -3.446185e+08
+C2H2             3.955466e-06    2.197081e-06    -5.133391e+08
+C2H3             2.249010e-10    1.249223e-10    -6.820596e+08
+C2H4             1.190201e-08    6.611023e-09    -8.507802e+08
+C2H5             9.710800e-13    5.393906e-13    -1.019501e+09
+C2H6             2.701443e-12    1.500528e-12    -1.188221e+09
+HCCO             7.956239e-11    4.419328e-11    -8.413942e+08
+CH2CO            4.614719e-09    2.563266e-09    -1.010115e+09
+HCCOH            2.015584e-12    1.119565e-12    -1.010115e+09
+N                5.435168e-10    3.018987e-10    -2.422026e+08
+NH               2.116244e-09    1.175477e-09    -4.109231e+08
+NH2              2.630432e-08    1.461085e-08    -5.796437e+08
+NH3              3.638474e-06    2.021006e-06    -7.483642e+08
+NNH              5.195522e-10    2.885875e-10    -6.531257e+08
+NO               2.120781e-09    1.177997e-09    -7.389782e+08
+NO2              1.500976e-18    8.337237e-19    -1.235754e+09
+N2O              4.503467e-14    2.501471e-14    -9.811808e+08
+HNO              3.826059e-13    2.125201e-13    -9.076988e+08
+CN               3.002343e-08    1.667664e-08    -3.301515e+08
+HCN              6.102366e-04    3.389586e-04    -4.988721e+08
+H2CN             9.653619e-10    5.362145e-10    -6.675926e+08
+HCNN             2.106066e-15    1.169824e-15    -7.410746e+08
+HCNO             6.763018e-15    3.756548e-15    -9.956477e+08
+HOCN             2.397726e-10    1.331827e-10    -9.956477e+08
+HNCO             1.519545e-07    8.440378e-08    -9.956477e+08
+NCO              1.171144e-10    6.505169e-11    -8.269272e+08
+N2               1.996930e-01    1.109203e-01    -4.844051e+08
+AR               0.000000e+00    0.000000e+00    -1.184008e+10
+C3H7             5.267063e-19    2.925613e-19    -1.444891e+09
+C3H8             1.396930e-18    7.759308e-19    -1.613611e+09
+CH2CHO           1.406165e-13    7.810605e-14    -1.178835e+09
+CH3CHO           9.985503e-13    5.546491e-13    -1.347556e+09
+-------------------------------------------------------------

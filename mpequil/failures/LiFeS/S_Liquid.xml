@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase S(L)    -->
+  <phase dim="3" id="S(L)">
+    <elementArray datasrc="elements.xml">
+      S
+    </elementArray>
+    <speciesArray datasrc="#species_S(L)"> S(L) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 1.891 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_S(L)">
+
+    <!-- species S(L)   -->
+    <!--      melting temperature = 386.0 K -->
+    <!--      boiling temperature = 717.82 K -->
+    <species name="S(L)">
+      <atomArray> S:1 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from periodni.com and speclab.com -->
+        <molarVolume units="m3/kmol"> 0.01696 </molarVolume>
+      </standardState>
+      <!--  SGTE data for pure elements Shomate converted to NASA9 -->
+      <thermo>
+        <NASA9 Pref="1 bar" Tmax="432.02" Tmin="0">
+          <floatArray size="9">
+                            0,                         0,                         0,       0.00547128003890975,      1.69369660217243e-05,     -1.61039286351799e-08,                         0,         -138.012282750489,          2.18724036943661
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="450" Tmin="432.02">
+          <floatArray size="9">
+             19994535.3470054,                         0,          51.1802220232878,         -1.07875400032397,       0.00171101118421455,     -6.36298241002536e-08,                         0,          80094.6274050874,          56.7582793131845
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="500" Tmin="450">
+          <floatArray size="9">
+             1237270.28721791,                         0,         -3.33367896230618,       0.00261856655294233,     -3.53446763402086e-07,      1.40220515607159e-08,                         0,          4640.74681771963,          27.7823004896603
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="882.117" Tmin="500">
+          <floatArray size="9">
+             763018.709788472,                         0,         -3.24141372982625,        0.0150465668996304,     -1.32325682863847e-05,      4.50618388082074e-09,                         0,          2777.92649924075,          22.0527895775199
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1500" Tmin="882.117">
+          <floatArray size="9">
+                            0,                         0,          3.80841975638826,                         0,                         0,                         0,                         0,         -797.253566883593,         -17.0962413768618
+          </floatArray>
+        </NASA9>
+<!--
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="388.36" Tmin="298.15">
+          <floatArray size="9">
+             2.740883557e4,
+             0,
+             1.86470455,
+             4.481102267e-3,
+             1.799897784e-7,
+             0,
+             0,
+            -4.812751703e2,
+            -7.50518913
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="428.15" Tmin="388.36">
+          <floatArray size="9">
+            -6.3665737337e7,
+             0,
+             2.3768676644e3,
+            -7.8881134986,
+             7.37611467037e-3,
+             0,
+             0,
+            -6.356607196e5,
+            -1.186932847433e4
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="432.25" Tmin="428.15">
+          <floatArray size="9">
+             0,
+             0,
+             6.928557695632e3,
+            -3.25467444136e1,
+             3.82446407e-2,
+             0,
+             0,
+            -9.832248011e5,
+            -3.15482197414e4
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="453.15" Tmin="432.25">
+          <floatArray size="9">
+             0,
+             0,
+             1.64995441112e2,
+            -6.843573347e-1,
+             7.31594247748e-4,
+             0,
+             0,
+            -2.63887829608e4,
+            -7.6817936482e2
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="717" Tmin="453.15">
+          <floatArray size="9">
+             1.97299355919e6,
+             0,
+            -2.441020865046736e1,
+             6.09038061424e-2,
+            -3.744086147429e-5,
+             0,
+             0,
+             1.11299755812e4,
+             1.36315601466e2
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1300" Tmin="717">
+          <floatArray size="9">
+             0,
+             0,
+             3.848710949137,
+             0,
+             0,
+             0,
+             0,
+            -789.203355070044,
+            -17.2437698870647
+          </floatArray>
+        </NASA9>
+-->
+      </thermo>
+      <!-- M = 32.065, then evaluated from molarVolume -->
+      <density units="g/cm3"> 1.891 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

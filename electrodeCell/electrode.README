@@ -1,0 +1,14 @@
+
+
+This solves two multiphase equilibrium systems.
+The result is a cell voltage
+MultiPhase Equilibrium Solver
+Wrapper around MultiPhaseEquil object 
+in Cantera's distribution
+
+
+
+
+
+
+

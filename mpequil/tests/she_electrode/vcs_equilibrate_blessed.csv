@@ -1,0 +1,15 @@
+--------------------- VCS_MULTIPHASE_EQUIL FINAL REPORT -----------------------------
+Temperature  =      298.15 kelvin
+Pressure     =  1.0132e+05 Pascal
+Total Volume =       73.45 m**3
+Number Basis optimizations = 2
+Number VCS iterations = 20
+        Name,      Phase,  PhaseMoles,  Mole_Fract, Molalities,  ActCoeff,   Activity,ChemPot_SS0,   ChemPot,   mole_num,       PMVol, Phase_Volume
+            ,           ,      (kmol),            ,           ,          ,           ,   (J/kmol),  (J/kmol),     (kmol), (m**3/kmol),     (m**3)
+      H2O(L), NaCl_electrolyte,   3.000e+00,   1.000e+00,   5.551e+01,   1.000e+00,   1.000e+00, -3.067e+02,  -3.067e+02,   3.000e+00,   1.807e-02,   5.421e-02
+         Cl-, NaCl_electrolyte,   3.000e+00,   0.000e+00,   0.000e+00,   9.996e-01,   0.000e+00, -1.840e+02,  -1.896e+03,   0.000e+00,   8.340e-03,   5.421e-02
+          H+, NaCl_electrolyte,   3.000e+00,   1.806e-09,   1.002e-07,   9.996e-01,   1.002e-07,  0.000e+00,  -3.995e+01,   5.418e-09,   4.450e-07,   5.421e-02
+         Na+, NaCl_electrolyte,   3.000e+00,   0.000e+00,   0.000e+00,   9.996e-01,   0.000e+00, -2.578e+02,  -1.970e+03,   0.000e+00,   8.340e-03,   5.421e-02
+         OH-, NaCl_electrolyte,   3.000e+00,   1.806e-09,   1.002e-07,   9.996e-01,   1.002e-07, -2.268e+02,  -2.667e+02,   5.418e-09,   8.340e-03,   5.421e-02
+          H2,       h2gas,   3.000e+00,   1.000e+00,   0.000e+00,   1.000e+00,   1.000e+00,  -3.896e+01,  -3.896e+01,  3.000e+00,   2.447e+01,   7.340e+01
+Pt_electrons, Pt_H2electrons,   0.000e+00,   1.000e+00,   0.000e+00,   1.000e+00,   1.000e+00,  -1.948e+01,  -1.948e+01,  0.000e+00,   2.517e-07,   0.000e+00

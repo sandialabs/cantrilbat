@@ -1,0 +1,145 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = FeS2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!-------------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                           "SimplePhaseChangeDiffusion"]
+!             required
+!             default = ""
+!
+!--------------------------------------------------------------------------
+!Electrode Model Name = InfCapacity
+Electrode Model Name = MultiPlateau_NoDiff
+!Electrode Model Name = MP_RxnExtent
+!--------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 11
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = FeS2_1_electrode.xml
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt_trans.xml
+Cantera File Name = FeS2.xml
+Cantera File Name = Li3Fe2S4.xml
+Cantera File Name = FeS2_2_electrode.xml
+Cantera File Name = Li2_xFe1_xS2.xml
+Cantera File Name = Fe1_xS.xml
+Cantera File Name = FeS2_3_electrode.xml
+Cantera File Name = Li2S.xml
+Cantera File Name = Fe_Solid.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 723.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 2 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+!Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+! Electrode Porosity = 0.25
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 1.00e-3 m2
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Diameter - [m]
+!
+! Electrode Gross Diameter = 0.01 m
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 1.00e-3 m
+!
+!-------------------------------------------------------------------------
+
+start block Bath Specification for Phase FeS2(S)
+  Phase Mass = 1.5e-3
+  start block Bath Species Mole Fraction
+    FeS2(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2(S)
+
+
+start block Bath Specification for Phase Li3Fe2S4(S)
+  Phase Moles = 0.0
+  start block Bath Species Mole Fraction
+    Li3Fe2S4(S) =  1.0
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase  Li3Fe2S4(S)
+
+start block Bath Specification for Phase Fe[1-x]S(S)
+  Phase Moles = 0.0
+  start block Bath Species Mole Fraction
+     FeS(B)  = 0.92 
+     VaS(B)  = 0.08
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase Fe[1-x]S(S)
+
+start block Bath Specification for Phase Li[2+x]Fe[1-x]S2(S)
+  Phase Moles = 0.
+  start block Bath Species Mole Fraction
+       Li2FeS2(A) = 0.28
+       Li[7/3]Fe[2/3]S2(A) = 0.72
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase Li[2+x]Fe[1-x]S2(S)
+
+
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Mass = 0.61e-3
+   start block Bath Species Mole Fraction
+       Li+ = 0.294
+       K+ = 0.206
+       Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+

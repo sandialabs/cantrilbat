@@ -1,0 +1,81 @@
+ <?xml version="1.0"?>
+ <ctml>
+   <validate reactions="yes" species="yes"/>
+    
+   <phase dim="3" id="Li[2+x]Fe[1-x]S2(S)">
+      <elementArray datasrc="elements.xml">
+         Li Fe S 
+      </elementArray>
+      <speciesArray datasrc="#species_LiFeS_PC"> 
+       Li2FeS2(A)  Li[7/3]Fe[2/3]S2(A)
+      </speciesArray>
+      <thermo model="PhaseCombo_Interaction">
+      <activityCoefficients model="Margules" TempModel="constant">
+         <binaryNeutralSpeciesParameters speciesA="Li2FeS2(A)" speciesB="Li[7/3]Fe[2/3]S2(A)">
+            <excessEnthalpy model="poly_Xb" terms="2" units="kJ/mol">
+0.0434, -46.6186
+<!-- 0.0144,-42.5674
+<!--                3.652882571,  12.12609346 -->
+            </excessEnthalpy>
+            <excessEntropy  model="poly_Xb" terms="2" units="J/mol/K">
+26.8043, -49.1421
+<!-- 27.2778, -42.2129
+<!--                15.61329675,  21.49453177 -->
+            </excessEntropy>
+            <excessVolume_Enthalpy model="poly_Xb" terms="2" units="ml/mol">
+                 0, 0
+            </excessVolume_Enthalpy>
+            <excessVolume_Entropy  model="poly_Xb" terms="2" units="ml/mol/K">
+                 0, 0
+            </excessVolume_Entropy>
+          </binaryNeutralSpeciesParameters>
+       </activityCoefficients>
+     </thermo>
+     <transport model="none"/> 
+     <kinetics model="none"/>
+   </phase>
+           
+          
+   <!-- species definitions     -->
+   <speciesData id="species_LiFeS_PC">
+        
+
+      <!-- species Li2FeS2(A)   -->
+      <! --    -->
+      <species name="Li2FeS2(A)">
+       <atomArray> Li:2 Fe:1 S:2  </atomArray>
+       <thermo>
+        <Shomate Pref="1 bar" Tmax="800.0" Tmin="650.0">
+           <floatArray size="7">
+73.8162,    4.0662, -221.3493,  298.6681,   49.4095, -444.5406,  373.5727
+<!-- -155.1644, 170.3132, -198.9654, 156.2058, 109.8578, -230.2122, 251.1922 -->
+<!-- -140.1855607,      146.5231174,      -126.027446,      128.0134139,      103.1487034,     -255.1983411,      243.8334693 -->
+           </floatArray>
+        </Shomate>
+       </thermo>
+        <density units="g/cm3"> 0.534 </density>
+      </species>
+
+
+
+      <!-- species Li[7/3]Fe[2/3]S2(A)   -->
+      <! --    -->
+      <species name="Li[7/3]Fe[2/3]S2(A)">
+       <atomArray> Li:2.333333333333333 Fe:0.666666666666666 S:2  </atomArray>
+       <thermo>
+        <Shomate Pref="1 bar" Tmax="800.0" Tmin="650.0">
+           <floatArray size="7">
+60.9250,  142.4894, -631.4150,  168.2203,  108.2059, -389.3583,  414.2005
+<!-- 7.6715, 223.8284, -87.6685, 363.3396, -14.9317, -619.0877, 71.0284 -->
+<!-- 150.0585371,      28.22192744,     -619.5182229,       188.740552,      97.88337509,     -443.9049203,      519.6583355 -->
+           </floatArray>
+        </Shomate>
+       </thermo>
+        <density units="g/cm3"> 0.534 </density>
+      </species>
+
+    
+    </speciesData>
+        
+  </ctml>
+        

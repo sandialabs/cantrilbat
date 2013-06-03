@@ -1,0 +1,1248 @@
+! KINETIC MECHANISM FOR 20 torr
+!
+  ELEMENTS H O C AR END
+	SPECIES 
+H H2 C CH CH2 HCH CH3 CH4 O OH H2O C2 C2H C2H2 C2H3 C2H4 CO HCO C2H5 C2H6
+CH2O CH3O CH2OH CH3OH O2 HO2 H2O2 C3H2 H2CCCH C3H4CY C3H4 C3H4P AR C2O
+C3H5 HCCO C3H6 CH2CO HCCOH NC3H7 IC3H7 CH2CHO CH3CO C3H8 CH3CHO CO2
+CH3OCH2 CH3OCH3 C4H C4H2 HCCHCCH H2CCCCH C4H4 CH2CHCHCH CH2CHCCH2
+HCCCO C4H6-1 C4H612 C4H613 HCCCHO I-C4H7 CH2CHCO CHCHCHO C4H8 CH2CHCHO
+C2H5CO C2H5CHO CH3COCH3 C5H2(L) C5H3 C5H3(L) C5H4 C5H4(L) C5H5 C5H4H
+C5H5(L) C5H6 H2C4O C6H C6H2 C6H3 BENZYNE C6H4 C6H5 C6H5(L) C6H6 C6H6F
+C6H7 C6H813 C6H814 C5H5CH3 C5H4O C5H5O C5H4OH C6H5CH C7H7 C7H8 C6H5O
+C6H4OH C6H5OH A1C2H*2 C8H6 C6H5CHCH C8H7*2 C8H8 C6H5CO C8H10
+C6H5CHO C6H3O2 C6H5CH2OH C7H8O C6H5OCH3 OC6H4O2 PC6H4O2 INDENE* C6H5C3H2
+INDENE C6H3O3 A2T1 A2T2 C10H7*1 C10H7*2 C10H8 A2CH2-1 A2CH2-2 A2CH3-1
+A2CH3-2 C10H7O-1 C10H7O-2 C10H7OH-1 C10H7OH-2 A2C2H-1*2 A2C2H-2*1
+A2C2H-2*3 A2C2H-1 A2C2H-2 A2R5 BIPHEN A2VINP C12H9 HA2R5 BIPHENH A2C2H3-2
+C12H10 A2R5H2 C6H5OC6H5 A3*1 A3*2 A3*4 A3*9 A3L*1 A3L*2 A3L*9 A3 A3L
+A21C6H4 A22C6H4
+	END
+!
+! Rate coefficients in form k=A·Tn·exp(-E/RT)
+! Units: moles, ccm, seconds, Kelvins and calories per mole)
+!
+REACTIONS
+!
+! H2,O2, H,OH and O reactions
+!
+H2+OH=H2O+H             2.14E8    1.51     3430.0 ! [Emdee et al. 1992]
+H2+O2=OH+OH            1.70E13     0.0    47780.0 ! [Miller and Melius 1992]
+H+O2=OH+O              1.91E14     0.0    16440.0 ! [Emdee et al. 1992]
+H+O2+M=HO2+M           3.61E17   -0.72        0.0 ! [Miller and Melius 1992]
+  H2O/18.6/  CO2/4.2/  H2/2.9/  CO/2.1/
+2H+M=H2+M              1.00E18    -1.0        0.0 ! [Miller and Melius 1992]
+2H+H2=2H2              9.20E16    -0.6        0.0 ! [Miller and Melius 1992]
+2H+H2O=H2+H2O          6.00E19   -1.25        0.0 ! [Miller and Melius 1992]
+2H+CO2=H2+CO2          5.49E20    -2.0        0.0 ! [Miller and Melius 1992]
+H+OH+M=H2O+M           8.35E21    -2.0        0.0 ! [Baulch et al. 1992]for argon
+  H2/3.333/  H2O/16.0/  CO2/5.067/  CO/2.533/     ! for argon, Baulch et al. 1972
+H+O+M=OH+M             6.02E16    -0.6        0.0 ! [Miller and Melius 1992]
+  H2O/5.0/
+OH+H2O2=H2O+HO2        7.08E12     0.0     1430.0 ! [Emdee et al. 1992]
+OH+OH=O+H2O            1.23E4     2.62    -1878.0 ! [Emdee et al. 1992]
+O+HO2=OH+O2            1.74E13     0.0     -400.0 ! [Emdee et al. 1992]
+O+H2=OH+H              5.13E4     2.67     6290.0 ! [Emdee et al. 1992]
+O+O+M=O2+M             1.89E13     0.0    -1790.0 ! [Tsang and Hampson 1986] for argon
+   H2/3.333/  H2O/16.0/  CO2/5.067/  CO/2.533/    ! for argon, Baulch et al. 1972
+O+OH+M=HO2+M           1.00E17     0.0        0.0 ! [Zhang and McKinnon 1995]
+!
+!
+! HO2 peroxyl reactions
+!
+HO2+H=H2O+O            3.00E13     0.0     1070.0 ! [Baulch et al. 1992] 
+HO2+H=H2+O2            6.61E13     0.0     2130.0 ! [Emdee et al. 1992]
+HO2+H=OH+OH            1.40E14     0.0     1073.0 ! [Miller and Melius 1992]
+HO2+OH=H2O+O2          7.50E12     0.0        0.0 ! [Miller and Melius 1992]
+HO2+HO2=H2O2+O2        2.00E12     0.0        0.0 ! [Miller and Melius 1992]
+!
+!
+! H2O2 reactions
+!
+H2O2+M=OH+OH+M         1.81E16     0.0    42920.0 ! [Baulch et al. 1992] for argon
+  H2/3.333/  H2O/16.0/  CO2/5.067/  CO/2.533/     ! for argon
+H2O2+H=HO2+H2          4.79E13     0.0     7950.0 ! [Emdee et al. 1992]
+H2O2+H=OH+H2O          1.00E13     0.0     3590.0 ! [Emdee et al. 1992]
+H2O2+O=OH+HO2          9.55E6      2.0     3970.0 ! [Emdee et al. 1992]
+H2O2+O=O2+H2O          9.55E6      2.      3970.0 ! [Emdee et al. 1992]
+!
+!
+! HCO (aldehyde) reactions
+!
+HCO+O=CO2+H            3.00E13     0.0        0.0 ! [Miller and Melius 1992]
+HCO+O2=CO2+OH          3.31E12    -0.4        0.0 ! [Baulch et al. 1992] 
+HCO+HO2=CO2+OH+H       3.00E13     0.0        0.0 ! [Zhang and McKinnon 1995] 
+HCO+CH3O=CH3OH+CO      9.04E13     0.0        0.0 ! [Tsang and Hampson 1986]
+2HCO=CH2O+CO           4.52E13     0.0        0.0 ! [Baggott 1986]
+HCO+O2=CO+HO2          3.30E13    -0.4        0.0 ! [Miller and Melius 1992]
+HCO+OH=CO+H2O          3.02E13     0.0        0.0 ! [Emdee et al. 1992]
+HCO+M=H+CO+M           2.50E14     0.0    16802.0 ! [Miller and Melius 1992]
+HCO+H=CO+H2            9.04E13     0.0        0.0 ! [Baulch et al. 1992]
+HCO+O=CO+OH            3.00E13     0.0        0.0 ! [Miller and Melius 1992]
+2HCO=2CO+H2            3.01E12     0.0        0.0 ! [Zhang and McKinnon 1995]
+!
+!
+! CO, CO2 reactions
+!
+CO+O+M=CO2+M           6.17E14     0.0     3000.0 ! [Tsang and Hampson 1986]
+  H2/3.333/  H2O/16.0/  CO2/5.067/  CO/2.533/     ! for Ar
+CO+OH=CO2+H            6.32E06     1.50    -497.0 ! [Baulch et al. 1992]
+CO+O2=CO2+O            2.51E12     0.0    47690.0 ! [Emdee et al. 1992]
+CO+HO2=CO2+OH          6.03E13     0.0    22950.0 ! [Emdee et al. 1992]
+!
+!
+! CH methine & C reactions
+!
+CH+H2=CH3              3.19E25    -4.99    2710.0 ! [QRRK-HR, 20 torr]
+CH+H2=HCH+H            2.39E15    -0.39    2890.0 ! [QRRK-HR, 20 torr]
+CH+O=C+OH              1.52E13     0.0     4732.0 ! [Murrel and Rodriguez 1986]
+CH+O=CO+H              5.70E13     0.0        0.0 ! [Miller and Melius 1992]
+CH+O2=CO+OH            3.30E13     0.0        0.0 ! [Baulch et al. 1992]
+CH+O2=HCO+O            3.30E13     0.0        0.0 ! [Miller and Melius 1992]
+CH+OH=HCO+H            3.00E13     0.0        0.0 ! [Miller and Melius 1992]
+CH+OH=C+H2O            4.00E07     2.0     3000.0 ! [Miller and Melius 1992]
+CH+CO2=HCO+CO          3.40E12     0.0      690.0 ! [Miller and Melius 1992]
+CH+H=C+H2              1.50E14     0.0        0.0 ! [Miller and Melius 1992]
+CH+H2O=CH2O+H          1.17E15   -0.75        0.0 ! [Miller and Melius 1992]
+CH+H2O=CH2OH           5.71E12     0.0     -755.0 ! [Zabarnick et al. 1986]
+C+O2=CO+O              2.00E13     0.0        0.0 ! [Miller and Melius 1992]
+C+OH=CO+H              5.00E13     0.0        0.0 ! [Miller and Melius 1992]
+!
+!
+! CH2O formaldehyde reactions
+!
+CH2O+OH=HCO+H2O        3.43E09    1.18     -447.0 ! [Miller and Melius 1992] 
+CH2O+H=HCO+H2          2.19E08     1.8     3000.0 ! [Miller and Melius 1992] 
+CH2O+M=HCO+H+M         3.31E16     0.0    81000.0 ! [Miller and Melius 1992]
+CH2O+O=HCO+OH          1.80E13     0.0     3080.0 ! [Miller and Melius 1992] 
+CH2O+O2=HO2+HCO        1.23E06     3.0    52060.0 ! [Hidaka et al. 1993]
+CH2O+HO2=HCO+H2O2      4.40E06     2.0    12000.0 ! [Hidaka et al. 1993]
+!
+!
+! Singlet Methylene reactions
+!
+CH2+CH4=2CH3           4.00E13     0.0        0.0 ! [Miller and Melius 1992]
+CH2+H2=CH3+H           7.00E13     0.0        0.0 ! [Miller and Melius 1992]
+CH2+H2O=HCH+H2O        3.00E13     0.0        0.0 ! [Miller and Melius 1992]
+CH2+H=HCH+H            2.00E14     0.0        0.0 ! [Miller and Melius 1992]
+CH2+O=H+H+CO           3.00E13     0.0        0.0 ! [Miller and Melius 1992]
+CH2+O=H2+CO            7.83E12     0.0        0.0 ! [Zhang and McKinnon 1995] 
+CH2+O2=CO2+2H          7.83E12     0.0        0.0 ! [Zhang and McKinnon 1995] 
+CH2+O2=O+CH2O          7.83E12     0.0        0.0 ! [Zhang and McKinnon 1995] 
+CH2+O2=H2+CO2          7.83E12     0.0        0.0 ! [Zhang and McKinnon 1995] 
+CH2+O2=H+CO+OH         7.83E12     0.0        0.0 ! [Zhang and McKinnon 1995] 
+CH2+OH=CH2O+H          3.01E13     0.0        0.0 ! [Miller and Melius 1992]
+CH2+CO2=CH2O+CO        3.00E12     0.0        0.0 ! [Miller and Melius 1992]
+CH2+HO2=CH2O+OH        3.01E13     0.0        0.0 ! [Zhang and McKinnon 1995]
+CH2+H2O2=CH3O+OH       3.01E13     0.0        0.0 ! [Zhang and McKinnon 1995]
+CH2+HCO=CO+CH3         1.81E13     0.0        0.0 ! [Zhang and McKinnon 1995]
+CH2+CH2O=HCO+CH3       1.20E12     0.0        0.0 ! [Zhang and McKinnon 1995]
+CH2+O=CH+OH            3.00E14     0.0    11923.0 ! [Frank and Just 1984]
+!
+!
+! Triplet Methylene reactions
+!
+HCH+O=CO+2H            5.00E13      0.0       0.0 ! [Miller and Melius 1992]
+HCH+O=CO+H2            3.00E13      0.0       0.0 ! [Miller and Melius 1992]
+HCH+O2=CO2+2H          1.60E12      0.0    1000.0 ! [Miller and Melius 1992]
+HCH+O2=CH2O+O          5.00E13      0.0    9000.0 ! [Miller and Melius 1992]
+HCH+O2=CO2+H2          6.90E11      0.0     500.0 ! [Miller and Melius 1992]
+HCH+O2=CO+H2O          1.90E10      0.0   -1000.0 ! [Miller and Melius 1992]
+HCH+O2=CO+OH+H         8.60E10      0.0    -500.0 ! [Miller and Melius 1992]
+HCH+O2=HCO+OH          4.30E10      0.0    -500.0 ! [Miller and Melius 1992]
+HCH+OH=CH+H2O          1.13E07      2.0    3000.0 ! [Miller and Melius 1992]
+HCH+OH=CH2O+H          2.50E13      0.0       0.0 ! [Miller and Melius 1992]
+HCH+CO2=CH2O+CO        1.10E11      0.0    1000.0 ! [Miller and Melius 1992]
+CH2+M=HCH+M            1.00E13      0.0       0.0 ! [Miller and Melius 1992]
+  H/0.0/   H2O/0.0/    C2H2/0.0/
+HCH+HCO=CH3+CO         1.81E13      0.0       0.0 ! [Zhang and McKinnon 1995]
+HCH+CH3O=CH3+CH2O      1.81E13      0.0       0.0 ! [Zhang and McKinnon 1995]
+!
+!
+! CH3 methyl reactions
+!
+CH3+M=HCH+H+M          2.72E36   -5.309 117084.0 ! [Su and Teitelbaum '94, l.p. limit]
+CH3+H+M=CH4+M          6.19E23   -1.80       0.0 ! [Baulch et al. 1992, for argon]
+CH3+H=HCH+H2           6.03E13    0.0    15103.0 ! [Baulch et al. 1992]
+CH3+O=CH2O+H           7.17E13    0.0        0.0 ! [Lim/Michael '93, Marcy et al. '01]
+CH3+O=HCO+H2           1.26E13    0.0        0.0 ! [Lim/Michael '93, Marcy et al. '01]
+CH3+O=CH3O             1.78E14   -2.14     603.0 ! [Dean and Westmoreland 1987]
+CH3+O2=CH3O+O          7.26E11    0.39   27363.0 ! [Dean and Westmoreland 1987]
+CH3+OH=CH3OH           1.24E43   -9.49   10471.0 ! [Dean and Westmoreland 1987]
+CH3+OH=CH2OH+H         1.09E11     0.4    -708.0 ! [Zhang and McKinnon 1995]
+CH3+OH=CH3O+H          8.93E11   -0.02   13073.0 ! [Dean and Westmoreland 1987]
+CH3+OH=HCH+H2O         7.50E06     2.0    5000.0 ! [Zhang and McKinnon 1995]
+CH3+OH=CH2O+H2         3.98E10   -0.02    8765.0 ! [Dean and Westmoreland 1987]
+CH3+HO2=CH3O+OH        1.81E13     0.0       0.0 ! [Baulch et al. 1992]
+CH3+HCO=CH4+CO         2.65E13     0.0       0.0 ! [Mulenko 1987]
+CH3+CH2OH=CH4+CH2O     2.41E12     0.0       0.0 ! [Tsang 1987]
+CH3+CH3O=CH4+CH2O      2.41E13     0.0       0.0 ! [Tsang et al. 1986]
+CH3+CH2O=CH4+HCO       7.77E-8     6.10   1970.0 ! [Baulch et al. 1994]
+CH3+CH3=C2H5+H         8.92E11  -0.005   11850.0 ! [QRRK, HR, 20 torr]
+CH3+CH3=C2H4+H2        1.00E16     0.0   32030.0 ! [Warnatz 1984]
+CH3+CH3=C2H6           9.18E49 -11.851   11590.0 ! [QRRK, HR, 20 torr]
+!
+!
+! CH2OH hydroxymethyl Rxns [CH2OH CH3CHOH->hydroxyalkyl radicals]
+!
+CH2OH+M=CH2O+H+M        1.67E24    -2.5   34190.0 ! [Emdee et al. 1992]
+CH2OH+O=CH2O+OH         1.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH2OH+O2=CH2O+HO2       2.41E14     0.0    5000.0 ! [Emdee et al. 1992]
+CH2OH+OH=CH2O+H2O       1.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH2OH+H=CH2O+H2         2.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH2OH+HO2=CH2O+H2O2     1.20E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH2OH+HCO=CH3OH+CO      1.20E14     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH2OH+CH2O=CH3OH+HCO    5.54E03    2.81    5682.0 ! [Zhang and McKinnon 1995]
+2CH2OH=CH3OH+CH2O       4.82E12     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH2OH+HCO=2CH2O         1.81E14     0.0       0.0 ! [Tsang 1987]
+!
+!
+! CH3O methoxy radical reactions[CH3O C2H5O-> alkoxy radicals]
+!
+CH3O+M=CH2O+H+M         5.42E13     0.0   13490.0 ! [Baulch et al. 1994]
+CH3O+H=CH2O+H2          2.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH3O+OH=CH2O+H2O        1.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH3O+O=CH2O+OH          1.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH3O+O2=CH2O+HO2        6.30E10     0.0    2600.0 ! [Miller and Melius 1992]
+CH3O+HO2=CH2O+H2O2      3.01E11     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH3O+CO=CH3+CO2         1.57E13     0.0   11797.0 ! [Zhang and McKinnon 1995]
+!
+!
+! CH3OH methanol reactions
+!
+CH3OH+M=CH3+OH+M        3.50E16     0.0   66444.0 ! [Zhang and McKinnon 1995]
+CH3OH+M=CH2OH+H+M       1.75E15     0.0   66444.0 ! [Zhang and McKinnon 1995]
+CH3OH+M=CH2+H2O+M       7.00E15     0.0   66444.0 ! [Zhang and McKinnon 1995]
+CH3OH+CH3=CH2OH+CH4     3.19E01    3.17    7172.0 ! [Zhang and McKinnon 1995]
+CH3OH+CH3=CH3O+CH4      1.45E01    3.10    6935.0 ! [Zhang and McKinnon 1995]
+CH3OH+HO2=H2O2+CH2OH    9.64E10     0.0   12579.0 ! [Zhang 1987]
+CH3OH+O=OH+CH2OH        3.80E05     2.5    3080.0 ! [Zhang and McKinnon 1995]
+CH3OH+O=OH+CH3O         1.00E13     0.0    4684.0 ! [Warnatz 1984]
+CH3OH+O2=CH2OH+HO2      2.05E13     0.0   44717.0 ! [Zhang and McKinnon 1995]
+CH3OH+OH=H2O+CH2OH      1.00E13     0.0    1697.0 ! [Zhang and McKinnon 1995]
+CH3OH+OH=H2O+CH3O       1.00E13     0.0    1697.0 ! [Zhang and McKinnon 1995]
+CH3OH+CH2OH=CH3OH+CH3O  7.83E09     0.0   12062.0 ! [Tsang 1987]
+CH3OH+H=CH2OH+H2        3.98E13     0.0    6095.0 ! [Zhang and McKinnon 1995]
+CH3OH+H=CH3O+H2         3.98E13     0.0    6095.0 ! [Zhang and McKinnon 1995]
+CH3OH+HCH=CH2OH+CH3     1.58E12     0.0    5736.0 ! [Zhang and McKinnon 1995]
+!
+!
+! CH4 Methane reactions
+!
+CH4+O2=CH3+HO2          7.94E13     0.0   56000.0 ! [Miller and Melius 1992]
+CH4+H=CH3+H2            1.48E14     0.0   13585.0 ! [Knyazev et al. 1996a]
+CH4+OH=CH3+H2O          1.57E07    1.83    2780.0 ! [Baulch et al. 1992]
+CH4+O=CH3+OH            6.92E08    1.56    8490.0 ! [Baulch et al. 1992]
+CH4+HO2=CH3+H2O2        1.81E11     0.0   18580.0 ! [Emdee et al. 1992]
+!
+!
+! C2O & C2  reactions
+!
+C2O+H=CH+CO             5.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2O+O=CO+CO             5.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2O+OH=CO+CO+H          2.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2O+O2=2CO+O            2.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2+OH=C2O+H             5.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2+O2=2CO               5.00E13     0.0       0.0 ! [Miller and Melius 1992]
+!
+!
+! C2H ethynyl reactions
+!
+C2H+M=C2+H+M            4.68E16     0.0  124000.0 ! [Colket 1986]
+C2H+O=CO+CH             5.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2H+O2=HCO+CO           2.41E12     0.0       0.0 ! [Zhang and McKinnon 1995]
+C2H+O2=H+CO+CO          3.52E13     0.0       0.0 ! [Miller and Melius 1992]
+C2H+OH=CH2+CO           1.81E13     0.0       0.0 ! [Tsang et al. 1986]
+C2H+OH=C2+H2O           4.00E07     2.0    8000.0 ! [Miller and Melius 1992]
+C+HCH=C2H+H             5.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH+HCH=C2H+2H           5.49E22   -2.41   11520.0 ! [Westmoreland 1986]
+C2+H2=C2H+H             4.00E05     2.4    1000.0 ! [Miller and Melius 1992]
+!
+!
+! HCCO Ketyl reactions
+!
+HCCO+H=CH2+CO           1.00E14     0.0       0.0 ! [Miller and Melius 1992]
+HCCO+O=2CO+H            1.00E14     0.0       0.0 ! [Miller and Melius 1992]
+HCCO+H=HCCOH            1.85E39  -8.521    6430.0 ! [QRRK, HR, 20 torr]
+HCCO+OH=C2O+H2O         3.00E13     0.0       0.0 ! [Miller and Melius 1992]
+HCCO+O2=2CO+OH          1.46E12     0.0     2500. ! [Emdee et al. 1992]
+HO2+C2H=HCCO+OH         1.81E13     0.0       0.0 ! [Tsang et al. 1986]
+C2H+O2=HCCO+O           5.00E13     0.0    1500.0 ! [Baulch et al. 1992]
+C2H+OH=HCCO+H           2.00E13     0.0       0.0 ! [Miller and Melius 1992]
+!
+!
+! CH2CO reactions
+!
+CH2CO+M=HCH+CO+M        3.60E15     0.0   59235.0 ! [Miller and Melius 1992]
+  H2/2.5/ H2O/16.0/ CO/1.9/ CO2/3.8/ CH4/16.0/ CH3OH/5.0/
+CH2CO+O=HCO+HCO         2.00E13     0.0    2293.0 ! [Zhang and McKinnon 1995]
+CH2CO+O=CH2+CO2         1.75E12     0.0    1350.0 ! [Miller and Melius 1992]
+CH2CO+H=HCCO+H2         5.00E13     0.0    8000.0 ! [Miller and Melius 1992]
+CH2CO+O=HCCO+OH         1.00E13     0.0    8000.0 ! [Miller and Melius 1992]
+CH2O+CH=CH2CO+H         9.46E13     0.0    -515.0 ! [Miller and Melius 1992]
+CH2+CO=CH2CO            6.00E08     0.0       0.0 ! [QRRK, HR, 20 torr]
+CH2CO+OH=HCCO+H2O       7.50E12     0.0    2000.0 ! [Miller and Melius 1992]
+CH2CO+OH=CH2O+HCO       2.80E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH2CO+OH=CH3O+CO        2.80E13     0.0       0.0 ! [Baulch et al. 1992]
+HCCOH+H=CH2CO+H         1.00E13     0.0       0.0 ! [Miller and Melius 1992]
+!
+!
+! C2H2 acetylene reactions
+!
+C2H2+M=C2H+H+M          4.20E16     0.0  107000.0 ! [Miller and Melius 1992]
+C2H2+O2=C2H+HO2         1.20E13     0.0   74475.0 ! [Zhang and McKinnon 1995]
+C2H2+H=C2H+H2           6.03E13     0.0   27820.0 ! [Baulch et al. 1992]
+C2H2+H=CH+CH2           1.02E16     0.0  125076.0 ! [Lee et al. 1993]
+C2H2+H2=C2H4            1.41E41    -9.06  51130.0 ! [QRRK-HR, 20 torr]
+C2H2+OH=C2H+H2O         3.37E07     2.0   14000.0 ! [Miller and Melius 1992] 
+C2H2+OH=HCCOH+H         5.04E5      2.3   13500.0 ! [Miller and Melius 1992] 
+C2H2+OH=CH2CO+H         2.18E-4     4.5   -1000.0 ! [Miller and Melius 1992] 
+C2H2+OH=CH3+CO          4.83E-4     4.0   -2000.0 ! [Miller and Melius 1992] 
+CH3OH+C2H=CH3O+C2H2     1.21E12     0.0       0.0 ! [Tsang 1987]
+CH3OH+C2H=CH2OH+C2H2    6.03E12     0.0       0.0 ! [Tsang 1987]
+C2H+CH4=C2H2+CH3        1.81E12     0.0     497.0 ! [Tsang et al. 1986]
+HCCO+CH=C2H2+CO         5.00E13     0.0       0.0 ! [Miller and Melius 1992] 
+HCCO+HCCO=C2H2+2CO      1.00E13     0.0       0.0 ! [Miller and Melius 1992] 
+HO2+C2H2=CH2CO+OH       6.03E09     0.0    7949.0 ! [Tsang et al. 1986]
+HCO+C2H=C2H2+CO         6.03E13     0.0       0.0 ! [Tsang et al. 1986]
+C+CH3=C2H2+H            5.00E13     0.0       0.0 ! [Miller and Melius 1992] 
+CH2+C2H2=HCH+C2H2       4.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH2+CH2=C2H2+H2         3.01E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH3O+C2H=CH2O+C2H2      2.41E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+2HCH=C2H2+H2            4.02E14   -0.47     480.0 ! [Westmoreland 1986]
+CH+HCH=C2H2+H           2.50E12   -3.68    4190.0 ! [Westmoreland 1986]
+C2H+CH2OH=C2H2+CH2O     3.61E13     0.0       0.0 ! [Tsang 1987]
+C2H+C2H=C2H2+C2         1.81E12     0.0       0.0 ! [Tsang et al. 1986]
+C2H+CH2=CH+C2H2         1.81E13     0.0       0.0 ! [Tsang et al. 1986]
+C2H2+O=C2H+OH           3.16E15    -0.6   15000.0 ! [Miller and Melius 1992]
+C2H2+O=HCH+CO           1.40E06    2.09    1562.0 ! [Emdee et al. 1992]
+C2H2+O=HCCO+H           5.80E6     2.09    1562.0 ! [Emdee et al. 1992]
+HCH+C2H=CH+C2H2         1.81E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+!
+!
+! C2H3 vinyl radical or ethenyl reactions
+!
+C2H3=C2H2+H             2.74E22   -4.061  37040.0 ! [Knyazev et al. 1996b, 20 torr]
+C2H3+H=C2H2+H2          1.21E13     0.0       0.0 ! [Baulch et al. 1992]
+C2H3+O=CH2CO+H          3.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2H3+O=C2H2+OH          3.00E13     0.0       0.0 ! [Baulch et al. 1992]
+C2H3+O=CO+CH3           3.00E13     0.0       0.0 ! [Baulch et al. 1992]
+CH+HCH=C2H3             3.09E14   -1.98     620.0 ! [Westmoreland 1986]
+CH+CH3=C2H3+H           3.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH2+CH2=C2H3+H          2.00E13     0.0       0.0 ! [Frank and Just 1984]
+2HCH=C2H3+H             7.12E21    -3.9    2460.0 ! [Westmoreland 1986]
+CH2OH+C2H2=C2H3+CH2O    7.30E11     0.0    9004.0 ! [Tsang 1987]
+C2H3+O=HCO+CH2          3.00E13     0.0       0.0 ! [Baulch et al. 1992] 
+C2H3+O2=CH2O+HCO        4.58E16   -1.39    1015.0 ! [Mebel et al. 1996]
+C2H3+O2=C2H2+HO2        1.34E06    1.61    -383.0 ! [Mebel et al. 1996]
+C2H3+OH=C2H2+H2O        2.00E13     0.0       0.0 ! [Miller and Melius 1992] 
+C2H3+C2H=2C2H2          3.00E13     0.0       0.0 ! [Miller and Melius 1992] 
+C2H3+CH=HCH+C2H2        5.00E13     0.0       0.0 ! [Miller and Melius 1992] 
+C2H3+CH3=C2H2+CH4       1.99E13     0.0       0.0 ! [Fahr et al. 1999]
+C2H3+CH2=CH3+C2H2       1.81E13     0.0       0.0 ! [Tsang et al. 1986]
+HCH+C2H3=CH3+C2H2       1.81E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+!
+!
+! C2H4 ethylene reactions
+!
+C2H4+H=C2H3+H2          5.07E07    1.93   12951.0 ! [Knyazev et al. 1996a]
+C2H4+H=C2H5             8.42E08    1.49     990.0 ! [Tsang et al. 1986]
+2HCH=C2H4               1.11E20   -3.43    2070.0 ! [Westmoreland 1986]
+HCH+CH3=C2H4+H          4.20E13     0.0       0.0 ! [Westmoreland 1986]
+CH3O+C2H3=CH2O+C2H4     2.41E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH2CO+CH2=C2H4+CO       1.60E14     0.0       0.0 ! [Miller and Melius 1992]
+C2H3+H2O2=C2H4+HO2      1.21E10     0.0    -596.0 ! [Tsang et al. 1986] 
+C2H3+CH2O=C2H4+HCO      5.43E03    2.81    5862.0 ! [Tsang et al. 1986]
+C2H3+CH2OH=C2H4+CH2O    3.01E13     0.0       0.0 ! [Tsang 1987]
+CH3+CH2=C2H4+H          4.94E13   -.076      94.0 ! [Westmoreland 1986]
+CH+CH4=C2H4+H           6.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C2H4+O=CH3+HCO          1.60E09     1.2     746.0 ! [Miller and Melius 1992]
+C2H4+OH=C2H3+H2O        2.02E13     0.0    5955.0 ! [Miller and Melius 1992]
+C2H4+OH=CH3+CH2O        1.05E12     0.0    -916.0 ! [Zhang and McKinnon 1995]
+C2H4+O2=C2H3+HO2        4.22E13     0.0   57594.0 ! [Zhang and McKinnon 1995]
+C2H4+CH3=C2H3+CH4       4.16E12     0.0   11128.0 ! [Baulch et al. 1992]
+C2H4+C2H2=2C2H3         2.41E13     0.0   68360.0 ! [Tsang et al. 1986]
+C2H3+HCO=C2H4+CO        9.04E13     0.0       0.0 ! [Tsang et al. 1986]
+!
+! 
+! C2H5 ethyl reactions
+!
+C2H5+O=C2H4+OH          5.00E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+C2H5+O=CH2O+CH3         1.61E13     0.0       0.0 ! [Tsang et al. 1986]
+HO2+C2H5=C2H4+H2O2      3.01E11     0.0       0.0 ! [Tsang et al. 1986]
+HCH+CH3=C2H5            2.53E20   -3.49    2030.0 ! [Westmoreland 1986]
+CH3+C2H5=C2H4+CH4       1.95E13    -0.5       0.0 ! [Tsang et al. 1986]
+CH3+CH2=C2H5            1.11E19   -3.20    1780.0 ! [Westmoreland 1986]
+C2H+C2H5=C2H2+C2H4      1.81E12     0.0       0.0 ! [Tsang et al. 1986]
+C2H5+H=C2H4+H2          1.81E12     0.0       0.0 ! [Tsang and Hampson 1986]
+C2H5+O2=C2H4+HO2        1.92E07     1.02  -2035.0 ! [Miller et al. 2000]
+2C2H4=C2H5+C2H3         4.82E14     0.0   71539.0 ! [Tsang et al. 1986]
+C2H5+OH=C2H4+H2O        2.41E13     0.0       0.0 ! [Tsang and Hampson 1986]
+C2H5+HO2=CH3+CH2O+OH    2.40E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+CH2+C2H5=C2H4+CH3       9.03E12     0.0       0.0 ! [Zhang and McKinnon 1995]
+HCH+C2H5=CH3+C2H4       1.81E13     0.0       0.0 ! [Zhang and McKinnon 1995]
+!
+!
+! C2H6 ethane reactions
+!
+C2H6+CH3=C2H5+CH4       5.50E-1     4.0    8300.0 ! [Miller and Melius 1992]
+C2H6+H=C2H5+H2          5.40E02     3.5    5210.0 ! [Miller and Melius 1992]
+C2H6+O=C2H5+OH          3.00E07     2.0    5115.0 ! [Miller and Melius 1992]
+C2H6+OH=C2H5+H2O        8.70E09    1.05    1810.0 ! [Miller and Melius 1992]
+C2H6+O2=C2H5+HO2        6.03E13     0.0   51870.0 ! [Baulch et al. 1992]
+C2H6+HO2=C2H5+H2O2      2.95E11     0.0   14940.0 ! [Tsang and Hampson 1986]
+HCO+C2H5=C2H6+CO        1.21E14     0.0       0.0 ! [Tsang and Hampson 1986]
+C2H4+C2H5=C2H3+C2H6     6.32E02    3.13   18010.0 ! [Tsang and Hampson 1986]
+CH2+C2H6=CH3+C2H5       1.20E14     0.0       0.0 ! [Miller and Melius 1992]
+C2H6+HCO=C2H5+CH2O      4.70E04     2.7   18233.0 ! [Zhang and McKinnon 1995]
+2C2H5=C2H6+C2H4         1.39E12     0.0       0.0 ! [Zhang and McKinnon 1995]
+C2H3+C2H5=C2H6+C2H2     4.82E11     0.0       0.0 ! [Zhang and McKinnon 1995]
+C2H2+C2H5=C2H6+C2H      2.71E11     0.0   23446.0 ! [Zhang and McKinnon 1995]
+!
+!
+! Dimethylether (CH3OCH3): Formation and Consumption
+!
+CH3+CH3O=CH3OCH3        1.21E13     0.0       0.0 ! [Tsang/Hampson '86]
+CH3OCH3+H=CH3OCH2+H2    1.90E13     0.0    5166.0 ! [Faubel et al. '79]
+CH3OCH3+OH=CH3OCH2+H2O  6.27E12     0.0     739.0 ! [Tully/Droege '87]
+CH3OCH3+O=CH3OCH2+OH    5.00E13     0.0    4571.0 ! [Herron '88]
+CH3OCH3+CH3=CH3OCH2+CH4 3.55E12     0.0   11800.0 ! [Batt et al. '82]
+CH3OCH2=CH3+CH2O        1.60E13     0.0   25440.0 ! [Sehested et al. 1997]
+!
+!
+! Formation and Consumption of the Acetaldehyde Radical (CH2CHO)
+!
+CH+CH2O=CH2CHO           9.64E13    0.0    -517.0 ! [Baulch '92]
+C2H4+O=CH2CHO+H          1.21E06    2.08      0.0 ! [Baulch '92]
+C3H6+O=CH2CHO+CH3        1.08E06    2.15   -795.0 ! [Tsang '91; Knyazev '92]
+C4H8+O=CH2CHO+C2H5       5.14E06    1.95   -596.0 ! [Ko et al.'91/Koda et al.'91]
+CH2CHO=CH2CO+H           1.58E13    0.0   34970.0 ! [Colket et al. '75]
+CH2CHO=CH3CO             1.00E13    0.0   47100.0 ! [Colket et al. '75]
+!
+!
+! CH3CO Formation and Consumption
+!
+CH3CO=CH3+CO             8.74E42   -8.62  22424.0 ! [Tsang/Hampson '86]
+CH3CO+CH3=CH3COCH3       4.04E15   -0.80      0.0 ! [Tsang/Hampson '86]
+CH3CO+CH3=CH2CO+CH4      6.06E14   -0.80      0.0 ! [Hassinen et al. '90]
+CH3CO+O=CH3+CO2          9.64E12    0.0       0.0 ! [Tsang/Hampson '86]
+CH3CO+OH=CH2CO+H2O       1.21E13    0.0       0.0 ! [Tsang/Hampson '86]
+CH3CO+H=CH3+HCO          3.30E13    0.0       0.0 ! [Bartels et al. '90]
+!
+!
+! Acetaldehyde (CH3CHO) and acetone (CH3COCH3)
+!
+IC3H7+HO2=CH3CHO+CH3+OH  2.41E13    0.0       0.0 ! [Tsang '88]
+IC3H7+O=CH3CHO+CH3       4.82E13    0.0       0.0 ! [Tsang '88]
+IC3H7+O=CH3COCH3+H       4.82E13    0.0       0.0 ! [Tsang '88]
+C2H4+HO2=CH3CHO+OH       6.03E09    0.0    7949.0 ! [Tsang/Hampson '86]
+C2H5+O=CH3CHO+H          6.62E13    0.0       0.0 ! [Baulch '92]
+C2H5+O2=CH3CHO+OH        4.55E13   -1.03   9665.0 ! [Bozzelli/Dean '90, 0.01 atm]
+C2H3+OH=CH3CHO           3.01E13    0.0       0.0 ! [Tsang/Hampson '86]
+CH3CHO=CH3+HCO           7.00E15    0.0   81674.0 ! [Baulch '92]
+CH3CHO+H=CH3CO+H2        4.00E13    0.0    4207.0 ! [Warnatz '84]
+CH3CHO+OH=CH3CO+H2O      1.00E13    0.0       0.0 ! [Warnatz '84]
+CH3CHO+O=CH3CO+OH        5.00E12    0.0    1792.0 ! [Warnatz '84]
+CH3CHO+CH3=CH3CO+CH4     1.99E-6    5.64   2464.0 ! [Baulch '92]
+CH3CHO+CH3=CH3COCH3+H    1.66E10    0.0   12398.0 ! [Liu/Laidler '68]
+!
+!
+! C3H2 propynylidene reactions
+!
+C3H2+O=C2H+HCO           6.80E13     0.0      0.0 ! [Warnatz et al. 1982] 
+C3H2+O=C2H2+CO           1.00E14     0.0      0.0 ! [Miller and Melius 1992]     
+C3H2+OH=C2H2+HCO         5.00E13     0.0      0.0 ! [Miller and Melius 1992]
+C3H2+OH=CHCHCHO          3.01E13     0.0      0.0 ! [Tsang/Hampson '86]
+!
+!
+! H2CCCH  reactions
+!
+H2CCCH=C3H2+H            5.20E12     0.0  78447.0 ! [Scherer et al. 2000]
+H2CCCH+H=C3H2+H2         5.00E13     0.0   1000.0 ! [Miller and Melius 1992]
+H2CCCH+OH=C3H2+H2O       2.00E13     0.0      0.0 ! [Pauwels et al. 1995]
+H2CCCH+O=C3H2+OH         3.20E12     0.0      0.0 ! [Warnatz et al. 1982]
+CH3+C2H=H2CCCH+H         2.41E13     0.0      0.0 ! [Tsang et al. 1986]
+C2H+CH2OH=H2CCCH+OH      1.21E13     0.0      0.0 ! [Tsang 1987]
+C2H+C2H5=CH3+H2CCCH      1.81E13     0.0      0.0 ! [Tsang et al. 1986]
+C2H2+HCCO=H2CCCH+CO      1.10E11     0.0   3000.0 ! [Miller and Melius 1992]     
+H2CCCH+O2=CH2CO+HCO      3.00E10     0.0   2868.0 ! [Miller and Melius 1992]     
+CH2+C2H2=H2CCCH+H        8.48E25    -3.736 3774.0 ! [QRRK-HR, 20 torr]     
+HCH+C2H2=H2CCCH+H        1.20E13     0.0   6600.0 ! [Boehland et al. 1986]
+H2CCCH+O=C2H+CH2O        7.17E13     0.0      0.0 ! [p.w., as CH3+O]
+!
+!
+! 2-Propynal and its radical: HCCCHO and HCCCO
+!
+H2CCCH+O=HCCCHO+H        6.03E13     0.0      0.0 ! [Tsang '91 for C3H5+O]
+C3H2+O=HCCCHO            6.62E12     0.0   3060.0 ! [Aleksandrov et al. '80 for C3H4+O]
+CHCHCHO+H=HCCCHO+H2      1.21E13     0.0      0.0 ! [Baulch et al. '92 for C2H3]
+CHCHCHO+OH=HCCCHO+H2O    2.00E13     0.0      0.0 ! [Miller and Melius '92 for C2H3]
+C2H+CH3CO=CH3+HCCCO      1.81E13     0.0      0.0 ! [Tsang/Hampson '86 for C2H3]
+HCCCHO=C2H2+CO           8.51E14     0.0  70940.0 ! [Saito et al. '90]
+HCCCHO+O=HCCCO+OH        5.68E12     0.0   1542.0 ! [Singleton et al. '77 for C2H5CHO]
+HCCCHO+OH=HCCCO+H2O      1.60E13     0.0      0.0 ! [Maldotti et al. '92 for C2H3CHO+OH]
+C2H+CO=HCCCO             1.51E11     0.0   4810.0 ! [Tsang/Hampson '86 for C2H3+CO]
+!
+!
+! 2-propenal (acrolein): CH2CHCHO Formation and Consumption
+!
+H2CCCH+OH=CH2CHCHO           3.01E13     0.0       0.0 ! [Tsang/Hampson '86 for C2H3+OH=CH3CHO]
+HCO+C2H3=CH2CHCHO            1.81E13     0.0       0.0 ! [Tsang/Hampson '86]
+C3H5+O=CH2CHCHO+H            6.03E13     0.0       0.0 ! [Tsang '91]
+C3H4+O=CH2CHCO+H             6.62E12     0.0    3060.0 ! [Aleksandrov et al. '80]
+C2H3+CH3CO=CH3+CH2CHCO       1.81E13     0.0       0.0 ! [Tsang/Hampson '86]
+CH2CHCHO+O=CH2CHCO+OH        5.68E12     0.0    1542.0 ! [Singleton et al. '77 for C2H5CHO]
+CH2CHCHO+OH=CH2CHCO+H2O      1.60E13     0.0       0.0 ! [Maldotti et al. '92]
+CH2CHCHO+C2H5=CH2CHCO+C2H6   1.20E13     0.0   12647.0 ! [McAdam/Walker'87+Tsang/Hamp.'86 for C2H5CHO]
+CH2CHCHO+IC3H7=CH2CHCO+C3H8  1.02E10     0.0    6840.0 ! [Szirovicza '85]
+C2H3+CO=CH2CHCO              1.51E11     0.0    4810.0 ! [Tsang/Hampson '86]
+CH2CHCHO+H=CHCHCHO+H2        5.07E07    1.93   12951.0 ! [Knyazev et al. 1996a for C2H4]
+CH2CHCHO+OH=CHCHCHO+H2O      2.02E13     0.0    5955.0 ! [Miller and Melius '92 for C2H4]
+CH2CHCHO+CH3=CHCHCHO+CH4     4.16E12     0.0   11128.0 ! [Baulch '92 for C2H4]
+CHCHCHO+H=CH2CHCHO           5.36E14     0.0     982.0 ! [Duran et al. '88 for C2H3]
+CHCHCHO=C2H2+HCO             2.95E12     0.0   11110.0 ! [Cadman et al. '70 for C2H5CO=C2H5+CO]
+!
+!
+! Propanal and its radical: C2H5CHO and C2H5CO
+!
+NC3H7+O=C2H5CHO+H        9.64E13    0.0      0.0 ! [Tsang '88]
+NC3H7+O2=C2H5CHO+OH      1.10E08    0.0      0.0 ! [Baker et al. '71]
+C2H5+HCO=C2H5CHO         1.81E13    0.0      0.0 ! [Tsang/Hampson '86]
+C3H5+OH=C2H5CHO          3.01E13    0.0      0.0 ! [C2H3+OH: Tsang/Hampson '86]
+C2H5CHO+O=C2H5CO+OH      5.68E12    0.0   1542.0 ! [Singleton et al. '77]
+C2H5CHO+OH=C2H5CO+H2O    1.21E13    0.0      0.0 ! [Atkinson et al. '97]
+C2H5CHO+C2H5=C2H5CO+C2H6 1.20E13    0.0  12647.0 ! [McAdam/Walker'87+Tsang/Hamp.'86]
+C2H5+CO=C2H5CO           1.51E11    0.0   4809.0 ! [Tsang/Hampson '86]
+!
+!
+! C3H4: CH2=C=CH2 (allene), C3H4P (methylacetylene) and C3H4CY (cyclopropene)
+!
+C3H4=H2CCCH+H            2.30E12     0.0  69684.0 ! [Scherer et al. 2000]
+C3H4P=H2CCCH+H           1.34E12     0.0  69942.0 ! [Scherer et al. 2000]
+CH+C2H4=C3H4+H           1.75E15    -0.38   100.0 ! [QRRK-HR, 20 torr]
+CH2+C2H2=C3H4CY          1.66E38    -8.65  6090.0 ! [QRRK-HR, 20 torr]
+CH2+C2H2=C3H4            7.46E39    -8.78  6350.0 ! [QRRK-HR, 20 torr]
+CH2+C2H2=C3H4P           2.62E40    -8.86  6410.0 ! [QRRK-HR, 20 torr]
+C3H4CY=C3H4              1.51E14     0.0  50400.0 ! [Karni et al. '88]
+C3H4CY=C3H4P             7.08E13     0.0  43700.0 ! [Karni et al. '88]
+C3H4+O=CO+C2H4           1.50E13     0.0   2103.0 ! [Warnatz 1984]
+C3H4+OH=HCO+C2H4         1.00E12     0.0      0.0 ! [Westbrook and Dryer 1984]
+C3H4+CH3=H2CCCH+CH4      2.00E12     0.0   7700.0 ! [Kern et al. 1991]
+C3H4P+CH3=H2CCCH+CH4     2.00E12     0.0   7700.0 ! [Kern et al. 1991]
+C3H4+H=C2H2+CH3          2.00E13     0.0   2400.0 ! [Kern et al. 1991]
+C2H+CH3=C3H4P            8.07E49 -11.305  43800.0 ! [QRRK-HR, 20 torr]
+C2H3+HCH=C3H4+H          3.00E13     0.0      0.0 ! [Miller and Melius 1992]     
+C3H4P+C2H=C2H2+H2CCCH    1.00E13     0.0      0.0 ! [Kern et al. 1991]
+C3H4+C2H=C2H2+H2CCCH     1.00E13     0.0      0.0 ! [Kern et al. 1991]
+C3H4+O=CH2O+C2H2         9.00E12     0.0   1870.0 ! [Zhang and McKinnon 1995]
+C3H4+O=HCO+C2H3          9.00E12     0.0   1870.0 ! [Zhang and McKinnon 1995]
+C3H4P+O=CH2O+C2H2        7.50E12     0.0   2102.0 ! [Zhang and McKinnon 1995]
+C3H4P+O=HCO+C2H3         7.50E12     0.0   2102.0 ! [Zhang and McKinnon 1995]
+C3H4+OH=CH2CO+CH3        3.37E12     0.0   -304.0 ! [Zhang and McKinnon 1995]
+C3H4P+OH=CH2CO+CH3       4.28E11     0.0   -843.0 ! [Zhang and McKinnon 1995]
+C3H4+H=H2CCCH+H2         3.00E7      2.0   5000.0 ! [Pauwels et al. 1995] 
+C3H4+OH=H2CCCH+H2O       2.00E7      2.0   1000.0 ! [Pauwels et al. 1995]
+C3H4P+H=H2CCCH+H2        3.00E7      2.0   5000.0 ! [Pauwels et al. 1995]
+C3H4P+OH=H2CCCH+H2O      2.00E7      2.0   1000.0 ! [Pauwels et al. 1995]
+CH3+C2H2=C3H4P+H         1.92E4     2.42  12892.0 ! [Diau et al. 1994]
+! 
+!
+! C3H5 = H2CCHCH2 :  ally radical reactions
+!
+CH+C2H4=C3H5             1.67E34   -7.60   3690.0 ! [QRRK-HR, 20 torr]
+C3H4+H=C3H5              1.20E11    0.69   3007.0 ! [Tsang and Walker 1992]
+C3H5+OH=C3H4+H2O         6.03E12     0.0      0.0 ! [Tsang 1991]
+C3H5+CH2=C4H613+H        3.01E13     0.0      0.0 ! [Tsang 1991]
+C2H+C3H5=C2H2+C3H4       1.50E-1     0.0      0.0 ! [Tsang 1991]
+C2H+C3H5=C2H3+H2CCCH     2.00E01     0.0      0.0 ! [Tsang 1991]
+C3H5+C2H3=C3H4+C2H4      2.41E12     0.0      0.0 ! [Tsang 1991]
+C3H5+C2H5=C3H4+C2H6      9.64E11     0.0   -131.0 ! [Tsang 1991]
+C2H3+CH2OH=C3H5+OH       1.21E13     0.0      0.0 ! [Tsang 1987]
+C2H4+HCH=C3H5+H          3.19E12     0.0   5285.4 ! [Zhang and McKinnon 1995]
+CH3+C2H2=C3H5            1.40E4      2.21   16500 ! [Diau et al. 1994]
+C2H3+CH3=C3H5+H          7.20E13     0.0      0.0 ! [Fahr et al. 1999]
+!
+!
+! C3H6 = Propylene reactions
+!
+C3H5+H=C3H6              5.80E11     0.236    -51.0 ! [Harding/Klippenstein '2000]
+C3H6+HO2=C3H5+H2O2       9.64E03     2.6    13910.0 ! [Tsang 1991]
+C3H6+CH3=C3H5+CH4        2.21E00     3.5     5675.0 ! [Tsang 1991]
+C3H6+O=C3H5+OH           6.03E10     0.7     7633.0 ! [Tsang 1991]
+C3H6+O=C2H5+HCO          1.21E11     0.1     8960.0 ! [Tsang 1991]
+C3H6+O2=C3H5+HO2         6.03E13     0.0    47593.0 ! [Tsang 1991] 
+C3H6+CH2OH=C3H5+CH3OH    6.03E01     2.95   11989.0 ! [Tsang 1991] 
+C3H6+CH3O=C3H5+CH3OH     9.00E01     2.95   11987.0 ! [Tsang 1991] 
+C3H6+C2H=C3H4P+C2H3      1.21E13     0.0        0.0 ! [Tsang 1991] 
+C3H6+CH2=C3H5+CH3        7.23E11     0.0     6192.0 ! [Tsang 1991]
+C3H6+HCO=C3H5+CH2O       1.08E07     1.9    17006.0 ! [Zhang and McKinnon 1995]
+C3H6+C2H5=C3H5+C2H6      2.23E00     3.5     6637.0 ! [Tsang 1991] 
+C3H6+C2H3=C3H5+C2H4      2.21E00     3.5     4682.0 ! [Tsang 1991]
+C3H5+HCO=C3H6+CO         6.03E13     0.0        0.0 ! [Tsang 1991] 
+C3H5+CH2OH=C3H6+CH2O     1.81E13     0.0        0.0 ! [Tsang 1991] 
+C3H5+CH3O=C3H6+CH2O      3.01E13     0.0        0.0 ! [Tsang 1991] 
+C3H5+C2H3=C3H6+C2H2      4.82E12     0.0        0.0 ! [Tsang 1991] 
+C3H5+C2H5=C3H6+C2H4      2.59E12     0.0     -131.0 ! [Tsang 1991]
+2C3H5=C3H4+C3H6          8.43E10     0.0     -262.0 ! [Tsang 1991]
+CH2+C2H5=C3H6+H          9.03E12     0.0        0.0 ! [Zhang and McKinnon 1995]
+CH2+C2H4=C3H6            9.03E13     0.0        0.0 ! [Zhang and McKinnon 1995]
+NC3H7+H=C3H6+H2          1.81E12     0.0        0.0 ! [Tsang '88]
+NC3H7+OH=C3H6+H2O        2.41E13     0.0        0.0 ! [Tsang '88]
+NC3H7+HCH=C3H6+CH3       1.81E12     0.0        0.0 ! [Tsang '88]
+NC3H7+CH3=C3H6+CH4       1.14E13    -0.32       0.0 ! [Tsang '88]
+NC3H7+O2=C3H6+HO2        1.00E12     0.0     5020.0 ! [Warnatz '84]
+NC3H7+CH2OH=C3H6+CH3OH   4.82E11     0.0        0.0 ! [Tsang '88]
+NC3H7+C2H=C3H6+C2H2      6.03E12     0.0        0.0 ! [Tsang '88]
+NC3H7+C2H3=C3H6+C2H4     1.21E12     0.0        0.0 ! [Tsang '88]
+NC3H7+C2H5=C3H6+C2H6     1.45E12     0.0        0.0 ! [Tsang '88]
+NC3H7+C3H5=2C3H6         1.45E12     0.0     -131.0 ! [Tsang '91]
+IC3H7+H=C3H6+H2          3.61E12     0.0        0.0 ! [Tsang '88]
+IC3H7+CH3=C3H6+CH4       9.41E10     0.68       0.0 ! [Tsang '88]
+IC3H7+O2=C3H6+HO2        1.26E11     0.0        0.0 ! [Tsang '88]
+IC3H7+OH=C3H6+H2O        2.41E13     0.0        0.0 ! [Tsang '88]
+IC3H7+C2H=C3H6+C2H2      3.61E12     0.0        0.0 ! [Tsang '88]
+IC3H7+CH2OH=C3H6+CH3OH   2.89E12     0.0        0.0 ! [Tsang '88]
+IC3H7+C2H3=C3H6+C2H4     1.52E14    -0.70       0.0 ! [Tsang '88]
+IC3H7+C2H5=C3H6+C2H6     2.30E13    -0.35       0.0 ! [Tsang '88]
+IC3H7+C3H5=2C3H6         2.29E13    -0.35    -131.0 ! [Tsang '91]
+!
+!
+! Formation/Consumption of n- and i-propyl (n-/i-C3H7)
+!
+NC3H7=C2H4+CH3           1.20E13     0.0  30303.0 ! [Tsang '88]
+IC3H7=CH3+C2H4           1.00E12     0.0  34580.0 ! [Konar et al. '68]
+C3H6+H=NC3H7             1.30E13     0.0   3261.0 ! [Tsang '92]
+C3H6+H=IC3H7             1.30E13     0.0   1560.0 ! [Tsang '92]
+C3H8+H=NC3H7+H2          1.33E06     2.54  6756.0 ! [Tsang '88]
+C3H8+OH=NC3H7+H2O        3.16E07     1.80   934.0 ! [Cohen '91]
+C3H8+O=NC3H7+OH          1.93E05     2.68  3716.0 ! [Tsang '88]
+C3H8+CH3=NC3H7+CH4       9.04E-1     3.65  7154.0 ! [Tsang '88]
+C3H8+H=IC3H7+H2          1.30E06     2.40  4471.0 ! [Tsang '88]
+C3H8+OH=IC3H7+H2O        7.08E06     1.90  -159.0 ! [Cohen '91]
+C3H8+O=IC3H7+OH          4.77E04     2.71  2106.0 ! [Tsang '88]
+C3H8+CH3=IC3H7+CH4       1.51E0      3.46  5481.0 ! [Tsang '88]
+NC3H7+HCH=C2H4+C2H5      1.81E13     0.0      0.0 ! [Tsang '88]
+IC3H7+C2H2=C4H613+CH3    2.77E10     0.0   6504.0 ! [Tsang '88]
+NC3H7+C2H=H2CCCH+C2H5    1.21E13     0.0      0.0 ! [Tsang '88]
+!
+!
+! Propane (C3H8) chemistry
+!
+CH3+C2H5=C3H8           3.37E13      0.0      0.0 ! [Baulch et al. '94]
+NC3H7+H2O2=C3H8+HO2     1.87E04      2.11  2571.0 ! [Tsang '88]
+NC3H7+C2H3=C2H2+C3H8    1.21E12      0.0      0.0 ! [Tsang '88]
+NC3H7+HCO=C3H8+CO       6.03E13      0.0      0.0 ! [Tsang '88]
+NC3H7+CH2OH=C3H8+CH2O   9.64E11      0.0      0.0 ! [Tsang '88]
+NC3H7+CH3O=C3H8+CH2O    2.41E13      0.0      0.0 ! [Tsang '88]
+NC3H7+CH3OH=C3H8+CH2OH  3.37E01      3.17  9161.0 ! [Tsang '88]
+NC3H7+CH3OH=C3H8+CH3O   1.45E01      3.10  8942.0 ! [Tsang '88]
+NC3H7+CH2O=C3H8+HCO     3.01E03      2.90  5862.0 ! [Tsang '88]
+NC3H7+C2H5=C3H8+C2H4    1.15E12      0.0      0.0 ! [Tsang '88]
+NC3H7+C2H6=C3H8+C2H5    2.53E-1      3.82  9042.0 ! [Tsang '88]
+NC3H7+NC3H7=C3H8+C3H6   1.69E12      0.0      0.0 ! [Tsang '88]
+NC3H7+C3H5=C3H4+C3H8    7.23E11      0.0   -131.0 ! [Tsang '91]
+NC3H7+C3H6=C3H8+C3H5    2.23E00      3.50  6637.0 ! [Tsang '91]
+NC3H7+C3H8=C3H8+IC3H7   8.44E-4      4.00  4726.0 ! [Tsang '88]
+IC3H7+C2H5=C2H4+C3H8    1.84E13     -0.35     0.0 ! [Tsang '88]
+IC3H7+C2H6=C3H8+C2H5    8.44E-1      4.20  8716.0 ! [Tsang '88]
+IC3H7+CH3OH=C3H8+CH2OH  3.19E01      3.70 10532.0 ! [Tsang '88]
+IC3H7+CH3OH=C3H8+CH3O   1.45E01      3.10 10333.0 ! [Tsang '88]
+IC3H7+CH2O=C3H8+HCO     1.08E11      0.0   6955.0 ! [Tsang '88]
+IC3H7+H=C3H8            2.00E13      0.0      0.0 ! [Warnatz '84]
+IC3H7+H2O2=C3H8+HO2     2.89E02      2.83  4048.0 ! [Tsang '88]
+IC3H7+HCO=C3H8+CO       1.21E14      0.0      0.0 ! [Tsang '88]
+IC3H7+CH2OH=C3H8+CH2O   2.35E12      0.0      0.0 ! [Tsang '88]
+IC3H7+CH3O=C3H8+CH2O    1.21E13      0.0      0.0 ! [Tsang '88]
+IC3H7+C2H3=C3H8+C2H2    1.52E14     -0.70     0.0 ! [Tsang '88]
+IC3H7+NC3H7=C3H8+C3H6   5.13E13     -0.35     0.0 ! [Tsang '88]
+IC3H7+IC3H7=C3H8+C3H6   2.11E14     -0.70     0.0 ! [Tsang '88]
+IC3H7+C3H5=C3H8+C3H4    4.58E12     -0.35  -131.0 ! [Tsang '91]
+IC3H7+C3H6=C3H8+C3H5    6.62E-2      4.00  8070.0 ! [Tsang '91]
+!
+!
+! C4H2 = H-CC-CC-H : Diacetylene reactions. C4H, butadiynyl
+!
+C4H2+O=C3H2+CO          1.20E12      0.0      0.0 ! [Miller and Melius 1992]
+2C3H2=C4H2+C2H2         2.00E13      0.0  85000.0 ! [Kern et al. 1991]
+C2H2+C2H=C4H2+H         4.12E15     -0.490  740.0 ! [QRRK-HR, 20 torr]
+C4H2+M=C4H+H+M          3.50E17      0.0  80065.0 ! [Frenklach and Warnatz 1987] 
+C4H2+C2H=C4H+C2H2       2.00E13      0.0      0.0 ! [Frenklach and Warnatz 1987]
+C4H4+C2H=C4H2+C2H3      1.00E13      0.0      0.0 ! [Frenklach and Warnatz 1987]
+!
+!
+! C4H3 = H2CCCCH & HCCHCCH reactions
+!
+HCCHCCH+H=H2CCCCH+H      1.00E14     0.0      0.0 ! [Miller and Melius 1992]
+H2CCCCH+M=C4H2+H+M       2.00E15     0.0  48000.0 ! [Miller and Melius 1992]
+HCCHCCH+M=C4H2+H+M       1.00E14     0.0  30000.0 ! [Miller and Melius 1992]
+H2CCCCH+O=CH2CO+C2H      2.00E13     0.0      0.0 ! [Miller and Melius 1992]
+H2CCCCH+O=H2C4O+H        2.00E13     0.0      0.0 ! [Miller and Melius 1992]
+H2CCCCH+O2=CH2CO+HCCO    1.00E12     0.0      0.0 ! [Miller and Melius 1992]
+H2CCCCH+H=C4H2+H2        5.00E13     0.0      0.0 ! [Miller and Melius 1992]
+H2CCCCH+OH=C4H2+H2O      3.00E13     0.0      0.0 ! [Miller and Melius 1992]
+HCCHCCH+H=C4H2+H2        2.50E13     0.0      0.0 ! [0.5*Miller and Melius 1992 for n-]
+HCCHCCH+OH=C4H2+H2O      1.50E13     0.0      0.0 ! [0.5*Miller and Melius 1992 for n-]
+H2CCCCH+H2=C2H2+C2H3     5.01E10     0.0  20000.0 ! [Colket 1986]
+H2CCCCH+HCH=C3H4+C2H     2.00E13     0.0      0.0 ! [Miller and Melius 1992]
+C2H2+C2H=HCCHCCH         1.09E32  -6.577   4090.0 ! [QRRK-HR, 20 torr]
+H2CCCH+CH=H2CCCCH+H      7.00E13     0.0      0.0 ! [Miller and Melius 1992]
+H2CCCH+CH=HCCHCCH+H      7.00E13     0.0      0.0 ! [Miller and Melius 1992]
+C2H2+C2H2=HCCHCCH+H      1.00E12     0.0  65980.0 ! [Benson 1989]
+!
+!
+! C4H4 = H-CC-CHCH2 : Vinyl acetylene reactions
+!
+C2H2+C2H2=C4H4          1.89E58   -13.60 62790.0 ! [QRRK-HR, 20 torr]
+C2H3+C2H3=C4H4+2H       7.83E12     0.0      0.0 ! [Knyazev et al. 1996c]
+C2H3+C2H2=C4H4+H        1.91E15    -0.74 10500.0 ! [QRRK-HR, 20 torr]
+C4H4+C2H=H2CCCCH+C2H2   4.00E13     0.0      0.0 ! [Kiefer et al. 1985] 
+C4H4+C2H=HCCHCCH+C2H2   4.00E13     0.0      0.0 ! [Kiefer et al. 1985]
+H2CCCH+HCH=C4H4+H       4.00E13     0.0      0.0 ! [Miller and Melius 1992]
+C2H3+C2H=C4H4           2.12E60  -13.452 27550.0 ! [QRRK, HR, 20 torr]
+C2H4+C2H=C4H4+H         1.21E13     0.0      0.0 ! [Tsang et al. 1986] 
+!
+!
+! Formation of n-C4H3
+!
+C4H4+H=HCCHCCH+H2        2.00E07     2.0  15000.0 ! [Miller and Melius 1992]
+C4H4+OH=HCCHCCH+H2O      7.50E06     2.0   5000.0 ! [Miller and Melius 1992]
+C4H4+C2H3=C2H4+HCCHCCH   5.00E11     0.0  16300.0 ! [Colket 1986] 
+!
+!
+! Formation of i-C4H3
+!
+C4H4+H=H2CCCCH+H2        3.00E07     2.0   5000.0 ! [Miller and Melius 1992]
+C4H4+OH=H2CCCCH+H2O      1.00E07     2.0   2000.0 ! [Miller and Melius 1992]
+C4H4+C2H3=C2H4+H2CCCCH   5.00E11     0.0  16300.0 ! [Colket 1986] 
+!
+!
+! C4H5 = CH2CHCHCH & CH2CHCCH2 : Butadienyl reactions
+!
+C2H3+C2H2=CH2CHCHCH      3.45E45  -11.13     15980 ! [QRRK-HR, 20 torr]
+CH2CHCHCH+H=C4H613       1.21E14     0.0       0.0 ! [Fahr et al. 1991 for C2H3+H]
+CH2CHCCH2+M=C4H4+H+M     2.00E15     0.0   42000.0 ! [Miller and Melius 1992]
+CH2CHCHCH+M=C4H4+H+M     1.00E14     0.0   30000.0 ! [Miller and Melius 1992]
+CH2CHCCH2+O2=C4H4+HO2    1.20E11    0.00       0.0 ! [Emdee et al. 1992]
+CH2CHCHCH+O2=C4H4+HO2    1.20E11    0.00       0.0 ! [Emdee et al. 1992]
+CH2CHCHCH+H=CH2CHCCH2+H  1.00E14     0.0       0.0 ! [Miller and Melius 1992]
+CH2CHCHCH+OH=C4H4+H2O    2.00E07     2.0    1000.0 ! [Miller and Melius 1992]
+CH2CHCHCH+H=C4H4+H2      3.00E07     2.0    1000.0 ! [Miller and Melius 1992]
+2C2H3=CH2CHCCH2+H        4.00E13     0.0       0.0 ! [Miller and Melius 1992]
+CH2CHCCH2+OH=C4H4+H2O    2.00E07     2.0    1000.0 ! [Miller and Melius 1992]
+CH2CHCCH2+H=C4H4+H2      3.00E07     2.0    1000.0 ! [Miller and Melius 1992]
+!
+!
+! C4H613 (1,3-Butadiene) and i-C4H7 (CH2=CHCHCH3) reactions
+!
+C2H3+C2H4=C4H613+H       2.27E12    -0.17   3380.0 ! [QRRK-HR, 20 torr]
+C2H3+C2H4=I-C4H7         2.11E22    -4.70   1190.0 ! [QRRK-HR, 20 torr]
+I-C4H7=C4H613+H          3.16E13     0.0   34800.0 ! [Weissman and Benson 1984]
+I-C4H7+H=C4H613+H2       1.81E12     0.0       0.0 ! [Tsang1986] c2h5+h=c2h4+h2
+I-C4H7+OH=C4H613+H2O     2.41E13     0.0       0.0 ! [Tsang1986] c2h5+oh=c2h4+h2o
+C2H3+C2H3=C4H613         2.00E13     0.0       0.0 ! [Colket et al. 1989]
+C3H6+C2H3=C4H613+CH3     7.23E11     0.0    5010.0 ! [Tsang 1991]
+C4H613+H2CCCH=CH2CHCHCH+C3H4 1.00E13   0.0   22500.0 ! [Kern et al. 1988]
+C4H613+O=C2H4+CH2CO      1.00E12     0.0       0.0 ! [Pitz and Westbrook 1986] 
+C4H613+O=C3H4+CH2O       1.00E12     0.0       0.0 ! [Pitz and Westbrook 1986]
+C4H613+OH=C3H5+CH2O      1.00E12     0.0       0.0 ! [Pitz and Westbrook 1986]
+C4H613+OH=C2H5+CH2CO     1.00E12     0.0       0.0 ! [Pitz and Westbrook 1986]
+!
+!
+! 1-butyne Formation and Consumption
+!
+H2CCCH+CH3=C4H6-1        5.42E13     0.0       0.0 ! [Fahr and Nayak '2000: 60% of total]
+C3H6+C2H=C4H6-1+CH       1.21E13     0.0       0.0 ! [Tsang '91]
+C4H6-1=C4H612            2.50E13     0.0   65000.0 ! [Hidaka et al. 1995a]
+C4H6-1+O=C3H6+CO         2.00E13     0.0    1659.0 ! [Cvetanovic '87]
+!
+!
+! 1,2-butadiene Formation and Consumption
+!
+H2CCCH+CH3=C4H612        3.61E13     0.0       0.0 ! [Fahr and Nayak '2000: 40% of total]
+C4H612=C4H613            2.50E13     0.0   63000.0 ! [Hidaka et al. 1995b]
+C4H612+H=C3H4+CH3        6.00E12     0.0    2100.0 ! [Hidaka et al. 1995b]
+C4H612+H=C3H4P+CH3       6.00E12     0.0    2100.0 ! [Hidaka et al. 1995b]
+!
+!
+! Formation of C4H8 (1-butene)
+!
+I-C4H7+H=C4H8            1.00E14     0.0       0.0 ! [Sillesen et al. 93 for C2H5+H]
+C4H8=C3H5+CH3            1.10E16     0.0   77692.0 ! [Knyazev/Slagle 2001]
+!
+!
+! H2C4O reactions
+!
+H2C4O+H=C2H2+HCCO        5.00E13     0.0   3000.0 ! [Miller and Melius 1992]
+H2C4O+OH=CH2CO+HCCO      1.00E07     2.0   2000.0 ! [Miller and Melius 1992]
+!
+!
+! C5H3 (cyclopentatrienyl) reactions
+!
+C5H4+H=C5H3+H2           1.00E06     2.50   5000.0 ! [Alzueta et al. 1998]
+C5H4+OH=C5H3+H2O         1.00E06     2.00      0.0 ! [Alzueta et al. 1998]
+C5H4+O=C5H3+OH           1.00E06     2.50   3000.0 ! [Alzueta et al. 1998]
+C5H3+H=C5H4              1.00E14     0.00      0.0 ! [Alzueta et al. 2000]
+C5H3+O2=C2H2+HCCO+CO     1.00E12     0.00      0.0 ! [Alzueta et al. 1998]
+!
+!
+! C5H3(L) (1,3-pentadiyne-5-yl) & C5H2(L) (HCC-CC-CH) reactions
+!
+C4H2+HCH=C5H3(L)+H       1.30E13     0.0       0.0 ! [Miller and Melius 1992]
+C4H2+CH2=C5H3(L)+H       3.00E13     0.0       0.0 ! [Miller and Melius 1992]
+C4H2+CH=C5H2(L)+H        1.00E14     0.0       0.0 ! [Miller and Melius 1992]
+C5H3(L)+H=C5H2(L)+H2     6.03E13     0.0   15103.0 ! [CH3+H, Baulch et al. 1992]
+!
+!
+! C5H4 (cyclopentatriene), also formed by p-C6h4O2 decay
+!
+C5H5+H=C5H4+H2           3.23E07     2.095 15842.0 ! [Mebel et al. 1997, C6H6+H]
+C5H5+OH=C5H4+H2O         2.11E13     0.0    4571.0 ! [Madronich/Felder 1985, C6H6+OH]
+C5H5+O=C5H4+OH           2.00E13     0.0   14694.0 ! [Lindstedt/Skevis 1994, C6H6+O]
+C5H5+CH3=C5H4+CH4        2.00E12     0.0   15060.0 ! [Zhang et al. 1989, C6H6+CH3]
+C5H4H+H=C5H4+H2          2.80E13     0.0    2259.0 ! [Roy et al. 1998 for C5H6+H]
+C5H4H+OH=C5H4+H2O        3.08E06     2.0       0.0 ! [Zhong and Bozzelli'98,C5H6+H]
+C5H4H+O=C5H4+OH          4.77E04     2.71   1106.0 ! [Zhong and Bozzelli'98,C5H6+H]
+C5H4=C5H4(L)             1.00E13     0.0    6000.0 ! [estimate, present work]
+!
+!
+! C5H4(L) (1,2-pentadiene-4-yne, CH2=C=CH-CCH)
+!
+C5H5(L)+H=C5H4(L)+H2     1.81E12    0.0        0.0 ! [C2H5+H, Tsang/Hampson '86]
+C5H5(L)+OH=C5H4(L)+H2O   2.41E13    0.0        0.0 ! [C2H5+OH, Tsang/Hampson '86]
+C5H5(L)+CH3=C5H4(L)+CH4  1.95E13   -0.50       0.0 ! [C2H5+CH3, Tsang/Hampson '86]
+!
+!
+! C5H5/C5H4H/C5H5(L) = cyclic and acyclic C5H5 reactions
+!
+C5H5+H=C5H6             2.71E63  -14.79    21050.0 ! [Zhong and Bozzelli 1998, QRRK-HR]
+C5H5=H2CCCH+C2H2        2.79E79  -18.30   130834.0 ! [Moskaleva and Lin 2000, 100 torr]
+C5H5=C5H4H              5.17E80  -20.40    96185.0 ! [Moskaleva and Lin 2000, 100 torr]
+C5H4H=H2CCCH+C2H2       3.40E80  -19.20   102265.0 ! [Moskaleva and Lin 2000, 100 torr]
+C5H5=C5H5(L)            1.64E96  -23.50   137409.0 ! [Moskaleva and Lin 2000, 100 torr]
+C5H5+O=CH2CHCHCH+CO     7.27E13   -0.28      470.0 ! [Zhong and Bozzelli 1998, QRRK-HR]
+C5H5+O=C5H5O            1.84E03    1.03    -6960.0 ! [Zhong and Bozzelli 1998, QRRK-HR]
+C5H5+CH3=C5H5CH3        3.43E52  -12.49    12000.0 ! [QRRK-HR]
+!
+!
+! C5H4O, C5H4OH and C5H5OH reactions
+!
+C5H5+O=C5H4O+H           6.71E13  -0.03       40.0 ! [Zhong and Bozzelli 1998, QRRK-HR]
+C5H5O=C5H4O+H            2.90E32  -6.50    21220.0 ! [Alzueta et al. 2000]
+C5H5O=CH2CHCHCH+CO       1.10E79 -19.62    66250.0 ! [Alzueta et al. 2000]
+C5H5+OH=C5H4OH+H         2.15E30  -4.61    25050.0 ! [Zhong and Bozzelli 1998, QRRK-HR]
+C5H4O+H=C5H4OH           1.10E69 -16.018   37130.0 ! [QRRK-HR, 20 torr]
+C5H4OH+O2=C5H4O+HO2      3.00E13   0.0      5000.0 ! [Alzueta et al. 2000]
+C5H4O+H=CH2CHCHCH+CO     2.10E61 -13.27    40810.0 ! [Alzueta et al. 2000]
+C5H4O+O=C4H4+CO2         1.00E13   0.0      2000.0 ! [Alzueta et al. 2000]
+C5H4O=2C2H2+CO           1.10E47  -9.63    99500.0 ! [Wang and Brezinsky 1998, 0.1 atm]
+!
+!
+! C5H6 = cyclopentadiene reactions
+!
+C5H6+H=C5H5+H2           2.80E13     0.0    2259.0 ! [Roy et al. 1998]
+C5H6+H=C5H4H+H2          2.80E13     0.0   35139.0 ! [p.w., C5H4H/C5H5 energies]
+C5H6+H=C3H5+C2H2         6.60E14     0.0   12345.0 ! [Roy et al. 1998]
+C5H6+OH=C5H5+H2O         3.08E06     2.0       0.0 ! [Zhong and Bozzelli 1998]
+C5H6+OH=C5H4H+H2O        3.08E06     2.0   32880.0 ! [p.w., C5H4H/C5H5 energies]
+C5H6+O=C5H5+OH           4.77E04     2.71   1106.0 ! [Zhong and Bozzelli 1998]
+C5H6+O=C5H4H+OH          4.77E04     2.71  33986.0 ! [p.w., C5H4H/C5H5 energies]
+C5H6+O2=C5H5+HO2         4.00E13     0.0   37150.0 ! [Zhong and Bozzelli 1998]
+C5H6+HO2=C5H5+H2O2       1.10E04     2.60  12900.0 ! [Zhong and Bozzelli 1998]
+C5H6+CH3=C5H5+CH4        1.80E-1     4.0       0.0 ! [Zhong and Bozzelli 1998]
+C5H6+CH3=C5H4H+CH4       1.80E-1     4.0   32880.0 ! [p.w., C5H4H/C5H5 energies]
+C5H6+C2H3=C5H5+C2H4      1.20E-1     4.0       0.0 ! [Zhong and Bozzelli 1998]
+C5H6+C6H5=C5H5+C6H6      1.00E-1     4.0       0.0 ! [Zhong and Bozzelli 1998]
+C5H6+C10H7*1=C5H5+C10H8  1.00E-1     4.0       0.0 ! [p.w., sim. to C5H6 + C6H5]
+C5H6+C10H7*2=C5H5+C10H8  1.00E-1     4.0       0.0 ! [p.w., sim. to C5H6 + C6H5]
+C5H6+CH2CHCHCH=C5H5+C4H613 1.20E-1     4.0       0.0 ! [Zhong and Bozzelli 1998]
+C5H6+CH2CHCCH2=C5H5+C4H613 6.00E12     0.0       0.0 ! [Emdee et al. 1992]
+C5H6+C3H5=C5H5+C3H6      2.00E-1     4.0       0.0 ! [Zhong and Bozzelli 1998]
+C3H5+C5H5=C5H6+C3H4      1.00E12     0.0       0.0 ! [Dean 1990]
+!
+!
+! C6H2 = H-CC-CC-CC-H Triacetylene reactions
+!
+C6H2+M=C6H+H+M         5.00E16     0.0   80065.0 ! [Frenklach and Warnatz 1987]
+C6H2+OH=C6H+H2O        1.10E13     0.0    7002.7 ! [Frenklach and Warnatz 1987]
+C6H2+C2H=C6H+C2H2      2.00E13     0.0      00.0 ! [Frenklach and Warnatz 1987]
+C6H2+C2H=C4H+C4H2      1.00E13     0.0      00.0 ! [Frenklach and Warnatz 1987]
+C4H2+C2H=C6H2+H        4.98E40    -7.66  21910.0 ! [QRRK-HR, 20 torr]
+2C3H2=C6H2+H2          2.00E13     0.0   85000.0 ! [Kern et al. 1991]
+!
+!
+! C6H3 = HCCCCCHCH hexenediynyl reactions
+!
+C4H2+C2H=C6H3          3.76E63 -14.722   27250.0 ! [QRRK-HR, 20 torr]
+C6H2+H=C6H3            2.74E56 -12.585   29690.0 ! [QRRK-HR, 20 torr]
+C6H3+H=C6H2+H2         2.00E13     0.0       0.0 ! [Frenklach and Warnatz 1987]
+!
+!
+! C6H4: HCCCHCHCCH cis-3-hexen-1,5-diyne and benzyne reactions
+!
+C6H4+H=C6H3+H2         1.50E14    0.0    10205.3 ! [Frenklach and Warnatz 1987]
+C6H3+H=C6H4            9.55E67  -15.959  31510.0 ! [QRRK-HR, 20 torr]
+C6H4+OH=C6H3+H2O       7.00E13    0.0     3011.4 ! [Frenklach and Warnatz 1987] 
+C6H4+C2H=C6H3+C2H2     2.00E13    0.0        0.0 ! [Frenklach and Warnatz 1987]
+HCCHCCH+C2H2=BENZYNE+H 1.64E09    0.73   12180.0 ! [Westmoreland et al. 1989, 20 torr]
+HCCHCCH+C2H2=C6H4+H    2.96E02    3.33    9620.0 ! [Westmoreland et al. 1989, 20 torr]
+C6H4+H=C6H5(L)         1.41E67 -15.609   20940.0 ! [QRRK-HR, 20 torr]
+!
+!
+! C6H5 reactions
+!
+C6H5(L)+H=C6H4+H2      2.00E13    0.0        0.0 ! [Frenklach and Warnatz 1987]
+HCCHCCH+C2H2=C6H5(L)   1.73E11   -0.41    4030.0 ! [Westmoreland et al. 1989, 20 torr]
+HCCHCCH+C2H2=C6H5      3.33E24   -3.89    9210.0 ! [Westmoreland et al. 1989, 20 torr]
+H2CCCCH+C2H3=C6H5+H    6.00E12     0.0       0.0 ! [Pope and Miller 2000]
+C6H5+O2=C6H5O+O        2.39E21   -2.62    4400.0 ! [QRRK-HR, 20 torr]
+C6H5+HO2=C6H5O+OH      5.00E13    0.0     1000.0 ! [Leung and Lindstedt 1995]
+C6H5(L)=C6H5           1.66E11    0.0    16350.0 ! [Dewar et al. 1987]
+C6H5+O=C5H5+CO         9.00E13    0.0        0.0 ! [Frank et al. 1994]
+C6H5+CH2O=C6H6+HCO     1.75E10    0.0        0.0 ! [Yu  and Lin 1993]
+C6H5+H=C6H6            8.02E19   -2.011   1968.0 ! [Mebel et al. 2001, 100 torr]
+C6H5+H=BENZYNE+H2      4.40E-13   7.831   9261.0 ! [Mebel et al. 2001, 100 torr]
+C6H5=BENZYNE+H         6.11E45   -8.857  94310.0 ! [Madden et al. 1997, 380 torr]
+C6H5=C6H4+H            1.45E77  -17.10  129500.0 ! [Madden et al. 1997, 380 torr]
+!
+!
+! C6H6 reactions
+!
+H2CCCH+H2CCCH=C6H6      3.00E12      0.0       0.0 ! [Marinov et al. 1996]
+C4H4+C2H3=C6H6+H        1.90E12      0.0    2510.0 ! [Kubitza et al. '94, in Lindstedt/Skevis '97]
+C3H4+H2CCCH=C6H6+H      2.20E11      0.0    2000.0 ! [Wu and Kern 1987]
+CH2CHCHCH+C2H2=C6H6+H   1.90E07      1.47   4910.0 ! [Westmoreland et al. 1989, 20 torr]
+CH2CHCHCH+C2H3=C6H6+H2  2.80E-7      5.63  -1890.0 ! [Westmoreland et al. 1989, 20 torr]
+C4H4+C2H2=C6H6          4.47E11      0.0   30010.0 ! [Chanmugathas/Heicklen '1986]
+C6H6+H=C6H5+H2          3.23E07      2.095 15842.0 ! [Mebel et al. 1997]
+C6H6+O=C6H5+OH          2.00E13      0.0   14704.0 ! [Leidreiter and Wagner 1989]
+C6H6+O=C6H5O+H          2.40E13      0.0    4668.0 ! [Ko et al. 1991]
+C6H6+OH=C6H5+H2O        2.11E13      0.0    4571.0 ! [Madronich and Felder 1985]
+C6H6+O2=C6H5+HO2        6.30E13      0.0   60000.0 ! [Emdee et al. 1992]
+C6H5+CH4=C6H6+CH3       6.00E12      0.0   12320.0 ! [Tokmakov et al. 1999]
+C6H6F=C6H6              7.59E13      0.0   73853.0 ! [Melius et al. 1992]
+C6H6F+H=C6H6+H          3.00E12      0.5    2000.0 ! [Marinov et al. 1997]
+C6H6+OH=C6H5OH+H        1.59E19     -1.82  12800.0 ! [QRRK-HR, 20 torr]
+!
+!
+! C6H8 (& C6H7) chemistry:
+!
+CH2CHCHCH+C2H2=C6H7     1.96E19   -3.35    5240.0 ! [Westmoreland et al. 1989, 20 torr]
+CH3+C5H5=C6H7+H         2.44E41   -7.989  39259.0 ! [Dean 1990]
+C6H7+H=C6H6+H2          1.00E13    0.0        0.0 ! [Louw and Lucas 1973]
+C6H7+C6H5=2C6H6         1.00E12    0.0        0.0 ! [Louw and Lucas 1973]
+C6H7+H=C6H813           6.00E13    0.0        0.0 ! [Berho et al. 1999]
+C6H7+H=C6H814           6.00E13    0.0        0.0 ! [Berho et al. 1999]
+2C6H7=C6H813+C6H6       1.94E15   -1.0        0.0 ! [Berho et al. '99/James and Suart '68]
+2C6H7=C6H814+C6H6       1.67E15   -1.0        0.0 ! [Berho et al. '99/James and Suart '68]
+C6H813+O2=C6H7+HO2      8.13E11    0.0    24840.0 ! [Mulder and Louw 1985]
+C6H814+H=C6H7+H2        2.80E13    0.0     2259.0 ! [Roy et al. 1998, C5H6+H=C5H5+H2]
+C6H813=C6H6+H2          4.70E13    0.0    61600.0 ! [Orchard and Thrush 1974]
+C6H814=C6H6+H2          1.05E12    0.0    42690.0 ! [Ellis and Frey 1966]
+C2H3+CH2CHCHCH=C6H813   5.50E15   -1.67    1470.0 ! [Westmoreland et al. 1989, 20 torr]
+C4H613+C2H2=C6H814      2.30E12    0.0    35000.0 ! [Westmoreland et al. 1989, h. p. limit] 
+!
+!
+! C6H5O phenoxy reactions
+!
+C6H5O+H=C6H5OH           4.43E60  -13.232  30010.0 ! [QRRK-HR, 20 torr]
+C6H5O=C5H5+CO            2.51E11    0.0    43900.0 ! [Lin and Lin 1986]
+C6H5+OH=C6H5O+H          5.00E13    0.0        0.0 ! [Miller and Melius 1992]
+C6H5O+O=C5H5+CO2         1.00E13    0.0        0.0 ! [Alzueta et al. 2000]
+!
+!
+! C6H5OH (phenol) and hydroxyphenyl (C6H4OH) reactions
+!
+C6H5OH=C5H6+CO               1.00E12  0.0   60802.0 ! [Horn et al. 1998]
+C6H5OH+H=C6H5O+H2            1.15E14  0.0   12400.0 ! [Emdee et al. 1992]
+C6H5OH+O=C6H5O+OH            2.81E13  0.0    7352.0 ! [Emdee et al. 1992]
+C6H5OH+HO2=C6H5O+H2O2        3.00E13  0.0   15000.0 ! [Bittker 1991]
+C6H5OH+C2H3=C2H4+C6H5O       6.00E12  0.0       0.0 ! [Emdee et al. 1992]
+C6H5OH+CH2CHCHCH=C4H613+C6H5O 6.00E12  0.0       0.0 ! [Emdee et al. 1992]
+C6H5OH+CH2CHCCH2=C4H613+C6H5O 6.00E12  0.0       0.0 ! [Emdee et al. 1992]
+C6H5OH+C6H5=C6H6+C6H5O       4.91E12  0.0    4400.0 ! [Emdee et al. 1992]
+C6H5O+C5H6=C5H5+C6H5OH       3.16E11  0.0    8000.0 ! [Emdee et al. 1992]
+C6H5OH+OH=H2O+C6H5O          1.39E08  1.43   -962.0 ! [Shandross et al. 1996]
+C6H5OH+OH=H2O+C6H4OH         1.41E13  0.00   4571.0 ! [Shandross et al. 1996]
+C6H5OH+H=H2+C6H4OH           1.67E14  0.00  16000.0 ! [Shandross et al. 1996]
+C5H5+CO=C6H4OH            3.77E42  -9.865   73120.0 ! [QRRK-HR, 20 torr]
+!
+!
+! Benzoquinone (o-C6H4O2 and p-C6H4O2) reactions
+!
+C6H5+O2=OC6H4O2+H       3.00E13      0.0    9000.0 ! [Alzueta et al. 2000]
+C6H5O+O=OC6H4O2+H       8.50E13      0.0       0.0 ! [Alzueta et al. 2000]
+C6H5O+O=PC6H4O2+H       8.50E13      0.0       0.0 ! [Alzueta et al. 2000]
+OC6H4O2=C5H4O+CO        1.00E12      0.0   40000.0 ! [Alzueta et al. 2000]
+PC6H4O2=C5H4O+CO        3.70E11      0.0   59000.0 ! [Alzueta et al. 2000]
+PC6H4O2=C5H4+CO2        3.50E12      0.0   67000.0 ! [Alzueta et al. 2000]
+PC6H4O2+H=C5H5O+CO      2.50E13      0.0    4700.0 ! [Alzueta et al. 2000]
+PC6H4O2+H=C6H3O2+H2     2.00E12      0.0    8100.0 ! [Alzueta et al. 2000]
+PC6H4O2+O=C6H3O3+H      1.50E13      0.0    4530.0 ! [Alzueta et al. 2000]
+PC6H4O2+O=C6H3O2+OH     1.40E13      0.0   14700.0 ! [Alzueta et al. 2000]
+PC6H4O2+OH=C6H3O2+H2O   1.00E06      2.0    4000.0 ! [Alzueta et al. 2000]
+C6H3O2+H=PC6H4O2        1.00E14      0.0       0.0 ! [Alzueta et al. 2000]
+C6H3O2+H=2C2H2+2CO      1.00E14      0.0       0.0 ! [Alzueta et al. 1998]
+C6H3O2+O=C2H2+HCCO+2CO  1.00E14      0.0       0.0 ! [Alzueta et al. 1998]
+C6H3O3=C2H2+HCCO+2CO    1.00E12      0.0   50000.0 ! [Alzueta et al. 1998]
+C6H3O3+H=C2H2+CH2CO+2CO 1.00E14      0.0       0.0 ! [Alzueta et al. 2000]
+!
+!
+! C7H7 = C6H5CH2 BENZYL reactions
+!
+C6H5+CH3=C7H7+H         4.44E33  -5.45   24290.0 ! [QRRK-HR, 20 torr]
+C4H4+H2CCCH=C7H7        5.39E51 -12.20    7120.0 ! [QRRK-HR, 20 torr]
+C7H7+C6H5OH=C7H8+C6H5O  1.05E11   0.0     9500.0 ! [Emdee et al. 1992]
+C7H7+HO2=C6H5+CH2O+OH   5.00E12   0.0        0.0 ! [Hippler et al. 1990]
+!
+!
+! C7H8 = C6H5CH3 TOLUENE 
+!
+C7H7+H=C7H8             2.59E14     0.0       0.0 ! [Baulch et al. 1994]
+C6H5+CH3=C7H8           1.07E65   -15.64  22720.0 ! [QRRK-HR, 20 torr]
+C7H8+O2=C7H7+HO2        3.00E14     0.0   41400.0 ! [Emdee et al. 1992]
+C7H8+OH=C7H7+H2O        1.26E13     0.0    2583.0 ! [Emdee et al. 1992]
+C7H8+H=C7H7+H2          1.20E14     0.0    8235.0 ! [Emdee et al. 1992]
+C7H8+H=C6H6+CH3         1.20E13     0.0    5148.0 ! [Emdee et al. 1992]
+C7H8+CH3=C7H7+CH4       3.16E11     0.0    9500.0 ! [Emdee et al. 1992]
+C7H8+C6H5=C7H7+C6H6     2.10E12     0.0    4400.0 ! [Emdee et al. 1992]
+C7H8+C2H3=C7H7+C2H4     3.98E12     0.0    8000.0 ! [Zhang and McKinnon 1995]
+CH2CHCHCH+C3H4=C7H8+H   2.00E11     0.0    3700.0 ! [Kern et al. 1988]
+CH2CHCHCH+C3H4P=C7H8+H  3.16E11     0.0    3700.0 ! [Cole et al. 1984]
+!
+!
+! HYDROXYTOLUENE (C7H8O)
+!
+C6H5O+CH3=C7H8O         1.00E12     0.0       0.0 ! [Lin and Lin 1986]
+C7H8O+H=C7H8+OH         2.21E13     0.0    7910.0 ! [Emdee et al. 1992]
+C7H8O+H=C6H5OH+CH3      1.20E13     0.0    5148.0 ! [Emdee et al. 1992]
+!
+!
+! Benzaldehyde (C6H5CHO) and benzoyl (C6H5CO)
+!
+C7H7+O=C6H5CHO+H        1.58E13     0.0       0.0 ! [Brezinsky et al. '84]
+C6H5CHO=C6H5CO+H        3.98E15     0.0   83660.0 ! [Grela and Colussi '86]
+C6H5CHO+O=C6H5CO+OH     6.03E12     0.0    1810.0 ! [Baulch et al. '94]
+C6H5CHO+OH=C6H5CO+H2O   7.83E12     0.0       0.0 ! [Baulch et al. '94]
+C6H5CO=C6H5+CO          3.98E14     0.0   29410.0 ! [Solly and Benson '71]  
+!
+!
+! Benzylalcohol (C6H5CH2OH)
+!
+C7H7+OH=C6H5CH2OH       2.00E13     0.0       0.0 ! [Hippler et al. 1990]
+!
+!
+! Methylphenylether (C6H5OCH3)
+!
+C6H5O+CH3=C6H5OCH3      1.21E13     0.0       0.0 ! [Tsang/Hampson '86 for CH3+CH3O]
+C6H5+CH3O=C6H5OCH3      1.21E13     0.0       0.0 ! [Tsang/Hampson '86 for CH3+CH3O]
+!
+!
+! Biphenylether (C6H5OC6H5)
+!
+C6H5+C6H5O=C6H5OC6H5    1.21E13     0.0       0.0 ! [Tsang/Hampson '86 for CH3+CH3O]
+!
+!
+! PHENYLACETYLENE (C8H6 = C6H5C2H)and phenylcarbene (C6H5CH)
+!
+C6H6+C2H=C8H6+H         1.00E12     0.0        0 ! [Colket 1986]
+C6H5+C2H2=C8H6+H        8.32E22    -2.68   17400 ! [QRRK-HR, 20 torr]
+C8H6+H=A1C2H*2+H2       3.23E07    2.095   15842 ! [Mebel et al. 1997, for C6H6+H]
+C8H6+OH=A1C2H*2+H2O     2.11E13     0.0     4571 ! [Madronich and Felder 1985, for C6H6+OH]
+C8H6+CH3=A1C2H*2+CH4    1.67E12     0.0    15057 ! [Marinov et al. 1996]
+A1C2H*2+H=C8H6          8.02E19    -2.011   1968 ! [c6h5+h=c6h6]                    
+C6H5+C2H=C8H6           2.54E17    -1.489   1541 ! [Zhang and McKinnon 1995]
+C6H5+C4H4=C8H6+C2H3     3.20E11     0.0     1350 ! [Harris et al. 1988]
+CH2CHCHCH+C4H2=C8H6+H   3.16E11     0.0     1800 ! [Cole et al. 1984]
+HCCHCCH+C4H2=A1C2H*2    3.33E24    -3.89    9210 ! [n-C4H3+C2H2,Westmoreland et al. 1989, 20 torr]
+C6H5+C2H2=C6H5CHCH      8.56E44   -10.50   13220 ! [QRRK-HR, 20 torr]
+C6H5CHCH+H=C8H6+H2      1.21E14     0.0        0 ! [QRRK-HR, 20 torr]
+C6H5CHCH=C8H6+H         2.74E22    -4.061  37040 ! [Knyazev et al. 1996b for C2H3=C2H2+H]
+C8H6+O=C6H5CH+CO        3.60E12     0.0      633 ! [Eichholtz et al. '94]
+C6H5CH+H=C7H7           1.00E13     0.0        0 ! [guess, p.w.]     
+C7H7+H=C6H5CH+H2        6.03E13     0.0    15103 ! [Baulch et al. 1992 for CH3+H=HCH(T)+H2]
+C6H5CH+O=C6H6+CO        1.00E13     0.0        0 ! [guess, p.w.]
+C6H5CH+OH=C6H6+HCO      1.00E13     0.0        0 ! [guess, p.w.]
+!
+!
+! STYRENE (C8H8 = C6H5C2H3 PHENYLETHYLENE)
+!
+C6H5+C2H3=C8H8          1.75E49   -10.314  24270 ! [QRRK-HR, 20 torr]
+C6H5CHCH+H=C8H8         4.80E10    -0.74   -7630 ! [QRRK-HR, 20 torr]
+C6H5+C4H4=C8H8+C2H      3.20E11     0.0     1900 ! [Harris et al. 1988]
+C6H5+C4H613=C8H8+C2H3   3.20E11     0.0     1900 ! [Harris et al. 1988]
+C4H4+C4H4=C8H8          1.50E14     0.0    38000 ! [Lundgard and Heicklen 1984]
+CH2CHCHCH+C4H4=C8H8+H   3.16E11     0.0      600 ! [Cole et al. 1984]
+C8H8=C6H6+C2H2          1.58E11     0.0    58440 ! [Mueller-Markgraf/Troe 1988]
+C6H5+C2H4=C8H8+H        2.51E12     0.0     6200 ! [Fahr and Stein, '88]
+C8H8+H=C6H5CHCH+H2      5.07E07     1.93   12951 ! [Knyazev et al. 1996a for C2H4+H]
+C8H8+OH=C6H5CHCH+H2O    2.02E13     0.0     5955 ! [Miller and Melius 1992 for C2H4+OH]
+C6H6+C2H3=C8H8+H        7.94E11     0.0     6400 ! [Fahr and Stein 1988]
+C6H5+C2H2=C8H7*2        7.90E51   -12.41   17770 ! [QRRK-HR, 20 torr]
+C8H7*2+H=C8H8           8.02E19    -2.011   1968 ! [c6h5+h=c6h6]
+!
+!
+! PHENYLETHANE 
+!
+C7H7+CH3=C8H10          1.19E13     0.0     221.0 ! [Brand et al. 1990]
+C8H10+H=C6H6+C2H5       1.20E13     0.0    5100.0 ! [Zhang and McKinnon 1995]
+C8H10+OH=C8H8+H2O+H     8.34E12     0.0    2583.0 ! [Emdee et al. 1992]
+C8H10+H=C8H8+H2+H       8.00E13     0.0    8235.0 ! [Emdee et al. 1992]
+C8H10+O2=C8H8+HO2+H     2.00E14     0.0   41400.0 ! [Emdee et al. 1992]
+C8H10=C8H8+H2           5.01E12     0.0   64000.0 ! [Clark and Price 1970]
+!
+!
+! BIPHENYL
+!
+C6H5+C6H5=C12H10        5.94E42    -8.83  13830 ! [QRRK-HR, 20 torr]
+C6H5+C6H6=C12H10+H      1.90E76   -18.90  39470 ! [Park et al. 1999, 40 torr]
+C12H10+H=C12H9+H2       3.23E07     2.095 15842 ! [Mebel et al. 1997 for C6H6+H]
+C12H10+OH=C12H9+H2O     2.11E13     0.0    4571 ! [Madronich and Felder 1985 for C6H6+OH]
+C6H5+H2CCCH=C6H5C3H2+H  3.00E12     0.0       0 ! [D'Anna and Violi 1998]
+C6H5C3H2+H2CCCH=C12H9+H 3.00E12     0.0       0 ! [D'Anna and Violi 1998]
+C12H9+H=C12H10          1.17E33    -5.57   8760 ! [QRRK-HR, 20 torr]
+!
+!
+! Naphthalene (C10H8)
+!
+2C5H5=C10H8+2H           5.00E12   0.0     8000.0 ! [0.25 * Marinov et al. 1998]
+C6H5+HCCHCCH=C10H8       1.51E75 -17.845  39600.0 ! [QRRK-HR, 20 torr]
+C7H7+H2CCCH=C10H8+H+H    3.00E12   0.0        0.0 ! [D'Anna and Violi 1998]
+A1C2H*2+C2H2=C10H7*1     4.67E06   1.787   3262.0 ! [HP-limit for C10H7*1+C2H2/4]
+C6H5+HCCHCCH=C10H7*2+H   1.84E72 -16.129  57630.0 ! [QRRK-HR, 20 torr]
+C10H8+H=C10H7*1+H2       3.23E07   2.095  15842.0 ! [Mebel et al. 1997 for C6H6+H]
+C10H8+H=C10H7*2+H2       3.23E07   2.095  15842.0 ! [Mebel et al. 1997 for C6H6 + H]
+C10H8+OH=C10H7*1+H2O     2.11E13   0.0       4571 ! [Madronich and Felder 1985 for C6H6+OH]
+C10H8+OH=C10H7*2+H2O     2.11E13   0.0       4571 ! [Madronich and Felder 1985 for C6H6+OH]
+C10H8+CH3=C10H7*1+CH4    2.00E12   0.0    15060.0 ! [Zhang et al. 1989, C6H6+CH3]
+C10H8+CH3=C10H7*2+CH4    2.00E12   0.0    15060.0 ! [Zhang et al. 1989, C6H6+CH3]
+C10H7*1+H=C10H8          8.02E19  -2.011   1968.0 ! [Mebel et al. 2001, C6H5, 100 torr]
+C10H7*1+H=A2T1+H2        4.40E-13  7.831   9261.0 ! [Mebel et al. 2001, C6H5, 100 torr]
+C10H7*2+H=C10H8          8.02E19  -2.011   1968.0 ! [Mebel et al. 2001, C6H5, 100 torr]
+C10H7*2+H=A2T2+H2        4.40E-13  7.831   9261.0 ! [Mebel et al. 2001, C6H5, 100 torr]
+!
+!
+! Formation of A21C6H4 and A22C6H4
+!
+A2T1+BENZYNE=A21C6H4     4.58E41  -8.73   12740.0 ! [QRRK-HR, 20 torr]
+A2T2+BENZYNE=A22C6H4     4.58E41  -8.73   12740.0 ! [QRRK-HR, 20 torr]
+!
+!
+! Naphthol and indene
+!
+C10H7*1+O2=C10H7O-1+O     2.39E21   -2.62 4400.0 ! [QRRK-HR, 20 torr, for C6H5+O2]
+C10H7*1+OH=C10H7O-1+H     5.00E13    0.0     0.0 ! [Miller and Melius 1992, for C6H5+OH]
+C10H7*2+O2=C10H7O-2+O     2.39E21   -2.62 4400.0 ! [QRRK-HR, 20 torr, for C6H5+O2]
+C10H7*2+OH=C10H7O-2+H     5.00E13    0.0     0.0 ! [Miller and Melius 1992, for C6H5+OH]
+C10H7O-1+H=C10H7OH-1      4.43E60  -13.232 30010 ! [QRRK, 20 torr,for C6H5O+H]
+C10H7OH-1+H=C10H7O-1+H2   1.15E14    0.0 12400.0 ! [rxn. 674.]
+C10H8+OH=C10H7OH-1+H      1.59E19  -1.82 12800.0 ! [QRRK-HR, 20 torr, for C6H6+OH]
+C10H7OH-1+OH=C10H7O-1+H2O 1.39E08    1.43 -962.0 ! [Shandross et al. 1996, C6H5OH+OH]
+C10H7O-2+H=C10H7OH-2      4.43E60  -13.232 30010 ! [QRRK, 20 torr,for C6H5O+H]
+C10H7OH-2+H=C10H7O-2+H2   1.15E14    0.0 12400.0 ! [rxn. 674.]
+C10H8+OH=C10H7OH-2+H      1.59E19  -1.82 12800.0 ! [QRRK-HR, 20 torr, for C6H6+OH]
+C10H7OH-2+OH=C10H7O-2+H2O 1.39E08    1.43 -962.0 ! [Shandross et al. 1996, C6H5OH+OH]
+C10H7O-1=INDENE*+CO       2.51E11    0.0   43900 ! [Lin and Lin 1986, for C6H5O]
+C10H7O-2=INDENE*+CO       2.51E11    0.0   43900 ! [Lin and Lin 1986, for C6H5O]
+INDENE+H=INDENE*+H2       1.48E14    0.0   13585 ! [Knyazev et al. 1996a for CH4+H]
+INDENE+OH=INDENE*+H2O     1.57E07    1.83   2780 ! [Baulch et al. 1992 for CH4+OH]
+INDENE+O=INDENE*+OH       6.92E08    1.56   8490 ! [Baulch et al. 1992 for CH4+O]
+INDENE*+H=INDENE          2.00E14    0.0     0.0 ! [Marinov et al. 1996]
+C7H7+C2H2=INDENE+H        3.20E11    0.0    7000 ! [Marinov et al. 1996]
+INDENE*+O=C6H5CHCH+CO     1.00E14    0.0     0.0 ! [Marinov et al. 1996]
+!
+!
+! Methylnapththalene Formation
+!
+C10H7*1+CH3=A2CH2-1+H     1.70E36  -5.91  34630. ! [QRRK-HR, 20 torr] 
+C10H7*2+CH3=A2CH2-2+H     1.70E36  -5.91  34630. ! [QRRK-HR, 20 torr]
+C10H7*1+CH3=A2CH3-1       3.05E52 -11.80  17660. ! [QRRK-HR, 20 torr]
+C10H7*2+CH3=A2CH3-2       3.05E52 -11.80  17660. ! [QRRK-HR, 20 torr]      
+A2CH2-1+H=A2CH3-1         1.00E14   0.0       0. ! [Marinov et al. 1996]
+A2CH2-2+H=A2CH3-2         1.00E14   0.0       0. ! [Marinov et al. 1996]
+A2CH3-1+H=C10H8+CH3       1.20E13   0.0    5148. ! [Marinov et al. 1996]
+A2CH3-2+H=C10H8+CH3       1.20E13   0.0    5148. ! [Marinov et al. 1996]
+!
+!
+! 1-and-2-naphthylacetylene
+!
+C10H7*1+C2H2=A2C2H-1+H    9.60E-9   6.44   8620. ! [QRRK-HR, w/isom., 20 torr]
+C10H7*2+C2H2=A2C2H-2+H    1.01E26  -3.44  20230. ! [QRRK-HR, w/o is., 20 torr]
+A2VINP+H=A2C2H-2+H2       1.21E14   0.0       0. ! [QRRK-HR, 20 torr, for C6H5CHCH+H]
+!
+!
+! 2-vinylnaphthalene and its radical
+!
+C10H7*2+C2H4=A2C2H3-2+H  2.51E12   0.0    6200. ! [Fahr and Stein 1988, for C6H5+C2H4]
+C10H8+C2H3=A2C2H3-2+H    7.94E11   0.0    6399. ! [Fahr and Stein 1988, for C6H6+C2H3]
+C10H7*2+C2H2=A2VINP      2.77E46 -10.90  14210. ! [QRRK-HR, 20 torr]
+A2VINP=A2C2H-2+H         2.74E22  -4.061 37040. ! [Knyazev et al. 1996b for C2H3=C2H2+H]
+A2VINP+H=A2C2H3-2        4.80E10  -0.74  -7630. ! [QRRK-HR, 20 torr, for C6H5CHCH+H]
+!
+!
+! Biphenylene and Acenaphthylene 
+!
+BENZYNE+BENZYNE=BIPHEN   4.60E12  0.0     0.0 ! [Porter and Steinfeld 1968]
+BIPHENH=BIPHEN+H         1.30E16  0.0 33203.0 ! [Mebel et al. 1997 for C6H7=C6H6+H]
+BIPHENH+H= BIPHEN+H2     6.02E12  0.0     0.0 ! [Mebel et al. 1997 for C6H7+H=C6H6+H2]
+BIPHENH=A2R5+H           1.00E13  0.0 20000.0 ! [estimate]
+C10H7*1+C2H2=A2R5+H    3.57E24    -3.176  14861 ! [QRRK-HR, 20 torr]
+!
+!
+! Acenaphthene
+!
+C10H7*1+C2H4=A2R5H2+H    2.51E12     0.0    6200. ! [Fahr and Stein 1988, for C6H5+C2H4]
+C10H7*1+C2H2=HA2R5       7.74E45   -10.85  13470. ! [QRRK-HR, 20 torr]
+HA2R5+H=A2R5+H2          1.81E12     0.0       0. ! [Tsang et al. 1986, for C2H5+H]
+HA2R5+OH=A2R5+H2O        2.41E13     0.0       0. ! [Tsang et al. 1986, for C2H5+OH]
+HA2R5+H=A2R5H2           1.00E14     0.0       0. ! [Sillesen 1993, for C2H5+H=C2H6]
+A2R5H2+H=HA2R5+H2        5.40E02     3.5    5210. ! [Miller and Melius 1992, for C2H6+H]
+A2R5H2+OH=HA2R5+H2O      8.70E09     1.05   1810. ! [Miller and Melius 1992, for C2H6+OH]
+A2R5H2=A2R5+H2           4.70E13     0.0   61600. ! [Orchard and Thrush 1973 for 1,3-cycohexadiene=C6H6+H2]
+!
+!
+! PHENANTHRENE (A3)
+!
+C12H9+C2H2=A3+H          1.87E07   1.787   3262 ! [HP-limit for 1-C10H7+C2H2, O. Mazyar in Richter et al. 2001]
+INDENE*+C5H5=A3+2H       5.00E12   0.0     8000 ! [0.5*Marinov et al 1997]
+A2C2H-2+H=A2C2H-2*1+H2   3.23E07   2.095  15842 ! [Mebel et al. 1997 for C6H6+H]
+A2C2H-2+OH=A2C2H-2*1+H2O 2.11E13   0.0     4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A2C2H-2*1+C2H2=A3*1      4.67E06   1.787   3262 ! [HP-limit for C10H7*1+C2H2/4]
+A2C2H-1+H=A2C2H-1*2+H2   3.23E07   2.095  15842 ! [Mebel et al. 1997 for C6H6+H]
+A2C2H-1+OH=A2C2H-1*2+H2O 2.11E13   0.0     4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A2C2H-1*2+C2H2=A3*4      4.67E06   1.787   3262 ! [HP-limit for C10H7*1+C2H2/4]
+C8H6+C6H5=A3+H           9.55E11   0.0     4308 ! [Park et al. 1999 for C6H5+C6H6]
+A1C2H*2+C6H6=A3+H        9.55E11   0.0     4308 ! [Park et al. 1999 for C6H5+C6H6]
+!
+A3+H=A3*1+H2             3.23E07   2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3+H=A3*2+H2             3.23E07   2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3+H=A3*4+H2             3.23E07   2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3+H=A3*9+H2             3.23E07   2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3+OH=A3*1+H2O           2.11E13   0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3+OH=A3*2+H2O           2.11E13   0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3+OH=A3*4+H2O           2.11E13   0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3+OH=A3*9+H2O           2.11E13   0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3*1+H=A3                2.15E19  -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]
+A3*2+H=A3                2.15E19  -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]
+A3*4+H=A3                2.15E19  -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]
+A3*9+H=A3                2.15E19  -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]
+!
+!
+! ANTHRACENE
+!
+A2C2H-2+H=A2C2H-2*3+H2    3.23E07  2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A2C2H-2+OH=A2C2H-2*3+H2O  2.11E13  0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A2C2H-2*3+C2H2=A3L*1      4.67E06  1.787    3262 ! [HP-limit for C10H7*1+C2H2/4]
+!
+C10H7*2+C4H2=A3L*2        4.67E06  1.787    3262 ! [HP-limit for C10H7*1+C2H2/4]
+!
+A3L + H = A3L*1 + H2      3.23E07  2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3L + OH = A3L*1 + H2O    2.11E13  0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3L*1+H=A3L               2.15E19 -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]
+A3L + H = A3L*2 + H2      3.23E07  2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3L + OH = A3L*2 + H2O    2.11E13  0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3L*2+H=A3L               2.15E19 -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]   
+A3L + H = A3L*9 + H2      3.23E07  2.095   15842 ! [Mebel et al. 1997 for C6H6+H]
+A3L + OH = A3L*9 + H2O    2.11E13  0.0      4571 ! [Madronich and Felder 1985, for C6H6+OH]
+A3L*9+H=A3L               2.15E19 -1.55     1700 ! [QRRK-HR, 20 torr, for A3*1+H=A3]
+A3L=A3                    7.94E12  0.0     65000 ! [Colket and Seery 1994]
+!

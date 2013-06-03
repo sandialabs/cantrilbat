@@ -1,0 +1,542 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "cathode_surface", with name, "cathode_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = li_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         li_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+        Electronic Charge = 0.00
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    310.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    330.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    350.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "metal_Li_LiIon_electrons", with name, "metal_Li_LiIon_electrons", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = electron_Li_LiIon
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1electron_Li_LiIon          1.0000       1.835E-03       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_electrons"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 0.000545 gm/mol
+        Heat of formation (298.15K) = 0.0001 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 250 K
+        Maximum Temperature = 500 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 0.545 m3/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 0.545 m3/kmol
+        StoichSubstance constant density = 0.001 kg m-3 
+        species Molar Volume = 1.83486E+06 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 500: 
+                         169.552          -882.711          1977.438         -1487.312
+                       -1.609635         -31.24825          413.6466
+               High temperature polynomials: 500 < T < 500: 
+                         169.552          -882.711          1977.438         -1487.312
+                       -1.609635         -31.24825          413.6466
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |    -0.0478         -2.0167         5.8448       6.7892   |      -2.0166 | 
+|    298.15 |     0.0000         -2.0727         5.8859       6.9518   |      -2.0726 | 
+|    300.00 |     0.0109         -2.0856         5.8953       6.9882   |      -2.0855 | 
+|    310.00 |     0.0701         -2.1564         5.9477       7.1824   |      -2.1563 | 
+|    320.00 |     0.1299         -2.2292         6.0035       7.3721   |      -2.2291 | 
+|    330.00 |     0.1902         -2.3038         6.0636       7.5577   |      -2.3038 | 
+|    340.00 |     0.2512         -2.3803         6.1283       7.7397   |      -2.3803 | 
+|    350.00 |     0.3128         -2.4586         6.1976       7.9183   |      -2.4585 | 
+|    360.00 |     0.3751         -2.5387         6.2715       8.0939   |      -2.5386 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "ECDMC_LiPF6", with name, "ECDMC_LiPF6", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = ECDMC
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1           ECDMC          0.8400       6.269E-04       8.400E-01
+              2             Li+          0.0800       5.970E-05       8.000E-02
+              3            PF6-          0.0800       5.970E-05       8.000E-02
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  H: 4
+                  C: 3
+                  O: 3
+        Electronic Charge = 0.00
+        Molecular Weight = 88.063 gm/mol
+        Heat of formation (298.15K) = -119.5030 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 1.5 m3/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 1.5 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =        -500000000 J kmol-1
+                                S  =            100000 J kmol-1 K-1
+                                Cp =                10 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |    -0.0000         -6.9312         0.0024      23.9005   |    -126.4342 | 
+|    298.15 |     0.0000         -7.1260         0.0024      23.9006   |    -126.6290 | 
+|    300.00 |     0.0000         -7.1702         0.0024      23.9006   |    -126.6732 | 
+|    310.00 |     0.0000         -7.4092         0.0024      23.9007   |    -126.9122 | 
+|    320.00 |     0.0001         -7.6482         0.0024      23.9008   |    -127.1512 | 
+|    330.00 |     0.0001         -7.8872         0.0024      23.9008   |    -127.3902 | 
+|    340.00 |     0.0001         -8.1262         0.0024      23.9009   |    -127.6292 | 
+|    350.00 |     0.0001         -8.3652         0.0024      23.9010   |    -127.8682 | 
+|    360.00 |     0.0001         -8.6042         0.0024      23.9011   |    -128.1072 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  Li: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 6.94046 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 0 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    310.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    330.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    350.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  P: 1
+                  F: 6
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 144.965 gm/mol
+        Heat of formation (298.15K) = -119.5030 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 1 m3/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 1 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =        -500000000 J kmol-1
+                                S  =             50000 J kmol-1 K-1
+                                Cp =                10 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |    -0.0000         -3.4656         0.0024      11.9502   |    -122.9686 | 
+|    298.15 |     0.0000         -3.5630         0.0024      11.9503   |    -123.0660 | 
+|    300.00 |     0.0000         -3.5851         0.0024      11.9503   |    -123.0881 | 
+|    310.00 |     0.0000         -3.7046         0.0024      11.9504   |    -123.2076 | 
+|    320.00 |     0.0001         -3.8241         0.0024      11.9505   |    -123.3271 | 
+|    330.00 |     0.0001         -3.9436         0.0024      11.9505   |    -123.4466 | 
+|    340.00 |     0.0001         -4.0631         0.0024      11.9506   |    -123.5661 | 
+|    350.00 |     0.0001         -4.1826         0.0024      11.9507   |    -123.6856 | 
+|    360.00 |     0.0001         -4.3021         0.0024      11.9508   |    -123.8051 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "LiCoO2_Interstitials_cathode", with name, "LiCoO2_Interstitials_cathode", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = LiCoO2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          LiCoO2          0.8000       3.270E-05       8.004E-01
+              2            CoO2          0.2000       8.175E-06      2.028E+303
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Li: 1
+                  Co: 1
+                  O: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 97.873 gm/mol
+        Heat of formation (298.15K) = 680.7676 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =        2848328304 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |     0.0000          0.0000         0.0000       0.0000   |     680.7676 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |     680.7676 | 
+|    300.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    310.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    320.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    330.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    340.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    350.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    360.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  Co: 1
+                  O: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 90.932 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
+        StandState Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    310.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    330.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    350.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
+
+        LiCoO2 <=> Li+  + electron_Li_LiIon + CoO2
+
+        There is one reactant: LiCoO2 
+        There are 3 products: Li+ electron_Li_LiIon CoO2 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+        This reaction is charge transfer reaction, n = 1
+        Electrochemical Beta = 0.5
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |metal_Li_LiIon_electrons|   3           1    0.000545 |            -1                 0 |
+               |         ECDMC_LiPF6|   3           1      6.9405 |             1                 0 |
+               |LiCoO2_Interstitials_cathode|   3           0      -6.941 |             0                 0 |
+               |     cathode_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = kmol/(m^2 s)
+        units_krev = Units for reverse reaction rate constant = kmol/(m^2 s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  290.0 |  3.38E-25  5.72E-18      9.59 |    -682.78   -680.81      6.79  |  0.00E+00  0.00E+00      0.00 |  3.38E-25  0.00E+00 |
+|  298.1 |  5.32E-25  5.96E-18      9.62 |    -682.84   -680.77      6.95  |  0.00E+00  0.00E+00      0.00 |  5.32E-25  0.00E+00 |
+|  300.0 |  5.88E-25  6.01E-18      9.62 |    -682.85   -680.76      6.99  |  0.00E+00  0.00E+00      0.00 |  5.88E-25  0.00E+00 |
+|  310.0 |  9.91E-25  6.32E-18      9.65 |    -682.92   -680.70      7.18  |  0.00E+00  0.00E+00      0.00 |  9.91E-25  0.00E+00 |
+|  320.0 |  1.62E-24  6.62E-18      9.68 |    -683.00   -680.64      7.37  |  0.00E+00  0.00E+00      0.00 |  1.62E-24  0.00E+00 |
+|  330.0 |  2.57E-24  6.94E-18      9.71 |    -683.07   -680.58      7.56  |  0.00E+00  0.00E+00      0.00 |  2.57E-24  0.00E+00 |
+|  340.0 |  3.97E-24  7.27E-18      9.74 |    -683.15   -680.52      7.74  |  0.00E+00  0.00E+00      0.00 |  3.97E-24  0.00E+00 |
+|  350.0 |  6.00E-24  7.60E-18      9.77 |    -683.23   -680.45      7.92  |  0.00E+00  0.00E+00      0.00 |  6.00E-24  0.00E+00 |
+|  360.0 |  8.87E-24  7.94E-18      9.80 |    -683.31   -680.39      8.09  |  0.00E+00  0.00E+00      0.00 |  8.87E-24  0.00E+00 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: LiCoO2 <=> Li+  + electron_Li_LiIon + CoO2
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index pertaining to the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage = phi_Metal - phi_Soln  = 0 Volts
+               nStoichElectrons (product electrons - reactant electrons) = 1 
+               Delta G (rxn)   =    3.7084e+08 J/kmol   --->                  E    = 3.84353 Volts
+               Delta G_SS (rxn)=    -2.857e+09 J/kmol   --->                  E_SS = -29.6107 Volts
+               Bath Gas conditions:
+                  T = 298.15 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                           li_site            1
+
+               ---------------------------------------------------------------------------------------------
+               |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
+               |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
+               ---------------------------------------------------------------------------------------------
+               !       3.1 |       67.6            0         67.6 |    6.52e+05           -0      6.52e+05 |
+               !       3.2 |        473            0          473 |    4.57e+06           -0      4.57e+06 |
+               !       3.3 |   3.31e+03            0     3.31e+03 |     3.2e+07           -0       3.2e+07 |
+               !       3.4 |   2.32e+04            0     2.32e+04 |    2.24e+08           -0      2.24e+08 |
+               !       3.5 |   1.62e+05            0     1.62e+05 |    1.57e+09           -0      1.57e+09 |
+               !       3.6 |   1.14e+06            0     1.14e+06 |     1.1e+10           -0       1.1e+10 |
+               !       3.7 |   7.96e+06            0     7.96e+06 |    7.68e+10           -0      7.68e+10 |
+               !       3.8 |   5.57e+07            0     5.57e+07 |    5.38e+11           -0      5.38e+11 |
+               !     3.844 |    1.3e+08            0      1.3e+08 |    1.25e+12           -0      1.25e+12 |
+               !       3.9 |    3.9e+08            0      3.9e+08 |    3.76e+12           -0      3.76e+12 |
+               !         4 |   2.73e+09            0     2.73e+09 |    2.64e+13           -0      2.64e+13 |
+               !       4.1 |   1.91e+10            0     1.91e+10 |    1.85e+14           -0      1.85e+14 |
+               ---------------------------------------------------------------------------------------------
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               -----------------------------------------------------------------
+               |  Voltage  |       Ifwd         Irev        Inet  |    li_site |
+               |   Volts   |               (amps/cm2)             |            |
+               -----------------------------------------------------------------
+               !       3.1 |   6.52e+05           -0     6.52e+05 |         1  |
+               !       3.2 |   4.57e+06           -0     4.57e+06 |         1  |
+               !       3.3 |    3.2e+07           -0      3.2e+07 |         1  |
+               !       3.4 |   2.24e+08           -0     2.24e+08 |         1  |
+               !       3.5 |   1.57e+09           -0     1.57e+09 |         1  |
+               !       3.6 |    1.1e+10           -0      1.1e+10 |         1  |
+               !       3.7 |   7.68e+10           -0     7.68e+10 |         1  |
+               !       3.8 |   5.38e+11           -0     5.38e+11 |         1  |
+               !     3.844 |   1.25e+12           -0     1.25e+12 |         1  |
+               !       3.9 |   3.76e+12           -0     3.76e+12 |         1  |
+               !         4 |   2.64e+13           -0     2.64e+13 |         1  |
+               !       4.1 |   1.85e+14           -0     1.85e+14 |         1  |
+               -----------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "LiCoO2_Interstitials_cathode", with name, "LiCoO2_Interstitials_cathode", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = LiCoO2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          LiCoO2          0.8000       3.270E-05       8.004E-01
+              2            CoO2          0.2000       8.175E-06      2.028E+303
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "metal_Li_LiIon_electrons", with name, "metal_Li_LiIon_electrons", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = electron_Li_LiIon
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1electron_Li_LiIon          1.0000       1.835E-03       1.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "ECDMC_LiPF6", with name, "ECDMC_LiPF6", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = ECDMC
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1           ECDMC          0.8400       6.269E-04       8.400E-01
+              2             Li+          0.0800       5.970E-05       8.000E-02
+              3            PF6-          0.0800       5.970E-05       8.000E-02
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "cathode_surface", with name, "cathode_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = li_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         li_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+==========================================================================================================================================
+
+INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiIon_electrons"
+
+        electron_Li_LiIon + Li+ + CoO2 = LiCoO2
+
+        There are 3 reactants: electron_Li_LiIon (1) Li+ (1) CoO2 (1) 
+        There is one product: LiCoO2 (1) 
+        Reaction Type = Global Extra Rxn - not in mechanism
+        Reaction is reversible
+
+        This reaction is a charge transfer reaction, n = 1
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |metal_Li_LiIon_electrons|   3          -1   -0.000545 |             1                 0 |
+               |         ECDMC_LiPF6|   3          -1     -6.9405 |            -1                 0 |
+               |LiCoO2_Interstitials_cathode|   3           0       6.941 |             0                 0 |
+               |     cathode_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_ROP = Units for Global Reaction Rate of progress = kmol / m^2 s
+
+|------------------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                               |
+|  Temp  |  FwdROP     Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  RevROP    A_rev     Ea_rev   |  NetROP       Anet     Ea_net |
+|   (K)  |    (units_ROP)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_ROP)      (kcal/gmol) |   (units_ROP)     (kcal/gmol) |
+|--------|-------------------------------|---------------------------------|-------------------------------|-------------------------------|
+|  290.0 | -0.00E+00 -0.00E+00      0.00 |     682.78    680.81     -6.79  |  2.70E-25  4.58E-18      9.59 | -2.70E-25 -4.58E-18      9.59 |
+|  298.1 | -0.00E+00 -0.00E+00      0.00 |     682.84    680.77     -6.95  |  4.26E-25  4.77E-18      9.62 | -4.26E-25 -4.77E-18      9.62 |
+|  300.0 | -0.00E+00 -0.00E+00      0.00 |     682.85    680.76     -6.99  |  4.71E-25  4.81E-18      9.62 | -4.71E-25 -4.81E-18      9.62 |
+|  310.0 | -0.00E+00 -0.00E+00      0.00 |     682.92    680.70     -7.18  |  7.93E-25  5.05E-18      9.65 | -7.93E-25 -5.05E-18      9.65 |
+|  320.0 | -0.00E+00 -0.00E+00      0.00 |     683.00    680.64     -7.37  |  1.30E-24  5.30E-18      9.68 | -1.30E-24 -5.30E-18      9.68 |
+|  330.0 | -0.00E+00 -0.00E+00      0.00 |     683.07    680.58     -7.56  |  2.06E-24  5.55E-18      9.71 | -2.06E-24 -5.55E-18      9.71 |
+|  340.0 | -0.00E+00 -0.00E+00      0.00 |     683.15    680.52     -7.74  |  3.18E-24  5.81E-18      9.74 | -3.18E-24 -5.81E-18      9.74 |
+|  350.0 | -0.00E+00 -0.00E+00      0.00 |     683.23    680.45     -7.92  |  4.80E-24  6.08E-18      9.77 | -4.80E-24 -6.08E-18      9.77 |
+|  360.0 | -0.00E+00 -0.00E+00      0.00 |     683.31    680.39     -8.09  |  7.10E-24  6.35E-18      9.80 | -7.10E-24 -6.35E-18      9.80 |
+|------------------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: electron_Li_LiIon + Li+ + CoO2 = LiCoO2
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index for the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage                         = 0 Volts
+               nStoicElectrons                       = -1 
+               Delta G (rxn)   =   -3.7084e+08 J/kmol   --->                  E    = 3.84353 Volts
+               Delta G_SS (rxn)=     2.857e+09 J/kmol   --->                  E_SS = -29.6107 Volts
+               Bath Conditions:
+                  T = 298.15 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                           li_site            1
+
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               -------------------------------------------------------------------------------------------------------------------
+               |  Voltage  |       Ifwd   Iexchange_f   Beta_f   |       Irev   Iexchange_r   Beta_r   |    Inet     |    li_site |
+               |   Volts   |         (amps/cm2)                  |         (amps/cm2)                  |             |            |
+               -------------------------------------------------------------------------------------------------------------------
+               !       3.1 |           0         nan         nan |  6.5211e+05 -1.2545e+12         0.5 |  6.5211e+05 |         1  |
+               !       3.2 |           0         nan         nan |  4.5656e+06 -1.2545e+12         0.5 |  4.5656e+06 |         1  |
+               !       3.3 |           0         nan         nan |  3.1965e+07 -1.2545e+12         0.5 |  3.1965e+07 |         1  |
+               !       3.4 |           0         nan         nan |  2.2379e+08 -1.2545e+12         0.5 |  2.2379e+08 |         1  |
+               !       3.5 |           0         nan         nan |  1.5668e+09 -1.2545e+12         0.5 |  1.5668e+09 |         1  |
+               !       3.6 |           0         nan         nan |   1.097e+10 -1.2545e+12         0.5 |   1.097e+10 |         1  |
+               !       3.7 |           0         nan         nan |  7.6802e+10 -1.2545e+12         0.5 |  7.6802e+10 |         1  |
+               !       3.8 |           0         nan         nan |  5.3771e+11 -1.2545e+12         0.5 |  5.3771e+11 |         1  |
+               !     3.844 |           0         nan         nan |  1.2545e+12 -1.2545e+12         0.5 |  1.2545e+12 |         1  |
+               !       3.9 |           0         nan         nan |  3.7646e+12 -1.2545e+12         0.5 |  3.7646e+12 |         1  |
+               !         4 |           0         nan         nan |  2.6357e+13 -1.2545e+12         0.5 |  2.6357e+13 |         1  |
+               !       4.1 |           0         nan         nan |  1.8453e+14 -1.2545e+12         0.5 |  1.8453e+14 |         1  |
+               -------------------------------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------

@@ -1,0 +1,84 @@
+#
+#
+#
+Number of Cantera Files = 5
+Cantera File Name = FeS2_1_electrode.xml
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt_trans.xml
+Cantera File Name = FeS2.xml
+Cantera File Name = Li3Fe2S4.xml
+#
+#Cantera File Name = FeS2_2_electrode.xml
+#Cantera File Name = Li2+yFe1-yS2_lattice.xml
+#Cantera File Name = Fe1_xS.xml
+#Cantera File Name = FeS2_3_electrode.xml
+#Cantera File Name = Li2S.xml
+#Cantera File Name = Fe_Solid.xml
+#
+#
+!Debugging = true
+Output Units = KJoule
+Bath Temperature = 723.15
+Bath Pressure =  1 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 25.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 648.15
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+!  Added Temperatures = 723.
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Bath Species ID = Cl-
+   start block Bath Species Mole Fraction
+       Li+ = 0.294
+       K+ = 0.206
+       Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = -1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+# the above were empty lines

@@ -1,0 +1,10 @@
+This is an example where the gibbs free energy change for removal of the phase, starts to get vanishingly low. This causes an inordinate number of iterations in the algorithm. 
+
+
+
+11/8/12 HKM
+The "better" solutions are from the new capability to check the stability of existing phases and do large jumps. 
+This capability is in the liquidTransportBranch and will be ported over.
+
+
+

@@ -1,0 +1,64 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "EC_DMC", with name, "EC_DMC", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = EC_C3H4O3(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1    EC_C3H4O3(L)          1.0000       1.501E-02       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "EC_C3H4O3(L)" IN PHASE "EC_DMC"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  C: 3
+                  H: 4
+                  O: 3
+        Electronic Charge = 0.00
+        Molecular Weight = 88.063 gm/mol
+        Heat of formation (298.15K) = -136.6585 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 311 K
+        Maximum Temperature = 521 K
+        Partial    Molar Volume at (T,P) of (650,101325) = 0.0666235 m3/kmol
+        StandState Molar Volume at (T,P) of (650,101325) = 0.0666235 m3/kmol
+        StoichSubstance constant density = 1321.8 kg m-3 
+        species Molar Volume = 8.59095E-06 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 311 < T < 521: 
+                          1.0651            1.4882                 0                 0
+                               0          -572.163            92.684
+               High temperature polynomials: 521 < T < 521: 
+                          1.0651            1.4882                 0                 0
+                               0          -572.163            92.684
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  298.00*|    -0.0001         -6.5411         0.3606      21.9498   |    -143.1996 | 
+|**  298.15*|     0.0000         -6.5444         0.3606      21.9500   |    -143.2029 | 
+|**  300.00*|     0.0007         -6.5850         0.3613      21.9522   |    -143.2435 | 
+|    350.00 |     0.0192         -7.6841         0.3791      22.0093   |    -144.3426 | 
+|    400.00 |     0.0386         -8.7858         0.3968      22.0610   |    -145.4444 | 
+|    450.00 |     0.0589         -9.8901         0.4146      22.1088   |    -146.5486 | 
+|    500.00 |     0.0800        -10.9967         0.4324      22.1534   |    -147.6552 | 
+|**  550.00*|     0.1021        -12.1054         0.4502      22.1954   |    -148.7639 | 
+|**  600.00*|     0.1251        -13.2162         0.4680      22.2354   |    -149.8747 | 
+|**  650.00*|     0.1489        -14.3289         0.4858      22.2735   |    -150.9874 | 
+---------------------------------------------------------------------------------------
+internal energy = -567.063

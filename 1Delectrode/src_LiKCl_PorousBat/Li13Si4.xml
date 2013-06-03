@@ -1,0 +1,118 @@
+ <?xml version="1.0"?>
+ <ctml>
+   <validate reactions="yes" species="yes"/>
+    
+   <!-- phase Li13Si4(S)    -->
+   <phase dim="3" id="Li13Si4(S)">
+      <elementArray datasrc="elements.xml">
+         Li  Si
+      </elementArray>
+      <speciesArray datasrc="#species_LiSi(S)"> Li13Si4(S) </speciesArray>
+      <thermo model="StoichSubstance">
+      <!-- density from Nesper, Prog Solid State Chem, 1990 -->
+      <density units="g/cm3"> 1.24 </density> 
+      <!-- molar volume = 269.2 A^3 from Nesper -->
+    </thermo>
+    <!-- As of 6/11/2012 these are mostly guesses not actual values-->
+    <transport model="Solid">
+       <thermalConductivity model="coeffs" units="W/m/K">
+         <floatArray size="2">  1.0, 5.0e-4 </floatArray>
+       </thermalConductivity>
+       <electricalConductivity model="Arrhenius" units="">
+          <A>100.</A>
+          <b>0.0</b>
+          <E units="J/kmol">10000.</E>        
+       </electricalConductivity>
+       <defectActivity model="Constant">
+          1e-4
+       </defectActivity>
+       <defectDiffusivity model="Arrhenius">
+            <A units="m2/s">1.0</A>
+            <b>0.0</b>
+            <E units="J/kmol">90000.</E>
+       </defectDiffusivity>
+     </transport>
+     <kinetics model="none"/>
+   </phase>
+           
+          
+   <!-- species definitions     -->
+   <speciesData id="species_LiSi(S)">
+        
+      <!-- species Li13Si4(S)   -->
+      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <species name="Li13Si4(S)">
+       <atomArray> Li:13 Si:4  </atomArray>
+       <thermo>
+        <!-- thermo referenced to Li(L) and Si(S) based on EMF from
+        lithiation reactions -->
+        <!-- since EMF measurements only conducted from 650 K to 725 K
+        there is additional uncertainty outside this range -->
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="298.0">
+           <floatArray size="7">
+               513.37512  ,
+               -18.669635 ,
+               -82.584204 ,
+               55.163111  ,
+               -1.342334  ,
+               -589.2471  ,
+               949.39284   
+           </floatArray>
+        </Shomate>
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="700.0">
+           <floatArray size="7">
+               429.38524  ,
+               88.818915  ,
+               -52.503491 ,
+               11.526362  ,
+               3.057698   ,
+               -551.31792 ,
+               846.29281   
+           </floatArray>
+        </Shomate>
+       </thermo>
+        <!-- density from Nesper, Prog Solid State Chem, 1990 -->
+        <density units="g/cm3"> 1.24 </density>
+      </species>
+                
+      <!-- species Li13d4Si(S)   -->
+      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <species name="Li13d4Si(S) or with a per Si stoichiometry of Li(13/4)Si(1) ">
+       <atomArray> Li:3.25  Si:1.0  </atomArray>
+       <thermo>
+        <!-- thermo referenced to Li(L) and Si(S) based on EMF from
+        lithiation reactions -->
+        <!-- since EMF measurements only conducted from 650 K to 725 K
+        there is additional uncertainty outside this range -->
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="298.0">
+           <floatArray size="7">
+               128.34378  ,
+               -4.6674087 ,
+               -20.646051 ,
+               13.790778  ,
+               -0.3355835 ,
+               -147.31178 ,
+               237.34821   
+           </floatArray>
+        </Shomate>
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="700.0">
+           <floatArray size="7">
+               107.34631  ,
+               22.204729  ,
+               -13.125873 ,
+               2.8815905  ,
+               0.7644245  ,
+               -137.82948 ,
+               211.5732    
+           </floatArray>
+        </Shomate>
+       </thermo>
+        <!-- density from Nesper, Prog Solid State Chem, 1990 -->
+        <density units="g/cm3"> 1.24 </density>
+        <!-- molar volume per Si = 67.3 A^3 from Nesper -->
+      </species>
+                
+    </speciesData>
+        
+  </ctml>
+        

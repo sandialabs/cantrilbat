@@ -1,0 +1,1049 @@
+
+================================================================================
+==================== electrode_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+ WARNING: LE_OneDbl set_default() for surfaceArea: Current Value, 1, doesn't agree with default value 0.01. Changing value at target address.
+ WARNING: LE_OneDbl set_default() for blthick_solnA: Current Value, 1, doesn't agree with default value 0.01. Changing value at target address.
+ WARNING: LE_OneDbl set_default() for blthick_solnB: Current Value, 1, doesn't agree with default value 0.01. Changing value at target address.
+==========================================================
+ STARTING PROCESSING COMMAND FILE interface.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+!--------------------------------------------------------------------
+!  Specification of the Model Name
+!
+!  Interfacial Mass Transport Model Name =
+!                         ["UnknownType", "BaseType", 
+!                          "PseudoSS_NoSurf", "Kin_1to1Distrib"]
+!             required = yes
+!--------------------------------------------------------------------------
+Interfacial Mass Transport Model Name  = PseudoSS_NoSurf
+ => Interfacial Mass Transport Model Name = PseudoSS_NoSurf
+ ====> IMTModelName = PseudoSS_NoSurf
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = AtoB_interface.xml
+Cantera File Name = Asoln.xml
+Cantera File Name = Bsoln.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Phase A Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Phase A - identity of the phase that is on the "Left" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase A Name = Asoln(l)
+ => Phase A Name = Asoln(l)
+ ====> PhaseAName = Asoln(l)
+!-------------------------------------------------------------------------
+!
+! Phase B - identity of the phase that is on the "right" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase B Name = Bsoln(l)
+ => Phase B Name = Bsoln(l)
+ ====> PhaseBName = Bsoln(l)
+!--------------------------------------------------------------------------
+!
+!  Gross Surface Area of Interface
+!      (
+!
+Gross Surface Area of Interface = 0.01
+ => Gross Surface Area of Interface = 0.01
+ ====> surfaceArea = 0.01
+!--------------------------------------------------------------------------
+!
+!  Phase A boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase A boundary layer thickness = 0.001
+ => Phase A Boundary Layer Thickness = 0.001
+ ====> blthick_solnA = 0.001
+!--------------------------------------------------------------------------
+!
+!  Phase B boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase B boundary layer thickness = 0.001
+ => Phase B Boundary Layer Thickness = 0.001
+ ====> blthick_solnB = 0.001
+!--------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+
+
+
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE interface.inp, PASS # 1
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE interface.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+!--------------------------------------------------------------------
+!  Specification of the Model Name
+!
+!  Interfacial Mass Transport Model Name =
+!                         ["UnknownType", "BaseType", 
+!                          "PseudoSS_NoSurf", "Kin_1to1Distrib"]
+!             required = yes
+!--------------------------------------------------------------------------
+Interfacial Mass Transport Model Name  = PseudoSS_NoSurf
+ => Interfacial Mass Transport Model Name = PseudoSS_NoSurf
+ ====> IMTModelName = PseudoSS_NoSurf
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = AtoB_interface.xml
+ => Cantera File Name = AtoB_interface.xml
+ ====> CanteraFileNames =  AtoB_interface.xml
+Cantera File Name = Asoln.xml
+ => Cantera File Name = Asoln.xml
+ ====> CanteraFileNames =  Asoln.xml
+Cantera File Name = Bsoln.xml
+ => Cantera File Name = Bsoln.xml
+ ====> CanteraFileNames =  Bsoln.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Phase A Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Phase A - identity of the phase that is on the "Left" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase A Name = Asoln(l)
+ => Phase A Name = Asoln(l)
+ ====> PhaseAName = Asoln(l)
+!-------------------------------------------------------------------------
+!
+! Phase B - identity of the phase that is on the "right" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase B Name = Bsoln(l)
+ => Phase B Name = Bsoln(l)
+ ====> PhaseBName = Bsoln(l)
+!--------------------------------------------------------------------------
+!
+!  Gross Surface Area of Interface
+!      (
+!
+Gross Surface Area of Interface = 0.01
+ => Gross Surface Area of Interface = 0.01
+ ====> surfaceArea = 0.01
+!--------------------------------------------------------------------------
+!
+!  Phase A boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase A boundary layer thickness = 0.001
+ => Phase A Boundary Layer Thickness = 0.001
+ ====> blthick_solnA = 0.001
+!--------------------------------------------------------------------------
+!
+!  Phase B boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase B boundary layer thickness = 0.001
+ => Phase B Boundary Layer Thickness = 0.001
+ ====> blthick_solnB = 0.001
+!--------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+
+
+
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE interface.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE interface.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+!--------------------------------------------------------------------
+!  Specification of the Model Name
+!
+!  Interfacial Mass Transport Model Name =
+!                         ["UnknownType", "BaseType", 
+!                          "PseudoSS_NoSurf", "Kin_1to1Distrib"]
+!             required = yes
+!--------------------------------------------------------------------------
+Interfacial Mass Transport Model Name  = PseudoSS_NoSurf
+ => Interfacial Mass Transport Model Name = PseudoSS_NoSurf
+ ====> IMTModelName = PseudoSS_NoSurf
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = AtoB_interface.xml
+ => Cantera File Name = AtoB_interface.xml
+ ====> CanteraFileNames =  AtoB_interface.xml
+Cantera File Name = Asoln.xml
+ => Cantera File Name = Asoln.xml
+ ====> CanteraFileNames =  Asoln.xml
+Cantera File Name = Bsoln.xml
+ => Cantera File Name = Bsoln.xml
+ ====> CanteraFileNames =  Bsoln.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Phase A Pressure = 1.0 atm
+ => Phase A Pressure = 1.0 atm
+ ====> PO.PressureA = 101325
+!-------------------------------------------------------------------------
+!
+! Phase A - identity of the phase that is on the "Left" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase A Name = Asoln(l)
+ => Phase A Name = Asoln(l)
+ ====> PhaseAName = Asoln(l)
+!-------------------------------------------------------------------------
+!
+! Phase B - identity of the phase that is on the "right" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase B Name = Bsoln(l)
+ => Phase B Name = Bsoln(l)
+ ====> PhaseBName = Bsoln(l)
+!--------------------------------------------------------------------------
+!
+!  Gross Surface Area of Interface
+!      (
+!
+Gross Surface Area of Interface = 0.01
+ => Gross Surface Area of Interface = 0.01
+ ====> surfaceArea = 0.01
+!--------------------------------------------------------------------------
+!
+!  Phase A boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase A boundary layer thickness = 0.001
+ => Phase A Boundary Layer Thickness = 0.001
+ ====> blthick_solnA = 0.001
+!--------------------------------------------------------------------------
+!
+!  Phase B boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase B boundary layer thickness = 0.001
+ => Phase B Boundary Layer Thickness = 0.001
+ ====> blthick_solnB = 0.001
+!--------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+
+
+
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE interface.inp, PASS # 3
+=========================================================
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 1:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 2:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+		===============================================================================================================================
+		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+	Nonlinear problem solved successfully in 2 its
+   ==============================================================================================
+      imtPSS_NoSurf at intermediate-step time final = 1
+                   intermediate-step time init  = 0
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+ -------------------------------------------------------------------------------------------------------------------
+ PREDICTOR_CORRECTOR  SubIntegrationCounter =       1       t_init =  0.00000E+00,       t_final =  1.00000E+00
+                         IntegrationCounter =       1  t_init_init =  0.00000E+00, t_final_final =  1.00000E+00
+ -------------------------------------------------------------------------------------------------------------------
+                            Initial        Prediction     Actual           Difference       Tol          Contrib   |
+ DeltaT                  |  1.0000000E+00  1.0000000E+00  1.0000000E+00 |  0.0000000E+00 |  1.000E-06 |  0.000E+00 |
+ -------------------------------------------------------------------------------------------------------------------
+                                                                                                         0.000E+00
+              1              0
+   ==============================================================================================
+      imtPSS_NoSurf at time final = 1
+                   time init  = 0
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04  -9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 1:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 2:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+		===============================================================================================================================
+		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+	Nonlinear problem solved successfully in 2 its
+   ==============================================================================================
+      imtPSS_NoSurf at intermediate-step time final = 2
+                   intermediate-step time init  = 1
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+ -------------------------------------------------------------------------------------------------------------------
+ PREDICTOR_CORRECTOR  SubIntegrationCounter =       2       t_init =  1.00000E+00,       t_final =  2.00000E+00
+                         IntegrationCounter =       2  t_init_init =  1.00000E+00, t_final_final =  2.00000E+00
+ -------------------------------------------------------------------------------------------------------------------
+                            Initial        Prediction     Actual           Difference       Tol          Contrib   |
+ DeltaT                  |  1.0000000E+00  1.0000000E+00  1.0000000E+00 |  0.0000000E+00 |  1.000E-06 |  0.000E+00 |
+ -------------------------------------------------------------------------------------------------------------------
+                                                                                                         0.000E+00
+              2              0
+   ==============================================================================================
+      imtPSS_NoSurf at time final = 2
+                   time init  = 1
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04  -9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 1:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 2:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+		===============================================================================================================================
+		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+	Nonlinear problem solved successfully in 2 its
+   ==============================================================================================
+      imtPSS_NoSurf at intermediate-step time final = 3
+                   intermediate-step time init  = 2
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+ -------------------------------------------------------------------------------------------------------------------
+ PREDICTOR_CORRECTOR  SubIntegrationCounter =       3       t_init =  2.00000E+00,       t_final =  3.00000E+00
+                         IntegrationCounter =       3  t_init_init =  2.00000E+00, t_final_final =  3.00000E+00
+ -------------------------------------------------------------------------------------------------------------------
+                            Initial        Prediction     Actual           Difference       Tol          Contrib   |
+ DeltaT                  |  1.0000000E+00  1.0000000E+00  1.0000000E+00 |  0.0000000E+00 |  1.000E-06 |  0.000E+00 |
+ -------------------------------------------------------------------------------------------------------------------
+                                                                                                         0.000E+00
+              3              0
+   ==============================================================================================
+      imtPSS_NoSurf at time final = 3
+                   time init  = 2
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04  -9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 1:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 2:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+		===============================================================================================================================
+		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+	Nonlinear problem solved successfully in 2 its
+   ==============================================================================================
+      imtPSS_NoSurf at intermediate-step time final = 4
+                   intermediate-step time init  = 3
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+ -------------------------------------------------------------------------------------------------------------------
+ PREDICTOR_CORRECTOR  SubIntegrationCounter =       4       t_init =  3.00000E+00,       t_final =  4.00000E+00
+                         IntegrationCounter =       4  t_init_init =  3.00000E+00, t_final_final =  4.00000E+00
+ -------------------------------------------------------------------------------------------------------------------
+                            Initial        Prediction     Actual           Difference       Tol          Contrib   |
+ DeltaT                  |  1.0000000E+00  1.0000000E+00  1.0000000E+00 |  0.0000000E+00 |  1.000E-06 |  0.000E+00 |
+ -------------------------------------------------------------------------------------------------------------------
+                                                                                                         0.000E+00
+              4              0
+   ==============================================================================================
+      imtPSS_NoSurf at time final = 4
+                   time init  = 3
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04  -9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 1:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+	solve_nonlinear_problem(): iteration 2:
+	   solve_nonlinear_problem(): Getting a new Jacobian
+	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
+	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
+	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
+	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
+	              resid0 = 0, residTrial = 0
+	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
+		   residErrorNorm():  Resulting full residual norm =   0.0000E+00
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
+	=======================================================================================================================
+		===============================================================================================================================
+		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+	Nonlinear problem solved successfully in 2 its
+   ==============================================================================================
+      imtPSS_NoSurf at intermediate-step time final = 5
+                   intermediate-step time init  = 4
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04   0.000E+00
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================
+ -------------------------------------------------------------------------------------------------------------------
+ PREDICTOR_CORRECTOR  SubIntegrationCounter =       5       t_init =  4.00000E+00,       t_final =  5.00000E+00
+                         IntegrationCounter =       5  t_init_init =  4.00000E+00, t_final_final =  5.00000E+00
+ -------------------------------------------------------------------------------------------------------------------
+                            Initial        Prediction     Actual           Difference       Tol          Contrib   |
+ DeltaT                  |  1.0000000E+00  1.0000000E+00  1.0000000E+00 |  0.0000000E+00 |  1.000E-06 |  0.000E+00 |
+ -------------------------------------------------------------------------------------------------------------------
+                                                                                                         0.000E+00
+              5              0
+   ==============================================================================================
+      imtPSS_NoSurf at time final = 5
+                   time init  = 4
+
+                    DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+   ==============================================================================================
+          Number of surfaces = 1
+          Total Volume =  1.002E-02
+          Temperature = 298.15
+          Pressure = 101325
+
+         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
+     ============================================================================================
+     Asoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     Bsoln(l)                    5.000E-04    2.000E-02    1.000E-05    9.980E-04
+     AtoB_surface                3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     ============================================================================================
+     ============================================================================================
+          Phase 0 Asoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                ASolvent                9.000E-01  4.500E-04    4.500E-04   0.000E+00
+                ASolute                 1.000E-01  5.000E-05    5.000E-05   9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 1 Bsoln(l) 
+                Total moles = 0.0005
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                BSolvent                8.000E-01  4.000E-04    4.000E-04   0.000E+00
+                BSolute                 2.000E-01  1.000E-04    1.000E-04  -9.403E-02
+     ============================================================================================
+     ============================================================================================
+          Phase 2 AtoB_surface 
+                Total moles = 3e-10
+                surface area (final) = 0.01
+                surface area (init)  = 0.01
+
+                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
+                AB_site                 1.000E+00  3.000E-10    3.000E-10   0.000E+00
+
+                           spName                  SourceRateLastStep (kmol/m2/s) 
+                           ASolvent                0.000E+00
+                           ASolute                 9.403E+00
+                           BSolvent                0.000E+00
+                           BSolute                -9.403E+00
+                           AB_site                 0.000E+00
+     ============================================================================================

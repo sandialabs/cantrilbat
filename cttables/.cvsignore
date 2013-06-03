@@ -1,0 +1,13 @@
+*.d
+Makefile
+bltest
+cttables
+*.log
+.depends
+gri30.out
+gri30_tran.dat
+testorig.xml
+transport_log.xml
+.*.swp
+silane.out
+examples

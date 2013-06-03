@@ -1,0 +1,66 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase Si(S)    -->
+  <phase dim="3" id="Si(S)">
+    <elementArray datasrc="elements.xml">
+      Si
+    </elementArray>
+    <speciesArray datasrc="#species_Si(S)"> Si(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 2.33 </density>
+    </thermo>
+    <!-- As of 6/11/2012 these are mostly guesses not actual values-->
+    <transport model="Solid">
+       <thermalConductivity model="coeffs" units="W/m/K">
+         <floatArray size="2">  1.0, 5.0e-4 </floatArray>
+       </thermalConductivity>
+       <electricalConductivity model="Arrhenius" units="">
+          <A>100.</A>
+          <b>0.0</b>
+          <E units="J/kmol">10000.</E>        
+       </electricalConductivity>
+       <defectActivity model="Constant">
+          1e-4
+       </defectActivity>
+       <defectDiffusivity model="Arrhenius">
+            <A units="m2/s">1.0</A>
+            <b>0.0</b>
+            <E units="J/kmol">90000.</E>
+       </defectDiffusivity>
+     </transport>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Si(S)">
+
+    <!-- species Si(S)   -->
+    <! --      melting temperature = 1685 K -->
+    <species name="Si(S)">
+      <atomArray> Si:1  </atomArray>
+      <standardState  model="constant_incompressible">
+        <molarVolume units="m3/kmol"> 0.01205386 </molarVolume>
+      </standardState>
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="250.0">
+          <floatArray size="7">
+            22.81719,
+            3.899510,
+           -0.082885,
+            0.042111,
+           -0.354063,
+           -8.163946,
+            43.27846  
+          </floatArray>
+        </Shomate>
+      </thermo>
+
+      <density units="g/cm3"> 2.33 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

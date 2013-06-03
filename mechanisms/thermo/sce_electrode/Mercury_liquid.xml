@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+
+  <!-- phase Mercury_liquid     -->
+  <phase dim="3" id="Mercury_liquid">
+    <elementArray datasrc="elements.xml">Hg </elementArray>
+    <speciesArray datasrc="#species_data">Hg(L) </speciesArray>
+    <state>
+      <temperature units="K">300.0</temperature>
+      <pressure units="Pa">101325.0</pressure>
+    </state>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3">13.546200000000001</density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+  <!-- species definitions     -->
+  <speciesData id="species_data">
+
+    <!-- species Hg(L)    -->
+    <species name="Hg(L)">
+      <atomArray>Hg:1 </atomArray>
+      <note>J12/61</note>
+      <thermo>
+        <NASA Tmax="1000.0" Tmin="234.28999999999999" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             3.796852480E+00,  -2.090261090E-03,   2.222671070E-06,  -1.086056550E-10, 
+             -4.280872480E-13,  -1.058346310E+03,  -1.196269360E+01</floatArray>
+        </NASA>
+        <NASA Tmax="2000.0" Tmin="1000.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             3.036534870E+00,   3.160066660E-04,   6.439011720E-08,  -2.923069910E-11, 
+             4.868609180E-15,  -8.881705020E+02,  -8.172430180E+00</floatArray>
+        </NASA>
+      </thermo>
+    </species>
+  </speciesData>
+  <reactionData id="reaction_data"/>
+</ctml>

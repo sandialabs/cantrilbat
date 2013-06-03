@@ -1,0 +1,401 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_NaCl.xml
+Cantera File Name = h2gas.xml
+Cantera File Name = Pt_H2electrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   H2 = 3.0
+   H2O(L) = 3.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_NaCl.xml
+ => Cantera File Name = HMW_NaCl.xml
+ ====> CanteraFileNames =  HMW_NaCl.xml
+Cantera File Name = h2gas.xml
+ => Cantera File Name = h2gas.xml
+ ====> CanteraFileNames =  h2gas.xml
+Cantera File Name = Pt_H2electrons.xml
+ => Cantera File Name = Pt_H2electrons.xml
+ ====> CanteraFileNames =  Pt_H2electrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   H2 = 3.0
+   H2O(L) = 3.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+ => Title = Sample MultiPhase Problem
+ ====> Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_NaCl.xml
+ => Cantera File Name = HMW_NaCl.xml
+ ====> CanteraFileNames =  HMW_NaCl.xml
+Cantera File Name = h2gas.xml
+ => Cantera File Name = h2gas.xml
+ ====> CanteraFileNames =  h2gas.xml
+Cantera File Name = Pt_H2electrons.xml
+ => Cantera File Name = Pt_H2electrons.xml
+ ====> CanteraFileNames =  Pt_H2electrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   H2 = 3.0
+ => H2 = 3.0
+ ====> H2 = 3
+   H2O(L) = 3.0
+ => H2O(L) = 3.0
+ ====> H2O(L) = 3
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ H2O(L) : 0 ] = 3
+	====>   MoleNumber[ Cl- : 1 ] = 0
+	====>   MoleNumber[ H+ : 2 ] = 0
+	====>   MoleNumber[ Na+ : 3 ] = 0
+	====>   MoleNumber[ OH- : 4 ] = 0
+	====>   MoleNumber[ H2 : 5 ] = 3
+	====>   MoleNumber[ Pt_electrons : 6 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+          H2O(L)          0   NaCl_electrolyte             3         
+             Cl-          0   NaCl_electrolyte             0         
+              H+          0   NaCl_electrolyte             0         
+             Na+          0   NaCl_electrolyte             0         
+             OH-          0   NaCl_electrolyte             0         
+              H2          1              h2gas             3         
+    Pt_electrons          2     Pt_H2electrons             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+NaCl_electrolyte     0   no         5             0      3.000000e+00
+           h2gas     1   yes        1             0      3.000000e+00
+  Pt_H2electrons     2   yes        1             0      0.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O             3 
+           H            12 
+           C             0 
+          Fe             0 
+          Si             0 
+           N             0 
+          Na             0 
+          Cl             0 
+           E             0 
+
+================================================================================
+==================== mpequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+
+ Results from mpequil:
+
+Temperature = 298.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2O(L)           3.000000e+00    1.000000e+00    -3.066857e+08
+Cl-              0.000000e+00    0.000000e+00    -1.896377e+09
+H+               5.417815e-09    1.805938e-09    -3.995092e+07
+Na+              0.000000e+00    0.000000e+00    -1.970156e+09
+OH-              5.417815e-09    1.805938e-09    -2.667348e+08
+H2               3.000000e+00    1.000000e+00    -3.896232e+07
+Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
+-------------------------------------------------------------
+ 
+  NaCl_electrolyte:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density         997.048  kg/m^3
+  mean mol. weight         18.0153  amu
+         potential               0  V
+                pH           6.999  
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -1.58664e+07       -2.858e+08     J
+   internal energy    -1.58665e+07       -2.858e+08     J
+           entropy         3881.28        6.992e+04     J/K
+    Gibbs function    -1.70236e+07       -3.067e+08     J
+ heat capacity c_p         4181.31        7.533e+04     J/K
+ heat capacity c_v    <not implemented>       
+ 
+                           X           Molalities         Chem.Pot.    ChemPotSS    ActCoeffMolal
+                                                          (J/kmol)      (J/kmol)                 
+                     -------------    ------------     ------------  ------------    ------------
+            H2O(L)             1          55.5084     -3.06686e+08   -3.06686e+08              1
+               Cl-             0                0          N/A      -1.83974e+08       0.999628 
+                H+   1.80594e-09      1.00245e-07     -3.99509e+07              0       0.999628
+               Na+             0                0          N/A      -2.57752e+08       0.999628 
+               OH-   1.80594e-09      1.00245e-07     -2.66735e+08   -2.26784e+08       0.999628
+
+ 
+  h2gas:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density       0.0823972  kg/m^3
+  mean mol. weight         2.01588  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy      0.00658857          0.01328     J
+   internal energy    -1.22971e+06       -2.479e+06     J
+           entropy         64825.4        1.307e+05     J/K
+    Gibbs function    -1.93277e+07       -3.896e+07     J
+ heat capacity c_p         14304.5        2.884e+04     J/K
+ heat capacity c_v           10180        2.052e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+                H2              1                1         -15.7172
+
+ 
+  Pt_H2electrons:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density            2165  kg/m^3
+  mean mol. weight        0.000545  amu
+         potential       -0.414062  V
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy         12.1851         0.006641     J
+   internal energy        -34.6163         -0.01887     J
+           entropy      1.1989e+08        6.534e+04     J/K
+    Gibbs function    -3.57452e+10       -1.948e+07     J
+ heat capacity c_p     2.64552e+07        1.442e+04     J/K
+ heat capacity c_v     2.64552e+07        1.442e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+      Pt_electrons              1                1         -7.85861
+

@@ -1,0 +1,33 @@
+#/bin/sh
+###############################################################
+#  $Author: jchewso $
+#  $Date: 2010/05/21 02:49:44 $
+#  $Revision: 1.1 $
+#
+###############################################################
+build_python=@BUILD_PYTHON@
+
+all:
+	cd src;          @MAKE@
+#	cd examples;     @MAKE@
+
+#test:
+#	cd examples      @MAKE@ test
+
+#testd:
+#	cd examples      @MAKE@ testd
+
+clean:
+	cd src;          @MAKE@ clean
+#	cd examples;     @MAKE@ clean
+
+depends:
+	cd src;          @MAKE@ depends
+#	cd examples;     @MAKE@ depends
+
+install:
+	cd src;          @MAKE@ install
+#	cd examples;     @MAKE@ install
+
+# end of file
+

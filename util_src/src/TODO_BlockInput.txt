@@ -1,0 +1,51 @@
+
+Documentation
+      Make sure all of the dependency rules are documented and 
+listed.
+ Work on a doxygen listing.
+  Create an introductory README document that describes how the
+input file should look like and how to use the produce within a 
+code.
+
+
+LE_OneDbl.cpp <- contains a fully documented example
+
+
+Dependencies:
+
+It seems that a dependency tree is in order. Suggestions for
+implementation
+follow:
+
+During the processing phase, a LineEntry or BlockEntry object has to
+be able to finish initializing itself with information already
+processed. Therefore, these object have to include a list of
+dependencies and a number of dependencies. 
+
+
+The dependency has to be categorized, as well. Some dependencies
+just involve having been sure that the line before the
+current line. Others will involve knowing the value of an integer
+or passing a character array to the dependent object.
+
+LIst of dependency types.
+
+BI_DEPTYPE_PROCESSED = 1 = Just check to see that the dependency has
+                           been processed. 
+BI_DEPTYPE_INTEGER   = 2 = Processed and also pass back an integer.
+BI_DEPTYPE_CHARRAY   = 3 = Pass back an array of C strings plus a 
+                           length.
+BI_DEPTYPE_INTMAXMIN = 4 = Processed, pass back an integer, and make
+                           sure integer is between max and min 
+                           for current card to be valid.
+
+
+Figure Out
+--------------------
+
+   There may be a problem with checking for a dependency satisfaction
+too soon. There should be a difference between ordered dependencies
+and non-ordered dependencies.
+
+The non-ordered dependencies must be checked for at the end of a
+complete set of processing.

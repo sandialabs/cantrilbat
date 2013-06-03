@@ -1,0 +1,77 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample Silane Equilibrium Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+!Number of Cantera Files = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!Cantera File Name = silane.xml
+!-------------------------------------------------------------------------
+!Reference Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+!Reference Temperature = 1500.
+!-------------------------------------------------------------------------
+!
+! Reference Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+!Reference Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!  Problem Type - int (required)
+!
+!-------------------------------------------------------------------------
+Problem Type = 0
+!-------------------------------------------------------------------------
+!
+!  Nonlinear Solver Log Level - int (optiona)
+! Block Input For the nonlinear solver log level
+!
+!  Nonlinear Solver Log Level - int       (optional)
+!
+!   0 -> absolutely nothing is printed for a single time step.
+!   1 -> One line summary per time step
+!   2 -> short description, points of interest
+!   3 -> More printed per time step -> major algorithm issues are displayed
+!   4 -> Additional time step error control information is printed out
+!        One line summary of the nonlinear solve
+!   5 -> Summaries of the nonlinear solve iterates are printed out
+!   6 -> Algorithm information on the nonlinear iterates are printed out
+!   7 -> Additional info on the nonlinear iterates are printed out
+!   8 -> Additional info on the linear solve is printed out.
+!   9 -> Info on a per iterate of the linear solve is printed out.
+!
+!-------------------------------------------------------------------------
+Nonlinear Solver Log Level = 9
+!--------------------------------------------------------------------------
+! 
+! Maximum Number of Time Steps - int (optional)
+!   
+!   Default = 1000
+!--------------------------------------------------------------------------
+Maximum Number of Time Steps = 1000
+!--------------------------------------------------------------------------
+
+
+
+

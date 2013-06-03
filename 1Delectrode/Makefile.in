@@ -1,0 +1,66 @@
+#/bin/sh
+###############################################################
+#  $Author: cmtenne $
+#  $Date: 2011/10/29 04:24:01 $
+#  $Revision: 1.19 $
+#
+###############################################################
+build_python=@BUILD_PYTHON@
+
+all:
+	cd src;                           @MAKE@
+	cd src_test;                      @MAKE@
+	cd src_CanteraElectrode;          @MAKE@
+	cd src_Cu2S;                      @MAKE@
+	cd src_LiKCl_infPlateBat;         @MAKE@
+	cd src_LiKCl_infPorousBat;        @MAKE@
+	cd src_LiKCl_PorousBat;           @MAKE@
+	cd src_LiIon_PorousBat;           @MAKE@
+	cd test_suite;                    @MAKE@
+
+
+test:
+	cd test_suite;                    @MAKE@ test
+
+testd:
+	cd test_suite ;                   @MAKE@ testd
+
+test_bat:
+	cd test_suite;                    @MAKE@ test_bat
+
+clean:
+	cd src;                           (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_test;                      (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_CanteraElectrode;          (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_Cu2S;                      (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_thermBat;                  (/bin/rm -f .depends ; @MAKE@ clean )
+	cd test_suite;                    @MAKE@ clean
+
+depends:
+	cd src;                           @MAKE@ depends
+	cd src_test;                      @MAKE@ depends
+	cd src_CanteraElectrode;          @MAKE@ depends
+	cd src_Cu2S;                      @MAKE@ depends
+	cd src_LiKCl_infPlateBat;         @MAKE@ depends
+	cd src_LiKCl_infPorousBat;        @MAKE@ depends
+	cd src_LiKCl_PorousBat;           @MAKE@ depends
+	cd src_LiIon_PorousBat;           @MAKE@ depends
+	cd test_suite;                    @MAKE@ depends
+
+install:
+	cd src;                           @MAKE@ install
+	cd src_test;                      @MAKE@ install
+	cd src_CanteraElectrode;          @MAKE@ install
+	cd src_Cu2S;                      @MAKE@ install
+	cd src_LiKCl_infPlateBat;         @MAKE@ install
+	cd src_LiKCl_infPorousBat;        @MAKE@ install
+	cd src_LiKCl_PorousBat;           @MAKE@ install
+	cd src_LiIon_PorousBat;           @MAKE@ install
+	cd test_suite;                    @MAKE@ install
+
+# end of file
+

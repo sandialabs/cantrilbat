@@ -1,0 +1,217 @@
+		 model = HMW
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.----------------------------------------------------------------
+ Dump of Mixture properties: 
+Bath Species set to H2O(L)
+====================================================================================================
+      SUMMARY OF SPECIES IN THE MECHANISM WITH A DESCRIPTION  OF BATH COMPOSITION: 
+
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Carrier Species (used in diff. calcs) = H2O(L)
+        Major Species Species (used in nondim calcs) = O2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)
+          -----------------------------------------------------------
+              1          H2O(L)          0.9025       5.076E-02
+              2             Cl-          0.0488       2.743E-03
+              3              H+          0.0000       9.144E-11
+              4             OH-          0.0000       9.144E-11
+              5           Al+++          0.0488       2.743E-03
+          -----------------------------------------------------------
+EOS type = 45012
+PrintOut of Phase, "AlCl_electrolyte", using Generic Thermodynamics Functions:
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 18.0153 gm/mol
+        Heat of formation (298.15K) = -285.8384  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 273.15 K
+        Maximum Temperature = 600 K
+        Partial    Molar Volume at (T,P) of (450,100000) = 0.0202466 m3/kmol
+        StandState Molar Volume at (T,P) of (450,100000) = 0.0202466 m3/kmol
+        Molar Volume formulation for eos type 45012 is not known to cttables
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 273.15 < T < 600: 
+                     -41887      -288.28       72.558     -0.66245
+                   0.002562  -4.3659e-06   2.7818e-09
+               High temperature polynomials: 600 < T < 600: 
+                    -41886.5499      -288.280137       72.5575005     -0.662445402
+                  0.00256198746  -4.36591923e-06   2.78178981e-09
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -20.8474        75.3275      69.9224   |    -306.6858 | 
+|    300.00 |     0.1393        -20.9772        75.3153      70.3883   |    -306.8156 | 
+|    325.00 |     2.0219        -22.8132        75.3379      76.4158   |    -308.6516 | 
+|    350.00 |     3.9079        -24.7943        75.5644      82.0062   |    -310.6327 | 
+|    375.00 |     5.8018        -26.9105        75.9857      87.2327   |    -312.7489 | 
+|    400.00 |     7.7093        -29.1534        76.6712      92.1569   |    -314.9918 | 
+|    425.00 |     9.6382        -31.5163        77.7060      96.8341   |    -317.3547 | 
+|    450.00 |    11.5985        -33.9935        79.2014     101.3155   |    -319.8319 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  Cl: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 35.4527 gm/mol
+        Heat of formation (298.15K) = -167.0967  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (450,100000) = 0.00834 m3/kmol
+        StandState Molar Volume at (T,P) of (450,100000) = 0.00834 m3/kmol
+        Molar Volume formulation for eos type 45012 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+               High temperature polynomials: 623.15 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -16.8770      -114.5987      56.6057   |    -183.9736 | 
+|    300.00 |    -0.2080        -16.9811      -110.3988      55.9101   |    -184.0777 | 
+|    325.00 |    -2.6311        -18.2778       -93.6619      48.1438   |    -185.3745 | 
+|    350.00 |    -5.1813        -19.3889      -112.8190      40.5932   |    -186.4855 | 
+|    375.00 |    -8.2933        -20.2985      -135.2159      32.0139   |    -187.3951 | 
+|    400.00 |   -11.8703        -20.9841      -149.4607      22.7845   |    -188.0808 | 
+|    425.00 |   -15.7174        -21.4370      -158.1511      13.4579   |    -188.5337 | 
+|    450.00 |   -19.8303        -21.6567      -173.3464       4.0586   |    -188.7533 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H+" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  H: 1
+        Electronic Charge = 1.00
+        Molecular Weight = 1.00794 gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Phase Reference Pressure = 101325 Pa
+        Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 273.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (450,100000) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (450,100000) = 0 m3/kmol
+        Molar Volume formulation for eos type 45012 is not known to cttables
+        MU0_POLY format:
+                Valid Range: 273.15 < T < 625.15: 
+                T        mu_0
+                273.15                   0
+                298.15                   0
+                623.15                   0
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    325.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    350.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    375.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    425.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    450.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 4th species in mechanism
+        It is the 4th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 17.0073 gm/mol
+        Heat of formation (298.15K) = -230.0320  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (450,100000) = 0.00834 m3/kmol
+        StandState Molar Volume at (T,P) of (450,100000) = 0.00834 m3/kmol
+        Molar Volume formulation for eos type 45012 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+               High temperature polynomials: 623.15 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          3.2482      -118.1955     -10.8944   |    -226.7839 | 
+|    300.00 |    -0.2148          3.2690      -114.1226     -11.6127   |    -226.7631 | 
+|    325.00 |    -2.6910          3.6633       -92.6424     -19.5517   |    -226.3687 | 
+|    350.00 |    -5.1060          4.2410      -103.1061     -26.7057   |    -225.7911 | 
+|    375.00 |    -7.8933          5.0034      -119.7548     -34.3910   |    -225.0287 | 
+|    400.00 |   -11.0683          5.9648      -133.7095     -42.5826   |    -224.0673 | 
+|    425.00 |   -14.5728          7.1349      -147.1966     -51.0769   |    -222.8971 | 
+|    450.00 |   -18.5039          8.5225      -169.9539     -60.0588   |    -221.5095 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 5th species in mechanism
+        It is the 5th species in the phase
+        Elemental Composition:
+                  Al: 1
+        Electronic Charge = 3.00
+        Molecular Weight = 26.9815 gm/mol
+        Heat of formation (298.15K) = -542.4908  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (450,100000) = 0.00834 m3/kmol
+        StandState Molar Volume at (T,P) of (450,100000) = 0.00834 m3/kmol
+        Molar Volume formulation for eos type 45012 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298.15 < T < 623.15: 
+                    -250055.1634       1215326.459      -2190592.348       1385805.888
+                     4096.004078       50347.42547      -557147.2613
+               High temperature polynomials: 623.15 < T < 623.15: 
+                    -250055.1634       1215326.459      -2190592.348       1385805.888
+                     4096.004078       50347.42547      -557147.2613
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        104.8944       371.6738    -351.8174   |    -437.5964 | 
+|    300.00 |     0.6368        105.5432       317.3784    -349.6882   |    -436.9476 | 
+|    325.00 |     2.2525        114.1476      -104.5264    -344.2924   |    -428.3432 | 
+|    350.00 |    -1.7924        122.8942      -185.2699    -356.2473   |    -419.5966 | 
+|    375.00 |    -6.0988        131.9557      -153.0427    -368.1454   |    -410.5351 | 
+|    400.00 |    -9.5217        141.2746      -127.7532    -376.9907   |    -401.2162 | 
+|    425.00 |   -12.9630        150.8008      -158.0669    -385.3266   |    -391.6900 | 
+|    450.00 |   -17.9015        160.5658      -244.4651    -396.5940   |    -381.9250 | 
+---------------------------------------------------------------------------------------

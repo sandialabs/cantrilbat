@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+#
+CANTERA_ROOT=/cygdrive/c/cygwin_env/cantera-1.7_develop
+export CANTERA_ROOT
+#
+CANTERA_INSTALL_DIR="/cygdrive/c/cygwin_env/arch/cygwin/cantera-1.7_develop"
+export CANTERA_INSTALL_DIR
+#
+#PYTHON_DIR=/usr/local/python-2.2.2
+#export PYTHON_DIR
+#
+CADS_ROOT="/cygdrive/c/cygwin_env/cads"
+export CADS_ROOT
+#
+#
+SET_PYTHON_SITE_PACKAGE_TOPDIR=y
+export SET_PYTHON_SITE_PACKAGE_TOPDIR
+#
+PYTHON_SITE_PACKAGE_TOPDIR=/cygdrive/c/cygwin_env/arch/cygwin/cantera-1.7_develop/lib/python2.5/site-packages
+export PYTHON_SITE_PACKAGE_TOPDIR
+#
+CXX=g++
+export CXX
+#
+CXXFLAGS="-g -Wall -DUSE_VCSNONIDEAL"
+export CXXFLAGS
+#
+LCXX_END_LIBS="-lm -lstdc++"
+export LCXX_END_LIBS
+#
+BUILD_WITH_F2C='y'
+export BUILD_WITH_F2C
+#
+MPICXX=g++
+export MPICXX
+#
+MAKE=make
+export MAKE
+#
+DO_MPI='n'
+export DO_MPI
+#
+./preconfig

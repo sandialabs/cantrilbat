@@ -1,0 +1,3 @@
+  cp vcs_equilibrate_res.csv   vcs_equilibrate_blessed.csv
+  cp out.txt good_out.txt
+  cp dout.txt good_dout.txt

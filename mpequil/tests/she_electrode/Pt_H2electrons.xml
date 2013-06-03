@@ -1,0 +1,61 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase NaCl(S)    -->
+  <phase dim="3" id="Pt_H2electrons">
+    <elementArray datasrc="elements.xml">
+        E
+    </elementArray>
+    <speciesArray datasrc="#species_PtH2electrode"> Pt_electrons </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3">2.165</density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_PtH2electrode">
+
+    <species name="Pt_electrons">
+      <atomArray> E:1  </atomArray>
+      <charge> -1 </charge>
+      <thermo>
+        <NASA Tmax="1000.0" Tmin="200.0" P0="100000.0">
+         <floatArray name="coeffs" size="7">
+          1.172165560E+00,   3.990260375E-03,  -9.739075500E-06,  1.007860470E-08,
+         -3.688058805E-12, -4.589675865E+02,  3.415051190E-01
+         </floatArray>
+        </NASA>
+        <NASA Tmax="6000.0" Tmin="1000.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             1.466432895E+00,  4.133039835E-04, -7.320116750E-08, 7.705017950E-12,
+            -3.444022160E-16, -4.065327985E+02, -5.121644350E-01
+          </floatArray>
+        </NASA>
+      </thermo>
+      <density units="g/cm3">2.165</density>
+    </species>
+
+ <!-- species H2    -->
+    <species name="H2">
+      <atomArray>H:2 </atomArray>
+      <thermo>
+        <NASA Tmax="1000.0" Tmin="200.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             2.344331120E+00,   7.980520750E-03,  -1.947815100E-05,   2.015720940E-08,
+             -7.376117610E-12,  -9.179351730E+02,   6.830102380E-01</floatArray>
+        </NASA>
+        <NASA Tmax="6000.0" Tmin="1000.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             2.932865790E+00,   8.266079670E-04,  -1.464023350E-07,   1.541003590E-11,
+             -6.888044320E-16,  -8.130655970E+02,  -1.024328870E+00</floatArray>
+        </NASA>
+      </thermo>
+    </species>
+
+  </speciesData>
+
+</ctml>

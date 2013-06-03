@@ -1,0 +1,1437 @@
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.==========================================================
+ STARTING PROCESSING COMMAND FILE vcs_Cantera_al.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files = 3
+ ====> NumCanteraFiles = 1
+ => Number of Cantera Files = 3
+ ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_Al+++.xml
+Cantera File Name = Al.xml
+Cantera File Name = metalElectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Use Cantera Calls = boolean    (optional)
+!        vcs_Cantera can either carry out its own thermo calculations
+!        in some cases or call Cantera to carry out the calculations.
+!        This boolean parameter indicates the preference for doing
+!        this. If true, all thermo calculations will be done by
+!        Cantera. If false, some thermo calculations will be done
+!        within vcs_Cantera. This is achieved by downloading the
+!        thermo parameters from Cantera into vcs_Cantera and then
+!        doing the calculations in house.
+!           Where the download and local calculations have not been
+!        programmed yet, Cantera will still do the calculations even
+!        if this parameter is false.
+!           Default = false
+!-------------------------------------------------------------------------
+Use Cantera Calls = true
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+START BLOCK KMolar Element Abundances 
+   O = 1.0
+   H = 2.0
+  Al = 10.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+   Cl = 0.054046
+END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles 
+!   H2 = 3.0
+!   H2O(L) = 3.0
+!   Cl = 0.4
+!END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE vcs_Cantera_al.inp, PASS # 1
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE vcs_Cantera_al.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files = 3
+ ====> NumCanteraFiles = 3
+ => Number of Cantera Files = 3
+ ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_Al+++.xml
+ => Cantera File Name = HMW_Al+++.xml
+ ====> CanteraFileNames =  HMW_Al+++.xml
+Cantera File Name = Al.xml
+ => Cantera File Name = Al.xml
+ ====> CanteraFileNames =  Al.xml
+Cantera File Name = metalElectrons.xml
+ => Cantera File Name = metalElectrons.xml
+ ====> CanteraFileNames =  metalElectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Use Cantera Calls = boolean    (optional)
+!        vcs_Cantera can either carry out its own thermo calculations
+!        in some cases or call Cantera to carry out the calculations.
+!        This boolean parameter indicates the preference for doing
+!        this. If true, all thermo calculations will be done by
+!        Cantera. If false, some thermo calculations will be done
+!        within vcs_Cantera. This is achieved by downloading the
+!        thermo parameters from Cantera into vcs_Cantera and then
+!        doing the calculations in house.
+!           Where the download and local calculations have not been
+!        programmed yet, Cantera will still do the calculations even
+!        if this parameter is false.
+!           Default = false
+!-------------------------------------------------------------------------
+Use Cantera Calls = true
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+START BLOCK KMolar Element Abundances 
+   O = 1.0
+   H = 2.0
+  Al = 10.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+   Cl = 0.054046
+END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles 
+!   H2 = 3.0
+!   H2O(L) = 3.0
+!   Cl = 0.4
+!END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE vcs_Cantera_al.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE vcs_Cantera_al.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+ => Title = Sample MultiPhase Problem
+ ====> Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files = 3
+ ====> NumCanteraFiles = 3
+ => Number of Cantera Files = 3
+ ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_Al+++.xml
+ => Cantera File Name = HMW_Al+++.xml
+ ====> CanteraFileNames =  HMW_Al+++.xml
+Cantera File Name = Al.xml
+ => Cantera File Name = Al.xml
+ ====> CanteraFileNames =  Al.xml
+Cantera File Name = metalElectrons.xml
+ => Cantera File Name = metalElectrons.xml
+ ====> CanteraFileNames =  metalElectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 300
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+! Use Cantera Calls = boolean    (optional)
+!        vcs_Cantera can either carry out its own thermo calculations
+!        in some cases or call Cantera to carry out the calculations.
+!        This boolean parameter indicates the preference for doing
+!        this. If true, all thermo calculations will be done by
+!        Cantera. If false, some thermo calculations will be done
+!        within vcs_Cantera. This is achieved by downloading the
+!        thermo parameters from Cantera into vcs_Cantera and then
+!        doing the calculations in house.
+!           Where the download and local calculations have not been
+!        programmed yet, Cantera will still do the calculations even
+!        if this parameter is false.
+!           Default = false
+!-------------------------------------------------------------------------
+Use Cantera Calls = true
+ => Use Cantera Calls = true
+ ====> UseCanteraCalls = 1
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+START BLOCK KMolar Element Abundances 
+   O = 1.0
+ => O = 1.0
+ ====> O = -1.241e+11
+ => O = 1.0
+ ====> O = 1
+   H = 2.0
+ => H = 2.0
+ ====> H = -1.241e+11
+ => H = 2.0
+ ====> H = 2
+  Al = 10.0
+ => Al = 10.0
+ ====> Al = -1.241e+11
+ => Al = 10.0
+ ====> Al = 10
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+   Cl = 0.054046
+ => Cl = 0.054046
+ ====> Cl = -1.241e+11
+ => Cl = 0.054046
+ ====> Cl = 0.054046
+END BLOCK KMolar Element Abundances
+	====> Summary of the block, KMolar Element Abundances:
+	====>   ElementAbundances[ O : 0 ] = 1
+	====>   ElementAbundances[ H : 1 ] = 2
+	====>   ElementAbundances[ Al : 2 ] = 10
+	====>   ElementAbundances[ Cl : 3 ] = 0.054046
+	====>   ElementAbundances[ E : 4 ] = 0
+	====> End of Summmary of the block, KMolar Element Abundances:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles 
+!   H2 = 3.0
+!   H2O(L) = 3.0
+!   Cl = 0.4
+!END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE vcs_Cantera_al.inp, PASS # 3
+=========================================================
+
+================================================================================
+============= vcs_Cantera_input: START OF PROBLEM STATEMENT ===============
+================================================================================
+
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+          H2O(L)          0   AlCl_electrolyte                N/A
+             Cl-          0   AlCl_electrolyte                N/A
+              H+          0   AlCl_electrolyte                N/A
+             OH-          0   AlCl_electrolyte                N/A
+           Al+++          0   AlCl_electrolyte                N/A
+           Al(S)          1              Al(S)                N/A
+     electronSHE          2     metalElectrons                N/A
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+AlCl_electrolyte     0     0        no        5             0          N/A
+           Al(S)     1     1        no        1             0          N/A
+  metalElectrons     2     1        no        1             0          N/A
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O             1 
+           H             2 
+          Al            10 
+          Cl      0.054046 
+           E             0 
+
+================================================================================
+============= vcs_Cantera_input: END OF PROBLEM STATEMENT =====================
+================================================================================
+
+Unknown Cantera EOS: 45012
+vcs_Cantera_convert: Species Type 2080945 not handled
+vcs_Cantera_convert: Species Type 2080945 not handled
+vcs_Cantera_convert: Species Type 2080945 not handled
+vcs_Cantera_convert: Species Type 2080945 not handled
+vcs_Cantera_convert: Species Type 2080945 not handled
+vcs_Cantera_convert: Species Type 2080945 not handled
+vcs_Cantera_convert: Species Type 2080945 not handled
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+          H2O(L)          0   AlCl_electrolyte                N/A
+             Cl-          0   AlCl_electrolyte                N/A
+              H+          0   AlCl_electrolyte                N/A
+             OH-          0   AlCl_electrolyte                N/A
+           Al+++          0   AlCl_electrolyte                N/A
+           Al(S)          1              Al(S)                N/A
+     electronSHE          2     metalElectrons                N/A
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase EqnState NumSpec  TMolesInert       Tmoles
+AlCl_electrolyte     0     0        0 UnkType: -1             5     0.000000e+00    N/A
+           Al(S)     1     1        0 Stoich Sub              1     0.000000e+00    N/A
+  metalElectrons     2     1        0 Stoich Sub              1     0.000000e+00    N/A
+
+================================================================================
+==================== Cantera_to_vprob: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+
+================================================================================
+==================== VCS_PROB: PROBLEM STATEMENT ===============================
+================================================================================
+
+	Solve a constant T, P problem:
+		T    = 298.15 K
+		Pres = 0.999951 atm
+
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
+          H2O(L)          0   AlCl_electrolyte                N/A                 Mol_Num
+             Cl-          0   AlCl_electrolyte                N/A                 Mol_Num
+              H+          0   AlCl_electrolyte                N/A                 Mol_Num
+             OH-          0   AlCl_electrolyte                N/A                 Mol_Num
+           Al+++          0   AlCl_electrolyte                N/A                 Mol_Num
+           Al(S)          1              Al(S)                N/A                 Mol_Num
+     electronSHE          2     metalElectrons                N/A                 Voltage
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert       Tmoles
+AlCl_electrolyte     0     0        0 UnkType: -1             5     0.000000e+00    N/A
+           Al(S)     1     1        0 Stoich Sub              1     0.000000e+00    N/A
+  metalElectrons     2     1        0 Stoich Sub              1     0.000000e+00    N/A
+
+Elemental Abundances:             Target_gmol    ElemType ElActive
+                          O   1.000000000000E+03    0         1
+                          H   2.000000000000E+03    0         1
+                          Al  1.000000000000E+04    0         1
+                          Cl  5.404600000000E+01    0         1
+                          E   0.000000000000E+00    1         0
+                          cn  0.000000000000E+00    2         1
+
+Chemical Potentials:  (J/kmol)
+             Species       (phase)        SS0ChemPot       StarChemPot
+          H2O(L) AlCl_electrolyte    -3.06686e+08       -3.06686e+08
+             Cl-                     -1.83974e+08       -1.83974e+08
+              H+                                0                  0
+             OH-                     -2.26784e+08       -2.26784e+08
+           Al+++                     -4.37596e+08       -4.37596e+08
+           Al(S)            Al(S)    -8.42991e+06       -8.42991e+06
+     electronSHE   metalElectrons    -1.94812e+07       -1.94814e+07
+
+================================================================================
+==================== VCS_PROB: END OF PROBLEM STATEMENT ========================
+================================================================================
+
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to calculate the number of components
+
+   ---       Formula Matrix used in BASOPT calculation
+   ---      Active |     1    1    1    1    0    1  
+   ---     Species |     O    H   Al   Cl    E cn_A
+   ---      H2O(L) |     1    2    0    0   -0    0
+   ---         Cl- |     0    0    0    1    1   -1
+   ---          H+ |     0    1    0    0   -1    1
+   ---         OH- |     1    1    0    0    1   -1
+   ---       Al+++ |     0    0    1    0   -3    3
+   ---       Al(S) |     0    0    1    0    0    0
+   --- electronSHE |     0    0    0    0    1    0
+
+   ---   Al+++       (  4.4e+08) replaces H2O(L)      (  3.1e+08) as component   0
+   ---   H2O(L)      (  3.1e+08) replaces Cl-         (  1.8e+08) as component   1
+   ---   OH-         (  2.3e+08) replaces H+          (       -0) as component   2
+   ---   Cl-         (  1.8e+08) replaces H+          (       -0) as component   3
+   ---   Al(S)       (  8.4e+06) replaces H+          (       -0) as component   4
+   ---   Total number of components found =   5 (ne = 6)
+    -----------------------------------------------------------------------------
+   --- Subroutine elem_rearrange() called to check stoich. coefficent matrix
+   ---    and to rearrange the element ordering once
+   ---   cn(        0) replaces E (        0) as element   4
+   --- vcs_inest: Go find an initial estimate for the equilibrium problem
+   --- vcs_inest:  Mole Numbers returned from linear programming (vcs_inest initial guess):
+   --- vcs_inest:      SPECIES          MOLE_NUMBER      -SS_ChemPotential
+   --- vcs_inest:      Al+++                 18.015           177
+   --- vcs_inest:      H2O(L)                  1000           124
+   --- vcs_inest:      OH-                2.274e-13          91.5
+   --- vcs_inest:      Cl-                   54.046          74.2
+   --- vcs_inest:      Al(S)                   9982           3.4
+   --- vcs_inest:      H+                         0            -0
+   --- vcs_inest:      electronSHE            39745          7.86
+   --- vcs_inest:  Element Abundance Agreement returned from linear programming (vcs_inest initial guess):
+   --- vcs_inest:      Element           Goal         Actual
+   --- vcs_inest:         O                1e+03        1e+03
+   --- vcs_inest:         H                2e+03        2e+03
+   --- vcs_inest:         Al               1e+04        1e+04
+   --- vcs_inest:         Cl                  54           54
+   --- vcs_inest:         cn_AlCl_e            0    -2.98e-13
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to reevaluate the components
+
+   ---       Formula Matrix used in BASOPT calculation
+   ---      Active |     1    1    1    1    1    0  
+   ---     Species |     O    H   Al   Cl cn_A    E
+   ---       Al+++ |     0    0    1    0    3   -3
+   ---      H2O(L) |     1    2    0    0    0   -0
+   ---         OH- |     1    1    0    0   -1    1
+   ---         Cl- |     0    0    0    1   -1    1
+   ---       Al(S) |     0    0    1    0    0    0
+   ---          H+ |     0    1    0    0    1   -1
+   --- electronSHE |     0    0    0    0    0    1
+
+   ---   Al(S)       (    1e+04) replaces Al+++       (       18) as component   0
+   ---   H2O(L)      (    1e+03) remains                          as component   1
+   ---   Cl-         (       54) replaces OH-         (  2.3e-13) as component   2
+   ---   Al+++       (       18) replaces OH-         (  2.3e-13) as component   3
+   ---   OH-         (  2.3e-13) remains                          as component   4
+   ---   Total number of components found =   5 (ne = 6)
+    ---                Components:       0         1         2         3         4  
+   ---          Components Moles:  9.98e+03     1e+03        54        18  2.27e-13
+   ---   NonComponent|   Moles  |       Al(S)     H2O(L)    Cl-       Al+++     OH-       
+   ---   5 H+        |     1e-30|      -0.00      -1.00      -0.00      -0.00       1.00
+   ---   6 electronSH|         0|      -0.33      -0.00      -0.00       0.33       0.00
+   -----------------------------------------------------------------------------
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- vcs_inest: Al(S)       fe* =         -3.4006 ff =         -3.4006
+   --- vcs_inest: H2O(L)      fe* =         -123.79 ff =         -123.72
+   --- vcs_inest: Cl-         fe* =         -77.202 ff =         -74.214
+   --- vcs_inest: Al+++       fe* =         -180.61 ff =         -176.52
+   --- vcs_inest: OH-         fe* =         -127.57 ff =         -91.483
+   --- vcs_inest: H+          fe* =               0 ff =               0 dg* =         -3.7878
+   --- vcs_inest: electronSHE fe* =         -7.8587 ff =         -7.8587 dg* =         -66.929
+   --- vcs_inest: direction (Al(S)       ) = 0 (ssPhase exists at w = 9981.98 moles)
+   --- vcs_inest: direction (H2O(L)      ) = -47341.1
+   --- vcs_inest: direction (Cl-         ) = 0
+   --- vcs_inest: direction (Al+++       ) = 0
+   --- vcs_inest: direction (OH-         ) = 47341.1
+   --- vcs_inest: direction (H+          ) = 47341.1
+   --- Subroutine vcs_dfe called for all species
+   --- Subroutine vcs_dfe called for all species
+   --- vcs_inest:      Final Mole Numbers produced by inest:
+   --- vcs_inest:      SPECIES      MOLE_NUMBER
+   --- vcs_inest:      Al(S)        9981.98
+   --- vcs_inest:      H2O(L)       920
+   --- vcs_inest:      Cl-          54.046
+   --- vcs_inest:      Al+++        18.0153
+   --- vcs_inest:      OH-          80
+   --- vcs_inest:      H+           80
+   --- vcs_inest:      electronSHE  0
+   --- vcs_inest: Initial guess satisfies element abundances
+   --- vcs_inest: Total Dimensionless Gibbs Free Energy =  -1.6317979E+05
+VCS CALCULATION METHOD
+
+ Sample MultiPhase Problem
+
+
+    7 SPECIES       6 ELEMENTS               5 COMPONENTS
+    5 PHASE1 SPECIES         0 PHASE2 SPECIES       2 SINGLE SPECIES PHASES
+
+ PRESSURE            101325.000 ATM
+ TEMPERATURE            298.150 K
+ PHASE1 INERTS            0.000
+
+ ELEMENTAL ABUNDANCES             CORRECT          FROM ESTIMATE           Type
+
+                          O   1.000000000000E+03  1.000000000000E+03       0
+                          H   2.000000000000E+03  2.000000000000E+03       0
+                          Al  1.000000000000E+04  1.000000000000E+04       0
+                          Cl  5.404600000000E+01  5.404600000000E+01       0
+                          cn  0.000000000000E+00 -2.984279490192E-13       2
+                          E   0.000000000000E+00  2.984279490192E-13       1
+
+ MODIFIED LINEAR PROGRAMMING ESTIMATE OF EQUILIBRIUM
+ Stan. Chem. Pot. in J/kmol
+
+ SPECIES       FORMULA VECTOR                                STAN_CHEM_POT   EQUILIBRIUM_EST.  Species_Type
+
+               O  H  Al Cl cn E  SI(I)
+ Al(S)         0  0  1  0  0  0  0                             -8.42991E+06   9.98198E+03       Mol_Num 
+ H2O(L)        1  2  0  0  0 -0  1                             -3.06686E+08   9.20000E+02       Mol_Num 
+ Cl-           0  0  0  1 -1  1  1                             -1.83974E+08   5.40460E+01       Mol_Num 
+ Al+++         0  0  1  0  3 -3  1                             -4.37596E+08   1.80153E+01       Mol_Num 
+ OH-           1  1  0  0 -1  1  1                             -2.26784E+08   8.00000E+01       Mol_Num 
+ H+            0  1  0  0  1 -1  1                              0.00000E+00   8.00000E+01       Mol_Num 
+ electronSHE   0  0  0  0  0  1  0                             -1.94814E+07   0.00000E+00       Voltage 
+   --- Subroutine vcs_dfe called for all species
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to reevaluate the components
+
+   ---       Formula Matrix used in BASOPT calculation
+   ---      Active |     1    1    1    1    1    0  
+   ---     Species |     O    H   Al   Cl cn_A    E
+   ---       Al(S) |     0    0    1    0    0    0
+   ---      H2O(L) |     1    2    0    0    0   -0
+   ---         Cl- |     0    0    0    1   -1    1
+   ---       Al+++ |     0    0    1    0    3   -3
+   ---         OH- |     1    1    0    0   -1    1
+   ---          H+ |     0    1    0    0    1   -1
+   --- electronSHE |     0    0    0    0    0    1
+
+   ---   Al(S)       (    1e+04) remains                          as component   0
+   ---   H2O(L)      (  9.2e+02) remains                          as component   1
+   ---   OH-         (       80) replaces Cl-         (       54) as component   2
+   ---   Cl-         (       54) replaces Al+++       (       18) as component   3
+   ---   Al+++       (       18) remains                          as component   4
+   ---   Total number of components found =   5 (ne = 6)
+    ---                Components:       0         1         2         3         4  
+   ---          Components Moles:  9.98e+03       920        80        54        18
+   ---   NonComponent|   Moles  |       Al(S)     H2O(L)    OH-       Cl-       Al+++     
+   ---   5 H+        |        80|      -0.00      -1.00       1.00      -0.00      -0.00
+   ---   6 electronSH|         0|      -0.33      -0.00       0.00      -0.00       0.33
+   -----------------------------------------------------------------------------
+   --- Element Abundance check passed
+   --- Subroutine vcs_deltag called for all noncomponents
+
+==============================================================================================================
+ Iteration =   0, Iterations since last evaluation of optimal basis =   0 (all species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              8.0000E+01  -8.0000E+01   3.2419E+01 | Delta damped from -80 to -80 due to H+ going negative
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- Major species changed to minor: H+          
+   --- H+            0 8.0000E+01 8.0000E+00-7.2000E+01 | initial nonpos moles=   0.000E+00
+   --- electronSHE  -5 0.0000E+00-1.8025E+00-1.8025E+00 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 9.2000E+02 9.9200E+02 7.2000E+01 |
+   --- OH-           c 8.0000E+01 8.0000E+00-7.2000E+01 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            9.200000E+02  9.920000E+02 -1.238360E+02 -1.237439E+02
+   ---   OH-               8.000000E+01  8.000000E+00 -9.116626E+01 -9.343506E+01
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.428902E+01 -7.425524E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.902737E+02 -1.871552E+02
+   ---   H+            0   8.000000E+01  8.000000E+00 -2.503030E-01 -2.646300E+00  3.241948E+01  2.766256E+01
+   ---   electronSHE  -5   0.000000E+00 -1.802529E+00 -7.858689E+00  6.229104E+01 -7.014973E+01  1.039504E+00
+   ---                                                        Norms of Delta G():  5.464433E+01  1.956038E+01
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0800613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6496434E+05
+   --- subroutine FORCE: End Slope = -2103.99
+   --- subroutine FORCE: Beginning Slope = -2320.04
+   --- subroutine FORCE produced no adjustments (al = 10.7384)
+   --- Increment counter increased, step is accepted:    1
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   ---   Noncomponent turned from minor to major: H+
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   1, Iterations since last evaluation of optimal basis =   1 (only major species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              8.0000E+00  -8.0000E+00   2.7663E+01 | Delta damped from -8 to -8 due to H+ going negative
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- Major species changed to minor: H+          
+   --- H+            0 8.0000E+00 8.0000E-01-7.2000E+00 | initial nonpos moles=   0.000E+00
+   --- electronSHE  -5-1.8025E+00-1.7758E+00 2.6711E-02 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 9.9200E+02 9.9920E+02 7.2000E+00 |
+   --- OH-           c 8.0000E+00 8.0000E-01-7.2000E+00 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for components and majors using tentative solution
+   --- Subroutine vcs_deltag called for major noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_deltag for printout only:   --- Subroutine vcs_deltag called for minor noncomponents
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            9.920000E+02  9.992000E+02 -1.237439E+02 -1.237358E+02
+   ---   OH-               8.000000E+00  8.000000E-01 -9.343506E+01 -9.573586E+01
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425524E+01 -7.425345E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.871552E+02 -1.868044E+02
+   ---   H+            0   8.000000E+00  8.000000E-01 -2.646300E+00 -4.966954E+00  2.766256E+01  2.303302E+01
+   ---   electronSHE  -5  -1.802529E+00 -1.775819E+00  6.229104E+01  6.125153E+01  1.039504E+00  1.169144E-01
+   ---                                                        Norms of Delta G():  1.956038E+01  1.628681E+01
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0728613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6514920E+05
+   --- subroutine FORCE: End Slope = -164.202
+   --- subroutine FORCE: Beginning Slope = -197.507
+   --- subroutine FORCE produced no adjustments (al = 5.93026)
+   --- Increment counter increased, step is accepted:    2
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+ MAJOR SPECIES CONVERGENCE achieved (because there are no major species)
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species: H+ failed
+
+==============================================================================================================
+ Iteration =   2, Iterations since last evaluation of optimal basis =   2 (all species)
+   --- vcs_RxnStepSizes not called because allspecies are minors
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- H+            0 8.0000E-01 8.0000E-06-7.9999E-01 | minor species alternative calc
+   --- electronSHE  -5-1.7758E+00-1.7728E+00 3.0042E-03 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 9.9920E+02 1.0000E+03 7.9999E-01 |
+   --- OH-           c 8.0000E-01 8.0000E-06-7.9999E-01 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Reduction in step size due to component OH- going negative =   9.900E-01
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            9.992000E+02  9.999920E+02 -1.237358E+02 -1.237350E+02
+   ---   OH-               8.000000E-01  8.000000E-03 -9.573586E+01 -1.003409E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425345E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.868044E+02 -1.867655E+02
+   ---   H+            0   8.000000E-01  8.000000E-03 -4.966954E+00 -9.574299E+00  2.303302E+01  1.381977E+01
+   ---   electronSHE  -5  -1.775819E+00 -1.772845E+00  6.125153E+01  6.113579E+01  1.169144E-01  1.416221E-02
+   ---                                                        Norms of Delta G():  1.628681E+01  9.772052E+00
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720693E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516554E+05
+   --- subroutine FORCE: End Slope = -10.7634
+   --- subroutine FORCE: Beginning Slope = -18.06
+   --- subroutine FORCE produced no adjustments (al = 2.47514)
+   --- Increment counter increased, step is accepted:    3
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   ---   Noncomponent turned from minor to major: H+
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   3, Iterations since last evaluation of optimal basis =   3 (all species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              8.0000E-03  -8.0000E-03   1.3820E+01 | Delta damped from -0.008 to -0.008 due to H+ going negative
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- Major species changed to minor: H+          
+   --- H+            0 8.0000E-03 8.0000E-04-7.2000E-03 | initial nonpos moles=   0.000E+00
+   --- electronSHE  -5-1.7728E+00-1.7725E+00 3.6390E-04 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 9.9999E+02 1.0000E+03 7.2000E-03 |
+   --- OH-           c 8.0000E-03 8.0000E-04-7.2000E-03 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            9.999920E+02  9.999992E+02 -1.237350E+02 -1.237350E+02
+   ---   OH-               8.000000E-03  8.000000E-04 -1.003409E+02 -1.026435E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867655E+02 -1.867651E+02
+   ---   H+            0   8.000000E-03  8.000000E-04 -9.574299E+00 -1.187690E+01  1.381977E+01  9.214572E+00
+   ---   electronSHE  -5  -1.772845E+00 -1.772481E+00  6.113579E+01  6.112162E+01  1.416221E-02  1.182441E-04
+   ---                                                        Norms of Delta G():  9.772052E+00  6.515686E+00
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720621E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = -0.0441025
+   --- subroutine FORCE: Beginning Slope = -0.0772548
+   --- subroutine FORCE produced no adjustments (al = 2.3303)
+   --- Increment counter increased, step is accepted:    4
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   ---   Noncomponent turned from minor to major: H+
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   4, Iterations since last evaluation of optimal basis =   4 (only major species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              8.0000E-04  -8.0000E-04   9.2146E+00 | Delta damped from -0.0008 to -0.0008 due to H+ going negative
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- Major species changed to minor: H+          
+   --- H+            0 8.0000E-04 8.0000E-05-7.2000E-04 | initial nonpos moles=   0.000E+00
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 3.0383E-06 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 7.2000E-04 |
+   --- OH-           c 8.0000E-04 8.0000E-05-7.2000E-04 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for components and majors using tentative solution
+   --- Subroutine vcs_deltag called for major noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_deltag for printout only:   --- Subroutine vcs_deltag called for minor noncomponents
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            9.999992E+02  9.999999E+02 -1.237350E+02 -1.237350E+02
+   ---   OH-               8.000000E-04  8.000000E-05 -1.026435E+02 -1.049461E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            0   8.000000E-04  8.000000E-05 -1.187690E+01 -1.417949E+01  9.214572E+00  4.609399E+00
+   ---   electronSHE  -5  -1.772481E+00 -1.772478E+00  6.112162E+01  6.112151E+01  1.182441E-04  1.182452E-05
+   ---                                                        Norms of Delta G():  6.515686E+00  3.259337E+00
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720614E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = -0.00313306
+   --- subroutine FORCE: Beginning Slope = -0.00644878
+   --- subroutine FORCE produced no adjustments (al = 1.94491)
+   --- Increment counter increased, step is accepted:    5
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+ MAJOR SPECIES CONVERGENCE achieved (because there are no major species)
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species: H+ failed
+
+==============================================================================================================
+ Iteration =   5, Iterations since last evaluation of optimal basis =   5 (all species)
+   --- vcs_RxnStepSizes not called because allspecies are minors
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- H+            0 8.0000E-05 8.0000E-07-7.9200E-05 | minor species alternative calc
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 3.0384E-07 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 7.9200E-05 |
+   --- OH-           c 8.0000E-05 8.0000E-07-7.9200E-05 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            9.999999E+02  1.000000E+03 -1.237350E+02 -1.237350E+02
+   ---   OH-               8.000000E-05  8.000002E-07 -1.049461E+02 -1.095512E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            0   8.000000E-05  8.000000E-07 -1.417949E+01 -1.878466E+01  4.609399E+00 -4.600941E+00
+   ---   electronSHE  -5  -1.772478E+00 -1.772477E+00  6.112151E+01  6.112149E+01  1.182452E-05  1.300699E-06
+   ---                                                        Norms of Delta G():  3.259337E+00  3.253357E+00
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = 0.000382965
+   --- subroutine FORCE: Beginning Slope = -0.000346493
+   --- subroutine FORCE produced a damping factor = 0.475001
+   --- subroutine FORCE adjusted the mole numbers, AL =      0.475
+   --- Subroutine vcs_dfe called for all species
+   --- Subroutine vcs_deltag called for all noncomponents
+ -----------------------------------------------------
+   --- FORCER SUBROUTINE changed the solution:
+   --- SPECIES Status TENT MOLES  FINAL MOLES     TENT_DEL_G/RT  FINAL_DELTA_G/RT
+  --- Al(S)             9.981985E+03  9.981985E+03
+  --- H2O(L)            1.000000E+03  1.000000E+03
+  --- OH-               8.000002E-07  4.237995E-05
+  --- Cl-               5.404600E+01  5.404600E+01
+  --- Al+++             1.801533E+01  1.801533E+01
+  --- H+            0   8.000000E-07  4.237995E-05 -4.600941E+00  3.338697E+00
+  --- electronSHE  -5  -1.772477E+00 -1.772478E+00  1.300699E-06  6.825699E-06
+                          Norms of Delta G():  3.253357E+00  2.360815E+00
+   Total moles of gas    =   1.0720614E+03
+   Total moles of liquid =   0.0000000E+00
+   Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+ -----------------------------------------------------
+   --- Increment counter increased, step is accepted:    6
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   ---   Noncomponent turned from minor to major: H+
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   6, Iterations since last evaluation of optimal basis =   6 (only major species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              4.2380E-05  -4.2380E-05   3.3387E+00 | Delta damped from -4.23799e-05 to -4.23799e-05 due to H+ going negative
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- Major species changed to minor: H+          
+   --- H+            0 4.2380E-05 1.4727E-05-2.7652E-05 | Line Search reduced step size from -3.8142e-05 to -2.76525e-05
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 1.7539E-07 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 2.7652E-05 |
+   --- OH-           c 4.2380E-05 1.4727E-05-2.7652E-05 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for components and majors using tentative solution
+   --- Subroutine vcs_deltag called for major noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_deltag for printout only:   --- Subroutine vcs_deltag called for minor noncomponents
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            1.000000E+03  1.000000E+03 -1.237350E+02 -1.237350E+02
+   ---   OH-               4.237995E-05  1.472746E-05 -1.055814E+02 -1.066384E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            0   4.237995E-05  1.472746E-05 -1.481484E+01 -1.587180E+01  3.338697E+00  1.224774E+00
+   ---   electronSHE  -5  -1.772478E+00 -1.772477E+00  6.112150E+01  6.112149E+01  6.825699E-06  4.541357E-07
+   ---                                                        Norms of Delta G():  2.360815E+00  8.660457E-01
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = -2.3148e-05
+   --- subroutine FORCE: Beginning Slope = -8.16032e-05
+   --- subroutine FORCE produced no adjustments (al = 1.39599)
+   --- Increment counter increased, step is accepted:    7
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+ MAJOR SPECIES CONVERGENCE achieved (because there are no major species)
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species: H+ failed
+
+==============================================================================================================
+ Iteration =   7, Iterations since last evaluation of optimal basis =   7 (all species)
+   --- vcs_RxnStepSizes not called because allspecies are minors
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- H+            0 1.4727E-05 4.3273E-06-1.0400E-05 | minor species alternative calc
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 1.1669E-08 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 1.0400E-05 |
+   --- OH-           c 1.4727E-05 4.3273E-06-1.0400E-05 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            1.000000E+03  1.000000E+03 -1.237350E+02 -1.237350E+02
+   ---   OH-               1.472746E-05  4.327285E-06 -1.066384E+02 -1.078631E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            0   1.472746E-05  4.327285E-06 -1.587180E+01 -1.709658E+01  1.224774E+00 -1.224774E+00
+   ---   electronSHE  -5  -1.772477E+00 -1.772477E+00  6.112149E+01  6.112149E+01  4.541357E-07  1.708017E-07
+   ---                                                        Norms of Delta G():  8.660457E-01  8.660457E-01
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = 1.34511e-05
+   --- subroutine FORCE: Beginning Slope = -1.20246e-05
+   --- subroutine FORCE produced a damping factor = 0.472003
+   --- subroutine FORCE adjusted the mole numbers, AL =      0.472
+   --- Subroutine vcs_dfe called for all species
+   --- Subroutine vcs_deltag called for all noncomponents
+ -----------------------------------------------------
+   --- FORCER SUBROUTINE changed the solution:
+   --- SPECIES Status TENT MOLES  FINAL MOLES     TENT_DEL_G/RT  FINAL_DELTA_G/RT
+  --- Al(S)             9.981985E+03  9.981985E+03
+  --- H2O(L)            1.000000E+03  1.000000E+03
+  --- OH-               4.327285E-06  9.818546E-06
+  --- Cl-               5.404600E+01  5.404600E+01
+  --- Al+++             1.801533E+01  1.801533E+01
+  --- H+            0   4.327285E-06  9.818546E-06 -1.224774E+00  4.138918E-01
+  --- electronSHE  -5  -1.772477E+00 -1.772477E+00  1.708017E-07  3.204012E-07
+                          Norms of Delta G():  8.660457E-01  2.926657E-01
+   Total moles of gas    =   1.0720613E+03
+   Total moles of liquid =   0.0000000E+00
+   Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+ -----------------------------------------------------
+   --- Increment counter increased, step is accepted:    8
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   ---   Noncomponent turned from minor to major: H+
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   8, Iterations since last evaluation of optimal basis =   8 (only major species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              9.8185E-06  -2.0319E-06   4.1389E-01 | Normal calc: diag adjusted from 203696 to 203696 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- H+            1 9.8185E-06 8.0050E-06-1.8135E-06 | Line Search reduced step size from -2.03191e-06 to -1.81354e-06
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 8.2329E-09 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 1.8135E-06 |
+   --- OH-           c 9.8185E-06 8.0050E-06-1.8135E-06 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for components and majors using tentative solution
+   --- Subroutine vcs_deltag called for major noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_deltag for printout only:   --- Subroutine vcs_deltag called for minor noncomponents
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            1.000000E+03  1.000000E+03 -1.237350E+02 -1.237350E+02
+   ---   OH-               9.818546E-06  8.005003E-06 -1.070438E+02 -1.072480E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            1   9.818546E-06  8.005003E-06 -1.627724E+01 -1.648145E+01  4.138918E-01  5.479197E-03
+   ---   electronSHE  -5  -1.772477E+00 -1.772477E+00  6.112149E+01  6.112149E+01  3.204012E-07  2.978375E-08
+   ---                                                        Norms of Delta G():  2.926657E-01  3.874377E-03
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = 4.93268e-07
+   --- subroutine FORCE: Beginning Slope = -2.47406e-07
+   --- subroutine FORCE produced a damping factor = 0.334028
+   --- subroutine FORCE adjusted the mole numbers, AL =      0.334
+   --- Subroutine vcs_dfe called for components and majors
+   --- Subroutine vcs_deltag called for major noncomponents
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors
+   *** vcs_deltag call for printouts only;   --- Subroutine vcs_deltag called for minor noncomponents
+ -----------------------------------------------------
+   --- FORCER SUBROUTINE changed the solution:
+   --- SPECIES Status TENT MOLES  FINAL MOLES     TENT_DEL_G/RT  FINAL_DELTA_G/RT
+  --- Al(S)             9.981985E+03  9.981985E+03
+  --- H2O(L)            1.000000E+03  1.000000E+03
+  --- OH-               8.005003E-06  9.212771E-06
+  --- Cl-               5.404600E+01  5.404600E+01
+  --- Al+++             1.801533E+01  1.801533E+01
+  --- H+            1   8.005003E-06  9.212771E-06  5.479197E-03  2.865271E-01
+  --- electronSHE  -5  -1.772477E+00 -1.772477E+00  2.978375E-08  2.233267E-07
+                          Norms of Delta G():  3.874377E-03  2.026052E-01
+   Total moles of gas    =   1.0720613E+03
+   Total moles of liquid =   0.0000000E+00
+   Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+ -----------------------------------------------------
+   --- Increment counter increased, step is accepted:    9
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   9, Iterations since last evaluation of optimal basis =   9 (only major species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              9.2128E-06  -1.3199E-06   2.8653E-01 | Normal calc: diag adjusted from 217090 to 217090 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- H+            1 9.2128E-06 7.9899E-06-1.2229E-06 | Line Search reduced step size from -1.31985e-06 to -1.22288e-06
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 5.7385E-09 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 1.2229E-06 |
+   --- OH-           c 9.2128E-06 7.9899E-06-1.2229E-06 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for components and majors using tentative solution
+   --- Subroutine vcs_deltag called for major noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_deltag for printout only:   --- Subroutine vcs_deltag called for minor noncomponents
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            1.000000E+03  1.000000E+03 -1.237350E+02 -1.237350E+02
+   ---   OH-               9.212771E-06  7.989896E-06 -1.071075E+02 -1.072499E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            1   9.212771E-06  7.989896E-06 -1.634093E+01 -1.648334E+01  2.865271E-01  1.701169E-03
+   ---   electronSHE  -5  -1.772477E+00 -1.772477E+00  6.112149E+01  6.112149E+01  2.233267E-07  2.008323E-08
+   ---                                                        Norms of Delta G():  2.026052E-01  1.202908E-03
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = 3.48664e-07
+   --- subroutine FORCE: Beginning Slope = 3.57695e-10
+   --- subroutine FORCE produced no adjustments (al = -0.00102695)
+   --- Increment counter increased, step is accepted:   10
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  10, Iterations since last evaluation of optimal basis =  10 (only major species)
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species         Moles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              7.9899E-06  -6.7961E-09   1.7012E-03 | Normal calc: diag adjusted from 250316 to 250316 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     Moles   Tent_Moles  Rxn_Adj   |    Comment 
+   --- H+            1 7.9899E-06 7.9831E-06-6.7932E-09 | Line Search reduced step size from -6.79608e-09 to -6.79319e-09
+   --- electronSHE  -5-1.7725E+00-1.7725E+00 5.1605E-10 | voltage species alternative calc
+   --- Al(S)         c 9.9820E+03 9.9820E+03 0.0000E+00 |
+   --- H2O(L)        c 1.0000E+03 1.0000E+03 6.7932E-09 |
+   --- OH-           c 7.9899E-06 7.9831E-06-6.7932E-09 |
+   --- Cl-           c 5.4046E+01 5.4046E+01 0.0000E+00 |
+   --- Al+++         c 1.8015E+01 1.8015E+01 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for components and majors using tentative solution
+   --- Subroutine vcs_deltag called for major noncomponents
+   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_dfe for printout only:   --- Subroutine vcs_dfe called for components and minors using tentative solution
+   *** vcs_deltag for printout only:   --- Subroutine vcs_deltag called for minor noncomponents
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_Moles  Final_Moles  Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   Al(S)             9.981985E+03  9.981985E+03 -3.400584E+00 -3.400584E+00
+   ---   H2O(L)            1.000000E+03  1.000000E+03 -1.237350E+02 -1.237350E+02
+   ---   OH-               7.989896E-06  7.983103E-06 -1.072499E+02 -1.072508E+02
+   ---   Cl-               5.404600E+01  5.404600E+01 -7.425331E+01 -7.425331E+01
+   ---   Al+++             1.801533E+01  1.801533E+01 -1.867651E+02 -1.867651E+02
+   ---   H+            1   7.989896E-06  7.983103E-06 -1.648334E+01 -1.648419E+01  1.701169E-03  3.079350E-10
+   ---   electronSHE  -5  -1.772477E+00 -1.772477E+00  6.112149E+01  6.112149E+01  2.008323E-08  1.115634E-10
+   ---                                                        Norms of Delta G():  1.202908E-03  2.177429E-10
+   ---           Phase_Name     Moles(after update)
+   ---   --------------------------------------------------
+   ---     AlCl_electrolyte =   1.0720613E+03
+   ---                Al(S) =   9.9819847E+03
+   ---       metalElectrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Dimensionless Gibbs Free Energy =  -1.6516559E+05
+   --- subroutine FORCE: End Slope = 3.15416e-08
+   --- subroutine FORCE: Beginning Slope = 3.15301e-08
+   --- subroutine FORCE produced no adjustments (al = -2728.38)
+   --- Increment counter increased, step is accepted:   11
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species:  CONVERGENCE achieved
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species:  CONVERGENCE achieved
+   --- Check the Full Element Abundances:  passed
+   --- Start rechecking deleted species in multispec phases
+
+
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+		 VCS_TP REPORT
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+		Temperature =           3e+02 Kelvin
+		Pressure    =      1.0132e+05 Atmos
+		Volume      =          118.58 cm**3
+
+
+--------------------------------------------------------------------------------
+ Species                 Equilibrium moles    Mole Fraction    ChemPot/RT    SpecUnkType
+--------------------------------------------------------------------------------
+ Al(S)                     9.9819847E+03      1.0000000E+00     -3.4006E+00     0
+ H2O(L)                    9.9999999E+02      9.3278244E-01     -1.2373E+02     0
+ OH-                       7.9831028E-06      7.4464982E-09     -1.0725E+02     0
+ Cl-                       5.4046000E+01      5.0413160E-02     -7.4253E+01     0
+ Al+++                     1.8015333E+01      1.6804387E-02     -1.8677E+02     0
+ H+                        7.9831026E-06      7.4464980E-09     -1.6484E+01   MolNum 
+ electronSHE                      NA          1.0000000E+00      6.1121E+01   Voltage = -1.7724774E+00
+--------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------
+               |ComponentID|          0          1          2          3          4 |           |
+               | Components|      Al(S)     H2O(L)        OH-        Cl-      Al+++ |           |
+ NonComponent  |   Moles   |   9.98e+03      1e+03   7.98e-06         54         18 | DG/RT Rxn |
+-----------------------------------------------------------------------------------------------
+   5 H+        |  7.98e-06 |       0.00      -1.00       1.00       0.00       0.00 |  3.08e-10 |
+   6 electronSH|     -1.77 |      -0.33       0.00       0.00       0.00       0.33 |  1.12e-10 |
+-----------------------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+                  | ElementID |          0          1          2          3          4          5 |                     |
+                  | Element   |          O          H         Al         Cl cn_AlCl_el          E |                     |
+    PhaseName     | MolTarget |      1e+03      2e+03      1e+04         54          0          0 |     Gibbs Total     |
+----------------------------------------------------------------------------------------------------------------------
+   0 AlCl_electro | 1.072e+03 |      1e+03      2e+03         18         54  -3.05e-13   3.05e-13 | -1.31112680392E+05 |
+   1 Al(S)        | 9.982e+03 |          0          0   9.98e+03          0          0          0 | -3.39445736025E+04 |
+   2 metalElectro | 0.000e+00 |          0          0          0          0          0          0 | -1.08336465561E+02 |
+----------------------------------------------------------------------------------------------------------------------
+    TOTAL         | 1.105e+04 |      1e+03      2e+03      1e+04         54  -3.05e-13   3.05e-13 | -1.65165590460E+05 |
+----------------------------------------------------------------------------------------------------------------------
+
+
+	Total Dimensionless Gibbs Free Energy = G/RT =  -1.6516559E+05
+
+Elemental Abundances:              Actual                    Target         Type      ElActive
+                          O   1.000000000000E+03    1.000000000000E+03     0       1
+                          H   2.000000000000E+03    2.000000000000E+03     0       1
+                          Al  1.000000000000E+04    1.000000000000E+04     0       1
+                          Cl  5.404600000000E+01    5.404600000000E+01     0       1
+                          cn -3.046611899392E-13    0.000000000000E+00     2       1
+                          E   3.046611899392E-13    0.000000000000E+00     1       0
+
+
+---------------------------------------------------------------------------------------------
+Chemical Potentials of the Species: (dimensionless)
+		(RT = 2.47896e+06 J/kmol)
+    Name         TMoles     StandStateChemPot      ln(AC)       ln(X_i)      |   F z_i phi   |    ChemPot    | (-lnMnaught)
+-------------------------------------------------------------------------------------------------------------------
+ Al(S)         9.9819847E+03 -3.4005836E+00   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -3.4006E+00 |
+ H2O(L)        9.9999999E+02 -1.2371551E+02   5.0141062E-02  -6.9583290E-02  | 0.0000000E+00 |   -1.2373E+02 |
+ OH-           7.9831028E-06 -9.1483483E+01  -1.0682899E+00  -1.8715522E+01  |-0.0000000E+00 |   -1.0725E+02 | ( 4.0165350E+00)
+ Cl-           5.4046000E+01 -7.4214051E+01  -1.0682899E+00  -2.9875030E+00  |-0.0000000E+00 |   -7.4253E+01 | ( 4.0165350E+00)
+ Al+++         1.8015333E+01 -1.7652421E+02  -1.0171276E+01  -4.0861153E+00  | 0.0000000E+00 |   -1.8677E+02 | ( 4.0165350E+00)
+ H+            7.9831026E-06  0.0000000E+00  -1.7852039E+00  -1.8715522E+01  | 0.0000000E+00 |   -1.6484E+01 | ( 4.0165350E+00)
+ electronSHE  -1.7724774E+00 -7.8586892E+00   0.0000000E+00   0.0000000E+00  | 6.8980183E+01 |    6.1121E+01 |
+-------------------------------------------------------------------------------------------------------------------
+
+
+Counters:         Iterations          Time (seconds)
+    vcs_basopt:       1             0.00000E+00
+    vcs_TP:          11             5.20000E-01
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+voltage species = -1.77248
+
+TCounters:   Num_Calls   Total_Its       Total_Time (seconds)
+    vcs_basopt:       1          1         0.00000E+00
+    vcs_TP:           1         11         5.20000E-01
+    vcs_inest:        1                    1.00000E-02
+    vcs_TotalTime:                         5.70000E-01
+
+ Results from vcsc:
+
+Temperature = 298.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number(kmol) Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2O(L)              1.000e-00       9.328e-01       -3.067e+08
+Cl-                 5.405e-02       5.041e-02       -1.841e+08
+H+                  7.983e-09       7.446e-09       -4.086e+07
+OH-                 7.983e-09       7.446e-09       -2.659e+08
+Al+++               1.802e-02       1.680e-02       -4.630e+08
+Al(S)               9.982e+00       1.000e+00       -8.430e+06
+electronSHE         0.000e+00       1.000e+00        1.515e+08
+-------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------- VCS_CANTERAPROB_INPUT REPORT -----------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Temperature = 298.15 kelvin
+Pressure    = 101325 Pascal
+RT          = 2.47896 kJ/gmol
+
+  ==========================================================================================
+  Phase AlCl_electrolyte:
+    Total moles = 1.07206 kmol
+    Potential = 0 volts
+    Total volume of phase = 0.0189011 m**3
+    ------------------------------------------------------------------------------------------
+       Name    Mole_Fract     Molalities    Activity ChemPot_SS0    F z_k Phi  ElectroChemPot
+                                                      (kJ/gmol)     (kJ/gmol)   (kJ/gmol)
+    ------------------------------------------------------------------------------------------
+      H2O(L)     0.932782      55.5084     0.980746     -306.686            0     -306.734
+         Cl-    0.0504132      3.00001     0.961503     -183.974           -0     -184.071
+          H+   7.4465e-09   4.4313e-07  6.93437e-08            0            0     -40.8636
+         OH-   7.4465e-09   4.4313e-07  1.42023e-07     -226.784           -0      -265.87
+       Al+++    0.0168044            1  3.56823e-05     -437.596            0     -462.983
+    ------------------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+       Name    mole_num           PMVol  
+                (kmol)         (m**3/kmol)
+    --------------------------------------------------------------------------------
+      H2O(L)            1    0.0180056
+         Cl-     0.054046   0.00970211
+          H+   7.9831e-09   0.00136211
+         OH-   7.9831e-09   0.00970211
+       Al+++    0.0180153     0.020599
+    --------------------------------------------------------------------------------
+  ==========================================================================================
+
+  ==========================================================================================
+  Phase Al(S):
+    Total moles = 9.98198 kmol
+    Potential = 0 volts
+    Total volume of phase = 0.0996778 m**3
+    ------------------------------------------------------------------------------------------
+       Name    Mole_Fract     Activity   Activity     ChemPotSS0      F z_k Phi   ElectroChemPot
+                                Coeff                  (kJ/gmol)     (kJ/gmol)     (kJ/gmol)
+    ------------------------------------------------------------------------------------------
+       Al(S)            1            1            1     -8.42991            0     -8.42991
+    ------------------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+       Name    mole_num           PMVol  
+                (kmol)         (m**3/kmol)
+    --------------------------------------------------------------------------------
+       Al(S)      9.98198   0.00998577
+    --------------------------------------------------------------------------------
+  ==========================================================================================
+
+  ==========================================================================================
+  Phase metalElectrons:
+    Total moles = 0 kmol
+    Potential = -1.77248 volts
+    Total volume of phase = 0 m**3
+    ------------------------------------------------------------------------------------------
+       Name    Mole_Fract     Activity   Activity     ChemPotSS0      F z_k Phi   ElectroChemPot
+                                Coeff                  (kJ/gmol)     (kJ/gmol)     (kJ/gmol)
+    ------------------------------------------------------------------------------------------
+ electronSHE            0            1            1     -19.4814      170.999      151.518
+    ------------------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+       Name    mole_num           PMVol  
+                (kmol)         (m**3/kmol)
+    --------------------------------------------------------------------------------
+ electronSHE            0  2.51732e+13
+    --------------------------------------------------------------------------------
+  ==========================================================================================
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------- END VCS_CANTERAPROB_INPUT REPORT -------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Total time = 5.800000e-01 seconds

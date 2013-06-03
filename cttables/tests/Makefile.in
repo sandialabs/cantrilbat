@@ -1,0 +1,96 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2012/02/22 21:23:41 $
+#  $Revision: 1.21 $
+#
+###############################################################
+
+all:
+
+clean:
+	cd silaneMech; ./cleanup
+	cd fixedChemPot; ./cleanup
+	cd heliumAir; ./cleanup
+	cd issPhase; ./cleanup
+	cd DHphase; ./cleanup
+	cd hacaSurf; ./cleanup
+	cd diamondSurf; ./cleanup
+	cd airNASA9; ./cleanup
+	cd H2_electrode_rxn; ./cleanup
+	cd Al_electrode_rxn; ./cleanup
+	cd Zn_electrode_rxn; ./cleanup
+	cd KCl_solid_test; ./cleanup
+	cd NaCl_solid_test; ./cleanup
+	cd HMW_NaCl_sp_test; ./cleanup
+	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd LiSi_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_2_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_3_LiCl_electrode_rxn; ./cleanup
+	cd LiMetal_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
+	cd FeS_electrode_rxn;  ./cleanup
+	cd NewmanFeS2Electrode_rxn; ./cleanup
+
+depends:
+
+install:
+
+test:
+	cd silaneMech; ./runtest
+	cd fixedChemPot; ./runtest
+	cd heliumAir; ./runtest
+	cd issPhase; ./runtest
+	cd DHphase; ./runtest
+	cd hacaSurf; ./runtest
+	cd diamondSurf; ./runtest
+	cd airNASA9; ./runtest
+	cd H2_electrode_rxn; ./runtest
+	cd Al_electrode_rxn; ./runtest
+	cd Zn_electrode_rxn; ./runtest
+	cd KCl_solid_test; ./runtest
+	cd NaCl_solid_test; ./runtest
+	cd HMW_NaCl_sp_test; ./runtest
+	cd HMW_NaKCl_EQ3_test; ./runtest
+	cd LiSi_LiCl_electrode_rxn; ./runtest
+	cd LiSi_0_LiCl_electrode_rxn; ./runtest
+	cd LiSi_2_LiCl_electrode_rxn; ./runtest
+	cd LiSi_3_LiCl_electrode_rxn; ./runtest
+	cd LiMetal_LiIon_electrode_rxn; ./runtest
+	cd MCMBAnode_LiIon_electrode_rxn; ./runtest
+	cd LiCoO2Cathode_LiIon_electrode_rxn; ./runtest
+	cd FeS_electrode_rxn;  ./runtest
+	cd NewmanFeS2Electrode_rxn; ./runtest
+
+rebaseline:
+	cd silaneMech; ./rebaseline
+	cd fixedChemPot; ./rebaseline
+	cd heliumAir; ./rebaseline
+	cd issPhase; ./rebaseline
+	cd DHphase; ./rebaseline
+	cd hacaSurf; ./rebaseline
+	cd diamondSurf; ./rebaseline
+	cd airNASA9; ./rebaseline
+	cd H2_electrode_rxn; ./rebaseline
+	cd Al_electrode_rxn; ./rebaseline
+	cd Zn_electrode_rxn; ./rebaseline
+	cd KCl_solid_test; ./rebaseline
+	cd NaCl_solid_test; ./rebaseline
+	cd HMW_NaCl_sp_test; ./rebaseline
+	cd HMW_NaKCl_EQ3_test; ./rebaseline
+	cd LiSi_LiCl_electrode_rxn; ./rebaseline
+	cd LiSi_0_LiCl_electrode_rxn; ./rebaseline
+	cd LiSi_2_LiCl_electrode_rxn; ./rebaseline
+	cd LiSi_3_LiCl_electrode_rxn; ./rebaseline
+	cd LiMetal_LiIon_electrode_rxn; ./rebaseline
+	cd MCMBAnode_LiIon_electrode_rxn; ./rebasline
+	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
+	cd FeS_electrode_rxn;  ./rebaseline
+	cd NewmanFeS2Electrode_rxn; ./rebaseline
+
+
+
+# end of file
+

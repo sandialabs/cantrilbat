@@ -1,0 +1,39 @@
+#
+#H3 CH4
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = diamond.cti
+!Debugging = true
+Bath Temperature = 1200.
+Bath Pressure = 20 torr
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+
+start block Bath Specification for Phase gas
+  Bath Species ID = H2
+  start block Bath Species Mole Fraction
+    H  =  0.0010
+    H2 =  0.9888
+    CH3 = 0.0100
+    CH4 = 0.0002
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase gas
+
+start block Bath Specification for Phase diamond_100
+   Bath Species ID = c6H*
+   start block Bath Species Mole Fraction
+      c6H* = 0.1
+      c6HH = 0.9
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase diamond_100
+
+# the above were empty lines

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase orthorhombic S(S)    -->
+  <phase dim="3" id="S(S)">
+    <elementArray datasrc="elements.xml">
+      S
+    </elementArray>
+    <speciesArray datasrc="#species_S(S)"> S(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 2.070 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_S(S)">
+
+    <!-- species S(S)   -->
+    <!--      melting temperature = 386.0 K -->
+    <species name="S(S)">
+      <atomArray> S:1 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from periodni.com and speclab.com -->
+        <molarVolume units="m3/kmol"> 0.01549 </molarVolume>
+      </standardState>
+      <!--  SGTE data for pure elements -->
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="368.3" Tmin="298.15">
+          <floatArray size="7">
+             11.007,
+             53.058,
+            -46.526,
+             0,
+             0,
+            -5.228956,
+             31.6229
+          </floatArray>
+        </Shomate>
+        <Shomate Pref="1 bar" Tmax="1300" Tmin="368.3">
+          <floatArray size="7">
+             17.941839,
+             21.79025,
+            -8.415348,
+             0,
+            -0.07982,
+            -6.513769,
+             47.18675
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- M = 32.065, then evaluated from molarVolume -->
+      <density units="g/cm3"> 2.070 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

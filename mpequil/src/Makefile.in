@@ -1,0 +1,140 @@
+#
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+# $Id: Makefile.in,v 1.15 2010/07/12 20:20:40 hkmoffa Exp $
+#
+#
+#  Build mpequil through the CANTERA_INSTALL directories.
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+#
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+# Bring in the Cantera includes through the .mak file
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+# Utility src directory
+UTILSRC_DIR=../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+#
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+
+PURIFY=@PURIFY@
+#
+LDEFINES = -DDEBUG 
+GDEFINES =
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
+
+all: .depends mpequil
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+OBJ_MPEQUIL= mpequil_main.o mpequil_input.o mpequil_prep.o
+
+OBJ_CANTERA_ADDONS =  importAllPhases.o
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+.f:
+	$(F77) $(FFLAGS) -c $<
+	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
+
+#
+############################################################################
+# section to set up depends
+###########################################################################
+#
+DEPENDS = $(OBJ_MPEQUIL:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
+
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+##############################################################################
+
+mpequil: $(OBJ_MPEQUIL) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+         $(CANTERA_CORE_LIBS_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o mpequil $(OBJ_MPEQUIL) \
+	          $(OBJ_CANTERA_ADDONS) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+$(OBJ_MPEQUIL) $(OBJ_CANTERA_ADDONS): Makefile
+
+$(DEPENDS): Makefile
+
+clean:
+	$(RM) *.o  .depends
+	$(RM) ${PROG} 
+
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c mpequil @cta_bindir@
+
+#############################################################################
+#          DEPENDS RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+

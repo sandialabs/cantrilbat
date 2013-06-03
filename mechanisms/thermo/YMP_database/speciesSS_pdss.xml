@@ -1,0 +1,221 @@
+     <species name="K+">
+                                   <atomArray> K:1 </atomArray>
+                                   <charge> 1 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -67510 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -60270 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 24.15 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.3559 </a1>
+                                      <a2 units="cal/gmol"> -147.3 </a2>
+                                      <a3 units="cal K/gmol/bar"> 5.435 </a3>
+                                      <a4 units="cal K/gmol/bar"> -27120 </a4>
+                                      <c1 units="cal K/gmol/bar"> 7.4 </c1>
+                                      <c2 units="cal K/gmol/bar"> -17910 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 19270 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+        </species>
+
+    
+
+   <species name="Cl-">
+                                   <atomArray> Cl:1 </atomArray>
+                                   <charge> -1 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -31379 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -39933 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 13.56 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.4032 </a1>
+                                      <a2 units="cal/gmol"> 480.1 </a2>
+                                      <a3 units="cal K/gmol/bar"> 5.563 </a3>
+                                      <a4 units="cal K/gmol/bar"> -28470 </a4>
+                                      <c1 units="cal K/gmol/bar"> -4.4 </c1>
+                                      <c2 units="cal K/gmol/bar"> -57140 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 145600.O </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+    </species>
+
+    <species name="H+">
+                                   <atomArray> H:1 </atomArray>
+                                   <charge> 1 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 0 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0 </a1>
+                                      <a2 units="cal/gmol"> 0 </a2>
+                                      <a3 units="cal K/gmol/bar"> 0 </a3>
+                                      <a4 units="cal K/gmol/bar"> 0 </a4>
+                                      <c1 units="cal K/gmol/bar"> 0 </c1>
+                                      <c2 units="cal K/gmol/bar"> 0 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 0.0 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+    </species>
+
+     <species name="Na+">
+                                   <atomArray> Na:1 </atomArray>
+                                   <charge> 1 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -62591 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -57433 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 13.96 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.1839 </a1>
+                                      <a2 units="cal/gmol"> -228.5 </a2>
+                                      <a3 units="cal K/gmol/bar"> 3.256 </a3>
+                                      <a4 units="cal K/gmol/bar"> -27260 </a4>
+                                      <c1 units="cal K/gmol/bar"> 18.18 </c1>
+                                      <c2 units="cal K/gmol/bar"> -29810 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 54640. </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+    </species>
+
+    <species name="OH-">
+                                   <atomArray> O:1 H:1 </atomArray>
+                                   <charge> -1 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -37595 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -54977 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> -2.56 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.12527 </a1>
+                                      <a2 units="cal/gmol"> 7.38 </a2>
+                                      <a3 units="cal K/gmol/bar"> 1.8423 </a3>
+                                      <a4 units="cal K/gmol/bar"> -27821 </a4>
+                                      <c1 units="cal K/gmol/bar"> 4.15 </c1>
+                                      <c2 units="cal K/gmol/bar"> -103460 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 92570 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+    </species>
+
+
+    <species name="NaCl(aq)">
+                                   <atomArray> Na:1 Cl:1 </atomArray>
+                                   <charge> 0 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -92910 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -96160 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 28 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.50364 </a1>
+                                      <a2 units="cal/gmol"> 451.89 </a2>
+                                      <a3 units="cal K/gmol/bar"> 3.9669 </a3>
+                                      <a4 units="cal K/gmol/bar"> -29658 </a4>
+                                      <c1 units="cal K/gmol/bar"> 10.798 </c1>
+                                      <c2 units="cal K/gmol/bar"> -13031 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 233690 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:5
+                                   </source>
+      </species>
+
+      <species name="KCl(aq)">
+                                   <atomArray> K:1 Cl:1 </atomArray>
+                                   <charge> 0 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -95430 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -95390 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 42.25 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.69932 </a1>
+                                      <a2 units="cal/gmol"> 929.7 </a2>
+                                      <a3 units="cal K/gmol/bar"> 2.0889 </a3>
+                                      <a4 units="cal K/gmol/bar"> -31633 </a4>
+                                      <c1 units="cal K/gmol/bar"> 0.9522 </c1>
+                                      <c2 units="cal K/gmol/bar"> -47253 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> -11580 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:5
+                                   </source>
+        </species>
+
+        <species name="NaOH(aq)">
+                                   <atomArray> Na:1 O:1 H:1 </atomArray>
+                                   <charge> 0 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -99900 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -112300 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 10.7 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.22338 </a1>
+                                      <a2 units="cal/gmol"> -232.87 </a2>
+                                      <a3 units="cal K/gmol/bar"> 6.6683 </a3>
+                                      <a4 units="cal K/gmol/bar"> -26826 </a4>
+                                      <c1 units="cal K/gmol/bar"> 4.0146 </c1>
+                                      <c2 units="cal K/gmol/bar"> -36863 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 176070 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+          </species>
+
+          <species name="KOH(aq)">
+                                   <atomArray> K:1 O:1 H:1 </atomArray>
+                                   <charge> 0 </charge>
+                                   <thermo model="HKFT">
+                                     <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+                                       <DG0_f_Pr_Tr units="cal/gmol"> -104500 </DG0_f_Pr_Tr>
+                                       <DH0_f_Pr_Tr units="cal/gmol"> -120200 </DH0_f_Pr_Tr>
+                                       <S0_Pr_Tr units="cal/gmol/K"> 25.9 </S0_Pr_Tr>
+                                     </HKFT>
+                                   </thermo>
+                                   <standardState model="HKFT">
+                                      <a1 units="cal/gmol/bar"> 0.37938 </a1>
+                                      <a2 units="cal/gmol"> 148.39 </a2>
+                                      <a3 units="cal K/gmol/bar"> 5.1619 </a3>
+                                      <a4 units="cal K/gmol/bar"> -28402 </a4>
+                                      <c1 units="cal K/gmol/bar"> -6.124 </c1>
+                                      <c2 units="cal K/gmol/bar"> -72104 </c2>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 226510 </omega_Pr_Tr>
+                                   </standardState>
+                                   <source>
+                                       ref:G9
+                                   </source>
+            </species>
+
+
+

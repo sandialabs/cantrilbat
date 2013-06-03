@@ -1,0 +1,15 @@
+
+
+MultiPhase Equilibrium Solver
+Wrapper around MultiPhaseEquil object 
+in Cantera's distribution
+
+
+Based on Smith and Missen Book.
+
+
+This code can tests both solver # 1 or sovler #2 in Cantera's distribution.
+The way the solver's are invoked is under construction.
+
+
+

@@ -1,0 +1,11 @@
+TESTS
+-------------
+
+This directory is the repository for tests of the ChemEquil object 
+within Cantera. This is meant to be a superset of the regular testing
+capability that resides in Cantera's test suite. It also tests the
+program epequil. 
+
+Degenerate and weird tests are to be added here as they come up in
+practise.
+

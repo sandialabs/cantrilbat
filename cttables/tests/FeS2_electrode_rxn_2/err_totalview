@@ -1,0 +1,45 @@
+Linux x86_64 TotalView 8.9.1-0
+Copyright 2010-2011 by Rogue Wave Software Inc. ALL RIGHTS RESERVED.
+Copyright 2007-2010 by TotalView Technologies, LLC.
+Copyright 1999-2007 by Etnus, LLC.
+Copyright 1999 by Etnus, Inc.
+Copyright 1996-1998 by Dolphin Interconnect Solutions, Inc.
+Copyright 1989-1996 by BBN Inc.
+Rogue Wave Software ReplayEngine
+Copyright 2011 Rogue Wave Software
+Copyright 2010 TotalView Technologies
+ReplayEngine uses the UndoDB Reverse Execution Engine
+Copyright 2005-2010 Undo Limited
+Reading symbols for process 1, executing "cttables"
+Library /home/jchewso/CanteraApps/cantera_apps/cttables/src/cttables, with 2 asects, was linked at 0x00400000, and initially loaded at 0xff00000090000000
+Mapping 608040 bytes of ELF string data from '/home/jchewso/CanteraApps/cantera_apps/cttables/src/cttables'...done
+Indexing 1145104 bytes of DWARF '.debug_frame' symbols from '/home/jchewso/CanteraApps/cantera_apps/cttables/src/cttables'...done
+Indexing 354964 bytes of DWARF '.eh_frame' symbols from '/home/jchewso/CanteraApps/cantera_apps/cttables/src/cttables'...done
+Skimming 7366318 bytes of DWARF '.debug_info' symbols from '/home/jchewso/CanteraApps/cantera_apps/cttables/src/cttables'...done
+CUDA library loaded: Current DLL API version is "4.0.46"; TotalView compile-time version is "3.2.31"
+Library @syscall_library@-64, with 1 asects, was linked at 0xffffffffff700000, and initially loaded at 0xff00000090447c00
+INFO: Using previously cached local copy of library "@syscall_library@-64"
+Mapping 380 bytes of ELF string data from '@syscall_library@-64'...done
+Indexing 144 bytes of DWARF '.eh_frame' symbols from '@syscall_library@-64'...done
+Skimming 798 bytes of DWARF '.debug_info' symbols from '@syscall_library@-64'...done
+Library /sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libstdc++.so.6, with 2 asects, was linked at 0x00000000, and initially loaded at 0xff00000090448a00
+Mapping 194171 bytes of ELF string data from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libstdc++.so.6'...done
+Indexing 96512 bytes of DWARF '.debug_frame' symbols from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libstdc++.so.6'...done
+Indexing 86884 bytes of DWARF '.eh_frame' symbols from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libstdc++.so.6'...done
+Library /sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgfortran.so.3, with 2 asects, was linked at 0x00000000, and initially loaded at 0xff00000090557a00
+Mapping 46220 bytes of ELF string data from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgfortran.so.3'...done
+Indexing 51532 bytes of DWARF '.eh_frame' symbols from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgfortran.so.3'...done
+Skimming 839054 bytes of DWARF '.debug_info' symbols from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgfortran.so.3'...done
+Library /lib64/libm.so.6, with 2 asects, was linked at 0x345b600000, and initially loaded at 0xff00000090641c00
+Mapping 15664 bytes of ELF string data from '/lib64/libm.so.6'...done
+Indexing 12668 bytes of DWARF '.eh_frame' symbols from '/lib64/libm.so.6'...done
+Library /sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgcc_s.so.1, with 2 asects, was linked at 0x00000000, and initially loaded at 0xff000000906c3300
+Mapping 4294 bytes of ELF string data from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgcc_s.so.1'...done
+Indexing 4836 bytes of DWARF '.eh_frame' symbols from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgcc_s.so.1'...done
+Skimming 128705 bytes of DWARF '.debug_info' symbols from '/sierra/Sntools/extras/compilers/gcc-4.4.4/lib64/libgcc_s.so.1'...done
+Library /lib64/libc.so.6, with 2 asects, was linked at 0x345b200000, and initially loaded at 0xff000000906d8b00
+Mapping 93760 bytes of ELF string data from '/lib64/libc.so.6'...done
+Indexing 132820 bytes of DWARF '.eh_frame' symbols from '/lib64/libc.so.6'...done
+Library /lib64/ld-linux-x86-64.so.2, with 2 asects, was linked at 0x345ae00000, and initially loaded at 0xff0000009042ae00
+Mapping 5536 bytes of ELF string data from '/lib64/ld-linux-x86-64.so.2'...done
+Indexing 5760 bytes of DWARF '.eh_frame' symbols from '/lib64/ld-linux-x86-64.so.2'...done

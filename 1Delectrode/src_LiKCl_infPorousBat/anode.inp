@@ -1,0 +1,107 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiSi
+!
+Electrode Type = anode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = LiSi_electrode.xml 
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt_trans.xml
+Cantera File Name = Li13Si4.xml
+Cantera File Name = Li7Si3.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 773.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 100.0 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+!Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+! Electrode Porosity = 0.25
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 1.00e-3 m2
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Diameter - [m]
+!
+! Electrode Gross Diameter = 0.01 m
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 1.00e-3 m
+!
+!-------------------------------------------------------------------------
+
+start block Bath Specification for Phase Li13Si4(S)
+!  Phase Moles = 13.0
+  Phase Mass = 1.0e-3
+  start block Bath Species Mole Fraction
+    Li13Si4(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  Li13Si4(S)
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Mass = 0.2
+   start block Bath Species Mole Fraction
+      Li+ = 0.294
+      K+ = 0.206
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = 1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+
+

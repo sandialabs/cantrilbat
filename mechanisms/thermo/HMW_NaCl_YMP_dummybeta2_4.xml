@@ -1,0 +1,2975 @@
+<?xml version="1.0"?>
+<!--
+    $Id: HMW_NaCl_YMP_dummybeta2_4.xml 5 2012-02-23 21:34:18Z hkmoffa $
+    $Source: /cvsroot/cads/cantera_apps/mechanisms/thermo/HMW_NaCl_YMP_dummybeta2_4.xml,v $
+    $Name:  $
+
+    NaCl modeling Based on the Silvester&Pitzer 1977 treatment:
+
+    (L. F. Silvester, K. S. Pitzer, "Thermodynamics of Electrolytes:
+     8. High-Temperature Properties, including Enthalpy and Heat
+     Capacity, with application to sodium chloride", 
+     J. Phys. Chem., 81, 19 1822 - 1828 (1977)
+
+     **************** IMPORTANT NOTE ********************
+     The beta2 parameters (e.g., values of 0.0) in this file are fictive values since the YMP
+     database has values for a temperature function that are different from what is
+     coded for beta1 and beta2 in HMWsoln.cpp. The beta2 values were changed as to run Cantera without errors
+     and to test other nput values such as beta0 and Cphi with a 5-term 'complex1' 
+     temperature expression.  Only results at 298.15 K are valid since the temperature 
+     expression for beta1 contains terms that are incompatible with the YMP temperature coefficients.
+     Therefore any temperature extrapolation beyong the reference temperature of 298.15 K is invalid.
+  -->
+<ctml>
+  <phase id="NaCl_electrolyte" dim="3">
+    <speciesArray datasrc="#species_waterSolution">
+               H2O(L) Cl- H+ Na+ OH-
+    </speciesArray>
+    <state>
+      <temperature units="K"> 298.15 </temperature>
+      <pressure units="Pa"> 101325.0 </pressure>
+      <soluteMolalities>
+             Na+:6.0954
+             Cl-:6.0954
+             H+:2.1628E-9
+             OH-:1.3977E-6
+      </soluteMolalities>
+    </state>
+
+    <thermo model="HMW">
+       <standardConc model="solvent_volume" />
+       <activityCoefficients model="Pitzer" TempModel="complex1">
+                <!-- Pitzer Coefficients
+                     These coefficients are from Pitzer's main 
+                     paper, in his book.
+                  -->
+                <A_Debye model="water" />
+                <ionicRadius default="3.042843"  units="Angstroms">
+                </ionicRadius>
+               <binarySaltParameters cation="Ca++" anion="Br-">
+	                           <beta0> 0.3816, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6133, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0025721, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="Cl-">
+	                           <beta0> 0.303822, 0.000357023, 
+			                   78.17855, 1.45519E-11 
+                                   </beta0>
+	                           <beta1> 1.70143, 0.005057894, 
+			                   -148.3249, 1.16415E-10 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00117585, -3.43691E-05, 
+                                           -2.499438, -2.499438 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="CaCl+" anion="Cl-">
+	                           <beta0> 0.3568405, -0.000839061, 
+			                   22.3581, 1.45519E-11 
+                                   </beta0>
+	                           <beta1> 4.812351, 0.01123323, 
+			                   3865.294, 4.65661E-10 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.006770881, 1.45678E-05, 
+                                           -1.412518, -1.412518 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="NO3-">
+	                           <beta0> 0.125912046, -0.000477655, 
+			                   144.214055, 0.520995994 
+                                   </beta0>
+	                           <beta1> 0.402370513, 0.003730587, 
+			                   -3219.15009, -8.98837868 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.002608198, 0.000220405, 
+                                           -29.6872307, -29.6872307 
+                                   </Cphi>
+                                   <Alpha1> 0.87 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="HSO4-">
+	                           <beta0> 0.2145, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.5275, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="I-">
+	                           <beta0> 0.4379, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.8068, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00083792, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="SO4--">
+	                           <beta0> 0.15, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="Br-">
+	                           <beta0> 0.0255603, 1.06581E-14, 
+			                   -34.4283, -3.63798E-12 
+                                   </beta0>
+	                           <beta1> 0.0284193, 5.68434E-14, 
+			                   -338.671, -1.45519E-11 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.000949401, -0.0002656, 
+                                           52.6758099, 52.6758099 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="Cl-">
+	                           <beta0> 0.032980065, 0.002728517, 
+			                   -539.76053, -2.42136256 
+                                   </beta0>
+	                           <beta1> 0.0429, 0.001306, 
+			                   -38, 1.45519E-11 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.000183801, -0.000239736, 
+                                           48.4732577, 48.4732577 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="F-">
+	                           <beta0> 0.1306, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.257, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0043, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="I-">
+	                           <beta0> 0.0244, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0262, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00365, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="NO3-">
+	                           <beta0> -0.0758, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.0669, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="OH-">
+	                           <beta0> 0.15, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.3, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="SO4--">
+	                           <beta0> 0.0714, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.2008, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0029115, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="Br-">
+	                           <beta0> 0.2085, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.3477, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00152, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="Cl-">
+	                           <beta0> 0.177000779, 0.000125778, 
+			                   -33.4777082, -0.262214535 
+                                   </beta0>
+	                           <beta1> 0.292922504, -0.027938838, 
+			                   3402.47027, 19.7936248 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.000362, -0.00003036, 
+                                           -2.91038E-11, -2.91038E-11 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="HSO4-">
+	                           <beta0> 0.209088541, -0.00877592, 
+			                   1054.53606, 5.95728263 
+                                   </beta0>
+	                           <beta1> 0.440921659, -0.004631681, 
+			                   296.437457, 2.37332579 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="I-">
+	                           <beta0> 0.2211, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.4907, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00482, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="NO3-">
+	                           <beta0> 0.125585222, -0.009950899, 
+			                   560.1201816, 4.916033806 
+                                   </beta0>
+	                           <beta1> 0.28778174, 0.0013396, 
+			                   2.71242E-07, 1.58606E-09 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.005596266, 0.000110405, 
+                                           -6.576375081, -6.576375081 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="SO4--">
+	                           <beta0> 0.098619248, 0.063677657, 
+			                   -6703.44441, -41.6861778 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.059300346, 0.020217482, 
+                                           -3029.54834, -3029.54834 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="Br-">
+	                           <beta0> 0.052604863, 0.005248786, 
+			                   -938.817459, -4.43030029 
+                                   </beta0>
+	                           <beta1> 0.235352574, -0.013415044, 
+			                   2489.7626, 12.5419548 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -1.47498E-05, -0.001524654, 
+                                           255.457648, 255.457648 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="Cl-">
+	                           <beta0> 0.047781155, 0.001342983, 
+			                   -343.299275, -1.38219467 
+                                   </beta0>
+	                           <beta1> 0.215510997, 0.004644833, 
+			                   -576.387856, -2.88016901 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.000748605, -0.000147225, 
+                                           36.532773, 36.532773 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="CO3--">
+	                           <beta0> 0.1288, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.4333, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00049851, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="F-">
+	                           <beta0> 0.08089, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.2021, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00093, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="HCO3-">
+	                           <beta0> -0.0107, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0478, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="HPO4--">
+	                           <beta0> 0.0248, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.2743, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.016387, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="HSO4-">
+	                           <beta0> -0.0003, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.1735, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="I-">
+	                           <beta0> 0.0746, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.2517, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00414, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="NO3-">
+	                           <beta0> -0.0816, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0494, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0066, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="OH-">
+	                           <beta0> 0.1298, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.32, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0041, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="SO4--">
+	                           <beta0> 0.055535805, 0.008269067, 
+			                   -1418.42998, -6.74728848 
+                                   </beta0>
+	                           <beta1> 0.796384696, 0.023579324, 
+			                   2067.12594, 2.32831E-10 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0188, -2.66454E-15, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Li+" anion="Br-">
+	                           <beta0> 0.172803, -0.000106042, 
+			                   3.72529E-09, 1.45519E-11 
+                                   </beta0>
+	                           <beta1> 0.29775937, -0.006970508, 
+			                   990.383242, 5.60772784 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.004763005, 0.000524229, 
+                                           -92.5666981, -92.5666981 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Li+" anion="Cl-">
+	                           <beta0> 0.14847, -0.0001546, 
+			                   1.86265E-09, 0.0 
+                                   </beta0>
+	                           <beta1> 0.307, 0.000636, 
+			                   7.45058E-09, 2.91038E-11 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.003709705, -8.61317E-06, 
+                                           4.52467125, 4.52467125 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Li+" anion="I-">
+	                           <beta0> 0.2104, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.373, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Li+" anion="NO3-">
+	                           <beta0> 0.142, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.278, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00551, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Li+" anion="OH-">
+	                           <beta0> 0.015, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.14, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Li+" anion="SO4--">
+	                           <beta0> 0.1363, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.2705, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0039934, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="Br-">
+	                           <beta0> 0.4327, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.7528, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0031236, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="Cl-">
+	                           <beta0> 0.351135695, 0.000447185, 
+			                   -65.582184, -0.525061476 
+                                   </beta0>
+	                           <beta1> 1.65325488, 0.049457296, 
+			                   -2872.87764, -23.0007188 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.006526109, 0.000311488, 
+                                           -26.7038299, -26.7038299 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="HCO3-">
+	                           <beta0> 0.033, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.8498, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="HSO4-">
+	                           <beta0> 0.4746, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.7288, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="I-">
+	                           <beta0> 0.4902, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.8041, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0079337, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="NO3-">
+	                           <beta0> 0.306728, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.257451, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00332923, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.55 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="SO4--">
+	                           <beta0> 0.222817832, 0.047337902, 
+			                   -5688.19179, -32.8401402 
+                                   </beta0>
+	                           <beta1> 3.37712501, 0.217921221, 
+			                   -23183.9681, -139.335072 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.024365042, -0.015634, 
+                                           1894.83775, 1894.83775 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mn++" anion="Br-">
+	                           <beta0> 0.44655, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.34477, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.02269, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mn++" anion="ClO4-">
+	                           <beta0> 0.50957, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.16209, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.01144, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="MgOH+" anion="Cl-">
+	                           <beta0> -0.1, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.658, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="AlO2-">
+	                           <beta0> 0.045231901, 0.01105723, 
+			                   -1545.72558, -8.31360114 
+                                   </beta0>
+	                           <beta1> 0.306659949, 0.041605522, 
+			                   -4913.3257, -28.5581274 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.000303688, -0.00143737, 
+                                           205.885396, 205.885396 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Br-">
+	                           <beta0> 0.097386736, -0.000283574, 
+			                   -210.646372, -0.395938745 
+                                   </beta0>
+	                           <beta1> 0.297014694, 0.05588035, 
+			                   -6335.18181, -37.5076549 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.000749486, 0.000305237, 
+                                           -14.2958589, -14.2958589 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Cl-">
+	                           <beta0> 0.074561807, 0.001655646, 
+			                   -470.789056, -1.85114134 
+                                   </beta0>
+	                           <beta1> 0.27524069, 0.004714628, 
+			                   -521.117635, -2.88035999 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.001536934, -0.000156269, 
+                                           48.0725476, 48.0725476 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="CO3--">
+	                           <beta0> 0.036204809, -0.023301655, 
+			                   1108.37605, 11.1985553 
+                                   </beta0>
+	                           <beta1> 1.51206913, -0.09989121, 
+			                   4412.51197, 44.5820703 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0052, 8.88178E-16, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="F-">
+	                           <beta0> 0.0215, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.2107, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="HCO3-">
+	                           <beta0> 0.028002055, -0.01445932, 
+			                   682.885977, 6.8995857 
+                                   </beta0>
+	                           <beta1> 0.044005226, -0.02446734, 
+			                   1129.38915, 11.4108589 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="HPO4--">
+	                           <beta0> -0.0583, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.4655, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.02938, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="H2PO4-">
+	                           <beta0> -0.0533, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0396, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00795, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="HSO4-">
+	                           <beta0> 0.073434873, -0.000821232, 
+			                   52.560601, 0.420808596 
+                                   </beta0>
+	                           <beta1> 0.299942504, -0.037391185, 
+			                   4698.11737, 26.8474688 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00462067, 6.82142E-06, 
+                                           -5.82077E-11, -5.82077E-11 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="I-">
+	                           <beta0> 0.1195, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.3439, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0018, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="NO3-">
+	                           <beta0> -0.001293312, 0.002540835, 
+			                   -482.730419, -2.21015765 
+                                   </beta0>
+	                           <beta1> 0.141301486, 0.01806287, 
+			                   -2759.35929, -13.3527356 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.000320511, -0.000263788, 
+                                           46.9542364, 46.9542364 
+                                   </Cphi>
+                                   <Alpha1> 1.43 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="OH-">
+	                           <beta0> 0.088344391, 0.007433252, 
+			                   -1197.84571, -6.10983033 
+                                   </beta0>
+	                           <beta1> 0.244421177, -0.01157887, 
+			                   1627.02502, 9.48250496 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.003999437, -0.000475667, 
+                                           88.2475511, 88.2475511 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="SO4--">
+	                           <beta0> 0.012059637, 0.011972416, 
+			                   -2189.42621, -10.1447681 
+                                   </beta0>
+	                           <beta1> 1.11537757, 0.089122337, 
+			                   -12744.2345, -67.193449 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.006571254, -0.001641846, 
+                                           338.749374, 338.749374 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NH4+" anion="Br-">
+	                           <beta0> 0.0624, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.1947, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00436, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NH4+" anion="Cl-">
+	                           <beta0> 0.052492062, 0.00106115, 
+			                   -216.412775, -0.973041353 
+                                   </beta0>
+	                           <beta1> 0.187339293, 0.00109395, 
+			                   0.0, -0.142555 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.003074373, -1.76253E-05, 
+                                           7.39922482, 7.39922482 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NH4+" anion="HCO3-">
+	                           <beta0> -0.038, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.07, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NH4+" anion="I-">
+	                           <beta0> 0.057, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.3157, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00308, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NH4+" anion="NO3-">
+	                           <beta0> -0.0154, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.112, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00003, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NH4+" anion="SO4--">
+	                           <beta0> 0.039167288, -0.004474195, 
+			                   313.414349, 2.51504017 
+                                   </beta0>
+	                           <beta1> 0.662846757, -0.42221788, 
+			                   37708.792, 255.814178 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.000757091, 0.001206469, 
+                                           -114.018787, -114.018787 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Sr++" anion="Br-">
+	                           <beta0> 0.3311, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.7115, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0012251, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Sr++" anion="Cl-">
+	                           <beta0> 0.2834, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6256, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00089095, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Sr++" anion="I-">
+	                           <beta0> 0.4013, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.86, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.002657, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Sr++" anion="NO3-">
+	                           <beta0> 0.1346, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.38, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.019925, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Al+++" anion="Cl-">
+	                           <beta0> 0.6993, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.8447, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00273, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ba++" anion="Cl-">
+	                           <beta0> 0.2628, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.4963, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01938, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ba++" anion="Br-">
+	                           <beta0> 0.3146, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.5698, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01596, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ba++" anion="I-">
+	                           <beta0> 0.4219, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6868, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01743, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ba++" anion="OH-">
+	                           <beta0> 0.1718, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.2, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ba++" anion="ClO4-">
+	                           <beta0> 0.3614, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.5758, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.03126, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ba++" anion="NO3-">
+	                           <beta0> -0.0323, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.8025, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="CaB(OH)4+" anion="Cl-">
+	                           <beta0> 0.12, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="ClO4-">
+	                           <beta0> 0.4511, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.757, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.005, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="MoO4--">
+	                           <beta0> 0.2, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.1973, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Co++" anion="Cl-">
+	                           <beta0> 0.37351, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.25999, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01803, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Co++" anion="ClO4-">
+	                           <beta0> 0.50409, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.96664, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.01349, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Co++" anion="Br-">
+	                           <beta0> 0.427, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6598, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00067, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Co++" anion="I-">
+	                           <beta0> 0.5213, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6725, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00467, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Co++" anion="NO3-">
+	                           <beta0> 0.3119, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6905, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00762, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Co++" anion="SO4--">
+	                           <beta0> 0.2, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.7, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cr+++" anion="Cl-">
+	                           <beta0> 0.72234, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.5989, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.04141, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cr+++" anion="NO3-">
+	                           <beta0> 0.704, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.1847, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.05901, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Cr(OH)4-">
+	                           <beta0> 0.045, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.31, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.003, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Cr2O2(OH)4--">
+	                           <beta0> 0.41, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.7, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.03768, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="Cr2O7--">
+	                           <beta0> -2.1239, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 6.3443, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  1.6682, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cu++" anion="Cl-">
+	                           <beta0> 0.23052, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.20897, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01639, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cu++" anion="NO3-">
+	                           <beta0> 0.28124, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.72906, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00842, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cu++" anion="SO4--">
+	                           <beta0> 0.2358, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.485, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0012, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cu++" anion="HSO4-">
+	                           <beta0> 0.4755, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.428, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cu++" anion="Br-">
+	                           <beta0> 0.41247, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6627, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.04262, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cu++" anion="ClO4-">
+	                           <beta0> 0.48984, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.90361, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00839, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Fe++" anion="Cl-">
+	                           <beta0> 0.3359, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.5323, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00861, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="ClO4-">
+	                           <beta0> 0.1747, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.2931, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00819, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="CrO4--">
+	                           <beta0> 0.0791, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.113, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0012, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="PO4---">
+	                           <beta0> 0.3729, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.972, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.08679, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="B(OH)4-">
+	                           <beta0> 0.035, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.14, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="B3O3(OH)4-">
+	                           <beta0> -0.13, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="B4O5(OH)4--">
+	                           <beta0> -0.022, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mn++" anion="Cl-">
+	                           <beta0> 0.29486, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.01251, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01528, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mn++" anion="SO4--">
+	                           <beta0> 0.201, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.98, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0182, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="MgB(OH)4+" anion="Cl-">
+	                           <beta0> 0.16, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="ClO4-">
+	                           <beta0> 0.0554, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.2755, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00118, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="B(OH)4-">
+	                           <beta0> -0.0427, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.089, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0114, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="B3O3(OH)4-">
+	                           <beta0> -0.056, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.91, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="B4O5(OH)4--">
+	                           <beta0> -0.11, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.4, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="PO4---">
+	                           <beta0> 0.1781, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.8513, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.051538, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="MoO4--">
+	                           <beta0> 0.116, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.287, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.006, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="CrO4--">
+	                           <beta0> 0.0645, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.5974, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0094, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ni++" anion="ClO4-">
+	                           <beta0> 0.49285, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.98517, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.01679, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ni++" anion="Cl-">
+	                           <beta0> 0.3499, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.53, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00471, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ni++" anion="Br-">
+	                           <beta0> 0.4451, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.49, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00626, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ni++" anion="NO3-">
+	                           <beta0> 0.30978, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.10644, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.00394, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ni++" anion="SO4--">
+	                           <beta0> 0.1702, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.907, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0366, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Fe++" anion="SO4--">
+	                           <beta0> 0.2568, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.063, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0209, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Fe+++" anion="ClO4-">
+	                           <beta0> 1.412, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.989, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.462, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Zn++" anion="Cl-">
+	                           <beta0> 0.2602, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6425, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.08798, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Zn++" anion="Br-">
+	                           <beta0> 0.466, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6343, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.10792, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Zn++" anion="I-">
+	                           <beta0> 0.4821, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.9455, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01427, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Zn++" anion="NO3-">
+	                           <beta0> 0.3481, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6913, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.01567, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Zn++" anion="ClO4-">
+	                           <beta0> 0.506, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.797, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.01132, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Zn++" anion="SO4--">
+	                           <beta0> 0.1949, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.883, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.029, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Pu(CO3)4(5-)">
+	                           <beta0> 2.022, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 19.22, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.305, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Nd(CO3)4(5-)">
+	                           <beta0> 2.022, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 19.22, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.305, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Cm(CO3)4(5-)">
+	                           <beta0> 2.022, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 19.22, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.305, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Am(CO3)4(5-)">
+	                           <beta0> 2.022, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 19.22, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.305, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Pu(CO3)3---">
+	                           <beta0> 0.125, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 4.73, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0007, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Nd(CO3)3---">
+	                           <beta0> 0.125, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 4.73, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0007, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Cm(CO3)3---">
+	                           <beta0> 0.125, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 4.73, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0007, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Am(CO3)3---">
+	                           <beta0> 0.125, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 4.73, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0007, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Pu(CO3)2-">
+	                           <beta0> -0.24, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.224, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0284, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Nd(CO3)2-">
+	                           <beta0> -0.24, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.224, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0284, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Cm(CO3)2-">
+	                           <beta0> -0.24, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.224, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0284, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Am(CO3)2-">
+	                           <beta0> -0.24, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.224, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0284, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Pu+++" anion="H2PO4-">
+	                           <beta0> 0.0, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Nd+++" anion="H2PO4-">
+	                           <beta0> 0.0, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cm+++" anion="H2PO4-">
+	                           <beta0> 0.0, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Am+++" anion="H2PO4-">
+	                           <beta0> 0.0, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Pu+++" anion="SO4--">
+	                           <beta0> 1.792, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 15.04, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.6, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Nd+++" anion="SO4--">
+	                           <beta0> 1.792, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 15.04, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.6, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cm+++" anion="SO4--">
+	                           <beta0> 1.792, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 15.04, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.6, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Am+++" anion="SO4--">
+	                           <beta0> 1.792, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 15.04, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  0.6, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Pu(OH)2+" anion="Cl-">
+	                           <beta0> -0.616, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.45, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Nd(OH)2+" anion="Cl-">
+	                           <beta0> -0.616, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.45, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cm(OH)2+" anion="Cl-">
+	                           <beta0> -0.616, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.45, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Am(OH)2+" anion="Cl-">
+	                           <beta0> -0.616, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.45, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Pu(OH)++" anion="Cl-">
+	                           <beta0> -0.055, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Nd(OH)++" anion="Cl-">
+	                           <beta0> -0.055, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cm(OH)++" anion="Cl-">
+	                           <beta0> -0.055, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Am(OH)++" anion="Cl-">
+	                           <beta0> -0.055, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.05, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="PuCl2+" anion="Cl-">
+	                           <beta0> 0.516, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.75, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.1, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NdCl2+" anion="Cl-">
+	                           <beta0> 0.516, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.75, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.1, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="CmCl2+" anion="Cl-">
+	                           <beta0> 0.516, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.75, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.1, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="AmCl2+" anion="Cl-">
+	                           <beta0> 0.516, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.75, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.1, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="PuCl++" anion="Cl-">
+	                           <beta0> 0.593, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.15, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.006, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NdCl++" anion="Cl-">
+	                           <beta0> 0.593, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.15, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.006, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="CmCl++" anion="Cl-">
+	                           <beta0> 0.593, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.15, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.006, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="AmCl++" anion="Cl-">
+	                           <beta0> 0.593, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 3.15, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.006, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Gd+++" anion="Cl-">
+	                           <beta0> 0.5856, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0166, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Pu+++" anion="Cl-">
+	                           <beta0> 0.5856, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0166, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Nd+++" anion="Cl-">
+	                           <beta0> 0.5856, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0166, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cm+++" anion="Cl-">
+	                           <beta0> 0.5856, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0166, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Am+++" anion="Cl-">
+	                           <beta0> 0.5856, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0166, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Gd+++" anion="NO3-">
+	                           <beta0> 0.5173, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 5.1333, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.06543, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Gd+++" anion="ClO4-">
+	                           <beta0> 0.78, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 6.5333, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00539, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Am+++" anion="ClO4-">
+	                           <beta0> 0.754, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 6.53, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0075, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Nd+++" anion="ClO4-">
+	                           <beta0> 0.7533, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 6.5333, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.007313, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Th(CO3)5(6-)">
+	                           <beta0> 1.31, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 30, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="Th(SO4)3--">
+	                           <beta0> 0.9, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="Th(SO4)3--">
+	                           <beta0> 0.12, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="H+" anion="Th(SO4)3--">
+	                           <beta0> 0.84, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Th++++" anion="SO4--">
+	                           <beta0> 1.56, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Th++++" anion="NO3-">
+	                           <beta0> 0.96625, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 11.3875, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.1846, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Th++++" anion="HSO4-">
+	                           <beta0> 1.44, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.0, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Th++++" anion="Cl-">
+	                           <beta0> 1.092, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 13.7, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.112, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Np++++" anion="Cl-">
+	                           <beta0> 1.644, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 15.5, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.1, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Np++++" anion="ClO4-">
+	                           <beta0> 2.26, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 17.53, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0995, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NpOH+++" anion="Cl-">
+	                           <beta0> 1, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 7.856, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NpOH+++" anion="ClO4-">
+	                           <beta0> 1.4, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 9, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="UOH+++" anion="Cl-">
+	                           <beta0> 1, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 7.856, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="U++++" anion="Cl-">
+	                           <beta0> 1.644, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 15.5, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.1, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="PuO2+" anion="Cl-">
+	                           <beta0> 0.1415, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.281, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NpO2+" anion="Cl-">
+	                           <beta0> 0.1415, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.281, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="NpO2+" anion="ClO4-">
+	                           <beta0> 0.257, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.18, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0081, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="PuO2+" anion="ClO4-">
+	                           <beta0> 0.257, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.18, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0081, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="NpO2(CO3)3(5-)">
+	                           <beta0> 2.34, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 22.7, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.22, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="NpO2(CO3)2---">
+	                           <beta0> 0.48, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 4.4, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="NpO2CO3-">
+	                           <beta0> 0.1, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.34, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="NpO2(CO3)3(5-)">
+	                           <beta0> 1.8, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 22.7, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="NpO2(CO3)2---">
+	                           <beta0> 0.48, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 4.4, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="NpO2CO3-">
+	                           <beta0> 0.1, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.34, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Ca++" anion="TcO4-">
+	                           <beta0> 0.2964, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.661, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="TcO4-">
+	                           <beta0> -0.1884, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.1588, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Cs+" anion="ClO4-">
+	                           <beta0> -0.1652, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> -0.15, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Mg++" anion="TcO4-">
+	                           <beta0> 0.3138, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.84, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0114, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="K+" anion="TcO4-">
+	                           <beta0> -0.0578, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.006, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="TcO4-">
+	                           <beta0> 0.01111, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 0.1595, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.00236, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="PuO2(CO3)3----">
+	                           <beta0> 1.25, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 11.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="UO2(CO3)3----">
+	                           <beta0> 1.25, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 11.6, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="PuO2(CO3)2--">
+	                           <beta0> 0.212, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.5, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="Na+" anion="UO2(CO3)2--">
+	                           <beta0> 0.212, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 2.5, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.0, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="PuO2++" anion="ClO4-">
+	                           <beta0> 0.62346, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.97357, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.02084, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="UO2++" anion="ClO4-">
+	                           <beta0> 0.62346, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.97357, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  0.02084, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="UO2++" anion="NO3-">
+	                           <beta0> 0.47803, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.5953, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.03971, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="UO2++" anion="Cl-">
+	                           <beta0> 0.4273, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.644, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.03686, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="UO2++" anion="SO4--">
+	                           <beta0> 0.322, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.827, 0.0, 
+			                   0.0, 0.0 </beta1>
+				   <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0176, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 1.4 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="(UO2)2(OH)2++" anion="Cl-">
+	                           <beta0> 0.427, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.644, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0369, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+               <binarySaltParameters cation="(UO2)3(OH)4++" anion="Cl-">
+	                           <beta0> 0.427, 0.0, 
+			                   0.0, 0.0 
+                                   </beta0>
+	                           <beta1> 1.644, 0.0, 
+			                   0.0, 0.0 </beta1>
+	                           <beta2> 0.0 </beta2>
+                                   <Cphi>  -0.0369, 0.0, 
+                                           0.0, 0.0 
+                                   </Cphi>
+                                   <Alpha1> 2.0 </Alpha1>
+                                 </binarySaltParameters> 
+
+       </activityCoefficients>
+       <solvent> H2O(L) </solvent>
+    </thermo>
+    <elementArray datasrc="elements.xml"> O H C E Fe Si N Na Cl </elementArray>
+    <kinetics model="none" >
+    </kinetics>
+  </phase>
+
+  <speciesData id="species_waterSolution">
+
+ 
+    <species name="H2O(L)">
+      <!-- H2O(L) liquid standard state -> pure H2O
+           The origin of the NASA polynomial is a bit murky. It does
+           fit the vapor pressure curve at 298K adequately.
+        -->
+      <atomArray>H:2 O:1 </atomArray>
+      <thermo>
+        <NASA Tmax="600.0" Tmin="273.14999999999998" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             7.255750050E+01,  -6.624454020E-01,   2.561987460E-03,  -4.365919230E-06,
+             2.781789810E-09,  -4.188654990E+04,  -2.882801370E+02
+           </floatArray>
+        </NASA>
+      </thermo>
+      <standardState model="waterIAPWS"> 
+         <!--
+              Molar volume in m3 kmol-1. 
+              (this is from Pitzer, Peiper, and Busey. However,
+               the result can be easily derived from ~ 1gm/cm**3)
+              <molarVolume> 0.018068 </molarVolume>
+           -->
+      </standardState>
+    </species>
+                                       
+    <species name="Na+">
+      <!-- Na+ (aq) standard state based on the unity molality convention
+           The shomate polynomial was created from the SUPCRT92
+           J. Phys Chem Ref article, and the codata recommended
+           values. DelHf(298.15) = -240.34 kJ/gmol
+                       S(298.15) = 58.45 J/gmolK
+           There was a slight discrepency between those two, which was 
+           resolved in favor of codata.
+           Notes: the order of the polynomials can be decreased by
+                  dropping terms from the complete Shomate poly.
+       -->
+      <atomArray> Na:1 E:-1 </atomArray>
+      <charge> +1 </charge>
+      <thermo>
+        <Shomate Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+          <floatArray size="7">
+            12321.25829    ,  -54984.45383    ,   91695.71717    ,
+           -54412.15442    ,  -234.4221295    ,  -2958.883542    ,
+            26449.31197
+            </floatArray>
+       </Shomate>
+      </thermo>
+ 
+      <standardState model="constant_incompressible"> 
+         <!-- Na+ (aq) molar volume
+              Molar volume in m3 kmol-1. 
+              (this is from Pitzer, Peiper, and Busey. We divide
+               NaCl (aq) value by 2 to get this)
+           -->
+         <molarVolume> 0.00834 </molarVolume>
+      </standardState>
+    </species>
+
+    <species name="Cl-">
+      <!-- Cl- (aq) standard state based on the unity molality convention
+           The shomate polynomial was created from the SUPCRT92
+           J. Phys Chem Ref article, and the codata recommended
+           values. DelHf(298.15) = -167.08 kJ/gmol
+                       S(298.15) = 56.60 J/gmolK
+           There was a slight discrepency between those two, which was 
+           resolved in favor of codata.
+           Notes: the order of the polynomials can be decreased by
+                  dropping terms from the complete Shomate poly.
+       -->
+      <atomArray> Cl:1 E:1 </atomArray>
+      <charge> -1 </charge>
+  
+      <standardState model="constant_incompressible"> 
+         <!-- Cl- (aq) molar volume
+              Molar volume in m3 kmol-1. 
+              (this is from Pitzer, Peiper, and Busey. We divide
+               NaCl (aq) value by 2 to get this)
+           -->
+         <molarVolume> 0.00834 </molarVolume>
+      </standardState>
+      <thermo>
+        <Shomate Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+         <floatArray size="7">
+             56696.2042    ,   -297835.978    ,    581426.549    ,
+            -401759.991    ,   -804.301136    ,   -10873.8257    ,
+             130650.697
+          </floatArray>
+       </Shomate>
+      </thermo>
+     </species>
+
+    <species name="H+">
+      <!-- H+ (aq) standard state based on the unity molality convention
+           The H+ standard state is set to zeroes by convention. This
+           includes it's contribution to the molar volume of solution.
+        -->
+      <atomArray> H:1 E:-1 </atomArray>
+      <charge> +1 </charge>
+      <standardState model="constant_incompressible"> 
+          <molarVolume> 0.0 </molarVolume>
+      </standardState>
+      <thermo>
+        <Mu0 Pref="100000.0" Tmax="625.15." Tmin="273.15">
+         <H298 units="cal/mol"> 0.0  </H298>
+         <numPoints> 3            </numPoints>
+         <floatArray size="3" title="Mu0Values" units="Dimensionless">
+            0.0 , 0.0, 0.0       
+         </floatArray>
+          <floatArray size="3" title="Mu0Temperatures">
+             273.15,    298.15 , 623.15
+          </floatArray>
+        </Mu0>
+      </thermo>
+     </species>
+
+    <species name="OH-">
+      <!-- OH- (aq) standard state based on the unity molality convention
+           The shomate polynomial was created with data from the SUPCRT92
+           J. Phys Chem Ref article, and from the codata recommended
+           values. DelHf(298.15) = -230.015 kJ/gmol
+                       S(298.15) = -10.90 J/gmolK
+           There was a slight discrepency between those two, which was 
+           resolved in favor of codata.
+           Notes: the order of the polynomials can be decreased by
+                  dropping terms from the complete Shomate poly.
+       -->
+      <atomArray> O:1 H:1 E:1 </atomArray>
+      <charge> -1 </charge>
+      <standardState model="constant_incompressible"> 
+          <!-- OH- (aq) molar volume
+               This value is currently made up.
+            -->
+          <molarVolume> 0.00834 </molarVolume>
+      </standardState>
+      <thermo>
+        <Shomate Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+           <floatArray size="7">
+            44674.99961    ,  -234943.0414    ,   460522.8260    ,
+           -320695.1836    ,  -638.5044716    ,  -8683.955813    ,
+            102874.2667
+          </floatArray>
+        </Shomate>
+      </thermo>
+     </species>
+
+  </speciesData>
+
+</ctml>

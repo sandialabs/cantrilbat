@@ -1,0 +1,58 @@
+/**
+ * @file m1d_solvers.h
+ *
+ */
+
+/*
+ *  $Id: m1d_solvers.h 5 2012-02-23 21:34:18Z hkmoffa $
+ */
+
+#ifndef M1D_SOLVERS_H
+#define M1D_SOLVERS_H
+
+
+#include "m1d_defs.h"
+
+#include <Epetra_Vector.h>
+#include <Epetra_VbrMatrix.h>
+
+
+namespace m1d
+{
+class LocalRowNodeVBRIndices;
+class GlobalIndices;
+
+//! Construct the matrix
+/*!
+ *
+ * @param A  Matrix to be solved for
+ * @param v
+ * @param b  rhs of the matrix problem
+ */
+void
+fill_matrix(Epetra_VbrMatrix*& A,
+            Epetra_Vector*& v,
+            Epetra_Vector*& b,
+            m1d::GlobalIndices *gi_ptr,
+            m1d::LocalRowNodeVBRIndices *lrn_vbr_ptr);
+
+//! Print level for the linear solver
+/*!
+ *   0 absolutely no printouts ever
+ *   1 Print out only if a fatal error condition occurs
+ *   2 One line of printouts can occur
+ *   3 5 lines per call can occur
+ *   4 20 lines per call can occur 
+ *   5 One line per iteration can occur
+ */
+extern int PrintLevel_LinearSolver;
+
+int
+solve_aztecoo(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b);
+
+int
+solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b);
+
+}
+
+#endif

@@ -1,0 +1,778 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Standard Calomel Electrode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+ => Number of Cantera Files ====> NumCanteraFiles = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_KCl.xml
+Cantera File Name = KCl_solid.xml
+Cantera File Name = Calomel.xml
+Cantera File Name = Mercury_liquid.xml
+Cantera File Name = MetalSHEelectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   Hg(L) = 13.0
+   Hg2Cl2(S) = 3.0
+   KCl(S) = 3.0
+   H2O(L) = 6.0
+   K+ = 0.03
+   Cl- = 0.03
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Standard Calomel Electrode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+ => Number of Cantera Files ====> NumCanteraFiles = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_KCl.xml
+ => Cantera File Name = HMW_KCl.xml
+ ====> CanteraFileNames =  HMW_KCl.xml
+Cantera File Name = KCl_solid.xml
+ => Cantera File Name = KCl_solid.xml
+ ====> CanteraFileNames =  KCl_solid.xml
+Cantera File Name = Calomel.xml
+ => Cantera File Name = Calomel.xml
+ ====> CanteraFileNames =  Calomel.xml
+Cantera File Name = Mercury_liquid.xml
+ => Cantera File Name = Mercury_liquid.xml
+ ====> CanteraFileNames =  Mercury_liquid.xml
+Cantera File Name = MetalSHEelectrons.xml
+ => Cantera File Name = MetalSHEelectrons.xml
+ ====> CanteraFileNames =  MetalSHEelectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   Hg(L) = 13.0
+   Hg2Cl2(S) = 3.0
+   KCl(S) = 3.0
+   H2O(L) = 6.0
+   K+ = 0.03
+   Cl- = 0.03
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Standard Calomel Electrode
+ => Title = Standard Calomel Electrode
+ ====> Title = Standard Calomel Electrode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+ => Number of Cantera Files ====> NumCanteraFiles = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_KCl.xml
+ => Cantera File Name = HMW_KCl.xml
+ ====> CanteraFileNames =  HMW_KCl.xml
+Cantera File Name = KCl_solid.xml
+ => Cantera File Name = KCl_solid.xml
+ ====> CanteraFileNames =  KCl_solid.xml
+Cantera File Name = Calomel.xml
+ => Cantera File Name = Calomel.xml
+ ====> CanteraFileNames =  Calomel.xml
+Cantera File Name = Mercury_liquid.xml
+ => Cantera File Name = Mercury_liquid.xml
+ ====> CanteraFileNames =  Mercury_liquid.xml
+Cantera File Name = MetalSHEelectrons.xml
+ => Cantera File Name = MetalSHEelectrons.xml
+ ====> CanteraFileNames =  MetalSHEelectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   Hg(L) = 13.0
+ => Hg(L) = 13.0
+ ====> Hg(L) = 13
+   Hg2Cl2(S) = 3.0
+ => Hg2Cl2(S) = 3.0
+ ====> Hg2Cl2(S) = 3
+   KCl(S) = 3.0
+ => KCl(S) = 3.0
+ ====> KCl(S) = 3
+   H2O(L) = 6.0
+ => H2O(L) = 6.0
+ ====> H2O(L) = 6
+   K+ = 0.03
+ => K+ = 0.03
+ ====> K+ = 0.03
+   Cl- = 0.03
+ => Cl- = 0.03
+ ====> Cl- = 0.03
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ H2O(L) : 0 ] = 6
+	====>   MoleNumber[ Cl- : 1 ] = 0.03
+	====>   MoleNumber[ H+ : 2 ] = 0
+	====>   MoleNumber[ K+ : 3 ] = 0.03
+	====>   MoleNumber[ Na+ : 4 ] = 0
+	====>   MoleNumber[ OH- : 5 ] = 0
+	====>   MoleNumber[ KCl(S) : 6 ] = 3
+	====>   MoleNumber[ Hg2Cl2(S) : 7 ] = 3
+	====>   MoleNumber[ Hg(L) : 8 ] = 13
+	====>   MoleNumber[ she_electron : 9 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+          H2O(L)          0    KCl_electrolyte             6         
+             Cl-          0    KCl_electrolyte             0.03      
+              H+          0    KCl_electrolyte             0         
+              K+          0    KCl_electrolyte             0.03      
+             Na+          0    KCl_electrolyte             0         
+             OH-          0    KCl_electrolyte             0         
+          KCl(S)          1             KCl(S)             3         
+       Hg2Cl2(S)          2         Calomel(S)             3         
+           Hg(L)          3     Mercury_liquid             13        
+    she_electron          4   MetalSHEelectrons             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+ KCl_electrolyte     0   no         6             0      6.060000e+00
+          KCl(S)     1   yes        1             0      3.000000e+00
+      Calomel(S)     2   yes        1             0      3.000000e+00
+  Mercury_liquid     3   yes        1             0      1.300000e+01
+MetalSHEelectrons     4   yes        1             0      0.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O             6 
+           H            12 
+           C             0 
+           K          3.03 
+           E             0 
+           N             0 
+          Na             0 
+          Cl          9.03 
+          Hg            19 
+
+================================================================================
+==================== mpequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+Unknown Cantera EOS to VCSnonideal: 45012
+Unknown Cantera EOS to VCSnonideal: 9
+
+================================================================================
+================ Cantera_to_vprob: START OF PROBLEM STATEMENT ====================
+================================================================================
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_kMols
+          H2O(L)          0    KCl_electrolyte             6         
+             Cl-          0    KCl_electrolyte             0.03      
+              H+          0    KCl_electrolyte             0         
+              K+          0    KCl_electrolyte             0.03      
+             Na+          0    KCl_electrolyte             0         
+             OH-          0    KCl_electrolyte             0         
+          KCl(S)          1             KCl(S)             3         
+       Hg2Cl2(S)          2         Calomel(S)             3         
+           Hg(L)          3     Mercury_liquid             13        
+    she_electron          4   MetalSHEelectrons     Volts = 0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase EqnState NumSpec  TMolesInert       Tmoles(kmol)
+ KCl_electrolyte     0     0        0 UnkType: -1             6     0.000000e+00     6.060000e+00
+          KCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     3.000000e+00
+      Calomel(S)     2     1        0 Stoich Sub              1     0.000000e+00     3.000000e+00
+  Mercury_liquid     3     1        0 Stoich Sub              1     0.000000e+00     1.300000e+01
+MetalSHEelectrons     4     1        0 UnkType: -1             1     0.000000e+00     0.000000e+00
+
+================================================================================
+================ Cantera_to_vprob: END OF PROBLEM STATEMENT ====================
+================================================================================
+
+
+================================================================================
+==================== Cantera_to_vprob: START OF PROBLEM STATEMENT ====================
+================================================================================
+
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_kMols
+          H2O(L)          0    KCl_electrolyte             6         
+             Cl-          0    KCl_electrolyte             0.03      
+              H+          0    KCl_electrolyte             0         
+              K+          0    KCl_electrolyte             0.03      
+             Na+          0    KCl_electrolyte             0         
+             OH-          0    KCl_electrolyte             0         
+          KCl(S)          1             KCl(S)             3         
+       Hg2Cl2(S)          2         Calomel(S)             3         
+           Hg(L)          3     Mercury_liquid             13        
+    she_electron          4   MetalSHEelectrons     Volts = 0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase EqnState NumSpec  TMolesInert       Tmoles(kmol)
+ KCl_electrolyte     0     0        0 UnkType: -1             6     0.000000e+00     6.060000e+00
+          KCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     3.000000e+00
+      Calomel(S)     2     1        0 Stoich Sub              1     0.000000e+00     3.000000e+00
+  Mercury_liquid     3     1        0 Stoich Sub              1     0.000000e+00     1.300000e+01
+MetalSHEelectrons     4     1        0 UnkType: -1             1     0.000000e+00     0.000000e+00
+
+================================================================================
+==================== Cantera_to_vprob: END OF PROBLEM STATEMENT ====================
+================================================================================
+
+
+================================================================================
+==================== VCS_PROB: PROBLEM STATEMENT ===============================
+================================================================================
+
+	Solve a constant T, P problem:
+		T    = 298.15 K
+		Pres = 1 atm
+
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
+          H2O(L)          0    KCl_electrolyte             6                          Mol_Num
+             Cl-          0    KCl_electrolyte             0.03                       Mol_Num
+              H+          0    KCl_electrolyte             0                          Mol_Num
+              K+          0    KCl_electrolyte             0.03                       Mol_Num
+             Na+          0    KCl_electrolyte             0                          Mol_Num
+             OH-          0    KCl_electrolyte             0                          Mol_Num
+          KCl(S)          1             KCl(S)             3                          Mol_Num
+       Hg2Cl2(S)          2         Calomel(S)             3                          Mol_Num
+           Hg(L)          3     Mercury_liquid             13                         Mol_Num
+    she_electron          4   MetalSHEelectrons             0                          Voltage
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
+ KCl_electrolyte     0     0        0 UnkType: -1             6     0.000000e+00     6.060000e+00
+          KCl(S)     1     1        0 Stoich Sub              1     0.000000e+00     3.000000e+00
+      Calomel(S)     2     1        0 Stoich Sub              1     0.000000e+00     3.000000e+00
+  Mercury_liquid     3     1        0 Stoich Sub              1     0.000000e+00     1.300000e+01
+MetalSHEelectrons     4     1        0 UnkType: -1             1     0.000000e+00     0.000000e+00
+
+Elemental Abundances:             Target_kmol    ElemType ElActive
+                          O   6.000000000000E+00    0         1
+                          H   1.200000000000E+01    0         1
+                          C   0.000000000000E+00    0         1
+                          K   3.030000000000E+00    0         1
+                          E   0.000000000000E+00    1         0
+                          N   0.000000000000E+00    0         1
+                          Na  0.000000000000E+00    0         1
+                          Cl  9.030000000000E+00    0         1
+                          cn  0.000000000000E+00    2         1
+                          Hg  1.900000000000E+01    0         1
+
+Chemical Potentials:  (J/kmol)
+             Species       (phase)        SS0ChemPot       StarChemPot
+          H2O(L)  KCl_electrolyte    -3.06686e+08       -3.06686e+08
+             Cl-                     -1.83974e+08       -1.83974e+08
+              H+                                0                  0
+              K+                     -2.82675e+08       -2.82675e+08
+             Na+                     -2.57688e+08       -2.57688e+08
+             OH-                     -2.26784e+08       -2.26784e+08
+          KCl(S)           KCl(S)    -4.61297e+08       -4.61297e+08
+       Hg2Cl2(S)       Calomel(S)    -3.22332e+08       -3.22332e+08
+           Hg(L)   Mercury_liquid    -2.26676e+07       -2.26676e+07
+    she_electron MetalSHEelectrons    -1.94812e+07       -1.94812e+07
+
+================================================================================
+==================== VCS_PROB: END OF PROBLEM STATEMENT ========================
+================================================================================
+
+VCS CALCULATION METHOD
+
+ MultiPhase Object
+
+
+   10 SPECIES
+   10 ELEMENTS
+    7 COMPONENTS
+    5 PHASES
+ PRESSURE                101325 Pa 
+ TEMPERATURE            298.150 K
+ PHASE1 INERTS            0.000
+ PHASE2 INERTS            0.000
+
+ ELEMENTAL ABUNDANCES             CORRECT          FROM ESTIMATE           Type
+
+                          O   6.000000000000E+00  6.000000000000E+00       0
+                          H   1.200000000000E+01  1.200000000000E+01       0
+                          K   3.030000000000E+00  3.030000000000E+00       0
+                          Na  0.000000000000E+00  0.000000000000E+00       0
+                          Cl  9.030000000000E+00  9.030000000000E+00       0
+                          cn  0.000000000000E+00  0.000000000000E+00       2
+                          Hg  1.900000000000E+01  1.900000000000E+01       0
+                          E   0.000000000000E+00  0.000000000000E+00       1
+                          N   0.000000000000E+00  0.000000000000E+00       0
+                          C   0.000000000000E+00  0.000000000000E+00       0
+
+ USER ESTIMATE OF EQUILIBRIUM
+ Stan. Chem. Pot. in J/kmol
+
+ SPECIES            FORMULA VECTOR                                               STAN_CHEM_POT  EQUILIBRIUM_EST.  Species_Type
+
+                    O       H       K       Na      Cl      cn_K    Hg      E       N       C          PhaseID
+ Hg(L)              0       0       0       0       0       0       1       0       0       0          3  -2.26676E+07   1.30000E+01       Mol_Num
+ H2O(L)             1       2       0       0       0       0       0      -0       0       0          0  -3.06686E+08   6.00000E+00       Mol_Num
+ Hg2Cl2(S)          0       0       0       0       2       0       2       0       0       0          2  -3.22332E+08   3.00000E+00       Mol_Num
+ KCl(S)             0       0       1       0       1       0       0       0       0       0          1  -4.61297E+08   3.00000E+00       Mol_Num
+ K+                 0       0       1       0       0       1       0      -1       0       0          0  -2.82675E+08   3.00000E-02       Mol_Num
+ OH-                1       1       0       0       0      -1       0       1       0       0          0  -2.26784E+08   0.00000E+00       Mol_Num
+ Na+                0       0       0       1       0       1       0      -1       0       0          0  -2.57688E+08   0.00000E+00       Mol_Num
+ H+                 0       1       0       0       0       1       0      -1       0       0          0   0.00000E+00   0.00000E+00       Mol_Num
+ Cl-                0       0       0       0       1      -1       0       1       0       0          0  -1.83974E+08   3.00000E-02       Mol_Num
+ she_electron       0       0       0       0       0       0       0       1       0       0          4  -1.94812E+07   0.00000E+00       Voltage
+
+
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+		 VCS_TP REPORT
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+		Temperature  =           3e+02 Kelvin
+		Pressure     =      1.0132e+05 Pa 
+		total Volume =          1.2973 m**3
+
+
+--------------------------------------------------------------------------------
+ Species                 Equilibrium kmoles   Mole Fraction    ChemPot/RT    SpecUnkType
+--------------------------------------------------------------------------------
+ Hg(L)                     1.3000000E+01      1.0000000E+00     -9.1440E+00     0
+ H2O(L)                    6.0000000E+00      8.4779008E-01     -1.2389E+02     0
+ Hg2Cl2(S)                 3.0000000E+00      1.0000000E+00     -1.3003E+02     0
+ KCl(S)                    2.4913882E+00      1.0000000E+00     -1.8609E+02     0
+ K+                        5.3861182E-01      7.6104959E-02     -1.1295E+02     0
+ OH-                       6.5567724E-09      9.2646111E-10     -1.0824E+02     0
+ Na+                       0.0000000E+00      0.0000000E+00     -4.2439E+02     0
+ Cl-                       5.3861182E-01      7.6104959E-02     -7.3135E+01  KMolNum 
+ she_electron                     NA          1.0000000E+00     -1.7265E+01   Voltage =  2.4167646E-01
+ H+                        6.5567724E-09      9.2646111E-10     -1.5654E+01  KMolNum 
+--------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------------------------
+               |ComponentID|          0          1          2          3          4          5          6 |           |
+               | Components|      Hg(L)     H2O(L)  Hg2Cl2(S)     KCl(S)         K+        OH-        Na+ |           |
+ NonComponent  |   Moles   |         13          6          3       2.49      0.539   6.56e-09          0 | DG/RT Rxn |
+-------------------------------------------------------------------------------------------------------------------
+   7 H+        |  6.56e-09 |       0.00      -1.00       0.00       0.00       0.00       1.00       0.00 | -7.09e-09 |
+   8 Cl-       |     0.539 |       0.00       0.00       0.00      -1.00       1.00       0.00       0.00 |  1.99e-12 |
+   9 she_electr|     0.242 |      -1.00       0.00       0.50      -1.00       1.00       0.00       0.00 | -1.51e-10 |
+-------------------------------------------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                  | ElementID |          0          1          2          3          4          5          6          7          8          9 |                     |
+                  | Element   |          O          H          K         Na         Cl cn_KCl_ele         Hg          E          N          C |                     |
+    PhaseName     |KMolTarget |          6         12       3.03          0       9.03          0         19          0          0          0 |     Gibbs Total     |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 KCl_electrol | 7.077e+00 |          6         12      0.539          0      0.539          0          0          0          0          0 | -8.43592630942E+02 |
+   1 KCl(S)       | 2.491e+00 |          0          0       2.49          0       2.49          0          0          0          0          0 | -4.63610224748E+02 |
+   2 Calomel(S)   | 3.000e+00 |          0          0          0          0          6          0          6          0          0          0 | -3.90082215607E+02 |
+   3 Mercury_liqu | 1.300e+01 |          0          0          0          0          0          0         13          0          0          0 | -1.18872188717E+02 |
+   4 MetalSHEelec | 0.000e+00 |          0          0          0          0          0          0          0          0          0          0 |  0.00000000000E+00 |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    TOTAL         | 2.557e+01 |          6         12       3.03          0       9.03          0         19          0          0          0 | -1.81615726001E+03 |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Total Dimensionless Gibbs Free Energy = G/RT =  -1.8161573E+03
+
+Elemental Abundances (kmol):          Actual                    Target         Type      ElActive
+                          O   6.000000000000E+00    6.000000000000E+00     0       1
+                          H   1.200000000000E+01    1.200000000000E+01     0       1
+                          K   3.030000000000E+00    3.030000000000E+00     0       1
+                          Na  0.000000000000E+00    0.000000000000E+00     0       1
+                          Cl  9.030000000000E+00    9.030000000000E+00     0       1
+                          cn  0.000000000000E+00    0.000000000000E+00     2       1
+                          Hg  1.900000000000E+01    1.900000000000E+01     0       1
+                          E   0.000000000000E+00    0.000000000000E+00     1       0
+                          N   0.000000000000E+00    0.000000000000E+00     0       1
+                          C   0.000000000000E+00    0.000000000000E+00     0       1
+
+
+---------------------------------------------------------------------------------------------
+Chemical Potentials of the Species: (dimensionless)
+		(RT = 2.47896e+06 J/kmol)
+    Name        TKMoles     StandStateChemPot      ln(AC)       ln(X_i)      |   F z_i phi   |    ChemPot    | (-lnMnaught)|  (MolNum ChemPot)|
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ Hg(L)         1.3000000E+01 -9.1440145E+00   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -9.1440E+00 |             |      -1.188721887E+02 |
+ H2O(L)        6.0000000E+00 -1.2371564E+02  -1.3407023E-02  -1.6512222E-01  | 0.0000000E+00 |   -1.2389E+02 |             |      -7.433649952E+02 |
+ Hg2Cl2(S)     3.0000000E+00 -1.3002741E+02   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -1.3003E+02 |             |      -3.900822156E+02 |
+ KCl(S)        2.4913882E+00 -1.8608510E+02   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -1.8609E+02 |             |      -4.636102247E+02 |
+ K+            5.3861182E-01 -1.1402970E+02  -3.6152408E-01  -2.5756418E+00  | 0.0000000E+00 |   -1.1295E+02 |(4.01653E+00)|      -6.083638337E+01 |
+ OH-           6.5567724E-09 -9.1483592E+01   2.6601575E-02  -2.0799649E+01  |-0.0000000E+00 |   -1.0824E+02 |(4.01653E+00)|      -7.097057368E-07 |
+ Na+           0.0000000E+00 -1.0395020E+02  -1.4208789E-01  -3.2431879E+02  | 0.0000000E+00 |   -4.2439E+02 |(4.01653E+00)|      -0.000000000E+00 |
+ Cl-           5.3861182E-01 -7.4214139E+01  -3.6152408E-01  -2.5756418E+00  |-0.0000000E+00 |   -7.3135E+01 |(4.01653E+00)|      -3.939125153E+01 |
+ she_electron  2.4167646E-01 -7.8586119E+00   0.0000000E+00   0.0000000E+00  |-9.4064704E+00 |   -1.7265E+01 |             |      -4.172563967E+00 |
+ H+            6.5567724E-09  0.0000000E+00   1.1290529E+00  -2.0799649E+01  | 0.0000000E+00 |   -1.5654E+01 |(4.01653E+00)|      -1.026401169E-07 |
+                                                                                                                                  -1.816157260E+03
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Counters:         Iterations          Time (seconds)
+    vcs_basopt:       1                 NA     
+    vcs_TP:          19                 NA     
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+TCounters:   Num_Calls   Total_Its       Total_Time (seconds)
+    vcs_basopt:       1          1             NA     
+    vcs_TP:           1         19             NA     
+    vcs_inest:        0                        NA     
+    vcs_TotalTime:                             NA     
+
+ Results from vcs:
+
+Temperature = 298.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2O(L)              6.000e+00         8.478e-01       -3.071e+08
+Cl-                 5.386e-01         7.610e-02       -1.813e+08
+H+                  6.557e-09         9.265e-10       -3.881e+07
+K+                  5.386e-01         7.610e-02       -2.800e+08
+Na+                 0.000e+00         0.000e+00       -1.000e+300
+OH-                 6.557e-09         9.265e-10       -2.683e+08
+KCl(S)              2.491e+00         1.000e+00       -4.613e+08
+Hg2Cl2(S)           3.000e+00         1.000e+00       -3.223e+08
+Hg(L)               1.300e+01         1.000e+00       -2.267e+07
+she_electron        0.000e+00       1.000e+00       -4.280e+07
+-------------------------------------------------------------
+
+ Results from mpequil:
+
+Temperature = 298.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2O(L)           6.000000e+00    8.477901e-01    -3.071283e+08
+Cl-              5.386118e-01    7.610496e-02    -1.812979e+08
+H+               6.556772e-09    9.264611e-10    -3.880574e+07
+K+               5.386118e-01    7.610496e-02    -2.799990e+08
+Na+              0.000000e+00    0.000000e+00    -1.970852e+09
+OH-              6.556772e-09    9.264611e-10    -2.683226e+08
+KCl(S)           2.491388e+00    1.000000e+00    -4.612969e+08
+Hg2Cl2(S)        3.000000e+00    1.000000e+00    -3.223323e+08
+Hg(L)            1.300000e+01    1.000000e+00    -2.266762e+07
+she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
+-------------------------------------------------------------
+ 
+  KCl_electrolyte:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density         182.322  kg/m^3
+  mean mol. weight         20.9469  amu
+         potential               0  V
+                pH           6.798  
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -1.30927e+07       -2.743e+08     J
+   internal energy    -1.30932e+07       -2.743e+08     J
+           entropy         3400.37        7.123e+04     J/K
+    Gibbs function    -1.41065e+07       -2.955e+08     J
+ heat capacity c_p         2610.42        5.468e+04     J/K
+ heat capacity c_v    <not implemented>       
+ 
+                           X           Molalities         Chem.Pot.    ChemPotSS    ActCoeffMolal
+                                                          (J/kmol)      (J/kmol)                 
+                     -------------    ------------     ------------  ------------    ------------
+            H2O(L)       0.84779          55.5084     -3.07128e+08   -3.06686e+08       0.986682
+               Cl-      0.076105          4.98292     -1.81298e+08   -1.83974e+08       0.590582
+                H+   9.26461e-10      6.06594e-08     -3.88057e+07              0        2.62198
+                K+      0.076105          4.98292     -2.79999e+08   -2.82675e+08       0.590582
+               Na+             0                0          N/A      -2.57688e+08       0.735496 
+               OH-   9.26461e-10      6.06594e-08     -2.68323e+08   -2.26784e+08       0.870645
+
+ 
+  KCl(S):
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density            1984  kg/m^3
+  mean mol. weight          74.551  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -5.85749e+06       -4.367e+08     J
+   internal energy    -5.85754e+06       -4.367e+08     J
+           entropy         1107.42        8.256e+04     J/K
+    Gibbs function    -6.18767e+06       -4.613e+08     J
+ heat capacity c_p         688.012        5.129e+04     J/K
+ heat capacity c_v         688.012        5.129e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+            KCl(S)              1                1         -186.085
+
+ 
+  Calomel(S):
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density            7150  kg/m^3
+  mean mol. weight         472.085  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy         -561197       -2.649e+08     J
+   internal energy         -561211       -2.649e+08     J
+           entropy         407.805        1.925e+05     J/K
+    Gibbs function         -682784       -3.223e+08     J
+ heat capacity c_p         215.971         1.02e+05     J/K
+ heat capacity c_v         215.971         1.02e+05     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+         Hg2Cl2(S)              1                1         -130.027
+
+ 
+  Mercury_liquid:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density         13546.2  kg/m^3
+  mean mol. weight          200.59  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy     0.000100412          0.02014     J
+   internal energy        -7.47986            -1500     J
+           entropy          379.02        7.603e+04     J/K
+    Gibbs function         -113005       -2.267e+07     J
+ heat capacity c_p         139.478        2.798e+04     J/K
+ heat capacity c_v         139.478        2.798e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+             Hg(L)              1                1         -9.14401
+
+ 
+  MetalSHEelectrons:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density            2165  kg/m^3
+  mean mol. weight        0.000545  amu
+         potential        0.241676  V
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy         12.1851         0.006641     J
+   internal energy    -4.54854e+09       -2.479e+06     J
+           entropy      1.1989e+08        6.534e+04     J/K
+    Gibbs function    -3.57452e+10       -1.948e+07     J
+ heat capacity c_p     2.64552e+07        1.442e+04     J/K
+ heat capacity c_v     2.64552e+07        1.442e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+      she_electron              1                1         -7.85861
+

@@ -1,0 +1,1 @@
+mpirun -v -machinefile /home/hkmoffa/arch/machinefile_wsblade083 -np 1  -tv   LiKCl_PorousBat    LiKCl_PorousBat.inp  

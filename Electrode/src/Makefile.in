@@ -1,0 +1,183 @@
+#
+#  Makefile.in: 
+#     Makefile for vcsc
+#
+# $Id: Makefile.in,v 1.24 2012/02/08 16:08:16 hkmoffa Exp $
+#
+.SUFFIXES: .d
+
+#
+RM = /bin/rm -f
+CP = /bin/cp -f -p
+AR = ar
+RANLIB = ranlib
+F77 = g77
+FTCHECK = -u
+F77MLDRFLAGS =
+CMLDRFLAGS =
+MPIHOME  = /usr/local/mpich
+MPI_INC = -I$(MPIHOME)/include
+MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
+#
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
+
+# The directory where Cantera include files may be found.
+CANTERA_INCROOT=@ct_incroot@
+
+PURIFY=@PURIFY@
+
+# Find the Build root for Cantera
+#
+CANTERA_BUILD_ROOT=@ctb_root@
+#
+CTPADDSSRC_DIR=../../ctpadds/src
+
+UTILSRC_DIR = ../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+
+
+F2C_INC=$(CANTERA_INCROOT)/cantera
+#
+# Set up the various local and global defines
+#
+# LDEFINES =   -DDEBUG_ELECTRODE
+# LDEFINES =   -DDEBUG_MODE_PREDICTION -DDEBUG_HKM
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
+               -I$(CTPADDSSRC_DIR) \
+               -I$(UTILSRC_DIR) 
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+
+
+all: .depends libctApplBase.a
+
+.SUFFIXES: .src .prj .d
+
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -I$(F2C_INC) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+# 
+# These classes compile against the Cantera kernel
+# format
+#
+
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+INSTALL = $(CHEMKIN_HOME)/bin/bsdinstall.sh 
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+
+OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.o \
+                  importPL.o Electrode.o Electrode_input.o ApplBase_print.o \
+	          Electrode_SimplePhaseChangeDiffusion.o  \
+                  Electrode_InfCapacity.o Electrode_MP_RxnExtent.o Electrode_Factory.o \
+                  Electrode_CSTR.o Electrode_Capacity.o  Electrode_CSTR_MCMBAnode.o \
+                  Electrode_CSTR_LiCoO2Cathode.o EState.o Electrode_XMLWriter.o \
+                  Electrode_Integrator.o Electrode_SimpleDiff.o \
+                  Electrode_RadialDiffRegions.o Electrode_RadialRegion.o Electrode_SurfaceRegion.o \
+                  Electrode_SuccessiveSubstitution.o Electrode_Equilibrium.o \
+                  Electrode_MP_RxnExtent_FeS2.o
+
+HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.h \
+                  importPL.h Electrode.h Electrode_input.h ApplBase_print.h Electrode_defs.h \
+	          Electrode_SimplePhaseChangeDiffusion.h  \
+                  Electrode_InfCapacity.h Electrode_MP_RxnExtent.h Electrode_Factory.h \
+                  Electrode_CSTR.h Electrode_CSTR_MCMBAnode.h \
+                  Electrode_CSTR_LiCoO2Cathode.h EState.h Electrode_FuncCurrent.h  \
+                  Electrode_Integrator.h Electrode_SimpleDiff.h \
+                  Electrode_RadialDiffRegions.h  Electrode_RadialRegion.h Electrode_SurfaceRegion.h \
+                  Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h \
+                  Electrode_MP_RxnExtent_FeS2.h
+
+
+
+###########################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_CTAPPLBASE:.o=.d)
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+ctmlDiff: ctmlDiff.o $(UTILSRC_DEP) \
+          $(CANTERA_CORE_LIBS_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o ctmlDiff ctmlDiff.o \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+
+############################################################################
+
+$(OBJ_CTAPPLBASE): Makefile $(HDR_CTAPPLBASE)
+
+libctApplBase.a: $(OBJ_CTAPPLBASE)
+	$(AR) rv libctApplBase.a $(OBJ_CTAPPLBASE)
+
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+test:
+	cd .. ; @MAKE@ test
+
+###########################################################################
+#          INSTALL RULES
+###########################################################################
+
+install:
+	@INSTALL@ -d @cta_incdir@
+	@INSTALL@ -d @cta_libdir@
+	cp   $(HDR_CTAPPLBASE) @cta_incdir@
+	cp   libctApplBase.a @cta_libdir@
+
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+clean:
+	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
+                   fort.* *%  core *.trace tmp*
+	$(RM) ${PROG} 
+

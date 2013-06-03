@@ -1,0 +1,30 @@
+
+<?xml version="1.0"?>
+<ctml>
+<boundaryCondition title="SampleBC">
+  <lowerBound units="s">0.0</lowerBound>
+  <upperBound units="s">7.0</upperBound>
+  <independentVar>
+     <floatArray title="Time sequence" type="optional" units="s">
+       0.0,
+       1.0,
+       2.0,
+       3.0,
+       4.0,
+       5.0,
+       6.0
+     </floatArray>
+  </independentVar>
+  <dependentVar units = "Amp">
+     <floatArray title="Current sequence" type="optional" units="Amp">
+       0.0,
+       0.1,
+       0.0,
+       0.1,
+       0.0,
+       0.1,
+       0.0
+     </floatArray>
+  </dependentVar>
+</boundaryCondition>
+</ctml>

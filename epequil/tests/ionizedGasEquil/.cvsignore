@@ -1,0 +1,16 @@
+.nfs*
+ct2ctml.log
+Makefile
+csvCode.txt
+ionizedGasEquil
+output.txt
+air_below6000K.xml
+.*.swp
+diff_test.out
+desc.txt
+diff_gas*
+gas_*
+runtest
+*.d
+.depends
+diff*

@@ -1,0 +1,427 @@
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to calculate the number of components and evaluate the formation matrix
+   ---
+   ---      Formula Matrix used in BASOPT calculation
+   ---      Species | Order |     H(0)    C(1)    O(2)    N(3)   Ar(4)
+   ---          CH |      0 |     1       1       0       0       0  
+   ---        C2H2 |      1 |     2       2       0       0       0  
+   --- 
+   ---   C2H2        (        9) replaces CH          (        1) as component   0
+   ---
+   ---  Number of Components = 1
+   ---  Formula Matrix:
+   ---                      Components:       0 (  1) 
+   ---                Components Moles:       9          
+   ---        NonComponent |   Moles  |       C2H2       
+   ---   1 (  0) CH        |         1|       0.50
+   -----------------------------------------------------------------------------
+number of components = 1
+setInitialMoles:   Estimated Mole Fractions
+  Temperature = 2000
+  Pressure = 100000
+         CH            0.1      
+         C2H2          0.9      
+      Element_Name   ElementGoal  ElementMF
+      H             0.5       0.5      
+      C             0.5       0.5      
+      O             0         0        
+      N             0         0        
+      Ar            0         0        
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to calculate the number of components and evaluate the formation matrix
+   ---
+   ---      Formula Matrix used in BASOPT calculation
+   ---      Species | Order |     H(0)    C(1)    O(2)    N(3)   Ar(4)
+   ---          CH |      0 |     1       1       0       0       0  
+   ---        C2H2 |      1 |     2       2       0       0       0  
+   --- 
+   ---   C2H2        (      0.9) replaces CH          (      0.1) as component   0
+   -----------------------------------------------------------------------------
+   --- Subroutine ElemRearrange() called to check stoich. coefficent matrix
+   ---    and to rearrange the element ordering once
+isp = 1, C2H2
+Pressure = 100000
+Temperature = 2000
+  id       Name     MF     mu/RT 
+         0              CH        0.1     7.7109
+         1            C2H2        0.9     -17.96
+ id      CompSpecies      ChemPot       EstChemPot       Diff
+  0             C2H2      -17.96       -17.96            0
+ id    ElName  Lambda_RT
+   0       H     -8.9802
+   1       C           0
+   2       O           0
+   3       N           0
+   4      Ar           0
+estimateEP_Brinkley::
+
+temp = 2000
+pres = 100000
+Initial mole numbers and mu_SS:
+         Name           MoleNum        mu_SS   actCoeff
+             CH            0.1         10.013             1
+           C2H2            0.9        -17.855             1
+Initial n_t =        0.9
+Comparison of Goal Element Abundance with Initial Guess:
+  eName       eCurrent       eGoal
+    H             1.9            0.5
+    C             1.9            0.5
+    O               0              0
+    N               0              0
+   Ar               0              0
+START ITERATION 0:
+        Species: Calculated_Moles Calculated_Mole_Fraction
+             CH: 5.0748e-09 6.2652e-09
+           C2H2:       0.81          1
+Total Molar Sum:       0.81
+(iter 0) element moles bal:   Goal  Calculated
+                     H:        0.5       1.62 
+                     C:        0.5       1.62 
+                     O:          0          0 
+                     N:          0          0 
+                    Ar:          0          0 
+ Lump Sum Elements Calculation: 
+                   H   1 :     0      1
+                   C   1 :     0      1
+                   O   1 :    -1     -1
+                   N   1 :    -1     -1
+                  Ar   1 :    -1     -1
+Matrix:
+       [       3.24       3.24          0          0          0       1.62]  =        -1.12
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [       1.62          0          0          0          0          0]  =         0.09
+(it 0) Convergence = 5.0276
+Row Summed Matrix:
+       [        0.4        0.4          0          0          0        0.2]  =     -0.13827
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =     0.055556
+Lump summing row 0, due to rank deficiency analysis
+Lump summing row 1, due to rank deficiency analysis
+Lump summing row 2, due to rank deficiency analysis
+Lump summing row 3, due to rank deficiency analysis
+Lump summing row 4, due to rank deficiency analysis
+Row Summed, MODIFIED Matrix:
+       [        0.8          0          0          0          0        0.2]  =     -0.13827
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =     0.055556
+(it 0)    OLD_SOLUTION  NEW SOLUTION    (undamped updated)
+         H      -8.9802      -8.9246     0.055556
+         C            0            0            0
+         O         -200         -200            0
+         N         -200         -200            0
+        Ar         -200         -200            0
+       n_t           0.9      0.36098     0.40109 
+START ITERATION 1:
+        Species: Calculated_Moles Calculated_Mole_Fraction
+             CH: 2.1517e-09 5.9266e-09
+           C2H2:    0.36306          1
+Total Molar Sum:    0.36306
+(iter 1) element moles bal:   Goal  Calculated
+                     H:        0.5    0.72612 
+                     C:        0.5    0.72612 
+                     O:          0          0 
+                     N:          0          0 
+                    Ar:          0          0 
+ Lump Sum Elements Calculation: 
+                   H   1 :     0      1
+                   C   1 :     0      1
+                   O   1 :    -1     -1
+                   N   1 :    -1     -1
+                  Ar   1 :    -1     -1
+Matrix:
+       [     1.4522     1.4522          0          0          0    0.72612]  =     -0.22612
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [    0.72612          0          0          0          0          0]  =   -0.0020818
+(it 1) Convergence = 0.20455
+Row Summed Matrix:
+       [        0.4        0.4          0          0          0        0.2]  =    -0.062281
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =    -0.002867
+Lump summing row 0, due to rank deficiency analysis
+Lump summing row 1, due to rank deficiency analysis
+Lump summing row 2, due to rank deficiency analysis
+Lump summing row 3, due to rank deficiency analysis
+Lump summing row 4, due to rank deficiency analysis
+Row Summed, MODIFIED Matrix:
+       [        0.8          0          0          0          0        0.2]  =    -0.062281
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =    -0.002867
+(it 1)    OLD_SOLUTION  NEW SOLUTION    (undamped updated)
+         H      -8.9246      -8.9275    -0.002867
+         C            0            0            0
+         O         -200         -200            0
+         N         -200         -200            0
+        Ar         -200         -200            0
+       n_t       0.36098      0.26743     0.74086 
+START ITERATION 2:
+        Species: Calculated_Moles Calculated_Mole_Fraction
+             CH: 1.5896e-09 5.9436e-09
+           C2H2:    0.26744          1
+Total Molar Sum:    0.26744
+(iter 2) element moles bal:   Goal  Calculated
+                     H:        0.5    0.53488 
+                     C:        0.5    0.53488 
+                     O:          0          0 
+                     N:          0          0 
+                    Ar:          0          0 
+ Lump Sum Elements Calculation: 
+                   H   1 :     0      1
+                   C   1 :     0      1
+                   O   1 :    -1     -1
+                   N   1 :    -1     -1
+                  Ar   1 :    -1     -1
+Matrix:
+       [     1.0698     1.0698          0          0          0    0.53488]  =    -0.034879
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [    0.53488          0          0          0          0          0]  =   -4.4135e-06
+(it 2) Convergence = 0.00486608
+Row Summed Matrix:
+       [        0.4        0.4          0          0          0        0.2]  =    -0.013042
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =   -8.2514e-06
+Lump summing row 0, due to rank deficiency analysis
+Lump summing row 1, due to rank deficiency analysis
+Lump summing row 2, due to rank deficiency analysis
+Lump summing row 3, due to rank deficiency analysis
+Lump summing row 4, due to rank deficiency analysis
+Row Summed, MODIFIED Matrix:
+       [        0.8          0          0          0          0        0.2]  =    -0.013042
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =   -8.2514e-06
+(it 2)    OLD_SOLUTION  NEW SOLUTION    (undamped updated)
+         H      -8.9275      -8.9275   -8.2514e-06
+         C            0            0            0
+         O         -200         -200            0
+         N         -200         -200            0
+        Ar         -200         -200            0
+       n_t       0.26743      0.25056      0.9369 
+START ITERATION 3:
+        Species: Calculated_Moles Calculated_Mole_Fraction
+             CH: 1.4893e-09 5.9437e-09
+           C2H2:    0.25056          1
+Total Molar Sum:    0.25056
+(iter 3) element moles bal:   Goal  Calculated
+                     H:        0.5    0.50112 
+                     C:        0.5    0.50112 
+                     O:          0          0 
+                     N:          0          0 
+                    Ar:          0          0 
+ Lump Sum Elements Calculation: 
+                   H   1 :     0      1
+                   C   1 :     0      1
+                   O   1 :    -1     -1
+                   N   1 :    -1     -1
+                  Ar   1 :    -1     -1
+Matrix:
+       [     1.0022     1.0022          0          0          0    0.50112]  =   -0.0011211
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [    0.50112          0          0          0          0          0]  =   -3.412e-11
+(it 3) Convergence = 5.02783e-06
+Row Summed Matrix:
+       [        0.4        0.4          0          0          0        0.2]  =   -0.00044745
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =   -6.8087e-11
+Lump summing row 0, due to rank deficiency analysis
+Lump summing row 1, due to rank deficiency analysis
+Lump summing row 2, due to rank deficiency analysis
+Lump summing row 3, due to rank deficiency analysis
+Lump summing row 4, due to rank deficiency analysis
+Row Summed, MODIFIED Matrix:
+       [        0.8          0          0          0          0        0.2]  =   -0.00044745
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [          1          0          0          0          0          0]  =   -6.8087e-11
+(it 3)    OLD_SOLUTION  NEW SOLUTION    (undamped updated)
+         H      -8.9275      -8.9275   -6.8087e-11
+         C            0            0            0
+         O         -200         -200            0
+         N         -200         -200            0
+        Ar         -200         -200            0
+       n_t       0.25056         0.25     0.99777 
+START ITERATION 4:
+        Species: Calculated_Moles Calculated_Mole_Fraction
+             CH: 1.4859e-09 5.9437e-09
+           C2H2:       0.25          1
+Total Molar Sum:       0.25
+(iter 4) element moles bal:   Goal  Calculated
+                     H:        0.5        0.5 
+                     C:        0.5        0.5 
+                     O:          0          0 
+                     N:          0          0 
+                    Ar:          0          0 
+ Lump Sum Elements Calculation: 
+                   H   1 :     0      1
+                   C   1 :     0      1
+                   O   1 :    -1     -1
+                   N   1 :    -1     -1
+                  Ar   1 :    -1     -1
+Matrix:
+       [          1          1          0          0          0        0.5]  =   -1.2533e-06
+       [          0          1          0          0          0          0]  =            0
+       [          0          0          1          0          0          0]  =            0
+       [          0          0          0          1          0          0]  =            0
+       [          0          0          0          0          1          0]  =            0
+       [        0.5          0          0          0          0          0]  =   3.8858e-16
+(it 4) Convergence = 6.28283e-12
+ ChemEquil::estimateEP_Brinkley() SUCCESS: equilibrium found at T = 2000, Pres = 100000
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000018E+05     1.78550E-06
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     1.00000E-10
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05     1.99997E-10
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     1.00000E-04
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     1.00000E-04
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     1.00000E-04
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000015E+03     7.60091E-07
+      YY(0):    1.0000000E+05  1.0000158E+05     1.57587E-05
+Jacobian matrix 1:
+      [          2          2          0          0          0     20.733  ]x_YY         =  - (-3.0559e-15)
+      [          0          1          0          0          0          0  ]x_C          =  - (         0)
+      [          0          0          1          0          0          0  ]x_O          =  - (         0)
+      [          0          0          0          1          0          0  ]x_N          =  - (         0)
+      [          0          0          0          0          1          0  ]x_Ar         =  - (         0)
+      [          0          0          0          0          0          1  ]x_XX         =  - (-1.1368e-16)
+Solution Unknowns: damp = 1
+            X_new      X_old       Step
+        -8.9275      -8.9275    3.4951e-16
+              0            0            -0
+          -1000        -1000            -0
+          -1000        -1000            -0
+          -1000        -1000            -0
+         7.6009       7.6009    1.1368e-16
+Residual:      ElFracGoal     ElFracCurrent     Resid
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                5.0000000E-01  5.0000000E-01     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+                0.0000000E+00  0.0000000E+00     0.00000E+00
+               Goal           Xvalue          Resid
+      XX   :    2.0000000E+03  2.0000000E+03    -1.13679E-16
+      YY(0):    1.0000000E+05  1.0000000E+05    -3.05588E-15
+ 
+  gri30_mix:
+ 
+       temperature            2000  K
+          pressure          100000  Pa
+           density        0.156582  kg/m^3
+  mean mol. weight         26.0379  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy     1.32407e+07        3.448e+08     J
+   internal energy     1.26021e+07        3.281e+08     J
+           entropy         12321.9        3.208e+05     J/K
+    Gibbs function     -1.1403e+07       -2.969e+08     J
+ heat capacity c_p         3110.34        8.099e+04     J/K
+ heat capacity c_v         2791.01        7.267e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+                CH    5.94369e-09      2.97184e-09          -8.9275
+              C2H2              1                1          -17.855

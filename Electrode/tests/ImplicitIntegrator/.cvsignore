@@ -1,0 +1,12 @@
+.depends
+.nfs*
+Makefile
+NonlinearElectrodeSolver.d
+implicit
+implicit.d
+outfile.dat
+diff_out.txt
+err_out.txt
+out.txt
+odeSet.m
+plotResult.m

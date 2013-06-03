@@ -1,0 +1,2 @@
+/bin/rm -rf out.txt transport_log.xml diff.txt diff.out ct2ctml.log 
+make clean

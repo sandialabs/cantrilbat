@@ -1,0 +1,555 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 7
+ => Number of Cantera Files ====> NumCanteraFiles = 7
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = gas.xml
+Cantera File Name = C_Solid.xml
+Cantera File Name = Fe_Solid.xml
+Cantera File Name = CaO_Solid.xml
+Cantera File Name = Fe3O4_Solid.xml
+Cantera File Name = CaCO3_Solid.xml
+Cantera File Name = FeO_Solid.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1050.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   CaO(S) = 7.562E-4
+   N2    = 187.1E-3
+   Fe_Solid = 4.2827E-2
+   C(d)  = 8.8294E-2 
+   H = 1.3766E-2
+   O2 = 4.76974E-2
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 7
+ => Number of Cantera Files ====> NumCanteraFiles = 7
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = gas.xml
+ => Cantera File Name = gas.xml
+ ====> CanteraFileNames =  gas.xml
+Cantera File Name = C_Solid.xml
+ => Cantera File Name = C_Solid.xml
+ ====> CanteraFileNames =  C_Solid.xml
+Cantera File Name = Fe_Solid.xml
+ => Cantera File Name = Fe_Solid.xml
+ ====> CanteraFileNames =  Fe_Solid.xml
+Cantera File Name = CaO_Solid.xml
+ => Cantera File Name = CaO_Solid.xml
+ ====> CanteraFileNames =  CaO_Solid.xml
+Cantera File Name = Fe3O4_Solid.xml
+ => Cantera File Name = Fe3O4_Solid.xml
+ ====> CanteraFileNames =  Fe3O4_Solid.xml
+Cantera File Name = CaCO3_Solid.xml
+ => Cantera File Name = CaCO3_Solid.xml
+ ====> CanteraFileNames =  CaCO3_Solid.xml
+Cantera File Name = FeO_Solid.xml
+ => Cantera File Name = FeO_Solid.xml
+ ====> CanteraFileNames =  FeO_Solid.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1050.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   CaO(S) = 7.562E-4
+   N2    = 187.1E-3
+   Fe_Solid = 4.2827E-2
+   C(d)  = 8.8294E-2 
+   H = 1.3766E-2
+   O2 = 4.76974E-2
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+=========================================================
+we are here
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+ => Title = Sample MultiPhase Problem
+ ====> Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 7
+ => Number of Cantera Files ====> NumCanteraFiles = 7
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = gas.xml
+ => Cantera File Name = gas.xml
+ ====> CanteraFileNames =  gas.xml
+Cantera File Name = C_Solid.xml
+ => Cantera File Name = C_Solid.xml
+ ====> CanteraFileNames =  C_Solid.xml
+Cantera File Name = Fe_Solid.xml
+ => Cantera File Name = Fe_Solid.xml
+ ====> CanteraFileNames =  Fe_Solid.xml
+Cantera File Name = CaO_Solid.xml
+ => Cantera File Name = CaO_Solid.xml
+ ====> CanteraFileNames =  CaO_Solid.xml
+Cantera File Name = Fe3O4_Solid.xml
+ => Cantera File Name = Fe3O4_Solid.xml
+ ====> CanteraFileNames =  Fe3O4_Solid.xml
+Cantera File Name = CaCO3_Solid.xml
+ => Cantera File Name = CaCO3_Solid.xml
+ ====> CanteraFileNames =  CaCO3_Solid.xml
+Cantera File Name = FeO_Solid.xml
+ => Cantera File Name = FeO_Solid.xml
+ ====> CanteraFileNames =  FeO_Solid.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1050.
+ => Temperature = 1050.
+ ====> Temperature = 1050
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   CaO(S) = 7.562E-4
+ => CaO(S) = 7.562E-4
+ ====> CaO(S) = 0.0007562
+   N2    = 187.1E-3
+ => N2 = 187.1E-3
+ ====> N2 = 0.1871
+   Fe_Solid = 4.2827E-2
+ => Fe_Solid = 4.2827E-2
+ ====> Fe_Solid = 0.042827
+   C(d)  = 8.8294E-2 
+ => C(d) = 8.8294E-2
+ ====> C(d) = 0.088294
+   H = 1.3766E-2
+ => H = 1.3766E-2
+ ====> H = 0.013766
+   O2 = 4.76974E-2
+ => O2 = 4.76974E-2
+ ====> O2 = 0.0476974
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ O2 : 0 ] = 0.0476974
+	====>   MoleNumber[ H2 : 1 ] = 0
+	====>   MoleNumber[ H : 2 ] = 0.013766
+	====>   MoleNumber[ CH2O : 3 ] = 0
+	====>   MoleNumber[ CHO : 4 ] = 0
+	====>   MoleNumber[ OH : 5 ] = 0
+	====>   MoleNumber[ CO2 : 6 ] = 0
+	====>   MoleNumber[ H2O : 7 ] = 0
+	====>   MoleNumber[ CH4 : 8 ] = 0
+	====>   MoleNumber[ CO : 9 ] = 0
+	====>   MoleNumber[ N2 : 10 ] = 0.1871
+	====>   MoleNumber[ C(d) : 11 ] = 0.088294
+	====>   MoleNumber[ Fe_Solid : 12 ] = 0.042827
+	====>   MoleNumber[ CaO(S) : 13 ] = 0.0007562
+	====>   MoleNumber[ Fe3O4(S) : 14 ] = 0
+	====>   MoleNumber[ CaCO3(S) : 15 ] = 0
+	====>   MoleNumber[ FeO_Solid : 16 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+              O2          0                air             0.047697  
+              H2          0                air             0         
+               H          0                air             0.013766  
+            CH2O          0                air             0         
+             CHO          0                air             0         
+              OH          0                air             0         
+             CO2          0                air             0         
+             H2O          0                air             0         
+             CH4          0                air             0         
+              CO          0                air             0         
+              N2          0                air             0.1871    
+            C(d)          1               C(S)             0.088294  
+        Fe_Solid          2              Fe(S)             0.042827  
+          CaO(S)          3             CaO(S)             0.0007562 
+        Fe3O4(S)          4           Fe3O4(S)             0         
+        CaCO3(S)          5           CaCO3(S)             0         
+       FeO_Solid          6             FeO(S)             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+             air     0   no        11             0      2.485634e-01
+            C(S)     1   yes        1             0      8.829400e-02
+           Fe(S)     2   yes        1             0      4.282700e-02
+          CaO(S)     3   yes        1             0      7.562000e-04
+        Fe3O4(S)     4   yes        1             0      0.000000e+00
+        CaCO3(S)     5   yes        1             0      0.000000e+00
+          FeO(S)     6   yes        1             0      0.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O      0.096151 
+           H      0.013766 
+           C      0.088294 
+          Fe      0.042827 
+          Ca     0.0007562 
+           N        0.3742 
+
+================================================================================
+==================== mpequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+
+ Results from mpequil:
+
+Temperature = 1050 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+O2               1.731838e-22    6.135529e-22    -4.264065e+08
+H2               6.426082e-03    2.276622e-02    -3.302173e+07
+H                7.638231e-52    2.706060e-51    -1.651086e+07
+CH2O             2.358731e-09    8.356475e-09    -2.484934e+08
+CHO              1.051986e-09    3.726959e-09    -2.319826e+08
+OH               7.933370e-14    2.810621e-13    -2.297141e+08
+CO2              6.663532e-03    2.360746e-02    -4.286750e+08
+H2O              4.438168e-04    1.572347e-03    -2.462250e+08
+CH4              6.549272e-06    2.320266e-05    -6.831193e+07
+CO               8.162391e-02    2.891759e-01    -2.154717e+08
+N2               1.871000e-01    6.628549e-01    -3.589845e+06
+C(d)             0.000000e+00    1.000000e+00     0.000000e+00
+Fe_Solid         4.282700e-02    1.000000e+00     0.000000e+00
+CaO(S)           7.562000e-04    1.000000e+00    -5.291900e+08
+Fe3O4(S)         0.000000e+00    1.000000e+00    -7.626600e+08
+CaCO3(S)         0.000000e+00    1.000000e+00    -9.424500e+08
+FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
+-------------------------------------------------------------
+ 
+  air:
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density         0.32245  kg/m^3
+  mean mol. weight         27.7824  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -2.47721e+06       -6.882e+07     J
+   internal energy    -2.79145e+06       -7.755e+07     J
+           entropy         244.295             6787     J/K
+    Gibbs function    -2.73372e+06       -7.595e+07     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v        -299.271            -8314     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+                O2    6.13553e-22       7.0667e-22         -48.8428
+                H2      0.0227662       0.00165191         -3.78248
+                 H    2.70606e-51      9.81755e-53         -1.89124
+              CH2O    8.35647e-09      9.03141e-09         -28.4637
+               CHO    3.72696e-09      3.89276e-09         -26.5725
+                OH    2.81062e-13      1.72056e-13         -26.3126
+               CO2      0.0236075        0.0373964         -49.1026
+               H2O     0.00157235       0.00101958         -28.2039
+               CH4    2.32027e-05      1.33982e-05          -7.8248
+                CO       0.289176          0.29155         -24.6812
+                N2       0.662855         0.668369        -0.411199
+
+ 
+  C(S):
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density            3520  kg/m^3
+  mean mol. weight          12.011  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy               0                0     J
+   internal energy        -28.7855           -345.7     J
+           entropy               0                0     J/K
+    Gibbs function               0                0     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v               0                0     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+              C(d)              1                1                0
+
+ 
+  Fe(S):
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density            3520  kg/m^3
+  mean mol. weight          55.847  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy               0                0     J
+   internal energy        -28.7855            -1608     J
+           entropy               0                0     J/K
+    Gibbs function               0                0     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v               0                0     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+          Fe_Solid              1                1                0
+
+ 
+  CaO(S):
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density            3520  kg/m^3
+  mean mol. weight         56.0774  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -9.43678e+06       -5.292e+08     J
+   internal energy    -9.43681e+06       -5.292e+08     J
+           entropy               0                0     J/K
+    Gibbs function    -9.43678e+06       -5.292e+08     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v               0                0     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+            CaO(S)              1                1         -60.6161
+
+ 
+  Fe3O4(S):
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density            3520  kg/m^3
+  mean mol. weight         231.539  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -3.29388e+06       -7.627e+08     J
+   internal energy    -3.29391e+06       -7.627e+08     J
+           entropy               0                0     J/K
+    Gibbs function    -3.29388e+06       -7.627e+08     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v               0                0     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+          Fe3O4(S)              1                1          -87.359
+
+ 
+  CaCO3(S):
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density            3520  kg/m^3
+  mean mol. weight         100.087  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -9.41629e+06       -9.424e+08     J
+   internal energy    -9.41632e+06       -9.425e+08     J
+           entropy               0                0     J/K
+    Gibbs function    -9.41629e+06       -9.424e+08     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v               0                0     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+          CaCO3(S)              1                1         -107.953
+
+ 
+  FeO(S):
+ 
+       temperature            1050  K
+          pressure          101325  Pa
+           density            3520  kg/m^3
+  mean mol. weight         71.8464  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -2.69923e+06       -1.939e+08     J
+   internal energy    -2.69926e+06       -1.939e+08     J
+           entropy               0                0     J/K
+    Gibbs function    -2.69923e+06       -1.939e+08     J
+ heat capacity c_p               0                0     J/K
+ heat capacity c_v               0                0     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+         FeO_Solid              1                1         -22.2137
+

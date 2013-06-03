@@ -1,0 +1,103 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile to compile and link a C++ application to 
+#  Cantera.
+#
+#############################################################################
+
+# addition to suffixes
+.SUFFIXES : .d
+
+# the name of the executable program to be created
+PROG_NAME = ionizedGasEquil
+
+# the object files to be linked together. List those generated from Fortran
+# and from C/C++ separately
+OBJS = ionizedGasEquil.o
+
+# This link is to Cantera's install space
+CT_INCROOT=@ct_incroot@
+
+# Bring in the Cantera includes through the .mak file
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+# Define the include directories
+INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
+
+# the C++ compiler
+CXX = @CXX@
+
+CXX_FLAGS = @CXXFLAGS@ -DDEBUG_HKM_EPEQUIL $(INCLUDE_DIRS)
+
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = @CXXFLAGS@
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) -c $< $(CXX_FLAGS)
+
+# How to compile the dependency file
+.cpp.d:
+	@CXX_DEPENDS@ $(CXX_FLAGS) $*.cpp > $*.d
+
+# List of dependency files to be created
+DEPENDS=$(OBJS:.o=.d)
+
+# Program Name
+PROGRAM = $(PROG_NAME)$(EXE_EXT)
+
+all: $(PROGRAM) .depends
+
+$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
+	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                  $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS)
+
+$(OBJS): Makefile
+
+$(DEPENDS): Makefile
+
+# depends target -> forces recalculation of dependencies
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+# Do the test -> For the windows vc++ environment, we have to skip checking on
+#                whether the program is uptodate, because we don't utilize make
+#                in that environment to build programs.
+test:
+ifeq ($(os_is_win), 1)
+else
+	@MAKE@ $(PROGRAM)
+endif
+	./runtest
+
+clean:
+	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends *~
+	(if test -d SunWS_cache ; then \
+           $(RM) -rf SunWS_cache ; \
+         fi )
+	$(RM) *Data.csv diff* output.txt csvCode.txt
+
+rebase:
+	$(RM) *blessed*
+	$(PROGRAM) > output_blessed.txt
+	rename .csv _blessed.csv *.csv
+
+
+#############################################################################
+#          DEPENDS RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

@@ -1,0 +1,17 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Bath Species ID = NaCl(S)
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+start block Bath Species Mole Fraction
+  NaCl(S) = 1.0
+End block Bath Species Mole Fraction
+
+# the above were empty lines

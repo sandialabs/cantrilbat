@@ -1,0 +1,69 @@
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.----------------------------------------------------------------
+ Dump of Mixture properties: 
+Bath Species set to Al(S)
+====================================================================================================
+      SUMMARY OF SPECIES IN THE MECHANISM WITH A DESCRIPTION  OF BATH COMPOSITION: 
+
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Carrier Species (used in diff. calcs) = Al(S)
+        Major Species Species (used in nondim calcs) = O2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)
+          -----------------------------------------------------------
+              1           Al(S)          1.0000       1.001E-01
+          -----------------------------------------------------------
+EOS type = 5
+PrintOut of Phase, "Al(S)", using Generic Thermodynamics Functions:
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Al: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 26.9815 gm/mol
+        Heat of formation (298.15K) = -0.0000  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 250 K
+        Maximum Temperature = 1075 K
+        Partial    Molar Volume at (T,P) of (1600,101325) = 0.00998577 m3/kmol
+        StandState Molar Volume at (T,P) of (1600,101325) = 0.00998577 m3/kmol
+        StoichSubstance constant density = 2702 kg m-3 
+        species Molar Volume = 1.37166E-05 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 1075: 
+                         28.0892         -5.414849          8.560423           3.42737
+                       -0.277375         -9.146887          61.90981
+               High temperature polynomials: 1075 < T < 1075: 
+                         28.0892         -5.414849          8.560423           3.42737
+                       -0.277375         -9.146887          61.90981
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000         -8.4299        24.2063      28.2739   |      -8.4299 | 
+|    300.00 |     0.0448         -8.4823        24.2458      28.4238   |      -8.4824 | 
+|    400.00 |     2.5536        -11.6987        25.7787      35.6307   |     -11.6987 | 
+|    500.00 |     5.1859        -15.5641        26.8408      41.5000   |     -15.5642 | 
+|    600.00 |     7.9217        -19.9694        27.8919      46.4851   |     -19.9694 | 
+|    700.00 |    10.7697        -24.8414        29.1029      50.8729   |     -24.8414 | 
+|    800.00 |    13.7504        -30.1304        30.5574      54.8510   |     -30.1304 | 
+|    900.00 |    16.8910        -35.8022        32.3059      58.5480   |     -35.8023 | 
+|   1000.00 |    20.2226        -41.8337        34.3848      62.0563   |     -41.8337 | 
+|** 1100.00*|    23.7799        -48.2095        36.8236      65.4449   |     -48.2096 | 
+|** 1200.00*|    27.6002        -54.9205        39.6483      68.7672   |     -54.9205 | 
+|** 1300.00*|    31.7232        -61.9622        42.8828      72.0657   |     -61.9622 | 
+|** 1400.00*|    36.1912        -69.3340        46.5500      75.3751   |     -69.3340 | 
+|** 1500.00*|    41.0484        -77.0385        50.6720      78.7246   |     -77.0386 | 
+|** 1600.00*|    46.3415        -85.0811        55.2703      82.1391   |     -85.0811 | 
+---------------------------------------------------------------------------------------

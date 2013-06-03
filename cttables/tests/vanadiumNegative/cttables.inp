@@ -1,0 +1,79 @@
+#
+#
+#
+Number of Cantera Files = 3
+Cantera File Name = Vneg_electrode.xml
+Cantera File Name = metalSHEelectrons.xml
+Cantera File Name = HMW_Vanadium.xml
+#
+#
+!Debugging = true
+Bath Temperature = 300.
+Bath Pressure =  1 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 20.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 333.15 273.15 373.15
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+START BLOCK Voltage  Table Format
+  Low Voltage  = -1.4
+END BLOCK Voltage  Table Format
+
+
+start block Bath Specification for Phase Vneg_Electrolyte
+   Bath Species ID = H2O(L)
+   start block Bath Species Molalities
+       V++ = 0.5 
+       V+++ = 0.5
+       Cl- = 2.5
+       H+ =  0.1
+       OH- = 0.1   
+   End block Bath Species Molalities
+end block Bath Specification for Phase Vneg_Electrolyte
+
+# Start block Extra Global Reaction
+#    Special Species = electronSHE
+#    Start block Elementary Reaction Specification
+#      Reaction Index = 0
+#      Reaction multiplier = -0.5
+#    End block Elementary Reaction Specification
+# End block Extra Global Reaction
+
+# the above were empty lines

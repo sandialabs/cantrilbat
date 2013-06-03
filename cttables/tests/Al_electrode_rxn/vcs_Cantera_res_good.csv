@@ -1,0 +1,14 @@
+--------------------- VCS_CANTERAPROB_INPUT FINAL REPORT -----------------------------
+Temperature =        298 kelvin
+Pressure    =   1.01e+05 Pascal
+Number Basis optimizations = 1
+Number VCS iterations = 11
+        Name,      Phase,  PhaseMoles,  Mole_Fract, Molalities,     Activity,ChemPot_SS0,   ChemPot,   mole_num,       PMVol, Phase_Volume
+            ,           ,      (kmol),            ,           ,             ,  (kJ/gmol), (kJ/gmol),     (kmol), (m**3/kmol),     (m**3)
+      H2O(L), AlCl_electrolyte,   1.072e+00,   9.328e-01,   5.551e+01,   9.807e-01,  -3.067e+02,  -3.067e+02,   1.000e-00,   1.801e-02,   1.890e-02
+         Cl-, AlCl_electrolyte,   1.072e+00,   5.041e-02,   3.000e+00,   9.615e-01,  -1.840e+02,  -1.841e+02,   5.405e-02,   9.702e-03,   1.890e-02
+          H+, AlCl_electrolyte,   1.072e+00,   7.446e-09,   4.431e-07,   6.934e-08,   0.000e+00,  -4.086e+01,   7.983e-09,   1.362e-03,   1.890e-02
+         OH-, AlCl_electrolyte,   1.072e+00,   7.446e-09,   4.431e-07,   1.420e-07,  -2.268e+02,  -2.659e+02,   7.983e-09,   9.702e-03,   1.890e-02
+       Al+++, AlCl_electrolyte,   1.072e+00,   1.680e-02,   1.000e+00,   3.568e-05,  -4.376e+02,  -4.630e+02,   1.802e-02,   2.060e-02,   1.890e-02
+       Al(S),       Al(S),   9.982e+00,   1.000e+00,   1.000e+00,   1.000e+00,  -8.430e+00,  -8.430e+00,  9.982e+00,   9.986e-03,   9.968e-02
+ electronSHE, metalElectrons,   0.000e+00,   0.000e+00,   1.000e+00,   1.000e+00,  -1.948e+01,  -1.948e+01,  0.000e+00,   2.517e+13,   0.000e+00

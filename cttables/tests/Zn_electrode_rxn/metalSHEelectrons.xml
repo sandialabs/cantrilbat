@@ -1,0 +1,44 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase metalElectrons    -->
+  <phase dim="3" id="metalElectrons">
+    <elementArray datasrc="elements.xml">
+        E
+    </elementArray>
+    <speciesArray datasrc="#species_electrode"> electronSHE </speciesArray>
+    <thermo model="MetalSHEelectrons">
+      <density> 2.65 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_electrode">
+
+    <species name="electronSHE">
+      <atomArray> E:1  </atomArray>
+      <charge> -1 </charge>
+      <thermo>
+        <NASA Tmax="1000.0" Tmin="200.0" P0="100000.0">
+         <floatArray name="coeffs" size="7">
+          1.172165560E+00,   3.990260375E-03,  -9.739075500E-06,  1.007860470E-08,
+         -3.688058805E-12, -4.589675865E+02,  3.415051190E-01
+         </floatArray>
+        </NASA>
+        <NASA Tmax="6000.0" Tmin="1000.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             1.466432895E+00,  4.133039835E-04, -7.320116750E-08, 7.705017950E-12,
+            -3.444022160E-16, -4.065327985E+02, -5.121644350E-01
+          </floatArray>
+        </NASA>
+      </thermo>
+      <density> 2.65 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

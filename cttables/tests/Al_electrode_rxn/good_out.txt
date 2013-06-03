@@ -1,0 +1,496 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "aluminum_surface", with name, "aluminum_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = al_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         al_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "al_site" IN PHASE "aluminum_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+        Electronic Charge = 0.00
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "metalElectrons", with name, "metalElectrons", with eosType, "IdealGas"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = electronSHE
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     electronSHE          1.0000       4.062E-05       1.000E+00
+          ------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "electronSHE" IN PHASE "metalElectrons"
+        Overall, this is the 1th species in the mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 0.000545 gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        mu_0(298.15K) = H298[k]  6.64089E-09
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 200 K
+        Maximum Temperature = 6000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     1.1722    0.0039903  -9.7391e-06   1.0079e-08
+                -3.6881e-12      -458.97      0.34151
+               High temperature polynomials: 1000 < T < 6000: 
+                    1.466432895  0.0004133039835  -7.32011675e-08   7.70501795e-12
+                -3.44402216e-16     -406.5327985     -0.512164435
+---------------------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------------------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) |   (kJ/gmol)  |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.3591        -17.8632        14.3037      64.0824   |     -17.8632 | 
+|    298.15 |     0.0000        -19.4812        14.4181      65.3402   |     -19.4812 | 
+|    300.00 |     0.0267        -19.6021        14.4254      65.4294   |     -19.6021 | 
+|    320.00 |     0.3159        -20.9202        14.4950      66.3627   |     -20.9202 | 
+|    333.15 |     0.5068        -21.7967        14.5322      66.9472   |     -21.7967 | 
+|    340.00 |     0.6064        -22.2563        14.5492      67.2432   |     -22.2563 | 
+|    360.00 |     0.8978        -23.6096        14.5899      68.0760   |     -23.6096 | 
+|    373.15 |     1.0898        -24.5082        14.6103      68.5998   |     -24.5082 | 
+|    380.00 |     1.1899        -24.9791        14.6191      68.8657   |     -24.9791 | 
+|    400.00 |     1.4825        -26.3639        14.6387      69.6161   |     -26.3639 | 
+|    420.00 |     1.7754        -27.7635        14.6505      70.3306   |     -27.7635 | 
+|    440.00 |     2.0685        -29.1769        14.6559      71.0123   |     -29.1769 | 
+---------------------------------------------------------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "AlCl_electrolyte", with name, "AlCl_electrolyte", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2O(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          H2O(L)          0.9720       5.459E-02       9.895E-01
+              2             Cl-          0.0210       1.180E-03       4.898E-01
+              3              H+          0.0000       9.834E-11       2.598E-08
+              4             OH-          0.0000       9.834E-11       4.082E-08
+              5           Al+++          0.0070       3.934E-04       2.894E-03
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 18.0153 gm/mol
+        Heat of formation (298.15K) = -285.8387  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 200 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.019319 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.0200113 m3/kmol
+        species partial Molar Volume = 0.019319 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 0
+               PDSS min Temperature  = 200
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = 101325
+               Water PDSS thermo type
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -1.8891        -19.1807        76.0145      63.3045   |    -305.0194 | 
+|    298.15 |     0.0000        -20.8473        75.3276      69.9224   |    -306.6861 | 
+|    300.00 |     0.1393        -20.9771        75.3154      70.3883   |    -306.8159 | 
+|    320.00 |     1.6453        -22.4340        75.3135      75.2479   |    -308.2728 | 
+|    333.15 |     2.6362        -23.4436        75.3931      78.2823   |    -309.2824 | 
+|    340.00 |     3.1528        -23.9851        75.4533      79.8174   |    -309.8239 | 
+|    360.00 |     4.6642        -25.6251        75.7063      84.1368   |    -311.4638 | 
+|    373.15 |     5.6612        -26.7494        75.9466      86.8569   |    -312.5882 | 
+|    380.00 |     6.1823        -27.3486        76.0981      88.2394   |    -313.1874 | 
+|    400.00 |     7.7111        -29.1506        76.6643      92.1544   |    -314.9894 | 
+|    420.00 |     9.2541        -31.0278        77.4473      95.9093   |    -316.8666 | 
+|    440.00 |    10.8162        -32.9765        78.4947      99.5289   |    -318.8153 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  Cl: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 35.4532 gm/mol
+        Heat of formation (298.15K) = -167.0969  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0163458 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0163458 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+               High temperature polynomials: 623.15 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     4.1616        -15.3047      -244.7185      71.2661   |    -182.4016 | 
+|    298.15 |     0.0000        -16.8770      -114.5988      56.6058   |    -183.9739 | 
+|    300.00 |    -0.2080        -16.9811      -110.3990      55.9101   |    -184.0779 | 
+|    320.00 |    -2.1660        -18.0335       -92.6049      49.5858   |    -185.1304 | 
+|    333.15 |    -3.4106        -18.6606       -98.0863      45.7752   |    -185.7574 | 
+|    340.00 |    -4.1004        -18.9672      -103.5163      43.7258   |    -186.0640 | 
+|    360.00 |    -6.3577        -19.7784      -122.4087      37.2799   |    -186.8753 | 
+|    373.15 |    -8.0444        -20.2387      -133.7946      32.6792   |    -187.3355 | 
+|    380.00 |    -8.9785        -20.4540      -138.8006      30.1989   |    -187.5509 | 
+|    400.00 |   -11.8703        -20.9842      -149.4609      22.7845   |    -188.0810 | 
+|    420.00 |   -14.9312        -21.3651      -156.3880      15.3189   |    -188.4620 | 
+|    440.00 |   -18.1392        -21.5970      -165.4175       7.8586   |    -188.6939 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H+" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  H: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 1.0074 gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Phase Reference Pressure = 101325 Pa
+        Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 273.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.00800576 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0 m3/kmol
+        species partial Molar Volume = 0.00800576 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        MU0_POLY format:
+                Valid Range: 273.15 < T < 625.15: 
+                T        mu_0
+                273.15                   0
+                298.15                   0
+                623.15                   0
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 4th species in mechanism
+        It is the 4th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 17.0079 gm/mol
+        Heat of formation (298.15K) = -230.0323  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0163458 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0163458 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+               High temperature polynomials: 623.15 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     4.1240          3.1339      -233.2071       3.6249   |    -226.8984 | 
+|    298.15 |    -0.0000          3.2482      -118.1956     -10.8944   |    -226.7842 | 
+|    300.00 |    -0.2148          3.2690      -114.1227     -11.6127   |    -226.7633 | 
+|    320.00 |    -2.2270          3.5692       -93.1714     -18.1130   |    -226.4632 | 
+|    333.15 |    -3.4507          3.8321       -94.2213     -21.8604   |    -226.2002 | 
+|    340.00 |    -4.1056          3.9885       -97.1945     -23.8062   |    -226.0438 | 
+|    360.00 |    -6.1704          4.5229      -109.8237     -29.7037   |    -225.5094 | 
+|    373.15 |    -7.6728          4.9403      -118.5829     -33.8017   |    -225.0920 | 
+|    380.00 |    -8.4998          5.1793      -122.8224     -35.9977   |    -224.8530 | 
+|    400.00 |   -11.0683          5.9648      -133.7096     -42.5827   |    -224.0675 | 
+|    420.00 |   -13.8445          6.8839      -144.1561     -49.3533   |    -223.1485 | 
+|    440.00 |   -16.8625          7.9405      -158.8785     -56.3706   |    -222.0918 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
+        Overall, this is the 5th species in mechanism
+        It is the 5th species in the phase
+        Elemental Composition:
+                  Al: 1
+                  E: -3
+        Electronic Charge = 3.00
+        Molecular Weight = 26.9799 gm/mol
+        Heat of formation (298.15K) = -542.4914  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.00834 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298.15 < T < 623.15: 
+                    -250055.1634       1215326.459      -2190592.348       1385805.888
+                     4096.004078       50347.42547      -557147.2613
+               High temperature polynomials: 623.15 < T < 623.15: 
+                    -250055.1634       1215326.459      -2190592.348       1385805.888
+                     4096.004078       50347.42547      -557147.2613
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|   -22.5584         95.3404      1610.0151    -431.6264   |    -447.1510 | 
+|    298.15 |     0.0000        104.8945       371.6742    -351.8178   |    -437.5969 | 
+|    300.00 |     0.6368        105.5433       317.3788    -349.6886   |    -436.9481 | 
+|    320.00 |     2.6629        112.4297       -57.2259    -343.0213   |    -430.0617 | 
+|    333.15 |     1.1766        116.9662      -154.5151    -347.5600   |    -425.5252 | 
+|    340.00 |     0.0344        119.3584      -176.3671    -350.9530   |    -423.1330 | 
+|    360.00 |    -3.6150        126.4828      -177.2774    -361.3827   |    -416.0086 | 
+|    373.15 |    -5.8128        131.2755      -156.1699    -367.3813   |    -411.2159 | 
+|    380.00 |    -6.8437        133.8016      -145.0243    -370.1191   |    -408.6899 | 
+|    400.00 |    -9.5217        141.2748      -127.7533    -376.9911   |    -401.2167 | 
+|    420.00 |   -12.2014        148.8789      -146.9766    -383.5245   |    -393.6125 | 
+|    440.00 |   -15.6604        156.6259      -204.6656    -391.5597   |    -385.8655 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Al(S)", with name, "Al(S)", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Al(S)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1           Al(S)          1.0000       1.001E-01       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Al: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 26.9815 gm/mol
+        Heat of formation (298.15K) = -0.0000  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 250 K
+        Maximum Temperature = 1075 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 0.00998577 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 0.00998577 m3/kmol
+        StoichSubstance constant density = 2702 kg m-3 
+        species Molar Volume = 1.37166E-05 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 1075: 
+                         28.0892         -5.414849          8.560423           3.42737
+                       -0.277375         -9.146887          61.90981
+               High temperature polynomials: 1075 < T < 1075: 
+                         28.0892         -5.414849          8.560423           3.42737
+                       -0.277375         -9.146887          61.90981
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.5979         -7.7489        23.6011      26.1799   |      -7.7490 | 
+|    298.15 |     0.0000         -8.4299        24.2063      28.2739   |      -8.4299 | 
+|    300.00 |     0.0448         -8.4823        24.2458      28.4238   |      -8.4824 | 
+|    320.00 |     0.5337         -9.0667        24.6366      30.0014   |      -9.0667 | 
+|    333.15 |     0.8592         -9.4678        24.8630      30.9982   |      -9.4679 | 
+|    340.00 |     1.0299         -9.6819        24.9730      31.5053   |      -9.6819 | 
+|    360.00 |     1.5324        -10.3265        25.2690      32.9413   |     -10.3265 | 
+|    373.15 |     1.8659        -10.7656        25.4467      33.8510   |     -10.7657 | 
+|    380.00 |     2.0405        -10.9991        25.5349      34.3147   |     -10.9992 | 
+|    400.00 |     2.5536        -11.6987        25.7787      35.6308   |     -11.6987 | 
+|    420.00 |     3.0715        -12.4240        26.0066      36.8941   |     -12.4240 | 
+|    440.00 |     3.5938        -13.1741        26.2232      38.1090   |     -13.1742 | 
+---------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
+
+        Al(S) <=> Al+++  + 3 electronSHE
+
+        There is one reactant: Al(S) 
+        There are 4 products: Al+++ electronSHE electronSHE electronSHE 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+        This reaction is charge transfer reaction, n = 3
+        Electrochemical Beta = 0.5
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |      metalElectrons|   3           3    0.001635 |            -3                 0 |
+               |    AlCl_electrolyte|   3           1       26.98 |             3                 0 |
+               |               Al(S)|   3          -1     -26.982 |             0                 0 |
+               |    aluminum_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = kmol/(m^2 s)
+        units_krev = Units for reverse reaction rate constant = m^10/(kmol^3 s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)       (kJ/gmol)|  (kJ/gmol) (kJ/gmol)  (J/gmolK) |  (units_krev)       (kJ/gmol) |    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  273.1 |  2.51E-05  1.12E+03     40.00 |    -492.99   -565.53   -265.56  |  1.51E-95  1.84E+22    612.29 |  2.51E-05  1.34E-99 |
+|  298.1 |  1.10E-04  1.12E+03     40.00 |    -487.61   -542.49   -184.07  |  6.05E-86  1.47E+18    590.12 |  1.10E-04  4.12E-90 |
+|  300.0 |  1.21E-04  1.12E+03     40.00 |    -487.27   -541.82   -181.82  |  2.63E-85  1.15E+18    589.51 |  1.21E-04  1.75E-89 |
+|  320.0 |  3.31E-04  1.12E+03     40.00 |    -483.75   -539.41   -173.93  |  6.58E-79  5.75E+17    587.77 |  3.31E-04  3.60E-83 |
+|  333.1 |  5.98E-04  1.12E+03     40.00 |    -481.45   -540.65   -177.72  |  4.07E-75  1.07E+18    589.45 |  5.98E-04  1.96E-79 |
+|  340.0 |  8.00E-04  1.12E+03     40.00 |    -480.22   -541.67   -180.73  |  2.98E-73  1.66E+18    590.69 |  8.00E-04  1.34E-77 |
+|  360.0 |  1.76E-03  1.12E+03     40.00 |    -476.51   -544.94   -190.10  |  3.40E-68  6.50E+18    594.66 |  1.76E-03  1.28E-72 |
+|  373.1 |  2.81E-03  1.12E+03     40.00 |    -473.97   -546.90   -195.43  |  3.79E-65  1.44E+19    597.08 |  2.81E-03  1.27E-69 |
+|  380.0 |  3.55E-03  1.12E+03     40.00 |    -472.63   -547.81   -197.84  |  1.22E-63  2.08E+19    598.23 |  3.55E-03  3.84E-68 |
+|  400.0 |  6.68E-03  1.12E+03     40.00 |    -468.61   -550.12   -203.77  |  1.62E-59  5.34E+19    601.29 |  6.68E-03  4.29E-64 |
+|  420.0 |  1.19E-02  1.12E+03     40.00 |    -464.48   -552.44   -209.43  |  9.06E-56  1.33E+20    604.40 |  1.19E-02  2.04E-60 |
+|  440.0 |  1.99E-02  1.12E+03     40.00 |    -460.22   -555.54   -216.63  |  2.42E-52  4.00E+20    608.34 |  1.99E-02  4.63E-57 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: Al(S) <=> Al+++  + 3 electronSHE
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index pertaining to the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage = phi_Metal - phi_Soln  = 0 Volts
+               nStoichElectrons (product electrons - reactant electrons) = 3 
+               Delta G (rxn)   =   -5.0185e+08 J/kmol   --->                  E    = -1.73378 Volts
+               Delta G_SS (rxn)=   -4.8727e+08 J/kmol   --->                  E_SS = -1.6834 Volts
+               Bath Gas conditions:
+                  T = 300 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                           al_site            1
+
+               ---------------------------------------------------------------------------------------------
+               |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
+               |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
+               ---------------------------------------------------------------------------------------------
+               !    -1.734 |   2.48e-48     2.48e-48     -5.2e-62 |    7.18e-44    -7.18e-44      -1.5e-57 |
+               !        -1 |   7.67e-30     8.02e-67     7.67e-30 |    2.22e-25    -2.32e-62      2.22e-25 |
+               !      -0.8 |   8.41e-25     7.32e-72     8.41e-25 |    2.43e-20    -2.12e-67      2.43e-20 |
+               !      -0.6 |   9.22e-20     6.68e-77     9.22e-20 |    2.67e-15    -1.93e-72      2.67e-15 |
+               !      -0.4 |   1.01e-14      6.1e-82     1.01e-14 |    2.92e-10    -1.76e-77      2.92e-10 |
+               !      -0.2 |   1.11e-09     5.56e-87     1.11e-09 |     3.2e-05    -1.61e-82       3.2e-05 |
+               !         0 |   0.000121     5.08e-92     0.000121 |        3.51    -1.47e-87          3.51 |
+               !       0.2 |       13.3     4.63e-97         13.3 |    3.85e+05    -1.34e-92      3.85e+05 |
+               !       0.4 |   1.46e+06    4.23e-102     1.46e+06 |    4.22e+10    -1.22e-97      4.22e+10 |
+               !       0.6 |    1.6e+11    3.86e-107      1.6e+11 |    4.62e+15   -1.12e-102      4.62e+15 |
+               !       0.8 |   1.75e+16    3.52e-112     1.75e+16 |    5.07e+20   -1.02e-107      5.07e+20 |
+               !         1 |   1.92e+21    3.21e-117     1.92e+21 |    5.55e+25   -9.29e-113      5.55e+25 |
+               ---------------------------------------------------------------------------------------------
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               -----------------------------------------------------------------
+               |  Voltage  |       Ifwd         Irev        Inet  |    al_site |
+               |   Volts   |               (amps/cm2)             |            |
+               -----------------------------------------------------------------
+               !    -1.734 |   7.18e-44    -7.18e-44     -1.5e-57 |         1  |
+               !        -1 |   2.22e-25    -2.32e-62     2.22e-25 |         1  |
+               !      -0.8 |   2.43e-20    -2.12e-67     2.43e-20 |         1  |
+               !      -0.6 |   2.67e-15    -1.93e-72     2.67e-15 |         1  |
+               !      -0.4 |   2.92e-10    -1.76e-77     2.92e-10 |         1  |
+               !      -0.2 |    3.2e-05    -1.61e-82      3.2e-05 |         1  |
+               !         0 |       3.51    -1.47e-87         3.51 |         1  |
+               !       0.2 |   3.85e+05    -1.34e-92     3.85e+05 |         1  |
+               !       0.4 |   4.22e+10    -1.22e-97     4.22e+10 |         1  |
+               !       0.6 |   4.62e+15   -1.12e-102     4.62e+15 |         1  |
+               !       0.8 |   5.07e+20   -1.02e-107     5.07e+20 |         1  |
+               !         1 |   5.55e+25   -9.29e-113     5.55e+25 |         1  |
+               -----------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------

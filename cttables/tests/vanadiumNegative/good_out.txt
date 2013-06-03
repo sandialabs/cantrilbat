@@ -1,0 +1,536 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "graphite_surface", with name, "graphite_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = c_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          c_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "c_site" IN PHASE "graphite_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+        Electronic Charge = 0.00
+        Molecular Weight = 0 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "metalElectrons", with name, "metalElectrons", with eosType, "MetalSHEelectrons"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = electronSHE
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     electronSHE          1.0000       4.862E+00       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 0.000545 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 6000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 0.00020566 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 0.00020566 m3/kmol
+        Molar Volume formulation for eos type 9 is not known to cttables
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     1.1722    0.0039903  -9.7391e-06   1.0079e-08
+                -3.6881e-12      -458.97      0.34151
+               High temperature polynomials: 1000 < T < 6000: 
+                    1.466432895  0.0004133039835  -7.32011675e-08   7.70501795e-12
+                -3.44402216e-16     -406.5327985     -0.512164435
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.0858         -4.2694         3.4187      15.3161   |      -4.2694 | 
+|    298.15 |     0.0000         -4.6561         3.4460      15.6167   |      -4.6561 | 
+|    300.00 |     0.0064         -4.6850         3.4478      15.6380   |      -4.6850 | 
+|    320.00 |     0.0755         -5.0000         3.4644      15.8611   |      -5.0000 | 
+|    333.15 |     0.1211         -5.2095         3.4733      16.0008   |      -5.2095 | 
+|    340.00 |     0.1449         -5.3194         3.4773      16.0715   |      -5.3194 | 
+|    360.00 |     0.2146         -5.6428         3.4871      16.2706   |      -5.6428 | 
+|    373.15 |     0.2605         -5.8576         3.4919      16.3957   |      -5.8576 | 
+|    380.00 |     0.2844         -5.9701         3.4941      16.4593   |      -5.9701 | 
+|    400.00 |     0.3543         -6.3011         3.4987      16.6386   |      -6.3011 | 
+|    420.00 |     0.4243         -6.6356         3.5015      16.8094   |      -6.6356 | 
+|    440.00 |     0.4944         -6.9735         3.5028      16.9723   |      -6.9735 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Vneg_electrolyte", with name, "Vneg_electrolyte", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2O(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          H2O(L)          0.9375       5.438E-02       9.728E-01
+              2             Cl-          0.0422       2.449E-03       8.959E-01
+              3              H+          0.0017       9.797E-05       6.047E-02
+              4             OH-          0.0017       9.797E-05       2.705E-02
+              5            V+++          0.0084       4.899E-04       3.959E-03
+              6             V++          0.0084       4.899E-04       5.847E-03
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "Vneg_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 18.0153 gm/mol
+        Heat of formation (298.15K) = -68.3170 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 0.0199332 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 0.0200113 m3/kmol
+        species partial Molar Volume = 0.0199332 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 0
+               PDSS min Temperature  = 200
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = 101325
+               Water PDSS thermo type
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.4515         -4.5843        18.1679      15.1302   |     -72.9013 | 
+|    298.15 |     0.0000         -4.9826        18.0037      16.7119   |     -73.2997 | 
+|    300.00 |     0.0333         -5.0137        18.0008      16.8232   |     -73.3307 | 
+|    320.00 |     0.3932         -5.3619        18.0003      17.9847   |     -73.6789 | 
+|    333.15 |     0.6301         -5.6032        18.0194      18.7099   |     -73.9202 | 
+|    340.00 |     0.7535         -5.7326        18.0338      19.0768   |     -74.0496 | 
+|    360.00 |     1.1148         -6.1245        18.0942      20.1092   |     -74.4416 | 
+|    373.15 |     1.3531         -6.3933        18.1516      20.7593   |     -74.7103 | 
+|    380.00 |     1.4776         -6.5366        18.1879      21.0897   |     -74.8536 | 
+|    400.00 |     1.8430         -6.9678        18.3232      22.0254   |     -75.2849 | 
+|    420.00 |     2.2118         -7.4174        18.5103      22.9229   |     -75.7344 | 
+|    440.00 |     2.5851         -7.8846        18.7607      23.7880   |     -76.2016 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "Vneg_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  Cl: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 35.4532 gm/mol
+        Heat of formation (298.15K) = -39.9401 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 0.0142217 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 0.00927164 m3/kmol
+        species partial Molar Volume = 0.0142217 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 1
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 101325
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -31379
+                  deltaH_formation_tr_pr = -39933
+                  Mu0_tr_pr              = -1.84025e+08
+                  Entrop_tr_pr           = 13.56
+                  a1                     = 0.4032
+                  a2                     = 480.1
+                  a3                     = 5.563
+                  a4                     = -28470
+                  c1                     = -4.4
+                  c2                     = -57140
+                  omega_pr_tr            = 145600
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     0.8465         -3.6699       -43.1212      16.5343   |     -43.6100 | 
+|    298.15 |     0.0000         -4.0429       -28.3140      13.5600   |     -43.9830 | 
+|    300.00 |    -0.0520         -4.0678       -27.8787      13.3862   |     -44.0080 | 
+|    320.00 |    -0.5800         -4.3181       -25.5208      11.6815   |     -44.2582 | 
+|    333.15 |    -0.9142         -4.4649       -25.4386      10.6581   |     -44.4050 | 
+|    340.00 |    -1.0892         -4.5361       -25.6838      10.1382   |     -44.4763 | 
+|    360.00 |    -1.6164         -4.7238       -27.2256       8.6318   |     -44.6640 | 
+|    373.15 |    -1.9843         -4.8308       -28.7883       7.6284   |     -44.7709 | 
+|    380.00 |    -2.1845         -4.8811       -29.7553       7.0965   |     -44.8212 | 
+|    400.00 |    -2.8111         -5.0067       -33.1924       5.4890   |     -44.9468 | 
+|    420.00 |    -3.5152         -5.0989       -37.6684       3.7708   |     -45.0390 | 
+|    440.00 |    -4.3195         -5.1552       -43.5822       1.8992   |     -45.0953 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H+" IN PHASE "Vneg_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  H: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 1.0074 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 0.00495007 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 2.70041e-20 m3/kmol
+        species partial Molar Volume = 0.00495007 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 2
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 101325
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = 0
+                  deltaH_formation_tr_pr = 0
+                  Mu0_tr_pr              = 0
+                  Entrop_tr_pr           = 0
+                  a1                     = 0
+                  a2                     = 0
+                  a3                     = 0
+                  a4                     = 0
+                  c1                     = 0
+                  c2                     = 0
+                  omega_pr_tr            = 0
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |    -0.0000          0.0000         0.0000      -0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |    -0.0000          0.0000         0.0000      -0.0000   |       0.0000 | 
+|    380.00 |    -0.0000          0.0000         0.0000      -0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "Vneg_electrolyte"
+        Overall, this is the 4th species in mechanism
+        It is the 4th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 17.0079 gm/mol
+        Heat of formation (298.15K) = -54.9798 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,101325) = -0.00809087 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = -0.0130409 m3/kmol
+        species partial Molar Volume = -0.00809087 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 3
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 101325
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -37595
+                  deltaH_formation_tr_pr = -54977
+                  Mu0_tr_pr              = -2.26842e+08
+                  Entrop_tr_pr           = -2.56
+                  a1                     = 0.12527
+                  a2                     = 7.38
+                  a3                     = 1.8423
+                  a4                     = -27821
+                  c1                     = 4.15
+                  c2                     = -103460
+                  omega_pr_tr            = 172460
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     1.0510          0.7399       -59.2658       1.1388   |     -54.2399 | 
+|    298.15 |    -0.0000          0.7633       -31.4462      -2.5600   |     -54.2165 | 
+|    300.00 |    -0.0573          0.7682       -30.5617      -2.7517   |     -54.2116 | 
+|    320.00 |    -0.6036          0.8416       -25.0922      -4.5162   |     -54.1382 | 
+|    333.15 |    -0.9248          0.9076       -23.9972      -5.5002   |     -54.0722 | 
+|    340.00 |    -1.0887          0.9469       -23.8970      -5.9872   |     -54.0329 | 
+|    360.00 |    -1.5737          1.0806       -24.8805      -7.3730   |     -53.8992 | 
+|    373.15 |    -1.9098          1.1835       -26.3177      -8.2896   |     -53.7963 | 
+|    380.00 |    -2.0931          1.2419       -27.2698      -8.7764   |     -53.7379 | 
+|    400.00 |    -2.6712          1.4319       -30.8058     -10.2578   |     -53.5479 | 
+|    420.00 |    -3.3306          1.6525       -35.5325     -11.8646   |     -53.3273 | 
+|    440.00 |    -4.0968          1.9064       -41.8352     -13.6437   |     -53.0734 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "V+++" IN PHASE "Vneg_electrolyte"
+        Overall, this is the 5th species in mechanism
+        It is the 5th species in the phase
+        Elemental Composition:
+                  V: 1
+                  E: -3
+        Electronic Charge = 3.00
+        Molecular Weight = 50.9399 gm/mol
+        Heat of formation (298.15K) = -62.3919 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,101325) = -0.0480648 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = -0.0480648 m3/kmol
+        species partial Molar Volume = -0.0480648 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 4
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 101325
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -57900
+                  deltaH_formation_tr_pr = -62391.9
+                  Mu0_tr_pr              = -1.92438e+08
+                  Entrop_tr_pr           = -55
+                  a1                     = -0.17304
+                  a2                     = -1199.81
+                  a3                     = 10.4465
+                  a4                     = -22829
+                  c1                     = 23.4604
+                  c2                     = -47456
+                  omega_pr_tr            = 241150
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     0.2608         15.0327       -17.5263     -54.0795   |     -47.3592 | 
+|    298.15 |     0.0000         16.3982        -6.5590     -55.0000   |     -45.9937 | 
+|    300.00 |    -0.0119         16.5000        -6.3241     -55.0398   |     -45.8919 | 
+|    320.00 |    -0.1289         17.6047        -5.9305     -55.4176   |     -44.7872 | 
+|    333.15 |    -0.2134         18.3351        -7.0530     -55.6762   |     -44.0568 | 
+|    340.00 |    -0.2646         18.7170        -7.9141     -55.8282   |     -43.6749 | 
+|    360.00 |    -0.4540         19.8387       -11.1935     -56.3687   |     -42.5532 | 
+|    373.15 |    -0.6181         20.5828       -13.8119     -56.8160   |     -41.8091 | 
+|    380.00 |    -0.7177         20.9726       -15.2859     -57.0798   |     -41.4193 | 
+|    400.00 |    -1.0690         22.1218       -19.9661     -57.9768   |     -40.2701 | 
+|    420.00 |    -1.5184         23.2900       -25.1862     -59.0676   |     -39.1020 | 
+|    440.00 |    -2.0773         24.4806       -31.2728     -60.3589   |     -37.9113 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "V++" IN PHASE "Vneg_electrolyte"
+        Overall, this is the 6th species in mechanism
+        It is the 6th species in the phase
+        Elemental Composition:
+                  V: 1
+                  E: -2
+        Electronic Charge = 2.00
+        Molecular Weight = 50.9404 gm/mol
+        Heat of formation (298.15K) = -53.9924 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,101325) = -0.0194168 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = -0.039217 m3/kmol
+        species partial Molar Volume = -0.0194168 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 5
+               PDSS min Temperature  = 298.15
+               PDSS max Temperature  = 625.15
+               PDSS reference pres   = 101325
+               PDSS_MOLAL_HKFT PDSS thermo type
+                  deltaG_formation_tr_pr = -52000
+                  deltaH_formation_tr_pr = -54000
+                  Mu0_tr_pr              = -1.87233e+08
+                  Entrop_tr_pr           = -31
+                  a1                     = -0.16188
+                  a2                     = -1172.89
+                  a3                     = 10.3473
+                  a4                     = -22940
+                  c1                     = 13.8458
+                  c2                     = -52548
+                  omega_pr_tr            = 152690
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     0.3680          8.4813       -23.1434     -29.7027   |     -45.5111 | 
+|    298.15 |     0.0000          9.2426        -9.7340     -31.0000   |     -44.7498 | 
+|    300.00 |    -0.0176          9.3001        -9.3533     -31.0590   |     -44.6924 | 
+|    320.00 |    -0.1799          9.9267        -7.4224     -31.5831   |     -44.0657 | 
+|    333.15 |    -0.2772         10.3440        -7.5110     -31.8813   |     -43.6484 | 
+|    340.00 |    -0.3296         10.5629        -7.8161     -32.0370   |     -43.4295 | 
+|    360.00 |    -0.5003         11.2084        -9.3977     -32.5243   |     -42.7840 | 
+|    373.15 |    -0.6331         11.6385       -10.8424     -32.8864   |     -42.3539 | 
+|    380.00 |    -0.7103         11.8642       -11.6892     -33.0908   |     -42.1282 | 
+|    400.00 |    -0.9712         12.5316       -14.4732     -33.7569   |     -41.4608 | 
+|    420.00 |    -1.2917         13.2127       -17.6865     -34.5343   |     -40.7797 | 
+|    440.00 |    -1.6806         13.9094       -21.5220     -35.4320   |     -40.0830 | 
+---------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
+
+        V+++ + electronSHE <=> V++
+
+        There are 2 reactants: V+++ electronSHE 
+        There is one product: V++ 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+        This reaction is charge transfer reaction, n = 1
+        Electrochemical Beta = 0.5
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |      metalElectrons|   3          -1   -0.000545 |             1                 0 |
+               |    Vneg_electrolyte|   3           0    0.000545 |            -1                 0 |
+               |    graphite_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m/s
+        units_krev = Units for reverse reaction rate constant = m/s
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  273.1 |  1.67E+05  1.12E+09      4.78 |       6.12      8.59      9.06  |  1.31E+10  1.17E+07     -3.81 |  1.67E+05  1.31E+10 |
+|  298.1 |  3.50E+05  1.12E+09      4.78 |       5.90      8.40      8.38  |  7.40E+09  1.65E+07     -3.62 |  3.49E+05  7.38E+09 |
+|  300.0 |  3.68E+05  1.12E+09      4.78 |       5.88      8.39      8.34  |  7.13E+09  1.68E+07     -3.61 |  3.67E+05  7.10E+09 |
+|  320.0 |  6.08E+05  1.12E+09      4.78 |       5.72      8.27      7.97  |  4.91E+09  2.02E+07     -3.49 |  6.01E+05  4.86E+09 |
+|  333.1 |  8.18E+05  1.12E+09      4.78 |       5.62      8.21      7.79  |  3.96E+09  2.21E+07     -3.43 |  8.04E+05  3.90E+09 |
+|  340.0 |  9.46E+05  1.12E+09      4.78 |       5.56      8.19      7.72  |  3.57E+09  2.30E+07     -3.41 |  9.27E+05  3.50E+09 |
+|  360.0 |  1.40E+06  1.12E+09      4.78 |       5.41      8.14      7.57  |  2.70E+09  2.47E+07     -3.36 |  1.36E+06  2.62E+09 |
+|  373.1 |  1.77E+06  1.12E+09      4.78 |       5.31      8.12      7.53  |  2.29E+09  2.52E+07     -3.34 |  1.70E+06  2.20E+09 |
+|  380.0 |  1.99E+06  1.12E+09      4.78 |       5.26      8.12      7.53  |  2.11E+09  2.53E+07     -3.34 |  1.90E+06  2.02E+09 |
+|  400.0 |  2.73E+06  1.12E+09      4.78 |       5.11      8.14      7.58  |  1.69E+09  2.46E+07     -3.36 |  2.56E+06  1.59E+09 |
+|  420.0 |  3.64E+06  1.12E+09      4.78 |       4.96      8.20      7.73  |  1.38E+09  2.29E+07     -3.42 |  3.35E+06  1.27E+09 |
+|  440.0 |  4.72E+06  1.12E+09      4.78 |       4.80      8.31      7.97  |  1.14E+09  2.03E+07     -3.53 |  4.25E+06  1.03E+09 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: V+++ + electronSHE <=> V++
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index pertaining to the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage = phi_Metal - phi_Soln  = 0 Volts
+               nStoichElectrons (product electrons - reactant electrons) = -1 
+               Delta G (rxn)   =    2.5594e+07 J/kmol   --->                  E    = -0.265261 Volts
+               Delta G_SS (rxn)=    2.4621e+07 J/kmol   --->                  E_SS = -0.255178 Volts
+               Bath Gas conditions:
+                  T = 300 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                            c_site            1
+
+               ---------------------------------------------------------------------------------------------
+               |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
+               |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
+               ---------------------------------------------------------------------------------------------
+               !      -1.4 |   8.35e+14     7.23e-05     8.35e+14 |   -8.06e+18        0.697     -8.06e+18 |
+               !      -1.2 |   1.75e+13      0.00346     1.75e+13 |   -1.68e+17         33.4     -1.68e+17 |
+               !        -1 |   3.65e+11        0.166     3.65e+11 |   -3.52e+15      1.6e+03     -3.52e+15 |
+               !      -0.8 |   7.62e+09         7.92     7.62e+09 |   -7.35e+13     7.64e+04     -7.35e+13 |
+               !      -0.6 |   1.59e+08          379     1.59e+08 |   -1.54e+12     3.66e+06     -1.54e+12 |
+               !      -0.4 |   3.33e+06     1.81e+04     3.31e+06 |   -3.21e+10     1.75e+08     -3.19e+10 |
+               !   -0.2653 |   2.46e+05     2.46e+05    -1.37e-09 |   -2.37e+09     2.37e+09      1.32e-05 |
+               !      -0.2 |   6.95e+04     8.68e+05    -7.98e+05 |   -6.71e+08     8.37e+09       7.7e+09 |
+               !         0 |   1.45e+03     4.15e+07    -4.15e+07 |    -1.4e+07     4.01e+11      4.01e+11 |
+               !       0.2 |       30.4     1.99e+09    -1.99e+09 |   -2.93e+05     1.92e+13      1.92e+13 |
+               !       0.4 |      0.634     9.51e+10    -9.51e+10 |   -6.12e+03     9.18e+14      9.18e+14 |
+               !       0.6 |     0.0133     4.55e+12    -4.55e+12 |        -128     4.39e+16      4.39e+16 |
+               ---------------------------------------------------------------------------------------------
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               -----------------------------------------------------------------
+               |  Voltage  |       Ifwd         Irev        Inet  |     c_site |
+               |   Volts   |               (amps/cm2)             |            |
+               -----------------------------------------------------------------
+               !      -1.4 |  -8.06e+18        0.697    -8.06e+18 |         1  |
+               !      -1.2 |  -1.68e+17         33.4    -1.68e+17 |         1  |
+               !        -1 |  -3.52e+15      1.6e+03    -3.52e+15 |         1  |
+               !      -0.8 |  -7.35e+13     7.64e+04    -7.35e+13 |         1  |
+               !      -0.6 |  -1.54e+12     3.66e+06    -1.54e+12 |         1  |
+               !      -0.4 |  -3.21e+10     1.75e+08    -3.19e+10 |         1  |
+               !   -0.2653 |  -2.37e+09     2.37e+09     1.32e-05 |         1  |
+               !      -0.2 |  -6.71e+08     8.37e+09      7.7e+09 |         1  |
+               !         0 |   -1.4e+07     4.01e+11     4.01e+11 |         1  |
+               !       0.2 |  -2.93e+05     1.92e+13     1.92e+13 |         1  |
+               !       0.4 |  -6.12e+03     9.18e+14     9.18e+14 |         1  |
+               !       0.6 |       -128     4.39e+16     4.39e+16 |         1  |
+               -----------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------

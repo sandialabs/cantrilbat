@@ -1,0 +1,26 @@
+  Simple  example problem from Dakota's user manual to get me going
+
+
+   Conclusions
+
+
+      The biggest thing I found out was that the example problem had some severe problems with locating executables
+and directories. However, I did finally figure it out.
+
+      You must put the absolute path names of the executable and the template directory in dakota's input file.
+So far I have not found a way to remove this restriction. The problem seems to be that the executable is invoked
+from multiple directories. (2 below the current one and the current dir). There doesn't seem to be any other
+way other than to put the working directory in your path, which accomplishes the same thing.
+
+The executable is executed 2 directories below the current one, always. Therefore, one may use that to find executables
+in the current directory.
+
+
+
+   Reading Chapter 13 in the manual indicates where the problem may lie. The manual says that it fixes the problem.
+However, the fix is to alter the PATH variable before handing back control to the user. I know that I completely
+remake the PATH variable in my .cshrc file. Therefore, the fix would be lost in my particular case, which
+isn't so particular.
+
+
+

@@ -1,0 +1,48 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase Si(S)    -->
+  <phase dim="3" id="Si(S)">
+    <elementArray datasrc="elements.xml">
+      Si
+    </elementArray>
+    <speciesArray datasrc="#species_Si(S)"> Si(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 2.33 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Si(S)">
+
+    <!-- species Si(S)   -->
+    <! --      melting temperature = 1685 K -->
+    <species name="Si(S)">
+      <atomArray> Si:1  </atomArray>
+      <standardState  model="constant_incompressible">
+        <molarVolume units="m3/kmol"> 0.01205386 </molarVolume>
+      </standardState>
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="250.0">
+          <floatArray size="7">
+            22.81719,
+            3.899510,
+           -0.082885,
+            0.042111,
+           -0.354063,
+           -8.163946,
+            43.27846  
+          </floatArray>
+        </Shomate>
+      </thermo>
+
+      <density units="g/cm3"> 2.33 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

@@ -1,0 +1,67 @@
+###################################################################
+#  epequil Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+#
+#  NOTE: Currently, this program is limited to equilibrating 
+#        one Phase.
+# 
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample Silane Equilibrium Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = silane.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1500.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+!Pressure = 1.0 atm
+Pressure = 100 Pa
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   Si = 0.1
+!   H  = 1.0
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+  SiH4  = 0.5
+  H2    = 0.5
+  HE    = 0.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------

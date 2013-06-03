@@ -1,0 +1,36 @@
+#
+# cttables cttables.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = airNASA9.xml
+
+DebugPrinting = true
+Bath Temperature = 6500.
+Bath Pressure = 1.0 atm
+
+START BLOCK Temperature Table Format
+  Number of Points = 22 
+  Delta Temperature = 400.
+
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase airNASA9
+  Bath Species ID = N2
+  start block Bath Species Mole Fraction
+    N2 = 0.7
+    O2 = 0.3
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase airNASA9
+
+
+# the above were empty lines

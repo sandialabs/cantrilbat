@@ -1,0 +1,136 @@
+RM = /bin/rm -f
+CP = /bin/cp -f -p
+AR = ar
+RANLIB = ranlib
+F77 = f77
+
+
+F2C = f2c
+F77MLDRFLAGS =
+CMLDRFLAGS =
+
+Machine_opt = -g
+
+    CPP      = CC 
+    CPPLDR   = CC
+    CC       = cc
+    CF77LDR =  f77
+    CMFLAGS   = -DSOLARIS
+    CLDR    = $(CC)
+    CLIBS    = -lm
+    AR       = ar
+    RANLIB   = echo
+    F77      = f77
+    F77LIBS  = -lF77 -lm
+    F77LDR  =  $(F77)
+    F77MFLAGS =  -DSOLARIS
+    CLDRF77LIBS  = -lc -lm
+    FFLAGS_BSD   =
+    FLIB_BSD     =
+    GPROF    = -G
+
+
+CFLAGS = $(CMFLAGS) $(Machine_opt)
+CLDRFLAGS = $(Machine_opt) $(CMLDRFLAGS)
+CLINK = $(CLDR) $(CLDRFLAGS)
+CANTERA_INCROOT = @ct_incroot@
+
+INCLUDE_DIRS = -I$(CANTERA_INCROOT) 
+
+LDEFINES =   -DDEBUG 
+GDEFINES =
+
+FFLAGS =  $(F77FLAGS) -I$(ALLOCLIB_DIR) $(LDEFINES) $(INCLUDE_DIRS) \
+          $(GDEFINES)
+FFLAGS_DEBUG = -g -y  -I$(ALLOCLIB_DIR)  $(LDEFINES) $(INCLUDE_DIRS) \
+              $(GDEFINES)
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS) $(Machine_opt)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS)
+
+.SUFFIXES: .for  .src .prj .cpp .o
+
+.c.o:
+	$(CC) $(CFLAGS) $(CCFLAGS) -c $<
+
+.cpp.o:
+	CC $(CFLAGS) $(CCFLAGS) -c $<
+
+
+all: water_SSThermo propWater vpCurveWater
+
+CT_LIB=/home/hkmoffa/Cantera/cantera_hkm/lib
+
+TPX_LIB=-L/home/hkmoffa/Cantera/cantera_hkm/ext/tpx -ltpx
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+LINT = lint -Aa -Dlint -D__lint $(CCFLAGS)
+FLINT = lintfor -Dlint $(COMPFLAGS) $(F77FLAGS) $(LDEFINES)
+
+CTBLASDEP = $(CT_LIB)/libctblas.a
+CTBLAS    = -L$(CT_LIB) -lctblas
+
+CTMATHDEP = $(CT_LIB)/libctmath.a
+CTMATH    = -L$(CT_LIB) -lctmath
+
+CTLIB = -L/home/hkmoffa/Cantera/cantera_hkm/lib -lcantera
+CTDEP = /home/hkmoffa/Cantera/cantera_hkm/lib/libcantera.a
+
+CTHDEP = \
+  /home/hkmoffa/Cantera/cantera_hkm/Cantera/src/TPX_SSThermo.h \
+  /home/hkmoffa/Cantera/cantera_hkm/Cantera/src/SSThermo.h \
+  /home/hkmoffa/Cantera/cantera_hkm/Cantera/src/ct_defs.h		
+
+BLAS_DEP=
+BLAS = -L/usr/local/ACCESS/libraries/blas -lblas
+
+water_SSThermo.o: water_SSThermo.cpp $(CTHDEP) 
+
+OBJ_PROPWATER = propWater.o
+OBJ_WATERSS = water_SSThermo.o
+
+LN_PROPWATER = $(OBJ_PROPWATER:.o=.ln)
+
+
+propWater: $(OBJ_PROPWATER) $(CTBLAS_DEP)  $(CTMATH_DEP) 
+	$(CPPLDR) $(LDRFLAGS) $(FLIB_BSD) -o propWater  \
+	        -L.  $(OBJ_PROPWATER) $(CTLIB) $(CTBLAS) $(CTMATH) \
+                 $(TPX_LIB) $(CLDRF77LIBS) \
+	         -lF77 -lsunmath -lm  
+
+vpCurveWater: vpCurveWater.o $(CTBLAS_DEP)  $(CTMATH_DEP) 
+	$(CPPLDR) $(LDRFLAGS) $(FLIB_BSD) -o vpCurveWater  \
+	        -L.  vpCurveWater.o $(CTLIB) $(CTBLAS) $(CTMATH) $(TPX_LIB) \
+	         -lF77 -lsunmath -lm  
+
+water_SSThermo: $(OBJ_WATERSS) $(CTBLAS_DEP)  $(CTMATH_DEP) $(CTDEP)
+	$(CPPLDR) $(LDRFLAGS) $(FLIB_BSD) -o water_SSThermo  \
+	        -L.  $(OBJ_WATERSS) $(CTLIB) $(CTBLAS) $(CTMATH) \
+                 $(TPX_LIB) $(CLDRF77LIBS) \
+	         -lF77 -lsunmath -lm  
+
+
+%o:%.c
+	$(CC)	$(CFLAGS) -c $<
+%o:%.F
+	$(F77)	$(FFLAGS) $(FFLAGS_BSD) -c $<
+
+%.ln:%.c
+	$(LINT) $(CFLAGS) -c $<
+
+tidy:
+	$(RM) ckout skout tpout mecout *~ mmk.rules
+	$(RM) cklink sklink tplink chem.bin surf.bin tran.bin mech.out
+	$(RM) chem.asc surf.asc tran.asc fort.*  core *.trace
+	$(RM) Static.sadb .soft* debugdb.buttons .Stat*
+
+clean:
+	$(MAKE) tidy
+	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
+                   fort.* *%  core *.trace tmp*
+	$(RM) ${PROG} 
+

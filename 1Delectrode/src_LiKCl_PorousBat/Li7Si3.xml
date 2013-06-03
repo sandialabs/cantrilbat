@@ -1,0 +1,119 @@
+ <?xml version="1.0"?>
+ <ctml>
+   <validate reactions="yes" species="yes"/>
+    
+   <!-- phase Li7Si3(S)    -->
+   <phase dim="3" id="Li7Si3(S)">
+      <elementArray datasrc="elements.xml">
+         Li  Si
+      </elementArray>
+      <speciesArray datasrc="#species_LiSi(S)"> Li7Si3(S) </speciesArray>
+      <thermo model="StoichSubstance">
+      <!-- density from Nesper, Prog Solid State Chem, 1990 -->
+      <density units="g/cm3"> 1.39 </density>
+      <!-- molar volume = 154.45 A^3 from Nesper -->
+     </thermo>
+     <!-- As of 6/11/2012 these are mostly guesses not actual values-->
+     <transport model="Solid">
+       <thermalConductivity model="coeffs" units="W/m/K">
+         <floatArray size="2">  1.0, 5.0e-4 </floatArray>
+       </thermalConductivity>
+       <electricalConductivity model="Arrhenius" units="">
+          <A>100.</A>
+          <b>0.0</b>
+          <E units="J/kmol">10000.</E>        
+       </electricalConductivity>
+       <defectActivity model="Constant">
+          1e-4
+       </defectActivity>
+       <defectDiffusivity model="Arrhenius">
+            <A units="m2/s">1.0</A>
+            <b>0.0</b>
+            <E units="J/kmol">90000.</E>
+       </defectDiffusivity>
+     </transport>
+     <kinetics model="none"/>
+   </phase>
+           
+          
+   <!-- species definitions     -->
+   <speciesData id="species_LiSi(S)">
+        
+      <!-- species Li7Si3(S)   -->
+      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <species name="Li7Si3(S)">
+       <atomArray> Li:7 Si:3  </atomArray>
+       <thermo>
+        <!-- thermo referenced to Li(L) and Si(S) based on EMF from
+        lithiation reactions -->
+        <!-- since EMF measurements only conducted from 650 K to 725 K
+        there is additional uncertainty outside this range -->
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="298.0">
+           <floatArray size="7">
+               295.73961  ,
+               -6.753295  ,
+               -44.538551 ,
+               29.738846  ,
+               -1.022387  ,
+               -348.88919 ,
+               554.35647   
+           </floatArray>
+        </Shomate>
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="700.0">
+           <floatArray size="7">
+               250.51429  ,
+               51.125155  ,
+               -28.341244 ,
+               6.242135   ,
+               1.346861   ,
+               -328.46578 ,
+               498.84106   
+           </floatArray>
+        </Shomate>
+       </thermo>
+        <!-- density from Nesper, Prog Solid State Chem, 1990 -->
+        <density units="g/cm3"> 1.39 </density>
+        <!-- molar volume = 154.45 A^3 from Nesper -->
+      </species>
+                
+      <!-- species Li7d3Si(S) or with a per Si stoichiometry of Li(7/3)Si(1)  -->
+      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <species name="Li7d3Si(S)">
+       <atomArray> Li:2.3333333333333  Si:1.0  </atomArray>
+       <thermo>
+        <!-- thermo referenced to Li(L) and Si(S) based on EMF from
+        lithiation reactions -->
+        <!-- since EMF measurements only conducted from 650 K to 725 K
+        there is additional uncertainty outside this range -->
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="298.0">
+           <floatArray size="7">
+               98.57987   ,
+               -2.2510983 ,
+               -14.846184 ,
+               9.9129487  ,
+               -0.34079567,
+               -116.2964  ,
+               184.78549   
+           </floatArray>
+        </Shomate>
+        <Shomate Pref="1 bar" Tmax="1750.0" Tmin="700.0">
+           <floatArray size="7">
+               83.504763  ,
+               17.041718  ,
+               -9.4470813 ,
+               2.0807117  ,
+               0.44895367 ,
+               -109.48859 ,
+               166.28035   
+           </floatArray>
+        </Shomate>
+       </thermo>
+        <!-- density from Nesper, Prog Solid State Chem, 1990 -->
+        <density units="g/cm3"> 1.39 </density>
+        <!-- molar volume = 51.48333 A^3  -->
+      </species>
+                
+    </speciesData>
+        
+  </ctml>
+        

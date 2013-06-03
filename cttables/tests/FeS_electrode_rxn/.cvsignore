@@ -1,0 +1,14 @@
+Makefile
+out.txt
+.nfs*
+Li12Si7
+Li12Si7_check.tti
+Li_Liquid.tti
+Li_Liquid.tto
+Si_Solid.xml
+diff.out
+out
+out_save.txt
+polarizationData.csv
+tmp
+cttables.TVD.v3breakpoints

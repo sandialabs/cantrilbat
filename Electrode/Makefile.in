@@ -1,0 +1,38 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2011/02/02 02:29:07 $
+#  $Revision: 1.3 $
+#
+###############################################################
+
+all:
+	cd src;                       @MAKE@
+	cd tests;                     @MAKE@ 
+	cd tests_develop;             @MAKE@ 
+#	cd examples;                  @MAKE@ 
+
+test:
+	cd tests;                     @MAKE@ -s test
+	cd tests_develop;             @MAKE@ -s test
+
+clean:
+	cd src;                      $(RM) .depends ; @MAKE@ clean
+	cd tests;                                     @MAKE@ clean
+	cd tests_develop;                             @MAKE@ clean
+#	cd examples;                                     @MAKE@ clean
+
+depends:
+	cd src; @MAKE@ depends
+	cd tests; @MAKE@ depends
+	cd tests_develop; @MAKE@ depends
+
+install:
+	cd src; @MAKE@ install
+
+rebaseline:
+	cd tests; @MAKE@ rebaseline
+	cd tests_develop            @MAKE@ rebaseline
+
+# end of file
+

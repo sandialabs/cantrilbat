@@ -1,0 +1,401 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name =  HMW_NaCl_sp1977_alt.xml
+ => Cantera File Name = HMW_NaCl_sp1977_alt.xml
+ ====> CanteraFileNames =  HMW_NaCl_sp1977_alt.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 20.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 333.15 273.15 373.15
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+start block Bath Specification for Phase NaCl_Electrolyte
+   Bath Species ID = H2O(L)
+   start block Bath Species Molalities
+       Na+ = 1.0
+       Cl- = 1.8
+       H+ =  0.8
+   End block Bath Species Molalities
+end block Bath Specification for Phase NaCl_Electrolyte
+
+
+# the above were empty lines
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name =  HMW_NaCl_sp1977_alt.xml
+ => Cantera File Name = HMW_NaCl_sp1977_alt.xml
+ ====> CanteraFileNames =  HMW_NaCl_sp1977_alt.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 298.15
+ => Bath Temperature = 298.15
+ ====> BG.Temperature = 298.15
+Bath Pressure = 1.0 atm
+ => Bath Pressure = 1.0 atm
+ ====> BG.Pressure = 101325
+Add Chemical Potential Column = true
+ => Add Chemical Potential Column = true
+ ====> ChemPotColumn = 1
+Output Units = KJoule
+ => Output Units = KJoule
+ ====> OutputUnits = KJoule, list item 1
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+ => Number of Points ====> TTpts = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 20.
+ => Delta Temperature = 20.
+ ====> TTDeltaT = 20
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+ => Low Temperature = 300.
+ ====> TTTlow = 300
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 333.15 273.15 373.15
+ => Added Temperatures ====> AddedTemperatures = 373.15
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+start block Bath Specification for Phase NaCl_Electrolyte
+   Bath Species ID = H2O(L)
+ => Bath Species ID = H2O(L)
+ ====> BG_ID = H2O(L), list item 0
+   start block Bath Species Molalities
+       Na+ = 1.0
+ => Na+ = 1.0
+ ====> Na+ = 1
+       Cl- = 1.8
+ => Cl- = 1.8
+ ====> Cl- = 1.8
+       H+ =  0.8
+ => H+ = 0.8
+ ====> H+ = 0.8
+   End block Bath Species Molalities
+	====> Summary of the block, Bath Species Molalities:
+	====>   MolalitiesBath[ H2O(L) : 0 ] = 55.5084
+	====>   MolalitiesBath[ Cl- : 1 ] = 1.8
+	====>   MolalitiesBath[ H+ : 2 ] = 0.8
+	====>   MolalitiesBath[ Na+ : 3 ] = 1
+	====>   MolalitiesBath[ OH- : 4 ] = 0
+	====> End of Summmary of the block, Bath Species Molalities:
+end block Bath Specification for Phase NaCl_Electrolyte
+
+
+# the above were empty lines
+Bath Species set to H2O(L)
+----------------------------------------------------------------
+ Dump of Mixture properties: 
+Bath Species set to H2O(L)
+Bath Species set to H2O(L)
+     ====================================================================================================
+      Bath Composition for Phase id, "NaCl_electrolyte", with name, "NaCl_electrolyte", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2O(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          H2O(L)          0.9391       5.394E-02       9.331E-01
+              2             Cl-          0.0305       1.749E-03       1.404E+00
+              3              H+          0.0135       7.774E-04       8.265E-01
+              4             Na+          0.0169       9.718E-04       6.953E-01
+              5             OH-          0.0000       0.000E+00       0.000E+00
+          ------------------------------------------------------------------------------
+EOS type = 45012
+PrintOut of Phase, "NaCl_electrolyte", using Generic Thermodynamics Functions:
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 18.0153 gm/mol
+        Heat of formation (298.15K) = -285.8387  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 200 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0196908 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.0200113 m3/kmol
+        species partial Molar Volume = 0.0196908 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 0
+               PDSS min Temperature  = 200
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = 101325
+               Water PDSS thermo type
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -1.8891        -19.1807        76.0145      63.3045   |    -305.0194 | 
+|    298.15 |     0.0000        -20.8473        75.3276      69.9224   |    -306.6861 | 
+|    300.00 |     0.1393        -20.9771        75.3154      70.3883   |    -306.8159 | 
+|    320.00 |     1.6453        -22.4340        75.3135      75.2479   |    -308.2728 | 
+|    333.15 |     2.6362        -23.4436        75.3931      78.2823   |    -309.2824 | 
+|    340.00 |     3.1528        -23.9851        75.4533      79.8174   |    -309.8239 | 
+|    360.00 |     4.6642        -25.6251        75.7063      84.1368   |    -311.4638 | 
+|    373.15 |     5.6612        -26.7494        75.9466      86.8569   |    -312.5882 | 
+|    380.00 |     6.1823        -27.3486        76.0981      88.2394   |    -313.1874 | 
+|    400.00 |     7.7111        -29.1506        76.6643      92.1544   |    -314.9894 | 
+|    420.00 |     9.2541        -31.0278        77.4473      95.9093   |    -316.8666 | 
+|    440.00 |    10.8162        -32.9765        78.4947      99.5289   |    -318.8153 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  E: 1
+                  Cl: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 35.4532 gm/mol
+        Heat of formation (298.15K) = -167.0969  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0151759 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+               High temperature polynomials: 623.15 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     4.1616        -15.3047      -244.7185      71.2661   |    -182.4016 | 
+|    298.15 |     0.0000        -16.8770      -114.5988      56.6058   |    -183.9739 | 
+|    300.00 |    -0.2080        -16.9811      -110.3990      55.9101   |    -184.0779 | 
+|    320.00 |    -2.1660        -18.0335       -92.6049      49.5858   |    -185.1304 | 
+|    333.15 |    -3.4106        -18.6606       -98.0863      45.7752   |    -185.7574 | 
+|    340.00 |    -4.1004        -18.9672      -103.5163      43.7258   |    -186.0640 | 
+|    360.00 |    -6.3577        -19.7784      -122.4087      37.2799   |    -186.8753 | 
+|    373.15 |    -8.0444        -20.2387      -133.7946      32.6792   |    -187.3355 | 
+|    380.00 |    -8.9785        -20.4540      -138.8006      30.1989   |    -187.5509 | 
+|    400.00 |   -11.8703        -20.9842      -149.4609      22.7845   |    -188.0810 | 
+|    420.00 |   -14.9312        -21.3651      -156.3880      15.3189   |    -188.4620 | 
+|    440.00 |   -18.1392        -21.5970      -165.4175       7.8586   |    -188.6939 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  H: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 1.0074 gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Phase Reference Pressure = 101325 Pa
+        Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 273.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.00683587 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0 m3/kmol
+        species partial Molar Volume = 0.00683587 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        MU0_POLY format:
+                Valid Range: 273.15 < T < 625.15: 
+                T        mu_0
+                273.15                   0
+                298.15                   0
+                623.15                   0
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 4th species in mechanism
+        It is the 4th species in the phase
+        Elemental Composition:
+                  E: -1
+                  Na: 1
+        Electronic Charge = 1.00
+        Molecular Weight = 22.9892 gm/mol
+        Heat of formation (298.15K) = -240.1804  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 293.15 K
+        Maximum Temperature = 593.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0151759 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 293.15 < T < 593.15: 
+                    -57993.47558        305112.604      -592222.1591       401977.9827
+                      804.419598       10625.24901      -133796.2298
+               High temperature polynomials: 593.15 < T < 593.15: 
+                    -57993.47558        305112.604      -592222.1591       401977.9827
+                      804.419598       10625.24901      -133796.2298
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|    -1.8217        -16.1011       135.6173      52.2768   |    -256.2815 | 
+|    298.15 |    -0.0000        -17.5079        34.3049      58.7219   |    -257.6884 | 
+|    300.00 |     0.0610        -17.6168        31.7124      58.9258   |    -257.7972 | 
+|    320.00 |     0.5870        -18.8129        26.6833      60.6247   |    -258.9934 | 
+|    333.15 |     0.9936        -19.6180        35.9575      61.8686   |    -259.7984 | 
+|    340.00 |     1.2602        -20.0444        41.9179      62.6606   |    -260.2249 | 
+|    360.00 |     2.2584        -21.3250        56.6962      65.5094   |    -261.5054 | 
+|    373.15 |     3.0371        -22.2003        60.7826      67.6333   |    -262.3807 | 
+|    380.00 |     3.4536        -22.6674        60.5429      68.7394   |    -262.8478 | 
+|    400.00 |     4.5846        -24.0723        50.2340      71.6424   |    -264.2528 | 
+|    420.00 |     5.3811        -25.5266        27.7759      73.5899   |    -265.7071 | 
+|    440.00 |     5.6530        -27.0071        -0.9874      74.2275   |    -267.1876 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 5th species in mechanism
+        It is the 5th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 17.0079 gm/mol
+        Heat of formation (298.15K) = -230.0323  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0151759 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+               High temperature polynomials: 623.15 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     4.1240          3.1339      -233.2071       3.6249   |    -226.8984 | 
+|    298.15 |    -0.0000          3.2482      -118.1956     -10.8944   |    -226.7842 | 
+|    300.00 |    -0.2148          3.2690      -114.1227     -11.6127   |    -226.7633 | 
+|    320.00 |    -2.2270          3.5692       -93.1714     -18.1130   |    -226.4632 | 
+|    333.15 |    -3.4507          3.8321       -94.2213     -21.8604   |    -226.2002 | 
+|    340.00 |    -4.1056          3.9885       -97.1945     -23.8062   |    -226.0438 | 
+|    360.00 |    -6.1704          4.5229      -109.8237     -29.7037   |    -225.5094 | 
+|    373.15 |    -7.6728          4.9403      -118.5829     -33.8017   |    -225.0920 | 
+|    380.00 |    -8.4998          5.1793      -122.8224     -35.9977   |    -224.8530 | 
+|    400.00 |   -11.0683          5.9648      -133.7096     -42.5827   |    -224.0675 | 
+|    420.00 |   -13.8445          6.8839      -144.1561     -49.3533   |    -223.1485 | 
+|    440.00 |   -16.8625          7.9405      -158.8785     -56.3706   |    -222.0918 | 
+---------------------------------------------------------------------------------------

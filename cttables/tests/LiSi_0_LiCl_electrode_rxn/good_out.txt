@@ -1,0 +1,588 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "LiSi_0_surface", with name, "LiSi_0_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = lisi_0_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     lisi_0_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "lisi_0_site" IN PHASE "LiSi_0_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+        Electronic Charge = 0.00
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (950,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (950,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    800.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    850.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    900.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "metal_Li_LiCl_electrons", with name, "metal_Li_LiCl_electrons", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = electron_Li_LiCl
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1electron_Li_LiCl          1.0000       1.835E+05       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electrons"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 0.000545 gm/mol
+        Heat of formation (298.15K) = 398.1433  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 400 K
+        Maximum Temperature = 2700 K
+        Partial    Molar Volume at (T,P) of (950,101325) = 5.45e-09 m3/kmol
+        StandState Molar Volume at (T,P) of (950,101325) = 5.45e-09 m3/kmol
+        StoichSubstance constant density = 100000 kg m-3 
+        species Molar Volume = 0.0183486 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 400 < T < 700: 
+                       -40.71053          6.411257         -6.010738          4.150772
+                       -0.007908         410.01408        -77.614337
+               High temperature polynomials: 700 < T < 2700: 
+                       -47.17129         14.679607         -3.696837          0.794099
+                        0.330556         412.93171        -85.545107
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|**  298.15*|    -0.0000          7.9375       -39.3123     -26.6227   |     406.0808 | 
+|    600.00 |   -11.6861         20.5601       -38.1531     -53.7438   |     418.7034 | 
+|    650.00 |   -13.5891         23.3245       -37.9616     -56.7901   |     421.4678 | 
+|    700.00 |   -15.4821         26.2351       -37.7604     -59.5961   |     424.3784 | 
+|    723.00 |   -16.3479         27.6209       -37.5579     -60.8144   |     425.7642 | 
+|    750.00 |   -17.3587         29.2815       -37.3184     -62.1870   |     427.4248 | 
+|    800.00 |   -19.2135         32.4515       -36.8706     -64.5812   |     430.5948 | 
+|    850.00 |   -21.0458         35.7368       -36.4194     -66.8030   |     433.8801 | 
+|    900.00 |   -22.8554         39.1292       -35.9671     -68.8719   |     437.2725 | 
+|    950.00 |   -24.6425         42.6217       -35.5150     -70.8044   |     440.7650 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "LiKCl_electrolyte", with name, "LiKCl_electrolyte", with eosType, "IonsFromNeutralMolecule"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Cl-
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1             Li+          0.3500       2.733E-02       2.665E-01
+              2              K+          0.1500       1.171E-02       4.706E-02
+              3             Cl-          0.5000       3.905E-02       5.000E-01
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Li: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 6.94046 gm/mol
+        Heat of formation (298.15K) = -395.7635  kJ/gmol 
+        Phase Reference Pressure = 101325 Pa
+        Species Reference Pressure = -1 Pa
+        Minimum Temperature = -1 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (950,-1) = 0.02048 m3/kmol
+        StandState Molar Volume at (T,P) of (950,-1) = 0.02048 m3/kmol
+        Molar Volume formulation for eos type 2000 is not known to cttables
+        Presure Dependent Standard State form
+               PDSS Species index    = 0
+               PDSS min Temperature  = -1
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = -1
+unknown species PDSS thermo type 107
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure          -1 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -16.3380        70.6098      54.7979   |    -412.1015 | 
+|    600.00 |    20.8685        -41.0900        67.6930     103.2641   |    -436.8535 | 
+|    650.00 |    24.2413        -46.3902        67.2200     108.6638   |    -442.1537 | 
+|    700.00 |    27.5905        -51.9491        66.7473     113.6280   |    -447.7127 | 
+|    723.00 |    29.1232        -54.5875        66.5299     115.7824   |    -450.3510 | 
+|    750.00 |    30.9160        -57.7467        66.2747     118.2170   |    -453.5103 | 
+|    800.00 |    34.2179        -63.7654        65.8020     122.4792   |    -459.5289 | 
+|    850.00 |    37.4962        -69.9899        65.3293     126.4542   |    -465.7534 | 
+|    900.00 |    40.7509        -76.4066        64.8563     130.1750   |    -472.1701 | 
+|    950.00 |    43.9819        -83.0036        64.3832     133.6689   |    -478.7671 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  K: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 39.0978 gm/mol
+        Heat of formation (298.15K) = -421.7917  kJ/gmol 
+        Phase Reference Pressure = 101325 Pa
+        Species Reference Pressure = -1 Pa
+        Minimum Temperature = -1 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (950,-1) = 0.0375761 m3/kmol
+        StandState Molar Volume at (T,P) of (950,-1) = 0.0375761 m3/kmol
+        Molar Volume formulation for eos type 2000 is not known to cttables
+        Presure Dependent Standard State form
+               PDSS Species index    = 1
+               PDSS min Temperature  = -1
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = -1
+unknown species PDSS thermo type 107
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure          -1 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -22.4002        73.5971      75.1307   |    -444.1919 | 
+|    600.00 |    22.2153        -53.7444        73.5971     126.5995   |    -475.5361 | 
+|    650.00 |    25.8951        -60.2237        73.5971     132.4904   |    -482.0153 | 
+|    700.00 |    29.5750        -66.9862        73.5971     137.9446   |    -488.7779 | 
+|    723.00 |    31.2677        -70.1865        73.5971     140.3239   |    -491.9781 | 
+|    750.00 |    33.2548        -74.0118        73.5971     143.0222   |    -495.8035 | 
+|    800.00 |    36.9347        -81.2830        73.5971     147.7721   |    -503.0746 | 
+|    850.00 |    40.6145        -88.7843        73.5971     152.2339   |    -510.5759 | 
+|    900.00 |    44.2944        -96.5021        73.5971     156.4406   |    -518.2938 | 
+|    950.00 |    47.9742       -104.4245        73.5971     160.4198   |    -526.2162 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  Cl: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 35.4532 gm/mol
+        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Phase Reference Pressure = 101325 Pa
+        Species Reference Pressure = -1 Pa
+        Minimum Temperature = -1 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (950,-1) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (950,-1) = 0 m3/kmol
+        Molar Volume formulation for eos type 2000 is not known to cttables
+        Presure Dependent Standard State form
+               PDSS Species index    = 2
+               PDSS min Temperature  = -1
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = -1
+unknown species PDSS thermo type 107
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure          -1 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    800.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    850.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    900.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Li22Si5(S)", with name, "Li22Si5(S)", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Li22Si5(S)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1      Li22Si5(S)          1.0000       1.822E-03       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Li22Si5(S)" IN PHASE "Li22Si5(S)"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Li: 22
+                  Si: 5
+        Electronic Charge = 0.00
+        Molecular Weight = 293.13 gm/mol
+        Heat of formation (298.15K) = -612.6079  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 250 K
+        Maximum Temperature = 2700 K
+        Partial    Molar Volume at (T,P) of (950,101325) = 0.548932 m3/kmol
+        StandState Molar Volume at (T,P) of (950,101325) = 0.548932 m3/kmol
+        StoichSubstance constant density = 534 kg m-3 
+        species Molar Volume = 6.3885E-06 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 700: 
+                       828.41979          -38.4939        -139.61124         93.278453
+                       -1.645223        -862.35863         1528.8245
+               High temperature polynomials: 700 < T < 2700: 
+                       686.28307          143.4098        -88.705419         19.431647
+                        5.800985        -798.17079         1354.3475
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000       -154.6509       788.4976     518.7016   |    -767.2588 | 
+|    600.00 |   236.0841       -403.7694       770.6424    1066.4224   |   -1016.3773 | 
+|    650.00 |   274.5035       -458.6502       766.1365    1127.9287   |   -1071.2581 | 
+|    700.00 |   312.6989       -516.4808       761.7024    1184.5425   |   -1129.0887 | 
+|    723.00 |   330.2307       -543.9889       762.0417    1209.1558   |   -1156.5969 | 
+|    750.00 |   350.8114       -577.0157       762.4551    1237.1027   |   -1189.6236 | 
+|    800.00 |   388.9540       -640.1147       763.2534    1286.3358   |   -1252.7226 | 
+|    850.00 |   427.1368       -705.6003       764.0551    1332.6319   |   -1318.2083 | 
+|    900.00 |   465.3590       -773.3345       764.8288    1376.3262   |   -1385.9425 | 
+|    950.00 |   503.6188       -843.1943       765.5545    1417.6980   |   -1455.8022 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Li13Si4(S)", with name, "Li13Si4(S)", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Li13Si4(S)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1      Li13Si4(S)          1.0000       6.121E-03       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Li13Si4(S)" IN PHASE "Li13Si4(S)"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Li: 13
+                  Si: 4
+        Electronic Charge = 0.00
+        Molecular Weight = 202.575 gm/mol
+        Heat of formation (298.15K) = -433.1330  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 250 K
+        Maximum Temperature = 2700 K
+        Partial    Molar Volume at (T,P) of (950,101325) = 0.163367 m3/kmol
+        StandState Molar Volume at (T,P) of (950,101325) = 0.163367 m3/kmol
+        StoichSubstance constant density = 1240 kg m-3 
+        species Molar Volume = 3.981E-06 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 700: 
+                       513.37512        -18.669635        -82.584204         55.163111
+                       -1.342334         -589.2471         949.39284
+               High temperature polynomials: 700 < T < 2700: 
+                       429.38524         88.818915        -52.503491         11.526362
+                        3.057698        -551.31792         846.29281
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -97.4738       486.8297     326.9286   |    -530.6068 | 
+|    600.00 |   146.6286       -253.5220       480.6301     666.9176   |    -686.6550 | 
+|    650.00 |   170.6025       -287.8409       478.3206     705.2976   |    -720.9740 | 
+|    700.00 |   194.4608       -324.0015       476.0222     740.6605   |    -757.1346 | 
+|    723.00 |   205.4184       -341.2022       476.3625     756.0451   |    -774.3353 | 
+|    750.00 |   218.2856       -361.8527       476.7654     773.5178   |    -794.9858 | 
+|    800.00 |   242.1427       -401.3065       477.5179     804.3116   |    -834.4396 | 
+|    850.00 |   266.0372       -442.2535       478.2588     833.2833   |    -875.3866 | 
+|    900.00 |   289.9681       -484.6080       478.9727     860.6401   |    -917.7410 | 
+|    950.00 |   313.9339       -528.2935       479.6498     886.5552   |    -961.4266 | 
+---------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
+
+        4/23 Li22Si5(S) <=> 5/23  Li13Si4(S) + Li+  + electron_Li_LiCl
+
+        There is one reactant: Li22Si5(S) 
+        There are 3 products: Li13Si4(S) Li+ electron_Li_LiCl 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+        This reaction is charge transfer reaction, n = 1
+        Electrochemical Beta = 0.5
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |metal_Li_LiCl_electrons|   3           1    0.000545 |            -1                 0 |
+               |   LiKCl_electrolyte|   3           1      6.9405 |             1                 0 |
+               |          Li22Si5(S)|   3    -0.17391     -50.979 |             0                 0 |
+               |          Li13Si4(S)|   3     0.21739      44.038 |             0                 0 |
+               |      LiSi_0_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = kmol/(m^2 s)
+        units_krev = Units for reverse reaction rate constant = kmol/(m^2 s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)       (kJ/gmol)|  (kJ/gmol) (kJ/gmol)  (J/gmolK) |  (units_krev)       (kJ/gmol) |    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  3.50E+05  1.12E+09     20.00 |      12.07     14.76      9.04  |  4.56E+07  3.77E+08      5.24 |  3.50E+05  4.56E+07 |
+|  600.0 |  2.03E+07  1.12E+09     20.00 |       9.34     14.76      9.04  |  1.32E+08  3.77E+08      5.24 |  2.03E+07  1.32E+08 |
+|  650.0 |  2.76E+07  1.12E+09     20.00 |       8.89     14.76      9.04  |  1.43E+08  3.77E+08      5.24 |  2.76E+07  1.43E+08 |
+|  700.0 |  3.60E+07  1.12E+09     20.00 |       8.43     14.76      9.04  |  1.53E+08  3.64E+08      5.03 |  3.60E+07  1.53E+08 |
+|  723.0 |  4.01E+07  1.12E+09     20.00 |       8.23     14.76      9.04  |  1.58E+08  3.77E+08      5.24 |  4.01E+07  1.58E+08 |
+|  750.0 |  4.52E+07  1.12E+09     20.00 |       7.98     14.76      9.04  |  1.63E+08  3.77E+08      5.24 |  4.52E+07  1.63E+08 |
+|  800.0 |  5.53E+07  1.12E+09     20.00 |       7.53     14.76      9.04  |  1.72E+08  3.77E+08      5.24 |  5.53E+07  1.72E+08 |
+|  850.0 |  6.60E+07  1.12E+09     20.00 |       7.08     14.76      9.04  |  1.80E+08  3.77E+08      5.24 |  6.60E+07  1.80E+08 |
+|  900.0 |  7.72E+07  1.12E+09     20.00 |       6.63     14.76      9.04  |  1.87E+08  3.77E+08      5.24 |  7.72E+07  1.87E+08 |
+|  950.0 |  8.89E+07  1.12E+09     20.00 |       6.18     14.76      9.04  |  1.94E+08  3.77E+08      5.24 |  8.89E+07  1.94E+08 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: 4/23 Li22Si5(S) <=> 5/23  Li13Si4(S) + Li+  + electron_Li_LiCl
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index pertaining to the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage = phi_Metal - phi_Soln  = 0 Volts
+               nStoichElectrons (product electrons - reactant electrons) = 1 
+               Delta G (rxn)   =    7.3882e+05 J/kmol   --->                  E    = 0.00765732 Volts
+               Delta G_SS (rxn)=    8.4345e+06 J/kmol   --->                  E_SS = 0.0874175 Volts
+               Bath Gas conditions:
+                  T = 700 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                       lisi_0_site            1
+
+               ---------------------------------------------------------------------------------------------
+               |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
+               |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
+               ---------------------------------------------------------------------------------------------
+               !        -1 |   9.04e+03     1.63e+11    -1.63e+11 |    8.72e+07    -1.57e+15     -1.57e+15 |
+               !      -0.8 |   4.74e+04      3.1e+10     -3.1e+10 |    4.58e+08    -2.99e+14     -2.99e+14 |
+               !      -0.6 |   2.49e+05      5.9e+09     -5.9e+09 |     2.4e+09     -5.7e+13      -5.7e+13 |
+               !      -0.4 |   1.31e+06     1.12e+09    -1.12e+09 |    1.26e+10    -1.09e+13     -1.08e+13 |
+               !      -0.2 |   6.86e+06     2.14e+08    -2.08e+08 |    6.62e+10    -2.07e+12        -2e+12 |
+               !         0 |    3.6e+07     4.08e+07    -4.87e+06 |    3.47e+11    -3.94e+11      -4.7e+10 |
+               !  0.007657 |   3.83e+07     3.83e+07     3.87e-07 |     3.7e+11     -3.7e+11       0.00374 |
+               !       0.2 |   1.89e+08     7.78e+06     1.81e+08 |    1.82e+12    -7.51e+10      1.75e+12 |
+               !       0.4 |   9.91e+08     1.48e+06     9.89e+08 |    9.56e+12    -1.43e+10      9.55e+12 |
+               !       0.6 |    5.2e+09     2.83e+05      5.2e+09 |    5.02e+13    -2.73e+09      5.02e+13 |
+               !       0.8 |   2.73e+10     5.39e+04     2.73e+10 |    2.63e+14     -5.2e+08      2.63e+14 |
+               !         1 |   1.43e+11     1.03e+04     1.43e+11 |    1.38e+15     -9.9e+07      1.38e+15 |
+               ---------------------------------------------------------------------------------------------
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               -----------------------------------------------------------------
+               |  Voltage  |       Ifwd         Irev        Inet  | lisi_0_site |
+               |   Volts   |               (amps/cm2)             |            |
+               -----------------------------------------------------------------
+               !        -1 |   8.72e+07    -1.57e+15    -1.57e+15 |         1  |
+               !      -0.8 |   4.58e+08    -2.99e+14    -2.99e+14 |         1  |
+               !      -0.6 |    2.4e+09     -5.7e+13     -5.7e+13 |         1  |
+               !      -0.4 |   1.26e+10    -1.09e+13    -1.08e+13 |         1  |
+               !      -0.2 |   6.62e+10    -2.07e+12       -2e+12 |         1  |
+               !         0 |   3.47e+11    -3.94e+11     -4.7e+10 |         1  |
+               !  0.007657 |    3.7e+11     -3.7e+11      0.00374 |         1  |
+               !       0.2 |   1.82e+12    -7.51e+10     1.75e+12 |         1  |
+               !       0.4 |   9.56e+12    -1.43e+10     9.55e+12 |         1  |
+               !       0.6 |   5.02e+13    -2.73e+09     5.02e+13 |         1  |
+               !       0.8 |   2.63e+14     -5.2e+08     2.63e+14 |         1  |
+               !         1 |   1.38e+15     -9.9e+07     1.38e+15 |         1  |
+               -----------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "metal_Li_LiCl_electrons", with name, "metal_Li_LiCl_electrons", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = electron_Li_LiCl
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1electron_Li_LiCl          1.0000       1.835E+05       1.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "LiKCl_electrolyte", with name, "LiKCl_electrolyte", with eosType, "IonsFromNeutralMolecule"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Cl-
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1             Li+          0.3500       2.733E-02       2.665E-01
+              2              K+          0.1500       1.171E-02       4.706E-02
+              3             Cl-          0.5000       3.905E-02       5.000E-01
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Li13Si4(S)", with name, "Li13Si4(S)", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Li13Si4(S)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1      Li13Si4(S)          1.0000       6.121E-03       1.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Li22Si5(S)", with name, "Li22Si5(S)", with eosType, "StoichSubstance"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Li22Si5(S)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1      Li22Si5(S)          1.0000       1.822E-03       1.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "LiSi_0_surface", with name, "LiSi_0_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = lisi_0_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     lisi_0_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+==========================================================================================================================================
+
+INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiCl_electrons"
+
+        electron_Li_LiCl + Li+ + 0.217391 Li13Si4(S) = 0.173913 Li22Si5(S)
+
+        There are 3 reactants: electron_Li_LiCl (1) Li+ (1) Li13Si4(S) (0.217391) 
+        There is one product: Li22Si5(S) (0.173913) 
+        Reaction Type = Global Extra Rxn - not in mechanism
+        Reaction is reversible
+
+        This reaction is a charge transfer reaction, n = 1
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |metal_Li_LiCl_electrons|   3          -1   -0.000545 |             1                 0 |
+               |   LiKCl_electrolyte|   3          -1     -6.9405 |            -1                 0 |
+               |          Li22Si5(S)|   3     0.17391      50.979 |             0                 0 |
+               |          Li13Si4(S)|   3    -0.21739     -44.038 |             0                 0 |
+               |      LiSi_0_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_ROP = Units for Global Reaction Rate of progress = kmol / m^2 s
+
+|------------------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                               |
+|  Temp  |  FwdROP     Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  RevROP    A_rev     Ea_rev   |  NetROP       Anet     Ea_net |
+|   (K)  |    (units_ROP)       (kJ/gmol)|  (kJ/gmol) (kJ/gmol)  (J/gmolK) |  (units_ROP)        (kJ/gmol) |   (units_ROP)       (kJ/gmol) |
+|--------|-------------------------------|---------------------------------|-------------------------------|-------------------------------|
+|  298.1 |  8.33E+06  1.33E+08      6.87 |     -12.07    -14.76     -9.04  |  3.50E+05  1.12E+09     20.00 |  7.98E+06  1.01E+08      6.29 |
+|  600.0 |  3.36E+07  1.33E+08      6.87 |      -9.34    -14.76     -9.04  |  2.03E+07  1.12E+09     20.00 |  1.33E+07  9.37E+05    -13.22 |
+|  650.0 |  3.73E+07  1.33E+08      6.87 |      -8.89    -14.76     -9.04  |  2.76E+07  1.12E+09     20.00 |  9.68E+06  3.37E+04    -30.59 |
+|  700.0 |  4.08E+07  9.30E+07      4.79 |      -8.43    -14.76     -9.04  |  3.60E+07  1.12E+09     20.00 |  4.87E+06  4.57E-02   -107.57 |
+|  723.0 |  4.24E+07  1.33E+08      6.87 |      -8.23    -14.76     -9.04  |  4.01E+07  1.12E+09     20.00 |  2.28E+06  1.33E-10   -224.69 |
+|  750.0 |  4.42E+07  1.33E+08      6.87 |      -7.98    -14.76     -9.04  |  4.52E+07  1.12E+09     20.00 | -1.05E+06 -8.09E+45    572.71 |
+|  800.0 |  4.73E+07  1.33E+08      6.87 |      -7.53    -14.76     -9.04  |  5.53E+07  1.12E+09     20.00 | -7.94E+06 -2.07E+13     98.27 |
+|  850.0 |  5.03E+07  1.33E+08      6.87 |      -7.08    -14.76     -9.04  |  6.60E+07  1.12E+09     20.00 | -1.57E+07 -1.03E+11     62.15 |
+|  900.0 |  5.31E+07  1.33E+08      6.87 |      -6.63    -14.76     -9.04  |  7.72E+07  1.12E+09     20.00 | -2.41E+07 -1.66E+10     48.91 |
+|  950.0 |  5.57E+07  1.33E+08      6.87 |      -6.18    -14.76     -9.04  |  8.89E+07  1.12E+09     20.00 | -3.32E+07 -6.82E+09     42.07 |
+|------------------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: electron_Li_LiCl + Li+ + 0.217391 Li13Si4(S) = 0.173913 Li22Si5(S)
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index for the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage                         = 0 Volts
+               nStoicElectrons                       = -1 
+               Delta G (rxn)   =   -7.3882e+05 J/kmol   --->                  E    = 0.00765732 Volts
+               Delta G_SS (rxn)=   -8.4345e+06 J/kmol   --->                  E_SS = 0.0874175 Volts
+               Bath Conditions:
+                  T = 700 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                       lisi_0_site            1
+
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               -------------------------------------------------------------------------------------------------------------------
+               |  Voltage  |       Ifwd   Iexchange_f   Beta_f   |       Irev   Iexchange_r   Beta_r   |    Inet     | lisi_0_site |
+               |   Volts   |         (amps/cm2)                  |         (amps/cm2)                  |             |            |
+               -------------------------------------------------------------------------------------------------------------------
+               !        -1 | -1.5685e+15  -3.699e+11         0.5 |  8.7231e+07  -3.699e+11         0.5 | -1.5685e+15 |         1  |
+               !      -0.8 | -2.9889e+14  -3.699e+11         0.5 |  4.5776e+08  -3.699e+11         0.5 | -2.9889e+14 |         1  |
+               !      -0.6 | -5.6957e+13  -3.699e+11         0.5 |  2.4022e+09  -3.699e+11         0.5 | -5.6955e+13 |         1  |
+               !      -0.4 | -1.0854e+13  -3.699e+11         0.5 |  1.2606e+10  -3.699e+11         0.5 | -1.0841e+13 |         1  |
+               !      -0.2 | -2.0683e+12  -3.699e+11         0.5 |  6.6152e+10  -3.699e+11         0.5 | -2.0021e+12 |         1  |
+               !         0 | -3.9413e+11  -3.699e+11         0.5 |  3.4715e+11  -3.699e+11         0.5 | -4.6987e+10 |         1  |
+               !  0.007657 |  -3.699e+11  -3.699e+11         0.5 |   3.699e+11  -3.699e+11         0.5 |   0.0037381 |         1  |
+               !       0.2 | -7.5106e+10  -3.699e+11         0.5 |  1.8217e+12  -3.699e+11         0.5 |  1.7466e+12 |         1  |
+               !       0.4 | -1.4312e+10  -3.699e+11         0.5 |  9.5598e+12  -3.699e+11         0.5 |  9.5455e+12 |         1  |
+               !       0.6 | -2.7273e+09  -3.699e+11         0.5 |  5.0167e+13  -3.699e+11         0.5 |  5.0164e+13 |         1  |
+               !       0.8 | -5.1972e+08  -3.699e+11         0.5 |  2.6326e+14  -3.699e+11         0.5 |  2.6326e+14 |         1  |
+               !         1 | -9.9038e+07  -3.699e+11         0.5 |  1.3815e+15  -3.699e+11         0.5 |  1.3815e+15 |         1  |
+               -------------------------------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------

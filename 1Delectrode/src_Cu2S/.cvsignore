@@ -1,0 +1,14 @@
+*.d
+*kefile
+*.o
+Cu2S_growth
+Makefile
+tddiff
+tddiff.inp 
+.depends
+.nfs*
+tmp*
+*points
+solution.xml
+PorousLiKCl.dat
+SurDomain1D.dat

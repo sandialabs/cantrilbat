@@ -1,0 +1,92 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_Al+++.xml
+Cantera File Name = Al.xml
+Cantera File Name = metalElectrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Use Cantera Calls = boolean    (optional)
+!        vcs_Cantera can either carry out its own thermo calculations
+!        in some cases or call Cantera to carry out the calculations.
+!        This boolean parameter indicates the preference for doing
+!        this. If true, all thermo calculations will be done by
+!        Cantera. If false, some thermo calculations will be done
+!        within vcs_Cantera. This is achieved by downloading the
+!        thermo parameters from Cantera into vcs_Cantera and then
+!        doing the calculations in house.
+!           Where the download and local calculations have not been
+!        programmed yet, Cantera will still do the calculations even
+!        if this parameter is false.
+!           Default = false
+!-------------------------------------------------------------------------
+Use Cantera Calls = true
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+START BLOCK KMolar Element Abundances 
+   O = 1.0
+   H = 2.0
+  Al = 10.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+   Cl = 0.054046
+END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles 
+!   H2 = 3.0
+!   H2O(L) = 3.0
+!   Cl = 0.4
+!END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+

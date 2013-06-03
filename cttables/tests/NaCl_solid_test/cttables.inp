@@ -1,0 +1,36 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 2
+Cantera File Name = NaCl_Solid_MEQ3.xml 
+Cantera File Name = NaCl_Solid.xml 
+
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+  Added Temperatures =  373.15
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase NaCl(S)
+  Bath Species ID =  NaCl(S)
+  start block Bath Species Mole Fraction
+    NaCl(S) = 1.0
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase NaCl(S)
+
+start block Bath specification for Phase NaCl(S)_nist
+  Bath Species ID =  NaCl(S)_nist
+  start block Bath Species Mole Fraction
+    NaCl(S)_nist = 1.0
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase NaCl(S)_nist
+
+# the above were empty lines

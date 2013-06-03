@@ -1,0 +1,134 @@
+#
+#  Makefile.in: 
+#     Makefile for vcsc
+#
+# $Id: Makefile.in,v 1.1 2010/01/04 01:06:34 hkmoffa Exp $
+#
+#
+RM = /bin/rm -f
+CP = /bin/cp -f -p
+#
+# Setup The Cantera Interface
+#
+CANTERA_LIBDIR=@ct_libdir@
+CANTERA_LIBS=-ltransport -lcaThermo -lcantera -lctmath -lctlapack -lctcxx -ltpx
+#
+# The directory where Cantera include files may be found.
+#
+CANTERA_INCROOT=@ct_incroot@
+#
+# Find the Build root for Cantera
+#
+CANTERA_BUILD_ROOT=@ctb_root@
+#
+CADS_ROOT=@cads_root@
+CADS_UTILSRC_DIR=$(CADS_ROOT)/util_src
+#
+# Set up the various local and global defines
+#
+LDEFINES =   -DDEBUG  -DDEBUG_TEST
+#
+# Set up the global include directory macro
+#
+VCS_SRC_DIR = ../../vcs/src
+INCLUDE_DIRS = -I$(VCS_SRC_DIR) -I$(CANTERA_INCROOT) \
+               -I$(CANTERA_INCROOT)/cantera/kernel/thermo \
+               -I$(CANTERA_BUILD_ROOT)/Cantera/src \
+               -I$(CADS_UTILSRC_DIR) 
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+CFLAGS=@CXXFLAGS@
+CLDRF77LIBS = @FLIBS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+######################################################################
+
+all:  compatGNa.cpp
+
+######################################################################
+
+.SUFFIXES: .src  .d .cpp
+
+.cpp.o:
+	$(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+# 
+# These classes compile against the Cantera kernel
+# format
+#
+
+MDPLIB_DEP = $(CADS_UTILSRC_DIR)/libutil_src.a
+MDPLIB     = -L$(CADS_UTILSRC_DIR) -lutil_src
+
+CTCVODE_DEP = $(CANTERA_LIBDIR)/libcvode.a
+CTCVODE     = -L$(CANTERA_LIBDIR) -lcvode
+
+CTBLAS_DEP = $(CANTERA_LIBDIR)/libctblas.a
+CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
+
+CTMATH_DEP = $(CANTERA_LIBDIR)/libctmath.a
+CTMATH    = -L$(CANTERA_LIBDIR) -lctmath
+
+CTLIB_DEP  = $(CANTERA_LIBDIR)/libcantera.a \
+             $(CANTERA_LIBDIR)/libctmath.a \
+             $(CANTERA_LIBDIR)/libctcxx.a \
+             $(CANTERA_LIBDIR)/libtpx.a 
+CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
+
+CTADDS_DEP=$(VCS_SRC_DIR)/libctpadds.a
+CTADDS = -L$(VCS_SRC_DIR) -lctpadds 
+###########################################################################
+# section to set up depends
+###########################################################################
+DEPENDS =  HMW_graph_GvT.d
+
+.cpp.d:
+	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends: $(DEPENDS)
+	cat *.d > .depends
+	$(RM) $(DEPENDS)
+
+############################################################################
+############################################################################
+
+
+compatGNa: compatGNa.o $(CTADDS_DEP) $(CTLIB_DEP) \
+	    $(CTMATH_DEP) $(MDPLIB_DEP) $(CTCVODE_DEP) \
+            $(CTBLAS_DEP) $(CTMATH_DEP)
+	$(CXXLDR) $(LCXX_FLAGS) -o compatGNa \
+                  compatGNa.o $(CTADDS) \
+                  $(CTLIB) $(MDPLIB) $(CTCVODE) \
+                  $(CTBLAS) $(CTMATH) $(LCXX_END_LIBS) \
+                  $(CLDRF77LIBS)
+
+
+###########################################################################
+#          INSTALL RULES
+###########################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+tidy:
+	$(RM) core*  *.trace
+	$(RM) Static.sadb .soft* debugdb.buttons .Stat*
+
+clean:
+	$(MAKE) tidy
+	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
+                   fort.* *%   *.trace tmp*
+	$(RM) HMW_graph_GvT SPdelG0
+

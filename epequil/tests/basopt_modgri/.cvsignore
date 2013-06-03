@@ -1,0 +1,11 @@
+Makefile
+basopt_gri
+csvCode.txt
+diff_tset.out
+output.txt
+diff_test.out
+basopt_modgri
+.nfs*
+.depends
+basopt_modgri.d
+

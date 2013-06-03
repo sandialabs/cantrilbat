@@ -1,0 +1,115 @@
+/**
+ * @file m1d_CathodeCollector.h
+ */
+/*
+ * $Id: m1d_SDT_CathodeCollector.h 5 2012-02-23 21:34:18Z hkmoffa $
+ */
+
+#ifndef M1D_SDT_CATHODECOLLECTOR_H_
+#define M1D_SDT_CATHODECOLLECTOR_H_
+
+#include "m1d_SurfDomainTypes.h"
+
+namespace Cantera
+{
+class ELECTRODE_MODEL;
+}
+
+namespace m1d
+{
+
+//! This class specifies that all equations are handled
+//! by a simple Dirichlet condition or simple flux conditions of the third type
+/*!
+ *
+ */
+class SDT_CathodeCollector : public SDT_Mixed
+{
+public:
+
+  //! Constructor
+  /*!
+   *   We construct the object but don't actually specify any Dirichlet conditions.
+   *   Later we can add dirichlet conditions into the object.
+   *
+   * In the constructor, we have typically been laying out what the unknowns are
+   * and what the equations are, that are solved within the domain.
+   *
+   *
+   * @param dl_ptr  Domain Layout object that owns this description.
+   */
+  SDT_CathodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
+
+  //! Destructor
+  virtual
+  ~SDT_CathodeCollector();
+
+  //! Copy Constructor
+  /*!
+   * @param r Object to be copied
+   */
+  SDT_CathodeCollector(const SDT_CathodeCollector &r);
+
+  //! Assignment operator
+  /*!
+   * @param r    Object to be copied
+   * @return     Returns a changeable reference to the current object
+   */
+  SDT_CathodeCollector &
+  operator=(const SDT_CathodeCollector &r);
+
+  //! Set the equation description
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - NumEquationsPerNode
+   *    - VariableNameList
+   *    - EquationNameList
+   *    - EquationIndexStart_EqName
+   */
+  virtual void
+  SetEquationDescription();
+
+  //! Malloc and Return the object that will calculate the residual efficiently
+  /*!
+   *
+   * @return  Returns a pointer to the object that will calculate the residual
+   *          efficiently
+   */
+  virtual SurDomain1D *
+  mallocDomain1D();
+
+  // ****************************************************************************************************
+
+  //! top or bottom of the domain
+  /*!
+   *   0 - top, right
+   *   1 - bottom, left
+   */
+  int m_position;
+
+  //! Type of the boundary condition specified on the cathode
+  /*!
+   *   0 specify the voltage
+   *   1 specify the current
+   */
+  int voltageVarBCType_;
+
+  //! Specified current in the cathode
+  /*!
+   *  This is actually the current from the cathode into the electrolyte.
+   *  Therefore, during a normal discharge operation of the battery, this will be a
+   *  negative quantity.
+   *
+   *   Note, this is only relevant when voltageVarBCType_ = 1, 3, 5, 7, 9
+   */
+  double icurrCathodeSpecified_;
+
+  double voltageCathodeSpecified_;
+
+  //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
+  friend class SurDomain_CathodeCollector;
+};
+
+}
+
+#endif /*  */

@@ -1,0 +1,44 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase LiCl(S)    -->
+  <!--
+     HKM Entered manually from NIST webbook.
+     density 2.07 g cm3 (wikipedia)
+     MW = 42.394 gm mol-1
+     Melting point 883 K. (wikipedia -> 878 K)
+    -->
+  <phase dim="3" id="LiCl(S)">
+    <elementArray datasrc="elements.xml">
+       Li Cl
+    </elementArray>
+    <speciesArray datasrc="#species_LiCl(S)"> LiCl(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 2.07 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_LiCl(S)">
+
+    <species name="LiCl(S)">
+      <atomArray> Li:1 Cl:1 </atomArray>
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1075.0" Tmin="250.0">
+          <floatArray size="7">
+           43.74372, 20.37056,  0.306430,
+          -0.094178, -0.160419, -422.7514,
+           105.2586
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <density units="g/cm3"> 2.07 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

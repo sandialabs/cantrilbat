@@ -1,0 +1,11 @@
+.depends
+FeS2_OpenCircuitVoltage
+FeS2_OpenCircuitVoltage.d
+Makefile
+out.txt
+vcs_equilibrate_res.csv
+vcs_equilibrate_res_1.csv
+vcs_equilibrate_res_*.csv
+diff_csv.txt
+diff_out.txt
+err_out.txt

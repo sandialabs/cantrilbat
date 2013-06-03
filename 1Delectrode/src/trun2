@@ -1,0 +1,1 @@
+mpirun -v -machinefile mf.txt -np 2 tddiff 

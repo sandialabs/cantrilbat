@@ -1,0 +1,57 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = HMW_NaKCl.xml 
+
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 20.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 273.15 274. 280. 285. 290. 333.15 373.15
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+start block Bath Specification for Phase NaCl_Electrolyte
+   Bath Species ID = H2O(L)
+   start block Bath Species Molalities
+       Na+ = 1.0
+       Cl- = 1.8
+       H+ =  0.8
+   End block Bath Species Molalities
+end block Bath Specification for Phase NaCl_Electrolyte
+
+
+# the above were empty lines

@@ -1,0 +1,1476 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name = silane.cti
+ => Cantera File Name = silane.cti
+ ====> CanteraFileNames =  silane.cti
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 1000.
+Bath Pressure = 1.0 atm
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase silane
+  Bath Species ID = H2
+  start block Bath Species Mole Fraction
+    H2 = 0.9
+    SIH4 = 0.1
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase silane
+
+
+# the above were empty lines
+
+
+**** WARNING ****
+For species SI2H6, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  49.5493.
+	Value computed using high-temperature polynomial: 49.7214.
+
+
+**** WARNING ****
+For species SI3H8, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  65.9731.
+	Value computed using high-temperature polynomial: 66.2781.
+
+
+**** WARNING ****
+For species SI2, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  32.8813.
+	Value computed using high-temperature polynomial: 32.9489.
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name = silane.cti
+ => Cantera File Name = silane.cti
+ ====> CanteraFileNames =  silane.cti
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 1000.
+ => Bath Temperature = 1000.
+ ====> BG.Temperature = 1000
+Bath Pressure = 1.0 atm
+ => Bath Pressure = 1.0 atm
+ ====> BG.Pressure = 101325
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+ => Number of Points ====> TTpts = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase silane
+  Bath Species ID = H2
+ => Bath Species ID = H2
+ ====> BG_ID = H2, list item 0
+  start block Bath Species Mole Fraction
+    H2 = 0.9
+ => H2 = 0.9
+ ====> H2 = 0.9
+    SIH4 = 0.1
+ => SIH4 = 0.1
+ ====> SIH4 = 0.1
+  End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ H2 : 0 ] = 0.9
+	====>   XBathmol[ H : 1 ] = 0
+	====>   XBathmol[ HE : 2 ] = 0
+	====>   XBathmol[ SIH4 : 3 ] = 0.1
+	====>   XBathmol[ SI : 4 ] = 0
+	====>   XBathmol[ SIH : 5 ] = 0
+	====>   XBathmol[ SIH2 : 6 ] = 0
+	====>   XBathmol[ SIH3 : 7 ] = 0
+	====>   XBathmol[ H3SISIH : 8 ] = 0
+	====>   XBathmol[ SI2H6 : 9 ] = 0
+	====>   XBathmol[ H2SISIH2 : 10 ] = 0
+	====>   XBathmol[ SI3H8 : 11 ] = 0
+	====>   XBathmol[ SI2 : 12 ] = 0
+	====>   XBathmol[ SI3 : 13 ] = 0
+	====>   XBathmol[ N2 : 14 ] = 0
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath specification for Phase silane
+
+
+# the above were empty lines
+Bath Species set to H2
+----------------------------------------------------------------
+ Dump of Mixture properties: 
+	 viscosity = 8.99924e-06
+	 viscosity(300 K) = 8.99924e-06
+	 viscosity(400 K) = 1.08698e-05
+	 viscosity(500 K) = 1.25684e-05
+	 viscosity(600 K) = 1.41446e-05
+	 viscosity(700 K) = 1.56273e-05
+	 viscosity(800 K) = 1.70353e-05
+	 viscosity(900 K) = 1.83815e-05
+	 viscosity(1000 K) = 1.96753e-05
+	 viscosity(1100 K) = 2.09237e-05
+	 viscosity(1200 K) = 2.21323e-05
+----------------------------------------------------------------
+Bath Species set to H2
+Bath Species set to H2
+     ====================================================================================================
+      Bath Composition for Phase id, "silane", with name, "silane", with eosType, "IdealGas"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 1000 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1              H2          0.9000       1.097E-05       9.000E-01
+              2               H          0.0000       0.000E+00       0.000E+00
+              3              HE          0.0000       0.000E+00       0.000E+00
+              4            SIH4          0.1000       1.219E-06       1.000E-01
+              5              SI          0.0000       0.000E+00       0.000E+00
+              6             SIH          0.0000       0.000E+00       0.000E+00
+              7            SIH2          0.0000       0.000E+00       0.000E+00
+              8            SIH3          0.0000       0.000E+00       0.000E+00
+              9         H3SISIH          0.0000       0.000E+00       0.000E+00
+             10           SI2H6          0.0000       0.000E+00       0.000E+00
+             11        H2SISIH2          0.0000       0.000E+00       0.000E+00
+             12           SI3H8          0.0000       0.000E+00       0.000E+00
+             13             SI2          0.0000       0.000E+00       0.000E+00
+             14             SI3          0.0000       0.000E+00       0.000E+00
+             15              N2          0.0000       0.000E+00       0.000E+00
+          ------------------------------------------------------------------------------
+EOS type = 1
+PrintOut of Phase, "silane", using the Ideal Gas Thermodynamics Functions:
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "silane"
+        Overall, this is the 1th species in the mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 2.01588 gm/mol
+        L-J Potential Well Depth = 38 K
+        L-J collision diameter = 2.92 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.79 Angstroms**3
+        Rotational Collision Number at 298 K = 280
+        This molecule is linear
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        mu_0(298.15K) = H298[k]  3.17442E-09
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 3500 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     2.3443    0.0079805  -1.9478e-05   2.0157e-08
+                -7.3761e-12      -917.94      0.68301
+               High temperature polynomials: 1000 < T < 3500: 
+                      3.3372792  -4.94024731e-05   4.99456778e-07  -1.79566394e-10
+                 2.00255376e-14      -950.158922      -3.20502331
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|    298.15 |     0.0000         -9.3122         6.8920      31.2334   |    8.963E-05     1.860E+04         1.445      |
+|    300.00 |     0.0128         -9.3701         6.8955      31.2760   |    8.999E-05     1.869E+04         1.460      |
+|    400.00 |     0.7086        -12.6023         6.9975      33.2773   |    1.087E-04     2.291E+04         2.361      |
+|    500.00 |     1.4091        -16.0110         7.0023      34.8402   |    1.257E-04     2.653E+04         3.421      |
+|    600.00 |     2.1086        -19.5608         6.9920      36.1157   |    1.414E-04     2.984E+04         4.630      |
+|    700.00 |     2.8086        -23.2277         7.0135      37.1946   |    1.563E-04     3.307E+04         5.979      |
+|    800.00 |     3.5128        -26.9951         7.0784      38.1349   |    1.704E-04     3.637E+04         7.459      |
+|    900.00 |     4.2249        -30.8513         7.1631      38.9735   |    1.838E-04     3.969E+04         9.065      |
+|   1000.00 |     4.9442        -34.7871         7.2092      39.7313   |    1.968E-04     4.274E+04        10.792      |
+|   1100.00 |     5.6700        -38.7953         7.3081      40.4231   |    2.092E-04     4.604E+04        12.636      |
+|   1200.00 |     6.4059        -42.8700         7.4092      41.0633   |    2.213E-04     4.934E+04        14.593      |
+|   1300.00 |     7.1519        -47.0065         7.5113      41.6604   |    2.331E-04     5.263E+04        16.659      |
+|   1400.00 |     7.9082        -51.2009         7.6135      42.2207   |    2.445E-04     5.592E+04        18.832      |
+|   1500.00 |     8.6746        -55.4496         7.7149      42.7495   |    2.556E-04     5.921E+04        21.109      |
+|   1600.00 |     9.4511        -59.7499         7.8148      43.2506   |    2.665E-04     6.249E+04        23.487      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "silane"
+        Overall, this is the 2th species in the mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  H: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 1.00794 gm/mol
+        L-J Potential Well Depth = 145 K
+        L-J collision diameter = 2.05 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is monatomic
+        Heat of formation (298.15K) = 52.1026 kcal/gmol
+        mu_0(298.15K) = H298[k]  52.1026
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 3500 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                        2.5   7.0533e-13  -1.9959e-15   2.3008e-18
+                -9.2773e-22        25474     -0.44668
+               High temperature polynomials: 1000 < T < 3500: 
+                     2.50000001  -2.30842973e-11   1.61561948e-14  -4.73515235e-18
+                 4.98197357e-22       25473.6599     -0.446682914
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|    298.15 |     0.0000         -8.1747         4.9680      27.4181   |    9.454E-05     2.925E+04         2.139      |
+|    300.00 |     0.0092         -8.2255         4.9680      27.4488   |    9.504E-05     2.940E+04         2.162      |
+|    400.00 |     0.5060        -11.0452         4.9680      28.8780   |    1.200E-04     3.713E+04         3.539      |
+|    500.00 |     1.0028        -13.9905         4.9680      29.9866   |    1.421E-04     4.397E+04         5.162      |
+|    600.00 |     1.4996        -17.0358         4.9680      30.8924   |    1.622E-04     5.018E+04         7.011      |
+|    700.00 |     1.9964        -20.1644         4.9680      31.6582   |    1.808E-04     5.593E+04         9.072      |
+|    800.00 |     2.4932        -23.3641         4.9680      32.3216   |    1.983E-04     6.133E+04        11.335      |
+|    900.00 |     2.9900        -26.6261         4.9680      32.9068   |    2.148E-04     6.644E+04        13.789      |
+|   1000.00 |     3.4868        -29.9434         4.9680      33.4302   |    2.305E-04     7.131E+04        16.427      |
+|   1100.00 |     3.9836        -33.3105         4.9680      33.9037   |    2.456E-04     7.598E+04        19.243      |
+|   1200.00 |     4.4804        -36.7228         4.9680      34.3360   |    2.602E-04     8.048E+04        22.230      |
+|   1300.00 |     4.9772        -40.1765         4.9680      34.7336   |    2.742E-04     8.483E+04        25.385      |
+|   1400.00 |     5.4740        -43.6685         4.9680      35.1018   |    2.879E-04     8.906E+04        28.701      |
+|   1500.00 |     5.9708        -47.1960         4.9680      35.4445   |    3.012E-04     9.317E+04        32.176      |
+|   1600.00 |     6.4676        -50.7567         4.9680      35.7652   |    3.141E-04     9.717E+04        35.806      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "silane"
+        Overall, this is the 3th species in the mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  He: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 4.0026 gm/mol
+        L-J Potential Well Depth = 10.2 K
+        L-J collision diameter = 2.58 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is monatomic
+        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        mu_0(298.15K) = H298[k]  -2.63116E-16
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                        2.5            0            0            0
+                          0      -745.38      0.91535
+               High temperature polynomials: 1000 < T < 5000: 
+                            2.5                0                0                0
+                              0         -745.375        0.9153489
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000         -8.9817         4.9680      30.1247   |    1.969E-04     1.534E+04         1.575      |
+|    300.00 |     0.0092         -9.0375         4.9680      30.1555   |    1.977E-04     1.540E+04         1.591      |
+|    400.00 |     0.5060        -12.1279         4.9680      31.5847   |    2.380E-04     1.854E+04         2.564      |
+|    500.00 |     1.0028        -15.3438         4.9680      32.6933   |    2.748E-04     2.141E+04         3.709      |
+|    600.00 |     1.4996        -18.6598         4.9680      33.5990   |    3.091E-04     2.408E+04         5.016      |
+|    700.00 |     1.9964        -22.0590         4.9680      34.3649   |    3.414E-04     2.659E+04         6.473      |
+|    800.00 |     2.4932        -25.5294         4.9680      35.0282   |    3.720E-04     2.898E+04         8.073      |
+|    900.00 |     2.9900        -29.0621         4.9680      35.6134   |    4.013E-04     3.126E+04         9.810      |
+|   1000.00 |     3.4868        -32.6500         4.9680      36.1368   |    4.295E-04     3.346E+04        11.677      |
+|   1100.00 |     3.9836        -36.2878         4.9680      36.6103   |    4.567E-04     3.557E+04        13.671      |
+|   1200.00 |     4.4804        -39.9707         4.9680      37.0426   |    4.830E-04     3.762E+04        15.786      |
+|   1300.00 |     4.9772        -43.6951         4.9680      37.4403   |    5.085E-04     3.961E+04        18.020      |
+|   1400.00 |     5.4740        -47.4578         4.9680      37.8084   |    5.333E-04     4.154E+04        20.369      |
+|   1500.00 |     5.9708        -51.2560         4.9680      38.1512   |    5.575E-04     4.343E+04        22.830      |
+|   1600.00 |     6.4676        -55.0873         4.9680      38.4718   |    5.811E-04     4.526E+04        25.400      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH4" IN PHASE "silane"
+        Overall, this is the 4th species in the mechanism
+        It is the 4th species in the phase
+        Elemental Composition:
+                  Si: 1
+                  H: 4
+        Electronic Charge = 0.00
+        Molecular Weight = 32.1173 gm/mol
+        L-J Potential Well Depth = 207.6 K
+        L-J collision diameter = 4.08 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 8.2002 kcal/gmol
+        mu_0(298.15K) = H298[k]  8.20017
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 2000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     1.4516     0.013987  -4.2346e-06  -2.3606e-09
+                 1.3712e-12       3113.4       12.322
+               High temperature polynomials: 1000 < T < 2000: 
+                      0.7935938      0.017671899   -1.1398009e-05    3.5992604e-09
+                 -4.5241571e-13        3198.2127        15.242257
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -14.5495        10.3212      48.7992   |    1.171E-04     2.082E+03         0.615      |
+|    300.00 |     0.0191        -14.6398        10.3615      48.8632   |    1.178E-04     2.102E+03         0.621      |
+|    400.00 |     1.1604        -19.6925        12.4262      52.1322   |    1.526E-04     3.266E+03         1.023      |
+|    500.00 |     2.4968        -25.0565        14.2628      55.1065   |    1.837E-04     4.516E+03         1.497      |
+|    600.00 |     4.0054        -30.7062        15.8727      57.8527   |    2.121E-04     5.808E+03         2.037      |
+|    700.00 |     5.6640        -36.6207        17.2636      60.4066   |    2.384E-04     7.108E+03         2.639      |
+|    800.00 |     7.4513        -42.7819        18.4501      62.7915   |    2.629E-04     8.389E+03         3.300      |
+|    900.00 |     9.3479        -49.1739        19.4528      65.0242   |    2.860E-04     9.637E+03         4.017      |
+|   1000.00 |    11.3367        -55.7821        20.2994      67.1188   |    3.079E-04     1.084E+04         4.787      |
+|   1100.00 |    13.4156        -62.5988        21.0034      69.1039   |    3.289E-04     1.200E+04         5.610      |
+|   1200.00 |    15.5464        -69.6028        21.5972      70.9577   |    3.490E-04     1.312E+04         6.482      |
+|   1300.00 |    17.7319        -76.7868        22.0975      72.7067   |    3.684E-04     1.419E+04         7.403      |
+|   1400.00 |    19.9633        -84.1409        22.5201      74.3602   |    3.872E-04     1.521E+04         8.371      |
+|   1500.00 |    22.2338        -91.6560        22.8789      75.9265   |    4.054E-04     1.620E+04         9.386      |
+|   1600.00 |    24.5374        -99.3236        23.1854      77.4131   |    4.232E-04     1.716E+04        10.446      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SI" IN PHASE "silane"
+        Overall, this is the 5th species in the mechanism
+        It is the 5th species in the phase
+        Elemental Composition:
+                  Si: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 28.0855 gm/mol
+        L-J Potential Well Depth = 3036 K
+        L-J collision diameter = 2.91 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is monatomic
+        Heat of formation (298.15K) = 107.7018 kcal/gmol
+        mu_0(298.15K) = H298[k]  107.702
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     3.1794   -0.0027647   4.4784e-06  -3.2833e-09
+                 9.1214e-13        53339       2.7273
+               High temperature polynomials: 1000 < T < 5000: 
+                      2.6506014   -0.00035763852    2.9592293e-07   -7.2804829e-11
+                  5.7963329e-15        53437.054        5.2204057
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -11.9620         5.3125      40.1208   |    6.981E-05     8.190E+02         0.534      |
+|    300.00 |     0.0098        -12.0363         5.3093      40.1536   |    7.017E-05     8.229E+02         0.541      |
+|    400.00 |     0.5334        -16.1309         5.1732      41.6608   |    8.926E-05     1.024E+03         0.958      |
+|    500.00 |     1.0463        -20.3565         5.0936      42.8057   |    1.073E-04     1.215E+03         1.476      |
+|    600.00 |     1.5533        -24.6848         5.0510      43.7302   |    1.247E-04     1.403E+03         2.085      |
+|    700.00 |     2.0573        -29.0977         5.0302      44.5071   |    1.418E-04     1.591E+03         2.775      |
+|    800.00 |     2.5597        -33.5827         5.0203      45.1780   |    1.588E-04     1.779E+03         3.541      |
+|    900.00 |     3.0615        -38.1306         5.0148      45.7690   |    1.758E-04     1.967E+03         4.378      |
+|   1000.00 |     3.5628        -42.7344         5.0115      46.2972   |    1.929E-04     2.158E+03         5.282      |
+|   1100.00 |     4.0644        -47.3884         5.0214      46.7752   |    2.102E-04     2.355E+03         6.250      |
+|   1200.00 |     4.5672        -52.0881         5.0351      47.2127   |    2.277E-04     2.557E+03         7.279      |
+|   1300.00 |     5.0715        -56.8298         5.0522      47.6164   |    2.454E-04     2.765E+03         8.366      |
+|   1400.00 |     5.5777        -61.6104         5.0722      47.9915   |    2.633E-04     2.977E+03         9.510      |
+|   1500.00 |     6.0860        -66.4273         5.0944      48.3422   |    2.815E-04     3.196E+03        10.709      |
+|   1600.00 |     6.5967        -71.2782         5.1185      48.6718   |    3.001E-04     3.420E+03        11.962      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH" IN PHASE "silane"
+        Overall, this is the 6th species in the mechanism
+        It is the 6th species in the phase
+        Elemental Composition:
+                  Si: 1
+                  H: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 29.0934 gm/mol
+        L-J Potential Well Depth = 95.8 K
+        L-J collision diameter = 3.66 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is linear
+        Heat of formation (298.15K) = 91.7096 kcal/gmol
+        mu_0(298.15K) = H298[k]  91.7096
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 2000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                      3.836   -0.0027027   6.8491e-06  -5.4242e-09
+                 1.4721e-12        45076      0.93508
+               High temperature polynomials: 1000 < T < 2000: 
+                        3.11043      0.001094946     2.898629e-08    -2.745104e-10
+                   7.051799e-14         45168.98         4.193487
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -13.1797         6.9690      44.2049   |    1.804E-04     2.454E+03         0.762      |
+|    300.00 |     0.0129        -13.2615         6.9693      44.2480   |    1.812E-04     2.466E+03         0.770      |
+|    400.00 |     0.7125        -17.7916         7.0374      46.2601   |    2.237E-04     3.088E+03         1.254      |
+|    500.00 |     1.4227        -22.4995         7.1757      47.8443   |    2.615E-04     3.692E+03         1.825      |
+|    600.00 |     2.1489        -27.3518         7.3512      49.1678   |    2.960E-04     4.291E+03         2.474      |
+|    700.00 |     2.8933        -32.3272         7.5378      50.3150   |    3.282E-04     4.887E+03         3.198      |
+|    800.00 |     3.6561        -37.4105         7.7165      51.3333   |    3.586E-04     5.472E+03         3.993      |
+|    900.00 |     4.4359        -42.5905         7.8753      52.2516   |    3.874E-04     6.042E+03         4.856      |
+|   1000.00 |     5.2304        -47.8582         8.0092      53.0885   |    4.151E-04     6.590E+03         5.783      |
+|   1100.00 |     6.0371        -53.2059         8.1233      53.8573   |    4.417E-04     7.120E+03         6.772      |
+|   1200.00 |     6.8546        -58.6277         8.2230      54.5685   |    4.674E-04     7.633E+03         7.822      |
+|   1300.00 |     7.6813        -64.1180         8.3088      55.2302   |    4.923E-04     8.131E+03         8.931      |
+|   1400.00 |     8.5159        -69.6723         8.3817      55.8487   |    5.165E-04     8.611E+03        10.097      |
+|   1500.00 |     9.3572        -75.2865         8.4428      56.4291   |    5.401E-04     9.076E+03        11.319      |
+|   1600.00 |    10.2041        -80.9570         8.4939      56.9757   |    5.631E-04     9.526E+03        12.595      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH2" IN PHASE "silane"
+        Overall, this is the 7th species in the mechanism
+        It is the 7th species in the phase
+        Elemental Composition:
+                  Si: 1
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 30.1014 gm/mol
+        L-J Potential Well Depth = 133.1 K
+        L-J collision diameter = 3.8 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 64.8078 kcal/gmol
+        mu_0(298.15K) = H298[k]  64.8078
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 3000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     3.4751    0.0021393   7.6723e-07   5.2177e-10
+                -9.8988e-13        31474       4.4366
+               High temperature polynomials: 1000 < T < 3000: 
+                        4.14239      0.002150191     -2.19073e-07    -2.073725e-10
+                   4.741018e-14         31104.84        0.2930745
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -14.7593         8.3207      49.5030   |    1.548E-04     2.377E+03         0.705      |
+|    300.00 |     0.0154        -14.8510         8.3304      49.5545   |    1.555E-04     2.392E+03         0.712      |
+|    400.00 |     0.8750        -19.9345         8.8662      52.0238   |    1.954E-04     3.204E+03         1.164      |
+|    500.00 |     1.7892        -25.2415         9.4192      54.0615   |    2.306E-04     4.027E+03         1.697      |
+|    600.00 |     2.7590        -30.7378         9.9744      55.8280   |    2.626E-04     4.868E+03         2.304      |
+|    700.00 |     3.7835        -36.4009        10.5121      57.4063   |    2.923E-04     5.723E+03         2.981      |
+|    800.00 |     4.8600        -42.2144        11.0077      58.8430   |    3.202E-04     6.578E+03         3.724      |
+|    900.00 |     5.9827        -48.1657        11.4321      60.1648   |    3.466E-04     7.409E+03         4.529      |
+|   1000.00 |     7.1429        -54.2440        11.7514      61.3869   |    3.719E-04     8.185E+03         5.395      |
+|   1100.00 |     8.3304        -60.4400        11.9946      62.5186   |    3.961E-04     8.913E+03         6.320      |
+|   1200.00 |     9.5411        -66.7451        12.2156      63.5719   |    4.194E-04     9.627E+03         7.301      |
+|   1300.00 |    10.7728        -73.1521        12.4145      64.5576   |    4.420E-04     1.032E+04         8.336      |
+|   1400.00 |    12.0233        -79.6547        12.5917      65.4843   |    4.640E-04     1.100E+04         9.425      |
+|   1500.00 |    13.2904        -86.2473        12.7477      66.3584   |    4.853E-04     1.167E+04        10.566      |
+|   1600.00 |    14.5721        -92.9248        12.8834      67.1856   |    5.061E-04     1.231E+04        11.758      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH3" IN PHASE "silane"
+        Overall, this is the 8th species in the mechanism
+        It is the 8th species in the phase
+        Elemental Composition:
+                  Si: 1
+                  H: 3
+        Electronic Charge = 0.00
+        Molecular Weight = 31.1093 gm/mol
+        L-J Potential Well Depth = 170.3 K
+        L-J collision diameter = 3.94 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 47.4322 kcal/gmol
+        mu_0(298.15K) = H298[k]  47.4322
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 3000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     2.9467    0.0064668   5.9917e-07  -2.2184e-09
+                 3.0527e-13        22702       7.3479
+               High temperature polynomials: 1000 < T < 3000: 
+                       5.015906       0.00373275    -3.609053e-07    -3.729193e-10
+                    8.46849e-14         21902.33        -4.291368
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -15.4478         9.6810      51.8123   |    1.341E-04     2.308E+03         0.656      |
+|    300.00 |     0.0179        -15.5438         9.7041      51.8723   |    1.348E-04     2.326E+03         0.664      |
+|    400.00 |     1.0496        -20.8831        10.9200      54.8319   |    1.721E-04     3.345E+03         1.089      |
+|    500.00 |     2.1996        -26.4970        12.0657      57.3932   |    2.053E-04     4.414E+03         1.590      |
+|    600.00 |     3.4598        -32.3530        13.1213      59.6879   |    2.353E-04     5.515E+03         2.161      |
+|    700.00 |     4.8202        -38.4280        14.0683      61.7831   |    2.632E-04     6.624E+03         2.798      |
+|    800.00 |     6.2692        -44.7042        14.8898      63.7168   |    2.892E-04     7.719E+03         3.497      |
+|    900.00 |     7.7935        -51.1667        15.5702      65.5113   |    3.138E-04     8.775E+03         4.256      |
+|   1000.00 |     9.3781        -57.8023        16.0954      67.1804   |    3.372E-04     9.766E+03         5.071      |
+|   1100.00 |    11.0092        -64.5989        16.5194      68.7346   |    3.596E-04     1.071E+04         5.941      |
+|   1200.00 |    12.6807        -71.5459        16.9046      70.1888   |    3.812E-04     1.163E+04         6.863      |
+|   1300.00 |    14.3888        -78.6338        17.2512      71.5558   |    4.020E-04     1.254E+04         7.838      |
+|   1400.00 |    16.1296        -85.8545        17.5598      72.8458   |    4.222E-04     1.342E+04         8.862      |
+|   1500.00 |    17.8995        -93.2007        17.8314      74.0668   |    4.418E-04     1.428E+04         9.936      |
+|   1600.00 |    19.6947       -100.6658        18.0675      75.2253   |    4.609E-04     1.511E+04        11.057      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "H3SISIH" IN PHASE "silane"
+        Overall, this is the 9th species in the mechanism
+        It is the 9th species in the phase
+        Elemental Composition:
+                  Si: 2
+                  H: 4
+        Electronic Charge = 0.00
+        Molecular Weight = 60.2028 gm/mol
+        L-J Potential Well Depth = 312.6 K
+        L-J collision diameter = 4.6 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 74.9717 kcal/gmol
+        mu_0(298.15K) = H298[k]  74.9717
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 4000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1500: 
+                     3.6987     0.018702  -1.4307e-05   6.0058e-09
+                -1.1163e-12        35908       8.8252
+               High temperature polynomials: 1500 < T < 4000: 
+                       11.27202      0.002538145    -2.998472e-07    -9.465367e-11
+                   1.855053e-14         32971.69        -32.64598
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|    -0.0000        -20.6717        16.2021      69.3333   |    1.035E-04     1.543E+03         0.497      |
+|    300.00 |     0.0300        -20.8001        16.2449      69.4336   |    1.042E-04     1.557E+03         0.503      |
+|    400.00 |     1.7639        -27.9989        18.3739      74.4070   |    1.387E-04     2.346E+03         0.834      |
+|    500.00 |     3.6940        -35.6592        20.1777      78.7063   |    1.710E-04     3.174E+03         1.226      |
+|    600.00 |     5.7902        -43.7242        21.7040      82.5240   |    2.009E-04     4.011E+03         1.674      |
+|    700.00 |     8.0269        -52.1516        22.9950      85.9694   |    2.288E-04     4.840E+03         2.173      |
+|    800.00 |    10.3826        -60.9081        24.0877      89.1133   |    2.550E-04     5.652E+03         2.720      |
+|    900.00 |    12.8389        -69.9659        25.0139      92.0054   |    2.796E-04     6.440E+03         3.314      |
+|   1000.00 |    15.3807        -79.3020        25.7999      94.6827   |    3.030E-04     7.203E+03         3.953      |
+|   1100.00 |    17.9949        -88.8962        26.4668      97.1738   |    3.252E-04     7.939E+03         4.634      |
+|   1200.00 |    20.6706        -98.7313        27.0301      99.5016   |    3.465E-04     8.647E+03         5.357      |
+|   1300.00 |    23.3979       -108.7917        27.5004     101.6843   |    3.669E-04     9.325E+03         6.120      |
+|   1400.00 |    26.1677       -119.0638        27.8827     103.7368   |    3.867E-04     9.973E+03         6.923      |
+|   1500.00 |    28.9715       -129.5352        28.1767     105.6711   |    4.057E-04     1.059E+04         7.763      |
+|   1600.00 |    31.8012       -140.1944        28.4157     107.4972   |    4.243E-04     1.118E+04         8.641      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2H6" IN PHASE "silane"
+        Overall, this is the 10th species in the mechanism
+        It is the 10th species in the phase
+        Elemental Composition:
+                  Si: 2
+                  H: 6
+        Electronic Charge = 0.00
+        Molecular Weight = 62.2186 gm/mol
+        L-J Potential Well Depth = 301.3 K
+        L-J collision diameter = 4.83 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 19.1004 kcal/gmol
+        mu_0(298.15K) = H298[k]  19.1004
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 2000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                    0.67348     0.040932  -4.4841e-05   2.9952e-08
+                -8.9011e-12       7932.8       18.627
+               High temperature polynomials: 1000 < T < 2000: 
+                      3.4074936      0.027206479   -1.7713204e-05    5.6391177e-09
+                 -7.1378682e-13        7532.1842        6.1321754
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -19.5060        19.1063      65.4235   |    9.726E-05     1.653E+03         0.470      |
+|    300.00 |     0.0354        -19.6272        19.1842      65.5419   |    9.788E-05     1.671E+03         0.476      |
+|    400.00 |     2.1499        -26.4896        22.9732      71.5988   |    1.301E-04     2.659E+03         0.789      |
+|    500.00 |     4.6069        -33.9274        26.0655      77.0685   |    1.600E-04     3.706E+03         1.159      |
+|    600.00 |     7.3454        -41.8872        28.6270      82.0543   |    1.877E-04     4.771E+03         1.581      |
+|    700.00 |    10.3188        -50.3247        30.7814      86.6335   |    2.135E-04     5.834E+03         2.052      |
+|    800.00 |    13.4908        -59.2024        32.6100      90.8665   |    2.376E-04     6.881E+03         2.568      |
+|    900.00 |    16.8312        -68.4880        34.1514      94.7992   |    2.604E-04     7.900E+03         3.129      |
+|   1000.00 |    20.3114        -78.1533        35.4019      98.4648   |    2.820E-04     8.874E+03         3.732      |
+|   1100.00 |    24.0533        -88.4047        36.4896     102.2345   |    3.025E-04     9.821E+03         4.375      |
+|   1200.00 |    27.7482        -98.7906        37.3844     105.4490   |    3.221E-04     1.073E+04         5.057      |
+|   1300.00 |    31.5254       -109.4881        38.1367     108.4719   |    3.410E-04     1.159E+04         5.777      |
+|   1400.00 |    35.3717       -120.4792        38.7711     111.3220   |    3.592E-04     1.243E+04         6.534      |
+|   1500.00 |    39.2764       -131.7473        39.3089     114.0158   |    3.768E-04     1.323E+04         7.327      |
+|   1600.00 |    43.2308       -143.2776        39.7680     116.5678   |    3.939E-04     1.401E+04         8.155      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "H2SISIH2" IN PHASE "silane"
+        Overall, this is the 11th species in the mechanism
+        It is the 11th species in the phase
+        Elemental Composition:
+                  Si: 2
+                  H: 4
+        Electronic Charge = 0.00
+        Molecular Weight = 60.2028 gm/mol
+        L-J Potential Well Depth = 312.6 K
+        L-J collision diameter = 4.6 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 62.8766 kcal/gmol
+        mu_0(298.15K) = H298[k]  62.8766
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 3000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     5.1332     0.012529  -4.6204e-07  -6.6061e-09
+                 2.8643e-12        29569      0.76051
+               High temperature polynomials: 1000 < T < 3000: 
+                       8.986817      0.005405047    -5.214022e-07    -5.313742e-10
+                   1.188727e-13         28327.48        -20.04478
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -19.9487        17.2391      66.9082   |    1.035E-04     1.641E+03         0.497      |
+|    300.00 |     0.0319        -20.0726        17.2788      67.0150   |    1.042E-04     1.656E+03         0.503      |
+|    400.00 |     1.8635        -27.0445        19.3181      72.2701   |    1.387E-04     2.466E+03         0.834      |
+|    500.00 |     3.8881        -34.5020        21.1344      76.7802   |    1.710E-04     3.323E+03         1.226      |
+|    600.00 |     6.0824        -42.3835        22.7104      80.7765   |    2.009E-04     4.195E+03         1.674      |
+|    700.00 |     8.4220        -50.6443        24.0424      84.3805   |    2.288E-04     5.058E+03         2.173      |
+|    800.00 |    10.8830        -59.2490        25.1406      87.6651   |    2.550E-04     5.896E+03         2.720      |
+|    900.00 |    13.4431        -68.1683        26.0286      90.6794   |    2.796E-04     6.699E+03         3.314      |
+|   1000.00 |    16.0830        -77.3771        26.7438      93.4601   |    3.030E-04     7.464E+03         3.953      |
+|   1100.00 |    18.7887        -86.8536        27.3604      96.0384   |    3.252E-04     8.204E+03         4.634      |
+|   1200.00 |    21.5532        -96.5790        27.9209      98.4435   |    3.465E-04     8.928E+03         5.357      |
+|   1300.00 |    24.3710       -106.5373        28.4256     100.6987   |    3.669E-04     9.635E+03         6.120      |
+|   1400.00 |    27.2365       -116.7144        28.8751     102.8220   |    3.867E-04     1.032E+04         6.923      |
+|   1500.00 |    30.1442       -127.0978        29.2708     104.8280   |    4.057E-04     1.099E+04         7.763      |
+|   1600.00 |    33.0889       -137.6764        29.6146     106.7283   |    4.243E-04     1.164E+04         8.641      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3H8" IN PHASE "silane"
+        Overall, this is the 12th species in the mechanism
+        It is the 12th species in the phase
+        Elemental Composition:
+                  Si: 3
+                  H: 8
+        Electronic Charge = 0.00
+        Molecular Weight = 92.32 gm/mol
+        L-J Potential Well Depth = 331.2 K
+        L-J collision diameter = 5.56 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 28.9006 kcal/gmol
+        mu_0(298.15K) = H298[k]  28.9006
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 2000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                    0.77197     0.063443  -7.6726e-05   5.4544e-08
+                -1.6612e-11        12071       21.533
+               High temperature polynomials: 1000 < T < 2000: 
+                      6.0933341      0.036580112   -2.3892361e-05    7.6271932e-09
+                 -9.6769384e-13        11297.205       -2.7475654
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -24.8164        28.1812      83.2344   |    8.513E-05     1.441E+03         0.386      |
+|    300.00 |     0.0522        -24.9705        28.2930      83.4091   |    8.568E-05     1.456E+03         0.390      |
+|    400.00 |     3.1604        -33.7651        33.6601      92.3137   |    1.144E-04     2.311E+03         0.648      |
+|    500.00 |     6.7481        -43.4028        37.9388     100.3016   |    1.415E-04     3.214E+03         0.953      |
+|    600.00 |    10.7218        -53.8004        41.4229     107.5369   |    1.667E-04     4.129E+03         1.301      |
+|    700.00 |    15.0134        -64.8893        44.3268     114.1467   |    1.903E-04     5.040E+03         1.690      |
+|    800.00 |    19.5724        -76.6122        46.7861     120.2308   |    2.124E-04     5.937E+03         2.116      |
+|    900.00 |    24.3578        -88.9205        48.8569     125.8647   |    2.333E-04     6.809E+03         2.579      |
+|   1000.00 |    29.3301       -101.7720        50.5160     131.1021   |    2.530E-04     7.640E+03         3.076      |
+|   1100.00 |    34.7112       -115.5439        51.9788     136.5955   |    2.719E-04     8.451E+03         3.606      |
+|   1200.00 |    39.9705       -129.4346        53.1730     141.1709   |    2.899E-04     9.225E+03         4.169      |
+|   1300.00 |    45.3394       -143.7688        54.1762     145.4678   |    3.072E-04     9.968E+03         4.763      |
+|   1400.00 |    50.8005       -158.5199        55.0218     149.5145   |    3.239E-04     1.068E+04         5.388      |
+|   1500.00 |    56.3394       -173.6642        55.7382     153.3357   |    3.400E-04     1.137E+04         6.042      |
+|   1600.00 |    61.9446       -189.1802        56.3496     156.9530   |    3.557E-04     1.204E+04         6.726      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2" IN PHASE "silane"
+        Overall, this is the 13th species in the mechanism
+        It is the 13th species in the phase
+        Elemental Composition:
+                  Si: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 56.171 gm/mol
+        L-J Potential Well Depth = 3036 K
+        L-J collision diameter = 3.28 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is linear
+        Heat of formation (298.15K) = 141.0029 kcal/gmol
+        mu_0(298.15K) = H298[k]  141.003
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 2000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     2.9672     0.006312  -1.0971e-05   8.9279e-09
+                -2.7874e-12        69871        9.279
+               High temperature polynomials: 1000 < T < 2000: 
+                      4.1446779    0.00065234677    -5.010852e-07    1.8062843e-10
+                 -2.5161111e-14        69694.707        3.8627366
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -16.3837         8.1246      54.9512   |    7.770E-05     6.101E+02         0.464      |
+|    300.00 |     0.0150        -16.4854         8.1314      55.0015   |    7.811E-05     6.136E+02         0.470      |
+|    400.00 |     0.8438        -22.1097         8.4192      57.3837   |    9.936E-05     8.096E+02         0.833      |
+|    500.00 |     1.6950        -27.9462         8.5892      59.2823   |    1.194E-04     1.006E+03         1.283      |
+|    600.00 |     2.5593        -33.9555         8.6882      60.8579   |    1.388E-04     1.198E+03         1.812      |
+|    700.00 |     3.4314        -40.1101         8.7495      62.2021   |    1.578E-04     1.388E+03         2.412      |
+|    800.00 |     4.3086        -46.3901         8.7930      63.3734   |    1.767E-04     1.577E+03         3.078      |
+|    900.00 |     5.1896        -52.7803         8.8257      64.4111   |    1.957E-04     1.765E+03         3.806      |
+|   1000.00 |     6.0731        -59.2688         8.8408      65.3419   |    2.147E-04     1.951E+03         4.592      |
+|   1100.00 |     7.0126        -65.9396         8.8620      66.3201   |    2.340E-04     2.141E+03         5.433      |
+|   1200.00 |     7.8994        -72.6107         8.8746      67.0918   |    2.534E-04     2.331E+03         6.327      |
+|   1300.00 |     8.7874        -79.3559         8.8845      67.8025   |    2.731E-04     2.523E+03         7.272      |
+|   1400.00 |     9.6763        -86.1695         8.8924      68.4612   |    2.931E-04     2.716E+03         8.266      |
+|   1500.00 |    10.5658        -93.0466         8.8987      69.0750   |    3.134E-04     2.912E+03         9.309      |
+|   1600.00 |    11.4560        -99.9832         8.9039      69.6495   |    3.340E-04     3.110E+03        10.398      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3" IN PHASE "silane"
+        Overall, this is the 14th species in the mechanism
+        It is the 14th species in the phase
+        Elemental Composition:
+                  Si: 3
+        Electronic Charge = 0.00
+        Molecular Weight = 84.2565 gm/mol
+        L-J Potential Well Depth = 3036 K
+        L-J collision diameter = 3.55 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is nonlinear
+        Heat of formation (298.15K) = 152.0045 kcal/gmol
+        mu_0(298.15K) = H298[k]  152.005
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     4.5979     0.010715    -1.61e-05   1.0969e-08
+                -2.7833e-12        74766       3.4422
+               High temperature polynomials: 1000 < T < 5000: 
+                       7.421336   -0.00011709948    8.9820775e-08    7.1935964e-12
+                 -2.5670837e-15        74146.699       -10.365274
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -19.0838        13.1755      64.0075   |    8.124E-05     6.654E+02         0.424      |
+|    300.00 |     0.0244        -19.2023        13.1893      64.0890   |    8.167E-05     6.693E+02         0.429      |
+|    400.00 |     1.3755        -25.8132        13.7887      67.9717   |    1.039E-04     8.880E+02         0.760      |
+|    500.00 |     2.7747        -32.7715        14.1641      71.0924   |    1.248E-04     1.112E+03         1.172      |
+|    600.00 |     4.2032        -40.0146        14.3865      73.6963   |    1.451E-04     1.333E+03         1.654      |
+|    700.00 |     5.6488        -47.4983        14.5137      75.9245   |    1.650E-04     1.551E+03         2.202      |
+|    800.00 |     7.1043        -55.1900        14.5902      77.8679   |    1.848E-04     1.766E+03         2.810      |
+|    900.00 |     8.5662        -63.0645        14.6472      79.5897   |    2.046E-04     1.980E+03         3.475      |
+|   1000.00 |    10.0337        -71.1021        14.7027      81.1358   |    2.245E-04     2.197E+03         4.192      |
+|   1100.00 |    11.5048        -79.2869        14.7193      82.5379   |    2.446E-04     2.410E+03         4.960      |
+|   1200.00 |    12.9777        -87.6057        14.7396      83.8194   |    2.650E-04     2.625E+03         5.776      |
+|   1300.00 |    14.4528        -96.0474        14.7637      85.0002   |    2.856E-04     2.844E+03         6.639      |
+|   1400.00 |    15.9305       -104.6028        14.7914      86.0953   |    3.065E-04     3.067E+03         7.547      |
+|   1500.00 |    17.4112       -113.2640        14.8227      87.1168   |    3.277E-04     3.293E+03         8.499      |
+|   1600.00 |    18.8952       -122.0241        14.8575      88.0745   |    3.492E-04     3.524E+03         9.493      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "silane"
+        Overall, this is the 15th species in the mechanism
+        It is the 15th species in the phase
+        Elemental Composition:
+                  N: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 28.0135 gm/mol
+        L-J Potential Well Depth = 97.53 K
+        L-J collision diameter = 3.62 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 1.76 Angstroms**3
+        Rotational Collision Number at 298 K = 4
+        This molecule is linear
+        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        mu_0(298.15K) = H298[k]  0.000341755
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     3.2987    0.0014082  -3.9632e-06   5.6415e-09
+                -2.4449e-12      -1020.9       3.9504
+               High temperature polynomials: 1000 < T < 5000: 
+                        2.92664     0.0014879768     -5.68476e-07    1.0097038e-10
+                  -6.753351e-15        -922.7977         5.980528
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -13.6471         6.9481      45.7726   |    1.801E-04     2.622E+03         0.771      |
+|    300.00 |     0.0129        -13.7318         6.9492      45.8156   |    1.810E-04     2.635E+03         0.779      |
+|    400.00 |     0.7106        -18.4184         7.0075      47.8226   |    2.235E-04     3.296E+03         1.269      |
+|    500.00 |     1.4150        -23.2820         7.0832      49.3939   |    2.614E-04     3.906E+03         1.846      |
+|    600.00 |     2.1284        -28.2882         7.1909      50.6943   |    2.960E-04     4.499E+03         2.504      |
+|    700.00 |     2.8543        -33.4148         7.3338      51.8131   |    3.282E-04     5.093E+03         3.237      |
+|    800.00 |     3.5960        -38.6466         7.5034      52.8032   |    3.586E-04     5.695E+03         4.042      |
+|    900.00 |     4.3552        -43.9723         7.6795      53.6972   |    3.875E-04     6.298E+03         4.914      |
+|   1000.00 |     5.1311        -49.3834         7.8303      54.5145   |    4.152E-04     6.881E+03         5.853      |
+|   1100.00 |     5.9201        -54.8730         7.9490      55.2665   |    4.418E-04     7.435E+03         6.854      |
+|   1200.00 |     6.7205        -60.4349         8.0563      55.9628   |    4.676E-04     7.975E+03         7.917      |
+|   1300.00 |     7.5311        -66.0640         8.1532      56.6116   |    4.925E-04     8.502E+03         9.039      |
+|   1400.00 |     8.3508        -71.7558         8.2404      57.2190   |    5.167E-04     9.017E+03        10.220      |
+|   1500.00 |     9.1788        -77.5066         8.3187      57.7903   |    5.403E-04     9.519E+03        11.456      |
+|   1600.00 |    10.0143        -83.3128         8.3888      58.3294   |    5.634E-04     1.001E+04        12.748      |
+------------------------------------------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "0" IN PHASE "silane"
+
+        SIH4 + H <=> SIH3 + H2
+
+        There are 2 reactants: SIH4 H 
+        There are 2 products: H2 SIH3 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  1.72E+10  7.80E+11      2.26 |     -14.91    -12.87      6.83  |  2.04E-01  2.51E+10     15.13 |  2.87E+07  3.40E-04 |
+|  300.0 |  1.76E+10  7.80E+11      2.26 |     -14.92    -12.87      6.84  |  2.38E-01  2.50E+10     15.13 |  2.91E+07  3.93E-04 |
+|  400.0 |  4.54E+10  7.80E+11      2.26 |     -15.62    -12.78      7.10  |  1.33E+02  2.19E+10     15.04 |  4.22E+07  1.23E-01 |
+|  500.0 |  8.02E+10  7.80E+11      2.26 |     -16.33    -12.76      7.14  |  5.83E+03  2.15E+10     15.02 |  4.77E+07  3.46E+00 |
+|  600.0 |  1.17E+11  7.80E+11      2.26 |     -17.04    -12.81      7.06  |  7.27E+04  2.24E+10     15.07 |  4.83E+07  3.00E+01 |
+|  700.0 |  1.54E+11  7.80E+11      2.26 |     -17.74    -12.90      6.91  |  4.44E+05  2.41E+10     15.16 |  4.66E+07  1.35E+02 |
+|  800.0 |  1.88E+11  7.80E+11      2.26 |     -18.42    -13.03      6.74  |  1.74E+06  2.63E+10     15.29 |  4.37E+07  4.05E+02 |
+|  900.0 |  2.20E+11  7.80E+11      2.26 |     -19.09    -13.19      6.55  |  5.11E+06  2.88E+10     15.45 |  4.04E+07  9.36E+02 |
+| 1000.0 |  2.50E+11  7.80E+11      2.26 |     -19.73    -13.37      6.36  |  1.22E+07  2.35E+91    385.67 |  3.71E+07  1.81E+03 |
+| 1100.0 |  2.77E+11  7.80E+11      2.26 |     -20.36    -13.59      6.15  |  2.51E+07  3.53E+10     15.85 |  3.40E+07  3.08E+03 |
+| 1200.0 |  3.02E+11  7.80E+11      2.26 |     -20.96    -13.81      5.96  |  4.60E+07  3.89E+10     16.07 |  3.12E+07  4.75E+03 |
+| 1300.0 |  3.25E+11  7.80E+11      2.26 |     -21.55    -14.04      5.78  |  7.76E+07  4.26E+10     16.30 |  2.86E+07  6.82E+03 |
+| 1400.0 |  3.46E+11  7.80E+11      2.26 |     -22.12    -14.27      5.60  |  1.22E+08  4.65E+10     16.53 |  2.62E+07  9.25E+03 |
+| 1500.0 |  3.65E+11  7.80E+11      2.26 |     -22.67    -14.50      5.45  |  1.82E+08  5.04E+10     16.76 |  2.41E+07  1.20E+04 |
+| 1600.0 |  3.83E+11  7.80E+11      2.26 |     -23.21    -14.73      5.30  |  2.59E+08  5.42E+10     16.99 |  2.22E+07  1.50E+04 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "1" IN PHASE "silane"
+
+        SIH4 + M <=> SIH3 + H + M
+
+        There is one reactant: SIH4 
+        There are 2 products: H SIH3 
+        Reaction Type = Three Body Rxn: 
+                Rate Constants below include third body collision partner 
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           1           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  5.07E-55  5.88E+10     88.76 |      82.26     91.33     30.43  |  2.47E+07  8.74E+05     -1.98 |  2.07E-56  4.12E+04 |
+|  300.0 |  1.28E-54  5.84E+10     88.76 |      82.21     91.34     30.46  |  2.41E+07  8.62E+05     -1.99 |  5.19E-56  3.98E+04 |
+|  400.0 |  1.80E-38  4.38E+10     88.56 |      79.10     91.73     31.58  |  9.73E+06  4.91E+05     -2.37 |  5.48E-40  9.03E+03 |
+|  500.0 |  8.36E-29  3.51E+10     88.36 |      75.90     92.04     32.27  |  5.16E+06  3.46E+05     -2.68 |  2.04E-30  3.06E+03 |
+|  600.0 |  2.25E-22  2.92E+10     88.16 |      72.65     92.29     32.73  |  3.22E+06  2.75E+05     -2.93 |  4.57E-24  1.33E+03 |
+|  700.0 |  8.62E-18  2.50E+10     87.97 |      69.36     92.49     33.03  |  2.24E+06  2.36E+05     -3.13 |  1.50E-19  6.79E+02 |
+|  800.0 |  2.31E-14  2.19E+10     87.77 |      66.05     92.65     33.25  |  1.68E+06  2.12E+05     -3.29 |  3.53E-16  3.89E+02 |
+|  900.0 |  1.06E-11  1.95E+10     87.57 |      62.72     92.77     33.39  |  1.33E+06  1.97E+05     -3.41 |  1.44E-13  2.43E+02 |
+| 1000.0 |  1.41E-09  1.75E+10     87.37 |      59.37     92.86     33.49  |  1.09E+06  1.39E+86    366.53 |  1.72E-11  1.63E+02 |
+| 1100.0 |  7.65E-08  1.59E+10     87.17 |      56.02     92.91     33.53  |  9.33E+05  1.83E+05     -3.56 |  8.47E-10  1.15E+02 |
+| 1200.0 |  2.11E-06  1.46E+10     86.97 |      52.67     92.95     33.57  |  8.14E+05  1.80E+05     -3.59 |  2.15E-08  8.40E+01 |
+| 1300.0 |  3.49E-05  1.35E+10     86.77 |      49.31     92.97     33.58  |  7.25E+05  1.79E+05     -3.61 |  3.27E-07  6.37E+01 |
+| 1400.0 |  3.83E-04  1.25E+10     86.57 |      45.95     92.97     33.59  |  6.56E+05  1.79E+05     -3.62 |  3.33E-06  4.97E+01 |
+| 1500.0 |  3.04E-03  1.17E+10     86.38 |      42.59     92.97     33.58  |  6.01E+05  1.79E+05     -3.62 |  2.47E-05  3.97E+01 |
+| 1600.0 |  1.86E-02  1.10E+10     86.18 |      39.24     92.96     33.58  |  5.57E+05  1.79E+05     -3.60 |  1.41E-04  3.23E+01 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "2" IN PHASE "silane"
+
+        SIH3 + H <=> SIH2 + H2
+
+        There are 2 reactants: H SIH3 
+        There are 2 products: H2 SIH2 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  1.72E+10  7.80E+11      2.26 |     -35.18    -34.73      1.51  |  2.83E-16  3.66E+11     36.99 |  2.87E+07  4.72E-19 |
+|  300.0 |  1.76E+10  7.80E+11      2.26 |     -35.18    -34.73      1.51  |  4.15E-16  3.65E+11     36.99 |  2.91E+07  6.85E-19 |
+|  400.0 |  4.54E+10  7.80E+11      2.26 |     -35.34    -34.70      1.59  |  2.25E-09  3.50E+11     36.96 |  4.22E+07  2.08E-12 |
+|  500.0 |  8.02E+10  7.80E+11      2.26 |     -35.49    -34.73      1.52  |  2.46E-05  3.63E+11     36.99 |  4.77E+07  1.46E-08 |
+|  600.0 |  1.17E+11  7.80E+11      2.26 |     -35.64    -34.82      1.36  |  1.23E-02  3.93E+11     37.08 |  4.83E+07  5.06E-06 |
+|  700.0 |  1.54E+11  7.80E+11      2.26 |     -35.76    -34.95      1.16  |  1.05E+00  4.35E+11     37.21 |  4.66E+07  3.18E-04 |
+|  800.0 |  1.88E+11  7.80E+11      2.26 |     -35.87    -35.12      0.94  |  2.99E+01  4.86E+11     37.38 |  4.37E+07  6.95E-03 |
+|  900.0 |  2.20E+11  7.80E+11      2.26 |     -35.95    -35.30      0.72  |  4.11E+02  5.43E+11     37.56 |  4.04E+07  7.53E-02 |
+| 1000.0 |  2.50E+11  7.80E+11      2.26 |     -36.01    -35.50      0.51  |  3.37E+03  4.31E+11     37.09 |  3.71E+07  5.01E-01 |
+| 1100.0 |  2.77E+11  7.80E+11      2.26 |     -36.05    -35.72      0.30  |  1.91E+04  6.70E+11     37.98 |  3.40E+07  2.34E+00 |
+| 1200.0 |  3.02E+11  7.80E+11      2.26 |     -36.07    -35.94      0.11  |  8.14E+04  7.38E+11     38.20 |  3.12E+07  8.40E+00 |
+| 1300.0 |  3.25E+11  7.80E+11      2.26 |     -36.08    -36.17 -7.15E-02  |  2.80E+05  8.09E+11     38.43 |  2.86E+07  2.46E+01 |
+| 1400.0 |  3.46E+11  7.80E+11      2.26 |     -36.06    -36.40     -0.24  |  8.13E+05  8.81E+11     38.66 |  2.62E+07  6.16E+01 |
+| 1500.0 |  3.65E+11  7.80E+11      2.26 |     -36.03    -36.63     -0.40  |  2.06E+06  9.56E+11     38.89 |  2.41E+07  1.36E+02 |
+| 1600.0 |  3.83E+11  7.80E+11      2.26 |     -35.98    -36.87     -0.55  |  4.67E+06  1.03E+12     39.13 |  2.22E+07  2.71E+02 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "3" IN PHASE "silane"
+
+        SI + SI + M <=> SI2 + M
+
+        There are 2 reactants: SI SI 
+        There is one product: SI2 
+        Reaction Type = Three Body Rxn: 
+                Rate Constants below include third body collision partner 
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3          -1           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = 1/s
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  1.38E+08  3.71E+08      0.59 |     -66.86    -74.40    -25.29  |  5.54E-43  1.88E+12     74.39 |  2.31E+05  2.26E-44 |
+|  300.0 |  1.39E+08  3.69E+08      0.58 |     -66.81    -74.41    -25.31  |  1.20E-42  1.87E+12     74.39 |  2.30E+05  4.88E-44 |
+|  400.0 |  1.71E+08  2.77E+08      0.38 |     -64.25    -74.62    -25.94  |  4.11E-29  1.45E+12     74.21 |  1.59E+05  1.25E-30 |
+|  500.0 |  1.84E+08  2.21E+08      0.18 |     -61.63    -74.80    -26.33  |  5.15E-21  1.13E+12     73.99 |  1.09E+05  1.26E-22 |
+|  600.0 |  1.87E+08  1.85E+08 -1.43E-02 |     -58.99    -74.95    -26.60  |  1.24E-15  8.98E+11     73.74 |  7.71E+04  2.52E-17 |
+|  700.0 |  1.84E+08  1.58E+08     -0.21 |     -56.32    -75.08    -26.81  |  8.40E-12  7.33E+11     73.48 |  5.59E+04  1.46E-13 |
+|  800.0 |  1.79E+08  1.38E+08     -0.41 |     -53.63    -75.21    -26.98  |  6.12E-09  6.12E+11     73.21 |  4.16E+04  9.33E-11 |
+|  900.0 |  1.73E+08  1.23E+08     -0.61 |     -50.92    -75.33    -27.13  |  1.01E-06  5.20E+11     72.94 |  3.17E+04  1.37E-08 |
+| 1000.0 |  1.66E+08  1.11E+08     -0.81 |     -48.20    -75.45    -27.25  |  5.93E-05  0.00E+00 -7.96E+03 |  2.47E+04  7.23E-07 |
+| 1100.0 |  1.60E+08  1.01E+08     -1.01 |     -45.56    -75.52    -27.23  |  1.57E-03  3.67E+11     72.32 |  1.96E+04  1.74E-05 |
+| 1200.0 |  1.53E+08  9.23E+07     -1.21 |     -42.84    -75.64    -27.33  |  2.46E-02  3.24E+11     72.04 |  1.58E+04  2.50E-04 |
+| 1300.0 |  1.47E+08  8.52E+07     -1.41 |     -40.10    -75.76    -27.43  |  2.50E-01  2.90E+11     71.77 |  1.29E+04  2.34E-03 |
+| 1400.0 |  1.41E+08  7.91E+07     -1.60 |     -37.35    -75.88    -27.52  |  1.81E+00  2.62E+11     71.49 |  1.07E+04  1.58E-02 |
+| 1500.0 |  1.35E+08  7.38E+07     -1.80 |     -34.59    -76.01    -27.61  |  1.00E+01  2.39E+11     71.22 |  8.92E+03  8.14E-02 |
+| 1600.0 |  1.30E+08  6.92E+07     -2.00 |     -31.83    -76.14    -27.69  |  4.45E+01  2.19E+11     70.96 |  7.53E+03  3.39E-01 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "4" IN PHASE "silane"
+
+        SIH4 + SIH2 <=> H3SISIH + H2
+
+        There are 2 reactants: SIH4 SIH2 
+        There are 2 products: H2 H3SISIH 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  1.30E+10  1.30E+10     -0.00 |       1.29      1.96      2.26  |  1.14E+11  4.16E+09     -1.96 |  2.17E+07  1.91E+08 |
+|  300.0 |  1.30E+10  1.30E+10     -0.00 |       1.28      1.97      2.29  |  1.12E+11  4.10E+09     -1.97 |  2.15E+07  1.85E+08 |
+|  400.0 |  1.30E+10  1.30E+10     -0.00 |       0.99      2.40      3.53  |  4.51E+10  2.20E+09     -2.40 |  1.21E+07  4.19E+07 |
+|  500.0 |  1.30E+10  1.30E+10     -0.00 |       0.59      2.78      4.38  |  2.36E+10  1.44E+09     -2.78 |  7.72E+06  1.40E+07 |
+|  600.0 |  1.30E+10  1.30E+10     -0.00 |       0.12      3.10      4.96  |  1.44E+10  1.07E+09     -3.10 |  5.36E+06  5.94E+06 |
+|  700.0 |  1.30E+10  1.30E+10     -0.00 |      -0.39      3.35      5.35  |  9.79E+09  8.80E+08     -3.35 |  3.94E+06  2.97E+06 |
+|  800.0 |  1.30E+10  1.30E+10     -0.00 |      -0.94      3.55      5.61  |  7.18E+09  7.71E+08     -3.55 |  3.02E+06  1.67E+06 |
+|  900.0 |  1.30E+10  1.30E+10     -0.00 |      -1.51      3.70      5.79  |  5.58E+09  7.06E+08     -3.70 |  2.38E+06  1.02E+06 |
+| 1000.0 |  1.30E+10  1.30E+10     -0.00 |      -2.10      3.81      5.91  |  4.52E+09  2.54E+89    364.91 |  1.93E+06  6.71E+05 |
+| 1100.0 |  1.30E+10  1.30E+10     -0.00 |      -2.69      3.88      5.97  |  3.80E+09  6.43E+08     -3.88 |  1.60E+06  4.66E+05 |
+| 1200.0 |  1.30E+10  1.30E+10     -0.00 |      -3.29      3.95      6.04  |  3.27E+09  6.24E+08     -3.95 |  1.34E+06  3.37E+05 |
+| 1300.0 |  1.30E+10  1.30E+10     -0.00 |      -3.90      4.01      6.08  |  2.88E+09  6.10E+08     -4.01 |  1.14E+06  2.53E+05 |
+| 1400.0 |  1.30E+10  1.30E+10     -0.00 |      -4.51      4.05      6.11  |  2.57E+09  6.00E+08     -4.05 |  9.85E+05  1.95E+05 |
+| 1500.0 |  1.30E+10  1.30E+10     -0.00 |      -5.12      4.09      6.14  |  2.34E+09  1.14E+10      4.72 |  8.58E+05  1.54E+05 |
+| 1600.0 |  1.30E+10  1.30E+10     -0.00 |      -5.73      4.11      6.15  |  2.14E+09  5.89E+08     -4.11 |  7.54E+05  1.24E+05 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "5" IN PHASE "silane"
+
+        SIH + H2 <=> SIH2 + H
+
+        There are 2 reactants: H2 SIH 
+        There are 2 products: H SIH2 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0 -3.5527e-15 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  4.61E+11  4.80E+11  2.36E-02 |      24.76     25.20      1.48  |  6.49E+29  2.28E+11    -25.18 |  7.71E+08  1.08E+27 |
+|  300.0 |  4.61E+11  4.80E+11  2.36E-02 |      24.76     25.20      1.48  |  4.99E+29  2.28E+11    -25.18 |  7.61E+08  8.24E+26 |
+|  400.0 |  4.66E+11  4.80E+11  2.36E-02 |      24.61     25.16      1.36  |  1.31E+25  2.42E+11    -25.14 |  4.32E+08  1.22E+22 |
+|  500.0 |  4.69E+11  4.80E+11  2.36E-02 |      24.48     25.16      1.36  |  2.35E+22  2.42E+11    -25.14 |  2.78E+08  1.39E+19 |
+|  600.0 |  4.71E+11  4.80E+11  2.36E-02 |      24.34     25.20      1.44  |  3.45E+20  2.33E+11    -25.18 |  1.94E+08  1.42E+17 |
+|  700.0 |  4.72E+11  4.80E+11  2.36E-02 |      24.19     25.28      1.55  |  1.68E+19  2.19E+11    -25.26 |  1.43E+08  5.10E+15 |
+|  800.0 |  4.73E+11  4.80E+11  2.36E-02 |      24.03     25.39      1.70  |  1.73E+18  2.04E+11    -25.36 |  1.10E+08  4.02E+14 |
+|  900.0 |  4.74E+11  4.80E+11  2.36E-02 |      23.85     25.51      1.85  |  2.93E+17  1.90E+11    -25.49 |  8.69E+07  5.38E+13 |
+| 1000.0 |  4.74E+11  4.80E+11  2.36E-02 |      23.66     25.66      2.00  |  7.02E+16  7.47E+10    -27.33 |  7.04E+07  1.04E+13 |
+| 1100.0 |  4.75E+11  4.80E+11  2.36E-02 |      23.45     25.81      2.14  |  2.17E+16  1.63E+11    -25.78 |  5.83E+07  2.66E+12 |
+| 1200.0 |  4.75E+11  4.80E+11  2.36E-02 |      23.23     25.96      2.28  |  8.09E+15  1.53E+11    -25.94 |  4.90E+07  8.34E+11 |
+| 1300.0 |  4.76E+11  4.80E+11  2.36E-02 |      23.00     26.12      2.40  |  3.49E+15  1.43E+11    -26.09 |  4.18E+07  3.07E+11 |
+| 1400.0 |  4.76E+11  4.80E+11  2.36E-02 |      22.75     26.27      2.52  |  1.69E+15  1.35E+11    -26.25 |  3.61E+07  1.28E+11 |
+| 1500.0 |  4.76E+11  4.80E+11  2.36E-02 |      22.49     26.43      2.62  |  9.02E+14  1.28E+11    -26.41 |  3.14E+07  5.95E+10 |
+| 1600.0 |  4.76E+11  4.80E+11  2.36E-02 |      22.23     26.59      2.72  |  5.17E+14  1.22E+11    -26.56 |  2.76E+07  3.00E+10 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "6" IN PHASE "silane"
+
+        SIH + SIH4 <=> H3SISIH + H
+
+        There are 2 reactants: SIH4 SIH 
+        There are 2 products: H H3SISIH 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  1.60E+11  1.60E+11     -0.00 |      26.05     27.16      3.75  |  1.98E+30  2.43E+10    -27.16 |  2.67E+08  3.31E+27 |
+|  300.0 |  1.60E+11  1.60E+11     -0.00 |      26.04     27.17      3.77  |  1.49E+30  2.40E+10    -27.17 |  2.64E+08  2.46E+27 |
+|  400.0 |  1.60E+11  1.60E+11     -0.00 |      25.60     27.56      4.89  |  1.56E+25  1.36E+10    -27.56 |  1.49E+08  1.45E+22 |
+|  500.0 |  1.60E+11  1.60E+11     -0.00 |      25.07     27.94      5.74  |  1.45E+22  8.90E+09    -27.94 |  9.50E+07  8.63E+18 |
+|  600.0 |  1.60E+11  1.60E+11     -0.00 |      24.46     28.30      6.40  |  1.30E+20  6.40E+09    -28.30 |  6.60E+07  5.37E+16 |
+|  700.0 |  1.60E+11  1.60E+11     -0.00 |      23.80     28.63      6.91  |  4.30E+18  4.95E+09    -28.63 |  4.85E+07  1.30E+15 |
+|  800.0 |  1.60E+11  1.60E+11     -0.00 |      23.08     28.93      7.31  |  3.24E+17  4.04E+09    -28.93 |  3.71E+07  7.52E+13 |
+|  900.0 |  1.60E+11  1.60E+11     -0.00 |      22.34     29.21      7.64  |  4.25E+16  3.43E+09    -29.21 |  2.93E+07  7.79E+12 |
+| 1000.0 |  1.60E+11  1.60E+11     -0.00 |      21.56     29.47      7.91  |  8.24E+15  4.86E+89    337.55 |  2.38E+07  1.22E+12 |
+| 1100.0 |  1.60E+11  1.60E+11     -0.00 |      20.76     29.69      8.12  |  2.13E+15  2.69E+09    -29.69 |  1.96E+07  2.62E+11 |
+| 1200.0 |  1.60E+11  1.60E+11     -0.00 |      19.94     29.91      8.31  |  6.85E+14  2.44E+09    -29.91 |  1.65E+07  7.07E+10 |
+| 1300.0 |  1.60E+11  1.60E+11     -0.00 |      19.10     30.13      8.48  |  2.60E+14  2.24E+09    -30.13 |  1.41E+07  2.29E+10 |
+| 1400.0 |  1.60E+11  1.60E+11     -0.00 |      18.25     30.33      8.63  |  1.13E+14  2.08E+09    -30.33 |  1.21E+07  8.55E+09 |
+| 1500.0 |  1.60E+11  1.60E+11     -0.00 |      17.38     30.52      8.76  |  5.44E+13  3.74E+10    -21.71 |  1.06E+07  3.59E+09 |
+| 1600.0 |  1.60E+11  1.60E+11     -0.00 |      16.49     30.69      8.87  |  2.86E+13  1.84E+09    -30.69 |  9.28E+06  1.66E+09 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "7" IN PHASE "silane"
+
+        SI + H2 <=> SIH + H
+
+        There are 2 reactants: H2 SI 
+        There are 2 products: H SIH 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  1.42E+12  1.50E+12  3.18E-02 |      36.03     36.11      0.27  |  3.66E+38  1.31E+12    -36.08 |  2.37E+09  6.11E+35 |
+|  300.0 |  1.42E+12  1.50E+12  3.18E-02 |      36.03     36.11      0.27  |  2.51E+38  1.31E+12    -36.08 |  2.35E+09  4.15E+35 |
+|  400.0 |  1.44E+12  1.50E+12  3.18E-02 |      36.01     36.09      0.20  |  6.78E+31  1.36E+12    -36.06 |  1.34E+09  6.30E+28 |
+|  500.0 |  1.45E+12  1.50E+12  3.18E-02 |      35.99     36.08      0.19  |  7.80E+27  1.37E+12    -36.05 |  8.63E+08  4.63E+24 |
+|  600.0 |  1.46E+12  1.50E+12  3.18E-02 |      35.97     36.10      0.21  |  1.84E+25  1.35E+12    -36.07 |  6.02E+08  7.61E+21 |
+|  700.0 |  1.47E+12  1.50E+12  3.18E-02 |      35.94     36.13      0.27  |  2.44E+23  1.31E+12    -36.10 |  4.44E+08  7.41E+19 |
+|  800.0 |  1.47E+12  1.50E+12  3.18E-02 |      35.91     36.19      0.34  |  9.51E+21  1.26E+12    -36.16 |  3.41E+08  2.21E+18 |
+|  900.0 |  1.47E+12  1.50E+12  3.18E-02 |      35.88     36.25      0.42  |  7.59E+20  1.22E+12    -36.22 |  2.70E+08  1.39E+17 |
+| 1000.0 |  1.48E+12  1.50E+12  3.18E-02 |      35.83     36.32      0.49  |  9.99E+19  3.26E+12    -34.26 |  2.19E+08  1.48E+16 |
+| 1100.0 |  1.48E+12  1.50E+12  3.18E-02 |      35.78     36.40      0.56  |  1.90E+19  1.13E+12    -36.36 |  1.81E+08  2.33E+15 |
+| 1200.0 |  1.48E+12  1.50E+12  3.18E-02 |      35.72     36.47      0.63  |  4.74E+18  1.09E+12    -36.44 |  1.53E+08  4.88E+14 |
+| 1300.0 |  1.48E+12  1.50E+12  3.18E-02 |      35.65     36.55      0.69  |  1.46E+18  1.06E+12    -36.51 |  1.30E+08  1.28E+14 |
+| 1400.0 |  1.48E+12  1.50E+12  3.18E-02 |      35.58     36.61      0.74  |  5.31E+17  1.03E+12    -36.58 |  1.12E+08  4.03E+13 |
+| 1500.0 |  1.48E+12  1.50E+12  3.18E-02 |      35.50     36.68      0.78  |  2.21E+17  1.01E+12    -36.65 |  9.80E+07  1.46E+13 |
+| 1600.0 |  1.49E+12  1.50E+12  3.18E-02 |      35.42     36.73      0.82  |  1.02E+17  9.94E+11    -36.70 |  8.62E+07  5.94E+12 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "8" IN PHASE "silane"
+
+        SIH4 (+ M) <=> SIH2 + H2 (+ M)
+
+        There is one reactant: SIH4 
+        There are 2 products: H2 SIH2 
+        Reaction Type = Falloff Rxn
+                Rate Constants below include third body collision partner effects
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           1 -3.5527e-15 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  2.91E-27  1.47E+14     55.53 |      47.09     56.61     31.94  |  2.32E+09  1.02E+09     -0.49 |  1.19E-28  3.88E+06 |
+|  300.0 |  5.18E-27  1.47E+14     55.53 |      47.03     56.62     31.97  |  2.31E+09  1.02E+09     -0.49 |  2.11E-28  3.81E+06 |
+|  400.0 |  6.62E-17  1.20E+14     55.38 |      43.76     57.03     33.17  |  1.77E+09  6.03E+08     -0.86 |  2.02E-18  1.64E+06 |
+|  500.0 |  7.12E-11  7.47E+13     54.96 |      40.41     57.31     33.80  |  1.35E+09  3.43E+08     -1.36 |  1.74E-12  8.00E+05 |
+|  600.0 |  6.87E-07  4.27E+13     54.34 |      37.02     57.47     34.09  |  1.03E+09  2.03E+08     -1.94 |  1.39E-08  4.24E+05 |
+|  700.0 |  4.39E-04  2.07E+13     53.41 |      33.60     57.54     34.19  |  7.80E+08  1.09E+08     -2.74 |  7.65E-06  2.36E+05 |
+|  800.0 |  5.08E-02  9.34E+12     52.22 |      30.18     57.53     34.19  |  5.85E+08  5.63E+07     -3.72 |  7.73E-04  1.36E+05 |
+|  900.0 |  1.87E+00  4.42E+12     50.95 |      26.76     57.47     34.11  |  4.36E+08  3.11E+07     -4.72 |  2.53E-02  8.00E+04 |
+| 1000.0 |  3.13E+01  2.31E+12     49.73 |      23.36     57.36     34.00  |  3.27E+08  1.01E+88    363.73 |  3.81E-01  4.85E+04 |
+| 1100.0 |  2.96E+02  1.34E+12     48.60 |      19.97     57.19     33.84  |  2.48E+08  1.32E+07     -6.41 |  3.28E+00  3.05E+04 |
+| 1200.0 |  1.85E+03  8.47E+11     47.55 |      16.60     57.01     33.68  |  1.92E+08  9.89E+06     -7.07 |  1.88E+01  1.98E+04 |
+| 1300.0 |  8.46E+03  5.71E+11     46.57 |      13.24     56.80     33.51  |  1.52E+08  7.86E+06     -7.64 |  7.93E+01  1.33E+04 |
+| 1400.0 |  3.03E+04  4.05E+11     45.65 |       9.89     56.58     33.34  |  1.22E+08  6.53E+06     -8.14 |  2.64E+02  9.23E+03 |
+| 1500.0 |  8.95E+04  2.99E+11     44.77 |       6.57     56.34     33.18  |  9.97E+07  5.60E+06     -8.59 |  7.27E+02  6.58E+03 |
+| 1600.0 |  2.27E+05  2.26E+11     43.92 |       3.26     56.09     33.02  |  8.29E+07  4.90E+06     -9.00 |  1.73E+03  4.81E+03 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "9" IN PHASE "silane"
+
+        H3SISIH (+ M) <=> H2SISIH2 (+ M)
+
+        There is one reactant: H3SISIH 
+        There is one product: H2SISIH2 
+        Reaction Type = Falloff Rxn
+                Rate Constants below include third body collision partner effects
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           0           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = 1/s
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  5.70E+07  3.26E+11      5.13 |     -11.37    -12.10     -2.43  |  2.63E-01  1.10E+12     17.22 |  2.33E+06  1.07E-02 |
+|  300.0 |  6.01E+07  3.13E+11      5.10 |     -11.37    -12.09     -2.42  |  3.15E-01  1.06E+12     17.20 |  2.44E+06  1.28E-02 |
+|  400.0 |  4.01E+08  4.94E+10      3.83 |     -11.14    -12.00     -2.14  |  3.29E+02  1.45E+11     15.82 |  1.22E+07  1.00E+01 |
+|  500.0 |  9.02E+08  1.13E+10      2.51 |     -10.94    -11.90     -1.93  |  1.49E+04  2.98E+10     14.41 |  2.20E+07  3.64E+02 |
+|  600.0 |  1.24E+09  3.31E+09      1.17 |     -10.75    -11.80     -1.75  |  1.50E+05  7.97E+09     12.97 |  2.51E+07  3.04E+03 |
+|  700.0 |  1.32E+09  1.16E+09     -0.17 |     -10.59    -11.70     -1.59  |  6.53E+05  2.59E+09     11.53 |  2.30E+07  1.14E+04 |
+|  800.0 |  1.23E+09  4.70E+08     -1.52 |     -10.44    -11.59     -1.45  |  1.73E+06  9.74E+08     10.07 |  1.87E+07  2.63E+04 |
+|  900.0 |  1.05E+09  2.11E+08     -2.87 |     -10.30    -11.49     -1.33  |  3.33E+06  4.12E+08      8.62 |  1.43E+07  4.50E+04 |
+| 1000.0 |  8.65E+08  1.03E+08     -4.22 |     -10.17    -11.39     -1.22  |  5.18E+06  4.18E+08      8.72 |  1.05E+07  6.31E+04 |
+| 1100.0 |  6.92E+08  5.41E+07     -5.57 |     -10.05    -11.30     -1.14  |  6.96E+06  9.58E+07      5.73 |  7.67E+06  7.72E+04 |
+| 1200.0 |  5.46E+08  3.00E+07     -6.92 |      -9.94    -11.21     -1.06  |  8.44E+06  5.11E+07      4.29 |  5.54E+06  8.57E+04 |
+| 1300.0 |  4.27E+08  1.74E+07     -8.27 |      -9.84    -11.12     -0.99  |  9.47E+06  2.86E+07      2.86 |  4.01E+06  8.88E+04 |
+| 1400.0 |  3.34E+08  1.05E+07     -9.61 |      -9.75    -11.03     -0.91  |  1.01E+07  1.67E+07      1.41 |  2.91E+06  8.75E+04 |
+| 1500.0 |  2.61E+08  6.60E+06    -10.96 |      -9.66    -10.92     -0.84  |  1.02E+07  5.25E+05     -8.85 |  2.12E+06  8.31E+04 |
+| 1600.0 |  2.05E+08  4.26E+06    -12.31 |      -9.58    -10.81     -0.77  |  1.01E+07  6.28E+06     -1.50 |  1.56E+06  7.67E+04 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "10" IN PHASE "silane"
+
+        SI3H8 (+ M) <=> SIH4 + H3SISIH (+ M)
+
+        There is one reactant: SI3H8 
+        There are 2 products: SIH4 H3SISIH 
+        Reaction Type = Falloff Rxn
+                Rate Constants below include third body collision partner effects
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           1           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  5.68E-23  2.87E+15     51.44 |      43.87     54.27     34.90  |  1.98E+11  4.50E+09     -2.24 |  2.32E-24  3.31E+08 |
+|  300.0 |  9.70E-23  2.88E+15     51.44 |      43.80     54.27     34.89  |  1.94E+11  4.58E+09     -2.23 |  3.94E-24  3.20E+08 |
+|  400.0 |  2.35E-13  3.83E+15     51.64 |      40.34     54.04     34.23  |  8.52E+10  1.13E+10     -1.60 |  7.16E-15  7.91E+07 |
+|  500.0 |  1.06E-07  4.77E+15     51.83 |      36.96     53.71     33.51  |  6.18E+10  2.53E+10     -0.89 |  2.57E-09  3.67E+07 |
+|  600.0 |  6.40E-04  5.72E+15     52.03 |      33.64     53.35     32.84  |  5.65E+10  5.09E+10     -0.12 |  1.30E-05  2.33E+07 |
+|  700.0 |  3.30E-01  6.67E+15     52.23 |      30.39     52.95     32.23  |  5.82E+10  9.42E+10      0.67 |  5.74E-03  1.76E+07 |
+|  800.0 |  3.63E+01  7.65E+15     52.43 |      27.19     52.53     31.67  |  6.40E+10  1.63E+11      1.49 |  5.53E-01  1.49E+07 |
+|  900.0 |  1.43E+03  8.68E+15     52.64 |      24.05     52.10     31.16  |  7.31E+10  2.69E+11      2.33 |  1.93E+01  1.34E+07 |
+| 1000.0 |  2.73E+04  9.80E+15     52.87 |      20.96     51.66     30.70  |  8.52E+10       INF  3.50E+04 |  3.32E+02  1.27E+07 |
+| 1100.0 |  3.08E+05  1.11E+16     53.13 |      18.32     50.97     29.68  |  1.21E+11  8.87E+11      4.35 |  3.41E+03  1.49E+07 |
+| 1200.0 |  2.35E+06  1.36E+16     53.61 |      15.37     50.52     29.29  |  1.46E+11  1.45E+12      5.47 |  2.39E+04  1.51E+07 |
+| 1300.0 |  1.34E+07  1.61E+16     54.00 |      12.46     50.06     28.92  |  1.78E+11  2.22E+12      6.52 |  1.26E+05  1.57E+07 |
+| 1400.0 |  5.07E+07  4.28E+13     37.97 |       9.59     49.60     28.58  |  1.83E+11  7.58E+09     -8.85 |  4.41E+05  1.38E+07 |
+| 1500.0 |  1.03E+08  1.94E+11     22.47 |       6.74     49.14     28.26  |  1.22E+11  8.30E+08    -14.88 |  8.39E+05  8.06E+06 |
+| 1600.0 |  1.46E+08  3.89E+09     10.44 |       3.93     48.67     27.96  |  6.59E+10  1.08E+06    -35.04 |  1.11E+06  3.82E+06 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "11" IN PHASE "silane"
+
+        SI3H8 (+ M) <=> SIH2 + SI2H6 (+ M)
+
+        There is one reactant: SI3H8 
+        There are 2 products: SI2H6 SIH2 
+        Reaction Type = Falloff Rxn
+                Rate Constants below include third body collision partner effects
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           1           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  4.25E-24  4.59E+15     53.25 |      45.56     55.01     31.69  |  2.58E+11  3.62E+10     -1.16 |  1.74E-25  4.31E+08 |
+|  300.0 |  7.40E-24  4.62E+15     53.25 |      45.50     55.01     31.69  |  2.55E+11  3.67E+10     -1.16 |  3.01E-25  4.21E+08 |
+|  400.0 |  3.84E-14  6.10E+15     53.45 |      42.35     54.87     31.31  |  1.73E+11  7.83E+10     -0.63 |  1.17E-15  1.61E+08 |
+|  500.0 |  2.72E-08  7.58E+15     53.64 |      39.24     54.66     30.83  |  1.58E+11  1.55E+11 -2.19E-02 |  6.62E-10  9.40E+07 |
+|  600.0 |  2.23E-04  9.05E+15     53.83 |      36.18     54.39     30.35  |  1.66E+11  2.83E+11      0.64 |  4.53E-06  6.85E+07 |
+|  700.0 |  1.43E-01  1.05E+16     54.02 |      33.17     54.10     29.89  |  1.86E+11  4.80E+11      1.32 |  2.48E-03  5.64E+07 |
+|  800.0 |  1.84E+01  1.18E+16     54.20 |      30.20     53.79     29.48  |  2.16E+11  7.60E+11      2.00 |  2.81E-01  5.01E+07 |
+|  900.0 |  8.18E+02  1.25E+16     54.30 |      27.27     53.46     29.10  |  2.54E+11  1.10E+12      2.62 |  1.11E+01  4.65E+07 |
+| 1000.0 |  1.70E+04  1.12E+16     54.09 |      24.38     53.13     28.75  |  2.97E+11       INF  1.57E+04 |  2.07E+02  4.41E+07 |
+| 1100.0 |  1.97E+05  6.09E+15     52.80 |      21.71     52.68     28.16  |  3.66E+11  1.05E+12      2.30 |  2.18E+03  4.49E+07 |
+| 1200.0 |  1.39E+06  1.14E+15     48.95 |      18.91     52.33     27.85  |  3.79E+11  2.50E+11     -0.99 |  1.41E+04  3.91E+07 |
+| 1300.0 |  6.08E+06  6.34E+13     41.75 |      16.14     51.97     27.56  |  3.35E+11  1.74E+10     -7.64 |  5.70E+04  2.94E+07 |
+| 1400.0 |  1.67E+07  1.09E+12     30.83 |      13.39     51.60     27.29  |  2.37E+11  3.68E+08    -17.99 |  1.46E+05  1.79E+07 |
+| 1500.0 |  3.09E+07  3.09E+10     20.60 |      10.68     51.23     27.04  |  1.37E+11  1.28E+07    -27.66 |  2.51E+05  9.02E+06 |
+| 1600.0 |  4.39E+07  2.85E+09     13.27 |       7.99     50.87     26.80  |  7.10E+10  1.41E+06    -34.42 |  3.34E+05  4.12E+06 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "12" IN PHASE "silane"
+
+        SI2H6 (+ M) <=> H2 + H3SISIH (+ M)
+
+        There is one reactant: SI2H6 
+        There are 2 products: H2 H3SISIH 
+        Reaction Type = Falloff Rxn
+                Rate Constants below include third body collision partner effects
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           1           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  5.89E-26  1.98E+15     55.29 |      45.39     55.87     35.14  |  2.71E+09  2.74E+09  7.88E-03 |  2.41E-27  4.52E+06 |
+|  300.0 |  1.05E-25  2.00E+15     55.29 |      45.33     55.88     35.17  |  2.71E+09  2.76E+09  1.11E-02 |  4.26E-27  4.47E+06 |
+|  400.0 |  1.32E-15  3.44E+15     55.67 |      41.76     56.19     36.09  |  2.84E+09  3.99E+09      0.27 |  4.03E-17  2.64E+06 |
+|  500.0 |  1.68E-09  5.44E+15     56.08 |      38.13     56.37     36.48  |  3.19E+09  6.47E+09      0.70 |  4.09E-11  1.89E+06 |
+|  600.0 |  2.12E-05  8.99E+15     56.63 |      34.47     56.42     36.59  |  3.77E+09  1.22E+10      1.40 |  4.31E-07  1.55E+06 |
+|  700.0 |  1.94E-02  1.21E+16     56.99 |      30.82     56.39     36.53  |  4.67E+09  1.96E+10      1.99 |  3.39E-04  1.42E+06 |
+|  800.0 |  2.84E+00  8.35E+14     52.96 |      27.17     56.28     36.38  |  4.93E+09  1.67E+09     -1.72 |  4.32E-02  1.14E+06 |
+|  900.0 |  9.98E+01  8.31E+13     49.09 |      23.54     56.10     36.18  |  3.84E+09  2.07E+08     -5.23 |  1.35E+00  7.04E+05 |
+| 1000.0 |  1.42E+03  1.38E+13     45.70 |      19.94     55.88     35.95  |  2.65E+09       INF  1.97E+04 |  1.73E+01  3.93E+05 |
+| 1100.0 |  1.07E+04  2.79E+12     42.37 |      16.58     55.48     35.36  |  1.90E+09  1.28E+07    -10.92 |  1.18E+02  2.33E+05 |
+| 1200.0 |  5.07E+04  7.99E+11     39.52 |      13.06     55.20     35.12  |  1.19E+09  4.52E+06    -13.30 |  5.15E+02  1.23E+05 |
+| 1300.0 |  1.75E+05  3.02E+11     37.11 |       9.56     54.90     34.87  |  7.54E+08  2.10E+06    -15.20 |  1.64E+03  6.63E+04 |
+| 1400.0 |  4.73E+05  1.37E+11     34.99 |       6.09     54.58     34.64  |  4.85E+08  1.15E+06    -16.80 |  4.12E+03  3.67E+04 |
+| 1500.0 |  1.07E+06  6.97E+10     33.04 |       2.63     54.24     34.40  |  3.19E+08  1.36E+07     -9.41 |  8.69E+03  2.10E+04 |
+| 1600.0 |  2.10E+06  3.82E+10     31.19 |      -0.80     53.89     34.18  |  2.15E+08  4.62E+05    -19.53 |  1.60E+04  1.24E+04 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "13" IN PHASE "silane"
+
+        SI2H6 (+ M) <=> SIH4 + SIH2 (+ M)
+
+        There is one reactant: SI2H6 
+        There are 2 products: SIH4 SIH2 
+        Reaction Type = Falloff Rxn
+                Rate Constants below include third body collision partner effects
+                and are effected by current pressure, 101325 Pa 
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |              silane|   3           1           0 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = 1/s
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^3 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  298.1 |  6.04E-23  2.18E+15     51.24 |      44.10     53.91     32.88  |  3.15E+11  9.44E+09     -2.08 |  2.47E-24  5.26E+08 |
+|  300.0 |  1.03E-22  2.20E+15     51.24 |      44.04     53.91     32.88  |  3.08E+11  9.62E+09     -2.07 |  4.18E-24  5.09E+08 |
+|  400.0 |  2.36E-13  3.61E+15     51.59 |      40.77     53.79     32.56  |  1.46E+11  2.47E+10     -1.41 |  7.20E-15  1.36E+08 |
+|  500.0 |  1.06E-07  5.25E+15     51.92 |      37.54     53.59     32.10  |  1.11E+11  5.65E+10     -0.68 |  2.59E-09  6.62E+07 |
+|  600.0 |  6.61E-04  6.95E+15     52.22 |      34.35     53.33     31.63  |  1.06E+11  1.14E+11  8.86E-02 |  1.34E-05  4.36E+07 |
+|  700.0 |  3.50E-01  8.28E+15     52.45 |      31.21     53.04     31.18  |  1.11E+11  1.98E+11      0.80 |  6.08E-03  3.38E+07 |
+|  800.0 |  3.90E+01  8.26E+15     52.44 |      28.11     52.73     30.77  |  1.23E+11  2.78E+11      1.30 |  5.94E-01  2.85E+07 |
+|  900.0 |  1.50E+03  5.73E+15     51.81 |      25.06     52.41     30.39  |  1.35E+11  2.63E+11      1.20 |  2.03E+01  2.47E+07 |
+| 1000.0 |  2.61E+04  2.22E+15     50.01 |      22.03     52.08     30.04  |  1.40E+11       INF  1.94E+04 |  3.18E+02  2.08E+07 |
+| 1100.0 |  2.44E+05  7.57E+14     47.78 |      19.27     51.60     29.39  |  1.48E+11  7.02E+10     -1.64 |  2.70E+03  1.82E+07 |
+| 1200.0 |  1.45E+06  2.89E+14     45.56 |      16.35     51.25     29.08  |  1.36E+11  3.41E+10     -3.30 |  1.48E+04  1.40E+07 |
+| 1300.0 |  5.86E+06  3.28E+13     40.14 |      13.46     50.89     28.79  |  1.14E+11  4.85E+09     -8.16 |  5.49E+04  1.00E+07 |
+| 1400.0 |  1.62E+07  2.62E+12     33.37 |      10.59     50.52     28.52  |  8.38E+10  4.79E+08    -14.37 |  1.41E+05  6.35E+06 |
+| 1500.0 |  3.36E+07  3.58E+11     27.64 |       7.75     50.16     28.27  |  5.58E+10  7.94E+07    -19.54 |  2.73E+05  3.68E+06 |
+| 1600.0 |  5.73E+07  8.51E+10     23.22 |       4.94     49.79     28.03  |  3.55E+10  2.27E+07    -23.38 |  4.36E+05  2.06E+06 |
+|--------------------------------------------------------------------------------------------------------------------------------|

@@ -1,0 +1,23 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2006/12/12 02:17:08 $
+#  $Revision: 1.2 $
+#
+###############################################################
+all:
+	@(if test ! -f epequil ; then \
+               ln -s ../../src/epequil . ; \
+        fi) 
+
+test:
+	./runtest
+clean:
+	/bin/rm -f diff_test.out csvCode.txt
+
+install:
+
+depends:
+
+
+# end of file

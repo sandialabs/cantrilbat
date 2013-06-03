@@ -1,0 +1,1 @@
+mpirun -v -np 2  Multi1DDomain

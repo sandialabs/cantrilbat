@@ -1,0 +1,61 @@
+#/bin/sh
+###############################################################
+#  $Date: 2012/02/22 20:41:57 $
+#  $Revision: 1.45 $
+#
+###############################################################
+
+all:
+	cd FeS2_3_MPNewman_cV_restart; @MAKE@
+	cd FeS2_4_MPNewman_cc ; @MAKE@
+	cd FeS2_4_cMPNewman_cc ; @MAKE@
+	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@
+	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@
+	cd LiSi_5_Anode_Integrate ; @MAKE@
+
+test:
+	cd FeS2_3_MPNewman_cV_restart; @MAKE@ -s test
+	cd FeS2_4_MPNewman_cc ; @MAKE@ -s test
+	cd FeS2_4_cMPNewman_cc ; @MAKE@ -s test
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@ -s test
+	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ -s test
+	cd LiSi_5_Anode_Integrate ; @MAKE@ -s test
+
+
+clean:
+	cd FeS2_3_MPNewman_cV_restart; @MAKE@ clean
+	cd FeS2_4_MPNewman_cc ; @MAKE@  clean
+	cd FeS2_4_cMPNewman_cc ; @MAKE@  clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@ clean
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  clean
+	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ clean 
+	cd LiSi_5_Anode_Integrate ; @MAKE@ clean
+
+
+depends:
+	 cd FeS2_3_MPNewman_cV_restart; @MAKE@ depends
+	 cd FeS2_4_MPNewman_cc ; @MAKE@  depends
+	 cd FeS2_4_cMPNewman_cc ; @MAKE@  depends
+	 cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@ depends
+	 cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  depends
+	 cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ depends
+	 cd LiSi_5_Anode_Integrate ; @MAKE@ depends
+
+
+
+rebaseline:
+	 cd FeS2_3_MPNewman_cV_restart; @MAKE@ rebaseline
+	 cd FeS2_5_MultiPlat_cV_restart; @MAKE@  rebaseline
+	 cd FeS2_4_MPNewman_cc ; @MAKE@ rebaseline
+	 cd FeS2_4_cMPNewman_cc ; @MAKE@ rebaseline
+	 cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@ rebaseline
+	 cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ rebaseline
+	 cd LiSi_5_Anode_Integrate ; @MAKE@ rebaseline
+
+
+
+
+install:
+
+

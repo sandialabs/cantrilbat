@@ -1,0 +1,145 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile to compile and link a C++ application to 
+#  Cantera.
+#
+#############################################################################
+
+# addition to suffixes
+.SUFFIXES : .d
+
+# the name of the executable program to be created
+PROG_NAME = CO2_solubility
+
+# the object files to be linked together. List those generated from Fortran
+# and from C/C++ separately
+OBJS = CO2_solubility.o CO2_solubility_1.o
+
+# Location of the current build. Will assume that tests are run
+# in the source directory tree location
+src_dir_tree = 0
+
+# additional flags to be passed to the linker. If your program
+# requires other external libraries, put them here
+LINK_OPTIONS = 
+
+#############################################################################
+
+# Check to see whether we are in the msvc++ environment
+os_is_win = @OS_IS_WIN@
+
+# the C++ compiler
+CXX = @CXX@
+
+#
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+#
+# Utility src directory
+#
+UTILSRC_DIR=../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)
+
+# C++ compile flags
+CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
+
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+
+# the directory where the Cantera libraries are located
+CANTERA_LIBDIR=@ct_libdir@
+
+#
+# Setup The Cantera Interface
+#
+CANTERA_LIBDIR=@ct_libdir@
+
+
+
+ifeq (@build_lapack@, 1)
+CANTERA_LAPACK_DEPS = $(CANTERA_LIBDIR)/libctblas.a \
+                      $(CANTERA_LIBDIR)/libctlapack.a
+endif
+
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = -L$(CANTERA_LIBDIR)  @CXXFLAGS@
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) $(CXX_FLAGS) -c $< 
+
+# How to compile the dependency file
+.cpp.d:
+	@CXX_DEPENDS@ $(CXX_FLAGS) $*.cpp > $*.d
+
+# List of dependency files to be created
+DEPENDS=$(OBJS:.o=.d)
+
+# Program Name
+PROGRAM = $(PROG_NAME)$(EXE_EXT)
+
+all: $(PROGRAM) CO2_solubility_1 .depends
+
+$(PROGRAM): CO2_solubility.o $(CANTERA_CORE_LIBS_DEP)
+	$(CXX) -o $(PROGRAM) CO2_solubility.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                 $(CANTERA_TOTAL_LIBS)     \
+                  $(LCXX_END_LIBS)
+
+CO2_solubility_1: CO2_solubility_1.o $(CANTERA_CORE_LIBS_DEP)
+	$(CXX) -o CO2_solubility_1 CO2_solubility_1.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                 $(CANTERA_TOTAL_LIBS)     \
+                  $(LCXX_END_LIBS)
+
+$(OBJS): Makefile
+
+# depends target -> forces recalculation of dependencies
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+rebaseline:
+	./rebaseline
+
+# Do the test -> For the windows vc++ environment, we have to skip checking on
+#                whether the program is uptodate, because we don't utilize make
+#                in that environment to build programs.
+test:
+ifeq ($(os_is_win), 1)
+else
+	@MAKE@ $(PROGRAM)
+endif
+	./runtest
+
+clean:
+	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends vcs_equilibrate_res*csv diff_csv* \
+            diff_out.txt diff_dout.txt err_dout.txt err_out.txt out.txt dout.txt
+	(if test -d SunWS_cache ; then \
+           $(RM) -rf SunWS_cache ; \
+         fi )
+
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

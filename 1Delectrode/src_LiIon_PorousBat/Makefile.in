@@ -1,0 +1,147 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile to compile and link a C++ application to 
+#  Cantera.
+#
+#############################################################################
+
+# addition to suffixes
+.SUFFIXES : .d
+
+# the name of the executable program to be created
+PROG_NAME = LiIon_PorousBat
+
+# the object files to be linked together. List those generated from Fortran
+# and from C/C++ separately
+OBJS = LiIon_PorousBat.o  m1d_DomainLayout_LiIon_PorousBat.o \
+        m1d_porousLiIon_Cathode_dom1D.o  m1d_porousLiIon_Separator_dom1D.o \
+        m1d_porousLiIon_Anode_dom1D.o m1d_BDT_porAnode_LiIon.o  m1d_BDT_porCathode_LiIon.o \
+        m1d_BDT_porSeparator_LiIon.o
+
+TOBJS =  $(OBJS) 
+
+#############################################################################
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+CANTERA_INSTALL_DIR = @ct_prefix@
+CANTERA_APPS_INSTALL_DIR = @cta_prefix@
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+#
+TRILINOS_DIR=@trilinos_root@
+#
+TRILINOS_INC_DIR=$(TRILINOS_DIR)/include
+TRILINOS_INC=-I$(TRILINOS_DIR)/include
+TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
+
+include $(TRILINOS_INC_DIR)/Makefile.export.amesos
+include $(TRILINOS_INC_DIR)/Makefile.export.ifpack
+
+UTILSRC_DIR=../../util_src/src
+UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
+UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
+
+
+CTPADDS_DIR = ../../ctpadds/src
+APPL_BASE_DIR= ../../ctApplBase/src
+APPL_BASE_INC= -I$(APPL_BASE_DIR)
+APPL_BASE_DEP= $(APPL_BASE_DIR)/libctApplBase.a $(CTPADDS_DIR)/libctpadds.a
+APPL_BASE_LIB= -L$(APPL_BASE_DIR) -l ctApplBase  -L$(CTPADDS_DIR) -lctpadds
+
+M1D_BASE_INC= -I../src_CanteraElectrode -I../src
+M1D_BASE_DEP= ../src/libm1d.a ../src_CanteraElectrode/libm1dcantera.a
+M1D_BASE_LIB= -L../src_CanteraElectrode -lm1dcantera -L../src -lm1d
+
+
+# Check to see whether we are in the msvc++ environment
+os_is_win = @OS_IS_WIN@
+
+# the C++ compiler
+CXX = @MPICXX@
+#
+# The directory where Cantera include files may be found.
+#
+
+INCLUDE_DIRS = $(M1D_BASE_INC) -I../src_LiIon_infPorousBat $(APPL_BASE_INC) \
+               -I$(CANTERA_INCROOT) \
+               $(TRILINOS_INC) \
+               -I$(UTILSRC_DIR) -I../..
+
+# C++ compile flags
+LDEFINES= -DINTEGRATED_ELECTRODE
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual  $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES)
+
+# Ending C++ linking libraries
+LMPICXX_END_LIBS = @LMPICXX_END_LIBS@
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS) 
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) $(CXX_FLAGS) -c $< 
+
+# How to compile the dependency file
+.cpp.d:
+	@CXX_DEPENDS@  $(CXX_FLAGS) $< > $@
+
+# List of dependency files to be created
+DEPENDS=$(TOBJS:.o=.d)
+
+# Program Name
+PROGRAM = $(PROG_NAME)$(EXE_EXT)
+
+all:  .depends $(PROGRAM)
+
+$(TOBJS) $(DEPENDS): Makefile
+
+rebaseline:
+
+$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
+            $(APPL_BASE_DEP) $(M1D_BASE_DEP)
+	$(CXX) -o $(PROGRAM) \
+		  $(OBJS)  \
+                  $(LCXX_FLAGS) $(LINK_OPTIONS) \
+		  $(M1D_BASE_LIB) \
+		  $(APPL_BASE_LIB) \
+                  $(CANTERA_TOTAL_LIBS) \
+		  $(UTILSRC_LIB) \
+		  $(AMESOS_LIBS) \
+		  $(IFPACK_LIBS) $(LMPICXX_END_LIBS)
+
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c $(PROGRAM) @cta_bindir@
+
+# depends target -> forces recalculation of dependencies
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+# Do the test -> For the windows vc++ environment, we have to skip checking on
+#                whether the program is uptodate, because we don't utilize make
+#                in that environment to build programs.
+test:
+ifeq ($(os_is_win), 1)
+else
+	@MAKE@ $(PROGRAM)
+endif
+	./runtest
+
+clean:
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends 
+	(if test -d SunWS_cache ; then \
+           $(RM) -rf SunWS_cache ; \
+         fi )
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

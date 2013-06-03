@@ -1,0 +1,140 @@
+#
+#
+#
+Number of Cantera Files = 4
+Cantera File Name = LiCoO2_RedlichKister.xml
+Cantera File Name = metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+#
+#
+!Debugging = true
+Bath Temperature = 298.15
+Bath Pressure =  1 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 10.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 290.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  ! Added Temperatures = 723.
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+START BLOCK Voltage Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 11
+
+  !----------------------------------------------------------
+  ! Delta Voltage = [double]
+  !    (optional)
+  !    (default = 0.2)
+  !    Delta Voltage
+  !----------------------------------------------------------
+  Delta Voltage = 0.1
+
+  !----------------------------------------------------------
+  ! Low Voltage = [double]
+  !    (optional)
+  !    (default = -1.0 volts)
+  !    Low voltage for the voltage table
+  !----------------------------------------------------------
+  Low Voltage = 3.1
+
+  !-----------------------------------------------------------
+  ! Include Zero Voltage = [bool]
+  !    (optional)
+  !    (default = false)
+  !  Include the E = 0 point in the calculation
+  !----------------------------------------------------------
+  Include Zero Voltage = false
+
+  !-----------------------------------------------------------
+  ! Include Ezero Voltage = [bool]
+  !    (optional)
+  !    (default = false)
+  !  Include the E_naught = 0 point in the calculation
+  !----------------------------------------------------------
+  Include Ezero Voltage = false
+
+  !-----------------------------------------------------------
+  ! Include Eeq Voltage = [bool]
+  !    (optional)
+  !    (default = true)
+  !  Include the E_eq  Voltage point in the calculation
+  !----------------------------------------------------------
+  Include Eeq Voltage = true
+
+  !----------------------------------------------------------
+  !
+  !  Added Voltages = Variable length list of doubles
+  !
+  !----------------------------------------------------------
+  Added Voltages = 4.0
+
+  !---------------------------------------------------------
+END BLOCK Voltage Table Format
+
+
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Bath Species ID = ECDMC
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+       PF6-  = 0.08
+       ECDMC = 0.84
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Interstitials_cathode
+   Bath Species ID =  LiCoO2
+   start block Bath Species Mole Fraction
+       LiCoO2 = 0.8
+       CoO2 =  0.2
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiCoO2_Interstitials_cathode
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiIon
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = -1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+# the above were empty lines

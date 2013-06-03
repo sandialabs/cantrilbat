@@ -1,0 +1,19 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = IdealSolidSolnPhaseExample.xml 
+DebugPrinting = true
+Add Chemical Potential Column = true
+
+start block Bath Specification for Phase solidSolutionExample
+  Bath Species ID = C2H2-graph
+  start block Bath Species Mole Fraction
+    C2H2-graph = 0.9
+    C-graph = 0.1
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase solidSolutionExample
+
+# the above were empty lines

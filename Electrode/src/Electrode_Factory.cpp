@@ -1,0 +1,296 @@
+
+/*
+ * $Id: Electrode_Factory.cpp 604 2013-05-24 16:27:35Z hkmoffa $
+ */
+
+
+#include "Electrode.h"
+#include "Electrode_input.h"
+#include "Electrode_Factory.h"
+#include "Electrode_InfCapacity.h"
+#include "Electrode_MP_RxnExtent.h"
+#include "Electrode_MP_RxnExtent_FeS2.h"
+//include "Electrode_MultiPlateau_NoDiff.h"
+//#include "Electrode_SimpleDiff.h"
+#include "Electrode_SimplePhaseChangeDiffusion.h"
+#include "Electrode_CSTR.h"
+#include "Electrode_CSTR_MCMBAnode.h"
+#include "Electrode_CSTR_LiCoO2Cathode.h"
+#include "Electrode_SuccessiveSubstitution.h"
+#include "Electrode_defs.h"
+
+using namespace Cantera;
+using namespace std;
+
+namespace Cantera
+{
+
+//====================================================================================================================
+/*
+ *  Defining memory for a static member of the clase
+ */
+Electrode_Factory* Electrode_Factory::s_factory = 0;
+#if defined(THREAD_SAFE_CANTERA)
+boost::mutex Electrode_Factory::electrode_mutex;
+#endif
+//====================================================================================================================
+
+
+Map_ETEnum_String gMap_ETEnum_String;
+//====================================================================================================================
+static void create_string_maps()
+{
+    if (gMap_ETEnum_String.string_maps_created) {
+        return;
+    }
+    std::map<Electrode_Types_Enum, std::string>& electrode_types_string = gMap_ETEnum_String.electrode_types_string;
+    std::map<std::string , Electrode_Types_Enum>& string_electrode_types= gMap_ETEnum_String.string_electrode_types;
+
+    gMap_ETEnum_String.string_maps_created = true;
+    electrode_types_string[BASE_TYPE_ET]                       =  "BaseType";
+    electrode_types_string[INF_CAPACITY_ET]                    =  "InfCapacity";
+    electrode_types_string[MP_RXNEXTENT_ET]                    =  "MP_RxnExtent";
+    electrode_types_string[MULTIPLATEAU_NODIFF_ET]             =  "MultiPlateau_NoDiff";
+    electrode_types_string[SIMPLE_DIFF_ET]                     =  "SimpleDiff";
+    electrode_types_string[SIMPLE_PHASE_CHANGE_DIFFUSION_ET]   =  "SimplePhaseChangeDiffusion";
+    electrode_types_string[CSTR_ET]                            =  "CSTR";
+    electrode_types_string[CSTR_MCMB_ANODE_ET]                 =  "CSTR_MCMBAnode";
+    electrode_types_string[CSTR_LICO2_CATHODE_ET]              =  "CSTR_LiCoO2Cathode";
+    electrode_types_string[SUCCESSIVE_SUBSTITUTION_ET]         =  "SuccessiveSubstitution";
+    electrode_types_string[MP_RXNEXTENT_FES2_ET]               =  "MP_RxnExtent_FeS2";
+    electrode_types_string[MP_RXNEXTENT_LISI_ET]               =  "MP_RxnExtent_LiSi";
+
+    // Invert the maps automatically.
+    for (std::map<Electrode_Types_Enum, std::string>::iterator pos = electrode_types_string.begin();
+            pos != electrode_types_string.end(); ++pos) {
+        string_electrode_types[pos->second] = pos->first;
+        std::string lll =  Cantera::lowercase(pos->second);
+        string_electrode_types[lll] = pos->first;
+    }
+}
+//====================================================================================================================
+// Enum to String routine for the enum Electrode_Types_Enum
+/*
+ *  @param etype The model of the electrode
+ *
+ *  @return Returns the characteristic string for that Electrode Model
+ */
+std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype)
+{
+    if (!gMap_ETEnum_String.string_maps_created) {
+        create_string_maps();
+    }
+    std::map<Electrode_Types_Enum, std::string>& electrode_types_string = gMap_ETEnum_String.electrode_types_string;
+
+    std::map<Electrode_Types_Enum, std::string>::iterator pos = electrode_types_string.find(etype);
+    if (pos == electrode_types_string.end()) {
+        return "UnknownElectrodeType";
+    }
+    return pos->second;
+}
+//====================================================================================================================
+// String to Enum Routine for the enum Electrode_Types_Enum
+/*
+ *  Matches are first made using case. Then, they are made by ignoring case
+ *
+ *  @param       input_string
+ *
+ *  @return      Returns the Enum type for the string
+ */
+Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_string)
+{
+    if (!gMap_ETEnum_String.string_maps_created) {
+        create_string_maps();
+    }
+    std::map<std::string , Electrode_Types_Enum>& string_electrode_types = gMap_ETEnum_String.string_electrode_types;
+
+    std::map<std::string, Electrode_Types_Enum>::iterator pos = string_electrode_types.find(input_string);
+    if (pos == string_electrode_types.end())  {
+        std::string iii = Cantera::lowercase(input_string);
+        pos = string_electrode_types.find(iii);
+        if (pos == string_electrode_types.end())  {
+            return UNKNOWN_ET;
+        }
+    }
+    return pos->second;
+}
+//====================================================================================================================
+//! Private constructors prevents usage
+Electrode_Factory::Electrode_Factory()
+{
+}
+//====================================================================================================================
+Electrode_Factory::~Electrode_Factory()
+{
+}
+//====================================================================================================================
+// Static function that creates a static instance of the factory.
+Electrode_Factory* Electrode_Factory::factory()
+{
+#if defined(THREAD_SAFE_CANTERA)
+    boost::mutex::scoped_lock lock(electrode_mutex);
+#endif
+    if (!s_factory) {
+        s_factory = new Electrode_Factory;
+    }
+    return s_factory;
+}
+//====================================================================================================================
+// delete the static instance of this factory
+void  Electrode_Factory::deleteFactory()
+{
+#if defined(THREAD_SAFE_CANTERA)
+    boost::mutex::scoped_lock lock(electrode_mutex);
+#endif
+    if (s_factory) {
+        delete s_factory;
+        s_factory = 0;
+    }
+}
+//====================================================================================================================
+// Create a new Electrode Object
+/*
+ * @param model  String to look up the model against
+ *
+ * @return    Returns a pointer to a new Electrode instance matching the  model string. Returns NULL if
+ *            something went wrong. Throws an exception if the string wasn't matched.
+ */
+Electrode* Electrode_Factory::newElectrodeObject(std::string model)
+{
+    /*
+     *  Look up the string to find the enum
+     */
+    Electrode_Types_Enum ieos = string_to_Electrode_Types_Enum(model);
+    Electrode* ee = 0;
+    /*
+     *  Do the object creation
+     */
+    switch (ieos) {
+    case          INF_CAPACITY_ET:
+        ee = new    Electrode_InfCapacity();
+        break;
+    case          MP_RXNEXTENT_ET:
+        ee = new    Electrode_MP_RxnExtent();
+        break;
+/*
+    case          MULTIPLATEAU_NODIFF_ET:
+        ee = new    Electrode_MultiPlateau_NoDiff();
+        break;
+*/
+    case          SIMPLE_DIFF_ET:
+        break;
+    case          SIMPLE_PHASE_CHANGE_DIFFUSION_ET:
+        ee = new    Electrode_SimplePhaseChangeDiffusion();
+        break;
+    case          CSTR_ET:
+        ee = new    Electrode_CSTR();
+        break;
+    case          CSTR_MCMB_ANODE_ET:
+        ee = new    Electrode_CSTR_MCMBAnode();
+        break;
+    case          CSTR_LICO2_CATHODE_ET:
+        ee = new    Electrode_CSTR_LiCoO2Cathode();
+        break;
+    case          SUCCESSIVE_SUBSTITUTION_ET:
+        ee = new    Electrode_SuccessiveSubstitution();
+        break;
+    case          MP_RXNEXTENT_FES2_ET:
+        ee = new    Electrode_MP_RxnExtent_FeS2();
+        break;
+    default:
+        throw CanteraError("Electrode_Factory::newElectrodeObject()",
+                           "Unknown Electrode model: " + model);
+    }
+    return ee;
+}
+//====================================================================================================================
+//    Create a new ELECTRODE_KEY_INPUT Object given a model name
+/*
+ * @param model   String to look up the model
+ * @param f       ThermoFactor instance to use in matching the string
+ *
+ * @return
+ *   Returns a pointer to a new ELECTRODE_KEY_INPUT instance matching the
+ *   model string for the Electrode. Returns NULL if something went wrong.
+ *   Throws an exception  if the string
+ *   wasn't matched.
+ */
+ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string model)
+{
+    /*
+     *  Look up the string to find the enum
+     */
+    Electrode_Types_Enum ieos = string_to_Electrode_Types_Enum(model);
+    ELECTRODE_KEY_INPUT* ei = 0;
+    /*
+     *  Do the object creation
+     */
+    switch (ieos) {
+    case          MP_RXNEXTENT_ET:
+        ei = new    ELECTRODE_MP_RxnExtent_KEY_INPUT();
+        break;
+    case          CSTR_ET:
+    case          CSTR_MCMB_ANODE_ET:
+    case          CSTR_LICO2_CATHODE_ET:
+        ei = new    ELECTRODE_CSTR_KEY_INPUT();
+        break;
+/*
+    case          MULTIPLATEAU_NODIFF_ET:
+        ei = new    ELECTRODE_MultiPlateau_KEY_INPUT();
+        break;
+*/
+    case          BASE_TYPE_ET:
+    case          SUCCESSIVE_SUBSTITUTION_ET:
+    case          INF_CAPACITY_ET:
+    case          SIMPLE_DIFF_ET:
+    case          SIMPLE_PHASE_CHANGE_DIFFUSION_ET:
+        ei = new    ELECTRODE_KEY_INPUT();
+        break;
+    default:
+        throw CanteraError("Electrode_Factory::newElectrodeKeyInputObject()",
+                           "Unknown Electrode model: " + model);
+        break;
+    }
+    return ei;
+}
+//====================================================================================================================
+//  Create a new  instance of an Electrode object
+/*
+ * @param model   String to look up the model against
+ * @param f       ThermoFactor instance to use in matching the string, Defaults to 0
+ *
+ * @return
+ *   Returns a pointer to a new Electrode instance matching the
+ *   model string. Returns NULL if something went wrong.
+ *   Throws an exception UnknownThermoPhaseModel if the string
+ *   wasn't matched.
+ */
+Electrode* newElectrodeObject(std::string model, Electrode_Factory* f)
+{
+    if (f == 0) {
+        f = Electrode_Factory::factory();
+    }
+    return f->newElectrodeObject(model);
+}
+//====================================================================================================================
+//  Create a new ELECTRODE_KEY_INPUT Object
+/*
+ * @param model   String to look up the model against
+ * @param f       ThermoFactor instance to use in matching the string
+ *
+ * @return
+ *   Returns a pointer to a new ELECTRODE_KEY_INPUT instance matching the
+ *   model string for the Electrode. Returns NULL if something went wrong.
+ *   Throws an exception  if the string
+ *   wasn't matched.
+ */
+ELECTRODE_KEY_INPUT* newElectrodeKeyInputObject(std::string model, Electrode_Factory* f)
+{
+    if (f == 0) {
+        f = Electrode_Factory::factory();
+    }
+    return f->newElectrodeKeyInputObject(model);
+}
+//====================================================================================================================
+} // End of namespace Cantera
+//======================================================================================================================

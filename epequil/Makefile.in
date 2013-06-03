@@ -1,0 +1,31 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2007/05/06 21:18:55 $
+#  $Revision: 1.2 $
+#
+###############################################################
+build_python=@BUILD_PYTHON@
+
+all:
+	cd src; @MAKE@
+	cd tests; @MAKE@
+
+clean:
+	cd src; $(RM) .depends ; @MAKE@ clean
+	cd tests;                @MAKE@ clean
+
+depends:
+	cd src; @MAKE@ depends
+	cd tests; @MAKE@ depends
+
+test:
+	cd src; @MAKE@ -s
+	cd tests; @MAKE@ -s
+	cd tests; @MAKE@ -s test
+
+install:
+	cd src; @MAKE@ install
+
+# end of file
+

@@ -1,0 +1,212 @@
+/*
+ * $Id: m1d_ProblemStatement.h 584 2013-04-03 00:29:38Z hkmoffa $
+ */
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
+
+#ifndef _M1D_PROBLEMSTATEMENT_H
+#define _M1D_PROBLEMSTATEMENT_H
+
+#include "cantera/equilibrium.h"
+#include "mdp_allo.h"
+#include "tok_input_util.h"
+#include <string>
+#include <vector>
+
+#include "m1d_RecordTree_base.h"
+#include "BlockEntryGlobal.h"
+namespace BEInput {
+class BlockEntry;
+}
+namespace m1d {
+
+//! storage for Command file input
+/*!
+ * Complete problem statement
+ *
+ * This is the current command file specification
+ *                       of the problem statement.
+ */
+class ProblemStatement {
+public:
+	//! Constructor
+	ProblemStatement();
+
+	//! Copy constructor
+	ProblemStatement(const ProblemStatement &right);
+
+	//! Destructor
+	virtual ~ProblemStatement();
+
+	//! Assignment operator
+	ProblemStatement & operator=(const ProblemStatement &right);
+
+	virtual void setup_input_pass1(BEInput::BlockEntry *cf);
+
+	virtual void setup_input_pass2(BEInput::BlockEntry *cf);
+
+	virtual void setup_input_pass3(BEInput::BlockEntry *cf);
+
+	virtual bool process_input(BEInput::BlockEntry *cf, std::string fileName,
+			int printFlag);
+
+	//! Set up the input
+	/*!
+	 *  Initial parsing to be done here. Domain layout is specified by the end of this level.
+	 *
+	 * @param commandFile String name for the input file to be parsed
+	 * @return  Return 0 if everything is ok
+	 */
+	virtual int parse_input_1(std::string commandFile);
+
+	//! Set up the input and parse for the second pass
+	/*!
+	 *  This is where we specify the number of nodes in each bulk region.
+	 *
+	 * @param commandFile String name for the input file to be parsed
+	 * @return  Return 0 if everything is ok
+	 */
+	virtual int parse_input_2();
+
+	//! Set up the input and parse for the third time
+	/*!
+	 *  Further processing may be necessary.
+	 *
+	 * @param commandFile String name for the input file to be parsed
+	 * @return  Return 0 if everything is ok
+	 */
+	virtual int parse_input_3();
+
+	//! other preparation steps
+	virtual void InitForInput();
+
+	/**
+	 * Do any post processing required.
+	 * This might include unit conversions, opening files, etc.
+	 */
+	virtual void post_process_input();
+
+	//!        DATA FROM INPUT FILES
+
+	//! BlockEntry structure for the command file.
+	BEInput::BlockEntry *cf_;
+
+	//! Name of the command file
+	std::string commandFile_;
+
+	//! Title of the simulation
+	std::string Title;
+
+	//! Integer representing the Problem type.
+	/*!
+	 *  The identity of  what is held constant. Currently,
+	 *   T and P are held constant, and this input is ignored
+	 */
+	int prob_type;
+
+	//! Level of solution printing done to stdout
+	/*!
+	 *   0 -> Don't print anything
+	 *   1 -> Print only about significant issues going on
+	 *   2 -> Print status information at regular intervals.
+	 *   3 -> Print ShowSolution at regular intervals
+	 *   4 -> Print ShowSolution at all successful time steps
+	 *   5 -> Print additional information at each time step
+	 *   6 -> Print some information about each electrode object at each time step
+	 *   7 -> Print a lot of information about each electrode object at each time step
+	 */
+	int SolutionBehavior_printLvl_;
+
+	//! Level of printing from the Time Stepper
+	/*!
+	 *     The environmental variable PRE_printFlagEnv must be set to greater than 0 as well
+	 *
+	 *   0 -> absolutely nothing is printed for a single time step.
+	 *   1 -> One line summary per time step
+	 *   2 -> short description, points of interest
+	 *   3 -> More printed per time step -> major algorithm issues are displayed
+	 *   4 -> Additional time step error control information is printed out
+	 *        One line summary of the nonlinear solve
+	 *   5 -> Summaries of the nonlinear solve iterates are printed out
+	 *   6 -> Algorithm information on the nonlinear iterates are printed out
+	 *   7 -> Additional info on the nonlinear iterates are printed out
+	 *   8 -> Additional info on the linear solve is printed out.
+	 *   9 -> Info on a per iterate of the linear solve is printed out.
+	 */
+	int TimeStepper_printLvl_;
+
+	//! Log Level for the nonlinear solver
+	//!  Set the level of printing that occurs during the nonlinear solve
+	/*!
+	 *  -1 -> Takes the value that the time stepper printLvl wants
+	 *   0 -> absolutely nothing is printed for a single time step.
+	 *   1 -> One line summary per time step
+	 *   2 -> short description, points of interest
+	 *   3 -> More printed per time step -> major algorithm issues are displayed
+	 *   4 -> Additional time step error control information is printed out
+	 *        One line summary of the nonlinear solve
+	 *   5 -> Summaries of the nonlinear solve iterates are printed out
+	 *   6 -> Algorithm information on the nonlinear iterates are printed out
+	 *   7 -> Additional info on the nonlinear iterates are printed out
+	 *   8 -> Additional info on the linear solve is printed out.
+	 *   9 -> Info on a per iterate of the linear solve is printed out.
+	 */
+	int NonlinSolver_printLvl_;
+
+	//! Level of residual information printing done to stdout
+	/*!
+	 *   0 -> Don't print anything
+	 *   1 -> Print only about significant issues going on
+	 *   2 -> Print status information at regular intervals.
+	 *   3 -> Print ShowResidual at regular intervals
+	 *   4 -> Print ShowResidual at all successful time steps
+	 *   5 -> Print additional information when ShowSolution is called.
+	 *   6 -> Print additional information when any residual is called.
+	 *   7 -> Print a lot of information about each when ShowSolution is called.
+	 *   8 -> Print a lot of information when any base or show residual is called
+	 *   9 -> Print a lot of information when any residual is called
+	 */
+	int Residual_printLvl_;
+
+	//! Pointer to the solver input
+	RecordTree_base *I_LinearSolverBlock;
+
+	//! Start time for simulation
+	double startTime_;
+
+	//! End time for simulation
+	double endTime_;
+
+	//! initial time step for simulation
+	double initialTimeStep_;
+
+	//! Maximum value of the time step
+	double MaxTimeStep_;
+
+	//! Minimum value of the time step
+	double MinTimeStep_;
+
+	//! Relative tolerance for time integration
+	double absTol_;
+
+	//! Relative tolerance for time integration
+	double relTol_;
+
+	//! Initial number of cells in the domain
+	int initDefaultNumCVsPerDomain_;
+
+	//! Maximum Number of time steps to be taken
+	int maxNumTimeSteps_;
+
+};
+//=====================================================================================================================
+
+}
+//=====================================================================================================================
+#endif
+//=====================================================================================================================
+

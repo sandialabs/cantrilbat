@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+
+  <!--    -->
+  <phase dim="3" id="Asoln(l)">
+    <elementArray datasrc="elements.xml">
+      H O Fe
+    </elementArray>
+    <speciesArray datasrc="#ASolution">
+        ASolvent ASolute
+    </speciesArray>
+    <thermo model="IdealSolnVPSS"   >
+    </thermo>
+    <transport model="none"/>
+    <kinetics model="none"/>
+    <state>
+       <temperature> 350.0 </temperature>
+       <pressure units="atm"> 1.0 </pressure>
+       <moleFractions> ASolvent:0.9 ASolute:0.1  </moleFractions>
+    </state>
+    <standardConc model="unity" />
+
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="ASolution">
+
+    <!-- species FeS(B)   -->
+    <!--      melting temperature = 1463 K -->
+    <species name="ASolvent">
+      <atomArray> H:2 O:1 </atomArray>
+     <standardState  model="constant_incompressible">
+       <molarVolume> 0.02 </molarVolume>
+     </standardState>
+      <thermo> 
+        <const_cp tmax=10000 tmin=100 p0=1E5>
+        <t0> 298.15 </t0>
+        <h0> 1.0 </h0>
+        <cp0> 1.0 </cp0>
+        <s0> 1.0 </s0>
+        </const_cp>
+      </thermo>
+    </species>
+
+    <species name="ASolute">
+      <atomArray> Fe:1  </atomArray>
+     <standardState  model="constant_incompressible">
+       <molarVolume> 0.02 </molarVolume>
+     </standardState>
+      <thermo>
+        <const_cp tmax=10000 tmin=100 p0=1E5>
+        <t0> 298.15 </t0>
+        <h0> 1.0E4 </h0>
+        <cp0> 1.0E4 </cp0>
+        <s0> 1.0E4 </s0>
+        </const_cp>
+      </thermo>
+
+    </species>
+
+  </speciesData>
+
+</ctml>
+~                                                                                                                                                                          
+~                                             

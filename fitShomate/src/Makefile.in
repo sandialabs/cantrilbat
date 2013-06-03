@@ -1,0 +1,118 @@
+#
+# Makefile.in
+#    Makefile for fitShomate
+# $Id: Makefile.in,v 1.11 2011/10/19 15:59:02 hkmoffa Exp $
+#
+#
+#
+F77 = @F77@
+PROF = -p
+GPROF = -pg
+INCLUDE = -I/r2/chemkin
+FFLAGS_DEBUG  = -g  -u 
+FFLAGS_FAST   = -O  -u 
+FFLAGS = @FFLAGS@ -Wall 
+
+
+# This link is to Cantera's install space
+CT_INCROOT=@ct_incroot@
+
+# Bring in the Cantera includes through the .mak file
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+# Define the include directories
+INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
+
+#
+CC = @CC@
+CFLAGS =  @CXXFLAGS@
+CXX = @CXX@
+
+#
+LDR = $(CXX)
+LDRFLAGS = @CXXFLAGS@
+FLDRFLAGS = @FFLAGS@
+FCLIBS= @FCLIBS@
+FLIBS = @FLIBS@
+
+CANTERA_LIBDIR=@ct_libdir@
+CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
+CTMATH    = -L$(CANTERA_LIBDIR) -lctmath
+
+CANTERA_F2C_LIB = -L$(CANTERA_LIBDIR) -lctf2c
+
+.f.d:
+	@echo "$*.o: $*.f" > $*.d
+
+.F.d:
+	@echo "$*.o: $*.F" > $*.d
+
+.cpp.d:
+	$(CXX) -MM $(CXXFLAGS) $(CCFLAGS)  \
+               -I$(CANTERA_INCROOT)/cantera/kernel -c $*.cpp > $*.d
+
+.c.d:
+	$(CXX) -MM $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+#
+###############################################################################
+#                                                                             #
+#                      G E N E R A L   M A C R O S                            #
+#                                                                             #
+###############################################################################
+#
+all : fitShomate
+
+clean: 
+	/bin/rm -f *%  .*% *.d .depends
+	/bin/rm -f *.trace core
+	/bin/rm -f *.bak fort.*
+	/bin/rm -f *.log  *.dvi *.o
+	/bin/rm -f gmon.out mon.out gmon.sum
+
+DLSEI_OBJ = dlsei.o dh12.o dlsi.o dhfti.o dlpdp.o dwnnls.o  \
+             dwnlsm.o dwnlit.o dwnlt1.o  dwnlt2.o  dwnlt3.o
+
+fitShomate:  fitShomate.o fitShomatePoly.o  $(DLSEI_OBJ)
+	$(LDR) $(FLDRFLAGS) fitShomate.o fitShomatePoly.o $(DLSEI_OBJ) \
+                  $(CTMATH) $(CTBLAS)  -o fitShomate $(CANTERA_F2C_LIB) $(FLIBS)
+
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c fitShomate @cta_bindir@
+
+###############################################################################
+#                                                                             #
+#             G E N E R A L  C O M P I L A T I O N   R U L E S                #
+#                                                                             #
+###############################################################################
+.f.o:
+	$(F77) $(FFLAGS) $*.f -c
+
+.F.o:
+	$(F77) $(FFLAGS) $*.F -c
+
+SUFFIXES = .o .c  .ln .f  .F .d
+
+.SUFFIXES: $(SUFFIXES)
+
+DEPENDS =  fitShomate.d fitShomatePoly.d 
+
+
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+###############################################################################
+#                                                                             #
+#                                E N D                                        #
+#                                                                             #
+###############################################################################

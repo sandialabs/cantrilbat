@@ -1,0 +1,159 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+#
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name = LiFixed.xml
+ => Cantera File Name = LiFixed.xml
+ ====> CanteraFileNames =  LiFixed.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 1000.
+Bath Pressure = 1.0 atm
+Output Units = KJoule
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase LiFixed
+  Bath Species ID = LiFixed
+  start block Bath Species Mole Fraction
+    LiFixed = 1.0
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase LiFixed
+
+
+# the above were empty lines
+#
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name = LiFixed.xml
+ => Cantera File Name = LiFixed.xml
+ ====> CanteraFileNames =  LiFixed.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 1000.
+ => Bath Temperature = 1000.
+ ====> BG.Temperature = 1000
+Bath Pressure = 1.0 atm
+ => Bath Pressure = 1.0 atm
+ ====> BG.Pressure = 101325
+Output Units = KJoule
+ => Output Units = KJoule
+ ====> OutputUnits = KJoule, list item 1
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+ => Add Chemical Potential Column = true
+ ====> ChemPotColumn = 1
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+ => Number of Points ====> TTpts = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase LiFixed
+  Bath Species ID = LiFixed
+ => Bath Species ID = LiFixed
+ ====> BG_ID = LiFixed, list item 0
+  start block Bath Species Mole Fraction
+    LiFixed = 1.0
+ => LiFixed = 1.0
+ ====> LiFixed = 1
+  End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ LiFixed : 0 ] = 1
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath specification for Phase LiFixed
+
+
+# the above were empty lines
+Bath Species set to LiFixed
+----------------------------------------------------------------
+ Dump of Mixture properties: 
+Bath Species set to LiFixed
+Bath Species set to LiFixed
+     ====================================================================================================
+      Bath Composition for Phase id, "LiFixed", with name, "LiFixed", with eosType, "FixedChemPot"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 1000 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = LiFixed
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         LiFixed          1.0000       1.441E-07       1.000E+00
+          ------------------------------------------------------------------------------
+EOS type = 70
+PrintOut of Phase, "LiFixed", using Generic Thermodynamics Functions:
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "LiFixed" IN PHASE "LiFixed"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  Li: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 6.941 gm/mol
+        Heat of formation (298.15K) = -23.0000  kJ/gmol 
+        Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 250 K
+        Maximum Temperature = 1075 K
+        Partial    Molar Volume at (T,P) of (1600,101325) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (1600,101325) = 0 m3/kmol
+        Molar Volume formulation for eos type 70 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 1075: 
+                        50.72389          6.672267         -2.517167          10.15934
+                       -0.200675         -427.2115          130.3973
+               High temperature polynomials: 1075 < T < 1075: 
+                        50.72389          6.672267         -2.517167          10.15934
+                       -0.200675         -427.2115          130.3973
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|    300.00 |    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|    500.00 |     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|    600.00 |    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|    700.00 |     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|    800.00 |     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|    900.00 |    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|   1000.00 |     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1100.00*|    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1200.00*|    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1300.00*|    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1400.00*|     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1500.00*|    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1600.00*|     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
+---------------------------------------------------------------------------------------

@@ -1,0 +1,8 @@
+
+
+MultiPhase Equilibrium Solver
+Wrapper around MultiPhaseEquil object 
+in Cantera's distribution
+
+
+Based on Smith and Missen Book.

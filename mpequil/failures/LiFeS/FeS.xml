@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase FeS(S)    -->
+  <phase dim="3" id="FeS(S)">
+    <elementArray datasrc="elements.xml">
+      Fe S
+    </elementArray>
+    <speciesArray datasrc="#species_FeS(S)"> FeS(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 4.838 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_FeS(S)">
+
+    <!-- species FeS(S)   -->
+    <!--      melting temperature = 1463 K -->
+    <species name="FeS(S)">
+      <atomArray> Fe:1 S:1 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from McCammon et.al, Physics and Chem of Minerals, v11 no4 p182 2006 -->
+        <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
+      </standardState>
+      <!-- NIST converted from Shomate to NASA9 -->
+      <thermo>
+        <NASA9 Pref="1 bar" Tmax="411" Tmin="298">
+          <floatArray size="9">
+             1.624978846782997e+06,                         0,    -3.994274891572467e+01,     1.258949069909696e-02,     4.105328960285707e-04,    -4.719654052106978e-07,                         0,     1.876887757420276e+03,     2.261418515478969e+02
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="598" Tmin="411">
+          <floatArray size="9">
+                                 0,                         0,     8.702657089301814e+00,                         0,                         0,                         0,                         0,    -1.467258191118297e+04,    -4.203180665812728e+01
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1900" Tmin="598">
+          <floatArray size="9">
+            -2.105097494977636e+02,                         0,     1.152755943070828e+01,    -1.029452576038542e-02,     5.862190850753402e-06,    -5.695958641385566e-13,                         0,    -1.489164847651440e+04,    -5.490551417199553e+01
+          </floatArray>
+        </NASA9>
+<!--
+        <NASA9 Pref="1 bar" Tmax="411.0" Tmin="250.0">
+          <floatArray size="9">
+            -1.19501633065185e7,
+             0,
+             1.1113838417271e3,
+            -6.616992517,
+             1.461331492944e-2,
+            -1.120781912776e-5,
+             0,
+            -1.965260055625e5,
+            -4.96981593694e3
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="598.0" Tmin="411.0">
+          <floatArray size="9">
+            -2.16489990889,
+             0,
+             8.70389589313857,
+            -7.29487078743778e-6,
+             1.449159944567e-8,
+            -9.53337729323e-12,
+             0,
+            -1.46895675151188e4,
+            -4.20866773071e1
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1463.0" Tmin="598.0">
+          <floatArray size="9">
+             8.5393274183978,
+             0,
+             1.1525421971616e1,
+            -1.029067130858e-2,
+             5.8596985017263e-6,
+            -1.21474939332138e-14,
+             0,
+            -1.490726022818e4,
+            -5.49427531997e1
+          </floatArray>
+        </NASA9>
+-->
+      </thermo>
+      <!-- M = 87.911, then evaluated from molarVolume -->
+      <density units="g/cm3"> 4.838 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

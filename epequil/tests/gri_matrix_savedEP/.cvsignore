@@ -1,0 +1,8 @@
+Makefile
+csvCode.txt
+gri_matrix_savedEP
+output.txt
+diff_test.out
+.nfs*
+.depends
+*.d

@@ -1,0 +1,5 @@
+#!/bin/csh -f
+
+/bin/rm -f dakota.rst idr-parsed-input.txt LHS* S4 fort.* params.in.* results.out.* fort.9
+/bin/rm -r -f workdir
+

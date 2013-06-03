@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase Li2S(S)    -->
+  <phase dim="3" id="Li2S(S)">
+    <elementArray datasrc="elements.xml">
+      Li S
+    </elementArray>
+    <speciesArray datasrc="#species_Li2S(S)"> Li2S(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 4.838 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Li2S(S)">
+
+    <!-- species Li2S(S)   -->
+    <!--      melting temperature = 1463 K -->
+    <species name="Li2S(S)">
+      <atomArray> Li:2 S:1 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from McCammon et.al, Physics and Chem of Minerals, v11 no4 p182 2006 -->
+        <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
+      </standardState>
+      <!-- Morachevskii Russian J. of Applied Chem. 74(12) 2001 p 1934 (from Khachkuruzov) dH_298=-445.6, S_298=62-->
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="3000" Tmin="298">
+          <floatArray size="7">
+	     24.4800, 115.7000, 22.6900, 0, 0, -458.2417, 56.1202
+<!--             24.4800,  115.7000,   22.6900,         0,         0,   -2.5417,   56.1202 -->
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- M = 87.911, then evaluated from molarVolume -->
+      <density units="g/cm3"> 4.838 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

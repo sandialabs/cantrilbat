@@ -1,0 +1,38 @@
+#
+# cttables haca.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = haca.cti
+!Debugging = true
+Bath Temperature = 1400.
+Bath Pressure = 1.0 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+
+start block Bath Specification for Phase gas
+  Bath Species ID = H2
+  start block Bath Species Mole Fraction
+    H2 = 0.1
+    H = 0.01
+    N2 = 0.89
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase gas
+
+start block Bath Specification for Phase soot_interface
+   Bath Species ID = Csoot-H
+   start block Bath Species Mole Fraction
+     Csoot-H = 0.5
+     Csoot-* = 0.5
+  End block Bath Species Mole Fraction
+end block Bath Specification for Phase soot_interface
+
+# the above were empty lines

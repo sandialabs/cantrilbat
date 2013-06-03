@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+#
+MP_MACHINEFILE=${MP_MACHINEFILE:=/home/hkmoffa/arch/machinefile_wsblade083}
+#
+#
+mpirun -tv -machinefile $MP_MACHINEFILE -np 1 LiIon_PorousBat LiIon_PorousBat.inp 
+

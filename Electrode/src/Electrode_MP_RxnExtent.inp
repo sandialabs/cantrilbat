@@ -1,0 +1,220 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name = string      (no default) (optional)
+!
+!-------------------------------------------------------------------------
+Electrode Name = FeS2
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion",  "CSTR_MCMBAnode" ,
+                            "CSTR_LiCoO2Cathode", "CSTR", "SimpleDiff"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = InfCapacity
+!-------------------------------------------------------------------------
+!
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = FeS2_A.xml
+Cantera File Name = FeS2_B.xml
+Cantera File Name = FeS2_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 723.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Area - [m^2]
+!
+! Electrode Gross Area = 2.5063e-3 m2
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Diameter - [m]
+!
+! Electrode Gross Diameter = 0.05649 m
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Thickness - [m]
+!
+! Electrode Gross Thickness = 7.874e-4 m
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+!
+
+start block Bath Specification for Phase FeS2_A(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    FeS2_A(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_A(S)
+
+
+start block Bath Specification for Phase FeS2_B(S)
+  Phase Moles = 1.0E-3
+  start block Bath Species Mole Fraction
+    FeS2_B(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_B(S)
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.3
+      K+  = 0.2
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+!------------------------------------------------------------------------
+!
+!   SPECIFY OTHER WAYS TO INPUT THE CONCENTRATION, without
+!   breaking it down via phases.
+!
+!-------------------------------------------------------------------------
+!  BLOCK -> Species Initial KMoles    (no default)  (optional)
+!
+!  We can specify the moles of species in this type of format.
+!  If present, it overrides the specification of moles in individual
+!  phases described above.
+!
+!  start block Species Initial KMoles
+!        FeS2_A(S) =  1.0
+!        FeS2_B(S) = 1.0
+!        Li+ = 0.3E-2
+!        K+  = 0.2E-2
+!        Cl- = 0.5E-2
+!  end block Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+! Level of XML State Information Created = [none, minimum, globalSteps, 
+!                                           intermediateSteps]
+!  
+!  Level of output created - defaults to none
+!
+!
+Level of XML State Information Created = none
+!------------------------------------------------------------------------
+!
+! Capacity Discharged Per Initial Mole =  (dimensionless) (no default)  (optional)
+!
+!   This is the relative amount of electrons that are discharged or
+!   are accumlated (for cathodes)
+!   as a function of the initial mole number of active species in the electrode.
+!   Some objects don't support setting the initial conditions by this method.
+!
+! Capacity Discharged Per Initial Mole = 0.5
+!
+!------------------------------------------------------------------------
+!
+! Number of Regions = [ 1, 5000 ] (dimensionless) (default = 1) (optional)
+!
+!    Set the number of regions in the model. A region is defined as a material type
+!    Between regions, you can have a discontinuity in the open circuit potential.
+!    Also, you can define molar volumes and diffusion coefficients for each region.
+!
+Number of Regions = 4
+!-------------------------------------------------------------------------------------------------
+!
+!  Solid Diffusion Model = [0, 1] (dimensionless) (default = 0) (optional)
+!
+!    Sets whether there is a solid ionic diffusion limitation in the model.  
+!    0 turns it off. 1 turns it on.
+!
+Solid Diffusion Model = 1
+!-------------------------------------------------------------------------------------------------
+!
+!  Molar Volumes Region Boundaries = [vector of doubles of length #Regions + 1]
+!                                     no default (mandatory)
+!
+!     Sets the molar volumes at the regon boundaries. The
+!     molar volumes are then linear combinations of the extent of reactions
+!     within each region.
+!
+Molar Volumes Region Boundaries = 26.7 26.7 26.7 26.7 26.7
+!-------------------------------------------------------------------------------------------------
+!
+! Location of Rate Limiting Surface = [ 0, 1, 2] (default = 0) (optional)
+!
+!     Sets the location of the rate limiting surface
+!        0 = Surface area is fixed at the initial conditions. (default)
+!        1 = Surface is located internal to the particle. Surface area of the reacting surface is calculated as moving
+!            front dependent on the extent of reaction during the current plateau
+!        2 = Surface is located at the exterior of the particle, which may be growing.
+!
+Location of Rate Limiting Surface = 0
+!
+!--------------------------------------------------------------------------------------------------
+!
+!  Diffusion Coefficients for Regions = [vector of doubles of length #Regions + 1]
+!                                         no default (mandatory)
+!
+!     Sets the diffusion coefficients for each of the pseudo-materials in the model
+!     units = m2 / sec
+!
+Diffusion Coefficients for Regions = 1.0E-8  1.0E-8 1.0E-8 1.0E-8 1.0E-8
+!--------------------------------------------------------------------------------------------------
+!
+!  Reaction Rate Constant Perturbations for Regions = [vector of doubles of length #Regions + 1]
+!                                                       default = 1.0 (optional)
+!
+!      Sets the perturbation factor for each of the reaction rate constants for the
+!      single reaction.
+!
+Reaction Rate Constant Perturbations for Regions= 1.0 1.0 1.0 1.0 1.0
+!--------------------------------------------------------------------------------------------
+
+
+
+
+

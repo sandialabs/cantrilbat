@@ -1,0 +1,142 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile to compile and link a C++ application to 
+#  Cantera.
+#
+#############################################################################
+
+# addition to suffixes
+.SUFFIXES : .d
+
+# the name of the executable program to be created
+
+# the object files to be linked together. List those generated from Fortran
+# and from C/C++ separately
+M1D_C_OBJS = \
+	m1d_ProblemStatementCell.o m1d_BatteryResidEval.o \
+	m1d_BDT_porousLiKCl.o m1d_porousLiKCl_dom1D.o \
+	m1d_SDT_AnodeCollector.o m1d_SDT_CathodeCollector.o \
+	m1d_SurDomain_AnodeCollector.o m1d_SurDomain_CathodeCollector.o  \
+        m1d_SolNonlinear_CurrentSolve.o FuncElectrodeCurrent.o BEulerInt_Battery.o \
+        m1d_porousElectrode_dom1D.o m1d_porousFlow_dom1D.o
+
+M1D_C_HDRS = \
+	m1d_ProblemStatementCell.h m1d_BatteryResidEval.h \
+	m1d_BDT_porousLiKCl.h m1d_porousLiKCl_dom1D.h \
+	m1d_SDT_AnodeCollector.h m1d_SDT_CathodeCollector.h \
+	m1d_SurDomain_AnodeCollector.h m1d_SurDomain_CathodeCollector.h  \
+        m1d_SolNonlinear_CurrentSolve.h FuncElectrodeCurrent.h  BEulerInt_Battery.h \
+        m1d_porousElectrode_dom1D.h m1d_porousFlow_dom1D.h
+
+TOBJS = $(M1D_C_OBJS)
+
+# additional flags to be passed to the linker. If your program
+# requires other external libraries, put them here
+LINK_OPTIONS = 
+
+#############################################################################
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+CANTERA_INSTALL_DIR = @ct_prefix@
+CANTERA_APPS_INSTALL_DIR = @cta_prefix@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+#
+#
+TRILINOS_DIR=@trilinos_root@
+TRILINOS_INC_DIR=$(TRILINOS_DIR)/include
+TRILINOS_INC=-I$(TRILINOS_DIR)/include
+TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
+
+include $(TRILINOS_INC_DIR)/Makefile.export.amesos
+include $(TRILINOS_INC_DIR)/Makefile.export.ifpack
+
+UTILSRC_DIR=../../util_src/src
+UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
+UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
+
+CTPADDS_DIR = ../../ctpadds/src
+APPL_BASE_DIR= ../../ctApplBase/src
+APPL_BASE_INC= -I$(APPL_BASE_DIR)
+APPL_BASE_DEP= $(APPL_BASE_DIR)/libctApplBase.a $(CTPADDS_DIR)/libctpadds.a
+APPL_BASE_LIB= -L$(APPL_BASE_DIR) -l ctApplBase  -L$(CTPADDS_DIR) -lctpadds
+
+# Check to see whether we are in the msvc++ environment
+os_is_win = @OS_IS_WIN@
+
+# the C++ compiler
+CXX = @MPICXX@ 
+#CXX = @CXX@
+#
+# The directory where Cantera include files may be found.
+#
+
+INCLUDE_DIRS = -I../src \
+		-I$(CANTERA_INCROOT) \
+		$(APPL_BASE_INC) \
+	        $(TRILINOS_INC) \
+               -I$(UTILSRC_DIR) -I../..
+
+# C++ compile flags
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
+
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = @CXXFLAGS@
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) $(CXX_FLAGS) -c $< 
+
+# How to compile the dependency file
+.cpp.d:
+	@CXX_DEPENDS@  $(CXX_FLAGS) $*.cpp > $*.d
+
+# List of dependency files to be created
+DEPENDS=$(TOBJS:.o=.d)
+
+# Program Name
+
+all: libm1dcantera.a .depends
+
+$(TOBJS) $(DEPENDS): Makefile
+
+rebaseline:
+
+libm1dcantera.a: $(M1D_C_OBJS)
+	ar   ruv libm1dcantera.a $(M1D_C_OBJS) > /dev/null
+
+install:
+	cp   $(M1D_C_HDRS) @cta_incdir@
+	@INSTALL@ -m 644  libm1dcantera.a @cta_libdir@
+
+# depends target -> forces recalculation of dependencies
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+# Do the test -> For the windows vc++ environment, we have to skip checking on
+#                whether the program is uptodate, because we don't utilize make
+#                in that environment to build 
+test:
+
+clean:
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends @cta_libdir@/libm1dcantera.a
+	(if test -d SunWS_cache ; then \
+           $(RM) -rf SunWS_cache ; \
+         fi )
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

@@ -1,0 +1,5 @@
+.nfs*
+out.txt
+cttables
+csvCode.txt
+diff.out

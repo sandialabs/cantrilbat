@@ -1,0 +1,6 @@
+Makefile
+.depends
+mpequil
+*.d
+.nfs*
+electrodeCell

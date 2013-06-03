@@ -1,0 +1,972 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample JP8 Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = jp8_mech_hongzhi.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 2000.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   C2H4  = 0.4
+   O2    = 0.4
+   N2    = 0.2
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample JP8 Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = jp8_mech_hongzhi.xml
+ => Cantera File Name = jp8_mech_hongzhi.xml
+ ====> CanteraFileNames =  jp8_mech_hongzhi.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 2000.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   C2H4  = 0.4
+   O2    = 0.4
+   N2    = 0.2
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 2
+=========================================================
+
+
+**** WARNING ****
+For species SC3H5, discontinuity in cp/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  15.0612.
+	Value computed using high-temperature polynomial: 15.0433.
+
+
+**** WARNING ****
+For species I-C8H18, discontinuity in cp/R detected at Tmid = 1388
+	Value computed using low-temperature polynomial:  62.6772.
+	Value computed using high-temperature polynomial: 60.4497.
+
+
+**** WARNING ****
+For species A-C8H17, discontinuity in cp/R detected at Tmid = 1397
+	Value computed using low-temperature polynomial:  59.6021.
+	Value computed using high-temperature polynomial: 57.5845.
+
+
+**** WARNING ****
+For species A-C8H17, discontinuity in s/R detected at Tmid = 1397
+	Value computed using low-temperature polynomial:  113.775.
+	Value computed using high-temperature polynomial: 113.563.
+
+
+**** WARNING ****
+For species C-C8H17, discontinuity in cp/R detected at Tmid = 1397
+	Value computed using low-temperature polynomial:  59.6021.
+	Value computed using high-temperature polynomial: 57.5845.
+
+
+**** WARNING ****
+For species C-C8H17, discontinuity in s/R detected at Tmid = 1397
+	Value computed using low-temperature polynomial:  113.775.
+	Value computed using high-temperature polynomial: 113.563.
+
+
+**** WARNING ****
+For species CH3C6H4CH2, discontinuity in cp/R detected at Tmid = 1390
+	Value computed using low-temperature polynomial:  40.6352.
+	Value computed using high-temperature polynomial: 40.8107.
+
+
+**** WARNING ****
+For species L-C5H8, discontinuity in cp/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  25.7623.
+	Value computed using high-temperature polynomial: 27.4673.
+
+
+**** WARNING ****
+For species L-C5H8, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  61.909.
+	Value computed using high-temperature polynomial: 62.0816.
+
+
+**** WARNING ****
+For species L-C5H7, discontinuity in cp/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  24.4201.
+	Value computed using high-temperature polynomial: 26.0501.
+
+
+**** WARNING ****
+For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  60.0894.
+	Value computed using high-temperature polynomial: 60.2483.
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample JP8 Problem
+ => Title = Sample JP8 Problem
+ ====> Title = Sample JP8 Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = jp8_mech_hongzhi.xml
+ => Cantera File Name = jp8_mech_hongzhi.xml
+ ====> CanteraFileNames =  jp8_mech_hongzhi.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 2000.
+ => Temperature = 2000.
+ ====> Temperature = 2000
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 9.6151e-2    
+!   H = 1.3766e-2
+!   C = 8.8294e-2
+!   Fe = 4.2827e-2
+!   Ca = 7.5620e-4
+!   N = 374.2E-3
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   C2H4  = 0.4
+ => C2H4 = 0.4
+ ====> C2H4 = 0.4
+   O2    = 0.4
+ => O2 = 0.4
+ ====> O2 = 0.4
+   N2    = 0.2
+ => N2 = 0.2
+ ====> N2 = 0.2
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ H2 : 0 ] = 0
+	====>   MoleNumber[ H : 1 ] = 0
+	====>   MoleNumber[ O2 : 2 ] = 0.4
+	====>   MoleNumber[ O : 3 ] = 0
+	====>   MoleNumber[ OH : 4 ] = 0
+	====>   MoleNumber[ HO2 : 5 ] = 0
+	====>   MoleNumber[ H2O2 : 6 ] = 0
+	====>   MoleNumber[ H2O : 7 ] = 0
+	====>   MoleNumber[ CO2 : 8 ] = 0
+	====>   MoleNumber[ CO : 9 ] = 0
+	====>   MoleNumber[ CH4 : 10 ] = 0
+	====>   MoleNumber[ CH3 : 11 ] = 0
+	====>   MoleNumber[ CH2 : 12 ] = 0
+	====>   MoleNumber[ CH : 13 ] = 0
+	====>   MoleNumber[ CH2O : 14 ] = 0
+	====>   MoleNumber[ HCO : 15 ] = 0
+	====>   MoleNumber[ CH2(S) : 16 ] = 0
+	====>   MoleNumber[ CH2OH : 17 ] = 0
+	====>   MoleNumber[ CH3O : 18 ] = 0
+	====>   MoleNumber[ C : 19 ] = 0
+	====>   MoleNumber[ HCOH : 20 ] = 0
+	====>   MoleNumber[ CH3OH : 21 ] = 0
+	====>   MoleNumber[ C2H : 22 ] = 0
+	====>   MoleNumber[ HCCO : 23 ] = 0
+	====>   MoleNumber[ C2H2 : 24 ] = 0
+	====>   MoleNumber[ C2H3 : 25 ] = 0
+	====>   MoleNumber[ C2H4 : 26 ] = 0.4
+	====>   MoleNumber[ C2H5 : 27 ] = 0
+	====>   MoleNumber[ C2H6 : 28 ] = 0
+	====>   MoleNumber[ HCCOH : 29 ] = 0
+	====>   MoleNumber[ CH2CO : 30 ] = 0
+	====>   MoleNumber[ C2 : 31 ] = 0
+	====>   MoleNumber[ C2O : 32 ] = 0
+	====>   MoleNumber[ CH2HCO : 33 ] = 0
+	====>   MoleNumber[ CH3CO : 34 ] = 0
+	====>   MoleNumber[ CH3HCO : 35 ] = 0
+	====>   MoleNumber[ CHOCHO : 36 ] = 0
+	====>   MoleNumber[ H2CCCH : 37 ] = 0
+	====>   MoleNumber[ C3H2 : 38 ] = 0
+	====>   MoleNumber[ C3H6 : 39 ] = 0
+	====>   MoleNumber[ AC3H5 : 40 ] = 0
+	====>   MoleNumber[ PC3H5 : 41 ] = 0
+	====>   MoleNumber[ SC3H5 : 42 ] = 0
+	====>   MoleNumber[ CH2CHCHO : 43 ] = 0
+	====>   MoleNumber[ PC3H4 : 44 ] = 0
+	====>   MoleNumber[ AC3H4 : 45 ] = 0
+	====>   MoleNumber[ CH2CHCO : 46 ] = 0
+	====>   MoleNumber[ CH3CHCO : 47 ] = 0
+	====>   MoleNumber[ C3H8 : 48 ] = 0
+	====>   MoleNumber[ IC3H7 : 49 ] = 0
+	====>   MoleNumber[ NC3H7 : 50 ] = 0
+	====>   MoleNumber[ C4H2 : 51 ] = 0
+	====>   MoleNumber[ CH2CHCCH : 52 ] = 0
+	====>   MoleNumber[ HCCHCCH : 53 ] = 0
+	====>   MoleNumber[ H2CCCCH : 54 ] = 0
+	====>   MoleNumber[ CH2CHCHCH : 55 ] = 0
+	====>   MoleNumber[ CH2CHCCH2 : 56 ] = 0
+	====>   MoleNumber[ CH3CHCCH : 57 ] = 0
+	====>   MoleNumber[ CH3CH2CCH : 58 ] = 0
+	====>   MoleNumber[ H2C4O : 59 ] = 0
+	====>   MoleNumber[ CH2CHCHCH2 : 60 ] = 0
+	====>   MoleNumber[ C4H10 : 61 ] = 0
+	====>   MoleNumber[ PC4H9 : 62 ] = 0
+	====>   MoleNumber[ SC4H9 : 63 ] = 0
+	====>   MoleNumber[ C4H8-1 : 64 ] = 0
+	====>   MoleNumber[ C4H8-2 : 65 ] = 0
+	====>   MoleNumber[ IC4H7 : 66 ] = 0
+	====>   MoleNumber[ IC4H8 : 67 ] = 0
+	====>   MoleNumber[ IC4H9 : 68 ] = 0
+	====>   MoleNumber[ CH3CHCCH2 : 69 ] = 0
+	====>   MoleNumber[ CH3CCCH2 : 70 ] = 0
+	====>   MoleNumber[ BC4H7 : 71 ] = 0
+	====>   MoleNumber[ NC4H7 : 72 ] = 0
+	====>   MoleNumber[ TC4H9 : 73 ] = 0
+	====>   MoleNumber[ C5H2 : 74 ] = 0
+	====>   MoleNumber[ C5H3 : 75 ] = 0
+	====>   MoleNumber[ C-C5H5 : 76 ] = 0
+	====>   MoleNumber[ C-C5H5O : 77 ] = 0
+	====>   MoleNumber[ C-C5H6 : 78 ] = 0
+	====>   MoleNumber[ C-C5H4OH : 79 ] = 0
+	====>   MoleNumber[ C-C5H4O : 80 ] = 0
+	====>   MoleNumber[ C5H11-1 : 81 ] = 0
+	====>   MoleNumber[ C5H10-1 : 82 ] = 0
+	====>   MoleNumber[ C5H9 : 83 ] = 0
+	====>   MoleNumber[ C6H2 : 84 ] = 0
+	====>   MoleNumber[ C6H5 : 85 ] = 0
+	====>   MoleNumber[ C6H6 : 86 ] = 0
+	====>   MoleNumber[ C6H5O : 87 ] = 0
+	====>   MoleNumber[ C6H5OH : 88 ] = 0
+	====>   MoleNumber[ C6H11 : 89 ] = 0
+	====>   MoleNumber[ C6H12-1 : 90 ] = 0
+	====>   MoleNumber[ NC7H16 : 91 ] = 0
+	====>   MoleNumber[ C7H15-1 : 92 ] = 0
+	====>   MoleNumber[ C7H15-2 : 93 ] = 0
+	====>   MoleNumber[ C7H15-3 : 94 ] = 0
+	====>   MoleNumber[ C7H15-4 : 95 ] = 0
+	====>   MoleNumber[ C7H14-1 : 96 ] = 0
+	====>   MoleNumber[ C7H14-2 : 97 ] = 0
+	====>   MoleNumber[ C7H14-3 : 98 ] = 0
+	====>   MoleNumber[ I-C8H18 : 99 ] = 0
+	====>   MoleNumber[ A-C8H17 : 100 ] = 0
+	====>   MoleNumber[ C-C8H17 : 101 ] = 0
+	====>   MoleNumber[ C6H5CH2 : 102 ] = 0
+	====>   MoleNumber[ C6H5CH3 : 103 ] = 0
+	====>   MoleNumber[ C6H5C2H5 : 104 ] = 0
+	====>   MoleNumber[ C6H4C2H3 : 105 ] = 0
+	====>   MoleNumber[ C6H4C2H : 106 ] = 0
+	====>   MoleNumber[ C6H5C2H3 : 107 ] = 0
+	====>   MoleNumber[ C6H5C2H : 108 ] = 0
+	====>   MoleNumber[ C6H5CHO : 109 ] = 0
+	====>   MoleNumber[ C6H5CO : 110 ] = 0
+	====>   MoleNumber[ HOC6H4CH3 : 111 ] = 0
+	====>   MoleNumber[ C6H5CH2OH : 112 ] = 0
+	====>   MoleNumber[ OC6H4O : 113 ] = 0
+	====>   MoleNumber[ OC6H4CH3 : 114 ] = 0
+	====>   MoleNumber[ CH3C6H4CH3 : 115 ] = 0
+	====>   MoleNumber[ CH3C6H4CH2 : 116 ] = 0
+	====>   MoleNumber[ CH3C6H4C2H3 : 117 ] = 0
+	====>   MoleNumber[ CH3C6H4C2H5 : 118 ] = 0
+	====>   MoleNumber[ C10H8 : 119 ] = 0
+	====>   MoleNumber[ C10H10 : 120 ] = 0
+	====>   MoleNumber[ C10H9 : 121 ] = 0
+	====>   MoleNumber[ C10H7 : 122 ] = 0
+	====>   MoleNumber[ C10H7O : 123 ] = 0
+	====>   MoleNumber[ C10H7CH2 : 124 ] = 0
+	====>   MoleNumber[ C10H7CH3 : 125 ] = 0
+	====>   MoleNumber[ INDENE : 126 ] = 0
+	====>   MoleNumber[ INDENYL : 127 ] = 0
+	====>   MoleNumber[ ACENPHTHLN : 128 ] = 0
+	====>   MoleNumber[ PHNTHRN : 129 ] = 0
+	====>   MoleNumber[ PHNTHRYL-1 : 130 ] = 0
+	====>   MoleNumber[ PHNTHRYL-9 : 131 ] = 0
+	====>   MoleNumber[ FLRNTHN : 132 ] = 0
+	====>   MoleNumber[ C-2*4C6H6O : 133 ] = 0
+	====>   MoleNumber[ C-C5H7 : 134 ] = 0
+	====>   MoleNumber[ L-C5H8 : 135 ] = 0
+	====>   MoleNumber[ L-C5H7 : 136 ] = 0
+	====>   MoleNumber[ C10H7C2H5 : 137 ] = 0
+	====>   MoleNumber[ C10H7C2H3 : 138 ] = 0
+	====>   MoleNumber[ C10H7OH : 139 ] = 0
+	====>   MoleNumber[ C6H5CCO : 140 ] = 0
+	====>   MoleNumber[ C6H5CHCH : 141 ] = 0
+	====>   MoleNumber[ C6H5CCH2 : 142 ] = 0
+	====>   MoleNumber[ C10H7CCH2 : 143 ] = 0
+	====>   MoleNumber[ C10H7CCH : 144 ] = 0
+	====>   MoleNumber[ C10H6CCH : 145 ] = 0
+	====>   MoleNumber[ ANTHRACN : 146 ] = 0
+	====>   MoleNumber[ CH3INDENE : 147 ] = 0
+	====>   MoleNumber[ CH3INDENYL : 148 ] = 0
+	====>   MoleNumber[ CH3PHNTHRN : 149 ] = 0
+	====>   MoleNumber[ PYRENE : 150 ] = 0
+	====>   MoleNumber[ FLUORYL : 151 ] = 0
+	====>   MoleNumber[ FLUORENE : 152 ] = 0
+	====>   MoleNumber[ H2CCCCH2 : 153 ] = 0
+	====>   MoleNumber[ CHCHCHO : 154 ] = 0
+	====>   MoleNumber[ HCCCHO : 155 ] = 0
+	====>   MoleNumber[ HCCCO : 156 ] = 0
+	====>   MoleNumber[ HC4-P(DEF)PTHN : 157 ] = 0
+	====>   MoleNumber[ HC4-P(DEF)PTHYL : 158 ] = 0
+	====>   MoleNumber[ PHNTHROXY-1 : 159 ] = 0
+	====>   MoleNumber[ PHNTHROXY-9 : 160 ] = 0
+	====>   MoleNumber[ BZ(A)NDENE : 161 ] = 0
+	====>   MoleNumber[ BZ(A)NDNYL : 162 ] = 0
+	====>   MoleNumber[ PHNTHROL-1 : 163 ] = 0
+	====>   MoleNumber[ PHNTHROL-9 : 164 ] = 0
+	====>   MoleNumber[ BIPHENYL : 165 ] = 0
+	====>   MoleNumber[ BZ(A)PHNTHRN : 166 ] = 0
+	====>   MoleNumber[ BZ(GHI)FLN : 167 ] = 0
+	====>   MoleNumber[ FULVENE : 168 ] = 0
+	====>   MoleNumber[ CH3CY24PD : 169 ] = 0
+	====>   MoleNumber[ CH3CY24PD1 : 170 ] = 0
+	====>   MoleNumber[ CH3DCY24PD : 171 ] = 0
+	====>   MoleNumber[ CYC6H7 : 172 ] = 0
+	====>   MoleNumber[ FULVENYL : 173 ] = 0
+	====>   MoleNumber[ AR : 174 ] = 0
+	====>   MoleNumber[ N2 : 175 ] = 0.2
+	====>   MoleNumber[ NC10H22 : 176 ] = 0
+	====>   MoleNumber[ C10H21-1 : 177 ] = 0
+	====>   MoleNumber[ C10H21-2 : 178 ] = 0
+	====>   MoleNumber[ C10H21-3 : 179 ] = 0
+	====>   MoleNumber[ C10H21-4 : 180 ] = 0
+	====>   MoleNumber[ C10H21-5 : 181 ] = 0
+	====>   MoleNumber[ C10H20 : 182 ] = 0
+	====>   MoleNumber[ C9H19-1 : 183 ] = 0
+	====>   MoleNumber[ C9H18-1 : 184 ] = 0
+	====>   MoleNumber[ C8H17-1 : 185 ] = 0
+	====>   MoleNumber[ C8H17-2 : 186 ] = 0
+	====>   MoleNumber[ C8H17-3 : 187 ] = 0
+	====>   MoleNumber[ C8H17-4 : 188 ] = 0
+	====>   MoleNumber[ C8H16-1 : 189 ] = 0
+	====>   MoleNumber[ C6H13-1 : 190 ] = 0
+	====>   MoleNumber[ C6H13-2 : 191 ] = 0
+	====>   MoleNumber[ C6H13-3 : 192 ] = 0
+	====>   MoleNumber[ NC12H26 : 193 ] = 0
+	====>   MoleNumber[ C12H25-1 : 194 ] = 0
+	====>   MoleNumber[ C12H25-2 : 195 ] = 0
+	====>   MoleNumber[ C12H25-3 : 196 ] = 0
+	====>   MoleNumber[ C12H25-4 : 197 ] = 0
+	====>   MoleNumber[ C12H25-5 : 198 ] = 0
+	====>   MoleNumber[ C12H25-6 : 199 ] = 0
+	====>   MoleNumber[ C11H22 : 200 ] = 0
+	====>   MoleNumber[ C12H24 : 201 ] = 0
+	====>   MoleNumber[ MCH : 202 ] = 0
+	====>   MoleNumber[ C6H9CH3 : 203 ] = 0
+	====>   MoleNumber[ C6H7CH3 : 204 ] = 0
+	====>   MoleNumber[ CYC6H10 : 205 ] = 0
+	====>   MoleNumber[ CYC6H8 : 206 ] = 0
+	====>   MoleNumber[ C9H19-5 : 207 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+              H2          0            jp8mech             0         
+               H          0            jp8mech             0         
+              O2          0            jp8mech             0.4       
+               O          0            jp8mech             0         
+              OH          0            jp8mech             0         
+             HO2          0            jp8mech             0         
+            H2O2          0            jp8mech             0         
+             H2O          0            jp8mech             0         
+             CO2          0            jp8mech             0         
+              CO          0            jp8mech             0         
+             CH4          0            jp8mech             0         
+             CH3          0            jp8mech             0         
+             CH2          0            jp8mech             0         
+              CH          0            jp8mech             0         
+            CH2O          0            jp8mech             0         
+             HCO          0            jp8mech             0         
+          CH2(S)          0            jp8mech             0         
+           CH2OH          0            jp8mech             0         
+            CH3O          0            jp8mech             0         
+               C          0            jp8mech             0         
+            HCOH          0            jp8mech             0         
+           CH3OH          0            jp8mech             0         
+             C2H          0            jp8mech             0         
+            HCCO          0            jp8mech             0         
+            C2H2          0            jp8mech             0         
+            C2H3          0            jp8mech             0         
+            C2H4          0            jp8mech             0.4       
+            C2H5          0            jp8mech             0         
+            C2H6          0            jp8mech             0         
+           HCCOH          0            jp8mech             0         
+           CH2CO          0            jp8mech             0         
+              C2          0            jp8mech             0         
+             C2O          0            jp8mech             0         
+          CH2HCO          0            jp8mech             0         
+           CH3CO          0            jp8mech             0         
+          CH3HCO          0            jp8mech             0         
+          CHOCHO          0            jp8mech             0         
+          H2CCCH          0            jp8mech             0         
+            C3H2          0            jp8mech             0         
+            C3H6          0            jp8mech             0         
+           AC3H5          0            jp8mech             0         
+           PC3H5          0            jp8mech             0         
+           SC3H5          0            jp8mech             0         
+        CH2CHCHO          0            jp8mech             0         
+           PC3H4          0            jp8mech             0         
+           AC3H4          0            jp8mech             0         
+         CH2CHCO          0            jp8mech             0         
+         CH3CHCO          0            jp8mech             0         
+            C3H8          0            jp8mech             0         
+           IC3H7          0            jp8mech             0         
+           NC3H7          0            jp8mech             0         
+            C4H2          0            jp8mech             0         
+        CH2CHCCH          0            jp8mech             0         
+         HCCHCCH          0            jp8mech             0         
+         H2CCCCH          0            jp8mech             0         
+       CH2CHCHCH          0            jp8mech             0         
+       CH2CHCCH2          0            jp8mech             0         
+        CH3CHCCH          0            jp8mech             0         
+       CH3CH2CCH          0            jp8mech             0         
+           H2C4O          0            jp8mech             0         
+      CH2CHCHCH2          0            jp8mech             0         
+           C4H10          0            jp8mech             0         
+           PC4H9          0            jp8mech             0         
+           SC4H9          0            jp8mech             0         
+          C4H8-1          0            jp8mech             0         
+          C4H8-2          0            jp8mech             0         
+           IC4H7          0            jp8mech             0         
+           IC4H8          0            jp8mech             0         
+           IC4H9          0            jp8mech             0         
+       CH3CHCCH2          0            jp8mech             0         
+        CH3CCCH2          0            jp8mech             0         
+           BC4H7          0            jp8mech             0         
+           NC4H7          0            jp8mech             0         
+           TC4H9          0            jp8mech             0         
+            C5H2          0            jp8mech             0         
+            C5H3          0            jp8mech             0         
+          C-C5H5          0            jp8mech             0         
+         C-C5H5O          0            jp8mech             0         
+          C-C5H6          0            jp8mech             0         
+        C-C5H4OH          0            jp8mech             0         
+         C-C5H4O          0            jp8mech             0         
+         C5H11-1          0            jp8mech             0         
+         C5H10-1          0            jp8mech             0         
+            C5H9          0            jp8mech             0         
+            C6H2          0            jp8mech             0         
+            C6H5          0            jp8mech             0         
+            C6H6          0            jp8mech             0         
+           C6H5O          0            jp8mech             0         
+          C6H5OH          0            jp8mech             0         
+           C6H11          0            jp8mech             0         
+         C6H12-1          0            jp8mech             0         
+          NC7H16          0            jp8mech             0         
+         C7H15-1          0            jp8mech             0         
+         C7H15-2          0            jp8mech             0         
+         C7H15-3          0            jp8mech             0         
+         C7H15-4          0            jp8mech             0         
+         C7H14-1          0            jp8mech             0         
+         C7H14-2          0            jp8mech             0         
+         C7H14-3          0            jp8mech             0         
+         I-C8H18          0            jp8mech             0         
+         A-C8H17          0            jp8mech             0         
+         C-C8H17          0            jp8mech             0         
+         C6H5CH2          0            jp8mech             0         
+         C6H5CH3          0            jp8mech             0         
+        C6H5C2H5          0            jp8mech             0         
+        C6H4C2H3          0            jp8mech             0         
+         C6H4C2H          0            jp8mech             0         
+        C6H5C2H3          0            jp8mech             0         
+         C6H5C2H          0            jp8mech             0         
+         C6H5CHO          0            jp8mech             0         
+          C6H5CO          0            jp8mech             0         
+       HOC6H4CH3          0            jp8mech             0         
+       C6H5CH2OH          0            jp8mech             0         
+          OC6H4O          0            jp8mech             0         
+        OC6H4CH3          0            jp8mech             0         
+      CH3C6H4CH3          0            jp8mech             0         
+      CH3C6H4CH2          0            jp8mech             0         
+     CH3C6H4C2H3          0            jp8mech             0         
+     CH3C6H4C2H5          0            jp8mech             0         
+           C10H8          0            jp8mech             0         
+          C10H10          0            jp8mech             0         
+           C10H9          0            jp8mech             0         
+           C10H7          0            jp8mech             0         
+          C10H7O          0            jp8mech             0         
+        C10H7CH2          0            jp8mech             0         
+        C10H7CH3          0            jp8mech             0         
+          INDENE          0            jp8mech             0         
+         INDENYL          0            jp8mech             0         
+      ACENPHTHLN          0            jp8mech             0         
+         PHNTHRN          0            jp8mech             0         
+      PHNTHRYL-1          0            jp8mech             0         
+      PHNTHRYL-9          0            jp8mech             0         
+         FLRNTHN          0            jp8mech             0         
+      C-2*4C6H6O          0            jp8mech             0         
+          C-C5H7          0            jp8mech             0         
+          L-C5H8          0            jp8mech             0         
+          L-C5H7          0            jp8mech             0         
+       C10H7C2H5          0            jp8mech             0         
+       C10H7C2H3          0            jp8mech             0         
+         C10H7OH          0            jp8mech             0         
+         C6H5CCO          0            jp8mech             0         
+        C6H5CHCH          0            jp8mech             0         
+        C6H5CCH2          0            jp8mech             0         
+       C10H7CCH2          0            jp8mech             0         
+        C10H7CCH          0            jp8mech             0         
+        C10H6CCH          0            jp8mech             0         
+        ANTHRACN          0            jp8mech             0         
+       CH3INDENE          0            jp8mech             0         
+      CH3INDENYL          0            jp8mech             0         
+      CH3PHNTHRN          0            jp8mech             0         
+          PYRENE          0            jp8mech             0         
+         FLUORYL          0            jp8mech             0         
+        FLUORENE          0            jp8mech             0         
+        H2CCCCH2          0            jp8mech             0         
+         CHCHCHO          0            jp8mech             0         
+          HCCCHO          0            jp8mech             0         
+           HCCCO          0            jp8mech             0         
+  HC4-P(DEF)PTHN          0            jp8mech             0         
+ HC4-P(DEF)PTHYL          0            jp8mech             0         
+     PHNTHROXY-1          0            jp8mech             0         
+     PHNTHROXY-9          0            jp8mech             0         
+      BZ(A)NDENE          0            jp8mech             0         
+      BZ(A)NDNYL          0            jp8mech             0         
+      PHNTHROL-1          0            jp8mech             0         
+      PHNTHROL-9          0            jp8mech             0         
+        BIPHENYL          0            jp8mech             0         
+    BZ(A)PHNTHRN          0            jp8mech             0         
+      BZ(GHI)FLN          0            jp8mech             0         
+         FULVENE          0            jp8mech             0         
+       CH3CY24PD          0            jp8mech             0         
+      CH3CY24PD1          0            jp8mech             0         
+      CH3DCY24PD          0            jp8mech             0         
+          CYC6H7          0            jp8mech             0         
+        FULVENYL          0            jp8mech             0         
+              AR          0            jp8mech             0         
+              N2          0            jp8mech             0.2       
+         NC10H22          0            jp8mech             0         
+        C10H21-1          0            jp8mech             0         
+        C10H21-2          0            jp8mech             0         
+        C10H21-3          0            jp8mech             0         
+        C10H21-4          0            jp8mech             0         
+        C10H21-5          0            jp8mech             0         
+          C10H20          0            jp8mech             0         
+         C9H19-1          0            jp8mech             0         
+         C9H18-1          0            jp8mech             0         
+         C8H17-1          0            jp8mech             0         
+         C8H17-2          0            jp8mech             0         
+         C8H17-3          0            jp8mech             0         
+         C8H17-4          0            jp8mech             0         
+         C8H16-1          0            jp8mech             0         
+         C6H13-1          0            jp8mech             0         
+         C6H13-2          0            jp8mech             0         
+         C6H13-3          0            jp8mech             0         
+         NC12H26          0            jp8mech             0         
+        C12H25-1          0            jp8mech             0         
+        C12H25-2          0            jp8mech             0         
+        C12H25-3          0            jp8mech             0         
+        C12H25-4          0            jp8mech             0         
+        C12H25-5          0            jp8mech             0         
+        C12H25-6          0            jp8mech             0         
+          C11H22          0            jp8mech             0         
+          C12H24          0            jp8mech             0         
+             MCH          0            jp8mech             0         
+         C6H9CH3          0            jp8mech             0         
+         C6H7CH3          0            jp8mech             0         
+         CYC6H10          0            jp8mech             0         
+          CYC6H8          0            jp8mech             0         
+         C9H19-5          0            jp8mech             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+         jp8mech     0   no       208             0      1.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O           0.8 
+           H           1.6 
+           C           0.8 
+           N           0.4 
+          Ar             0 
+
+================================================================================
+==================== epequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+
+ Results from epequil:
+
+Temperature = 2000 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2               7.987395e-01    4.435579e-01    -3.372187e+08
+H                1.940148e-03    1.077407e-03    -1.686093e+08
+O2               4.533955e-15    2.517806e-15    -1.037136e+09
+O                5.988310e-11    3.325442e-11    -5.185680e+08
+OH               3.461931e-08    1.922487e-08    -6.871773e+08
+HO2              4.414909e-18    2.451697e-18    -1.205745e+09
+H2O2             1.314575e-17    7.300125e-18    -1.374355e+09
+H2O              1.397987e-04    7.763331e-05    -8.557866e+08
+CO2              3.079216e-05    1.709957e-05    -1.103107e+09
+CO               7.997980e-01    4.441457e-01    -5.845386e+08
+CH4              4.146490e-05    2.302638e-05    -7.404079e+08
+CH3              2.481438e-06    1.377998e-06    -5.717986e+08
+CH2              7.894318e-09    4.383890e-09    -4.031893e+08
+CH               7.231983e-11    4.016081e-11    -2.345799e+08
+CH2O             2.317749e-07    1.287097e-07    -9.217572e+08
+HCO              2.994455e-07    1.662887e-07    -7.531479e+08
+CH2(S)           3.382565e-10    1.878414e-10    -4.031893e+08
+CH2OH            3.153494e-12    1.751205e-12    -1.090367e+09
+CH3O             3.884108e-14    2.156932e-14    -1.090367e+09
+C                1.623237e-11    9.014197e-12    -6.597061e+07
+HCOH             2.859152e-11    1.587751e-11    -9.217572e+08
+CH3OH            8.825921e-12    4.901230e-12    -1.258976e+09
+C2H              9.364060e-10    5.200071e-10    -3.005506e+08
+HCCO             9.002392e-10    4.999229e-10    -8.191185e+08
+C2H2             6.314395e-05    3.506524e-05    -4.691599e+08
+C2H3             2.648822e-09    1.470950e-09    -6.377692e+08
+C2H4             1.718064e-07    9.540793e-08    -8.063786e+08
+C2H5             1.139613e-11    6.328527e-12    -9.749879e+08
+C2H6             3.825963e-11    2.124642e-11    -1.143597e+09
+HCCOH            1.130584e-11    6.278386e-12    -9.877279e+08
+CH2CO            2.237368e-08    1.242461e-08    -9.877279e+08
+C2               2.600637e-13    1.444192e-13    -1.319412e+08
+C2O              5.950340e-10    3.304356e-10    -6.505092e+08
+CH2HCO           5.441023e-13    3.021521e-13    -1.156337e+09
+CH3CO            6.411842e-12    3.560638e-12    -1.156337e+09
+CH3HCO           3.639556e-12    2.021127e-12    -1.324947e+09
+CHOCHO           1.824974e-14    1.013449e-14    -1.506296e+09
+H2CCCH           1.256325e-09    6.976652e-10    -7.037398e+08
+C3H2             2.290722e-10    1.272089e-10    -5.351305e+08
+C3H6             4.176647e-13    2.319385e-13    -1.209568e+09
+AC3H5            6.553685e-12    3.639407e-12    -1.040958e+09
+PC3H5            6.105142e-15    3.390321e-15    -1.040958e+09
+SC3H5            1.077694e-14    5.984675e-15    -1.040958e+09
+CH2CHCHO         2.490435e-14    1.382994e-14    -1.390917e+09
+PC3H4            2.546599e-10    1.414183e-10    -8.723492e+08
+AC3H4            1.035937e-10    5.752791e-11    -8.723492e+08
+CH2CHCO          9.401191e-14    5.220690e-14    -1.222308e+09
+CH3CHCO          8.195440e-14    4.551110e-14    -1.390917e+09
+C3H8             7.771279e-17    4.315564e-17    -1.546786e+09
+IC3H7            7.292207e-17    4.049525e-17    -1.378177e+09
+NC3H7            3.853570e-17    2.139973e-17    -1.378177e+09
+C4H2             5.353990e-10    2.973190e-10    -6.011011e+08
+CH2CHCCH         9.891590e-12    5.493020e-12    -9.383198e+08
+HCCHCCH          7.623083e-14    4.233268e-14    -7.697104e+08
+H2CCCCH          2.719512e-11    1.510205e-11    -7.697104e+08
+CH2CHCHCH        8.818187e-16    4.896936e-16    -1.106929e+09
+CH2CHCCH2        3.461672e-14    1.922344e-14    -1.106929e+09
+CH3CHCCH         3.534977e-15    1.963051e-15    -1.106929e+09
+CH3CH2CCH        7.419638e-16    4.120290e-16    -1.275538e+09
+H2C4O            1.121479e-15    6.227820e-16    -1.119669e+09
+CH2CHCHCH2       3.164153e-14    1.757125e-14    -1.275538e+09
+C4H10            1.170143e-22    6.498062e-23    -1.949976e+09
+PC4H9            5.088617e-23    2.825822e-23    -1.781366e+09
+SC4H9            1.185183e-22    6.581585e-23    -1.781366e+09
+C4H8-1           2.708006e-18    1.503816e-18    -1.612757e+09
+C4H8-2           1.315178e-18    7.303475e-19    -1.612757e+09
+IC4H7            1.504825e-18    8.356627e-19    -1.444148e+09
+IC4H8            1.363262e-18    7.570496e-19    -1.612757e+09
+IC4H9            4.117722e-23    2.286663e-23    -1.781366e+09
+CH3CHCCH2        1.298268e-15    7.209572e-16    -1.275538e+09
+CH3CCCH2         3.186221e-13    1.769379e-13    -1.106929e+09
+BC4H7            1.504825e-18    8.356627e-19    -1.444148e+09
+NC4H7            3.022354e-18    1.678380e-18    -1.444148e+09
+TC4H9            8.703484e-24    4.833238e-24    -1.781366e+09
+C5H2             1.168327e-15    6.487981e-16    -6.670717e+08
+C5H3             4.158051e-13    2.309058e-13    -8.356811e+08
+C-C5H5           1.442954e-16    8.013046e-17    -1.172900e+09
+C-C5H5O          2.690651e-25    1.494178e-25    -1.691468e+09
+C-C5H6           2.922091e-17    1.622702e-17    -1.341509e+09
+C-C5H4OH         4.937232e-22    2.741755e-22    -1.691468e+09
+C-C5H4O          3.847539e-17    2.136624e-17    -1.522858e+09
+C5H11-1          6.718452e-29    3.730906e-29    -2.184556e+09
+C5H10-1          5.063523e-24    2.811887e-24    -2.015946e+09
+C5H9             1.244799e-24    6.912646e-25    -1.847337e+09
+C6H2             2.668180e-15    1.481700e-15    -7.330423e+08
+C6H5             1.536419e-18    8.532076e-19    -1.238870e+09
+C6H6             1.511679e-16    8.394691e-17    -1.407480e+09
+C6H5O            1.419195e-21    7.881105e-22    -1.757438e+09
+C6H5OH           2.580813e-21    1.433183e-21    -1.926048e+09
+C6H11            2.539899e-30    1.410462e-30    -2.250526e+09
+C6H12-1          8.782337e-30    4.877027e-30    -2.419136e+09
+NC7H16           8.775182e-40    4.873054e-40    -3.159544e+09
+C7H15-1          2.957233e-40    1.642217e-40    -2.990934e+09
+C7H15-2          6.147964e-40    3.414101e-40    -2.990934e+09
+C7H15-3          6.147964e-40    3.414101e-40    -2.990934e+09
+C7H15-4          3.085270e-40    1.713319e-40    -2.990934e+09
+C7H14-1          1.525004e-35    8.468689e-36    -2.822325e+09
+C7H14-2          1.671641e-35    9.282997e-36    -2.822325e+09
+C7H14-3          1.967971e-35    1.092858e-35    -2.822325e+09
+I-C8H18          5.361599e-47    2.977415e-47    -3.562733e+09
+A-C8H17          1.098154e-47    6.098293e-48    -3.394124e+09
+C-C8H17          1.098154e-47    6.098293e-48    -3.394124e+09
+C6H5CH2          1.906962e-21    1.058979e-21    -1.642060e+09
+C6H5CH3          3.092438e-21    1.717300e-21    -1.810669e+09
+C6H5C2H5         3.369756e-27    1.871300e-27    -2.213858e+09
+C6H4C2H3         4.834146e-26    2.684509e-26    -1.708030e+09
+C6H4C2H          1.862066e-23    1.034047e-23    -1.370812e+09
+C6H5C2H3         2.353360e-23    1.306873e-23    -1.876640e+09
+C6H5C2H          1.139405e-20    6.327371e-21    -1.539421e+09
+C6H5CHO          7.860075e-23    4.364875e-23    -1.992018e+09
+C6H5CO           2.319119e-22    1.287858e-22    -1.823409e+09
+HOC6H4CH3        1.915560e-27    1.063753e-27    -2.329237e+09
+C6H5CH2OH        5.923438e-28    3.289417e-28    -2.329237e+09
+OC6H4O           5.432285e-26    3.016669e-26    -2.107397e+09
+OC6H4CH3         9.796178e-29    5.440035e-29    -2.160628e+09
+CH3C6H4CH3       7.118750e-27    3.953200e-27    -2.213858e+09
+CH3C6H4CH2       4.569760e-27    2.537690e-27    -2.045249e+09
+CH3C6H4C2H3      9.493120e-29    5.271741e-29    -2.279829e+09
+CH3C6H4C2H5      1.418213e-32    7.875650e-33    -2.617047e+09
+C10H8            5.730894e-26    3.182493e-26    -2.008581e+09
+C10H10           1.903280e-31    1.056934e-31    -2.345799e+09
+C10H9            3.160086e-31    1.754866e-31    -2.177190e+09
+C10H7            4.935658e-28    2.740881e-28    -1.839971e+09
+C10H7O           5.177142e-31    2.874982e-31    -2.358539e+09
+C10H7CH2         3.177535e-31    1.764556e-31    -2.243161e+09
+C10H7CH3         5.205549e-31    2.890757e-31    -2.411770e+09
+INDENE           5.264869e-26    2.923699e-26    -1.942610e+09
+INDENYL          1.882353e-24    1.045312e-24    -1.774001e+09
+ACENPHTHLN       2.103695e-28    1.168228e-28    -2.140522e+09
+PHNTHRN          7.904218e-35    4.389388e-35    -2.609682e+09
+PHNTHRYL-1       5.187820e-37    2.880912e-37    -2.441073e+09
+PHNTHRYL-9       5.187820e-37    2.880912e-37    -2.441073e+09
+FLRNTHN          4.287727e-37    2.381071e-37    -2.741623e+09
+C-2*4C6H6O       2.813932e-22    1.562639e-22    -1.926048e+09
+C-C5H7           9.748331e-26    5.413465e-26    -1.510118e+09
+L-C5H8           4.266542e-20    2.369306e-20    -1.678728e+09
+L-C5H7           2.651296e-20    1.472324e-20    -1.510118e+09
+C10H7C2H5        1.058205e-36    5.876447e-37    -2.814959e+09
+C10H7C2H3        7.439042e-33    4.131066e-33    -2.477741e+09
+C10H7OH          4.362804e-30    2.422762e-30    -2.527149e+09
+C6H5CCO          2.480276e-23    1.377352e-23    -1.889380e+09
+C6H5CHCH         1.771913e-25    9.839827e-26    -1.708030e+09
+C6H5CCH2         1.535625e-22    8.527668e-23    -1.708030e+09
+C10H7CCH2        2.576940e-32    1.431032e-32    -2.309131e+09
+C10H7CCH         5.529524e-29    3.070668e-29    -2.140522e+09
+C10H6CCH         9.626492e-32    5.345805e-32    -1.971913e+09
+ANTHRACN         9.643725e-36    5.355375e-36    -2.609682e+09
+CH3INDENE        3.804604e-31    2.112781e-31    -2.345799e+09
+CH3INDENYL       4.306356e-29    2.391415e-29    -2.177190e+09
+CH3PHNTHRN       1.588991e-40    8.824022e-41    -3.012871e+09
+PYRENE           2.272078e-36    1.261735e-36    -2.741623e+09
+FLUORYL          1.262928e-32    7.013322e-33    -2.375102e+09
+FLUORENE         1.278924e-33    7.102149e-34    -2.543711e+09
+H2CCCCH2         7.453306e-13    4.138987e-13    -9.383198e+08
+CHCHCHO          4.130308e-16    2.293652e-16    -1.222308e+09
+HCCCHO           1.730801e-11    9.611525e-12    -1.053698e+09
+HCCCO            1.458960e-10    8.101930e-11    -8.850891e+08
+HC4-P(DEF)PTHN     6.386198e-38    3.546398e-38    -2.675652e+09
+HC4-P(DEF)PTHYL     6.505897e-37    3.612869e-37    -2.507043e+09
+PHNTHROXY-1      2.957591e-40    1.642416e-40    -2.959641e+09
+PHNTHROXY-9      2.957591e-40    1.642416e-40    -2.959641e+09
+BZ(A)NDENE       8.821948e-36    4.899024e-36    -2.543711e+09
+BZ(A)NDNYL       6.629145e-34    3.681312e-34    -2.375102e+09
+PHNTHROL-1       2.532374e-41    1.406284e-41    -3.128250e+09
+PHNTHROL-9       2.532374e-41    1.406284e-41    -3.128250e+09
+BIPHENYL         7.614526e-33    4.228516e-33    -2.477741e+09
+BZ(A)PHNTHRN     3.274559e-45    1.818436e-45    -3.210783e+09
+BZ(GHI)FLN       2.468414e-43    1.370765e-43    -2.873564e+09
+FULVENE          4.561162e-19    2.532915e-19    -1.407480e+09
+CH3CY24PD        2.089385e-23    1.160282e-23    -1.744698e+09
+CH3CY24PD1       4.498275e-21    2.497992e-21    -1.576089e+09
+CH3DCY24PD       3.336608e-24    1.852893e-24    -1.576089e+09
+CYC6H7           5.812464e-22    3.227790e-22    -1.576089e+09
+FULVENYL         1.906193e-21    1.058551e-21    -1.238870e+09
+AR               0.000000e+00    0.000000e+00    -1.184007e+10
+N2               2.000000e-01    1.110645e-01    -4.843829e+08
+NC10H22          3.408343e-57    1.892729e-57    -4.369111e+09
+C10H21-1         9.721272e-58    5.398439e-58    -4.200502e+09
+C10H21-2         1.102009e-57    6.119702e-58    -4.200502e+09
+C10H21-3         1.135902e-57    6.307915e-58    -4.200502e+09
+C10H21-4         1.135902e-57    6.307915e-58    -4.200502e+09
+C10H21-5         1.135902e-57    6.307915e-58    -4.200502e+09
+C10H20           2.253313e-53    1.251315e-53    -4.031893e+09
+C9H19-1          5.764948e-52    3.201404e-52    -3.797313e+09
+C9H18-1          2.733765e-47    1.518120e-47    -3.628703e+09
+C8H17-1          3.947349e-46    2.192051e-46    -3.394124e+09
+C8H17-2          4.474518e-46    2.484800e-46    -3.394124e+09
+C8H17-3          4.614057e-46    2.562289e-46    -3.394124e+09
+C8H17-4          4.614057e-46    2.562289e-46    -3.394124e+09
+C8H16-1          1.624618e-41    9.021864e-42    -3.225514e+09
+C6H13-1          1.389215e-34    7.714619e-35    -2.587745e+09
+C6H13-2          1.575146e-34    8.747139e-35    -2.587745e+09
+C6H13-3          1.624026e-34    9.018578e-35    -2.587745e+09
+NC12H26          9.657530e-69    5.363042e-69    -5.175490e+09
+C12H25-1         2.764196e-69    1.535019e-69    -5.006881e+09
+C12H25-2         3.134746e-69    1.740794e-69    -5.006881e+09
+C12H25-3         3.229700e-69    1.793524e-69    -5.006881e+09
+C12H25-4         3.229700e-69    1.793524e-69    -5.006881e+09
+C12H25-5         3.229700e-69    1.793524e-69    -5.006881e+09
+C12H25-6         3.229700e-69    1.793524e-69    -5.006881e+09
+C11H22           7.574707e-59    4.206404e-59    -4.435082e+09
+C12H24           6.376497e-65    3.541011e-65    -4.838271e+09
+MCH              6.212512e-37    3.449946e-37    -2.822325e+09
+C6H9CH3          3.726526e-33    2.069423e-33    -2.485106e+09
+C6H7CH3          8.785688e-28    4.878888e-28    -2.147888e+09
+CYC6H10          2.243449e-27    1.245837e-27    -2.081917e+09
+CYC6H8           5.853269e-23    3.250451e-23    -1.744698e+09
+C9H19-5          6.530794e-52    3.626695e-52    -3.797313e+09
+-------------------------------------------------------------

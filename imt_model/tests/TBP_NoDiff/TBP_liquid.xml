@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase TBP_liquid    -->
+  <phase dim="3" id="TBP_liquid">
+    <elementArray datasrc="elements.xml">
+        O H C P N U dummy2 
+    </elementArray>
+    <speciesArray datasrc="#species_TBP_liquid"> 
+        TBP(org) (TBP)2(org) TBP*H2O(org) (TBP)2*(H2O)2(org) (TBP)3*(H2O)6(org) TBP*HNO3(org) (TBP)2*HNO3(org) (TBP)2*UO2(NO3)2(org) AMSCO
+    </speciesArray>
+    <thermo model="IdealSolidSolution">
+       <standardConc model="molar_volume" />
+    </thermo>
+    <standardConc model="molar_volume" />
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_TBP_liquid">
+
+    <!-- species TBP(org)   -->
+    <species name="TBP(org)">
+      <atomArray> C:12 H:27 O:4 P:1 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -1458542.0 </h0>  <!-- Enthalpy value from Starostin et al. (1966) +/- 12.55 kJ/mol -->
+	   <s0 units="J/mol/K"> 558.9824 </s0>  <!-- standard entropies estimated from Glasser and Jenkins (2004) -->
+           <cp0 units="J/mol/K"> 0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+         <molarVolume> 0.273787 </molarVolume>
+      </standardState>
+    </species>
+
+    <!-- species (TBP)2(org)   -->
+    <species name="(TBP)2(org)">
+      <atomArray> C:24 H:54 O:8 P:2 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -2909047.336 </h0> <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery-->
+	   <s0 units="J/mol/K"> 1117.965 </s0>  <!-- DUMMY entropy - taken as 2 * TBP(org) volume -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.547574 </molarVolume>   <!-- Taken as 2 * TBP(org) volume -->
+      </standardState>
+    </species>
+
+    <!-- species TBP*HNO3(org)   -->
+    <species name="TBP*HNO3(org)">
+      <atomArray> C:12 H:28 O:7 P:1 N:1 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -1.706200000000000e+06 </h0> <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery--> 
+	   <!--	   <h0 units="J/mol"> -1.706289996625030e+06 </h0>  DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery-->  -->
+<!--	   <h0 units="J/mol"> -1709113.792 </h0>  DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery-->  -->
+	   <s0 units="J/mol/K"> 558.9824 </s0>  <!-- DUMMY entropy - taken as that for TBP(org) -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.273787 </molarVolume>  <!-- Assumed to be the same as TBP(org) volume --> 
+      </standardState>
+    </species>
+
+    <!-- species TBP*H2O(org)   -->
+    <species name="TBP*H2O(org)">
+      <atomArray> C:12 H:29 O:5 P:1 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>  
+	   <h0 units="J/mol"> -1.759674364399102e+06 </h0> <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery from DAKOTA fitting --> 
+	   <s0 units="J/mol/K"> 558.9824 </s0>  <!-- DUMMY entropy - taken as that for TBP(org) -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.2918023 </molarVolume>  <!-- Assumed to be the same as TBP(org) volume plus one H2O (18.0153 / 1000 in m^3/kmol units)-->
+	     <!--	     <molarVolume> 0.273787 </molarVolume>-->  <!-- Assumed to be the same as TBP(org) volume   -->
+      </standardState>
+    </species>
+
+    <!-- species (TBP)2*(H2O)2(org)   -->
+    <species name="(TBP)2*(H2O)2(org)">
+      <atomArray> C:24 H:58 O:10 P:2 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -3.697225251580854e+06 </h0> <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery from DAKOTA fitting --> 
+	   <s0 units="J/mol/K"> 558.9824 </s0>  <!-- DUMMY entropy - taken as that for TBP(org) -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.583605 </molarVolume>  <!-- Taken as 2 * TBP(org) volume -->   
+      </standardState>
+    </species>
+
+    <!-- species (TBP)3*(H2O)6(org)  -->
+    <species name="(TBP)3*(H2O)6(org)">
+      <atomArray> C:36 H:93 O:18 P:3 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -6.547255701923107e+06 </h0> <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery from DAKOTA fitting --> 
+	   <s0 units="J/mol/K"> 558.9824 </s0>  <!-- DUMMY entropy - taken as that for TBP(org) -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.929453 </molarVolume>  <!-- Taken as 3 * TBP(org) volume -->   
+      </standardState>
+    </species>
+
+    <!-- species "(TBP)2*HNO3(org)"  -->
+    <species name="(TBP)2*HNO3(org)">
+      <atomArray> C:24 H:55 O:11 P:2 N:1 </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -3.170670000000000e+06 </h0>  <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery-->
+	   <s0 units="J/mol/K"> 1117.965 </s0>    <!-- DUMMY entropy - taken as that for (TBP)2(org) --> 
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.547574 </molarVolume>  <!-- Taken as 2 * TBP(org) volume -->
+      </standardState>
+    </species>
+
+    <!-- species "(TBP)2*UO2(NO3)2(org)"  -->
+    <species name="(TBP)2*UO2(NO3)2(org)">
+      <atomArray> C:24 H:54 O:16 P:2 N:2 U:1  </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+	   <h0 units="J/mol"> -4423200.68 </h0> <!-- DUMMY enthalpy consistent with DUMMY entropy below to yield desired Gibbs enery-->
+	   <s0 units="J/mol/K"> 1117.965 </s0>  <!-- DUMMY entropy - taken as that for (TBP)2(org) -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.547574 </molarVolume>  <!-- Taken as 2 * TBP(org) volume -->
+      </standardState>
+    </species>
+
+    <!-- DUMMY species "dummyDodec"  -->
+    <species name="dodecane">
+      <atomArray> dummy:1  </atomArray>  
+      <!--   <atomArray> C:12 H:26  </atomArray>  -->
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+	   <t0 units="K">298.14999999999998</t0> 
+	   <h0 units="J/mol"> 0.0 </h0> <!-- DUMMY enthalpy set as zero to prevent any reaction with the organic liquid phase -->
+	   <s0 units="J/mol/K"> 0.0 </s0>  <!-- DUMMY entropy set as zero to prevent any reaction with the organic liquid phase -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+	     <molarVolume> 0.227113 </molarVolume>  <!-- Taken from Mathematica WolframAlpha["Dodecane"] - consistent with CRC Handbook Tables -->
+      </standardState>
+    </species>
+
+    <!-- DUMMY species "dummyAMSCO"  -->
+    <species name="AMSCO">
+      <atomArray> dummy2:1  </atomArray>
+      <thermo>
+        <const_cp Tmax="300.0" Tmin="298.0">
+           <t0 units="K">298.14999999999998</t0>
+           <h0 units="J/mol"> 0.0 </h0> <!-- DUMMY enthalpy set as zero to prevent any reaction with the organic liquid phase -->
+           <s0 units="J/mol/K"> 0.0 </s0>  <!-- DUMMY entropy set as zero to prevent any reaction with the organic liquid phase -->
+           <cp0 units="J/mol/K">0.0</cp0>
+        </const_cp>
+      </thermo>
+     <standardState model="constant_incompressible">
+             <molarVolume> 0.2464 </molarVolume>  <!-- Taken from Table 1 Davis (1962) Nuclear Science and Engineering, Vol.14, No.2, 1962 -->
+      </standardState>
+    </species>
+
+  </speciesData>
+
+</ctml>

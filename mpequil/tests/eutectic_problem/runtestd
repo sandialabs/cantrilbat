@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+#
+temp_success="1"
+/bin/rm  -f  dout.txt err_dout.txt \
+             vcs_Cantera_res.csv \
+             diff_csv.txt  diff_dout.txt
+#
+# Create a symbolic link to mpequil, if none exists already
+#
+if test ! -x mpequil  ; then
+  if test -x ../../src/mpequil ; then
+    ln -s ../../src/mpequil .
+  else
+    echo 'ERROR: mpequil executable can not be found'
+    exit -1
+  fi
+fi
+
+#################################################################
+#
+#################################################################
+VCS_MPEQUIL_EXE=${MPEQUIL_EXE:=Margules_test_2}
+
+$MPEQUIL_EXE  -d 8 > dout.txt 2>err_dout.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "mpequil returned with bad status, $retnStat, check output"
+fi
+
+csvdiff -a 1.0E-50 vcs_equilibrate_blessed.csv vcs_equilibrate_res.csv > diff_csv.txt
+retnStat_csv=$?
+
+diff  good_dout.txt dout.txt > diff_dout.txt
+retnStat_txt=$?
+
+eCode=0
+if test $retnStat_csv = "0"
+then
+  eCode=0
+  echo "Successful test comparison on debug "`pwd`
+  if [ $retnStat_txt != "0" ]
+  then
+     echo "   But, text output files have differences. See diff_dout.txt"
+  fi
+else
+  echo "Unsuccessful test comparison on "`pwd` " test"
+  if test $retnStat_csv != "0"
+  then
+     echo "      csv files are different - see diff_csv.txt"
+  fi
+  if test $retnStat_txt != "0"
+  then
+     echo "      And, text output files have differences. See diff_dout.txt"
+  fi
+fi
+
+#
+# return 0 for no errors, 1 for errors
+#
+exit $eCode
+

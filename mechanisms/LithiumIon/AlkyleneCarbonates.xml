@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase EC_DMC_PC    -->
+  <!--
+         Excess energies of mixing can be obtained from Ding or Liu
+    -->
+  <phase dim="3" id="EC_DMC">
+    <elementArray datasrc="elements.xml">
+       C H O
+    </elementArray>
+    <speciesArray datasrc="#species_AlkyleneCarbonates"> 
+        EC_C3H4O3(L)  
+        EC_C3H4O3(Cr)
+        DMC_C3H6O3(L)
+        PC_C4H6O3(L)
+    </speciesArray>
+    <speciesArray datasrc="nasa_condensed.xml#species_data"> 
+        H2O(L)
+    </speciesArray>
+    <thermo model="IdealGas">
+    </thermo>
+    <transport model="None">
+    </transport>     
+    <kinetics model="none"/>
+    <state>
+       <temperature> 298.15 </temperature>
+       <pressure units="atm"> 1.0 </pressure>
+       <moleFractions> 
+       		EC_C3H4O3(Cr):0.0 
+       		EC_C3H4O3(L):0.5 
+       		DMC_C3H6O3(L):0.5
+       	</moleFractions>
+    </state>
+  </phase>
+
+  <phase dim="3" id="EC_DMC_Vapors">
+    <elementArray datasrc="elements.xml">
+       C H O
+    </elementArray>
+    <speciesArray datasrc="#species_AlkyleneCarbonates"> 
+        EC_C3H4O3(g)
+        DMC_C3H6O3(g)
+        PC_C4H6O3(g)
+    </speciesArray>
+    <speciesArray datasrc="nasa_gas.xml#species_data"> 
+        C2H4
+        C3H6,propylene
+        HCHO,formaldehy
+        C2H4O,ethylen
+        CO
+        CO2
+        O2
+        H2O
+    </speciesArray>
+    <thermo model="IdealGas">
+    </thermo>
+    <transport model="None">
+    </transport>     
+    <kinetics model="none"/>
+    <state>
+       <temperature> 298.15 </temperature>
+       <pressure units="atm"> 1.0 </pressure>
+       <moleFractions> 
+       		EC_C3H4O3(g):0.0 
+       		DMC_C3H6O3(g):0.0
+       	</moleFractions>
+    </state>
+  </phase>
+
+
+ <!-- species definitions     -->
+  <speciesData id="species_AlkyleneCarbonates">
+
+
+    <!-- species O2    -->
+    <species name="O2">
+      <atomArray>O:2 </atomArray>
+      <note>TPIS89</note>
+      <thermo>
+        <NASA Tmax="1000.0" Tmin="200.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             3.782456360E+00,  -2.996734160E-03,   9.847302010E-06,  -9.681295090E-09, 
+             3.243728370E-12,  -1.063943560E+03,   3.657675730E+00</floatArray>
+        </NASA>
+        <NASA Tmax="3500.0" Tmin="1000.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+             3.282537840E+00,   1.483087540E-03,  -7.579666690E-07,   2.094705550E-10, 
+             -2.167177940E-14,  -1.088457720E+03,   5.453231290E+00</floatArray>
+        </NASA>
+      </thermo>
+      <transport model="gas_transport">
+        <string title="geometry">linear</string>
+        <LJ_welldepth units="K">107.400</LJ_welldepth>
+        <LJ_diameter units="A">3.460</LJ_diameter>
+        <dipoleMoment units="Debye">0.000</dipoleMoment>
+        <polarizability units="A3">1.600</polarizability>
+        <rotRelax>3.800</rotRelax>
+      </transport>
+    </species>
+
+
+    <species name="EC_C3H4O3(Cr)">
+      <atomArray> C:3 H:4 O:3 </atomArray>
+      <standardState  model="constant_incompressible"> 
+         <molarVolume> 1 </molarVolume>
+      </standardState>
+      <thermo>
+        <!-- thermo data from the following sources:
+               Cp curve fits:
+                 Ding, M. S. (2004). "Liquid-solid phase equilibria and 
+                 thermodynamic modeling for binary organic carbonates." 
+                 Journal of Chemical and Engineering Data 49(2): 276-282. 
+               Enthalpy of formation (to obtain a6):
+                 Verevkin, S. P., V. N. Emel'yanenko, et al. (2008). 
+                 "Cyclic alkylene carbonates. Experiment and first principle 
+                 calculations for prediction of thermochemical properties." 
+                 Journal of Chemical Thermodynamics 40(9): 1428-1432.
+               Entropy set arbitrarily.  Relative entropy for liquid from H_fusion/T = 43.69
+          -->
+         <Shomate Pref="1 bar" Tmax="311.0" Tmin="200.0">
+          <floatArray size="7">
+            -117.6069,   2.1214e+003,       -8.3486e+003,
+            1.2994e+004,     0.0,       -595.9205,
+           -468.4867
+          </floatArray>
+        </Shomate>
+        <!--superheated solid temperature fit--above Tmelt -->
+         <Shomate Pref="1 bar" Tmax="521.0" Tmin="311.0">
+          <floatArray size="7">
+            84.1530,  131.0540,      0.0,
+           0.0,       0.0,      -615.6967,
+           112.8268
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <density units="g/cm3"> 1.3218 </density>
+    </species>
+
+
+    <species name="EC_C3H4O3(L)">
+      <atomArray> C:3 H:4 O:3 </atomArray>
+      <standardState  model="constant_incompressible"> 
+         <molarVolume> 1 </molarVolume>
+      </standardState>
+      <thermo>
+        <!-- thermo data from the following sources:
+               Cp curve fits:
+                 Ding, M. S. (2004). "Liquid-solid phase equilibria and 
+                 thermodynamic modeling for binary organic carbonates." 
+                 Journal of Chemical and Engineering Data 49(2): 276-282. 
+               Enthalpy of formation (to obtain a6):
+                 Verevkin, S. P., V. N. Emel'yanenko, et al. (2008). 
+                 "Cyclic alkylene carbonates. Experiment and first principle 
+                 calculations for prediction of thermochemical properties." 
+                 Journal of Chemical Thermodynamics 40(9): 1428-1432.
+               Enthalpy of formation computed from crystal phase and heat of vaporization  -571.78
+               Entropy for crystal phase set arbitrarily.  
+               Relative entropy for liquid from H_fusion/T = 43.69
+          -->
+         <Shomate Pref="1 bar" Tmax="521.0" Tmin="311.0">
+          <floatArray size="7">
+           93.7949,   131.0540,      0.0,
+           0.0,       0.0,      -607.2968,
+           160.6024
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- estimate density 10% less than solid phase -->
+      <density units="g/cm3"> 1.202 </density>
+    </species>
+
+
+
+    <species name="EC_C3H4O3(g)">
+      <atomArray> C:3 H:4 O:3 </atomArray>
+      <thermo>
+        <!-- thermo data from the following sources:
+               Cp curve fits:
+                 NIST webbook citing Vasilev I.A., 
+                 "Thermodynamic Properties of Oxygen-Containing Organic 
+                 Compounds." Khimiya, Leningrad, 1984
+               Enthalpy of formation (to obtain a6):
+                 Verevkin, S. P., V. N. Emel'yanenko, et al. (2008). 
+                 "Cyclic alkylene carbonates. Experiment and first principle 
+                 calculations for prediction of thermochemical properties." 
+                 Journal of Chemical Thermodynamics 40(9): 1428-1432.
+               Entropy for crystal phase set arbitrarily.  
+	       Relative entropy for liquid from H_sublimation/T = 298.66
+          -->
+         <Shomate Pref="1 bar" Tmax="1000.0" Tmin="250.0">
+          <floatArray size="7">
+           -1.509E+01,     4.024E+02,   -2.866E+02,     
+           7.963E+01,       0.0,       -521.6994,
+            172.4968  
+          </floatArray>
+        </Shomate>
+      </thermo>
+    </species>
+
+    <species name="PC_C4H6O3(L)">
+      <atomArray> C:4 H:6 O:3 </atomArray>
+      <standardState  model="constant_incompressible"> 
+         <molarVolume> 1 </molarVolume>
+      </standardState>
+      <thermo>
+        <!-- thermo data from the following sources:
+               Cp curve fits:
+                 Ding, M. S. (2004). "Liquid-solid phase equilibria and 
+                 thermodynamic modeling for binary organic carbonates." 
+                 Journal of Chemical and Engineering Data 49(2): 276-282. 
+               Enthalpy of formation (to obtain a6):
+                 Verevkin, S. P., V. N. Emel'yanenko, et al. (2008). 
+                 "Cyclic alkylene carbonates. Experiment and first principle 
+                 calculations for prediction of thermochemical properties." 
+                 Journal of Chemical Thermodynamics 40(9): 1428-1432.
+               Entropy for liquid phase set arbitrarily.  
+          -->
+         <Shomate Pref="1 bar" Tmax="515.0" Tmin="310.0">
+          <floatArray size="7">
+           190.2319,     -906.0261,     4.1920e+003,
+           -5.2513e+003,       0.0,     -657.1847,
+            410.4938
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- density from Verevkin et la, 2008 -->
+      <density units="g/cm3"> 1.23 </density>
+    </species>
+
+    <species name="PC_C4H6O3(g)">
+      <atomArray> C:4 H:6 O:3 </atomArray>
+      <thermo>
+        <!-- thermo data from the following sources:  
+               Cp curve fits:
+                 NIST webbook citing Vasilev I.A., 
+                 "Thermodynamic Properties of Oxygen-Containing Organic 
+                 Compounds." Khimiya, Leningrad, 1984
+               Enthalpy of formation (to obtain a6):
+                 Verevkin, S. P., V. N. Emel'yanenko, et al. (2008). 
+                 "Cyclic alkylene carbonates. Experiment and first principle 
+                 calculations for prediction of thermochemical properties." 
+                 Journal of Chemical Thermodynamics 40(9): 1428-1432.
+               Entropy for liquid phase set arbitrarily.  
+	       Relative entropy for liquid from H_vaporization/T = 
+       -->
+         <Shomate Pref="1 bar" Tmax="1000.0" Tmin="298.0">
+          <floatArray size="7">
+           -6.6367E+00,   4.6759E+02,   -3.0567E+02,
+            7.7160E+01,    0.0,       -570.1399,
+            117.5285
+          </floatArray>
+        </Shomate>
+      </thermo>
+    </species>
+
+    <species name="DMC_C3H6O3(L)">
+      <atomArray> C:3 H:6 O:3 </atomArray>
+      <standardState  model="constant_incompressible"> 
+         <molarVolume> 1 </molarVolume>
+      </standardState>
+      <thermo>
+        <!-- thermo data from the following sources:
+               Cp curve fits:
+                 Ding, M. S. (2004). "Liquid-solid phase equilibria and 
+                 thermodynamic modeling for binary organic carbonates." 
+                 Journal of Chemical and Engineering Data 49(2): 276-282. 
+               Enthalpy of formation (to obtain a6):
+                 Verevkin, S.P., V.N. Emel'yanenko, and S.A. Kozlova, 
+                 "Organic Carbonates: Experiment and ab Initio Calculations for 
+                 Prediction of Thermochemical Properties. J. Phys. Chem. A, 
+                 2008. 112(42): p. 10667-10673.
+               Entropy for liquid phase obtained from gas-phase entropy and heat of vaporization 
+          -->
+        <Shomate Pref="1 bar" Tmax="363.5" Tmin="267.55">
+          <floatArray size="7">
+           112.5253,    178.8497,   0.0,
+           0.0,       0.0,    -650.1738,
+           303.6238
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- density from Schaffner et al, Chem. Rev., 110, 4554-4581 (2010) -->
+      <density units="g/cm3"> 1.07  </density>
+    </species>
+
+    <species name="DMC_C3H6O3(g)">
+      <atomArray> C:3 H:6 O:3 </atomArray>
+      <thermo>
+        <!-- thermo data from the following sources:  
+             Pierre A. Glaude, P. A., Pitz, W. J., Thomson, M. J., 
+	     "Chemical Kinetic Modeling of Dimethyl Carbonate in an Opposed-Flow Diffusion Flame", 
+	     Proceedings of the Combustion Institute, Volume 30, pp. 1095-1102, 2004. 
+             Enthalpy of formation (to obtain a6):
+                Verevkin, S. P., V. N. Emel'yanenko, et al. (2008). 
+                "Cyclic alkylene carbonates. Experiment and first principle 
+                calculations for prediction of thermochemical properties." 
+                Journal of Chemical Thermodynamics 40(9): 1428-1432.
+       	-->
+        <NASA Tmax="1357.0" Tmin="300.0" P0="100000.0">
+       	   <floatArray name="coeffs" size="7">
+              4.02388117e+00,  3.45950235e-02,  -1.43398663e-05,  2.96058007e-10, 
+              7.61075228e-13, -7.10716030e+04,   9.68216722e+00 </floatArray>
+        </NASA>
+        <NASA Tmax="5000.0" Tmin="1357.0" P0="100000.0">
+           <floatArray name="coeffs" size="7">
+              1.60408721e+01,    1.42408876e-02,  -5.07329565e-06,  8.09390848e-10,  
+              -4.78587508e-14,  -7.60473946e+04,  -5.76499848e+01 </floatArray>
+        </NASA>
+      </thermo>
+    </species>
+
+  </speciesData>
+
+</ctml>

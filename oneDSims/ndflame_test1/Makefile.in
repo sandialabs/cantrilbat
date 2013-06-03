@@ -1,0 +1,140 @@
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+# $Id: Makefile.in,v 1.1 2011/11/09 18:28:55 hkmoffa Exp $
+#
+#
+
+# Copywrite (2005) Sandia Corporation. Under the terms of 
+# Contract DE-AC04-94AL85000 with Sandia Corporation, the
+# U.S. Government retains certain rights in this software.
+#
+#
+.SUFFIXES : .d
+#
+PROGRAM = ndflame1
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+
+#
+# Set up the Cantera Application Base directory
+#
+CTAPPLBASE_DIR = ../../ctApplBase/src
+CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libctApplBase.a
+CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lctApplBase
+
+#
+# Utilsrc setup
+#
+UTILSRC_DIR =../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+
+
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+PURIFY =
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+
+LDEFINES = -DDEBUG -DDEBUG_HKM_ETABLE -DDEBUG_ROOT1D
+
+INCLUDE_DIRS= $(CANTERA_TOTAL_INCLUDES) 
+
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS)
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o: 
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+
+############################################################################
+# section to set up depends
+###########################################################################
+
+all: $(PROGRAM) .depends
+
+DEPENDS = $(PROGRAM).d
+
+
+.cpp.d:
+	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends:
+	@MAKE@ .depends
+
+.depends:  $(DEPENDS)
+	cat *.d > .depends
+
+
+clean:
+	$(RM) *.o  *.d  .depends $(PROGRAM)
+
+rebaseline:
+
+$(DEPENDS): Makefile
+
+
+##############################################################################
+BUILD_WITH_CTF2C=@build_with_f2c@
+ifeq ($(BUILD_WITH_CTF2C), 1)
+LIBF2C= -lctf2c
+else
+LIBF2C= -lg2c
+endif
+
+$(PROGRAM): $(PROGRAM).o $(CANTERA_CORE_LIBS_DEP) 
+	$(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(PROGRAM).o \
+	 	  $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+

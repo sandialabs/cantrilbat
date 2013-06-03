@@ -1,0 +1,15 @@
+diff*
+dout.txt
+out.txt
+cttables
+vcs_mpequil
+vcs_equilibrate_res.csv
+err*
+vcs_equilibrate_res*.csv
+nacl_dessicate
+Makefile
+CO2_solubility
+CO2_solubility_1
+*.d
+.depends
+NaCl_Solid.ctt

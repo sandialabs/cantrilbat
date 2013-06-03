@@ -1,0 +1,20 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase NaCl(S)    -->
+  <phase dim="3" id="NaCl(S)">
+    <elementArray datasrc="elements.xml">
+       Na Cl
+    </elementArray>
+    <speciesArray datasrc="MineralsDatabase.xml#species_MineralsEQ3">
+         Halite
+     </speciesArray>
+    <thermo model="MineralEQ3" />
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+
+</ctml>

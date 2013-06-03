@@ -1,0 +1,29 @@
+
+HKM
+
+This is a repository for mechanisms and transport data for liquid phase
+applications based on Cantera.
+
+All data in this folder should be be referenced to original pubs for
+lookup and validation.
+
+Then, copies of the files in the directories should be used in application
+folders. The original ID data from this directory should be retained for
+reference purposes in the copied files. If folders are also under
+the CVS system this will entail commenting out the original keywords
+to retain the version data.
+
+Example:
+Original cvs info data:
+
+       $Id: README,v 1.1 2006/01/16 17:30:22 hkmoffa Exp $
+
+New  cvs data in an application directory
+
+       Original ID from cvs mechanism directory:
+           HMW_NaCl.xml,v 1.2 2006/01/16 17:20:19 hkmoffa Exp
+       Application cvs ID information:
+           $Id: README,v 1.1 2006/01/16 17:30:22 hkmoffa Exp $
+
+
+

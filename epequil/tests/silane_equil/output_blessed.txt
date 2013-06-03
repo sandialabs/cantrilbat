@@ -1,0 +1,337 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  epequil Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+#
+#  NOTE: Currently, this program is limited to equilibrating 
+#        one Phase.
+# 
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample Silane Equilibrium Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = silane.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1500.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+!Pressure = 1.0 atm
+Pressure = 100 Pa
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   Si = 0.1
+!   H  = 1.0
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+  SiH4  = 0.5
+  H2    = 0.5
+  HE    = 0.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  epequil Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+#
+#  NOTE: Currently, this program is limited to equilibrating 
+#        one Phase.
+# 
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample Silane Equilibrium Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = silane.xml
+ => Cantera File Name = silane.xml
+ ====> CanteraFileNames =  silane.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1500.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+!Pressure = 1.0 atm
+Pressure = 100 Pa
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   Si = 0.1
+!   H  = 1.0
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+  SiH4  = 0.5
+  H2    = 0.5
+  HE    = 0.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 2
+=========================================================
+
+
+**** WARNING ****
+For species SI2H6, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  49.5493.
+	Value computed using high-temperature polynomial: 49.7214.
+
+
+**** WARNING ****
+For species SI3H8, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  65.9731.
+	Value computed using high-temperature polynomial: 66.2781.
+
+
+**** WARNING ****
+For species SI2, discontinuity in s/R detected at Tmid = 1000
+	Value computed using low-temperature polynomial:  32.8813.
+	Value computed using high-temperature polynomial: 32.9489.
+==========================================================
+ STARTING PROCESSING COMMAND FILE epequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  epequil Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+#
+#  NOTE: Currently, this program is limited to equilibrating 
+#        one Phase.
+# 
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample Silane Equilibrium Problem
+ => Title = Sample Silane Equilibrium Problem
+ ====> Title = Sample Silane Equilibrium Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> NumCanteraFiles = 1
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = silane.xml
+ => Cantera File Name = silane.xml
+ ====> CanteraFileNames =  silane.xml
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 1500.
+ => Temperature = 1500.
+ ====> Temperature = 1500
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+!Pressure = 1.0 atm
+Pressure = 100 Pa
+ => Pressure = 100 Pa
+ ====> PO.Pressure = 100
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   Si = 0.1
+!   H  = 1.0
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+  SiH4  = 0.5
+ => SIH4 = 0.5
+ ====> SIH4 = 0.5
+  H2    = 0.5
+ => H2 = 0.5
+ ====> H2 = 0.5
+  HE    = 0.0
+ => HE = 0.0
+ ====> HE = 0
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ H2 : 0 ] = 0.5
+	====>   MoleNumber[ H : 1 ] = 0
+	====>   MoleNumber[ HE : 2 ] = 0
+	====>   MoleNumber[ SIH4 : 3 ] = 0.5
+	====>   MoleNumber[ SI : 4 ] = 0
+	====>   MoleNumber[ SIH : 5 ] = 0
+	====>   MoleNumber[ SIH2 : 6 ] = 0
+	====>   MoleNumber[ SIH3 : 7 ] = 0
+	====>   MoleNumber[ H3SISIH : 8 ] = 0
+	====>   MoleNumber[ SI2H6 : 9 ] = 0
+	====>   MoleNumber[ H2SISIH2 : 10 ] = 0
+	====>   MoleNumber[ SI3H8 : 11 ] = 0
+	====>   MoleNumber[ SI2 : 12 ] = 0
+	====>   MoleNumber[ SI3 : 13 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+=========================================================
+ FINISHED PROCESSING COMMAND FILE epequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+              H2          0             silane             0.5       
+               H          0             silane             0         
+              HE          0             silane             0         
+            SIH4          0             silane             0.5       
+              SI          0             silane             0         
+             SIH          0             silane             0         
+            SIH2          0             silane             0         
+            SIH3          0             silane             0         
+         H3SISIH          0             silane             0         
+           SI2H6          0             silane             0         
+        H2SISIH2          0             silane             0         
+           SI3H8          0             silane             0         
+             SI2          0             silane             0         
+             SI3          0             silane             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+          silane     0   no        14             0      1.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+          Si           0.5 
+           H             3 
+          He             0 
+
+================================================================================
+==================== epequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+
+ Results from epequil:
+
+Temperature = 1500 Kelvin
+Pressure    = 100 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2               1.499464e+00    8.970077e-01    -3.196721e+08
+H                8.873578e-04    5.308342e-04    -1.598361e+08
+HE               0.000000e+00    0.000000e+00    -8.915911e+09
+SIH4             4.649659e-07    2.781514e-07    -6.237557e+08
+SI               5.729663e-03    3.427592e-03     1.558859e+07
+SIH              6.501544e-05    3.889346e-05    -1.442475e+08
+SIH2             5.802269e-05    3.471027e-05    -3.040835e+08
+SIH3             5.525548e-07    3.305487e-07    -4.639196e+08
+H3SISIH          1.001675e-10    5.992210e-11    -6.081671e+08
+SI2H6            2.145611e-13    1.283545e-13    -9.278392e+08
+H2SISIH2         2.557624e-09    1.530019e-09    -6.081671e+08
+SI3H8            2.641913e-19    1.580442e-19    -1.231923e+09
+SI2              2.125394e-03    1.271451e-03     3.117718e+07
+SI3              1.632985e-01    9.768824e-02     4.676577e+07
+-------------------------------------------------------------

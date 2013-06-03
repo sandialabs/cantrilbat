@@ -1,0 +1,153 @@
+###################################################################
+#  Interface Mass Transport title   Command File
+#
+# Master input file describing all of the options in the 
+# base class.
+##################################################################
+!
+!--------------------------------------------------------------------------
+!  Interface Mass Transport Title
+!
+! Interface Mass Transport Title = [string] [optional]
+!
+!--------------------------------------------------------------------------
+!  Interface Mass Transport Title = Water-Oil Interface
+!--------------------------------------------------------------------------
+!  Specification of the Model Name
+!
+!  Interfacial Mass Transport Model Name = 
+!                         ["UnknownType", "BaseType", 
+!                          "PseudoSS_NoSurf", "Kin_1to1Distrib"]
+!             required = yes
+!--------------------------------------------------------------------------
+!    Interfacial Mass Transport Model Name  = PseudoSS_NoSurf
+!--------------------------------------------------------------------------
+!
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = FeS2_A.xml
+Cantera File Name = FeS2_B.xml
+Cantera File Name = FeS2_electrode.xml
+!
+!-------------------------------------------------------------------------
+!  Phase A Name
+!
+!  Phase A Name = [string] [required]
+!
+!       specify the left side of the interface. This is the bulk phase 
+! on the left side of the interface.
+!---------------------------------------------------------------------------
+Phase A Name = Water
+!-------------------------------------------------------------------------
+!  Phase B Name
+!
+!  Phase B Name = [string] [required]
+!
+! Specify the right side of the interface. This is the bulk phase name
+! (i.e., the id of the phase) on the right side of the interface.
+!---------------------------------------------------------------------------
+Phase B Name = Water
+!---------------------------------------------------------------------------
+!
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 723.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!  
+!  Gross Surface Area of Interface
+!      (
+!
+Gross Surface Area of Interface = 0.01
+!--------------------------------------------------------------------------
+! 
+!  Phase A boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase A boundary layer thickness = 0.001
+!--------------------------------------------------------------------------
+! 
+!  Phase B boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase B boundary layer thickness = 0.001
+
+
+
+start block Bath Specification for Phase FeS2_A(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    FeS2_A(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_A(S)
+
+
+start block Bath Specification for Phase FeS2_B(S)
+  Phase Moles = 1.0E-3
+  start block Bath Species Mole Fraction
+    FeS2_B(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_B(S)
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.3
+      K+  = 0.2
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+!------------------------------------------------------------------------
+!
+!   SPECIFY OTHER WAYS TO INPUT THE CONCENTRATION, without
+!   breaking it down via phases.
+!
+!-------------------------------------------------------------------------
+!  BLOCK -> Species Initial KMoles    (no default)  (optional)
+!
+!  We can specify the moles of species in this type of format.
+!  If present, it overrides the specification of moles in individual
+!  phases described above.
+!
+!  start block Species Initial KMoles
+!        FeS2_A(S) =  1.0
+!        FeS2_B(S) = 1.0
+!        Li+ = 0.3E-2
+!        K+  = 0.2E-2
+!        Cl- = 0.5E-2
+!  end block Species Initial KMoles
+!-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,173 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile to compile and link a C++ application to 
+#  Cantera.
+#
+#############################################################################
+
+# addition to suffixes
+.SUFFIXES : .d
+
+# the name of the executable program to be created
+
+# the object files to be linked together. List those generated from Fortran
+# and from C/C++ separately
+M1D_OBJS =  m1d_Comm.o md_wrap_mpi.o m1d_EpetraExtras.o\
+        m1d_exception.o  m1d_app.o m1d_globals.o m1d_LocalNodeIndices.o \
+        m1d_GlobalIndices.o m1d_NodalVars.o m1d_DomainDescription.o \
+        m1d_BulkDomainDescription.o  m1d_SurfDomainDescription.o \
+        m1d_DomainLayout.o m1d_VBRIndices.o m1d_BulkDomain1D.o \
+        m1d_SimpleDiff_dom1D.o m1d_Domain1D.o \
+        m1d_SurDomain1D.o m1d_SurfDomainTypes.o m1d_BulkDomainTypes.o \
+        m1d_EqnVarTypes.o m1d_ProblemResidEval.o m1d_solvers.o m1d_EpetraJac.o \
+        m1d_SolGlobalNonlinear.o m1d_SolNonlinear.o m1d_SimpleTDDiff_dom1D.o m1d_ProblemStatement.o \
+        m1d_RecordTree_base.o m1d_BoundaryCondition.o
+
+M1D_HDRS =  m1d_Comm.h md_wrap_mpi.h m1d_EpetraExtras.h\
+        m1d_exception.h  m1d_app.h m1d_globals.h m1d_LocalNodeIndices.h \
+        m1d_GlobalIndices.h m1d_NodalVars.h m1d_DomainDescription.h \
+        m1d_BulkDomainDescription.h  m1d_SurfDomainDescription.h \
+        m1d_DomainLayout.h m1d_VBRIndices.h m1d_BulkDomain1D.h \
+        m1d_SimpleDiff_dom1D.h m1d_Domain1D.h \
+        m1d_SurDomain1D.h m1d_SurfDomainTypes.h m1d_BulkDomainTypes.h \
+        m1d_EqnVarTypes.h m1d_ProblemResidEval.h m1d_solvers.h m1d_EpetraJac.h \
+        m1d_SolGlobalNonlinear.h m1d_SolNonlinear.h m1d_SimpleTDDiff_dom1D.h m1d_ProblemStatement.h \
+        m1d_RecordTree_base.h m1d_BoundaryCondition.h m1d_defs.h m1d_Eqn_Names.h
+
+BE_OBJS =  BEulerInt.o
+BE_HDRS = BEulerInt.h
+
+//NOBJS = m1d_nox_interface.o m1d_nox_problem.o
+
+TOBJS = Multi1DDomain.o tddiff.o  $(M1D_OBJS) $(BE_OBJS) $(NOBJS)
+
+# additional flags to be passed to the linker. If your program
+# requires other external libraries, put them here
+LINK_OPTIONS = -L/sierra/Sntools/extras/mpi/RHEL5/openmpi-1.4.2/gcc-4.4.4-64Bit/lib
+
+#############################################################################
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+CANTERA_INSTALL_DIR = @ct_prefix@
+CANTERA_APPS_INSTALL_DIR = @cta_prefix@
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+#
+# Trilinos installation options
+#
+TRILINOS_DIR=@trilinos_root@
+TRILINOS_INC_DIR=$(TRILINOS_DIR)/include
+TRILINOS_INC=-I$(TRILINOS_DIR)/include
+TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
+
+include $(TRILINOS_INC_DIR)/Makefile.export.amesos
+include $(TRILINOS_INC_DIR)/Makefile.export.ifpack
+
+UTILSRC_DIR=../../util_src/src
+UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
+UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
+
+M1D_TARGET=$(CANTERA_APPS_INSTALL_DIR)/lib/libm1d.a
+
+
+# Check to see whether we are in the msvc++ environment
+os_is_win = @OS_IS_WIN@
+
+# the C++ compiler
+CXX = @MPICXX@ 
+#
+# The directory where Cantera include files may be found.
+#
+
+INCLUDE_DIRS = -I$(CANTERA_INCROOT) \
+	        $(TRILINOS_INC) \
+               -I$(MPI_INCLUDE) \
+               -I$(UTILSRC_DIR) -I../..
+
+# C++ compile flags
+LDEFINES =
+# -DDEBUG_INIT_CALCULATION
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES)
+
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+LMPICXX_END_LIBS = @LMPICXX_END_LIBS@
+
+# flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = @CXXFLAGS@
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) $(CXX_FLAGS) -c $< 
+
+# How to compile the dependency file
+.cpp.d:
+	@CXX_DEPENDS@  $(CXX_FLAGS) $*.cpp > $*.d
+
+# List of dependency files to be created
+DEPENDS=$(TOBJS:.o=.d)
+
+# Program Name
+
+all: libm1d.a Multi1DDomain .depends tddiff
+
+$(TOBJS) $(DEPENDS): Makefile
+
+rebaseline:
+
+libm1d.a: $(M1D_OBJS) $(BE_OBJS)
+	ar ruv libm1d.a $(M1D_OBJS) $(BE_OBJS)
+
+$(M1D_TARGET): libm1d.a
+	cp libm1d.a $(M1D_TARGET)
+
+Multi1DDomain: Multi1DDomain.o $(M1D_OBJS)  $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
+	$(CXX) -o Multi1DDomain Multi1DDomain.o $(M1D_OBJS) $(NOBS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                 $(APPL_BASE_LIB)  $(CANTERA_TOTAL_LIBS)  $(UTILSRC_LIB)   $(AMESOS_LIBS) $(IFPACK_LIBS) $(LMPICXX_END_LIBS)
+
+tddiff: tddiff.o $(M1D_OBJS) $(BE_OBJS) $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
+	$(CXX) -o tddiff tddiff.o $(M1D_OBJS) $(NOBS) $(BE_OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                  $(CANTERA_TOTAL_LIBS) $(UTILSRC_LIB)  $(AMESOS_LIBS) $(IFPACK_LIBS) $(LMPICXX_END_LIBS)
+
+install:
+	@INSTALL@ -d @cta_incdir@
+	@INSTALL@ -d @cta_libdir@
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -m 644 libm1d.a  @cta_libdir@
+	cp  $(M1D_HDRS) $(BE_HDRS) $(CANTERA_APPS_INSTALL_DIR)/include
+	@INSTALL@ -c tddiff @cta_bindir@
+	@INSTALL@ -c Multi1DDomain @cta_bindir@
+
+# depends target -> forces recalculation of dependencies
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+# Do the test -> For the windows vc++ environment, we have to skip checking on
+#                whether the program is uptodate, because we don't utilize make
+#                in that environment to build programs.
+test:
+ifeq ($(os_is_win), 1)
+else
+	@MAKE@ $(PROGRAM)
+endif
+	./runtest
+
+clean:
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain $(M1D_TARGET) libm1d.a
+	(if test -d SunWS_cache ; then \
+           $(RM) -rf SunWS_cache ; \
+         fi )
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+

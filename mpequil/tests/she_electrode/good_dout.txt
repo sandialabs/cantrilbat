@@ -1,0 +1,1936 @@
+
+================================================================================
+==================== vcs_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_NaCl.xml
+Cantera File Name = h2gas.xml
+Cantera File Name = Pt_H2electrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   H2 = 3.0
+   H2O(L) = 3.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 1
+=========================================================
+Found it before
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_NaCl.xml
+ => Cantera File Name = HMW_NaCl.xml
+ ====> CanteraFileNames =  HMW_NaCl.xml
+Cantera File Name = h2gas.xml
+ => Cantera File Name = h2gas.xml
+ ====> CanteraFileNames =  h2gas.xml
+Cantera File Name = Pt_H2electrons.xml
+ => Cantera File Name = Pt_H2electrons.xml
+ ====> CanteraFileNames =  Pt_H2electrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   H2 = 3.0
+   H2O(L) = 3.0
+END BLOCK Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 2
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = Sample MultiPhase Problem
+ => Title = Sample MultiPhase Problem
+ ====> Title = Sample MultiPhase Problem
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+ => Number of Cantera Files ====> NumCanteraFiles = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = HMW_NaCl.xml
+ => Cantera File Name = HMW_NaCl.xml
+ ====> CanteraFileNames =  HMW_NaCl.xml
+Cantera File Name = h2gas.xml
+ => Cantera File Name = h2gas.xml
+ ====> CanteraFileNames =  h2gas.xml
+Cantera File Name = Pt_H2electrons.xml
+ => Cantera File Name = Pt_H2electrons.xml
+ ====> CanteraFileNames =  Pt_H2electrons.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+START BLOCK Species Initial KMoles 
+   H2 = 3.0
+ => H2 = 3.0
+ ====> H2 = 3
+   H2O(L) = 3.0
+ => H2O(L) = 3.0
+ ====> H2O(L) = 3
+END BLOCK Species Initial KMoles
+	====> Summary of the block, Species Initial KMoles:
+	====>   MoleNumber[ H2O(L) : 0 ] = 3
+	====>   MoleNumber[ Cl- : 1 ] = 0
+	====>   MoleNumber[ H+ : 2 ] = 0
+	====>   MoleNumber[ Na+ : 3 ] = 0
+	====>   MoleNumber[ OH- : 4 ] = 0
+	====>   MoleNumber[ H2 : 5 ] = 3
+	====>   MoleNumber[ Pt_electrons : 6 ] = 0
+	====> End of Summmary of the block, Species Initial KMoles:
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!START BLOCK Species Initial KMoles Guess 
+!  SiH4  = 0.01
+!  H2    = 0.99
+!END BLOCK Species Initial KMoles Guess
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE mpequil.inp, PASS # 3
+=========================================================
+
+--------------------------------------------------------------------------------
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_KMols
+          H2O(L)          0   NaCl_electrolyte             3         
+             Cl-          0   NaCl_electrolyte             0         
+              H+          0   NaCl_electrolyte             0         
+             Na+          0   NaCl_electrolyte             0         
+             OH-          0   NaCl_electrolyte             0         
+              H2          1              h2gas             3         
+    Pt_electrons          2     Pt_H2electrons             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase NumSpec  TMolesInert       TKmols
+NaCl_electrolyte     0   no         5             0      3.000000e+00
+           h2gas     1   yes        1             0      3.000000e+00
+  Pt_H2electrons     2   yes        1             0      0.000000e+00
+
+--------------------------------------------------------------------------------
+             Information about Elements
+     ElementName  Abundance_Kmols
+           O             3 
+           H            12 
+           C             0 
+          Fe             0 
+          Si             0 
+           N             0 
+          Na             0 
+          Cl             0 
+           E             0 
+
+================================================================================
+==================== mpequil: END OF PROBLEM STATEMENT =======================
+================================================================================
+
+Unknown Cantera EOS to VCSnonideal: 45012
+vcs_Cantera_convert: Species Type 37 not known 
+vcs_Cantera_convert: Species Type 8 not known 
+vcs_Cantera_convert: Species Type 64 not known 
+vcs_Cantera_convert: Species Type 8 not known 
+vcs_Cantera_convert: Species Type 8 not known 
+vcs_Cantera_convert: Species Type 4 not known 
+vcs_Cantera_convert: Species Type 4 not known 
+
+================================================================================
+================ Cantera_to_vprob: START OF PROBLEM STATEMENT ====================
+================================================================================
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_kMols
+          H2O(L)          0   NaCl_electrolyte             3         
+             Cl-          0   NaCl_electrolyte             0         
+              H+          0   NaCl_electrolyte             0         
+             Na+          0   NaCl_electrolyte             0         
+             OH-          0   NaCl_electrolyte             0         
+              H2          1              h2gas             3         
+    Pt_electrons          2     Pt_H2electrons             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase EqnState NumSpec  TMolesInert       Tmoles(kmol)
+NaCl_electrolyte     0     0        0 UnkType: -1             5     0.000000e+00     3.000000e+00
+           h2gas     1     1        1 Ideal Gas               1     0.000000e+00     3.000000e+00
+  Pt_H2electrons     2     1        0 Stoich Sub              1     0.000000e+00     0.000000e+00
+
+================================================================================
+================ Cantera_to_vprob: END OF PROBLEM STATEMENT ====================
+================================================================================
+
+
+================================================================================
+==================== Cantera_to_vprob: START OF PROBLEM STATEMENT ====================
+================================================================================
+
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_kMols
+          H2O(L)          0   NaCl_electrolyte             3         
+             Cl-          0   NaCl_electrolyte             0         
+              H+          0   NaCl_electrolyte             0         
+             Na+          0   NaCl_electrolyte             0         
+             OH-          0   NaCl_electrolyte             0         
+              H2          1              h2gas             3         
+    Pt_electrons          2     Pt_H2electrons             0         
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec GasPhase EqnState NumSpec  TMolesInert       Tmoles(kmol)
+NaCl_electrolyte     0     0        0 UnkType: -1             5     0.000000e+00     3.000000e+00
+           h2gas     1     1        1 Ideal Gas               1     0.000000e+00     3.000000e+00
+  Pt_H2electrons     2     1        0 Stoich Sub              1     0.000000e+00     0.000000e+00
+
+================================================================================
+==================== Cantera_to_vprob: END OF PROBLEM STATEMENT ====================
+================================================================================
+
+
+================================================================================
+==================== VCS_PROB: PROBLEM STATEMENT ===============================
+================================================================================
+
+	Solve a constant T, P problem:
+		T    = 298.15 K
+		Pres = 1 atm
+
+             Phase IDs of species
+            species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
+          H2O(L)          0   NaCl_electrolyte             3                          Mol_Num
+             Cl-          0   NaCl_electrolyte             0                          Mol_Num
+              H+          0   NaCl_electrolyte             0                          Mol_Num
+             Na+          0   NaCl_electrolyte             0                          Mol_Num
+             OH-          0   NaCl_electrolyte             0                          Mol_Num
+              H2          1              h2gas             3                          Mol_Num
+    Pt_electrons          2     Pt_H2electrons             0                          Voltage
+
+--------------------------------------------------------------------------------
+             Information about phases
+  PhaseName    PhaseNum SingSpec  GasPhase    EqnState    NumSpec  TMolesInert      TKmoles
+NaCl_electrolyte     0     0        0 UnkType: -1             5     0.000000e+00     3.000000e+00
+           h2gas     1     1        1 Ideal Gas               1     0.000000e+00     3.000000e+00
+  Pt_H2electrons     2     1        0 Stoich Sub              1     0.000000e+00     0.000000e+00
+
+Elemental Abundances:             Target_kmol    ElemType ElActive
+                          O   3.000000000000E+00    0         1
+                          H   1.200000000000E+01    0         1
+                          C   0.000000000000E+00    0         1
+                          Fe  0.000000000000E+00    0         1
+                          Si  0.000000000000E+00    0         1
+                          N   0.000000000000E+00    0         1
+                          Na  0.000000000000E+00    0         1
+                          Cl  0.000000000000E+00    0         1
+                          E   0.000000000000E+00    1         0
+                          cn  0.000000000000E+00    2         1
+
+Chemical Potentials:  (J/kmol)
+             Species       (phase)        SS0ChemPot       StarChemPot
+          H2O(L) NaCl_electrolyte    -3.06686e+08       -3.06686e+08
+             Cl-                     -1.83974e+08       -1.83974e+08
+              H+                                0                  0
+             Na+                     -2.57752e+08       -2.57752e+08
+             OH-                     -2.26784e+08       -2.26784e+08
+              H2            h2gas    -3.89623e+07       -3.89623e+07
+    Pt_electrons   Pt_H2electrons    -1.94812e+07       -1.94812e+07
+
+================================================================================
+==================== VCS_PROB: END OF PROBLEM STATEMENT ========================
+================================================================================
+
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to calculate the number of components
+
+   ---       Formula Matrix used in BASOPT calculation
+   ---      Active |     1    1    1    1    1    1    1    1    0    1  
+   ---     Species |         O        H        C       Fe       Si        N       Na       Cl        E cn_NaCl_
+   ---      H2O(L) |         1        2        0        0        0        0        0        0       -0        0
+   ---         Cl- |         0        0        0        0        0        0        0        1        1       -1
+   ---          H+ |         0        1        0        0        0        0        0        0       -1        1
+   ---         Na+ |         0        0        0        0        0        0        1        0       -1        1
+   ---         OH- |         1        1        0        0        0        0        0        0        1       -1
+   ---          H2 |         0        2        0        0        0        0        0        0        0        0
+   --- Pt_electron |         0        0        0        0        0        0        0        0        1        0
+
+   ---   H2O(L)      (        3) remains                          as component   0
+   ---   H2          (        3) replaces Cl-         (        0) as component   1
+   ---   H+          (        0) remains                          as component   2
+   ---   Na+         (        0) remains                          as component   3
+   ---   Cl-         (        0) replaces OH-         (        0) as component   4
+   ---   Total number of components found =   5 (ne = 10)
+    -----------------------------------------------------------------------------
+   --- Subroutine elem_rearrange() called to check stoich. coefficient matrix
+   ---    and to rearrange the element ordering once
+   ---   Na(        0) replaces C (        0) as element   2
+   ---   Cl(        0) replaces Fe(        0) as element   3
+   ---   cn(        0) replaces Si(        0) as element   4
+VCS CALCULATION METHOD
+
+ MultiPhase Object
+
+
+    7 SPECIES
+   10 ELEMENTS
+    5 COMPONENTS
+    3 PHASES
+ PRESSURE                101325 Pa 
+ TEMPERATURE            298.150 K
+ PHASE1 INERTS            0.000
+ PHASE2 INERTS            0.000
+
+ ELEMENTAL ABUNDANCES             CORRECT          FROM ESTIMATE           Type
+
+                          O   3.000000000000E+00  3.000000000000E+00       0
+                          H   1.200000000000E+01  1.200000000000E+01       0
+                          Na  0.000000000000E+00  0.000000000000E+00       0
+                          Cl  0.000000000000E+00  0.000000000000E+00       0
+                          cn  0.000000000000E+00  0.000000000000E+00       2
+                          N   0.000000000000E+00  0.000000000000E+00       0
+                          C   0.000000000000E+00  0.000000000000E+00       0
+                          Fe  0.000000000000E+00  0.000000000000E+00       0
+                          E   0.000000000000E+00  0.000000000000E+00       1
+                          Si  0.000000000000E+00  0.000000000000E+00       0
+
+ USER ESTIMATE OF EQUILIBRIUM
+ Stan. Chem. Pot. in J/kmol
+
+ SPECIES            FORMULA VECTOR                                               STAN_CHEM_POT  EQUILIBRIUM_EST.  Species_Type
+
+                    O       H       Na      Cl      cn_N    N       C       Fe      E       Si         PhaseID
+ H2O(L)             1       2       0       0       0       0       0       0      -0       0          0  -3.06686E+08   3.00000E+00       Mol_Num
+ H2                 0       2       0       0       0       0       0       0       0       0          1  -3.89623E+07   3.00000E+00       Mol_Num
+ H+                 0       1       0       0       1       0       0       0      -1       0          0   0.00000E+00   0.00000E+00       Mol_Num
+ Na+                0       0       1       0       1       0       0       0      -1       0          0  -2.57752E+08   0.00000E+00       Mol_Num
+ Cl-                0       0       0       1      -1       0       0       0       1       0          0  -1.83974E+08   0.00000E+00       Mol_Num
+ OH-                1       1       0       0      -1       0       0       0       1       0          0  -2.26784E+08   0.00000E+00       Mol_Num
+ Pt_electrons       0       0       0       0       0       0       0       0       1       0          2  -1.94812E+07   0.00000E+00       Voltage
+   --- Subroutine vcs_dfe called for all species
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to reevaluate the components
+
+   ---       Formula Matrix used in BASOPT calculation
+   ---      Active |     1    1    1    1    1    1    1    1    0    1  
+   ---     Species |         O        H       Na       Cl cn_NaCl_        N        C       Fe        E       Si
+   ---      H2O(L) |         1        2        0        0        0        0        0        0       -0        0
+   ---          H2 |         0        2        0        0        0        0        0        0        0        0
+   ---          H+ |         0        1        0        0        1        0        0        0       -1        0
+   ---         Na+ |         0        0        1        0        1        0        0        0       -1        0
+   ---         Cl- |         0        0        0        1       -1        0        0        0        1        0
+   ---         OH- |         1        1        0        0       -1        0        0        0        1        0
+   --- Pt_electron |         0        0        0        0        0        0        0        0        1        0
+
+   ---   H2O(L)      (        3) remains                          as component   0
+   ---   H2          (        3) remains                          as component   1
+   ---   H+          (        0) remains                          as component   2
+   ---   Na+         (        0) remains                          as component   3
+   ---   Cl-         (        0) remains                          as component   4
+   ---   Total number of components found =   5 (ne = 10)
+    ---                Components:          0          1          2          3          4
+   ---          Components Moles:  3.000E+00  3.000E+00  0.000E+00  0.000E+00  0.000E+00
+   ---   NonComponent|   Moles  |     H2O(L)         H2         H+        Na+        Cl-
+   ---   5 OH-       | 0.000E+00|     -1.000     -0.000     +1.000     -0.000     -0.000
+   ---   6 Pt_electro| 0.000E+00|     -0.000     -0.500     +1.000     -0.000     -0.000
+   ---               largest error in Stoich coeff = 0 at rxn = 0 OH-        element = 0 O    
+   -----------------------------------------------------------------------------
+   --- Subroutine vcs_deltag called for all noncomponents
+  --- Species Status decision is reevaluated: All species are minor except for:
+  --- H2O(L)          : (COMP)           3 Major Species
+  --- H2              : (COMP)           3 Major Species
+  --- H+              : (COMP)           0 Zeroed Species in an active MS phase (tmp)
+   ---   Na+ can not be nonzero because needed element Na is zero
+  --- Na+             : (COMP)           0 Zeroed Species in an active MS phase (Stoich Constraint)
+   ---   Cl- can not be nonzero because needed element Cl is zero
+  --- Cl-             : (COMP)           0 Zeroed Species in an active MS phase (Stoich Constraint)
+  --- OH-             :                  0 Zeroed Species in an active MS phase (tmp)
+  --- Pt_electrons    :                  0 InterfaceVoltage Species
+  ---
+   --- Element Abundance check passed
+
+==============================================================================================================
+ Iteration =   0, Iterations since last evaluation of optimal basis =   0 (all species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- OH-             0.0000E+00   6.0000E-24  -6.0666E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -6.067E+02
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- OH- currently zeroed (SpStatus=-7):  0 DG = -6.0666E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  6.0000E-24
+   --- Zeroed species changed to minor: OH-         
+   --- OH-           0 0.0000E+00 6.0000E-26 6.0000E-26 | Born:IC=-1 to IC=1:DG=-6.0666E+02
+   --- Pt_electrons -5 0.0000E+00-8.2073E+00-8.2073E+00 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-6.0000E-26 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- H+            c 0.0000E+00 6.0000E-26 6.0000E-26 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -3.63994e-23
+   --- subroutine FORCE: End Slope       = -4.68498e-24
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   H+                0.000000E+00  6.000000E-26 -3.194440E+02 -5.515753E+01
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   OH-           0   0.000000E+00  6.000000E-26 -4.109276E+02 -1.466411E+02 -6.066559E+02 -7.808302E+01
+   ---   Pt_electrons -5   0.000000E+00 -8.207339E+00 -7.858612E+00  3.115854E+02 -3.194440E+02  2.642865E+02
+   ---                                                        Norms of Delta G():  4.848071E+02  5.521303E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    1
+   --- Normal element abundance check - passed
+   --- Get a new basis because OH- is better than comp H+ and share nonzero stoic: 1.0      
+   -----------------------------------------------------------------------------
+   --- Subroutine BASOPT called to reevaluate the components
+
+   ---       Formula Matrix used in BASOPT calculation
+   ---      Active |     1    1    1    1    1    1    1    1    0    1  
+   ---     Species |         O        H       Na       Cl cn_NaCl_        N        C       Fe        E       Si
+   ---      H2O(L) |         1        2        0        0        0        0        0        0       -0        0
+   ---          H2 |         0        2        0        0        0        0        0        0        0        0
+   ---          H+ |         0        1        0        0        1        0        0        0       -1        0
+   ---         Na+ |         0        0        1        0        1        0        0        0       -1        0
+   ---         Cl- |         0        0        0        1       -1        0        0        0        1        0
+   ---         OH- |         1        1        0        0       -1        0        0        0        1        0
+   --- Pt_electron |         0        0        0        0        0        0        0        0        1        0
+
+   ---   H2O(L)      (        3) remains                          as component   0
+   ---   H2          (        3) remains                          as component   1
+   ---   OH-         (    6e-26) replaces H+          (    6e-26) as component   2
+   ---   Na+         (        0) remains                          as component   3
+   ---   Cl-         (        0) remains                          as component   4
+   ---   Total number of components found =   5 (ne = 10)
+    ---                Components:          0          1          2          3          4
+   ---          Components Moles:  3.000E+00  3.000E+00  6.000E-26  0.000E+00  0.000E+00
+   ---   NonComponent|   Moles  |     H2O(L)         H2        OH-        Na+        Cl-
+   ---   5 H+        | 6.000E-26|     -1.000     -0.000     +1.000     -0.000     -0.000
+   ---   6 Pt_electro|-8.207E+00|     +1.000     -0.500     -1.000     -0.000     -0.000
+   ---               largest error in Stoich coeff = 0 at rxn = 0 H+         element = 0 O    
+   -----------------------------------------------------------------------------
+   --- Subroutine vcs_deltag called for all noncomponents
+  --- Species Status decision is reevaluated: All species are minor except for:
+  --- H2O(L)          : (COMP)           3 Major Species
+  --- H2              : (COMP)           3 Major Species
+  --- OH-             : (COMP)       6e-26 Major Species
+   ---   Na+ can not be nonzero because needed element Na is zero
+  --- Na+             : (COMP)           0 Zeroed Species in an active MS phase (Stoich Constraint)
+   ---   Cl- can not be nonzero because needed element Cl is zero
+  --- Cl-             : (COMP)           0 Zeroed Species in an active MS phase (Stoich Constraint)
+  --- H+              :              6e-26 Major Species
+  --- Pt_electrons    :              -8.21 InterfaceVoltage Species
+  ---
+   --- Element Abundance check passed
+
+==============================================================================================================
+ Iteration =   1, Iterations since last evaluation of optimal basis =   0 (all species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              6.0000E-26   2.3425E-24  -7.8083E+01 | Normal calc: diag adjusted from 3.33333e+25 to 3.33333e+25 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 6.0000E-26 2.4025E-24 2.3425E-24 | Normal Major Calc
+   --- Pt_electrons -5-8.2073E+00 5.8901E-01 8.7964E+00 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-2.3425E-24 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 6.0000E-26 2.4025E-24 2.3425E-24 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -1.82909e-22
+   --- subroutine FORCE: End Slope       = -1.65622e-22
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               6.000000E-26  2.402495E-24 -1.466411E+02 -1.429512E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   6.000000E-26  2.402495E-24 -5.515753E+01 -5.146761E+01 -7.808302E+01 -7.070318E+01
+   ---   Pt_electrons -5  -8.207339E+00  5.890148E-01  3.115854E+02 -3.078410E+01  3.423695E+02 -3.689919E+00
+   ---                                                        Norms of Delta G():  5.521303E+01  5.006274E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    2
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   2, Iterations since last evaluation of optimal basis =   1 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.4025E-24   8.4932E-23  -7.0703E+01 | Normal calc: diag adjusted from 8.32468e+23 to 8.32466e+23 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.4025E-24 8.7335E-23 8.4932E-23 | Normal Major Calc
+   --- Pt_electrons -5 5.8901E-01 4.9421E-01-9.4804E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-8.4932E-23 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.4025E-24 8.7335E-23 8.4932E-23 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -6.00498e-21
+   --- subroutine FORCE: End Slope       = -5.39461e-21
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.402495E-24  8.733468E-23 -1.429512E+02 -1.393580E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   2.402495E-24  8.733468E-23 -5.146761E+01 -4.787437E+01 -7.070318E+01 -6.351670E+01
+   ---   Pt_electrons -5   5.890148E-01  4.942113E-01 -3.078410E+01 -2.709418E+01 -3.689919E+00 -3.593240E+00
+   ---                                                        Norms of Delta G():  5.006274E+01  4.498490E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    3
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   3, Iterations since last evaluation of optimal basis =   2 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              8.7335E-23   2.7736E-21  -6.3517E+01 | Normal calc: diag adjusted from 2.29004e+22 to 2.29004e+22 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 8.7335E-23 2.8609E-21 2.7736E-21 | Normal Major Calc
+   --- Pt_electrons -5 4.9421E-01 4.0189E-01-9.2320E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-2.7736E-21 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 8.7335E-23 2.8609E-21 2.7736E-21 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -1.76171e-19
+   --- subroutine FORCE: End Slope       = -1.56815e-19
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               8.733468E-23  2.860945E-21 -1.393580E+02 -1.358688E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   8.733468E-23  2.860945E-21 -4.787437E+01 -4.438521E+01 -6.351670E+01 -5.653838E+01
+   ---   Pt_electrons -5   4.942113E-01  4.018917E-01 -2.709418E+01 -2.350094E+01 -3.593240E+00 -3.489160E+00
+   ---                                                        Norms of Delta G():  4.498490E+01  4.005473E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    4
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+
+==============================================================================================================
+ Iteration =   4, Iterations since last evaluation of optimal basis =   3 (all species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.8609E-21   8.0877E-20  -5.6538E+01 | Normal calc: diag adjusted from 6.9907e+20 to 6.99068e+20 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.8609E-21 8.3738E-20 8.0877E-20 | Normal Major Calc
+   --- Pt_electrons -5 4.0189E-01 3.1225E-01-8.9646E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-8.0877E-20 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.8609E-21 8.3738E-20 8.0877E-20 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -4.57264e-18
+   --- subroutine FORCE: End Slope       = -4.02647e-18
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.860945E-21  8.373771E-20 -1.358688E+02 -1.324923E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   2.860945E-21  8.373771E-20 -4.438521E+01 -4.100867E+01 -5.653838E+01 -4.978531E+01
+   ---   Pt_electrons -5   4.018917E-01  3.122462E-01 -2.350094E+01 -2.001178E+01 -3.489160E+00 -3.376537E+00
+   ---                                                        Norms of Delta G():  4.005473E+01  3.528440E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    5
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   5, Iterations since last evaluation of optimal basis =   4 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              8.3738E-20   2.0845E-18  -4.9785E+01 | Normal calc: diag adjusted from 2.38841e+19 to 2.38841e+19 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 8.3738E-20 2.1682E-18 2.0845E-18 | Normal Major Calc
+   --- Pt_electrons -5 3.1225E-01 2.2549E-01-8.6752E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-2.0845E-18 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 8.3738E-20 2.1682E-18 2.0845E-18 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -1.03775e-16
+   --- subroutine FORCE: End Slope       = -9.02099e-17
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               8.373771E-20  2.168196E-18 -1.324923E+02 -1.292383E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   8.373771E-20  2.168196E-18 -4.100867E+01 -3.775471E+01 -4.978531E+01 -4.327738E+01
+   ---   Pt_electrons -5   3.122462E-01  2.254942E-01 -2.001178E+01 -1.663524E+01 -3.376537E+00 -3.253961E+00
+   ---                                                        Norms of Delta G():  3.528440E+01  3.068811E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    6
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   6, Iterations since last evaluation of optimal basis =   5 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.1682E-18   4.6917E-17  -4.3277E+01 | Normal calc: diag adjusted from 9.22426e+17 to 9.22424e+17 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.1682E-18 4.9085E-17 4.6917E-17 | Normal Major Calc
+   --- Pt_electrons -5 2.2549E-01 1.4189E-01-8.3603E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-4.6917E-17 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.1682E-18 4.9085E-17 4.6917E-17 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -2.03045e-15
+   --- subroutine FORCE: End Slope       = -1.73771e-15
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.168196E-18  4.908520E-17 -1.292383E+02 -1.261186E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   2.168196E-18  4.908520E-17 -3.775471E+01 -3.463505E+01 -4.327738E+01 -3.703806E+01
+   ---   Pt_electrons -5   2.254942E-01  1.418916E-01 -1.663524E+01 -1.338128E+01 -3.253961E+00 -3.119662E+00
+   ---                                                        Norms of Delta G():  3.068811E+01  2.628260E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    7
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   7, Iterations since last evaluation of optimal basis =   6 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              4.9085E-17   9.0901E-16  -3.7038E+01 | Normal calc: diag adjusted from 4.07455e+16 to 4.07454e+16 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 4.9085E-17 9.5810E-16 9.0901E-16 | Normal Major Calc
+   --- Pt_electrons -5 1.4189E-01 6.1739E-02-8.0152E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-9.0901E-16 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 4.9085E-17 9.5810E-16 9.0901E-16 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -3.3668e-14
+   --- subroutine FORCE: End Slope       = -2.8266e-14
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               4.908520E-17  9.580973E-16 -1.261186E+02 -1.231473E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   4.908520E-17  9.580973E-16 -3.463505E+01 -3.166366E+01 -3.703806E+01 -3.109528E+01
+   ---   Pt_electrons -5   1.418916E-01  6.173944E-02 -1.338128E+01 -1.026162E+01 -3.119662E+00 -2.971392E+00
+   ---                                                        Norms of Delta G():  2.628260E+01  2.208784E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    8
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+
+==============================================================================================================
+ Iteration =   8, Iterations since last evaluation of optimal basis =   7 (all species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              9.5810E-16   1.4896E-14  -3.1095E+01 | Normal calc: diag adjusted from 2.08747e+15 to 2.08747e+15 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 9.5810E-16 1.5854E-14 1.4896E-14 | Normal Major Calc
+   --- Pt_electrons -5 6.1739E-02-1.4603E-02-7.6343E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.4896E-14 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 9.5810E-16 1.5854E-14 1.4896E-14 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -4.63201e-13
+   --- subroutine FORCE: End Slope       = -3.79596e-13
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               9.580973E-16  1.585427E-14 -1.231473E+02 -1.203410E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   9.580973E-16  1.585427E-14 -3.166366E+01 -2.885742E+01 -3.109528E+01 -2.548279E+01
+   ---   Pt_electrons -5   6.173944E-02 -1.460326E-02 -1.026162E+01 -7.290227E+00 -2.971392E+00 -2.806245E+00
+   ---                                                        Norms of Delta G():  2.208784E+01  1.812798E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:    9
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =   9, Iterations since last evaluation of optimal basis =   8 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              1.5854E-14   2.0201E-13  -2.5483E+01 | Normal calc: diag adjusted from 1.26149e+14 to 1.26149e+14 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 1.5854E-14 2.1786E-13 2.0201E-13 | Normal Major Calc
+   --- Pt_electrons -5-1.4603E-02-8.6703E-02-7.2100E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-2.0201E-13 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 1.5854E-14 2.1786E-13 2.0201E-13 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- subroutine FORCE: Beginning Slope = -5.14767e-12
+   --- subroutine FORCE: End Slope       = -4.08899e-12
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               1.585427E-14  2.178601E-13 -1.203410E+02 -1.177206E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   1.585427E-14  2.178601E-13 -2.885742E+01 -2.623700E+01 -2.548279E+01 -2.024196E+01
+   ---   Pt_electrons -5  -1.460326E-02 -8.670292E-02 -7.290227E+00 -4.483983E+00 -2.806245E+00 -2.620412E+00
+   ---                                                        Norms of Delta G():  1.812798E+01  1.443266E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Increment counter increased, step is accepted:   10
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  10, Iterations since last evaluation of optimal basis =   9 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.1786E-13   2.2050E-12  -2.0242E+01 | Normal calc: diag adjusted from 9.1802e+12 to 9.18019e+12 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.1786E-13 2.4228E-12 2.2050E-12 | Normal Major Calc
+   --- Pt_electrons -5-8.6703E-02-1.5403E-01-6.7325E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-2.2050E-12 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.1786E-13 2.4228E-12 2.2050E-12 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168550E+02
+   --- subroutine FORCE: Beginning Slope = -4.46328e-11
+   --- subroutine FORCE: End Slope       = -3.401e-11
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.178601E-13  2.422822E-12 -1.177206E+02 -1.153118E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
+   ---   H+            1   2.178601E-13  2.422822E-12 -2.623700E+01 -2.382817E+01 -2.024196E+01 -1.542430E+01
+   ---   Pt_electrons -5  -8.670292E-02 -1.540281E-01 -4.483983E+00 -1.863570E+00 -2.620412E+00 -2.408830E+00
+   ---                                                        Norms of Delta G():  1.443266E+01  1.103883E+01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168550E+02
+   --- Increment counter increased, step is accepted:   11
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  11, Iterations since last evaluation of optimal basis =  10 (only major species)
+   --- vcs_phaseStabilityFE_value(0) has a value: 10.1209
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.4228E-12   1.8685E-11  -1.5424E+01 | Normal calc: diag adjusted from 8.25484e+11 to 8.2548e+11 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.4228E-12 2.1108E-11 1.8685E-11 | Normal Major Calc
+   --- Pt_electrons -5-1.5403E-01-2.1592E-01-6.1889E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.8685E-11 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.4228E-12 2.1108E-11 1.8685E-11 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168550E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168574E+02
+   --- subroutine FORCE: Beginning Slope = -2.88207e-10
+   --- subroutine FORCE: End Slope       = -2.07311e-10
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.422822E-12  2.110807E-11 -1.153118E+02 -1.131471E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936582E+02
+   ---   H+            1   2.422822E-12  2.110807E-11 -2.382817E+01 -2.166347E+01 -1.542430E+01 -1.109489E+01
+   ---   Pt_electrons -5  -1.540281E-01 -2.159171E-01 -1.863570E+00  5.452592E-01 -2.408830E+00 -2.164707E+00
+   ---                                                        Norms of Delta G():  1.103883E+01  7.993200E+00
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168550E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168574E+02
+   --- Increment counter increased, step is accepted:   12
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+
+==============================================================================================================
+ Iteration =  12, Iterations since last evaluation of optimal basis =  11 (all species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.1108E-11   1.1710E-10  -1.1095E+01 | Normal calc: diag adjusted from 9.47505e+10 to 9.47494e+10 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.1108E-11 1.3821E-10 1.1710E-10 | Normal Major Calc
+   --- Pt_electrons -5-2.1592E-01-2.7153E-01-5.5617E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.1710E-10 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.1108E-11 1.3821E-10 1.1710E-10 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168574E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168675E+02
+   --- subroutine FORCE: Beginning Slope = -1.29918e-09
+   --- subroutine FORCE: End Slope       = -8.59118e-10
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.110807E-11  1.382053E-10 -1.131471E+02 -1.112680E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234201E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936582E+02 -3.936582E+02
+   ---   H+            1   2.110807E-11  1.382053E-10 -2.166347E+01 -1.978442E+01 -1.109489E+01 -7.336791E+00
+   ---   Pt_electrons -5  -2.159171E-01 -2.715340E-01  5.452592E-01  2.709966E+00 -2.164707E+00 -1.879048E+00
+   ---                                                        Norms of Delta G():  7.993200E+00  5.355340E+00
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168574E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168675E+02
+   --- Increment counter increased, step is accepted:   13
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  13, Iterations since last evaluation of optimal basis =  12 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              1.3821E-10   5.0701E-10  -7.3368E+00 | Normal calc: diag adjusted from 1.44712e+10 to 1.44708e+10 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 1.3821E-10 6.4521E-10 5.0701E-10 | Normal Major Calc
+   --- Pt_electrons -5-2.7153E-01-3.1981E-01-4.8278E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-5.0701E-10 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 1.3821E-10 6.4521E-10 5.0701E-10 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168675E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168949E+02
+   --- subroutine FORCE: Beginning Slope = -3.7198e-09
+   --- subroutine FORCE: End Slope       = -2.15744e-09
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               1.382053E-10  6.452119E-10 -1.112680E+02 -1.097272E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234201E+02 -4.234201E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936582E+02 -3.936583E+02
+   ---   H+            1   1.382053E-10  6.452119E-10 -1.978442E+01 -1.824365E+01 -7.336791E+00 -4.255251E+00
+   ---   Pt_electrons -5  -2.715340E-01 -3.198116E-01  2.709966E+00  4.589015E+00 -1.879048E+00 -1.540770E+00
+   ---                                                        Norms of Delta G():  5.355340E+00  3.200089E+00
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168675E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168949E+02
+   --- Increment counter increased, step is accepted:   14
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  14, Iterations since last evaluation of optimal basis =  13 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              6.4521E-10   1.3729E-09  -4.2553E+00 | Normal calc: diag adjusted from 3.09976e+09 to 3.09956e+09 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 6.4521E-10 2.0181E-09 1.3729E-09 | Normal Major Calc
+   --- Pt_electrons -5-3.1981E-01-3.5940E-01-3.9586E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.3729E-09 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 6.4521E-10 2.0181E-09 1.3729E-09 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168949E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169348E+02
+   --- subroutine FORCE: Beginning Slope = -5.84185e-09
+   --- subroutine FORCE: End Slope       = -2.71114e-09
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               6.452119E-10  2.018069E-09 -1.097272E+02 -1.085870E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234201E+02 -4.234202E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936583E+02 -3.936584E+02
+   ---   H+            1   6.452119E-10  2.018069E-09 -1.824365E+01 -1.710343E+01 -4.255251E+00 -1.974813E+00
+   ---   Pt_electrons -5  -3.198116E-01 -3.593979E-01  4.589015E+00  6.129785E+00 -1.540770E+00 -1.140219E+00
+   ---                                                        Norms of Delta G():  3.200089E+00  1.612449E+00
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168949E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169348E+02
+   --- Increment counter increased, step is accepted:   15
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  15, Iterations since last evaluation of optimal basis =  14 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              2.0181E-09   1.9929E-09  -1.9748E+00 | Normal calc: diag adjusted from 9.91046e+08 to 9.90934e+08 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 2.0181E-09 4.0110E-09 1.9929E-09 | Normal Major Calc
+   --- Pt_electrons -5-3.5940E-01-3.8869E-01-2.9295E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.9929E-09 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 2.0181E-09 4.0110E-09 1.9929E-09 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169348E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169589E+02
+   --- subroutine FORCE: Beginning Slope = -3.93557e-09
+   --- subroutine FORCE: End Slope       = -1.19817e-09
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               2.018069E-09  4.010950E-09 -1.085870E+02 -1.079002E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234202E+02 -4.234203E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936584E+02 -3.936584E+02
+   ---   H+            1   2.018069E-09  4.010950E-09 -1.710343E+01 -1.641663E+01 -1.974813E+00 -6.012252E-01
+   ---   Pt_electrons -5  -3.593979E-01 -3.886931E-01  6.129785E+00  7.270004E+00 -1.140219E+00 -6.867939E-01
+   ---                                                        Norms of Delta G():  1.612449E+00  6.454292E-01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169348E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169589E+02
+   --- Increment counter increased, step is accepted:   16
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+
+==============================================================================================================
+ Iteration =  16, Iterations since last evaluation of optimal basis =  15 (all species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              4.0110E-09   1.2059E-09  -6.0123E-01 | Normal calc: diag adjusted from 4.98635e+08 to 4.98555e+08 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Full Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 4.0110E-09 5.2169E-09 1.2059E-09 | Normal Major Calc
+   --- Pt_electrons -5-3.8869E-01-4.0634E-01-1.7646E-02 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.2059E-09 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 4.0110E-09 5.2169E-09 1.2059E-09 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169589E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- subroutine FORCE: Beginning Slope = -7.25038e-10
+   --- subroutine FORCE: End Slope       = -9.11329e-11
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (all species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               4.010950E-09  5.216885E-09 -1.079002E+02 -1.076374E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234203E+02 -4.234204E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936584E+02 -3.936585E+02
+   ---   H+            1   4.010950E-09  5.216885E-09 -1.641663E+01 -1.615381E+01 -6.012252E-01 -7.557033E-02
+   ---   Pt_electrons -5  -3.886931E-01 -4.063386E-01  7.270004E+00  7.956798E+00 -6.867939E-01 -2.628274E-01
+   ---                                                        Norms of Delta G():  6.454292E-01  1.933767E-01
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169589E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Increment counter increased, step is accepted:   17
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Reevaluate major-minor status of noncomponents:
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  17, Iterations since last evaluation of optimal basis =  16 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              5.2169E-09   1.9716E-10  -7.5570E-02 | Normal calc: diag adjusted from 3.83371e+08 to 3.83301e+08 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 5.2169E-09 5.4140E-09 1.9716E-10 | Normal Major Calc
+   --- Pt_electrons -5-4.0634E-01-4.1309E-01-6.7527E-03 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.9716E-10 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 5.2169E-09 5.4140E-09 1.9716E-10 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- subroutine FORCE: Beginning Slope = -1.48992e-11
+   --- subroutine FORCE: End Slope       = -2.74663e-13
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               5.216885E-09  5.414042E-09 -1.076374E+02 -1.076003E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234204E+02 -4.234204E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936585E+02 -3.936585E+02
+   ---   H+            1   5.216885E-09  5.414042E-09 -1.615381E+01 -1.611672E+01 -7.557033E-02 -1.393117E-03
+   ---   Pt_electrons -5  -4.063386E-01 -4.130913E-01  7.956798E+00  8.219625E+00 -2.628274E-01 -3.708861E-02
+   ---                                                        Norms of Delta G():  1.933767E-01  2.624410E-02
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Increment counter increased, step is accepted:   18
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  18, Iterations since last evaluation of optimal basis =  17 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              5.4140E-09   3.7719E-12  -1.3931E-03 | Normal calc: diag adjusted from 3.6941e+08 to 3.69341e+08 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 5.4140E-09 5.4178E-09 3.7719E-12 | Normal Major Calc
+   --- Pt_electrons -5-4.1309E-01-4.1404E-01-9.5290E-04 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-3.7719E-12 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 5.4140E-09 5.4178E-09 3.7719E-12 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- subroutine FORCE: Beginning Slope = -5.2547e-15
+   --- subroutine FORCE: End Slope       = -1.82974e-18
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               5.414042E-09  5.417814E-09 -1.076003E+02 -1.075996E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234204E+02 -4.234204E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936585E+02 -3.936585E+02
+   ---   H+            1   5.414042E-09  5.417814E-09 -1.611672E+01 -1.611602E+01 -1.393117E-03 -4.850984E-07
+   ---   Pt_electrons -5  -4.130913E-01 -4.140442E-01  8.219625E+00  8.256714E+00 -3.708861E-02 -6.963161E-04
+   ---                                                        Norms of Delta G():  2.624410E-02  4.923699E-04
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Increment counter increased, step is accepted:   19
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species: H+ failed
+
+==============================================================================================================
+ Iteration =  19, Iterations since last evaluation of optimal basis =  18 (only major species)
+   --- vcs_popPhaseID() called
+   ---   Phase                 Status       F_e        MoleNum
+   --------------------------------------------------------------------------
+  ---      NaCl_electrolyte     2           NA         3.000e+00
+  ---                 h2gas     2           NA         3.000e+00
+  ---        Pt_H2electrons     3           NA         0.000e+00
+   ---------------------------------------------------------------------
+   ----------------------------------------------------------------------------------
+   --- Subroutine vcs_RxnStepSizes called - Details:
+   ----------------------------------------------------------------------------------
+   --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
+   --- H+              5.4178E-09   1.3143E-15  -4.8510E-07 | Normal calc: diag adjusted from 3.69153e+08 to 3.69084e+08 due to act coeff
+   ----------------------------------------------------------------------------------
+   --- Main Loop Treatment of each non-component species - Major Components Calculation:
+   --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
+   --- H+            1 5.4178E-09 5.4178E-09 1.3143E-15 | Normal Major Calc
+   --- Pt_electrons -5-4.1404E-01-4.1406E-01-1.7890E-05 | voltage species alternative calc
+   --- H2O(L)        c 3.0000E+00 3.0000E+00-1.3143E-15 |
+   --- H2            c 3.0000E+00 3.0000E+00 0.0000E+00 |
+   --- OH-           c 5.4178E-09 5.4178E-09 1.3143E-15 |
+   --- Na+           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --- Cl-           c 0.0000E+00 0.0000E+00 0.0000E+00 |
+   --------------------------------------------------------------------------------
+   --- Finished Main Loop
+   --- Subroutine vcs_dfe called for all species using tentative solution
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- subroutine FORCE: Beginning Slope = -6.3758e-22
+   --- subroutine FORCE: End Slope       = -7.47111e-29
+   --- subroutine FORCE produced no adjustments, s2 < 0
+   -------------------------------------------------------------------------------------------------------
+   --- Summary of the Update  (only major species):
+   ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
+   ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
+   ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
+   ---   OH-               5.417814E-09  5.417815E-09 -1.075996E+02 -1.075996E+02
+   ---   Na+               0.000000E+00  0.000000E+00 -4.234204E+02 -4.234204E+02
+   ---   Cl-               0.000000E+00  0.000000E+00 -3.936585E+02 -3.936585E+02
+   ---   H+            1   5.417814E-09  5.417815E-09 -1.611602E+01 -1.611602E+01 -4.850984E-07 -5.684342E-14
+   ---   Pt_electrons -5  -4.140442E-01 -4.140621E-01  8.256714E+00  8.257410E+00 -6.963161E-04 -2.425492E-07
+   ---                                                        Norms of Delta G():  4.923699E-04  1.715082E-07
+   ---           Phase_Name    KMoles(after update)
+   ---   --------------------------------------------------
+   ---     NaCl_electrolyte =   3.0000000E+00
+   ---                h2gas =   3.0000000E+00
+   ---       Pt_H2electrons =   0.0000000E+00
+   -------------------------------------------------------------------------------------------------------
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Increment counter increased, step is accepted:   20
+   --- Normal element abundance check - passed
+   --- Check for an optimum basis passed
+   --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species:  CONVERGENCE achieved
+   --- Subroutine vcs_deltag called for all noncomponents
+   --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
+   --- Subroutine vcs_dfe called for components and minors
+   --- Subroutine vcs_deltag called for minor noncomponents
+   --- Equilibrium check for minor species:  CONVERGENCE achieved
+   --- Check the Full Element Abundances:  passed
+   --- Start rechecking deleted species in multispec phases
+   --- Subroutine vcs_dfe called for all species
+
+
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+		 VCS_TP REPORT
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+		Temperature  =           3e+02 Kelvin
+		Pressure     =      1.0132e+05 Pa 
+		total Volume =           73.45 m**3
+
+
+--------------------------------------------------------------------------------
+ Species                 Equilibrium kmoles   Mole Fraction    ChemPot/RT    SpecUnkType
+--------------------------------------------------------------------------------
+ H2O(L)                    3.0000000E+00      1.0000000E+00     -1.2372E+02     0
+ H2                        3.0000000E+00      1.0000000E+00     -1.5717E+01     0
+ OH-                       5.4178153E-09      1.8059384E-09     -1.0760E+02     0
+ Na+                       0.0000000E+00      0.0000000E+00     -4.2342E+02     0
+ Cl-                       0.0000000E+00      0.0000000E+00     -3.9366E+02     0
+ H+                        5.4178153E-09      1.8059384E-09     -1.6116E+01  KMolNum 
+ Pt_electrons                     NA          1.0000000E+00      8.2574E+00   Voltage = -4.1406212E-01
+--------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------
+               |ComponentID|          0          1          2          3          4 |           |
+               | Components|     H2O(L)         H2        OH-        Na+        Cl- |           |
+ NonComponent  |   Moles   |          3          3   5.42e-09          0          0 | DG/RT Rxn |
+-----------------------------------------------------------------------------------------------
+   5 H+        |  5.42e-09 |      -1.00       0.00       1.00       0.00       0.00 | -5.68e-14 |
+   6 Pt_electro|    -0.414 |       1.00      -0.50      -1.00       0.00       0.00 | -2.43e-07 |
+-----------------------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                  | ElementID |          0          1          2          3          4          5          6          7          8          9 |                     |
+                  | Element   |          O          H         Na         Cl cn_NaCl_el          N          C         Fe          E         Si |                     |
+    PhaseName     |KMolTarget |          3         12          0          0          0          0          0          0          0          0 |     Gibbs Total     |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 NaCl_electro | 3.000e+00 |          3          6          0          0          0          0          0          0          0          0 | -3.71146910301E+02 |
+   1 h2gas        | 3.000e+00 |          0          6          0          0          0          0          0          0          0          0 | -4.71516713957E+01 |
+   2 Pt_H2electro | 0.000e+00 |          0          0          0          0          0          0          0          0          0          0 |  0.00000000000E+00 |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    TOTAL         | 6.000e+00 |          3         12          0          0          0          0          0          0          0          0 | -4.18298581696E+02 |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	Total Dimensionless Gibbs Free Energy = G/RT =  -4.1829858E+02
+
+Elemental Abundances (kmol):          Actual                    Target         Type      ElActive
+                          O   3.000000000000E+00    3.000000000000E+00     0       1
+                          H   1.200000000000E+01    1.200000000000E+01     0       1
+                          Na  0.000000000000E+00    0.000000000000E+00     0       1
+                          Cl  0.000000000000E+00    0.000000000000E+00     0       1
+                          cn  0.000000000000E+00    0.000000000000E+00     2       1
+                          N   0.000000000000E+00    0.000000000000E+00     0       1
+                          C   0.000000000000E+00    0.000000000000E+00     0       1
+                          Fe  0.000000000000E+00    0.000000000000E+00     0       1
+                          E   0.000000000000E+00    0.000000000000E+00     1       0
+                          Si  0.000000000000E+00    0.000000000000E+00     0       1
+
+
+---------------------------------------------------------------------------------------------
+Chemical Potentials of the Species: (dimensionless)
+		(RT = 2.47896e+06 J/kmol)
+    Name        TKMoles     StandStateChemPot      ln(AC)       ln(X_i)      |   F z_i phi   |    ChemPot    | (-lnMnaught)|  (MolNum ChemPot)|
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ H2O(L)        3.0000000E+00 -1.2371564E+02   4.4741988E-13  -3.6118768E-09  | 0.0000000E+00 |   -1.2372E+02 |             |      -3.711469096E+02 |
+ H2            3.0000000E+00 -1.5717224E+01   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -1.5717E+01 |             |      -4.715167140E+01 |
+ OH-           5.4178153E-09 -9.1483592E+01  -3.7171638E-04  -2.0132185E+01  |-0.0000000E+00 |   -1.0760E+02 |(4.01653E+00)|      -5.829548367E-07 |
+ Na+           0.0000000E+00 -1.0397603E+02  -3.7164114E-04  -3.2346053E+02  | 0.0000000E+00 |   -4.2342E+02 |(4.01653E+00)|      -0.000000000E+00 |
+ Cl-           0.0000000E+00 -7.4214139E+01  -3.7163180E-04  -3.2346053E+02  |-0.0000000E+00 |   -3.9366E+02 |(4.01653E+00)|      -0.000000000E+00 |
+ H+            5.4178153E-09  0.0000000E+00  -3.7171638E-04  -2.0132185E+01  | 0.0000000E+00 |   -1.6116E+01 |(4.01653E+00)|      -8.731363144E-08 |
+ Pt_electrons -4.1406212E-01 -7.8586119E+00   0.0000000E+00   0.0000000E+00  | 1.6116022E+01 |    8.2574E+00 |             |      -3.419080755E+00 |
+                                                                                                                                  -4.182985817E+02
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Counters:         Iterations          Time (seconds)
+    vcs_basopt:       2                 NA     
+    vcs_TP:          20                 NA     
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+TCounters:   Num_Calls   Total_Its       Total_Time (seconds)
+    vcs_basopt:       2          2             NA     
+    vcs_TP:           1         20             NA     
+    vcs_inest:        0                        NA     
+    vcs_TotalTime:                             NA     
+
+ Results from vcs:
+
+Temperature = 298.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2O(L)              3.000e+00         1.000e+00       -3.067e+08
+Cl-                 0.000e+00         0.000e+00       -1.000e+300
+H+                  5.418e-09         1.806e-09       -3.995e+07
+Na+                 0.000e+00         0.000e+00       -1.000e+300
+OH-                 5.418e-09         1.806e-09       -2.667e+08
+H2                  3.000e+00         1.000e+00       -3.896e+07
+Pt_electrons        0.000e+00       1.000e+00        2.047e+07
+-------------------------------------------------------------
+
+ Results from mpequil:
+
+Temperature = 298.15 Kelvin
+Pressure    = 101325 Pa
+
+-------------------------------------------------------------
+ Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
+-------------------------------------------------------------
+H2O(L)           3.000000e+00    1.000000e+00    -3.066857e+08
+Cl-              0.000000e+00    0.000000e+00    -1.040176e+09
+H+               5.417815e-09    1.805938e-09    -3.995092e+07
+Na+              0.000000e+00    0.000000e+00    -1.113954e+09
+OH-              5.417815e-09    1.805938e-09    -2.667348e+08
+H2               3.000000e+00    1.000000e+00    -3.896232e+07
+Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
+-------------------------------------------------------------
+ 
+  NaCl_electrolyte:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density         997.048  kg/m^3
+  mean mol. weight         18.0153  amu
+         potential               0  V
+                pH           6.999  
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy    -1.58664e+07       -2.858e+08     J
+   internal energy    -1.58665e+07       -2.858e+08     J
+           entropy         3881.28        6.992e+04     J/K
+    Gibbs function    -1.70236e+07       -3.067e+08     J
+ heat capacity c_p         4181.31        7.533e+04     J/K
+ heat capacity c_v    <not implemented>       
+ 
+                           X           Molalities         Chem.Pot.    ChemPotSS    ActCoeffMolal
+                                                          (J/kmol)      (J/kmol)                 
+                     -------------    ------------     ------------  ------------    ------------
+            H2O(L)             1          55.5084     -3.06686e+08   -3.06686e+08              1
+               Cl-             0                0          N/A      -1.83974e+08       0.999628 
+                H+   1.80594e-09      1.00245e-07     -3.99509e+07              0       0.999628
+               Na+             0                0          N/A      -2.57752e+08       0.999628 
+               OH-   1.80594e-09      1.00245e-07     -2.66735e+08   -2.26784e+08       0.999628
+
+ 
+  h2gas:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density       0.0823972  kg/m^3
+  mean mol. weight         2.01588  amu
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy      0.00658857          0.01328     J
+   internal energy    -1.22971e+06       -2.479e+06     J
+           entropy         64825.4        1.307e+05     J/K
+    Gibbs function    -1.93277e+07       -3.896e+07     J
+ heat capacity c_p         14304.5        2.884e+04     J/K
+ heat capacity c_v           10180        2.052e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+                H2              1                1         -15.7172
+
+ 
+  Pt_H2electrons:
+ 
+       temperature          298.15  K
+          pressure          101325  Pa
+           density            2165  kg/m^3
+  mean mol. weight        0.000545  amu
+         potential       -0.414062  V
+ 
+                          1 kg            1 kmol
+                       -----------      ------------
+          enthalpy         12.1851         0.006641     J
+   internal energy        -34.6163         -0.01887     J
+           entropy      1.1989e+08        6.534e+04     J/K
+    Gibbs function    -3.57452e+10       -1.948e+07     J
+ heat capacity c_p     2.64552e+07        1.442e+04     J/K
+ heat capacity c_v     2.64552e+07        1.442e+04     J/K
+ 
+                           X                 Y          Chem. Pot. / RT    
+                     -------------     ------------     ------------
+      Pt_electrons              1                1         -7.85861
+

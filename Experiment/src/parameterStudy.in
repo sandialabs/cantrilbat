@@ -1,0 +1,33 @@
+## DAKOTA INPUT FILE - parameterStudy.in 
+
+
+strategy,
+	single_method
+	  graphics,tabular_graphics_data
+
+method,
+	multidim_parameter_study		
+	  partitions = 3 3			
+
+model,
+	single
+
+variables,
+	continuous_design = 2			
+	  lower_bounds     0.05     523.0	
+	  upper_bounds     1.0      823.0	
+	  descriptors      'current'     "temperature"	
+
+interface,
+	system					
+	  analysis_driver = 'diTest'
+	  parameters_file = 'params.in'
+	  results_file    = 'results.out'
+#	file_tag
+	file_save
+
+responses,
+	num_objective_functions = 1             
+	no_gradients				
+	no_hessians
+

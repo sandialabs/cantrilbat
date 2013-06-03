@@ -1,0 +1,802 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+     ====================================================================================================
+      Bath Composition for Phase id, "platinum_surface", with name, "platinum_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = pt_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         pt_site          0.9000       2.700E-11       9.000E-01
+              2         H*_site          0.1000       3.000E-12       1.000E-01
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+        Electronic Charge = 0.00
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  H: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 1.00794 gm/mol
+        Heat of formation (298.15K) = -3.5851 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =         -15000000 J kmol-1
+                                S  =             10000 J kmol-1 K-1
+                                Cp =             10000 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.0598         -0.6554         2.3901       2.1807   |      -4.2405 | 
+|    298.15 |     0.0000         -0.7126         2.3901       2.3901   |      -4.2977 | 
+|    300.00 |     0.0044         -0.7170         2.3901       2.4048   |      -4.3021 | 
+|    320.00 |     0.0522         -0.7667         2.3901       2.5591   |      -4.3518 | 
+|    333.15 |     0.0837         -0.8010         2.3901       2.6553   |      -4.3861 | 
+|    340.00 |     0.1000         -0.8193         2.3901       2.7040   |      -4.4044 | 
+|    360.00 |     0.1478         -0.8748         2.3901       2.8406   |      -4.4599 | 
+|    373.15 |     0.1793         -0.9127         2.3901       2.9264   |      -4.4978 | 
+|    380.00 |     0.1956         -0.9329         2.3901       2.9698   |      -4.5180 | 
+|    400.00 |     0.2434         -0.9935         2.3901       3.0924   |      -4.5786 | 
+|    420.00 |     0.2912         -1.0566         2.3901       3.2090   |      -4.6417 | 
+|    440.00 |     0.3390         -1.1219         2.3901       3.3202   |      -4.7070 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Pt_H2electrons", with name, "Pt_H2electrons", with eosType, "MetalSHEelectrons"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Pt_electron
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     Pt_electron          1.0000       4.862E+03       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Pt_electron" IN PHASE "Pt_H2electrons"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 0.000545 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 6000 K
+        Partial    Molar Volume at (T,P) of (440,101325) = 2.0566e-07 m3/kmol
+        StandState Molar Volume at (T,P) of (440,101325) = 2.0566e-07 m3/kmol
+        Molar Volume formulation for eos type 9 is not known to cttables
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     1.1722    0.0039903  -9.7391e-06   1.0079e-08
+                -3.6881e-12      -458.97      0.34151
+               High temperature polynomials: 1000 < T < 6000: 
+                    1.466432895  0.0004133039835  -7.32011675e-08   7.70501795e-12
+                -3.44402216e-16     -406.5327985     -0.512164435
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.0858         -4.2694         3.4187      15.3161   |      -4.2694 | 
+|    298.15 |     0.0000         -4.6561         3.4460      15.6167   |      -4.6561 | 
+|    300.00 |     0.0064         -4.6850         3.4478      15.6380   |      -4.6850 | 
+|    320.00 |     0.0755         -5.0000         3.4644      15.8611   |      -5.0000 | 
+|    333.15 |     0.1211         -5.2095         3.4733      16.0008   |      -5.2095 | 
+|    340.00 |     0.1449         -5.3194         3.4773      16.0715   |      -5.3194 | 
+|    360.00 |     0.2146         -5.6428         3.4871      16.2706   |      -5.6428 | 
+|    373.15 |     0.2605         -5.8576         3.4919      16.3957   |      -5.8576 | 
+|    380.00 |     0.2844         -5.9701         3.4941      16.4593   |      -5.9701 | 
+|    400.00 |     0.3543         -6.3011         3.4987      16.6386   |      -6.3011 | 
+|    420.00 |     0.4243         -6.6356         3.5015      16.8094   |      -6.6356 | 
+|    440.00 |     0.4944         -6.9735         3.5028      16.9723   |      -6.9735 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "NaCl_electrolyte", with name, "NaCl_electrolyte", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2O(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          H2O(L)          0.9391       5.392E-02       9.330E-01
+              2             Cl-          0.0305       1.748E-03       1.408E+00
+              3              H+          0.0135       7.770E-04       8.262E-01
+              4             Na+          0.0169       9.713E-04       6.985E-01
+              5             OH-          0.0000       0.000E+00       0.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 18.0153 gm/mol
+        Heat of formation (298.15K) = -68.3171 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 10000 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0196908 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.0200113 m3/kmol
+        species partial Molar Volume = 0.0196908 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        Presure Dependent Standard State form
+               PDSS Species index    = 0
+               PDSS min Temperature  = 200
+               PDSS max Temperature  = 10000
+               PDSS reference pres   = 101325
+               Water PDSS thermo type
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.4515         -4.5843        18.1679      15.1301   |     -72.9014 | 
+|    298.15 |     0.0000         -4.9826        18.0037      16.7118   |     -73.2997 | 
+|    300.00 |     0.0333         -5.0137        18.0008      16.8232   |     -73.3308 | 
+|    320.00 |     0.3932         -5.3619        18.0004      17.9847   |     -73.6790 | 
+|    333.15 |     0.6301         -5.6032        18.0194      18.7099   |     -73.9203 | 
+|    340.00 |     0.7535         -5.7326        18.0338      19.0768   |     -74.0497 | 
+|    360.00 |     1.1148         -6.1245        18.0942      20.1092   |     -74.4416 | 
+|    373.15 |     1.3531         -6.3933        18.1517      20.7593   |     -74.7104 | 
+|    380.00 |     1.4776         -6.5365        18.1879      21.0897   |     -74.8536 | 
+|    400.00 |     1.8430         -6.9672        18.3232      22.0254   |     -75.2843 | 
+|    420.00 |     2.2118         -7.4158        18.5104      22.9229   |     -75.7329 | 
+|    440.00 |     2.5851         -7.8816        18.7607      23.7880   |     -76.1987 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  E: 1
+                  Cl: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 35.4532 gm/mol
+        Heat of formation (298.15K) = -39.9371 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0151759 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+               High temperature polynomials: 623.15 < T < 623.15: 
+                      56696.2042       -297835.978        581426.549       -401759.991
+                     -804.301136       -10873.8257        130650.697
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     0.9946         -3.6579       -58.4891      17.0330   |     -43.5950 | 
+|    298.15 |     0.0000         -4.0337       -27.3898      13.5291   |     -43.9708 | 
+|    300.00 |    -0.0497         -4.0586       -26.3860      13.3628   |     -43.9957 | 
+|    320.00 |    -0.5177         -4.3101       -22.1331      11.8513   |     -44.2472 | 
+|    333.15 |    -0.8151         -4.4600       -23.4432      10.9405   |     -44.3971 | 
+|    340.00 |    -0.9800         -4.5333       -24.7410      10.4507   |     -44.4704 | 
+|    360.00 |    -1.5195         -4.7272       -29.2564       8.9101   |     -44.6643 | 
+|    373.15 |    -1.9227         -4.8372       -31.9777       7.8105   |     -44.7743 | 
+|    380.00 |    -2.1459         -4.8886       -33.1741       7.2177   |     -44.8257 | 
+|    400.00 |    -2.8371         -5.0153       -35.7220       5.4456   |     -44.9524 | 
+|    420.00 |    -3.5686         -5.1064       -37.3776       3.6613   |     -45.0435 | 
+|    440.00 |    -4.3354         -5.1618       -39.5357       1.8782   |     -45.0989 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 3th species in mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  H: 1
+                  E: -1
+        Electronic Charge = 1.00
+        Molecular Weight = 1.0074 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        Species Reference Pressure = 1E+06 erg cm-2
+        Minimum Temperature = 273.15 K
+        Maximum Temperature = 625.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.00683587 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0 m3/kmol
+        species partial Molar Volume = 0.00683587 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        MU0_POLY format:
+                Valid Range: 273.15 < T < 625.15: 
+                T        mu_0
+                273.15                   0
+                298.15                   0
+                623.15                   0
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000        -0.0000      -0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 4th species in mechanism
+        It is the 4th species in the phase
+        Elemental Composition:
+                  E: -1
+                  Na: 1
+        Electronic Charge = 1.00
+        Molecular Weight = 22.9892 gm/mol
+        Heat of formation (298.15K) = -57.4045 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 293.15 K
+        Maximum Temperature = 593.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0151759 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 293.15 < T < 593.15: 
+                    -57993.47558        305112.604      -592222.1591       401977.9827
+                      804.419598       10625.24901      -133796.2298
+               High temperature polynomials: 593.15 < T < 593.15: 
+                    -57993.47558        305112.604      -592222.1591       401977.9827
+                      804.419598       10625.24901      -133796.2298
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|    -0.4354         -3.8482        32.4133      12.4945   |     -61.2528 | 
+|    298.15 |    -0.0000         -4.1845         8.1991      14.0349   |     -61.5890 | 
+|    300.00 |     0.0146         -4.2105         7.5794      14.0836   |     -61.6150 | 
+|    320.00 |     0.1403         -4.4964         6.3775      14.4897   |     -61.9009 | 
+|    333.15 |     0.2375         -4.6888         8.5940      14.7870   |     -62.0933 | 
+|    340.00 |     0.3012         -4.7907        10.0186      14.9762   |     -62.1952 | 
+|    360.00 |     0.5398         -5.0968        13.5507      15.6571   |     -62.5013 | 
+|    373.15 |     0.7259         -5.3060        14.5274      16.1647   |     -62.7105 | 
+|    380.00 |     0.8254         -5.4176        14.4701      16.4291   |     -62.8221 | 
+|    400.00 |     1.0958         -5.7534        12.0062      17.1229   |     -63.1579 | 
+|    420.00 |     1.2861         -6.1010         6.6386      17.5884   |     -63.5055 | 
+|    440.00 |     1.3511         -6.4549        -0.2360      17.7408   |     -63.8594 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
+        Overall, this is the 5th species in mechanism
+        It is the 5th species in the phase
+        Elemental Composition:
+                  O: 1
+                  H: 1
+                  E: 1
+        Electronic Charge = -1.00
+        Molecular Weight = 17.0079 gm/mol
+        Heat of formation (298.15K) = -54.9790 kcal/gmol
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298 K
+        Maximum Temperature = 623.15 K
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.0151759 m**3 / kmol
+        standard Concentration value =  1/(solvent volume) units of kmol/m3
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+               High temperature polynomials: 623.15 < T < 623.15: 
+                     44674.99961      -234943.0414        460522.826      -320695.1836
+                    -638.5044716      -8683.955813       102874.2667
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  273.15*|     0.9857          0.7490       -55.7378       0.8664   |     -54.2300 | 
+|    298.15 |     0.0000          0.7763       -28.2494      -2.6038   |     -54.2027 | 
+|    300.00 |    -0.0513          0.7813       -27.2760      -2.7755   |     -54.1977 | 
+|    320.00 |    -0.5323          0.8530       -22.2685      -4.3291   |     -54.1260 | 
+|    333.15 |    -0.8247          0.9159       -22.5194      -5.2248   |     -54.0631 | 
+|    340.00 |    -0.9813          0.9533       -23.2300      -5.6898   |     -54.0258 | 
+|    360.00 |    -1.4748          1.0810       -26.2485      -7.0993   |     -53.8980 | 
+|    373.15 |    -1.8338          1.1808       -28.3420      -8.0788   |     -53.7983 | 
+|    380.00 |    -2.0315          1.2379       -29.3553      -8.6037   |     -53.7411 | 
+|    400.00 |    -2.6454          1.4256       -31.9574     -10.1775   |     -53.5534 | 
+|    420.00 |    -3.3089          1.6453       -34.4541     -11.7957   |     -53.3338 | 
+|    440.00 |    -4.0302          1.8978       -37.9729     -13.4729   |     -53.0812 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "h2gas", with name, "h2gas", with eosType, "IdealGas"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1              H2          1.0000       4.062E-05       1.000E+00
+          ------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "h2gas"
+        Overall, this is the 1th species in the mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  H: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 2.01588 gm/mol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        mu_0(298.15K) = H298[k]  3.17442E-09
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 200 K
+        Maximum Temperature = 6000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     2.3443    0.0079805  -1.9478e-05   2.0157e-08
+                -7.3761e-12      -917.94      0.68301
+               High temperature polynomials: 1000 < T < 6000: 
+                     2.93286579   0.000826607967  -1.46402335e-07   1.54100359e-11
+                -6.88804432e-16      -813.065597      -1.02432887
+---------------------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (kcal/mol)  |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.1716         -8.5388         6.8373      30.6321   |      -8.5388 | 
+|    298.15 |     0.0000         -9.3122         6.8920      31.2334   |      -9.3122 | 
+|    300.00 |     0.0128         -9.3701         6.8955      31.2760   |      -9.3701 | 
+|    320.00 |     0.1510        -10.0001         6.9288      31.7221   |     -10.0001 | 
+|    333.15 |     0.2422        -10.4191         6.9466      32.0015   |     -10.4191 | 
+|    340.00 |     0.2899        -10.6388         6.9547      32.1430   |     -10.6388 | 
+|    360.00 |     0.4292        -11.2856         6.9741      32.5411   |     -11.2856 | 
+|    373.15 |     0.5209        -11.7152         6.9839      32.7915   |     -11.7152 | 
+|    380.00 |     0.5688        -11.9403         6.9881      32.9186   |     -11.9403 | 
+|    400.00 |     0.7086        -12.6023         6.9975      33.2773   |     -12.6023 | 
+|    420.00 |     0.8487        -13.2713         7.0031      33.6188   |     -13.2713 | 
+|    440.00 |     0.9888        -13.9469         7.0057      33.9447   |     -13.9469 | 
+---------------------------------------------------------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "0" IN PHASE "Pt_H2electrons"
+
+        H+  + Pt_electron + pt_site <=> H*_site
+
+        There are 3 reactants: H+ Pt_electron pt_site 
+        There is one product: H*_site 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+        This reaction is charge transfer reaction, n = 1
+        Electrochemical Beta = 0.5
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |      Pt_H2electrons|   3          -1   -0.000545 |             1                 0 |
+               |    NaCl_electrolyte|   3          -1     -1.0074 |            -1                 0 |
+               |               h2gas|   3           0           0 |             0                 0 |
+               |    platinum_surface|   2           0      1.0079 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = 1/s
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  273.1 |  2.51E-03  1.12E+05      9.56 |   2.89E-02     -3.56    -13.14  |  2.64E-03  8.45E+07     13.13 |  7.52E-11  7.93E-11 |
+|  298.1 |  1.10E-02  1.12E+05      9.56 |       0.36     -3.59    -13.23  |  2.01E-02  8.03E+07     13.10 |  3.29E-10  6.02E-10 |
+|  300.0 |  1.21E-02  1.12E+05      9.56 |       0.38     -3.59    -13.23  |  2.30E-02  8.00E+07     13.10 |  3.63E-10  6.89E-10 |
+|  320.0 |  3.31E-02  1.12E+05      9.56 |       0.65     -3.61    -13.30  |  9.06E-02  7.77E+07     13.08 |  9.81E-10  2.72E-09 |
+|  333.1 |  5.98E-02  1.12E+05      9.56 |       0.82     -3.62    -13.35  |  2.04E-01  7.62E+07     13.07 |  1.76E-09  6.12E-09 |
+|  340.0 |  8.00E-02  1.12E+05      9.56 |       0.91     -3.63    -13.37  |  3.04E-01  7.54E+07     13.06 |  2.35E-09  9.11E-09 |
+|  360.0 |  1.76E-01  1.12E+05      9.56 |       1.18     -3.65    -13.43  |  8.88E-01  7.29E+07     13.04 |  5.10E-09  2.66E-08 |
+|  373.1 |  2.81E-01  1.12E+05      9.56 |       1.36     -3.67    -13.47  |  1.69E+00  7.11E+07     13.02 |  8.09E-09  5.06E-08 |
+|  380.0 |  3.55E-01  1.12E+05      9.56 |       1.45     -3.67    -13.49  |  2.32E+00  7.01E+07     13.01 |  1.02E-08  6.95E-08 |
+|  400.0 |  6.68E-01  1.12E+05      9.56 |       1.72     -3.70    -13.55  |  5.47E+00  6.69E+07     12.97 |  1.88E-08  1.64E-07 |
+|  420.0 |  1.19E+00  1.12E+05      9.56 |       1.99     -3.72    -13.60  |  1.19E+01  6.31E+07     12.92 |  3.27E-08  3.57E-07 |
+|  440.0 |  1.99E+00  1.12E+05      9.56 |       2.27     -3.74    -13.65  |  2.40E+01  5.88E+07     12.86 |  5.39E-08  7.20E-07 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: H+  + Pt_electron + pt_site <=> H*_site
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index pertaining to the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage = phi_Metal - phi_Soln  = 0 Volts
+               nStoichElectrons (product electrons - reactant electrons) = -1 
+               Delta G (rxn)   =   -3.4023e+06 J/kmol   --->                  E    = 0.0352628 Volts
+               Delta G_SS (rxn)=    1.6021e+06 J/kmol   --->                  E_SS = -0.0166042 Volts
+               Bath Gas conditions:
+                  T = 300 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                           pt_site          0.9
+                           H*_site          0.1
+
+               ---------------------------------------------------------------------------------------------
+               |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
+               |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
+               ---------------------------------------------------------------------------------------------
+               !        -1 |     0.0677     2.75e-19       0.0677 |        -653     2.65e-15          -653 |
+               !      -0.8 |    0.00141     1.31e-17      0.00141 |       -13.6     1.27e-13         -13.6 |
+               !      -0.6 |   2.96e-05     6.29e-16     2.96e-05 |      -0.285     6.07e-12        -0.285 |
+               !      -0.4 |   6.18e-07     3.01e-14     6.18e-07 |    -0.00596      2.9e-10      -0.00596 |
+               !      -0.2 |   1.29e-08     1.44e-12     1.29e-08 |   -0.000125     1.39e-08     -0.000125 |
+               !         0 |    2.7e-10     6.89e-11     2.01e-10 |    -2.6e-06     6.65e-07     -1.94e-06 |
+               !   0.03526 |   1.36e-10     1.36e-10    -4.14e-25 |   -1.32e-06     1.32e-06      3.99e-21 |
+               !       0.2 |   5.64e-12      3.3e-09    -3.29e-09 |   -5.44e-08     3.18e-05      3.18e-05 |
+               !       0.4 |   1.18e-13     1.58e-07    -1.58e-07 |   -1.14e-09      0.00152       0.00152 |
+               !       0.6 |   2.46e-15     7.56e-06    -7.56e-06 |   -2.37e-11       0.0729        0.0729 |
+               !       0.8 |   5.14e-17     0.000362    -0.000362 |   -4.96e-13         3.49          3.49 |
+               !         1 |   1.07e-18       0.0173      -0.0173 |   -1.04e-14          167           167 |
+               ---------------------------------------------------------------------------------------------
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               ----------------------------------------------------------------------------
+               |  Voltage  |       Ifwd         Irev        Inet  |    pt_site    H*_site |
+               |   Volts   |               (amps/cm2)             |                       |
+               ----------------------------------------------------------------------------
+               !        -1 |     -0.877     2.65e-14       -0.877 |  0.001208     0.9988  |
+               !      -0.8 |     -0.789      1.2e-12       -0.789 |   0.05205      0.948  |
+               !      -0.6 |     -0.159     3.03e-11       -0.159 |    0.5003     0.4997  |
+               !      -0.4 |   -0.00431     1.01e-09     -0.00431 |    0.6506     0.3494  |
+               !      -0.2 |  -9.07e-05     4.79e-08    -9.06e-05 |    0.6552     0.3448  |
+               !         0 |  -1.89e-06     2.29e-06     3.99e-07 |    0.6553     0.3447  |
+               !   0.03526 |  -9.58e-07     4.54e-06     3.58e-06 |    0.6553     0.3447  |
+               !       0.2 |  -3.96e-08      0.00011      0.00011 |    0.6554     0.3446  |
+               !       0.4 |  -8.34e-10      0.00517      0.00517 |    0.6609     0.3391  |
+               !       0.6 |  -2.16e-11        0.133        0.133 |    0.8173     0.1827  |
+               !       0.8 |  -5.48e-13         0.24         0.24 |    0.9931   0.006877  |
+               !         1 |  -1.15e-14        0.243        0.243 |    0.9999  0.0001457  |
+               ----------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "1" IN PHASE "Pt_H2electrons"
+
+        2 pt_side + H2 <=> 2 H*_site
+
+        There are 3 reactants: pt_site pt_site H2 
+        There are 2 products: H*_site H*_site 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+               ----------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |
+               |      Pt_H2electrons|   3           0           0 |
+               |    NaCl_electrolyte|   3           0           0 |
+               |               h2gas|   3          -1     -2.0159 |
+               |    platinum_surface|   2           0      2.0159 |
+               ----------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^5/(kmol^2 s)
+        units_krev = Units for reverse reaction rate constant = m^2/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  273.1 |  2.33E+11  1.90E+13      2.39 |   5.78E-02     -7.12    -26.27  |  1.15E+10  1.72E+17      8.97 |  9.34E-06  1.04E-05 |
+|  298.1 |  3.36E+11  1.90E+13      2.39 |       0.72     -7.17    -26.45  |  4.61E+10  1.73E+17      8.97 |  1.24E-05  4.15E-05 |
+|  300.0 |  3.45E+11  1.90E+13      2.39 |       0.77     -7.17    -26.47  |  5.06E+10  1.73E+17      8.97 |  1.26E-05  4.56E-05 |
+|  320.0 |  4.43E+11  1.90E+13      2.39 |       1.30     -7.22    -26.60  |  1.30E+11  1.74E+17      8.97 |  1.52E-05  1.17E-04 |
+|  333.1 |  5.14E+11  1.90E+13      2.39 |       1.65     -7.25    -26.69  |  2.26E+11  1.74E+17      8.97 |  1.69E-05  2.04E-04 |
+|  340.0 |  5.53E+11  1.90E+13      2.39 |       1.83     -7.26    -26.73  |  2.97E+11  1.74E+17      8.97 |  1.78E-05  2.68E-04 |
+|  360.0 |  6.73E+11  1.90E+13      2.39 |       2.37     -7.30    -26.86  |  6.22E+11  1.75E+17      8.98 |  2.05E-05  5.60E-04 |
+|  373.1 |  7.57E+11  1.90E+13      2.39 |       2.72     -7.33    -26.94  |  9.68E+11  1.76E+17      8.98 |  2.22E-05  8.71E-04 |
+|  380.0 |  8.02E+11  1.90E+13      2.39 |       2.90     -7.35    -26.98  |  1.20E+12  1.76E+17      8.98 |  2.31E-05  1.08E-03 |
+|  400.0 |  9.40E+11  1.90E+13      2.39 |       3.44     -7.39    -27.09  |  2.18E+12  1.78E+17      8.99 |  2.58E-05  1.96E-03 |
+|  420.0 |  1.08E+12  1.90E+13      2.39 |       3.99     -7.44    -27.20  |  3.74E+12  1.79E+17      8.99 |  2.83E-05  3.37E-03 |
+|  440.0 |  1.23E+12  1.90E+13      2.39 |       4.53     -7.48    -27.30  |  6.10E+12  1.80E+17      9.00 |  3.08E-05  5.49E-03 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+
+================================================================================================================================
+
+INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
+
+        pt_side + H2 <=>  H*_site +  H+  + Pt_electron
+
+        There are 2 reactants: pt_site H2 
+        There are 3 products: H*_site H+ Pt_electron 
+        Reaction Type = Elementary Rxn
+        Reaction is reversible
+
+        This reaction is charge transfer reaction, n = 1
+        Electrochemical Beta = 0.5
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |      Pt_H2electrons|   3           1    0.000545 |            -1                 1 |
+               |    NaCl_electrolyte|   3           1      1.0074 |             1                 0 |
+               |               h2gas|   3          -1     -2.0159 |             0                 0 |
+               |    platinum_surface|   2           0      1.0079 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_kfwd = Units for forward reaction rate constant = m^3/(kmol s)
+        units_krev = Units for reverse reaction rate constant = m^3/(kmol s)
+
+|--------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                     |
+|  Temp  |   kfwd      Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  k_rev     A_rev     Ea_rev   |  kstar   kstar_rev  |
+|   (K)  |   (units_kfwd)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_krev)      (kcal/gmol)|    (kmol / m^2 s)   |
+|--------|-------------------------------|---------------------------------|-------------------------------|---------------------|
+|  273.1 |  1.10E-10  6.00E-05      7.17 |   2.89E-02     -3.56    -13.14  |  5.18E-12  7.18E-04     10.18 |  1.47E-19  1.55E-19 |
+|  298.1 |  3.33E-10  6.00E-05      7.17 |       0.36     -3.59    -13.23  |  2.50E-11  7.59E-04     10.21 |  4.08E-19  7.48E-19 |
+|  300.0 |  3.59E-10  6.00E-05      7.17 |       0.38     -3.59    -13.23  |  2.78E-11  7.62E-04     10.21 |  4.37E-19  8.31E-19 |
+|  320.0 |  7.61E-10  6.00E-05      7.17 |       0.65     -3.61    -13.30  |  8.12E-11  7.89E-04     10.23 |  8.69E-19  2.41E-18 |
+|  333.1 |  1.19E-09  6.00E-05      7.17 |       0.82     -3.62    -13.35  |  1.53E-10  8.07E-04     10.25 |  1.30E-18  4.52E-18 |
+|  340.0 |  1.48E-09  6.00E-05      7.17 |       0.91     -3.63    -13.37  |  2.09E-10  8.17E-04     10.25 |  1.59E-18  6.15E-18 |
+|  360.0 |  2.66E-09  6.00E-05      7.17 |       1.18     -3.65    -13.43  |  4.87E-10  8.49E-04     10.28 |  2.70E-18  1.41E-17 |
+|  373.1 |  3.79E-09  6.00E-05      7.17 |       1.36     -3.67    -13.47  |  8.08E-10  8.74E-04     10.30 |  3.71E-18  2.32E-17 |
+|  380.0 |  4.51E-09  6.00E-05      7.17 |       1.45     -3.67    -13.49  |  1.04E-09  8.89E-04     10.31 |  4.34E-18  2.97E-17 |
+|  400.0 |  7.25E-09  6.00E-05      7.17 |       1.72     -3.70    -13.55  |  2.06E-09  9.37E-04     10.36 |  6.63E-18  5.79E-17 |
+|  420.0 |  1.11E-08  6.00E-05      7.17 |       1.99     -3.72    -13.60  |  3.83E-09  9.98E-04     10.41 |  9.70E-18  1.06E-16 |
+|  440.0 |  1.65E-08  6.00E-05      7.17 |       2.27     -3.74    -13.65  |  6.77E-09  1.08E-03     10.47 |  1.37E-17  1.83E-16 |
+|--------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: pt_side + H2 <=>  H*_site +  H+  + Pt_electron
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index pertaining to the electrons = 0
+               Input Electric Potential of the Metal = 1 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage = phi_Metal - phi_Soln  = 1 Volts
+               nStoichElectrons (product electrons - reactant electrons) = 1 
+               Delta G (rxn)   =   -2.0909e+07 J/kmol   --->                  E    = -0.216707 Volts
+               Delta G_SS (rxn)=    1.6021e+06 J/kmol   --->                  E_SS = 0.0166042 Volts
+               Bath Gas conditions:
+                  T = 300 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                           pt_site      0.99985
+                           H*_site   0.00014568
+
+               ---------------------------------------------------------------------------------------------
+               |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
+               |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
+               ---------------------------------------------------------------------------------------------
+               !        -1 |   1.74e-27     2.51e-14    -2.51e-14 |    1.68e-23    -2.42e-10     -2.42e-10 |
+               !      -0.8 |   8.33e-26     5.25e-16    -5.25e-16 |    8.04e-22    -5.06e-12     -5.06e-12 |
+               !      -0.6 |   3.99e-24      1.1e-17     -1.1e-17 |    3.85e-20    -1.06e-13     -1.06e-13 |
+               !      -0.4 |   1.91e-22     2.29e-19    -2.29e-19 |    1.84e-18    -2.21e-15     -2.21e-15 |
+               !   -0.2167 |   6.61e-21     6.61e-21     1.13e-35 |    6.38e-17    -6.38e-17      1.09e-31 |
+               !      -0.2 |   9.13e-21     4.79e-21     4.35e-21 |    8.81e-17    -4.62e-17       4.2e-17 |
+               !         0 |   4.37e-19        1e-22     4.37e-19 |    4.22e-15    -9.65e-19      4.22e-15 |
+               !       0.2 |   2.09e-17     2.09e-24     2.09e-17 |    2.02e-13    -2.02e-20      2.02e-13 |
+               !       0.4 |      1e-15     4.37e-26        1e-15 |    9.66e-12    -4.21e-22      9.66e-12 |
+               !       0.6 |   4.79e-14     9.13e-28     4.79e-14 |    4.62e-10    -8.81e-24      4.62e-10 |
+               !       0.8 |   2.29e-12     1.91e-29     2.29e-12 |    2.21e-08    -1.84e-25      2.21e-08 |
+               !         1 |    1.1e-10     3.99e-31      1.1e-10 |    1.06e-06    -3.85e-27      1.06e-06 |
+               ---------------------------------------------------------------------------------------------
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               ----------------------------------------------------------------------------
+               |  Voltage  |       Ifwd         Irev        Inet  |    pt_site    H*_site |
+               |   Volts   |               (amps/cm2)             |                       |
+               ----------------------------------------------------------------------------
+               !        -1 |   2.03e-26    -1.66e-06    -1.66e-06 |  0.001208     0.9988  |
+               !      -0.8 |   4.19e-23    -3.29e-08    -3.29e-08 |   0.05205      0.948  |
+               !      -0.6 |   1.93e-20    -3.63e-10    -3.63e-10 |    0.5003     0.4997  |
+               !      -0.4 |    1.2e-18     -5.3e-12     -5.3e-12 |    0.6506     0.3494  |
+               !   -0.2167 |   4.18e-17    -1.51e-13    -1.51e-13 |    0.6551     0.3449  |
+               !      -0.2 |   5.78e-17    -1.09e-13    -1.09e-13 |    0.6552     0.3448  |
+               !         0 |   2.76e-15    -2.28e-15      4.8e-16 |    0.6553     0.3447  |
+               !       0.2 |   1.32e-13    -4.77e-17     1.32e-13 |    0.6554     0.3446  |
+               !       0.4 |   6.38e-12    -9.81e-19     6.38e-12 |    0.6609     0.3391  |
+               !       0.6 |   3.78e-10     -1.1e-20     3.78e-10 |    0.8173     0.1827  |
+               !       0.8 |    2.2e-08    -8.69e-24      2.2e-08 |    0.9931   0.006877  |
+               !         1 |   1.06e-06    -3.85e-27     1.06e-06 |    0.9999  0.0001457  |
+               ----------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Pt_H2electrons", with name, "Pt_H2electrons", with eosType, "MetalSHEelectrons"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Pt_electron
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     Pt_electron          1.0000       4.862E+03       1.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "NaCl_electrolyte", with name, "NaCl_electrolyte", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2O(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1          H2O(L)          0.9391       5.392E-02       9.330E-01
+              2             Cl-          0.0305       1.748E-03       1.408E+00
+              3              H+          0.0135       7.770E-04       8.262E-01
+              4             Na+          0.0169       9.713E-04       6.985E-01
+              5             OH-          0.0000       0.000E+00       0.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "h2gas", with name, "h2gas", with eosType, "IdealGas"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = H2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1              H2          1.0000       4.062E-05       1.000E+00
+          ------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "platinum_surface", with name, "platinum_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = pt_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         pt_site          0.9000       1.880E-11       6.268E-01
+              2         H*_site          0.1000       2.089E-12       6.964E-02
+          ------------------------------------------------------------------------------
+
+==========================================================================================================================================
+
+INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "Pt_H2electrons"
+
+        2 Pt_electron + 2 H+ = H2
+
+        There are 2 reactants: Pt_electron (2) H+ (2) 
+        There is one product: H2 (1) 
+        Reaction Type = Global Extra Rxn - not in mechanism
+        Reaction is reversible
+
+        This reaction is a charge transfer reaction, n = 2
+               --------------------------------------------------------------------------------------
+               |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |      Pt_H2electrons|   3          -2    -0.00109 |             2                 0 |
+               |    NaCl_electrolyte|   3          -2     -2.0148 |            -2                 0 |
+               |               h2gas|   3           1      2.0159 |             0                 0 |
+               |    platinum_surface|   2           0           0 |             0                 0 |
+               --------------------------------------------------------------------------------------
+
+        units_ROP = Units for Global Reaction Rate of progress = kmol / m^2 s
+
+|------------------------------------------------------------------------------------------------------------------------------------------|
+|        |                               |                                 |                               |                               |
+|  Temp  |  FwdROP     Afwd     Ea_fwd   |  DeltaG0    DeltaH0    DeltaS0  |  RevROP    A_rev     Ea_rev   |  NetROP       Anet     Ea_net |
+|   (K)  |    (units_ROP)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_ROP)      (kcal/gmol) |   (units_ROP)     (kcal/gmol) |
+|--------|-------------------------------|---------------------------------|-------------------------------|-------------------------------|
+|  273.1 |  6.42E-11  6.66E-02     11.27 |       0.00      0.00      0.00  |  7.72E-11  8.53E-02     11.30 | -1.31E-11 -1.95E-02     11.47 |
+|  298.1 |  3.51E-10  2.65E-02     10.75 |       0.00      0.00      0.00  |  4.25E-10  3.40E-02     10.78 | -7.37E-11 -7.74E-03     10.94 |
+|  300.0 |  3.93E-10  2.50E-02     10.71 |       0.00      0.00      0.00  |  4.75E-10  3.21E-02     10.75 | -8.26E-11 -7.32E-03     10.91 |
+|  320.0 |  1.19E-09  1.49E-02     10.39 |       0.00      0.00      0.00  |  1.44E-09  1.91E-02     10.43 | -2.55E-10 -4.38E-03     10.59 |
+|  333.1 |  2.25E-09  1.14E-02     10.22 |       0.00      0.00      0.00  |  2.74E-09  1.46E-02     10.26 | -4.89E-10 -3.37E-03     10.42 |
+|  340.0 |  3.07E-09  1.01E-02     10.14 |       0.00      0.00      0.00  |  3.74E-09  1.30E-02     10.18 | -6.71E-10 -3.00E-03     10.35 |
+|  360.0 |  7.00E-09  7.49E-03      9.93 |       0.00      0.00      0.00  |  8.56E-09  9.68E-03      9.97 | -1.56E-09 -2.26E-03     10.15 |
+|  373.1 |  1.14E-08  6.39E-03      9.82 |       0.00      0.00      0.00  |  1.39E-08  8.28E-03      9.86 | -2.56E-09 -1.95E-03     10.04 |
+|  380.0 |  1.44E-08  5.93E-03      9.76 |       0.00      0.00      0.00  |  1.77E-08  7.69E-03      9.80 | -3.27E-09 -1.82E-03      9.99 |
+|  400.0 |  2.74E-08  4.88E-03      9.61 |       0.00      0.00      0.00  |  3.37E-08  6.36E-03      9.66 | -6.31E-09 -1.53E-03      9.86 |
+|  420.0 |  4.86E-08  4.10E-03      9.47 |       0.00      0.00      0.00  |  5.99E-08  5.37E-03      9.52 | -1.13E-08 -1.32E-03      9.73 |
+|  440.0 |  8.10E-08  3.49E-03      9.33 |       0.00      0.00      0.00  |  1.00E-07  4.59E-03      9.38 | -1.92E-08 -1.15E-03      9.61 |
+|------------------------------------------------------------------------------------------------------------------------------------------|
+        ----------------------------------------------------------------------------------------------------
+        Voltage Dependence for Rxn: 2 Pt_electron + 2 H+ = H2
+
+               ThermoPhase index pertaining to the solution = 1
+               ThermoPhase index pertaining to the metal = 0
+               Kinetic Species Index for the electrons = 0
+               Input Electric Potential of the Metal = 0 Volts
+               Input Electric Potential of the Soln  = 0 Volts
+               Input Voltage                         = 0 Volts
+               nStoicElectrons                       = -2 
+               Delta G (rxn)   =    9.5242e+05 J/kmol   --->                  E    = -0.00493557 Volts
+               Delta G_SS (rxn)=             0 J/kmol   --->                  E_SS = -0 Volts
+               Bath Conditions:
+                  T = 300 K
+                  P = 101325 Pascal
+                       SurfSpecName         Theta_k_Bath
+                           pt_site      0.62675
+                           H*_site     0.069639
+
+                TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
+               ------------------------------------------------------------------------------------------------------------------------------
+               |  Voltage  |       Ifwd   Iexchange_f   Beta_f   |       Irev   Iexchange_r   Beta_r   |    Inet     |    pt_site    H*_site |
+               |   Volts   |         (amps/cm2)                  |         (amps/cm2)                  |             |                       |
+               ------------------------------------------------------------------------------------------------------------------------------
+               !        -1 |     -3.5076     -3.3481   0.0012094 |   1.059e-13 -2.3603e-05      0.4994 |     -3.5076 | 0.0012107    0.99879  |
+               !      -0.8 |      -3.157    -0.67363    0.050227 |  4.8098e-12 -1.0721e-05     0.47528 |      -3.157 |  0.052136    0.94786  |
+               !      -0.6 |    -0.63421 -8.0179e-05     0.38995 |  1.2132e-10  -9.553e-07     0.38975 |    -0.63421 |   0.50055    0.49945  |
+               !      -0.4 |   -0.017233 -8.7377e-06     0.49647 |  4.0596e-09  -7.643e-06     0.49343 |   -0.017233 |   0.65063    0.34937  |
+               !      -0.2 | -0.00036264 -8.3415e-06     0.49993 |  1.9174e-07 -8.3315e-06     0.49986 | -0.00036244 |   0.65517    0.34483  |
+               ! -0.004936 | -8.3381e-06 -8.3381e-06         0.5 |  8.3381e-06 -8.3381e-06     0.49999 |  6.9834e-21 |   0.65527    0.34473  |
+               !         0 |  -7.579e-06 -8.3381e-06         0.5 |  9.1732e-06 -8.3381e-06     0.49999 |  1.5943e-06 |   0.65527    0.34473  |
+               !       0.2 |  -1.584e-07 -8.3336e-06     0.49991 |  0.00043883 -8.3466e-06     0.49983 |  0.00043867 |   0.65539    0.34461  |
+               !       0.4 | -3.3378e-09 -7.8748e-06     0.49581 |    0.020666 -9.3226e-06     0.49183 |    0.020666 |   0.66089    0.33911  |
+               !       0.6 | -8.6258e-11 -2.7874e-06     0.44373 |     0.53274   -0.001604      0.2481 |     0.53274 |    0.8175     0.1825  |
+               !       0.8 | -2.1902e-12 -1.1364e-05     0.49659 |     0.95966     -0.7719   0.0069925 |     0.95966 |   0.99314  0.0068635  |
+               !         1 | -4.6078e-14 -1.2687e-05     0.49993 |     0.97289    -0.96732  0.00014777 |     0.97289 |   0.99985  0.0001454  |
+               ------------------------------------------------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------------------

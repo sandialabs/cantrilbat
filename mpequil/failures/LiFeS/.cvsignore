@@ -1,0 +1,10 @@
+.depends
+Makefile
+phaseDiagram
+*.d
+vcs_equilibrate_res*csv
+Fe1_xSPhaseFile.dat
+Li2_xFe1_xS2PhaseFile.dat
+gasPhaseFile.dat
+phaseFile.dat
+

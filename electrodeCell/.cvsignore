@@ -1,0 +1,12 @@
+SunWS_cache
+vcsc
+vcsc.ilk
+run_ctest
+run_test_chemkin
+run_test_vcsc
+run_tests
+run_vtest
+config.h
+Makefile
+study
+

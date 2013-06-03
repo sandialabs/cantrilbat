@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+  <!-- phase Fe(S)    -->
+  <!-- Revision History
+    $Date: 2012-06-24 16:42:54 -0600 (Sun, 24 Jun 2012) $
+    $Revision: 213 $
+    $LastChangedBy: jchewso $
+    $HeadURL: https://teamforge-web.sandia.gov/svn/repos/cantera_apps/trunk/1Delectrode/src_LiKCl_PorousBat/Fe_Solid.xml $
+
+   Key Current feedback quantities (from Fe_Solid.tto file):
+         Vol            =    0.00710522  m3/kmol
+         G_abs(550 K)   =  -17.3032      kJ/gmol
+         Cp_abs(550 K)  =   30.8521      J/gmol*K
+         S_abs(550 K)   =   44.2599      J/gmol*K
+        
+   Revision History:
+
+      HKM  4/13/2012 Modified the molar densities to agree with memo on volumes, and added initial feedback quantities
+                   
+   -->
+
+  <phase dim="3" id="Fe(S)">
+    <elementArray datasrc="elements.xml">
+      Fe
+    </elementArray>
+    <speciesArray datasrc="#species_Fe(S)"> Fe(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 7.86 </density>
+    </thermo>
+    <!-- As of 6/11/2012 these are mostly guesses not actual values-->
+    <transport model="Solid">
+      <thermalConductivity model="coeffs" units="W/m/K">
+        <floatArray size="2">  1.0, 5.0e-4 </floatArray>
+      </thermalConductivity>
+      <electricalConductivity model="Arrhenius" units="">
+         <A>100.</A>
+         <b>0.0</b>
+         <E units="J/kmol">10000.</E>        
+      </electricalConductivity>
+      <defectActivity model="Constant">
+         1e-4
+      </defectActivity>
+      <defectDiffusivity model="Arrhenius">
+           <A units="m2/s">1.0</A>
+           <b>0.0</b>
+           <E units="J/kmol">90000.</E>
+      </defectDiffusivity>
+    </transport>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Fe(S)">
+
+    <!-- species Fe(S)   -->
+    <!--      melting temperature = 1809 K -->
+    <species name="Fe(S)">
+      <atomArray> Fe:1 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from Bernardi Newman -->
+        <molarVolume units="m3/kmol"> 0.0071052 </molarVolume>
+      </standardState>
+      <!-- NIST -->
+      <thermo>
+        <NASA9 Pref="1 bar" Tmax="700.0" Tmin="298">
+          <floatArray size="9">
+         -1520.60164156061,                         0,          2.21645820294196,       0.00296386945020918,     -1.07207286754818e-06,       1.1623956188247e-09,                         0,         -790.551929384958,         -10.1973919721016
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1042" Tmin="700">
+          <floatArray size="9">
+          480256584.899379,                         0,         -6947.84334565364,          16.5879081091155,       -0.0147662049718935,      4.65242041853493e-06,                         0,           2895995.0271768,          37486.5383657449
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1100" Tmin="1042">
+          <floatArray size="9">
+          49547691.3708828,                         0,         -39.1950197343556,       0.00347932610490493,                         0,                         0,                         0,          89701.7978465416,          299.840639441055
+          </floatArray>
+        </NASA9>
+        <NASA9 Pref="1 bar" Tmax="1809" Tmin="1100">
+          <floatArray size="9">
+          29122341.8193782,                         0,         -93.4200856033897,         0.110578336593502,     -4.61506627332921e-05,       6.8653161584046e-09,                         0,          83904.7130610691,          578.167004301617
+          </floatArray>
+        </NASA9>
+      </thermo>
+      <density units="g/cm3"> 7.86 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

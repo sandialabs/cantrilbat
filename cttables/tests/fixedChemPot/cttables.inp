@@ -1,0 +1,32 @@
+#
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = LiFixed.xml
+
+DebugPrinting = true
+Bath Temperature = 1000.
+Bath Pressure = 1.0 atm
+Output Units = KJoule
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase LiFixed
+  Bath Species ID = LiFixed
+  start block Bath Species Mole Fraction
+    LiFixed = 1.0
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase LiFixed
+
+
+# the above were empty lines

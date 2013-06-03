@@ -1,0 +1,15 @@
+diff_test.out
+out.txt
+csvCode.txt
+Makefile
+gri_equil
+output_blessed.txt
+vcs_equilibrate_res.csv
+diff_csv.txt
+diff_dout.txt
+diff_out.txt
+dout.txt
+err_dout.txt
+err_out.txt
+*.d
+.depends

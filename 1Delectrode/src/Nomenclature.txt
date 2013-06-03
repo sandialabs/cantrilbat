@@ -1,0 +1,45 @@
+
+
+Nomenclature for description of the Variables
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+Suffixes for the Vectors
+---------------------------------------
+
+Suffixes for vectors correspond to the index variable that is used to
+access the components of the vector.
+
+Listing of the suffixes
+
+_Proc                   Vector over processor number. 
+                        Length = number of procesors
+
+
+
+    Example
+    ----------
+       vector_Proc[index]    index is the processor id.
+                             Quantity referes to the value of the variable
+                             on processor index.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

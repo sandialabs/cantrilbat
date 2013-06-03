@@ -1,0 +1,158 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name = string      (no default) (optional)
+!
+!-------------------------------------------------------------------------
+Electrode Name = FeS2
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion",  "CSTR_MCMBAnode" ,
+                            "CSTR_LiCoO2Cathode", "CSTR", "SimpleDiff"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = InfCapacity
+!-------------------------------------------------------------------------
+!
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = FeS2_A.xml
+Cantera File Name = FeS2_B.xml
+Cantera File Name = FeS2_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 723.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Area - [m^2]
+!
+! Electrode Gross Area = 2.5063e-3 m2
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Diameter - [m]
+!
+! Electrode Gross Diameter = 0.05649 m
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Thickness - [m]
+!
+! Electrode Gross Thickness = 7.874e-4 m
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+!
+
+start block Bath Specification for Phase FeS2_A(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    FeS2_A(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_A(S)
+
+
+start block Bath Specification for Phase FeS2_B(S)
+  Phase Moles = 1.0E-3
+  start block Bath Species Mole Fraction
+    FeS2_B(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  FeS2_B(S)
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.3
+      K+  = 0.2
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+!------------------------------------------------------------------------
+!
+!   SPECIFY OTHER WAYS TO INPUT THE CONCENTRATION, without
+!   breaking it down via phases.
+!
+!-------------------------------------------------------------------------
+!  BLOCK -> Species Initial KMoles    (no default)  (optional)
+!
+!  We can specify the moles of species in this type of format.
+!  If present, it overrides the specification of moles in individual
+!  phases described above.
+!
+!  start block Species Initial KMoles
+!        FeS2_A(S) =  1.0
+!        FeS2_B(S) = 1.0
+!        Li+ = 0.3E-2
+!        K+  = 0.2E-2
+!        Cl- = 0.5E-2
+!  end block Species Initial KMoles
+!-------------------------------------------------------------------------
+!
+! Level of XML State Information Created = [none, minimum, globalSteps, 
+!                                           intermediateSteps]
+!  
+!  Level of output created - defaults to none
+!
+!
+Level of XML State Information Created = none
+!------------------------------------------------------------------------
+!
+! Capacity Discharged Per Initial Mole =  (dimensionless) (no default)  (optional)
+!
+!   This is the relative amount of electrons that are discharged or
+!   are accumlated (for cathodes)
+!   as a function of the initial mole number of active species in the electrode.
+!   Some objects don't support setting the initial conditions by this method.
+!
+! Capacity Discharged Per Initial Mole = 0.5
+!
+!------------------------------------------------------------------------

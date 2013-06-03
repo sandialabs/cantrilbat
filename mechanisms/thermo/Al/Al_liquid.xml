@@ -1,0 +1,50 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+          
+ <!-- 
+    4/19/2007
+    I noticed an internal inconsistency on the NIST web page. for
+    Al liquid. This throws the whole data point for Al(L) into 
+    confusion until I come up with an alternative source.
+  -->         
+ <!-- phase Al(L)    -->
+  <phase dim="3" id="Al(L)">
+    <elementArray datasrc="elements.xml">
+      Al
+    </elementArray>
+    <speciesArray datasrc="#species_Al(L)"> Al(L) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3">2.702</density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Al(L)">
+
+    <!-- species Al(L)   -->
+    <species name="Al(L)">
+      <atomArray> Al:1  </atomArray>
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="2800.0" Tmin="900.0">
+          <floatArray size="7">
+           31.75104,
+            3.935826E-8,
+           -1.786515E-8,
+            2.694171E-9,
+            5.480037E-9,
+            -0.945684,
+           73.39949 
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <density units="g/cm3">2.702</density>
+    </species>
+
+  </speciesData>
+
+</ctml>
+           <!-- 1.09541, -->

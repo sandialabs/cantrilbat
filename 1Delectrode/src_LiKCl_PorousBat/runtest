@@ -1,0 +1,92 @@
+#!/bin/sh
+#
+#
+temp_success="1"
+/bin/rm  -f  out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt \
+             solution.xml diff_b0.txt diff_b2.txt diff_b2.txt diff_s0.txt diff_s3.txt
+#
+# Create a symbolic link to mpequil, if none exists already
+#
+if test ! -x LiKCl_PorousBat   ; then
+  if test -x ../../src_LiKCl_PorousBat/LiKCl_PorousBat ; then
+    ln -s ../../src_LiKCl_PorousBat/LiKCl_PorousBat .
+  else
+    echo 'ERROR: Multi1DDomain executable can not be found'
+    exit -1
+  fi
+fi
+#
+###########################################################################
+#
+# Specify the MPI environment
+#
+MP_MACHINEFILE=${MP_MACHINEFILE:=/home/hkmoffa/arch/machinefile_wsblade083}
+MPIRUN=mpirun
+MPIOPTS=""
+NP=1
+#
+###########################################################################
+#
+XMLSOLNDIFF=${XMLSOLNDIFF:=../src_test/xmlSolnDiff}
+#
+#################################################################
+#
+# Specify the program location
+#
+MULTI1DDOMAIN_EXE=${MULTI1DDOMAIN_EXE:=LiKCl_PorousBat}
+#
+# Specify the program options
+#
+PROGRAM_OPTS="LiKCl_PorousBat.inp"
+#
+# Execute the command
+#
+echo "$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt"
+$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "Multi1DDomain returned with bad status, $retnStat, check output"
+  exit 0
+fi
+
+$XMLSOLNDIFF -a 1.0E-13 solution_blessed.xml solution.xml > diff_xml.txt
+retnStat_xml=$?
+
+cat out.txt | sed s/-00/+00/ | cat > outa.txt
+diff good_out.txt outa.txt > diff_out.txt
+retnStat_txt=$?
+
+
+eCode=0
+if test $retnStat_xml = "1"
+then
+  eCode=0
+  echo "Successful test comparison on "`pwd`
+  if [ $retnStat_txt != "0" ]
+  then
+     echo "   But, text output files have differences. See diff_out.txt"
+  fi
+
+
+
+else
+  echo "Unsuccessful test comparison on "`pwd` " test"
+  if test $retnStat_xml != "1"
+  then
+     echo "      xml files are different - see diff_xml.txt"
+  fi
+  if test $retnStat_txt != "0"
+  then
+     echo "      And, text output files have differences. See diff_out.txt"
+  fi
+fi
+
+
+
+#
+# return 0 for no errors, 1 for errors which break the test suite
+#
+exit $eCode
+

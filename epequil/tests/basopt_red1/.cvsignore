@@ -1,0 +1,8 @@
+.nfs*
+Makefile
+basopt_red1
+csvCode.txt
+diff_test.out
+output.txt
+*.d
+.depends

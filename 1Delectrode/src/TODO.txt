@@ -1,0 +1,23 @@
+
+
+TODO's
+-----------------------------------------------------
+
+
+Short
+
+   ()     Create a csv file capability
+   ()     Do a time dependent example 
+   ()     Create a - notTiming input option
+   ()     Create a -d #  level of solution output
+
+
+Medium
+
+
+
+
+
+
+Long
+

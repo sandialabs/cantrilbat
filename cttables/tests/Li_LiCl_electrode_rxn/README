@@ -1,0 +1,36 @@
+Liquid Li electrode reaction:
+
+
+The main reason for this directory has turned into making and verifying the
+electron thermodynamics file, metal_Li_LiCl_electrons.xml.
+
+
+We have specified that the electron chemical potential should be set so that
+the reaction, 
+
+   Li (l)   ->   Li(+)  +  e-  
+
+should have an E of zero.  This directory creats the e- file and confirms
+the calculation.
+
+There are a couple of notes however,   Li(+) is specific to a single salt LiCl.
+E0 is not exactly zero, because the mole fraction of Li(+) in the single 
+salt is 0.5. This causes a Rln(2.0) modification to the entropy of the
+electron to be added in so that the value of E for the reaction above
+in a pure LiCl solution is equal to zero for all relevant temperatures.
+
+This calculation is dependent on the shomate polynomial for Li(l) and
+LiCl(l), which are obtained from NIST's webbook.
+
+It also turns out that we need to supply a molar volume for e- just to fill
+out the ThermoPhase specification. I've set this to an extremely high quantity.
+Hopefully, it won't ever come into play.
+
+
+
+
+
+
+
+
+

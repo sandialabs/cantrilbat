@@ -1,0 +1,59 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2011/10/24 18:02:49 $
+#  $Revision: 1.30 $
+#
+###############################################################
+all:
+	cd ex_gri; @MAKE@
+	cd eutectic_problem; @MAKE@
+	cd CO2_solubility_test; @MAKE@
+	cd FeS2_OpenCircuitVoltage; @MAKE@
+
+test:
+	- cd multiPhase; ./runtest
+	- cd she_electrode; ./runtest
+	- cd sce_electrode; ./runtest
+	- cd ex_gri; ./runtest
+	- cd eutectic_problem; ./runtest
+	- cd CO2_solubility_test; ./runtest
+	- cd FeS2_OpenCircuitVoltage; ./runtest
+
+testd:
+	- cd multiPhase; ./runtestd
+	- cd she_electrode; ./runtestd
+	- cd sce_electrode; ./runtestd
+	- cd ex_gri; ./runtestd
+	- cd eutectic_problem; ./runtestd
+	- cd CO2_solubility_test; ./runtestd
+	- cd FeS2_OpenCircuitVoltage; ./runtest
+
+clean:
+	cd multiPhase;                 ./cleanup
+	cd she_electrode;              ./cleanup
+	cd sce_electrode;              ./cleanup
+	cd ex_gri;                     @MAKE@ clean 
+	cd eutectic_problem;           @MAKE@ clean
+	cd CO2_solubility_test;        @MAKE@ clean
+	cd FeS2_OpenCircuitVoltage;    @MAKE@ clean
+
+rebaseline:
+	cd multiPhase;       ../rebase.sh
+	cd she_electrode;    ../rebase.sh
+	cd sce_electrode;    ../rebase.sh
+	cd ex_gri;                ../rebase.sh
+	cd eutectic_problem;      ../rebase.sh
+	cd CO2_solubility_test;   ../rebase.sh
+	cd FeS2_OpenCircuitVoltage; ../rebase.sh
+
+
+install:
+
+depends:
+	cd ex_gri;           @MAKE@ depends
+	cd eutectic_problem; @MAKE@ depends
+	cd CO2_solubility_test;   @MAKE@ depends
+	cd FeS2_OpenCircuitVoltage; @MAKE@ depends
+
+# end of file

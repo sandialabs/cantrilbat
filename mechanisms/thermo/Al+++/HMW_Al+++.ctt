@@ -1,0 +1,25 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Bath Species ID = H2O(l)
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+START BLOCK Temperature Table Format
+  Number of Points = 7
+  Delta Temperature = 25.
+END BLOCK Temperature Table Format
+
+start block Bath Species Molalities
+   Al+++ = 3.0
+   Cl- = 3.0
+   H+  = 1.0E-7
+   OH- = 1.0E-7
+End block Bath Species Molalities
+
+# the above were empty lines

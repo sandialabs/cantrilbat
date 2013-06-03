@@ -1,0 +1,29 @@
+#/bin/sh
+###############################################################
+#  $Date: 2012/02/22 20:41:57 $
+#  $Revision: 1.45 $
+#
+###############################################################
+
+all:
+	cd LiSi_1_Newman ;                                          @MAKE@
+
+test:
+	cd LiSi_1_Newman ;                                          @MAKE@ -s test
+
+
+clean:
+	cd LiSi_1_Newman ;                                          @MAKE@ clean
+
+
+depends:
+	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ clean
+
+
+rebaseline:
+	cd LiSi_1_Newman ;                                          @MAKE@ rebaseline
+
+
+install:
+
+

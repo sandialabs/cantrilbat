@@ -1,0 +1,133 @@
+#
+#
+#
+Number of Cantera Files = 5
+Cantera File Name = FeS2_electrode.xml
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = FeS2.xml
+Cantera File Name = Li3Fe2S4.xml
+#
+#
+!Debugging = true
+Bath Temperature = 700.
+Bath Pressure =  1 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 50.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 600.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 723.
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+START BLOCK Voltage Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 16
+
+  !----------------------------------------------------------
+  ! Delta Voltage = [double]
+  !    (optional)
+  !    (default = 0.2)
+  !    Delta Voltage
+  !----------------------------------------------------------
+  Delta Voltage = 0.1
+
+  !----------------------------------------------------------
+  ! Low Voltage = [double]
+  !    (optional)
+  !    (default = -1.0 volts)
+  !    Low voltage for the voltage table
+  !----------------------------------------------------------
+  Low Voltage = 1.0
+
+  !-----------------------------------------------------------
+  ! Include Zero Voltage = [bool]
+  !    (optional)
+  !    (default = false)
+  !  Include the E = 0 point in the calculation
+  !----------------------------------------------------------
+  Include Zero Voltage = false
+  !-----------------------------------------------------------
+  ! Include Ezero Voltage = [bool]
+  !    (optional)
+  !    (default = false)
+  !  Include the E_naught = 0 point in the calculation
+  !----------------------------------------------------------
+  Include Ezero Voltage = false
+
+  !-----------------------------------------------------------
+  ! Include Eeq Voltage = [bool]
+  !    (optional)
+  !    (default = true)
+  !  Include the E_eq  Voltage point in the calculation
+  !----------------------------------------------------------
+  Include Eeq Voltage = true
+
+  !----------------------------------------------------------
+  !
+  !  Added Voltages = Variable length list of doubles
+  !
+  !----------------------------------------------------------
+  ! Added Voltages = -2.3  3.3
+
+  !---------------------------------------------------------
+END BLOCK Voltage Table Format
+
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Bath Species ID = Cl-
+   start block Bath Species Mole Fraction
+       Li+ = 0.5
+       K+ = 0.0
+       Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = 1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+# the above were empty lines

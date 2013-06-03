@@ -1,0 +1,220 @@
+#
+#  Makefile.in: 
+#     Makefile for vcsc
+#
+# $Id: Makefile.in,v 1.12 2010/07/10 01:44:38 hkmoffa Exp $
+#
+#
+RM = /bin/rm -f
+CP = /bin/cp -f -p
+AR = ar
+RANLIB = ranlib
+F77 = g77
+FTCHECK = -u
+F77MLDRFLAGS =
+CMLDRFLAGS =
+MPIHOME  = /usr/local/mpich
+MPI_INC = -I$(MPIHOME)/include
+MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
+#
+# Setup The Cantera Interface
+CANTERA_LIBDIR=@ct_libdir@
+
+CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
+
+# The directory where Cantera include files may be found.
+CANTERA_INCROOT=@ct_incroot@
+
+PURIFY=@PURIFY@
+
+# Find the Build root for Cantera
+#
+CANTERA_BUILD_ROOT=@ctb_root@
+#
+UTILSRC_DIR=../../util_src/src
+
+
+F2C_INC=$(CANTERA_INCROOT)/cantera
+#
+# Set up the various local and global defines
+#
+LDEFINES =   -DDEBUG -DDEBUG_HKM  -DCOMPILE_IN_CANTERA_BUILDTREE
+#
+# Set up the global include directory macro
+
+#
+INCLUDE_DIRS = -I$(CANTERA_INCROOT) \
+               -I$(UTILSRC_DIR) 
+
+ALT_INCLUDE_DIRS = -I$(CANTERA_BUILD_ROOT)/src/base \
+                   -I$(CANTERA_BUILD_ROOT)/src/numerics \
+                   -I$(CANTERA_BUILD_ROOT)/src/thermo \
+                   -I$(CANTERA_BUILD_ROOT)/src/kinetics \
+                   -I$(CANTERA_INCROOT) 
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+CCALTFLAGS = $(GDEFINES) $(ALT_INCLUDE_DIRS) $(LDEFINES) 
+#
+CF77LDR =  @F77@
+CLIBS    = -lm
+AR       = ar
+RANLIB   = echo
+F77      = @F77@
+F77LDR  =  $(F77)
+#
+# C and CXX Loader flags to be used when a CXX main program
+# is linked with fortran libraries or object files.
+# -> Key issue is fortran IO
+#
+CLDRF77LIBS = @FLIBS@
+FXX = @F77@
+FFLAGS_BSD   =
+FLIB_BSD     =
+GPROF    = -G
+
+LIBTAR = @cta_libdir@/libctpadds.a
+
+all: .depends libctpadds.a 
+
+.SUFFIXES: .src .prj .d
+
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -I$(F2C_INC) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+# 
+# These classes compile against the Cantera kernel
+# format
+#
+
+importAllCTML.o: importAllCTML.cpp importAllCTML.h
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+
+SolidKinetics.o: SolidKinetics.cpp SolidKinetics.h
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+
+ElectrodeKinetics.o: ElectrodeKinetics.cpp ElectrodeKinetics.h
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+
+ElectrolyteKinetics.o: ElectrolyteKinetics.cpp ElectrolyteKinetics.h
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+
+ReactionDataElectrode.o: ReactionDataElectrode.cpp ReactionDataElectrode.h
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+
+HKFT_PDSS.o: HKFT_PDSS.cpp HKFT_PDSS.h
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+INSTALL = $(CHEMKIN_HOME)/bin/bsdinstall.sh 
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+MDPLIB_DEP = $(UTILSRC_DIR)/libutil_src.a
+MDPLIB     = -L$(UTILSRC_DIR) -lutil_src
+
+CTCVODE_DEP = $(CANTERA_LIBDIR)/libcvode.a
+CTCVODE     = -L$(CANTERA_LIBDIR) -lcvode
+
+CTBLAS_DEP = $(CANTERA_LIBDIR)/libctblas.a
+CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
+
+CTMATH_DEP = $(CANTERA_LIBDIR)/libctmath.a
+CTMATH    = -L$(CANTERA_LIBDIR) -lctmath
+
+CTLIB_DEP  = $(CANTERA_LIBDIR)/libthermo.a \
+             $(CANTERA_LIBDIR)/libctmath.a \
+             $(CANTERA_LIBDIR)/libctcxx.a \
+             $(CANTERA_LIBDIR)/libtpx.a 
+CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
+
+OBJ_CTPADDS =  importAllCTML.o  SolidKinetics.o  \
+               ElectrodeKinetics.o ElectrolyteKinetics.o \
+               ReactionDataElectrode.o
+
+HDR_CTPADDS =  importAllCTML.h  SolidKinetics.h  \
+               ElectrodeKinetics.h ElectrolyteKinetics.h \
+               ReactionDataElectrode.h
+
+
+
+###########################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_VCSLIB:.o=.d) $(OBJ_VCSC:.o=.d) \
+          $(OBJ_VCS_CANTERA:.o=.d) $(OBJ_CTPADDS:.o=.d)
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+
+SolidKinetics.d: SolidKinetics.cpp SolidKinetics.h
+	@CXX_DEPENDS@  $(CXXFLAGS) $(CCALTFLAGS) -c $*.cpp > $*.d
+
+ElectrodeKinetics.d: ElectrodeKinetics.cpp ElectrodeKinetics.h
+	@CXX_DEPENDS@  $(CXXFLAGS) $(CCALTFLAGS) -c $*.cpp > $*.d
+
+ElectrolyteKinetics.d: ElectrolyteKinetics.cpp ElectrolyteKinetics.h
+	@CXX_DEPENDS@  $(CXXFLAGS) $(CCALTFLAGS) -c $*.cpp > $*.d
+
+ReactionDataElectrode.d: ReactionDataElectrode.cpp ReactionDataElectrode.h
+	@CXX_DEPENDS@  $(CXXFLAGS) $(CCALTFLAGS) -c $*.cpp > $*.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS)  \
+               -I$(CANTERA_INCROOT)/cantera/kernel -c $*.cpp > $*.d
+
+
+############################################################################
+
+$(OBJ_CTPADDS): Makefile
+
+libctpadds.a: $(OBJ_CTPADDS) Makefile
+	$(AR) rv libctpadds.a $(OBJ_CTPADDS)
+
+install:
+	@INSTALL@ -d @cta_libdir@
+	@INSTALL@ -m 644 libctpadds.a @cta_libdir@
+	@INSTALL@ -m 644  $(HDR_CTPADDS) @cta_incdir@
+
+$(DEPENDS): Makefile
+
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+###########################################################################
+#          INSTALL RULES
+###########################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+clean:
+	$(RM) *.d .depends
+	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
+                   fort.* *%  core *.trace tmp*
+	$(RM) ${PROG} 
+

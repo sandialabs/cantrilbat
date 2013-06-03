@@ -1,0 +1,20 @@
+if test ! -f cttables ; then
+  if test -f ../../src/cttables ; then
+    ln -s ../../src/cttables .
+  fi
+fi
+
+prog=cttables
+/bin/rm -rf out.txt diff.out
+cttables  cttables.inp > out.txt
+#diff good_out.txt out.txt | tee diff.out
+diff -w good_out.txt out.txt > diff.out
+retnStat=$?
+if [ $retnStat = "0" ]
+then
+  echo "successful diff comparison on $prog test"
+else
+  echo "unsuccessful diff comparison on $prog test"
+  echo "FAILED" > csvCode.txt
+  temp_success="0"
+fi

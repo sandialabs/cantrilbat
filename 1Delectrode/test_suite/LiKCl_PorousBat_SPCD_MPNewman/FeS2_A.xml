@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase FeS2_A(S)    -->
+  <phase dim="3" id="FeS2_A(S)">
+    <elementArray datasrc="elements.xml">
+      Fe S
+    </elementArray>
+    <speciesArray datasrc="#species_FeS2(S)"> FeS2_A(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 5.013581 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_FeS2(S)">
+
+    <!-- species FeS2_A(S)   -->
+    <!--      melting temperature = 1400 K -->
+    <species name="FeS2_A(S)">
+      <atomArray> Fe:1 S:2 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from Bernardi Newman -->
+        <molarVolume units="m3/kmol"> 0.02393 </molarVolume>
+      </standardState>
+      <!-- NIST -->
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1400.0" Tmin="298">
+          <floatArray size="7">
+             83.582315146088, -29.2630502118092, 41.1873013271502, -11.6739943754519, -1.4300344559024, -201.522288119137, 153.017593377169
+             <!-- modified to fit DeltaG and Fe + 2*Li2S -->
+             <!-- pyrite Pelton  72.3870,    8.8501,    0.0007,         0,   -1.1428, -197.3525,  131.4492  -->
+             <!-- pyrite JANAF fit  83.582315146088, -29.2630502118092, 41.1873013271502, -11.6739943754519, -1.4300344559024, -200.300588119137, 153.017593377169 -->
+             <!-- maracasite JANAF fit 82.6510  -24.7626,   36.2065,   -9.9540,   -1.4077, -195.9233,  151.8298 -->
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- M = 119.975, then evaluated from molarVolume -->
+      <density units="g/cm3"> 5.013581 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>

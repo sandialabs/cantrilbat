@@ -1,0 +1,100 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Interface Mass Transport Title = string
+!      (optional)
+!
+!-------------------------------------------------------------------------
+Interface Mass Transport Title = WaterTBP
+!--------------------------------------------------------------------
+!  Specification of the Model Name
+!
+!  Interfacial Mass Transport Model Name =
+!                         ["UnknownType", "BaseType", 
+!                          "PseudoSS_NoSurf", "Kin_1to1Distrib"]
+!             required = yes
+!--------------------------------------------------------------------------
+Interfacial Mass Transport Model Name  = PseudoSS_NoSurf
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 3
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = WaterTBP_interface.xml
+Cantera File Name = HMW_TBP_UO2_HNO3.xml    
+Cantera File Name = TBP_liquid.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Phase A Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Phase A - identity of the phase that is on the "Left" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase A Name = HNO3_electrolyte
+!-------------------------------------------------------------------------
+!
+! Phase B - identity of the phase that is on the "right" side of the interface.
+!
+!--------------------------------------------------------------------------
+Phase B Name = TBP_liquid
+!--------------------------------------------------------------------------
+!
+!  Gross Surface Area of Interface
+!      (
+!
+Gross Surface Area of Interface = 0.01
+!--------------------------------------------------------------------------
+!
+!  Phase A boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase A boundary layer thickness = 0.001
+!--------------------------------------------------------------------------
+!
+!  Phase B boundary layer thickness
+!     (required)
+!--------------------------------------------------------------------------
+Phase B boundary layer thickness = 0.001
+!--------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+!START BLOCK KMolar Element Abundances 
+!   O = 1.0
+!   H = 3.0
+!   E = 1.0
+!   N = 1.0
+!   Na = 5.0
+!   Cl = 0.0214185
+!END BLOCK KMolar Element Abundances
+!-------------------------------------------------------------------------
+!
+!-------------------------------------------------------------------------
+
+
+
+
+
+

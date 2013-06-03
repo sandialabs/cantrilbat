@@ -1,0 +1,153 @@
+#
+#  Makefile.in: 
+#     Makefile for vcsc
+#
+# $Id: Makefile.in,v 1.3 2011/09/14 16:38:26 hkmoffa Exp $
+#
+.SUFFIXES: .d
+
+#
+RM = /bin/rm -f
+CP = /bin/cp -f -p
+AR = ar
+RANLIB = ranlib
+F77 = g77
+FTCHECK = -u
+F77MLDRFLAGS =
+CMLDRFLAGS =
+MPIHOME  = /usr/local/mpich
+MPI_INC = -I$(MPIHOME)/include
+MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
+#
+# These links are to Cantera's install space
+CT_INCROOT = @ct_incroot@
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+#
+# Setup The Cantera Interface
+CANTERA_LIBDIR=@ct_libdir@
+CANTERA_LIBS= -lkinetics -ltransport -lthermo -lctnumerics -lctbase -lctmath -lctlapack -lctcxx -ltpx
+
+CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
+
+
+PURIFY=@PURIFY@
+
+# Find the Build root for Cantera
+#
+CANTERA_BUILD_ROOT=@ctb_root@
+#
+UTILSRC_DIR=../../util_src/src
+CTPADDSSRC_DIR=../../ctpadds/src
+
+
+F2C_INC=$(CT_INCROOT)/cantera
+#
+# Set up the various local and global defines
+#
+# LDEFINES =   -DDEBUG_ELECTRODE
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
+               -I$(CTPADDSSRC_DIR) \
+               -I$(UTILSRC_DIR) 
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+
+
+all: .depends libimt_model.a
+
+.SUFFIXES: .src .prj .d
+
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -I$(F2C_INC) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+# 
+# These classes compile against the Cantera kernel
+# format
+#
+
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+INSTALL = $(CHEMKIN_HOME)/bin/bsdinstall.sh 
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+
+OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.o \
+                  importPL.o InterfacialMassTransfer.o InterfacialMassTransfer_input.o ApplBase_print.o \
+                  InterfacialMassTransfer_Factory.o  InterfacialMassTransfer_1to1Distrib.o \
+                  InterfacialMassTransfer_PseudoSS.o imtPSS_NoSurf.o \
+                  InterfacialMassTransfer_Integrator.o ExternalField.o \
+                  imtPSS_NoSurf_DiffBL.o
+
+###########################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_CTAPPLBASE:.o=.d)
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+############################################################################
+
+$(OBJ_CTAPPLBASE): Makefile
+
+libimt_model.a: $(OBJ_CTAPPLBASE)
+	$(AR) rv libimt_model.a $(OBJ_CTAPPLBASE)
+
+depends:
+	$(RM) *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+test:
+	cd .. ; @MAKE@ test
+
+install:
+
+###########################################################################
+#          INSTALL RULES
+###########################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+clean:
+	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
+                   fort.* *%  core *.trace tmp* .depends *.d
+	$(RM) ${PROG} 
+

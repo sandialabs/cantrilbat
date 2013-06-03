@@ -1,0 +1,260 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name =HeliumAir.xml
+ => Cantera File Name = HeliumAir.xml
+ ====> CanteraFileNames =  HeliumAir.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 300.
+Bath Pressure = 1.0 atm
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase gas
+  Bath Species ID = N2
+  start block Bath Species Mole Fraction
+    N2 = 0.9
+    He = 0.1
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase gas
+
+
+# the above were empty lines
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name =HeliumAir.xml
+ => Cantera File Name = HeliumAir.xml
+ ====> CanteraFileNames =  HeliumAir.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 300.
+ => Bath Temperature = 300.
+ ====> BG.Temperature = 300
+Bath Pressure = 1.0 atm
+ => Bath Pressure = 1.0 atm
+ ====> BG.Pressure = 101325
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+ => Number of Points ====> TTpts = 14
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase gas
+  Bath Species ID = N2
+ => Bath Species ID = N2
+ ====> BG_ID = N2, list item 2
+  start block Bath Species Mole Fraction
+    N2 = 0.9
+ => N2 = 0.9
+ ====> N2 = 0.9
+    He = 0.1
+ => HE = 0.1
+ ====> HE = 0.1
+  End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ HE : 0 ] = 0.1
+	====>   XBathmol[ O2 : 1 ] = 0
+	====>   XBathmol[ N2 : 2 ] = 0.9
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath specification for Phase gas
+
+
+# the above were empty lines
+Bath Species set to N2
+----------------------------------------------------------------
+ Dump of Mixture properties: 
+	 viscosity = 1.97694e-05
+	 viscosity(300 K) = 1.97694e-05
+	 viscosity(400 K) = 2.37991e-05
+	 viscosity(500 K) = 2.74815e-05
+	 viscosity(600 K) = 3.09085e-05
+	 viscosity(700 K) = 3.41365e-05
+	 viscosity(800 K) = 3.7203e-05
+	 viscosity(900 K) = 4.01347e-05
+	 viscosity(1000 K) = 4.29514e-05
+	 viscosity(1100 K) = 4.56683e-05
+	 viscosity(1200 K) = 4.82974e-05
+----------------------------------------------------------------
+Bath Species set to N2
+Bath Species set to N2
+     ====================================================================================================
+      Bath Composition for Phase id, "gas", with name, "gas", with eosType, "IdealGas"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = N2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1              HE          0.1000       4.062E-06       1.000E-01
+              2              O2          0.0000       0.000E+00       0.000E+00
+              3              N2          0.9000       3.656E-05       9.000E-01
+          ------------------------------------------------------------------------------
+EOS type = 1
+PrintOut of Phase, "gas", using the Ideal Gas Thermodynamics Functions:
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "gas"
+        Overall, this is the 1th species in the mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  He: 1
+        Electronic Charge = 0.00
+        Molecular Weight = 4.0026 gm/mol
+        L-J Potential Well Depth = 10.2 K
+        L-J collision diameter = 2.58 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 0.00 Angstroms**3
+        Rotational Collision Number at 298 K = 1
+        This molecule is monatomic
+        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        mu_0(298.15K) = H298[k]  -2.63116E-16
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                        2.5            0            0            0
+                          0      -745.38      0.91535
+               High temperature polynomials: 1000 < T < 5000: 
+                            2.5                0                0                0
+                              0         -745.375        0.9153489
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_HE       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000         -8.9817         4.9680      30.1247   |    1.969E-04     1.534E+04         1.623      |
+|    300.00 |     0.0092         -9.0375         4.9680      30.1555   |    1.977E-04     1.540E+04         1.640      |
+|    400.00 |     0.5060        -12.1279         4.9680      31.5847   |    2.380E-04     1.854E+04         2.640      |
+|    500.00 |     1.0028        -15.3438         4.9680      32.6933   |    2.748E-04     2.141E+04         3.818      |
+|    600.00 |     1.4996        -18.6598         4.9680      33.5990   |    3.091E-04     2.408E+04         5.162      |
+|    700.00 |     1.9964        -22.0590         4.9680      34.3649   |    3.414E-04     2.659E+04         6.660      |
+|    800.00 |     2.4932        -25.5294         4.9680      35.0282   |    3.720E-04     2.898E+04         8.305      |
+|    900.00 |     2.9900        -29.0621         4.9680      35.6134   |    4.013E-04     3.126E+04        10.090      |
+|   1000.00 |     3.4868        -32.6500         4.9680      36.1368   |    4.295E-04     3.346E+04        12.009      |
+|   1100.00 |     3.9836        -36.2878         4.9680      36.6103   |    4.567E-04     3.557E+04        14.057      |
+|   1200.00 |     4.4804        -39.9707         4.9680      37.0426   |    4.830E-04     3.762E+04        16.230      |
+|   1300.00 |     4.9772        -43.6951         4.9680      37.4403   |    5.085E-04     3.961E+04        18.524      |
+|   1400.00 |     5.4740        -47.4578         4.9680      37.8084   |    5.333E-04     4.154E+04        20.935      |
+|   1500.00 |     5.9708        -51.2560         4.9680      38.1512   |    5.575E-04     4.342E+04        23.460      |
+|   1600.00 |     6.4676        -55.0873         4.9680      38.4718   |    5.811E-04     4.526E+04        26.097      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "gas"
+        Overall, this is the 2th species in the mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  O: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 31.9988 gm/mol
+        L-J Potential Well Depth = 107.4 K
+        L-J collision diameter = 3.46 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 1.60 Angstroms**3
+        Rotational Collision Number at 298 K = 3.8
+        This molecule is linear
+        Heat of formation (298.15K) = -0.0002 kcal/gmol
+        mu_0(298.15K) = H298[k]  -0.000202594
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     3.2129    0.0011275  -5.7562e-07   1.3139e-09
+                -8.7686e-13      -1005.2       6.0347
+               High temperature polynomials: 1000 < T < 5000: 
+                       3.697578     0.0006135197    -1.258842e-07     1.775281e-11
+                 -1.1364354e-15       -1233.9301         3.189165
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_HE       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -14.6114         7.0065      49.0069   |    2.053E-04     2.623E+03         0.736      |
+|    300.00 |     0.0130        -14.7021         7.0104      49.0503   |    2.063E-04     2.637E+03         0.744      |
+|    400.00 |     0.7245        -19.7138         7.2205      51.0956   |    2.560E-04     3.391E+03         1.201      |
+|    500.00 |     1.4573        -24.9077         7.4365      52.7299   |    3.001E-04     4.105E+03         1.741      |
+|    600.00 |     2.2119        -30.2512         7.6554      54.1051   |    3.404E-04     4.784E+03         2.355      |
+|    700.00 |     2.9882        -35.7228         7.8698      55.3015   |    3.778E-04     5.433E+03         3.040      |
+|    800.00 |     3.7853        -41.3071         8.0682      56.3655   |    4.131E-04     6.056E+03         3.792      |
+|    900.00 |     4.6008        -46.9925         8.2349      57.3259   |    4.466E-04     6.658E+03         4.609      |
+|   1000.00 |     5.4306        -52.7694         8.3499      58.2000   |    4.786E-04     7.241E+03         5.486      |
+|   1100.00 |     6.2696        -58.6300         8.4299      58.9996   |    5.094E-04     7.807E+03         6.424      |
+|   1200.00 |     7.1164        -64.5673         8.5069      59.7364   |    5.391E-04     8.359E+03         7.418      |
+|   1300.00 |     7.9709        -70.5755         8.5811      60.4203   |    5.680E-04     8.898E+03         8.468      |
+|   1400.00 |     8.8326        -76.6498         8.6525      61.0588   |    5.959E-04     9.425E+03         9.573      |
+|   1500.00 |     9.7013        -82.7860         8.7214      61.6582   |    6.232E-04     9.943E+03        10.730      |
+|   1600.00 |    10.5768        -88.9803         8.7879      62.2232   |    6.498E-04     1.045E+04        11.938      |
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
+        Overall, this is the 3th species in the mechanism
+        It is the 3th species in the phase
+        Elemental Composition:
+                  N: 2
+        Electronic Charge = 0.00
+        Molecular Weight = 28.0135 gm/mol
+        L-J Potential Well Depth = 97.53 K
+        L-J collision diameter = 3.62 Angstroms
+        Dipole Moment = 0 Debeye
+        Polarizability = 1.76 Angstroms**3
+        Rotational Collision Number at 298 K = 4
+        This molecule is linear
+        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        mu_0(298.15K) = H298[k]  0.000341755
+        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 300 K
+        Maximum Temperature = 5000 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 300 < T < 1000: 
+                     3.2987    0.0014082  -3.9632e-06   5.6415e-09
+                -2.4449e-12      -1020.9       3.9504
+               High temperature polynomials: 1000 < T < 5000: 
+                        2.92664     0.0014879768     -5.68476e-07    1.0097038e-10
+                  -6.753351e-15        -922.7977         5.980528
+------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_HE       |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    |
+|-----------|----------------------------------------------------------|-----------------------------------------------|
+|**  298.15*|     0.0000        -13.6471         6.9481      45.7726   |    1.801E-04     2.643E+03         0.710      |
+|    300.00 |     0.0129        -13.7318         6.9492      45.8156   |    1.810E-04     2.653E+03         0.718      |
+|    400.00 |     0.7106        -18.4184         7.0075      47.8226   |    2.235E-04     3.244E+03         1.158      |
+|    500.00 |     1.4150        -23.2820         7.0832      49.3939   |    2.614E-04     3.860E+03         1.678      |
+|    600.00 |     2.1284        -28.2882         7.1909      50.6943   |    2.960E-04     4.476E+03         2.270      |
+|    700.00 |     2.8543        -33.4148         7.3338      51.8131   |    3.283E-04     5.082E+03         2.930      |
+|    800.00 |     3.5960        -38.6466         7.5034      52.8032   |    3.587E-04     5.673E+03         3.655      |
+|    900.00 |     4.3552        -43.9723         7.6795      53.6972   |    3.876E-04     6.249E+03         4.441      |
+|   1000.00 |     5.1311        -49.3834         7.8303      54.5145   |    4.152E-04     6.810E+03         5.287      |
+|   1100.00 |     5.9201        -54.8730         7.9490      55.2665   |    4.419E-04     7.355E+03         6.190      |
+|   1200.00 |     6.7205        -60.4349         8.0563      55.9628   |    4.676E-04     7.886E+03         7.149      |
+|   1300.00 |     7.5311        -66.0640         8.1532      56.6116   |    4.925E-04     8.402E+03         8.161      |
+|   1400.00 |     8.3508        -71.7558         8.2404      57.2190   |    5.167E-04     8.905E+03         9.225      |
+|   1500.00 |     9.1788        -77.5066         8.3187      57.7903   |    5.403E-04     9.396E+03        10.340      |
+|   1600.00 |    10.0143        -83.3128         8.3888      58.3294   |    5.634E-04     9.876E+03        11.504      |
+------------------------------------------------------------------------------------------------------------------------

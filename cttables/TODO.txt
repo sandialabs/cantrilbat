@@ -1,0 +1,49 @@
+
+LTProjects
+------------
+
+Some type of ordering control is necessary. I need to specify that 
+this block needs to succeed a set of blocks or line entries or else
+an error condition ensues.
+
+The ordering must be consistent with the order of the arrays that
+hold the line entries and blocks within each block object. 
+
+This would argue for a way to order the line Entries and blocks
+amongst each other. One could do that by making a combined
+parent class common to both of them and then using a single
+array to hold both classees.
+
+The ordering must also use specific information about relationships
+In other words, this block can't occur before this line entry as
+information from the line entry is need in the setup of the block.
+
+Also, a common occurance is that a line entry will make possible
+or necessary the imposition of other line entries or blocks. Or,
+it will at least specify how many are needed. Thus a way to 
+dynamically change the block structure on the fly is needed.
+I think this is possible by creating line entries and block
+structures from within other line entries and block structures.
+However, this concept needs to be fleshed out some more.
+
+2)
+doxygen support
+
+
+cttables Projects
+-------------------------------
+
+1) Add in support for selective processing of tables just as in surftherm.
+
+2) Add in a summary table for the Thermo of all reactions in the mechanism.
+
+3) Formalize the decision making as to whether to turn on output of the
+   command file read process -> link it to the debug command.
+
+4) Add in a formal way to print out the command file options.
+
+5) Add in a way to process xml files that don't have the transport data.
+
+
+
+ 

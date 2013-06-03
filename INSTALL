@@ -1,0 +1,18 @@
+
+1. Checkout, build and install Cantera:
+
+2. Checkout or untar CanteraApps.
+
+3. Run autoconf to set up Makefiles.
+> autoconf
+
+4. Look in docs/install_examples/ for example shell scripts to
+configure CanteraApps. Edit this file for your build environment and
+execute.  This file also runs preconfig.
+> sh linux_gcc44
+
+5. Compile the code.
+> make
+
+6. Run a few test problems
+> make test

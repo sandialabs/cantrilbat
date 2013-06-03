@@ -1,0 +1,170 @@
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+# $Id: Makefile.in,v 1.29 2011/10/21 15:50:17 hkmoffa Exp $
+#
+#
+#  Build mpequil through the CANTERA_INSTALL directories.
+#
+# Copywrite (2005) Sandia Corporation. Under the terms of 
+# Contract DE-AC04-94AL85000 with Sandia Corporation, the
+# U.S. Government retains certain rights in this software.
+#
+.SUFFIXES: .d
+#
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+#
+
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+# Set up the Cantera Application Base directory
+#
+CTAPPLBASE_DIR = ../../ctApplBase/src
+CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libctApplBase.a
+CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lctApplBase
+#
+# Utilsrc setup
+#
+UTILSRC_DIR =../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+
+#########################################################################
+# Set up the executable extension
+########################################################################
+
+TT=@EXE_EXT@
+ifeq ($(TT),)
+EXE_EXT=
+else
+EXE_EXT=$(TT)
+endif
+
+PURIFY=@PURIFY@
+
+#############################################################################
+
+OBJ_CTTABLES= cttables.o cttables_kin.o cttables_vol.o  \
+              cttInput.o sortAlgorithms.o cttables_thermo.o \
+              ExtraGlobalRxn.o
+
+OBJ_CANTERA_ADDONS =  IdealReactingGas.o ReactingVolDomain.o
+
+CTTABLES_EXE=cttables$(EXE_EXT)
+ATOFCHECKER_EXE=atofChecker$(EXE_EXT)
+
+all:  $(CTTABLES_EXE) $(ATOFCHECKER_EXE) .depends
+
+clean:
+	$(RM) *.o  *.d .depends atofChecker ${PROG}  *~
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+
+LDEFINES = -DDEBUG -DDEBUG_HKM_ETABLE -DDEBUG_ROOT1D
+#LDEFINES = -DDEBUG -DDEBUG_JCH_ETABLE -DCENTERED_VOLTAGE_TABLE -DDEBUG_ROOT1D
+
+INCLUDE_DIRS= $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  \
+               -I$(CTAPPLBASE_DIR)
+
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS)
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o: 
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+.f:
+	$(F77) $(FFLAGS) -c $<
+	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
+
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+depends: 
+	$(MAKE) .depends
+
+$(OBJ_CTTABLES) $(OBJ_CANTERA_ADDONS): Makefile
+
+$(DEPENDS): Makefile
+
+##############################################################################
+BUILD_WITH_CTF2C=@build_with_f2c@
+ifeq ($(BUILD_WITH_CTF2C), 1)
+LIBF2C=
+else
+LIBF2C= 
+endif
+
+$(CTTABLES_EXE): $(OBJ_CTTABLES) $(OBJ_CANTERA_ADDONS) $(CTPADDS_DEP) \
+         $(CANTERA_CORE_LIBS_DEP) $(CADSLIB_DEP) $(UTILSRC_DEP) $(CTAPPLBASE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(CTTABLES_EXE) $(OBJ_CTTABLES) \
+	          $(OBJ_CANTERA_ADDONS) $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(CADSLIB) \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+$(ATOFCHECKER_EXE): atofChecker.o  $(CANTERA_CORE_LIBS_DEP)
+	$(CXXLDR) $(LCXX_FLAGS) -o $(ATOFCHECKER_EXE) atofChecker.o  \
+                  $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c $(CTTABLES_EXE) @cta_bindir@
+
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
