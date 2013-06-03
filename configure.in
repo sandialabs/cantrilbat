@@ -609,6 +609,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/LiSi_5_Anode_Integrate/Makefile \
           Electrode/tests/FeS2_3_MPNewman_cV_restart/Makefile \
           Electrode/tests/FeS2_4_MPNewman_cc/Makefile \
+          Electrode/tests/FeS2_4_cMPNewman_cc/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \

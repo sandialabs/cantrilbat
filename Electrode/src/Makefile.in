@@ -76,7 +76,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 #
 
 
-all: .depends libctApplBase.a
+all: .depends libElectrode.a
 
 .SUFFIXES: .src .prj .d
 
@@ -147,8 +147,8 @@ ctmlDiff: ctmlDiff.o $(UTILSRC_DEP) \
 
 $(OBJ_CTAPPLBASE): Makefile $(HDR_CTAPPLBASE)
 
-libctApplBase.a: $(OBJ_CTAPPLBASE)
-	$(AR) rv libctApplBase.a $(OBJ_CTAPPLBASE)
+libElectrode.a: $(OBJ_CTAPPLBASE)
+	$(AR) rv libElectrode.a $(OBJ_CTAPPLBASE)
 
 depends:
 	$(RM) *.d .depends

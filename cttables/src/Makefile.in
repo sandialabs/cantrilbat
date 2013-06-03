@@ -35,9 +35,9 @@ CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
 #
 # Set up the Cantera Application Base directory
 #
-CTAPPLBASE_DIR = ../../ctApplBase/src
-CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libctApplBase.a
-CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lctApplBase
+CTAPPLBASE_DIR = ../../Electrode/src
+CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
+CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
 #
 # Utilsrc setup
 #

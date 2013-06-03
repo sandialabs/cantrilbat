@@ -52,10 +52,10 @@ UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
 
 
 CTPADDS_DIR = ../../ctpadds/src
-APPL_BASE_DIR= ../../ctApplBase/src
+APPL_BASE_DIR= ../../Electrode/src
 APPL_BASE_INC= -I$(APPL_BASE_DIR)
-APPL_BASE_DEP= $(APPL_BASE_DIR)/libctApplBase.a $(CTPADDS_DIR)/libctpadds.a
-APPL_BASE_LIB= -L$(APPL_BASE_DIR) -l ctApplBase  -L$(CTPADDS_DIR) -lctpadds
+APPL_BASE_DEP= $(APPL_BASE_DIR)/libElectrode.a $(CTPADDS_DIR)/libctpadds.a
+APPL_BASE_LIB= -L$(APPL_BASE_DIR) -lElectrode  -L$(CTPADDS_DIR) -lctpadds
 
 M1D_BASE_INC= -I../src_CanteraElectrode -I../src
 M1D_BASE_DEP= ../src/libm1d.a ../src_CanteraElectrode/libm1dcantera.a
