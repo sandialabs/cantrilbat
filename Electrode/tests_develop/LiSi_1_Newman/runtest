@@ -1,0 +1,115 @@
+#!/bin/sh
+#
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+
+fff='0'
+while getopts "fh" opt; do
+  case $opt in
+    f  ) fff='1' ;;
+    h  ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+    \? ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+  esac
+done
+shift $(($OPTIND - 1))
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    exit 0
+  fi
+fi
+
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#
+#
+/bin/rm  -f  out.txt err_out.txt LiSi_intResults_0_0.csv \
+             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv runGood runBad \
+             vcs_phaseStability*.csv
+/bin/rm -f   CheckDebug.txt  good_out.txt
+#
+# Create a symbolic link to electrodeCell, if none exists already
+#
+
+PROG_EXE=./LiSi_5_MultiPlat
+if test ! -x ${PROG_EXE}  ; then
+  echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
+  /bin/rm -f runInProgress.txt
+  exit -1
+  
+fi
+eCode=0
+
+#################################################################
+#
+#################################################################
+
+$PROG_EXE   > out.txt 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  echo "$PROG_EXE returned with bad status, $retnStat, check output"
+  echo " Bad Status: " `date` > runBad
+fi
+
+
+if [ -f CheckDebug.txt ]
+then
+  cp good_dbg_out.txt good_out.txt
+else
+  cp good_noD_out.txt good_out.txt
+fi
+diff good_out.txt out.txt > diff_out.txt
+retnStat_txt=$?
+
+csvdiff  LiSi_intResults_blessed.csv LiSi_intResults_0_0.csv > diff_csv.txt
+retnStat_csv=$?
+
+csvdiff  voltHist_blessed.csv  voltHist.csv >diff_csv_Volts.txt
+retnStat_csv_2=$?
+
+
+if test $retnStat_csv = "0" -a $retnStat_csv_2 = "0"
+then
+  echo "Successful test comparison on "`pwd`
+  if test $retnStat_txt != "0"
+  then
+     echo "      But, text output files have differences. See diff_out.txt"
+     echo " Bad Text: " `date` > runBad 
+  else
+   echo "  Test Passed: " `date` > runGood
+  fi
+else
+  echo "Unsuccessful test comparison on "`pwd` " test"
+  echo "  Bad DataFile: " `date` > runBad
+  if test $retnStat_txt != "0"
+  then
+     echo "      And, text output files have differences. See diff_out.txt"
+  fi
+fi
+
+#
+# return 0 for no errors, 1 for errors
+#
+
+/bin/rm -f runInProgress.txt
+exit $eCode
+

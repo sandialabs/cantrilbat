@@ -1,0 +1,102 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiSi
+!
+Electrode Type = anode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = MP_RxnExtent
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 9
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = LiSi_1_electrode.xml 
+Cantera File Name = metal_Li_LiCl_electrons.xml
+Cantera File Name = LiKCl_recipmoltenSalt.xml
+Cantera File Name = Li13Si4.xml
+Cantera File Name = Li7Si3.xml
+Cantera File Name = LiSi_2_electrode.xml  
+Cantera File Name = Li12Si7.xml
+Cantera File Name = LiSi_3_electrode.xml
+Cantera File Name = Si_Solid.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 675.
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 200.0 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 3.51E5 
+!-------------------------------------------------------------------------
+Electrode Porosity = 0.25
+
+!
+
+start block Bath Specification for Phase Li13Si4(S)
+  Phase Moles = 13.0
+  start block Bath Species Mole Fraction
+    Li13Si4(S) =  1.0
+ End block Bath Species Mole Fraction
+end block Bath Specification for Phase  Li13Si4(S)
+
+start block Bath Specification for Phase LiKCl_electrolyte
+   Phase Moles = 6.6
+   start block Bath Species Mole Fraction
+      Li+ = 0.5
+      Cl- = 0.5
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase LiKCl_electrolyte
+
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiCl
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = 1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+
+
