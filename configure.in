@@ -618,8 +618,6 @@ AC_OUTPUT(Makefile \
           changeHf/Makefile \
           fitShomate/Makefile \
           fitShomate/src/Makefile \
-          ECR/Makefile \
-          ECR/src/Makefile \
           mpequil/Makefile \
           mpequil/src/Makefile \
           mpequil/tests/Makefile \
@@ -666,14 +664,9 @@ AC_OUTPUT(Makefile \
           1Delectrode/src_Cu2S/Makefile \
           1Delectrode/src_LiKCl_infPlateBat/Makefile \
           1Delectrode/src_LiKCl_infPorousBat/Makefile \
-          1Delectrode/src_LiKCl_infPorousBatBC/Makefile \
           1Delectrode/src_LiKCl_PorousBat/Makefile \
-	  1Delectrode/src_LiKCl_infPorousBatEIS/Makefile \
 	  1Delectrode/src_LiIon_PorousBat/Makefile \
-          1Delectrode/src_thermBat/Makefile \
           1Delectrode/test_suite/Makefile \
-          Al_dam/Makefile \
-          Al_dam/src/Makefile \
           util_src/Makefile \
           util_src/src/Makefile \
 	  Experiment/Makefile \

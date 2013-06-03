@@ -1,2 +1,12 @@
 Makefile
 configure
+autom4te.cache
+config.log
+config.status
+mac_sierra-gcc-mp-4.4_dbg_noMPI
+rhel5_64_sierra_gcc444
+*.o
+*.d
+*.a
+.depends
+config.h
