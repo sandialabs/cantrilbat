@@ -37,7 +37,6 @@ clean:
 	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; @MAKE@ clean )
 	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
 	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_thermBat;                  (/bin/rm -f .depends ; @MAKE@ clean )
 	cd test_suite;                    @MAKE@ clean
 
 depends:

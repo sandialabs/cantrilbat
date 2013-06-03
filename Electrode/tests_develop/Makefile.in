@@ -9,7 +9,7 @@ all:
 	cd LiSi_1_Newman ;                                          @MAKE@
 
 test:
-	cd LiSi_1_Newman ;                                          @MAKE@ -s test
+#	cd LiSi_1_Newman ;                                          @MAKE@ -s test
 
 
 clean:
