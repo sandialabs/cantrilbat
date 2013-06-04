@@ -3,18 +3,14 @@
 #
 #CANTERA_INSTALL_DIR=/home/hkmoffa/arch/CanteraSCON
 #CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera-1.8_liquidTransportDevelop  
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera_trunk_dbg
+#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera_trunk_dbg
+CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera_trunk_stable_dbg
 #CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc424/cantera-1.8_liquidTransportDevelop_541
 export CANTERA_INSTALL_DIR
 #
-CANTERA_ROOT=/home/hkmoffa/Cantera/gc/canteraLiquidTransportDevelop
+CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
 export CANTERA_ROOT
 #
-CADS_ROOT=/home/hkmoffa/Cantera/cads_linux64_gcc444
-export CADS_ROOT
-#
-CANTERA_APPS_ROOT=/home/hkmoffa/CanteraApps/cantera_apps
-export CANTERA_APPS_ROOT
 #
 PYTHON_DIR=/home/hkmoffa/arch/linux64_gcc444/python-2.6.4
 export PYTHON_DIR

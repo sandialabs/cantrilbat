@@ -168,7 +168,7 @@ install:
 	@INSTALL@ -d @cta_incdir@
 	@INSTALL@ -d @cta_libdir@
 	cp   $(HDR_CTAPPLBASE) @cta_incdir@
-	cp   libctApplBase.a @cta_libdir@
+	cp   libElectrode.a @cta_libdir@
 
 
 ifeq ($(wildcard .depends), .depends)
