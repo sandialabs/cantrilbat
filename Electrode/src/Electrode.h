@@ -77,6 +77,25 @@ enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
     LINEAR_INTERP_FIS
 };
 
+
+//! Base structure for storing the external state of the electrode at a particular time
+/*!
+ *  There will be external states for the t_init_init and t_final_final times.
+ *  there will be an interpolation strategy between the two.
+ */
+struct Electrode_ExternalField_State {
+
+    double phiMetal_;
+
+    double phiElectrode_;
+
+    std::vector<double> electrolyteMoleFractions_;
+
+    double Temperature_;
+
+    double Pressure_;
+};
+
 class Electrode_Equilibrium;
 
 //! NEW CONCEPT
