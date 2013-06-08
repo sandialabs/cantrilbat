@@ -67,7 +67,7 @@ CXX = @MPICXX@
 #
 
 INCLUDE_DIRS = $(M1D_BASE_INC) -I../src_LiIon_infPorousBat $(APPL_BASE_INC) \
-               -I$(CANTERA_INCROOT) \
+               $(CANTERA_TOTAL_INCLUDES) \
                $(TRILINOS_INC) \
                -I$(UTILSRC_DIR) -I../..
 
