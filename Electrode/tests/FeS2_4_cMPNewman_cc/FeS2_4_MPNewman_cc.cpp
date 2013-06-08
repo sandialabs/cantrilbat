@@ -219,7 +219,7 @@ int main(int argc, char **argv)
       double volts =  electrodeC->integrateConstantCurrent(amps, deltaT, 2.2, 1.3);
       Tfinal = Tinitial + deltaT;
 
-      // electrodeC->integrate(deltaT);
+      electrodeC->integrate(deltaT);
     
       electrodeC->getMoleNumSpecies(molNum);
       doublereal net[12];
@@ -229,7 +229,34 @@ int main(int argc, char **argv)
 
     
       electrodeC->printElectrode();
-  
+
+      SubIntegrationHistory sih1 = electrodeC->timeHistory();
+      sih1.print(3);
+
+      // test new capability
+      {
+	  electrodeC->setTimeHistoryBaseFromCurrent();
+
+	  Electrode_Exterior_Field_Interpolation_Scheme_Enum ef =  T_FINAL_CONST_FIS;
+	  Subgrid_Integration_RunType_Enum subIntegrationType =  FVDELTA_TIMEINTEGRATION_SIR;
+	  electrodeC->integrate(deltaT, 1.0E-3, ef, subIntegrationType);
+
+	  electrodeC->getMoleNumSpecies(molNum);
+	  doublereal net[12];
+	  double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+	  coul  += amps * deltaT;
+	  fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);
+
+    
+	  electrodeC->printElectrode();
+
+	  SubIntegrationHistory&sih2 = electrodeC->timeHistory();
+	  sih2.print(3);
+	  if (sih1 != sih2) {
+	      printf("we have a prob\n");
+	  }
+      } 
+
     }
 
     fclose(fp);
