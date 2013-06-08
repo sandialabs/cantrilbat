@@ -2186,6 +2186,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
 {
     int retn = 1;
     double vtop, vbot;
+    double SrcDot_RelativeExtentRxn_final_1;
 
     bool behaviorChangePossible = false;
     if (solidDiffusionModel_) {
@@ -2354,7 +2355,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
             }
 
         }
-
+	SrcDot_RelativeExtentRxn_final_1 = SrcDot_RelativeExtentRxn_final_;
 
 
         double extLeftStart =  RegionBoundaries_ExtentRxn_[xRegion_init_ + 1] - RelativeExtentRxn_init_;
@@ -2410,7 +2411,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
             } else {
                 RelativeExtentRxn_final_ = RelativeExtentRxn_init_ + SrcDot_RelativeExtentRxn_final_ * deltaTsubcycleCalc_;
             }
-
+	    SrcDot_RelativeExtentRxn_final_1 = SrcDot_RelativeExtentRxn_final_;
 
             /*
              *  Calculate the inner radius via one successive approximation to improve the estimate
@@ -2445,13 +2446,28 @@ int  Electrode_MP_RxnExtent::predictSoln()
                 double tmpp =  RelativeExtentRxn_final_ ;
 #endif
                 // Calculate a new value of the relative extent.
-                RelativeExtentRxn_tmp_ = RelativeExtentRxn_init_ + SrcDot_RelativeExtentRxn_final_ * deltaTsubcycleCalc_;
+                RelativeExtentRxn_final_ = RelativeExtentRxn_init_ + SrcDot_RelativeExtentRxn_final_ * deltaTsubcycleCalc_;
 #ifdef DEBUG_HKM_NOT
                 if (RelativeExtentRxn_final_ < 1.75 && tmpp > 1.75) {
                     printf("we are here\n");
                 }
 #endif
 
+		if (SrcDot_RelativeExtentRxn_final_1 * SrcDot_RelativeExtentRxn_final_ < 0.0) {
+		    if (fabs((SrcDot_RelativeExtentRxn_final_1 - SrcDot_RelativeExtentRxn_final_) * deltaTsubcycleCalc_) > 0.0001) {
+			/*
+			 *  we are here when the integration formula has serious problems. The source term changed sign
+			 *  Fail the step and use a smaller step.
+			 */
+			// printf("predictSoln(): New predictor error condition\n");
+			return -1;
+		    }
+		} else {
+		    // if the source term changed a lot return also.
+		    if (fabs((SrcDot_RelativeExtentRxn_final_1 - SrcDot_RelativeExtentRxn_final_) * deltaTsubcycleCalc_) > 0.01) {
+			return -1;
+		    }
+		}
 
                 if (RelativeExtentRxn_final_ >= RegionBoundaries_ExtentRxn_[xRegion_init_ + 1]) {
                     if (RelativeExtentRxn_init_  < RelativeExtentRxn_final_) {
@@ -2598,6 +2614,9 @@ int  Electrode_MP_RxnExtent::predictSoln()
         printf("we are here\n");
     }
 #endif
+    if (deltaTsubcycleCalc_ <= 0.0) {
+	throw CanteraError("predictSoln():", "deltaTsubcycleCalc is less than or equal to zero");
+    }
     soln_predict_[0] = deltaTsubcycleCalc_ ;
     soln_predict_[1] = RelativeExtentRxn_final_;
     soln_predict_[2] =   onRegionBoundary_final_;
