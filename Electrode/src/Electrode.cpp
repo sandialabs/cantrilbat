@@ -2559,9 +2559,9 @@ double Electrode::integratedLocalCurrent() const
     if (t_final_final_ > t_init_init_) {
         invDelT = 1.0 / (tfinal_ - tinit_);
     }
-    // kmol sec-1 m-2
+    // kmol sec-1
     double Eprod = invDelT * spMoleIntegratedSourceTermLast_[kElectron_];
-    // coulomb / kmol
+    // returns coulomb / sec
     return Eprod * Faraday;
 }
 //====================================================================================================================

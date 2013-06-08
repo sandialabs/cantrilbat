@@ -31,21 +31,92 @@ public:
         t_init_(0.0),
         t_final_(0.0),
         t_final_calc_(0.0),
+	timeTypeSoln_(0),
         numNonLinSolves_(0),
-        timeTypeSoln_(0),
         solnErrorNorm_(0.0),
-        wdotErrorNorm_(0.0) {
+        wdotErrorNorm_(0.0),
+	volts_(0.0),
+	srcTermStepElectrons_(0.0),
+	currentStep_(0.0)
+    {
+    }
+
+    TimeStepHistory(double t_init, double t_final, double t_final_calc, int timeTypeSoln, int numNonLinSolves,
+		    double solnErrorNorm, double  wdotErrorNorm) :
+	t_init_(t_init),
+        t_final_(t_final),
+        t_final_calc_(t_final_calc),
+	timeTypeSoln_(timeTypeSoln),
+        numNonLinSolves_(numNonLinSolves),
+        solnErrorNorm_(solnErrorNorm),
+        wdotErrorNorm_(wdotErrorNorm),
+	volts_(0.0),
+	srcTermStepElectrons_(0.0),
+	currentStep_(0.0)
+    {
     }
 
     TimeStepHistory(const TimeStepHistory& right) :
         t_init_(right.t_init_),
         t_final_(right.t_final_),
         t_final_calc_(right.t_final_calc_),
-        numNonLinSolves_(right.numNonLinSolves_),
         timeTypeSoln_(right.timeTypeSoln_),
+	numNonLinSolves_(right.numNonLinSolves_),
         solnErrorNorm_(right.solnErrorNorm_),
-        wdotErrorNorm_(right.wdotErrorNorm_) {
+        wdotErrorNorm_(right.wdotErrorNorm_) ,
+	volts_(0.0),
+	srcTermStepElectrons_(0.0),
+	currentStep_(0.0)
+    {
     }
+
+    TimeStepHistory& operator=(const TimeStepHistory& right) 
+    { 
+	if (this == &right) {
+	    return *this;
+	}
+	t_init_             = right.t_init_;
+	t_final_            = right.t_final_;
+	t_final_calc_       = right.t_final_calc_;
+	numNonLinSolves_    = right.numNonLinSolves_;
+	timeTypeSoln_       = right.timeTypeSoln_;
+	solnErrorNorm_      = right.solnErrorNorm_;
+	wdotErrorNorm_      = right.wdotErrorNorm_;
+	volts_              = right.volts_;
+	srcTermStepElectrons_ = right.srcTermStepElectrons_;
+	currentStep_        = right.currentStep_;
+	return *this;
+    }
+
+    bool operator==(const TimeStepHistory& other) const
+    {
+	if (fabs(t_init_ - other.t_init_) > 1.0E-13) {
+	    return false;
+	}
+	if (fabs(t_final_ - other.t_final_) > 1.0E-13) {
+	    if (timeTypeSoln_ != 2) {
+		return false;
+	    }
+	}
+	if (fabs(t_final_calc_ - other.t_final_calc_) > 1.0E-13) {
+	    return false;
+	}
+	if (numNonLinSolves_ != other.numNonLinSolves_) {
+	    return false;
+	}
+	if (timeTypeSoln_ != other.timeTypeSoln_) {
+	    return false;
+	}
+
+	return true;
+    }
+
+    bool operator!=(const TimeStepHistory& other) const
+    {
+	return !(*this == other);
+    }
+    
+
 
     //! Initial time step
     double t_init_;
@@ -59,9 +130,6 @@ public:
      */
     double t_final_calc_;
 
-    //! Number of nonlinear iterations
-    int numNonLinSolves_;
-
     //!  Type of the solution
     /*!
      *      0 normal solution type where the time step is determined from
@@ -73,17 +141,43 @@ public:
      */
     int timeTypeSoln_;
 
+    //! Number of nonlinear iterations
+    int numNonLinSolves_;
+
+  
+
     //! Error norm for that step
     double solnErrorNorm_;
 
     //! Error norm for the source term for that step
     double wdotErrorNorm_;
+
+    //! Volts
+    /*!
+     *  Volts assumed during the step (t_final)
+     */
+    double volts_;
+
+    //! SrcTermElectrons
+    /*!
+     *   sorc term for the electrons ( kmol s-1)
+     */
+    double srcTermStepElectrons_;
+
+    //! Value of the current on this particular step
+    /*!
+     *   This will be equal to the srcTerm divided by the step length
+     */
+    double currentStep_;
+
+    //! Current
 };
 
 
 class SubIntegrationHistory
 {
 public:
+   //! Subintration history
     SubIntegrationHistory();
 
     SubIntegrationHistory(const SubIntegrationHistory& right);
@@ -92,6 +186,45 @@ public:
 
     SubIntegrationHistory& operator=(const SubIntegrationHistory& right);
 
+    //! Wipe out the history 
+    void clear();
+
+    //! Add a step to the time history
+    /*!
+     *
+     *   @param srcElectronsSt
+     *   @param current      amps = coulumbs / sec 
+     */
+    void addTimeStep(double t_init_, double t_final_, double t_final_calc, int timeTypeSoln, 
+		     int numNonLinSolves, double solnErrorNorm, double wdotErrorNorm, double volts,
+	             double srcElectronsStep, double currentStep);
+
+    //!  zero out the time step counter.
+    void zeroTimeStepCounter();
+
+
+    void advanceTimeStepCounter();
+
+    double getNextRegularTime(double currentTime) const;
+    int assureTimeInterval(double gtinit, double gtfinal);
+
+    //! supply a history for the integrator to follow
+    /*!
+     *   @param tinit Starting global time step
+     *   @param tfinal     Final global time step
+     *   @param nsteps     number of local regular time steps
+     */
+    void setConstantStepSizeHistory(double tinit, double tfinal, int nsteps);
+    double globalStartTime() const;
+    double globalEndTime() const;
+    void print(int lvl) const;
+    bool operator==(const SubIntegrationHistory& other) const;
+    bool operator!=(const SubIntegrationHistory& other) const;
+	
+    //! Number of regular time steps, where there are no special events 
+    int nTimeStepsRegular_;
+
+    //! Number of time steps, no matter what the kind.
     int nTimeSteps_;
 
     std::vector<TimeStepHistory> TimeStepList_;
@@ -99,6 +232,11 @@ public:
     double GsolnErrorNorm_;
     double GwdotErrorNorm_;
 
+    //! Counter for replaying the integration history
+    mutable int iCounter;
+
+
+    double time_step_next;
 };
 
 //! This class is a derived class used to model phase - change electrodes
@@ -693,6 +831,11 @@ public:
      */
     virtual void printResid_ResidSatisfaction();
 
+    int setTimeHistoryBaseFromCurrent();
+    int setTimeHistoryBase( const SubIntegrationHistory &timeHistory);
+
+    SubIntegrationHistory& timeHistory(bool returnBase = false);
+
     // ---------------------------------------------------------------------------------------------
     // -------------------------------- DATA  -----------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -792,6 +935,9 @@ protected:
     doublereal IntegratedSrc_normError_local_;
     doublereal IntegratedSrc_normError_global_;
 
+
+    SubIntegrationHistory timeHistory_base_;
+    SubIntegrationHistory timeHistory_current_;
 
     char buf_[1024];
 

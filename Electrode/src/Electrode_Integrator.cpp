@@ -36,21 +36,28 @@ using namespace mdpUtil;
 
 namespace Cantera
 {
+
 //======================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory() :
+    nTimeStepsRegular_(0),
     nTimeSteps_(0),
     TimeStepList_(0),
     GsolnErrorNorm_(0.0),
-    GwdotErrorNorm_(0.0)
+    GwdotErrorNorm_(0.0),
+    iCounter(0),
+    time_step_next(0.0)
 {
 
 }
 //======================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory(const SubIntegrationHistory& right) :
+    nTimeStepsRegular_(right.nTimeStepsRegular_),
     nTimeSteps_(right.nTimeSteps_),
-    TimeStepList_(TimeStepList_),
+    TimeStepList_(right.TimeStepList_),
     GsolnErrorNorm_(right.GsolnErrorNorm_),
-    GwdotErrorNorm_(right.GwdotErrorNorm_)
+    GwdotErrorNorm_(right.GwdotErrorNorm_),
+    iCounter(right.iCounter),
+    time_step_next(right.time_step_next)
 {
 
 }
@@ -65,11 +72,288 @@ SubIntegrationHistory& SubIntegrationHistory::operator=(const SubIntegrationHist
     if (this == &right) {
         return *this;
     }
+    nTimeStepsRegular_ = right.nTimeStepsRegular_;
     nTimeSteps_ = right.nTimeSteps_;
     TimeStepList_ = right.TimeStepList_;
     GsolnErrorNorm_ = right.GsolnErrorNorm_;
     GwdotErrorNorm_ = right.GwdotErrorNorm_;
+    iCounter = right.iCounter;
+    time_step_next = right.time_step_next;
     return *this;
+}
+//======================================================================================================================
+void  
+SubIntegrationHistory::clear()
+{
+    nTimeStepsRegular_ = 0;
+    nTimeSteps_ = 0;
+    TimeStepList_.clear();
+    GsolnErrorNorm_ = 0.0;
+    GwdotErrorNorm_ = 0.0;
+    iCounter = 0;
+    time_step_next = 0.0;
+}
+//======================================================================================================================
+
+//! Add a step to the time history
+void  
+SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final_calc, int timeTypeSoln,int numNonLinSolves,
+				   double solnErrorNorm, double wdotErrorNorm, double volts,
+				   double srcElectronsStep, double currentStep)
+{
+    /*
+     * check for consistency
+     */
+    if (iCounter > 0) {
+	TimeStepHistory& tshPrevious =  TimeStepList_[iCounter-1];
+	double t_final_calc_Previous =  tshPrevious.t_final_calc_;
+	if (fabs(t_init - t_final_calc_Previous) > 1.0E-13) {
+	    throw Cantera::CanteraError("Shouldn't be here","");
+	}
+    }
+    if (timeTypeSoln != 2) {
+	if (t_final != t_final_calc) {
+	    throw CanteraError("Shouldn't be here", "");
+	}
+    } else {
+	if (t_final == t_final_calc) {
+	    throw CanteraError("warning t_final == t_final_calc", "");
+	}
+    }
+
+    // store time step (note inefficient op - may replace)
+    TimeStepList_.push_back(
+	TimeStepHistory(t_init, t_final, t_final_calc , timeTypeSoln, numNonLinSolves, solnErrorNorm, wdotErrorNorm)
+	);
+    TimeStepHistory &tsh = TimeStepList_[nTimeSteps_];
+    tsh.volts_ = volts;
+    tsh.srcTermStepElectrons_ = srcElectronsStep;
+    tsh.currentStep_ = currentStep;
+    iCounter++;
+
+    time_step_next = t_final - t_init;
+    GsolnErrorNorm_ += solnErrorNorm;
+    GwdotErrorNorm_ += wdotErrorNorm;
+  
+    nTimeSteps_++;
+    if (timeTypeSoln != 2) {
+	nTimeStepsRegular_++;
+    }
+
+}
+//======================================================================================================================
+void  
+SubIntegrationHistory::zeroTimeStepCounter()
+{
+    iCounter = 0;
+}
+//======================================================================================================================
+void  
+SubIntegrationHistory::advanceTimeStepCounter()
+{
+    if (iCounter + 1 < nTimeSteps_) {
+	iCounter++;
+    }
+}
+//======================================================================================================================
+double
+SubIntegrationHistory::getNextRegularTime(double currentTime) const
+{
+    // put in extra assignments for debugging
+    //int iC = iCounter;
+
+    if (iCounter >=  nTimeSteps_) {
+	const TimeStepHistory& tshCurrent =  TimeStepList_[iCounter];
+	double tfinal = tshCurrent.t_final_;
+	tfinal += time_step_next;
+	return tfinal;
+    }
+
+    const TimeStepHistory* tshCurrent_ptr = & TimeStepList_[iCounter];
+    double t_final_calc_First = tshCurrent_ptr->t_final_calc_;
+    double t_final_First = tshCurrent_ptr->t_final_;
+    double t_final = t_final_First;
+    double t_final_calc = t_final_calc_First;
+
+    while (t_final_calc <= currentTime) {
+	if (iCounter +1 < nTimeSteps_) {
+	    iCounter++;
+	    tshCurrent_ptr = & TimeStepList_[iCounter];
+	    t_final_calc = tshCurrent_ptr->t_final_calc_;
+	    t_final = tshCurrent_ptr->t_final_;
+	} else {
+	    t_final_calc = currentTime + time_step_next;
+	    return t_final_calc;
+	}
+    }
+
+    while (tshCurrent_ptr->timeTypeSoln_ == 2) {
+	if (t_final_calc > t_final) {
+	    return t_final;
+	}
+	if (iCounter +1 < nTimeSteps_) {
+	    iCounter++;
+	} else {
+	    
+	}
+	tshCurrent_ptr = & TimeStepList_[iCounter];
+	t_final = tshCurrent_ptr->t_final_;
+	t_final_calc = tshCurrent_ptr->t_final_;
+    }
+    if (t_final_calc <= currentTime) {
+	t_final_calc = currentTime + time_step_next;
+    }
+ 
+    return (t_final_calc);
+}
+//======================================================================================================================
+int
+SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal) 
+{
+    int iC = 0;
+    TimeStepHistory* tshCurrent_ptr = & TimeStepList_[iC];
+    double tinit =  tshCurrent_ptr->t_init_;
+    if (fabs(gtinit - tinit) > 1.0E-13) {
+	throw CanteraError("shouldn't be here", "");
+    }
+    tshCurrent_ptr =  & TimeStepList_[nTimeSteps_-1];
+    double tfinal =  tshCurrent_ptr->t_final_;
+    if (tshCurrent_ptr->timeTypeSoln_ == 2) {
+	printf("weird condition\n");
+	tshCurrent_ptr->timeTypeSoln_ = 0;
+    }
+    if (fabs(gtfinal - tfinal) > 1.0E-13) {
+	throw CanteraError("shouldn't be here", "");
+    }
+    int iCsave = iCounter;
+    for (int i = 0; i < nTimeStepsRegular_; i++) {
+	tfinal = getNextRegularTime(tinit);
+	if (tfinal <= tinit) {
+	   throw CanteraError("shouldn't be here", "");
+	}
+	advanceTimeStepCounter();
+	tinit = tfinal;
+    }
+    if (fabs(tfinal - gtfinal) > 1.0E-13) {
+	throw CanteraError("shouldn't be here", "");
+    }
+    iCounter = iCsave;
+    return iCounter;
+}
+//======================================================================================================================
+double
+SubIntegrationHistory::globalStartTime() const
+{
+    const TimeStepHistory& tshCurrent =  TimeStepList_[0];
+    return tshCurrent.t_init_;
+}
+//======================================================================================================================
+double
+SubIntegrationHistory::globalEndTime() const
+{
+    const TimeStepHistory& tshCurrent =  TimeStepList_[nTimeSteps_-1];
+    return tshCurrent.t_final_;
+}
+//======================================================================================================================
+void
+SubIntegrationHistory::print(int lvl) const
+{
+    if (lvl > 1) {
+	printf("     ===============================================================================================================================\n");
+    }
+    if (lvl > 0) {
+	printf("     SubStepIntegrationHistory t_init = %12.5g to t_final = %12.5g nstepsReg = %d numSpecialSteps = %d\n",
+	       globalStartTime(), globalEndTime(), nTimeStepsRegular_, nTimeSteps_- nTimeStepsRegular_);
+    } 
+    if (lvl == 2) {
+	printf("            t_init     t_final      delta_t  solnType    t_requ numNonlin   solnErrDot wdotError\n");
+	for (int i = 0; i < nTimeSteps_; i++) {
+	    const TimeStepHistory& tshCurrent =  TimeStepList_[i];
+	    double delta_t = tshCurrent.t_final_ - tshCurrent.t_init_;
+	    printf("     %12.5g %12.5g %12.5g %5d %12.5g %5d %12.5g %12.5g\n", tshCurrent.t_init_, tshCurrent.t_final_calc_, 
+		    delta_t, tshCurrent.timeTypeSoln_,  tshCurrent.t_final_calc_,
+		   tshCurrent.numNonLinSolves_, tshCurrent.solnErrorNorm_, tshCurrent.wdotErrorNorm_);
+	}
+	printf("     ----------------------------------------------------------------------------------------------------------------------------\n");
+	printf("                                                                     %12.5g %12.5g \n",    GsolnErrorNorm_, GwdotErrorNorm_);
+
+	printf("     ==================================================================================================================================\n");
+    }
+
+    if (lvl > 2) {
+	printf("            t_init     t_final      delta_t  solnType    t_requ numNonlin   solnErrDot wdotError "
+	       " volts       srcElect       Current\n");
+	double sSum = 0.0;
+	double gtinit = globalStartTime();
+	double gtfinal = globalEndTime();
+	for (int i = 0; i < nTimeSteps_; i++) {
+	    const TimeStepHistory& tshCurrent =  TimeStepList_[i];
+	    double delta_t = tshCurrent.t_final_ - tshCurrent.t_init_;
+	    sSum +=  tshCurrent.srcTermStepElectrons_;
+	    printf("     %12.6g %12.6g %12.5g %5d %12.5g %5d %12.5g %12.5g %12.8f %12.5g %12.5g\n", 
+		   tshCurrent.t_init_, tshCurrent.t_final_calc_, 
+		   delta_t, tshCurrent.timeTypeSoln_,  tshCurrent.t_final_calc_,
+		   tshCurrent.numNonLinSolves_, tshCurrent.solnErrorNorm_, tshCurrent.wdotErrorNorm_,
+		   tshCurrent.volts_, tshCurrent.srcTermStepElectrons_, tshCurrent.currentStep_);
+	}
+	printf("     --------------------------------------------------------------------------------------------------------------------------------\n");
+	double gCurr = 0.0;
+	if (gtfinal > gtinit) {
+	    gCurr = sSum / (gtfinal - gtinit) * Faraday;
+	}
+	printf("                                                                     %12.5g %12.5g              %12.5g %12.5g \n", 
+	       GsolnErrorNorm_, GwdotErrorNorm_,
+	       sSum, gCurr);
+
+	printf("     =================================================================================================================================\n");
+    }
+}
+//======================================================================================================================
+
+void SubIntegrationHistory::
+setConstantStepSizeHistory(double gtinit, double gtfinal, int nsteps)
+{
+    zeroTimeStepCounter();
+    double delta = (gtfinal - gtinit) / nsteps;
+    for (int i = 0; i < nsteps; i++) {
+	double tinit = gtinit + i * delta;
+	double tfinal = gtinit + (i+1) * delta;
+	addTimeStep(tinit, tfinal, tfinal, 1, 0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    }
+}
+//======================================================================================================================
+bool  SubIntegrationHistory::operator==(const SubIntegrationHistory& other) const
+{
+    if (nTimeStepsRegular_ != other.nTimeStepsRegular_) {
+	return false;
+    }
+    int i_l = 0;
+    int i_r = 0;
+    do {
+ 
+	const TimeStepHistory* tshCurrent =  &TimeStepList_[i_l];
+	const TimeStepHistory* tshCurrent_other =  & other.TimeStepList_[i_r];
+	if (! (*tshCurrent == *tshCurrent_other)) {
+	    if (tshCurrent->timeTypeSoln_ == 2) {
+		i_l++;
+		break;
+	    }
+	    if (tshCurrent_other->timeTypeSoln_ == 2) {
+		i_r++;
+		break;
+	    }
+	    return false;
+	}
+	i_l++;
+	i_r++;
+    } while (i_l < nTimeSteps_ && (i_r < other.nTimeSteps_));
+   
+    return true;
+}
+//======================================================================================================================
+bool  SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
+{
+    return ! (*this == other);
 }
 //======================================================================================================================
 /*
@@ -283,7 +567,8 @@ Electrode_Integrator::create_solvers()
     phaseJustDied_.resize(m_NumTotPhases, 0);
     phaseJustBorn_.resize(m_NumTotPhases, 0);
 
-    soln_predict_.resize(neqNLS, 0.0);
+    // Add a couple of extra doubles, to the predictor, because some objects store extra info in those slots
+    soln_predict_.resize(neqNLS + 2, 0.0);
 
     IntegratedSrc_Predicted.resize(numIntegratedSrc_, 0.0);
     IntegratedSrc_final_.resize(numIntegratedSrc_, 0.0);
@@ -389,14 +674,14 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
                                      Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType,
                                      Subgrid_Integration_RunType_Enum subIntegrationType)
 {
-
+    double tfinal_start;
     /*
      *  Need to turn off following electrolyte moles. There is no solution if this is not true.
      */
     turnOffFollowElectrolyteMoles();
 
-    //SubIntegrationHistory * sih = 0;
-
+    timeHistory_current_.clear();
+   
 
     double pnorm = 0.0;
     int num_newt_its = 0;
@@ -460,9 +745,17 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     }
     //     Put a max of two to the growth of deltaT for the next global time step
     if (choiceDeltaTsubcycle_init_ == 0) {
-        deltaTsubcycle_init_next_ =  deltaTsubcycleNext_;
+        deltaTsubcycle_init_next_ = deltaTsubcycleNext_;
     } else {
         deltaTsubcycle_init_next_ = 2.0*deltaT;
+    }
+
+    if (subIntegrationType == FVDELTA_TIMEINTEGRATION_SIR || subIntegrationType == FIXEDSUBCYCLENUMBER_TIMEINTEGRATION_SIR) {
+	// Set counter to zero
+	timeHistory_base_.zeroTimeStepCounter();
+	timeHistory_base_.assureTimeInterval(t_init_init_, t_final_final_);
+	double tt = timeHistory_base_.getNextRegularTime(tinit_);
+	deltaTsubcycleNext_ = tt - tinit_;
     }
 
     /*
@@ -558,6 +851,13 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
          *  Calculate the time interval from the previous step or from the initial value coming into the routine
          */
         deltaTsubcycle_ = deltaTsubcycleNext_;
+	/*
+	 *   Or if we have specified to follow a time step history wo get the next step size from the history counter
+	 */
+        //	if (subIntegrationType == FVDELTA_TIMEINTEGRATION_SIR || subIntegrationType == FIXEDSUBCYCLENUMBER_TIMEINTEGRATION_SIR) {
+	//   tfinal_ = timeHistory_base_.getNextRegularTime();
+	// deltaTsubcycle_ = tfinal_ - tinit_;
+	//}
 
 #ifdef DEBUG_MODE_NOT
         if (counterNumberIntegrations_ >= 27502) {
@@ -582,7 +882,8 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         /*
          * Set the final time of the interval
          */
-        tfinal_ += deltaTsubcycle_;
+        tfinal_ = tinit_ + deltaTsubcycle_;
+	tfinal_start = tinit_ + deltaTsubcycle_;
 
         /*
          *  Bound the time interval by the global time step
@@ -644,7 +945,7 @@ topConvergence:
                 throw CanteraError("Electrode_Integrator::integrate()",
                                    "FAILURE too many nonlinear convergence failures");
             }
-
+	    tfinal_ = tinit_ + deltaTsubcycle_;
             /*
              *   Zero needed counters
              */
@@ -770,16 +1071,17 @@ topConvergence:
 #endif
             //   How to turn on the jacobian printing if debugging
             // pSolve_->s_print_NumJac = 1;
+	    tfinal_start = tfinal_;
 
             int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
-                                tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
-                                numBacktracks, loglevelInput);
+								 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
+								 numBacktracks, loglevelInput);
             if (nonlinearFlag < 0) {
                 if (printLvl_ > 2) {
                     printf("Electrode_Integrate::integrate(): Unsuccessful Nonlinear Solve flag = %d\n", nonlinearFlag);
                 }
             }
-
+	    bool specialSolve = false;
             if (nonlinearFlag < 0) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -808,6 +1110,7 @@ topConvergence:
                     // Pick the next delta T to be equal to the current delta T
                     deltaTsubcycleNext_ = deltaTsubcycle_;
                     tfinal_ = tinit_ + deltaTsubcycleCalc_;
+		    specialSolve = true;
                 } else  if (deltaTsubcycleCalc_ > deltaTsubcycle_ * (1.0 + 1.0E-10)) {
                     if (printLvl_ > 1) {
                         printf("deltaT increased to %g from %g due to phase death capture\n",
@@ -816,6 +1119,7 @@ topConvergence:
                     // Pick the next delta T to be equal to the current delta T
                     deltaTsubcycleNext_ = deltaTsubcycle_;
                     tfinal_ = tinit_ + deltaTsubcycleCalc_;
+		    specialSolve = true;
                 }
 
                 conseqFailures--;
@@ -849,7 +1153,9 @@ topConvergence:
 
         //
         // ACTIVITIES THAT ARE NEEDED TO DETERMINE IF THE SUBCYCLE IS ACCURATE ENOUGH
-        //
+        // 
+	double pnormSrc = 0.0;
+	double pnormSoln = 0.0;
         if (stepAcceptable) {
             /*
              *  Calculate the integrated source terms and do other items now that we have a completed time step
@@ -864,9 +1170,9 @@ topConvergence:
              *  Now create a norm out of the error vector, making one number that will feed back into the time stepping
              *  algorithm here.
              */
-            double pnormSrc = predictorCorrectorGlobalSrcTermErrorNorm();
+            pnormSrc = predictorCorrectorGlobalSrcTermErrorNorm();
 
-            double pnormSoln = predictorCorrectorWeightedSolnNorm(yvalNLS_);
+             pnormSoln = predictorCorrectorWeightedSolnNorm(yvalNLS_);
 
             pnorm = fmax(pnormSrc, pnormSoln);
 
@@ -935,6 +1241,23 @@ topConvergence:
          */
         accumulateLocalErrorToGlobalErrorOnCompletedStep();
 
+	int timeTypeSoln = 0;
+	if (fabs( tfinal_start - tfinal_) > 1.0E-13) {
+	    timeTypeSoln = 2;
+	}
+	 
+	/*
+	 *   Find the local current for this step using a virtual function so that it is extensible. Then find the
+	 *   src term using this value of the current
+	 *       units = current = coulombs/sec = amps
+	 *               srcTerm = kmol / sec
+	 */
+	double currentStep = integratedLocalCurrent();
+	double srcElectronsStep = currentStep * (tfinal_ - tinit_) / Faraday;
+        timeHistory_current_.addTimeStep(tinit_, tfinal_start, tfinal_, timeTypeSoln,
+					 num_newt_its, pnormSoln, pnormSrc, deltaVoltage_, srcElectronsStep, currentStep);
+
+
         /*
          * Adjust the next time step according to a predictor-corrector critera
          */
@@ -988,6 +1311,23 @@ topConvergence:
                 deltaTsubcycleNext_ = relativeLocalToGlobalTimeStepMinimum_ * deltaT;
             }
         }
+
+       	if (subIntegrationType == FVDELTA_TIMEINTEGRATION_SIR || subIntegrationType == FIXEDSUBCYCLENUMBER_TIMEINTEGRATION_SIR) {
+	    double tbase = timeHistory_base_.getNextRegularTime(tfinal_);
+	    if (tfinal_ > tbase * 1.00000000001) {
+		timeHistory_base_.advanceTimeStepCounter();
+	    }
+	    double tfinalnew = timeHistory_base_.getNextRegularTime(tfinal_);
+	    double dtNew = tfinalnew - tfinal_;
+	    
+	    // we may compare the calculated deltaTnew with the base deltaTnew here if we want.
+	    if (dtNew >  deltaTsubcycleNext_ * 1.001) {
+		printf("Warning\n");
+	    }
+	    // Right now, let's just assign it.
+	    deltaTsubcycleNext_ = dtNew;
+	}
+
 
         /*
          *  If this is the first subcycle time step, calcualte the first time step for the next global iteration
@@ -1861,6 +2201,27 @@ double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::v
         errorLocalNLS_[k] = ee * rtol;
     }
     return max0;
+}
+
+//====================================================================================================================
+int Electrode_Integrator::setTimeHistoryBaseFromCurrent()
+{
+    timeHistory_base_ = timeHistory_current_;
+    return timeHistory_base_.nTimeStepsRegular_;
+}
+//====================================================================================================================
+int Electrode_Integrator::setTimeHistoryBase(const SubIntegrationHistory &timeHistory)
+{
+    timeHistory_base_ = timeHistory;
+    return timeHistory.nTimeStepsRegular_;
+}
+//====================================================================================================================
+SubIntegrationHistory& Electrode_Integrator::timeHistory(bool returnBase)
+{
+    if (returnBase) {
+	return timeHistory_base_;
+    }
+    return timeHistory_current_;
 }
 
 } // End of namespace Cantera

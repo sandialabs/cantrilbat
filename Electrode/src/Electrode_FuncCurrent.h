@@ -15,7 +15,9 @@
 #include "cantera/numerics/RootFind.h"
 
 #include "Electrode.h"
+
 #include "ReactingSurDomain.h"
+#include "Electrode_Integrator.h"
 
 using namespace std;
 using namespace Cantera;
@@ -52,14 +54,14 @@ public:
          * Integrate the electrode for a certain time, m_deltaT,
          *   The tolerance is set at 1.0E-4.
          */
-        m_ee->integrate(m_deltaT, 1.0E-4);
+        int nSubs =  m_ee->integrate(m_deltaT, 1.0E-4);
         /*
          *  Get the amps produced by the integration.
          */
         double amps = m_ee->getIntegratedProductionRatesCurrent(srcNet);
         r[0] = amps;
 #ifdef DEBUG_ELECTRODE_MODE
-        int nSubs = m_ee->integrate(m_deltaT);
+        nSubs = m_ee->integrate(m_deltaT);
         if (nSubs > 1) {
             FILE* fp = fopen("iv.txt", "w");
             for (int n = 0; n < 200; n++) {
@@ -73,9 +75,18 @@ public:
             exit(-1);
         }
 #endif
+	Electrode_Integrator* eeI = dynamic_cast<Electrode_Integrator*>(m_ee);
+
         if (printLvl_ > 2) {
-            printf("Electrode_ECurr: Curr(voltage = %20.13g) = %20.13g\n", x[0], amps);
+            printf("Electrode_ECurr: Curr(voltage = %20.13g) = %20.13g   nsteps = %d\n", x[0], amps, nSubs);
+	  
         }
+	if (eeI) {
+	    if (printLvl_ > 3) {
+		SubIntegrationHistory &sih = eeI->timeHistory();
+		sih.print(3);
+	    }
+	}
         return 0;
     }
 

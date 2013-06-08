@@ -67,6 +67,8 @@ enum Electrode_Types_Enum {
     MP_RXNEXTENT_LISI_ET
 };
 
+
+//! Interpolation of exterior fields
 enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
 
     //! Field interpolation scheme based on assuming final_final values persist throughout the time step
@@ -113,15 +115,17 @@ enum Subgrid_Integration_RunType_Enum {
      *  we want to minimize the noise in the calculation due to time stepping.
      *   -> this has been the default
      */
-    BASE_TIMEINTEGRATION_SIR = 0,
+    BASE_TIMEINTEGRATION_SIR= 0,
 
     //! Time integration stategy is reevalulated after the first time along the interval and storred
     //! for later use.
     /*!
-     *  This is used in the  calculation of numerical deltas of the Electrode objects, where
+     *  This is used in the calculation of numerical deltas of the Electrode objects, where
      *  we want to minimize the noise in the calculation due to time stepping. Here,
-     *  we use the history of the time step over the interval to smooth out the calculation
+     *  we use the previous history of the time step over the interval to smooth out the calculation
      *  so as to equalize the errors incurred between steps.
+     *
+     *   (HKM -> delay implementation or delete)
      */
     BASE_REEVALUATION_TIMEINTEGRATION_SIR,
 
@@ -130,15 +134,14 @@ enum Subgrid_Integration_RunType_Enum {
      *   Special cases can change the actual number of subcylces used to be greater than
      *   the requested number
      */
-    FIXEDSUBCYCLENUMBER_TIMEINTEGRAION_SIR,
-
+    FIXEDSUBCYCLENUMBER_TIMEINTEGRATION_SIR,
 
     //! Reuse the time integration stategy using a delta of the value of the field variables
     /*!
      *  This is used in the  calculation of numerical deltas of the Electrode objects, where
      *  we want to minimize the noise in the calculation due to time stepping.
      */
-    FVDELTA_TIMEINTEGRAION_SIR
+    FVDELTA_TIMEINTEGRATION_SIR
 };
 
 
