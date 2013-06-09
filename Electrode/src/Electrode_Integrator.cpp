@@ -112,11 +112,11 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
 	}
     }
     if (timeTypeSoln != 2) {
-	if (t_final != t_final_calc) {
+	if (fabs(t_final - t_final_calc) > 1.0E-13) {
 	    throw CanteraError("Shouldn't be here", "");
 	}
     } else {
-	if (t_final == t_final_calc) {
+	if (fabs(t_final - t_final_calc) < 1.0E-16) {
 	    throw CanteraError("warning t_final == t_final_calc", "");
 	}
     }

@@ -118,7 +118,7 @@ HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.
                   Electrode_CSTR_LiCoO2Cathode.h EState.h Electrode_FuncCurrent.h  \
                   Electrode_Integrator.h Electrode_SimpleDiff.h \
                   Electrode_RadialDiffRegions.h  Electrode_RadialRegion.h Electrode_SurfaceRegion.h \
-                  Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h Electrode_Equilibrium.h \
+                  Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h Electrode_Jacobian.h \
                   Electrode_MP_RxnExtent_FeS2.h
 
 

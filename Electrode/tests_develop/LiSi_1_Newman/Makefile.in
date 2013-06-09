@@ -46,17 +46,17 @@ UTILSRC_INC = @ct_prefix@/include/util_src
 #
 # Set up the Cantera addition library
 #
-CTPADDS_DIR = @cta_prefix@
-CTPADDS_DEP = $(CTPADDS_DIR)/lib/libctpadds.a
-CTPADDS_LIB = -L$(CTPADDS_DIR)/lib -lctpadds
+CTPADDS_DIR = ../../../ctpadds
+CTPADDS_DEP = $(CTPADDS_DIR)/src/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR)/src -lctpadds
 #
 # Set up the Cantera Application Base directory
 #
 
-ELECTRODE_DIR = @cta_prefix@
-ELECTRODE_INC = @cta_incdir@ 
-ELECTRODE_LIB =  -L$(ELECTRODE_DIR)/lib -lctApplBase
-ELECTRODE_DEP =  $(ELECTRODE_DIR)/lib/libctApplBase.a
+ELECTRODE_DIR = ../../src
+ELECTRODE_INC = ../../src
+ELECTRODE_LIB =  -L$(ELECTRODE_DIR) -lElectrode
+ELECTRODE_DEP =  $(ELECTRODE_DIR)/libElectrode.a
 
 #
 #########################################################################
