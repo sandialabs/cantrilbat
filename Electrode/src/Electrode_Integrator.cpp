@@ -386,6 +386,7 @@ Electrode_Integrator::Electrode_Integrator() :
     IntegratedSrc_Errors_globalStep_(0),
     rtol_IntegratedSrc_global_(1.0E-4),
     atol_IntegratedSrc_global_(0),
+    maxNumberSubCycles_(50000),
     IntegratedSrc_normError_local_(0.0),
     IntegratedSrc_normError_global_(0.0),
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
@@ -420,6 +421,7 @@ Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     IntegratedSrc_Errors_globalStep_(0),
     rtol_IntegratedSrc_global_(1.0E-4),
     atol_IntegratedSrc_global_(0),
+    maxNumberSubCycles_(50000),
     IntegratedSrc_normError_local_(0.0),
     IntegratedSrc_normError_global_(0.0),
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
@@ -476,6 +478,7 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
     IntegratedSrc_Errors_globalStep_    = right.IntegratedSrc_Errors_globalStep_;
     rtol_IntegratedSrc_global_          = right.rtol_IntegratedSrc_global_;
     atol_IntegratedSrc_global_          = right.atol_IntegratedSrc_global_;
+    maxNumberSubCycles_                 = right.maxNumberSubCycles_;
     IntegratedSrc_normError_local_      = right.IntegratedSrc_normError_local_;
     IntegratedSrc_normError_global_     = right.IntegratedSrc_normError_global_;
     relativeLocalToGlobalTimeStepMinimum_ = right.relativeLocalToGlobalTimeStepMinimum_;
@@ -669,6 +672,10 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
  *          Failures to complete the integration due to time truncation error issues return a -1.
  *          Failures due to invalid function calculation attempts return a -2.
  *          Failures due to invalid arguments return a -3.
+ *          Failure due to maxsubcycles exceeded returns a -4. 
+ *
+ *  When the max subcycles are exceeded, can check the subIntegrationHistory for the time that the
+ *  cycle did get to.
  */
 int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
                                      Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType,
@@ -1343,6 +1350,15 @@ topConvergence:
             notDone = false;
             tfinal_ = t_init_init_ + deltaT;
         }
+
+	/*
+	 *  Determine if we have reached the end of number of allowed subcycles
+	 */
+	if (iterSubCycle > maxNumberSubCycles_) {
+	    notDone = false;
+	    t_final_final_ = tfinal_;
+	}
+	
 
         // HKM debugging point
 #ifdef DEBUG_MODE_NOT
@@ -2214,6 +2230,11 @@ int Electrode_Integrator::setTimeHistoryBase(const SubIntegrationHistory &timeHi
 {
     timeHistory_base_ = timeHistory;
     return timeHistory.nTimeStepsRegular_;
+}
+//====================================================================================================================
+void Electrode_Integrator::setMaxNumberSubCycles(int maxN)
+{
+    maxNumberSubCycles_ = maxN;
 }
 //====================================================================================================================
 SubIntegrationHistory& Electrode_Integrator::timeHistory(bool returnBase)

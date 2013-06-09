@@ -10,3 +10,4 @@ rhel5_64_sierra_gcc444
 *.a
 .depends
 config.h
+*~

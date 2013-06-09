@@ -3967,7 +3967,8 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
         SAFE_DELETE(xmlExternalData_final_final_);
         xmlExternalData_final_final_ = new XML_Node(*xmlExternalData_final_);
     }
-
+    // We may not have reached the final time
+    // 
     t_final_final_ = tfinal_;
 }
 //====================================================================================================================
@@ -3982,12 +3983,16 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
  *
  *  @return Return the voltage used to obtain the current
  */
-double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, double phiMax, double phiMin)
+double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, double phiMax, double phiMin 
+					   )
 {
     int status;
     double currentNeeded = current;
     Electrode_ECurr ec(this, deltaT);
 
+    /*
+     *  We take our cues about the best voltages from the electrode object itself
+     */
     double phiM = phaseVoltages_[metalPhase_];
     double phimax = phiMax;
     double phimin = phiMin;
@@ -3996,6 +4001,15 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
         phimax = phiM + 2.0;
         phimin = phiM - 2.0;
     }
+    if (phiMax < phiM) {
+	throw CanteraError("Electrode::integrateConstantCurrent()",
+			   "phiMax , " + fp2str(phiMax) + ", is less than starting phi, " + fp2str(phiM));
+    }
+    if (phiMin > phiM) {
+	throw CanteraError("Electrode::integrateConstantCurrent()",
+			   "phiMin , " + fp2str(phiMin) + ", is greater than starting phi, " + fp2str(phiM));
+    }
+
     RootFind rf(&ec);
     rf.setPrintLvl(1);
     rf.setTol(1.0E-5, 1.0E-10);
@@ -4013,6 +4027,9 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
         rf.setPrintLvl(0);
         ec.printLvl_ = 0;
     }
+
+
+
     /*
      *  We put the rootfinder in a loop here. Sometimes the rootfinder will fail. The algorithm is to cut
      *  the time in half and retry the problem again.

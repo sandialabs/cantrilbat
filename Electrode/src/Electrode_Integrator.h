@@ -836,6 +836,14 @@ public:
 
     SubIntegrationHistory& timeHistory(bool returnBase = false);
 
+    //! Set the Maximum number of subcycles of integration before yielding an error message
+    /*!
+     *   This is the maximum number of subcycles no matter what the type of subsycles
+     *
+     *   Default value is 50000
+     */
+    void setMaxNumberSubCycles(int maxN);
+
     // ---------------------------------------------------------------------------------------------
     // -------------------------------- DATA  -----------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -931,6 +939,13 @@ protected:
     //! Absolute tolerance for the integrated global src term vectors
     std::vector<double> atol_IntegratedSrc_global_;
 
+    //! Maximum number of subcycles of integration before yielding an error message
+    /*!
+     *   This is the maximum number of subcycles no matter what the type of subsycles
+     *
+     *   Default value is 50000
+     */
+    int maxNumberSubCycles_;
 
     doublereal IntegratedSrc_normError_local_;
     doublereal IntegratedSrc_normError_global_;
@@ -938,6 +953,8 @@ protected:
 
     SubIntegrationHistory timeHistory_base_;
     SubIntegrationHistory timeHistory_current_;
+
+
 
     char buf_[1024];
 
