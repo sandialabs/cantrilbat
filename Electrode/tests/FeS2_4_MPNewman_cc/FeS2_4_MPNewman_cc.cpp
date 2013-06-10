@@ -195,7 +195,7 @@ int main(int argc, char **argv)
     deltaTgoal = 2.0E-1;
 
     electrodeC->printElectrode();
-    electrodeC->setPrintLevel(5);
+    electrodeC->setPrintLevel(2);
     electrodeC->setDeltaTSubcycle(0.01);
     electrodeC->detailedResidPrintFlag_ = 2;
     electrodeC->enableExtraPrinting_ = 0;

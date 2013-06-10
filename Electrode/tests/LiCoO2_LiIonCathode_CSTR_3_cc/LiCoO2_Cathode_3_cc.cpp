@@ -195,7 +195,7 @@ int main(int argc, char **argv)
     electrodeC->printCSVLvl_ = 4;
 
     electrodeC->printElectrode();
-    electrodeC->setPrintLevel(4);
+    electrodeC->setPrintLevel(2);
     //electrodeC->setPrintLevel(1);
     electrodeC->setDeltaTSubcycle(0.01);
     //electrodeC->detailedResidPrintFlag_ = 10;
