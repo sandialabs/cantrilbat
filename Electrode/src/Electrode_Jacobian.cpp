@@ -1,73 +1,44 @@
 /*
  * $Id: Electrode_Jacobian.cpp 496 2013-01-07 21:15:37Z hkmoffa $
  */
-#include "cantera/base/mdp_allo.h"
-
-
-#include "cantera/thermo/FixedChemPotSSTP.h"
 
 #include "Electrode_Jacobian.h"
-
-using namespace Cantera;
-using namespace std;
-
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
-#endif
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
 
 namespace Cantera {
 
 //====================================================================================================================
-Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
-                ee_(elect),
-                printLvl_(0)
+Electrode_Jacobian::Electrode_Jacobian(Electrode* elect, const std::map<DOF_SOURCE_PAIR, bool> & dof_source_pairs) :
+                printLvl_(0),
+                electrode(elect)
 {
+  std::map<DOF_SOURCE_PAIR, bool>::const_iterator dof_source_end = dof_source_pairs.end();
 }
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(const Electrode_Jacobian& right) :
-                ee_(right.ee_),
-                printLvl_(0)
+                printLvl_(0),
+                electrode(right.electrode),
+                jacobian(right.jacobian)
 {
-    /*
-     * Call the assignment operator.
-     */
     operator=(right);
 }
 //====================================================================================================================
-// Destructor
 Electrode_Jacobian::~Electrode_Jacobian()
 {
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode_Jacobian& Electrode_Jacobian::operator=(const Electrode_Jacobian& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
-    /*
-     *  Do a shallow copy of the Electrode pointer. This is all that is necessary
-     */
-    ee_ = right.ee_;
-
+    electrode = right.electrode;
 
     printLvl_ = right.printLvl_;
 
-    /*
-     * Return the reference to the current object
-     */
+    jacobian = right.jacobian;
+
     return *this;
 }
-
 //====================================================================================================================
 }// End of namespace Cantera
 //======================================================================================================================
