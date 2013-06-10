@@ -768,10 +768,13 @@ public:
      *  @param phiMin     Minimum value of the voltage. Defaults to -100.
      *                    This is an input.
      *
+     *  @param maxIntegrationSteps max number of integration steps. defaults to 5000
+     *
      *  @return Return the voltage used to obtain the current.
      */
     virtual double integrateConstantCurrent(doublereal& current, doublereal& deltaT,
-                                            double phiMax = 100., double phiMin = -100.);
+                                            double phiMax = 100., double phiMin = -100.,
+                                            int maxIntegrationSteps = 5000);
 
     //! Set the deltaT used for the subcycle step
     /*!

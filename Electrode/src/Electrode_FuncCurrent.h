@@ -37,12 +37,18 @@ public:
         ResidEval(),
         m_ee(ee),
         m_deltaT(deltaT),
-        printLvl_(0) {
+        printLvl_(0),
+        numStepsLast_(0)
+    {
     }
 
     int nEquations() const {
         return 1;
     }
+    int nIntegrationSteps() const {
+        return numStepsLast_;    
+    }
+
     virtual int evalSS(const doublereal t, const doublereal* const x,
                        doublereal* const r) {
         // set the metal and the electrolyte voltage
@@ -54,14 +60,14 @@ public:
          * Integrate the electrode for a certain time, m_deltaT,
          *   The tolerance is set at 1.0E-4.
          */
-        int nSubs =  m_ee->integrate(m_deltaT, 1.0E-4);
+        numStepsLast_ =  m_ee->integrate(m_deltaT, 1.0E-4);
         /*
          *  Get the amps produced by the integration.
          */
         double amps = m_ee->getIntegratedProductionRatesCurrent(srcNet);
         r[0] = amps;
 #ifdef DEBUG_ELECTRODE_MODE
-        nSubs = m_ee->integrate(m_deltaT);
+        int nSubs = m_ee->integrate(m_deltaT);
         if (nSubs > 1) {
             FILE* fp = fopen("iv.txt", "w");
             for (int n = 0; n < 200; n++) {
@@ -78,7 +84,7 @@ public:
 	Electrode_Integrator* eeI = dynamic_cast<Electrode_Integrator*>(m_ee);
 
         if (printLvl_ > 2) {
-            printf("Electrode_ECurr: Curr(voltage = %20.13g) = %20.13g   nsteps = %d\n", x[0], amps, nSubs);
+            printf("Electrode_ECurr: Curr(voltage = %20.13g) = %20.13g   nsteps = %d\n", x[0], amps, numStepsLast_);
 	  
         }
 	if (eeI) {
@@ -98,6 +104,7 @@ public:
     double m_deltaT;
     double srcNet[50];
     int printLvl_;
+    int numStepsLast_;
 };
 
 

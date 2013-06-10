@@ -3980,15 +3980,17 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
  *  @param deltaT     DeltaT for the integration step.
  *  @param phiMax     Maximum value of the voltage. Defaults to  100.
  *  @param phiMin     Minimum value of the voltage. Defaults to -100.
+ *  @param maxIntegrationSteps  defaults to 5000
  *
  *  @return Return the voltage used to obtain the current
  */
-double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, double phiMax, double phiMin 
-					   )
+double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, double phiMax, double phiMin,
+					   int maxIntegrationSteps)
 {
     int status;
     double currentNeeded = current;
     Electrode_ECurr ec(this, deltaT);
+    printf("current needed = %g\n", currentNeeded);
 
     /*
      *  We take our cues about the best voltages from the electrode object itself
@@ -4019,15 +4021,37 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
     double oldP = printLvl_;
     double deltaT_curr = deltaT;
     // Turn down printing for lower levels
-    printLvl_ = MAX(0, printLvl_ - 3);
-    if (printLvl_ > 0) {
-        rf.setPrintLvl(printLvl_);
-        ec.printLvl_ = printLvl_;
+    int printLvlLocal = MAX(0, printLvl_ - 3);
+    if (printLvlLocal > 0) {
+        rf.setPrintLvl(printLvlLocal);
+        ec.printLvl_ = printLvlLocal;
     } else {
         rf.setPrintLvl(0);
         ec.printLvl_ = 0;
     }
-
+    Electrode_Integrator* eei = dynamic_cast<Electrode_Integrator*>(this);
+  
+    int numSteps = integrate(deltaT, 1.0E-3,  T_FINAL_CONST_FIS, BASE_TIMEINTEGRATION_SIR);
+    if (numSteps > maxIntegrationSteps) {
+	if (eei) {
+	    SubIntegrationHistory& sih = eei->timeHistory();
+	    if (printLvl_ > 2) {
+		sih.print(5);
+	    } 
+	    int nn = 3 * maxIntegrationSteps / 4 + 1;
+	    TimeStepHistory& tsh = sih.TimeStepList_[nn];
+	    deltaT_curr = tsh.t_final_calc_;
+	} else {
+	    deltaT_curr = 0.5 * deltaT *  maxIntegrationSteps /  numSteps;
+	}
+    } else {
+	if (printLvl_ > 2) {
+	    if (eei) {
+		SubIntegrationHistory& sih = eei->timeHistory(); 
+		sih.print(5);
+	    }
+	}
+    }
 
 
     /*
@@ -4048,6 +4072,20 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
                 printf("Electrode::integrateConstantCurrent(): Volts (%g amps) = %g at deltaT = %g\n", currentObtained,
                        xbest, deltaT_curr);
             }
+	    numSteps = ec.nIntegrationSteps();
+	    if (eei) {
+		SubIntegrationHistory& sih = eei->timeHistory(); 
+		sih.print(5);
+	    
+		if (numSteps > maxIntegrationSteps) {
+		    int nn = 3 * maxIntegrationSteps / 4 + 1;
+		    TimeStepHistory& tsh = sih.TimeStepList_[nn];
+		    deltaT_curr = tsh.t_final_calc_ - t_init_init_;
+		    deltaT = deltaT_curr;
+		    current = currentObtained;
+		    continue;
+		}
+	    }
             deltaT = deltaT_curr;
             current = currentObtained;
             printLvl_ = oldP;
