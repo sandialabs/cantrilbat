@@ -7,11 +7,16 @@
 namespace Cantera {
 
 //====================================================================================================================
-Electrode_Jacobian::Electrode_Jacobian(Electrode* elect, const std::map<DOF_SOURCE_PAIR, bool> & dof_source_pairs) :
+Electrode_Jacobian::Electrode_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute) :
                 printLvl_(0),
                 electrode(elect)
 {
-  std::map<DOF_SOURCE_PAIR, bool>::const_iterator dof_source_end = dof_source_pairs.end();
+  std::map<DOF_SOURCE_PAIR, bool>::iterator dof_sources_it = entries_to_compute.begin();
+  std::map<DOF_SOURCE_PAIR, bool>::const_iterator dof_source_end = entries_to_compute.end();
+  for( ; dof_sources_it != dof_source_end; ++dof_sources_it )
+  {
+    jacobian[*dof_sources_it] = 0.0;
+  }
 }
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(const Electrode_Jacobian& right) :
@@ -38,6 +43,23 @@ Electrode_Jacobian& Electrode_Jacobian::operator=(const Electrode_Jacobian& righ
     jacobian = right.jacobian;
 
     return *this;
+}
+//====================================================================================================================
+void Electrode_Jacobian::add_entry_to_compute(DOF_SOURCE_PAIR entry)
+{
+  if( jacobian.find(entry) == jacobian.end() )
+  {
+    jacobian[entry] = 0.0;
+  }
+}
+//====================================================================================================================
+void Electrode_Jacobian::remove_entry_to_compute(DOF_SOURCE_PAIR entry)
+{
+  std::map< DOF_SOURCE_PAIR, double >::iterator entry_pos = jacobian.find(entry);
+  if( entry_pos != jacobian.end() )
+  {
+    jacobian.erase(entry_pos);
+  }
 }
 //====================================================================================================================
 }// End of namespace Cantera

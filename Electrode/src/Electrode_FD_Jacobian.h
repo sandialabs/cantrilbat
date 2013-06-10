@@ -16,15 +16,18 @@
 
 #include "Electrode_Jacobian.h"
 
-
 namespace Cantera {
 
 // Compute electrode Jacobian by finite differences
 class Electrode_FD_Jacobian : public Electrode_Jacobian {
   public:
-    void compute_jacobian();
+    virtual void compute_jacobian();
 
+    virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
+    virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
   protected:
+    std::list<DOFS> dofs_to_fd;
+    std::map<DOFS, int> num_sources_using_dof;
 };
 
 } // namespace Cantera
