@@ -2251,6 +2251,7 @@ void Electrode::updateState()
     for (iph = 0; iph < m_NumTotPhases; iph++) {
         updatePhaseNumbers(iph);
     }
+    deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
     /*
      * Calculate the volume of the electrode phase. This is the main routine to do this.
      */
@@ -2673,7 +2674,7 @@ double Electrode::potentialDrop() const
     double phiS = phaseVoltages_[solnPhase_];
     double dd = phiM - phiS;
     if (fabs(dd - deltaVoltage_) > 1.0E-7) {
-        exit(-1);
+        throw CanteraError(" Electrode::potentialDrop()", "inconsistency");
     }
     return deltaVoltage_;
 }
