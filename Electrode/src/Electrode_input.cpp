@@ -8,8 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-
 #include "cantera/equilibrium.h"
 #include "cantera/thermo/MolalityVPSSTP.h"
 
@@ -42,7 +40,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
 using namespace ca_ab;
 
 #include <string>

@@ -1,8 +1,6 @@
 /*
  * $Id: Electrode_Equilibrium.cpp 496 2013-01-07 21:15:37Z hkmoffa $
  */
-#include "cantera/base/mdp_allo.h"
-
 
 #include "cantera/thermo/FixedChemPotSSTP.h"
 

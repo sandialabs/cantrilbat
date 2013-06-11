@@ -8,8 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-#include "cantera/base/mdp_allo.h"
 #include "cantera/equilibrium.h"
 
 #include "Electrode_MP_RxnExtent.h"
@@ -21,7 +19,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
 
 
 #ifndef MAX
@@ -645,16 +642,14 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     spMoles_init_init_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
     phaseMoles_final_[ip_FeS2_B] =  spMoles_FeS2_Normalization_ / 2.0;
 
-
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMf_init_init_), DATA_PTR(spMf_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMf_init_), DATA_PTR(spMf_final_), m_NumTotSpecies);
-
+    std::copy(spMf_final_.begin(), spMf_final_.end(), spMf_init_init_.begin());
+    std::copy(spMf_final_.begin(), spMf_final_.end(), spMf_init_.begin());
 
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
         updatePhaseNumbers(iph);
     }
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
 
 
     /*
@@ -846,8 +841,8 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
         updatePhaseNumbers(iph);
     }
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
 
     /*
      *  Calculate the solid volume and the external radius. Apparently, this step is needed
@@ -948,8 +943,8 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
         updatePhaseNumbers(iph);
     }
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
 
 
     /*
@@ -1536,7 +1531,7 @@ void Electrode_MP_RxnExtent::extractInfo()
      *  loop over the phases in the reacting surface
      *  Get the net production vector
      */
-    mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+    std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
     int nphRS = rsd->nPhases();
     int jph, kph;
     int kIndexKin = 0;
@@ -1737,7 +1732,7 @@ void Electrode_MP_RxnExtent::updateMoleRatesFinal()
 void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
 {
 
-    mdp::mdp_zero_dbl_1(DATA_PTR(DspMoles_final_), m_NumTotSpecies);
+    std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.);
 
     if (limitingEquationBehavior_ == 0) {
         if (locationOfReactingSurface_== 0) {
@@ -1790,7 +1785,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             double theta1 = Radius_internal_init_ * surfaceAreaRS_final_[1] / (rInt + DaOuter_Bar_) / spMoles_FeS2_Normalization_;
             theta1 *= (ca_Lip_ * krExt_ - kfExt_ * Lin_);
 #ifdef DEBUG_MODE
-            mdp::checkFinite(theta1);
+            checkFinite(theta1);
 #endif
             double extentLeft1 = 0.0;
             double extentLeft0 = RegionBoundaries_ExtentRxn_[xRegion_final_+1] - RelativeExtentRxn_init_;
@@ -1835,7 +1830,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
 
         }
 #ifdef DEBUG_MODE
-        mdp::checkFinite(SrcDot_RelativeExtentRxn_final_);
+        checkFinite(SrcDot_RelativeExtentRxn_final_);
 #endif
     }
 }
@@ -2608,7 +2603,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
 
     } while (reDo);
 #ifdef DEBUG_MODE
-    mdp::checkFinite(SrcDot_RelativeExtentRxn_final_);
+    checkFinite(SrcDot_RelativeExtentRxn_final_);
 
     if (RelativeExtentRxn_final_ < 1.73 && RelativeExtentRxn_init_ > 1.76) {
         printf("we are here\n");
@@ -2794,7 +2789,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
             SrcDot_RelativeExtentRxn_final_ = (RelativeExtentRxn_tmp_ -  RelativeExtentRxn_init_) / deltaTsubcycleCalc_;
         }
 #ifdef DEBUG_MODE
-        mdp::checkFinite(SrcDot_RelativeExtentRxn_final_);
+        checkFinite(SrcDot_RelativeExtentRxn_final_);
 #endif
         if (theta1 > 0.0) {
             deltaTdeath_ = extentLeft0 * 3.0 / 2.0 / theta1;
@@ -4736,7 +4731,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isurf]->nPhases();
             int kIndexKin = 0;
             for (int kph = 0; kph < nphRS; kph++) {

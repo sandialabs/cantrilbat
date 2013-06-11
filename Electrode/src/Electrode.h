@@ -29,11 +29,8 @@
 
 #include "Electrode_input.h"
 
-#include "mdp_allo.h"
 #include <string>
 #include <vector>
-
-
 
 class ELECTRODE_KEY_INPUT;
 class EGRInput;

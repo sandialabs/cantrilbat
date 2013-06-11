@@ -8,10 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-
-#include "cantera/base/mdp_allo.h"
-
 #include "Electrode_SimpleDiff.h"
 #include "cantera/integrators.h"
 
@@ -19,8 +15,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -243,11 +237,11 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     Radius_internal_final_final_ = Radius_internal_init_;
     updateState();
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    std::copy(spMoles_final_.begin(), spMoles_final_.end(), spMoles_init_.begin());
+    std::copy(spMoles_final_.begin(), spMoles_final_.end(), spMoles_init_init_.begin());
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
+    std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
 
     spMoleIntegratedSourceTermLast_.resize(m_NumTotSpecies, 0.0);
 
@@ -412,7 +406,7 @@ void  Electrode_SimpleDiff::calcRate(double deltaTsubcycle)
     Da_s_ = k_r_internal_ *  Radius_internal_eff_ * (Radius_exterior_final_ - Radius_internal_eff_) /
             (Radius_exterior_final_ * DiffCoeff_);
 #ifdef DEBUG_HKM
-    mdp::checkFinite(Radius_exterior_final_);
+    checkFinite(Radius_exterior_final_);
 #endif
     double r_ratio = Radius_internal_eff_ / Radius_exterior_final_;
 
@@ -450,7 +444,7 @@ void  Electrode_SimpleDiff::calcRate(double deltaTsubcycle)
             }
         }
 #ifdef DEBUG_HKM
-        mdp::checkFinite(C_external_final_);
+        checkFinite(C_external_final_);
 #endif
         mf_external_final_ = C_external_final_ / MD_int_;
 
@@ -515,13 +509,13 @@ void  Electrode_SimpleDiff::calcRate(double deltaTsubcycle)
             }
         }
 #ifdef DEBUG_HKM
-        mdp::checkFinite(Radius_internal_eff_);
+        checkFinite(Radius_internal_eff_);
 #endif
     } else {
         Radius_internal_eff_  = 0.0;
     }
 #ifdef DEBUG_HKM
-    mdp::checkFinite(Radius_internal_eff_);
+    checkFinite(Radius_internal_eff_);
 #endif
     /*
      * Calculate the change in the external radius due to the change in volume of the reaction
@@ -539,7 +533,7 @@ void  Electrode_SimpleDiff::calcRate(double deltaTsubcycle)
     CAP_final_ = (Radius_exterior_final_*C_external_final_ - Radius_internal_final_*C_internal_final_)/(Radius_exterior_final_ - Radius_internal_final_) * (4./3.*Pi*(ro3-ri3))
                  - 2.*Pi*Radius_exterior_final_*(C_external_final_ - C_internal_final_)/(Radius_exterior_final_ - Radius_internal_final_)*Radius_internal_final_*(ro2-ri2);
 #ifdef DEBUG_HKM
-    mdp::checkFinite(CAP_final_);
+    checkFinite(CAP_final_);
 #endif
     deltaCAPdt_ = (CAP_final_ - CAP_init_)/deltaTZeroed_;
 }
@@ -626,7 +620,7 @@ void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
              *  loop over the phases in the reacting surface
              *  Get the net production vector
              */
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isk]->nPhases();
             int jph, kph;
             int kIndexKin = 0;
@@ -732,8 +726,8 @@ int Electrode_SimpleDiff::integrate(double deltaT, double rtolResid, double atol
     vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
     vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
 
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), 0.);
+    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.begin(), 0.);
     vector<doublereal> deltaMoles(m_NumTotSpecies, 0.0);
 
     followElectrolyteMoles_ = 1;
@@ -872,7 +866,7 @@ restartStep:
                  *  loop over the phases in the reacting surface
                  *  Get the net production vector
                  */
-                mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+                std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
                 int nphRS = RSD_List_[isk]->nPhases();
                 int jph, kph;
                 int kIndexKin = 0;
@@ -975,7 +969,7 @@ restartStep:
         const vector<double>& rsSpeciesProductionRatesO = RSD_List_[surfIndexOuterSurface_]->calcNetProductionRates();
         RSD_List_[surfIndexOuterSurface_]->getNetRatesOfProgress(netROP);
         double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(surfIndexOuterSurface_);
-        mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[surfIndexOuterSurface_]->nPhases();
         int jph, kph;
         int kIndexKin = 0;
@@ -1001,7 +995,7 @@ restartStep:
         const vector<double>& rsSpeciesProductionRatesI = RSD_List_[surfIndexInnerSurface_]->calcNetProductionRates();
         RSD_List_[surfIndexInnerSurface_]->getNetRatesOfProgress(netROP);
         spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(surfIndexInnerSurface_);
-        mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         nphRS = RSD_List_[surfIndexInnerSurface_]->nPhases();
         kIndexKin = 0;
         for (kph = 0; kph < nphRS; kph++) {
@@ -1050,7 +1044,7 @@ restartStep:
 
 
 
-        mdp::mdp_zero_dbl_1(DATA_PTR(deltaMoles), m_NumTotSpecies);
+        std::fill(deltaMoles.begin(), deltaMoles.end(), 0.);
         for (int k = 0; k < m_NumTotSpecies; k++) {
             spMoles_tmp[k] = spMoles_init_[k];
             for (int isk = 0; isk < numSurfaces_; isk++) {
@@ -1260,7 +1254,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
-        mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;
         for (int kph = 0; kph < nphRS; kph++) {

@@ -8,7 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-#include "cantera/base/mdp_allo.h"
 #include "cantera/equilibrium.h"
 
 #include "cantera/thermo/MolalityVPSSTP.h"
@@ -49,7 +48,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -1010,9 +1008,9 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         Electrode::resizeMoleNumbersToGeometry();
     }
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_final_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    phaseMoles_init_ = phaseMoles_final_;
+    phaseMoles_init_init_ = phaseMoles_final_;
+    phaseMoles_final_final_ = phaseMoles_final_;
 
     /*
      *  Resize the value of the surface areas to ones appropriate for the input geometry.
@@ -1021,8 +1019,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     Electrode::updateState_OnionOut();
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    spMoles_init_init_ = spMoles_final_;
+    spMoles_final_final_ = spMoles_final_;
 
     ElectrodeBath* BG = ei->m_BG;
 
@@ -1362,9 +1360,9 @@ void Electrode::resizeMoleNumbersToGeometry()
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
         Electrode::updatePhaseNumbers(iph);
     }
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_final_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    phaseMoles_init_ = phaseMoles_final_;
+    phaseMoles_init_init_ = phaseMoles_final_;
+    phaseMoles_final_final_ = phaseMoles_final_;
 
     /*
      * Resize the electrolyte so that the total volume of the electrolyte is consistent with the given
@@ -1621,12 +1619,12 @@ void Electrode::setPhaseMoleNumbers(int iph, const double* const moleNum)
     }
     updatePhaseNumbers(iph);
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_final_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    spMoles_init_init_ = spMoles_final_;
+    spMoles_init_ = spMoles_final_;
+    spMoles_final_final_ = spMoles_final_;
+    phaseMoles_init_init_ = phaseMoles_final_;
+    phaseMoles_init_ = phaseMoles_final_;
+    phaseMoles_final_final_ = phaseMoles_final_;
 
     /*
      *  Change the particleNumbersToFollow_ field
@@ -1993,17 +1991,17 @@ double Electrode::speciesChemPotential(int iGlobalSpIndex) const
 //================================================================================================
 void Electrode::getMoleFractions(doublereal* const x) const
 {
-    mdp::mdp_copy_dbl_1(x, &(spMf_final_[0]), m_NumTotSpecies);
+    std::copy( spMf_final_.begin(), spMf_final_.end(), x );
 }
 //================================================================================================
 void Electrode::getMoleNumSpecies(doublereal* const n) const
 {
-    mdp::mdp_copy_dbl_1(n, &(spMoles_final_[0]), m_NumTotSpecies);
+    std::copy( spMoles_final_.begin(), spMoles_final_.end(), n );
 }
 //================================================================================================
 void Electrode::getMoleNumPhases(doublereal* const np) const
 {
-    mdp::mdp_copy_dbl_1(np, &(phaseMoles_final_[0]), m_NumTotPhases);
+    std::copy( phaseMoles_final_.begin(), phaseMoles_final_.end(), np);
 }
 //================================================================================================
 double Electrode::moleFraction(int globalSpeciesIndex) const
@@ -2419,7 +2417,7 @@ double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
  */
 void Electrode::getNetProductionRates(const int isk, doublereal* const net) const
 {
-    mdp::mdp_zero_dbl_1(net, m_NumTotSpecies);
+    std::fill_n(net, m_NumTotSpecies, 0.);
 
     /*
      *  This routine basically translates between species lists for the reacting surface
@@ -2493,7 +2491,7 @@ double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) con
 {
     if (pendingIntegratedStep_ != 1) {
         double* netOne = &deltaG_[0];
-        mdp::mdp_zero_dbl_1(net, m_NumTotSpecies);
+        std::fill_n(net, m_NumTotSpecies, 0.);
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetProductionRates(isk, netOne);
@@ -2575,7 +2573,7 @@ double Electrode::integratedLocalCurrent() const
  */
 void Electrode::getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux)
 {
-    mdp::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
+    std::fill_n(phaseMassFlux, m_NumTotPhases, 0.);
 
     if (ActiveKineticsSurf_[isk]) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
@@ -2606,7 +2604,7 @@ void Electrode::getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux)
  */
 void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
 {
-    mdp::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
+    std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
         int nphRS = RSD_List_[isk]->nPhases();
@@ -3358,7 +3356,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
              *  loop over the phases in the reacting surface
              *  Get the net production vector
              */
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isk]->nPhases();
             int jph, kph;
             int kIndexKin = 0;
@@ -3613,8 +3611,8 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
         spMoles_init_init_[k] = spMoles_final_[k];
     }
 
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
+    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.);
 
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
@@ -4192,7 +4190,7 @@ double Electrode::integratedSourceTerm(doublereal* const spMoleDelta)
     /*
      *  We may do more here to ensure that the last integration is implicit
      */
-    mdp::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
+    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), spMoleDelta);
     return tfinal_;
 }
 //====================================================================================================================
@@ -4228,7 +4226,7 @@ double Electrode::energySourceTerm()
 double Electrode::integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta)
 {
     integrate(deltaT);
-    mdp::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
+    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), spMoleDelta);
     return t_final_final_;
 }
 //====================================================================================================================
@@ -4511,7 +4509,7 @@ void Electrode::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isurf]->nPhases();
             int kIndexKin = 0;
             for (int kph = 0; kph < nphRS; kph++) {

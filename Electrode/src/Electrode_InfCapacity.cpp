@@ -7,13 +7,8 @@
 #include "Electrode_InfCapacity.h"
 
 
-#include "cantera/base/mdp_allo.h"
 using namespace Cantera;
 using namespace std;
-using namespace mdp;
-
-using namespace mdpUtil;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -145,10 +140,10 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     vector<int> justBornMultiSpecies(0);
 
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_), DATA_PTR(spMoles_init_init_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_final_), DATA_PTR(spMoles_init_init_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_init_init_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_), DATA_PTR(phaseMoles_init_init_), m_NumTotPhases);
+    std::copy(spMoles_init_init_.begin(), spMoles_init_init_.begin(), spMoles_init_.begin());
+    std::copy(spMoles_init_init_.begin(), spMoles_init_init_.begin(), spMoles_final_.begin());
+    std::copy(phaseMoles_init_init_.begin(), phaseMoles_init_init_.begin(), phaseMoles_init_.begin());
+    std::copy(phaseMoles_init_init_.begin(), phaseMoles_init_init_.begin(), phaseMoles_final_.begin());
     /*
      *   Set the internal objects to the correct conditions
      *    -> This will be the final conditions.
@@ -204,7 +199,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
              *  loop over the phases in the reacting surface
              *  Get the net production vector
              */
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isk]->nPhases();
             int jph, kph;
             int kIndexKin = 0;
@@ -237,7 +232,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     /*
      *  Calculate the change in the moles of all of the species
      */
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), 0.);
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
         for (int isk = 0; isk < numSurfaces_; isk++) {
