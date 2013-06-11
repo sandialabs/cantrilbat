@@ -50,7 +50,13 @@ public:
   // electrode->setElectrolyteMoleNumbers
   virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt) = 0;
 
-  double get_jacobian_value(DOF_SOURCE_PAIR dof_source_pair) const { return jacobian[dof_source_pair]; }
+  double get_jacobian_value(const DOF_SOURCE_PAIR &dof_source_pair)
+  {
+    if( jacobian.find(dof_source_pair) == jacobian.end() ) {
+      throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed" );
+    }
+    return jacobian[dof_source_pair];
+  }
 
   virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);

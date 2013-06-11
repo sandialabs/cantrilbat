@@ -10,8 +10,8 @@ namespace Cantera {
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute) :
                 electrode(elect)
 {
-  std::map<DOF_SOURCE_PAIR, bool>::iterator dof_sources_it = entries_to_compute.begin();
-  std::map<DOF_SOURCE_PAIR, bool>::const_iterator dof_source_end = entries_to_compute.end();
+  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_sources_it = entries_to_compute.begin();
+  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_source_end = entries_to_compute.end();
   for( ; dof_sources_it != dof_source_end; ++dof_sources_it )
   {
     add_entry_to_compute(*dof_sources_it);

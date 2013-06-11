@@ -635,14 +635,14 @@ public:
      *  @return Tfinal    Final time to integrate to.
      *
      */
-    double integratedSourceTerm(doublereal* const spMoleDelta);
+    virtual double integratedSourceTerm(doublereal* const spMoleDelta);
 
     //! Report the energy source term for the electrode over an interval in time
     /*!
      *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
      *  This should only be called after integrate() has finished running.
      */
-    double energySourceTerm();
+    virtual double energySourceTerm();
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------

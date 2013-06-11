@@ -28,7 +28,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
   double electrolytePhaseSource[2];
   double individualSpeciesSource[2];
 
-  int elecrolytePhaseIndex = electrode->solnPhaseIndex();
+  int electrolytePhaseIndex = electrode->solnPhaseIndex();
   int electronIndex = electrode->kSpecElectron();
 
   std::vector<double> perturbed_point = centerpoint;
@@ -48,7 +48,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 
       // Extract source value of the electrolyte phase, speciesSources is used as a temporary here
       electrode->getIntegratedPhaseMoleTransfer(&speciesSources[negative][0]);
-      electrolytePhaseSource[negative] = speciesSources[negative][electrode->solnPhaseIndex()];
+      electrolytePhaseSource[negative] = speciesSources[negative][electrolytePhaseIndex];
 
       electrode->integratedSourceTerm(&speciesSources[negative][0]);
     }
