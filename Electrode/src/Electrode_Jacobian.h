@@ -18,6 +18,7 @@ namespace Cantera {
   enum SOURCES
   {
     CURRENT_SOURCE,
+    ELECTROLYTE_PHASE_SOURCE,
     ENTHALPY_SOURCE,
     SPECIES_SOURCE,
     MAX_SOURCE

@@ -39,7 +39,8 @@ private:
   Electrode_FD_Jacobian(const Electrode_FD_Jacobian& right);
   Electrode_FD_Jacobian& operator=(const Electrode_FD_Jacobian& right);
 
-  void run_electrode_integration(const std::vector<double> & dof_values, const double dt);
+  void run_electrode_integration(const std::vector<double> & dof_values, double dt);
+  void set_jacobian_entry(const DOF_SOURCE_PAIR & entry, double source_values[2], double delta);
 };
 
 } // namespace Cantera
