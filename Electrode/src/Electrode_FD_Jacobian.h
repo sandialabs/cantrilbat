@@ -14,20 +14,32 @@
 #ifndef ELECTRODE_FD_JACOBIAN_H_
 #define ELECTRODE_FD_JACOBIAN_H_
 
-#include "Electrode_Jacobian.h"
+#include "Electrode_FD_Jacobian.h"
 
 namespace Cantera {
 
 // Compute electrode Jacobian by finite differences
 class Electrode_FD_Jacobian : public Electrode_Jacobian {
-  public:
-    virtual void compute_jacobian();
+public:
+  Electrode_FD_Jacobian();
+  Electrode_FD_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute);
 
-    virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
-    virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
-  protected:
-    std::list<DOFS> dofs_to_fd;
-    std::map<DOFS, int> num_sources_using_dof;
+  virtual ~Electrode_FD_Jacobian();
+
+  virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt);
+
+  virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
+  virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
+
+protected:
+  std::list<DOFS> dofs_to_fd;
+  std::map<DOFS, int> num_sources_using_dof;
+
+private:
+  Electrode_FD_Jacobian(const Electrode_FD_Jacobian& right);
+  Electrode_FD_Jacobian& operator=(const Electrode_FD_Jacobian& right);
+
+  void run_electrode_integration(const std::vector<double> & dof_values, const double dt);
 };
 
 } // namespace Cantera

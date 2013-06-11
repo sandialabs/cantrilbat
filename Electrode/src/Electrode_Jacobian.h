@@ -17,51 +17,53 @@ namespace Cantera {
 
   enum SOURCES
   {
-    CURRENT,
-    SPECIES,
-    ENTHALPY
+    CURRENT_SOURCE,
+    ENTHALPY_SOURCE,
+    SPECIES_SOURCE,
+    MAX_SOURCE
   };
   enum DOFS
   {
     SOLID_VOLTAGE,
     LIQUID_VOLTAGE,
-    SPECIES,
     TEMPERATURE,
-    PRESSURE
+    PRESSURE,
+    SPECIES,
+    MAX_DOF
   };
 
 class Electrode_Jacobian {
 
 public:
-    typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR ;
+  typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR ;
 
-    Electrode_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute);
+  Electrode_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute);
 
-    virtual ~Electrode_Jacobian();
+  virtual ~Electrode_Jacobian();
 
-    Electrode_Jacobian(const Electrode_Jacobian& right);
+  // Compute the Jacobian at the point specified by centerpoint where
+  // centerpoint[DOFS] = dof_value
+  // centerpoint.size() == (MAX_DOF + n_species - 1) (i.e. a value for all possible dofs must be specified even if
+  // Jacobian entries are not being computed for that dof)
+  // Species mole fractions are specified starting at centerpoint[SPECIES] and should be in the order expected by
+  // electrode->setElectrolyteMoleNumbers
+  virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt) = 0;
 
-    Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
+  double get_jacobian_value(DOF_SOURCE_PAIR dof_source_pair) const { return jacobian[dof_source_pair]; }
 
-    //! Print level for input to vcs routines within this object
-    /*!
-     *    This is a public member so that it can be manipulated
-     */
-    int printLvl_;
-
-    virtual void compute_jacobian() = 0;
-
-    double get_jacobian_value(DOF_SOURCE_PAIR dof_source_pair) const { return jacobian[dof_source_pair]; }
-
-    virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
-    virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
+  virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
+  virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
 protected:
+  Electrode* const electrode;
 
-    Electrode* electrode;
+  // Store the desired Jacobian contributions as a map from [dof, source] -> result
+  std::map< DOF_SOURCE_PAIR, double > jacobian;
 
-    // Store the desired Jacobian contributions as a map from [dof, source] -> result
-    std::map< DOF_SOURCE_PAIR, double > jacobian;
+private:
+  // Disallow copies
+  Electrode_Jacobian(const Electrode_Jacobian& right);
+  Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
 };
 
 }
