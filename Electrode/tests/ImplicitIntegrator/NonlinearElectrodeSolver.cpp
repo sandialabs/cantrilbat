@@ -29,7 +29,6 @@
 #include "cantera/kernel/vec_functions.h"
 #include <ctime>
 
-#include "cantera/base/mdp_allo.h"
 #include <cfloat>
 
 extern void print_line(const char *, int);

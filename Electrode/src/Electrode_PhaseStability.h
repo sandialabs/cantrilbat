@@ -34,16 +34,11 @@
 
 #include "Electrode_input.h"
 
-#include "mdp_allo.h"
 #include <string>
 #include <vector>
 
-
-
 namespace Cantera
 {
-
-
 
 //! Class which determines the stability of phases due to kinetics
 /*!

@@ -9,8 +9,12 @@
 all:
 	cd src;                       @MAKE@
 	cd tests;                     @MAKE@ 
-	cd tests_develop;             @MAKE@ 
+#	cd tests_develop;             @MAKE@ 
 #	cd examples;                  @MAKE@ 
+
+debug:
+	cd src; make debug
+	cd tests; make debug
 
 test:
 	cd tests;                     @MAKE@ -s test

@@ -7,19 +7,23 @@
 namespace Cantera {
 
 //====================================================================================================================
-Electrode_Jacobian::Electrode_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute) :
+Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
                 electrode(elect)
 {
-  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_sources_it = entries_to_compute.begin();
-  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_source_end = entries_to_compute.end();
-  for( ; dof_sources_it != dof_source_end; ++dof_sources_it )
-  {
-    add_entry_to_compute(*dof_sources_it);
-  }
 }
 //====================================================================================================================
 Electrode_Jacobian::~Electrode_Jacobian()
 {
+}
+//====================================================================================================================
+void Electrode_Jacobian::add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries)
+{
+  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_sources_it = entries.begin();
+  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_source_end = entries.end();
+  for( ; dof_sources_it != dof_source_end; ++dof_sources_it )
+  {
+    add_entry_to_compute(*dof_sources_it);
+  }
 }
 //====================================================================================================================
 void Electrode_Jacobian::add_entry_to_compute(DOF_SOURCE_PAIR entry)

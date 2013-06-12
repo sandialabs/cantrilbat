@@ -38,7 +38,7 @@ class Electrode_Jacobian {
 public:
   typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR ;
 
-  Electrode_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute);
+  Electrode_Jacobian(Electrode* elect);
 
   virtual ~Electrode_Jacobian();
 
@@ -58,6 +58,7 @@ public:
     return jacobian[dof_source_pair];
   }
 
+  virtual void add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries);
   virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 

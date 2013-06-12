@@ -1181,7 +1181,7 @@ restartStep:
 
 
 
-        std::fill_n(deltaMoles, m_NumTotSpecies, 0.);
+        std::fill(deltaMoles.begin(), deltaMoles.end(), 0.);
         for (int k = 0; k < m_NumTotSpecies; k++) {
             spMoles_tmp[k] = spMoles_init_[k];
             for (int isk = 0; isk < numSurfaces_; isk++) {

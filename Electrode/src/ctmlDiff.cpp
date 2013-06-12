@@ -37,9 +37,6 @@
 #include <float.h>
 #include <limits.h>
 
-#include "cantera/base/mdp_allo.h"
-
-
 #if defined(__CYGWIN__)
 #include <getopt.h>
 #endif
@@ -678,16 +675,16 @@ enum valueType_enum identifyType(const std::string valueFieldc)
     const char* delimColons = ": \t\n\f\r\v";
     const char* delimCommas = ", \t\n\f\r\v";
 
-    char* c1 = mdp::mdp_copy_string(valueField.c_str());
+    std::string c1 = valueField;
     /*
      *  Count tokens
      */
 
-    TKInput::TOKEN* t1 = new TKInput::TOKEN(c1);
+    TKInput::TOKEN* t1 = new TKInput::TOKEN(c1.c_str());
 
     int ntokesWS = t1->ntokes;
 
-    int numCommas = countCommas(c1);
+    int numCommas = countCommas(c1.c_str());
 
     /*
      *  Handle the case where there is one token in the value field
@@ -695,34 +692,34 @@ enum valueType_enum identifyType(const std::string valueFieldc)
     if (ntokesWS == 1 && numCommas == 0) {
         numColons = countColons(t1->tok_ptrV[0]);
         if (numColons == 1) {
-            TKInput::TOKEN* t2 = new TKInput::TOKEN(c1, delimColons);
+            TKInput::TOKEN* t2 = new TKInput::TOKEN(c1.c_str(), delimColons);
             if (!isStringName(t2->tok_ptrV[0])) {
-                printf("identifyType: expected stringName in first colon field: \"%s\"", c1);
+                printf("identifyType: expected stringName in first colon field: \"%s\"", c1.c_str());
                 return UNIDENTIFIED_VT;
             }
             if (!isFloat(t2->tok_ptrV[2])) {
-                printf("identifyType: expected float in seond colon field: \"%s\"", c1);
+                printf("identifyType: expected float in seond colon field: \"%s\"", c1.c_str());
                 return UNIDENTIFIED_VT;
             }
             retnT = PAIR_STRING_FLOAT_CSV_VT;
             return retnT;
         }
         if (numColons == 2) {
-            TKInput::TOKEN* t2 = new TKInput::TOKEN(c1, delimColons);
+            TKInput::TOKEN* t2 = new TKInput::TOKEN(c1.c_str(), delimColons);
             if (t2->ntokes != 3) {
-                printf("identifyType: Unexpected value field: \"%s\"", c1);
+                printf("identifyType: Unexpected value field: \"%s\"", c1.c_str());
                 return UNIDENTIFIED_VT;
             }
             if (!isStringName(t2->tok_ptrV[0])) {
-                printf("identifyType: expected stringName in first colon field: \"%s\"", c1);
+                printf("identifyType: expected stringName in first colon field: \"%s\"", c1.c_str());
                 return UNIDENTIFIED_VT;
             }
             if (!isStringName(t2->tok_ptrV[1])) {
-                printf("identifyType: expected stringName in second colon field: \"%s\"", c1);
+                printf("identifyType: expected stringName in second colon field: \"%s\"", c1.c_str());
                 return UNIDENTIFIED_VT;
             }
             if (!isFloat(t2->tok_ptrV[2])) {
-                printf("identifyType: expected float in third colon field: \"%s\"", c1);
+                printf("identifyType: expected float in third colon field: \"%s\"", c1.c_str());
                 return UNIDENTIFIED_VT;
             }
             retnT = MATRIX_STRING_STRING_FLOAT_CSV_VT;
@@ -739,13 +736,13 @@ enum valueType_enum identifyType(const std::string valueFieldc)
         }
     }
 
-    TKInput::TOKEN* tc = new TKInput::TOKEN(c1, delimCommas);
+    TKInput::TOKEN* tc = new TKInput::TOKEN(c1.c_str(), delimCommas);
 
 
 
 
 
-// int stokenize(c1, const char *delimiters, char *tok_ptr[],
+// int stokenize(c1.c_str(), const char *delimiters, char *tok_ptr[],
 //                    const int max_tokens)
 
     /*
@@ -755,8 +752,6 @@ enum valueType_enum identifyType(const std::string valueFieldc)
     /*
      * Count colons
      */
-
-    mdp::mdp_safe_free((void**) &c1);
 
     return retnT;
 }

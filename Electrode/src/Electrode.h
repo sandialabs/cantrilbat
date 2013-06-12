@@ -567,7 +567,7 @@ public:
      *                     electrolyte mole numbers as well. We also set init_init and 
      *                     final_final values too. 
      */
-    void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial);
+    virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial);
 
     //! Set the mole numbers in a single phase
     /*!
@@ -1368,7 +1368,6 @@ public:
      *            phases in the electrode object)
      *            units = kmol
      */
-// Deprecate
     virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
 
     //! Returns the current potential drop across the electrode

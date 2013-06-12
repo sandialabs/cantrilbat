@@ -34,8 +34,6 @@
 using namespace std;
 using namespace Cantera;
 using namespace VCSnonideal;
-using namespace mdpUtil;
-
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;

@@ -10,8 +10,8 @@
 namespace Cantera {
 
 //====================================================================================================================
-Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode * elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute)
-  : Electrode_Jacobian(elect, entries_to_compute)
+Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode * elect)
+  : Electrode_Jacobian(elect)
 {
 }
 //====================================================================================================================
@@ -33,7 +33,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 
   std::vector<double> perturbed_point = centerpoint;
 
-  const double base_delta = 1.e-5;
+  const double base_delta = 1.e-3;
 
   std::list<DOFS>::iterator dof_it = dofs_to_fd.begin();
   for( ; dof_it != dofs_to_fd.end(); ++dof_it )
@@ -51,6 +51,8 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
       electrolytePhaseSource[negative] = speciesSources[negative][electrolytePhaseIndex];
 
       electrode->integratedSourceTerm(&speciesSources[negative][0]);
+
+      perturbed_point[*dof_it] = centerpoint[*dof_it];
     }
     set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, ENTHALPY_SOURCE), energySource, base_delta);
     set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, ELECTROLYTE_PHASE_SOURCE), electrolytePhaseSource, base_delta);

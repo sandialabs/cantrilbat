@@ -14,26 +14,53 @@ namespace Cantera
 
 class MockElectrode : public Electrode
 {
+public:
   MockElectrode() : Electrode()
-  {}
+  {
+    m_NumTotSpecies = 1;
+    kElectron_ = 0;
+    solnPhase_ = 0;
+    metalPhase_ = 1;
+    phaseVoltages_.resize(2);
+  }
+
+  virtual ~MockElectrode() {}
+
+  virtual void setFinalStateFromInit() {}
+  virtual void updateState() {}
+  virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial) {}
 
   virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
                         Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
                         Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR)
   {return 0;}
+
   virtual double energySourceTerm()
   { return temperature_; }
+
+  virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
+  { phaseMolesTransfered[0] = 1.; }
+
+  virtual double integratedSourceTerm(doublereal* const spMoleDelta)
+  {
+    spMoleDelta[0] = deltaVoltage_;
+    return 1.0;
+  }
+
 };
 
 class JacobianTest : public testing::Test
 {
 public:
   JacobianTest() :
-    temp_energy_pair(TEMPERATURE, ENTHALPY_SOURCE)
+    temp_energy_pair(TEMPERATURE, ENTHALPY_SOURCE),
+    current_voltage_pair(SOLID_VOLTAGE, CURRENT_SOURCE)
   {
     mock_electrode = new MockElectrode();
     std::vector<Electrode_Jacobian::DOF_SOURCE_PAIR> entries_to_compute;
-    fd_jacobian = new Electrode_FD_Jacobian(mock_electrode, entries_to_compute);
+    entries_to_compute.push_back(temp_energy_pair);
+    fd_jacobian = new Electrode_FD_Jacobian(mock_electrode);
+    fd_jacobian->add_entries_to_compute(entries_to_compute);
   }
   ~JacobianTest()
   {
@@ -42,6 +69,7 @@ public:
   }
 protected:
   Electrode_Jacobian::DOF_SOURCE_PAIR temp_energy_pair;
+  Electrode_Jacobian::DOF_SOURCE_PAIR current_voltage_pair;
 
   Electrode *mock_electrode;
   Electrode_Jacobian *fd_jacobian;
@@ -49,8 +77,31 @@ protected:
 
 TEST_F(JacobianTest, MissingEntry)
 {
-  EXPECT_THROW( fd_jacobian->get_jacobian_value(temp_energy_pair), CanteraError);
-//  EXPECT_EQ(poly.speciesIndex(), (size_t) 0);
+  EXPECT_THROW( fd_jacobian->get_jacobian_value(current_voltage_pair), CanteraError);
+}
+
+TEST_F(JacobianTest, AddEntry)
+{
+  fd_jacobian->add_entry_to_compute( current_voltage_pair );
+  double zero = 0.;
+  EXPECT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(current_voltage_pair), zero);
+}
+
+TEST_F(JacobianTest, RemoveEntry)
+{
+  double zero = 0.;
+  ASSERT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(temp_energy_pair), zero);
+  fd_jacobian->remove_entry_to_compute( temp_energy_pair );
+  EXPECT_THROW( fd_jacobian->get_jacobian_value(temp_energy_pair), CanteraError );
+}
+
+TEST_F(JacobianTest, ComputeJacobian)
+{
+  double dt=0.1;
+  std::vector<double> point(5);
+  std::fill(point.begin(), point.end(), 1.);
+  fd_jacobian->compute_jacobian(point, dt);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1e-12);
 }
 
 /*

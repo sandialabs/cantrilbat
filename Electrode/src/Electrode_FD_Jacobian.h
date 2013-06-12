@@ -14,15 +14,16 @@
 #ifndef ELECTRODE_FD_JACOBIAN_H_
 #define ELECTRODE_FD_JACOBIAN_H_
 
-#include "Electrode_FD_Jacobian.h"
+#include <list>
+#include <map>
+#include "Electrode_Jacobian.h"
 
 namespace Cantera {
 
 // Compute electrode Jacobian by finite differences
 class Electrode_FD_Jacobian : public Electrode_Jacobian {
 public:
-  Electrode_FD_Jacobian();
-  Electrode_FD_Jacobian(Electrode* elect, const std::vector<DOF_SOURCE_PAIR> & entries_to_compute);
+  Electrode_FD_Jacobian(Electrode* elect);
 
   virtual ~Electrode_FD_Jacobian();
 
