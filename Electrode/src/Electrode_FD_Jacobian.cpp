@@ -59,7 +59,13 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     individualSpeciesSource[0] = speciesSources[0][electronIndex];
     individualSpeciesSource[1] = speciesSources[1][electronIndex];
     set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, CURRENT_SOURCE), individualSpeciesSource, base_delta);
-    // TODO species indexing
+    for(int sp=0; sp < electrode->numSolnPhaseSpecies(); ++sp)
+    {
+      int idx = sp + electrolytePhaseSpeciesStart;
+      individualSpeciesSource[0] = speciesSources[0][idx];
+      individualSpeciesSource[1] = speciesSources[1][idx];
+      set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, (SOURCES)(SPECIES_SOURCE + sp)), individualSpeciesSource, base_delta);
+    }
   }
 }
 //====================================================================================================================

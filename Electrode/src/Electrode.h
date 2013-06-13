@@ -1584,6 +1584,8 @@ public:
     //! return the index of the phase corresponding to the soln
     int solnPhaseIndex() const;
 
+    virtual int numSolnPhaseSpecies() const;
+
     // ------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  ---------------------------------------
     // ------------------------------------------------------------------------------------------------

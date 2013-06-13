@@ -64,6 +64,7 @@ public:
 
 protected:
   Electrode* const electrode;
+  int electrolytePhaseSpeciesStart;
 
   // Store the desired Jacobian contributions as a map from [dof, source] -> result
   std::map< DOF_SOURCE_PAIR, double > jacobian;

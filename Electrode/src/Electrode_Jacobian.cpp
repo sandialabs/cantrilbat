@@ -10,6 +10,7 @@ namespace Cantera {
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
                 electrode(elect)
 {
+  electrolytePhaseSpeciesStart = electrode->getGlobalSpeciesIndex(electrode->solnPhaseIndex());
 }
 //====================================================================================================================
 Electrode_Jacobian::~Electrode_Jacobian()

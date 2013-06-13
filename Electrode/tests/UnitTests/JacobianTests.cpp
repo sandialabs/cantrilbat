@@ -1,5 +1,5 @@
 /*
- * JacobianTests.cpp
+ * FDJacobianTests.cpp
  *
  *  Created on: Jun 11, 2013
  *      Author: vebruni
@@ -17,52 +17,90 @@ class MockElectrode : public Electrode
 public:
   MockElectrode() : Electrode()
   {
-    m_NumTotSpecies = 1;
+    m_NumTotSpecies = 4;
+    m_NumTotPhases = 1;
+    m_PhaseSpeciesStartIndex[0] = 1;
     kElectron_ = 0;
     solnPhase_ = 0;
     metalPhase_ = 1;
     phaseVoltages_.resize(2);
+    fake_electrolyte_mole_nums.resize(3);
   }
 
   virtual ~MockElectrode() {}
 
   virtual void setFinalStateFromInit() {}
   virtual void updateState() {}
-  virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial) {}
+
+  virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial)
+  {
+    fake_electrolyte_mole_nums[0] = electrolyteMoleNum[0];
+    fake_electrolyte_mole_nums[1] = electrolyteMoleNum[1];
+    fake_electrolyte_mole_nums[2] = electrolyteMoleNum[2];
+  }
 
   virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
                         Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
                         Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR)
   {return 0;}
 
+  virtual int numSolnPhaseSpecies() const { return 3; }
+
   virtual double energySourceTerm()
   { return temperature_; }
 
   virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
-  { phaseMolesTransfered[0] = 1.; }
+  {
+    phaseMolesTransfered[0] = temperature_ + 2*deltaVoltage_;
+    for(int i=0; i<3; ++i)
+    {
+      phaseMolesTransfered[0] += (i+3) * fake_electrolyte_mole_nums[i];
+    }
+  }
 
   virtual double integratedSourceTerm(doublereal* const spMoleDelta)
   {
     spMoleDelta[0] = deltaVoltage_;
+    spMoleDelta[1] = 2*fake_electrolyte_mole_nums[0];
+    spMoleDelta[2] = 3*fake_electrolyte_mole_nums[1];
+    spMoleDelta[3] = 4*fake_electrolyte_mole_nums[2];
     return 1.0;
   }
 
+private:
+  std::vector<double> fake_electrolyte_mole_nums;
 };
 
-class JacobianTest : public testing::Test
+class FDJacobianTest : public testing::Test
 {
 public:
-  JacobianTest() :
+  FDJacobianTest() :
     temp_energy_pair(TEMPERATURE, ENTHALPY_SOURCE),
-    current_voltage_pair(SOLID_VOLTAGE, CURRENT_SOURCE)
+    current_voltage_pair(SOLID_VOLTAGE, CURRENT_SOURCE),
+    dt(0.1),
+    zero(0.)
   {
     mock_electrode = new MockElectrode();
     std::vector<Electrode_Jacobian::DOF_SOURCE_PAIR> entries_to_compute;
     entries_to_compute.push_back(temp_energy_pair);
     fd_jacobian = new Electrode_FD_Jacobian(mock_electrode);
     fd_jacobian->add_entries_to_compute(entries_to_compute);
+
+    for(int idx=0; idx < 3; ++idx)
+    {
+      species_source_pairs.push_back( Electrode_Jacobian::DOF_SOURCE_PAIR((DOFS)(SPECIES+idx), (SOURCES)(SPECIES_SOURCE+idx)));
+    }
+
+    for(int idx=0; idx < MAX_DOF + 2; ++idx)
+    {
+      electrolyte_phase_all_dofs.push_back(
+          Electrode_Jacobian::DOF_SOURCE_PAIR((DOFS)(idx), ELECTROLYTE_PHASE_SOURCE));
+    }
+
+    point.resize(7);
+    std::fill(point.begin(), point.end(), 1.);
   }
-  ~JacobianTest()
+  ~FDJacobianTest()
   {
     delete fd_jacobian;
     delete mock_electrode;
@@ -70,82 +108,89 @@ public:
 protected:
   Electrode_Jacobian::DOF_SOURCE_PAIR temp_energy_pair;
   Electrode_Jacobian::DOF_SOURCE_PAIR current_voltage_pair;
+  std::vector<Electrode_Jacobian::DOF_SOURCE_PAIR> species_source_pairs;
+  std::vector<Electrode_Jacobian::DOF_SOURCE_PAIR> electrolyte_phase_all_dofs;
+
+  std::vector<double> point;
+  double dt;
+  double zero;
 
   Electrode *mock_electrode;
   Electrode_Jacobian *fd_jacobian;
 };
 
-TEST_F(JacobianTest, MissingEntry)
+TEST_F(FDJacobianTest, MissingEntry)
 {
   EXPECT_THROW( fd_jacobian->get_jacobian_value(current_voltage_pair), CanteraError);
 }
 
-TEST_F(JacobianTest, AddEntry)
+TEST_F(FDJacobianTest, AddEntry)
 {
   fd_jacobian->add_entry_to_compute( current_voltage_pair );
-  double zero = 0.;
   EXPECT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(current_voltage_pair), zero);
 }
 
-TEST_F(JacobianTest, RemoveEntry)
+TEST_F(FDJacobianTest, RemoveEntry)
 {
-  double zero = 0.;
   ASSERT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(temp_energy_pair), zero);
   fd_jacobian->remove_entry_to_compute( temp_energy_pair );
   EXPECT_THROW( fd_jacobian->get_jacobian_value(temp_energy_pair), CanteraError );
 }
 
-TEST_F(JacobianTest, ComputeJacobian)
+TEST_F(FDJacobianTest, ComputeJacobian)
 {
-  double dt=0.1;
-  std::vector<double> point(5);
-  std::fill(point.begin(), point.end(), 1.);
   fd_jacobian->compute_jacobian(point, dt);
   EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1e-12);
 }
 
-/*
-TEST_F(JacobianTest, updateProperties)
+TEST_F(FDJacobianTest, ComputeJacobianMultipleEntries)
 {
-  double cp_R, h_RT, s_R;
-
-  // Reference values calculated using CHEMKIN II
-  // Expect agreement to single-precision tolerance
-  set_tpow(298.15);
-  poly.updateProperties(&tpow_[0], &cp_R, &h_RT, &s_R);
-  EXPECT_NEAR(4.46633496, cp_R, 1e-7);
-  EXPECT_NEAR(-158.739244, h_RT, 1e-5);
-  EXPECT_NEAR(25.7125777, s_R, 1e-6);
-
-  set_tpow(876.54);
-  poly.updateProperties(&tpow_[0], &cp_R, &h_RT, &s_R);
-  EXPECT_NEAR(6.33029000, cp_R, 1e-7);
-  EXPECT_NEAR(-50.3179924, h_RT, 1e-5);
-  EXPECT_NEAR(31.5401226, s_R, 1e-6);
+  fd_jacobian->add_entry_to_compute(current_voltage_pair);
+  fd_jacobian->compute_jacobian(point, dt);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1e-12);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(current_voltage_pair), 1e-12);
 }
 
-TEST_F(JacobianTest, updatePropertiesTemp)
+TEST_F(FDJacobianTest, SpeciesJacobians)
 {
-  double cp_R1, h_RT1, s_R1;
-  double cp_R2, h_RT2, s_R2;
-  double T = 481.99;
-
-  set_tpow(T);
-  poly.updatePropertiesTemp(T, &cp_R1, &h_RT1, &s_R1);
-  poly.updateProperties(&tpow_[0], &cp_R2, &h_RT2, &s_R2);
-
-  EXPECT_DOUBLE_EQ(cp_R1, cp_R2);
-  EXPECT_DOUBLE_EQ(h_RT1, h_RT2);
-  EXPECT_DOUBLE_EQ(s_R1, s_R2);
+  fd_jacobian->add_entries_to_compute(species_source_pairs);
+  fd_jacobian->compute_jacobian(point, dt);
+  EXPECT_NEAR(2., fd_jacobian->get_jacobian_value(species_source_pairs[0]), 1.e-12);
+  EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(species_source_pairs[1]), 1.e-12);
+  EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(species_source_pairs[2]), 1.e-12);
 }
-*/
+
+TEST_F(FDJacobianTest, ElectrolytePhaseSource)
+{
+  Electrode_Jacobian::DOF_SOURCE_PAIR electrolyte_phase(SOLID_VOLTAGE, ELECTROLYTE_PHASE_SOURCE);
+  fd_jacobian->add_entries_to_compute(electrolyte_phase_all_dofs);
+  fd_jacobian->compute_jacobian(point, dt);
+  // SOLID_VOLTAGE
+  EXPECT_NEAR(2., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-11);
+  electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
+  // LIQUID_VOLTAGE
+  EXPECT_NEAR(-2., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-11);
+  electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
+  // TEMPERATURE
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
+  // PRESSURE
+  EXPECT_NEAR(0., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
+  // SPECIES 0-2
+  EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
+  EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
+  EXPECT_NEAR(5., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+}
 
 } // namespace Cantera
 
 int
 main(int argc, char** argv)
 {
-  printf("Running main() from JacobianTests.cpp\n");
+  printf("Running main() from FDJacobianTests.cpp\n");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
