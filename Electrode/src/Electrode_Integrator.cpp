@@ -8,10 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-
-#include "cantera/base/mdp_allo.h"
-
 #include "Electrode_Integrator.h"
 #include "cantera/integrators.h"
 #include "cantera/numerics/NonlinearSolver.h"
@@ -20,7 +16,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
@@ -648,7 +643,7 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
     /*
      *  Zero the global error vectors
      */
-    mdp::mdp_zero_dbl_1(&errorGlobalNLS_[0], neq_);
+    std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.);
 
     Electrode::resetStartingCondition(Tinitial, doResetAlways);
 
@@ -962,8 +957,8 @@ topConvergence:
             /*
              *   Zero needed counters
              */
-            mdp::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
-            mdp::mdp_init_int_1(DATA_PTR(phaseJustBorn_), 0, m_NumTotPhases);
+            std::fill(phaseJustDied_.begin(), phaseJustDied_.end(), 0);
+            std::fill(phaseJustBorn_.begin(), phaseJustBorn_.end(), 0);
 
             /*
              * Ok at this point we have a time step deltaTsubcycle_
@@ -1489,11 +1484,11 @@ void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
     /*
      *  Zero the global error vectors
      */
-    mdp::mdp_zero_dbl_1(&errorGlobalNLS_[0], neq_);
+    std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.);
     /*
      *   Zero the integrated source term - This will be accumulated over the subcycling
      */
-    mdp::mdp_zero_dbl_1(&spMoleIntegratedSourceTerm_[0], m_NumTotSpecies);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
 }
 //==================================================================================================================
 // Number of degrees of freedom in the integrated source terms that constitute the output
@@ -1963,7 +1958,7 @@ int Electrode_Integrator::evalResidNJ(const doublereal t, const doublereal delta
                electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
     if ((evalType != JacDelta_ResidEval)) {
-        mdp::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
+        std::fill(phaseJustDied_.begin(), phaseJustDied_.end(), 0);
     }
     /*
      *  UNPACK THE SOLUTION VECTOR
@@ -2181,7 +2176,7 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
-        mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;
         for (int kph = 0; kph < nphRS; kph++) {

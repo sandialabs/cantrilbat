@@ -8,10 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-
-#include "cantera/base/mdp_allo.h"
-
 #include "Electrode_RadialDiffRegions.h"
 #include "cantera/integrators.h"
 
@@ -21,8 +17,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -452,7 +446,7 @@ void Electrode_RadialDiffRegions::printElectrodePhase(int iph, int pSrc, bool su
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
-        mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;
         for (int kph = 0; kph < nphRS; kph++) {

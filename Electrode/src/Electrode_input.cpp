@@ -8,7 +8,7 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
+#include "mdp_allo.h"
 
 #include "cantera/equilibrium.h"
 #include "cantera/thermo/MolalityVPSSTP.h"
@@ -42,8 +42,8 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
 using namespace ca_ab;
+using namespace mdpUtil;
 
 #include <string>
 /*************************************************************************
@@ -94,7 +94,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     m_BG = new ElectrodeBath();
     m_pl = new PhaseList();
 
-    m_EGRList = (struct EGRInput**) mdp_alloc_ptr_1(2);
+    m_EGRList = new EGRInput*[2];
     m_EGRList[0] = new EGRInput();
 }
 /****************************************************************************
@@ -104,31 +104,32 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 {
     if (CanteraFileNames) {
         for (int i = 0; CanteraFileNames[i] != 0; i++) {
-            mdp_safe_free((void**) &(CanteraFileNames[i]));
+            delete[] CanteraFileNames[i];
         }
-        mdp_safe_free((void**) &(CanteraFileNames));
+        delete[] CanteraFileNames;
     }
     delete(m_BG);
     m_BG=0;
 
-    mdp_safe_free((void**) &PhaseInclude);
-    mdp_safe_free((void**) &MoleNumber);
-    mdp_safe_free((void**) &MoleFraction);
-    mdp_safe_free((void**) &PotentialPLPhases);
-    mdp_safe_free((void**) &SpeciesNames);
-    mdp_safe_free((void**) &PhaseNames);
-    mdp_safe_free((void**) &ElementNames);
-    mdp_safe_free((void**) &ElementAbundances);
+    delete[] PhaseInclude;
+    delete[] MoleNumber;
+    delete[] MoleFraction;
+    delete[] PotentialPLPhases;
+    delete[] SpeciesNames;
+    delete[] PhaseNames;
+    delete[] ElementNames;
+    delete[] ElementAbundances;
 
     if (m_EGRList) {
 
+      /*
         EGRInput** ptr;
         for (ptr = m_EGRList; *ptr != 0; ptr++) {
             delete *ptr;
         }
+        */
 
-
-        mdp_safe_free((void**) &m_EGRList);
+        delete[] m_EGRList;
     }
 
     delete m_pl;
@@ -168,11 +169,16 @@ void ELECTRODE_KEY_INPUT::InitForInput(const Cantera::PhaseList* const pl)
     /*
      * Include all Phases by default
      */
-    PhaseInclude = mdp_alloc_int_1(nTotPhases, 1);
-    MoleNumber   = mdp_alloc_dbl_1(nTotSpecies, 0.0);
-    MoleFraction = mdp_alloc_dbl_1(nTotSpecies, 0.0);
-    PotentialPLPhases = mdp_alloc_dbl_1(nTotPhases, 0.0);
-    ElementAbundances = mdp_alloc_dbl_1(nTotElements, 0.0);
+    PhaseInclude = new int[nTotPhases];
+    std::fill(PhaseInclude, PhaseInclude+nTotPhases, 1);
+    MoleNumber = new double[nTotSpecies];
+    std::fill(MoleNumber, MoleNumber+nTotSpecies, 0.);
+    MoleFraction = new double[nTotSpecies];
+    std::fill(MoleFraction, MoleFraction+nTotSpecies, 0.);
+    PotentialPLPhases = new double[nTotPhases];
+    std::fill(PotentialPLPhases, PotentialPLPhases+nTotPhases, 0.);
+    ElementAbundances = new double[nTotElements];
+    std::fill(ElementAbundances, ElementAbundances+nTotElements, 0.);
 
 
     SpeciesNames = mdp_alloc_VecFixedStrings(nTotSpecies,

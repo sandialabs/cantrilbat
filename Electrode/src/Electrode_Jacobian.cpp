@@ -1,74 +1,48 @@
 /*
  * $Id: Electrode_Jacobian.cpp 496 2013-01-07 21:15:37Z hkmoffa $
  */
-#include "cantera/base/mdp_allo.h"
-
-
-#include "cantera/thermo/FixedChemPotSSTP.h"
 
 #include "Electrode_Jacobian.h"
-
-using namespace Cantera;
-using namespace std;
-
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
-#endif
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
 
 namespace Cantera {
 
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
-                ee_(elect),
-                printLvl_(0)
+                electrode(elect)
 {
+  electrolytePhaseSpeciesStart = electrode->getGlobalSpeciesIndex(electrode->solnPhaseIndex());
 }
 //====================================================================================================================
-Electrode_Jacobian::Electrode_Jacobian(const Electrode_Jacobian& right) :
-                ee_(right.ee_),
-                printLvl_(0)
-{
-    /*
-     * Call the assignment operator.
-     */
-    operator=(right);
-}
-//====================================================================================================================
-// Destructor
 Electrode_Jacobian::~Electrode_Jacobian()
 {
 }
-//======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
-Electrode_Jacobian& Electrode_Jacobian::operator=(const Electrode_Jacobian& right)
+//====================================================================================================================
+void Electrode_Jacobian::add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries)
 {
-    /*
-     * Check for self assignment.
-     */
-    if (this == &right) {
-        return *this;
-    }
-    /*
-     *  Do a shallow copy of the Electrode pointer. This is all that is necessary
-     */
-    ee_ = right.ee_;
-
-
-    printLvl_ = right.printLvl_;
-
-    /*
-     * Return the reference to the current object
-     */
-    return *this;
+  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_sources_it = entries.begin();
+  std::vector<DOF_SOURCE_PAIR>::const_iterator dof_source_end = entries.end();
+  for( ; dof_sources_it != dof_source_end; ++dof_sources_it )
+  {
+    add_entry_to_compute(*dof_sources_it);
+  }
 }
-
+//====================================================================================================================
+void Electrode_Jacobian::add_entry_to_compute(DOF_SOURCE_PAIR entry)
+{
+  if( jacobian.find(entry) == jacobian.end() )
+  {
+    jacobian[entry] = 0.0;
+  }
+}
+//====================================================================================================================
+void Electrode_Jacobian::remove_entry_to_compute(DOF_SOURCE_PAIR entry)
+{
+  std::map< DOF_SOURCE_PAIR, double >::iterator entry_pos = jacobian.find(entry);
+  if( entry_pos != jacobian.end() )
+  {
+    jacobian.erase(entry_pos);
+  }
+}
 //====================================================================================================================
 }// End of namespace Cantera
-//======================================================================================================================
 

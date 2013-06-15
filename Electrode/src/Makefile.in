@@ -60,6 +60,7 @@ INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
 # the C++ compiler
 #
 CXX = @CXX@
+DEBUG_FLAGS = -O0 -fno-inline -g
 CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
@@ -77,6 +78,11 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 
 
 all: .depends libElectrode.a
+
+debug: CXXFLAGS=$(DEBUG_FLAGS)
+debug: CFLAGS=$(DEBUG_FLAGS)
+debug: LCXX_FLAGS=$(DEBUG_FLAGS)
+debug: .depends libElectrode.a
 
 .SUFFIXES: .src .prj .d
 
@@ -108,7 +114,7 @@ OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.
                   Electrode_Integrator.o Electrode_SimpleDiff.o \
                   Electrode_RadialDiffRegions.o Electrode_RadialRegion.o Electrode_SurfaceRegion.o \
                   Electrode_SuccessiveSubstitution.o Electrode_Equilibrium.o Electrode_Jacobian.o \
-                  Electrode_MP_RxnExtent_FeS2.o
+                  Electrode_MP_RxnExtent_FeS2.o Electrode_FD_Jacobian.o
 
 HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.h \
                   importPL.h Electrode.h Electrode_input.h ApplBase_print.h Electrode_defs.h \
@@ -118,8 +124,8 @@ HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.
                   Electrode_CSTR_LiCoO2Cathode.h EState.h Electrode_FuncCurrent.h  \
                   Electrode_Integrator.h Electrode_SimpleDiff.h \
                   Electrode_RadialDiffRegions.h  Electrode_RadialRegion.h Electrode_SurfaceRegion.h \
-                  Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h Electrode_Jacobian.h \
-                  Electrode_MP_RxnExtent_FeS2.h
+                  Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h \
+                  Electrode_MP_RxnExtent_FeS2.h Electrode_Jacobian.h Electrode_FD_Jacobian.h
 
 
 

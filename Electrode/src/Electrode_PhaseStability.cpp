@@ -13,9 +13,6 @@
 #include "tok_input_util.h"
 #include <iomanip>
 
-
-#include "cantera/base/mdp_allo.h"
-
 #include "Electrode_MultiPlateau_NoDiff.h"
 #include "cantera/numerics/NonlinearSolver.h"
 #include "cantera/thermo/FixedChemPotSSTP.h"
@@ -24,7 +21,6 @@
 
 using namespace Cantera;
 using namespace std;
-using namespace mdpUtil;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
@@ -164,8 +160,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
                 std::vector<doublereal> mole_fractions(nsp);
                 int iStart = emp_->getGlobalSpeciesIndex(iph, 0);
 
-                mdp::mdp_copy_dbl_1(DATA_PTR(mole_fractions),
-                                    (const double*) &(emp_->spMf_final_[iStart]), nsp);
+                std::copy(emp_->spMf_final_[iStart], emp_->spMf_final_[iStart] + nsp, mole_fractions.begin());
                 mfVector_pl_.push_back(mole_fractions);
                 ZVector_pl_.push_back(mole_fractions);
                 CDotVector_pl_.push_back(mole_fractions);
@@ -434,8 +429,8 @@ void Electrode_PhaseStability::extractInfo()
 
 
 
-    mdp::mdp_zero_dbl_1(DATA_PTR(speciesCreationRatesElectrode_), emp_->m_NumTotSpecies);
-    mdp::mdp_zero_dbl_1(DATA_PTR(speciesDestructionRatesElectrode_), emp_->m_NumTotSpecies);
+    std::fill(speciesCreationRatesElectrode_.begin(), speciesCreationRatesElectrode_.end(), 0.);
+    std::fill(speciesDestructionRatesElectrode_.begin(), speciesDestructionRatesElectrode_.end(), 0.);
 
 
     // for (int isk = 0; isk < emp_->m_NumSurPhases; isk++) {
@@ -605,7 +600,8 @@ int Electrode_PhaseStability::optResid(const doublereal tdummy, const doublereal
 
 
     if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
-        mdp::mdp_copy_dbl_1(DATA_PTR(fValue_pl_lagged_),(const double*)DATA_PTR(fValue_pl_), nPhasesToPop_);
+        std::vector<double>::const_iterator begin = fValue_pl_.begin();
+        std::copy(begin, begin+nPhasesToPop_, fValue_pl_lagged_.begin());
     }
 
     int index = 0;

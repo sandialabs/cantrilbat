@@ -3,11 +3,9 @@
  */
 
 #include "Electrode_SuccessiveSubstitution.h"
-#include "cantera/base/mdp_allo.h"
 
 using namespace Cantera;
 using namespace std;
-using namespace mdpUtil;
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -114,10 +112,9 @@ int Electrode_SuccessiveSubstitution::integrate(double deltaT, double rtolResid,
     vector<doublereal> delta(m_NumTotSpecies, 0.0);
     vector<int> justBornMultiSpecies(0);
 
-
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_init_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init), DATA_PTR(phaseMoles_init_), m_NumTotPhases);
+    std::copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_init_init_.begin());
+    std::copy(spMoles_final_.begin(), spMoles_final_.end(), spMoles_final_final_.begin());
+    std::copy(phaseMoles_init_.begin(), phaseMoles_init_.end(), phaseMoles_init_init.begin());
 
     followElectrolyteMoles_ = 1;
     updateState();
@@ -144,8 +141,8 @@ int Electrode_SuccessiveSubstitution::integrate(double deltaT, double rtolResid,
     tfinal_ = t_init_init_;
     tinit_  = t_init_init_;
     t_final_final_ = t_init_init_ + deltaT;
-    mdp::mdp_zero_dbl_1(&spMoleIntegratedSourceTerm_[0], m_NumTotSpecies);
-    mdp::mdp_zero_dbl_1(&spMoleIntegratedSourceTermLast_[0], m_NumTotSpecies);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
+    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.);
 
     /*
      *  When we call this routine successfully we have an integration for the current step pending
@@ -279,7 +276,7 @@ restartStep:
                      *  loop over the phases in the reacting surface
                      *  Get the net production vector
                      */
-                    mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+                    std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
                     int nphRS = RSD_List_[isk]->nPhases();
                     int jph, kph;
                     int kIndexKin = 0;
@@ -707,7 +704,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
              *  loop over the phases in the reacting surface
              *  Get the net production vector
              */
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isk]->nPhases();
             int jph, kph;
             int kIndexKin = 0;

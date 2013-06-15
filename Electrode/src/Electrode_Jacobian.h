@@ -1,12 +1,5 @@
-/**
- * Predict the stability of a single phase that is currently zereod.
- *
- *  This routine fills in an estimate for the solution
- *  Return 1 if the phases are stable and 0 if they are not
- *
- */
 /*
- * $Id: Electrode_PhaseStability.h 496 2013-01-07 21:15:37Z hkmoffa $
+ * $Id: Electrode_Jacobian.h
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -15,65 +8,71 @@
  * may require a license from the United States Government.
  */
 
-#ifndef _ELECTRODE_EQUILIBRIUM_H
-#define _ELECTRODE_EQUILIBRIUM_H
-
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
+#ifndef _ELECTRODE_JACOBIAN_H
+#define _ELECTRODE_JACOBIAN_H
 
 #include "Electrode.h"
 
-#include <string>
-#include <vector>
-
 namespace Cantera {
 
-//! Class which determines the stability of phases due to kinetics
-/*!
- *  Note, I believe I can make this class simpler
- *
- */
+  enum SOURCES
+  {
+    CURRENT_SOURCE,
+    ELECTROLYTE_PHASE_SOURCE,
+    ENTHALPY_SOURCE,
+    SPECIES_SOURCE,
+    MAX_SOURCE
+  };
+  enum DOFS
+  {
+    SOLID_VOLTAGE,
+    LIQUID_VOLTAGE,
+    TEMPERATURE,
+    PRESSURE,
+    SPECIES,
+    MAX_DOF
+  };
+
 class Electrode_Jacobian {
 
 public:
-    //! Constructor
-    /*!
-     *
-     * @param elect  Electrode object pertaining to the stability problem
-     *               The electrode object assigns this object as a "friend"
-     */
-    Electrode_Jacobian(Electrode* elect);
+  typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR ;
 
-    //! Destructor
-    virtual ~Electrode_Jacobian();
+  Electrode_Jacobian(Electrode* elect);
 
-    //! Copy Constructor
-    /*!
-     * @param right Object to be copied
-     */
-    Electrode_Jacobian(const Electrode_Jacobian& right);
+  virtual ~Electrode_Jacobian();
 
-    //! Assignment operator
-    /*!
-     *  @param right object to be copied
-     */
-    Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
+  // Compute the Jacobian at the point specified by centerpoint where
+  // centerpoint[DOFS] = dof_value
+  // centerpoint.size() == (MAX_DOF + n_species - 1) (i.e. a value for all possible dofs must be specified even if
+  // Jacobian entries are not being computed for that dof)
+  // Species mole fractions are specified starting at centerpoint[SPECIES] and should be in the order expected by
+  // electrode->setElectrolyteMoleNumbers
+  virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt) = 0;
 
+  double get_jacobian_value(const DOF_SOURCE_PAIR &dof_source_pair)
+  {
+    if( jacobian.find(dof_source_pair) == jacobian.end() ) {
+      throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed" );
+    }
+    return jacobian[dof_source_pair];
+  }
 
+  virtual void add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries);
+  virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
+  virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
 protected:
+  Electrode* const electrode;
+  int electrolytePhaseSpeciesStart;
 
-    //! This is a reference to the friend object, where we will pull most of the data from.
-    Electrode* ee_;
+  // Store the desired Jacobian contributions as a map from [dof, source] -> result
+  std::map< DOF_SOURCE_PAIR, double > jacobian;
 
-
-public:
-    //! Print level for input to vcs routines within this object
-    /*!
-     *    This is a public member so that it can be manipulated
-     */
-    int printLvl_;
-
+private:
+  // Disallow copies
+  Electrode_Jacobian(const Electrode_Jacobian& right);
+  Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
 };
 
 }

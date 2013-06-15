@@ -8,10 +8,6 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-
-#include "cantera/base/mdp_allo.h"
-
 #include "Electrode_SurfaceRegion.h"
 #include "Electrode_RadialDiffRegions.h"
 #include "cantera/integrators.h"
@@ -22,8 +18,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))

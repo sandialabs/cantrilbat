@@ -8,11 +8,7 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-#include "cantera/base/mdp_allo.h"
 #include "cantera/equilibrium.h"
-
-
 
 #include "PhaseList.h"
 #include "BlockEntry.h"
@@ -35,8 +31,6 @@ using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -828,7 +822,7 @@ void Electrode_CSTR::extractInfo()
      */
     for (int isk = 0; isk < numSurfaces_; isk++) {
         double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
-        mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         /*
          *   Only loop over surfaces that have kinetics objects associated with them
          */
@@ -869,7 +863,7 @@ void Electrode_CSTR::extractInfo()
 void Electrode_CSTR::updateSpeciesMoleChangeFinal()
 {
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(0);
-    mdp::mdp_zero_dbl_1(DATA_PTR(DspMoles_final_), m_NumTotSpecies);
+    std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.);
     double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]);
     mult /= 2.0;
     for (int i = 0; i < m_totNumVolSpecies; i++) {
@@ -939,7 +933,7 @@ int  Electrode_CSTR::predictSoln()
          * Copy initial to final
          */
 
-        mdp::mdp_init_int_1(DATA_PTR(justBornPhase_), 0, m_NumTotPhases);
+        std::fill(justBornPhase_.begin(), justBornPhase_.end(), 0);
         RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
         copy(spMf_init_.begin(), spMf_init_.end(), spMf_final_.begin());
         copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_final_.begin());
@@ -1555,7 +1549,7 @@ int Electrode_CSTR::integrateResid(const doublereal t, const doublereal delta_t,
                electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     }
     if ((evalType != JacDelta_ResidEval)) {
-        mdp::mdp_init_int_1(DATA_PTR(justDied_), 0, m_NumTotPhases);
+        std::fill(justDied_.begin(), justDied_.end(), 0);
     }
 
     /*
@@ -1564,7 +1558,7 @@ int Electrode_CSTR::integrateResid(const doublereal t, const doublereal delta_t,
     unpackNonlinSolnVector(y);
 
     if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
-        mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double*)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+        std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_final_lagged_.begin());
     }
 
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
@@ -2004,7 +1998,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
                 }
                 if (sp != phaseMFBig_[iph]) {
                     resid[index] = spMf_final_[isp] - frac;
-                    mdp::checkFinite(resid[index]);
+                    checkFinite(resid[index]);
                     index++;
                 }
             }
@@ -2211,7 +2205,7 @@ void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
             RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
-            mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             if (!goNowhere_) {
                 int nphRS = RSD_List_[isph]->nPhases();
                 int kIndexKin = 0;

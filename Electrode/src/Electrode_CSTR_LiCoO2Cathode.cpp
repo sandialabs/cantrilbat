@@ -8,19 +8,12 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-
-#include "cantera/base/mdp_allo.h"
 #include "cantera/equilibrium.h"
-
-
 
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 
 using namespace Cantera;
 using namespace std;
-
-using namespace mdpUtil;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))

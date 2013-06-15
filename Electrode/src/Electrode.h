@@ -29,11 +29,8 @@
 
 #include "Electrode_input.h"
 
-#include "mdp_allo.h"
 #include <string>
 #include <vector>
-
-
 
 class ELECTRODE_KEY_INPUT;
 class EGRInput;
@@ -570,7 +567,7 @@ public:
      *                     electrolyte mole numbers as well. We also set init_init and 
      *                     final_final values too. 
      */
-    void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial);
+    virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial);
 
     //! Set the mole numbers in a single phase
     /*!
@@ -635,14 +632,14 @@ public:
      *  @return Tfinal    Final time to integrate to.
      *
      */
-    double integratedSourceTerm(doublereal* const spMoleDelta);
+    virtual double integratedSourceTerm(doublereal* const spMoleDelta);
 
     //! Report the energy source term for the electrode over an interval in time
     /*!
      *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
      *  This should only be called after integrate() has finished running.
      */
-    double energySourceTerm();
+    virtual double energySourceTerm();
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
@@ -1371,7 +1368,6 @@ public:
      *            phases in the electrode object)
      *            units = kmol
      */
-// Deprecate
     virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
 
     //! Returns the current potential drop across the electrode
@@ -1587,6 +1583,8 @@ public:
 
     //! return the index of the phase corresponding to the soln
     int solnPhaseIndex() const;
+
+    virtual int numSolnPhaseSpecies() const;
 
     // ------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  ---------------------------------------

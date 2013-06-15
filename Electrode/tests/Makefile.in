@@ -13,6 +13,7 @@ all:
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@
 	cd LiSi_5_Anode_Integrate ; @MAKE@
+	cd UnitTests ; @MAKE@
 
 test:
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ -s test
@@ -21,6 +22,7 @@ test:
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@ -s test
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ -s test
 	cd LiSi_5_Anode_Integrate ; @MAKE@ -s test
+	cd UnitTests ; @MAKE@ -s test
 
 
 clean:
@@ -31,6 +33,7 @@ clean:
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  clean
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ clean 
 	cd LiSi_5_Anode_Integrate ; @MAKE@ clean
+	cd UnitTests ; @MAKE@ clean
 
 
 depends:
@@ -41,6 +44,7 @@ depends:
 	 cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  depends
 	 cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ depends
 	 cd LiSi_5_Anode_Integrate ; @MAKE@ depends
+	 cd UnitTests ; @MAKE@ depends
 
 
 
