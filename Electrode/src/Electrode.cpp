@@ -3991,7 +3991,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
     int status;
     double currentNeeded = current;
     Electrode_ECurr ec(this, deltaT);
-    printf("current needed = %g\n", currentNeeded);
+    //printf("current needed = %g\n", currentNeeded);
 
     /*
      *  We take our cues about the best voltages from the electrode object itself
@@ -4076,7 +4076,9 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
 	    numSteps = ec.nIntegrationSteps();
 	    if (eei) {
 		SubIntegrationHistory& sih = eei->timeHistory(); 
-		sih.print(5);
+		if (printLvl_ > 2) {
+		    sih.print(5);
+		}
 	    
 		if (numSteps > maxIntegrationSteps) {
 		    int nn = 3 * maxIntegrationSteps / 4 + 1;
@@ -4118,8 +4120,18 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
                 return xbest;
             } else {
                 if (printLvl_ > 1) {
-                    printf("                            volts at top = %g\n", phiMax);
+		    if (fabs(currentObtained ) < 1.0E-10) {
+			printf("                            volts at top = %g probably because no electrons left, curr = %g\n", phiMax, currentObtained);
+		    } else {
+			printf("                            volts at top = %g\n", phiMax);
+		    }
                 }
+		if (fabs(currentObtained ) < 1.0E-10) {
+		    current = currentObtained;
+		    deltaT = deltaT_curr;
+		    printLvl_ = oldP;
+		    return xbest;
+		}
             }
         }
         /*
@@ -4141,9 +4153,19 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
                 printLvl_ = oldP;
                 return xbest;
             } else {
-                if (printLvl_ > 1) {
-                    printf("                            volts at bottom = %g\n", phiMin);
+		if (printLvl_ > 1) {
+		    if (fabs(currentObtained ) < 1.0E-6) {
+			printf("                            volts at bottom = %g probably because no electrons left, curr = %g\n", phiMax, currentObtained);
+		    } else {
+			printf("                            volts at bottom = %g, current = %g\n", phiMax,  currentObtained);
+		    }
                 }
+		if (fabs(currentObtained ) < 1.0E-6) {
+		    current = currentObtained;
+		    deltaT = deltaT_curr;
+		    printLvl_ = oldP;
+		    return xbest;
+		}
             }
         }
         /*
