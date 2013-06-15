@@ -244,15 +244,21 @@ SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal)
 double
 SubIntegrationHistory::globalStartTime() const
 {
-    const TimeStepHistory& tshCurrent =  TimeStepList_[0];
-    return tshCurrent.t_init_;
+    if  (TimeStepList_.size() > 0) {
+	const TimeStepHistory& tshCurrent =  TimeStepList_[0];
+	return tshCurrent.t_init_;
+    }
+    return 0.0;
 }
 //======================================================================================================================
 double
 SubIntegrationHistory::globalEndTime() const
 {
-    const TimeStepHistory& tshCurrent =  TimeStepList_[nTimeSteps_-1];
-    return tshCurrent.t_final_;
+    if  (nTimeSteps_ > 0) {
+	const TimeStepHistory& tshCurrent =  TimeStepList_[nTimeSteps_-1];
+	return tshCurrent.t_final_;
+    }
+    return 0.0;
 }
 //======================================================================================================================
 void
