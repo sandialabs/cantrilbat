@@ -13,7 +13,6 @@ export CANTERA_ROOT
 #
 CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_472"
 export CANTERA_APPS_INSTALL_DIR
-
 #
 PYTHON_DIR=/home/hkmoffa/arch/linux64_gcc444/python-2.6.4
 export PYTHON_DIR
