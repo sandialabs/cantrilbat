@@ -153,7 +153,6 @@ then
   AC_SUBST(MPIHOME)
   mpi_include_dir=${MPIHOME}/include
   AC_SUBST(mpi_include_dir)
-  AC_DEFINE(HAVE_MPI)
 else
   echo 'testing whether to turn off the HAVE_MPI flag which triggers compilation with MPI ... no'
   MPICXX=${CXX}
@@ -163,7 +162,6 @@ else
   AC_SUBST(MPIHOME)
   mpi_include_dir=.
   AC_SUBST(mpi_include_dir)
-
 fi
 #
 #  Setup a default machine file that is used in the MP environment if no other machine file is specified
