@@ -117,11 +117,12 @@ procChoice_Min(const double pmin, const Epetra_Comm& cc, double &gmin)
   return gWinner;
 }
 //=====================================================================================
+
 void
 print_sync_start(int do_print_line, Epetra_Comm &comm)
 {
-
-  int bytes;
+#ifdef HAVE_MPI
+  //int bytes;
   int flag = 1, type;
   M1D_MPI_Request request;
 
@@ -132,7 +133,11 @@ print_sync_start(int do_print_line, Epetra_Comm &comm)
   if (procID) {
     int from = procID - 1;
     M1D::md_wrap_iread((void *) &flag, sizeof(int), &from, &type, &request);
-    bytes = M1D::md_wrap_wait(&from, &type, &request);
+    //bytes = M1D::md_wrap_wait(&from, &type, &request);
+    M1D::md_wrap_wait(&from, &type, &request);
+    /*
+     * TODO: check return status to see if we answered the write request
+     */  
   } else {
     if (do_print_line) {
       printf("\n");
@@ -144,6 +149,7 @@ print_sync_start(int do_print_line, Epetra_Comm &comm)
       (void) printf("\n");
     }
   }
+#endif
 }
 
 //=====================================================================================
@@ -313,7 +319,7 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
   int from, to;
   int fromReturn;
   int typeReturn;
-  int rbytes;
+  //int rbytes;
   int indexCompleted;
   M1D_MPI_Request requestV[2];
   bool weAreNotDone = true;
@@ -357,7 +363,8 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
 
       // Do a blocking read from the processor to start off with
       int bytes = sizeof(int);
-      rbytes = M1D::md_read_specific((void * const ) buf, bytes, from, type0CommStart);
+      //rbytes = M1D::md_read_specific((void * const ) buf, bytes, from, type0CommStart);
+      M1D::md_read_specific((void * const ) buf, bytes, from, type0CommStart);
       // Set up a message type that will indicate that we are through reading from the
       // current processor.
       type = type0CommEnd;
@@ -368,7 +375,8 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
         type = typeP0;
         M1D::md_wrap_iread((void *) buf, 1024, &from, &type, &(requestV[1]));
 
-        rbytes = M1D::md_waitany(&indexCompleted, &fromReturn, &typeReturn, 2, requestV);
+        //rbytes = M1D::md_waitany(&indexCompleted, &fromReturn, &typeReturn, 2, requestV);
+        M1D::md_waitany(&indexCompleted, &fromReturn, &typeReturn, 2, requestV);
         if (fromReturn != from) {
           fprintf(stderr,"we are confused\n");
           exit(-1);

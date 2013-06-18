@@ -7,6 +7,15 @@
  *  $Id: LiIon_PorousBat.cpp 506 2013-01-07 22:43:59Z hkmoffa $
  */
 
+#define HAVE_MPI
+#ifdef HAVE_MPI
+#include <mpi.h>
+#include <Epetra_MpiComm.h>
+#else
+#include "Epetra_SerialComm.h"
+#endif
+
+
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
@@ -19,6 +28,9 @@
 #include "m1d_defs.h"
 #include "LiIon_PorousBat.h"
 
+
+#include "m1d_Comm.h"
+#include "m1d_EpetraExtras.h"
 
 #include "m1d_BulkDomain1D.h"
 
