@@ -13,7 +13,7 @@ all:
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@
 	cd LiSi_5_Anode_Integrate ; @MAKE@
-	cd UnitTests ; @MAKE@
+#	cd UnitTests ; @MAKE@
 
 test:
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ -s test
@@ -22,7 +22,7 @@ test:
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@ -s test
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ -s test
 	cd LiSi_5_Anode_Integrate ; @MAKE@ -s test
-	cd UnitTests ; @MAKE@ -s test
+#	cd UnitTests ; @MAKE@ -s test
 
 
 clean:
