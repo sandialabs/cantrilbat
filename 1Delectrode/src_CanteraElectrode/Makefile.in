@@ -53,8 +53,8 @@ TRILINOS_INC_DIR=$(TRILINOS_DIR)/include
 TRILINOS_INC=-I$(TRILINOS_DIR)/include
 TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
 
-include $(TRILINOS_INC_DIR)/Makefile.export.amesos
-include $(TRILINOS_INC_DIR)/Makefile.export.ifpack
+include $(TRILINOS_INC_DIR)/Makefile.export.Amesos
+include $(TRILINOS_INC_DIR)/Makefile.export.Ifpack
 
 UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
