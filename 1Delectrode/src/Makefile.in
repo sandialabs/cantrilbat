@@ -57,6 +57,8 @@ CANTERA_APPS_INSTALL_DIR = @cta_prefix@
 #
 include $(CANTERA_INCROOT)/cantera/Cantera.mak
 #
+###################################################################################################
+#
 # Trilinos installation options
 #
 TRILINOS_DIR=@trilinos_root@
@@ -75,7 +77,11 @@ UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
 M1D_TARGET=$(CANTERA_APPS_INSTALL_DIR)/lib/libm1d.a
 
 #
-###################################################################################################3
+########################################################################################################
+#       TRILINOS LINK LINE
+#              
+#       (tpls are not broken down into paths and names. Therefore, we are hard-coding it here
+#        until we develop a string substitution)
 #
 SUPERLU_DIR=/home/hkmoffa/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
 SUPERLU_LINE=-L$(SUPERLU_DIR) -lsuperludist
@@ -94,9 +100,9 @@ BLAS_LINE=-L$(BLAS_DIR) -lblas_linux64-gcc472
 PARMETIS_DIR=/home/hkmoffa/arch/linux64_gcc472/ParMetis-3.1.1/lib
 PARMETIS_LINE=-L$(PARMETIS_DIR) -lparmetis -lmetis
 
-
-TRILINOS_LIB_LINE=$(AMESOS_LINE)   $(SUPERLU_LINE) $(UMFPACK_LINE) $(PARMETIS_LINE) $(LAPACK_LINE) $(BLAS_LINE)
-
+#    fortran is needed
+TRILINOS_LIB_LINE=$(AMESOS_LINE)   $(SUPERLU_LINE) $(UMFPACK_LINE) $(PARMETIS_LINE) $(LAPACK_LINE) $(BLAS_LINE) -lgfortran
+#
 #
 ###################################################################################################3
 #
