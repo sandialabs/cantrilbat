@@ -4039,7 +4039,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
     if (numSteps > maxIntegrationSteps) {
 	if (eei) {
 	    SubIntegrationHistory& sih = eei->timeHistory();
-	    if (printLvl_ > 2) {
+	    if (printLvl_ > 3) {
 		sih.print(5);
 	    } 
 	    int nn = 3 * maxIntegrationSteps / 4 + 1;
@@ -4049,7 +4049,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
 	    deltaT_curr = 0.5 * deltaT *  maxIntegrationSteps /  numSteps;
 	}
     } else {
-	if (printLvl_ > 2) {
+	if (printLvl_ > 3) {
 	    if (eei) {
 		SubIntegrationHistory& sih = eei->timeHistory(); 
 		sih.print(5);
@@ -4158,9 +4158,9 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
             } else {
 		if (printLvl_ > 1) {
 		    if (fabs(currentObtained ) < 1.0E-6) {
-			printf("                            volts at bottom = %g probably because no electrons left, curr = %g\n", phiMax, currentObtained);
+			printf("                            volts at bottom = %g probably because no electrons left, curr = %g\n", phiMin, currentObtained);
 		    } else {
-			printf("                            volts at bottom = %g, current = %g\n", phiMax,  currentObtained);
+			printf("                            volts at bottom = %g, current = %g\n", phiMin,  currentObtained);
 		    }
                 }
 		if (fabs(currentObtained ) < 1.0E-6) {
