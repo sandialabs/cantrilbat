@@ -40,7 +40,6 @@ namespace TKInput {
     char input[1024];
     int nchar;
     int iline = 0;
-    int numExpected = -1;
     double tmp1, tmp2;
     BOOLEAN error = 0;
 
@@ -60,8 +59,7 @@ namespace TKInput {
 	fillTokStruct(&lineTok, input);
 	if (lineTok.ntokes != 2) {
 	  if (iline == 1 && lineTok.ntokes == 1) {
-	    numExpected = str_to_int(lineTok.tok_ptrV[0], INT_MAX, 1, 
-				     -1, &error);
+	    str_to_int(lineTok.tok_ptrV[0], INT_MAX, 1, -1, &error);
 	    continue;
 	  } else { 
 	    printf("ERROR iline = %d, Number tokens != 2: %s\n", iline,

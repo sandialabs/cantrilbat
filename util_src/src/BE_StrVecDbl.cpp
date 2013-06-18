@@ -96,7 +96,7 @@ namespace BEInput {
       if (HndlVecDbl_ == 0 && ListLength > 0) {
 	HndlVecDbl_ = new std::vector<double>(ListLength, DefaultVal);
       } else if (ListLength > 0) {
-        if ((*HndlVecDbl_).size() < ListLength) {
+        if ((*HndlVecDbl_).size() < (size_t) ListLength) {
            (*HndlVecDbl_).resize(ListLength, DefaultVal); 
         }
       }
@@ -212,7 +212,7 @@ namespace BEInput {
     if (HndlVecDbl_ == 0) {
       HndlVecDbl_ = new std::vector<double>(ListLength, DefaultVal);
     } else if (ListLength > 0) {
-      if ((*HndlVecDbl_).size() < ListLength) {
+      if ((*HndlVecDbl_).size() < (size_t) ListLength) {
          (*HndlVecDbl_).resize(ListLength, DefaultVal); 
       }
     }
