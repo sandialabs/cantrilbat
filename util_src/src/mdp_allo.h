@@ -324,10 +324,10 @@ extern "C" double subtractrd_(double *, double *);
 /* 
  * checkFinite
  */
-extern void checkZeroFinite(double);
-extern void checkFinite(double);
-extern "C" void checkfinite_(double *);
-extern void checkMagnitude(double tmp, double trigger = 1.0E20);
+//extern void checkZeroFinite(double);
+//extern void checkFinite(double);
+//extern "C" void checkfinite_(double *);
+//extern void checkMagnitude(double tmp, double trigger = 1.0E20);
 /****************************************************************************/
 }
 #endif
