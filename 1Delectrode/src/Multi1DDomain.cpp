@@ -12,6 +12,8 @@
 #include <AztecOO.h>
 #include "m1d_defs.h"
 
+#include "../../config.h"
+
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>

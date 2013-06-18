@@ -37,6 +37,7 @@
 #include <float.h>
 #include <limits.h>
 #include <fstream>
+#include <unistd.h>
 
 #include "SolnLayout.h"
 #include "SolnDomain.h"
