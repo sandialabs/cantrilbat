@@ -11,6 +11,7 @@
 #include "cantera/equilibrium.h"
 
 #include "Electrode_MP_RxnExtent.h"
+#include "cantera/base/mdp_allo.h"
 
 #include "BlockEntryGlobal.h"
 
@@ -32,6 +33,7 @@ using namespace TKInput;
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
 #endif
+
 
 namespace Cantera
 {
@@ -2184,12 +2186,14 @@ int  Electrode_MP_RxnExtent::predictSoln()
     double vtop, vbot;
     double SrcDot_RelativeExtentRxn_final_1;
 
+/*
     bool behaviorChangePossible = false;
     if (solidDiffusionModel_) {
         if (ROPModificationType_ == 2) {
             behaviorChangePossible = true;
         }
     }
+*/
     /*
      * Copy initial to final
      */
@@ -4621,7 +4625,7 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
 void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
     int printDetail = 10;
-    int isph;
+    //int isph;
     int isurfA;
     int isurf;
     double* netROP = new double[m_NumTotSpecies];
@@ -4663,7 +4667,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
      */
     double radius;
     if (iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+        //isph = iph - NumVolPhases_;
         if (indexOfReactingSurface_ == 1) {
             isurf = 1;
         } else {
