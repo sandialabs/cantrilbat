@@ -79,15 +79,12 @@ UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
 M1D_TARGET=$(CANTERA_APPS_INSTALL_DIR)/lib/libm1d.a
 
 #
-<<<<<<< HEAD
 ########################################################################################################
 #       TRILINOS LINK LINE
 #              
 #       (tpls are not broken down into paths and names. Therefore, we are hard-coding it here
 #        until we develop a string substitution)
-=======
 ###################################################################################################3
->>>>>>> First step in getting 1D cord ported
 #
 SUPERLU_DIR=/home/hkmoffa/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
 SUPERLU_LINE=-L$(SUPERLU_DIR) -lsuperludist
