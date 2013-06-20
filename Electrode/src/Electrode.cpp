@@ -4217,7 +4217,7 @@ double Electrode::integratedSourceTerm(doublereal* const spMoleDelta)
     /*
      *  We may do more here to ensure that the last integration is implicit
      */
-    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), spMoleDelta);
+    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), spMoleDelta);
     return tfinal_;
 }
 //====================================================================================================================
@@ -4253,7 +4253,7 @@ double Electrode::energySourceTerm()
 double Electrode::integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta)
 {
     integrate(deltaT);
-    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), spMoleDelta);
+    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), spMoleDelta);
     return t_final_final_;
 }
 //====================================================================================================================
