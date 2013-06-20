@@ -69,8 +69,11 @@ include $(TRILINOS_INC_DIR)/Makefile.export.Amesos
 include $(TRILINOS_INC_DIR)/Makefile.export.Ifpack
 
 MPI_INCLUDE_DIR=@mpi_include_dir@
+<<<<<<< HEAD
 
 MPI_INCLUDE_DIR=@mpi_include_dir@
+=======
+>>>>>>> origin/rhel6Port_m
 
 UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
