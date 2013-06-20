@@ -11,3 +11,4 @@ rhel5_64_sierra_gcc444
 .depends
 config.h
 *~
+.*.swp
