@@ -27,8 +27,10 @@ out the ThermoPhase specification. I've set this to an extremely high quantity.
 Hopefully, it won't ever come into play.
 
 
-
-
+HKM Note 6/20/2013
+      The test now has a couple of NANs in the output. It looks as if some of the
+phases don't have mole fractions which sum to one initially.
+TODO: fix this
 
 
 
