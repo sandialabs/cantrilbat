@@ -483,8 +483,8 @@ int main(int argc, char **argv)
             fprintf(stderr, "BOUNDARY CONDITION time step from %f until %f\n", TInit, TFinal);
             TStop = t1.integratePRE(TFinal, TInit);
             if (TStop != TFinal) {
-                throw m1d_Error("main()", "TStop, " + fp2str(TStop) + ", not equal to TFinal, " + fp2str(TFinal)
-                        + ". Something unknown happened");
+                printf(" Abnormal: Tstop %g not equal to Tfinal %g. Something happened\n", TStop, TFinal);
+                break;
             }
             TInit = TFinal;
         }
