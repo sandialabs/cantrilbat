@@ -47,12 +47,12 @@ public:
     int nIntegrationSteps() const {
         return numStepsLast_;    
     }
-
+   
     virtual int evalSS(const doublereal t, const doublereal* const x,
                        doublereal* const r) {
         // set the metal and the electrolyte voltage
         m_ee->setVoltages(x[0], 0.0);
-        if (printLvl_ > 2) {
+        if (printLvl_ > 0) {
             printf("Electrode_ECurr: call integrate with voltage = %20.13g\n", x[0]);
         }
         /*
@@ -82,12 +82,12 @@ public:
 #endif
 	Electrode_Integrator* eeI = dynamic_cast<Electrode_Integrator*>(m_ee);
 
-        if (printLvl_ > 2) {
+        if (printLvl_ > 0) {
             printf("Electrode_ECurr: Curr(voltage = %20.13g) = %20.13g   nsteps = %d\n", x[0], amps, numStepsLast_);
 	  
         }
 	if (eeI) {
-	    if (printLvl_ > 3) {
+	    if (printLvl_ > 1) {
 		SubIntegrationHistory &sih = eeI->timeHistory();
 		sih.print(3);
 	    }
@@ -99,9 +99,12 @@ public:
         m_deltaT = deltaT;
     }
 
+    //! Pointer to the underlying Electrode object
     Electrode* m_ee;
     double m_deltaT;
     double srcNet[50];
+
+    //! Print level for the object only.
     int printLvl_;
     int numStepsLast_;
 };

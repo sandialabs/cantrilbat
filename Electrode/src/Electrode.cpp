@@ -4017,15 +4017,15 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
     }
 
     RootFind rf(&ec);
-    rf.setPrintLvl(1);
     rf.setTol(1.0E-5, 1.0E-10);
     rf.setFuncIsGenerallyIncreasing(true);
     rf.setDeltaX(0.01);
     double xbest = phiM;
-    double oldP = printLvl_;
+    int oldP = printLvl_;
     double deltaT_curr = deltaT;
     // Turn down printing for lower levels
-    int printLvlLocal = MAX(0, printLvl_ - 3);
+    printLvl_ = MAX(0, printLvl_ - 3);
+    int printLvlLocal = oldP;
     if (printLvlLocal > 0) {
         rf.setPrintLvl(printLvlLocal);
         ec.printLvl_ = printLvlLocal;
@@ -4039,7 +4039,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
     if (numSteps > maxIntegrationSteps) {
 	if (eei) {
 	    SubIntegrationHistory& sih = eei->timeHistory();
-	    if (printLvl_ > 3) {
+	    if (printLvlLocal > 2) {
 		sih.print(5);
 	    } 
 	    int nn = 3 * maxIntegrationSteps / 4 + 1;
@@ -4049,7 +4049,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
 	    deltaT_curr = 0.5 * deltaT *  maxIntegrationSteps /  numSteps;
 	}
     } else {
-	if (printLvl_ > 3) {
+	if (printLvlLocal > 1) {
 	    if (eei) {
 		SubIntegrationHistory& sih = eei->timeHistory(); 
 		sih.print(5);
@@ -4100,7 +4100,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
         /*
          *  Any other status indicator, we print out a warning message
          */
-        if (printLvl_ > 1) {
+        if (printLvlLocal > 1) {
             printf("Electrode::integrateConstantCurrent(): bad status = %d Volts (%g amps) = %g at deltaT = %g\n",
                    status, currentObtained, xbest, deltaT_curr);
         }
@@ -4114,7 +4114,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
              *  exit gracefully and handle the situation at a higher level.
              */
             if (iTrial >= 2) {
-                if (printLvl_ > 1) {
+                if (printLvlLocal > 1) {
                     printf("                            volts at top = %g : returning with voltMax solution\n", phiMax);
                 }
                 current = currentObtained;
@@ -4122,7 +4122,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
                 printLvl_ = oldP;
                 return xbest;
             } else {
-                if (printLvl_ > 1) {
+                if (printLvlLocal > 1) {
 		    if (fabs(currentObtained ) < 1.0E-10) {
 			printf("                            volts at top = %g probably because no electrons left, curr = %g\n", phiMax, currentObtained);
 		    } else {
@@ -4147,7 +4147,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
              *  exit gracefully and handle the situation at a higher level.
              */
             if (iTrial >= 2) {
-                if (printLvl_ > 1) {
+                if (printLvlLocal > 1) {
                     printf("                            volts at bottom = %g: returning with voltMin solution\n",
                            phiMin);
                 }
@@ -4156,7 +4156,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
                 printLvl_ = oldP;
                 return xbest;
             } else {
-		if (printLvl_ > 1) {
+		if (printLvlLocal > 1) {
 		    if (fabs(currentObtained ) < 1.0E-6) {
 			printf("                            volts at bottom = %g probably because no electrons left, curr = %g\n", phiMin, currentObtained);
 		    } else {
