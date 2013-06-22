@@ -232,7 +232,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     /*
      *  Calculate the change in the moles of all of the species
      */
-    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), 0.);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
         for (int isk = 0; isk < numSurfaces_; isk++) {
