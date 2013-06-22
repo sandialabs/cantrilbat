@@ -94,8 +94,10 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     m_BG = new ElectrodeBath();
     m_pl = new PhaseList();
 
-    m_EGRList = new EGRInput*[2];
+    //m_EGRList = new EGRInput*[2];
+    m_EGRList = (EGRInput**) mdp_alloc_ptr_1(2);
     m_EGRList[0] = new EGRInput();
+    m_EGRList[1] = 0;
 }
 /****************************************************************************
  *
@@ -104,32 +106,31 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 {
     if (CanteraFileNames) {
         for (int i = 0; CanteraFileNames[i] != 0; i++) {
-            delete[] CanteraFileNames[i];
+            free(CanteraFileNames[i]);
         }
-        delete[] CanteraFileNames;
+        free(CanteraFileNames);
     }
     delete(m_BG);
     m_BG=0;
 
-    delete[] PhaseInclude;
-    delete[] MoleNumber;
-    delete[] MoleFraction;
-    delete[] PotentialPLPhases;
-    delete[] SpeciesNames;
-    delete[] PhaseNames;
-    delete[] ElementNames;
-    delete[] ElementAbundances;
+    delete [] PhaseInclude;
+    delete [] MoleNumber;
+    delete [] MoleFraction;
+    delete [] PotentialPLPhases;
+    free(SpeciesNames);
+    free(PhaseNames);
+    free(ElementNames);
+    delete [] ElementAbundances;
 
     if (m_EGRList) {
 
-      /*
+      
         EGRInput** ptr;
         for (ptr = m_EGRList; *ptr != 0; ptr++) {
             delete *ptr;
         }
-        */
 
-        delete[] m_EGRList;
+        free(m_EGRList);
     }
 
     delete m_pl;
@@ -172,13 +173,13 @@ void ELECTRODE_KEY_INPUT::InitForInput(const Cantera::PhaseList* const pl)
     PhaseInclude = new int[nTotPhases];
     std::fill(PhaseInclude, PhaseInclude+nTotPhases, 1);
     MoleNumber = new double[nTotSpecies];
-    std::fill(MoleNumber, MoleNumber+nTotSpecies, 0.);
+    std::fill(MoleNumber, MoleNumber+nTotSpecies, 0.0);
     MoleFraction = new double[nTotSpecies];
-    std::fill(MoleFraction, MoleFraction+nTotSpecies, 0.);
+    std::fill(MoleFraction, MoleFraction+nTotSpecies, 0.0);
     PotentialPLPhases = new double[nTotPhases];
-    std::fill(PotentialPLPhases, PotentialPLPhases+nTotPhases, 0.);
+    std::fill(PotentialPLPhases, PotentialPLPhases+nTotPhases, 0.0);
     ElementAbundances = new double[nTotElements];
-    std::fill(ElementAbundances, ElementAbundances+nTotElements, 0.);
+    std::fill(ElementAbundances, ElementAbundances+nTotElements, 0.0);
 
 
     SpeciesNames = mdp_alloc_VecFixedStrings(nTotSpecies,
@@ -1154,12 +1155,14 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
     /*
      * Determine the total number of kmols for each species
      */
+    /*
     bool molesSpecified = false;
     BlockEntry* be = cf->searchBlockEntry("Species Initial KMoles");
     specifiedBlockKmolSpecies = be->get_NumTimesProcessed();
     if (specifiedBlockKmolSpecies > 0) {
         molesSpecified = true;
     }
+    */
 
     /*
      *  Loop Over all phases in the PhaseList, adding these
@@ -1364,8 +1367,7 @@ int electrode_model_print(Cantera::Electrode* electrodeA,  ELECTRODE_KEY_INPUT* 
 
         bool molalVecSpecified = false;
         if (pblock) {
-            BEInput::BlockEntry* pbsmm =
-                pblock->searchBlockEntry("Bath Species Molalities");
+            BEInput::BlockEntry* pbsmm = pblock->searchBlockEntry("Bath Species Molalities");
             if (pbsmm) {
                 if (pbsmm->get_NumTimesProcessed() > 0) {
                     molalVecSpecified = true;
@@ -1397,7 +1399,7 @@ int electrode_model_print(Cantera::Electrode* electrodeA,  ELECTRODE_KEY_INPUT* 
             //      electrodeA->spMoles[kstart+k] = totalMoles * BG_ptr->XmolPLPhases[iph][k];
         }
         electrodeA->setPhaseMoleNumbers(iph, molesSpecies);
-        delete [] molesSpecies;
+        delete[] molesSpecies;
 
         //    tphase->getPartialMolarVolumes(&(electrodeA->VolPM[kstart]));
         //   tphase->getElectrochemPotentials(&(electrodeA->spElectroChemPot[kstart]));
