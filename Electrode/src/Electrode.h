@@ -1100,6 +1100,7 @@ public:
      *             units are kmol
      */
     void getMoleNumSpecies(doublereal* const n) const;
+    const std::vector<doublereal> & getMoleNumSpecies() const;
 
     //! Get mole numbers of all phases in the phase object
     /*!

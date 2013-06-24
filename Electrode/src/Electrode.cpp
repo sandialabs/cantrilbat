@@ -1999,6 +1999,11 @@ void Electrode::getMoleNumSpecies(doublereal* const n) const
     std::copy( spMoles_final_.begin(), spMoles_final_.end(), n );
 }
 //================================================================================================
+const std::vector<doublereal> & Electrode::getMoleNumSpecies() const
+{
+  return spMoles_final_;
+}
+//================================================================================================
 void Electrode::getMoleNumPhases(doublereal* const np) const
 {
     std::copy( phaseMoles_final_.begin(), phaseMoles_final_.end(), np);
