@@ -140,10 +140,10 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     vector<int> justBornMultiSpecies(0);
 
 
-    std::copy(spMoles_init_init_.begin(), spMoles_init_init_.begin(), spMoles_init_.begin());
-    std::copy(spMoles_init_init_.begin(), spMoles_init_init_.begin(), spMoles_final_.begin());
-    std::copy(phaseMoles_init_init_.begin(), phaseMoles_init_init_.begin(), phaseMoles_init_.begin());
-    std::copy(phaseMoles_init_init_.begin(), phaseMoles_init_init_.begin(), phaseMoles_final_.begin());
+    std::copy(spMoles_init_init_.begin(), spMoles_init_init_.end(), spMoles_init_.begin());
+    std::copy(spMoles_init_init_.begin(), spMoles_init_init_.end(), spMoles_final_.begin());
+    std::copy(phaseMoles_init_init_.begin(), phaseMoles_init_init_.end(), phaseMoles_init_.begin());
+    std::copy(phaseMoles_init_init_.begin(), phaseMoles_init_init_.end(), phaseMoles_final_.begin());
     /*
      *   Set the internal objects to the correct conditions
      *    -> This will be the final conditions.
@@ -232,7 +232,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     /*
      *  Calculate the change in the moles of all of the species
      */
-    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.begin(), 0.);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
         for (int isk = 0; isk < numSurfaces_; isk++) {
