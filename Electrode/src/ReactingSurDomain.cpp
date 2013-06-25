@@ -238,8 +238,8 @@ void ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
 
 
 
-    const vector_fp& rf = m_kdata->m_rfn;
-    const vector_fp& rkc= m_kdata->m_rkcn;
+    const vector_fp& rf = m_rfn;
+    const vector_fp& rkc= m_rkcn;
 
 
     // start with the forward reaction rate
