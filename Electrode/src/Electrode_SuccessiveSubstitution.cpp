@@ -116,10 +116,15 @@ int Electrode_SuccessiveSubstitution::integrate(double deltaT, double rtolResid,
     std::copy(spMoles_final_.begin(), spMoles_final_.end(), spMoles_final_final_.begin());
     std::copy(phaseMoles_init_.begin(), phaseMoles_init_.end(), phaseMoles_init_init.begin());
 
+#ifdef OLD_FOLLOW
     followElectrolyteMoles_ = 1;
     updateState();
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     followElectrolyteMoles_ = 0;
+#else
+    updateState();
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
+#endif
 
     int iterSubCycle = 0;
     bool notDone = true;
@@ -597,10 +602,15 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
     vector<doublereal> srcTerm(m_NumTotSpecies, 0.0);
     static  vector<int> justBornMultiSpecies;
 
+#ifdef OLD_FOLLOW
     followElectrolyteMoles_ = 1;
     updateState();
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     followElectrolyteMoles_ = 0;
+#else
+    updateState();
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
+#endif
 
     tfinal_ = tinit_;
     tfinal_ += deltaTsubcycle;
