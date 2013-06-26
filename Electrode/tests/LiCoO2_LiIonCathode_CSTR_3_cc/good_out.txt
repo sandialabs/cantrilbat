@@ -1066,8 +1066,8 @@ oc[0] = 3.98922
           Particle Number to Follow =  2.0000E+08
           Current = -9.99412E-03 amps
           Voltage (phiMetal - phiElectrolyte) =  3.90000E+00 volts
-          followElectrolyteMoles = 1
-          ElectrolytePseudoMoles = -1
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 3.36642e-07
 
           Capacity Discharged Since Start =            0 coulombs =            0 Ah
           Depth of Discharge (Current)    =     0.165195 coulombs

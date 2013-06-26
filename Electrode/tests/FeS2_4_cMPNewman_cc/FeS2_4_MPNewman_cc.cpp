@@ -145,7 +145,7 @@ int main(int argc, char **argv)
 
  
     // Go get the problem description from the input file
-    electrodeC_input->printLvl_ = 5;
+    electrodeC_input->printLvl_ = 3;
     retn = electrodeC_input->electrode_input(commandFileC, cfC);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
     deltaTgoal = 2.0E-1;
 
     electrodeC->printElectrode();
-    electrodeC->setPrintLevel(5);
+    electrodeC->setPrintLevel(1);
     electrodeC->setDeltaTSubcycle(0.01);
     electrodeC->detailedResidPrintFlag_ = 2;
     electrodeC->enableExtraPrinting_ = 0;

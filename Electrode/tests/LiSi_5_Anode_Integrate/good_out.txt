@@ -431,8 +431,8 @@ deltag_int (3./11. Li13Si4(S) -> 4/11 Li7Si3(S) + Li(i)) =   -4.842E+06
           Pressure = 101325
           Capacity Discharged = 0 coulombs = 0 Ah
 
-          followElectrolyteMoles = 1
-          ElectrolytePseudoMoles = -1
+          followElectrolyteMoles = 0
+          ElectrolytePseudoMoles = 2.72707e-08
      ===============================================================
           Phase 0 metal_Li_LiCl_electrons 
                 Total moles = 0
