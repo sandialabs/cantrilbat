@@ -730,10 +730,15 @@ int Electrode_SimpleDiff::integrate(double deltaT, double rtolResid, double atol
     std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.begin(), 0.);
     vector<doublereal> deltaMoles(m_NumTotSpecies, 0.0);
 
+#ifdef OLD_FOLLOW
     followElectrolyteMoles_ = 1;
     updateState();
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     followElectrolyteMoles_ = 0;
+#else
+    updateState();
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
+#endif
     int iterSubCycle = 0;
     bool notDone = true;
 

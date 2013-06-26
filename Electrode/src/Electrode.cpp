@@ -59,6 +59,9 @@ using namespace TKInput;
 #define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
 #endif
 
+// HKM debug code to turn it back to the bad way of doing things to see what the damage was
+//#define OLD_FOLLOW 1
+
 namespace Cantera {
 //======================================================================================================================
 /*
@@ -74,8 +77,8 @@ Electrode::Electrode() :
 
                 prob_type(TP),
                 numSurfaces_(0),
-                followElectrolyteMoles_(1),
-                electrolytePseudoMoles_(-1.0),
+                followElectrolyteMoles_(0),
+                electrolytePseudoMoles_(1.0),
                 externalFieldInterpolationType_(T_FINAL_CONST_FIS),
                 t_init_init_(0.0),
                 t_final_final_(0.0),
@@ -181,8 +184,8 @@ Electrode::Electrode(const Electrode& right) :
     pendingIntegratedStep_(0),
                 prob_type(TP),
                 numSurfaces_(0),
-                followElectrolyteMoles_(1),
-                electrolytePseudoMoles_(-1.0),
+                followElectrolyteMoles_(0),
+                electrolytePseudoMoles_(1.0),
                 externalFieldInterpolationType_(T_FINAL_CONST_FIS),
                 t_init_init_(0.0),
                 t_final_final_(0.0),
@@ -630,7 +633,6 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      * OK, Find the first kinetics object
      */
     int isphfound = -1;
-    int ivfound = -1;
     for (int isph = 0; isph < m_NumSurPhases; isph++) {
         if (SurPhaseHasKinetics[isph]) {
             isphfound = isph;
@@ -640,7 +642,6 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     if (isphfound == -1) {
         for (i = 0; i < NumVolPhases_; i++) {
             if (VolPhaseHasKinetics[i]) {
-                ivfound = i;
                 break;
             }
         }
@@ -1125,6 +1126,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     }
 
     capacityInitialZeroDod_ = capacity();
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
 
     return 0;
 }
@@ -1286,6 +1288,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
         setRelativeCapacityDischargedPerMole(ei->RelativeCapacityDischargedPerMole);
     }
 
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     /*
      *  Now transfer the final state to the init and init init states.
      */
@@ -1386,6 +1389,7 @@ void Electrode::resizeMoleNumbersToGeometry()
         spMoles_final_final_[k] = spMoles_final_[k];
     }
     Electrode::updatePhaseNumbers(solnPhase_);
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
 
     currentSolidVol = Electrode::SolidVol();
     totalVol = Electrode::TotalVol();
@@ -1548,6 +1552,10 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
         for (int k = 0; k < nsp; k++) {
             spMf_final_[istart + k] = spMoles_final_[istart + k] / tmp;
         }
+        /*
+         *  @TODO: take this section out. If we are setting the moles at the interface,
+         *         then we should set the moles. See the explanation in the Electrode.h file.
+         */
         if (!followElectrolyteMoles_) {
             for (int k = 0; k < nsp; k++) {
                 spMoles_final_[istart + k] *= electrolytePseudoMoles_ / tmp;
@@ -1725,6 +1733,7 @@ void Electrode::updatePhaseNumbers(int iph)
         for (int k = 0; k < nsp; k++) {
             spMf_final_[istart + k] = spMoles_final_[istart + k] / tmp;
         }
+#ifdef OLD_FOLLOW
         if (iph == solnPhase_) {
             if (!followElectrolyteMoles_) {
                 ThermoPhase& tp = thermo(solnPhase_);
@@ -1735,32 +1744,38 @@ void Electrode::updatePhaseNumbers(int iph)
                 phaseMoles_final_[iph] = electrolytePseudoMoles_;
             }
         }
+#endif
     } else if (tmp < -1.0E-200) {
-        if (phaseMoles_final_[iph] > 0.0) {
-            throw CanteraError("Electrode_MultiPlateau_NoDiff::updatePhaseNumbers()", "unexpected condition");
-        }
+        /*
+         *  We are here when the phase moles are less than zero. This is a permissible condition when we
+         *  are calculating a phase death, as we solve for the time when the phase moles is exactly zero.
+         *  letting the phaseMoles go negative during the solve.
+         */
+        //if (phaseMoles_final_[iph] < 0.0) {
+        //    throw CanteraError("Electrode::updatePhaseNumbers()", "unexpected condition");
+        //}
         /*
          * For the current method the spMf_final_[] contains the valid information.
          */
         for (int k = 0; k < nsp; k++) {
             tmp = spMf_final_[istart + k];
             if (tmp < 0.0 || tmp > 1.0) {
-                throw CanteraError("Electrode_MultiPlateau_NoDiff::updatePhaseNumbers()",
+                throw CanteraError("Electrode::updatePhaseNumbers()",
                                    "Mole fractions out of bounds:" + int2str(k) + " " + fp2str(tmp));
             }
-            spMoles_final_[istart + k] = spMf_final_[istart + k] * phaseMoles_final_[iph];
-
+            // TODO: this may be wrong. Experiment with leaving this alone
+            spMoles_final_[istart + k] = 0.0;
         }
     } else {
         // We are here when the mole numbers of the phase are zero. In this case, we respect the
-	// mole fraction vector in spMF_final_[]. There are cases where we are solving for the
+	// mole fraction vector in spMf_final_[]. There are cases where we are solving for the
 	// mole fraction vector when the phase is zero, and we are just trying to get a 1 on the
 	// diagonal. In this case we need to respect  spMF_final_[].
 	// However we check for out of bounds values.
         for (int k = 0; k < nsp; k++) {
             tmp = spMf_final_[istart + k];
             if (tmp < 0.0 || tmp > 1.0) {
-                throw CanteraError("Electrode_MultiPlateau_NoDiff::updatePhaseNumbers()",
+                throw CanteraError("Electrode::updatePhaseNumbers()",
                                    "Mole fractions out of bounds:" + int2str(k) + " " + fp2str(tmp));
             }
             spMoles_final_[istart + k] = 0.0;
@@ -1800,6 +1815,7 @@ void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<do
                 spMf_tmp[istart + k] = spMoles_tmp[istart + k] / tmp;
             }
             if (iph == solnPhase_) {
+#ifdef OLD_FOLLOW
                 if (!followElectrolyteMoles_) {
                     ThermoPhase& tp = thermo(solnPhase_);
                     tp.getMoleFractions(&spMf_tmp[istart]);
@@ -1808,6 +1824,7 @@ void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<do
                     }
                     phaseMoles_tmp[iph] = electrolytePseudoMoles_;
                 }
+#endif
             }
         } else {
             // We are here when the mole numbers of the phase are zero. In this case, we still need
@@ -1863,9 +1880,9 @@ double Electrode::updateElectrolytePseudoMoles()
 //====================================================================================================================
 void Electrode::turnOffFollowElectrolyteMoles()
 {
-    if (followElectrolyteMoles_ == 1) {
-        electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
-    }
+    //if (followElectrolyteMoles_ == 1) {
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
+    //}
 
     followElectrolyteMoles_ = 0;
     if (electrolytePseudoMoles_ <= 0.0) {

@@ -152,7 +152,6 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
      */
     updateState();
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
-    followElectrolyteMoles_ = 0;
 
 
     double deltaTsubcycle = deltaT;

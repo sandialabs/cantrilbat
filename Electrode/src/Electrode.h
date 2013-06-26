@@ -2069,48 +2069,31 @@ protected:
      */
     int numSurfaces_;
 
-    //!   Integer representing the general problem type for the electrode.
+    //!  Integer representing we keep a conserved quantity for the electrolyte phase mole numbers or not 
     /*!
-     *  The identity of  what is held constant. Currently,
-     *   T and P are held constant, and this input is ignored
+     *  0:  Constant electrolyte composition but varying amount of electrolyte,
+     *      specified porosity
+     *      During a subintegration step the electrode can change volume by changing the solidVolume
+     *      The electrolyte moles are not tracked so that the porosity of the electrode is kept constant
+     *      or at a specified functional value. Electrolyte flows into or out of the domain
+     *      in order to maintain the specified porosity. 
+     *      (default implementation)
      *
-     *   0 : Variable volume, constant pressure, constant lyte.
-     *       We are not tracking mole numbers of electrolyte. They are held constant.
-     *       Source terms for lyte quantities are calculated.
-     *       The volume of electrolyte stays constant. The volume of the electrode
-     *       varies, so the total volume of the electrode varies. The porosity changes
-     *       but the pressure is constant.
-     *          (default implementation).
+     *  1:  Tracked electrolyte composition and amount of electrolyte, 
+     *      calculated porosity
+     *      We are tracking the mole numbers of electrolyte. The extra flux of
+     *      of ions needed to maintain neutrality is preserved as well. We must maintain electroneutrality
+     *      within the phase at all times.
+     *      The mole numbers of electrolyte may vary if there are reactions creating
+     *      neutrals or compensating ions. The volume of electrolyte, electrode both
+     *      varies, so the total volume of the electrode varies. The porosity changes
+     *      according to the relative amount of solid to electrolyte
      *
-     *   1 : Variable volume, constant pressure, tracked lyte.
-     *       We are tracking mole numbers of electrolyte. The extra flux of
-     *       of ions needed to maintain neutrality is preserved as well.
-     *       The mole numbers of electrolyte may vary if there are reactions creating
-     *       neutrals or compensating ions. The volume of electrolyte, electrode both
-     *       varies, so the total volume of the electrode varies. The porosity changes
-     *       but the pressure is constant.
-     *
-     *
-     *   2 : Constant volume, Constant pressure, Compensating electrolyte.
-     *       Basically, mole number tracking stops at the electrolyte
-     *       electrode interface. The mole numbers of electrolyte varies in order to
-     *       maintain a constant volume approximation. The extra flux of
-     *       of ions needed to maintain neutrality is preserved as well.
-     *       There are reactions creating electrolyte. The volume of the electrolyte
-     *       varies. The gross volume of the electrode  object stays constant.
-     *       The porosity changes.
-     *           (not implemented)
-     *
-     *   3 : Constant volume, variable pressure.
-     *       We track the mole numbers of electrolyte.
-     *       The mole numbers of electrolyte varies in order to
-     *       maintain a constant volume approximation. The extra flux of ions to
-     *       maintain neutrality are tracked as well.
-     *       There are reactions creating electrolyte. The volume of the electrolyte
-     *       and solid varies, but the gross volume of the electrode  object stays constant.
-     *       The porosity changes. The pressure changes as well. Therefore, there must
-     *       be a component of the mixture that is compressible.
-     *              (not implemented)
+     *      Note constant volume or constant pressure are additional constraints that must
+     *      be specified elsewhere to specify the solid mechanics conditions. This constraint has
+     *      to do with whether the electrolyte flows in and out of the electrolyte domain to 
+     *      satisfy the porosity constraints. The constant volume or pressure constraint is
+     *      a separate degree of freedom.
      */
     int followElectrolyteMoles_;
 
@@ -2119,6 +2102,7 @@ protected:
      *  If this is positive, then we multiple this number by the
      *  mole fraction vector to determine the number of moles of
      *  electrolyte species.
+     *  @deprecate This is confusing. We don't need it. Just use spMoleNumber(solnPhase).
      */
     double electrolytePseudoMoles_;
 

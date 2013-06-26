@@ -1612,7 +1612,7 @@ double BEulerInt::integratePRE(double tout, double time_init)
  */
 doublereal BEulerInt::step(double t_max)
 {
-    double CJ;
+    double CJ = 0.0;
     bool step_failed = false;
     bool giveUp = false;
     bool convFailure = false;

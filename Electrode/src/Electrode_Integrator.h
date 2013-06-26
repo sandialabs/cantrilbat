@@ -64,9 +64,9 @@ public:
 	numNonLinSolves_(right.numNonLinSolves_),
         solnErrorNorm_(right.solnErrorNorm_),
         wdotErrorNorm_(right.wdotErrorNorm_) ,
-	volts_(0.0),
-	srcTermStepElectrons_(0.0),
-	currentStep_(0.0)
+	volts_(right.volts_),
+	srcTermStepElectrons_(right.srcTermStepElectrons_),
+	currentStep_(right.currentStep_)
     {
     }
 
