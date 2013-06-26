@@ -486,8 +486,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         Carrier Species (used in diff. calcs) = LiCl(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1         LiCl(L)          0.0000             NAN             NAN
-              2          KCl(L)          0.0000             NAN             NAN
+              1         LiCl(L)          0.0000            -NAN            -NAN
+              2          KCl(L)          0.0000            -NAN            -NAN
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "FeS2_A(S)", with name, "FeS2_A(S)", with eosType, "StoichSubstance"
@@ -520,7 +520,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         Carrier Species (used in diff. calcs) = Li(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1           Li(L)          0.0000             NAN       1.000E+00
+              1           Li(L)          0.0000            -NAN       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "FeS2_surface", with name, "FeS2_surface", with eosType, "Surface"

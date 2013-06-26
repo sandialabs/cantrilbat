@@ -8,7 +8,7 @@ prog=cttables
 /bin/rm -rf out.txt diff.out
 cttables  cttables.inp > out.txt
 #diff good_out.txt out.txt | tee diff.out
-diff -w good_out.txt out.txt > diff.out
+diff -w good_out.txt out.txt > diff_out.txt
 retnStat=$?
 if [ $retnStat = "0" ]
 then
