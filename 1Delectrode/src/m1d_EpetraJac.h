@@ -441,6 +441,7 @@ public:
    */
   LocalRowNodeVBRIndices *LRN_VBR_ptr_;
 
+
   //! This vector stores a string describing the current variable changes used
   //! to calculate the jacobian by numerical differencing
   std::vector<std::string> varDiffString_LcNode;

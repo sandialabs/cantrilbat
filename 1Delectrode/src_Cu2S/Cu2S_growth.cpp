@@ -37,6 +37,7 @@
 #include <Epetra_Vector.h>
 #include <Epetra_CrsMatrix.h>
 #include <Epetra_VbrMatrix.h>
+#include <Epetra_VbrRowMatrix.h>
 #include "m1d_EpetraJac.h"
 #include <Teuchos_ParameterList.hpp>
 
@@ -148,7 +149,6 @@ main(int argc, char **argv)
     int retn = 0;
     std::string commandFile = "Cu2S_growth.inp";
     int m1d_debug_print_lvl = 0;
-    bool printedUsage = false; // bool indicated that we have already
     if (argc > 1) {
       string tok;
       for (int j = 1; j < argc; j++) {
@@ -161,7 +161,6 @@ main(int argc, char **argv)
 	      break;
             } else if (tok[n] == 'h') {
               printUsage();
-              printedUsage = true;
               exit(1);
             } else if (tok[n] == 'd') {
               int lvl = 2;
@@ -176,13 +175,12 @@ main(int argc, char **argv)
                       ip1 = 0;
                     else
                       ip1 = lvl;
-                    m1d_debug_print_lvl = lvl;
+                    m1d_debug_print_lvl = ip1;
                   }
                 }
               }
             } else {
               printUsage();
-              printedUsage = true;
               exit(1);
             }
           }
@@ -190,7 +188,6 @@ main(int argc, char **argv)
           commandFile = tok;
         } else {
           printUsage();
-          printedUsage = true;
           exit(1);
         }
       }
@@ -213,6 +210,15 @@ main(int argc, char **argv)
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
+    }
+
+    if (m1d_debug_print_lvl >  PSinput.Residual_printLvl_) {
+      printf("Increasing Residual_printLvl_ to %d due to command lin\n", m1d_debug_print_lvl);
+      PSinput.Residual_printLvl_ = m1d_debug_print_lvl;
+    }
+    if (m1d_debug_print_lvl >  PSinput.NonlinSolver_printLvl_) {
+      printf("Increasing Nonlinear_printLvl_ to %d due to command lin\n", m1d_debug_print_lvl);
+      PSinput.NonlinSolver_printLvl_ = m1d_debug_print_lvl;
     }
 
     m1d::ProblemResidEval *ps = new ProblemResidEval(1.0E-13);
@@ -271,9 +277,12 @@ main(int argc, char **argv)
     Epetra_Vector  *soln =   new Epetra_Vector( *((ps->LI_ptr_)->GbBlockNodeEqnstoLcBlockNodeEqnsColMap));
 
     bool err = v->PutScalar(0.0);
+    AssertTrace(err==false);
 
     err = b->PutScalar(0.0);
+    AssertTrace(err==false);
     err = soln->PutScalar(0.0);
+    AssertTrace(err==false);
 
     ps->domain_prep();
 

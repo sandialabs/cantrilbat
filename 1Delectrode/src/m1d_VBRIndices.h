@@ -17,6 +17,7 @@
 
 #include "Epetra_SerialDenseMatrix.h"
 #include "Epetra_VbrMatrix.h"
+#include "Epetra_VbrRowMatrix.h"
 #include "Epetra_MapColoring.h"
 
 #include <vector>
@@ -119,6 +120,18 @@ public:
    */
   Epetra_VbrMatrix*
   alloc_VbrMatrix();
+
+  //! Allocate an Epetra_VbrRowMatrix matrix given a pointer to an Epetra_VbrMatrix
+  /*!
+   *  The VbrRowMatrix is suppose to fix up the nasty bug in the VbrMatix class. This will
+   *  be an attempt to extend the matrix format to see if this is the case.
+   *
+   * @param   Pointer to a previously allocated Epetra_VbrMatrix
+   * @return  returns the matrix object as a pointer to an Epetra_VbrRowMatrix object.
+   */
+  Epetra_VbrRowMatrix*
+  alloc_VbrRowMatrix(Epetra_VbrMatrix* A);
+
 
   //! Calculate the row sum scales
   /*!

@@ -22,7 +22,7 @@ namespace m1d
 
 //LocalRowNodeVBRIndices *LRN_VBR_ptr = 0;
 
-//===========================================================================
+//==========================================================================================================================
 LocalRowNodeVBRIndices::LocalRowNodeVBRIndices(Epetra_Comm *comm_ptr,
                                                bool copyMode,
                                                GlobalIndices *gi_ptr,
@@ -31,7 +31,7 @@ LocalRowNodeVBRIndices::LocalRowNodeVBRIndices(Epetra_Comm *comm_ptr,
   Func_ptr_(0)
 {
 }
-//===========================================================================
+//=======================================================================================================================
 LocalRowNodeVBRIndices::~LocalRowNodeVBRIndices() {
   freeBlockMatrices();
   for (int iBlockRow = 0; iBlockRow < NumLcRowNodes; iBlockRow++) {
@@ -346,6 +346,13 @@ LocalRowNodeVBRIndices::alloc_VbrMatrix()
   err = A->PutScalar(0.0);
 
   return A;
+}
+//=====================================================================================================================
+Epetra_VbrRowMatrix*
+LocalRowNodeVBRIndices::alloc_VbrRowMatrix(Epetra_VbrMatrix *A)
+{
+     Epetra_VbrRowMatrix* B = new Epetra_VbrRowMatrix(A);
+     return B;
 }
 //=====================================================================================================================
 // Calculate the row sum scales
