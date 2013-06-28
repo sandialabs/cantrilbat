@@ -4259,6 +4259,41 @@ double Electrode::energySourceTerm()
     return energySource;
 }
 //====================================================================================================================
+double Electrode::getSourceTerm(SOURCES sourceType)
+{
+  double result = 0.0;
+
+  int species_index = 0;
+  int solnSpeciesStart = m_PhaseSpeciesStartIndex[solnPhase_];
+  int nsp = thermo(solnPhase_).nSpecies();
+  if( sourceType > SPECIES_SOURCE )
+  {
+    species_index = sourceType - SPECIES_SOURCE;
+    AssertThrow(species_index < nsp, "Electrode::getSourceTerm");
+    sourceType = SPECIES_SOURCE;
+  }
+
+  switch( sourceType )
+  {
+  case CURRENT_SOURCE:
+    result = spMoleIntegratedSourceTerm_[kElectron_];
+    break;
+  case ELECTROLYTE_PHASE_SOURCE:
+    for (int ik = 0; ik < nsp; ik++) {
+      int k = solnSpeciesStart + ik;
+      result += spMoleIntegratedSourceTerm_[k];
+    }
+    break;
+  case ENTHALPY_SOURCE:
+    result = energySourceTerm();
+    break;
+  case SPECIES_SOURCE:
+    result = spMoleIntegratedSourceTerm_[solnSpeciesStart + species_index];
+    break;
+  }
+  return result;
+}
+//====================================================================================================================
 // Calculate the integrated source term for the electrode over an interval in time.
 /*
  *  This is the net change in the moles of species defined in the electrode over that

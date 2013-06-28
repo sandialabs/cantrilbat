@@ -67,6 +67,28 @@ public:
     return 1.0;
   }
 
+  virtual double getSourceTerm(SOURCES sourceType)
+  {
+    double result = 0.0;
+    switch( sourceType )
+    {
+    case ELECTROLYTE_PHASE_SOURCE:
+      result = temperature_ + 2*deltaVoltage_;
+      for(int i=0; i<3; ++i)
+      {
+        result += (i+3) * fake_electrolyte_mole_nums[i];
+      }
+      break;
+    case ENTHALPY_SOURCE:
+      result = energySourceTerm();
+      break;
+    default:
+      result = 0.;
+      break;
+    }
+    return result;
+  }
+
 private:
   std::vector<double> fake_electrolyte_mole_nums;
 };

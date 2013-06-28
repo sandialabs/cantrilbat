@@ -64,6 +64,23 @@ enum Electrode_Types_Enum {
     MP_RXNEXTENT_LISI_ET
 };
 
+enum SOURCES
+{
+    CURRENT_SOURCE,
+    ELECTROLYTE_PHASE_SOURCE,
+    ENTHALPY_SOURCE,
+    SPECIES_SOURCE,
+    MAX_SOURCE
+};
+enum DOFS
+{
+    SOLID_VOLTAGE,
+    LIQUID_VOLTAGE,
+    TEMPERATURE,
+    PRESSURE,
+    SPECIES,
+    MAX_DOF
+};
 
 //! Interpolation of exterior fields
 enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
@@ -640,6 +657,8 @@ public:
      *  This should only be called after integrate() has finished running.
      */
     virtual double energySourceTerm();
+
+    virtual double getSourceTerm(SOURCES sourceType);
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
