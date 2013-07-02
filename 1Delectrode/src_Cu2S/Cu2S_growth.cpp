@@ -202,7 +202,7 @@ main(int argc, char **argv)
       exit(-1);
     }
     retn = PSinput.parse_input_2();
-    if (retn == -1) {
+    if(retn == -1) {
       printf("exiting with error\n");
       exit(-1);
     }
@@ -288,7 +288,8 @@ main(int argc, char **argv)
 
     EpetraJac *jac = new EpetraJac(*ps);
     jac->allocateMatrix();
-    jac->solverType_=Iterative;
+    jac->process_input(PSinput.cf_);
+    jac->process_BEinput(PSinput.I_LinearSolverBlock);
 
 #ifdef DEBUG_MATRIX_STRUCTURE
     print0_sync_start(true, w0, Comm);
@@ -348,12 +349,16 @@ main(int argc, char **argv)
     }
 
     // Call a function to solve the linear system using an iterative method from AztecOO.
+    print0_epMultiVector(*b, "RHS Values");
     double linNorm;
     int linearIts;
     jac->solve(b, v, linearIts, linNorm, true);
 
+    printf(" Norm of solution = %g\n", linNorm);
     print0_epBlockMap((*soln).Map());
     print0_epBlockMap((*v).Map());
+    print0_epMultiVector(*v, "Solution Values");
+
     /***************************************************************************/
 
     t1.setInitialTimeStep(1.0E-8);

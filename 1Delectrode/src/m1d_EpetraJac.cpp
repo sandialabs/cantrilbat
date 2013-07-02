@@ -17,6 +17,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_LocalNodeIndices.h"
 #include "m1d_VBRIndices.h"
+#include "m1d_Comm.h"
 
 #include "m1d_solvers.h"
 
@@ -43,6 +44,7 @@ EpetraJac::EpetraJac(ProblemResidEval& r) :
   m_kl(0), 
   m_ku(0), 
   A_(0), 
+  Arow_(0),
   Comm_ptr_(0),
   m_BmAX(0), 
   m_AX(0), 
@@ -57,6 +59,7 @@ EpetraJac::EpetraJac(ProblemResidEval& r) :
   m_age(100000),
   m_NumGbEqns(0),
   solverType_(Direct),
+  directSolverName_("Umfpack"),
   m_GbBlockRows(0), 
   GI_ptr_(0), 
   LI_ptr_(0),
@@ -82,6 +85,7 @@ EpetraJac::EpetraJac(ProblemResidEval& r) :
 EpetraJac::~EpetraJac() {
   // Delete the jacobian
   safeDelete(A_);
+  safeDelete(Arow_);
   safeDelete(LRN_VBR_ptr_);
   safeDelete(m_BmAX);
   safeDelete(m_AX);
@@ -93,10 +97,39 @@ EpetraJac::allocateMatrix()
 {
   A_ = LRN_VBR_ptr_->alloc_VbrMatrix();
 
+  /*
+   *  Add a row matrix representation. This is actually used to solve the matrix
+   */
+  Arow_ = LRN_VBR_ptr_->alloc_VbrRowMatrix(A_);
+
   m_BmAX = new Epetra_Vector(A_->RangeMap());
   m_AX = new Epetra_Vector(A_->RangeMap());
 
+  /*
+   * Output to understand what's going on. The RowMatrixRowMap, RowMatrixColMap,
+   * OperatorRangeMap, OperatorDomainMap, and Map() 
+   * maps are all point maps. What point maps mean is the block size is equal to one. Therefore, they
+   * are similar to what the Epetra_CsrMatrix would produce. 
+   *
+   * All of the maps are the same except for RowMatrixColMap. They correspond to the concept of
+   * Epetra_Vector_Owned. RowMatrixColMap map corresponds to the concept of EpetraVector_Ghosted.
+   */
+  /*
+  Epetra_Map * m_ArowMRow = new Epetra_Map(Arow_->RowMatrixRowMap());
+  print0_epBlockMap(*m_ArowMRow);
 
+  Epetra_Map * m_ArowMCol = new Epetra_Map(Arow_->RowMatrixColMap());
+  print0_epBlockMap(*m_ArowMCol);
+
+  Epetra_Map * m_ArowORange = new Epetra_Map(Arow_->OperatorRangeMap());
+  print0_epBlockMap(*m_ArowORange);
+
+  Epetra_Map * m_ArowODomain = new Epetra_Map(Arow_->OperatorDomainMap());
+  print0_epBlockMap(*m_ArowODomain);
+
+  Epetra_BlockMap * m_ArowMap = new Epetra_BlockMap(Arow_->Map());
+  print0_epBlockMap(*m_ArowMap);
+  */
 
   int numBlockCols = A_->NumMyBlockCols();
   varDiffString_LcNode.resize(numBlockCols, "");
@@ -152,6 +185,14 @@ EpetraJac::setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb
 					 cppkkm, 2, 1, "SolverType");
     lepkm->set_default("Direct");
     lsb->addLineEntry(lepkm);
+
+    LE_OneStr *ledsn = new LE_OneStr("Direct Solver Name",
+				     &(db->S_directSolverName),
+				    2, 1, 0, "DirectSolverName");
+    ledsn->set_default("Umfpack");
+    lsb->addLineEntry(ledsn);
+
+
   }
   return static_cast<m1d::RecordTree_base *>(db);
   //return db;
@@ -180,7 +221,7 @@ EpetraJac::matrixEval(const bool doTimeDependentResid,
   fillVbr();
   safeDelete(resBase);
 }
-//=====================================================================================
+//===============================================================================================================================
 void
 EpetraJac::matrixResEval(const bool doTimeDependentResid,
                          const Epetra_Vector * solnBase_ptr,
@@ -694,11 +735,11 @@ EpetraJac::solve(Epetra_Vector *b, Epetra_Vector *x, int &its, double &norm, boo
    * Set optional parameters on each of these solves
    */
   if (solverType_ == Direct) {
-    retn = solve_amesos(A_, x, b);
-    its = 1;
+      retn = solve_amesos(Arow_, x, b, this);
+      its = 1;
   }
   else if (solverType_ == Iterative) {
-    retn = solve_aztecoo(A_, x, b);
+      retn = solve_aztecoo(Arow_, x, b, this);
   }
   /*
    * Find the norm of ||Ax-b|| if asked to do so
@@ -776,11 +817,26 @@ EpetraJac::ldim() const
 //======================================================================================================================
 void EpetraJac::process_BEinput(RecordTree_base *dbb)
 {
-  BEinput_EpetraJac *db = dynamic_cast< BEinput_EpetraJac *>(dbb);
-  if (!db) {
-    exit(-1);
+  BEinput_EpetraJac *db = dynamic_cast<BEinput_EpetraJac *>(dbb);
+  if (db) {
+    solverType_ = db->I_solverType;
+    directSolverName_ = db->S_directSolverName;
   }
-  solverType_ = db->I_solverType;
+}
+//======================================================================================================================
+void EpetraJac::process_input(BlockEntry *cf)
+{
+  BlockEntry *sb = cf->match_block("Linear Solver");
+  if (sb) {
+      LineEntry *le = sb->searchLineEntry("Solver Type");
+      LE_PickList *lep = dynamic_cast<LE_PickList *>(le);
+      solverType_ = (m1d::SolverType) lep->currentTypedValue();
+
+      le = sb->searchLineEntry("Direct Solver Name");
+      LE_OneStr *ledsn   = dynamic_cast<LE_OneStr *>(le);
+      directSolverName_ = ledsn->currentTypedValue();
+
+  }
 }
 //=================================================================================
 ostream&
@@ -932,7 +988,8 @@ operator<<(ostream& os, const EpetraJac& m)
 //=================================================================================
 EpetraJac::BEinput_EpetraJac::BEinput_EpetraJac() :
   RecordTree_base(),
-  I_solverType(Direct)
+  I_solverType(Direct),
+  S_directSolverName("Umfpack")
 {
 }
 //=================================================================================

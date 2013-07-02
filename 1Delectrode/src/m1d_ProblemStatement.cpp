@@ -362,9 +362,12 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   cf->addLineEntry(mts1);
 
   /* -------------------------------------------------------------------------------------------------------------------
+   *   Setup a block for the linear solver 
    */
 
   I_LinearSolverBlock = EpetraJac::setupMDinput_pass1(cf);
+
+
   BaseEntry::set_SkipUnknownEntries(false);
 }
 //======================================================================================================================

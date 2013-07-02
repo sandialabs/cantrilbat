@@ -35,6 +35,7 @@ class LocalNodeIndices;
 class LocalRowNodeVBRIndices;
 class EpetraJac;
 class ProblemStatement;
+class RecordTree_base;
 
 /*!
  *  Below are the three distributed maps that are used throughout the program. In order
@@ -313,7 +314,7 @@ public:
 
   //! Allocate and create storage for the Jacobian matrix for this problem
   void
-  createMatrix();
+  createMatrix(RecordTree_base *linearSolver_db);
 
   //! Return a reference to the Jacobian
   EpetraJac&

@@ -22,6 +22,7 @@
 #include "m1d_Comm.h"
 
 #include "Epetra_Vector.h"
+#include "m1d_ProblemStatement.h"
 
 #include <iostream>
 
@@ -430,7 +431,7 @@ void BEulerInt::setPrintFlag(int print_flag, int nonlinear_print_flag)
  * @param t0     Initial time for the simulation
  * @param func   func is the object that supplies the problem.
  */
-void BEulerInt::initializePRE(m1d::ProblemResidEval &func)
+void BEulerInt::initializePRE(m1d::ProblemResidEval &func )
 {
     m_NumGlEqns = func.m_neq;
     m_NumLcEqns = func.m_NumLcEqns;
@@ -450,7 +451,8 @@ void BEulerInt::initializePRE(m1d::ProblemResidEval &func)
      * Get the initial conditions.
      */
     //  m_func->initialConditions(true, m_y_n, m_ydot_n, m_t0, delta_t_n);
-    m_func->createMatrix();
+    ProblemStatement *ps = m_func->psInput_ptr_;
+    m_func->createMatrix(ps->I_LinearSolverBlock);
 
     /*
      *  Get a pointer to the time dependent jacobian for the problem

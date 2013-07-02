@@ -684,10 +684,12 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
 }
 //=====================================================================================================================
 void
-ProblemResidEval::createMatrix()
+ProblemResidEval::createMatrix(RecordTree_base *linearSolver_db)
 {
   m_jac = new EpetraJac(*this);
   //m_jac->solverType_=Iterative;
+  m_jac->process_BEinput(linearSolver_db);
+  
   m_jac->allocateMatrix();
 #ifdef DEBUG_MATRIX_STRUCTURE
   m1d::stream0 w0;

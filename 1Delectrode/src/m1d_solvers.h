@@ -15,12 +15,16 @@
 
 #include <Epetra_Vector.h>
 #include <Epetra_VbrMatrix.h>
+#include <Epetra_VbrRowMatrix.h>
+
+
 
 
 namespace m1d
 {
 class LocalRowNodeVBRIndices;
 class GlobalIndices;
+class EpetraJac;
 
 //! Construct the matrix
 /*!
@@ -48,10 +52,16 @@ fill_matrix(Epetra_VbrMatrix*& A,
 extern int PrintLevel_LinearSolver;
 
 int
-solve_aztecoo(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b);
+solve_aztecoo(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b, EpetraJac *jac);
 
 int
-solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b);
+solve_aztecoo(Epetra_VbrRowMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
+
+int
+solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
+
+int
+solve_amesos(Epetra_VbrRowMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
 
 }
 

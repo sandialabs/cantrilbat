@@ -172,7 +172,7 @@ public:
 	 */
 	int Residual_printLvl_;
 
-	//! Pointer to the solver input
+	//! Pointer to the solver input record block
 	RecordTree_base *I_LinearSolverBlock;
 
 	//! Start time for simulation

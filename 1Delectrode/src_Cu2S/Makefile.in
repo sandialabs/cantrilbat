@@ -100,7 +100,8 @@ INCLUDE_DIRS = -I../src -I$(CANTERA_INCROOT) \
                -I$(UTILSRC_DIR) -I../..
 
 # C++ compile flags
-CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual  $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
+#    -DDEBUG_MATRIX_STRUCTURE
+CXX_FLAGS = @CXXFLAGS@ -DDEBUG_MATRIX_STRUCTURE -Woverloaded-virtual  $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
 
 # Ending C++ linking libraries
 LCXX_END_LIBS = @LCXX_END_LIBS@

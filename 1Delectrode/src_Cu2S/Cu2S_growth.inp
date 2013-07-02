@@ -73,5 +73,10 @@ Maximum Number of Time Steps = 1000
 !--------------------------------------------------------------------------
 
 
+Start Block Linear Solver
+ Solver Type = Iterative
+End Block Linear Solver
+
+
 
 

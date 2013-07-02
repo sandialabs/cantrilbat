@@ -197,7 +197,7 @@ endif
 	./runtest
 
 clean:
-	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain $(M1D_TARGET) libm1d.a
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain $(M1D_TARGET) libm1d.a tddiff
 	(if test -d SunWS_cache ; then \
            $(RM) -rf SunWS_cache ; \
          fi )

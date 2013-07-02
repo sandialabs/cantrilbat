@@ -30,7 +30,8 @@ namespace m1d
 {
 
 enum SolverType {
-  Direct = 0, Iterative
+  Direct = 0,
+  Iterative
 };
 
 
@@ -47,16 +48,19 @@ public:
 
   class BEinput_EpetraJac : public m1d::RecordTree_base  {
   public:
-    BEinput_EpetraJac();
+    BEinput_EpetraJac(); 
     ~BEinput_EpetraJac();
     m1d::SolverType I_solverType;
+    std::string S_directSolverName;
   };
   
+  //! Static function to create a parsing block for the jacobian object to read
   static RecordTree_base *
   setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb = 0);
 
   void process_BEinput(RecordTree_base *dbb);
 
+  void process_input(BEInput::BlockEntry *cf);
   //!Constructor.
   /*!
    * @param r  function which calculates the residual
@@ -362,6 +366,9 @@ public:
   //! pointer to the Epetra Vbr matrix
   Epetra_VbrMatrix * A_;
 
+  //! Pointer to the Epetra Vbr row matrix representation
+  Epetra_VbrRowMatrix* Arow_;
+
   //! local copy of the Epetra_Comm ptr object
   Epetra_Comm *Comm_ptr_;
 
@@ -404,7 +411,11 @@ public:
    */
   int m_NumGbEqns;
 
+  //! Type of the solver to use: either Direct or Iterative
   SolverType solverType_;
+
+  //! Name of the direct solver to use if using a direct solver
+  string directSolverName_;
 
   //! Number of global block rows defined in the problem
   /*!
