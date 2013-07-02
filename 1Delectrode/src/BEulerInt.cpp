@@ -1454,7 +1454,7 @@ double BEulerInt::integratePRE(double tout, double time_init)
      *   Always call writeSolution to write out the initial conditions
      */
     if (m_print_flag > 0) {
-        m_func->writeSolution(0, true, time_current, delta_t_n, istep, *m_y_n_owned, m_ydot_n_owned);
+        m_func->writeSolution(0, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
     }
 
     /*
@@ -1550,7 +1550,7 @@ double BEulerInt::integratePRE(double tout, double time_init)
          * Call the printout routine.
          */
         if (doPrintSoln && flag != BE_FAILURE) {
-            m_func->writeSolution(1, true, time_current, delta_t_n, istep, *m_y_n_owned, m_ydot_n_owned);
+            m_func->writeSolution(1, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
             printStep = 0;
             doPrintSoln = false;
             if (m_print_flag == 1) {
@@ -1596,7 +1596,7 @@ double BEulerInt::integratePRE(double tout, double time_init)
      * that will probably print to a file.
      */
     if (flag == BE_SUCCESS) {
-        m_func->writeSolution(2, false, time_current, delta_t_n, istep, *m_y_n_owned, m_ydot_n_owned);
+        m_func->writeSolution(2, false, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
         m_func->user_out(2, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
     }
     if (flag != BE_SUCCESS) {
@@ -2188,7 +2188,7 @@ int BEulerInt::calcConsistentInitialDerivs()
      *   Always call writeSolution to write out the initial conditions
      */
     if (m_print_flag > 0) {
-        m_func->writeSolution(0, true, time_n, delta_t_n, 0.0, *m_y_n_owned, m_ydot_n_owned);
+        m_func->writeSolution(0, true, time_n, delta_t_n, 0.0, *m_y_n, m_ydot_n);
     }
     if (m_print_flag > 0) {
         std::string snn = "Solution Time Derivative";
