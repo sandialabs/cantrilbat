@@ -285,12 +285,12 @@ static void
 drawline0(stream0 &ss, int sp, int ll)
 {
   for (int i = 0; i < sp; i++) {
-    ss.print0(" ");
+    ss.fprintf0only(" ");
   }
   for (int i = 0; i < ll; i++) {
-    ss.print0("-");
+    ss.fprintf0only("-");
   }  
-  ss.print0("\n");   
+  ss.fprintf0only("\n");   
 }
 
 
@@ -762,6 +762,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   // Number of points in each vector
   string sss = id();
   bool do0Write = (!mypid || duplicateOnAllProcs);
+  print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   if (do0Write) {
     drawline0(ss, indentSpaces, 80);
     ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
@@ -770,6 +771,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
     ss.print0( "%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
   }
+  print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
 
   for (iBlock = 0; iBlock < nn; iBlock++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
@@ -904,6 +906,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     // Number of points in each vector
     string sss = id();
     bool do0Write = (!mypid || duplicateOnAllProcs);
+    print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
     if (do0Write) {
       drawline0(ss, indentSpaces, 100);
       ss.print0("%s  %s Vector on Bulk Domain %12s : Number of variables = %d\n", ind, solnVecName.c_str(),
@@ -913,6 +916,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
       ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
     }
+    print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
 
     for (iBlock = 0; iBlock < nn; iBlock++) {
       print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
@@ -948,7 +952,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 
       print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
       if (do0Write) {
-	ss.print0("\n");
+	ss.fprintf0only("\n");
       }
     }
 

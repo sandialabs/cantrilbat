@@ -426,7 +426,7 @@ Cu2S_TopSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
                               int indentSpaces,
                               bool duplicateOnAllProcs)
 {
-  char buf[132];
+  //char buf[132];
   int locGbNode = SDD_.LocGbNode;
  // int mypid = LI_ptr_->Comm_ptr_->MyPID();
  // bool doWrite = !mypid || duplicateOnAllProcs;
@@ -436,7 +436,7 @@ Cu2S_TopSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     indent += " ";
   }
   stream0 ss;
-   print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
+  print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   const char *ind = indent.c_str();
   // get the NodeVars object pertaining to this global node
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
@@ -447,35 +447,35 @@ Cu2S_TopSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   int numVar = nv->NumEquations;
   string sss = id();
   if (doWrite) {
-    drawline(indentSpaces, 80);
-    sprintf(buf, "%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-    Cantera::writelog(buf);
+    ss.drawline0(indentSpaces, 80);
+    ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
+    //Cantera::writelog(buf);
+    ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
+    //Cantera::writelog(buf);
     doublereal x0 = nv->x0NodePos();
-    sprintf(buf, "%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
-    Cantera::writelog(buf);
-    drawline(indentSpaces, 80);
-    sprintf(buf, "%s     VariableName         Value        DirichletCondition\n", ind);
-    Cantera::writelog(buf);
-    drawline(indentSpaces + 2, 60);
+    ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
+    //Cantera::writelog(buf);
+    ss.drawline0(indentSpaces, 80);
+    ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
+    //Cantera::writelog(buf);
+    ss.drawline0(indentSpaces + 2, 60);
     int jDir = 0;
     for (int k = 0; k < numVar; k++) {
       VarType &vt = variableNameListNode[k];
       string name = vt.VariableName(15);
       double sval = (*soln_GlAll_ptr)[eqnStart + k];
-      sprintf(buf, "%s   %-15s   %-10.4E ", ind, name.c_str(), sval);
-      Cantera::writelog(buf);
+      ss.print0("%s   %-15s   %-10.4E ", ind, name.c_str(), sval);
+      //Cantera::writelog(buf);
       if (SpecFlag_NE[k] != 0) {
-        sprintf(buf, " (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
-        Cantera::writelog(buf);
+        ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
+        //Cantera::writelog(buf);
         jDir++;
       }
-      sprintf(buf, "\n");
-      Cantera::writelog(buf);
+      ss.print0("\n");
+      //Cantera::writelog(buf);
     }
-    drawline(indentSpaces + 2, 60);
-    drawline(indentSpaces, 80);
+    ss.drawline0(indentSpaces + 2, 60);
+    ss.drawline0(indentSpaces, 80);
   }
   print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
 }
@@ -885,7 +885,8 @@ Cu2S_BotSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
                               int indentSpaces,
                               bool duplicateOnAllProcs)
 {
-  char buf[132];
+  //char buf[132];
+  //buf[0] = '\0';
   int locGbNode = SDD_.LocGbNode;
   //int mypid = LI_ptr_->Comm_ptr_->MyPID();
  // bool doWrite = !mypid || duplicateOnAllProcs;
@@ -906,37 +907,38 @@ Cu2S_BotSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   stream0 ss;
   print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   if (doWrite) {
-    drawline(indentSpaces, 80);
-    sprintf(buf, "%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-    Cantera::writelog(buf);
+    ss.drawline0(indentSpaces, 80);
+    ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
+ 
+    //Cantera::writelog(buf);
+    ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
+    //Cantera::writelog(buf);
     doublereal x0 = nv->x0NodePos();
-    sprintf(buf, "%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
-    Cantera::writelog(buf);
-    drawline(indentSpaces, 80);
-    sprintf(buf, "%s     VariableName         Value        DirichletCondition\n", ind);
-    Cantera::writelog(buf);
-    drawline(indentSpaces + 2, 60);
+    ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
+    //Cantera::writelog(buf);
+    ss.drawline0(indentSpaces, 80);
+    ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
+    //Cantera::writelog(buf);
+    ss.drawline0(indentSpaces + 2, 60);
     int jDir = 0;
     for (int k = 0; k < numVar; k++) {
       VarType &vt = variableNameListNode[k];
-      string name = vt.VariableName(20);
+      std::string name = vt.VariableName(20);
       double sval = (*soln_GlAll_ptr)[eqnStart + k];
-      sprintf(buf, "%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
-      Cantera::writelog(buf);
+      ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
+      //Cantera::writelog(buf);
       if (SpecFlag_NE[k] != 0) {
-        sprintf(buf, " (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
-        Cantera::writelog(buf);
+        ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
+        //Cantera::writelog(buf);
         jDir++;
       }
-      sprintf(buf, "\n");
-      Cantera::writelog(buf);
+      ss.print0("\n");
+      //Cantera::writelog(buf);
     }
-    drawline(indentSpaces + 2, 60);
-    drawline(indentSpaces, 80);
-    print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
+    ss.drawline0(indentSpaces + 2, 60);
+    ss.drawline0(indentSpaces, 80);
   }
+  print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
 }
 //=====================================================================================================================
 // Generate the initial conditions

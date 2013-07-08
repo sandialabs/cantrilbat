@@ -30,9 +30,14 @@ namespace m1d
 {
 //! Take a distributed vector and gather it all on processor 0
 /*!
+ *   This returns an Epetra_Object whose data is all located on processor 0. It mallocs
+ *   the Epetra_Vector and therefore, it must be freed by the calling program.
  *
- * @param comm         Comm object
- * @param distribV     Epetra vector that is distributed on all processors
+ *  @param distribV     Epetra vector that is distributed on all processors. It may be ghosted or
+ *                      unghosted. It does not matter.
+ *  @param comm_ptr     Pointer to the Epetra_comm object
+ *
+ *  @return Returns a pointer to the malloced vector
  */
 Epetra_Vector *
 gatherOn0(Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
@@ -49,12 +54,15 @@ printOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr = 0);
 Epetra_Vector *
 gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
 
+//! 
 void
 gather_nodeV_OnAll(Epetra_Vector & global_node_V, const Epetra_Vector &distrib_node_V, Epetra_Comm *acomm_ptr=0);
 
 void
 gather_nodeIntV_OnAll(Epetra_IntVector & global_node_IV, const Epetra_IntVector &distrib_node_IV, Epetra_Comm *acomm_ptr=0);
 
+//! Create a new view of the original vector using potentially a different map
+Epetra_Vector * new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_BlockMap& nmap);
 
 
 

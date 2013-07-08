@@ -152,7 +152,7 @@ void
 print_sync_end(int do_print_line, Epetra_Comm &comm);
 
 //==============================================================================
-//! This is a  small class that inherits from ostringstream that allows for
+//! This is a small class that inherits from ostringstream that allows for
 //! smoother handling of printing Epetra Objects from proc 0
 /*!
  *  Suggested functionality:
@@ -174,8 +174,15 @@ public:
   stream0(FILE * ff = stdout);
 
   //! Override the flush() function
+  /*!
+   *  Flushes the current output to the file or stream
+   */
   stream0 & flush();
 
+  //! Returns a file pointer where the data is going to be written to.
+  /*!
+   * 
+   */
   FILE *outFile() const {
     return outFILE_;
   }
@@ -189,6 +196,11 @@ public:
    */
   void
   print0(const char *format, ...);
+
+  int fprintf0only(const char *format, ...);
+
+  void drawline0(int indentLen, int num, char linChar = '-');
+
 
   //! Counter keeping track of how many buffers are sent to processor 0
   int nBufsSent;

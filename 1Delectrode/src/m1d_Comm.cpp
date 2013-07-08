@@ -33,6 +33,7 @@
 using namespace std;
 
 int statprocID = 0;
+bool statInPrint0SyncBlock = false;
 
 //#define DEBUG_COMM
 
@@ -216,8 +217,12 @@ print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
   FILE *of = ss.outFile();
   int flag = 1;
   M1D_MPI_Request request;
-
   int procID = comm.MyPID();
+  if (statInPrint0SyncBlock) {
+    throw m1d_Error("print0_sync_start ERROR proc " + Cantera::int2str(procID), "Already in a print0_sync block");
+  }
+  statInPrint0SyncBlock = true;
+
   statprocID = procID;
   //int num_proc = comm.NumProc();
   if (procID) {
@@ -249,6 +254,10 @@ stream0::print0(const char *format, ...)
   va_list ap;
   static char buf[1024];
   char rbuf[8];
+  if (!statInPrint0SyncBlock) {
+     // HKM - will turn this on next
+     //   throw m1d_Error("stream0::print0 ERROR proc " + Cantera::int2str(statprocID), "Not in a print0_sync block");
+  }
   va_start(ap, format);
   vsnprintf(buf, 1023, format, ap);
   va_end(ap);
@@ -264,38 +273,80 @@ stream0::print0(const char *format, ...)
 }
 //=====================================================================================
 int
+stream0::fprintf0only(const char *format, ...)
+{
+  int n;
+  if (statprocID == 0) {
+      va_list ap;
+      static char buf[1024];
+      va_start(ap, format);
+      n = vsnprintf(buf, 1023, format, ap);
+      if (n < 1023) {
+        va_end(ap);
+        buf[1023] = '\0';
+        fprintf(outFILE_, "%s", buf);
+      } else {
+        int sze = n+1;
+        char *np = (char *) malloc(sizeof(char) * (n+1));
+        va_start(ap, format);
+        n = vsnprintf(np, sze, format, ap);
+        va_end(ap);
+        fprintf(outFILE_, "%s", np); 
+        free(np);
+      }
+  }
+  return n;
+}
+//=====================================================================================
+void stream0::drawline0(int indentSpaces, int num, char lineChar)
+{
+  std::string buf;
+  for (int i = 0; i < indentSpaces; i++) {
+    buf += " ";
+  }
+  for (int i = 0; i < num; i++) {
+     buf += lineChar;
+  }
+  buf += "\n";
+  print0("%s", buf.c_str());
+}
+//=====================================================================================
+int
 sprint0(const char *ibuf, FILE *ff)
 {
   int iSent = 0;
-  //int iloc = 0;
   const char *jbuf = ibuf;
   char buf[1024];
   char rbuf[8];
   int typeP0 = M1D_MSG_TYPE_BASE - 1;
+  if (!statInPrint0SyncBlock) {
+    // HKM Will turn this on next
+    //throw m1d_Error("sprint0 ERROR proc " + Cantera::int2str(statprocID), "Not in a print0_sync block");
+  }
   if (statprocID == 0) {
-    fprintf(ff, "%s", ibuf);
+     fprintf(ff, "%s", ibuf);
   } else {
-    int ll = strlen(ibuf);
-    if (ll == 0) {
-      return 0;
-    }
-    bool weAreNotDone = true;
-    do {
-      ll = strlen(jbuf);
-      if (ll <= 1023) {
-        weAreNotDone = false;
-      } else if (ll > 1023) {
-        ll = 1023;
-      }
-      for (int j = 0; j < ll; j++) {
-        buf[j] = jbuf[j];
-      }
-      buf[ll] = '\0';
-      M1D::md_write((void * const ) buf, 1024, 0, typeP0);
-      iSent++;
-      M1D::md_read_specific((void * const ) rbuf, 4, 0, type0CommAck2);
-      jbuf += ll;
-    } while (weAreNotDone);
+     int ll = strlen(ibuf);
+     if (ll == 0) {
+       return 0;
+     }
+     bool weAreNotDone = true;
+     do {
+       ll = strlen(jbuf);
+       if (ll <= 1023) {
+         weAreNotDone = false;
+        } else if (ll > 1023) {
+          ll = 1023;
+        }
+        for (int j = 0; j < ll; j++) {
+          buf[j] = jbuf[j];
+        }
+        buf[ll] = '\0';
+        M1D::md_write((void * const ) buf, 1024, 0, typeP0);
+        iSent++;
+        M1D::md_read_specific((void * const ) rbuf, 4, 0, type0CommAck2);
+        jbuf += ll;
+      } while (weAreNotDone);
   }
   return iSent;
 }
@@ -303,7 +354,6 @@ sprint0(const char *ibuf, FILE *ff)
 void
 ssprint0(stream0 &ss)
 {
-  
   int nSent = sprint0((ss.str()).c_str(), ss.outFILE_);
   ss.nBufsSent += nSent;
   ss.str("");
@@ -332,6 +382,9 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
 
   int procID = comm.MyPID();
   int nprocs = comm.NumProc();
+  if (!statInPrint0SyncBlock) {
+    throw m1d_Error("print0_sync_end ERROR proc " + Cantera::int2str(procID), "Not already in a print0_sync block");
+  }
 
   if (procID < nprocs - 1) {
 
@@ -427,6 +480,7 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
     }
   }
 
+  statInPrint0SyncBlock = false;
   /*
    * Do a final sync amongst all the processors, so that all of the other
    * processors must wait for Proc 0 to receive the final message from

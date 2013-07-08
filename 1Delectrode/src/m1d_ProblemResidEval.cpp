@@ -916,8 +916,8 @@ ProblemResidEval::calcDeltaSolnVariables(const double t, const double * const yS
 void
 ProblemResidEval::saveSolutionEnd(const int itype,
                                   std::string baseFileName,
-                                  const Epetra_Vector_Ghosted &y_n_owned,
-                                  const Epetra_Vector_Ghosted *ydot_n_owned,
+                                  const Epetra_Vector_Ghosted &y_n_ghosted,
+                                  const Epetra_Vector_Ghosted *ydot_n_ghosted,
                                   const double t,
                                   const double delta_t)
 {
@@ -932,6 +932,13 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     baseFileName += ("_" + Cantera::int2str(mypid));
   }
   std::string fname = baseFileName + ".xml";
+
+  Epetra_BlockMap *nmap = ownedMap();
+  Epetra_Vector *y_n_owned_ptr =  new_EpetraVectorView(y_n_ghosted, *nmap);
+  Epetra_Vector *ydot_n_owned_ptr = 0; 
+  if (ydot_n_ghosted) {
+      ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
+  }
 
   Cantera::XML_Node root("--");
 
@@ -954,11 +961,11 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   DomainLayout &DL = *DL_ptr_;
 
   Epetra_Vector *solnAll = GI_ptr_->SolnAll;
-  m1d::gather_nodeV_OnAll(*solnAll, y_n_owned);
+  m1d::gather_nodeV_OnAll(*solnAll, *y_n_owned_ptr);
   //solnAll = m1d::gatherOnAll(y_n);
   Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
-  if (ydot_n_owned) {
-    m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n_owned);
+  if (ydot_n_ghosted) {
+    m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n_owned_ptr);
   }
 
   Domain1D *d_ptr = DL.SurDomain1D_List[0];
@@ -1021,6 +1028,8 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   Epetra_Comm *c = LI_ptr_->Comm_ptr_;
   c->Barrier();
   solNum++;
+  delete y_n_owned_ptr;
+  delete ydot_n_owned_ptr;
 }
 //=====================================================================================================================
 static void

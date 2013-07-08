@@ -58,11 +58,10 @@ gatherOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
   /*
    * Create a map with all of the unknowns on processor 0
    */
-  Epetra_Map *e0_map = new Epetra_Map(numGlobalElements, numMyElements, 0,
-                                      *comm_ptr);
+  Epetra_Map *e0_map = new Epetra_Map(numGlobalElements, numMyElements, 0, *comm_ptr);
 
   /*
-   *  Extract the map for the distributed vector from the object
+   *  Extract the map for the distributed vector from the Epetra_Vector
    */
   const Epetra_BlockMap &distribMap = distribV.Map();
 
@@ -70,7 +69,7 @@ gatherOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
    *  Create an import object that describes the communication to bring
    *  all of the unknowns from the distributed object onto processor 0
    */
-  Epetra_Import *import0 = new Epetra_Import(*e0_map, distribMap);
+  Epetra_Import* import0 = new Epetra_Import(*e0_map, distribMap);
 
   /*
    *  Malloc and create the Epetra object to hold all of the data on proc 0
@@ -167,59 +166,61 @@ gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
 }
 //=====================================================================================================================
 /*
- * We assume here that global_node_V and distrib_node_V are internally consistent.
+ *  Gather all of a distributed vector on all processors.
  */
 void
-gather_nodeV_OnAll(Epetra_Vector & global_node_V, const Epetra_Vector &distrib_node_V, Epetra_Comm *acomm_ptr)
+gather_nodeV_OnAll(Epetra_Vector& global_node_V, const Epetra_Vector &distrib_node_V, Epetra_Comm *acomm_ptr)
 {
   Epetra_Comm *comm_ptr = acomm_ptr;
   if (acomm_ptr == 0) {
     if (Comm_ptr) {
       comm_ptr = Comm_ptr;
     } else {
-      throw m1d_Error("gather_nodeV_OnAll", "no comm pointer");
+      throw m1d_Error("ERROR gather_nodeV_OnAll()", "no comm pointer");
     }
   }
-  /*
-   * Assign all elements to all processors
-   */
-  int numMyElements = distrib_node_V.GlobalLength();
-  //int numGlobalElements = numMyElements;
-  if (global_node_V.MyLength() != numMyElements) {
-    printf("(global length = %d) != (distrib length = %d) \n", global_node_V.MyLength(), numMyElements);
-  }
-  // AssertTrace(global_node_V.MyLength() == numMyElements);
-
-  int ng = global_node_V.GlobalLength();
-  int nl = global_node_V.MyLength();
-  AssertTrace(ng == nl);
-  /*
-   * Create a map with all of the unknowns on all processors
-   */
-  //Epetra_Map *eAll_map = new Epetra_Map(numGlobalElements, numMyElements, 0,
-    //                                  *comm_ptr);
   /*
    *  Extract the map on this processor for the distributed vector from the object
    */
   const Epetra_BlockMap &distribMap = distrib_node_V.Map();
+  int distribAllMaxGID = distribMap.MaxAllGID();
+  /*
+   *  Extract the map for the global node map
+   */
+  const Epetra_BlockMap &globalMap = global_node_V.Map();
+  int globalAllMaxGID = globalMap.MaxAllGID();
+  int globalMyMaxGID  = globalMap.MaxMyGID();
+  if (globalAllMaxGID != globalMyMaxGID) {
+    printf("gather_nodeV_OnAll() ERROR proc %d: globalAllMaxGID, %d ne globalMyMaxGID, %d \n", comm_ptr->MyPID(), globalAllMaxGID, globalMyMaxGID);
+    AssertTrace(globalAllMaxGID == globalMyMaxGID);
+  }
+  
+  if (globalAllMaxGID != distribAllMaxGID) {
+    printf("gather_nodeV_OnAll() ERROR proc %d: (global Max GID = %d) != (distrib MAX GID = %d) \n", comm_ptr->MyPID(), globalAllMaxGID, distribAllMaxGID);
+    AssertTrace(globalAllMaxGID == distribAllMaxGID);
+  }
+
+  /*
+   *  We assert that the global length of the vector is equal to the local length of the vector multiplied by the number of processors
+   *  on all processors. This is the necessary condition for a global all vector.
+   */
+  int ng = global_node_V.GlobalLength();
+  int nl = global_node_V.MyLength();
+  if (ng != nl * comm_ptr->NumProc()) {
+     printf("gather_nodeV_OnAll() ERROR proc %d: ng = %d, nl = %d\n", comm_ptr->MyPID() , ng, nl);
+     AssertTrace(ng == nl * comm_ptr->NumProc());
+  }
   /*
    *  Create an import object that describes the communication to bring
    *  all of the unknowns from the distributed object onto all of the processors
    */
   Epetra_Import *importAll = new Epetra_Import(global_node_V.Map(), distribMap);
-
   /*
-   *  Malloc and create the Epetra object to hold all of the data on all procs
-   */
-  //Epetra_Vector *eAll = new Epetra_Vector(*eAll_map, true);
-
-  /*
-   *  Bring all of the data onto all processors and store it in e0.
+   *  Bring all of the data onto all processors and store it in global_node_V.
    */
   global_node_V.Import(distrib_node_V, *importAll, Insert, 0);
 
   delete importAll;
- // delete eAll_map;
 
   return;
 }
@@ -250,7 +251,7 @@ gather_nodeIntV_OnAll(Epetra_IntVector & global_node_IV, const Epetra_IntVector 
   
   int ng = global_node_IV.GlobalLength();
   int nl = global_node_IV.MyLength();
-  AssertTrace(ng == nl);
+  AssertTrace(ng == nl * comm_ptr->NumProc());
   /*
    * Create a map with all of the unknowns on all processors
    */
@@ -281,7 +282,17 @@ gather_nodeIntV_OnAll(Epetra_IntVector & global_node_IV, const Epetra_IntVector 
 
   return;
 }
-
+//=====================================================================================================================
+Epetra_Vector* new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_BlockMap& nmap)
+{
+    /*
+     *  Extract a pointer to the vector of pointers that make up the data
+     */
+    double **xPoint;
+    orig.ExtractView(&xPoint);
+    Epetra_MultiVector* xNew = new Epetra_MultiVector(View, nmap, xPoint, 1);
+    return (Epetra_Vector*) xNew;
+}
 //=====================================================================================================================
 }
 //=====================================================================================================================

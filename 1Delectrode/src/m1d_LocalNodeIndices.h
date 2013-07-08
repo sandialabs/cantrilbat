@@ -381,6 +381,18 @@ public:
    */
   Epetra_Map *GbNodetoLcNodeColMap;
 
+ //! Epetra_Map object containing the mapping of the nodes corresponding
+ //! to row nodes needed by each processor
+ /*!
+  *  This describes the distribution of the owned nodes
+  *  needed by this processor. This is a 1 to 1 map.
+  *
+  *  This is a distributed object. It's used to set up the rows of the
+  *  node-only matrix owned by this processor. It's also used to describe the
+  *  all of the ownedlocal nodes defined on a processor.
+  */
+ Epetra_Map *GbNodetoOwnedLcNodeMap;
+
   //! Epetra_Map object containing the mapping of the block node
   //! equations corresponding  to all column rows equations needed by this processor
   //! whether they are owned or are external

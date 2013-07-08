@@ -32,8 +32,10 @@ namespace m1d
 //===========================================================================
 LocalNodeIndices::LocalNodeIndices(Epetra_Comm *comm_ptr, GlobalIndices *gi_ptr) :
   Comm_ptr_(comm_ptr), MyProcID(0), NumLcNodes(0), NumOwnedLcNodes(0), NumExtNodes(0), NumLcRowNodes(0), NumLcEqns(0),
-      NumLcOwnedEqns(0), GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1), GbNodetoLcNodeColMap(
-          0), GbBlockNodeEqnstoLcBlockNodeEqnsColMap(0), GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0),
+      NumLcOwnedEqns(0), GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1), 
+      GbNodetoLcNodeColMap(0), 
+      GbNodetoOwnedLcNodeMap(0), 
+      GbBlockNodeEqnstoLcBlockNodeEqnsColMap(0), GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0),
       Importer_GhostEqns(0), Importer_NodalValues(0), NumNodeColors(0), NodeColorMap(0), NumEqnColors(0),
       EqnColorMap(0), EqnColors(0), Xpos_LcNode_p(0), Xpos_LcOwnedNode_p(0), GI_ptr_(gi_ptr)
 {
@@ -46,6 +48,7 @@ LocalNodeIndices::~LocalNodeIndices() {
   //}
   safeDelete(NodeColorMap);
   safeDelete(GbNodetoLcNodeColMap);
+  safeDelete(GbNodetoOwnedLcNodeMap);
   safeDelete(GbBlockNodeEqnstoLcBlockNodeEqnsColMap);
   safeDelete(GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap);
   safeDelete(EqnColorMap);
@@ -58,7 +61,9 @@ LocalNodeIndices::~LocalNodeIndices() {
 //===========================================================================
 LocalNodeIndices::LocalNodeIndices(const LocalNodeIndices &r) :
   MyProcID(0), NumLcNodes(0), NumOwnedLcNodes(0), NumExtNodes(0), NumLcRowNodes(0), NumLcEqns(0), NumLcOwnedEqns(0),
-      GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1), GbNodetoLcNodeColMap(0),
+      GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1), 
+      GbNodetoLcNodeColMap(0),
+      GbNodetoOwnedLcNodeMap(0),
       GbBlockNodeEqnstoLcBlockNodeEqnsColMap(0), GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0), Importer_GhostEqns(0),
       Importer_NodalValues(0), NumNodeColors(0), NodeColorMap(0), EqnColorMap(0), EqnColors(0), Xpos_LcNode_p(0),
       Xpos_LcOwnedNode_p(0), GI_ptr_(r.GI_ptr_)
@@ -95,6 +100,9 @@ LocalNodeIndices::operator=(const LocalNodeIndices &r)
 
   safeDelete(GbNodetoLcNodeColMap);
   GbNodetoLcNodeColMap = new Epetra_Map(*r.GbNodetoLcNodeColMap);
+
+  safeDelete(GbNodetoOwnedLcNodeMap);
+  GbNodetoOwnedLcNodeMap = new Epetra_Map(*r.GbNodetoOwnedLcNodeMap);
 
   safeDelete(GbBlockNodeEqnstoLcBlockNodeEqnsColMap);
   GbBlockNodeEqnstoLcBlockNodeEqnsColMap = new Epetra_BlockMap(*r.GbBlockNodeEqnstoLcBlockNodeEqnsColMap);
@@ -311,18 +319,40 @@ LocalNodeIndices::determineLcEqnMaps()
 void
 LocalNodeIndices::initLcNodeMaps()
 {
+  /*
+   *  Create a map of the local nodes and ghost modes. The global ids are the global node numbers.
+   *  We relie on Epetra to tally up the total number of global elements produced. This map will included ghosted nodes.
+   */
   GbNodetoLcNodeColMap = new Epetra_Map(-1, NumLcNodes, DATA_PTR(IndexGbNode_LcNode), 0, *Comm_ptr_);
 #ifdef DEBUG_MATRIX_STRUCTURE
   print0_epBlockMap(*GbNodetoLcNodeColMap);
 #endif
+
+  /*
+   *  Create a map of the local nodes. The global ids are the global node numbers.
+   *  We relie on Epetra to tally up the total number of global elements produced. This map will not include ghosted nodes.
+   */
+   GbNodetoOwnedLcNodeMap = new Epetra_Map(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode), 0, *Comm_ptr_);
+
 }
 //===========================================================================
 void
 LocalNodeIndices::initLcBlockNodeMaps()
 {
+  /*
+   *  Create a block map of the local eqns and ghost eqns. The global element ids are the global node numbers.
+   *  The number of rows in the block are the number of equations defined at each node.
+   *  We relie on Epetra to tally up the total number of global elements produced. This map will included ghosted nodes
+   *  and equations
+   */
   GbBlockNodeEqnstoLcBlockNodeEqnsColMap = new Epetra_BlockMap(-1, NumLcNodes, DATA_PTR(IndexGbNode_LcNode), DATA_PTR(
       NumEqns_LcNode), 0, *Comm_ptr_);
 
+  /*
+   *  Create a map of the local equations only. The global ids are the global node numbers.
+   *  We relie on Epetra to tally up the total number of global elements produced.  this map will
+   *  not include ghosted nodes, and therefore will be 1 to 1.
+   */
   GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap = new Epetra_BlockMap(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode),
       DATA_PTR(NumEqns_LcNode), 0, *Comm_ptr_);
 }

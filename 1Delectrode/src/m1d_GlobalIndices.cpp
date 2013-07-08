@@ -132,16 +132,19 @@ GlobalIndices::init(DomainLayout *dl_ptr)
   NodalVars_GbNode.resize(NumGbNodes);
   NumEqns_GbNode.resize(NumGbNodes);
   IndexStartGbEqns_GbNode.resize(NumGbNodes);
+  int *tmpIndex = new int[NumGbNodes];
   for (int iGbNode = 0; iGbNode < NumGbNodes; iGbNode++) {
     AssertTrace(NodalVars_GbNode[iGbNode] == 0);
     NodalVars_GbNode[iGbNode] = new NodalVars(iGbNode, dl_ptr);
+    tmpIndex[iGbNode] = iGbNode;
   }
   /*
    * Create a map with all of the unknowns on all processors
    */
-  Epetra_Map *eAll_map = new Epetra_Map(NumGbNodes, NumGbNodes, 0, *Comm_ptr_);
+  Epetra_Map *eAll_map = new Epetra_Map(NumProc * NumGbNodes, NumGbNodes, tmpIndex, 0, *Comm_ptr_);
   XNodePos_GbNode = new Epetra_Vector(*eAll_map, true);
   safeDelete(eAll_map);
+  delete [] tmpIndex;
 }
 //=====================================================================================================================
 int
@@ -224,7 +227,6 @@ void
 GlobalIndices::initNodeMaps()
 {
   AssertTrace(Comm_ptr_);
-  //GbEqnstoOwnedLcEqnsMap = new Epetra_Map(NumGbEqns, NumOwnedLcEqns, 0, *Comm_ptr_);
   GbNodetoOwnedLcNodeMap = new Epetra_Map(NumGbNodes, NumOwnedLcNodes, 0, *Comm_ptr_);
 }
 //=====================================================================================================================
@@ -241,7 +243,7 @@ GlobalIndices::initBlockNodeMaps(int *numEqns_LcNode)
     listI[i] = i;
   }
 
-  GbEqnstoAllMap = new Epetra_BlockMap(NumGbNodes, NumGbNodes, &(listI[0]), &(NumEqns_GbNode[0]), 0, *Comm_ptr_);
+  GbEqnstoAllMap = new Epetra_BlockMap(NumProc * NumGbNodes, NumGbNodes, &(listI[0]), &(NumEqns_GbNode[0]), 0, *Comm_ptr_);
 
   SolnAll = new Epetra_Vector(*GbEqnstoAllMap, true);
   SolnDotAll = new Epetra_Vector(*GbEqnstoAllMap, true);

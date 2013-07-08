@@ -2255,7 +2255,6 @@ porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   }
   if (do0Write) {
     for (iBlock = 0; iBlock < nn; iBlock++) {
-      print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
       drawline0(indentSpaces, 80);
       ss.print0("%s        z   ", ind);
       for (n = 0; n < 5; n++) {

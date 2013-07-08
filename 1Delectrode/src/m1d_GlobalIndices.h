@@ -230,7 +230,7 @@ public:
 
   //! Positions at the global nodes
   /*!
-   *   We keep a global vector of these
+   *   We keep a global vector of these on each node
    */
   Epetra_Vector *XNodePos_GbNode;
 

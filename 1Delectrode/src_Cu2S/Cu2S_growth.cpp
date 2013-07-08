@@ -291,7 +291,7 @@ main(int argc, char **argv)
     jac->process_input(PSinput.cf_);
     jac->process_BEinput(PSinput.I_LinearSolverBlock);
 
-#ifdef DEBUG_MATRIX_STRUCTURE
+#ifdef DEBUG_MATRIX_STRUCTURE_NOT
     print0_sync_start(true, w0, Comm);
     ostringstream ssSave;
     jac->queryMatrixStructure(ssSave);
@@ -354,7 +354,8 @@ main(int argc, char **argv)
     int linearIts;
     jac->solve(b, v, linearIts, linNorm, true);
 
-    printf(" Norm of solution = %g\n", linNorm);
+    
+    w0.fprintf0only(" Norm of solution = %g\n", linNorm);
     print0_epBlockMap((*soln).Map());
     print0_epBlockMap((*v).Map());
     print0_epMultiVector(*v, "Solution Values");

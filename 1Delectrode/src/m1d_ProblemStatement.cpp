@@ -328,9 +328,9 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
 
 
   /* -------------------------------------------------------------------------------------------------------------------
-   // Level of residual information printing done to stdout
-   /*
-	*   0 -> Don't print anything
+   * Level of residual information printing done to stdout
+   *
+        *   0 -> Don't print anything
 	*   1 -> Print only about significant issues going on
 	*   2 -> Print status information at regular intervals.
 	*   3 -> Print ShowResidual at regular intervals
@@ -444,12 +444,16 @@ ProblemStatement::parse_input_1(std::string commandFile)
   int retn = 0;
   PSinput_ptr = this;
   commandFile_ = commandFile;
+  int my_pid = Comm_ptr->MyPID();
 
   int printBIProclevel = 9;
   set_tok_input_print_flag(0);
-  BlockEntry::set_printProcessedLine(true);
+  if (!my_pid) {
+    BlockEntry::set_printProcessedLine(true);
+  } else {
+    BlockEntry::set_printProcessedLine(false);
+  }
 
-  int my_pid = Comm_ptr->MyPID();
   if (!my_pid && printBIProclevel) {
     printf("\n");
     print_char('=', 80);

@@ -2134,8 +2134,9 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
   // Number of points in each vector
   string sss = id();
-  stream0 ss;
 
+  stream0 ss;
+  print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
   if (do0Write) {
     drawline0(indentSpaces, 80);
     ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
@@ -2145,7 +2146,6 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   }
   if (do0Write) {
     for (iBlock = 0; iBlock < nn; iBlock++) {
-      print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
       drawline0(indentSpaces, 80);
       ss.print0("%s        z   ", ind);
       for (n = 0; n < 5; n++) {
@@ -2237,6 +2237,8 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     }
     drawline(indentSpaces, 80);
   }
+  print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
+  print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
   if (do0Write) {
     // ----------------------------------------------------
     // --             print potentials within the cell --
@@ -2247,6 +2249,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.print0("\n");
     drawline0(indentSpaces, 80);
   }
+  print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
   doublereal x;
   int iCell;
   for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
@@ -2265,6 +2268,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
   }
 
+  print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   if (do0Write) {
     // -----------------------------------------------------------------------------------------------------------------
     // --             print porosity within the cell --
@@ -2275,6 +2279,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.print0("\n");
     drawline0(indentSpaces, 80);
   }
+  print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
   for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
     if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
@@ -2288,6 +2293,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
   }
 
+  print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   if (do0Write) {
     // -----------------------------------------------------------------------------------------------------------------
     // --             PRINT SURFACE REACTION DETAILS ABOUT EACH CELL --
@@ -2298,6 +2304,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.print0("\n");
     drawline0(indentSpaces, 80);
   }
+  print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
   for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
     if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
@@ -2314,6 +2321,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
   }
 
+  print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   if (do0Write) {
     // -----------------------------------------------------------------------------------------------------------------
     // --             PRINT DEPTH OF DISCHARGE VALUES FOR EACH CELL --
@@ -2326,6 +2334,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.print0("\n");
     drawline0(indentSpaces, 80);
   }
+  print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
   for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
     if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
