@@ -15,56 +15,56 @@ all:
 	cd util_src;                      @MAKE@
 	cd ctpadds;                       @MAKE@
 	cd Electrode;                     @MAKE@
+	cd 1Delectrode;                   @MAKE@
 	cd mpequil;                       @MAKE@
 	cd epequil;                       @MAKE@
 	cd cttables;                      @MAKE@
 	cd fitShomate;                    @MAKE@
 	cd electrodeCell;                 @MAKE@
 	cd imt_model;                     @MAKE@
-	cd 1Delectrode;                   @MAKE@
 
 clean:
 	cd util_src;                    @MAKE@ clean
 	cd ctpadds;$(RM) .depends ;     @MAKE@ clean
 	cd Electrode;                   @MAKE@ clean
+	cd 1Delectrode;                 @MAKE@ clean
 	cd mpequil;                     @MAKE@ clean
 	cd epequil;                     @MAKE@ clean
 	cd cttables;                    @MAKE@ clean
 	cd fitShomate;                  @MAKE@ clean
 	cd electrodeCell;               @MAKE@ clean
 	cd imt_model;                   @MAKE@ clean
-	cd 1Delectrode;                 @MAKE@ clean
 
 depends:
 	cd util_src;                   @MAKE@ depends
 	cd ctpadds;                    @MAKE@ depends
 	cd Electrode;                 @MAKE@ depends
+	cd 1Delectrode;                @MAKE@ depends
 	cd mpequil;                    @MAKE@ depends
 	cd epequil;                    @MAKE@ depends
 	cd cttables;                   @MAKE@ depends
 	cd fitShomate;                 @MAKE@ depends
 	cd electrodeCell;              @MAKE@ depends
 	cd imt_model;                  @MAKE@ depends
-	cd 1Delectrode;                @MAKE@ depends
 
 test:
 	cd util_src;         @MAKE@ -s test
+	cd Electrode;        @MAKE@ -s test
+	cd 1Delectrode;      @MAKE@ -s test
 	cd mpequil;          @MAKE@ -s test
 	cd epequil;          @MAKE@ -s test
 	cd cttables;         @MAKE@ -s test
 	cd electrodeCell;    @MAKE@ -s test
-	cd Electrode;        @MAKE@ -s test
 	cd imt_model;        @MAKE@ -s test
-	cd 1Delectrode;      @MAKE@ -s test
 
 install:
 	cd util_src;                   @MAKE@ install
 	cd ctpadds;                    @MAKE@ install
 	cd Electrode;                 @MAKE@ install
+	cd 1Delectrode;                @MAKE@ install
 	cd mpequil;                    @MAKE@ install
 	cd epequil;                    @MAKE@ install
 	cd cttables;                   @MAKE@ install
 	cd fitShomate;                 @MAKE@ install
 	cd electrodeCell;              @MAKE@ install
 	cd imt_model;                  @MAKE@ install
-	cd 1Delectrode;                @MAKE@ install
