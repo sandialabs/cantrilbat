@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-#
-=======
 #!/bin/sh
->>>>>>> Add jacobian unit test makefile.in.
 #
 #  Makefile.in: 
 #     Makefile for mpequil
 #
-<<<<<<< HEAD
-# $Id: Makefile.in,v 1.2 2010/07/13 01:30:41 hkmoffa Exp $
-=======
 # $Id: Makefile.in,v 1.3 2010/10/14 21:11:13 clueth Exp $
->>>>>>> Add jacobian unit test makefile.in.
 #
 #
 #  Build mpequil through the CANTERA_INSTALL directories.
@@ -58,27 +50,19 @@ CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
 #########################################################################
 # Set up the various local and global defines
 ########################################################################
-<<<<<<< HEAD
-LDEFINES = -DDEBUG 
-=======
 LDEFINES = -DDEBUG  -DSOLVE_SS
->>>>>>> Add jacobian unit test makefile.in.
 GDEFINES =
 #
 # Set up the global include directory macro
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-<<<<<<< HEAD
-all: .depends anode_5_intSurf
-=======
 all: .depends jacobian_unit
 
 debug: CXXFLAGS=$(DEBUG_FLAGS)
 debug: CFLAGS=$(DEBUG_FLAGS)
 debug: LCXX_FLAGS=$(DEBUG_FLAGS)
 debug: .depends jacobian_unit
->>>>>>> Add jacobian unit test makefile.in.
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -87,11 +71,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
-<<<<<<< HEAD
-OBJ_TEST = JacobianTests.o
-=======
 OBJ_ANODE = JacobianTests.cpp
->>>>>>> Add jacobian unit test makefile.in.
 
 OBJ_CANTERA_ADDONS =  
 
@@ -102,10 +82,7 @@ OBJ_CANTERA_ADDONS =
 # the C++ compiler
 #
 CXX = @CXX@
-<<<<<<< HEAD
-=======
 DEBUG_FLAGS = -O0 -fno-inline -g
->>>>>>> Add jacobian unit test makefile.in.
 CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
@@ -133,11 +110,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 ############################################################################
 # section to set up depends
 ###########################################################################
-<<<<<<< HEAD
-DEPENDS = $(OBJ_TEST:.o=.d) 
-=======
-DEPENDS = $(OBJ_ANODE:.o=.d) 
->>>>>>> Add jacobian unit test makefile.in.
+DEPENDS = $(OBJ_ANODE:.cpp=.d) 
 
 .f.d:
 	echo "$*.o: $*.f" > $*.d
@@ -180,7 +153,6 @@ jacobian_unit: $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
 
 
 clean:

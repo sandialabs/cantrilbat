@@ -67,6 +67,28 @@ public:
     return 1.0;
   }
 
+  virtual double getSourceTerm(SOURCES sourceType)
+  {
+    double result = 0.0;
+    switch( sourceType )
+    {
+    case ELECTROLYTE_PHASE_SOURCE:
+      result = temperature_ + 2*deltaVoltage_;
+      for(int i=0; i<3; ++i)
+      {
+        result += (i+3) * fake_electrolyte_mole_nums[i];
+      }
+      break;
+    case ENTHALPY_SOURCE:
+      result = energySourceTerm();
+      break;
+    default:
+      result = 0.;
+      break;
+    }
+    return result;
+  }
+
 private:
   std::vector<double> fake_electrolyte_mole_nums;
 };
@@ -140,24 +162,31 @@ TEST_F(FDJacobianTest, RemoveEntry)
 TEST_F(FDJacobianTest, ComputeJacobian)
 {
   fd_jacobian->compute_jacobian(point, dt);
-  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1e-12);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1.e-9);
+}
+
+TEST_F(FDJacobianTest, ComputeJacobianWithDofValueZero)
+{
+  std::fill(point.begin(), point.end(), 0.);
+  fd_jacobian->compute_jacobian(point, dt);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1.e-9);
 }
 
 TEST_F(FDJacobianTest, ComputeJacobianMultipleEntries)
 {
   fd_jacobian->add_entry_to_compute(current_voltage_pair);
   fd_jacobian->compute_jacobian(point, dt);
-  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1e-12);
-  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(current_voltage_pair), 1e-12);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1.e-9);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(current_voltage_pair), 1.e-9);
 }
 
 TEST_F(FDJacobianTest, SpeciesJacobians)
 {
   fd_jacobian->add_entries_to_compute(species_source_pairs);
   fd_jacobian->compute_jacobian(point, dt);
-  EXPECT_NEAR(2., fd_jacobian->get_jacobian_value(species_source_pairs[0]), 1.e-12);
-  EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(species_source_pairs[1]), 1.e-12);
-  EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(species_source_pairs[2]), 1.e-12);
+  EXPECT_NEAR(2., fd_jacobian->get_jacobian_value(species_source_pairs[0]), 1.e-9);
+  EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(species_source_pairs[1]), 1.e-9);
+  EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(species_source_pairs[2]), 1.e-9);
 }
 
 TEST_F(FDJacobianTest, ElectrolytePhaseSource)
@@ -166,23 +195,23 @@ TEST_F(FDJacobianTest, ElectrolytePhaseSource)
   fd_jacobian->add_entries_to_compute(electrolyte_phase_all_dofs);
   fd_jacobian->compute_jacobian(point, dt);
   // SOLID_VOLTAGE
-  EXPECT_NEAR(2., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-11);
+  EXPECT_NEAR(2., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
   // LIQUID_VOLTAGE
-  EXPECT_NEAR(-2., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-11);
+  EXPECT_NEAR(-2., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
   // TEMPERATURE
-  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
   // PRESSURE
-  EXPECT_NEAR(0., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  EXPECT_NEAR(0., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
   // SPECIES 0-2
-  EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
-  EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
-  EXPECT_NEAR(5., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-12);
+  EXPECT_NEAR(5., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
 }
 
 } // namespace Cantera
