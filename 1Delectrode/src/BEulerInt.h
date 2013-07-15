@@ -628,6 +628,7 @@ protected:
     //! Pointer to the nonlinear solver
     m1d::SolGlobalNonlinear *m_nonlin;
 
+      
     const Epetra_Comm *Comm_ptr_;
 
     //! My processor number
