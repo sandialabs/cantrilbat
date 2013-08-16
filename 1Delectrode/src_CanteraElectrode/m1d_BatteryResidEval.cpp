@@ -26,6 +26,7 @@
 
 #include "m1d_Comm.h"
 #include "m1d_GlobalIndices.h"
+#include "m1d_globals.h"
 
 #include <iostream>
 #include <fstream>
@@ -448,6 +449,9 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     double a_icurr = ac_ptr->icurrCollector_;
     //double phiAnode = ac_ptr->phiAnode_;
 
+    int procID = Comm_ptr->MyPID();
+
+    if (!procID) {
     //looking for cathode capacity and depth of discharge
     BulkDomain1D *cd_ptr = DL.BulkDomain1D_List.back();
     //porousLiKCl_FeS2Cathode_dom1D *cc_ptr = dynamic_cast<porousLiKCl_FeS2Cathode_dom1D *>(cd_ptr);
@@ -476,8 +480,10 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E \n", 
 	    time_current, phiCath, 0.1 * c_icurr, spec_capacityZeroDoD/3.6, spec_dischargedCapacity/3.6, 
 	    capacityZeroDoD, dischargedCapacity, 0.1 * a_icurr );
-
+    fflush(fp);
     fclose(fp);
+    }
+    Comm_ptr->Barrier();
   }
 
   //====================================================================================================================

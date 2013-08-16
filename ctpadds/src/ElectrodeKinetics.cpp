@@ -484,10 +484,19 @@ namespace Cantera {
     /*
      * extend temporary storage by one for this rxn.
      */
+#define OLDWAY
+#ifdef OLDWAY
+    m_ropf.push_back(0.0);
+    m_ropr.push_back(0.0);
+    m_ropnet.push_back(0.0);
+    m_rkcn.push_back(0.0);
+#else
     m_kdata->m_ropf.push_back(0.0);
     m_kdata->m_ropr.push_back(0.0);
     m_kdata->m_ropnet.push_back(0.0);
     m_kdata->m_rkcn.push_back(0.0);
+#endif
+
 
     /*
      * Obtain the current reaction index for the reaction that we
