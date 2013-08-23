@@ -2247,8 +2247,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
              */
             double relExtentRxn = RegionBoundaries_ExtentRxn_[onRegionBoundary_init_];
             if (fabs(relExtentRxn - RelativeExtentRxn_init_) > 1.0E-9) {
-                printf("predictSoln() ERROR : We are confused\n");
-                exit(-1);
+                throw CanteraError("predictSoln():", "ERROR : We are confused\n");
             }
 
             /*
@@ -2268,8 +2267,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
                 vbot = openCircuitVoltage_Region(relExtentRxn, onRegionBoundary_init_);
             }
             if (vtop < vbot) {
-                printf("predictSoln() ERROR: Expected but unexpected\n");
-                exit(-1);
+                throw CanteraError("predictSoln():", "ERROR: Expected but unexpected\n");
             }
             //  If the voltage says we move backwards, we decrement the region before doing the prediction
             //  An extra check is supplied to make sure that we are not at the absolute region 0 boundary, where we can't go backwards
