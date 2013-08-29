@@ -20,7 +20,7 @@
 
 namespace Cantera {
 
-// Compute electrode Jacobian by finite differences
+//! Implementation of the Electrode_Jacobian interface that uses numerical finite differencing to calculate source term sensitivity values.
 class Electrode_FD_Jacobian : public Electrode_Jacobian {
 public:
   Electrode_FD_Jacobian(Electrode* elect);
@@ -33,6 +33,8 @@ public:
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
 protected:
+  // These variables are used to determine which dofs we need to finite
+  // difference with respect to.
   std::list<DOFS> dofs_to_fd;
   std::map<DOFS, int> num_sources_using_dof;
 
@@ -40,7 +42,12 @@ private:
   Electrode_FD_Jacobian(const Electrode_FD_Jacobian& right);
   Electrode_FD_Jacobian& operator=(const Electrode_FD_Jacobian& right);
 
+  // This helper function handles running a single electrode->integrate call at
+  // a given set of dof values.
   void run_electrode_integration(const std::vector<double> & dof_values, double dt);
+
+  // This helper function sets a specific jacobian entry using a centered difference formula
+  // based on the specified source values and delta in the dof.
   void set_jacobian_entry(const DOF_SOURCE_PAIR & entry, double source_values[2], double delta);
 };
 

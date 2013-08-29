@@ -21,6 +21,7 @@ Electrode_FD_Jacobian::~Electrode_FD_Jacobian()
 //====================================================================================================================
 void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerpoint, const double dt)
 {
+  // Temporary storage used to do the centered difference calculation
   std::vector<double> speciesSources[2];
   speciesSources[0].resize(electrode->nSpecies());
   speciesSources[1].resize(electrode->nSpecies());
@@ -35,23 +36,31 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 
   const double base_delta = 1.e-5;
 
+  // Iterate over the list of dofs that need to be finite differenced with respect to
+  // For each dof store the source term values with the dof perturbed +- its centerpoint value.
+  // These are then used to set the Jacobian entries using a centered difference formula
   std::list<DOFS>::iterator dof_it = dofs_to_fd.begin();
   for( ; dof_it != dofs_to_fd.end(); ++dof_it )
   {
+    // Determine how far to perturb the dof using base_delta as a relative perturbation magnitude
     double dof_delta = base_delta;
     dof_delta *= (std::abs(perturbed_point[*dof_it]) > 0.) ? std::abs(perturbed_point[*dof_it]) : 1.0;
+
     for( int negative=0; negative<2; ++negative)
     {
       // Perturb by -1^negative * base_delta and compute
       perturbed_point[*dof_it] += dof_delta * std::pow(-1.0, negative);
       run_electrode_integration(perturbed_point, dt);
 
+      // Store off the source term results in temporary storage
       energySource[negative] = electrode->getSourceTerm(Cantera::ENTHALPY_SOURCE);
       electrolytePhaseSource[negative] = electrode->getSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
       electrode->integratedSourceTerm(&speciesSources[negative][0]);
 
       perturbed_point[*dof_it] = centerpoint[*dof_it];
     }
+
+    // Use set_jacobian_entry to store the various sensitivities based on a centered difference.
     set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, ENTHALPY_SOURCE), energySource, dof_delta);
     set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, ELECTROLYTE_PHASE_SOURCE), electrolytePhaseSource, dof_delta);
     individualSpeciesSource[0] = speciesSources[0][electronIndex];

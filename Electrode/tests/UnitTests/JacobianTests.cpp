@@ -12,6 +12,7 @@
 namespace Cantera
 {
 
+//! A mock electrode object to use in unit testing of Electrode_FD_Jacobian
 class MockElectrode : public Electrode
 {
 public:
@@ -93,6 +94,7 @@ private:
   std::vector<double> fake_electrolyte_mole_nums;
 };
 
+//! Unit test fixture for Electrode_FD_Jacobian tests
 class FDJacobianTest : public testing::Test
 {
 public:
@@ -102,6 +104,8 @@ public:
     dt(0.1),
     zero(0.)
   {
+    // Create a mock electrode object, an fd_jacobian object that drives it
+    // and set up their initial state.
     mock_electrode = new MockElectrode();
     std::vector<Electrode_Jacobian::DOF_SOURCE_PAIR> entries_to_compute;
     entries_to_compute.push_back(temp_energy_pair);
@@ -141,17 +145,20 @@ protected:
   Electrode_Jacobian *fd_jacobian;
 };
 
+//! Test that the expected exception occurs if trying to access a jacobian value that is not being computed.
 TEST_F(FDJacobianTest, MissingEntry)
 {
   EXPECT_THROW( fd_jacobian->get_jacobian_value(current_voltage_pair), CanteraError);
 }
 
+//! Test adding an entry to the list of computed jacobian entries.
 TEST_F(FDJacobianTest, AddEntry)
 {
   fd_jacobian->add_entry_to_compute( current_voltage_pair );
   EXPECT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(current_voltage_pair), zero);
 }
 
+//! Test removing an entry from the list of computed entries
 TEST_F(FDJacobianTest, RemoveEntry)
 {
   ASSERT_DOUBLE_EQ( fd_jacobian->get_jacobian_value(temp_energy_pair), zero);
@@ -159,6 +166,7 @@ TEST_F(FDJacobianTest, RemoveEntry)
   EXPECT_THROW( fd_jacobian->get_jacobian_value(temp_energy_pair), CanteraError );
 }
 
+//! Test computing a single entry of the jacobian
 TEST_F(FDJacobianTest, ComputeJacobian)
 {
   fd_jacobian->compute_jacobian(point, dt);
@@ -172,6 +180,7 @@ TEST_F(FDJacobianTest, ComputeJacobianWithDofValueZero)
   EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(temp_energy_pair), 1.e-9);
 }
 
+//! Test computing a jacobian with multiple entries
 TEST_F(FDJacobianTest, ComputeJacobianMultipleEntries)
 {
   fd_jacobian->add_entry_to_compute(current_voltage_pair);
@@ -180,6 +189,7 @@ TEST_F(FDJacobianTest, ComputeJacobianMultipleEntries)
   EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(current_voltage_pair), 1.e-9);
 }
 
+//! Thest computing jacobian entries wrt species dofs
 TEST_F(FDJacobianTest, SpeciesJacobians)
 {
   fd_jacobian->add_entries_to_compute(species_source_pairs);
@@ -189,6 +199,7 @@ TEST_F(FDJacobianTest, SpeciesJacobians)
   EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(species_source_pairs[2]), 1.e-9);
 }
 
+//! Thest the electrolyte phase source jacobian entries wrt each dof.
 TEST_F(FDJacobianTest, ElectrolytePhaseSource)
 {
   Electrode_Jacobian::DOF_SOURCE_PAIR electrolyte_phase(SOLID_VOLTAGE, ELECTROLYTE_PHASE_SOURCE);
