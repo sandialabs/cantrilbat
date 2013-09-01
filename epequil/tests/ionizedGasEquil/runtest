@@ -5,7 +5,7 @@ temp_success="1"
 /bin/rm  -f output.txt outputa.txt
 ######################################################################
 
-ctv=2.0.0
+ctv=2.1.0b2
 realtest="1"
 if test ! $ctv = "1.8_liquidTransportDevelop"
 then

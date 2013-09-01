@@ -9,7 +9,6 @@
 #include "tok_input_util.h"
 
 #include "cantera/equilibrium.h"
-#include "cantera/base/mdp_allo.h"
 
 #include "PhaseList.h"
 #include "BlockEntry.h"
@@ -2000,7 +1999,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
                 if (sp != phaseMFBig_[iph]) {
                     resid[index] = spMf_final_[isp] - frac;
 #ifdef DEBUG_MODE
-                    mdp::checkFinite(resid[index]);
+                    checkFinite(resid[index]);
 #endif
                     index++;
                 }

@@ -22,6 +22,9 @@
 
 #include "Electrode.h"
 
+#include <iostream>
+#include <fstream>
+
 
 using namespace Cantera;
 using namespace std;

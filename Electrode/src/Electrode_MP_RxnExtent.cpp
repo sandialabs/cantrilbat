@@ -11,11 +11,9 @@
 #include "cantera/equilibrium.h"
 
 #include "Electrode_MP_RxnExtent.h"
-#include "cantera/base/mdp_allo.h"
 
 #include "BlockEntryGlobal.h"
 
-#include "cantera/base/mdp_allo.h"
 
 using namespace Cantera;
 using namespace std;
@@ -1788,7 +1786,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             double theta1 = Radius_internal_init_ * surfaceAreaRS_final_[1] / (rInt + DaOuter_Bar_) / spMoles_FeS2_Normalization_;
             theta1 *= (ca_Lip_ * krExt_ - kfExt_ * Lin_);
 #ifdef DEBUG_MODE
-            mdp::checkFinite(theta1);
+            Cantera::checkFinite(theta1);
 #endif
             double extentLeft1 = 0.0;
             double extentLeft0 = RegionBoundaries_ExtentRxn_[xRegion_final_+1] - RelativeExtentRxn_init_;
@@ -1833,7 +1831,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
 
         }
 #ifdef DEBUG_MODE
-        mdp::checkFinite(SrcDot_RelativeExtentRxn_final_);
+        Cantera::checkFinite(SrcDot_RelativeExtentRxn_final_);
 #endif
     }
 }
@@ -2606,7 +2604,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
 
     } while (reDo);
 #ifdef DEBUG_MODE
-    mdp::checkFinite(SrcDot_RelativeExtentRxn_final_);
+    Cantera::checkFinite(SrcDot_RelativeExtentRxn_final_);
 
     if (RelativeExtentRxn_final_ < 1.73 && RelativeExtentRxn_init_ > 1.76) {
         printf("we are here\n");
@@ -2792,7 +2790,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
             SrcDot_RelativeExtentRxn_final_ = (RelativeExtentRxn_tmp_ -  RelativeExtentRxn_init_) / deltaTsubcycleCalc_;
         }
 #ifdef DEBUG_MODE
-        mdp::checkFinite(SrcDot_RelativeExtentRxn_final_);
+        checkFinite(SrcDot_RelativeExtentRxn_final_);
 #endif
         if (theta1 > 0.0) {
             deltaTdeath_ = extentLeft0 * 3.0 / 2.0 / theta1;

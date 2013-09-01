@@ -39,8 +39,10 @@ INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
 #
 CANTERA_BUILD_ROOT=@ctb_root@
 #
+# 
 UTILSRC_DIR=../../util_src/src
-
+UTILSRC_DEP=${UTILSRC_DIR}/libutil_src.a
+UTILSRC_LIB=-L${UTILSRC_DIR} -lutil_src
 
 #
 # Set up the various local and global defines
@@ -164,17 +166,18 @@ $(DEPENDS): Makefile
 ############################################################################
 
 DH_test: DH_test.o  \
-	$(OBJ_CANTERA_ADDONS) $(CTLIB_DEP) Makefile $(CANTERA_CORE_LIBS_DEP)
+	$(OBJ_CANTERA_ADDONS) $(CTLIB_DEP) Makefile $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
 	$(CXXLDR) -o DH_test DH_test.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                  $(UTILSRC_LIB) \
                   $(CANTERA_TOTAL_LIBS)  \
                   $(LCXX_END_LIBS)
 
 
 DH_NM_test: DH_NM_test.o  \
-    $(OBJ_CANTERA_ADDONS) $(CTLIB_DEP) Makefile $(CANTERA_CORE_LIBS_DEP)
+    $(OBJ_CANTERA_ADDONS) $(CTLIB_DEP) Makefile $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(CXXLDR) $(LCXX_FLAGS) $(FLIB_BSD) -o DH_NM_test \
                   DH_NM_test.o  \
-                  -L.  $(CTLIB) $(MDPLIB)  \
+                  -L.  $(CTLIB) $(MDPLIB) $(UTILSRC_LIB)  \
                   $(CTBLAS) $(CTMATH) $(LCXX_END_LIBS) 
 
 cg_test: cg_noprecond.o cg_test.o vcs_allo.o Makefile \

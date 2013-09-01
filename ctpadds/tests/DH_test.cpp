@@ -7,13 +7,13 @@
 
 #include <stdio.h>
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 
 #include "cantera/thermo/DebyeHuckel.h"
 
 using namespace Cantera;
 using namespace std;
-using namespace mdp;
+using namespace mdpUtil;
 
 
 void printUsage() {

@@ -9,14 +9,14 @@
  */
 #include <stdio.h>
 
-#include "cantera/base/mdp_allo.h"
+#include "../../util_src/src/mdp_allo.h"
 
 #include "cantera/thermo/DebyeHuckel.h"
 #include "cantera/base/Array.h"
 
 using namespace std;
 using namespace Cantera;
-using namespace mdp;
+using namespace mdpUtil;
 
 
 void printUsage() {

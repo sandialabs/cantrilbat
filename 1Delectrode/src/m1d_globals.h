@@ -28,12 +28,11 @@ class Epetra_Comm;
 namespace m1d
 {
 
-//!  Global comm pointer. There is never more than one of these
-//!  in this application.
+//!  Global Epetra comm pointer. There is never more than one of these in this application.
 extern Epetra_Comm *Comm_ptr;
 
 class Appl;
-  class ProblemStatement;
+class ProblemStatement;
 
 //! Print input options and exit
 /*!
@@ -42,8 +41,8 @@ class Appl;
  */
 extern bool PrintInputFormat;
 
-  //! Problem statement pointer. This must be defined
-  extern ProblemStatement * PSinput_ptr;
+//! Problem statement pointer. This must be defined
+extern ProblemStatement * PSinput_ptr;
 
 //! Return a pointer to the single application object
 Appl*
