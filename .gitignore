@@ -12,3 +12,5 @@ rhel5_64_sierra_gcc444
 config.h
 *~
 .*.swp
+rhel6_64_*
+
