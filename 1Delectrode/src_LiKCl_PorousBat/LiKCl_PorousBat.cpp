@@ -7,7 +7,7 @@
  *  $Id: LiKCl_PorousBat.cpp 593 2013-05-13 21:25:47Z hkmoffa $
  */
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties

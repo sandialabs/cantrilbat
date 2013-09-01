@@ -9,7 +9,6 @@
 #include "tok_input_util.h"
 
 
-#include "cantera/base/mdp_allo.h"
 #include "cantera/equilibrium.h"
 
 #include "cantera/thermo/MolalityVPSSTP.h"
@@ -757,8 +756,8 @@ namespace Cantera {
 
  
   
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
     
  
   
@@ -766,8 +765,8 @@ namespace Cantera {
     InterfacialMassTransfer::updateState();
 
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
 
     /*
      *  Get boundary layer thicknesses
@@ -1285,11 +1284,11 @@ namespace Cantera {
     }
     updatePhaseNumbers(iph);
 
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
-    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(spMoles_init_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(spMoles_init_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(spMoles_final_final_), DATA_PTR(spMoles_final_), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(phaseMoles_init_init_), DATA_PTR(phaseMoles_final_), m_NumTotPhases);
 
   
   }
@@ -1564,15 +1563,15 @@ namespace Cantera {
   }
   //================================================================================================
   void  InterfacialMassTransfer::getMoleFractions(doublereal* const x) const {
-    mdp::mdp_copy_dbl_1(x, &(spMf_final_[0]), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(x, &(spMf_final_[0]), m_NumTotSpecies);
   }
   //================================================================================================
   void  InterfacialMassTransfer::getMoleNumSpecies(doublereal* const n) const {
-    mdp::mdp_copy_dbl_1(n, &(spMoles_final_[0]), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(n, &(spMoles_final_[0]), m_NumTotSpecies);
   }
   //================================================================================================
   void  InterfacialMassTransfer::getMoleNumPhases(doublereal* const np) const {
-    mdp::mdp_copy_dbl_1(np, &(phaseMoles_final_[0]), m_NumTotPhases);
+    mdpUtil::mdp_copy_dbl_1(np, &(phaseMoles_final_[0]), m_NumTotPhases);
   }
   //================================================================================================
   double  InterfacialMassTransfer::moleFraction(int globalSpeciesIndex) const {
@@ -1762,7 +1761,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer::getNetProductionRates(doublereal* const net) const
   {
-    mdp::mdp_zero_dbl_1(net, m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
      *  This routine basically translates between species lists for the reacting surface
      *  domain and the InterfacialMassTransfer.
@@ -1818,7 +1817,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer::getNetProductionRatesRSD(const int isk, doublereal* const net) const
   {
-    mdp::mdp_zero_dbl_1(net, m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
      *  This routine basically translates between species lists for the reacting surface
      *  domain and the InterfacialMassTransfer.
@@ -1872,7 +1871,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer::getPhaseMassFlux(doublereal* const phaseMassFlux) const
   {
-    mdp::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
+    mdpUtil::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
 
     for (int isk = 0; isk < numSurfaces_; isk++) {
       if (ActiveKineticsSurf_[isk]) { 
@@ -1905,7 +1904,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux) const
   { 
-    mdp::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
+    mdpUtil::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
     for (int isk = 0; isk < numSurfaces_; isk++) {
     if (ActiveKineticsSurf_[isk]) {
       const vector<double> &rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
@@ -2259,7 +2258,7 @@ namespace Cantera {
 	 *  loop over the phases in the reacting surface
 	 *  Get the net production vector
 	 */ 
-	mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isk]->nPhases();
 	int jph, kph;
 	int kIndexKin = 0;
@@ -2399,8 +2398,8 @@ namespace Cantera {
       spMoles_init_init_[k] = spMoles_final_[k];
     }
 
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
 
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
@@ -2662,7 +2661,7 @@ namespace Cantera {
     /*
      *  We may do more here to ensure that the last integration is implicit
      */
-    mdp::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
     return t_final_;
   }
   //====================================================================================================================
@@ -2691,7 +2690,7 @@ namespace Cantera {
   double InterfacialMassTransfer::integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta) 
   {
     integrate(deltaT);
-    mdp::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
+    mdpUtil::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
     return t_final_final_;
   }
   */
@@ -2815,7 +2814,7 @@ namespace Cantera {
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
-	mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isph]->nPhases();
 	int kIndexKin = 0;
 	for (int kph = 0; kph < nphRS; kph++) {

@@ -34,21 +34,24 @@ using namespace std;
 
 int main(int argc, char** argv) { 
 
-    char hhh[80];
+    char hhhs[80];
     double dval;
 
     /*
      * General Catch block to trap Cantera Errors and print them
      */
     try {
-      strcpy(hhh, "34.325d10");
-      dval = atofCheck(hhh);
+      strcpy(hhhs, "34.325d10");
+      string hhh(hhhs);
+      dval = fpValueCheck(hhh);
       printf("dval = %g\n", dval);
       //strcpy(hhh, "-34.325d-10  3");
       //dval = atofCheck(hhh);
       //printf("dval = %g\n", dval);
-      strcpy(hhh, "-34.2d 01");
-      dval = atofCheck(hhh);
+      strcpy(hhhs, "-34.2d 01");
+      hhh = hhhs;
+       
+      dval = fpValueCheck(hhh);
       printf("dval = %g\n", dval);
 
     } catch (CanteraError) {

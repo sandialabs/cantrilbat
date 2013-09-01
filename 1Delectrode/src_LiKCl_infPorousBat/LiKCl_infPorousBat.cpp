@@ -8,7 +8,7 @@
  */
 
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties

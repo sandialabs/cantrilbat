@@ -20,7 +20,7 @@
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include <cantera/thermo/StoichSubstance.h>  // separator
-#include "cantera/base/mdp_allo.h"
+//#include "cantera/base/mdp_allo.h"
 
 #include "Ifpack.h"
 #include "AztecOO.h"

@@ -19,7 +19,7 @@
 #include "tok_input_util.h"
 
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 #include "cantera/equilibrium.h"
 
 #include "cantera/thermo/MolalityVPSSTP.h"

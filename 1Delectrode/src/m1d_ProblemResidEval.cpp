@@ -91,7 +91,8 @@ ProblemResidEval::ProblemResidEval(double atol) :
       s_printFlagEnv = 1; 
     } else {
      try {
-       double ff = atofCheck(resp_str);
+       string rr(resp_str) ;
+       double ff = fpValueCheck(rr);
        s_printFlagEnv  = ff;
      } catch (Cantera::CanteraError &cE) {
        Cantera::showErrors();

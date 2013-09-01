@@ -21,6 +21,8 @@
 #include "TemperatureTable.h"
 #include "VoltageTable.h"
 
+#include <cstdio>
+
 const double R_kcalmol = 8.314472E7 /  4.184E7 * 1.0E-3;
 const double R_Jgmol = 8.314472;
 const double R_kJgmol = 8.314472 * 1.0E-3;

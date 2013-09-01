@@ -15,6 +15,9 @@
 #include "ReactingVolDomain.h"
 #include "importAllCTML.h"
 #include "PhaseList.h"
+
+#include <cstdio>
+
 extern int DebugPrinting;
 using namespace std;
 namespace Cantera {

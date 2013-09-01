@@ -22,7 +22,8 @@
 #include "m1d_Comm.h"
 #include "m1d_SolNonlinear.h"
 #include "cantera/base/clockWC.h"
-#include "cantera/base/mdp_allo.h"
+#include "cantera/base/utilities.h"
+#include "mdp_allo.h"
 #include "cantera/base/stringUtils.h"
 
 #include "Epetra_Vector.h"
@@ -561,7 +562,7 @@ SolNonlinear::doNewtonSolve(Epetra_Vector_Owned &delta_soln,
 #ifdef DEBUG_MODE
   if (1) {
     for (int j = 0; j < m_NumLcOwnedEqns; j++) {
-      mdp::checkFinite(delta_soln[j]);
+      Cantera::checkFinite(delta_soln[j]);
     }
   }
 #endif
@@ -1504,7 +1505,7 @@ SolNonlinear::setup_problem(Solve_Type_Enum solnType,
 void
 SolNonlinear::setPredicted_soln(const Epetra_Vector &y_pred)
 {
-  mdp::mdp_copy_dbl_1(&(*m_y_pred_n)[0], &(y_pred[0]), m_NumLcEqns);
+  mdpUtil::mdp_copy_dbl_1(&(*m_y_pred_n)[0], &(y_pred[0]), m_NumLcEqns);
 }
 
 //=====================================================================================================================
@@ -1546,9 +1547,9 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
   int retn = 0;
   solnType_ = solnType;
 
-  mdp::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*y_comm)[0], m_NumLcEqns);
+  mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*y_comm)[0], m_NumLcEqns);
   if (solnType != SteadyState_Solve) {
-    mdp::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*ydot_comm)[0], m_NumLcEqns);
+    mdpUtil::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*ydot_comm)[0], m_NumLcEqns);
   }
   setDefaultSolnWeights();
   /*
@@ -1776,10 +1777,10 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
     // Write new solution into the curr solutions
     if (m >= 0) {
       if (solnType_ ==  DAESystemInitial_Solve) {
-	mdp::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
-	mdp::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*m_ydot_new)[0], m_NumLcEqns);
+	mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
+	mdpUtil::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*m_ydot_new)[0], m_NumLcEqns);
       } else {
-	mdp::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
+	mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
 	if (solnType_ != SteadyState_Solve) {
 	  calc_ydot(m_order, *m_y_curr, *m_ydot_curr);
 	}
@@ -1848,9 +1849,9 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
    *             from ill-conditioning that the step goes into prohibited territory.
    */
   if (m >= -1) {
-    mdp::mdp_copy_dbl_1(&((*y_comm)[0]), &((*m_y_curr)[0]), m_NumLcEqns);
+    mdpUtil::mdp_copy_dbl_1(&((*y_comm)[0]), &((*m_y_curr)[0]), m_NumLcEqns);
     if (solnType_ != SteadyState_Solve) {
-      mdp::mdp_copy_dbl_1(&(*ydot_comm)[0], &(*m_ydot_curr)[0], m_NumLcEqns);
+      mdpUtil::mdp_copy_dbl_1(&(*ydot_comm)[0], &(*m_ydot_curr)[0], m_NumLcEqns);
     }
   }
 
@@ -1859,7 +1860,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
    *  use the next time the solver is called.
    */
   if (m == 1) {
-    mdp::mdp_copy_dbl_1(&((*m_y_pred_n)[0]), &((*m_y_curr)[0]), m_NumLcEqns);
+    mdpUtil::mdp_copy_dbl_1(&((*m_y_pred_n)[0]), &((*m_y_curr)[0]), m_NumLcEqns);
   }
 
   num_linear_solves += m_numTotalLinearSolves;
@@ -2197,8 +2198,8 @@ void
 SolNonlinear::setPreviousTimeStep(const double timeStep_comm, const Epetra_Vector& y_nm1, const Epetra_Vector& ydot_nm1)
 {
   delta_t_n = timeStep_comm;
-  mdp::mdp_copy_dbl_1(&(*m_y_nm1)[0], &(y_nm1[0]), m_NumLcEqns);
-  mdp::mdp_copy_dbl_1(&(*m_ydot_nm1)[0], &(ydot_nm1[0]), m_NumLcEqns);
+  mdpUtil::mdp_copy_dbl_1(&(*m_y_nm1)[0], &(y_nm1[0]), m_NumLcEqns);
+  mdpUtil::mdp_copy_dbl_1(&(*m_ydot_nm1)[0], &(ydot_nm1[0]), m_NumLcEqns);
 }
 //=====================================================================================================================
 // Compute the Residual Weights

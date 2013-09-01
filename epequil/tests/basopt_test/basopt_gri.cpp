@@ -8,6 +8,8 @@
 #include "cantera/IdealGasMix.h"
 #include "cantera/equilibrium.h"
 
+#include <cstdio>
+
 using namespace std;
 using namespace Cantera;
 

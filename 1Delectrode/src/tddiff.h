@@ -8,7 +8,6 @@
  */
 
 #include "config.h"
-#include "cantera/base/mdp_allo.h"
 
 
 #include "Epetra_ConfigDefs.h"

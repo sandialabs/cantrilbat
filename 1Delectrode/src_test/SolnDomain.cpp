@@ -93,9 +93,9 @@ namespace m1d {
   //====================================================================================================================
   void SolnDomainBulk::readXML(Cantera::XML_Node & bulkXML) {
     string sss =  bulkXML["numVariables"];
-    NumVariables = Cantera::atofCheck(sss.c_str());
+    NumVariables = Cantera::fpValueCheck(sss);
     sss = bulkXML["points"];
-    NumNodes= Cantera::atofCheck(sss.c_str());
+    NumNodes= Cantera::fpValueCheck(sss);
     
     XML_Node * bulkgXML_ptr = bulkXML.findByName("grid_data");
 
@@ -106,7 +106,7 @@ namespace m1d {
     ctml::getFloatArray(*x0XML, X0NodePos);
     int sz = X0NodePos.size();
     if (sz != NumNodes) {
-      throw CanteraError("SolnDomainBulk::readXML", "sz of X0Node not right: " + int2str(sz) + "  " + int2str(NumNodes));
+      throw CanteraError("SolnDomainBulk::readXML", "sz of X0Node not right: " + Cantera::int2str(sz) + "  " + Cantera::int2str(NumNodes));
     }
 
     XML_Node *xXML = ctml::getByTitle(*bulkgXML_ptr, "X");
@@ -179,9 +179,9 @@ namespace m1d {
   //====================================================================================================================
   void SolnDomainSurf::readXML(Cantera::XML_Node & surfXML) {
     string sss =  surfXML["numVariables"];
-    NumVariables = Cantera::atofCheck(sss.c_str());
+    NumVariables = Cantera::fpValueCheck(sss);
     sss = surfXML["points"];
-    int numNodes= Cantera::atofCheck(sss.c_str());
+    int numNodes= Cantera::fpValueCheck(sss);
     if (numNodes != 1) {
       throw CanteraError("SolnDomainSurf::readXML", "nodes not right: " + int2str(numNodes));
     }

@@ -21,7 +21,7 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 #include "m1d_Comm.h"
 #include "m1d_EpetraExtras.h"
 #include "m1d_globals.h"

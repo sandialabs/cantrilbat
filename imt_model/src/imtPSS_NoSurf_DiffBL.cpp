@@ -9,7 +9,7 @@
 
 
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 #include "cantera/equilibrium.h"
 
 #include "cantera/solvers.h"
@@ -836,8 +836,8 @@ namespace Cantera {
       spMoles_init_init_[k] = spMoles_final_[k];
     }
 
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
-    mdp::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTerm_), m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
 
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
@@ -1940,7 +1940,7 @@ namespace Cantera {
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
-	mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isph]->nPhases();
 	int kIndexKin = 0;
 	for (int kph = 0; kph < nphRS; kph++) {

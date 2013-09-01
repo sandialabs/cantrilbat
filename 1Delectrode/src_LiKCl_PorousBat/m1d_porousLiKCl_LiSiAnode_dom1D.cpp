@@ -26,7 +26,7 @@
 #include "cantera/base/ctml.h"
 #include "cantera/transport/Tortuosity.h"
 
-#include "cantera/base/mdp_allo.h"
+//#include "cantera/base/mdp_allo.h"
 
 //next two lines added for salt precipitation
 #include "cantera/thermo.h"

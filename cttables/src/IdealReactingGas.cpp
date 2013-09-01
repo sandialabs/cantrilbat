@@ -15,6 +15,10 @@
 #include "IdealReactingGas.h"
 #include "cantera/thermo.h"
 #include "cantera/kinetics.h"
+
+#include <cstdio>
+#include <fstream>
+
 using namespace std;
 namespace Cantera {
 

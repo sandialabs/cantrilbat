@@ -9,8 +9,7 @@
 #include "tok_input_util.h"
 
 
-
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 
 #include "InterfacialMassTransfer_Integrator.h"
 #include "cantera/integrators.h"
@@ -548,8 +547,8 @@ namespace Cantera {
         }
 
 	// Zero needed counters
-	mdp::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
-	mdp::mdp_init_int_1(DATA_PTR(phaseJustBorn_), 0, m_NumTotPhases);
+	mdpUtil::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
+	mdpUtil::mdp_init_int_1(DATA_PTR(phaseJustBorn_), 0, m_NumTotPhases);
 
 	/*
 	 * Ok at this point we have a time step deltaTsubcycle_
@@ -1046,7 +1045,7 @@ namespace Cantera {
       std::vector<double> & netROP =  ROP_RSD_List_[isk];
       size_t nr = netROP.size();
       if (nr > 0) {
-	mdp::mdp_zero_dbl_1(DATA_PTR(netROP), nr);
+	mdpUtil::mdp_zero_dbl_1(DATA_PTR(netROP), nr);
       }
       if (ActiveKineticsSurf_[isk]) {   
 	/*
@@ -1078,7 +1077,7 @@ namespace Cantera {
   void InterfacialMassTransfer_Integrator::updateSpeciesMoleChangeFinal()
   {
  
-    mdp::mdp_zero_dbl_1(DATA_PTR(DspMoles_final_), m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(DATA_PTR(DspMoles_final_), m_NumTotSpecies);
 
     /*
      * Loop over surface phases, filling in the phase existence fields within the
@@ -1487,7 +1486,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer_Integrator::getNetProductionRates(doublereal* const net) const
   {
-    mdp::mdp_zero_dbl_1(net, m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
      *  This routine basically translates between species lists for the reacting surface
      *  domain and the InterfacialMassTransfer.
@@ -1543,7 +1542,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer_Integrator::getNetProductionRatesRSD(const int isk, doublereal* const net) const
   {
-    mdp::mdp_zero_dbl_1(net, m_NumTotSpecies);
+    mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
      *  This routine basically translates between species lists for the reacting surface
      *  domain and the InterfacialMassTransfer.
@@ -1597,7 +1596,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer_Integrator::getPhaseMassFlux(doublereal* const phaseMassFlux) const
   {
-    mdp::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
+    mdpUtil::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
 
     for (int isk = 0; isk < numSurfaces_; isk++) {
       if (ActiveKineticsSurf_[isk]) { 
@@ -1630,7 +1629,7 @@ namespace Cantera {
    */
   void InterfacialMassTransfer_Integrator::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux) const
   { 
-    mdp::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
+    mdpUtil::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
     for (int isk = 0; isk < numSurfaces_; isk++) {
       if (ActiveKineticsSurf_[isk]) {
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
@@ -1757,7 +1756,7 @@ namespace Cantera {
              DomainNumber_, CellNumber_, counterNumberIntegrations_);
     }
     if ((evalType != JacDelta_ResidEval)) {
-      mdp::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
+      mdpUtil::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
     }
     /*
      *  UNPACK THE SOLUTION VECTOR
@@ -1765,7 +1764,7 @@ namespace Cantera {
     unpackNonlinSolnVector(y);
 
     if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
-      //    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+      //    mdpUtil::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
     }
 
 
@@ -1915,7 +1914,7 @@ namespace Cantera {
       RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
       doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
-      mdp::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
+      mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
       int nphRS = RSD_List_[isph]->nPhases();
       int kIndexKin = 0;
       for (int kph = 0; kph < nphRS; kph++) {

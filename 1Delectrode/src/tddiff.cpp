@@ -11,7 +11,7 @@
 #include <AztecOO.h>
 #include <Ifpack.h>
 #include "m1d_defs.h"
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 
 #ifdef HAVE_MPI
 #include <mpi.h>

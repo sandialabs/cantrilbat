@@ -14,7 +14,7 @@
 
 #include "cantera/numerics/SquareMatrix.h"
 
-#include "cantera/base/mdp_allo.h"
+#include "mdp_allo.h"
 
 #include "m1d_SolNonlinear.h"
 #include "m1d_ProblemResidEval.h"
@@ -717,7 +717,7 @@ double BEulerInt::soln_error_norm(const Epetra_Vector &delta_y, const int printL
         const int num_entries = 8;
         double dmax1, normContrib;
         int j;
-        int *imax = mdp::mdp_alloc_int_1(num_entries, -1);
+        int *imax = mdpUtil::mdp_alloc_int_1(num_entries, -1);
         print0_sync_start(false, ss, *Comm_ptr_);
         if (!mypid_) {
             printf("\t  ");
@@ -778,7 +778,7 @@ double BEulerInt::soln_error_norm(const Epetra_Vector &delta_y, const int printL
             print_line("-", 90);
         }
         print0_sync_end(false, ss, *Comm_ptr_);
-        mdp::mdp_safe_free((void **) &imax);
+        mdpUtil::mdp_safe_free((void **) &imax);
     }
     return sum_norm;
 }
@@ -1206,7 +1206,7 @@ double BEulerInt::time_error_norm() const
             double dmax1, normContrib;
             int j;
             int idLocalEqnMax;
-            int *imax = mdp::mdp_alloc_int_1(num_entries, -1);
+            int *imax = mdpUtil::mdp_alloc_int_1(num_entries, -1);
             print0_sync_start(false, ss, *Comm_ptr_);
             if (!mypid_) {
                 printf("\t\tTime step truncation error contributors\n");
@@ -1274,7 +1274,7 @@ double BEulerInt::time_error_norm() const
                 print_line("-", 90);
             }
             print0_sync_end(false, ss, *Comm_ptr_);
-            mdp::mdp_safe_free((void **) &imax);
+            mdpUtil::mdp_safe_free((void **) &imax);
         }
     }
     return sum_norm;
@@ -1640,7 +1640,7 @@ doublereal BEulerInt::step(double t_max)
      * Save the old solution, before overwriting with the new solution
      * - use
      */
-    mdp::mdp_copy_dbl_1(& (*m_y_nm1)[0], & ( (*m_y_n)[0]), m_NumLcEqns);
+    mdpUtil::mdp_copy_dbl_1(& (*m_y_nm1)[0], & ( (*m_y_n)[0]), m_NumLcEqns);
 
     /*
      * Save the old time derivative, if necessary, before it is
@@ -1648,7 +1648,7 @@ doublereal BEulerInt::step(double t_max)
      * This overwrites ydot_nm1, losing information from the previous time
      * step.
      */
-    mdp::mdp_copy_dbl_1(& (*m_ydot_nm1)[0], & ( (*m_ydot_n)[0]), m_NumLcEqns);
+    mdpUtil::mdp_copy_dbl_1(& (*m_ydot_nm1)[0], & ( (*m_ydot_n)[0]), m_NumLcEqns);
 
     /*
      * Loop here until we achieve a successful step or we set the giveUp
@@ -1771,7 +1771,7 @@ doublereal BEulerInt::step(double t_max)
          * every step other than the first step.
          */
         if (m_order > 0) {
-            mdp::mdp_copy_dbl_1(& (*m_y_n)[0], & ( (*m_y_pred_n)[0]), m_NumLcEqns);
+            mdpUtil::mdp_copy_dbl_1(& (*m_y_n)[0], & ( (*m_y_pred_n)[0]), m_NumLcEqns);
         }
 
         /*
@@ -2085,8 +2085,8 @@ doublereal BEulerInt::step(double t_max)
          * Replace old solution vector and old time derivative solution vector.
          * into the current time step soln vectors, m_y_n, and m_ydot_n.
          */
-        mdp::mdp_copy_dbl_1(& (*m_y_n)[0], & ( (*m_y_nm1)[0]), m_NumLcEqns);
-        mdp::mdp_copy_dbl_1(& (*m_ydot_n)[0], & ( (*m_ydot_nm1)[0]), m_NumLcEqns);
+        mdpUtil::mdp_copy_dbl_1(& (*m_y_n)[0], & ( (*m_y_nm1)[0]), m_NumLcEqns);
+        mdpUtil::mdp_copy_dbl_1(& (*m_ydot_n)[0], & ( (*m_ydot_nm1)[0]), m_NumLcEqns);
 
         delta_t_np1 = delta_t_n;
         delta_t_n = delta_t_nm1;

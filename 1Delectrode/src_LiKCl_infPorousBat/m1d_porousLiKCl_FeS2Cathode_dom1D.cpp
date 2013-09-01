@@ -31,6 +31,8 @@ extern int flagPrecipitation;
 #include "stdlib.h"
 
 #include "m1d_ProblemStatementCell.h"
+
+#include <fstream>
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;

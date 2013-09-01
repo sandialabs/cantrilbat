@@ -148,27 +148,27 @@ IMT_KEY_INPUT & IMT_KEY_INPUT::operator=(const IMT_KEY_INPUT & right)
 
   delete MoleFraction;
   MoleFraction = mdp_alloc_dbl_1(nTotSpecies, 0.0);
-  mdp::mdp_copy_dbl_1(MoleFraction , right.MoleFraction, nTotSpecies);
+  mdpUtil::mdp_copy_dbl_1(MoleFraction , right.MoleFraction, nTotSpecies);
 
   delete PhaseInclude;
   PhaseInclude = mdp_alloc_int_1(nTotPhases, 1);
-  mdp::mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
+  mdpUtil::mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
 
   delete MoleNumber;
   MoleNumber = mdp_alloc_dbl_1(nTotSpecies, 0.0);
-  mdp::mdp_copy_dbl_1(MoleNumber, right.MoleNumber, nTotSpecies);
+  mdpUtil::mdp_copy_dbl_1(MoleNumber, right.MoleNumber, nTotSpecies);
 
   delete ElementAbundances;
   ElementAbundances = mdp_alloc_dbl_1(nTotElements, 0.0);
-  mdp::mdp_copy_dbl_1(ElementAbundances, right.ElementAbundances, nTotElements);
+  mdpUtil::mdp_copy_dbl_1(ElementAbundances, right.ElementAbundances, nTotElements);
 
   delete SpeciesNames;
   SpeciesNames = mdp_alloc_VecFixedStrings(nTotSpecies,  MPEQUIL_MAX_NAME_LEN_P1);
-  mdp_copy_VecFixedStrings(SpeciesNames, (const char **) right.SpeciesNames, nTotSpecies, MPEQUIL_MAX_NAME_LEN_P1);
+  mdpUtil::mdp_copy_VecFixedStrings(SpeciesNames, (const char **) right.SpeciesNames, nTotSpecies, MPEQUIL_MAX_NAME_LEN_P1);
 
   delete PhaseNames;
   PhaseNames = mdp_alloc_VecFixedStrings(nTotPhases, MPEQUIL_MAX_NAME_LEN_P1);
-  mdp_copy_VecFixedStrings(PhaseNames, (const char **) right.PhaseNames, nTotPhases,MPEQUIL_MAX_NAME_LEN_P1);
+  mdpUtil::mdp_copy_VecFixedStrings(PhaseNames, (const char **) right.PhaseNames, nTotPhases,MPEQUIL_MAX_NAME_LEN_P1);
 
   ProblemType = right.ProblemType;
   specifiedElementAbundances = right.specifiedElementAbundances;

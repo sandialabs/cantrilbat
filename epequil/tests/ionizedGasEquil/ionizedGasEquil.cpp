@@ -18,6 +18,8 @@
 #include "cantera/equilibrium.h"
 #include <iomanip>
 #include <sstream>
+#include <cstdio>
+#include <fstream>
 
 using namespace std;
 using namespace Cantera;
