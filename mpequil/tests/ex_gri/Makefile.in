@@ -74,6 +74,12 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
+rebaseline:
+	cp   vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
+	cp out.txt good_out.txt
+	cp dout.txt good_dout.txt
+
+
 # Do the test -> For the windows vc++ environment, we have to skip checking on
 #                whether the program is uptodate, because we don't utilize make
 #                in that environment to build programs.
@@ -83,6 +89,7 @@ else
 	@MAKE@ $(PROGRAM)
 endif
 	./runtest
+
 
 clean:
 	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends diff.out out.txt \
