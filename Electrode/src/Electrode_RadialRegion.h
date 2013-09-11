@@ -718,7 +718,6 @@ protected:
      */
     std::vector<doublereal> actCoeff_Cell_final_;
 
-
 };
 
 }

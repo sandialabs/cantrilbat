@@ -474,7 +474,6 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
 
 
-
     return 0;
 }
 
@@ -811,7 +810,6 @@ void Electrode_RadialRegion::updateStateDistrib(bool zeroGlobals)
             }
         }
     }
-
 
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 

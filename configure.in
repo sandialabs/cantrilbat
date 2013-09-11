@@ -622,6 +622,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
           Electrode/tests/UnitTests/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \
+          Electrode/tests_develop/LiCoO2_Radial_devel_cV/Makefile \
 	  cttables/Makefile \
 	  cttables/src/Makefile \
 	  cttables/tests/Makefile \
