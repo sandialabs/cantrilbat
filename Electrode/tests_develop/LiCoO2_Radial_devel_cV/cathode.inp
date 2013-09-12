@@ -13,6 +13,18 @@ Electrode Name = LiCoO2
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = Radial_Diff_Regions
 !-------------------------------------------------------------------------
 ! Number of Cantera Files = int
 !

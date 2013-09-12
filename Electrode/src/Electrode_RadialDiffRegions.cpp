@@ -210,7 +210,7 @@ Electrode_RadialDiffRegions::~Electrode_RadialDiffRegions()
  */
 Electrode_Types_Enum Electrode_RadialDiffRegions::electrodeType() const
 {
-    return SIMPLE_DIFF_ET;
+    return RADIAL_DIFF_REGIONS_ET;
 }
 //======================================================================================================================
 int

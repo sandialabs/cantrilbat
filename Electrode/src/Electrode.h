@@ -61,7 +61,12 @@ enum Electrode_Types_Enum {
     CSTR_LICO2_CATHODE_ET,
     SUCCESSIVE_SUBSTITUTION_ET,
     MP_RXNEXTENT_FES2_ET,
-    MP_RXNEXTENT_LISI_ET
+    MP_RXNEXTENT_LISI_ET,
+
+
+    //! network of one or more radial diffusion regions with surrounding interfacial kinetics regions
+    RADIAL_DIFF_REGIONS_ET
+        
 };
 
 enum SOURCES

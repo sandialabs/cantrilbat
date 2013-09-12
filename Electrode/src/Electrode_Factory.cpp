@@ -18,6 +18,7 @@
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 #include "Electrode_SuccessiveSubstitution.h"
 #include "Electrode_defs.h"
+#include "Electrode_RadialDiffRegions.h"
 
 using namespace Cantera;
 using namespace std;
@@ -59,6 +60,8 @@ static void create_string_maps()
     electrode_types_string[SUCCESSIVE_SUBSTITUTION_ET]         =  "SuccessiveSubstitution";
     electrode_types_string[MP_RXNEXTENT_FES2_ET]               =  "MP_RxnExtent_FeS2";
     electrode_types_string[MP_RXNEXTENT_LISI_ET]               =  "MP_RxnExtent_LiSi";
+    electrode_types_string[RADIAL_DIFF_REGIONS_ET]             =  "Radial_Diff_Regions";
+
 
     // Invert the maps automatically.
     for (std::map<Electrode_Types_Enum, std::string>::iterator pos = electrode_types_string.begin();
@@ -197,6 +200,9 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
     case          MP_RXNEXTENT_FES2_ET:
         ee = new    Electrode_MP_RxnExtent_FeS2();
         break;
+    case          RADIAL_DIFF_REGIONS_ET:
+        ee = new    Electrode_RadialDiffRegions();
+        break;
     default:
         throw CanteraError("Electrode_Factory::newElectrodeObject()",
                            "Unknown Electrode model: " + model);
@@ -245,6 +251,9 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
     case          SIMPLE_DIFF_ET:
     case          SIMPLE_PHASE_CHANGE_DIFFUSION_ET:
         ei = new    ELECTRODE_KEY_INPUT();
+        break;
+    case          RADIAL_DIFF_REGIONS_ET:
+        ei = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
         break;
     default:
         throw CanteraError("Electrode_Factory::newElectrodeKeyInputObject()",

@@ -52,8 +52,8 @@ CTPADDS_LIB = -L$(CTPADDS_DIR)/lib -lctpadds
 #
 # Set up the Cantera Application Base directory
 #
-ELECTRODE_DIR = @cta_prefix@/lib
-ELECTRODE_INC = @cta_incdir@
+ELECTRODE_DIR = ../../src
+ELECTRODE_INC = ../../src
 ELECTRODE_DEP =  $(ELECTRODE_DIR)/libElectrode.a
 ELECTRODE_LIB = -L$(ELECTRODE_DIR) -lElectrode
 #
