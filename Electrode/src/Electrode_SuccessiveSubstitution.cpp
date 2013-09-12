@@ -369,7 +369,6 @@ restartStep:
             double damp = 1.0;
             double dampTS = 1.0;
             bool doPhase = false;
-            int tphase = -1;
 
             for (int iph = 0; iph < m_NumTotPhases; iph++) {
                 int istart = m_PhaseSpeciesStartIndex[iph];
@@ -424,7 +423,6 @@ restartStep:
                         double rate = phaseMoles_tmp[iph]- phaseMoles_init_[iph];
                         double dampTStmp = phaseMoles_init_[iph] / -rate;
                         dampTS = MIN(dampTS, dampTStmp);
-                        tphase = iph;
                     }
                 }
             }
@@ -584,11 +582,12 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
 {
 
     double tinit = tfinal - deltaTsubcycle;
+    /*
     bool newStep= false;
     if (fabs(tinit - tinit_) > 1.0E-14) {
         newStep = true;
     }
-
+    */
 
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_final_[k] = y[k];
