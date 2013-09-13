@@ -64,8 +64,7 @@ namespace BEInput {
      * Set up the block's character list
      */
     if (charList) {
-      CharList = 
-	mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
+      CharList = mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
       for (int i = 0; i < ListLength; i++) {
 	item = charList[i];
 	if (!item) throw BI_InputError("BE_StrVecDbl::BE_StrVecDbl",

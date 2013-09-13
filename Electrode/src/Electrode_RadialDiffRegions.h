@@ -4,7 +4,7 @@
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
- * work by or on behalf of the U.S. Government. Export of this program
+ * work by or on behalf of the U.S. Government. Export of this program  Electrode_RadialDiffRegions.h  
  * may require a license from the United States Government.
  */
 
@@ -15,8 +15,8 @@
 #include "Electrode.h"
 #include "Electrode_Integrator.h"
 
-//#include "Electrode_RadialRegion.h"
-//#include "Electrode_SurfaceRegion.h"
+#include "Electrode_RadialRegion.h"
+#include "Electrode_SurfaceRegion.h"
 #include "cantera/integrators.h"
 #include "cantera/numerics/ResidJacEval.h"
 
@@ -77,7 +77,7 @@ public:
 
     //! Diffusion coefficient in the outer region of a two region spherical model
     /*!
-     *  We identify the solids by Zones, which are related to regions. Generally, when the extent of reaction is
+     *  We identify the solids by zones, which are related to regions. Generally, when the extent of reaction is
      *  in the zeroeth region, we are using diffusionCoeffRegions_[1], i.e., the first zone, because that is
      *  zone 1 in the model. Zone 0 would be diffusion in the inner core, whose value we never
      *  actually need. It's actually conceptually simpler this way.
@@ -227,11 +227,11 @@ public:
 protected:
 
 
-    //! Number of Regions
+    //! Number of Radial diffusion Regions
     int numRadialRegions_;
 
     //! List of Radial Regions
-    std::vector<Electrode_RadialRegion*> radialRegionList_;
+    std::vector<Electrode_RadialRegion*> RadialRegionList_;
 
     //! List of Surface Regions
     std::vector<Electrode_SurfaceRegion*> SurfaceRegionList_;

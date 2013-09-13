@@ -17,6 +17,7 @@
 #include "cantera/integrators.h"
 #include "cantera/numerics/ResidJacEval.h"
 
+
 namespace Cantera
 {
 
@@ -50,13 +51,11 @@ public:
      */
     void setup_input_child2(BEInput::BlockEntry* cf);
 
-    //! Number of plateau regions in the model
+    //! Index of the region in the model
     /*!
-     *  The number of regions refers to the continuity of the electrode open circuit model.
-     *  Within each region the ss open circuit model is continuous. Either the voltage is
-     *  constant or it is a linear function of the extent of reaction variable.
+     * 
      */
-    int numRegions_;
+    int indexRegion_;
 
     //! Solid state diffusion model identification
     /*!
@@ -67,6 +66,11 @@ public:
      */
     int solidDiffusionModel_;
 
+    //!  String name of the phase that is represented by this region
+    /*!
+     *   Note will expand to multiple phases here soon
+     */
+    std::string phaseName_;
 
 
     //! Diffusion coefficient in the outer region of a two region spherical model
@@ -80,20 +84,21 @@ public:
      *  Units = m**2 s-1
      */
 
-    std::vector<double> diffusionCoeffRegions_;
+    std::vector<double> diffusionCoeffSpecies_; 
 
-
-    std::vector<double> rxnPerturbRegions_;
 };
 
+    class Electrode_RadialDiffRegions;
 
-//! This class is a derived class used to model phase-change electrodes
+//! This class is a derived class used to model phase-change or intercalating electrodes
 /*!
  *  The class is an intermediary, support class. It's main purpose is to house the member data
  *  needed to handle the disretization of one region in the radial direction.
  *  Diffusion of material through the region is allowed.
  *  The regions can expand and contract through surface reactions.
  *  The surface reactions all occur on interfacial kinetics objects.
+ *
+ *  Each region is separated from the next by a surface reaction object
  *
  *  Child classes will actually complete each of the physical problems.
  *
@@ -103,8 +108,14 @@ public:
  *           Rlattice
  *           concKRSpecies_Cell_final_[]
  *
+ *  Because it's a supporting class, some of the electrode functionality must be turned off.
+ *
+ *  The basic idea is that the object inherits from the full Electrode object, which contains all
+ *  of the phases. However, in the particular region, there exists only a subset of the phases.
+ *  Also the region lies between a starting radius and an ending radius.
+ *
  */
-class Electrode_RadialRegion : public Electrode_Integrator
+class Electrode_RadialRegion : public Cantera::Electrode_Integrator
 {
 public:
     //! Constructor
@@ -317,6 +328,7 @@ protected:
     int numEqnsCell_;
 
     //! Phase indeces of the solid phases comprising the species that are radially distributed
+    //! within the current region
     /*!
      *   This is a very important indexing array.
      *   There are numSPhase_ of these.
@@ -718,6 +730,8 @@ protected:
      */
     std::vector<doublereal> actCoeff_Cell_final_;
 
+
+     Electrode_RadialDiffRegions* ee_;
 };
 
 }

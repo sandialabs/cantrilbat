@@ -11,6 +11,8 @@
 #include "Electrode_RadialRegion.h"
 #include "cantera/integrators.h"
 
+#include "Electrode_RadialDiffRegions.h"
+
 #include "BlockEntryGlobal.h"
 
 using namespace Cantera;
@@ -32,9 +34,8 @@ namespace Cantera
 //====================================================================================================================
 ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
-    numRegions_(1),
-    solidDiffusionModel_(0),
-    rxnPerturbRegions_(0)
+    indexRegion_(0),
+    solidDiffusionModel_(0)
 {
 
 }
@@ -46,12 +47,10 @@ ELECTRODE_RadialRegion_KEY_INPUT::~ELECTRODE_RadialRegion_KEY_INPUT()
 //====================================================================================================================
 ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(const ELECTRODE_RadialRegion_KEY_INPUT& right) :
     ELECTRODE_KEY_INPUT(right),
-    numRegions_(right.numRegions_),
+    indexRegion_(right.indexRegion_),
     solidDiffusionModel_(right.solidDiffusionModel_)
 {
-    diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
-
-    rxnPerturbRegions_              = right.rxnPerturbRegions_;
+    diffusionCoeffSpecies_          = right.diffusionCoeffSpecies_;
 }
 //====================================================================================================================
 ELECTRODE_RadialRegion_KEY_INPUT&
@@ -63,12 +62,9 @@ ELECTRODE_RadialRegion_KEY_INPUT::operator=(const ELECTRODE_RadialRegion_KEY_INP
 
     ELECTRODE_KEY_INPUT::operator=(right);
 
-    numRegions_                     = right.numRegions_;
+    indexRegion_                    = right.indexRegion_;
     solidDiffusionModel_            = right.solidDiffusionModel_;
-    diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
-
-
-    rxnPerturbRegions_              = right.rxnPerturbRegions_;
+    diffusionCoeffSpecies_          = right.diffusionCoeffSpecies_;
 
     return *this;
 }
@@ -78,7 +74,7 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
     /*
      * Obtain the number of regions
      */
-    LE_OneInt* s1 = new LE_OneInt("Number of Regions", &(numRegions_), 0, "numRegions");
+    LE_OneInt* s1 = new LE_OneInt("Index of the Region", &(indexRegion_), 0, "indexRegion");
     s1->set_default(1);
     cf->addLineEntry(s1);
     BaseEntry::set_SkipUnknownEntries(true);
@@ -91,6 +87,12 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
     cf->addLineEntry(sdm);
     BaseEntry::set_SkipUnknownEntries(true);
 
+    /*
+     * Name of the ThermoPhase associated with the region
+     */
+    LE_OneStr* pname = new LE_OneStr("Phase Name", &(phaseName_), 1, 1, 1, "phaseName");
+    cf->addLineEntry(pname);
+    BaseEntry::set_SkipUnknownEntries(true);
 
 }
 //====================================================================================================================
@@ -100,31 +102,26 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* c
     /*
      * Obtain the number of regions
      */
+/*
     int reqd = 0;
     if (solidDiffusionModel_) {
         reqd = 1;
     }
-
-
+*/
     /*
      * Make the diffusion coefficients optional unless the solid diffusion model is turned on
      */
+/*
     reqd = 0;
     if (solidDiffusionModel_) {
-        reqd = numRegions_  + 1;
+        reqd = 1;
     }
+*/
+    LE_OneInt* iR = new LE_OneInt("Index of the Region",  &(indexRegion_));
+    iR->set_default(0);
+    cf->addLineEntry(iR);
 
-
-
-    reqd = 0;
-
-    LE_StdVecDblVarLength* rr1 = new LE_StdVecDblVarLength("Reaction Rate Constant Perturbations for Regions",
-            &(rxnPerturbRegions_),
-            numRegions_, reqd, "rxnPerturbRegions_");
-    rr1->set_default(1.0);
-    rr1->set_limits(1.0E30, 1.0E-30);
-    cf->addLineEntry(rr1);
-
+  
     BaseEntry::set_SkipUnknownEntries(false);
 }
 
@@ -429,16 +426,36 @@ Electrode_Types_Enum Electrode_RadialRegion::electrodeType() const
 }
 //======================================================================================================================
 int
-Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
 
-    Electrode_Integrator::electrode_model_create(ei);
+    //ee_->electrode_model_create(eibase);
+
+
+    ELECTRODE_RadialRegion_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialRegion_KEY_INPUT*>(eibase);
+    if (!ei) {
+        throw CanteraError(" Electrode_RadialRegion::electrode_model_create()",
+                           " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
+    }
 
     /*
      * Number of cells - hard code for now
      */
     numRCells_ = 5;
 
+
+    string phaseName = ei->phaseName_;
+    /*
+     * Find phase name
+     */
+    int index = ee_->globalPhaseIndex(phaseName);
+
+    phaseIndeciseKRsolidPhases_.resize(1);
+    phaseIndeciseKRsolidPhases_[0] = index;
+
+    /*
+     *  Determine the number of diestributed phases
+     */
     numSPhases_ = phaseIndeciseKRsolidPhases_.size();
 
     /*

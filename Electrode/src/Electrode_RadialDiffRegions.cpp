@@ -138,9 +138,8 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
 Electrode_RadialDiffRegions::Electrode_RadialDiffRegions() :
     Electrode_Integrator(),
     numRadialRegions_(-1),
-    radialRegionList_(0),
+    RadialRegionList_(0),
     SurfaceRegionList_(0)
-
 {
 
 
@@ -154,9 +153,8 @@ Electrode_RadialDiffRegions::Electrode_RadialDiffRegions() :
 Electrode_RadialDiffRegions::Electrode_RadialDiffRegions(const Electrode_RadialDiffRegions& right) :
     Electrode_Integrator(),
     numRadialRegions_(-1),
-    radialRegionList_(0),
+    RadialRegionList_(0),
     SurfaceRegionList_(0)
-
 {
     /*
      * Call the assignment operator.
@@ -180,9 +178,27 @@ Electrode_RadialDiffRegions::operator=(const Electrode_RadialDiffRegions& right)
 
     Electrode_Integrator::operator=(right);
 
+    for (int i = 0; i < numRadialRegions_; i++) {
+	delete RadialRegionList_[i];
+	delete SurfaceRegionList_[i];
+    }
     numRadialRegions_   = right.numRadialRegions_;
-    radialRegionList_   = right.radialRegionList_;
-    SurfaceRegionList_  = right.SurfaceRegionList_;
+    RadialRegionList_.resize(numRadialRegions_);
+    SurfaceRegionList_.resize(numRadialRegions_);
+    for (int i = 0; i < numRadialRegions_; i++) {
+	RadialRegionList_[i] = new  Electrode_RadialRegion(*(right.RadialRegionList_[i]));
+	SurfaceRegionList_[i] = new  Electrode_SurfaceRegion(*(right.SurfaceRegionList_[i]));
+    }
+  
+    MolarVolume_Ref_               = right.MolarVolume_Ref_;
+    rnodePos_final_final_          = right.rnodePos_final_final_;
+    rnodePos_final_                = right.rnodePos_final_;
+    rnodePos_init_                 = right.rnodePos_init_;
+    rnodePos_init_init_            = right.rnodePos_init_init_;
+    rRefPos_final_                 = right.rRefPos_final_;
+    rRefPos_init_                  = right.rRefPos_init_;
+    rRefPos_init_init_             = right.rRefPos_init_init_;
+    fracNodePos_                   = right.fracNodePos_;
 
     /*
      * Return the reference to the current object
@@ -198,8 +214,10 @@ Electrode_RadialDiffRegions::operator=(const Electrode_RadialDiffRegions& right)
  */
 Electrode_RadialDiffRegions::~Electrode_RadialDiffRegions()
 {
-
-
+   for (int i = 0; i < numRadialRegions_; i++) {
+	delete RadialRegionList_[i];
+	delete SurfaceRegionList_[i];
+    }
 }
 //======================================================================================================================
 //    Return the type of electrode
@@ -214,13 +232,45 @@ Electrode_Types_Enum Electrode_RadialDiffRegions::electrodeType() const
 }
 //======================================================================================================================
 int
-Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
 
-    Electrode_Integrator::electrode_model_create(ei);
+    Electrode_Integrator::electrode_model_create(eibase);
+
+    /*
+     *  Downcast the Key input to make sure we are being fed the correct child object
+     */
+    ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
+    if (!ei) {
+        throw CanteraError(" Electrode_RadiaDiffRegions::electrode_model_create()",
+                           " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
+    }
+
+    /*
+     * Find the number of radial diffusion regions
+     */
+    numRadialRegions_ = ei->numRegions_;
+    AssertTrace(numRadialRegions_ == 1);
+    RadialRegionList_.clear();
+    SurfaceRegionList_.clear();
+    for (int nn = 0 ; nn <  numRadialRegions_; nn++) {
+	Electrode_RadialRegion* rr = new Electrode_RadialRegion();
+	RadialRegionList_.push_back(rr);
+
+	Electrode_SurfaceRegion* sr = new Electrode_SurfaceRegion();
+	SurfaceRegionList_.push_back(sr);
+    }
+ 
+
+    for (int nn = 0 ; nn <  numRadialRegions_; nn++) {
+        Electrode_RadialRegion* rr =  RadialRegionList_[nn];
+        rr->electrode_model_create(eibase);
+
+        Electrode_SurfaceRegion* sr = SurfaceRegionList_[nn];
+        sr->electrode_model_create(eibase);
 
 
-
+    }
 
     /*
      * Initialize the arrays in this object now that we know the number of equations
