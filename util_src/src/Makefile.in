@@ -63,7 +63,7 @@ LIBOBJS = mdp_allo.o sort.o tok_input_util.o tok_readFile.o LineEntry.o \
 	  BI_InputError.o BE_MoleComp.o BE_StrDbl.o LE_OneDblUnits.o \
           LE_OneStr.o LE_PickList.o  LE_StrListDbl.o LE_VecDbl.o \
           LE_OneBoolInt.o LE_OneDbl.o md_timer.o LE_OneInt.o \
-          LE_OneBool.o BlockEntry.o BaseEntry.o BE_MultiBlock.o \
+          LE_OneBool.o BlockEntry.o BaseEntry.o BE_MultiBlock.o BE_MultiBlockNested.o \
 	  BE_UnitConversion.o BE_UnitConversionPressure.o \
           BE_UnitConversionLength.o BE_UnitConversionConcentration.o \
           BE_UnitConversionEnergy.o BI_Dependency.o \
@@ -76,7 +76,7 @@ INCFILES = BaseEntry.h sort.h  BE_UnitConversion.h BlockEntry.h LE_OneInt.h \
           mdp_allo.h BE_MolalityComp.h  BE_UnitConversionLength.h  \
           LE_MultiCStr.h LE_OneStr.h  md_timer.h BE_MoleComp.h \
           BE_UnitConversionPressure.h  LE_OneBool.h LE_PickList.h  \
-          sortAlgorithms.h BE_MultiBlock.h BI_Dependency.h LE_OneBoolInt.h \
+          sortAlgorithms.h BE_MultiBlock.h BE_MultiBlockNested.h BI_Dependency.h LE_OneBoolInt.h \
           LE_StrListDbl.h  tok_input_util.h BE_StrDbl.h BI_DepIntMaxMin.h \
           LE_OneCStr.h LE_VecDbl.h  tok_readFile.h BE_UnitConversionConcentration.h \
           BI_InputError.h LE_OneDbl.h LE_VecDblVarLength.h \

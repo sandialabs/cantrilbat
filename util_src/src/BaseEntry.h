@@ -266,7 +266,7 @@ protected:
   //! This is the keyline name of the BaseEntry
   TK_TOKEN EntryName;
 
-  //! index of the Base entry, for the case where there
+  //! Index of the Base entry, for the case where there
   //! can be multiple BlockEntries
   /*!
    *  This is almost always 0. When there are multiblocks

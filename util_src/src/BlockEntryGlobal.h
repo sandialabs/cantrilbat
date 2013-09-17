@@ -199,6 +199,7 @@
  */
 #include "BE_MoleComp.h"
 #include "BE_MultiBlock.h"
+#include "BE_MultiBlockNested.h"
 #include "BE_StrDbl.h"
 #include "BE_MolalityComp.h"
 #include "BE_StrVecDbl.h"

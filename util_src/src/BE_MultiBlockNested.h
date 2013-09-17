@@ -1,9 +1,9 @@
 /**
- * @file BE_MultiBlock.h
+ * @file BE_MultiBlockNested.h
  *  Header for the BlockEntry for a block which may occur
  *  multiple times within the input file.
  *  (see \ref blockentryModule and class 
- *  \link BEInput::BE_MultiBlock BE_MultiBlock\endlink).
+ *  \link BEInput::BE_MultiBlockNested BE_MultiBlockNested\endlink).
  */
 /*
  * $Author: hkmoffa $
@@ -17,14 +17,16 @@
  * See file License.txt for licensing information.
  */
 
-#ifndef BEMULTIBLOCK_H
-#define BEMULTIBLOCK_H
+#ifndef BEMULTIBLOCKNESTED_H
+#define BEMULTIBLOCKNESTED_H
 
 #include "BlockEntry.h"
 #include "stdio.h"
 #include "mdp_allo.h"
 
 namespace BEInput {
+
+  // EXPERIMENTAL CLASS
 
   //!  This class sets up the case where there may be multiple
   //!  blocks of the same type.
@@ -256,10 +258,9 @@ namespace BEInput {
    *
    * @ingroup blockentryModule
    */
-  class BE_MultiBlock : public BlockEntry {
+  class BE_MultiBlockNested : public BlockEntry {
   public:
 
-  
     //! Constructor for the BE_Multiblock class.
     /*!  
      *
@@ -299,11 +300,8 @@ namespace BEInput {
      *                 zero if this is no parent block
      *
      */
-    BE_MultiBlock(const char *blockName,
+    BE_MultiBlockNested(const char *blockName,
 		  int *hndlnumstructures,
-		  void ***hndlStructVec,
-		  void*  (*fptr)(void *),
-		  void* function_data_loc,
 		  int numTR,
 		  BlockEntry *parentBlock_input = 0);
 
@@ -311,7 +309,7 @@ namespace BEInput {
     /*!
      * @param right Object to be copied
      */
-    BE_MultiBlock(const BE_MultiBlock& right);
+    BE_MultiBlockNested(const BE_MultiBlockNested& right);
 
     //! Duplicator function
     /*!
@@ -328,7 +326,7 @@ namespace BEInput {
       *    throughout the block input utility. The calling program must
       *    free that structure.
       */
-    ~BE_MultiBlock();
+    ~BE_MultiBlockNested();
 
     //! Virtual function called at the start of internally processing
     //! the block
@@ -361,7 +359,8 @@ namespace BEInput {
      *  @param blockArgTok pointer to the TOKEN structure representing
      *                     the argument list for the START BLOCK
      */
-    void Initialization(FILE *ifp_input, const TK_TOKEN *blockArgTok);
+    void Initialization(FILE *ifp_input, 
+			const TK_TOKEN *blockArgTok);
 
    
     //! Virtual function called at the start of internally processing
@@ -423,12 +422,12 @@ namespace BEInput {
     LONG_PTR expandStructListByOne();
 
   public:
-    //! Return the current value as a void **
+    //! Return the current value as a int
     /*!
      * This is a nonvirtual function since the return type
      * is specific to this child.
      */
-    const void ** currentTypedValue() const;
+    int currentTypedValue() const;
 
     //! Return the current value as a const pointer to void
     /*!
@@ -451,6 +450,7 @@ namespace BEInput {
      */
     int m_numStructures;
 
+
     /**
      *  This is a pointer to the location
      *  where the number of multiblocks processed will be
@@ -462,37 +462,10 @@ namespace BEInput {
      */
     int *hndlNumStructures;
 
-    /**
-     *  This is the handle to the vector
-     *  of pointers to storStruct structures. Typically, using the
-     *  example above, you would use (&storVec) as the argument
-     *  here.
-     */
-    void ***HndlStructVec;
+    //! pointer to the original block
+    BE_MultiBlockNested *originalBlockPtr_;
 
-    /**
-     *   This is a function pointer to a function that 
-     *   returns (pointer to void) and takes a 
-     *   (pointer to void) as its one argument.
-     *   It creates a new malloced structure and returns
-     *   a pointer to the structure. For example:
-     *   
-     *         void * newStorStruct(void *fdata) {
-     *              void *ptr =  new storStruct(fdata);
-     *              return (ptr);
-     *         }
-     */
-    void*  (*m_fRetnNewStruct)(void *);
     
-    /**
-     *  This is the data location of anything
-     *  needed in the constructor call of the new operation
-     *  in the function pointed to by fptr. Every time
-     *  m__fRetNewStruct() is called, m_function_data_loc
-     *  is used as its one and only argument. It has
-     *  no other purpose.
-     */
-    void* m_function_data_loc;
   };
 
 }

@@ -23,6 +23,7 @@
 #include "BlockEntry.h"
 #include "LineEntry.h"
 #include "mdp_allo.h"
+#include <set>
 
 #include <string>
 using namespace std;
@@ -77,7 +78,8 @@ namespace BEInput {
     numLineInput(b.numLineInput),
     SubBlocks(0),
     numSubBlocks(b.numSubBlocks),
-    m_adjustAddress(b.m_adjustAddress)
+    m_adjustAddress(b.m_adjustAddress),
+    m_ArgTok(b.m_ArgTok)
   {
     BlockLineInput = (LineEntry **) mdp_alloc_ptr_1(numLineInput);
     for (int iLE = 0; iLE < numLineInput; iLE++) {
@@ -127,6 +129,8 @@ namespace BEInput {
       numLineInput = b.numLineInput;
       numSubBlocks = b.numSubBlocks;
       m_adjustAddress = b.m_adjustAddress;
+      m_ArgTok = b.m_ArgTok;
+
       BlockLineInput = (LineEntry **) mdp_alloc_ptr_1(numLineInput);
       for (int iLE = 0; iLE < numLineInput; iLE++) {
 	BlockLineInput[iLE] = 
@@ -232,7 +236,7 @@ namespace BEInput {
 
   /*
    *
-   *  read_block handes the I/O of block commands. It is designed so that
+   *  read_block handles the I/O of block commands. It is designed so that
    *  it can be called recursively.
    *
    *  The basic idea is that a line of input is read, stripping comments
@@ -616,9 +620,7 @@ namespace BEInput {
     }
     m_numTimesProcessed++;
     if (blockArgTok->ntokes > 0) {
-      fprintf(stderr," Error blockArgTok argument: %s, ignored\n",
-	      blockArgTok->orig_str);
-      exit(-1);
+      m_ArgTok = *blockArgTok;
     }
   }
 
@@ -840,7 +842,6 @@ namespace BEInput {
    *    The value of the lowest  multiContribIndex value for a block that
    *    hasn't been processed gets selected.
    *
-
    */
   BlockEntry *BlockEntry::match_block(const TK_TOKEN *keyLinePtr,
 				      int contribIndex, bool includedMatch) const
@@ -875,6 +876,7 @@ namespace BEInput {
 	    } else {
 	      if (!biBest) {
 		biBest = bi;
+                multiContribIndexBest =  multiContribIndex;
 	      }
 	    }
 	  }
@@ -884,7 +886,63 @@ namespace BEInput {
     return (biBest);
   }
 
-
+//=================================================================================================================
+  BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool includedMatch,
+                                              int contribIndex, const TK_TOKEN *keyArgName) const
+  {
+    if (!keyArgName) {
+      return match_block(keyLinePtr, contribIndex, includedMatch);
+    }
+    bool argMatch = false;
+    BlockEntry *biBest = 0;
+    int multiContribIndexBest = -1;
+    if (SubBlocks) {
+      for (int i = 0; i < numSubBlocks; i++) {
+        BlockEntry *bi = SubBlocks[i];
+        bool mmm = false;
+        if (includedMatch) {
+          mmm = toktokincluded(&(bi->EntryName), keyLinePtr);
+        } else {
+          mmm = toktokmatch(&(bi->EntryName), keyLinePtr);
+        }
+        if (mmm) {
+          if (includedMatch) {
+            argMatch = toktokincluded(&(bi->m_ArgTok), keyArgName);
+          } else {
+            argMatch = toktokmatch(&(bi->m_ArgTok), keyArgName);
+          }
+          if (argMatch) {
+            return bi;
+          }
+          int multiContribIndex = bi->multiContribIndex();
+          if (contribIndex >= 0) {
+            if (contribIndex == multiContribIndex) {
+              biBest = bi;
+            }
+          }
+          if (contribIndex < 0) {
+            int numTimesProc = bi->get_NumTimesProcessed();
+            if (numTimesProc <= 0) {
+              if ( (multiContribIndexBest == -1) ||
+                   (multiContribIndex < multiContribIndexBest)) {
+                biBest = bi;
+                multiContribIndexBest =  multiContribIndex;
+              } else   if (multiContribIndex == multiContribIndexBest) {
+                throw BI_InputError("BlockEntry::match_block",
+                                    "Two blocks are the same:");
+              }
+            } else {
+              if (!biBest) {
+                biBest = bi;
+              }
+            }
+          }
+        }
+      }
+    }
+    return (biBest);
+  }
+  //=============================================================================================================
   /*
    *  match_block():
    *
@@ -917,6 +975,11 @@ namespace BEInput {
   void BlockEntry::Initialize_SubBlock(BlockEntry *subBlockPtr,
 				       const TK_TOKEN *keyArgTok)
   {
+    if (keyArgTok) {
+      m_ArgTok = *(keyArgTok);
+    } else {
+      m_ArgTok = TK_TOKEN("");
+    }
   }
 
   /*
@@ -1210,7 +1273,7 @@ namespace BEInput {
     }
     return (NULL);
   }
-
+  //==================================================================================================================
   /*
    * searchBlockEntry:
    *
@@ -1218,15 +1281,16 @@ namespace BEInput {
    * name under the current block
    * and under all subblocks of the current block.
    */
-  BlockEntry *BlockEntry::searchBlockEntry(const char * const bName, bool includedMatch) const
+  BlockEntry *BlockEntry::searchBlockEntry(const char * const bName, bool includedMatch,
+                                           int contribIndex, const TK_TOKEN * const blockArgName) const
   {
     if (!bName) return 0;
     TOKEN *tok_ptr = new TOKEN(bName);
-    BlockEntry *be = searchBlockEntry(tok_ptr, includedMatch);
+    BlockEntry *be = searchBlockEntry(tok_ptr, includedMatch, contribIndex, blockArgName);
     delete tok_ptr;
     return be;
   }
-
+  //==================================================================================================================
   /*
    * searchBlockEntry:
    *
@@ -1234,42 +1298,127 @@ namespace BEInput {
    * name under the current block
    * and under all subblocks of the current block.
    */
-  BlockEntry *BlockEntry::searchBlockEntry(const TK_TOKEN * const nameBN, bool includedMatch) const
+  BlockEntry *BlockEntry::searchBlockEntry(const TK_TOKEN * const nameBN, bool includedMatch, 
+                                           int contribIndex, const TK_TOKEN * const blockArgName) const
   {
     BlockEntry *bi = NULL;
     if (includedMatch) {
       if (toktokincluded(&EntryName, nameBN)) {
-        return (const_cast<BlockEntry *>(this));
+        if (blockArgName) {
+          if (toktokincluded(&m_ArgTok, blockArgName)) {
+            return  (const_cast<BlockEntry *>(this));
+          }
+        } else {
+          if (contribIndex >= 0) {
+            if (contribIndex == bi->multiContribIndex()) {
+              return (const_cast<BlockEntry *>(this));
+            }
+          } else {
+            return (const_cast<BlockEntry *>(this));
+          }
+        }
       }
       if (SubBlocks) {
-        bi = match_block(nameBN, 0, true);
+        bi = match_block_argName(nameBN,  true, contribIndex, blockArgName);
         if (bi) {
           return bi;
         }
         for (int i = 0; i < numSubBlocks; i++) {
           BlockEntry *sbi = SubBlocks[i];
-          bi = sbi->searchBlockEntry(nameBN, true);
+          bi = sbi->searchBlockEntry(nameBN, true, contribIndex, blockArgName);
           if (bi) return(bi);
         }
       }
     } else {
       if (toktokmatch(&EntryName, nameBN)) {
-        return (const_cast<BlockEntry *>(this));
+        if (blockArgName) {
+          if (toktokincluded(&m_ArgTok, blockArgName)) {
+            return  (const_cast<BlockEntry *>(this));
+          }
+        } else {
+          if (contribIndex >= 0) {
+            if (contribIndex == bi->multiContribIndex()) {
+              return (const_cast<BlockEntry *>(this));
+            }
+          } else {
+            return (const_cast<BlockEntry *>(this));
+          }
+        }
       }
+
       if (SubBlocks) {
-        bi = match_block(nameBN);
+        bi = match_block_argName(nameBN, false, contribIndex, blockArgName);
         if (bi) {
     	  return bi;
         }
         for (int i = 0; i < numSubBlocks; i++) {
   	  BlockEntry *sbi = SubBlocks[i];
-	  bi = sbi->searchBlockEntry(nameBN);
+	  bi = sbi->searchBlockEntry(nameBN, false, contribIndex, blockArgName);
 	  if (bi) return(bi);
         }
       }
     }
     return (NULL);
   }
+//=================================================================================================================
+std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch, 
+							    int contribIndex, const TK_TOKEN * const blockArgName) const
+{
+     std::set<const BlockEntry*> cc;
+     std::set<const BlockEntry*> cc_sub;
+
+     if (includedMatch) {
+	 if (toktokincluded(&EntryName, nameBN)) {
+	     if (blockArgName) {
+		 if (toktokincluded(&m_ArgTok, blockArgName)) {
+		     cc.insert(const_cast<BlockEntry *>(this));
+		 }
+	     } else {
+		 if (contribIndex >= 0) {
+		     if (contribIndex == multiContribIndex()) {
+			 cc.insert(const_cast<BlockEntry *>(this));
+		     }
+		 } else {
+		     cc.insert(const_cast<BlockEntry *>(this));
+		 }
+	     }
+	 }
+	 if (SubBlocks) {
+	     for (int i = 0; i < numSubBlocks; i++) {
+		 BlockEntry *sbi = SubBlocks[i];
+		 cc_sub = sbi->collectBlockEntries(nameBN, true, contribIndex, blockArgName);
+		 cc.insert(cc_sub.begin(), cc_sub.end());
+	     }
+	 }
+     } else {
+	 if (toktokmatch(&EntryName, nameBN)) {
+	     if (blockArgName) {
+		 if (toktokincluded(&m_ArgTok, blockArgName)) {
+		     cc.insert(const_cast<BlockEntry *>(this));
+		 }
+	     } else {
+		 if (contribIndex >= 0) {
+		     if (contribIndex == multiContribIndex()) {
+			 cc.insert(const_cast<BlockEntry *>(this));
+            }
+		 } else {
+		     cc.insert(const_cast<BlockEntry *>(this));
+		 }
+	     }
+	 }
+	     
+	 if (SubBlocks) {
+	     
+	     for (int i = 0; i < numSubBlocks; i++) {
+		 BlockEntry *sbi = SubBlocks[i];
+		 cc_sub = sbi->collectBlockEntries(nameBN, true, contribIndex, blockArgName);
+		 cc.insert(cc_sub.begin(), cc_sub.end());
+	     }
+	 }
+     }
+     return (cc);
+    
+}
 
 }
 

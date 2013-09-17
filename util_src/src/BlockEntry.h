@@ -22,6 +22,8 @@
 #include "tok_input_util.h"
 #include "BaseEntry.h"
 
+#include <set>
+
 namespace BEInput {
 
   // Forward declaration
@@ -307,6 +309,29 @@ namespace BEInput {
 			    int contribIndex = BE_ANY_INDEX, 
 			    bool includedMatch = false) const;
 
+    //!   Match the block name as defined by a sequence of tokens and optionally
+    //!   defined by the argument name of the block.
+    //!    Return the address of the block entry.
+    /*!
+     *    This function will lop off unwanted trailing "block" "end" and "start"
+     *    words from the token list.
+     *
+     * @param keyLinePtr Pointer to the TOKEN to be used to match
+     *                   the block.
+     * @param contribIndex If the contribIndex is 0 or pos, an exact match with the index is
+     *                     required. if contribIndex is < 0, the following procedure is used.
+     *                     The value of the lowest  multiContribIndex value for a block that
+     *                     hasn't been processed gets selected.
+     *  @param includedMatch Bookean If true than the TOKEN must only be included in the
+     *                       Block name. If false, then an exact match is required
+     *  @param keyArgNamePtr If nonnull, then the name is matched as well. 
+     */
+    BlockEntry *match_block_argName(const TK_TOKEN *keyLinePtr,
+                            bool includedMatch = false,
+                            int contribIndex = BE_ANY_INDEX,
+                            const TK_TOKEN *keyArgNamePtr = 0) const;
+
+
     //!   Match the block name as defined by a sequence of tokens.
     //!    Return the address of the block entry.
     /*!
@@ -442,7 +467,8 @@ namespace BEInput {
      * @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
      */
-    BlockEntry *searchBlockEntry(const char * const bName, bool includedMatch = false) const;
+    BlockEntry *searchBlockEntry(const char * const bName, bool includedMatch = false,
+                                 int contribIndex = BE_ANY_INDEX, const TK_TOKEN * const blockArgName = 0) const;
 
     //! This does a recursive search for a Block Entry 
     //! name under the current block
@@ -454,7 +480,8 @@ namespace BEInput {
      * @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
      */
-    BlockEntry *searchBlockEntry(const TK_TOKEN * const nameBN, bool includedMatch = false) const;
+    BlockEntry *searchBlockEntry(const TK_TOKEN * const nameBN, bool includedMatch = false, 
+                                 int contribIndex = BE_ANY_INDEX, const TK_TOKEN * const blockArgName = 0) const;
 
     //! Prints a keyline to standard out (static)
     /*!
@@ -473,6 +500,9 @@ namespace BEInput {
      *  @param ilvl number of indent lvls.
      */
     static void print_indent(int ilvl);
+
+    std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch, 
+							    int contribIndex, const TK_TOKEN * const blockArgName) const;
 
   protected:
    
@@ -506,6 +536,11 @@ namespace BEInput {
     //! used by line elements in this block. Note, this number is the
     //! cumulative adjustment.
     LONG_PTR m_adjustAddress;
+
+    TK_TOKEN m_ArgTok;
+
+   
+
   };
 }
 #endif
