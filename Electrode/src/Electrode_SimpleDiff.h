@@ -63,6 +63,9 @@ public:
     //! Initialize the sizes
     void init_sizes();
 
+    //! Initilize the grid
+    void init_grid();
+
     //! Initialize the distribution of species evenly across the radius
     /*!
      *  This routine takes the spMoles values and spreads the values evenly in the radial
@@ -206,7 +209,9 @@ protected:
     //!  Number of cells involved with the radial distribution, including the 1/2 end cells
     int numRCells_;
 
-    //! Number of phases which have radial distributions
+    int numNodes_;
+
+    //! Number of phases which have radial distributions of their species
     int numSPhase_;
 
     //! Total number of equations defined at each node of the radial mesh
@@ -348,6 +353,7 @@ protected:
     std::vector<doublereal> rRefPos_init_init_;
 
     std::vector<doublereal> cellBoundR_final_;
+    std::vector<doublereal> cellBoundL_final_;
 
     //!  Spline system for the nodal equations
     /*!
@@ -355,6 +361,13 @@ protected:
      *   current node possesses.
      */
     std::vector<doublereal> fracNodePos_;
+
+    //!  Spline System for the nodal points
+    /*!
+     *  Fraction of the domain's volume which is inside the current node position
+     */
+    std::vector<doublereal> fracVolNodePos_;
+
 
     //!  Partial molar volume of all of the solid species located in all of the cells
     /*!
@@ -365,18 +378,24 @@ protected:
 
     //!  Molar creation rate of species in the electrode object due to the Exterior surface
     /*!
-     *   This is a quantity over all particles.
+     *   This is a quantity over all species in the PhaseList
      *
      *    units (kmol sec-1);
      */
     std::vector<doublereal> DspMoles_final_;
 
     //! Domain boundary at the inner radius.
+    /*!
+     *   Frequently this will be zero. default is zero.
+     */
     doublereal m_rbot0_;
 
     std::vector<doublereal> Diff_Coeff_KRSolid_;
 
-
+    //! Molar creation rate of phases in the electrode object.
+    /*!
+     *    units = kmol / s
+     */
     std::vector<doublereal> DphMolesSrc_final_;
 
     //! we identify the phases here as being the exterior surface
@@ -394,7 +413,10 @@ protected:
     doublereal DiffCoeff_;
 
     //! Vector of activity coefficients for all KR species at all nodes
-    std::vector<doublereal> actCoeff_;
+    /*!
+     *
+     */
+    std::vector<doublereal> actCoeff_Cell_;
 
 
 

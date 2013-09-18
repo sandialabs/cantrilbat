@@ -32,7 +32,7 @@ class RadialDiffRegionSpec
 public:
     RadialDiffRegionSpec();
 
-   RadialDiffRegionSpec(const RadialDiffRegionSpec& b);
+    RadialDiffRegionSpec(const RadialDiffRegionSpec& b);
 
     std::vector<int> phaseIndeciseKRsolidPhases_;
 

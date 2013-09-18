@@ -165,9 +165,15 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      * Get the Number of cells from the input file
      */
     numRCells_ = ei->numRadialCellsRegions_[0];
-
+    /*
+     *  Get the volume phases which are distributed across the radial region
+     */
+    RadialDiffRegionSpec& r0 = ei->rregions_[0];
+    phaseIndeciseKRsolidPhases_ = r0.phaseIndeciseKRsolidPhases_;
+    /*
+     *  Get a count of the distributed phases
+     */
     numSPhase_ = phaseIndeciseKRsolidPhases_.size();
-
     /*
      *  Calculate the number of equations at each node from phaseIndeciseKRsolidPhases_
      *   2 + sum (nsp_each_distrib_phase)
@@ -180,21 +186,22 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
         numKRSpecies_ += nsp;
     }
     numEqnsCell_ =  numKRSpecies_ + 2;
-
-
     /*
      * Initialize the arrays in this object now that we know the number of equations
      */
     init_sizes();
-
     /*
-     *  Initialize the species
+     *  Initialize the grid
+     *      Take the gross dimensions of the domain and create a grid.
+     */
+    init_grid();
+    /*
+     *  Initialize all of the variables on the domain
+     *    We take the grid size and the mole numbers from the base Electrode representation
+     *    and create a distributed representation.
+     *    Any disparity in mole numbers creates an error.
      */
     initializeAsEvenDistribution();
-
-
-
-
 
     return 0;
 }
@@ -203,12 +210,95 @@ void
 Electrode_SimpleDiff::init_sizes()
 {
     int kspCell =  numKRSpecies_ *  numRCells_;
+    int nPhCell = numSPhase_ * numRCells_;
 
     spMoles_KRsolid_Cell_final_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_init_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_final_final_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_init_init_.resize(kspCell, 0.0);
 
+    concTot_SPhase_Cell_final_final_.resize(nPhCell, 0.0);
+    concTot_SPhase_Cell_final_.resize(nPhCell, 0.0);
+    concTot_SPhase_Cell_init_.resize(nPhCell, 0.0);
+    concTot_SPhase_Cell_init_init_.resize(nPhCell, 0.0);
+
+    concKRSpecies_Cell_init_.resize(kspCell, 0.0);
+    concKRSpecies_Cell_final_.resize(kspCell, 0.0);
+    concKRSpecies_Cell_init_init_.resize(kspCell, 0.0);
+    concKRSpecies_Cell_final_final_.resize(kspCell, 0.0);
+
+    MolarVolume_Ref_ = 1.0;
+
+    rnodePos_final_final_.resize(numRCells_, 0.0);
+    rnodePos_final_.resize(numRCells_, 0.0);
+    rnodePos_init_.resize(numRCells_, 0.0);
+    rnodePos_init_init_.resize(numRCells_, 0.0);
+
+    rRefPos_final_final_.resize(numRCells_, 0.0);
+    rRefPos_final_.resize(numRCells_, 0.0);
+    rRefPos_init_.resize(numRCells_, 0.0);
+    rRefPos_init_init_.resize(numRCells_, 0.0);
+
+    cellBoundR_final_.resize(numRCells_, 0.0);
+    cellBoundL_final_.resize(numRCells_, 0.0);
+
+    fracNodePos_.resize(numRCells_, 0.0);
+    fracVolNodePos_.resize(numRCells_, 0.0);
+
+    partialMolarVolKRSpecies_Cell_final_.resize(kspCell, 0.0);
+
+    DspMoles_final_.resize(m_NumTotSpecies, 0.0);
+
+    Diff_Coeff_KRSolid_.resize(numKRSpecies_, 0.0);
+
+    DphMolesSrc_final_.resize(m_NumTotPhases, 0.0);
+
+
+    actCoeff_Cell_.resize(kspCell, 1.0);
+}
+//====================================================================================================================
+void
+Electrode_SimpleDiff::init_grid()
+{
+    // inner and outer radius
+     double r_in = m_rbot0_;
+     double r_out =  Radius_exterior_final_;
+     double partVol = Pi * inputParticleDiameter_ * inputParticleDiameter_ * inputParticleDiameter_ / 6.0;
+     double nn = numRCells_ - 1.0;
+
+     for (int iCell = 0; iCell < numRCells_; iCell++) {
+	 fracVolNodePos_[iCell] = 1.0 / nn * iCell;
+     }
+
+  
+     double vol_total_part = Pi * 4. / 3.0 * ((r_out * r_out * r_out) - (r_in * r_in * r_in));
+
+     double rbot3 = r_in * r_in * r_in;
+     double vbot = rbot3 * 4.0 * Pi / 3.0;
+   
+     cellBoundL_final_[0] = r_in; 
+     rnodePos_final_[0] = r_in;
+     for (int iCell = 0; iCell < numRCells_-1; iCell++) { 
+	 double volContainedCell =  fracVolNodePos_[iCell] * vol_total_part;
+	 double rnode3 = rbot3 + volContainedCell * 3.0 / (4.0 * Pi);
+	 rnodePos_final_[iCell+1] = pow(rnode3, 0.33333333333333333);
+	 if (iCell+1 == numRCells_) {
+	     rnodePos_final_[iCell+1] = r_out;
+	 }
+	 cellBoundR_final_[iCell] = 0.5 * (rnodePos_final_[iCell+1] + rnodePos_final_[iCell]);
+	 cellBoundL_final_[iCell+1] = cellBoundR_final_[iCell];
+     }
+     cellBoundR_final_[numRCells_-1] = rnodePos_final_[numRCells_-1];
+
+     for (int iCell = 0; iCell < numRCells_; iCell++) {
+	 rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
+	 rnodePos_init_[iCell] = rnodePos_final_[iCell];
+	 rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
+	 rRefPos_final_[iCell] = rnodePos_final_[iCell];
+	 rRefPos_final_final_[iCell] = rnodePos_final_[iCell];
+	 rRefPos_init_[iCell] = rnodePos_final_[iCell];
+	 rRefPos_init_init_[iCell] = rnodePos_final_[iCell];
+     }
 }
 //====================================================================================================================
 void
@@ -596,8 +686,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                  */
                 if (iCell < (numRCells_ - 1)) {
                     deltaX = rnodePos_final_final_[iCell+1] - rnodePos_final_final_[iCell];
-                    double caR = concKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies] * actCoeff_[indexTopKRSpecies + iKRSpecies];
-                    double caL = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_[indexMidKRSpecies + iKRSpecies];
+                    double caR = concKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies] * actCoeff_Cell_[indexTopKRSpecies + iKRSpecies];
+                    double caL = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_[indexMidKRSpecies + iKRSpecies];
                     dcadx[kSp] = (caR - caL) / deltaX;
                     flux[kSp] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadx[kSp];
 

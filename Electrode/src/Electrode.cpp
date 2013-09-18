@@ -4273,8 +4273,7 @@ double Electrode::getSourceTerm(SOURCES sourceType)
     sourceType = SPECIES_SOURCE;
   }
 
-  switch( sourceType )
-  {
+  switch (sourceType) {
   case CURRENT_SOURCE:
     result = spMoleIntegratedSourceTerm_[kElectron_];
     break;
@@ -4289,6 +4288,9 @@ double Electrode::getSourceTerm(SOURCES sourceType)
     break;
   case SPECIES_SOURCE:
     result = spMoleIntegratedSourceTerm_[solnSpeciesStart + species_index];
+    break;
+  case MAX_SOURCE:
+    result = 0.0;
     break;
   }
   return result;

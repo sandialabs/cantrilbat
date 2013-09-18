@@ -32,68 +32,62 @@ using namespace mdpUtil;
 namespace BEInput {
 
 
-  /**********************************************************************
-   *
-   * BE_MultiBlock Constructor:
-   *
-   *   This sets up the line entry special case.
-   *   We make sure to call the base class constructor here to do
-   *   much of the initialization. 
-   */
-  BE_MultiBlock::BE_MultiBlock(const char *blockName, 
-			       int *hndlnumstructures,
-			       void ***hndlStructVec,
-			       void*  (*fptr)(void *),
-			       void* function_data_loc,
-			       int numTR,
-			       BlockEntry *parentBlock_input) :
+/**********************************************************************
+ *
+ * BE_MultiBlock Constructor:
+ *
+ *   This sets up the line entry special case.
+ *   We make sure to call the base class constructor here to do
+ *   much of the initialization. 
+ */
+BE_MultiBlock::BE_MultiBlock(const char *blockName, 
+			     int *hndlnumstructures,
+			     void ***hndlStructVec,
+			     void*  (*fptr)(void *),
+			     void* function_data_loc,
+			     int numTR,
+			     BlockEntry *parentBlock_input) :
     BlockEntry(blockName, numTR, parentBlock_input),
     m_numStructures(0),
     hndlNumStructures(hndlnumstructures),
     HndlStructVec(hndlStructVec),
     m_fRetnNewStruct(fptr),
     m_function_data_loc(function_data_loc)
-  {
+{
     /*
      * Check to see HndlStructVec has been malloced ok
      */
-    if (*HndlStructVec == 0) {
-      *HndlStructVec = mdp_alloc_ptr_1(2);
-    }
-    if (!fptr) {
-      throw BI_InputError("BE_MultiBlock::BE_MultiBlock",
-			  " Function pointer is null");
-    }
-    if ((*HndlStructVec)[0] == 0) {
-      (*HndlStructVec)[0] = m_fRetnNewStruct(m_function_data_loc);
+    if (HndlStructVec) {
+	if (*HndlStructVec == 0) {
+	    *HndlStructVec = mdp_alloc_ptr_1(2);
+	}
+	if (!fptr) {
+	    throw BI_InputError("BE_MultiBlock::BE_MultiBlock",
+				" Function pointer is null");
+	}
+	if ((*HndlStructVec)[0] == 0) {
+	    (*HndlStructVec)[0] = m_fRetnNewStruct(m_function_data_loc);
+	}
     }
     if (hndlNumStructures) {
-      *hndlNumStructures = 0;
+	*hndlNumStructures = 0;
     }
-  }
-
-  /*
-   * BE_MultiBlock (const BE_MultiBlock&)
-   */
-  BE_MultiBlock::BE_MultiBlock(const BE_MultiBlock &b) :
+}
+//=================================================================================================
+/*
+ * BE_MultiBlock (const BE_MultiBlock&)
+ */
+BE_MultiBlock::BE_MultiBlock(const BE_MultiBlock &b) :
     BlockEntry(b),
     m_numStructures(b.m_numStructures),
     hndlNumStructures(b.hndlNumStructures),
     HndlStructVec(b.HndlStructVec),
     m_fRetnNewStruct(b.m_fRetnNewStruct),
     m_function_data_loc(b.m_function_data_loc)
-  {
-    /*
-     * Check to see HndlStructVec has been malloced ok
-     */
-    if (*HndlStructVec == 0) {
-      *HndlStructVec = mdp_alloc_ptr_1(2);
-    }
-    if ((*HndlStructVec)[0] == 0) {
-      (*HndlStructVec)[0] = m_fRetnNewStruct(m_function_data_loc);
-    }
-  }
+{
 
+}
+//===================================================================================================
   /*
    * BlockEntry* duplMyselfAsBlockEntry();     (virtual)
    *
