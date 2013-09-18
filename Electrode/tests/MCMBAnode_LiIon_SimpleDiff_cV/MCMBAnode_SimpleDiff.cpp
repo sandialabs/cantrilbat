@@ -23,6 +23,7 @@
 
 #include "Electrode_input.h"
 #include "Electrode_SimpleDiff.h"
+#include "Electrode_RadialDiffRegions.h"  
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
 #include "BlockEntry.h"
@@ -131,7 +132,7 @@ int main(int argc, char **argv)
   
     Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
 
-    ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
+    ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     
     std::string commandFileA = "anode.inp";
 
@@ -143,7 +144,7 @@ int main(int argc, char **argv)
  
     // Go get the problem description from the input file
 
-    retn = electrodeA_input->electrode_input(commandFileA, cfC);
+    retn = electrodeA_input->electrode_input_child(commandFileA, cfC);
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);

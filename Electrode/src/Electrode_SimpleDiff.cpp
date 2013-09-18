@@ -10,6 +10,7 @@
 
 #include "Electrode_SimpleDiff.h"
 #include "cantera/integrators.h"
+#include "Electrode_RadialDiffRegions.h"
 
 using namespace Cantera;
 using namespace std;
@@ -144,15 +145,26 @@ Electrode_Types_Enum Electrode_SimpleDiff::electrodeType() const
 }
 //======================================================================================================================
 int
-Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
-
-    Electrode_Integrator::electrode_model_create(ei);
+    /*
+     *  Downcast the Key input to make sure we are being fed the correct child object
+     */
+    ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
+    if (!ei) {
+        throw CanteraError(" Electrode_SimpleDiff::electrode_model_create()",
+                           " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
+    }
 
     /*
-     * Number of cells - hard code for now
+     *  Create the base model
      */
-    numRCells_ = 5;
+    Electrode_Integrator::electrode_model_create(eibase);
+
+    /*
+     * Get the Number of cells from the input file
+     */
+    numRCells_ = ei->numRadialCellsRegions_[0];
 
     numSPhase_ = phaseIndeciseKRsolidPhases_.size();
 

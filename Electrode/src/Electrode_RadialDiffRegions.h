@@ -20,12 +20,29 @@
 #include "cantera/integrators.h"
 #include "cantera/numerics/ResidJacEval.h"
 
+
 namespace Cantera
 {
 
 class Electrode_RadialRegion;
 class Electrode_SurfaceRegion;
 
+class RadialDiffRegionSpec
+{
+public:
+    RadialDiffRegionSpec();
+
+   RadialDiffRegionSpec(const RadialDiffRegionSpec& b);
+
+    std::vector<int> phaseIndeciseKRsolidPhases_;
+
+};
+
+//! Extra Input for models with distributed radial diffusion regions
+/*!
+ *
+ *
+ */
 class ELECTRODE_RadialDiffRegions_KEY_INPUT : public ELECTRODE_KEY_INPUT
 {
 public:
@@ -56,6 +73,8 @@ public:
      */
     void setup_input_child2(BEInput::BlockEntry* cf);
 
+    virtual void post_input_child2(BEInput::BlockEntry* cf);
+
     //! Number of plateau regions in the model
     /*!
      *  The number of regions refers to the continuity of the electrode open circuit model.
@@ -63,6 +82,8 @@ public:
      *  constant or it is a linear function of the extent of reaction variable.
      */
     int numRegions_;
+ 
+    int numRegionsEntered_;
 
     //! Solid state diffusion model identification
     /*!
@@ -73,7 +94,16 @@ public:
      */
     int solidDiffusionModel_;
 
-
+    //! Number of radial cells in each region
+    /*!
+     *  Number of cells in each region. Note we use a control volume formulation. So, two cells would mean
+     *  a region with only two nodes, one on each exterior surface.
+     *
+     *  Length = numRegions_
+     *  Default = 5
+     *  units = none.
+     */
+    std::vector<int> numRadialCellsRegions_;
 
     //! Diffusion coefficient in the outer region of a two region spherical model
     /*!
@@ -90,6 +120,8 @@ public:
 
 
     std::vector<double> rxnPerturbRegions_;
+
+    std::vector<RadialDiffRegionSpec> rregions_;
 };
 
 

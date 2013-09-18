@@ -1103,6 +1103,8 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
      *  Redo the base input
      */
     electrode_input(commandFile, cf);
+
+    cf->print_usage();
     /*
      *  Extend the input options for the child
      */
@@ -1120,7 +1122,9 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
     }
     post_input_child1(cf);
 
+    cf->print_usage();
     setup_input_child2(cf);
+    cf->print_usage();
 
     printBIProclevel = 1;
     if (printLvl_ == 2) {

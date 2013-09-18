@@ -28,15 +28,26 @@ using namespace TKInput;
 
 namespace Cantera
 {
+//====================================================================================================================
+RadialDiffRegionSpec::RadialDiffRegionSpec()
+{
 
+}
+//====================================================================================================================
+RadialDiffRegionSpec::RadialDiffRegionSpec(const RadialDiffRegionSpec& b) :
+   phaseIndeciseKRsolidPhases_(b.phaseIndeciseKRsolidPhases_)
+{
+    
+}
 //====================================================================================================================
 ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     numRegions_(1),
+    numRegionsEntered_(0),
     solidDiffusionModel_(0),
     rxnPerturbRegions_(0)
 {
-
+    numRadialCellsRegions_.resize(1, 5);
 }
 //====================================================================================================================
 ELECTRODE_RadialDiffRegions_KEY_INPUT::~ELECTRODE_RadialDiffRegions_KEY_INPUT()
@@ -50,7 +61,7 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(con
     solidDiffusionModel_(right.solidDiffusionModel_)
 {
     diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
-
+    numRadialCellsRegions_          = right.numRadialCellsRegions_;
     rxnPerturbRegions_              = right.rxnPerturbRegions_;
 }
 //====================================================================================================================
@@ -66,7 +77,7 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::operator=(const ELECTRODE_RadialDiffRegio
     numRegions_                     = right.numRegions_;
     solidDiffusionModel_            = right.solidDiffusionModel_;
     diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
-
+    numRadialCellsRegions_          = right.numRadialCellsRegions_;
 
     rxnPerturbRegions_              = right.rxnPerturbRegions_;
 
@@ -105,6 +116,33 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
         reqd = 1;
     }
 
+    /*
+     *  Resize the output regions
+     */
+    if (numRegions_ != 1) {
+       numRadialCellsRegions_.resize(numRegions_, 5);
+    } 
+
+    /*
+     * Put a potential loop over regions here
+     */ 
+
+    BE_MultiBlockNested* be_rdr = new BE_MultiBlockNested("Radial Diffusion Region", &numRegionsEntered_, 1, cf);
+
+
+    cf->addSubBlock(be_rdr);
+
+    int iCell = 0;
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    LE_OneInt* nRm = new LE_OneInt("Number of Cells in Region", &(numRadialCellsRegions_[iCell]), 0, "numRadialCellsRegions");
+    nRm->set_default(5);
+    be_rdr->addLineEntry(nRm);
+
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    LE_MultiCStr* pid = new LE_MultiCStr("Phase Name within Distributed region", 0, 10, 1, 1, "phaseNames");
+    be_rdr->addLineEntry(pid);
+
 
     /*
      * Make the diffusion coefficients optional unless the solid diffusion model is turned on
@@ -118,16 +156,48 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
 
     reqd = 0;
 
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     LE_StdVecDblVarLength* rr1 = new LE_StdVecDblVarLength("Reaction Rate Constant Perturbations for Regions",
             &(rxnPerturbRegions_),
             numRegions_, reqd, "rxnPerturbRegions_");
     rr1->set_default(1.0);
     rr1->set_limits(1.0E30, 1.0E-30);
-    cf->addLineEntry(rr1);
+    be_rdr->addLineEntry(rr1);
 
     BaseEntry::set_SkipUnknownEntries(false);
 }
+//======================================================================================================================
+void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntry* cf)
+{
+    rregions_.clear();
+    rregions_.push_back(RadialDiffRegionSpec());
+    BEInput::BlockEntry* be = cf->searchBlockEntry("Radial Diffusion Region", false);
+    BEInput::BE_MultiBlockNested* be_rdr = dynamic_cast<BE_MultiBlockNested*>(be);
+    BEInput::LineEntry *le = be_rdr->searchLineEntry("Number of Cells in Region");
+    BEInput::LE_OneInt* le_int = dynamic_cast<LE_OneInt*>(le);
 
+    BEInput::LineEntry *lepn = be_rdr->searchLineEntry("Phase Name within Distributed Region");
+    BEInput::LE_MultiCStr* lepn_int = dynamic_cast<LE_MultiCStr*>(lepn);
+   
+    int iCell = 0;
+    int numCells = le_int->currentTypedValue();
+    numRadialCellsRegions_[iCell] = numCells;
+
+    const char ** curPN = lepn_int->currentTypedValue();
+    int numPS = lepn_int->get_NumTimesProcessed();
+
+    for (int i = 0; i < numPS; i++) {
+       const char * cP = curPN[i];
+       string sP(cP);
+       int k = m_pl->globalPhaseIndex(sP);
+       if (k < 0) {
+         printf("error\n");
+         exit(-1); 
+       }
+       RadialDiffRegionSpec& r0 = rregions_[0];
+       (r0.phaseIndeciseKRsolidPhases_).push_back(k);
+    }
+}
 //======================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor
