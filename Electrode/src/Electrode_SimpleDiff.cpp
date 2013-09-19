@@ -49,7 +49,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     phaseIndeciseKRsolidPhases_(0),
     MolarVolume_Ref_(0),
     NTflux_final_(0.0),
-    DiffCoeff_(1.0)
+    DiffCoeff_(1.0E-12),
+    DiffCoeff_default_(1.0E-12)
 {
 
 
@@ -75,7 +76,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     phaseIndeciseKRsolidPhases_(0),
     MolarVolume_Ref_(0),
     NTflux_final_(0.0),
-    DiffCoeff_(1.0)
+    DiffCoeff_(1.0E-12),
+    DiffCoeff_default_(1.0E-12)
 {
     /*
      * Call the assignment operator.
@@ -113,7 +115,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     MolarVolume_Ref_                = right.MolarVolume_Ref_;
     NTflux_final_                   = right.NTflux_final_;
     DiffCoeff_                      = right.DiffCoeff_;
-
+    DiffCoeff_default_              = right.DiffCoeff_default_;
 
     /*
      * Return the reference to the current object
@@ -186,6 +188,16 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
         numKRSpecies_ += nsp;
     }
     numEqnsCell_ =  numKRSpecies_ + 2;
+
+    /*
+     * Set the size of the diffusion coefficient array and set it to a default value.
+     *   -> lots of room for embelishment later.
+     */
+    Diff_Coeff_KRSolid_.resize(numKRSpecies_, ei->diffusionCoeffRegions_[0]);
+
+//KRsolid_speciesList_;
+
+//surfIndexExteriorSurface_ = ;
     /*
      * Initialize the arrays in this object now that we know the number of equations
      */
@@ -254,14 +266,16 @@ Electrode_SimpleDiff::init_sizes()
     DphMolesSrc_final_.resize(m_NumTotPhases, 0.0);
 
 
-    actCoeff_Cell_.resize(kspCell, 1.0);
+    actCoeff_Cell_final_.resize(kspCell, 1.0);
 }
 //====================================================================================================================
 void
 Electrode_SimpleDiff::init_grid()
 {
     // inner and outer radius
+    double  volContainedCell;
      double r_in = m_rbot0_;
+     double rnode3;
      double r_out =  Radius_exterior_final_;
      double partVol = Pi * inputParticleDiameter_ * inputParticleDiameter_ * inputParticleDiameter_ / 6.0;
      double nn = numRCells_ - 1.0;
@@ -279,8 +293,8 @@ Electrode_SimpleDiff::init_grid()
      cellBoundL_final_[0] = r_in; 
      rnodePos_final_[0] = r_in;
      for (int iCell = 0; iCell < numRCells_-1; iCell++) { 
-	 double volContainedCell =  fracVolNodePos_[iCell] * vol_total_part;
-	 double rnode3 = rbot3 + volContainedCell * 3.0 / (4.0 * Pi);
+	 volContainedCell =  fracVolNodePos_[iCell+1] * vol_total_part;
+	 rnode3 = rbot3 + volContainedCell * 3.0 / (4.0 * Pi);
 	 rnodePos_final_[iCell+1] = pow(rnode3, 0.33333333333333333);
 	 if (iCell+1 == numRCells_) {
 	     rnodePos_final_[iCell+1] = r_out;
@@ -304,7 +318,25 @@ Electrode_SimpleDiff::init_grid()
 void
 Electrode_SimpleDiff::initializeAsEvenDistribution()
 {
+    spMoles_KRsolid_Cell_final_;
 
+ 
+    concTot_SPhase_Cell_final_;
+
+
+
+    concKRSpecies_Cell_final_;
+ 
+
+    partialMolarVolKRSpecies_Cell_final_;
+    actCoeff_Cell_final_;
+
+    /*
+     *  Now transfer that to other states
+     */
+    setFinalFinalStateFromFinal();
+    setInitStateFromFinal(true);
+    
 }
 //====================================================================================================================
 //    The internal state of the electrode must be kept for the initial and final times of an integration step.
@@ -686,8 +718,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                  */
                 if (iCell < (numRCells_ - 1)) {
                     deltaX = rnodePos_final_final_[iCell+1] - rnodePos_final_final_[iCell];
-                    double caR = concKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies] * actCoeff_Cell_[indexTopKRSpecies + iKRSpecies];
-                    double caL = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_[indexMidKRSpecies + iKRSpecies];
+                    double caR = concKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexTopKRSpecies + iKRSpecies];
+                    double caL = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
                     dcadx[kSp] = (caR - caL) / deltaX;
                     flux[kSp] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadx[kSp];
 

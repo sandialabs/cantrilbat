@@ -368,7 +368,6 @@ protected:
      */
     std::vector<doublereal> fracVolNodePos_;
 
-
     //!  Partial molar volume of all of the solid species located in all of the cells
     /*!
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
@@ -404,7 +403,6 @@ protected:
      */
     int surfIndexExteriorSurface_;
 
-
     //!  Value of the total flux at the outer edge - kmol m-2 s-1
     doublereal NTflux_final_;
 
@@ -412,15 +410,14 @@ protected:
     //! Local value of the diffusion coefficient
     doublereal DiffCoeff_;
 
+    //! Local value of the diffusion coefficient
+    doublereal DiffCoeff_default_;
+
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
-     *
+     *    This is calculated at the final state
      */
-    std::vector<doublereal> actCoeff_Cell_;
-
-
-
-
+    std::vector<doublereal> actCoeff_Cell_final_;
 };
 
 }

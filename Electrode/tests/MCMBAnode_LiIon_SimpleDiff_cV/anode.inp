@@ -83,6 +83,7 @@ Level of XML State Information Created = intermediateSteps
 start block Radial Diffusion Region = simple_whole
   Number of Cells in Region = 3
   Phase Name within distributed region = MCMB_Interstitials_anode
+  Default Diffusion Coefficient = 1.0E-10
 end block Radial Diffusion Region 
 
 start block Bath Specification for Phase ECDMC_LiPF6

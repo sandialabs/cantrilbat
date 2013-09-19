@@ -208,6 +208,15 @@ public:
      */
     virtual void setup_input_child2(BEInput::BlockEntry* cf);
 
+    //! setup for child3
+    /*!
+     *  Virtual function that may get added onto
+     *
+     *  @param cf Pointer to the BlockEntry to be added onto by this routine
+     */
+    virtual void setup_input_child3(BEInput::BlockEntry* cf);
+
+
     //! Post processing done after the input
     /*!
      *  Virtual function that may get added onto
@@ -223,6 +232,14 @@ public:
      *  @param cf Pointer to the BlockEntry to be added onto by this routine
      */
     virtual void post_input_child2(BEInput::BlockEntry* cf);
+
+    //! Post processing done after the input
+    /*!
+     *  Virtual function that may get added onto
+     *
+     *  @param cf Pointer to the BlockEntry to be added onto by this routine
+     */
+    virtual void post_input_child3(BEInput::BlockEntry* cf);
 
     //! Parse the input file and fill up the current structure with the result
     /*!

@@ -1104,7 +1104,7 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
      */
     electrode_input(commandFile, cf);
 
-    cf->print_usage();
+    //cf->print_usage();
     /*
      *  Extend the input options for the child
      */
@@ -1122,9 +1122,9 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
     }
     post_input_child1(cf);
 
-    cf->print_usage();
+    //cf->print_usage();
     setup_input_child2(cf);
-    cf->print_usage();
+    //cf->print_usage();
 
     printBIProclevel = 1;
     if (printLvl_ == 2) {
@@ -1293,6 +1293,16 @@ void ELECTRODE_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
 {
 }
 //======================================================================================================================
+// setup for child3
+/*
+ *  Virtual function that may get added onto
+ *
+ *  @param cf Pointer to the BlockEntry to be added onto by this routine
+ */
+void ELECTRODE_KEY_INPUT::setup_input_child3(BEInput::BlockEntry* cf)
+{
+}
+//======================================================================================================================
 // Post processing done after the input
 /*
  *  Virtual function that may get added onto
@@ -1310,6 +1320,16 @@ void ELECTRODE_KEY_INPUT::post_input_child1(BEInput::BlockEntry* cf)
  *  @param cf Pointer to the BlockEntry to be added onto by this routine
  */
 void ELECTRODE_KEY_INPUT::post_input_child2(BEInput::BlockEntry* cf)
+{
+}
+//======================================================================================================================
+// Post processing done after the input
+/*
+ *  Virtual function that may get added onto
+ *
+ *  @param cf Pointer to the BlockEntry to be added onto by this routine
+ */
+void ELECTRODE_KEY_INPUT::post_input_child3(BEInput::BlockEntry* cf)
 {
 }
 //======================================================================================================================

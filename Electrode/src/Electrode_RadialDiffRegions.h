@@ -26,18 +26,35 @@ namespace Cantera
 
 class Electrode_RadialRegion;
 class Electrode_SurfaceRegion;
-
+//==============================================================================================================================
+//! Small class to hold the input for distributed regions from the class ELECTRODE_RadialDiffRegions_KEY_INPUT
 class RadialDiffRegionSpec
 {
 public:
+    //! Constructor
     RadialDiffRegionSpec();
 
+    //! Copy constructor
     RadialDiffRegionSpec(const RadialDiffRegionSpec& b);
 
+    RadialDiffRegionSpec& operator=(const RadialDiffRegionSpec& right);
+
+    //! Phase indecises of the phases which are distributed across the radial region
     std::vector<int> phaseIndeciseKRsolidPhases_;
 
-};
+    //!  Diffusion coefficients for species within the region
+    /*!
+     *  Length = number of species in distributed phases
+     */
+    std::vector<double> DiffusionCoeffs_;
 
+    //! Default diffusion coefficients for species within the region
+    /*!
+     *  Defaults to 1.0E-12 m2/s = 1.0E-8 cm2/s
+     */
+    double defaultDiffusionCoeff_;
+};
+//==============================================================================================================================
 //! Extra Input for models with distributed radial diffusion regions
 /*!
  *
@@ -75,6 +92,12 @@ public:
 
     virtual void post_input_child2(BEInput::BlockEntry* cf);
 
+    virtual void setup_input_child3(BEInput::BlockEntry* cf);
+
+    virtual void post_input_child3(BEInput::BlockEntry* cf);
+
+    //   MEMBER DATA
+
     //! Number of plateau regions in the model
     /*!
      *  The number of regions refers to the continuity of the electrode open circuit model.
@@ -83,6 +106,7 @@ public:
      */
     int numRegions_;
  
+    //! Number of region domains entered by the user.
     int numRegionsEntered_;
 
     //! Solid state diffusion model identification
@@ -115,16 +139,16 @@ public:
      *  Length = numRegions_ + 1
      *  Units = m**2 s-1
      */
-
     std::vector<double> diffusionCoeffRegions_;
 
-
+    //! Unused atm
     std::vector<double> rxnPerturbRegions_;
 
+    //! Vector of RadialDiffRegionSpec classes that are used to store the information about the regions
     std::vector<RadialDiffRegionSpec> rregions_;
 };
 
-
+//==============================================================================================================================
 //! This class is a derived class used to model phase - change electrodes
 /*!
  *  The class is an intermediary, support class. It's main purpose is to house the member data

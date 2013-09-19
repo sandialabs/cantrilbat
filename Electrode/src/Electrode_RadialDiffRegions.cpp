@@ -29,33 +29,51 @@ using namespace TKInput;
 namespace Cantera
 {
 //====================================================================================================================
-RadialDiffRegionSpec::RadialDiffRegionSpec()
+RadialDiffRegionSpec::RadialDiffRegionSpec() :
+    phaseIndeciseKRsolidPhases_(0),
+    DiffusionCoeffs_(0),
+    defaultDiffusionCoeff_(1.0E-12)
 {
-
 }
 //====================================================================================================================
 RadialDiffRegionSpec::RadialDiffRegionSpec(const RadialDiffRegionSpec& b) :
-   phaseIndeciseKRsolidPhases_(b.phaseIndeciseKRsolidPhases_)
+    phaseIndeciseKRsolidPhases_(b.phaseIndeciseKRsolidPhases_),
+    DiffusionCoeffs_(b.DiffusionCoeffs_),
+    defaultDiffusionCoeff_(b.defaultDiffusionCoeff_)
 {
-    
 }
+//====================================================================================================================
+RadialDiffRegionSpec& RadialDiffRegionSpec::operator=(const RadialDiffRegionSpec& right)
+{
+    if (this == &right) {
+        return *this;
+    }
+    phaseIndeciseKRsolidPhases_ = right.phaseIndeciseKRsolidPhases_;
+    DiffusionCoeffs_            = right.DiffusionCoeffs_;
+    defaultDiffusionCoeff_      = right.defaultDiffusionCoeff_;
+    return *this;
+}
+//====================================================================================================================
 //====================================================================================================================
 ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     numRegions_(1),
     numRegionsEntered_(0),
     solidDiffusionModel_(0),
-    rxnPerturbRegions_(0)
+    numRadialCellsRegions_(0),
+    diffusionCoeffRegions_(0),
+    rxnPerturbRegions_(0),
+    rregions_(0)
 {
     numRadialCellsRegions_.resize(1, 5);
 }
 //====================================================================================================================
 ELECTRODE_RadialDiffRegions_KEY_INPUT::~ELECTRODE_RadialDiffRegions_KEY_INPUT()
 {
-
 }
 //====================================================================================================================
-ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(const ELECTRODE_RadialDiffRegions_KEY_INPUT& right) :
+ELECTRODE_RadialDiffRegions_KEY_INPUT::
+ELECTRODE_RadialDiffRegions_KEY_INPUT(const ELECTRODE_RadialDiffRegions_KEY_INPUT& right) :
     ELECTRODE_KEY_INPUT(right),
     numRegions_(right.numRegions_),
     solidDiffusionModel_(right.solidDiffusionModel_)
@@ -71,15 +89,15 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::operator=(const ELECTRODE_RadialDiffRegio
     if (this == &right) {
         return *this;
     }
-
     ELECTRODE_KEY_INPUT::operator=(right);
 
     numRegions_                     = right.numRegions_;
-    solidDiffusionModel_            = right.solidDiffusionModel_;
-    diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
+    numRegionsEntered_              = right.numRegionsEntered_;
+    solidDiffusionModel_            = right.solidDiffusionModel_; 
     numRadialCellsRegions_          = right.numRadialCellsRegions_;
-
+    diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
     rxnPerturbRegions_              = right.rxnPerturbRegions_;
+    rregions_                       = right.rregions_;
 
     return *this;
 }
@@ -101,8 +119,6 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEnt
     sdm->set_default(0);
     cf->addLineEntry(sdm);
     BaseEntry::set_SkipUnknownEntries(true);
-
-
 }
 //====================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
@@ -122,7 +138,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
     if (numRegions_ != 1) {
        numRadialCellsRegions_.resize(numRegions_, 5);
     } 
-
+    diffusionCoeffRegions_.resize(numRegions_, 1.0E-12);
     /*
      * Put a potential loop over regions here
      */ 
@@ -138,7 +154,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
     nRm->set_default(5);
     be_rdr->addLineEntry(nRm);
 
-    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     LE_MultiCStr* pid = new LE_MultiCStr("Phase Name within Distributed region", 0, 10, 1, 1, "phaseNames");
     be_rdr->addLineEntry(pid);
@@ -151,10 +167,12 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
     if (solidDiffusionModel_) {
         reqd = numRegions_  + 1;
     }
-
-
-
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     reqd = 0;
+    LE_OneDbl* dDDC = new LE_OneDbl("Default Diffusion Coefficient", &(diffusionCoeffRegions_[iCell]), reqd,
+				    "defaultDiffusionCoefficient");
+    dDDC->set_default(1.0E-12);
+    be_rdr->addLineEntry(dDDC);
 
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     LE_StdVecDblVarLength* rr1 = new LE_StdVecDblVarLength("Reaction Rate Constant Perturbations for Regions",
@@ -165,6 +183,10 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
     be_rdr->addLineEntry(rr1);
 
     BaseEntry::set_SkipUnknownEntries(false);
+}
+//====================================================================================================================
+void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child3(BEInput::BlockEntry* cf)
+{
 }
 //======================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntry* cf)
@@ -183,8 +205,9 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
     int numCells = le_int->currentTypedValue();
     numRadialCellsRegions_[iCell] = numCells;
 
-    const char ** curPN = lepn_int->currentTypedValue();
+    const char** curPN = lepn_int->currentTypedValue();
     int numPS = lepn_int->get_NumTimesProcessed();
+    RadialDiffRegionSpec& r0 = rregions_[0];
 
     for (int i = 0; i < numPS; i++) {
        const char * cP = curPN[i];
@@ -194,10 +217,23 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
          printf("error\n");
          exit(-1); 
        }
-       RadialDiffRegionSpec& r0 = rregions_[0];
+
        (r0.phaseIndeciseKRsolidPhases_).push_back(k);
     }
+
+    le = be_rdr->searchLineEntry("Default Diffusion Coefficient");
+    BEInput::LE_OneDbl* d_lddc = dynamic_cast<LE_OneDbl*>(le);
+    if (d_lddc->get_NumTimesProcessed() > 0) {
+	r0.defaultDiffusionCoeff_ = d_lddc->currentTypedValue();
+    }
+
 }
+//======================================================================================================================
+void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child3(BEInput::BlockEntry* cf)
+{
+
+}
+//======================================================================================================================
 //======================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor
@@ -256,8 +292,8 @@ Electrode_RadialDiffRegions::operator=(const Electrode_RadialDiffRegions& right)
     RadialRegionList_.resize(numRadialRegions_);
     SurfaceRegionList_.resize(numRadialRegions_);
     for (int i = 0; i < numRadialRegions_; i++) {
-	RadialRegionList_[i] = new  Electrode_RadialRegion(*(right.RadialRegionList_[i]));
-	SurfaceRegionList_[i] = new  Electrode_SurfaceRegion(*(right.SurfaceRegionList_[i]));
+	RadialRegionList_[i] = new Electrode_RadialRegion(*(right.RadialRegionList_[i]));
+	SurfaceRegionList_[i] = new Electrode_SurfaceRegion(*(right.SurfaceRegionList_[i]));
     }
   
     MolarVolume_Ref_               = right.MolarVolume_Ref_;
