@@ -210,10 +210,12 @@ protected:
     int numRCells_;
 
     //! Number of phases which have radial distributions of their species
-    int numSPhase_;
+    int numSPhases_;
 
     //! Total number of equations defined at each node of the radial mesh
     int numEqnsCell_;
+
+    std::vector<ThermoPhase *> thermoSPhase_List_;
 
     //! Vector of solid species defined on the grid of the spherical particle
     /*!
@@ -358,6 +360,13 @@ protected:
 
     std::vector<doublereal> cellBoundR_final_;
     std::vector<doublereal> cellBoundL_final_;
+
+    //! Volume of each cell on a per particle basis
+    /*!
+     *      Length numRCells:
+     *      units = m3
+     */
+    std::vector<doublereal> volPP_Cell_final_;
 
     //!  Spline system for the nodal equations
     /*!
