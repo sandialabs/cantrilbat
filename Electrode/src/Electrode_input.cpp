@@ -1138,6 +1138,15 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
     }
     post_input_child2(cf);
 
+    setup_input_child3(cf);
+
+    ok = process_electrode_input(cf, commandFile, printBIProclevel, 5);
+    if (!ok) {
+        return -1;
+    }
+    post_input_child3(cf);
+
+
     return 0;
 }
 //=========================================================================================

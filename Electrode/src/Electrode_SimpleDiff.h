@@ -209,8 +209,6 @@ protected:
     //!  Number of cells involved with the radial distribution, including the 1/2 end cells
     int numRCells_;
 
-    int numNodes_;
-
     //! Number of phases which have radial distributions of their species
     int numSPhase_;
 
@@ -260,6 +258,10 @@ protected:
      *  distributed throughout the particle.
      *
      *    KRsolid_speciesList_[KRsolid] = kElectrodeObject
+     *
+     *      where
+     *           KRsolid = index of the radially distributed species
+     *           kElectrodeObject = PhaseList index of the species
      */
     std::vector<int> KRsolid_speciesList_;
 
@@ -318,6 +320,8 @@ protected:
      *       concTot_SPhase_Cell_final_(iSPhase, iCell)
      */
     std::vector<double> concKRSpecies_Cell_final_final_;
+
+    std::vector<double> X_KRSpecies_Cell_final_;
 
     //! Molar density of the solid phase in each cell under reference conditions
     /*!

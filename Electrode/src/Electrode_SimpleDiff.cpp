@@ -110,29 +110,52 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     spMoles_KRsolid_Cell_final_final_   = right.spMoles_KRsolid_Cell_final_final_;
     spMoles_KRsolid_Cell_init_init_     = right.spMoles_KRsolid_Cell_init_init_;
 
-    KRsolid_speciesList_            = right.KRsolid_speciesList_;
-    phaseIndeciseKRsolidPhases_     = right.phaseIndeciseKRsolidPhases_;
-    MolarVolume_Ref_                = right.MolarVolume_Ref_;
-    NTflux_final_                   = right.NTflux_final_;
-    DiffCoeff_                      = right.DiffCoeff_;
-    DiffCoeff_default_              = right.DiffCoeff_default_;
+    KRsolid_speciesList_                = right.KRsolid_speciesList_;
+    phaseIndeciseKRsolidPhases_         = right.phaseIndeciseKRsolidPhases_;
+    concTot_SPhase_Cell_final_final_    = right.concTot_SPhase_Cell_final_final_;
+    concTot_SPhase_Cell_final_          = right.concTot_SPhase_Cell_final_;
+    concTot_SPhase_Cell_init_           = right.concTot_SPhase_Cell_init_;  
+    concTot_SPhase_Cell_init_init_      = right.concTot_SPhase_Cell_init_init_;
+    concKRSpecies_Cell_init_            = right.concKRSpecies_Cell_init_;
+    concKRSpecies_Cell_final_           = right.concKRSpecies_Cell_final_;
+    concKRSpecies_Cell_init_init_       = right.concKRSpecies_Cell_init_init_;
+    concKRSpecies_Cell_final_final_     = right.concKRSpecies_Cell_final_final_;
+    X_KRSpecies_Cell_final_             = right.X_KRSpecies_Cell_final_;
+    MolarVolume_Ref_                    = right.MolarVolume_Ref_;
 
+    rnodePos_final_final_               = right.rnodePos_final_final_;
+    rnodePos_final_                     = right.rnodePos_final_;
+    rnodePos_init_                      = right.rnodePos_init_;
+    rnodePos_init_init_                 = right.rnodePos_init_init_;
+    rRefPos_final_final_                = right.rRefPos_final_final_;
+    rRefPos_final_                      = right.rRefPos_final_;
+    rRefPos_init_                       = right.rRefPos_init_;
+    rRefPos_init_init_                  = right.rRefPos_init_init_;
+    cellBoundR_final_                   = right.cellBoundR_final_;
+    cellBoundL_final_                   = right.cellBoundL_final_;
+
+    fracNodePos_                        = right.fracNodePos_;
+    fracVolNodePos_                     = right.fracVolNodePos_;
+    partialMolarVolKRSpecies_Cell_final_= right.partialMolarVolKRSpecies_Cell_final_;
+    DspMoles_final_                     = right.DspMoles_final_;
+    m_rbot0_                            = right.m_rbot0_;
+    Diff_Coeff_KRSolid_                 = right.Diff_Coeff_KRSolid_;
+    DphMolesSrc_final_                  = right.DphMolesSrc_final_;
+    surfIndexExteriorSurface_           = right.surfIndexExteriorSurface_;
+
+    NTflux_final_                       = right.NTflux_final_;
+    DiffCoeff_                          = right.DiffCoeff_;
+    DiffCoeff_default_                  = right.DiffCoeff_default_;
+    actCoeff_Cell_final_                = right.actCoeff_Cell_final_;
     /*
      * Return the reference to the current object
      */
     return *this;
 }
 //======================================================================================================================
-/*
- *
- * :destructor
- *
- * We need to manually free all of the arrays.
- */
+//   destructor
 Electrode_SimpleDiff::~Electrode_SimpleDiff()
 {
-
-
 }
 //======================================================================================================================
 //    Return the type of electrode
@@ -194,14 +217,51 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *   -> lots of room for embelishment later.
      */
     Diff_Coeff_KRSolid_.resize(numKRSpecies_, ei->diffusionCoeffRegions_[0]);
+    
+    /*
+     *  Create the mapping array KRsolid_speciesList_[]
+     */
+    KRsolid_speciesList_.resize(numKRSpecies_, -1);
+    int KRsolid = 0;
+    for  (int i = 0; i < (int) phaseIndeciseKRsolidPhases_.size(); i++) {
+	int iPh =  phaseIndeciseKRsolidPhases_[i];
+	ThermoPhase& th = thermo(iPh);
+	int nsp = th.nSpecies();
+	int kstart = getGlobalSpeciesIndex(iPh);
+	for (int kk = 0; kk < nsp; kk++) {
+	    KRsolid_speciesList_[KRsolid] = kstart + kk;
+	    KRsolid++;
+	}
+    }
+    
+    /*
+     *  We will do a cursory check of surface phases here. The assumption for this object
+     *  until further work is that there is one surface, and that it is the exterior
+     *  surface of the particle
+     */
+    if (m_NumSurPhases != 1) {
+	printf("Unhandled situation about surface phases\n");
+	exit(-1);
+    }
 
-//KRsolid_speciesList_;
-
-//surfIndexExteriorSurface_ = ;
+    /*
+     *  Identity of the surface phase for the exterior of the particle in the arrays,
+     *     surfaceAreaRS_final_;
+     */
+    surfIndexExteriorSurface_ = 0;
+ 
     /*
      * Initialize the arrays in this object now that we know the number of equations
      */
     init_sizes();
+
+    /*
+     *  Do a check on total volume
+     */
+    double currentSolidVol = Electrode::SolidVol();
+    double volPerParticle = currentSolidVol / particleNumberToFollow_;
+    Radius_exterior_final_ = pow(volPerParticle * 3 / (4. * Pi), 0.333333333333333333333);
+
     /*
      *  Initialize the grid
      *      Take the gross dimensions of the domain and create a grid.
@@ -238,6 +298,8 @@ Electrode_SimpleDiff::init_sizes()
     concKRSpecies_Cell_final_.resize(kspCell, 0.0);
     concKRSpecies_Cell_init_init_.resize(kspCell, 0.0);
     concKRSpecies_Cell_final_final_.resize(kspCell, 0.0);
+
+    X_KRSpecies_Cell_final_.resize(kspCell, 0.0);
 
     MolarVolume_Ref_ = 1.0;
 
@@ -318,14 +380,25 @@ Electrode_SimpleDiff::init_grid()
 void
 Electrode_SimpleDiff::initializeAsEvenDistribution()
 {
-    spMoles_KRsolid_Cell_final_;
+    int iCell, i, k, KRSolid;
+    /*
+     *  First, get the mole fractions 
+     */
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	for (KRSolid = 0; KRSolid <  numKRSpecies_; KRSolid++) {
+	    k = KRsolid_speciesList_[KRSolid];
+	    i = KRSolid + numKRSpecies_ * iCell;
+	    X_KRSpecies_Cell_final_[i] = spMf_final_[k];
+	}
+    }
+
+
+    //spMoles_KRsolid_Cell_final_;
 
  
-    concTot_SPhase_Cell_final_;
+    //concTot_SPhase_Cell_final_
 
-
-
-    concKRSpecies_Cell_final_;
+    //concKRSpecies_Cell_final_;
  
 
     partialMolarVolKRSpecies_Cell_final_;
