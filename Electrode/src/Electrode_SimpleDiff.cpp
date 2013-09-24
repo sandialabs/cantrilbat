@@ -79,6 +79,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
   
     KRsolid_speciesList_(0),
     phaseIndeciseKRsolidPhases_(0),
+    phaseIndeciseNonKRsolidPhases_(0),
     MolarVolume_Ref_(0),
    
     volPP_Cell_final_(0),
@@ -181,6 +182,7 @@ Electrode_Types_Enum Electrode_SimpleDiff::electrodeType() const
 int
 Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
+    int iPh;
     /*
      *  Downcast the Key input to make sure we are being fed the correct child object
      */
@@ -208,13 +210,25 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Get a count of the distributed phases
      */
     numSPhases_ = phaseIndeciseKRsolidPhases_.size();
+    
+    numNonSPhases_ = 0;
+    phaseIndeciseNonKRsolidPhases_.clear();
+    for (iPh = 0; iPh <  m_NumTotPhases; iPh++) {
+	if (std::find(phaseIndeciseKRsolidPhases_.begin(), phaseIndeciseKRsolidPhases_.end(), iPh)
+	    == phaseIndeciseKRsolidPhases_.end()) {
+	    phaseIndeciseNonKRsolidPhases_.push_back(iPh);
+	    numNonSPhases_++;
+	}
+    }
+
+
     /*
      *  Calculate the number of equations at each node from phaseIndeciseKRsolidPhases_
      *   2 + sum (nsp_each_distrib_phase)
      */
     numKRSpecies_ = 0;
     for (int i = 0; i < (int) phaseIndeciseKRsolidPhases_.size(); i++) {
-        int iPh =  phaseIndeciseKRsolidPhases_[i];
+        iPh =  phaseIndeciseKRsolidPhases_[i];
         ThermoPhase& th = thermo(iPh);
         int nsp = th.nSpecies();
         numKRSpecies_ += nsp;
@@ -234,7 +248,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     thermoSPhase_List_.resize(numSPhases_, 0);
     int KRsolid = 0;
     for  (int i = 0; i < (int) phaseIndeciseKRsolidPhases_.size(); i++) {
-	int iPh =  phaseIndeciseKRsolidPhases_[i];
+	iPh =  phaseIndeciseKRsolidPhases_[i];
 	ThermoPhase& th = thermo(iPh);
 	thermoSPhase_List_[i] = &th;
 	int nsp = th.nSpecies();
@@ -396,7 +410,7 @@ Electrode_SimpleDiff::init_grid()
 void
 Electrode_SimpleDiff::initializeAsEvenDistribution()
 {
-    int iCell, i, k, KRSolid, kspStart,  kspCell, iphCell;
+    int iCell, i, k, KRSolid,  kspCell, iphCell;
     /*
      *  First, get the mole fractions 
      */
@@ -475,10 +489,126 @@ void  Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doReset
 
 
 }
-//====================================================================================================================
-//! Take the state (i.e., the final state) within the Electrode_Model and push it down
-//! to the ThermoPhase objects and propogate it to all other aspects of the final state
+
+//================================================================================================================
+//  update the global phase numbers 
 /*!
+ *  This is for distributed phases
+ *    We don't calculate a mole fraction vector here
+ */
+void Electrode_SimpleDiff::updatePhaseNumbers(int iph)
+{ 
+    int istart = m_PhaseSpeciesStartIndex[iph];
+    ThermoPhase& tp = thermo(iph);
+    int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
+    
+    double tmp = 0.0;
+    for (int k = 0; k < nsp; k++) {
+        tmp += spMoles_final_[istart + k];
+    }
+    /*
+     *   We will experiment with ways of treating negative values here
+     */
+    if (tmp > 1.0E-200) {
+	phaseMoles_final_[iph] = tmp;
+    } else  if (tmp < -1.0E-200) {
+	phaseMoles_final_[iph] = tmp;
+    } else {
+	for (int k = 0; k < nsp; k++) {
+	    spMoles_final_[istart + k] = 0.0;
+	    phaseMoles_final_[iph] = 0.0;
+	}
+    }
+
+    tp.setState_TPX(temperature_, pressure_, &spMf_final_[istart]);
+    tp.setElectricPotential(phaseVoltages_[iph]);
+    tp.getPartialMolarVolumes(&(VolPM_[istart]));
+    tp.getElectrochemPotentials(&(spElectroChemPot_[istart]));
+    if (iph < NumVolPhases_) {
+        phaseMolarVolumes_[iph] = tp.molarVolume();
+    } else {
+        phaseMolarVolumes_[iph] = 0.0;
+        int isurf = iph - NumVolPhases_;
+        sphaseMolarAreas_[isurf] = tp.molarVolume();
+    }
+}
+
+//====================================================================================================================
+// Take the state (i.e., the final state) within the Electrode_SimpleDiff and push it up
+// to the zero-dimensional parent object
+/*
+ * 
+ *  update 
+ *             spMoles_final_ [] -> solid phase species
+ *
+ *
+ */
+void Electrode_SimpleDiff::UpdateState_OneToZeroDimensions()
+{
+    int jRPh, iPh, kspStart;
+    /*
+     *  Zero out the distributed fields -> before summing up the values
+     */
+    for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	kspStart = m_PhaseSpeciesStartIndex[iPh];
+	ThermoPhase* th = thermoSPhase_List_[jRPh];
+	int nSpecies = th->nSpecies();
+	for (int kSp = 0; kSp < nSpecies; kSp++) {
+	    spMoles_final_[kspStart + kSp] = 0.0;
+	}
+    }
+
+
+    /*
+     *  Loop over cells summing spMoles_final_
+     */
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+        int kstart = iCell * numKRSpecies_;
+        for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+            iPh = phaseIndeciseKRsolidPhases_[jRPh];
+            kspStart = m_PhaseSpeciesStartIndex[iPh];
+            ThermoPhase* th = thermoSPhase_List_[jRPh];
+            int nSpecies = th->nSpecies();
+            for (int kSp = 0; kSp < nSpecies; kSp++) {
+                spMoles_final_[kspStart + kSp] += spMoles_KRsolid_Cell_final_[kstart + kSp];
+            }
+	    kstart += nSpecies;
+        }
+    }
+    /*
+     *  Pick a cell to calculate the mole fractions from
+     */
+    int cellSpecial_ = numRCells_ - 1;
+    int kstart = cellSpecial_ * numKRSpecies_;
+    for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	kspStart = m_PhaseSpeciesStartIndex[iPh];
+	ThermoPhase* th = thermoSPhase_List_[jRPh];
+	int nSpecies = th->nSpecies();
+	for (int kSp = 0; kSp < nSpecies; kSp++) {
+	    spMf_final_[kspStart + kSp] = X_KRSpecies_Cell_final_[kstart + kSp];
+	}
+	kstart += nSpecies;
+    }
+
+
+    for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
+	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+	Electrode::updatePhaseNumbers(iPh);
+    }
+
+
+    
+
+
+ 
+}
+
+//====================================================================================================================
+// Take the state (i.e., the final state) within the Electrode_Model and push it down
+// to the ThermoPhase objects and propogate it to all other aspects of the final state
+/*
  *  (virtual function from Electrode)
  *  This virtual function should be written so that child routines are not called by parent routines.
  *
@@ -619,48 +749,25 @@ int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delt
     return 0;
 }
 //====================================================================================================================
-// Main internal routine to calculate the rate constant
+// Main routine to calculate the residual
 /*
- *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
- *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes
- *  in topology.
  *
- *  This routine calculates yval_retn, which is the calculated value of the residual for the
- *  nonlinear function
+ *  Format of the residual equations
+ *                                                             Unknown
+ * --------------------------------------------------------------------------------------------------------------
+ *         Residual (Time)                                     deltaT
  *
- *   resid[i] = y[i] - yval_retn[i]
+ *         Loop over cells
  *
- *  The formulation of the solution vector is as follows. The solution vector will consist of the following form
+ *           Residual (Reference/lattice Position)            rRefPos_final_[iCell];
+ *           Residual (Mesh Position)
+ *           Residual (Concentration _ k=0)
+ *             . . .
+ *           Residual (Concentration _ k=Ns-1)
+ *  --------------------------------------------------------------------------------------------------------------
  *
- *     y =  time step equation
- *          Cell 0   r0  Reference state position at the right cell boundary of each cell.
- *                   xs  Mesh position of the node in the center of the cell
- *                   p0  phaseMoles equation
- *                   p0  MF1 ...
- *                   p0  MFn-1
- *                   p1  phaseMoles equation
- *                   p1  MF1 ...
- *                   p1  MFn-1
- *          Cell 1   r0  Reference state position at the right cell boundary of each cell.
- *                   xs  Mesh position of the node in the center of the cell
- *                   p0  phaseMoles equation
- *                   p0  MF1 ...
- *                   p0  MFn-1
- *                   p1  phaseMoles equation
- *                   p1  MF1 ...
- *                   p1  MFn-1
- *              .
- *          Cell M   r0  Reference state position at the right cell boundary of each cell.
- *                   xs  Mesh position of the node in the center of the cell
- *                   p0  phaseMoles equation
- *                   p0  MF1 ...
- *                   p0  MFn-1
- *                   p1  phaseMoles equation
- *                   p1  MF1 ...
- *                   p1  MFn-1
- *
- *  @param yval_retn calculated return vector whose form is described above
  */
+
 int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
     // Indexes

@@ -112,6 +112,9 @@ public:
      */
     virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
 
+    virtual void updatePhaseNumbers(int);
+
+    void UpdateState_OneToZeroDimensions();
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state
@@ -274,6 +277,10 @@ protected:
      *  The phaseIndex is the index within the Electrode object
      */
     std::vector<int> phaseIndeciseKRsolidPhases_;
+
+    std::vector<int> phaseIndeciseNonKRsolidPhases_;
+
+    int numNonSPhases_;
 
     //! Total concentration of each of the solid phases that are distributed - global final state
     /*!
