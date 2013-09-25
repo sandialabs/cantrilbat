@@ -114,7 +114,16 @@ public:
 
     virtual void updatePhaseNumbers(int);
 
-    void UpdateState_OneToZeroDimensions();
+    //! Take the state (i.e., the final state) within the Electrode_SimpleDiff and push it up
+    //! to the zero-dimensional parent object
+    /*!
+     * 
+     *  update:
+     *             spMoles_final_ [] -> sum solid phase species
+     *             spMf_final_[]  -> Use exterior cell values
+     *
+     */
+    void updateState_OneToZeroDimensions();
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state
@@ -278,6 +287,12 @@ protected:
      */
     std::vector<int> phaseIndeciseKRsolidPhases_;
 
+    //! Phase indeces of the solid phases comprising the species that are not radially distributed
+    /*!
+     *  There are numNonSPhase_ of these
+     *
+     *  The phaseIndex is the index within the Electrode object
+     */
     std::vector<int> phaseIndeciseNonKRsolidPhases_;
 
     int numNonSPhases_;
@@ -330,7 +345,11 @@ protected:
      */
     std::vector<double> concKRSpecies_Cell_final_final_;
 
-    std::vector<double> X_KRSpecies_Cell_final_;
+    //! Mole fraction of the solid phase species that are distributed = final state
+    /*!
+     *
+     */
+    std::vector<double> spMf_KRSpecies_Cell_final_;
 
     //! Molar density of the solid phase in each cell under reference conditions
     /*!
