@@ -640,10 +640,19 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
  *  Fundamental Variables:
  *       concKRSpecies_Cell_final_[]
  *       rnodePos_final_[iCell]
+ *        rRefPos_final_[iCell]
  *
  *  Variables to be calculated:  (all of the rest)
  *
- *         spMoles_KRsolid_Cell_final_[]
+ *          spMoles_KRsolid_Cell_final_[]
+ *          concTot_SPhase_Cell_final_[]
+ *          spMf_KRSpecies_Cell_final_[]
+ *          partialMolarVolKRSpecies_Cell_final_[]
+ *          actCoeff_Cell_final_[]
+ *
+ *          cellBoundR_final_[]
+ *          cellBoundL_final_;
+ *          volPP_Cell_final_;
  *            
  */
 void Electrode_SimpleDiff::updateState()
@@ -663,10 +672,17 @@ void Electrode_SimpleDiff::updateState()
     /*
      *  Calculate the cell boundaries in a pre - loop
      */
-    for (iCell = 0; iCell < numRCells_; iCell++) {
+    cellBoundL_final_[0] = rnodePos_final_[0];
+    for (iCell = 0; iCell < numRCells_-1; iCell++) {
         cellBoundR_final_[iCell]  = 0.5 * (rnodePos_final_[iCell] + rnodePos_final_[iCell+1]);
+	cellBoundL_final_[iCell+1] = cellBoundR_final_[iCell];
     }
-
+    cellBoundR_final_[numRCells_-1] = rnodePos_final_[numRCells_-1];
+    for (iCell = 0; iCell < numRCells_-1; iCell++) {
+	double l3 =  cellBoundL_final_[iCell] * cellBoundL_final_[iCell] *  cellBoundL_final_[iCell];
+	double r3 =  cellBoundR_final_[iCell] * cellBoundR_final_[iCell] *  cellBoundR_final_[iCell];
+	volPP_Cell_final_[iCell]  = 4.0 * Pi / 3.0 * (r3 - l3);
+    }
 
 
     for (int iCell = 0; iCell < numRCells_; iCell++) {
@@ -735,11 +751,9 @@ void Electrode_SimpleDiff::updateState()
 	     */
 	    th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
 	    th->getActivityCoefficients(&actCoeff_Cell_final_[indexMidKRSpecies + kstart]);
+	    th->getPartialMolarVolumes(&partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
 	    
-	    
-        /*
-         * Calculate the molar volumes
-         */
+      
 	}
     }
 
