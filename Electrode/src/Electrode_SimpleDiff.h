@@ -132,6 +132,24 @@ public:
      */
     virtual void setInitStateFromFinal(bool setInitInit = false);
 
+
+    //! Set the internal initial intermediate and initial global state from the internal final_final state
+    /*!
+     *  (virtual function from Electrude.h)
+     *
+     *  Set the init and init_init state from the final_final state.
+     */
+    virtual void setInitInitStateFromFinalFinal();
+
+
+    //! Set the internal final intermediate state from the internal init state
+    /*!
+     *  (virtual function from Electrode)
+     *
+     *  Set the final state from the init state. This is commonly called during a failed time step
+     */
+    virtual void setFinalStateFromInit();
+
     //! Set the internal initial intermediate from the internal initial global state
     /*!
      *  (virtual function from Electrode.h)

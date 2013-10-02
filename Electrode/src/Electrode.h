@@ -978,7 +978,6 @@ public:
 //Can protect
     void setFinalStateFromInit_Oin();
 
-
     //! Set the internal final intermediate state from the internal init state
     /*!
      *  (virtual function from Electrode)

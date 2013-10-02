@@ -1245,7 +1245,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
      */
     Electrode_Integrator::setInitStateFromFinal_Oin(setInitInit);
 
-    int iCell, i, k, KRSolid,  kspCell, iphCell;
+    int iCell, i;
  
     int ntotal = numRCells_ * numKRSpecies_;
     for (i = 0; i < ntotal; ++i) {
@@ -1253,7 +1253,6 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_[i];
     }
 
-    
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
 	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_final_[i];
@@ -1270,7 +1269,6 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     setFinalFinalStateFromFinal();
 
     if (setInitInit) {
-
 	for (i = 0; i < ntotal; ++i) {
 	    spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_[i];
 	    concKRSpecies_Cell_init_init_[i] = concKRSpecies_Cell_final_[i];
@@ -1283,6 +1281,110 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 	for (iCell = 0; iCell < numRCells_; ++iCell) {
 	    rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_[iCell];
 	    rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
+	}
+    }
+}
+//====================================================================================================================
+// Set the internal initial intermediate and initial global state from the internal final_final state
+/*
+ *  (virtual function from Electrode.h)
+ *
+ *  Set the initial  and init_init state from the final state.
+ */
+void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
+{
+    Electrode_Integrator::setInitInitStateFromFinalFinal();
+
+    int iCell, i; 
+    int ntotal = numRCells_ * numKRSpecies_;
+    for (i = 0; i < ntotal; ++i) {
+	spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
+	concKRSpecies_Cell_init_init_[i] =  concKRSpecies_Cell_final_final_[i];
+	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
+	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_final_[i];
+    }
+
+    int iTotal =  numSPhases_ * numRCells_;
+    for (i = 0; i < iTotal; ++i) {
+	concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
+	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_final_[i];
+    }
+
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
+	rnodePos_init_init_[iCell] = rnodePos_final_final_[iCell];
+	rLatticeCBR_init_[iCell] = rLatticeCBR_final_final_[iCell];
+	rnodePos_init_[iCell] = rnodePos_final_final_[iCell];
+    }
+}
+//====================================================================================================================
+void Electrode_SimpleDiff::setFinalStateFromInit()
+{   
+    /*
+     * Call the parent object
+     */
+    Electrode_Integrator::setFinalStateFromInit();
+    
+    int iCell, i;
+    int iTotal =  numSPhases_ * numRCells_;
+    int ntotal = numRCells_ * numKRSpecies_;
+    for (i = 0; i < ntotal; ++i) {
+	spMoles_KRsolid_Cell_final_[i] = spMoles_KRsolid_Cell_init_[i];
+	concKRSpecies_Cell_final_[i] = concKRSpecies_Cell_init_[i];
+    }
+    
+    for (i = 0; i < iTotal; ++i) {
+	concTot_SPhase_Cell_final_[i] = concTot_SPhase_Cell_init_[i];
+    }
+    
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	rLatticeCBR_final_[iCell] = rLatticeCBR_init_[iCell];
+	rnodePos_final_[iCell] = rnodePos_init_[iCell];
+    }
+}
+//====================================================================================================================
+//    Set the internal initial intermediate from the internal initial global state
+/*
+ *  Set the intial state from the init init state. We also can set the final state from this
+ *  routine as well.
+ *
+ *  The final_final is not touched.
+ *
+ * @param setFinal   Boolean indicating whether you should set the final as well
+ */
+void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
+{
+    /*
+     * Call the parent object
+     */
+    Electrode_Integrator::setInitStateFromInitInit(setFinal);
+
+    int iCell, i; 
+    int ntotal = numRCells_ * numKRSpecies_;
+    for (i = 0; i < ntotal; ++i) {
+	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_init_init_[i];
+	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_init_init_[i];
+    }
+    int iTotal =  numSPhases_ * numRCells_;
+    for (i = 0; i < iTotal; ++i) {
+	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_init_init_[i];
+    }
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	rLatticeCBR_init_[iCell] = rLatticeCBR_init_init_[iCell];
+	rnodePos_init_[iCell] = rnodePos_init_init_[iCell];
+    }
+
+    if (setFinal) {
+	for (i = 0; i < ntotal; ++i) {
+	    spMoles_KRsolid_Cell_final_[i] = spMoles_KRsolid_Cell_init_init_[i];
+	    concKRSpecies_Cell_final_[i] =  concKRSpecies_Cell_init_init_[i];
+	}
+	for (i = 0; i < iTotal; ++i) {
+	    concTot_SPhase_Cell_final_[i] = concTot_SPhase_Cell_init_init_[i];
+	}
+	for (iCell = 0; iCell < numRCells_; ++iCell) {
+	    rLatticeCBR_final_[iCell] = rLatticeCBR_init_init_[iCell];
+	    rnodePos_final_[iCell] = rnodePos_init_init_[iCell];
 	}
     }
 }
