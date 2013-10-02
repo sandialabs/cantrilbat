@@ -54,10 +54,10 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     rnodePos_final_(0),
     rnodePos_init_(0),
     rnodePos_init_init_(0),
-    rLattice_final_final_(0),
+    rLatticeCBR_final_final_(0),
     rLatticeCBR_final_(0),
-    rLattice_init_(0),
-    rLattice_init_init_(0),
+    rLatticeCBR_init_(0),
+    rLatticeCBR_init_init_(0),
     rLatticeCBR_ref_(0),
     vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
@@ -96,10 +96,10 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
   rnodePos_final_(0),
     rnodePos_init_(0),
     rnodePos_init_init_(0),
-    rLattice_final_final_(0),
+    rLatticeCBR_final_final_(0),
     rLatticeCBR_final_(0),
-    rLattice_init_(0),
-    rLattice_init_init_(0),
+    rLatticeCBR_init_(0),
+    rLatticeCBR_init_init_(0),
     rLatticeCBR_ref_(0),
     vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
@@ -158,10 +158,10 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     rnodePos_final_                     = right.rnodePos_final_;
     rnodePos_init_                      = right.rnodePos_init_;
     rnodePos_init_init_                 = right.rnodePos_init_init_;
-    rLattice_final_final_               = right.rLattice_final_final_;
+    rLatticeCBR_final_final_            = right.rLatticeCBR_final_final_;
     rLatticeCBR_final_                  = right.rLatticeCBR_final_;
-    rLattice_init_                      = right.rLattice_init_;
-    rLattice_init_init_                 = right.rLattice_init_init_;
+    rLatticeCBR_init_                   = right.rLatticeCBR_init_;
+    rLatticeCBR_init_init_              = right.rLatticeCBR_init_init_;
     rLatticeCBR_ref_                    = right.rLatticeCBR_ref_;
     vLatticeCBR_cell_                   = right.vLatticeCBR_cell_;
     cellBoundR_final_                   = right.cellBoundR_final_;
@@ -327,6 +327,53 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     return 0;
 }
 //====================================================================================================================
+//  Set the electrode initial conditions from the input file.
+/*!
+ *   (virtual from Electrode)
+ *   (This is a serial virtual function or an overload function)
+ *
+ *    This is one of the most important routines. It sets up the initial conditions of the electrode
+ *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
+ *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+ *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+ *    object and the initial state of that object.
+ *
+ *    The routine works like an onion initialization. The parent object is initialized before the
+ *    child. This means the child object first calls the parent, before it does its own initializations.
+ *
+ * @param ei    ELECTRODE_KEY_INPUT pointer object
+ *
+ *  @return  Returns zero if successful, and -1 if not successful.
+ */
+int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
+{
+    ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
+    if (!ei) {
+        throw CanteraError(" Electrode_SimpleDiff::electrode_model_create()",
+                           " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
+    }
+   
+    int flag = Electrode_Integrator::setInitialConditions(ei);
+    if (flag != 0) {
+        return flag;
+    }
+
+    /*
+     *  Initialize all of the variables on the domain
+     *    We take the grid size and the mole numbers from the base Electrode representation
+     *    and create a distributed representation.
+     *    Any disparity in mole numbers creates an error.
+     */
+    initializeAsEvenDistribution();
+
+    /*
+     *  Set the initial state and the init_init state from the final state.
+     */
+    setInitStateFromFinal(true);
+
+    return 0;
+}
+//====================================================================================================================
 void
 Electrode_SimpleDiff::init_sizes()
 {
@@ -357,10 +404,10 @@ Electrode_SimpleDiff::init_sizes()
     rnodePos_init_.resize(numRCells_, 0.0);
     rnodePos_init_init_.resize(numRCells_, 0.0);
 
-    rLattice_final_final_.resize(numRCells_, 0.0);
+    rLatticeCBR_final_final_.resize(numRCells_, 0.0);
     rLatticeCBR_final_.resize(numRCells_, 0.0);
-    rLattice_init_.resize(numRCells_, 0.0);
-    rLattice_init_init_.resize(numRCells_, 0.0);
+    rLatticeCBR_init_.resize(numRCells_, 0.0);
+    rLatticeCBR_init_init_.resize(numRCells_, 0.0);
     rLatticeCBR_ref_.resize(numRCells_, 0.0);
 
     cellBoundR_final_.resize(numRCells_, 0.0);
@@ -422,9 +469,9 @@ Electrode_SimpleDiff::init_grid()
 	 rnodePos_init_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
 	 rLatticeCBR_final_[iCell] = rnodePos_final_[iCell];
-	 rLattice_final_final_[iCell] = rnodePos_final_[iCell];
-	 rLattice_init_[iCell] = rnodePos_final_[iCell];
-	 rLattice_init_init_[iCell] = rnodePos_final_[iCell];
+	 rLatticeCBR_final_final_[iCell] = rnodePos_final_[iCell];
+	 rLatticeCBR_init_[iCell] = rnodePos_final_[iCell];
+	 rLatticeCBR_init_init_[iCell] = rnodePos_final_[iCell];
 
 	 double cbl3 = cellBoundL_final_[iCell] * cellBoundL_final_[iCell] * cellBoundL_final_[iCell];
 	 double cbR3 = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
@@ -1171,20 +1218,74 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     }
     return 1;
 }
-//================================================================================================
+//====================================================================================================================
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
 void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
 {
 
-
-
     updateState();
 
 }
+//====================================================================================================================
+//! Set the internal initial intermediate and initial global state from the internal final state
+/*!
+ *  (virtual function from Electrode.h)
+ *
+ *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
+ *  routine as well.
+ *
+ * @param setInitInit   Boolean indicating whether you should set the init_init state as well
+ */
+void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
+{
+    /*
+     * Call the parent object
+     */
+    Electrode_Integrator::setInitStateFromFinal_Oin(setInitInit);
 
+    int iCell, i, k, KRSolid,  kspCell, iphCell;
+ 
+    int ntotal = numRCells_ * numKRSpecies_;
+    for (i = 0; i < ntotal; ++i) {
+	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_[i];
+	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_[i];
+    }
 
+    
+    int iTotal =  numSPhases_ * numRCells_;
+    for (i = 0; i < iTotal; ++i) {
+	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_final_[i];
+    }
+
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	rLatticeCBR_init_[iCell] = rLatticeCBR_final_[iCell];
+	rnodePos_init_[iCell] = rnodePos_final_[iCell];
+    }
+
+    /*
+     *  Now transfer that to other states
+     */
+    setFinalFinalStateFromFinal();
+
+    if (setInitInit) {
+
+	for (i = 0; i < ntotal; ++i) {
+	    spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_[i];
+	    concKRSpecies_Cell_init_init_[i] = concKRSpecies_Cell_final_[i];
+	}
+	
+	for (i = 0; i < iTotal; ++i) {
+	    concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_[i];
+	}
+
+	for (iCell = 0; iCell < numRCells_; ++iCell) {
+	    rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_[iCell];
+	    rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
+	}
+    }
+}
 //====================================================================================================================
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 {

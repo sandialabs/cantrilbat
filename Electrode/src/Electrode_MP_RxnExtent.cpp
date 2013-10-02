@@ -721,7 +721,6 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
 
     int flag = Electrode_Integrator::setInitialConditions(ei);
-
     if (flag != 0) {
         return flag;
     }

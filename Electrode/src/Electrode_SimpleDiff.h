@@ -57,8 +57,48 @@ public:
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
-    //! create the electrode model
+    //!  Setup the electrode for first time use
+    /*!
+     * (virtual from Electrode  - onion Out)
+     *
+     *    This is one of the most important routines. It sets up the electrode's internal structures
+     *    After the call to this routine, the electrode should be internally ready to be integrated
+     *    and reacted.
+     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *    object and the initial state of that object.
+     *    The routine works like an onion Out initialization. The parent object is initialized before the
+     *    child. This means the child object first calls the parent, before it does its own initializations.
+     *
+     *    There are some virtual member functions that won't work until this routine is called. That's because
+     *    the data structures won't be set up for base and child Electrode objects until this is called.
+     *
+     *  @param ei   BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
+     *              for the child electrode object.
+     *
+     *  @return  Returns zero if successful, and -1 if not successful.
+     */
     int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+
+    //!  Set the electrode initial conditions from the input file.
+    /*!
+     *   (virtual from Electrode)
+     *   (This is a serial virtual function or an overload function)
+     *
+     *    This is one of the most important routines. It sets up the initial conditions of the electrode
+     *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
+     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *    object and the initial state of that object.
+     *
+     *    The routine works like an onion initialization. The parent object is initialized before the
+     *    child. This means the child object first calls the parent, before it does its own initializations.
+     *
+     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *
+     *  @return  Returns zero if successful, and -1 if not successful.
+     */
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+
 
     //! Initialize the sizes
     void init_sizes();
@@ -77,6 +117,37 @@ public:
 
     void extractInfo(std::vector<int>& justBornMultiSpecies);
 
+    //------------------------------------------------------------------------------------------------------------------
+    // -------------------------------  SetState Functions -------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+
+    //! Set the internal initial intermediate and initial global state from the internal final state
+    /*!
+     *  (virtual function from Electrode.h)
+     *
+     *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
+     *  routine as well.
+     *
+     * @param setInitInit   Boolean indicating whether you should set the init_init state as well
+     */
+    virtual void setInitStateFromFinal(bool setInitInit = false);
+
+    //! Set the internal initial intermediate from the internal initial global state
+    /*!
+     *  (virtual function from Electrode.h)
+     *
+     *  Set the intial state from the init init state. We also can set the final state from this
+     *  routine as well.
+     *
+     *  The final_final is not touched.
+     *
+     * @param setFinal   Boolean indicating whether you should set the final as well
+     */
+    virtual void setInitStateFromInitInit(bool setFinal = false);
+
+    //--------------------------------------------------------------------------------------------------
+    // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
     //! Print conditions of the electrode for the current integration step to stdout
     /*!
@@ -373,16 +444,16 @@ protected:
     std::vector<doublereal> rnodePos_init_init_;
 
     //! Reference radius at the right cell boundary - global final value
-    std::vector<doublereal> rLattice_final_final_;
+    std::vector<doublereal> rLatticeCBR_final_final_;
 
     //! Reference radius at the right cell boundary - local final value
     std::vector<doublereal> rLatticeCBR_final_;
 
     //! Reference radius at the right cell boundary - local init value
-    std::vector<doublereal> rLattice_init_;
+    std::vector<doublereal> rLatticeCBR_init_;
 
     //! Reference radius at the right cell boundary - global init value
-    std::vector<doublereal> rLattice_init_init_;
+    std::vector<doublereal> rLatticeCBR_init_init_;
 
     std::vector<doublereal> rLatticeCBR_ref_;
 

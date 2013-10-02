@@ -343,7 +343,9 @@ public:
      *    The routine works like an onion Out initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
-     *    There are some serial-virtual member functions that won't work until this routine is called.
+     *    There are some virtual member functions that won't work until this routine is called.
+     *    That's because the data structures won't be set up for base and child Electrode objects until 
+     *    this is called.
      *
      *  @param ei   BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
      *              for the child electrode object.
@@ -987,7 +989,7 @@ public:
     virtual void setFinalStateFromInit();
 
 
-    //! Set the internal initial intermediatefrom the internal initial global state
+    //! Set the internal initial intermediate from the internal initial global state
     /*!
      *  Set the intial state from the init init state. We also can set the final state from this
      *  routine as well.
@@ -1857,7 +1859,9 @@ public:
     void updatePhaseNumbersTmp(std::vector<doublereal>& spMoles_tmp,
                                std::vector<doublereal>& phaseMoles_tmp, std::vector<doublereal>& spMf_tmp);
 
+    //--------------------------------------------------------------------------------------------------
     // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
     //! Determines the level of printing for each step.
     /*!

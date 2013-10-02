@@ -858,7 +858,6 @@ protected:
     doublereal deltaTsubcycleCalc_;
 
 
-
     std::vector<doublereal> atolResidNLS_;
 
 
