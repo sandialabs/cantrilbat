@@ -376,7 +376,7 @@ protected:
     std::vector<doublereal> rLattice_final_final_;
 
     //! Reference radius at the right cell boundary - local final value
-    std::vector<doublereal> rLattice_final_;
+    std::vector<doublereal> rLatticeCBR_final_;
 
     //! Reference radius at the right cell boundary - local init value
     std::vector<doublereal> rLattice_init_;
@@ -385,6 +385,8 @@ protected:
     std::vector<doublereal> rLattice_init_init_;
 
     std::vector<doublereal> rLatticeCBR_ref_;
+
+    std::vector<doublereal> vLatticeCBR_cell_;
 
     std::vector<doublereal> cellBoundR_final_;
     std::vector<doublereal> cellBoundL_final_;
