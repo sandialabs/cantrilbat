@@ -163,6 +163,14 @@ public:
      */
     virtual void setInitStateFromInitInit(bool setFinal = false);
 
+    //! Set the internal final global state from the internal final intermediate state
+    /*!
+     *  (virtual function from Electrode)
+     *
+     *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
+     */
+    virtual void setFinalFinalStateFromFinal();
+
     //--------------------------------------------------------------------------------------------------
     // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------
     //--------------------------------------------------------------------------------------------------

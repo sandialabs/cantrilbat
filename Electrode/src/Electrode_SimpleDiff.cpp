@@ -1389,6 +1389,38 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
     }
 }
 //====================================================================================================================
+// Set the internal final global state from the internal final intermediate state
+/*
+ *  (virtual function from Electrode.h)
+ *
+ *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
+ */
+void Electrode_SimpleDiff::setFinalFinalStateFromFinal() 
+{
+    /*
+     * Call the parent object
+     */
+    Electrode_Integrator::setFinalFinalStateFromFinal();
+
+    int iCell, i;
+ 
+    int ntotal = numRCells_ * numKRSpecies_;
+    for (i = 0; i < ntotal; ++i) {
+	spMoles_KRsolid_Cell_final_final_[i] = spMoles_KRsolid_Cell_final_[i];
+	concKRSpecies_Cell_final_final_[i] =  concKRSpecies_Cell_final_[i];
+    }
+
+    int iTotal =  numSPhases_ * numRCells_;
+    for (i = 0; i < iTotal; ++i) {
+	concTot_SPhase_Cell_final_final_[i] = concTot_SPhase_Cell_final_[i];
+    }
+
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	rLatticeCBR_final_final_[iCell] = rLatticeCBR_final_[iCell];
+	rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
+    }
+}
+//====================================================================================================================
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 {
     int iph;

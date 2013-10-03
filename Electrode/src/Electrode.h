@@ -987,7 +987,6 @@ public:
 //Can protect
     virtual void setFinalStateFromInit();
 
-
     //! Set the internal initial intermediate from the internal initial global state
     /*!
      *  Set the intial state from the init init state. We also can set the final state from this
