@@ -59,9 +59,9 @@ int main(int argc, char **argv)
 {
   int retn = 0;
   //bool doCathode = false;
-  string commandFileNet = "cell.inp";
+  std::string commandFileNet = "anode.inp";
+  std::string commandFileA = "anode.inp";
 
-  string commandFileA = "anode.inp";
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
 
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 	    exit(1);
 	  }
 	}
-      } else if (commandFileNet == "") {
+      } else if (commandFileNet == "anode.inp") {
 	commandFileNet = tok;
       } else {
 	printUsage();
@@ -111,24 +111,13 @@ int main(int argc, char **argv)
     }
   }
 
-
   try {
-
-    /*
-     * Go get the Cell problem description from the input file
-     */
-    //  retn = cell_input(commandFileNet);
-    if (retn == -1) {
-      printf("exiting with error\n");
-      exit(-1);
-    }
   
     Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
 
     ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     
-    std::string commandFileA = "anode.inp";
-
+    std::string commandFileA = commandFileNet;
 	
     // Initialize a block input structure for the command file
 
