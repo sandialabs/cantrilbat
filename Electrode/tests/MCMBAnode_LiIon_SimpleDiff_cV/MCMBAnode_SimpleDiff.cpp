@@ -41,15 +41,15 @@ int mpequil_debug_print_lvl = 1;
 int VCS_Debug_Print_Lvl = 3;
 
 void printUsage() {
-    cout << "usage: electrodeCell [-h] [-help_cmdfile] [-d #] [mpequil.inp]"
+    cout << "usage: MCMBAnode_SimpleDiff [-h] [-help_cmdfile] [-d #] [anode.inp]"
          <<  endl;
-    cout << "    -h           help" << endl;
-    cout << "    -d           #   : level of debug printing" << endl;
-    cout << "  electrodeCell.inp    : command file" << endl;
-    cout << "                     : (if missing, assume mpequil.inp)" 
-	 << endl;
+    cout << "    -h               : Prints this help" << endl;
+    cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add anode.inp for more information" << endl;
+    cout << "   -d #              : Level of debug printing" << endl;
+    cout << "   anode.inp         : Command file (if missing, assume anode.inp)" << endl;
     cout << endl;
 }
+
 
 
 //=====================================================================================================
@@ -57,14 +57,12 @@ void printUsage() {
 
 int main(int argc, char **argv)
 {
-  int ip1 = 0;
   int retn = 0;
   //bool doCathode = false;
   string commandFileNet = "cell.inp";
 
   string commandFileA = "anode.inp";
   bool printInputFormat = false; // print cmdfile.txt format
-  bool printedUsage = false; // bool indicated that we have already
   // printed usage
 
   VCSnonideal::vcs_timing_print_lvl = 0;
@@ -85,7 +83,6 @@ int main(int argc, char **argv)
 	    printInputFormat = true;
 	  } else if (tok[n] == 'h') {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  } else if (tok[n] == 'd') {
 	    int lvl = 2;
@@ -96,15 +93,12 @@ int main(int argc, char **argv)
 		n = nopt - 1;
 		j += 1;
 		if (lvl >= 0 && lvl <= 1000) {
-		  if (lvl == 0) ip1 = 0;
-		  else          ip1 = lvl; 
 		  mpequil_debug_print_lvl = lvl;
 		}
 	      }  
 	    }
 	  } else {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  }
 	}
@@ -112,7 +106,6 @@ int main(int argc, char **argv)
 	commandFileNet = tok;
       } else {
 	printUsage();
-	printedUsage = true;
 	exit(1);
       }
     }
@@ -149,6 +142,12 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
+
+    if (printInputFormat) {
+      cfC->print_usage();
+      exit(-1);
+    }
+
     retn = electrodeA->electrode_model_create(electrodeA_input);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -183,7 +182,7 @@ int main(int argc, char **argv)
     electrodeA->printElectrode();
     electrodeA->setDeltaTSubcycle(0.01);
 
-    int rr = remove("soln.xml");
+    remove("soln.xml");
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
