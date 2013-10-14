@@ -48,8 +48,10 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
   
 
     KRsolid_speciesList_(0),
+    KRsolid_speciesNames_(0),
     phaseIndeciseKRsolidPhases_(0),
     numSpeciesInKRSolidPhases_(0),
+    KRsolid_phaseNames_(0),
     MolarVolume_Ref_(0),
 
     rnodePos_final_(0),
@@ -97,12 +99,14 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     spMoles_KRsolid_Cell_init_init_(0),
   
     KRsolid_speciesList_(0),
+    KRsolid_speciesNames_(0),
     phaseIndeciseKRsolidPhases_(0),
     numSpeciesInKRSolidPhases_(0),
+    KRsolid_phaseNames_(0),
     phaseIndeciseNonKRsolidPhases_(0),
     MolarVolume_Ref_(0),
 
-  rnodePos_final_(0),
+    rnodePos_final_(0),
     rnodePos_init_(0),
     rnodePos_init_init_(0),
     rLatticeCBR_final_final_(0),
@@ -158,8 +162,10 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     spMoles_KRsolid_Cell_init_init_     = right.spMoles_KRsolid_Cell_init_init_;
 
     KRsolid_speciesList_                = right.KRsolid_speciesList_;
+    KRsolid_speciesNames_               = right.KRsolid_speciesNames_;
     phaseIndeciseKRsolidPhases_         = right.phaseIndeciseKRsolidPhases_;
     numSpeciesInKRSolidPhases_          = right.numSpeciesInKRSolidPhases_;
+    KRsolid_phaseNames_                 = right.KRsolid_phaseNames_;
     concTot_SPhase_Cell_final_final_    = right.concTot_SPhase_Cell_final_final_;
     concTot_SPhase_Cell_final_          = right.concTot_SPhase_Cell_final_;
     concTot_SPhase_Cell_init_           = right.concTot_SPhase_Cell_init_;  
@@ -296,6 +302,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     KRsolid_speciesList_.resize(numKRSpecies_, -1);
     thermoSPhase_List_.resize(numSPhases_, 0);
+    KRsolid_speciesNames_.clear();
     int KRsolid = 0;
     for  (int i = 0; i < (int) phaseIndeciseKRsolidPhases_.size(); i++) {
 	iPh =  phaseIndeciseKRsolidPhases_[i];
@@ -305,6 +312,8 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 	int kstart = getGlobalSpeciesIndex(iPh);
 	for (int kk = 0; kk < nsp; kk++) {
 	    KRsolid_speciesList_[KRsolid] = kstart + kk;
+	    std::string kname = th.speciesName(kk);
+	    KRsolid_speciesNames_.push_back(kname);
 	    KRsolid++;
 	}
     }
@@ -1419,16 +1428,24 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     return 1;
 }
 //====================================================================================================================
-void  Electrode_SimpleDiff::showSolution()
+void  Electrode_SimpleDiff::showSolution(int indentSpaces)
 {
-    int NumDomainEqns = 1;
-    int nn = NumDomainEqns / 5;
-    for (int iBlock = 0; iBlock < nn; iBlock++) {
-	
-    }
-    
 
 
+    std::string title = "Lattice Radius CBR (m)";
+    vector<std::string> colNames;
+    colNames.push_back("LatticeRadius");
+    showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &rLatticeCBR_final_[0], colNames, 1);
+     
+
+    title = "Phase Concentrations (kmol m-3)";
+    showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &concTot_SPhase_Cell_final_[0], KRsolid_phaseNames_,
+		 numSPhases_);
+
+
+    title = "Species Concentrations (kmol /m3)";
+    showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &concKRSpecies_Cell_final_[0], KRsolid_speciesNames_,
+		 numKRSpecies_);
 
 }
 //====================================================================================================================
@@ -1444,7 +1461,7 @@ static void drawline(int sp, int ll)
 }
 
 //====================================================================================================================
-void  Electrode_SimpleDiff::showOneField(int indentSpaces, const double * const radialValues, int numRadialVals, 
+void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 					 const double * const vals, const std::vector<std::string> &varNames, int numFields)
 {
     int n, iCell;
@@ -1454,6 +1471,8 @@ void  Electrode_SimpleDiff::showOneField(int indentSpaces, const double * const 
 	indent += " ";
     }
     int numBlockRows = numFields / 5;
+    drawline(indentSpaces, 80);
+    printf("%s  %s\n", indent.c_str(), title.c_str());
     for (int iBlock = 0; iBlock < numBlockRows; iBlock++) {
 	drawline(indentSpaces, 80);
 	printf("%s        z   ", indent.c_str());
@@ -1824,6 +1843,11 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }
     }
+    /*
+     * Add distributed printouts.
+     */
+
+
     delete [] netROP;
 
 }

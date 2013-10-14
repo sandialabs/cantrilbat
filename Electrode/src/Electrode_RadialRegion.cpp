@@ -1276,10 +1276,10 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
          *  Figure out the volume of lattice that has moved on the rhs of the cell volume
          */
 
-        bool gainedLatticeSites = false;
+        //bool gainedLatticeSites = false;
         double volGained_RHS;
         if (cbRadius3_RHS_final >= refLattice3InterpolatedField[iCell]) {
-            gainedLatticeSites = true;
+            //gainedLatticeSites = true;
             volGained_RHS = 4. * Pi / 3.0 * (cbRadius3_RHS_final - refLattice3InterpolatedField[iCell]);
         } else {
             volGained_RHS = 4. * Pi / 3.0 * (cbRadius3_RHS_final - refLattice3InterpolatedField[iCell]);

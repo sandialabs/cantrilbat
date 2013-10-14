@@ -121,9 +121,11 @@ public:
      *  @param indentSpaces  Number of spacies to indent the whole group
      *  @param 
      */
-    void showOneField(int indentSpaces, const double * const radialValues, int numRadialVals, 
+    void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
-    void showSolution();
+
+    //! Print the solution to the current step to output
+    void showSolution(int indentSpaces);
 
     //! Extract information from reaction mechanisms
     /*!
@@ -327,6 +329,21 @@ public:
      *           ...
      *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[1]
      *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
+
+     *
+     *                                                             Unknown                           Index
+     * --------------------------------------------------------------------------------------------------------------
+     *         Residual (Time)                                     deltaSubcycleCalc_                   0
+     *                                                                                            1
+     *         Loop over cells                                                            0 <=  iCell < numRCells_
+     *                                                                                     j = numEqnsCell_ * iCell
+     *                    
+     *            Residual (Reference/lattice Position)            rRefPos_final_[iCell];        (1+j)
+     *            Residual (Mesh Position)                                                       (j+1) + 1
+     *            Residual (Concentration _ k=0)
+     *              . . .
+     *            Residual (Concentration _ k=Ns-1)
+     *  --------------------------------------------------------------------------------------------------------------
      *
      *  @param resid   Calculated residual vector whose form is described above
      */
@@ -407,6 +424,9 @@ protected:
      */
     std::vector<int> KRsolid_speciesList_;
 
+    //! Species Names for the solid species that are distributed radially through the particle
+    std::vector<std::string> KRsolid_speciesNames_;
+
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
      *  There are numSPhase_ of these
@@ -422,6 +442,12 @@ protected:
      *  The phaseIndex is the index within the Electrode object
      */
     std::vector<int> numSpeciesInKRSolidPhases_;
+
+    //! Phase Names of the solid phases comprising the species that are radially distributed
+    /*!
+     *  There are numSPhase_ of these
+     */
+    std::vector<std::string>  KRsolid_phaseNames_;
 
     //! Phase indeces of the solid phases comprising the species that are not radially distributed
     /*!
