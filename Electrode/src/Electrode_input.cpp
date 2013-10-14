@@ -1383,18 +1383,18 @@ int electrode_model_print(Cantera::Electrode* electrodeA,  ELECTRODE_KEY_INPUT* 
          */
 
 
-        bool molVecSpecified = false;
         BEInput::BlockEntry* pblock = cf->searchBlockEntry(phaseBath.c_str());
+        /*
+        bool molVecSpecified = false;
         if (pblock) {
-            BEInput::BlockEntry* pbsmf =
-                pblock->searchBlockEntry("Bath Species Mole Fraction");
+            BEInput::BlockEntry* pbsmf = pblock->searchBlockEntry("Bath Species Mole Fraction");
             if (pbsmf) {
                 if (pbsmf->get_NumTimesProcessed() > 0) {
                     molVecSpecified = true;
                 }
             }
         }
-
+        */
 
         double* molesSpecies = new double[nSpecies];
 

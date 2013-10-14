@@ -49,6 +49,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 
     KRsolid_speciesList_(0),
     phaseIndeciseKRsolidPhases_(0),
+    numSpeciesInKRSolidPhases_(0),
     MolarVolume_Ref_(0),
 
     rnodePos_final_(0),
@@ -65,7 +66,14 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     volPP_Cell_final_(0),
     NTflux_final_(0.0),
     DiffCoeff_(1.0E-12),
-    DiffCoeff_default_(1.0E-12)
+    DiffCoeff_default_(1.0E-12),
+    actCoeff_Cell_final_(0),
+    phaseID_TimeDeathMin_(-1),
+    cellID_TimeDeathMin_(-1),
+    onRegionBoundary_init_(-1),
+    onRegionBoundary_final_(-1),
+    onRegionBoundary_init_init_(-1),
+    onRegionBoundary_final_final_(-1)
 {
 
 
@@ -90,6 +98,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
   
     KRsolid_speciesList_(0),
     phaseIndeciseKRsolidPhases_(0),
+    numSpeciesInKRSolidPhases_(0),
     phaseIndeciseNonKRsolidPhases_(0),
     MolarVolume_Ref_(0),
 
@@ -107,7 +116,14 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     volPP_Cell_final_(0),
     NTflux_final_(0.0),
     DiffCoeff_(1.0E-12),
-    DiffCoeff_default_(1.0E-12)
+    DiffCoeff_default_(1.0E-12),
+    actCoeff_Cell_final_(0),
+    phaseID_TimeDeathMin_(-1),
+    cellID_TimeDeathMin_(-1),
+    onRegionBoundary_init_(-1),
+    onRegionBoundary_final_(-1),
+    onRegionBoundary_init_init_(-1),
+    onRegionBoundary_final_final_(-1)
 {
     /*
      * Call the assignment operator.
@@ -143,6 +159,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
 
     KRsolid_speciesList_                = right.KRsolid_speciesList_;
     phaseIndeciseKRsolidPhases_         = right.phaseIndeciseKRsolidPhases_;
+    numSpeciesInKRSolidPhases_          = right.numSpeciesInKRSolidPhases_;
     concTot_SPhase_Cell_final_final_    = right.concTot_SPhase_Cell_final_final_;
     concTot_SPhase_Cell_final_          = right.concTot_SPhase_Cell_final_;
     concTot_SPhase_Cell_init_           = right.concTot_SPhase_Cell_init_;  
@@ -181,6 +198,13 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     DiffCoeff_                          = right.DiffCoeff_;
     DiffCoeff_default_                  = right.DiffCoeff_default_;
     actCoeff_Cell_final_                = right.actCoeff_Cell_final_;
+    phaseID_TimeDeathMin_               = right.phaseID_TimeDeathMin_;
+    cellID_TimeDeathMin_                = right.cellID_TimeDeathMin_;
+    onRegionBoundary_init_              = right.onRegionBoundary_init_;
+    onRegionBoundary_final_             = right.onRegionBoundary_final_;
+    onRegionBoundary_init_init_         = right.onRegionBoundary_init_init_;
+    onRegionBoundary_final_final_       = right.onRegionBoundary_final_final_;
+
     /*
      * Return the reference to the current object
      */
@@ -251,10 +275,12 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *   2 + sum (nsp_each_distrib_phase)
      */
     numKRSpecies_ = 0;
-    for (int i = 0; i < (int) phaseIndeciseKRsolidPhases_.size(); i++) {
+    numSpeciesInKRSolidPhases_.clear();
+    for (int i = 0; i < numSPhases_; i++) {
         iPh =  phaseIndeciseKRsolidPhases_[i];
         ThermoPhase& th = thermo(iPh);
         int nsp = th.nSpecies();
+	numSpeciesInKRSolidPhases_.push_back(nsp);
         numKRSpecies_ += nsp;
     }
     numEqnsCell_ =  numKRSpecies_ + 2;
@@ -843,7 +869,7 @@ void Electrode_SimpleDiff::updateState()
  * @param t             Time                    (input)
  * @param delta_t       The current value of the time step (input)
  * @param y             Solution vector (input, do not modify)
- * @param ydot          Rate of change of solution vector. (input, do not modify)
+ * @param ySolnDot      Rate of change of solution vector. (input, do not modify)
  * @param resid         Value of the residual that is computed (output)
  * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
  * @param id_x          Index of the variable that is being numerically differenced to find
@@ -855,16 +881,188 @@ void Electrode_SimpleDiff::updateState()
  */
 int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delta_t,
                                        const doublereal* const y,
-                                       const doublereal* const ydot,
+                                       const doublereal* const ySolnDot,
                                        doublereal* const resid,
                                        const ResidEval_Type_Enum evalType,
                                        const int id_x,
                                        const doublereal delta_x)
 {
-
-    throw CanteraError("", "");
-    return 0;
+    int retn = integrateResid(t, delta_t, y, ySolnDot, resid, evalType, id_x, delta_x);
+    return retn;
 }
+
+//=========================================================================================
+//  Residual calculation for the solution of the Nonlinear integration problem
+/*
+ * @param t             Time                    (input)
+ * @param delta_t       The current value of the time step (input)
+ * @param y             Solution vector (input, do not modify)
+ * @param ydot          Rate of change of solution vector. (input, do not modify)
+ * @param resid         Value of the residual that is computed (output)
+ * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
+ * @param id_x          Index of the variable that is being numerically differenced to find
+ *                      the jacobian (defaults to -1, which indicates that no variable is being
+ *                      differenced or that the residual doesn't take this issue into account)
+ * @param delta_x       Value of the delta used in the numerical differencing
+ */
+int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal delta_t,
+					 const doublereal* const y, const doublereal* const ySolnDot,
+					 doublereal* const resid,
+					 const ResidEval_Type_Enum evalType, const int id_x,
+					 const doublereal delta_x)
+{
+    
+    //int neq = nResidEquations();
+
+    if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
+        printf("\t\t===============================================================================================================================\n");
+        printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
+        if (evalType ==  Base_ResidEval) {
+            printf(" BASE RESIDUAL");
+        } else if (evalType == JacBase_ResidEval) {
+            printf(" BASE JAC RESIDUAL");
+        } else  if (evalType == JacDelta_ResidEval) {
+            printf(" DELTA JAC RESIDUAL");
+            printf(" var = %d delta_x = %12.4e Y_del = %12.4e Y_base = %12.4e", id_x, delta_x, y[id_x], y[id_x] - delta_x);
+        } else  if (evalType == Base_ShowSolution) {
+            printf(" BASE RESIDUAL - SHOW SOLUTION");
+        }
+        printf(" DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
+               electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
+    }
+
+    /*
+     *  UNPACK THE SOLUTION VECTOR
+     */
+    unpackNonlinSolnVector(y);
+
+
+    if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
+        if (phaseID_TimeDeathMin_ >= 0) {
+            if (deltaTsubcycleCalc_  <= deltaTsubcycle_) {
+                printf("\t\t\tTfinal = %12.4e Tinit = %12.4e DeltaTsubcycle = %12.4e  DeltaTsubcycleCalc = %12.4e SPECIAL CASE DECREASED deltaT\n",
+                       tfinal_, tinit_,deltaTsubcycle_, deltaTsubcycleCalc_);
+            }
+            if (deltaTsubcycleCalc_  > deltaTsubcycle_) {
+                printf("\t\t\tQWARNING Tfinal = %12.4e Tinit = %12.4e DeltaTsubcycle = %12.4e  DeltaTsubcycleCalc = %12.4e SPECIAL CASE INCREASED deltaT\n",
+                       tfinal_, tinit_,deltaTsubcycle_, deltaTsubcycleCalc_);
+            }
+        } else if (onRegionBoundary_final_ >= 0 && (onRegionBoundary_init_ != onRegionBoundary_final_)) {
+            if (deltaTsubcycleCalc_  <= deltaTsubcycle_) {
+                printf("\t\t\tTfinal = %12.4e Tinit = %12.4e DeltaTsubcycle = %12.4e  DeltaTsubcycleCalc = %12.4e SPECIAL CASE DECREASED deltaT\n",
+                       tfinal_, tinit_,deltaTsubcycle_, deltaTsubcycleCalc_);
+            }
+            if (deltaTsubcycleCalc_  > deltaTsubcycle_) {
+                printf("\t\t\tQWARNING Tfinal = %12.4e Tinit = %12.4e DeltaTsubcycle = %12.4e  DeltaTsubcycleCalc = %12.4e SPECIAL CASE INCREASED deltaT\n",
+                       tfinal_, tinit_,deltaTsubcycle_, deltaTsubcycleCalc_);
+            }
+            printf("\t\t\t          Solving for Solution on Region Boundary %d\n", onRegionBoundary_final_);
+        } else if (onRegionBoundary_final_ >= 0 && onRegionBoundary_init_ >= 0) {
+
+            printf("\t\t\tTfinal = %12.4e Tinit = %12.4e DeltaTsubcycle = %12.4e  DeltaTsubcycleCalc = %12.4e \n",
+                   tfinal_, tinit_,deltaTsubcycle_, deltaTsubcycleCalc_);
+            printf("\t\t\t          Solving for GoNoWhere, boundary %d\n", onRegionBoundary_final_);
+
+        } else {
+            printf("\t\t\tTfinal = %12.4e Tinit = %12.4e DeltaTsubcycle = %12.4e\n", tfinal_, tinit_, deltaTsubcycle_);
+        }
+        printf("\t\t\tDeltaVoltage = %12.4e\n", deltaVoltage_);
+    }
+
+    updateState();
+    extractInfo();
+
+
+    /*
+     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
+     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
+     *   all species in the electrode.
+     */
+    updateSpeciesMoleChangeFinal();
+
+    /*
+     * Calculate the residual
+     */
+    calcResid(resid, evalType);
+
+  
+    int index = 1;
+    if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
+
+        if (phaseID_TimeDeathMin_ >= 0) {
+
+            printf("\t\t minPH = %3d minCell = %3d delTcalc = %16.7E    Res = %16.7E   \n",
+                   phaseID_TimeDeathMin_, cellID_TimeDeathMin_, deltaTsubcycleCalc_,  resid[0]);
+        }
+        printf("\t\t        PhaseName        Moles_Init    Moles_final    |   Src_Moles  Pred_Moles_Final  |    Resid     |\n");
+        for (int iph = 0; iph < m_NumTotPhases; iph++) {
+            double src =   DphMolesSrc_final_[iph] * deltaTsubcycleCalc_;
+            printf("\t\t %20.20s  %12.4e  %12.4e            | %12.4e %12.4e", PhaseNames_[iph].c_str(), phaseMoles_init_[iph],
+                   phaseMoles_final_[iph], src,  phaseMoles_init_[iph] + src);
+            bool found = false;
+            for (int ph = 0; ph <  numSPhases_; ph++) {
+                int jph = phaseIndeciseKRsolidPhases_[ph];
+                if (jph == iph) {
+                    found = true;
+                    index++;
+                    double res =  phaseMoles_final_[iph] - (phaseMoles_init_[iph] + src);
+                    printf("      |%12.4e  | ",  res);
+                }
+            }
+            if (!found) {
+                printf("      |              | ");
+            }
+            if (justDiedPhase_[iph]) {
+                if (justDiedPhase_[2] && justDiedPhase_[3]) {
+                    printf("we are here 2 & 3 - how?\n");
+                }
+#ifdef DEBUG_ELECTRODE
+                if (justDiedPhase_[3]) {
+                    printf("we are here - 3 death\n");
+                }
+#endif
+                printf("   --- PHASE DEATH ---");
+            }
+            printf("\n");
+        }
+	printf("\t\t      SpeciesName        Moles_Init    Moles_final   SpMF       |   Src_Moles  Pred_Moles_Final\n");
+        for (int k = 0; k < m_NumTotSpecies; k++) {
+            string ss = speciesName(k);
+            double src =  DspMoles_final_[k] * deltaTsubcycleCalc_;
+            printf("\t\t %20s  %12.4e  %12.4e  %12.4e | %12.4e %12.4e", ss.c_str(), spMoles_init_[k], spMoles_final_[k],
+                   spMf_final_[k], src, spMoles_init_[k] + src);
+            bool found = false;
+            for (int ph = 0; ph < numSPhases_; ph++) {
+                int iph = phaseIndeciseKRsolidPhases_[ph];
+                if (numSpeciesInKRSolidPhases_[ph] > 1) {
+                    int iStart = getGlobalSpeciesIndex(iph, 0);
+                    for (int sp = 0; sp < numSpeciesInKRSolidPhases_[ph]; sp++) {
+			int i = iStart + sp;
+			if (i == k) {
+			    found = true;
+			    double res =  spMoles_final_[k] - (spMoles_init_[k] + src);
+			    printf("      |%12.4e  | ", res);
+			}
+                    }
+                }
+            }
+            if (!found) {
+                printf("      |              | ");
+            }
+            printf("\n");
+
+        }
+
+    }
+
+
+
+    if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
+        printf("\t\t===============================================================================================================================\n");
+    }
+    return 1;
+}
+
 //====================================================================================================================
 // Main routine to calculate the residual
 /*
@@ -895,7 +1093,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     double Lleft, L3left, rjCBR3, rjCBL3;
     double vbarLattice_final_jcell, vbarLattice_init_jcell;
     double rnow3, rnow;
-    double Lright, rLtarget;
+    //double Lright;
+    // double rLtarget;
 
     // Cubes of the cell boundaries, Right and Left, for the initial and final times
     double cbR3_init = 0.0;
@@ -1027,17 +1226,18 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         /*
          * Find the lattice velocity of the reference radius at the right cell boundary
          */
-        double vLatticeCBR = -1.0 / (3. * r0R2_final) * (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) 
-						  * vbarDot * (cbR3_final - cbL3_final));
+        double vLatticeCBR = -1.0 / (3. * r0R2_final) *
+			     (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) *
+			      vbarDot * (cbR3_final - cbL3_final));
 
-	rLtarget =  rLatticeCBR_ref_[iCell];
+	//rLtarget =  rLatticeCBR_ref_[iCell];
 	if (rLatticeCBR_final_[iCell] > rLatticeCBR_ref_[iCell]) {
 	    // we are here to when the lattice velocity has put the previous lattice CBR into the current cell
 	    // Assign the cell id the current cell.
 	    jCell = iCell;
 	    // The CBL value is the CBR of the next lowest cell.
 	    Lleft =  rLatticeCBR_final_[jCell-1];
-	    Lright =  rLatticeCBR_final_[jCell];
+	    //Lright =  rLatticeCBR_final_[jCell];
 	    // If the lattice has moved more than one cell, then throw an error condition for now.
 	    // We'll come back to fix this later
 	    if (Lleft > rLatticeCBR_ref_[iCell]) {
@@ -1060,7 +1260,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    jCell = iCell+1;
 	    // The CBL value is the CBR of the next lowest cell.
 	    Lleft =  rLatticeCBR_final_[jCell-1];
-	    Lright =  rLatticeCBR_final_[jCell];
+	    //Lright =  rLatticeCBR_final_[jCell];
 	    // If the lattice has moved more than one cell, then throw an error condition for now.
 	    // We'll come back to fix this later
 	    if (Lleft > rLatticeCBR_ref_[iCell]) {
@@ -1219,10 +1419,24 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     return 1;
 }
 //====================================================================================================================
+void  Electrode_SimpleDiff::showSolution()
+{
+    int NumDomainEqns = 1;
+    int nn = NumDomainEqns / 5;
+    for (int iBlock = 0; iBlock < nn; iBlock++) {
+	
+    }
+    
+
+
+
+}
+
+//====================================================================================================================
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
+void  Electrode_SimpleDiff::extractInfo()
 {
 
     updateState();

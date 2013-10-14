@@ -2934,7 +2934,6 @@ double Electrode::openCircuitVoltage(int isk)
     vector<int> phaseStab(phaseStabInit);
 
     double phiRxnBest = 1.0E300;
-    int rxnBestIndex = -1;
     for (int i = 0; i < nR; i++) {
         bool electReact = false;
         bool electProd = false;
@@ -2956,7 +2955,6 @@ double Electrode::openCircuitVoltage(int isk)
 
             phiRxn = deltaG_[i] / Faraday / nStoichElectrons;
             if (fabs(deltaVoltage_ - phiRxnBest) > fabs(deltaVoltage_ - phiRxn)) {
-                rxnBestIndex = i;
                 phiRxnBest = phiRxn;
             }
             if (!thereIsOneTurnedOn) {

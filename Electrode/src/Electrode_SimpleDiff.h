@@ -115,7 +115,14 @@ public:
 
     void calcRate(double deltaT);
 
-    void extractInfo(std::vector<int>& justBornMultiSpecies);
+
+    void showSolution();
+
+    //! Extract information from reaction mechanisms
+    /*!
+     *   (inherited from Electrode_Integrator
+     */
+    virtual void extractInfo();
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -271,7 +278,24 @@ public:
                             const int id_x = -1,
                             const doublereal delta_x = 0.0);
 
-
+    //!  Residual calculation for the solution of the Nonlinear integration problem
+    /*!
+     * @param t             Time                    (input)
+     * @param delta_t       The current value of the time step (input)
+     * @param y             Solution vector (input, do not modify)
+     * @param ySolnDot      Rate of change of solution vector. (input, do not modify)
+     * @param resid         Value of the residual that is computed (output)
+     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
+     * @param id_x          Index of the variable that is being numerically differenced to find
+     *                      the jacobian (defaults to -1, which indicates that no variable is being
+     *                      differenced or that the residual doesn't take this issue into account)
+     * @param delta_x       Value of the delta used in the numerical differencing
+     */
+    int integrateResid(const doublereal t, const doublereal delta_t,
+		       const doublereal* const y, const doublereal* const ySolnDot,
+		       doublereal* const resid,
+		       const ResidEval_Type_Enum evalType, const int id_x,
+		       const doublereal delta_x);
 
     //! Main internal routine to calculate the residual
     /*!
@@ -383,6 +407,14 @@ protected:
      *  The phaseIndex is the index within the Electrode object
      */
     std::vector<int> phaseIndeciseKRsolidPhases_;
+
+    //! Number of species in each of the radially distributed phases
+    /*!
+     *  There are numSPhase_ of these
+     *
+     *  The phaseIndex is the index within the Electrode object
+     */
+    std::vector<int> numSpeciesInKRSolidPhases_;
 
     //! Phase indeces of the solid phases comprising the species that are not radially distributed
     /*!
@@ -533,6 +565,9 @@ protected:
 
     //! Molar creation rate of phases in the electrode object.
     /*!
+     *  This is calculated as a sum of species creation rates summed
+     *  up over all cells in the domain
+     *
      *    units = kmol / s
      */
     std::vector<doublereal> DphMolesSrc_final_;
@@ -558,6 +593,44 @@ protected:
      *    This is calculated at the final state
      */
     std::vector<doublereal> actCoeff_Cell_final_;
+
+
+    //! phase id of the phase which will die at the shortest time
+    int phaseID_TimeDeathMin_;
+
+    //! Cell id of the shortest time to a phase death
+    int cellID_TimeDeathMin_;
+
+   //! This integer describes if the system is current on a Region boundary at the start of a subgrid
+    //! integration step
+    /*!  
+     *  We define a region boundary here iff all cells are on that boundary
+     *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
+     */
+    int onRegionBoundary_init_;
+
+    //! This integer describes if the system is current on a Region boundary at the end of a subgrid
+    //! integration step
+    /*!
+     *   We define a region boundary here iff all cells are on that boundary
+     *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
+     */
+    int onRegionBoundary_final_;
+
+    //! This integer describes if the system is current on a Region boundary at the start of a global
+    //! integration step
+    /*!
+     *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
+     */
+    int onRegionBoundary_init_init_;
+
+    //! This integer describes if the system is current on a Region boundary at the end of a global
+    //! integration step
+    /*!
+     *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
+     */
+    int onRegionBoundary_final_final_;
+
 };
 
 }

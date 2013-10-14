@@ -848,7 +848,7 @@ protected:
     //! Change in the number of moles of species during the current step
     std::vector<double> deltaSpMoles_;
 
-    //! Phase which is predicted to
+    //! Phase which is predicted to die first
     int minPH_;
 
 
