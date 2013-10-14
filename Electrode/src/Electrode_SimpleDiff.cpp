@@ -1431,7 +1431,75 @@ void  Electrode_SimpleDiff::showSolution()
 
 
 }
+//====================================================================================================================
+static void drawline(int sp, int ll)
+{
+  for (int i = 0; i < sp; i++) {
+      printf(" ");
+  }
+  for (int i = 0; i < ll; i++) {
+      printf("-");
+  }
+  printf("\n");
+}
 
+//====================================================================================================================
+void  Electrode_SimpleDiff::showOneField(int indentSpaces, const double * const radialValues, int numRadialVals, 
+					 const double * const vals, const std::vector<std::string> &varNames, int numFields)
+{
+    int n, iCell;
+    double v;
+    std::string indent = "";
+    for (int i = 0; i < indentSpaces; i++) {
+	indent += " ";
+    }
+    int numBlockRows = numFields / 5;
+    for (int iBlock = 0; iBlock < numBlockRows; iBlock++) {
+	drawline(indentSpaces, 80);
+	printf("%s        z   ", indent.c_str());
+	for (n = 0; n < 5; n++) {
+	    int ivar = iBlock * 5 + n;
+	    string name = varNames[ivar];
+	    printf(" %15s", name.c_str());
+	}
+	printf("\n");
+	drawline(indentSpaces, 80);
+
+	for (iCell = 0; iCell < numRadialVals; iCell++) {
+	    doublereal r = radialValues[iCell];
+	    printf("\n%s    %-10.4E ", indent.c_str(), r);
+	    int istart = iCell * numFields;
+	    for (n = 0; n < 5; n++) {
+		v = vals[istart + iBlock * 5 + n];
+		printf(" %-10.4E ", v);
+	    }
+	}
+	printf("\n");
+    }
+    int nrem = numFields - 5 * numBlockRows;
+    if (nrem > 0) {
+	drawline(indentSpaces, 80);
+	printf("%s        z   ", indent.c_str());
+	for (n = 0; n < nrem; n++) {
+	    int ivar = numBlockRows * 5 + n;
+	    string name = varNames[ivar];
+	    printf(" %15s", name.c_str());
+	}
+	printf("\n");
+	drawline(indentSpaces, 80);
+
+	for (iCell = 0; iCell < numRadialVals; iCell++) {
+	    doublereal r = radialValues[iCell];
+	    printf("\n%s    %-10.4E ", indent.c_str(), r);
+	    int istart = iCell * numFields;
+	    for (n = 0; n < nrem; n++) {
+		v = vals[istart + numBlockRows * 5 + n];
+		printf(" %-10.4E ", v);
+	    }
+	}
+	printf("\n");
+    }
+}
 //====================================================================================================================
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function

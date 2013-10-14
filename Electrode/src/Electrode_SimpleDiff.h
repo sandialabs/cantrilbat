@@ -116,6 +116,13 @@ public:
     void calcRate(double deltaT);
 
 
+    //!  Print one set of field variables
+    /*!
+     *  @param indentSpaces  Number of spacies to indent the whole group
+     *  @param 
+     */
+    void showOneField(int indentSpaces, const double * const radialValues, int numRadialVals, 
+		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
     void showSolution();
 
     //! Extract information from reaction mechanisms
