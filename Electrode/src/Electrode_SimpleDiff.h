@@ -124,8 +124,16 @@ public:
     void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
 
+    void showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
+		      int numFields1, int iTerm, const double * const val_init,  const double * const val_final,
+		      int numEqnsCell, int iEqn,const double * const resid_error,  const double * const solnError_tol,
+		      const double * const residual);
+
     //! Print the solution to the current step to output
     void showSolution(int indentSpaces);
+    void showResidual(int indentSpaces,  const double * const residual);
+
+
 
     //! Extract information from reaction mechanisms
     /*!
@@ -261,6 +269,32 @@ public:
      */
     virtual void updateState();
 
+    //! Set the base tolerances for the nonlinear solver within the integrator
+    /*!
+     *   The tolerances are based on controlling the integrated electron source term
+     *   for the electrode over the integration interval.  The integrated source term
+     *   has units of kmol.
+     *
+     *   Because the electron is only one molar quantity within a bunch of molar quantities,
+     *   this requirement will entail that we control the source terms of all species within the
+     *   electrode to the tolerance requirements of the electron source term.
+     *
+     *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
+     *                     This is a unitless quantity
+     */
+    virtual void setNLSGlobalSrcTermTolerances(double rtolResid);
+
+    //!   Set the Residual absolute error tolerances
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *   Set the absolute error tolerances for the residuals for the nonlinear solvers. This is called at the top
+     *   of the integrator() routine.
+     *
+     *   Calculates residAtolNLS_[]
+     *   Calculates atolNLS_[]
+     */
+    void setResidAtolNLS();
 
     //! Evaluate the residual function
     /*!
@@ -663,6 +697,10 @@ protected:
      *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
      */
     int onRegionBoundary_final_final_;
+
+    //! Absolute tolerance for nonlinear residual
+    double atolBaseResid_;
+
 
 };
 

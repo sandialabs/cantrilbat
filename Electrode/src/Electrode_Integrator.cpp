@@ -1089,7 +1089,7 @@ topConvergence:
                     printf("Electrode_Integrate::integrate(): Unsuccessful Nonlinear Solve flag = %d\n", nonlinearFlag);
                 }
             }
-	    bool specialSolve = false;
+	    //bool specialSolve = false;
             if (nonlinearFlag < 0) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -1118,7 +1118,7 @@ topConvergence:
                     // Pick the next delta T to be equal to the current delta T
                     deltaTsubcycleNext_ = deltaTsubcycle_;
                     tfinal_ = tinit_ + deltaTsubcycleCalc_;
-		    specialSolve = true;
+		    //specialSolve = true;
                 } else  if (deltaTsubcycleCalc_ > deltaTsubcycle_ * (1.0 + 1.0E-10)) {
                     if (printLvl_ > 1) {
                         printf("deltaT increased to %g from %g due to phase death capture\n",
@@ -1127,7 +1127,7 @@ topConvergence:
                     // Pick the next delta T to be equal to the current delta T
                     deltaTsubcycleNext_ = deltaTsubcycle_;
                     tfinal_ = tinit_ + deltaTsubcycleCalc_;
-		    specialSolve = true;
+		    //specialSolve = true;
                 }
 
                 conseqFailures--;

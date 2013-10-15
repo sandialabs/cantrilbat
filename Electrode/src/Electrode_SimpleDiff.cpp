@@ -75,7 +75,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     onRegionBoundary_init_(-1),
     onRegionBoundary_final_(-1),
     onRegionBoundary_init_init_(-1),
-    onRegionBoundary_final_final_(-1)
+    onRegionBoundary_final_final_(-1),
+    atolBaseResid_(1.0E-12)
 {
 
 
@@ -127,7 +128,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     onRegionBoundary_init_(-1),
     onRegionBoundary_final_(-1),
     onRegionBoundary_init_init_(-1),
-    onRegionBoundary_final_final_(-1)
+    onRegionBoundary_final_final_(-1),
+    atolBaseResid_(1.0E-12)
 {
     /*
      * Call the assignment operator.
@@ -210,6 +212,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     onRegionBoundary_final_             = right.onRegionBoundary_final_;
     onRegionBoundary_init_init_         = right.onRegionBoundary_init_init_;
     onRegionBoundary_final_final_       = right.onRegionBoundary_final_final_;
+    atolBaseResid_                      = right.atolBaseResid_;
 
     /*
      * Return the reference to the current object
@@ -869,6 +872,127 @@ void Electrode_SimpleDiff::updateState()
      */
     updateState_OneToZeroDimensions();
 }
+
+
+//==================================================================================================================
+// Set the base tolerances for the nonlinear solver within the integrator
+/*
+ *   The tolerances are based on controlling the integrated electron source term
+ *   for the electrode over the integration interval.  The integrated source term
+ *   has units of kmol.
+ *
+ *   Because the electron is only one molar quantity within a bunch of molar quantities,
+ *   this requirement will entail that we control the source terms of all species within the
+ *   electrode to the tolerance requirements of the electron source term.
+ *
+ *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
+ *                     This is a unitless quantity
+ *   @param atolResid  Absolute tolerance cutoff for the electron source term over the interval.
+ *                     Below this value we do not care about the results.
+ *                     atol has units of kmol.
+ */
+void Electrode_SimpleDiff::setNLSGlobalSrcTermTolerances(double rtolResid)
+{
+    double sum = SolidTotalMoles();
+    double val = 1.0E-14 * sum;
+
+    for (int i = 0; i < numIntegratedSrc_; i++) {
+        atol_IntegratedSrc_global_[i] = val;
+    }
+    rtol_IntegratedSrc_global_ = rtolResid;
+}
+//==================================================================================================================
+//   Set the Residual absolute error tolerances
+/*
+ *  (virtual from Electrode_Integrator)
+ *
+ *   Set the absolute error tolerances for the residuals for the nonlinear solvers. This is called at the top
+ *   of the integrator() routine.
+ *
+ *   Calculates residAtolNLS_[]
+ *   Calculates atolNLS_[]
+ */
+void  Electrode_SimpleDiff::setResidAtolNLS()
+{ 
+    double atolMF = 1.0E-12;
+    double deltaT = t_final_final_ - t_init_init_;
+    deltaT = MAX(deltaT, 1.0E-3);
+    /*
+     *  calculate the total moles of solid. This is used to dimensionalize the atol mole numbers
+     *  -> Might rethink this, because we are using concentrations here
+     */
+    //double solidMoles = SolidTotalMoles();
+    /*
+     *  We don't care about differences that are 1E-6 less than the global time constant.
+     *  residual has the same units as soln.
+     */
+    atolResidNLS_[0] = deltaT * 1.0E-6;
+    /*
+     *  Calculate the atolVal that will be used in the calculation of phase moles.
+     *  Note, from experience we cannot follow within the equil solver the phases with mole number that
+     *  are additively insignificant compared to the total number of moles. This is a basic
+     *  limitation. However, they must be followed kinetically up to the level that they contribute
+     *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
+     */
+    //double atolVal = solidMoles * atolBaseResid_;
+
+    /* 
+     *  set the atol on the time step
+     */
+    atolNLS_[0] = (1.0E-50);
+    int index = 0;
+    index++;
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	int rindex = 1 + numEqnsCell_ * iCell;
+        int xindex = 2 + numEqnsCell_ * iCell;
+        int cindex = 3 + numEqnsCell_ * iCell;
+        int cIndexPhStart = cindex;
+	/*
+	 *  Set atol on the radial equation
+	 */
+	atolNLS_[rindex] = atolMF * Radius_exterior_final_;
+	atolResidNLS_[rindex] = atolNLS_[rindex];
+
+	/*
+	 * set atol on the lattice radial equation
+	 */
+	atolNLS_[xindex] = atolMF * Radius_exterior_final_;
+	atolResidNLS_[xindex] = atolNLS_[xindex];
+
+
+	for (int jPh = 0; jPh < numSPhases_; jPh++) {
+            int iPh = phaseIndeciseKRsolidPhases_[jPh];
+	    /*
+	     *  set the tolerance on the phase concentration
+	     */ 
+	    ThermoPhase* th = & thermo(iPh);
+	    int nSpecies = th->nSpecies();
+	    double molarVol = th->molarVolume();
+	    double phaseConc = 1.0 / molarVol;
+	    atolNLS_[cIndexPhStart] = phaseConc * atolMF;
+	    atolResidNLS_[xindex] = atolNLS_[cIndexPhStart];
+
+	    for (int kSp = 1; kSp < nSpecies; kSp++) {
+		atolNLS_[cIndexPhStart + kSp] = phaseConc * atolMF;
+		atolResidNLS_[cIndexPhStart + kSp] = atolNLS_[cIndexPhStart + kSp];
+	    }
+	    cIndexPhStart += nSpecies;
+	}
+
+    }
+
+  
+    if ((int) atolNLS_.size() !=  neq_) {
+        printf("ERROR\n");
+        exit(-1);
+    }
+
+    determineBigMoleFractions();
+
+
+
+}
 //====================================================================================================================
 //   Evaluate the residual function
 /*
@@ -1061,6 +1185,8 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
             printf("\n");
 
         }
+
+	showResidual(8, resid);
 
     }
 
@@ -1288,7 +1414,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    vLatticeCBR = (rnow -  rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
 	}
 	/*
-	 *  Store the calculate lattice velocity
+	 *  Store the calculated lattice velocity
 	 */
 	vLatticeCBR_cell_[iCell] = vLatticeCBR;
 
@@ -1461,6 +1587,41 @@ static void drawline(int sp, int ll)
 }
 
 //====================================================================================================================
+void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const residual) 
+{
+
+    drawline(124, indentSpaces);
+
+    std::string title = "Residual for Lattice Radius CBR (m)";
+
+    const double * const res = residual + 1;
+    int iTerm = 0;
+
+    showOneResid(title, indentSpaces, &cellBoundR_final_[0], numRCells_, 1, 0, &rLatticeCBR_init_[0],
+		 &rLatticeCBR_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[0], &atolResidNLS_[0],
+		 res);
+
+    title = "Residual for position (m)";
+    iTerm = 1;
+    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &rnodePos_init_[0],
+		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[0], &atolResidNLS_[0],
+		 res);
+
+
+    for (int k = 0; k <  numKRSpecies_; k++) {
+	title = "Residual for Species Concentration 0f "  + KRsolid_speciesNames_[k] + " (kmol/m3)";
+	iTerm = 1;
+	iTerm = 2 + k;
+	showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numKRSpecies_, k, &concKRSpecies_Cell_final_[0],
+		     &concKRSpecies_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[0], &atolResidNLS_[0],
+		     res);
+    }
+
+    drawline(124, indentSpaces);
+
+}
+
+//====================================================================================================================
 void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 					 const double * const vals, const std::vector<std::string> &varNames, int numFields)
 {
@@ -1518,6 +1679,59 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	}
 	printf("\n");
     }
+}
+
+//====================================================================================================================
+void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
+					 int numFields, int iField, const double * const val_init,  const double * const val_final,
+					 int numEqnsCell, int iEqn, const double * const resid_error,  const double * const solnError_tol, 
+					 const double * const residual)
+{
+    int iCell;
+    std::string indent = "";
+    for (int i = 0; i < indentSpaces; i++) {
+	indent += " ";
+    }
+  
+    drawline(indentSpaces, 80);
+    printf("%s  %s\n", indent.c_str(), title.c_str());
+ 
+    drawline(indentSpaces, 80);
+    printf("%s        z   ", indent.c_str());
+    
+    printf(" %15s", "Init_Value");
+    printf(" %15s", "Final_Value");
+    if (resid_error) {
+	printf(" %15s", "Error");
+    }
+    if (solnError_tol) {
+	printf(" %15s", "Toler");
+    }
+    printf(" %15s\n", "Resid");
+    
+
+ 
+    drawline(indentSpaces, 80);
+
+    for (iCell = 0; iCell < numRadialVals; iCell++) {
+	doublereal r = radialValues[iCell];
+	printf("\n%s    %-10.4E ", indent.c_str(), r);
+	int istart = iCell * numFields + iField;
+	printf(" %-10.4E ", val_init[istart]);
+	printf(" %-10.4E ", val_final[istart]);
+	istart = iCell *  numEqnsCell + iEqn;
+	if (resid_error) {
+	    printf(" %-10.4E ", resid_error[istart]);
+	}
+	if (solnError_tol) {
+	    printf(" %-10.4E ", solnError_tol[istart]);
+	}
+	printf(" | ");
+	printf(" %-10.4E ", residual[istart]);
+	printf("\n");
+    }
+    printf("\n");
+    drawline(indentSpaces, 80);
 }
 //====================================================================================================================
 /*
