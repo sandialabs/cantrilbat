@@ -269,6 +269,29 @@ public:
      */
     virtual void updateState();
 
+    //! Predict the solution
+    /*!
+     * Ok at this point we have a time step deltalimiTsubcycle_
+     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     * We now calculate predicted solution components from these conditions.
+     *
+     * @return   Returns the success of the operation
+     *                 1  A predicted solution is achieved
+     *                 2  A predicted solution with a multispecies phase pop is acheived
+     *                 0  A predicted solution is not achieved, but go ahead anyway
+     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     */
+    virtual int predictSoln();
+
+    //! Unpack the soln vector
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     */
+    virtual void unpackNonlinSolnVector(const double* const y);
+
+
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
      *   The tolerances are based on controlling the integrated electron source term

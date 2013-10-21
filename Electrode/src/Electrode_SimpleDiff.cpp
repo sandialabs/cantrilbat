@@ -874,6 +874,344 @@ void Electrode_SimpleDiff::updateState()
 }
 
 
+void int Electrode_SimpleDiff::predictSoln_Step()
+{
+    calc_Resid();
+
+
+
+}
+//==================================================================================================================
+//! Predict the solution
+/*!
+ * Ok at this point we have a time step deltalimiTsubcycle_
+ * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+ * We now calculate predicted solution components from these conditions.
+ *
+ * @return   Returns the success of the operation
+ *                 1  A predicted solution is achieved
+ *                 2  A predicted solution with a multispecies phase pop is acheived
+ *                 0  A predicted solution is not achieved, but go ahead anyway
+ *                -1  The predictor suggests that the time step be reduced and a retry occur.
+ */
+void int Electrode_SimpleDiff::predictSoln()
+{
+    int redoSteps = 0;
+    int reDo = 0;
+    /* ---------------------------------------------------------------------------------------
+     *                                    Loop over the predictor process
+     * --------------------------------------------------------------------------------------- */
+    do {
+        redoSteps++;
+        /*
+         * Copy initial to final
+         */ 
+	setFinalStateFromInit();
+	/*
+         * Get the top and bottom voltages
+         */
+        int nRegions = RelativeExtentRxn_RegionBoundaries_.size() - 1;
+        onRegionBoundary_final_ = onRegionBoundary_init_;
+
+        /* ---------------------------------------------------------------------------------------
+         *                                Update the Internal State of ThermoPhase Objects
+         * --------------------------------------------------------------------------------------- */
+        updateState();
+	/* ---------------------------------------------------------------------------------------
+         *                                 Handle the case where we start on a Region Boundary
+         * --------------------------------------------------------------------------------------- */
+        goNowhere_ = 0;
+	if (onRegionBoundary_final_ >= 0) {
+
+            if (onRegionBoundary_init_ == 0) {
+                vleft =  openCircuitVoltage_final_Region(-1);
+                vright = openCircuitVoltage_final_Region(0);
+                if (electrodeType_ == ELECTRODETYPE_CATHODE) {
+                    vtop = vleft;
+                    vbot = vright;
+                } else if (electrodeType_ == ELECTRODETYPE_ANODE) {
+                    vtop = vright;
+                    vbot = vleft;
+                }
+            }
+            vleft  = openCircuitVoltage_final_Region(onRegionBoundary_init_ - 1);
+            vright = openCircuitVoltage_final_Region(onRegionBoundary_init_);
+            if (electrodeType_ == ELECTRODETYPE_CATHODE) {
+                vtop = vleft;
+                vbot = vright;
+            } else if (electrodeType_ == ELECTRODETYPE_ANODE) {
+                vtop = vright;
+                vbot = vleft;
+            }
+
+
+            if (deltaVoltage_ > vtop) {
+                if (electrodeType_ == ELECTRODETYPE_ANODE) {
+                    if (onRegionBoundary_init_ < nRegions) {
+                        xRegion_init_ = onRegionBoundary_init_;
+                        xRegion_final_ = onRegionBoundary_init_;
+                        onRegionBoundary_final_ = -1;
+                        goNowhere_ = 0;
+                    } else {
+                        xRegion_init_ = nRegions - 1;
+                        xRegion_final_ = nRegions - 1;
+                        onRegionBoundary_final_ = nRegions;
+                        goNowhere_ = 1;
+                    }
+                } else if (electrodeType_ == ELECTRODETYPE_CATHODE) {
+                    if (onRegionBoundary_init_ > 0) {
+                        xRegion_init_ = onRegionBoundary_init_ -1;
+                        xRegion_final_ = onRegionBoundary_init_ -1;
+                        onRegionBoundary_final_ = -1;
+                        goNowhere_ = 0;
+                    } else {
+                        xRegion_init_ = 0;
+                        xRegion_final_ = 0;
+                        onRegionBoundary_final_ = 0;
+                        goNowhere_ = 1;
+                    }
+                }
+	    } else if (deltaVoltage_ < vbot) {
+                if (electrodeType_ == ELECTRODETYPE_ANODE) {
+                    if (onRegionBoundary_init_ > 0) {
+                        xRegion_init_ = onRegionBoundary_init_ - 1;
+                        xRegion_final_ = onRegionBoundary_init_ - 1;
+                        onRegionBoundary_final_ = -1;
+                        goNowhere_ = 0;
+                    } else {
+                        xRegion_init_ = 0;
+                        xRegion_final_ = 0;
+                        onRegionBoundary_final_ = 0;
+                        goNowhere_ = 1;
+                    }
+                } else if (electrodeType_ == ELECTRODETYPE_CATHODE) {
+                    if (onRegionBoundary_init_ < nRegions) {
+                        xRegion_init_ = onRegionBoundary_init_;
+                        xRegion_final_ = onRegionBoundary_init_;
+                        onRegionBoundary_final_ = -1;
+                        goNowhere_ = 0;
+                    } else {
+                        xRegion_init_ = nRegions - 1;
+                        xRegion_final_ = nRegions - 1;
+                        onRegionBoundary_final_ = nRegions;
+                        goNowhere_ = 1;
+                    }
+                }
+            } else {
+                xRegion_final_ = xRegion_init_;
+                onRegionBoundary_final_ = onRegionBoundary_init_;
+                goNowhere_ = 1;
+            }
+        }
+        /* ---------------------------------------------------------------------------------------
+         *                             Update the Phase Existance Flags
+         * --------------------------------------------------------------------------------------- */
+        /*
+        * At the start of this step the _final_ values are equal to the _init_ values
+        * - we may want to put a check here that this is true. However, for now we will assume it
+        *
+        * Set the phase existence -> this depends on SpMoles_init_ and SpMoles_final_
+        */
+        if (redoSteps == 1) {
+            setPhaseExistenceForReactingSurfaces(false);
+        } else {
+            setPhaseExistenceForReactingSurfaces(false);
+        }
+        /* ---------------------------------------------------------------------------------------
+         *                           Update the Rates of Progress and Derivative properties
+         * --------------------------------------------------------------------------------------- */
+        /*
+         * Calculate ROP_inner and ROP_outer, and justBornPhase_[];
+         */
+        extractInfo();
+        /*
+         *  Calculate DspMoles_final_[]
+         */
+        updateSpeciesMoleChangeFinal();
+
+        /* ---------------------------------------------------------------------------------------
+         *                         Estimate the final total moles
+         * --------------------------------------------------------------------------------------- */
+        /* ---------------------------------------------------------------------------------------
+         *                         Figure out the minimum death time for a phase to zero
+         * --------------------------------------------------------------------------------------- */
+        //    First assume that no phase dies.
+        minPH_ = -1;
+        double minDT = 1.0E300;
+        double DT, DTmax, DTmin, tmp;
+        int hasAPos, hasANeg;
+        for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+            hasAPos = 0;
+            hasANeg = 0;
+            int iph = phaseIndexSolidPhases_[ph];
+            justDiedPhase_[iph] = 0;
+            DTmax = 0.0;
+            DTmin = 1.0E-300;
+            for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+                isp = getGlobalSpeciesIndex(iph,sp);
+                deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
+                tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
+                if (spMoles_init_[isp] > 0.0) {
+                    if (tmp < 0.0) {
+                        hasANeg = 1;
+                        DT = - spMoles_init_[isp] / DspMoles_final_[isp];
+                        DTmin = MIN(DT, DTmin);
+                        DTmax = MAX(DT, DTmax);
+                    } else if (tmp > 0.0) {
+                        hasAPos = 1;
+                    }
+                }
+            }
+            if (hasANeg && (!hasAPos)) {
+                DT = 0.5 *(DTmin + DTmax);
+                if (DT < minDT) {
+                    minPH_ = iph;
+                    minDT = DT;
+                }
+            }
+        }
+	/* ---------------------------------------------------------------------------------------
+         *                         Figure out if we are going to run into a plateau boundary
+         * --------------------------------------------------------------------------------------- */
+        /*
+         *   Here we figure out if we are going to run into a plateau boundary. If so, we reduce
+         *   deltaTsubcycleCalc_ value to the estimated collision time.
+         */
+        deltaT_RegionBoundaryCollision_ = 1.0E300;
+        double deltax = 0.0;
+        if (goNowhere_) {
+            RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
+        } else {
+            RelativeExtentRxn_final_ = RelativeExtentRxn_init_
+                                       + SrcDot_RxnExtent_final_ * deltaTsubcycleCalc_/ RelativeExtentRxn_NormalizationFactor_;
+
+            deltax =  RelativeExtentRxn_final_ -  RelativeExtentRxn_init_;
+
+            double xBd = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
+            /*
+             *   Look for collisions with boundary regions
+             */
+            if ((SrcDot_RxnExtent_final_ > 1.0E-200) &&
+                    (RelativeExtentRxn_final_ > RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1])) {
+                // Forward boundary collision -> decrease expected deltaT time.
+                deltax = xBd - RelativeExtentRxn_init_;
+                deltaT_RegionBoundaryCollision_ = deltax * RelativeExtentRxn_NormalizationFactor_ / SrcDot_RxnExtent_final_;
+                onRegionBoundary_final_ = xRegion_init_ + 1;
+                deltaTsubcycleCalc_ = deltaT_RegionBoundaryCollision_;
+                RelativeExtentRxn_final_  = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
+
+            } else  if ((SrcDot_RxnExtent_final_ < -1.0E-200) &&
+                        (RelativeExtentRxn_final_ < RelativeExtentRxn_RegionBoundaries_[xRegion_init_])) {
+                // backwards boundary collision -> decrease expected deltaT time.
+                xBd = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
+                deltax = xBd - RelativeExtentRxn_init_;
+                deltaT_RegionBoundaryCollision_ = deltax * RelativeExtentRxn_NormalizationFactor_ / SrcDot_RxnExtent_final_;
+                onRegionBoundary_final_ = xRegion_init_;
+                deltaTsubcycleCalc_ = deltaT_RegionBoundaryCollision_;
+                RelativeExtentRxn_final_  = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
+            }
+        }
+	/* ---------------------------------------------------------------------------------------
+         *                         Figure out what phases are going to die
+         * --------------------------------------------------------------------------------------- */
+        if (minDT < 1.05 * deltaTsubcycleCalc_) {
+            for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+                hasAPos = 0;
+                hasANeg = 0;
+                DTmax = 0.0;
+                DTmin = 1.0E-300;
+                int iph = phaseIndexSolidPhases_[ph];
+                for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+                    isp = getGlobalSpeciesIndex(iph,sp);
+                    deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
+                    tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
+                    if (spMoles_init_[isp] > 0.0) {
+                        if (tmp < 0.0) {
+                            hasANeg = 1;
+                            DT = - spMoles_init_[isp] / DspMoles_final_[isp];
+                            DTmin = MIN(DT, DTmin);
+                            DTmax = MAX(DT, DTmax);
+                        } else if (tmp > 0.0) {
+                            hasAPos = 1;
+                        }
+                    }
+                }
+                if (hasANeg && (!hasAPos)) {
+                    DT = 0.5 *(DTmin + DTmax);
+                    if (DT < minDT + 0.1 *minDT) {
+                        justDiedPhase_[iph] = 1;
+                    }
+                }
+            }
+            if (minPH_ >= 0) {
+                deltaTsubcycleCalc_ = minDT;
+                //   If we had previously found that a collision with a region boundary occurs,
+                //   This is now negated if the time scales indicate that the phase disappearance isn't equal
+                //   to the boundary collision. (not been exp)
+                if (onRegionBoundary_final_ >= 0) {
+                    if (fabs(deltaT_RegionBoundaryCollision_ - deltaTsubcycleCalc_) >  0.01 * deltaTsubcycleCalc_) {
+                        onRegionBoundary_final_  = -1;
+                    }
+                }
+            }
+        }
+	/* ---------------------------------------------------------------------------------------
+         *                        Predict Soln
+         * --------------------------------------------------------------------------------------- */
+        for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+            int iph = phaseIndexSolidPhases_[ph];
+            /*
+             *  If we predict the phase will die, then we set the mole fractions equal to the
+             *  previous step, we set the mole numbers to zero, and we predict deltaTsubcycleCalc_
+             *  based on the ratio of the initial moles to the rate of mole destruction.
+             */
+            if (justDiedPhase_[iph]) {
+                phaseMoles_final_[iph] = 0.0;
+                for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+                    isp = getGlobalSpeciesIndex(iph,sp);
+                    spMf_final_[isp] = spMf_init_[isp];
+                }
+            } else {
+                double sum = 0.0;
+                for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+                    isp = getGlobalSpeciesIndex(iph,sp);
+                    spMoles_final_[isp] = spMoles_init_[isp] +  DspMoles_final_[isp] * deltaTsubcycleCalc_;
+                    if (spMoles_final_[isp] < 0.0) {
+                        spMoles_final_[isp] = 0.1 * spMoles_init_[isp];
+                    }
+                    sum +=  spMoles_final_[isp];
+                }
+                phaseMoles_final_[iph]= sum;
+                for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+                    isp = getGlobalSpeciesIndex(iph,sp);
+                    spMf_final_[isp] =  spMoles_final_[isp] /  phaseMoles_final_[iph];
+                }
+            }
+        }
+        /* ---------------------------------------------------------------------------------------
+         *                        Predict the relative extent of reaction variable
+         * --------------------------------------------------------------------------------------- */
+
+        RelativeExtentRxn_final_ = RelativeExtentRxn_init_
+                                   + SrcDot_RxnExtent_final_ * deltaTsubcycleCalc_ / RelativeExtentRxn_NormalizationFactor_;
+
+
+
+
+
+
+    } while (reDo);
+    /* ---------------------------------------------------------------------------------------
+     *                            Keep a copy of the estimated final total moles
+     * --------------------------------------------------------------------------------------- */
+    
+    packNonlinSolnVector(DATA_PTR(soln_predict_));
+    
+    return 1;
+
+}
+
+
 //==================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
 /*
@@ -1353,6 +1691,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
          */
         double rhs = r0L3_final +  vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
         resid[rindex] = r0R_final - pow(rhs, 0.333333333333333333);
+
         /*
          *  Calculate the time derivative of the molar volume
          */
