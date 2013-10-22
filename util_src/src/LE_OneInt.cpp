@@ -243,6 +243,10 @@ namespace BEInput {
       printf(" (REQUIRED LINES = %d)", m_numTimesRequired);
     }
     printf("\n");
+    if (m_numTimesProcessed) {
+      print_indent(ilvl+1);
+      print_ProcessedLine(0);
+    }
   }
 
 

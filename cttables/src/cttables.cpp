@@ -1587,7 +1587,9 @@ int main(int argc, char** argv) {
      *   We are just after the information needed to initialize
      *   the Cantera structures and size the problem
      */
+    //cf->print_usage(0);
     ok = process_input(cf, commandFile, gKinetics, gThermoMainPhase, pl);
+    //cf->print_usage(0);
 
     /*
      * OK, Find the first kinetics object

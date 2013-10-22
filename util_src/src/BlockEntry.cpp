@@ -799,6 +799,12 @@ namespace BEInput {
       printf("\n");
     }
     indent_lvl++;
+    if (m_numTimesProcessed || m_multiContribIndex) {
+	print_indent(indent_lvl);
+        printf("=> timesProcessed = %d ", m_numTimesProcessed);
+        printf("multiContribIndex = %d ", m_multiContribIndex);
+        printf("\n");
+    }
     for (int i = 0; i < numLineInput; i++) {
       LineEntry *le = BlockLineInput[i];    
       le->print_usage(indent_lvl);
@@ -846,102 +852,112 @@ namespace BEInput {
   BlockEntry *BlockEntry::match_block(const TK_TOKEN *keyLinePtr,
 				      int contribIndex, bool includedMatch) const
   {
-    BlockEntry *biBest = 0;
-    int multiContribIndexBest = -1;
-    if (SubBlocks) {
-      for (int i = 0; i < numSubBlocks; i++) {
-	BlockEntry *bi = SubBlocks[i];
-        bool mmm = false;
-        if (includedMatch) {
-          mmm = toktokincluded(&(bi->EntryName), keyLinePtr);
-        } else {
-          mmm = toktokmatch(&(bi->EntryName), keyLinePtr);
-        }
-	if (mmm) {
-	  int multiContribIndex = bi->multiContribIndex();
-	  if (contribIndex == multiContribIndex) {
-	    return bi;
-	  }
-	  if (contribIndex < 0) {
-	    int numTimesProc = bi->get_NumTimesProcessed();
-	    if (numTimesProc <= 0) { 
-	      if ( (multiContribIndexBest == -1) || 
-		   (multiContribIndex < multiContribIndexBest)) {
-		biBest = bi;
-		multiContribIndexBest =  multiContribIndex;
-	      } else   if (multiContribIndex == multiContribIndexBest) {
-		throw BI_InputError("BlockEntry::match_block",
-				    "Two blocks are the same:");
+      BlockEntry *biBest = 0;
+      int multiContribIndexBest = -1;
+      if (SubBlocks) {
+	  for (int i = 0; i < numSubBlocks; i++) {
+	      BlockEntry *bi = SubBlocks[i];
+	      bool mmm = false;
+	      if (includedMatch) {
+		  mmm = toktokincluded(&(bi->EntryName), keyLinePtr);
+	      } else {
+		  mmm = toktokmatch(&(bi->EntryName), keyLinePtr);
 	      }
-	    } else {
-	      if (!biBest) {
-		biBest = bi;
-                multiContribIndexBest =  multiContribIndex;
+	      if (mmm) {
+		  int multiContribIndex = bi->multiContribIndex();
+		  if (contribIndex == multiContribIndex) {
+		      return bi;
+		  }
+		  if (contribIndex < 0) {
+		      int numTimesProc = bi->get_NumTimesProcessed();
+		      if (numTimesProc <= 0) { 
+			  if (multiContribIndexBest == -1) {
+			      biBest = bi;
+			      multiContribIndexBest =  multiContribIndex;
+			  } else {
+			      int numTimesProcBest = biBest->get_NumTimesProcessed();
+			      if (numTimesProcBest > 0) {
+				  biBest = bi;
+				  multiContribIndexBest =  multiContribIndex;
+			      } else if  (multiContribIndex < multiContribIndexBest) {
+				  biBest = bi;
+				  multiContribIndexBest =  multiContribIndex;
+		    
+		    
+			      } else if (multiContribIndex == multiContribIndexBest) {
+				  throw BI_InputError("BlockEntry::match_block",
+						      "Two blocks are the same:");
+			      }
+			  }
+		      } else {
+			  if (!biBest) {
+			      biBest = bi;
+			      multiContribIndexBest =  multiContribIndex;
+			  }
+		      }
+		  }
 	      }
-	    }
 	  }
-	}
       }
-    }
-    return (biBest);
+      return (biBest);
   }
 
 //=================================================================================================================
-  BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool includedMatch,
-                                              int contribIndex, const TK_TOKEN *keyArgName) const
+BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool includedMatch,
+					    int contribIndex, const TK_TOKEN *keyArgName) const
   {
     if (!keyArgName) {
-      return match_block(keyLinePtr, contribIndex, includedMatch);
+	return match_block(keyLinePtr, contribIndex, includedMatch);
     }
     bool argMatch = false;
     BlockEntry *biBest = 0;
     int multiContribIndexBest = -1;
     if (SubBlocks) {
-      for (int i = 0; i < numSubBlocks; i++) {
-        BlockEntry *bi = SubBlocks[i];
-        bool mmm = false;
-        if (includedMatch) {
-          mmm = toktokincluded(&(bi->EntryName), keyLinePtr);
-        } else {
-          mmm = toktokmatch(&(bi->EntryName), keyLinePtr);
-        }
-        if (mmm) {
-          if (includedMatch) {
-            argMatch = toktokincluded(&(bi->m_ArgTok), keyArgName);
-          } else {
-            argMatch = toktokmatch(&(bi->m_ArgTok), keyArgName);
-          }
-          if (argMatch) {
-            return bi;
-          }
-          int multiContribIndex = bi->multiContribIndex();
-          if (contribIndex >= 0) {
-            if (contribIndex == multiContribIndex) {
-              biBest = bi;
-            }
-          }
-          if (contribIndex < 0) {
-            int numTimesProc = bi->get_NumTimesProcessed();
-            if (numTimesProc <= 0) {
-              if ( (multiContribIndexBest == -1) ||
-                   (multiContribIndex < multiContribIndexBest)) {
-                biBest = bi;
-                multiContribIndexBest =  multiContribIndex;
-              } else   if (multiContribIndex == multiContribIndexBest) {
-                throw BI_InputError("BlockEntry::match_block",
-                                    "Two blocks are the same:");
-              }
-            } else {
-              if (!biBest) {
-                biBest = bi;
-              }
-            }
-          }
-        }
-      }
+	for (int i = 0; i < numSubBlocks; i++) {
+	    BlockEntry *bi = SubBlocks[i];
+	    bool mmm = false;
+	    if (includedMatch) {
+		mmm = toktokincluded(&(bi->EntryName), keyLinePtr);
+	    } else {
+		mmm = toktokmatch(&(bi->EntryName), keyLinePtr);
+	    }
+	    if (mmm) {
+		if (includedMatch) {
+		    argMatch = toktokincluded(&(bi->m_ArgTok), keyArgName);
+		} else {
+		    argMatch = toktokmatch(&(bi->m_ArgTok), keyArgName);
+		}
+		if (argMatch) {
+		    return bi;
+		}
+		int multiContribIndex = bi->multiContribIndex();
+		if (contribIndex >= 0) {
+		    if (contribIndex == multiContribIndex) {
+			biBest = bi;
+		    }
+		}
+		if (contribIndex < 0) {
+		    int numTimesProc = bi->get_NumTimesProcessed();
+		    if (numTimesProc <= 0) {
+			if ( (multiContribIndexBest == -1) ||
+			     (multiContribIndex < multiContribIndexBest)) {
+			    biBest = bi;
+			    multiContribIndexBest =  multiContribIndex;
+			} else   if (multiContribIndex == multiContribIndexBest) {
+			    throw BI_InputError("BlockEntry::match_block",
+						"Two blocks are the same:");
+			}
+		    } else {
+			if (!biBest) {
+			    biBest = bi;
+			}
+		    }
+		}
+	    }
+	}
     }
     return (biBest);
-  }
+}
   //=============================================================================================================
   /*
    *  match_block():
