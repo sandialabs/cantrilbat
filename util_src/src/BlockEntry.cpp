@@ -705,7 +705,7 @@ namespace BEInput {
     throw BI_InputError("BlockEntry::set_default", 
 			"base entry called and not overriden");
   }
-
+  //==============================================================================================================
   /*
    *
    * ZeroLineCount():

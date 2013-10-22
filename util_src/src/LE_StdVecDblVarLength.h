@@ -234,6 +234,9 @@ namespace BEInput {
     //! Destructor
     virtual ~LE_StdVecDblVarLength();
 
+    //! This call zeroes the NumTimesProcessed information out. 
+    virtual void zeroTimesCounter();
+
  
     //! Process this line Entry, which assigns a double variable
     /*!

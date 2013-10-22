@@ -133,6 +133,13 @@ namespace BEInput {
     return (LineEntry*) newLE;
   }
 
+  //===============================================================================================================
+  void LE_StdVecDblVarLength::zeroTimesCounter()
+  {
+    CurrIndex = 0;
+    LineEntry::zeroTimesCounter();
+  }
+  //===============================================================================================================
   /*
    * process_lineEntry():
    *

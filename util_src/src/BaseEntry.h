@@ -106,7 +106,7 @@ public:
   virtual BaseEntry* duplMyselfAsBaseEntry() const;
     
   //! This call zeroes the NumTimesProcessed information out. 
-  void zeroTimesCounter();
+  virtual void zeroTimesCounter();
 
   //! Set the number of times this card is required in the
   //! input deck
