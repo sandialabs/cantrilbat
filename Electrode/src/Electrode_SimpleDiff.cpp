@@ -893,8 +893,17 @@ int Electrode_SimpleDiff::predictSoln()
     return 1;
 
 }
+//====================================================================================================================
+//! Unpack the soln vector
+/*!
+ *  (virtual from Electrode_Integrator)
+ *
+ *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+ */
+void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
+{
 
-
+}
 //==================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
 /*
