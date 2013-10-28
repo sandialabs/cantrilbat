@@ -187,3 +187,15 @@ clean:
                    fort.* *%  core *.trace tmp*
 	$(RM) ${PROG} 
 
+dist_clean:
+	@MAKE@ clean
+	@for iFile in $(HDR_CTAPPLBASE) ; do               \
+           echo "/bin/rm -f @cta_incdir@/$${iFile}" ;     \
+           /bin/rm -f @cta_incdir@/$${iFile}        ;     \
+	done
+	/bin/rm -f @cta_libdir@/libElectrode.a
+		
+
+
+
+

@@ -35,6 +35,19 @@ clean:
 	cd electrodeCell;               @MAKE@ clean
 	cd imt_model;                   @MAKE@ clean
 
+dist_clean:
+	cd util_src;                    @MAKE@ clean
+	cd ctpadds;			$(RM) .depends ;     @MAKE@ clean
+	cd Electrode;                   @MAKE@ dist_clean
+	cd 1Delectrode;                 @MAKE@ clean
+	cd mpequil;                     @MAKE@ clean
+	cd epequil;                     @MAKE@ clean
+	cd cttables;                    @MAKE@ clean
+	cd fitShomate;                  @MAKE@ clean
+	cd electrodeCell;               @MAKE@ clean
+	cd imt_model;                   @MAKE@ clean
+
+
 depends:
 	cd util_src;                   @MAKE@ depends
 	cd ctpadds;                    @MAKE@ depends
