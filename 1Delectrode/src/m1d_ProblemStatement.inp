@@ -44,6 +44,37 @@
 Problem Type = 0
 !-------------------------------------------------------------------------
 !
+! Energy Equation Problem Type
+!
+!    List of available options
+!            = None (default)
+!            = Fixed 
+!            = Dirichlet Equation
+!            = Enthalpy Equation
+!            = Temperature Equation
+!
+!  If the problem type is None, then an isothermal problem is assumed and the temperature
+!  is given by the temperature field above.
+!
+!  If a Fixed option is input, then the temperature field is given by a temperature
+!  field that may potentially vary in space and time. The method for input of this temperature
+!  field is unspecified as of now, until a concrete example is constructed.
+! 
+!  If the problem type is "Dirichlet Eqeuation", then an alternative fixed equation is used.
+!  Typically this would just impose a fixed temperature field option. However, the matrix
+!  structure is the same as the full problem.
+!
+!  If the problem type is "Enthalpy Equation", the a full enthalpy equation is solved 
+!  for. Usually, the dependent variable is still the temperature. 
+!  The Temperature keyline field above is used to initialize the formulation where applicable.
+!
+!  If the problem type is "Temperature Equation", then the full energy equation in CpdT/dt formulation
+!  is solved for. Note, this formulation doesn't actually solve for a conserved quantity, so it is
+!  inferior to the enthalpy formulation in this respect
+!
+!--------------------------------------------------------------------------------------------------------
+Energy Equation Problem Type = None
+!--------------------------------------------------------------------------------------------------------
 ! Start Time - double (required)
 !
 !  Simulation start time
@@ -51,7 +82,6 @@ Problem Type = 0
 !---------------------------------------------------------------------------------------
 Start Time = 0.0
 !---------------------------------------------------------------------------------------
-
 !
 ! End Time - double (required)
 !

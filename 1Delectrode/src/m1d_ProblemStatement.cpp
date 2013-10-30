@@ -39,6 +39,7 @@ bool PrintInputFormat = false;
     cf_(0),
     commandFile_(""),
     prob_type(0),
+    Energy_equation_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
@@ -60,6 +61,7 @@ bool PrintInputFormat = false;
     cf_(0),
     commandFile_(""),
     prob_type(0),
+    Energy_equation_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
@@ -98,6 +100,7 @@ bool PrintInputFormat = false;
 
     commandFile_               = right.commandFile_;
     prob_type                  = right.prob_type;
+    Energy_equation_prob_type_ = right.Energy_equation_prob_type_;
     SolutionBehavior_printLvl_ = right.SolutionBehavior_printLvl_;
     TimeStepper_printLvl_      = right.TimeStepper_printLvl_;
     NonlinSolver_printLvl_     = right.NonlinSolver_printLvl_;
@@ -117,14 +120,13 @@ bool PrintInputFormat = false;
   }
 
 //=====================================================================================================================
-/**
+/*
  * Do any post processing required.
  * This might include unit conversions, opening files, etc.
  */
 void 
 ProblemStatement::post_process_input()
 {
-  ;
 }
   //====================================================================================================================
   //! other preparation steps
@@ -142,7 +144,24 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
   /*
    * Nothing to do yet
    */
-  BaseEntry::set_SkipUnknownEntries(true);
+   BaseEntry::set_SkipUnknownEntries(true);
+
+   /* --------------------------------------------------------------------
+    * 
+    * Energy Equation Problem Type
+    *
+    *   0  = None (default)
+    *   1  = Fixed
+    *   2  = Dirichlet Equation
+    *   3  = Enthalpy Equation
+    *   4  = Temperature Equation
+    */
+   const char *energyEqList[5] = {"None", "Fixed", "Dirichlet Equation", "Enthalpy Equation", "Temperature Equation"};
+
+   LE_PickList *lepkm = new LE_PickList("Energy Equation Problem Type", &Energy_equation_prob_type_,
+                                        energyEqList, 5, 0, "Energy_equation_prob_type_");
+   lepkm->set_default(0);
+   cf->addLineEntry(lepkm);
 }
 //=====================================================================================================================
 void

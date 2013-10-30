@@ -101,12 +101,30 @@ public:
 	//! Title of the simulation
 	std::string Title;
 
+        //! Default temperature in (Kelvin)
+        /*!
+         * defaults to 298.15 K
+         */
+        double Temperature_;
+
 	//! Integer representing the Problem type.
 	/*!
 	 *  The identity of  what is held constant. Currently,
 	 *   T and P are held constant, and this input is ignored
 	 */
 	int prob_type;
+
+        //! Integer representing the energy equation problem type
+	/*!
+         *  0 -> isothermal               Don't solve an energy equation (default)
+         *  1 -> Fixed                    Don't solve an energy equation
+         *  2 -> Dirichlet Equation       Solve a Dirichlet equation for temperature. 
+         *                                This is a way to do the fixed system while keeping the
+         *                                matrix structure the same.
+         *  3 -> Enthalpy Equation        Solve a full enthalpy equation for the temperature
+         *  4 -> Temperature Equation     Solve a Cp dT/dt formulation for the temperature
+         */
+        int Energy_equation_prob_type_;
 
 	//! Level of solution printing done to stdout
 	/*!
