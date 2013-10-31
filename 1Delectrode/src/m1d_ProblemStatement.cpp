@@ -14,6 +14,7 @@
 
 #include "Epetra_Comm.h"
 
+
 #include "BlockEntryGlobal.h"
 #include "mdp_allo.h"
 
@@ -123,13 +124,17 @@ bool PrintInputFormat = false;
 /*
  * Do any post processing required.
  * This might include unit conversions, opening files, etc.
+ * This includes any fatal inconsistency errors that may have occurred.
  */
 void 
 ProblemStatement::post_process_input()
 {
+   if (Energy_equation_prob_type_ != 0) {
+      throw m1d_Error("ProblemStatement::post_process_input()", "Unimplemented Energy Equation Problem Type");
+   }
 }
-  //====================================================================================================================
-  //! other preparation steps
+//====================================================================================================================
+//! other preparation steps
 void
 ProblemStatement::InitForInput()
 {
