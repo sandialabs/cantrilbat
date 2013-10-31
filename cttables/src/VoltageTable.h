@@ -13,6 +13,7 @@
 #include "sortAlgorithms.h"
 #include "mdp_allo.h"
 #include <vector>
+#include <cstdio>
 using std::vector;
 
 /***********************************************************************/
@@ -103,6 +104,7 @@ public:
     if (IncludeEzero) {
       ipoint = findPoint(Ezero);
       if (ipoint == -1) {
+        printf("AddEzero: Inconsistent logic Error exit\n");
 	exit(-1);
       }
       removePoint(ipoint);
@@ -123,6 +125,7 @@ public:
     if (IncludeEeq) {
       ipoint = findPoint(Eeq);
       if (ipoint == -1) {
+        printf("AddEeq: Inconsistent logic Error exit\n");
 	exit(-1);
       }
       removePoint(ipoint);

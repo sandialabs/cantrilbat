@@ -1061,12 +1061,13 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
    * Look for the electron species. The phase where this occurs will be
    * called the metal, iMetal;
    */
-  int iMetal = 0;
+  int iMetal = -1;
   int iSoln = 0;
   int kElectron = -1;
   int nPhases = iK->nPhases();
   for (iph = 0; iph < nPhases; iph++) {
     tp = &(iK->thermo(iph));
+    string pName = tp->id();
     int nSpecies = tp->nSpecies();
     int nElements = tp->nElements();
     int eElectron = tp->elementIndex("E");
@@ -1082,9 +1083,16 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
 	    }
 	  }
 	  if (ifound == 1) {
-	    iMetal = iph;
-	    kElectron = iK->kineticsSpeciesIndex(k, iph);
-	    break;
+	      if (iMetal == -1) {
+		  iMetal = iph;
+		  kElectron = iK->kineticsSpeciesIndex(k, iph);
+	      } else {
+		  int pi = iK->phaseIndex(pName);
+		  if (rmc->m_phaseChargeChange[pi] != 0.0) {
+		      iMetal = iph;
+		      kElectron = iK->kineticsSpeciesIndex(k, iph);
+		  }
+	      }
 	  }
 	}
       }
@@ -1762,7 +1770,7 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
    *    be called kElectron
    */
   // Phase index for the metal
-  int iMetal = 0;
+  int iMetal = -1;
   // Phase index for the solution
   int iSoln = 0;
   // Species index for the electron
@@ -1771,6 +1779,7 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
 
   for (iph = 0; iph < nPhases; iph++) {
     tp = &(iK->thermo(iph));
+    string pName = tp->id();
     int nSpecies = tp->nSpecies();
     int nElements = tp->nElements();
     int eElectron = tp->elementIndex("E");
@@ -1786,14 +1795,22 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
 	    }
 	  }
 	  if (ifound == 1) {
-	    iMetal = iph;
-	    kElectron = iK->kineticsSpeciesIndex(k, iph);
+            if (iMetal == -1) {
+	      iMetal = iph;
+	      kElectron = iK->kineticsSpeciesIndex(k, iph);
+            } else {
+              int pi = iK->phaseIndex(pName); 
+              if (rmc->m_phaseChargeChange[pi] != 0.0) {
+	        iMetal = iph;
+	        kElectron = iK->kineticsSpeciesIndex(k, iph);
+              }
+            }
 	  }
 	}
       }
     }
     if (iph != iMetal) {
-      if (rmc->m_phaseChargeChange[iph] != 0) {
+      if (rmc->m_phaseChargeChange[iph] != 0.0) {
 	iSoln = iph;
       }
     }
