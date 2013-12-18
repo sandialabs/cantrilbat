@@ -616,7 +616,7 @@ void printKineticsTable(PhaseList *pl, int j,
       int idim = tpRef.nDim();
       if (idim < ndim) ndim = idim;
     }
-    doublereal unitsROP[6] = { 1.0, -ndim, 0.0, 0.0, 0.0, -1.0 };
+    doublereal unitsROP[6] = { 1.0, double(-ndim), 0.0, 0.0, 0.0, -1.0 };
     doublereal unitskfwd[6];
     doublereal unitskrev[6] ;
     doublereal unitsSpecies[6];
@@ -1187,7 +1187,6 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
        << "|               (amps/cm2)               "
        << "|" << endl;
   dnt(2); print_char('-', twidth); printf("\n");
-  bool iEdone = false;
   double Voltage, phiMetal;
 
 #ifdef DEBUG_JCH_ETABLE
@@ -1262,7 +1261,6 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
   }
   cout <<"|" << endl;
   dnt(2); print_char('-', twidth); printf("\n");
-  iEdone = false;
 
 
   for (int iV = 0; iV < npts; iV++) {
@@ -1599,7 +1597,7 @@ void printGERKineticsTable(PhaseList *pl, int iGER,
     int idim = tpRef.nDim();
     if (idim < ndim) ndim = idim;
   }
-  doublereal unitsROP[6] = { 1.0, -ndim, 0.0, 0.0, 0.0, -1.0 };
+  doublereal unitsROP[6] = { 1.0, double(-ndim), 0.0, 0.0, 0.0, -1.0 };
   doublereal unitskfwd[6];
   doublereal unitskrev[6] ;
   doublereal unitsSpecies[6];
@@ -1841,7 +1839,7 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
   dnt(2); printf("Input Electric Potential of the Metal = %g Volts\n", phi0Metal);
   dnt(2); printf("Input Electric Potential of the Soln  = %g Volts\n", phi0Soln);
   dnt(2); printf("Input Voltage                         = %g Volts\n", V0);
-  dnt(2); printf("nStoicElectrons                       = %g \n", nStoichElectrons);
+  dnt(2); printf("nStoicElectrons (product electrons - reactant electrons) = %g \n", nStoichElectrons);
 
   // dnt(2); printf("Number of reactant Electrons          = %g \n", nElectrons);
   /*
@@ -1881,7 +1879,6 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
    *  are created.
    */
   double nF = - Faraday * rmc->m_phaseChargeChange[iMetal] * 1.0E-4; 
-  bool iEdone = false;
  
   double Voltage, phiMetal;
 
@@ -1944,7 +1941,6 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
   }
   cout <<"|" << endl;
   dnt(2); print_char('-', twidth); printf("\n");
-  iEdone = false;
 
   if (IOO.VVincEeq) {
     VV_ptr->AddEeq(Erxn);

@@ -771,7 +771,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "Pt_H2electro
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts
-               nStoicElectrons                       = -2 
+               nStoicElectrons (product electrons - reactant electrons) = -2 
                Delta G (rxn)   =    9.5242e+05 J/kmol   --->                  E    = -0.00493557 Volts
                Delta G_SS (rxn)=             0 J/kmol   --->                  E_SS = -0 Volts
                Bath Conditions:

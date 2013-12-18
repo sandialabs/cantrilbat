@@ -512,7 +512,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiI
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts
-               nStoicElectrons                       = -1 
+               nStoicElectrons (product electrons - reactant electrons) = -1 
                Delta G (rxn)   =   -3.7084e+08 J/kmol   --->                  E    = 3.84353 Volts
                Delta G_SS (rxn)=     2.857e+09 J/kmol   --->                  E_SS = -29.6107 Volts
                Bath Conditions:
