@@ -85,9 +85,9 @@ int main(int argc, char **argv) {
 	double pres = gas->pressure();
 	printf("Initial T = %g, pres = %g atm \n", tkelvin, pres/OneAtm);
 	//textFile << setw(20) << "Initial T (K)," << setw(20) << "Pressure (atm)\n"; 
-	beginLogGroup("topEquil", -1);
+	//beginLogGroup("topEquil", -1);
 	equilibrate(*gas,"UV", -1);
-	endLogGroup("topEquil");
+	//endLogGroup("topEquil");
 	cout << gas->report() << endl;
 	//gas->reportCSV(textFile,csvFile);
 #if defined (CANTERA_VERSION_18_LTD)
