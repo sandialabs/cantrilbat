@@ -501,8 +501,38 @@ namespace BEInput {
      */
     static void print_indent(int ilvl);
 
-    std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch, 
-							    int contribIndex, const TK_TOKEN * const blockArgName) const;
+
+    //! This does a recursive search for a Block Entry 
+    //! name under the current block
+    //! and under all subblocks of the current block.
+    /*!
+     * It uses a TOKEN ptr as the search input
+     *
+     * @param nameBN         block name
+     * @param includedMatch  Bookean If true then the TOKEN must only be included in the
+     *                       Block name. If false, then an exact match is required.
+     * @param contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
+     *                       required. if contribIndex is < 0, then any index is allowed to be matched.
+     * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
+     */
+    std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch = false, 
+						    int contribIndex = -1, const TK_TOKEN * const blockArgName = 0) const;
+
+    //! This does a recursive search for a Block Entry 
+    //! name under the current block
+    //! and under all subblocks of the current block.
+    /*!
+     * It uses a TOKEN ptr as the search input
+     *
+     * @param nameBN         block name
+     * @param includedMatch  Bookean If true then the TOKEN must only be included in the
+     *                       Block name. If false, then an exact match is required.
+     * @param contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
+     *                       required. if contribIndex is < 0, then any index is allowed to be matched.
+     * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
+     */
+    std::set<const BlockEntry*> collectBlockEntries(const char *cnameBN, bool includedMatch = false, 
+						    int contribIndex = -1, const TK_TOKEN * const blockArgName = 0) const;
 
   protected:
    

@@ -7,21 +7,23 @@
 
 all:
 	cd LiSi_1_Newman ;                                          @MAKE@
+	cd LiCoO2_Radial_devel_cV;				    @MAKE@
 
 test:
 #	cd LiSi_1_Newman ;                                          @MAKE@ -s test
 
-
 clean:
 	cd LiSi_1_Newman ;                                          @MAKE@ clean
-
+	cd LiCoO2_Radial_devel_cV;				    @MAKE@ clean
 
 depends:
-	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ clean
+	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ depends
+	cd LiCoO2_Radial_devel_cV;				    @MAKE@ depends
 
 
 rebaseline:
 	cd LiSi_1_Newman ;                                          @MAKE@ rebaseline
+	cd LiCoO2_Radial_devel_cV;				    @MAKE@ rebaseline
 
 
 install:

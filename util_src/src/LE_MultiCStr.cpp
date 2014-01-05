@@ -284,6 +284,18 @@ namespace BEInput {
       printf(" (REQUIRED LINES = %d)", m_numTimesRequired);
     }
     printf("\n");
+    if (m_numTimesProcessed) {
+       for (int i = 0; i < m_numTimesProcessed; i++) {
+       print_indent(ilvl + 1);
+       printf(" ====> %s = ", PrintString);
+       char * cc = CurrValue[i];
+       if (cc) {
+          printf(" %s\n", cc);
+       } else {
+          printf(" NULL\n");
+       }
+       }
+    }
   }
   //====================================================================================================================
   /*

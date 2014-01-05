@@ -172,6 +172,8 @@ public:
     //! Set the electrode ID information
     void setID(int domainNum, int cellNum);
 
+    //! Change the ELECTRODE_KEY_INPUT to the correct type, parsing the command file again, and then returning the
+    //!  the struct in its place
     virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei);
 
     //!  Setup the electrode

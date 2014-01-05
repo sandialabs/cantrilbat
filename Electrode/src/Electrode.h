@@ -54,6 +54,7 @@ enum Electrode_Types_Enum {
     INF_CAPACITY_ET,
     MP_RXNEXTENT_ET,
     MULTIPLATEAU_NODIFF_ET,
+    //! Diffusion
     SIMPLE_DIFF_ET,
     SIMPLE_PHASE_CHANGE_DIFFUSION_ET,
     CSTR_ET,

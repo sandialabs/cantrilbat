@@ -235,6 +235,35 @@ Electrode_Types_Enum Electrode_SimpleDiff::electrodeType() const
 {
     return SIMPLE_DIFF_ET;
 }
+//====================================================================================================================
+int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
+{
+    /*
+     *  Malloc an expanded child input
+     */
+    ELECTRODE_RadialRegion_KEY_INPUT * ei_radial = new ELECTRODE_RadialRegion_KEY_INPUT();
+    /*
+     *  Find the command file
+     */
+    ELECTRODE_KEY_INPUT* ei = *(ei_ptr);
+    string commandFile = ei->commandFile_;
+    BlockEntry* cf = ei->lastBlockEntryPtr_;
+    ei_radial->printLvl_ = ei->printLvl_;
+    /*
+     *  Parse the complete child input file
+     */
+    int ok = ei_radial->electrode_input_child(commandFile, cf);
+    if (ok == -1) {
+        return -1;
+    }
+    /*
+     * Switch the pointers around so that the child input file is returned.
+     * Delete the original pointer.
+     */
+    delete ei;
+    *ei_ptr = ei_radial;
+    return 0;
+}
 //======================================================================================================================
 int
 Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
@@ -267,6 +296,10 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Get a count of the distributed phases
      */
     numSPhases_ = phaseIndeciseKRsolidPhases_.size();
+    KRsolid_phaseNames_.resize(numSPhases_);
+    for (iPh = 0; iPh < numSPhases_; iPh++) {
+	KRsolid_phaseNames_[iPh] = phaseName(phaseIndeciseKRsolidPhases_[iPh]);
+    }
     
     numNonSPhases_ = 0;
     phaseIndeciseNonKRsolidPhases_.clear();
@@ -432,6 +465,12 @@ Electrode_SimpleDiff::init_sizes()
     concKRSpecies_Cell_final_.resize(kspCell, 0.0);
     concKRSpecies_Cell_init_init_.resize(kspCell, 0.0);
     concKRSpecies_Cell_final_final_.resize(kspCell, 0.0);
+    
+    concTot_SPhase_Cell_final_final_.resize(nPhCell, 0.0);
+    concTot_SPhase_Cell_final_.resize(nPhCell, 0.0);
+    concTot_SPhase_Cell_init_.resize(nPhCell, 0.0);
+    concTot_SPhase_Cell_init_init_.resize(nPhCell, 0.0);
+
 
     spMf_KRSpecies_Cell_final_.resize(kspCell, 0.0);
 
@@ -447,6 +486,8 @@ Electrode_SimpleDiff::init_sizes()
     rLatticeCBR_init_.resize(numRCells_, 0.0);
     rLatticeCBR_init_init_.resize(numRCells_, 0.0);
     rLatticeCBR_ref_.resize(numRCells_, 0.0);
+
+    vLatticeCBR_cell_.resize(numRCells_, 0.0);
 
     cellBoundR_final_.resize(numRCells_, 0.0);
     cellBoundL_final_.resize(numRCells_, 0.0);
@@ -1248,7 +1289,6 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
  *  --------------------------------------------------------------------------------------------------------------
  *
  */
-
 int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
     // Indexes

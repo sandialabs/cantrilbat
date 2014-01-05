@@ -182,7 +182,7 @@ namespace BEInput {
       printf(" ====> %s = %g\n", PrintString, CurrValue);
     }
   }
-
+  //================================================================================================================================
   /*
    * print_usage() (virtual function)
    *
@@ -203,8 +203,14 @@ namespace BEInput {
       printf(" (REQUIRED LINES = %d)", m_numTimesRequired);
     }
     printf("\n");
+    if (m_numTimesProcessed) {
+        print_indent(ilvl+1);
+        if (strlen(PrintString) > 0) {
+            printf(" ====> %s = %g\n", PrintString, CurrValue);
+        }
+    }
   }
-
+  //================================================================================================================================
   /*
    * Adjust the destination base address to store the input value 
    * (virtual function)
@@ -218,11 +224,11 @@ namespace BEInput {
       }
     }
   }
-
+  //=================================================================================================================================
   double LE_OneDbl::currentTypedValue() const {
     return CurrValue;
   }
-
+  //=================================================================================================================================
   /*
    * currentValueAsVoidP() (virtual)
    */
@@ -270,7 +276,7 @@ namespace BEInput {
     MaxVal = maxV;
     MinVal = minV;
   }
-
+  //====================================================================================================================
   /*
    *set_PrintString()
    *
@@ -282,4 +288,5 @@ namespace BEInput {
       PrintString[MAX_INPUT_STR_LN] = '\0';
     }
   }
+  //=====================================================================================================================
 }

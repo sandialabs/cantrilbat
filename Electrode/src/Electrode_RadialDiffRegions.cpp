@@ -26,6 +26,8 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
+#include <set>
+
 namespace Cantera
 {
 //====================================================================================================================
@@ -193,10 +195,24 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child3(BEInput::BlockEnt
 //======================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntry* cf)
 {
+    cf->print_usage(0);
     rregions_.clear();
     rregions_.push_back(RadialDiffRegionSpec());
-    BEInput::BlockEntry* be = cf->searchBlockEntry("Radial Diffusion Region", false);
-    BEInput::BE_MultiBlockNested* be_rdr = dynamic_cast<BE_MultiBlockNested*>(be);
+    const BEInput::BlockEntry* be = cf->searchBlockEntry("Radial Diffusion Region", false);
+     const BEInput::BlockEntry* be_cand;
+    std::set<const BlockEntry*> cc = cf->collectBlockEntries("Radial Diffusion Region", false);
+
+    std::set<const BlockEntry*>::iterator cc_ptr;
+    for (cc_ptr = cc.begin(); cc_ptr != cc.end(); cc_ptr++) {
+      be_cand = *cc_ptr;
+      int numT = be_cand->get_NumTimesProcessed(); 
+      if (numT > 0) {
+          be = *cc_ptr;
+      }
+      be_cand->print_usage(0);     
+    }
+
+    const BEInput::BE_MultiBlockNested* be_rdr = dynamic_cast<const BE_MultiBlockNested*>(be);
     BEInput::LineEntry *le = be_rdr->searchLineEntry("Number of Cells in Region");
     BEInput::LE_OneInt* le_int = dynamic_cast<LE_OneInt*>(le);
 

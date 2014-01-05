@@ -1376,7 +1376,29 @@ BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool inc
     }
     return (NULL);
   }
-//=================================================================================================================
+  //=================================================================================================================
+  std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const char * cnameBN, bool includedMatch,
+                                                              int contribIndex, const TK_TOKEN * const blockArgName) const
+  {
+    std::set<const BlockEntry*> cc;
+    if (!cnameBN) return cc;
+    TOKEN tok_ptr(cnameBN);
+    cc = collectBlockEntries(&tok_ptr, includedMatch, contribIndex,  blockArgName);
+    return cc; 
+  }
+  //=================================================================================================================
+// This does a recursive search for a Block Entry name 
+// and under all subblocks of the current block.
+/*
+ * It uses a TOKEN ptr as the search input
+ *
+ * @param nameBN         block name
+ * @param includedMatch  Bookean If true then the TOKEN must only be included in the
+ *                       Block name. If false, then an exact match is required.
+ * @param contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
+ *                       required. if contribIndex is < 0, then any index is allowed to be matched.
+ * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
+ */
 std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch, 
 							    int contribIndex, const TK_TOKEN * const blockArgName) const
 {
@@ -1424,7 +1446,6 @@ std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN * con
 	 }
 	     
 	 if (SubBlocks) {
-	     
 	     for (int i = 0; i < numSubBlocks; i++) {
 		 BlockEntry *sbi = SubBlocks[i];
 		 cc_sub = sbi->collectBlockEntries(nameBN, true, contribIndex, blockArgName);
@@ -1433,8 +1454,7 @@ std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN * con
 	 }
      }
      return (cc);
-    
 }
-
+//=================================================================================================================
 }
-
+//=================================================================================================================
