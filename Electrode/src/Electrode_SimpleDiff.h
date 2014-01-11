@@ -422,10 +422,11 @@ public:
      *                                                                                     j = numEqnsCell_ * iCell
      *                    
      *            Residual (Reference/lattice Position)            rRefPos_final_[iCell];        (1+j)
-     *            Residual (Mesh Position)                                                       (j+1) + 1
-     *            Residual (Concentration _ k=0)
+     *            Residual (Mesh Position)                         rnodePos_final_[iCell]        (j+1) + 1
+     *            Loop over distributed Phases
+     *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh]
      *              . . .
-     *            Residual (Concentration _ k=Ns-1)
+     *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
      *  --------------------------------------------------------------------------------------------------------------
      *
      *  @param resid   Calculated residual vector whose form is described above
@@ -512,7 +513,7 @@ protected:
 
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
-     *  There are numSPhase_ of these
+     *  There are numSPhases_ of these
      *
      *  The phaseIndex is the index within the Electrode object
      *
@@ -534,7 +535,7 @@ protected:
 
     //! Number of species in each of the radially distributed phases
     /*!
-     *  There are numSPhase_ of these
+     *  There are numSPhases_ of these
      *
      *  The phaseIndex is the index within the Electrode object
      */
@@ -544,7 +545,7 @@ protected:
 
     //! Phase Names of the solid phases comprising the species that are radially distributed
     /*!
-     *  There are numSPhase_ of these
+     *  There are numSPhases_ of these
      */
     std::vector<std::string>  KRsolid_phaseNames_;
 
@@ -686,6 +687,14 @@ protected:
      */
     std::vector<doublereal> partialMolarVolKRSpecies_Cell_final_;
 
+
+    //! Rate of progress of the surface reactions
+    /*!
+     *   length = maxNumRxns;
+     */
+    std::vector<double> ROP_;
+
+
     //!  Molar creation rate of species in the electrode object due to the Exterior surface
     /*!
      *   This is a quantity over all species in the PhaseList
@@ -772,6 +781,11 @@ protected:
 
     //! Absolute tolerance for nonlinear residual
     double atolBaseResid_;
+
+    //!  This Boolean is true when we are at a plateau boundary and the voltage is in between the
+    //!  top value and the bottom value.
+    int goNowhere_;
+
 
 
 };

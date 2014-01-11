@@ -77,7 +77,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     onRegionBoundary_final_(-1),
     onRegionBoundary_init_init_(-1),
     onRegionBoundary_final_final_(-1),
-    atolBaseResid_(1.0E-12)
+    atolBaseResid_(1.0E-12),
+    goNowhere_(0)
 {
 
 
@@ -127,11 +128,16 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     actCoeff_Cell_final_(0),
     phaseID_TimeDeathMin_(-1),
     cellID_TimeDeathMin_(-1),
+    m_rbot0_(0.0),
     onRegionBoundary_init_(-1),
     onRegionBoundary_final_(-1),
     onRegionBoundary_init_init_(-1),
     onRegionBoundary_final_final_(-1),
-    atolBaseResid_(1.0E-12)
+
+    atolBaseResid_(1.0E-12),
+ 
+    goNowhere_(0)
+  
 {
     /*
      * Call the assignment operator.
@@ -200,6 +206,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
  
     fracVolNodePos_                     = right.fracVolNodePos_;
     partialMolarVolKRSpecies_Cell_final_= right.partialMolarVolKRSpecies_Cell_final_;
+    ROP_                                = right.ROP_;
     DspMoles_final_                     = right.DspMoles_final_;
     m_rbot0_                            = right.m_rbot0_;
     Diff_Coeff_KRSolid_                 = right.Diff_Coeff_KRSolid_;
@@ -217,6 +224,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     onRegionBoundary_init_init_         = right.onRegionBoundary_init_init_;
     onRegionBoundary_final_final_       = right.onRegionBoundary_final_final_;
     atolBaseResid_                      = right.atolBaseResid_;
+    goNowhere_                          = right.goNowhere_;
 
     /*
      * Return the reference to the current object
@@ -375,6 +383,11 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 	    KRsolid++;
 	}
     }
+
+    /*
+     *  Calculate the number of equations to be solved in the nonlinear system
+     */
+    neq_ = 1 +  numEqnsCell_ * numRCells_;
     
     /*
      *  We will do a cursory check of surface phases here. The assumption for this object
@@ -829,9 +842,10 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
  *  prerequisites: The object must have been already created.
  *
  *  Fundamental Variables:
- *       concKRSpecies_Cell_final_[]
- *       rnodePos_final_[iCell]
- *        rRefPos_final_[iCell]
+ *        concTot_SPhase_Cell_final_[]
+ *        concKRSpecies_Cell_final_[1::N-1]
+ *        rLatticeCBR_final_[iCell]  
+ *        rnodePos_final_[iCell]
  *
  *  Variables to be calculated:  (all of the rest)
  *
@@ -889,6 +903,9 @@ void Electrode_SimpleDiff::updateState()
         int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
 	int indexCellPhase = iCell * numSPhases_;
+	/*
+	 *  Loop over distributed phases
+	 */
         for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
             //iPh = phaseIndeciseKRsolidPhases_[jRPh];
             //kspStart = m_PhaseSpeciesStartIndex[iPh];
@@ -975,15 +992,55 @@ int Electrode_SimpleDiff::predictSoln()
 
 }
 //====================================================================================================================
-//! Unpack the soln vector
-/*!
+// Unpack the soln vector
+/*
  *  (virtual from Electrode_Integrator)
  *
- *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+ * --------------------------------------------------------------------------------------------------------------
+ *         Residual (Time)                                     deltaSubcycleCalc_                   0
+ *                                                                                            1
+ *         Loop over cells                                                            0 <=  iCell < numRCells_
+ *                                                                                     j = numEqnsCell_ * iCell
+ *                    
+ *            Residual (Reference/lattice Position)          rLatticeCBR_final_[iCell];      (1+j)
+ *            Residual (Mesh Position)                                                       (j+1) + 1
+ *          Loop over distributed Phases
+ *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhase_ + jPh]
+ *              . . .
+ *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+ *  --------------------------------------------------------------------------------------------------------------
  */
 void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
-{
+{ 
+    int index = 0;
+    int kstart, jRPh, iKRSpecies;
+    deltaTsubcycleCalc_ = y[0];
+    tfinal_ = tinit_ + deltaTsubcycleCalc_;
+    index++;
 
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	kstart = 0;
+
+	rLatticeCBR_final_[iCell] = y[index];
+	index++;
+
+	rnodePos_final_[iCell] = y[index];
+	index++;
+
+	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    // int iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
+	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
+	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] =   concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    for (int kSp = 1; kSp < nsp; kSp++) {
+		iKRSpecies = kstart + kSp;
+		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] = y[index + kSp];
+		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] -=  concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+	    }
+	    kstart += nsp;
+	    index += nsp;
+	}
+    }
 }
 //==================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
@@ -1100,9 +1157,6 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
     }
 
     determineBigMoleFractions();
-
-
-
 }
 //====================================================================================================================
 //   Evaluate the residual function
@@ -1321,7 +1375,7 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
  *         Loop over cells                                                            0 <=  iCell < numRCells_
  *                                                                                     j = numEqnsCell_ * iCell
  *                    
- *            Residual (Reference/lattice Position)            rRefPos_final_[iCell];        (1+j)
+ *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];       (1+j)
  *            Residual (Mesh Position)                                                       (j+1) + 1
  *            Residual (Concentration _ k=0)
  *              . . .
@@ -1911,11 +1965,58 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
     drawline(indentSpaces, 80);
 }
 //====================================================================================================================
+//  Extract the ROP of the multiple reaction fronts from Cantera within this routine
 /*
- * There is a small dependence on mf_external and mf_internal exhibited by this function
+ *  In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
+ *
+ *        ROP_[jRxn]
+ *        spNetProdPerArea_List_[isk][kIndexKin]
  */
 void  Electrode_SimpleDiff::extractInfo()
 {
+    /*
+     *  this is an initial copy from Electrode_CSTR, since it should be nearly the same
+     */
+    int maxNumRxns = RSD_List_[0]->nReactions();
+    std::vector<double> netROP(maxNumRxns, 0.0);
+    /*
+     * Loop over surface phases, filling in the phase existence fields within the
+     * kinetics operator
+     */
+    for (int isk = 0; isk < numSurfaces_; isk++) {
+        double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
+        /*
+         *   Only loop over surfaces that have kinetics objects associated with them
+         */
+        if (ActiveKineticsSurf_[isk]) {
+            /*
+             *  Sometimes the ROP for goNowhere is nonzero, when it should be zero.
+             */
+            if (goNowhere_) {
+                for (int i = 0; i < maxNumRxns; i++) {
+                    ROP_[i] = 0.0;
+                }
+                continue;
+            } else {
+                /*
+                 *  Get the species production rates for the reacting surface.
+                 *  This is used to integrate cell model equations.
+                 */
+                getNetProductionRates(isk, spNetProdPerArea);
+                /*
+                 *  Get reaction net rates of progress for the reacting surface.
+                 *  This does not appear to be used (cmtenne 2012.06.06).
+                 */
+                RSD_List_[isk]->getNetRatesOfProgress(DATA_PTR(netROP));
+                for (int i = 0; i < maxNumRxns; i++) {
+                    ROP_[i] = netROP[i];
+                }
+            }
+        }
+    }
+
+
 
     updateState();
 
