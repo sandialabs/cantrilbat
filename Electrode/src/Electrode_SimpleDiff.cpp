@@ -50,6 +50,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
     phaseIndeciseKRsolidPhases_(0),
+    distribPhIndexKRsolidPhases_(0),
     numSpeciesInKRSolidPhases_(0),
     KRsolid_phaseNames_(0),
     MolarVolume_Ref_(0),
@@ -102,6 +103,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
     phaseIndeciseKRsolidPhases_(0),
+    distribPhIndexKRsolidPhases_(0),
     numSpeciesInKRSolidPhases_(0),
     KRsolid_phaseNames_(0),
     phaseIndeciseNonKRsolidPhases_(0),
@@ -166,6 +168,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     KRsolid_speciesList_                = right.KRsolid_speciesList_;
     KRsolid_speciesNames_               = right.KRsolid_speciesNames_;
     phaseIndeciseKRsolidPhases_         = right.phaseIndeciseKRsolidPhases_;
+    distribPhIndexKRsolidPhases_        = right.distribPhIndexKRsolidPhases_;
     numSpeciesInKRSolidPhases_          = right.numSpeciesInKRSolidPhases_;
     KRsolid_phaseNames_                 = right.KRsolid_phaseNames_;
     concTot_SPhase_Cell_final_final_    = right.concTot_SPhase_Cell_final_final_;
@@ -177,6 +180,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     concKRSpecies_Cell_init_init_       = right.concKRSpecies_Cell_init_init_;
     concKRSpecies_Cell_final_final_     = right.concKRSpecies_Cell_final_final_;
     spMf_KRSpecies_Cell_final_          = right.spMf_KRSpecies_Cell_final_;
+    spMf_KRSpecies_Cell_init_           = right.spMf_KRSpecies_Cell_init_;
     MolarVolume_Ref_                    = right.MolarVolume_Ref_;
 
     rnodePos_final_final_               = right.rnodePos_final_final_;
@@ -193,7 +197,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     cellBoundL_final_                   = right.cellBoundL_final_;
     volPP_Cell_final_                   = right.volPP_Cell_final_;
 
-    fracNodePos_                        = right.fracNodePos_;
+ 
     fracVolNodePos_                     = right.fracVolNodePos_;
     partialMolarVolKRSpecies_Cell_final_= right.partialMolarVolKRSpecies_Cell_final_;
     DspMoles_final_                     = right.DspMoles_final_;
@@ -268,7 +272,7 @@ int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
 int
 Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
-    int iPh;
+    int iPh, jPh;
     /*
      *  Downcast the Key input to make sure we are being fed the correct child object
      */
@@ -296,11 +300,27 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Get a count of the distributed phases
      */
     numSPhases_ = phaseIndeciseKRsolidPhases_.size();
+   
     KRsolid_phaseNames_.resize(numSPhases_);
     for (iPh = 0; iPh < numSPhases_; iPh++) {
 	KRsolid_phaseNames_[iPh] = phaseName(phaseIndeciseKRsolidPhases_[iPh]);
     }
-    
+
+    /*
+     *  Construct the inverse mapping between regular phase indeces and distributed phases
+     */
+    distribPhIndexKRsolidPhases_.resize(m_NumTotPhases, -1);
+    for (iPh = 0; iPh <  m_NumTotPhases; iPh++) {
+	distribPhIndexKRsolidPhases_[iPh] = -1;
+    }
+    for  (jPh = 0; jPh < numSPhases_; jPh++) {
+	iPh = phaseIndeciseKRsolidPhases_[jPh];
+	distribPhIndexKRsolidPhases_[iPh] = jPh;
+    }
+
+    /*
+     *  Construct the null mapping of phaseIndeciseKRsolidPhases_;
+     */
     numNonSPhases_ = 0;
     phaseIndeciseNonKRsolidPhases_.clear();
     for (iPh = 0; iPh <  m_NumTotPhases; iPh++) {
@@ -318,11 +338,13 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     numKRSpecies_ = 0;
     numSpeciesInKRSolidPhases_.clear();
+    kstartKRSolidPhases_.clear();
     for (int i = 0; i < numSPhases_; i++) {
         iPh =  phaseIndeciseKRsolidPhases_[i];
         ThermoPhase& th = thermo(iPh);
         int nsp = th.nSpecies();
 	numSpeciesInKRSolidPhases_.push_back(nsp);
+	kstartKRSolidPhases_.push_back(numKRSpecies_);
         numKRSpecies_ += nsp;
     }
     numEqnsCell_ =  numKRSpecies_ + 2;
@@ -473,6 +495,7 @@ Electrode_SimpleDiff::init_sizes()
 
 
     spMf_KRSpecies_Cell_final_.resize(kspCell, 0.0);
+    spMf_KRSpecies_Cell_init_.resize(kspCell, 0.0);
 
     MolarVolume_Ref_ = 1.0;
 
@@ -493,7 +516,7 @@ Electrode_SimpleDiff::init_sizes()
     cellBoundL_final_.resize(numRCells_, 0.0);
 
     volPP_Cell_final_.resize(numRCells_, 0.0);
-    fracNodePos_.resize(numRCells_, 0.0);
+    //  fracNodePos_.resize(numRCells_, 0.0);
     fracVolNodePos_.resize(numRCells_, 0.0);
 
     partialMolarVolKRSpecies_Cell_final_.resize(kspCell, 0.0);
@@ -555,24 +578,37 @@ Electrode_SimpleDiff::init_grid()
 	 double cbl3 = cellBoundL_final_[iCell] * cellBoundL_final_[iCell] * cellBoundL_final_[iCell];
 	 double cbR3 = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
 	 volPP_Cell_final_[iCell] = 4. * Pi / 3. * (cbR3 - cbl3);
+
+	 if (iCell ==  0) {
+	     rLatticeCBR_ref_[iCell] =  m_rbot0_;
+	 } else {
+	     rLatticeCBR_ref_[iCell] =  cellBoundR_final_[iCell-1];
+	 }
      }
 }
 //====================================================================================================================
 void
 Electrode_SimpleDiff::initializeAsEvenDistribution()
 {
+    /*
+     *  Overall algorithm is to fill out the final state variables. Then populate the other times
+     */
     int iCell, i, k, KRSolid,  kspCell, iphCell;
     /*
-     *  First, get the mole fractions 
+     *  First, get the mole fractions at all cell points
      */
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	for (KRSolid = 0; KRSolid <  numKRSpecies_; KRSolid++) {
 	    k = KRsolid_speciesList_[KRSolid];
 	    i = KRSolid + numKRSpecies_ * iCell;
 	    spMf_KRSpecies_Cell_final_[i] = spMf_final_[k];
+	    spMf_KRSpecies_Cell_init_[i]  = spMf_final_[k];
 	}
     }
-
+    /*
+     *  Calculate the total concentrations of phases at all cell points -  concTot_SPhase_Cell_final_
+     *  Calculate the species concentrations at the cell points, -  concKRSpecies_Cell_final_
+     */
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	kspCell = iCell * numKRSpecies_;
 	iphCell = iCell * numSPhases_;
@@ -588,7 +624,11 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 	    kspCell += nsp;
 	}
     }
-
+    /*
+     *  Calculate species moles in each cell, spMoles_KRsolid_Cell_final_
+     *  Calculate the partial molar volumes of each species, partialMolarVolKRSpecies_Cell_final_
+     *  Calculate the activity coefficients.
+     */
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	kspCell = iCell * numKRSpecies_;
 	iphCell = iCell * numSPhases_;
@@ -627,7 +667,7 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
  */
-void  Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
+void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
     /*
     * If the initial time is input, then the code doesn't advance
@@ -1703,8 +1743,10 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	indent += " ";
     }
     int numBlockRows = numFields / 5;
-    drawline(indentSpaces, 80);
-    printf("%s  %s\n", indent.c_str(), title.c_str());
+    if (title.size() > 0) {
+	drawline(indentSpaces, 80);
+	printf("%s  %s\n", indent.c_str(), title.c_str());
+    }
     for (int iBlock = 0; iBlock < numBlockRows; iBlock++) {
 	drawline(indentSpaces, 80);
 	printf("%s        z   ", indent.c_str());
@@ -1746,6 +1788,70 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	    for (n = 0; n < nrem; n++) {
 		v = vals[istart + numBlockRows * 5 + n];
 		printf(" %-10.4E ", v);
+	    }
+	}
+	printf("\n");
+    }
+}
+//====================================================================================================================
+void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
+						  const double * const vals_init,  const double * const vals_final,
+						  const std::vector<std::string> &varNames, int numFields)
+{
+    int n, iCell;
+    double v_init, v_final;
+    std::string indent = "";
+    for (int i = 0; i < indentSpaces; i++) {
+	indent += " ";
+    }
+    int numBlockRows = numFields / 4;
+    if (title.size() > 0) {
+	drawline(indentSpaces, 80);
+	printf("%s  %s\n", indent.c_str(), title.c_str());
+    }
+    for (int iBlock = 0; iBlock < numBlockRows; iBlock++) {
+	drawline(indentSpaces, 80);
+	printf("%s        z      | ", indent.c_str());
+	for (n = 0; n < 4; n++) {
+	    int ivar = iBlock * 4 + n;
+	    string name = varNames[ivar];
+	    printf("(f) %-13.13s (i) | ", name.c_str());
+	}
+	printf("\n");
+	drawline(indentSpaces, 80);
+
+	for (iCell = 0; iCell < numRadialVals; iCell++) {
+	    doublereal r = radialValues[iCell];
+	    printf("\n%s    %-10.4E |", indent.c_str(), r);
+	    int istart = iCell * numFields;
+	    for (n = 0; n < 4; n++) {
+		v_init = vals_init[istart + iBlock * 4 + n];
+		v_final = vals_final[istart + iBlock * 4 + n];
+		printf(" %-10.4E %-10.4E |", v_final, v_init);
+	    }
+	}
+	printf("\n");
+    }
+    int nrem = numFields - 4 * numBlockRows;
+    if (nrem > 0) {
+	drawline(indentSpaces, 80);
+	printf("%s        z      | ", indent.c_str());
+	for (n = 0; n < nrem; n++) {
+	    int ivar = numBlockRows * 4 + n;
+	    string name = varNames[ivar];
+	    printf("(f) %-13.13s (i) | ", name.c_str());
+	}
+	printf("\n");
+	drawline(indentSpaces, 80);
+
+	for (iCell = 0; iCell < numRadialVals; iCell++) {
+	    doublereal r = radialValues[iCell];
+	    printf("\n%s    %-10.4E |", indent.c_str(), r);
+	    int istart = iCell * numFields;
+	    for (n = 0; n < nrem; n++) {
+		v_init = vals_init[istart + numBlockRows * 4 + n];
+		v_final = vals_init[istart + numBlockRows * 4 + n];
+		printf(" %-10.4E %-10.4E |", v_final, v_init);
 	    }
 	}
 	printf("\n");
@@ -1837,6 +1943,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_[i];
 	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_[i];
+	spMf_KRSpecies_Cell_init_[i] = spMf_KRSpecies_Cell_final_[i];
     }
 
     int iTotal =  numSPhases_ * numRCells_;
@@ -2010,15 +2117,16 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 {
     int iph;
+    vector<std::string> colNames;
     double* netROP = new double[m_NumTotSpecies];
     double egv = TotalVol();
     printf("   ===============================================================\n");
     if (subTimeStep) {
-        printf("      Electrode at intermediate-step time final = %g\n", tfinal_);
-        printf("                   intermediate-step time init  = %g\n", tinit_);
+        printf("      Electrode_SimpleDiff at intermediate-step time final = %12.5E\n", tfinal_);
+        printf("                              intermediate-step time init  = %12.5E\n", tinit_);
     } else {
-        printf("      Electrode at time final = %g\n", t_final_final_);
-        printf("                   time init  = %g\n", t_init_init_);
+        printf("      Electrode_SimpleDiff at time final = %12.5E\n", t_final_final_);
+        printf("                              time init  = %12.5E\n", t_init_init_);
     }
     printf("   ===============================================================\n");
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
@@ -2031,6 +2139,11 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     printf("\n");
     printf("          followElectrolyteMoles = %d\n", followElectrolyteMoles_);
     printf("          ElectrolytePseudoMoles = %g\n",  electrolytePseudoMoles_);
+
+    colNames.push_back("LatticeRadius");
+    std::string title = "";
+    int indentSpaces = 10;
+    showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &rLatticeCBR_final_[0], colNames, 1);
 
     for (iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc);
@@ -2046,6 +2159,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();
+    
     int istart = m_PhaseSpeciesStartIndex[iph];
     int nsp = tp.nSpecies();
     printf("     ===============================================================\n");
@@ -2131,6 +2245,52 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     /*
      * Add distributed printouts.
      */
+    if (distribPhIndexKRsolidPhases_[iph] >= 0) {
+	int jPh = distribPhIndexKRsolidPhases_[iph];
+	std::vector<double> concKRSpecies_iph_init(numRCells_ * nsp);
+	std::vector<double> concKRSpecies_iph_final(numRCells_ * nsp);
+	std::vector<double> mf_iph_init(numRCells_ * nsp);
+	std::vector<double> mf_iph_final(numRCells_ * nsp);
+	std::vector<double> spMoles_iph_init(numRCells_ * nsp);
+	std::vector<double> spMoles_iph_final(numRCells_ * nsp);
+	for (int iCell = 0; iCell < numRCells_; iCell++) {
+	    int istart = iCell * nsp;
+	    int jstart = iCell * numKRSpecies_;
+	    for (int kSp = 0; kSp < nsp; kSp++) {
+		int iKRSpecies = kstartKRSolidPhases_[jPh] + kSp;
+		concKRSpecies_iph_init[istart + kSp] = concKRSpecies_Cell_init_[jstart + iKRSpecies];
+		concKRSpecies_iph_final[istart + kSp] = concKRSpecies_Cell_final_[jstart + iKRSpecies];
+		mf_iph_init[istart + kSp]  = spMf_KRSpecies_Cell_init_[jstart + iKRSpecies];
+		mf_iph_final[istart + kSp] = spMf_KRSpecies_Cell_final_[jstart + iKRSpecies];
+
+		spMoles_iph_init[istart + kSp]  = spMoles_KRsolid_Cell_init_[jstart + iKRSpecies];
+	        spMoles_iph_final[istart + kSp] = spMoles_KRsolid_Cell_final_[jstart + iKRSpecies];
+	    }
+	}
+	std::vector<string> speciesNames;
+	for (int kSp = 0; kSp < nsp; kSp++) {
+	    speciesNames.push_back( tp.speciesName(kSp));
+
+	 
+	}
+
+	string title = "    Species Cell Moles (final and init)";
+	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &spMoles_iph_init[0], &spMoles_iph_final[0],
+			      speciesNames, nsp);
+
+
+	title = "   Species Concentrations (kmol /m3) (final and init)";
+
+	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &concKRSpecies_iph_init[0], &concKRSpecies_iph_final[0],
+			      speciesNames, nsp);
+
+        title = "   Mole Fractions (final and init)";
+
+	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &mf_iph_init[0], &mf_iph_final[0],
+			      speciesNames, nsp);
+
+
+    }
 
 
     delete [] netROP;

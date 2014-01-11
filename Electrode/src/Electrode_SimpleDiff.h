@@ -146,6 +146,10 @@ public:
     void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
 
+    void  showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
+				const double * const vals_init,  const double * const vals_final,
+				const std::vector<std::string> &varNames, int numFields);
+
     void showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 		      int numFields1, int iTerm, const double * const val_init,  const double * const val_final,
 		      int numEqnsCell, int iEqn,const double * const resid_error,  const double * const solnError_tol,
@@ -511,8 +515,22 @@ protected:
      *  There are numSPhase_ of these
      *
      *  The phaseIndex is the index within the Electrode object
+     *
+     *  
+     *  iPh = phaseIndeciseKRsolidPhases_[distribPhIndex];
+     *
+     *
      */
     std::vector<int> phaseIndeciseKRsolidPhases_;
+
+    //! Returns the distributed phase index given the regular phase Index.
+    /*
+     *  
+     *  distribPhIndex = phaseIndeciseKRsolidPhases_[iPh];
+     *
+     *  If distribPhIndex is -1, the phase isn't distributed.
+     */
+    std::vector<int> distribPhIndexKRsolidPhases_;
 
     //! Number of species in each of the radially distributed phases
     /*!
@@ -521,6 +539,8 @@ protected:
      *  The phaseIndex is the index within the Electrode object
      */
     std::vector<int> numSpeciesInKRSolidPhases_;
+
+    std::vector<int> kstartKRSolidPhases_;
 
     //! Phase Names of the solid phases comprising the species that are radially distributed
     /*!
@@ -564,25 +584,25 @@ protected:
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *      concKRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]
      */
     std::vector<double> concKRSpecies_Cell_init_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *     concKRSpecies_Cell_final_[numKRSpecies_ * iCell + iKRSpecies]
      */
     std::vector<double> concKRSpecies_Cell_final_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *     concKRSpecies_Cell_init_init_[numKRSpecies_ * iCell + iKRSpecies]
      */
     std::vector<double> concKRSpecies_Cell_init_init_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *     concKRSpecies_Cell_final_final_[numKRSpecies_ * iCell + iKRSpecies]
      */
     std::vector<double> concKRSpecies_Cell_final_final_;
 
@@ -591,6 +611,12 @@ protected:
      *
      */
     std::vector<double> spMf_KRSpecies_Cell_final_;
+
+    //! Mole fraction of the solid phase species that are distributed = final state
+    /*!
+     *
+     */
+    std::vector<double> spMf_KRSpecies_Cell_init_;
 
     //! Molar density of the solid phase in each cell under reference conditions
     /*!
@@ -645,7 +671,7 @@ protected:
      *   These factors are the fraction of the exterior node radius that the
      *   current node possesses.
      */
-    std::vector<doublereal> fracNodePos_;
+    // std::vector<doublereal> fracNodePos_;
 
     //!  Spline System for the nodal points
     /*!
