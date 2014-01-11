@@ -277,7 +277,12 @@ public:
      */
     virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1);
 
+    //! Extract information from reaction mechanisms
+    /*!
+     *   (inherited from Electrode_Integrator)
+     */
     void extractInfo();
+
 
     void updateSpeciesMoleChangeFinal();
 

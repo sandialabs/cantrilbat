@@ -21,6 +21,9 @@
 namespace Cantera
 {
 
+#define ELECTRODETYPE_ANODE   0
+#define ELECTRODETYPE_CATHODE 1
+
 
 //! This class is a derived class used to model phase - change electrodes
 /*!
@@ -47,7 +50,6 @@ public:
      *  @param right object to be copied
      */
     Electrode_SimpleDiff& operator=(const Electrode_SimpleDiff& right);
-
 
     //! Return the type of electrode
     /*!
@@ -135,7 +137,32 @@ public:
      */
     void initializeAsEvenDistribution();
 
+ 
+
+    // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
+    //!    Return the total volume of solid material
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *       This is the main routine for calculating the
+     *       We leave out the solnPhase_ volume from the calculation
+     *       units = m**3
+     */
+    virtual double SolidVol() const;
+
+    //!  Returns the total moles in the electrode phases of the electrode
+    /*!
+     *  @return total moles (kmol)
+     */
+    virtual double SolidTotalMoles() const;
+
+    // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
+
+
+
     void calcRate(double deltaT);
+
+
 
 
     //!  Print one set of field variables
@@ -163,9 +190,20 @@ public:
 
     //! Extract information from reaction mechanisms
     /*!
-     *   (inherited from Electrode_Integrator
+     *   (inherited from Electrode_Integrator)
      */
     virtual void extractInfo();
+
+    //! Collect mole change information
+    /*!
+     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
+     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
+     *   all species in the electrode due to surface reactions
+     *
+     *   (inherited from Electrode_Integrator)
+     */
+    virtual void updateSpeciesMoleChangeFinal();
+
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -307,6 +345,22 @@ public:
      *                 0  A predicted solution is not achieved, but go ahead anyway
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
+    int predictSolnResid();
+
+    //! Predict the solution
+    /*!
+     * Ok at this point we have a time step deltalimiTsubcycle_
+     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     * We now calculate predicted solution components from these conditions.
+     *
+     *  Calls predictSolnResid(). If it works that good, if not reduct time step and call again.
+     *
+     * @return   Returns the success of the operation
+     *                 1  A predicted solution is achieved
+     *                 2  A predicted solution with a multispecies phase pop is acheived
+     *                 0  A predicted solution is not achieved, but go ahead anyway
+     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     */
     virtual int predictSoln();
 
     //! Unpack the soln vector
@@ -316,7 +370,6 @@ public:
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
      */
     virtual void unpackNonlinSolnVector(const double* const y);
-
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
@@ -436,6 +489,22 @@ public:
 
 
 protected:
+
+    //! Type of the electrode, 0 for anode, 1 for cathode
+    /*!
+     *  0 - anode
+     *  1 - cathode
+     *
+     *  The open circuit plateaus are ramped differently.
+     *   For anodes, the open circuit plateaus are ramped going upwards
+     *       A big negative voltage means that the DoD will stay or trend to 0
+     *       A big positive voltage means that the DoD will stay or trend to 1.
+     *
+     *   For cathodes, the open circuit plateaus are ramped going downwards.
+     *       A big positive voltage means that the DoD will stay or trend to 0
+     *       A big negative voltage means that the DoD will stay or trend to 1.
+     */
+    int electrodeType_;
 
     //! Define the number of species that are defined to have radially distributed distributions
     //! within the solid

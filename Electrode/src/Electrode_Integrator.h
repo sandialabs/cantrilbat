@@ -419,10 +419,12 @@ public:
 
     //! Collect mole change information
     /*!
-     *  (virtual fucntion from Electrode_Integrator)
+     *   (inherited from Electrode_Integrator)
+     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
+     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
+     *   all species in the electrode due to surface reactions
      */
     virtual void updateSpeciesMoleChangeFinal();
-
 
     //! Pack the nonlinear solver proplem
     /*!
