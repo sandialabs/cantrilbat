@@ -725,10 +725,8 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 double Electrode_SimpleDiff::SolidVol() const
 {
     double v0_3 = 4. * Pi * m_rbot0_ * m_rbot0_ * m_rbot0_ / 3.;
-    
     double r_ext = rLatticeCBR_final_[numRCells_ - 1];
     double Vext_3 = 4. * Pi * r_ext *  r_ext *  r_ext / 3.;
-    
     double svol = (Vext_3 -  v0_3) * particleNumberToFollow_;
     return svol;
 }
@@ -804,12 +802,13 @@ void Electrode_SimpleDiff::updatePhaseNumbers(int iph)
 // Take the state (i.e., the final state) within the Electrode_SimpleDiff and push it up
 // to the zero-dimensional parent object
 /*
- * 
- *  update 
- *             spMoles_final_ [] -> sum solid phase species
- *              spMf_final_[]  -> Use exterior cell values
+ *  update the following variables:
  *
- *
+ *          spMoles_final_ [] -> sum solid phase species
+ *          spMf_final_[]  -> Use exterior cell values
+ *          deltaVoltage_
+ *          ElectrodeSolidVolume_ 
+ *          Radius_exterior_final_
  */
 void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
 {
@@ -864,7 +863,22 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
 	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
 	Electrode::updatePhaseNumbers(iPh);
     }
-
+    for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
+	iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	ThermoPhase& tp = thermo(iPh);
+	int istart = m_PhaseSpeciesStartIndex[iPh];
+	int nsp = m_PhaseSpeciesStartIndex[iPh + 1] - istart;
+	phaseMoles_final_[iPh] = 0.0;
+	for (int k = 0; k < nsp; k++) {
+	    phaseMoles_final_[iPh] += spMoles_final_[istart + k];
+	}
+    
+	// Here we set the state within the phase object
+	tp.setState_TPX(temperature_, pressure_, &spMf_final_[istart]);
+	tp.setElectricPotential(phaseVoltages_[iPh]);
+	tp.getPartialMolarVolumes(&(VolPM_[istart]));
+	tp.getElectrochemPotentials(&(spElectroChemPot_[istart]));
+    }
     /*
      *  Calculate the voltage field
      */
@@ -873,9 +887,9 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
      * Calculate the volume of the electrode phase. This is the main routine to do this.
      */
     ElectrodeSolidVolume_ = SolidVol();
-
-    //double vol = ElectrodeSolidVolume_ / particleNumberToFollow_;
-
+    /*
+     *  Calculate the exterior radius
+     */
     Radius_exterior_final_ = rnodePos_final_[numRCells_ - 1];
   
 }
@@ -1593,8 +1607,7 @@ int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delt
     int retn = integrateResid(t, delta_t, y, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;
 }
-
-//=========================================================================================
+//=================================================================================================================================
 //  Residual calculation for the solution of the Nonlinear integration problem
 /*
  * @param t             Time                    (input)
@@ -1672,15 +1685,20 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
         printf("\t\t\tDeltaVoltage = %12.4e\n", deltaVoltage_);
     }
 
+    /*
+     *  Update all of the final state variables.
+     */
     updateState();
 
-    // Extract information from reaction mechanisms
+    /*
+     *  Extract information from reaction mechanisms
+     */
     extractInfo();
 
     /*
      *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
      *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
-     *   all species in the electrode.
+     *   all species in the electrode. (special treatment of the surface area
      */
     updateSpeciesMoleChangeFinal();
 
@@ -2427,7 +2445,9 @@ void  Electrode_SimpleDiff::extractInfo()
 /*!
  *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
  *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
- *   all species in the electrode due to surface reactions
+ *   all species in the electrode due to surface reactions.
+ *
+ *   We use sa_star calculation that combines r_final and r_init to make a conserved system.
  *
  *   (inherited from Electrode_Integrator)
  */
@@ -2435,8 +2455,12 @@ void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
 {
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(0);
     std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.0);
-    double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]);
-    mult /= 2.0;
+
+    double r_init  = Radius_exterior_init_;
+    double r_final = Radius_exterior_final_;
+
+    double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final);
+    double mult = surfaceArea_star * particleNumberToFollow_;
     for (int i = 0; i < m_totNumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
