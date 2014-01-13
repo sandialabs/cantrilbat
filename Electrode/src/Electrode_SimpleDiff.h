@@ -474,8 +474,8 @@ public:
      *         Loop over cells                                                            0 <=  iCell < numRCells_
      *                                                                                     j = numEqnsCell_ * iCell
      *                    
-     *            Residual (Reference/lattice Position)            rRefPos_final_[iCell];        (1+j)
-     *            Residual (Mesh Position)                         rnodePos_final_[iCell]        (j+1) + 1
+     *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];        (1+j)
+     *            Residual (Mesh Position)                        rnodePos_final_[iCell]            (j+1) + 1
      *            Loop over distributed Phases
      *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh]
      *              . . .
@@ -616,7 +616,7 @@ protected:
     /*!
      *  There are numSPhases_ of these
      */
-    std::vector<std::string>  KRsolid_phaseNames_;
+    std::vector<std::string> KRsolid_phaseNames_;
 
     //! Phase indeces of the solid phases comprising the species that are not radially distributed
     /*!
@@ -810,6 +810,12 @@ protected:
      *    This is calculated at the final state
      */
     std::vector<doublereal> actCoeff_Cell_final_;
+
+    //! Vector of activity coefficients for all KR species at all nodes
+    /*!
+     *    This is calculated at the init state
+     */
+    std::vector<doublereal> actCoeff_Cell_init_;
 
 
     //! phase id of the phase which will die at the shortest time
