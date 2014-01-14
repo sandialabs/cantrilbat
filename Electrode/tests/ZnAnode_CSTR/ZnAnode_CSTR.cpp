@@ -51,7 +51,7 @@ int main(int argc, char **argv)
   const double cur_T = 294.15;
   const double cur_P = 1.e5;
   const double cur_phi_sol = 0.;
-  const double cur_phi_liq = 1.2;
+  const double cur_phi_liq = 1.38;
   std::vector<double> moleNums(electrode->numSolnPhaseSpecies(), 0.);
   const ThermoPhase *electrolytePhase = electrode->getPhase("HMW_ZnKOH");
   if( !electrolytePhase )
