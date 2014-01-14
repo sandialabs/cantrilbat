@@ -14,6 +14,7 @@
 //#include "Electrode_SimpleDiff.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_CSTR.h"
+#include "Electrode_CSTR_ZnAnode.h"
 #include "Electrode_CSTR_MCMBAnode.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 #include "Electrode_SuccessiveSubstitution.h"
@@ -55,6 +56,7 @@ static void create_string_maps()
     electrode_types_string[SIMPLE_DIFF_ET]                     =  "SimpleDiff";
     electrode_types_string[SIMPLE_PHASE_CHANGE_DIFFUSION_ET]   =  "SimplePhaseChangeDiffusion";
     electrode_types_string[CSTR_ET]                            =  "CSTR";
+    electrode_types_string[CSTR_ZN_ANODE_ET]                   =  "CSTR_ZnAnode";
     electrode_types_string[CSTR_MCMB_ANODE_ET]                 =  "CSTR_MCMBAnode";
     electrode_types_string[CSTR_LICO2_CATHODE_ET]              =  "CSTR_LiCoO2Cathode";
     electrode_types_string[SUCCESSIVE_SUBSTITUTION_ET]         =  "SuccessiveSubstitution";
@@ -188,6 +190,9 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
     case          CSTR_ET:
         ee = new    Electrode_CSTR();
         break;
+    case          CSTR_ZN_ANODE_ET:
+        ee = new    Electrode_CSTR_ZnAnode();
+        break;
     case          CSTR_MCMB_ANODE_ET:
         ee = new    Electrode_CSTR_MCMBAnode();
         break;
@@ -236,6 +241,7 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
         ei = new    ELECTRODE_MP_RxnExtent_KEY_INPUT();
         break;
     case          CSTR_ET:
+    case          CSTR_ZN_ANODE_ET:
     case          CSTR_MCMB_ANODE_ET:
     case          CSTR_LICO2_CATHODE_ET:
         ei = new    ELECTRODE_CSTR_KEY_INPUT();

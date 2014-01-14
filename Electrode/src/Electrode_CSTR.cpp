@@ -869,6 +869,19 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     for (int i = 0; i < m_totNumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
+
+    // Also need to update DphMoles_final_ since it is used in the residual calculation.
+    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+        int iph = phaseIndexSolidPhases_[ph];
+        double DphaseMoles = 0.;
+        for(int sp=0; sp < numSpecInSolidPhases_[ph]; ++sp)
+        {
+          int isp = getGlobalSpeciesIndex(iph, sp);
+          DphaseMoles += DspMoles_final_[isp];
+        }
+        DphMoles_final_[iph] = DphaseMoles;
+    }
+
     /*
      * We define the srcdot for the Extent of reaction as the net electron loss out of the electrode. Thus,
      * we put a negative sign here.
@@ -2298,7 +2311,6 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
      */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
-        printf("WARNING: resetStartingCondition called out of order\n");
         return;
     }
     /*
