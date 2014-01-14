@@ -1,0 +1,75 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase Zn(S)    -->
+  <phase dim="3" id="ZnO(S)">
+    <elementArray datasrc="elements.xml">
+      Zn O
+    </elementArray>
+    <speciesArray datasrc="#species_ZnO(S)"> ZnO(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3">5.606</density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_ZnO(S)">
+
+    <!-- species ZnO(S)   -->
+    <species name="ZnO(S)">
+      <atomArray> Zn:1 O:1  </atomArray>
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1600." Tmin="250.0">
+          <floatArray size="7">
+            4.89946400E+01,
+            5.10448000E+00,
+            0.00000000E+00,
+            0.00000000E+00,
+            -9.12112000E-01,
+            -3.681E+02,
+            9.61526141E+01
+          </floatArray>
+          <!--
+          <floatArray size="7">
+            4.89946400E+01,
+            5.10448000E+00,
+            0.00000000E+00,
+            0.00000000E+00,
+            -9.12112000E-01,
+            -3.66002668E+02,
+            9.61526141E+01
+          </floatArray>
+          -->
+        </Shomate>
+      </thermo>
+      <density units="g/cm3"> 5.606 </density>
+      <meltingPoint> 2243.  </meltingPoint>
+      <boilingPoint> 2243.  </boilingPoint>
+      <source>
+           (Barin, Knache, and Kubashchewski, 1973  ) is the main source. Their H298 = 348.11 kJ/gmol,
+            and S298 = 43.514 J K-1 mol-1. Also found an entry in webbook, referenced to Cox. Wikipedia
+            had an entry with no references. The following table results.
+
+                                          HF298        S298     G298
+             Barin et al. (1973)         -348.11      43.514   -361.08
+             Cox :        (1984)         -350.64      43.65    -363.65
+	     Wikipedia    (??)           -348.        43.9     -361.09
+
+             Hf298 and S298 in the array are from Barin.
+
+             Density is from Wikipedia.
+
+      </source>
+      <versionNumber>
+        1
+      </versionNumber>
+    </species>
+
+  </speciesData>
+
+
+</ctml>

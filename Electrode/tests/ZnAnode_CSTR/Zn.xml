@@ -1,0 +1,44 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase Zn(S)    -->
+  <phase dim="3" id="Zn(S)">
+    <elementArray datasrc="elements.xml">
+      Zn
+    </elementArray>
+    <speciesArray datasrc="#species_Zn(S)"> Zn(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3">2.702</density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Zn(S)">
+
+    <!-- species Zn(S)   -->
+    <species name="Zn(S)">
+      <atomArray> Zn:1  </atomArray>
+      <thermo>
+        <Shomate Pref="1 bar" Tmax="1075.0" Tmin="250.0">
+          <floatArray size="7">
+             25.60123,
+             -4.405292,
+             20.42206,
+             -7.399697,
+             -0.045801,
+             -7.755964,
+             72.91373
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <density units="g/cm3">2.702</density>
+    </species>
+
+  </speciesData>
+
+</ctml>
+<!--  -9.147187 -->
