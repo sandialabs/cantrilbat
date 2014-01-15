@@ -44,8 +44,7 @@ public:
      *  This is a virtual function because there is no way to do this except by knowing about
      *  the system.
      *  The relative extent of reaction is a dimensionless number that varies. It doesn't
-     *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
-     *  that can't be filled with Li....
+     *  always vary between 0 and 1.
      *
      *  @return returns the relative extent of reaction (dimensionless).
      */

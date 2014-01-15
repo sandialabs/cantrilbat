@@ -73,8 +73,8 @@ Electrode_CSTR_ZnAnode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     RelativeExtentRxn_RegionBoundaries_.resize(2);
 
-    RelativeExtentRxn_RegionBoundaries_[1] = 1.0;
-    RelativeExtentRxn_RegionBoundaries_[0] = 0.0;
+    RelativeExtentRxn_RegionBoundaries_[1] = 10.0;
+    RelativeExtentRxn_RegionBoundaries_[0] = -10.0;
 
     RelativeExtentRxn_init_ = 0.0;
     RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
