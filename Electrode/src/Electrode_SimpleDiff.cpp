@@ -1133,16 +1133,24 @@ int Electrode_SimpleDiff::predictSolnResid()
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
 
+
     /*
-     *  Calculate the cell boundaries in a pre - loop. First assume no movement of the mesh
-     *  Deal with it later.
+     *  Calculate the cell boundaries in a pre - loop
      */
     for (iCell = 0; iCell < numRCells_; iCell++) {
 	rnodePos_final_[iCell] = rnodePos_init_[iCell];
-	rnodeVeloc[iCell] = 0.0;
-	cellBoundR_final_[iCell] = 0.0;
-	cellBoundRVeloc[iCell] = 0.0;
-	rLatticeCBR_ref_[iCell] = cellBoundR_init[iCell];
+        rnodeVeloc[iCell] = (rnodePos_final_[iCell] - rnodePos_init_[iCell]) / deltaTsubcycleCalc_;
+	if (iCell == numRCells_ - 1) {
+	    cellBoundR_init[iCell]   = rnodePos_init_[iCell];
+	} else {
+	    cellBoundR_init[iCell]   = 0.5 * (rnodePos_init_[iCell] + rnodePos_init_[iCell+1]);
+	}
+	cellBoundR_final_[iCell] = cellBoundR_init[iCell];
+        cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init[iCell]) / deltaTsubcycleCalc_;
+
+
+	rLatticeCBR_ref_[iCell] =  cellBoundR_init[iCell];
+	
     }
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
@@ -1192,89 +1200,52 @@ int Electrode_SimpleDiff::predictSolnResid()
 	r0R_final = pow(rhs, 0.333333333333333333);
 	//  Find an estimate of the position of the node.
 	rLatticeCBR_final_[iCell] = r0R_final;
+    }
+
+    
+    double r_final = rLatticeCBR_final_[iCell];
+    double vol_init =  m_rbot0_ *  m_rbot0_ *  m_rbot0_;
+    double vol_final = r_final * r_final * r_final - vol_init;
+    for (int iCell = 0; iCell < numRCells_ - 1; iCell++) {
+	xindex = 2 + numEqnsCell_ * iCell;
+	if (iCell == 0) {
+	    rnodePos_final_[iCell] = m_rbot0_;
+	} else {
+	    double vol =  fracVolNodePos_[iCell+1] * vol_final;
+	    rnodePos_final_[iCell] = pow(vol, 0.333333333333333333);
+	}
+    }
+
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+        /*
+         *  Copy right side previous to left side current quantities
+         */
+        vLatticeCBL = vLatticeCBR;
+        cbL3_final  = cbR3_final;
+        cbL3_init   = cbR3_init;
+        r0L2_final  = r0R2_final;
+        r0L3_final  = r0R3_final;
+
+        /*
+         *  Calculate indexes for accessing the residual
+         */
+        rindex = 1 + numEqnsCell_ * iCell;
+        xindex = 2 + numEqnsCell_ * iCell;
+        cindex = 3 + numEqnsCell_ * iCell;
+        cIndexPhStart = cindex;
 
         /*
          *  Calculate the time derivative of the molar volume
          */
-        double vbarDot = (vbarLattice_final - vbarLattice_init) / deltaTsubcycleCalc_;
+        double vbarDot = 0.0;
         /*
          * Find the lattice velocity of the reference radius at the right cell boundary
          */
-        double vLatticeCBR = -1.0 / (3. * r0R2_final) *
-			     (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) *
-			      vbarDot * (cbR3_final - cbL3_final));
+        double vLatticeCBR = 0.0;
 
-	//rLtarget =  rLatticeCBR_ref_[iCell];
-	if (rLatticeCBR_final_[iCell] > rLatticeCBR_ref_[iCell]) {
-	    // we are here to when the lattice velocity has put the previous lattice CBR into the current cell
-	    // Assign the cell id the current cell.
-	    jCell = iCell;
-	    // The CBL value is the CBR of the next lowest cell.
-	    Lleft =  rLatticeCBR_final_[jCell-1];
-	    //Lright =  rLatticeCBR_final_[jCell];
-	    // If the lattice has moved more than one cell, then throw an error condition for now.
-	    // We'll come back to fix this later
-	    if (Lleft > rLatticeCBR_ref_[iCell]) {
-		printf("ERROR: lattice movement not handled\n");
-		exit(-1);
-	    }
-	    // Take the cube of that
-	    L3left = Lleft *  Lleft *  Lleft;
-	    // Find the cubes of the right CBR and left CBR values
-	    rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] *  cellBoundL_final_[jCell];
-	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
-	    vbarLattice_init_jcell  = 1.0 / concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left + vbarLattice_init_jcell / vbarLattice_final_jcell * (rjCBR3 - rjCBL3);
-	    rnow = pow(rnow3, 0.333333333333333);
-	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
-	} else {
-	    // we are here to when the lattice velocity has put the previous lattice CBR into the next cell
-	    // Assign the cell id the current cell.
-	    jCell = iCell+1;
-	    // The CBL value is the CBR of the next lowest cell.
-	    Lleft =  rLatticeCBR_final_[jCell-1];
-	    //Lright =  rLatticeCBR_final_[jCell];
-	    // If the lattice has moved more than one cell, then throw an error condition for now.
-	    // We'll come back to fix this later
-	    if (Lleft > rLatticeCBR_ref_[iCell]) {
-		printf("ERROR: lattice movement not handled\n");
-		exit(-1);
-	    }
-	    // Take the cube of that
-	    L3left = Lleft *  Lleft *  Lleft;
-	    // Find the cubes of the right CBR and left CBR values
-	    rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] *  cellBoundL_final_[jCell];
-	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
-	    vbarLattice_init_jcell  = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * ( rjCBR3 - rjCBL3);
-	    rnow = pow(rnow3, 0.333333333333333);
-	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
-	}
-	/*
-	 *  Store the calculated lattice velocity
-	 */
-	vLatticeCBR_cell_[iCell] = vLatticeCBR;
-    
-        /*
-         * Node position residual - spline equations, it all depends on the top node's equation formulation.
-         * Everything else get's dragged along with it
-	 * We will calculate the bc when we've calculated the surface reaction rates below.
-	 *         -> special case iCell= 0 set to m_rbot0_
-	 *         ->              iCell= numRCells_-1 -> distinguishing condition set to boundary condition
-         */
-	I_j = rnodePos_final_[iCell] * rnodePos_final_[iCell] * rnodePos_final_[iCell];
-	if (iCell == numRCells_-1) {
-	} else {
-	    if (iCell == 0) {
-		rnodePos_final_[iCell] = 0;
-	    }
-	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1];
-	}
-	I_jp1 = I_j - fracVolNodePos_[iCell+1];
-	rnodePos_final_[iCell+1] = pow(I_jp1, 0.3333333);
 
+     
         /*
          *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
          */
@@ -2589,6 +2560,21 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
 	    yvalNLS_[index] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+             /*
+	      * If we are birthing a phase, we decide to do this in the predictor. We search for
+	      * a solution where this is the case. If this doesn't happen, we produce a hard error.
+	      *  if (justBornPhase_[iph]) {
+	      *     ylowNLS_[index] = atolVal;
+	      *  } else {
+	      *     ylowNLS_[index] = (-0.0001 * solidMoles);
+	      *  }
+	      *
+	      */
+	    // we allow the total phase moles to go negative, initially.  For now, we won't worry about
+	    // phase fronts within the radial direction.
+	    ylowNLS_[index] = (-0.0001 * solidMoles);
+	    yhighNLS_[index] = (10. * solidMoles);
+ 
 	  
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
