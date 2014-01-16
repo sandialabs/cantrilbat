@@ -26,7 +26,7 @@
 #include "EState.h"
 
 #include "BlockEntry.h"
-
+#include "Electrode_Exception.h"
 #include "Electrode_input.h"
 
 #include <string>
