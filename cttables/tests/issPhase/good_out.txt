@@ -244,7 +244,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "solidSolutionExample"
 
                ----------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |
-               |solidSolutionExample|   3           2  8.8818e-16 |
+               |solidSolutionExample|   3           0           0 |
                ----------------------------------------------------
 
         units_kfwd = Units for forward reaction rate constant = 1/s
