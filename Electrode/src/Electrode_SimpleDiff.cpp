@@ -471,6 +471,19 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *      Take the gross dimensions of the domain and create a grid.
      */
     init_grid();
+
+    /*
+     *  Work on the Electrode_Integration quantities
+     *     numIntegratedSrc_ = number of species in the PhaseList_
+     *                         (note, this means internal diffusion is not tracked here
+     */ 
+    numIntegratedSrc_ = m_NumTotSpecies;
+    IntegratedSrc_Predicted.resize(numIntegratedSrc_);
+    IntegratedSrc_final_.resize(numIntegratedSrc_);
+    IntegratedSrc_Errors_local_.resize(numIntegratedSrc_);
+    IntegratedSrc_Errors_globalStep_.resize(numIntegratedSrc_);
+    atol_IntegratedSrc_global_.resize(numIntegratedSrc_);
+
     /*
      *  Initialize all of the variables on the domain
      *    We take the grid size and the mole numbers from the base Electrode representation
@@ -1485,6 +1498,23 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 	    kstart += nsp;
 	    index += nsp;
 	}
+    }
+}
+//==================================================================================================================
+//  Gather the predicted solution values and the predicted integrated source terms
+/*
+ *  (virtual from Electrode_Integrator)
+ *
+ *  Both the predicted solution values and the predicted integrated source terms are used
+ *  in the time step control
+ */
+void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
+{
+    extractInfo();
+    updateSpeciesMoleChangeFinal();
+ 
+    for (int isp = 0; isp < m_NumTotSpecies; isp++) {
+        IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
 }
 //==================================================================================================================

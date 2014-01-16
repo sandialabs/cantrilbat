@@ -365,6 +365,26 @@ public:
      */
     virtual void unpackNonlinSolnVector(const double* const y);
 
+
+
+
+
+    //!  Gather the predicted solution values and the predicted integrated source terms
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  Both the predicted solution values and the predicted integrated source terms are used
+     *  in the time step control
+     */
+    virtual void gatherIntegratedSrcPrediction();
+
+
+
+
+
+
+
+
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
      *   The tolerances are based on controlling the integrated electron source term
