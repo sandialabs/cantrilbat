@@ -107,7 +107,7 @@ CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.o \
                   importPL.o Electrode.o Electrode_input.o ApplBase_print.o \
-	          Electrode_SimplePhaseChangeDiffusion.o  \
+	          Electrode_SimplePhaseChangeDiffusion.o Electrode_Exception.o  \
                   Electrode_InfCapacity.o Electrode_MP_RxnExtent.o Electrode_Factory.o \
                   Electrode_CSTR.o Electrode_Capacity.o  Electrode_CSTR_ZnAnode.o Electrode_CSTR_MCMBAnode.o \
                   Electrode_CSTR_LiCoO2Cathode.o EState.o Electrode_XMLWriter.o \
@@ -118,7 +118,7 @@ OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.
 
 HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.h \
                   importPL.h Electrode.h Electrode_input.h ApplBase_print.h Electrode_defs.h \
-	          Electrode_SimplePhaseChangeDiffusion.h  \
+	          Electrode_SimplePhaseChangeDiffusion.h  Electrode_Exception.h \
                   Electrode_InfCapacity.h Electrode_MP_RxnExtent.h Electrode_Factory.h \
                   Electrode_CSTR.h Electrode_CSTR_ZnAnode.h Electrode_CSTR_MCMBAnode.h \
                   Electrode_CSTR_LiCoO2Cathode.h EState.h Electrode_FuncCurrent.h  \

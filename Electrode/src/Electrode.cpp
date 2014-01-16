@@ -2375,7 +2375,6 @@ void Electrode::updateSurfaceAreas()
             spMoles_final_[k + kstart] = spMf_final_[k] * phaseMoles_final_[iph];
         }
     }
-
 }
 //====================================================================================================================
 //   This is used to set the phase information that is implicit but not set by a restart or an initialization

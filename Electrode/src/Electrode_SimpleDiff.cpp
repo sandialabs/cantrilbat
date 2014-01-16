@@ -591,6 +591,11 @@ Electrode_SimpleDiff::init_sizes()
 
 
     actCoeff_Cell_final_.resize(kspCell, 1.0);
+    actCoeff_Cell_init_.resize(kspCell, 1.0);
+
+    int maxNumRxns = RSD_List_[0]->nReactions();
+    ROP_.resize(maxNumRxns, 0.0);
+
 }
 //====================================================================================================================
 void
@@ -863,7 +868,7 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
 	Electrode::updatePhaseNumbers(iPh);
     }
     for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
-	iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
 	ThermoPhase& tp = thermo(iPh);
 	int istart = m_PhaseSpeciesStartIndex[iPh];
 	int nsp = m_PhaseSpeciesStartIndex[iPh + 1] - istart;
@@ -890,6 +895,10 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
      *  Calculate the exterior radius
      */
     Radius_exterior_final_ = rnodePos_final_[numRCells_ - 1];
+    /*
+     *  Update the surface areas
+     */
+    updateSurfaceAreas();
 }
 //====================================================================================================================
 // Take the state (i.e., the final state) within the Electrode_Model and push it down
@@ -1408,15 +1417,22 @@ int Electrode_SimpleDiff::predictSolnResid()
 //==================================================================================================================
 int  Electrode_SimpleDiff::predictSoln()
 {
+    /* ---------------------------------------------------------------------------------------
+     *                                Update the Internal State of ThermoPhase Objects
+     * --------------------------------------------------------------------------------------- */
+    updateState();
+    
     /*
-     * Calculate ROP_inner and ROP_outer, and justBornPhase_[];
+     *    Calculate ROP_, and justBornPhase_[];
      */
     extractInfo();
     /*
-     *  Calculate DspMoles_final_[]
+     *    Calculate DspMoles_final_[]
      */
     updateSpeciesMoleChangeFinal();
-    
+    /*
+     *    
+     */    
     int retn = predictSolnResid();
     return retn;
 }
@@ -2499,6 +2515,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_[i];
 	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_[i];
 	spMf_KRSpecies_Cell_init_[i] = spMf_KRSpecies_Cell_final_[i];
+	actCoeff_Cell_init_[i] = actCoeff_Cell_final_[i];
     }
 
     int iTotal =  numSPhases_ * numRCells_;
@@ -2548,21 +2565,21 @@ void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
 	concKRSpecies_Cell_init_init_[i] =  concKRSpecies_Cell_final_final_[i];
-	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
-	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_final_[i];
+	spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
+	concKRSpecies_Cell_init_init_[i] =  concKRSpecies_Cell_final_final_[i];
     }
 
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
 	concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
-	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_final_[i];
+	concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_[i];
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
 	rnodePos_init_init_[iCell] = rnodePos_final_final_[iCell];
-	rLatticeCBR_init_[iCell] = rLatticeCBR_final_final_[iCell];
-	rnodePos_init_[iCell] = rnodePos_final_final_[iCell];
+	rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
+	rnodePos_init_init_[iCell] = rnodePos_final_final_[iCell];
     }
 }
 //====================================================================================================================
@@ -2579,6 +2596,7 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_final_[i] = spMoles_KRsolid_Cell_init_[i];
 	concKRSpecies_Cell_final_[i] = concKRSpecies_Cell_init_[i];
+	actCoeff_Cell_final_[i] = actCoeff_Cell_init_[i];
     }
     
     for (i = 0; i < iTotal; ++i) {
