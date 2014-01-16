@@ -711,8 +711,7 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 	    kspCell += nsp;
 	}
     }
- 
- 
+
     /*
      *  Now transfer that to other states
      */
@@ -1499,6 +1498,7 @@ void Electrode_SimpleDiff::setNLSGlobalSrcTermTolerances(double rtolResid)
     }
     rtol_IntegratedSrc_global_ = rtolResid;
 }
+
 //==================================================================================================================
 //   Set the Residual absolute error tolerances
 /*

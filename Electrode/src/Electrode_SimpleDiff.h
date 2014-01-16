@@ -150,12 +150,6 @@ public:
      */
     virtual double SolidVol() const;
 
-    //!  Returns the total moles in the electrode phases of the electrode
-    /*!
-     *  @return total moles (kmol)
-     */
-    virtual double SolidTotalMoles() const;
-
     // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
 
 
