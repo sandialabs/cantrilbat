@@ -11,6 +11,8 @@
 //=====================================================================================================
 int main(int argc, char **argv)
 {
+
+  try {
   // Set up electrode input file
   Cantera::Electrode_Factory * factory = Cantera::Electrode_Factory::factory();
 
@@ -105,5 +107,11 @@ int main(int argc, char **argv)
   delete electrode;
 
   Cantera::appdelete();
+  } catch (CanteraError) {
+ 
+     showErrors();
+     return -1;
+   }
+
   return 0;
 } 
