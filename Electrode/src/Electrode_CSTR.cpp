@@ -525,7 +525,7 @@ void Electrode_CSTR::resizeMoleNumbersToGeometry()
 {
     Electrode::resizeMoleNumbersToGeometry();
     /*
-     *  Relcalculate the normalization factor
+     *  Recalculate the normalization factor
      */
     double solidMoles = 0.0;
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
@@ -537,15 +537,52 @@ void Electrode_CSTR::resizeMoleNumbersToGeometry()
 //====================================================================================================================
 void Electrode_CSTR::updateState()
 {
+    /*
+     *  We rely on the base implementation to update most of the fields.
+     *  This includes calculation of Radius_exterior_final_ 
+     */
     Electrode::updateState();
-
+    /*
+     *   We keep a record of the extent of reaction
+     */
     RelativeExtentRxn_final_ = calcRelativeExtentRxn_final();
+
+    /*
+     *  Update the surface areas
+     */
+    updateSurfaceAreas();
+}
+//====================================================================================================================
+//  Recalculate the surface areas of the surfaces for the final state
+/*
+ *    (virtual function from Electrode)
+ *
+ *    We used the internal variable locationOfReactingSurface_ to determine the behavior.
+ *    A value of zero indicates that the surface 0 follows the reaction front as it goes from outer to inner as
+ *    a function of the % though the plateau.
+ *    A value of locationOfReactingSurface_ = 1 indicates that the surface 0 follows the exterior surface of the particle
+ *
+ *    We also assume that the surface area is equal to the particle surface area multiplied by the numbers of particles.
+ *
+ *    Dependent StateVariables Used
+ *         Radius_exterior_final_;
+ *         particleNumberToFollow_
+ *
+ *    Dependent StateVariables Calculated
+ *          surfaceAreaRS_final_[]
+ *          Radius_internal_final_
+ */
+void Electrode_CSTR::updateSurfaceAreas()
+{
+    double totalSA = 4. * Pi * Radius_exterior_final_ * Radius_exterior_final_ * particleNumberToFollow_;
+    surfaceAreaRS_final_[0] = totalSA;
 }
 //====================================================================================================================
 bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
 {
     double tol = 1.0E-6;
     int onRegionBoundary_final = -1;
+
 
 
     bool retn = Electrode::stateToPhaseFlagsReconciliation(flagErrors);

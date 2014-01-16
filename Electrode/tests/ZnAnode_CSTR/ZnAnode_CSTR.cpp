@@ -81,8 +81,9 @@ int main(int argc, char **argv)
     moleNums[i] /= totalMoleNums;
 
   double t = 0.;
-  const double t_final = 1.e-3;
-  const double dt = 1.e-6;
+  const double t_final = 100000000.;
+  double dt = 1.e-6;
+  electrode->printLvl_ = 4;
   while( t <= t_final )
   {
     electrode->resetStartingCondition(t);
@@ -92,8 +93,11 @@ int main(int argc, char **argv)
 
     // Tell Electrode to integrate the next time step
     electrode->integrate(dt);
+    electrode->printElectrode(1, true);
     electrode->writeCSVData(1);
+
     t += dt;
+    dt *= 2.0;
   }
 
   delete cfa;
