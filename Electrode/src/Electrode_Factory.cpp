@@ -14,7 +14,6 @@
 //#include "Electrode_SimpleDiff.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_CSTR.h"
-#include "Electrode_CSTR_ZnAnode.h"
 #include "Electrode_CSTR_MCMBAnode.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 #include "Electrode_SuccessiveSubstitution.h"
