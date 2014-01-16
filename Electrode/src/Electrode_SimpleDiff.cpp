@@ -476,13 +476,9 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Work on the Electrode_Integration quantities
      *     numIntegratedSrc_ = number of species in the PhaseList_
      *                         (note, this means internal diffusion is not tracked here
+     *      (already set up)
      */ 
-    numIntegratedSrc_ = m_NumTotSpecies;
-    IntegratedSrc_Predicted.resize(numIntegratedSrc_);
-    IntegratedSrc_final_.resize(numIntegratedSrc_);
-    IntegratedSrc_Errors_local_.resize(numIntegratedSrc_);
-    IntegratedSrc_Errors_globalStep_.resize(numIntegratedSrc_);
-    atol_IntegratedSrc_global_.resize(numIntegratedSrc_);
+  
 
     /*
      *  Initialize all of the variables on the domain
@@ -1489,11 +1485,13 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 	    // int iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
-	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] =   concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] =  
+		concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
 		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] = y[index + kSp];
-		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] -=  concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] -=
+		    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
 	    }
 	    kstart += nsp;
 	    index += nsp;
@@ -2519,6 +2517,89 @@ void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
     double mult = surfaceArea_star * particleNumberToFollow_;
     for (int i = 0; i < m_totNumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
+    }
+}
+
+//====================================================================================================================
+// Pack the nonlinear solver proplem
+/*
+ *  formulate the nonlinear solver problem to be solved.
+ *     Fields to be filled in
+ *             yvalNLS_
+ *             ylowNLS_
+ *             yhighNLS_
+ *             deltaBoundsMagnitudesNLS_
+ *  (virtual from Electrode_Integrator)
+ *
+ * --------------------------------------------------------------------------------------------------------------
+ *         Residual (Time)                                     deltaSubcycleCalc_                   0
+ *                                                                                            1
+ *         Loop over cells                                                            0 <=  iCell < numRCells_
+ *                                                                                     j = numEqnsCell_ * iCell
+ *                    
+ *            Residual (Reference/lattice Position)          rLatticeCBR_final_[iCell];      (1+j)
+ *            Residual (Mesh Position)                                                       (j+1) + 1
+ *          Loop over distributed Phases
+ *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhase_ + jPh]
+ *              . . .
+ *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+ *  --------------------------------------------------------------------------------------------------------------
+ */
+void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
+{
+    int index = 0;
+    /*
+     *  Set up the detaTsubcycle variable
+     */
+    yvalNLS_[0] = deltaTsubcycleCalc_;
+    ylowNLS_[0] = 1.0E-40;
+    yhighNLS_[0] = 1.0E300;
+    deltaBoundsMagnitudesNLS_[0] = 1.0E300;
+    index++;
+    /*
+     *  Calculate the atolVal that will be used in the calculation of phase moles.
+     *  Note, from experience we cannot follow within the equil solver the phases with mole number that
+     *  are additively insignificant compared to the total number of moles. This is a basic
+     *  limitation. However, they must be followed kinetically up to the level that they contribute
+     *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
+     */
+    double solidMoles = SolidTotalMoles();
+    double atolVal = solidMoles * atolBaseResid_;
+
+
+
+    int kstart, jRPh, iKRSpecies;
+  
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	kstart = 0;
+
+	yvalNLS_[index] = rLatticeCBR_final_[iCell];
+	ylowNLS_[index] = -1.0E300;
+	yhighNLS_[index] = 1.0E300;
+	deltaBoundsMagnitudesNLS_[index] = Radius_exterior_init_;
+	index++;
+
+	yvalNLS_[index] = rnodePos_final_[iCell];
+	ylowNLS_[index] = -1.0E300;
+	yhighNLS_[index] = 1.0E300;
+	deltaBoundsMagnitudesNLS_[index] = Radius_exterior_init_;
+	index++;
+
+	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
+	    yvalNLS_[index] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	  
+	    for (int kSp = 1; kSp < nsp; kSp++) {
+		iKRSpecies = kstart + kSp;
+		yvalNLS_[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+		ylowNLS_[index + kSp]  = 0.0;
+                yhighNLS_[index + kSp] = 1.0;
+                deltaBoundsMagnitudesNLS_[index + kSp] = 1.0E-16;
+	    }
+	    kstart += nsp;
+	    index += nsp;
+	}
     }
 }
 //====================================================================================================================

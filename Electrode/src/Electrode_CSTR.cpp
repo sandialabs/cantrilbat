@@ -2574,7 +2574,6 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
          */
         for (int i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
-
         }
     } else {
         extractInfo();

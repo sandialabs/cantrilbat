@@ -198,6 +198,18 @@ public:
      */
     virtual void updateSpeciesMoleChangeFinal();
 
+    // Pack the nonlinear solver proplem
+    /*
+     *  formulate the nonlinear solver problem to be solved.
+     *     Fields to be filled in
+     *             yvalNLS_
+     *             ylowNLS_
+     *             yhighNLS_
+     *             deltaBoundsMagnitudesNLS_
+     */
+    virtual void initialPackSolver_nonlinFunction();
+
+
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -298,7 +310,7 @@ public:
     /*!
      * 
      *  update:
-     *             spMoles_final_ [] -> sum solid phase species
+     *             spMoles_final_ [] -> sum soli/d phase species
      *             spMf_final_[]  -> Use exterior cell values
      *
      */
