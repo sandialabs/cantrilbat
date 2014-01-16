@@ -896,6 +896,11 @@ protected:
     //! multiplied by rtolNLS_. Thus a 10^-3 value would indicate the error is 1 part in 1000.
     std::vector<doublereal> errorGlobalNLS_;
 
+    //! Vector of normalized values used to scale the nonlinear solver damping strategy.
+    /*!
+     *  Step sizes that are smaller than this value are not controlled by numerical damping.
+     *  Usually, set to (1000 atol[i]). 
+     */
     std::vector<doublereal> deltaBoundsMagnitudesNLS_;
 
     //! Boolean vector indicating a phase just died on this subgrid integration step

@@ -2577,13 +2577,13 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
 	yvalNLS_[index] = rLatticeCBR_final_[iCell];
 	ylowNLS_[index] = -1.0E300;
 	yhighNLS_[index] = 1.0E300;
-	deltaBoundsMagnitudesNLS_[index] = Radius_exterior_init_;
+	deltaBoundsMagnitudesNLS_[index] = 0.1 * Radius_exterior_init_;
 	index++;
 
 	yvalNLS_[index] = rnodePos_final_[iCell];
 	ylowNLS_[index] = -1.0E300;
 	yhighNLS_[index] = 1.0E300;
-	deltaBoundsMagnitudesNLS_[index] = Radius_exterior_init_;
+	deltaBoundsMagnitudesNLS_[index] = 0.1 * Radius_exterior_init_;
 	index++;
 
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
@@ -2595,7 +2595,7 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
 		yvalNLS_[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
 		ylowNLS_[index + kSp]  = 0.0;
                 yhighNLS_[index + kSp] = 1.0;
-                deltaBoundsMagnitudesNLS_[index + kSp] = 1.0E-16;
+                deltaBoundsMagnitudesNLS_[index + kSp] = 1000. * atolVal;
 	    }
 	    kstart += nsp;
 	    index += nsp;
