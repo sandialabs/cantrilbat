@@ -167,7 +167,7 @@ int main(int argc, char **argv)
     electrodeA->printCSVLvl_ = 3;
 
     electrodeA->printElectrode();
-    electrodeA->setDeltaTSubcycle(0.01);
+    electrodeA->setDeltaTSubcycle(0.001);
 
     remove("soln.xml");
   

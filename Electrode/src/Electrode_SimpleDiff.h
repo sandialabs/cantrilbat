@@ -339,6 +339,13 @@ public:
      */
     virtual void updateState();
 
+    //! check total moles of stuff against geometry of particle
+    /*!
+     *  error exit if inconsistency
+     *  works on _final_ state only
+     */
+    void checkGeometry();
+
     //! Predict the solution
     /*!
      * Ok at this point we have a time step deltalimiTsubcycle_
