@@ -1312,7 +1312,24 @@ int Electrode_SimpleDiff::predictSolnResid()
 	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] * concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
 	}
 
-	
+	double totalLeftVol = 4.0 * Pi / 3.0 * cbL3_final; 
+	double totalEnclosedVol = totalLeftVol + totalCellVol;
+	if (iCell <  numRCells_ - 1) {
+	    cbR3_final = totalEnclosedVol * 3.0 / ( 4.0 * Pi);
+	    cellBoundR_final_[iCell] = pow(cbR3_final, 0.3333333333333333);
+	    
+	    rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
+	    
+	    rnodePos_final_[iCell+1] = rnodePos_final_[iCell] + 2.0 * (cellBoundR_final_[iCell] - rnodePos_final_[iCell]);
+	} else {
+	    double oldRtop =  rnodePos_final_[iCell]; 
+	    double newRtop = cellBoundR_final_[iCell];
+	    if (fabs(oldRtop - newRtop) > 1.0E-14) {
+		rLatticeCBR_final_[iCell] = newRtop;
+		cellBoundR_final_[iCell-1] =  0.5 * (rnodePos_final_[iCell-1] + rnodePos_final_[iCell]);
+		//todo fix the moles in the two cells so that it is conservative.
+	    }
+	}
 
     }
 
