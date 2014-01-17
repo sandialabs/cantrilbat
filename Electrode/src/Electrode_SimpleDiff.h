@@ -588,6 +588,15 @@ protected:
      */
     std::vector<double> spMoles_KRsolid_Cell_init_init_;
 
+    //! Vector of phse moles defined on the grid
+    /*!
+     *
+     *   The inner loop is over the number of species that are defined to have radially dependent
+     *   distributions, numKRSpecies;
+     *   init_init state value
+     */
+    std::vector<double> phaseMoles_KRsolid_Cell_final_;
+
     //! Species Index for the solid species that are distributed radially through the particle
     /*!
      *  The main object is a vector of species representing the homogenized values of the mole
@@ -656,25 +665,25 @@ protected:
 
     //! Total concentration of each of the solid phases that are distributed - global final state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *        concTot_SPhase_Cell_final_final_[numSPhases_ * iCell + iJRPh]
      */
     std::vector<double> concTot_SPhase_Cell_final_final_;
 
     //! Total concentration of each of the solid phases that are distributed - local final state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *     concTot_SPhase_Cell_final_[numSPhases_ * iCell + iJRPh]
      */
     std::vector<double> concTot_SPhase_Cell_final_;
 
     //! Total concentration of each of the solid phases that are distributed - local init state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *     concTot_SPhase_Cell_init_[numSPhases_ * iCell + iJRPh]
      */
     std::vector<double> concTot_SPhase_Cell_init_;
 
     //! Total concentration of each of the solid phases that are distributed - global init state
     /*!
-     *       concTot_SPhase_Cell_final_(iSPhase, iCell)
+     *  concTot_SPhase_Cell_init_init_[numSPhases_ * iCell + iJRPh]
      */
     std::vector<double> concTot_SPhase_Cell_init_init_;
 
@@ -788,7 +797,6 @@ protected:
      *   length = maxNumRxns;
      */
     std::vector<double> ROP_;
-
 
     //!  Molar creation rate of species in the electrode object due to the Exterior surface
     /*!

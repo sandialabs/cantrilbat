@@ -1298,7 +1298,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 		int iKRSpecies = kstart + kSp;
 		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
 	    }
-	    double tot = 	phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
+	    double tot = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
 	    if (tot > 1.0E-200) {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
