@@ -27,6 +27,7 @@ using namespace mdpUtil;
 
 namespace BEInput {
 
+  //====================================================================================================================
   /*
    * LE_MultiCStr Constructor:
    *
@@ -73,7 +74,7 @@ namespace BEInput {
     }
     PrintString[MAX_INPUT_STR_LN] = '\0';
   }
-
+  //====================================================================================================================
   /*
    * LE_MultiCStr(const LE_MultiCStr&):
    *
@@ -90,10 +91,14 @@ namespace BEInput {
     for (int i = 0; i < m_numTimesProcessed; i++) {
       CurrValue[i]  = mdp_copy_string(b.CurrValue[i]);
     }
-    LastCurrValue =  CurrValue[m_numTimesProcessed-1];
+    if (m_numTimesProcessed == 0) {
+      LastCurrValue = 0;
+    } else {
+      LastCurrValue = CurrValue[m_numTimesProcessed-1];
+    }
     strncpy(PrintString, b.PrintString, MAX_INPUT_STR_LN+1);
   }
-
+  //====================================================================================================================
   /*
    * ~LE_MultiCStr():
    *
@@ -339,7 +344,7 @@ namespace BEInput {
     MaxVal = maxV;
     MinVal = minV;
   }
-
+  //====================================================================================================================
   /*
    * set_PrintString()
    *
@@ -351,5 +356,6 @@ namespace BEInput {
       PrintString[MAX_INPUT_STR_LN] = '\0';
     }
   }
+  //====================================================================================================================
 
 }
