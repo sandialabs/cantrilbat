@@ -180,7 +180,7 @@ ReactionDataElectrode.d: ReactionDataElectrode.cpp ReactionDataElectrode.h
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS)  \
-               -I$(CANTERA_INCROOT)/cantera/kernel -c $*.cpp > $*.d
+               -I$(CANTERA_INCROOT) -c $*.cpp > $*.d
 
 
 ############################################################################
