@@ -1154,7 +1154,71 @@ void Electrode_SimpleDiff::checkGeometry() const
 
 }
 
+//========================================================================================================================
+//  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
+/*
+ *
+ *  Algorithm assumes that species 0 is special. It's usually called the vacancy species. Think of it as the vacency
+ *  species. We sum up the diffusive fluxes of all the other species. Then, the diffusive flux of the vacency is calculated
+ *  as the negative of that sum. What we are doing is ensuring that the sum of the diffusive flux of all species is equal
+ *  to zero.
+ *
+ *   The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
+ *   This difference is significant in many battery systems.
+ *
+ */
+void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const  
+{ 
+    double caC, caR, dcadxR;
+    int jPh, iPh, kSp;
+    int indexMidKRSpecies =  iCell    * numKRSpecies_;
+    int indexRightKRSpecies = (iCell+1) * numKRSpecies_;
+    int kstart = 0;
+    if (finalState) {
+	double deltaX = rnodePos_final_[iCell+1] - rnodePos_final_[iCell];
+	for (jPh = 0; jPh < numSPhases_; jPh++) {
+	    iPh = phaseIndeciseKRsolidPhases_[jPh];
+	    ThermoPhase* th = & thermo(iPh);
+	    int nSpecies = th->nSpecies();
+	    double fluxT = 0.0;
 
+	    for (int i = 1; i < kSp; kSp++) {
+		int iKRSpecies = kstart + kSp;
+		caR = concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexRightKRSpecies + iKRSpecies];
+		caC = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		dcadxR = (caR - caC) / deltaX;	    
+		// Calculate the flux of moles at the ride side cell boundary out of the cell
+		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
+		fluxT += fluxRCB[iKRSpecies];
+	    }
+       
+	    fluxRCB[kstart] = -fluxT;
+	    kstart += nSpecies;
+	}
+    } else {
+	double deltaX = rnodePos_init_[iCell+1] - rnodePos_init_[iCell];
+	for (jPh = 0; jPh < numSPhases_; jPh++) {
+	    iPh = phaseIndeciseKRsolidPhases_[jPh];
+	    ThermoPhase* th = & thermo(iPh);
+	    int nSpecies = th->nSpecies();
+
+	    double fluxT = 0.0;
+	    for (int i = 1; i < kSp; kSp++) {
+		int iKRSpecies = kstart + kSp;
+		caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies];
+		caC = concKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexMidKRSpecies + iKRSpecies];
+		dcadxR = (caR - caC) / deltaX;	    
+		// Calculate the flux of moles at the ride side cell boundary out of the cell
+		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
+		fluxT += fluxRCB[iKRSpecies];
+	    }
+       
+	    fluxRCB[kstart] = -fluxT;
+	    kstart += nSpecies;
+
+	}
+    }
+}
 //=========================================================================================================================
 // Predict the solution
 /*
@@ -1188,13 +1252,13 @@ int Electrode_SimpleDiff::predictSolnResid()
 {
     // Indexes
     int iCell, iPh, jPh;
-    double caR, caC;
+ 
     // Cubes of the cell boundaries, Right and Left, for the initial and final times
     double cbR3_final = 0.0;
     double cbL3_final = 0.0;
 
-    double deltaX;
-    double dcadxR[10];
+ 
+
     // Diffusive flux
     double fluxR[10];
  
@@ -1258,33 +1322,24 @@ int Electrode_SimpleDiff::predictSolnResid()
 	 *  We calculate the diffusion step only on the rhs of each cell. So we skip the last cell.
 	 */
 	if (iCell != numRCells_ - 1) {
+	    /*
+	     *  Find the diffusive flux based on the initial conditions at the right cell boundary
+	     */
+	    diffusiveFluxRCB(fluxR, iCell, false);
+
 	    for (jPh = 0; jPh < numSPhases_; jPh++) {
 		iPh = phaseIndeciseKRsolidPhases_[jPh];
 		ThermoPhase* th = & thermo(iPh);
 		int nSpecies = th->nSpecies();
-         
 		/*
 		 *  Calculation of an explicit diffusion step
 		 *  Here we calculate the 0th species as well
 		 */
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
-		    /*
-		     * Diffusive flux at the outer boundary for each species
-		     */
-		    if (iCell < (numRCells_ - 1)) {
-			deltaX = rnodePos_init_[iCell+1] - rnodePos_init_[iCell];
-			caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies];
-			caC = concKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexMidKRSpecies + iKRSpecies];
-			dcadxR[kSp] = (caR - caC) / deltaX;
-     
-			// Calculate the flux of moles at the ride side cell boundary out of the cell
-			fluxR[kSp] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR[kSp];
-		    
-			// Distribute the flux in an explicit step
-			spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -=  fluxR[kSp] * areaR_star * deltaTsubcycleCalc_;
-			spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] +=  fluxR[kSp] * areaR_star * deltaTsubcycleCalc_;
-		    }
+		    // Distribute the flux in an explicit step
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -=  fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
+		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] +=  fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
 		}
 		// end of phase loop
 		kstart += nSpecies;
@@ -1844,11 +1899,11 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     double r0L3_final = 0.0;
 
 
-    double deltaX, fluxTC, fluxM;
-    double dcadx[10];
+    double fluxTC, fluxM;
+
 
     // Diffusive flux
-    double flux[10];
+    double fluxRCB[10];
     // Lattice Velocity on the left side of the cell
     double vLatticeCBL = 0.0;
     // Lattice Velocity on the right side of the cell
@@ -2043,9 +2098,12 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         double areaR_star = 4.0 * Pi * cellBoundR_star2 * particleNumberToFollow_;
 
 
-        int indexMidKRSpecies =  iCell    * numKRSpecies_;
-        int indexTopKRSpecies = (iCell+1) * numKRSpecies_;
+   
         int kstart = 0;
+	/*
+	 * Calculate the flux at the right cell boundary
+	 */
+	diffusiveFluxRCB(fluxRCB, iCell, true);
 
         for (jPh = 0; jPh < numSPhases_; jPh++) {
             iPh = phaseIndeciseKRsolidPhases_[jPh];
@@ -2083,14 +2141,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                  * Diffusive flux at the outer boundary for each species
                  */
                 if (iCell < (numRCells_ - 1)) {
-                    deltaX = rnodePos_final_final_[iCell+1] - rnodePos_final_final_[iCell];
-                    double caR = concKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexTopKRSpecies + iKRSpecies];
-                    double caL = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
-                    dcadx[kSp] = (caR - caL) / deltaX;
-                    flux[kSp] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadx[kSp];
-
-                    resid[cIndexPhStart + kSp]                += flux[kSp] * areaR_star;
-                    resid[cIndexPhStart + kSp + numEqnsCell_] -= flux[kSp] * areaR_star;
+                    resid[cIndexPhStart + kSp]                += fluxRCB[iKRSpecies] * areaR_star;
+                    resid[cIndexPhStart + kSp + numEqnsCell_] -= fluxRCB[iKRSpecies] * areaR_star;
                 }
 
                 /*

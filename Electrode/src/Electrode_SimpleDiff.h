@@ -346,6 +346,23 @@ public:
      */
     void checkGeometry() const;
 
+    //!  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
+    /*!
+     *
+     *  Algorithm assumes that species 0 is special. It's usually called the vacancy species. Think of it as the vacency
+     *  species. We sum up the diffusive fluxes of all the other species. Then, the diffusive flux of the vacency is calculated
+     *  as the negative of that sum. What we are doing is ensuring that the sum of the diffusive flux of all species is equal
+     *  to zero.
+     *
+     *   The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
+     *   This difference is significant in many battery systems.
+     *
+     *  @param fluxRCB  diffusion flux for all distributed species at the right cell boundary
+     *  @param iCell    Cell # 
+     *
+     */
+    void diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const;  
+
     //! Predict the solution
     /*!
      * Ok at this point we have a time step deltalimiTsubcycle_
