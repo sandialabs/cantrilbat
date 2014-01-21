@@ -478,6 +478,9 @@ public:
      */
     double pressure() const;
 
+    //! Return the current porosity
+    double porosity() const;
+
 
     // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
 
