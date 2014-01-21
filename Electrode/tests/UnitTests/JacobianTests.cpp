@@ -90,6 +90,8 @@ public:
     return result;
   }
 
+  virtual void revertToInitialTime(bool) {};
+
 private:
   std::vector<double> fake_electrolyte_mole_nums;
 };

@@ -109,6 +109,7 @@ void Electrode_FD_Jacobian::remove_entry_to_compute(DOF_SOURCE_PAIR entry)
 //====================================================================================================================
 void Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> & dof_values, double dt)
 {
+  electrode->revertToInitialTime(true);
   electrode->setState_TP(dof_values[TEMPERATURE], dof_values[PRESSURE]);
   electrode->setVoltages(dof_values[SOLID_VOLTAGE], dof_values[LIQUID_VOLTAGE]);
   electrode->setFinalStateFromInit();
