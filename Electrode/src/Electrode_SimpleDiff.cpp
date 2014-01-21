@@ -1182,7 +1182,7 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
 	    int nSpecies = th->nSpecies();
 	    double fluxT = 0.0;
 
-	    for (int i = 1; i < kSp; kSp++) {
+	    for (kSp = 1; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
 		caR = concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexRightKRSpecies + iKRSpecies];
 		caC = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
@@ -1203,7 +1203,7 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
 	    int nSpecies = th->nSpecies();
 
 	    double fluxT = 0.0;
-	    for (int i = 1; i < kSp; kSp++) {
+	    for (kSp = 1; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
 		caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies];
 		caC = concKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexMidKRSpecies + iKRSpecies];
@@ -1298,8 +1298,6 @@ int Electrode_SimpleDiff::predictSolnResid()
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
 
-
- 
 
     for (int iCell = 0; iCell < numRCells_; iCell++) {
         /*
@@ -2101,7 +2099,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
    
         int kstart = 0;
 	/*
-	 * Calculate the flux at the right cell boundary
+	 * Calculate the molar diffusive flux at the right cell boundary. Note the sum of the molar fluxes over all species
+	 * is zero. This is crucial. 
 	 */
 	diffusiveFluxRCB(fluxRCB, iCell, true);
 
