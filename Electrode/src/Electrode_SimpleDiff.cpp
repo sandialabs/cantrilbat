@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <cmath>
 #include <string.h>
 #include "tok_input_util.h"
 
@@ -47,7 +47,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     spMoles_KRsolid_Cell_init_(0),
     spMoles_KRsolid_Cell_final_final_(0),
     spMoles_KRsolid_Cell_init_init_(0),
-  
+    phaseMoles_KRsolid_Cell_final_(0),
+
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
     phaseIndeciseKRsolidPhases_(0),
@@ -128,6 +129,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     spMoles_KRsolid_Cell_init_(0),
     spMoles_KRsolid_Cell_final_final_(0),
     spMoles_KRsolid_Cell_init_init_(0),
+    phaseMoles_KRsolid_Cell_final_(0),
 
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
@@ -218,7 +220,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     spMoles_KRsolid_Cell_init_          = right.spMoles_KRsolid_Cell_init_;
     spMoles_KRsolid_Cell_final_final_   = right.spMoles_KRsolid_Cell_final_final_;
     spMoles_KRsolid_Cell_init_init_     = right.spMoles_KRsolid_Cell_init_init_;
-
+    phaseMoles_KRsolid_Cell_final_      = right.phaseMoles_KRsolid_Cell_final_;
     KRsolid_speciesList_                = right.KRsolid_speciesList_;
     KRsolid_speciesNames_               = right.KRsolid_speciesNames_;
     phaseIndeciseKRsolidPhases_         = right.phaseIndeciseKRsolidPhases_;
@@ -548,6 +550,8 @@ Electrode_SimpleDiff::init_sizes()
     spMoles_KRsolid_Cell_init_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_final_final_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_init_init_.resize(kspCell, 0.0);
+
+    phaseMoles_KRsolid_Cell_final_.resize(nPhCell, 0.0);
 
     concTot_SPhase_Cell_final_final_.resize(nPhCell, 0.0);
     concTot_SPhase_Cell_final_.resize(nPhCell, 0.0);
@@ -986,6 +990,7 @@ void Electrode_SimpleDiff::updateState()
         double volCell = 4./3. * Pi * (cbR3_final  - cbL3_final);
 
         double volTotalCell = volCell * particleNumberToFollow_;
+	printf("volTotalCell = %g\n", volTotalCell);
 
         int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
@@ -994,14 +999,14 @@ void Electrode_SimpleDiff::updateState()
 	 *  Loop over distributed phases
 	 */
         for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
-            //iPh = phaseIndeciseKRsolidPhases_[jRPh];
-            //kspStart = m_PhaseSpeciesStartIndex[iPh];
+         
             ThermoPhase* th = thermoSPhase_List_[jRPh];
             int nSpecies = th->nSpecies();
 	   
             //double total = 0.0;
 	    double& concPhase = concTot_SPhase_Cell_final_[indexCellPhase  + jRPh];
 	    concPhase = 0.0;
+	    double phaseMoles = 0.0;
             for (int kSp = 0; kSp < nSpecies; kSp++) {
                 int iKRSpecies = kstart + kSp;
                 /*
@@ -1011,7 +1016,9 @@ void Electrode_SimpleDiff::updateState()
 		concPhase += concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
                 spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] =
 		    volTotalCell * concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
             }
+	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = phaseMoles;
             /*
              * Find the mole fractions
              *     from spMoles_KRsolid_Cell_final_;
@@ -1060,27 +1067,44 @@ void Electrode_SimpleDiff::updateState()
 
 //=========================================================================
 // under construction
-void Electrode_SimpleDiff::checkGeometry()
+/*
+ *   This routine does several checks
+ *
+ *
+ *
+ *
+ */
+void Electrode_SimpleDiff::checkGeometry() const
 {
-    double  cbL3_final , cbR3_final = 0.0, CBR;
+    double  cbL3_final , cbR3_final = 0.0, CBR = 0.0;
     int iCell, iPh;
+    double rdel = 0.0;
+    double phaseTot = 0.0;
     for (iCell = 0; iCell < numRCells_; iCell++) {
 
 	/*
 	 *  Check value of cellBoundR_final_ against rnodePos_final_
+	 *   They must be at the midpoints wrt the radial coordinate.
 	 */
 	if (iCell <  numRCells_ - 1) {
-	    double CBR = 0.5 * (rnodePos_final_[iCell] + rnodePos_final_[iCell+1]);
-	    double rdel = fabs(cellBoundR_final_[iCell] - CBR) / CBR;
+	    CBR = 0.5 * (rnodePos_final_[iCell] + rnodePos_final_[iCell+1]);
+	    rdel = fabs(cellBoundR_final_[iCell] - CBR) / CBR;
 	    if (rdel > 1.0E-10) {
 		printf("CBR is bad\n");
 		exit(-1);
 	    }
+	    cbL3_final = cbR3_final;
+	    cbR3_final = CBR * CBR * CBR;
+	} else {
+	    CBR = rnodePos_final_[iCell];
+	    cbL3_final = cbR3_final;
+	    cbR3_final = CBR * CBR * CBR;
 	}
-	cbL3_final = cbR3_final;
-	cbR3_final = CBR * CBR * CBR;
-
-	double totalVolGeom = 4. * Pi / 3.0 * (cbR3_final - cbL3_final) *  particleNumberToFollow_;
+	/*
+	 *  Calculate the total volume in a cell via the geometry. We will then compare that volume
+	 *  to the volume calculated from the volume calculated using the mole numbers and partial molar volumes
+	 */
+	double totalVolGeom = 4. * Pi / 3.0 * (cbR3_final - cbL3_final) * particleNumberToFollow_;
 	
 	int indexMidKRSpecies =  iCell    * numKRSpecies_;
         int kstart = 0;
@@ -1089,32 +1113,36 @@ void Electrode_SimpleDiff::checkGeometry()
          */
         cbL3_final  = cbR3_final;
         //r0L3_final  = r0R3_final;
-	double phaseMoles_KRsolid_Cell_final_[10];
+	// This is the chemical volume
 	double totalCellVol = 0.0;
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    ThermoPhase* th = & thermo(iPh);
 	    int nSpecies = th->nSpecies();
-	    DphMolesSrc_final_[iPh];
-	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = 0.0;
+	    phaseTot = 0.0;
 	    for (int kSp = 0; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
-		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		phaseTot += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
 	    }
-	    double tot = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
-	    if (tot > 1.0E-200) {
-		for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / tot;
+	    if (phaseTot > 1.0E-200) {
+		rdel = fabs(phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] - phaseTot);
+		if (rdel > 1.0E-10) {
+		    printf("Electrode_SimpleDiff::checkGeometry(): phaseMoles don't agree with spMoles\n");
+		    exit(-1);
 		}
 	    }
-	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
-	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
-	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
-
-	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] * concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    // th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
+	    //concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
+	    //th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
+	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
 	}
-
+	rdel = fabs(totalCellVol -  totalVolGeom);
+	if (rdel > 1.0E-10) {
+	    printf("Electrode_SimpleDiff::checkGeometry(): Moles and geometry don't match\n");
+	    printf("         icell = %d,    volGeom = %g   volMoles = %g   rdelta = %g\n", 
+		   iCell, totalVolGeom, totalCellVol, rdel);
+	    exit(-1);
+	}
     }
 
 }
@@ -1173,7 +1201,7 @@ int Electrode_SimpleDiff::predictSolnResid()
     // Node velocity during the time step
     std::vector<doublereal> rnodeVeloc(numRCells_);
 
-  
+    checkGeometry();
 
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
@@ -1256,7 +1284,10 @@ int Electrode_SimpleDiff::predictSolnResid()
 	    }
 	}
 
-	// The end cell has a special treatment.
+	/*
+	 * The end cell has a special treatment.
+	 *  There is a reaction there that injects species
+	 */
         if (iCell == numRCells_ - 1) {
          
 
@@ -1291,13 +1322,11 @@ int Electrode_SimpleDiff::predictSolnResid()
          */
         cbL3_final  = cbR3_final;
         //r0L3_final  = r0R3_final;
-	double phaseMoles_KRsolid_Cell_final_[10];
 	double totalCellVol = 0.0;
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    ThermoPhase* th = & thermo(iPh);
 	    int nSpecies = th->nSpecies();
-	    DphMolesSrc_final_[iPh];
 	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = 0.0;
 	    for (int kSp = 0; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
@@ -1314,7 +1343,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
 	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
 
-	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] * concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
 	}
 
 	double totalLeftVol = 4.0 * Pi / 3.0 * cbL3_final * particleNumberToFollow_;
@@ -1338,14 +1367,14 @@ int Electrode_SimpleDiff::predictSolnResid()
 
     }
 
-
-
+    // Check the internal consistency
+    checkGeometry();
 
     return 1;
 
 }
 //==================================================================================================================
-int  Electrode_SimpleDiff::predictSoln()
+int Electrode_SimpleDiff::predictSoln()
 {
     /* ---------------------------------------------------------------------------------------
      *                                Update the Internal State of ThermoPhase Objects

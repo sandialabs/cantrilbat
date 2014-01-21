@@ -344,7 +344,7 @@ public:
      *  error exit if inconsistency
      *  works on _final_ state only
      */
-    void checkGeometry();
+    void checkGeometry() const;
 
     //! Predict the solution
     /*!
