@@ -989,8 +989,9 @@ void Electrode_SimpleDiff::updateState()
         cbR3_final = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
         double volCell = 4./3. * Pi * (cbR3_final  - cbL3_final);
 
+	// Calculate the total volume of the cell
         double volTotalCell = volCell * particleNumberToFollow_;
-	printf("volTotalCell = %g\n", volTotalCell);
+	//printf("volTotalCell = %g\n", volTotalCell);
 
         int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
@@ -1003,33 +1004,39 @@ void Electrode_SimpleDiff::updateState()
             ThermoPhase* th = thermoSPhase_List_[jRPh];
             int nSpecies = th->nSpecies();
 	   
-            //double total = 0.0;
-	    double& concPhase = concTot_SPhase_Cell_final_[indexCellPhase  + jRPh];
-	    concPhase = 0.0;
+	    double& concTotPhase = concTot_SPhase_Cell_final_[indexCellPhase  + jRPh];
+	    double concKRSpecies0Phase = concTotPhase;
 	    double phaseMoles = 0.0;
-            for (int kSp = 0; kSp < nSpecies; kSp++) {
+            for (int kSp = 1; kSp < nSpecies; kSp++) {
                 int iKRSpecies = kstart + kSp;
                 /*
                  * Find the mole numbers of species in the cell, spMolesKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies]
                  *     from concKRsolid_Cell_final_;
                  */
-		concPhase += concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		concKRSpecies0Phase -= concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
                 spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] =
 		    volTotalCell * concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
             }
+	    /*
+	     *  Fill in the quantities for species 0, which aren't formally part of the solution vector
+	     */
+	    concKRSpecies_Cell_final_[indexMidKRSpecies + 0] = concKRSpecies0Phase;
+	    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + 0] = volTotalCell * concKRSpecies_Cell_final_[indexMidKRSpecies + 0];
+	    phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + 0];
+
 	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = phaseMoles;
             /*
              * Find the mole fractions
              *     from spMoles_KRsolid_Cell_final_;
              */
-	    if (concPhase > 1.0E-200) {
+	    if (concTotPhase > 1.0E-200) {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
 		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = 
-			concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] / concPhase;
+			concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] / concTotPhase;
 		}
-	    } else if (concPhase > 1.0E-200) {
+	    } else if (concTotPhase > 1.0E-200) {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
 		    tmp = spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
@@ -1048,7 +1055,7 @@ void Electrode_SimpleDiff::updateState()
 		    }
 		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] = 0.0;
 		}
-		concPhase = 0.0;
+		concTotPhase = 0.0;
 	    }
 	    /*
 	     * Calculate the activities of the species
@@ -1458,9 +1465,9 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
  */
 void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
 {
-    extractInfo();
-    updateSpeciesMoleChangeFinal();
- 
+    /*
+     *  Here we don't recalculate anything. It was previously calculated in predictSoln().
+     */
     for (int isp = 0; isp < m_NumTotSpecies; isp++) {
         IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
