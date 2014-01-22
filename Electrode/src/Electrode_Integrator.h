@@ -854,7 +854,7 @@ public:
 protected:
 
     //! Number of equations in the nonlinear equation system
-    int neq_;
+    //int neq_;
 
     //! value of the comptued time constant
     doublereal deltaTsubcycleCalc_;

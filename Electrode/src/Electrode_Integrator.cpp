@@ -365,7 +365,6 @@ bool  SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) cons
  */
 Electrode_Integrator::Electrode_Integrator() :
     Electrode(),
-    neq_(0),
     deltaTsubcycleCalc_(0.0),
     atolResidNLS_(0),
     rtolResidNLS_(1.0E-6),
@@ -401,7 +400,6 @@ Electrode_Integrator::Electrode_Integrator() :
  */
 Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     Electrode(),
-    neq_(0),
     deltaTsubcycleCalc_(0.0),
     atolResidNLS_(0),
     rtolResidNLS_(1.0E-6),
@@ -448,6 +446,8 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
     }
 
     Electrode::operator=(right);
+    Cantera::ResidJacEval::operator=(right);
+
     neq_                                = right.neq_;
     deltaTsubcycleCalc_                 = right.deltaTsubcycleCalc_;
 
@@ -504,9 +504,7 @@ Electrode_Integrator::~Electrode_Integrator()
 int
 Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
-
     Electrode::electrode_model_create(ei);
-
 
     setupIntegratedSourceTermErrorControl();
 
@@ -554,8 +552,6 @@ Electrode_Integrator::create_solvers()
         }
         return nEquations();
     }
-
-
 
     yvalNLS_.resize(neqNLS, 0.0);
     ydotNLS_.resize(neqNLS, 0.0);
