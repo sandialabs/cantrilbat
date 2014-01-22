@@ -786,7 +786,11 @@ protected:
     std::vector<doublereal> vLatticeCBR_cell_;
 
     std::vector<doublereal> cellBoundR_final_;
+  
+    std::vector<doublereal> cellBoundR_init_;
+
     std::vector<doublereal> cellBoundL_final_;
+    std::vector<doublereal> cellBoundL_init_;
 
     //! Volume of each cell on a per particle basis
     /*!

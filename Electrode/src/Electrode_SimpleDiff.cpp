@@ -24,7 +24,7 @@ using namespace TKInput;
 #ifndef MIN
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
-
+static const double ONE_THIRD = 1.0 / 3.0;
 namespace Cantera
 {
 //======================================================================================================================
@@ -80,7 +80,9 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     rLatticeCBR_ref_(0),
     vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
+    cellBoundR_init_(0),
     cellBoundL_final_(0),
+    cellBoundL_init_(0),
 
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -162,7 +164,9 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     rLatticeCBR_ref_(0),
     vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
+    cellBoundR_init_(0),
     cellBoundL_final_(0),
+    cellBoundL_init_(0),
 
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -250,7 +254,9 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     rLatticeCBR_ref_                    = right.rLatticeCBR_ref_;
     vLatticeCBR_cell_                   = right.vLatticeCBR_cell_;
     cellBoundR_final_                   = right.cellBoundR_final_;
+    cellBoundR_init_                    = right.cellBoundR_init_;
     cellBoundL_final_                   = right.cellBoundL_final_;
+    cellBoundL_init_                    = right.cellBoundL_init_;
     volPP_Cell_final_                   = right.volPP_Cell_final_;
 
  
@@ -466,7 +472,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     double currentSolidVol = Electrode::SolidVol();
     double volPerParticle = currentSolidVol / particleNumberToFollow_;
-    Radius_exterior_final_ = pow(volPerParticle * 3 / (4. * Pi), 0.333333333333333333333);
+    Radius_exterior_final_ = pow(volPerParticle * 3 / (4. * Pi), ONE_THIRD);
 
     /*
      *  Initialize the grid
@@ -588,7 +594,9 @@ Electrode_SimpleDiff::init_sizes()
     vLatticeCBR_cell_.resize(numRCells_, 0.0);
 
     cellBoundR_final_.resize(numRCells_, 0.0);
+    cellBoundR_init_.resize(numRCells_, 0.0);
     cellBoundL_final_.resize(numRCells_, 0.0);
+    cellBoundL_init_.resize(numRCells_, 0.0);
 
     volPP_Cell_final_.resize(numRCells_, 0.0);
     //  fracNodePos_.resize(numRCells_, 0.0);
@@ -637,7 +645,7 @@ Electrode_SimpleDiff::init_grid()
      for (int iCell = 0; iCell < numRCells_-1; iCell++) { 
 	 volContainedCell =  fracVolNodePos_[iCell+1] * vol_total_part;
 	 rnode3 = rbot3 + volContainedCell * 3.0 / (4.0 * Pi);
-	 rnodePos_final_[iCell+1] = pow(rnode3, 0.33333333333333333);
+	 rnodePos_final_[iCell+1] = pow(rnode3, ONE_THIRD);
 	 if (iCell+1 == numRCells_) {
 	     rnodePos_final_[iCell+1] = r_out;
 	 }
@@ -1410,7 +1418,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	double totalEnclosedVol = totalLeftVol + totalCellVol;
 	if (iCell <  numRCells_ - 1) {
 	    cbR3_final = totalEnclosedVol * 3.0 / ( 4.0 * Pi * particleNumberToFollow_);
-	    cellBoundR_final_[iCell] = pow(cbR3_final, 0.3333333333333333);
+	    cellBoundR_final_[iCell] = pow(cbR3_final, ONE_THIRD);
 	    
 	    rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
 	    
@@ -1873,6 +1881,7 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
  */
 int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
+  
     // Indexes
     int iCell, iPh, jPh, jCell;
     double I_j;
@@ -1895,7 +1904,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
     double r0R3_final = 0.0;
     double r0L3_final = 0.0;
-
+    double rRefCBR3 = 0.0;
 
     double fluxTC, fluxM;
 
@@ -1920,7 +1929,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
 
     // Location of the right cell boundary at the beginning of the step
-    std::vector<doublereal> cellBoundR_init(numRCells_);
+    //  std::vector<doublereal> cellBoundR_init(numRCells_);
     // Velocity of the cell boundary during the time step;
     std::vector<doublereal> cellBoundRVeloc(numRCells_);
     // Node velocity during the time step
@@ -1937,23 +1946,22 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     //    vLatticeR is currently set to zero -> this is the appropriate default until something more is needed
 
     /*
-     *  Calculate the cell boundaries in a pre - loop
+     *  Calculate the cell quantitites in a pre-loop
      */
     for (iCell = 0; iCell < numRCells_; iCell++) {
+	/*
+	 *  Calculate the nodal velocity
+	 */
         rnodeVeloc[iCell] = (rnodePos_final_[iCell] - rnodePos_init_[iCell]) / deltaTsubcycleCalc_;
-	if (iCell == numRCells_ - 1) {
-	    cellBoundR_init[iCell]   = rnodePos_init_[iCell];
-	} else {
-	    cellBoundR_init[iCell]   = 0.5 * (rnodePos_init_[iCell] + rnodePos_init_[iCell+1]);
-	}
-        cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init[iCell]) / deltaTsubcycleCalc_;
-
-	rLatticeCBR_ref_[iCell] =  cellBoundR_init[iCell];
-	if (iCell ==  0) {
-	    rLatticeCBR_ref_[iCell] =  m_rbot0_;
-	} else {
-	    rLatticeCBR_ref_[iCell] =  cellBoundR_init[iCell-1];
-	}
+	/*
+	 *  Calculate the the velocity of the right cell boundary
+	 */
+        cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init_[iCell]) / deltaTsubcycleCalc_;
+	/*
+	 *  The reference lattice coordinate is rebaselined so that it is linked with the radius coordinate
+	 *  at every time step.
+	 */
+	rLatticeCBR_ref_[iCell] =  cellBoundR_init_[iCell];
     }
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
@@ -1986,10 +1994,10 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         /*
          * Calculate the cubes of the cell boundary radii
          */
-        cbR3_init  = cellBoundR_init[iCell]  * cellBoundR_init[iCell]  * cellBoundR_init[iCell];
+        cbR3_init  = cellBoundR_init_[iCell]  * cellBoundR_init_[iCell]  * cellBoundR_init_[iCell];
         cbR3_final = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
         /*
-         * Calculate powers of the lattice velocity at the right boundary
+         * Calculate powers of the lattice coordinate at the right cell boundary
          */
         double r0R_final = rLatticeCBR_final_[iCell];
         r0R3_final = r0R_final * r0R_final * r0R_final;
@@ -2002,9 +2010,13 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
         /*
          * Residual calculation - Value of the Lattice radius at the right cell boundary
+	 *  This is Eqn. 21 in the Memo writeup
+	 *      it's the residual equation for determining  rLatticeCBR_final_[iCell]
+	 *
+	 *      When there is no expansion of the lattice,  rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell]
          */
         double rhs = r0L3_final +  vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
-        resid[rindex] = r0R_final - pow(rhs, 0.333333333333333333);
+        resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
 
         /*
          *  Calculate the time derivative of the molar volume
@@ -2014,17 +2026,24 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         /*
          * Find the lattice velocity of the reference radius at the right cell boundary
          */
-        double vLatticeCBR = -1.0 / (3. * r0R2_final) *
-			     (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) *
-			      vbarDot * (cbR3_final - cbL3_final));
+        //double vLatticeCBR = -1.0 / (3. * r0R2_final) *
+	//		     (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) *
+	//		      vbarDot * (cbR3_final - cbL3_final));
+	double vLatticeCBR = 0.0;
 
 	//rLtarget =  rLatticeCBR_ref_[iCell];
 	if (rLatticeCBR_final_[iCell] > rLatticeCBR_ref_[iCell]) {
 	    // we are here to when the lattice velocity has put the previous lattice CBR into the current cell
 	    // Assign the cell id the current cell.
+	    //  (In other words the current cell is expanding
 	    jCell = iCell;
 	    // The CBL value is the CBR of the next lowest cell.
-	    Lleft =  rLatticeCBR_final_[jCell-1];
+	    // except for the lowest cell
+	    if (jCell == 0) {
+		Lleft =  m_rbot0_;
+	    } else {
+		Lleft =  rLatticeCBR_final_[jCell-1];
+	    }
 	    //Lright =  rLatticeCBR_final_[jCell];
 	    // If the lattice has moved more than one cell, then throw an error condition for now.
 	    // We'll come back to fix this later
@@ -2035,13 +2054,19 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    // Take the cube of that
 	    L3left = Lleft *  Lleft *  Lleft;
 	    // Find the cubes of the right CBR and left CBR values
-	    rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
+	    //rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
+	    rRefCBR3 = rLatticeCBR_ref_[iCell] *rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell];
 	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] *  cellBoundL_final_[jCell];
 	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
 	    vbarLattice_init_jcell = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * ( rjCBR3 - rjCBL3);
-	    rnow = pow(rnow3, 0.333333333333333);
-	    vLatticeCBR = (rnow -  rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
+	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * (rRefCBR3 - rjCBL3);
+	    rnow = pow(rnow3, ONE_THIRD);
+	    if (rnow >  cellBoundR_final_[jCell]) {
+		if (rnow > cellBoundR_final_[jCell]*(1.0 + 1.0E-14)) {
+		    printf("analyse condition 1 \n");
+		}
+	    }
+	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
 	} else {
 	    // we are here to when the lattice velocity has put the previous lattice CBR into the next cell
 	    // Assign the cell id the current cell.
@@ -2058,13 +2083,14 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    // Take the cube of that
 	    L3left = Lleft *  Lleft *  Lleft;
 	    // Find the cubes of the right CBR and left CBR values
-	    rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] *  cellBoundL_final_[jCell];
+	    // rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
+	    rRefCBR3 = rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell];
+	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] * cellBoundL_final_[jCell];
 	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
 	    vbarLattice_init_jcell = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * ( rjCBR3 - rjCBL3);
-	    rnow = pow(rnow3, 0.333333333333333);
-	    vLatticeCBR = (rnow -  rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
+	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * (rRefCBR3 - rjCBL3);
+	    rnow = pow(rnow3, ONE_THIRD);
+	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
 	}
 	/*
 	 *  Store the calculated lattice velocity
@@ -2078,23 +2104,25 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	 *         -> special case iCell= 0 set to m_rbot0_
 	 *         ->              iCell= numRCells_-1 -> distinguishing condition set to boundary condition
          */
-	I_j =  rnodePos_final_[iCell] *  rnodePos_final_[iCell] *  rnodePos_final_[iCell];
-	if (iCell == numRCells_-1) {
+
+	if (iCell == 0) {
+	    resid[xindex] = rnodePos_final_[iCell] - m_rbot0_;
+	} else if (iCell == numRCells_-1) {
+	    // This condition is handled below
 	} else {
-	    if (iCell == 0) {
-		rnodePos_final_[iCell] = 0;
-	    }
-	    I_jp1 =  rnodePos_final_[iCell+1] *  rnodePos_final_[iCell+1] *  rnodePos_final_[iCell+1];
+	    double rtop = rnodePos_final_[numRCells_ - 1];
+	    I_j   =  rnodePos_final_[iCell] * rnodePos_final_[iCell] * rnodePos_final_[iCell] / (rtop * rtop * rtop);
+	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] / (rtop * rtop * rtop);
+	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell+1];
 	}
-        resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell+1];
+    
 
         /*
          *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
          */
-        double cellBoundR_star2 = (cellBoundR_final_[iCell] * cellBoundR_final_[iCell]
-                                   - cellBoundR_final_[iCell] * cellBoundR_init[iCell] + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
+        double cellBoundR_star2 = (cellBoundR_init_[iCell] * cellBoundR_init_[iCell]
+                                   + cellBoundR_final_[iCell] * cellBoundR_init_[iCell] + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
         double areaR_star = 4.0 * Pi * cellBoundR_star2 * particleNumberToFollow_;
-
 
    
         int kstart = 0;
@@ -2119,6 +2147,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
              * Convective flux - mesh movement with NO material movement
              */
             double vtotalR = cellBoundRVeloc[iCell] - vLatticeCBR;
+ 
             if (iCell < (numRCells_- 1)) {
                 if (vtotalR >= 0.0) {
                     fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell+1) + jPh];
@@ -2176,7 +2205,6 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
             /*
              *  Do the exterior
              */
-            iCell =  numRCells_ - 1;
             double SolidVolCreationRate = 0.0;
 
             for (jPh = 0; jPh < numSPhases_; jPh++) {
@@ -2660,6 +2688,8 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rLatticeCBR_init_[iCell] = rLatticeCBR_final_[iCell];
 	rnodePos_init_[iCell] = rnodePos_final_[iCell];
+	cellBoundR_init_[iCell] = cellBoundR_final_[iCell];
+	cellBoundL_init_[iCell] = cellBoundL_final_[iCell];
     }
 
     /*
@@ -2740,6 +2770,8 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rLatticeCBR_final_[iCell] = rLatticeCBR_init_[iCell];
 	rnodePos_final_[iCell] = rnodePos_init_[iCell];
+	cellBoundR_final_[iCell] = cellBoundR_init_[iCell];
+	cellBoundL_final_[iCell] = cellBoundL_init_[iCell];
     }
 }
 //====================================================================================================================
