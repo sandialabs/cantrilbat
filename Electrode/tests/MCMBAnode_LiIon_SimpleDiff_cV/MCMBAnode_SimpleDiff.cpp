@@ -170,6 +170,9 @@ int main(int argc, char **argv)
     electrodeA->setDeltaTSubcycle(0.001);
 
     remove("soln.xml");
+
+    electrodeA->enableExtraPrinting_ = true;
+    electrodeA->detailedResidPrintFlag_ = 10;
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;

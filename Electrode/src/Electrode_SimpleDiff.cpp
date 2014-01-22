@@ -658,19 +658,19 @@ Electrode_SimpleDiff::init_grid()
 	 rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
-	 rLatticeCBR_final_[iCell] = rnodePos_final_[iCell];
-	 rLatticeCBR_final_final_[iCell] = rnodePos_final_[iCell];
-	 rLatticeCBR_init_[iCell] = rnodePos_final_[iCell];
-	 rLatticeCBR_init_init_[iCell] = rnodePos_final_[iCell];
+	 rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
+	 rLatticeCBR_final_final_[iCell] = cellBoundR_final_[iCell];
+	 rLatticeCBR_init_[iCell] = cellBoundR_final_[iCell];
+	 rLatticeCBR_init_init_[iCell] = cellBoundR_final_[iCell];
 
 	 double cbl3 = cellBoundL_final_[iCell] * cellBoundL_final_[iCell] * cellBoundL_final_[iCell];
 	 double cbR3 = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
 	 volPP_Cell_final_[iCell] = 4. * Pi / 3. * (cbR3 - cbl3);
 
 	 if (iCell ==  0) {
-	     rLatticeCBR_ref_[iCell] =  m_rbot0_;
+	     rLatticeCBR_ref_[iCell] =  cellBoundR_final_[iCell];
 	 } else {
-	     rLatticeCBR_ref_[iCell] =  cellBoundR_final_[iCell-1];
+	     rLatticeCBR_ref_[iCell] =  cellBoundR_final_[iCell];
 	 }
      }
 }
@@ -1789,10 +1789,10 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
             printf("\t\t minPH = %3d minCell = %3d delTcalc = %16.7E    Res = %16.7E   \n",
                    phaseID_TimeDeathMin_, cellID_TimeDeathMin_, deltaTsubcycleCalc_,  resid[0]);
         }
-        printf("\t\t        PhaseName        Moles_Init    Moles_final    |   Src_Moles  Pred_Moles_Final  |    Resid     |\n");
+        printf("\t\t        PhaseName        Moles_Init    Moles_final              |   Src_Moles  Pred_Moles_Final  |    Resid     |\n");
         for (int iph = 0; iph < m_NumTotPhases; iph++) {
             double src =   DphMolesSrc_final_[iph] * deltaTsubcycleCalc_;
-            printf("\t\t %20.20s  %12.4e  %12.4e            | %12.4e %12.4e", PhaseNames_[iph].c_str(), phaseMoles_init_[iph],
+            printf("\t\t %20.20s  %12.4e  %12.4e               | %12.4e %12.4e", PhaseNames_[iph].c_str(), phaseMoles_init_[iph],
                    phaseMoles_final_[iph], src,  phaseMoles_init_[iph] + src);
             bool found = false;
             for (int ph = 0; ph <  numSPhases_; ph++) {
@@ -2107,7 +2107,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    double rtop = rnodePos_final_[numRCells_ - 1];
 	    I_j   =  rnodePos_final_[iCell] * rnodePos_final_[iCell] * rnodePos_final_[iCell] / (rtop * rtop * rtop);
 	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] / (rtop * rtop * rtop);
-	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell+1];
+	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell];
 	}
     
 
@@ -2223,8 +2223,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
              *  this is an expression of the conservation of total solid molar volume at the
              *  r_exterior.
              */
-            xindex = 1 + numEqnsCell_ * iCell;
-            resid[xindex] = rnodeVeloc[iCell]  * areaR_star - SolidVolCreationRate;
+            resid[xindex] = rnodeVeloc[iCell] * areaR_star - SolidVolCreationRate;
         }
     }
     return 1;
@@ -2269,24 +2268,42 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
     int iTerm = 0;
 
     showOneResid(title, indentSpaces, &cellBoundR_final_[0], numRCells_, 1, 0, &rLatticeCBR_init_[0],
-		 &rLatticeCBR_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[0], &atolResidNLS_[0],
+		 &rLatticeCBR_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
 		 res);
 
     title = "Residual for position (m)";
     iTerm = 1;
     showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &rnodePos_init_[0],
-		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[0], &atolResidNLS_[0],
+		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
 		 res);
 
+    int kstart = 0;
+    for (int jPh = 0; jPh < numSPhases_; jPh++) {
+	int iPh = phaseIndeciseKRsolidPhases_[jPh];
+	//int iStart = getGlobalSpeciesIndex(iPh, 0);
+	ThermoPhase* th = & thermo(iPh);
+	int nSpecies = th->nSpecies();
 
-    for (int k = 0; k <  numKRSpecies_; k++) {
-	title = "Residual for Species Concentration 0f "  + KRsolid_speciesNames_[k] + " (kmol/m3)";
-	iTerm = 1;
-	iTerm = 2 + k;
-	showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numKRSpecies_, k, &concKRSpecies_Cell_final_[0],
-		     &concKRSpecies_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[0], &atolResidNLS_[0],
+	title = "Residual for total phase concentration " + th->name();
+	iTerm = 2 + kstart;
+	showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &concTot_SPhase_Cell_init_[0],
+		     &concTot_SPhase_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
 		     res);
+
+
+	for (int kSp = 1; kSp < nSpecies; kSp++) {
+	    int iKRSpecies = kstart + kSp;
+
+	    title = "Residual for total species concentration of " + th->speciesName(kSp);
+	    iTerm = 2 + iKRSpecies;
+	    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numKRSpecies_, iKRSpecies, &concKRSpecies_Cell_init_[0],
+			 &concKRSpecies_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
+			 res);
+
+	}
+	kstart += nSpecies;
     }
+
 
     drawline(124, indentSpaces);
 
@@ -2439,25 +2456,23 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
     printf("%s  %s\n", indent.c_str(), title.c_str());
  
     drawline(indentSpaces, 80);
-    printf("%s        z   ", indent.c_str());
+    printf("%s        z      ", indent.c_str());
     
-    printf(" %15s", "Init_Value");
-    printf(" %15s", "Final_Value");
+    printf(" %-11s", "Init_Value");
+    printf(" %-11s", "Final_Value");
     if (resid_error) {
-	printf(" %15s", "Error");
+	printf(" %-11s", "Error");
     }
     if (solnError_tol) {
-	printf(" %15s", "Toler");
+	printf(" %-11s |  ", "Toler");
     }
-    printf(" %15s\n", "Resid");
+    printf(" %-11s\n", "Resid");
     
-
- 
     drawline(indentSpaces, 80);
 
     for (iCell = 0; iCell < numRadialVals; iCell++) {
 	doublereal r = radialValues[iCell];
-	printf("\n%s    %-10.4E ", indent.c_str(), r);
+	printf("%s    %-10.4E ", indent.c_str(), r);
 	int istart = iCell * numFields + iField;
 	printf(" %-10.4E ", val_init[istart]);
 	printf(" %-10.4E ", val_final[istart]);
@@ -2472,7 +2487,6 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
 	printf(" %-10.4E ", residual[istart]);
 	printf("\n");
     }
-    printf("\n");
     drawline(indentSpaces, 80);
 }
 //====================================================================================================================
