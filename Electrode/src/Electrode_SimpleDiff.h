@@ -209,6 +209,11 @@ public:
      */
     virtual void initialPackSolver_nonlinFunction();
 
+    //! Pack the solution vector
+    /*!
+     *  @param y  solution vector to be filled
+     */
+    void packNonlinSolnVector(double* const y) const;
 
 
     //------------------------------------------------------------------------------------------------------------------

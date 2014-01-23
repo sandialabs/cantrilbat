@@ -1253,7 +1253,7 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
  *
  * @return   Returns the success of the operation
  *                 1  A predicted solution is achieved
- *                 2  A predicted solution with a multispecies phase pop is acheived
+ *                 2  A predicted solution with a multispecies phase pop is achieved
  *                 0  A predicted solution is not achieved, but go ahead anyway
  *                -1  The predictor suggests that the time step be reduced and a retry occur.
  */
@@ -1446,23 +1446,51 @@ int Electrode_SimpleDiff::predictSolnResid()
 //==================================================================================================================
 int Electrode_SimpleDiff::predictSoln()
 {
-    /* ---------------------------------------------------------------------------------------
-     *                                Update the Internal State of ThermoPhase Objects
-     * --------------------------------------------------------------------------------------- */
-    updateState();
-    
+    int retn = -1;
+
+    // predict that the calculated deltaT is equal to the input deltaT
+    deltaTsubcycleCalc_ = deltaTsubcycle_;
+
+    int redoSteps = 0;
+    int reDo = 0;
+
+    do {
+	redoSteps++;
+	/*
+         * Copy initial to final
+         */
+	setFinalStateFromInit();
+	/*
+	 *  Update the Internal State of ThermoPhase Objects
+	 */
+	updateState();
+	/*
+	 *    Calculate ROP_, and justBornPhase_[];
+	 */
+	extractInfo();
+	/*
+	 *    Calculate DspMoles_final_[]
+	 */
+	updateSpeciesMoleChangeFinal();
+	/*
+	 *    
+	 */    
+	retn = predictSolnResid();
+	if (retn < 0) {
+	    reDo = 1;
+	}
+
+	if (reDo) {
+	    deltaTsubcycle_ *= 0.25;
+	}
+
+    } while (reDo);
+
     /*
-     *    Calculate ROP_, and justBornPhase_[];
+     *  Keep a copy of the estimated soln vector to do a predictor corrector step
      */
-    extractInfo();
-    /*
-     *    Calculate DspMoles_final_[]
-     */
-    updateSpeciesMoleChangeFinal();
-    /*
-     *    
-     */    
-    int retn = predictSolnResid();
+    packNonlinSolnVector(DATA_PTR(soln_predict_));
+
     return retn;
 }
 //====================================================================================================================
@@ -1511,6 +1539,52 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] = y[index + kSp];
 		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] -=
 		    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+	    }
+	    kstart += nsp;
+	    index += nsp;
+	}
+    }
+}
+//==================================================================================================================
+/*
+ * --------------------------------------------------------------------------------------------------------------
+ *         Residual (Time)                                     deltaSubcycleCalc_                   0
+ *                                                                                            1
+ *         Loop over cells                                                            0 <=  iCell < numRCells_
+ *                                                                                     j = numEqnsCell_ * iCell
+ *                    
+ *            Residual (Reference/lattice Position)          rLatticeCBR_final_[iCell];      (1+j)
+ *            Residual (Mesh Position)                                                       (j+1) + 1
+ *          Loop over distributed Phases
+ *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhase_ + jPh]
+ *              . . .
+ *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+ *  --------------------------------------------------------------------------------------------------------------
+*/
+void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
+{
+    int index = 0;
+    /*
+     *  Set up the detaTsubcycle variable
+     */
+    y[0] = deltaTsubcycleCalc_;
+    index++;
+    int kstart, jRPh, iKRSpecies;
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	kstart = 0;
+
+	y[index] = rLatticeCBR_final_[iCell];
+	index++;
+
+	y[index] = rnodePos_final_[iCell];
+	index++;
+
+	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
+	    y[index] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];	  
+	    for (int kSp = 1; kSp < nsp; kSp++) {
+		iKRSpecies = kstart + kSp;
+		y[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
 	    }
 	    kstart += nsp;
 	    index += nsp;
