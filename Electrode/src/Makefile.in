@@ -49,6 +49,8 @@ F2C_INC=$(CANTERA_INCROOT)/cantera
 # Set up the various local and global defines
 #
 # LDEFINES =   -DDEBUG_ELECTRODE
+#       Useful for adding more debugging to new models
+# LDEFINES =   -DDEBUG_NEWMODELS
 # LDEFINES =   -DDEBUG_MODE_PREDICTION -DDEBUG_HKM
 #
 # Set up the global include directory macro

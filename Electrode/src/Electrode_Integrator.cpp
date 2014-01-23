@@ -1058,6 +1058,7 @@ topConvergence:
 
             pSolve_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
             pSolve_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
+	 
             num_newt_its = 0;
 
 #ifdef DEBUG_HKM_1DELECTRODE
@@ -1074,7 +1075,12 @@ topConvergence:
             }
 #endif
             //   How to turn on the jacobian printing if debugging
-            // pSolve_->s_print_NumJac = 1;
+#ifdef DEBUG_NEWMODELS
+            pSolve_->s_print_NumJac = 1;
+            loglevelInput = 10;
+	    pSolve_->m_min_newt_its = 4;
+#endif
+
 	    tfinal_start = tfinal_;
 
             int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
