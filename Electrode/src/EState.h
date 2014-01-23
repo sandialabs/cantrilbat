@@ -34,7 +34,8 @@ enum EState_Type_Enum {
      * choose which ones to impliment as state variables.
      */
     EST_CSTR = 0,
-    EST_MULTIPLATEAU
+    EST_MULTIPLATEAU,
+    EST_RADIALDISTRIB
 };
 
 //! Base Class for the ElectrodeState class concept. We define the state of the electrode here
