@@ -2,15 +2,14 @@
  * $Id: EState_RadialDiffusion.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "cantera/base/ctml.h"
 
-#include "EState_RadialDiffusion.h"
+#include "EState_RadialDistrib.h"
 #include "Electrode_SimpleDiff.h"
 
-
+#include <cstdio>
+#include <cstdlib>
 using namespace Cantera;
 using namespace std;
 
@@ -23,34 +22,50 @@ namespace Cantera
  *  We initialize the arrays in the structure to the appropriate sizes.
  *  And, we initialize all of the elements of the arrays to defaults.
  */
-EState_RadialDiffusion::EState_RadialDiffusion() :
-    EState()
+EState_RadialDistrib::EState_RadialDistrib() :
+    EState(),
+    rnodePos_(0),
+    cellBoundR_(0),
+    rLatticeCBR_(0),
+    concTot_SPhase_Cell_(0),
+    concKRSpecies_Cell_(0),
+    spMoles_KRsolid_Cell_(0),
+    spMf_KRSpecies_Cell_(0),
+    onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_RADIALDISTRIB;
-    electrodeTypeString_ = "RadialDiffusion_NoDiff";
+    electrodeTypeString_ = "SimpleDiff";
 }
 //======================================================================================================================
 // Copy Constructor
 /*
  * @param right Object to be copied
  */
-EState_RadialDiffusion::EState_RadialDiffusion(const EState_RadialDiffusion& right) :
-    EState()
+EState_RadialDistrib::EState_RadialDistrib(const EState_RadialDistrib& right) :
+    EState(),
+   rnodePos_(0),
+    cellBoundR_(0),
+    rLatticeCBR_(0),
+    concTot_SPhase_Cell_(0),
+    concKRSpecies_Cell_(0),
+    spMoles_KRsolid_Cell_(0),
+    spMf_KRSpecies_Cell_(0),
+    onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_MULTIPLATEAU;
-    electrodeTypeString_ = "RadialDiffusion_NoDiff";
+    electrodeTypeString_ = "SimpleDiff";
 
     /*
      * Call the assignment operator.
      */
-    EState_RadialDiffusion::operator=(right);
+    EState_RadialDistrib::operator=(right);
 }
 //======================================================================================================================
 // Assignment operator
 /*
  *  @param right object to be copied
  */
-EState_RadialDiffusion& EState_RadialDiffusion::operator=(const EState_RadialDiffusion& right)
+EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib& right)
 {
     /*
      * Check for self assignment.
@@ -61,8 +76,14 @@ EState_RadialDiffusion& EState_RadialDiffusion::operator=(const EState_RadialDif
 
     EState::operator=(right);
 
-    inner_platNum_   = right.inner_platNum_;
-    second_platNum_  = right.second_platNum_;
+    rnodePos_                              = right.rnodePos_;
+    cellBoundR_                            = right.cellBoundR_;
+    rLatticeCBR_                           = right.rLatticeCBR_;
+    concTot_SPhase_Cell_                   = right.concTot_SPhase_Cell_;
+    concKRSpecies_Cell_                    = right.concKRSpecies_Cell_;
+    spMoles_KRsolid_Cell_                  = right.spMoles_KRsolid_Cell_;
+    spMf_KRSpecies_Cell_                   = right.spMf_KRSpecies_Cell_;
+    onRegionBoundary_                      = right.onRegionBoundary_;
 
     /*
      * Return the reference to the current object
@@ -70,7 +91,7 @@ EState_RadialDiffusion& EState_RadialDiffusion::operator=(const EState_RadialDif
     return *this;
 }
 //======================================================================================================================
-EState_RadialDiffusion::~EState_RadialDiffusion()
+EState_RadialDistrib::~EState_RadialDistrib()
 {
 }
 //======================================================================================================================
@@ -78,15 +99,23 @@ EState_RadialDiffusion::~EState_RadialDiffusion()
 /*
  *  @return Returns a duplication of the current state as a pointer to the base class
  */
-EState* EState_RadialDiffusion::duplMyselfAsEState() const
+EState* EState_RadialDistrib::duplMyselfAsEState() const
 {
-    EState_RadialDiffusion* es = new EState_RadialDiffusion(*this);
+    EState_RadialDistrib* es = new EState_RadialDistrib(*this);
     return dynamic_cast<EState*>(es);
 }
 //======================================================================================================================
-int EState_RadialDiffusion::initialize(const Cantera::Electrode_RadialDiffusion_NoDiff* const e)
+int EState_RadialDistrib::initialize(const Cantera::Electrode_SimpleDiff* const e)
 {
     EState::initialize(e);
+
+    rnodePos_                    = e->rnodePos_final_;
+    cellBoundR_                  = e->cellBoundR_final_;
+    rLatticeCBR_                 = e->rLatticeCBR_final_;
+    concTot_SPhase_Cell_         = e->concTot_SPhase_Cell_final_;
+    concKRSpecies_Cell_          = e->concKRSpecies_Cell_final_;
+    spMoles_KRsolid_Cell_        = e->spMoles_KRsolid_Cell_final_;
+    spMf_KRSpecies_Cell_         = e->spMf_KRSpecies_Cell_final_;
 
     return 1;
 }
@@ -95,7 +124,7 @@ int EState_RadialDiffusion::initialize(const Cantera::Electrode_RadialDiffusion_
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node*   EState_RadialDiffusion::writeIdentificationToXML() const
+XML_Node*   EState_RadialDistrib::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
 
@@ -112,7 +141,7 @@ XML_Node*   EState_RadialDiffusion::writeIdentificationToXML() const
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node*   EState_RadialDiffusion::writeStateToXML() const
+XML_Node*   EState_RadialDistrib::writeStateToXML() const
 {
     XML_Node* x = EState::writeStateToXML();
 
@@ -126,7 +155,7 @@ XML_Node*   EState_RadialDiffusion::writeStateToXML() const
 /*!
  *  @return pointer to the XML_Node tree
  */
-void EState_RadialDiffusion::readStateFromXML(const XML_Node& xmlEState)
+void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
 {
     EState::readStateFromXML(xmlEState);
 
@@ -148,31 +177,27 @@ void EState_RadialDiffusion::readStateFromXML(const XML_Node& xmlEState)
  *             to choose a child object, and then may invoke an error if the match isn't
  *             correct.
  */
-void EState_RadialDiffusion::copyElectrode_intoState(const Cantera::Electrode* const e)
+void EState_RadialDistrib::copyElectrode_intoState(const Cantera::Electrode* const e)
 {
     EState::copyElectrode_intoState(e);
 
-    const Cantera::Electrode_RadialDiffusion_NoDiff* const emp = dynamic_cast<const Cantera::Electrode_RadialDiffusion_NoDiff* const>(e);
+    const Cantera::Electrode_SimpleDiff* const emp = dynamic_cast<const Cantera::Electrode_SimpleDiff* const>(e);
 
     if (emp) {
         // FILL IN WITH RADIAL stuff
     } else {
-        throw CanteraError("EState_RadialDiffusion::copyElectrode_intoState","bad cast");
+        throw CanteraError("EState_RadialDistrib::copyElectrode_intoState","bad cast");
     }
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object
-void EState_RadialDiffusion::setStateElectrode_fromEState(Cantera::Electrode* const e) const
+void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* const e) const
 {
 
     EState::copyEState_toElectrode(e);
 
-    Electrode_RadialDiffusion_NoDiff* emp = dynamic_cast<Electrode_RadialDiffusion_NoDiff*>(e);
+    Electrode_SimpleDiff* emp = dynamic_cast<Electrode_SimpleDiff*>(e);
 
-    /*
-     *  Set the plateaus according to what's storred in the EState file
-     */
-    emp->plateauSetup2(inner_platNum_, second_platNum_);
 
     /*
      * Now we can do an update
@@ -185,4 +210,3 @@ void EState_RadialDiffusion::setStateElectrode_fromEState(Cantera::Electrode* co
 //====================================================================================================================
 } // End of namespace Cantera
 //======================================================================================================================
-                                                                                           /

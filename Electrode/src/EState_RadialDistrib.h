@@ -3,7 +3,7 @@
  */
 
 /*
- * $Id: EState_RadialDiffusion.h 571 2013-03-26 16:44:21Z hkmoffa $
+ * $Id: EState_RadialDistrib.h 571 2013-03-26 16:44:21Z hkmoffa $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -12,8 +12,8 @@
  * may require a license from the United States Government.
  */
 
-#ifndef _ESTATE_RADIALDIFFUSION_H
-#define _ESTATE_RADIALDIFFUSION_H
+#ifndef _ESTATE_RADIALDISTRIB_H
+#define _ESTATE_RADIALDISTRIB_H
 
 
 #include "EState.h"
@@ -31,28 +31,28 @@ class Electrode_SimpleDiff;
  *
  *   It's an example of how to write child classes for EState.
  */
-class EState_RadialDiffusion  : public EState
+class EState_RadialDistrib : public EState
 {
 
 public:
 
     //! Default constructor for the base object
-    EState_RadialDiffusion();
+    EState_RadialDistrib();
 
     //! Copy Constructor
     /*!
      * @param right Object to be copied
      */
-    EState_RadialDiffusion(const EState_RadialDiffusion& right);
+    EState_RadialDistrib(const EState_RadialDistrib& right);
 
     //! Destructor is virtual
-    virtual ~EState_RadialDiffusion();
+    virtual ~EState_RadialDistrib();
 
     //! Assignment operator
     /*!
      *  @param right  object to be duplicated
      */
-    EState_RadialDiffusion& operator=(const EState_RadialDiffusion& right);
+    EState_RadialDistrib& operator=(const EState_RadialDistrib& right);
 
     //! Duplicator function for this class
     /*!
@@ -75,6 +75,7 @@ public:
      *  @return Returns a malloced XML_Node tree.
      */
     XML_Node* writeIdentificationToXML() const;
+
     //! Write the ElectrodeState to an XML_Node tree
     /*!
      *  (virtual function)
@@ -85,8 +86,6 @@ public:
      *  @return pointer to the XML_Node tree
      */
     virtual XML_Node* writeStateToXML() const;
-
-
 
     //! Read the state from the XML_Node  given by the argument
     /*!
@@ -124,18 +123,48 @@ public:
     /* --------------------------------------------------------------------------------------  */
 protected:
 
-    //! Mapping to the first inner radius
-    /*!
-     *  Note, this can be -1, which indicates that there isn't an inner core region.
-     *  Note both inner_platNum_ and second_platNum_ can't both be -1; that would be an error condition
-     */
-    int inner_platNum_;
+    //! Node position of the mesh - final
+    std::vector<doublereal> rnodePos_;  
 
-    //! Mapping to the second inner radius
+    std::vector<doublereal> cellBoundR_;
+
+    //! Reference radius at the right cell boundary - local init value
+    std::vector<doublereal> rLatticeCBR_;
+ 
+    //! Total concentration of each of the solid phases that are distributed - global init state
     /*!
-     *  Note, this can be -1, which indicates that there isn't an outer annular region
+     *  concTot_SPhase_Cell_init_init_[numSPhases_ * iCell + iJRPh]
      */
-    int second_platNum_;
+    std::vector<double> concTot_SPhase_Cell_;
+
+    //! total concentration of the solid phases that are distributed - init state
+    /*!
+     *     concKRSpecies_Cell_init_init_[numKRSpecies_ * iCell + iKRSpecies]
+     */
+    std::vector<double> concKRSpecies_Cell_;
+
+    //! Vector of solid species defined on the grid of the spherical particle
+    /*!
+     *
+     *   The inner loop is over the number of species that are defined to have radially dependent
+     *   distributions, numKRSpecies;
+     *   init_init state value
+     */
+    std::vector<double> spMoles_KRsolid_Cell_;
+
+    //! Mole fraction of the solid phase species that are distributed = final state
+    /*!
+     *
+     */
+    std::vector<double> spMf_KRSpecies_Cell_;
+
+    //! This integer describes if the system is current on a Region boundary at the end of a subgrid
+    //! integration step
+    /*!
+     *   We define a region boundary here iff all cells are on that boundary
+     *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
+     */
+    int onRegionBoundary_;
 
     //! Statement that the Electrode class can access any information in this class
     /*!

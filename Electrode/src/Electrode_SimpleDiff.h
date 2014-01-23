@@ -24,6 +24,8 @@ namespace Cantera
 #define ELECTRODETYPE_ANODE   0
 #define ELECTRODETYPE_CATHODE 1
 
+class EState_RadialDistrib;
+
 
 //! This class is a derived class used to model phase - change electrodes
 /*!
@@ -930,6 +932,9 @@ protected:
 
     //! Temporary variable to help debug the code
     double molarDensity_;
+
+    friend class Cantera::EState;
+    friend class Cantera::EState_RadialDistrib;
 
 };
 
