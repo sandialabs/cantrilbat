@@ -22,10 +22,10 @@ namespace Cantera
 {
 
 class Electrode;
-class Electrode_SimpleDiffusion;
+class Electrode_SimpleDiff;
 
 
-//! Child Class for the EState class concept refering to RadialDiffusion_NoDiff Electrode object.
+//! Child Class for the EState class concept refering to SimpleDiff Electrode object.
 /*!
  *    This class adds the inner_platNum and second_platNum records to the output file.
  *
@@ -52,7 +52,7 @@ public:
     /*!
      *  @param right  object to be duplicated
      */
-    EState_RadialDiffusion& operator=(const EState_MultiPlateau& right);
+    EState_RadialDiffusion& operator=(const EState_RadialDiffusion& right);
 
     //! Duplicator function for this class
     /*!
@@ -68,7 +68,7 @@ public:
      *
      *  @param e    Pointer to the electrode base class
      */
-    int initialize(const Cantera::Electrode_RadialDiffusion_NoDiff* const e);
+    int initialize(const Cantera::Electrode_SimpleDiff* const e);
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
@@ -142,7 +142,7 @@ protected:
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
     friend class Cantera::Electrode;
-    friend class Cantera::Electrode_RadialDiffusion_NoDiff;
+    friend class Cantera::Electrode_SimpleDiff;
 };
 
 }

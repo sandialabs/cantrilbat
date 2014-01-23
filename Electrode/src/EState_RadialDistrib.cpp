@@ -8,7 +8,7 @@
 #include "cantera/base/ctml.h"
 
 #include "EState_RadialDiffusion.h"
-#include "Electrode_RadialDiffusion_NoDiff.h"
+#include "Electrode_SimpleDiff.h"
 
 
 using namespace Cantera;
@@ -24,9 +24,9 @@ namespace Cantera
  *  And, we initialize all of the elements of the arrays to defaults.
  */
 EState_RadialDiffusion::EState_RadialDiffusion() :
-    EState(),
+    EState()
 {
-    EST_fileToBeWritten_ = EST_RADIALDIFFUSION;
+    EST_fileToBeWritten_ = EST_RADIALDISTRIB;
     electrodeTypeString_ = "RadialDiffusion_NoDiff";
 }
 //======================================================================================================================
