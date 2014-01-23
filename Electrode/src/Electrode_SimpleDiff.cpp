@@ -24,6 +24,8 @@ using namespace TKInput;
 #ifndef MIN
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
+
+#define DEBUG_SIMPLIFY
 static const double ONE_THIRD = 1.0 / 3.0;
 namespace Cantera
 {
@@ -1041,8 +1043,7 @@ void Electrode_SimpleDiff::updateState()
 	    if (concTotPhase > 1.0E-200) {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
-		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = 
-			concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] / concTotPhase;
+		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] / concTotPhase;
 		}
 	    } else if (concTotPhase > 1.0E-200) {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -1409,6 +1410,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	    }
 	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
+	    molarDensity_ = th->molarDensity();
 	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
 
 	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
@@ -1503,8 +1505,7 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 	    // int iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
-	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] =  
-		concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
 		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] = y[index + kSp];
@@ -1775,6 +1776,10 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
      */
     updateSpeciesMoleChangeFinal();
 
+    for (int i = 0; i < neq_; i++) {
+	resid[i] = 0.0;
+    }
+
     /*
      * Calculate the residual
      */
@@ -2011,6 +2016,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
          */
         double rhs = r0L3_final +  vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
         resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
+#ifdef DEBUG_SIMPLIFY
+	resid[rindex] = rLatticeCBR_final_[iCell] - rLatticeCBR_init_[iCell];
+#endif
 
         /*
          *  Calculate the time derivative of the molar volume
@@ -2109,6 +2117,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] / (rtop * rtop * rtop);
 	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell];
 	}
+#ifdef DEBUG_SIMPLIFY
+	resid[xindex] = rnodePos_final_[iCell] -  rnodePos_init_[iCell];
+#endif
     
 
         /*
@@ -2132,18 +2143,25 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
             iPh = phaseIndeciseKRsolidPhases_[jPh];
             ThermoPhase* th = & thermo(iPh);
             int nSpecies = th->nSpecies();
+
+	    /*
+	     *  Residual for the total concentration of the phase in the cell
+	     *   -  Skip the first species
+	     */
             double old_stuff = concTotalVec_SPhase_init[jPh]  * 4.0 / 3.0 * Pi * (cbR3_init -  cbL3_init)  * particleNumberToFollow_;
             double new_stuff = concTotalVec_SPhase_final[jPh] * 4.0 / 3.0 * Pi * (cbR3_final - cbL3_final) * particleNumberToFollow_;
-
             /*
              *  Change in the total amount of moles of phase jPh
              */
             resid[cIndexPhStart + kstart] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
+
             /*
              * Convective flux - mesh movement with NO material movement
              */
             double vtotalR = cellBoundRVeloc[iCell] - vLatticeCBR;
- 
+#ifdef DEBUG_SIMPLIFY
+	    vtotalR = 0.0;
+#endif
             if (iCell < (numRCells_- 1)) {
                 if (vtotalR >= 0.0) {
                     fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell+1) + jPh];
@@ -2153,7 +2171,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                 resid[cIndexPhStart + kstart]                -= fluxTC * areaR_star;
                 resid[cIndexPhStart + kstart + numEqnsCell_] += fluxTC * areaR_star;
             }
-
+#ifdef DEBUG_SIMPLIFY
+	    resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
+#endif
 
             /*
              *  Residual for the species in the phase
@@ -2214,6 +2234,10 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                     resid[cIndexPhStart + iKRSpecies] -= DspMoles_final_[iStart + kSp];
                     SolidVolCreationRate += partialMolarVolKRSpecies_Cell_final_[iStart + kSp] *  DspMoles_final_[iStart + kSp];
                 }
+
+#ifdef DEBUG_SIMPLIFY
+		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
+#endif
 		kstart += nSpecies;
             }
             /*
@@ -2223,7 +2247,11 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
              *  this is an expression of the conservation of total solid molar volume at the
              *  r_exterior.
              */
+#ifdef DEBUG_SIMPLIFY
+	    resid[xindex] += 0.0;
+#else
             resid[xindex] = rnodeVeloc[iCell] * areaR_star - SolidVolCreationRate;
+#endif
         }
     }
     return 1;
@@ -2499,18 +2527,41 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
  */
 void  Electrode_SimpleDiff::extractInfo()
 {
+    double mfSig = 0.0;
     /*
      *  this is an initial copy from Electrode_CSTR, since it should be nearly the same
      */
     int maxNumRxns = RSD_List_[0]->nReactions();
     std::vector<double> netROP(maxNumRxns, 0.0);
+
+    /*
+     *  Load the conditions of the last cell into the ThermoPhase object
+     */
+    int iCell = numRCells_ - 1;
+
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+	int kspCell = iCell * numKRSpecies_;
+	int iphCell = iCell * numSPhases_;
+	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    // iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	    ThermoPhase* tp =  thermoSPhase_List_[jRPh];
+	    tp->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[kspCell]));
+	    mfSig = spMf_KRSpecies_Cell_final_[kspCell+1];
+
+	    int nsp = tp->nSpecies();
+      
+	    kspCell += nsp;
+	}
+    }
+
+
     /*
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
     for (int isk = 0; isk < numSurfaces_; isk++) {
         double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
-        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
+        std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.0);
         /*
          *   Only loop over surfaces that have kinetics objects associated with them
          */
@@ -2537,6 +2588,10 @@ void  Electrode_SimpleDiff::extractInfo()
                 for (int i = 0; i < maxNumRxns; i++) {
                     ROP_[i] = netROP[i];
                 }
+
+		printf(" extractInfo : MoleFraction = %20.10E  ROP = %20.10E \n", mfSig,
+		       ROP_[0]);
+		       
             }
         }
     }
@@ -2648,15 +2703,15 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
 	      */
 	    // we allow the total phase moles to go negative, initially.  For now, we won't worry about
 	    // phase fronts within the radial direction.
-	    ylowNLS_[index] = (-0.0001 * solidMoles);
-	    yhighNLS_[index] = (10. * solidMoles);
+	    ylowNLS_[index] = (-0.0001 * yvalNLS_[index]);
+	    yhighNLS_[index] = 1.0E3 * yvalNLS_[index];
  
 	  
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
 		yvalNLS_[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
 		ylowNLS_[index + kSp]  = 0.0;
-                yhighNLS_[index + kSp] = 1.0;
+                yhighNLS_[index + kSp] = 1.0E3 * yvalNLS_[index];
                 deltaBoundsMagnitudesNLS_[index + kSp] = 1000. * atolVal;
 	    }
 	    kstart += nsp;

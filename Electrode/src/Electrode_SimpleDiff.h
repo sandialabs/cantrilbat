@@ -923,7 +923,8 @@ protected:
     //!  top value and the bottom value.
     int goNowhere_;
 
-
+    //! Temporary variable to help debug the code
+    double molarDensity_;
 
 };
 
