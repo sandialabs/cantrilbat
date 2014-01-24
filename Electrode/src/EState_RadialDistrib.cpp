@@ -34,7 +34,6 @@ EState_RadialDistrib::EState_RadialDistrib() :
     concTot_SPhase_Cell_(0),
     concKRSpecies_Cell_(0),
     spMoles_KRsolid_Cell_(0),
-    spMf_KRSpecies_Cell_(0),
     onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_RADIALDISTRIB;
@@ -56,7 +55,6 @@ EState_RadialDistrib::EState_RadialDistrib(const EState_RadialDistrib& right) :
     concTot_SPhase_Cell_(0),
     concKRSpecies_Cell_(0),
     spMoles_KRsolid_Cell_(0),
-    spMf_KRSpecies_Cell_(0),
     onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_MULTIPLATEAU;
@@ -92,7 +90,6 @@ EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib
     concTot_SPhase_Cell_                   = right.concTot_SPhase_Cell_;
     concKRSpecies_Cell_                    = right.concKRSpecies_Cell_;
     spMoles_KRsolid_Cell_                  = right.spMoles_KRsolid_Cell_;
-    spMf_KRSpecies_Cell_                   = right.spMf_KRSpecies_Cell_;
     onRegionBoundary_                      = right.onRegionBoundary_;
 
     /*
@@ -128,7 +125,6 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode_SimpleDiff* const 
     concTot_SPhase_Cell_         = e->concTot_SPhase_Cell_final_;
     concKRSpecies_Cell_          = e->concKRSpecies_Cell_final_;
     spMoles_KRsolid_Cell_        = e->spMoles_KRsolid_Cell_final_;
-    spMf_KRSpecies_Cell_         = e->spMf_KRSpecies_Cell_final_;
 
     return 1;
 }
@@ -165,26 +161,34 @@ XML_Node* EState_RadialDistrib::writeStateToXML() const
     ctml::addNamedFloatArray(*x, "rnodePos", numRCells_, DATA_PTR(rnodePos_), "m");
     ctml::addNamedFloatArray(*x, "cellBoundR", numRCells_, DATA_PTR(cellBoundR_), "m");
     ctml::addNamedFloatArray(*x, "rLatticeCBR", numRCells_, DATA_PTR(rLatticeCBR_), "m");
-
     ctml::addNamedFloatArray(*x, "concTot_SPhase_Cell", numRCells_ * numSPhases_, DATA_PTR(concTot_SPhase_Cell_), "kmol/m3");
-
     ctml::addNamedFloatArray(*x, "concKRSpecies_Cell", numRCells_ * numKRSpecies_, DATA_PTR(concKRSpecies_Cell_), "kmol/m3");
+    ctml::addNamedFloatArray(*x, "spMoles_KRsolid_Cell", numRCells_ * numKRSpecies_, DATA_PTR(spMoles_KRsolid_Cell_), "kmol");
 
     return x;
 }
 
 //======================================================================================================================
-//! Write the ElectrodeState to an XML_Node tree
-/*!
+//  Read the state from the XML_Node  given by the argument
+/*
  *  @return pointer to the XML_Node tree
  */
 void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
 {
     EState::readStateFromXML(xmlEState);
 
-    //inner_platNum_ = ctml::getInteger(xmlEState, "inner_platNum");
+    numRCells_ = ctml::getInteger(xmlEState, "numRCells");
+    numKRSpecies_ = ctml::getInteger(xmlEState, "numKRSpecies");
+    numSPhases_ = ctml::getInteger(xmlEState, "numRCells");
 
-    // FILL IN WITH RADIAL STUFF
+
+    ctml::getFloatArray(xmlEState, rnodePos_, true, "", "rnodePos");
+    ctml::getFloatArray(xmlEState, cellBoundR_, true, "", "cellBoundR"); 
+    ctml::getFloatArray(xmlEState, rLatticeCBR_, true, "", "rLatticeCBR");
+
+    ctml::getFloatArray(xmlEState, concTot_SPhase_Cell_, true, "", "concTot_SPhase_Cell");
+    ctml::getFloatArray(xmlEState, concKRSpecies_Cell_, true, "", "concKRSpecies_Cell");
+    ctml::getFloatArray(xmlEState, spMoles_KRsolid_Cell_, true, "", "spMoles_KRsolid_Cell");
 }
 //======================================================================================================================
 // Set the State of this object from the state of the Electrode object
@@ -213,7 +217,6 @@ void EState_RadialDistrib::copyElectrode_intoState(const Cantera::Electrode* con
 	concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
 	concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
 	spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
-	spMf_KRSpecies_Cell_         = emp->spMf_KRSpecies_Cell_final_;
     } else {
         throw CanteraError("EState_RadialDistrib::copyElectrode_intoState","bad cast");
     }
@@ -232,7 +235,6 @@ void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* cons
     emp->concTot_SPhase_Cell_final_  = 	concTot_SPhase_Cell_;
     emp->concKRSpecies_Cell_final_   = 	concKRSpecies_Cell_;
     emp->spMoles_KRsolid_Cell_final_ = 	spMoles_KRsolid_Cell_;
-    emp->spMf_KRSpecies_Cell_final_  = 	spMf_KRSpecies_Cell_;
 
     /*
      * Now we can do an update

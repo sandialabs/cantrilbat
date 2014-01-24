@@ -163,7 +163,7 @@ int main(int argc, char **argv)
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
     int nT = 50;
-    deltaT = 2.0E-1;
+    deltaT = 1.0E-3;
     electrodeA->printCSVLvl_ = 3;
 
     electrodeA->printElectrode();

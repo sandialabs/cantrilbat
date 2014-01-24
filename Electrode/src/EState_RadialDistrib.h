@@ -177,7 +177,7 @@ protected:
     /*!
      *
      */
-    std::vector<double> spMf_KRSpecies_Cell_;
+    //std::vector<double> spMf_KRSpecies_Cell_;
 
     //! This integer describes if the system is current on a Region boundary at the end of a subgrid
     //! integration step
