@@ -64,6 +64,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     concTot_SPhase_Cell_final_(0),
     concTot_SPhase_Cell_init_(0),
     concTot_SPhase_Cell_init_init_(0),
+    molarDensity_SPhase_Cell_final_(0),
     concKRSpecies_Cell_init_(0),
     concKRSpecies_Cell_final_(0),
     concKRSpecies_Cell_init_init_(0),
@@ -112,7 +113,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     atolBaseResid_(1.0E-12),
     goNowhere_(0),
     molarDensity_(0.0),
-    formulationType_(0)
+    formulationType_(0),
+    formulationTypeTotalConc_(1)
 {
 
 
@@ -150,6 +152,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     concTot_SPhase_Cell_final_(0),
     concTot_SPhase_Cell_init_(0),
     concTot_SPhase_Cell_init_init_(0),
+    molarDensity_SPhase_Cell_final_(0),
+
     concKRSpecies_Cell_init_(0),
     concKRSpecies_Cell_final_(0),
     concKRSpecies_Cell_init_init_(0),
@@ -197,7 +201,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     atolBaseResid_(1.0E-12),
     goNowhere_(0),
     molarDensity_(0.0),
-    formulationType_(0)  
+    formulationType_(0),
+    formulationTypeTotalConc_(1) 
 {
     /*
      * Call the assignment operator.
@@ -242,6 +247,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     concTot_SPhase_Cell_final_          = right.concTot_SPhase_Cell_final_;
     concTot_SPhase_Cell_init_           = right.concTot_SPhase_Cell_init_;  
     concTot_SPhase_Cell_init_init_      = right.concTot_SPhase_Cell_init_init_;
+    molarDensity_SPhase_Cell_final_     = right.molarDensity_SPhase_Cell_final_;
     concKRSpecies_Cell_init_            = right.concKRSpecies_Cell_init_;
     concKRSpecies_Cell_final_           = right.concKRSpecies_Cell_final_;
     concKRSpecies_Cell_init_init_       = right.concKRSpecies_Cell_init_init_;
@@ -291,6 +297,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     goNowhere_                          = right.goNowhere_;
     molarDensity_                       = right.molarDensity_;
     formulationType_                    = right.formulationType_;
+    formulationTypeTotalConc_           = right.formulationTypeTotalConc_;
 
     /*
      * Return the reference to the current object
@@ -583,6 +590,7 @@ Electrode_SimpleDiff::init_sizes()
     concTot_SPhase_Cell_final_.resize(nPhCell, 0.0);
     concTot_SPhase_Cell_init_.resize(nPhCell, 0.0);
     concTot_SPhase_Cell_init_init_.resize(nPhCell, 0.0);
+    molarDensity_SPhase_Cell_final_.resize(nPhCell, 0.0);
 
     concKRSpecies_Cell_init_.resize(kspCell, 0.0);
     concKRSpecies_Cell_final_.resize(kspCell, 0.0);
@@ -1088,6 +1096,7 @@ void Electrode_SimpleDiff::updateState()
 	     * Calculate the activities of the species
 	     */
 	    th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+	    molarDensity_SPhase_Cell_final_[indexCellPhase  + jRPh] = th->molarDensity();
 	    th->getActivityCoefficients(&actCoeff_Cell_final_[indexMidKRSpecies + kstart]);
 	    th->getPartialMolarVolumes(&partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
 	}
@@ -1424,7 +1433,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	    }
 	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
-	    molarDensity_ = th->molarDensity();
+	    //molarDensity_ = th->molarDensity();
 	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
 
 	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
@@ -2287,8 +2296,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                 resid[cIndexPhStart + kstart + numEqnsCell_] += fluxTC * areaR_star;
             }
 
-	    if (formulationType_ > 0) {
-		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
+	    if (formulationTypeTotalConc_ == 1) {
+		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_SPhase_Cell_final_[iCell*numSPhases_ + jPh];
 	    }
 
             /*
@@ -2352,8 +2361,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                 }
 
 
-		if (formulationType_ > 0) {
-		    resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
+		if (formulationTypeTotalConc_ == 1) {
+		    resid[cIndexPhStart + kstart] = concTotalVec_SPhase_final[jPh] - molarDensity_SPhase_Cell_final_[iCell*numSPhases_ + jPh];
 		}
 
 		kstart += nSpecies;

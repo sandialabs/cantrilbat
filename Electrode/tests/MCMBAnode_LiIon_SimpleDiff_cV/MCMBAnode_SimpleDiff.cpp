@@ -174,6 +174,7 @@ int main(int argc, char **argv)
  //   electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 4;
     electrodeA->formulationType_ = 2;
+    electrodeA->formulationTypeTotalConc_ = 1;
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;

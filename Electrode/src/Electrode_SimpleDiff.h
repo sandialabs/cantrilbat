@@ -736,6 +736,12 @@ protected:
      */
     std::vector<double> concTot_SPhase_Cell_init_init_;
 
+    //! molar density of each of the solid phases that are distributed - final state
+    /*!
+     * molarDensity_SPhase_Cell_final_[numSPhases_ * iCell + iJRPh]
+     */
+    std::vector<double> molarDensity_SPhase_Cell_final_;
+
     //! total concentration of the solid phases that are distributed - init state
     /*!
      *      concKRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]
@@ -960,6 +966,14 @@ public:
      *        2 = halfway between
      */
     int formulationType_;
+
+    //! Formulation type for the total concentration equation
+    /*!
+     *         0 = formulation involving a conservation equation for total moles
+     *         1 = algebraic Concentration equation is based on equation of state 
+     *             - assumes a volume fraction of 1 for the phase
+     */
+    int formulationTypeTotalConc_;
 
     friend class Cantera::EState;
     friend class Cantera::EState_RadialDistrib;
