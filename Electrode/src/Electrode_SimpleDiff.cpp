@@ -2147,7 +2147,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    rnow = pow(rnow3, ONE_THIRD);
 	    if (rnow >  cellBoundR_final_[jCell]) {
 		if (rnow > cellBoundR_final_[jCell]*(1.0 + 1.0E-14)) {
-		    printf("analyse condition 1 \n");
+		    // printf("analyse condition 1 \n");
 		}
 	    }
 	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
@@ -3015,6 +3015,7 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
         printf("                              time init  = %12.5E\n", t_init_init_);
     }
     printf("   ===============================================================\n");
+    printf("          Voltage = %g volts\n", deltaVoltage_);
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %10.3E\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %10.3E\n", egv);
@@ -3068,6 +3069,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     }
     if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
+        printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {
         isph = iph - NumVolPhases_;

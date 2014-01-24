@@ -728,7 +728,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         }
     }
     if (iph == metalPhase_ || iph == solnPhase_) {
-        printf("                  Voltage = %g\n", tp.electricPotential());
+        printf("                  Electric Potential = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {
         isph = iph - NumVolPhases_;

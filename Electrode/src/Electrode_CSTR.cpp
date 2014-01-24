@@ -2209,7 +2209,7 @@ void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
         }
     }
     if (iph == metalPhase_ || iph == solnPhase_) {
-        printf("                Voltage = %g\n", tp.electricPotential());
+        printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     /*
      * Do specific surface phase printouts

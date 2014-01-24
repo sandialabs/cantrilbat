@@ -4430,7 +4430,8 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     printf("\n");
     printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
            electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
-    printf("   ==============================================================================================\n");
+    printf("   ================ ==============================================================================\n");
+    printf("          Voltage = %g volts\n", deltaVoltage_);
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %11.4E m**3\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %11.4E m**3\n", egv);
@@ -4655,7 +4656,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
         }
     }
     if (iph == metalPhase_ || iph == solnPhase_) {
-        printf("                Voltage = %g volts\n", tp.electricPotential());
+        printf("                Electric Potential = %g volts\n", tp.electricPotential());
     }
     /*
      * Do specific surface phase printouts
