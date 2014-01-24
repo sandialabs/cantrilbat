@@ -951,6 +951,16 @@ protected:
     //! Temporary variable to help debug the code
     double molarDensity_;
 
+public:
+    //! Formulation Type
+    /*!
+     *   Simplification of the equation set
+     *        0 = Formulation used in the memo
+     *        1 = Fixed grid spacings -> initial type that I got the system to work
+     *        2 = halfway between
+     */
+    int formulationType_;
+
     friend class Cantera::EState;
     friend class Cantera::EState_RadialDistrib;
 

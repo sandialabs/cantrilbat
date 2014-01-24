@@ -110,7 +110,9 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     onRegionBoundary_init_init_(-1),
     onRegionBoundary_final_final_(-1),
     atolBaseResid_(1.0E-12),
-    goNowhere_(0)
+    goNowhere_(0),
+    molarDensity_(0.0),
+    formulationType_(0)
 {
 
 
@@ -193,7 +195,9 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     onRegionBoundary_init_init_(-1),
     onRegionBoundary_final_final_(-1),
     atolBaseResid_(1.0E-12),
-    goNowhere_(0)  
+    goNowhere_(0),
+    molarDensity_(0.0),
+    formulationType_(0)  
 {
     /*
      * Call the assignment operator.
@@ -285,6 +289,8 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     onRegionBoundary_final_final_       = right.onRegionBoundary_final_final_;
     atolBaseResid_                      = right.atolBaseResid_;
     goNowhere_                          = right.goNowhere_;
+    molarDensity_                       = right.molarDensity_;
+    formulationType_                    = right.formulationType_;
 
     /*
      * Return the reference to the current object
@@ -2124,9 +2130,10 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
          */
         double rhs = r0L3_final +  vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
         resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
-#ifdef DEBUG_SIMPLIFY
-	resid[rindex] = rLatticeCBR_final_[iCell] - rLatticeCBR_init_[iCell];
-#endif
+
+	if (formulationType_ > 0) {
+	    resid[rindex] = rLatticeCBR_final_[iCell] - rLatticeCBR_init_[iCell];
+	}
 
         /*
          *  Calculate the time derivative of the molar volume
