@@ -2609,7 +2609,7 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
  */
 void  Electrode_SimpleDiff::extractInfo()
 {
-    double mfSig = 0.0;
+    //double mfSig = 0.0;
     /*
      *  this is an initial copy from Electrode_CSTR, since it should be nearly the same
      */
@@ -2628,7 +2628,7 @@ void  Electrode_SimpleDiff::extractInfo()
 	    // iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    ThermoPhase* tp =  thermoSPhase_List_[jRPh];
 	    tp->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[kspCell]));
-	    mfSig = spMf_KRSpecies_Cell_final_[kspCell+1];
+	    // mfSig = spMf_KRSpecies_Cell_final_[kspCell+1];
 
 	    int nsp = tp->nSpecies();
       
@@ -2671,8 +2671,7 @@ void  Electrode_SimpleDiff::extractInfo()
                     ROP_[i] = netROP[i];
                 }
 
-		printf(" extractInfo : MoleFraction = %20.10E  ROP = %20.10E \n", mfSig,
-		       ROP_[0]);
+		//printf(" extractInfo : MoleFraction = %20.10E  ROP = %20.10E \n", mfSig, ROP_[0]);
 		       
             }
         }

@@ -162,7 +162,7 @@ int main(int argc, char **argv)
     double oc = electrodeA->openCircuitVoltageSSRxn(0);
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
-    int nT = 50;
+    int nT = 10;
     deltaT = 1.0E-3;
     electrodeA->printCSVLvl_ = 3;
 
@@ -171,8 +171,8 @@ int main(int argc, char **argv)
 
     remove("soln.xml");
 
-    electrodeA->enableExtraPrinting_ = true;
-    electrodeA->detailedResidPrintFlag_ = 10;
+ //   electrodeA->enableExtraPrinting_ = true;
+    electrodeA->detailedResidPrintFlag_ = 4;
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
