@@ -556,6 +556,15 @@ public:
      */
     void setVoltages(const double phiMetal, const double phiElectrolyte);
 
+    //! This returns the voltage of the electrode at the final state conditions
+    /*!
+     *  The voltage of the electrode is defined as the potential of the metal minus
+     *  the potential of the electrolyte.
+     *
+     *  @return  returns voltage in volts.
+     */
+    double voltage() const;
+
     //! Return the voltage of a phase
     /*!
      * @param iph  Phase id

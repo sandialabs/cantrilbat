@@ -2197,6 +2197,11 @@ void Electrode::setVoltages(const double phiMetal, const double phiElectrolyte)
     updateState();
 }
 //====================================================================================================================
+double Electrode::voltage() const
+{
+  return deltaVoltage_;
+}
+//====================================================================================================================
 // Return the voltage of a phase
 /*
  * @param iph  Phase id
