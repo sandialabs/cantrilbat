@@ -1350,7 +1350,7 @@ public:
     /*!
      *   Note we must have integrated a global time step previously.
      *
-     *   @return   Returns the current columb sec-1 m-2
+     *   @return   Returns the current columb sec-1 = amps
      */
 //Can protect
     doublereal integratedCurrent() const;
@@ -1360,7 +1360,7 @@ public:
     /*!
      *   Note we must have integrated a local time step previously.
      *
-     *   @return   Returns the current columb sec-1 m-2
+     *   @return   Returns the current columb sec-1 = amps
      */
 //Can protect
     doublereal integratedLocalCurrent() const;

@@ -421,9 +421,14 @@ public:
      */
     virtual void unpackNonlinSolnVector(const double* const y);
 
-
-
-
+    //!   Calculate the integrated source terms and do other items now that we have a completed time step
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
+     *  for the current step, and we are calculating post-processed quantities like source terms.
+     */
+    virtual void calcSrcTermsOnCompletedStep();
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!

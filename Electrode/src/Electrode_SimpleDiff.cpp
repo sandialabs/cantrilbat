@@ -1600,6 +1600,32 @@ void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
     }
 }
 //==================================================================================================================
+//   Calculate the integrated source terms and do other items now that we have a completed time step
+/*
+ *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
+ *  for the current step, and we are calculating post-processed quantities like source terms.
+ */
+void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
+{
+    bool doOneWay = false;
+    if (doOneWay) {
+        /*
+         *  Calculate the integrated source term
+         *       An alternative would be to redo the residual calculation. However, here we assume that
+         *       the residual calculation has been done and the results are in _final_
+         */
+        for (int i = 0; i < m_NumTotSpecies; i++) {
+            spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
+        }
+    } else {
+        extractInfo();
+        updateSpeciesMoleChangeFinal();
+        for (int isp = 0; isp < m_NumTotSpecies; isp++) {
+            spMoleIntegratedSourceTermLast_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
+        }
+    }
+}
+//==================================================================================================================
 //  Gather the predicted solution values and the predicted integrated source terms
 /*
  *  (virtual from Electrode_Integrator)
@@ -3016,6 +3042,13 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     }
     printf("   ===============================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);
+
+    if (subTimeStep) {
+        printf("          Current = %g amps\n", integratedLocalCurrent());
+    } else {
+        printf("          Current = %g amps\n", integratedCurrent());
+    }
+
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %10.3E\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %10.3E\n", egv);
@@ -3033,7 +3066,7 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &rLatticeCBR_final_[0], colNames, 1);
 
     for (iph = 0; iph < m_NumTotPhases; iph++) {
-        printElectrodePhase(iph, pSrc);
+        printElectrodePhase(iph, pSrc, subTimeStep);
         printf("     ===============================================================\n");
     }
     delete [] netROP;
@@ -3068,7 +3101,6 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         }
     }
     if (iph == metalPhase_ || iph == solnPhase_) {
-        printf("                  Voltage = %g\n", tp.electricPotential());
         printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {
