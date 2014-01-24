@@ -244,7 +244,7 @@ int main(int argc, char **argv)
     electrodeC->detailedResidPrintFlag_ = 10;
     electrodeC->enableExtraPrinting_ = 0;
   
-  /*
+    /*
      * load the saved solution
      */
     XML_Node* xSavedSoln = get_XML_File("soln_0_0_orig.xml");

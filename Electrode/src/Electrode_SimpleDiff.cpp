@@ -26,7 +26,7 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
-#define DEBUG_SIMPLIFY
+
 static const double ONE_THIRD = 1.0 / 3.0;
 namespace Cantera
 {
@@ -2232,9 +2232,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] / (rtop * rtop * rtop);
 	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell];
 	}
-#ifdef DEBUG_SIMPLIFY
-	resid[xindex] = rnodePos_final_[iCell] -  rnodePos_init_[iCell];
-#endif
+	if (formulationType_ > 0) {
+	    resid[xindex] = rnodePos_final_[iCell] -  rnodePos_init_[iCell];
+	}
     
 
         /*
@@ -2274,9 +2274,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
              * Convective flux - mesh movement with NO material movement
              */
             double vtotalR = cellBoundRVeloc[iCell] - vLatticeCBR;
-#ifdef DEBUG_SIMPLIFY
-	    vtotalR = 0.0;
-#endif
+	    if (formulationType_ > 0) {
+		vtotalR = 0.0;
+	    }
             if (iCell < (numRCells_- 1)) {
                 if (vtotalR >= 0.0) {
                     fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell+1) + jPh];
@@ -2286,9 +2286,10 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                 resid[cIndexPhStart + kstart]                -= fluxTC * areaR_star;
                 resid[cIndexPhStart + kstart + numEqnsCell_] += fluxTC * areaR_star;
             }
-#ifdef DEBUG_SIMPLIFY
-	    resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
-#endif
+
+	    if (formulationType_ > 0) {
+		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
+	    }
 
             /*
              *  Residual for the species in the phase
@@ -2350,9 +2351,11 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                     SolidVolCreationRate += partialMolarVolKRSpecies_Cell_final_[iStart + kSp] *  DspMoles_final_[iStart + kSp];
                 }
 
-#ifdef DEBUG_SIMPLIFY
-		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
-#endif
+
+		if (formulationType_ > 0) {
+		    resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_;
+		}
+
 		kstart += nSpecies;
             }
             /*
@@ -2362,11 +2365,13 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
              *  this is an expression of the conservation of total solid molar volume at the
              *  r_exterior.
              */
-#ifdef DEBUG_SIMPLIFY
-	    resid[xindex] += 0.0;
-#else
-            resid[xindex] = rnodeVeloc[iCell] * areaR_star - SolidVolCreationRate;
-#endif
+
+	    if (formulationType_ > 0) {
+		resid[xindex] += 0.0;
+	    } else {
+		resid[xindex] = rnodeVeloc[iCell] * areaR_star - SolidVolCreationRate;
+	    }
+
         }
     }
     return 1;
