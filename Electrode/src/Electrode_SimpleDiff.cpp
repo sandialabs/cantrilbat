@@ -11,6 +11,7 @@
 #include "Electrode_SimpleDiff.h"
 #include "cantera/integrators.h"
 #include "Electrode_RadialDiffRegions.h"
+#include "EState_RadialDistrib.h"
 
 using namespace Cantera;
 using namespace std;
@@ -546,6 +547,17 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     setInitStateFromFinal(true);
 
     return 0;
+}
+//====================================================================================================================
+int
+Electrode_SimpleDiff::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
+{
+    eState_final_ = new EState_RadialDistrib();
+    int rr = eState_final_->initialize(this);
+    if (rr >= 0) {
+        rr = 0;
+    }
+    return rr;
 }
 //====================================================================================================================
 void

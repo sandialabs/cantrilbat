@@ -125,6 +125,19 @@ public:
      */
     virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
 
+    //! Create an object that saves the electrode state and can print out an XML solution to file
+    /*!
+     *  The pointer to the malloced object is saved in the internal variable eState_final_ .
+     *  Because this pointer is now non-null, the state of the electrode will be saved at each step
+     *  and the electrode object has a restart capability.
+     *  If the pointer is null, no restart information is generated
+     *
+     *  @param ei Electrode Key Input
+     *
+     *  @return  Returns zero if successful, and -1 if not successful.
+     */
+    virtual int electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei);
+
 
     //! Initialize the sizes
     void init_sizes();

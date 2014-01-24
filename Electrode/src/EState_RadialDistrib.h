@@ -68,7 +68,7 @@ public:
      *
      *  @param e    Pointer to the electrode base class
      */
-    int initialize(const Cantera::Electrode_SimpleDiff* const e);
+    virtual int initialize(const Cantera::Electrode* const e);
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
@@ -137,8 +137,6 @@ protected:
 
     //! Number of phases which have radial distributions of their species
     int numSPhases_;
-
-
 
     //  std::vector<int> numSpeciesPerSPhase_;
 

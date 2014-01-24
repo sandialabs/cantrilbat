@@ -125,7 +125,7 @@ public:
      *
      *  @param e    Pointer to the electrode base class
      */
-    int initialize(const Cantera::Electrode* const e);
+    virtual int initialize(const Cantera::Electrode* const e);
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!

@@ -2735,13 +2735,12 @@ protected:
     XML_Node* xmlStateData_final_final_;
 
 
-    //!  Pointer to the object that is in charge of formulating the saved state an writing the
-    //!  the state out to an XML object
+    //!  Pointer to the object that is in charge of formulating the saved state and writing
+    //!  that state out to an XML object
     EState* eState_final_;
 
     //! Base name of the solution file, currently defaults to "soln"
     std::string baseNameSoln_;
-
 
 public:
 

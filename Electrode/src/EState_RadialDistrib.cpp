@@ -112,9 +112,15 @@ EState* EState_RadialDistrib::duplMyselfAsEState() const
     return dynamic_cast<EState*>(es);
 }
 //======================================================================================================================
-int EState_RadialDistrib::initialize(const Cantera::Electrode_SimpleDiff* const e)
+int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
 {
-    EState::initialize(e);
+    EState::initialize(ebase);
+
+    const Electrode_SimpleDiff* const e = dynamic_cast<const Electrode_SimpleDiff* const>(ebase);
+    
+    if (!e) {
+	throw Electrode_Error("EState_RadialDistrib::initialize()", "Need Electrode_SimpleDiff pointer type");
+    }
 
     numRCells_                   = e->numRCells_;
     numKRSpecies_                = e->numKRSpecies_;
@@ -180,7 +186,6 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
     numRCells_ = ctml::getInteger(xmlEState, "numRCells");
     numKRSpecies_ = ctml::getInteger(xmlEState, "numKRSpecies");
     numSPhases_ = ctml::getInteger(xmlEState, "numRCells");
-
 
     ctml::getFloatArray(xmlEState, rnodePos_, true, "", "rnodePos");
     ctml::getFloatArray(xmlEState, cellBoundR_, true, "", "cellBoundR"); 

@@ -24,7 +24,6 @@
 namespace Cantera
 {
 
-
 #define ELECTRODETYPE_ANODE   0
 #define ELECTRODETYPE_CATHODE 1
 
