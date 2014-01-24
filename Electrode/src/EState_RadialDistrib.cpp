@@ -6,6 +6,7 @@
 #include "cantera/base/ctml.h"
 
 #include "EState_RadialDistrib.h"
+
 #include "Electrode_SimpleDiff.h"
 
 #include <cstdio>
@@ -24,6 +25,9 @@ namespace Cantera
  */
 EState_RadialDistrib::EState_RadialDistrib() :
     EState(),
+    numRCells_(0),
+    numKRSpecies_(0),
+    numSPhases_(0),
     rnodePos_(0),
     cellBoundR_(0),
     rLatticeCBR_(0),
@@ -43,7 +47,10 @@ EState_RadialDistrib::EState_RadialDistrib() :
  */
 EState_RadialDistrib::EState_RadialDistrib(const EState_RadialDistrib& right) :
     EState(),
-   rnodePos_(0),
+    numRCells_(0),
+    numKRSpecies_(0),
+    numSPhases_(0),
+    rnodePos_(0),
     cellBoundR_(0),
     rLatticeCBR_(0),
     concTot_SPhase_Cell_(0),
@@ -76,6 +83,9 @@ EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib
 
     EState::operator=(right);
 
+    numRCells_                             = right.numRCells_;
+    numKRSpecies_                          = right.numKRSpecies_;
+    numSPhases_                            = right.numSPhases_;
     rnodePos_                              = right.rnodePos_;
     cellBoundR_                            = right.cellBoundR_;
     rLatticeCBR_                           = right.rLatticeCBR_;
@@ -109,6 +119,9 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode_SimpleDiff* const 
 {
     EState::initialize(e);
 
+    numRCells_                   = e->numRCells_;
+    numKRSpecies_                = e->numKRSpecies_;
+    numSPhases_                  = e->numSPhases_;
     rnodePos_                    = e->rnodePos_final_;
     cellBoundR_                  = e->cellBoundR_final_;
     rLatticeCBR_                 = e->rLatticeCBR_final_;
@@ -141,11 +154,21 @@ XML_Node*   EState_RadialDistrib::writeIdentificationToXML() const
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node*   EState_RadialDistrib::writeStateToXML() const
+XML_Node* EState_RadialDistrib::writeStateToXML() const
 {
     XML_Node* x = EState::writeStateToXML();
 
-    // FILL IN WITH RADIAL STUFF
+    ctml::addInteger(*x, "numRCells", numRCells_);
+    ctml::addInteger(*x, "numKRSpecies", numKRSpecies_);
+    ctml::addInteger(*x, "numSPhases", numSPhases_);
+
+    ctml::addNamedFloatArray(*x, "rnodePos", numRCells_, DATA_PTR(rnodePos_), "m");
+    ctml::addNamedFloatArray(*x, "cellBoundR", numRCells_, DATA_PTR(cellBoundR_), "m");
+    ctml::addNamedFloatArray(*x, "rLatticeCBR", numRCells_, DATA_PTR(rLatticeCBR_), "m");
+
+    ctml::addNamedFloatArray(*x, "concTot_SPhase_Cell", numRCells_ * numSPhases_, DATA_PTR(concTot_SPhase_Cell_), "kmol/m3");
+
+    ctml::addNamedFloatArray(*x, "concKRSpecies_Cell", numRCells_ * numKRSpecies_, DATA_PTR(concKRSpecies_Cell_), "kmol/m3");
 
     return x;
 }
@@ -184,7 +207,13 @@ void EState_RadialDistrib::copyElectrode_intoState(const Cantera::Electrode* con
     const Cantera::Electrode_SimpleDiff* const emp = dynamic_cast<const Cantera::Electrode_SimpleDiff* const>(e);
 
     if (emp) {
-        // FILL IN WITH RADIAL stuff
+	rnodePos_                    = emp->rnodePos_final_;
+	cellBoundR_                  = emp->cellBoundR_final_;
+	rLatticeCBR_                 = emp->rLatticeCBR_final_;
+	concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
+	concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
+	spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
+	spMf_KRSpecies_Cell_         = emp->spMf_KRSpecies_Cell_final_;
     } else {
         throw CanteraError("EState_RadialDistrib::copyElectrode_intoState","bad cast");
     }
@@ -193,11 +222,17 @@ void EState_RadialDistrib::copyElectrode_intoState(const Cantera::Electrode* con
 //    Set the state of the Electrode from the state of this object
 void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* const e) const
 {
-
     EState::copyEState_toElectrode(e);
 
     Electrode_SimpleDiff* emp = dynamic_cast<Electrode_SimpleDiff*>(e);
 
+    emp->rnodePos_final_             = 	rnodePos_;    
+    emp->cellBoundR_final_           = 	cellBoundR_;
+    emp->rLatticeCBR_final_          =  rLatticeCBR_;
+    emp->concTot_SPhase_Cell_final_  = 	concTot_SPhase_Cell_;
+    emp->concKRSpecies_Cell_final_   = 	concKRSpecies_Cell_;
+    emp->spMoles_KRsolid_Cell_final_ = 	spMoles_KRsolid_Cell_;
+    emp->spMf_KRSpecies_Cell_final_  = 	spMf_KRSpecies_Cell_;
 
     /*
      * Now we can do an update

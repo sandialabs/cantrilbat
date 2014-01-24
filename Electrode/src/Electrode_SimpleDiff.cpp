@@ -1086,9 +1086,6 @@ void Electrode_SimpleDiff::updateState()
 /*
  *   This routine does several checks
  *
- *
- *
- *
  */
 void Electrode_SimpleDiff::checkGeometry() const
 {
@@ -1162,7 +1159,6 @@ void Electrode_SimpleDiff::checkGeometry() const
     }
 
 }
-
 //========================================================================================================================
 //  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
 /*
@@ -2615,7 +2611,7 @@ void  Electrode_SimpleDiff::extractInfo()
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	int kspCell = iCell * numKRSpecies_;
-	int iphCell = iCell * numSPhases_;
+	//int iphCell = iCell * numSPhases_;
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    // iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    ThermoPhase* tp =  thermoSPhase_List_[jRPh];

@@ -123,6 +123,27 @@ public:
     /* --------------------------------------------------------------------------------------  */
 protected:
 
+    int numRCells_;
+
+    //! Define the number of species that are defined to have radially distributed distributions
+    //! within the solid
+    /*!
+     *   Note, for this object there is only one radial distribution. This concept will be enhanced
+     *   in later formulations.
+     *
+     *   There are a few arrays which have numKRSpecies_ as their inner loop dimension.
+     */
+    int numKRSpecies_;
+
+    //! Number of phases which have radial distributions of their species
+    int numSPhases_;
+
+
+
+    //  std::vector<int> numSpeciesPerSPhase_;
+
+
+
     //! Node position of the mesh - final
     std::vector<doublereal> rnodePos_;  
 
