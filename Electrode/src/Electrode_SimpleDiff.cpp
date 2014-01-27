@@ -1288,7 +1288,7 @@ int Electrode_SimpleDiff::predictSolnResid()
     // Cubes of the cell boundaries, Right and Left, for the initial and final times
     double cbR3_final = 0.0;
     double cbL3_final = 0.0;
-
+    double newRtop, volToBeMoved, newCBR;
  
 
     // Diffusive flux
@@ -1324,13 +1324,15 @@ int Electrode_SimpleDiff::predictSolnResid()
 	cellBoundR_final_[iCell] = cellBoundR_init[iCell];
         cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init[iCell]) / deltaTsubcycleCalc_;
 
-	rLatticeCBR_ref_[iCell] =  cellBoundR_init[iCell];
-	
+	rLatticeCBR_ref_[iCell] = cellBoundR_init[iCell];	
     }
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
 
-
+    /*
+     *  First     1) Move species due to diffusion
+     *            2) Add species due to reaction at the edge
+     */
     for (int iCell = 0; iCell < numRCells_; iCell++) {
         /*
          *  Copy right side previous to left side current quantities
@@ -1356,7 +1358,9 @@ int Electrode_SimpleDiff::predictSolnResid()
 	     *  Find the diffusive flux based on the initial conditions at the right cell boundary
 	     */
 	    diffusiveFluxRCB(fluxR, iCell, false);
-
+	    /*
+	     *  Then distribute the diffusive fluxes 
+	     */
 	    for (jPh = 0; jPh < numSPhases_; jPh++) {
 		iPh = phaseIndeciseKRsolidPhases_[jPh];
 		ThermoPhase* th = & thermo(iPh);
@@ -1368,24 +1372,26 @@ int Electrode_SimpleDiff::predictSolnResid()
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
 		    // Distribute the flux in an explicit step
-		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -=  fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
-		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] +=  fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -= fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
+		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] += fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
+		    if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0) {
+			return -1;
+		    }
+		    if (spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] < 0.0) {
+			return -1;
+		    }
 		}
-		// end of phase loop
 		kstart += nSpecies;
 	    }
 	}
 
 	/*
-	 * The end cell has a special treatment.
-	 *  There is a reaction there that injects species
+	 *  The end cell has a special treatment.
+	 *  There is a reaction there that injects species here.
 	 */
         if (iCell == numRCells_ - 1) {
-         
-
-	    // Create a volumetric creation rate.
+   
             double SolidVolCreation = 0.0;
-
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
                 int iStart = getGlobalSpeciesIndex(iPh, 0);
@@ -1394,20 +1400,25 @@ int Electrode_SimpleDiff::predictSolnResid()
                 for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
 		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] += DspMoles_final_[iStart + kSp] * deltaTsubcycleCalc_;
+		    if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0) {
+			return -1;
+		    }
                     SolidVolCreation += partialMolarVolKRSpecies_Cell_final_[iStart + kSp] * DspMoles_final_[iStart + kSp] * deltaTsubcycleCalc_;
                 }
 		kstart += nSpecies;
             }	    
-	    Radius_exterior_final_ =  SolidVolCreation / areaR_star +   Radius_exterior_init_;
+	    Radius_exterior_final_ = SolidVolCreation / areaR_star + Radius_exterior_init_;
 	}
     }
 
-
     /*
-     *  Previously we had figured out spMoles. Now, we figure out all of the other information
+     *  Previously we had fixed spMoles. Now, we figure out all of the other information
+     *  Calculate all other quantities
+     *              Calculate control boundaries based on real values
+     *              Calculate external radius based on total stuff.
      */
     for (int iCell = 0; iCell < numRCells_; iCell++) {
-	int indexMidKRSpecies =  iCell    * numKRSpecies_;
+	int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
 	/*
          *  Copy right side previous to left side current quantities
@@ -1432,29 +1443,175 @@ int Electrode_SimpleDiff::predictSolnResid()
 		}
 	    }
 	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
+	    /*
+	     * Now that we have different mole fractions, we have changed the area of the cell
+	     */
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
 	    //molarDensity_ = th->molarDensity();
 	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
+	
+	    th->getPartialMolarVolumes(&(partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies]));
 
 	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
 	}
 
 	double totalLeftVol = 4.0 * Pi / 3.0 * cbL3_final * particleNumberToFollow_;
 	double totalEnclosedVol = totalLeftVol + totalCellVol;
+	cbR3_final = totalEnclosedVol * 3.0 / ( 4.0 * Pi * particleNumberToFollow_);
+	cellBoundR_final_[iCell] = pow(cbR3_final, ONE_THIRD);
+	rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
 	if (iCell <  numRCells_ - 1) {
-	    cbR3_final = totalEnclosedVol * 3.0 / ( 4.0 * Pi * particleNumberToFollow_);
-	    cellBoundR_final_[iCell] = pow(cbR3_final, ONE_THIRD);
-	    
-	    rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
-	    
 	    rnodePos_final_[iCell+1] = rnodePos_final_[iCell] + 2.0 * (cellBoundR_final_[iCell] - rnodePos_final_[iCell]);
 	} else {
-	    double oldRtop =  rnodePos_final_[iCell]; 
+	    double oldRtop = rnodePos_final_[iCell]; 
 	    double newRtop = cellBoundR_final_[iCell];
 	    if (fabs(oldRtop - newRtop) > 1.0E-14) {
+		// This ignores the possibility of creation/destruction of lattice sites
 		rLatticeCBR_final_[iCell] = newRtop;
-		cellBoundR_final_[iCell-1] =  0.5 * (rnodePos_final_[iCell-1] + rnodePos_final_[iCell]);
+		rnodePos_final_[iCell] = cellBoundR_final_[iCell];
+		Radius_exterior_final_ = rnodePos_final_[iCell];
+		//cellBoundR_final_[iCell-1] =  0.5 * (rnodePos_final_[iCell-1] + rnodePos_final_[iCell]);
 		//todo fix the moles in the two cells so that it is conservative.
+	    }
+	}
+    }
+
+    /*
+     *  Now, we have a new exterior dimension. rnodePos_final_[numRCells_ - 1] = Radius_exterior_final_.
+     *  We now have to move the mesh to conform to the spline treatment.
+     *
+     */
+    double rtop = rnodePos_final_[numRCells_ - 1];
+    for (int iCell = 0; iCell < numRCells_-1; iCell++) {
+	
+	int indexMidKRSpecies   =  iCell      * numKRSpecies_;
+	int indexRightKRSpecies = (iCell + 1) * numKRSpecies_;
+	int kstart = 0;
+
+	if (iCell <  numRCells_-2) {
+	    double I_j   = rnodePos_final_[iCell] * rnodePos_final_[iCell] * rnodePos_final_[iCell] / (rtop * rtop * rtop);
+	    double tot = I_j + fracVolNodePos_[iCell+1];
+	    double rbar = pow(tot, ONE_THIRD);
+	    newRtop = rtop * rbar;
+	} else {
+	    newRtop = rnodePos_final_[numRCells_-1];
+	}
+	// new cell boundary betwen iCell and iCell+1
+	newCBR = 0.5 * (rnodePos_final_[iCell] + newRtop);
+	/*
+	 *  Move stuff from one cell to another
+	 */
+	if (newCBR > cellBoundR_final_[iCell]) {
+	    volToBeMoved = 4. * Pi / 3.0 * particleNumberToFollow_ *
+			   (newCBR * newCBR * newCBR - cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell]);
+
+	    for (jPh = 0; jPh < numSPhases_; jPh++) {
+		iPh = phaseIndeciseKRsolidPhases_[jPh];
+		ThermoPhase* th = & thermo(iPh);
+		int nSpecies = th->nSpecies();
+		for (int kSp = 0; kSp < nSpecies; kSp++) {
+		    int iKRSpecies = kstart + kSp;
+		    double spMolesToBeMoved = volToBeMoved * concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies];
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies  ] += spMolesToBeMoved;
+		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] -= spMolesToBeMoved;
+		}
+		kstart += nSpecies;
+	    }
+
+	} else if (newCBR < cellBoundR_final_[iCell]) {
+	    volToBeMoved = 4. * Pi / 3.0 * particleNumberToFollow_ *
+			   (cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell] - newCBR * newCBR * newCBR);
+
+	    for (jPh = 0; jPh < numSPhases_; jPh++) {
+		iPh = phaseIndeciseKRsolidPhases_[jPh];
+		ThermoPhase* th = & thermo(iPh);
+		int nSpecies = th->nSpecies();
+		for (int kSp = 0; kSp < nSpecies; kSp++) {
+		    int iKRSpecies = kstart + kSp;
+		    double spMolesToBeMoved = volToBeMoved * concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies   + iKRSpecies] -= spMolesToBeMoved;
+		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] += spMolesToBeMoved;
+		}
+		kstart += nSpecies;
+	    }
+
+	}
+
+	cellBoundR_final_[iCell] = newCBR;
+	rnodePos_final_[iCell+1] = newRtop;
+    }
+
+    /*
+     *  After we have changed the moles, we calculate all of the other quantities.
+     *  Mole fractions, concentrations, and partial molar volumes.
+     */
+    cbR3_final = 0.0;
+    double CBR, rdel, ratio;
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	int indexMidKRSpecies   =  iCell * numKRSpecies_;
+	int kstart = 0;
+	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	    ThermoPhase* th = & thermo(iPh);
+	    int nSpecies = th->nSpecies();
+	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = 0.0;
+	    for (int kSp = 0; kSp < nSpecies; kSp++) {
+		int iKRSpecies = kstart + kSp;
+		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
+	    }
+	    double tot = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
+	    if (tot > 1.0E-200) {
+		for (int kSp = 0; kSp < nSpecies; kSp++) {
+		    int iKRSpecies = kstart + kSp;
+		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / tot;
+		}
+	    }
+	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]));
+	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
+	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
+	    th->getPartialMolarVolumes(&(partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies]));
+	}
+
+	if (iCell <  numRCells_ - 1) {
+	    CBR = 0.5 * (rnodePos_final_[iCell] + rnodePos_final_[iCell+1]);
+	    rdel = fabs(cellBoundR_final_[iCell] - CBR) / CBR;
+	    if (rdel > 1.0E-10) {
+		printf("CBR is bad\n");
+		exit(-1);
+	    }
+	    cbL3_final = cbR3_final;
+	    cbR3_final = CBR * CBR * CBR;
+	} else {
+	    CBR = rnodePos_final_[iCell];
+	    rdel = fabs(cellBoundR_final_[iCell] - CBR) / CBR;
+	    if (rdel > 1.0E-10) {
+		printf("CBR is bad\n");
+		exit(-1);
+	    }
+	    cbL3_final = cbR3_final;
+	    cbR3_final = CBR * CBR * CBR;
+	}
+      	double totalVolGeom = 4. * Pi / 3.0 * (cbR3_final - cbL3_final) * particleNumberToFollow_;
+	double totalCellVol = 0.0;
+	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    iPh = phaseIndeciseKRsolidPhases_[jRPh];	   
+	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	}
+	ratio = totalVolGeom / totalCellVol;
+	if (fabs(ratio - 1.0) > 1.0E-6) {
+	    printf("predictor is causing an error\n");
+	}
+
+	if (ratio != 1.0) {
+	    for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+		iPh = phaseIndeciseKRsolidPhases_[jRPh];
+		ThermoPhase* th = & thermo(iPh);
+		int nSpecies = th->nSpecies();
+		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] *= ratio;
+		for (int kSp = 0; kSp < nSpecies; kSp++) {
+		    int iKRSpecies = kstart + kSp;
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] *= ratio;
+		}
 	    }
 	}
 
@@ -1475,9 +1632,10 @@ int Electrode_SimpleDiff::predictSoln()
     deltaTsubcycleCalc_ = deltaTsubcycle_;
 
     int redoSteps = 0;
-    int reDo = 0;
+    int reDo;
 
     do {
+	reDo = 0;
 	redoSteps++;
 	/*
          * Copy initial to final
@@ -1496,7 +1654,7 @@ int Electrode_SimpleDiff::predictSoln()
 	 */
 	updateSpeciesMoleChangeFinal();
 	/*
-	 *    
+	 *    Now do a prediction    
 	 */    
 	retn = predictSolnResid();
 	if (retn < 0) {
@@ -2137,7 +2295,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	 *
 	 *      When there is no expansion of the lattice,  rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell]
          */
-        double rhs = r0L3_final +  vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
+        double rhs = r0L3_final + vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
         resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
 
 	if (formulationType_ > 0) {
@@ -2586,7 +2744,7 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 	    int istart = iCell * numFields;
 	    for (n = 0; n < nrem; n++) {
 		v_init = vals_init[istart + numBlockRows * 4 + n];
-		v_final = vals_init[istart + numBlockRows * 4 + n];
+		v_final = vals_final[istart + numBlockRows * 4 + n];
 		printf(" %-10.4E %-10.4E |", v_final, v_init);
 	    }
 	}
