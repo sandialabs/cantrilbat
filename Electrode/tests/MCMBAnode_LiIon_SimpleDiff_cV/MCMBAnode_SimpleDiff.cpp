@@ -150,7 +150,7 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
-    double deltaT = 0.1;
+    double deltaT = 1.0;
     double Tinitial = 0.0;
     double Tfinal = 0.0;
 
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
     int nT = 10;
-    deltaT = 1.0E-3;
+    deltaT = 1.0E-1;
     electrodeA->printCSVLvl_ = 3;
 
     electrodeA->printElectrode();
@@ -173,8 +173,8 @@ int main(int argc, char **argv)
 
  //   electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 4;
-    electrodeA->formulationType_ = 2;
-    electrodeA->formulationTypeTotalConc_ = 1;
+    electrodeA->formulationType_ = 0;
+    electrodeA->formulationTypeTotalConc_ = 0;
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;

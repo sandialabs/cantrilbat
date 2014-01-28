@@ -8,6 +8,7 @@
   </elementData>
 
 
+
   <phase dim="3" id="MCMB_Interstitials_anode">
     <elementArray datasrc="elements.xml">
        Li C6-bulk
@@ -73,9 +74,8 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-        <molarVolume units="m3/kmol"> 0.006024 </molarVolume>
+          <molarVolume units="m3/kmol"> 0.006 </molarVolume>
       </standardState>
-
 
     </species>
 
@@ -90,12 +90,9 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-        <!--   molar volume from Bernardi Newman -->
-        <molarVolume units="m3/kmol"> 0.006024 </molarVolume>
+          <molarVolume units="m3/kmol"> 0.006 </molarVolume>
       </standardState>
 
-
-      
     </species>
 
 

@@ -3,12 +3,10 @@
 <ctml>
   <validate reactions="yes" species="yes"/>
                    
- 
-  <phase dim="2" id="anode_surface">
+  <!-- phase li_liquid_surface   -->
+  <phase dim="2" id="cathode_surface">
     <elementArray datasrc="elements.xml"> Li E </elementArray>
-    <speciesArray datasrc="#species_Li_electrode">
-           li_site 
-    </speciesArray>
+    <speciesArray datasrc="#species_Li_electrode"> li_site </speciesArray>
   
     <state>
       <temperature units="K"> 300.0 </temperature>
@@ -18,14 +16,10 @@
       <site_density units="mol/cm2"> 3e-09 </site_density>
     </thermo>
     <kinetics model="Interface"/>
-    <reactionArray datasrc="#data_AnodeElectrode"/>
+    <reactionArray datasrc="#data_LiElectrode"/>
 
     <transport model="None"/>
-    <phaseArray>
-        metal_Li_LiIon_electrons
-        ECDMC_LiPF6 
-        MCMB_Interstitials_anode
-     </phaseArray>
+    <phaseArray> metal_Li_LiIon_electrons ECDMC_LiPF6 LiCoO2_Margules_1 </phaseArray>
   </phase>
 
 
@@ -48,23 +42,23 @@
 
   </speciesData>
 
- <reactionData id="data_AnodeElectrode">
+ <reactionData id="data_LiElectrode">
 
-   <!--
-       Lumped reaction on the Lithium liquid electrode
+  <!--
+       Lumped reaction on the LiCoO2 electrode
     -->
     <reaction reversible="yes" type="surface" id="0001">
-      <equation> Li_C6-bulk [=]  V_C6-bulk + Li+  + electron_Li_LiIon </equation>
+      <equation> LiCoO2 [=] Li+  + electron_Li_LiIon + CoO2 </equation>
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-           <A>1.0E22</A>
+           <A>1.0E14</A>
            <b>0.0</b>
-           <E units="kJ/mol"> 20.000000 </E>
+           <E units="kJ/mol"> 80.000000 </E>
         </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
-      <reactants> Li_C6-bulk:1.0 </reactants>
-      <products> V_C6-bulk:1.0 Li+:1.0  electron_Li_LiIon:1.0  </products>
+      <reactants> LiCoO2:1.0 </reactants>
+      <products> Li+:1.0  electron_Li_LiIon:1.0 CoO2:1.0 </products>
     </reaction>
 
 

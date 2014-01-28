@@ -17,6 +17,13 @@
     </reactionArray>
     <kinetics model="SolidKinetics" />
     <standardConc model="unity" />
+   <transport model="Simple">
+      <compositionDependence model="Solvent_Only"/>
+      <!--
+        <compositionDependence model="Mixture_Averaged"/>
+      -->
+    </transport>
+
   </phase>
 
  <!-- species data 
@@ -41,8 +48,13 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume units="m3/kmol"> 0.0182 </molarVolume>
+         <molarVolume> 0.067 </molarVolume>
       </standardState>
+      <transport>
+         <viscosity model="Constant" units="centipoise"> 1.0E0  </viscosity>
+         <thermalConductivity model="Constant"> 0.58 </thermalConductivity>
+         <speciesDiffusivity model="Constant"> 1.0E-5 </speciesDiffusivity>
+      </transport>
     </species>
 
    <!-- Li+
@@ -61,8 +73,14 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume units="m3/kmol"> 0.01 </molarVolume>
+         <molarVolume> 0.0 </molarVolume>
       </standardState>
+      <transport>
+         <viscosity model="Constant" units="centipoise"> 1.0E0  </viscosity>
+         <thermalConductivity model="Constant"> 0.58 </thermalConductivity>
+         <speciesDiffusivity model="Constant"> 1.0E-5 </speciesDiffusivity>
+      </transport>
+
     </species>
 
    <!-- PF6-
@@ -82,9 +100,16 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume units="m3/kmol"> 0.0182 </molarVolume>
+         <molarVolume> 0.134 </molarVolume>
       </standardState>
+      <transport>
+         <viscosity model="Constant" units="centipoise"> 1.0E0  </viscosity>
+         <thermalConductivity model="Constant"> 0.58 </thermalConductivity>
+         <speciesDiffusivity model="Constant"> 1.0E-5 </speciesDiffusivity>
+      </transport>
     </species>
+
+
 
 
   </speciesData>

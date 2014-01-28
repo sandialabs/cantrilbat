@@ -58,7 +58,7 @@
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-           <A>1.0E22</A>
+           <A>1.0E20</A>
            <b>0.0</b>
            <E units="kJ/mol"> 20.000000 </E>
         </Arrhenius_ExchangeCurrentDensity>
