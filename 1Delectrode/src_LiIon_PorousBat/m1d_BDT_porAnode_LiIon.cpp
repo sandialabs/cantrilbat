@@ -56,7 +56,7 @@ BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout *dl_ptr) :
    */
   Electrode_  = newElectrodeObject(ai->electrodeModelName);
   if (!Electrode_) {
-    throw  m1d_Error("porousLiIon_FeS2Cathode_dom1D::instantiateElectrodeCells()",
+    throw  m1d_Error("BDT_porAnode_LiIon::instantiateElectrodeCells()",
 		     "Electrode factory method failed");
   }
   ELECTRODE_KEY_INPUT *ai_new = newElectrodeKeyInputObject(ai->electrodeModelName);  
@@ -67,7 +67,7 @@ BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout *dl_ptr) :
    */
   int retn = ai_new->electrode_input_child(commandFile, cfA);
   if (retn == -1) {
-    throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()",
+    throw  m1d_Error("BDT_porAnode_LiIon::BDT_porAnode_LiKCl()",
                      "Electrode input child method failed");
   }
   /*
