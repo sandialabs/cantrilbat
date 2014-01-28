@@ -19,24 +19,36 @@ all:
 
 test:
 #	cd LiKCl_PorousBat_SPCD_MPNewman; ./runtest
-	cd LiIon_MCMB_LiCoO2; ./runtest
+	cd LiIon_MCMB_LiCoO2;                    ./runtest
+	cd LiIon_MCMB_LiCoO2_2;                  ./runtest
+	cd LiIon_MCMB_LiCoO2_Diff2;              ./runtest
+	cd LiIon_MCMB_LiCoO2_Diff3;              ./runtest
 
 testd:
 	cd LiIon_MCMB_LiCoO2; ./runtestd
 
 clean:
-	cd LiKCl_PorousBat_SPCD_MPNewman; ./cleanup
-	cd LiIon_MCMB_LiCoO2; ./cleanup
+	cd LiKCl_PorousBat_SPCD_MPNewman;         ./cleanup
+	cd LiIon_MCMB_LiCoO2;                     ./cleanup
+	cd LiIon_MCMB_LiCoO2_2;                   ./cleanup
+	cd LiIon_MCMB_LiCoO2_Diff2;               ./cleanup
+	cd LiIon_MCMB_LiCoO2_Diff3;               ./cleanup
 
 test_bat:
-	cd LiKCl_PorousBat_SPCD_MPNewman; ./runtest
-	cd LiKCl_PorousBat_MPlat; ./runtest
-	cd LiIon_MCMB_LiCoO2; ./runtest
+	cd LiKCl_PorousBat_SPCD_MPNewman;         ./runtest
+	cd LiKCl_PorousBat_MPlat;                 ./runtest
+	cd LiIon_MCMB_LiCoO2;                     ./runtest
+	cd LiIon_MCMB_LiCoO2_2; ./runtest
+	cd LiIon_MCMB_LiCoO2_Diff2; ./runtest
+	cd LiIon_MCMB_LiCoO2_Diff3; ./runtest
 
 rebaseline:
-	cd LiKCl_PorousBat_SPCD_MPNewman; ./rebaseline
-	cd LiKCl_PorousBat_MPlat; ./rebaseline
-	cd LiIon_MCMB_LiCoO2; ./rebaseline
+	cd LiKCl_PorousBat_SPCD_MPNewman;   ./rebaseline
+	cd LiKCl_PorousBat_MPlat;           ./rebaseline
+	cd LiIon_MCMB_LiCoO2;               ./rebaseline
+	cd LiIon_MCMB_LiCoO2_2;             ./rebaseline
+	cd LiIon_MCMB_LiCoO2_Diff2;         ./rebaseline
+	cd LiIon_MCMB_LiCoO2_Diff3;         ./rebaseline
 #
 
 install:
