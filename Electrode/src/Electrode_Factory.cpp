@@ -11,7 +11,7 @@
 #include "Electrode_MP_RxnExtent.h"
 #include "Electrode_MP_RxnExtent_FeS2.h"
 //include "Electrode_MultiPlateau_NoDiff.h"
-//#include "Electrode_SimpleDiff.h"
+#include "Electrode_SimpleDiff.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_CSTR.h"
 #include "Electrode_CSTR_MCMBAnode.h"
@@ -175,12 +175,9 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
     case          MP_RXNEXTENT_ET:
         ee = new    Electrode_MP_RxnExtent();
         break;
-/*
-    case          MULTIPLATEAU_NODIFF_ET:
-        ee = new    Electrode_MultiPlateau_NoDiff();
-        break;
-*/
+
     case          SIMPLE_DIFF_ET:
+	ee = new Electrode_SimpleDiff();
         break;
     case          SIMPLE_PHASE_CHANGE_DIFFUSION_ET:
         ee = new    Electrode_SimplePhaseChangeDiffusion();
@@ -240,21 +237,19 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
     case          CSTR_LICO2_CATHODE_ET:
         ei = new    ELECTRODE_CSTR_KEY_INPUT();
         break;
-/*
-    case          MULTIPLATEAU_NODIFF_ET:
-        ei = new    ELECTRODE_MultiPlateau_KEY_INPUT();
-        break;
-*/
+
     case          BASE_TYPE_ET:
     case          SUCCESSIVE_SUBSTITUTION_ET:
     case          INF_CAPACITY_ET:
-    case          SIMPLE_DIFF_ET:
     case          SIMPLE_PHASE_CHANGE_DIFFUSION_ET:
         ei = new    ELECTRODE_KEY_INPUT();
         break;
+
+    case          SIMPLE_DIFF_ET:
     case          RADIAL_DIFF_REGIONS_ET:
         ei = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
         break;
+
     default:
         throw CanteraError("Electrode_Factory::newElectrodeKeyInputObject()",
                            "Unknown Electrode model: " + model);
