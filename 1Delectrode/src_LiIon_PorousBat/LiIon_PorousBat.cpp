@@ -445,6 +445,7 @@ main(int argc, char **argv)
     t1.setNonLinOptions(min_newt_its, matrixConditioning, colScaling, rowScaling);
     t1.setPrintFlag(PSinput.TimeStepper_printLvl_, PSinput.NonlinSolver_printLvl_);
     t1.setMaxNumTimeSteps(PSinput.maxNumTimeSteps_);
+    t1.setMaxStep(PSinput.MaxTimeStep_);
 
     /*
      * Start the simulation
