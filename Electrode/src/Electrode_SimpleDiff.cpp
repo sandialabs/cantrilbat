@@ -4164,6 +4164,33 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
     }
 }
 //====================================================================================================================
+// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
+/*
+ *  This routine uses a root finder to find the voltage at which there
+ *  is zero net electron production.  It leaves the object unchanged. However, it
+ *  does change the voltage of the phases during the calculation, so this is a non const function.
+ *
+ * @param isk  Reacting surface domain id
+ */
+ double  Electrode_SimpleDiff::openCircuitVoltage(int isk)
+ {
+     /*
+      *  Load the conditions of the last cell into the ThermoPhase object
+      */
+     int iCell = numRCells_ - 1;
+     int kspCell = iCell * numKRSpecies_;
+     for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	ThermoPhase* tp =  thermoSPhase_List_[jRPh];
+	double* spMf_ptr =  &(spMf_KRSpecies_Cell_final_[kspCell]);
+	tp->setState_TPX(temperature_, pressure_, spMf_ptr);
+	int nsp = tp->nSpecies();
+	kspCell += nsp;
+     }
+     
+     double val = Electrode::openCircuitVoltage(isk);
+     return val;
+ }
+//====================================================================================================================
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 {
     int iph;

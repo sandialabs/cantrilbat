@@ -600,6 +600,17 @@ public:
     int  calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
 
 
+    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
+    /*!
+     *  This routine uses a root finder to find the voltage at which there
+     *  is zero net electron production.  It leaves the object unchanged. However, it
+     *  does change the voltage of the phases during the calculation, so this is a non const function.
+     *
+     * @param isk  Reacting surface domain id
+     */
+    virtual double openCircuitVoltage(int isk);
+
+
 protected:
 
     //! Type of the electrode, 0 for anode, 1 for cathode
