@@ -448,6 +448,7 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     int predictSolnResid();
+    int predictSolnResid2();
 
     //! Predict the solution
     /*!
@@ -464,6 +465,7 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln();
+  
 
     //! Unpack the soln vector
     /*!
@@ -1009,6 +1011,13 @@ public:
      *             - assumes a volume fraction of 1 for the phase
      */
     int formulationTypeTotalConc_;
+
+    double numLattices_final_;
+    double numLattices_init_;
+    double numLattices_pred_;
+
+    std::vector<double> numLatticeCBR_init_;
+    std::vector<double> numLatticeCBR_final_;
 
     friend class Cantera::EState;
     friend class Cantera::EState_RadialDistrib;
