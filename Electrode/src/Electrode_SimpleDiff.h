@@ -595,7 +595,7 @@ public:
      *  @param resid   Calculated residual vector whose form is described above
      */
     int  calcResid(double* const resid, const ResidEval_Type_Enum evalType);
-
+    int  calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
 
 
 protected:
