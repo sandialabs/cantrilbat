@@ -1815,6 +1815,156 @@ void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
         IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
 }
+
+//====================================================================================================================
+//  Calculate the norm of the difference between the predicted answer and the final converged answer
+//  for the current time step
+/*
+ *  (virtual from Electrode_Integrator)
+ *
+ *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+ *
+ *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+ */
+double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
+{
+    double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
+    return pnorm;
+}
+//====================================================================================================================
+// Calculate the vector of predicted errors in the source terms that this integrator is responsible for
+/*
+ *  (virtual from Electrode_Integrator)
+ *
+ *    In the base implementation we assume that the there are just one source term, the electron
+ *    source term.
+ *    However, this will be wrong in almost all cases.
+ *    The number of source terms is unrelated to the number of unknowns in the nonlinear problem.
+ *    Source terms will have units associated with them.
+ *    For example the integrated source term for electrons will have units of kmol
+ */
+void Electrode_SimpleDiff::predictorCorrectorGlobalSrcTermErrorVector()
+{
+
+}
+//====================================================================================================================
+double relv(double a, double b, double atol)
+{
+    if (a == 0.0 && b == 0.0) {
+	return 0.0;
+    }
+    double denom = max(fabs(a), fabs(b));
+    if (denom < atol) {
+	denom = atol;
+    }
+    return fabs((a - b)/ denom);
+}
+
+//====================================================================================================================
+void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yval,
+						   double pnormSrc, double pnormSoln) const
+{
+    double atolVal =  1.0E-8;
+    double denom;
+    double tmp;
+    int onRegionPredict = soln_predict_[2];
+    printf(" -------------------------------------------------------------------------------------------------------------------\n");
+    printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E\n",
+           counterNumberSubIntegrations_, tinit_, tfinal_);
+    printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E\n",
+           counterNumberIntegrations_, t_init_init_, t_final_final_);
+    printf(" -------------------------------------------------------------------------------------------------------------------\n");
+    printf("                               Initial       Prediction      Actual          Difference         Tol   Contrib      |\n");
+    printf("onRegionPredict          |         %3d            %3d          %3d      |                                          |\n",
+           onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
+
+
+
+
+   
+
+
+
+    denom = MAX(fabs(yval[0]), fabs(soln_predict_[0]));
+    denom = MAX(denom, atolVal);
+    tmp = fabs((yval[0] - soln_predict_[0])/ denom);
+    printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
+           deltaTsubcycle_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
+   
+    int index = 1;
+
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	int kstart = 0;
+
+	double rLatticeCBR_final_val = yval[index];
+	double rLatticeCBR_final_predict = soln_predict_[index];
+	tmp =  relv(rLatticeCBR_final_predict, rLatticeCBR_final_val,  atolNLS_[index]);
+	printf("rLatticeCBR %3d    | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
+	       rLatticeCBR_init_[iCell],
+	       rLatticeCBR_final_predict,
+	       rLatticeCBR_final_val,
+	       rLatticeCBR_final_val -  rLatticeCBR_final_predict,
+	       atolNLS_[index], tmp);
+	index++;
+
+	double rnodePos_final_val = yval[index];
+	double rnodePos_final_predict = soln_predict_[index];
+	tmp =  relv(rnodePos_final_predict, rnodePos_final_val,  atolNLS_[index]);
+	printf("rLatticeCBR %3d    | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
+	       rnodePos_init_[iCell],
+	       rnodePos_final_predict,
+	       rnodePos_final_val,
+	       rnodePos_final_val -  rnodePos_final_predict,
+	       atolNLS_[index], tmp);
+	index++;
+
+
+	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    // int iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
+	    double concTot_SPhase_Cell_final_val = yval[index];
+	    double concTot_SPhase_Cell_final_predict = soln_predict_[index];
+	    tmp =  relv(concTot_SPhase_Cell_final_predict,  concTot_SPhase_Cell_final_val,  atolNLS_[index]);
+	    printf("rLatticeCBR %3d    | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
+	       rnodePos_init_[iCell],
+	       concTot_SPhase_Cell_final_predict,
+	       concTot_SPhase_Cell_final_val ,
+	       concTot_SPhase_Cell_final_val -  concTot_SPhase_Cell_final_predict,
+	       atolNLS_[index], tmp);
+	   
+	    for (int kSp = 1; kSp < nsp; kSp++) {
+		//int iKRSpecies = kstart + kSp;
+		double concKRSpecies_Cell_final_val = yval[index + kSp];
+		double concKRSpecies_Cell_final_predict = soln_predict_[index + kSp];
+
+		tmp = relv(concKRSpecies_Cell_final_val, concKRSpecies_Cell_final_predict, atolNLS_[index + kSp]);
+		printf("ConcKRSpeci %3d %3d    | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", kSp, iCell,
+		       concKRSpecies_Cell_final_[iCell * numKRSpecies_ + kSp],
+		       concKRSpecies_Cell_final_predict,
+		       concKRSpecies_Cell_final_val,
+		       concKRSpecies_Cell_final_val -     concKRSpecies_Cell_final_predict,
+		       atolNLS_[index + kSp], tmp);
+		       
+	    }
+	    kstart += nsp;
+	    index += nsp;
+	}
+    }
+
+
+
+
+
+
+
+
+   
+    printf(" -------------------------------------------------------------------------------------------------------------------\n");
+    printf("                                                                                                        %10.3E\n",
+           pnormSoln);
+
+}
 //==================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
 /*

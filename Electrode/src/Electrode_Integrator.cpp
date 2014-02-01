@@ -1779,7 +1779,7 @@ double Electrode_Integrator::predictorCorrectorGlobalSrcTermErrorNorm()
  *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
  */
 void  Electrode_Integrator::predictorCorrectorPrint(const std::vector<double>& yval,
-        double pnormSrc, double pnormSoln)
+        double pnormSrc, double pnormSoln) const
 {
     double atolVal = 1.0E-8;
     double denom;

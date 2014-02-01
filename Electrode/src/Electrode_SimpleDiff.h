@@ -230,6 +230,58 @@ public:
      */
     void packNonlinSolnVector(double* const y) const;
 
+    //!   Calculate the integrated source terms and do other items now that we have a completed time step
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
+     *  for the current step, and we are calculating post-processed quantities like source terms.
+     */
+    virtual void calcSrcTermsOnCompletedStep();
+
+    //!  Gather the predicted solution values and the predicted integrated source terms
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  Both the predicted solution values and the predicted integrated source terms are used
+     *  in the time step control
+     */
+    virtual void gatherIntegratedSrcPrediction();
+
+   //!  Calculate the norm of the difference between the predicted answer and the final converged answer
+    //!  for the current time step
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+     *
+     *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+     */
+    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS);
+
+    //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *    In the base implementation we assume that the there are just one source term, the electron
+     *    source term.
+     *    However, this will be wrong in almost all cases.
+     *    The number of source terms is unrelated to the number of unknowns in the nonlinear problem.
+     *    Source terms will have units associated with them.
+     *    For example the integrated source term for electrons will have units of kmol
+     */
+    virtual void predictorCorrectorGlobalSrcTermErrorVector();
+
+
+    //! Print table representing prediction vs. corrector information
+    /*!
+     *  @param yval           Vector of corrector values
+     *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
+     *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
+     */
+    virtual void predictorCorrectorPrint(const std::vector<double>& yval,
+                                         double pnormSrc, double pnormSoln) const;
+
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -421,23 +473,6 @@ public:
      */
     virtual void unpackNonlinSolnVector(const double* const y);
 
-    //!   Calculate the integrated source terms and do other items now that we have a completed time step
-    /*!
-     *  (virtual from Electrode_Integrator)
-     *
-     *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
-     *  for the current step, and we are calculating post-processed quantities like source terms.
-     */
-    virtual void calcSrcTermsOnCompletedStep();
-
-    //!  Gather the predicted solution values and the predicted integrated source terms
-    /*!
-     *  (virtual from Electrode_Integrator)
-     *
-     *  Both the predicted solution values and the predicted integrated source terms are used
-     *  in the time step control
-     */
-    virtual void gatherIntegratedSrcPrediction();
 
 
 
