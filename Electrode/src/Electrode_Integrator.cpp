@@ -636,13 +636,13 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         return;
     }
-    /*
-     *  Zero the global error vectors
-     */
-    std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.);
 
     Electrode::resetStartingCondition(Tinitial, doResetAlways);
 
+    /*
+     *  Zero the global error vectors
+     */
+    std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.0);
 }
 //====================================================================================================================
 

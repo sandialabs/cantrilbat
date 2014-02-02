@@ -2351,7 +2351,7 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
     /*
      *  Call the base class resetStarting condition
      */
-    Electrode::resetStartingCondition(Tinitial);
+    Electrode_Integrator::resetStartingCondition(Tinitial);
 
     // Copy The final Extent of reaction to the beginning extent
     RelativeExtentRxn_init_init_ =   RelativeExtentRxn_final_final_;
@@ -2688,6 +2688,7 @@ void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
         xRegion_init_init_             = xRegion_final_;
     }
 }
+//====================================================================================================================
 void Electrode_CSTR::setInitInitStateFromFinalFinal()
 {
     Electrode::setInitInitStateFromFinalFinal();

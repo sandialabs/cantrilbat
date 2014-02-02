@@ -805,6 +805,35 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
         return;
     }
     Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+
+    int iCell, i;
+    int ntotal = numRCells_ * numKRSpecies_;
+    for (i = 0; i < ntotal; ++i) {
+        spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
+	spMoles_KRsolid_Cell_init_[i]      = spMoles_KRsolid_Cell_final_final_[i];
+        concKRSpecies_Cell_init_init_[i]   = concKRSpecies_Cell_final_final_[i];
+	concKRSpecies_Cell_init_[i]        = concKRSpecies_Cell_final_final_[i];
+	spMf_KRSpecies_Cell_init_[i]       = spMf_KRSpecies_Cell_final_[i];
+	actCoeff_Cell_init_[i]             = actCoeff_Cell_final_[i];
+    }
+
+    int iTotal =  numSPhases_ * numRCells_;
+    for (i = 0; i < iTotal; ++i) {
+        concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
+        concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_[i];
+    }
+
+    for (iCell = 0; iCell < numRCells_; ++iCell) {
+        rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
+	rLatticeCBR_init_[iCell]      = rLatticeCBR_final_final_[iCell];
+        rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
+        rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
+	cellBoundR_init_[iCell]       = cellBoundR_final_[iCell];
+	cellBoundL_init_[iCell]       = cellBoundL_final_[iCell];
+    }
+
+    onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
+    onRegionBoundary_init_      =  onRegionBoundary_final_final_;
 }
 //================================================================================================================
 //  update the global phase numbers 
@@ -3576,9 +3605,9 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     int ntotal = numRCells_ * numKRSpecies_;
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_[i];
-	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_final_[i];
-	spMf_KRSpecies_Cell_init_[i] = spMf_KRSpecies_Cell_final_[i];
-	actCoeff_Cell_init_[i] = actCoeff_Cell_final_[i];
+	concKRSpecies_Cell_init_[i]   = concKRSpecies_Cell_final_[i];
+	spMf_KRSpecies_Cell_init_[i]  = spMf_KRSpecies_Cell_final_[i];
+	actCoeff_Cell_init_[i]        = actCoeff_Cell_final_[i];
     }
 
     int iTotal =  numSPhases_ * numRCells_;
@@ -3588,9 +3617,9 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rLatticeCBR_init_[iCell] = rLatticeCBR_final_[iCell];
-	rnodePos_init_[iCell] = rnodePos_final_[iCell];
-	cellBoundR_init_[iCell] = cellBoundR_final_[iCell];
-	cellBoundL_init_[iCell] = cellBoundL_final_[iCell];
+	rnodePos_init_[iCell]    = rnodePos_final_[iCell];
+	cellBoundR_init_[iCell]  = cellBoundR_final_[iCell];
+	cellBoundL_init_[iCell]  = cellBoundL_final_[iCell];
     }
 
     /*
@@ -3601,7 +3630,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     if (setInitInit) {
 	for (i = 0; i < ntotal; ++i) {
 	    spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_[i];
-	    concKRSpecies_Cell_init_init_[i] = concKRSpecies_Cell_final_[i];
+	    concKRSpecies_Cell_init_init_[i]   = concKRSpecies_Cell_final_[i];
 	}
 	
 	for (i = 0; i < iTotal; ++i) {
@@ -3610,7 +3639,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 
 	for (iCell = 0; iCell < numRCells_; ++iCell) {
 	    rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_[iCell];
-	    rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
+	    rnodePos_init_init_[iCell]    = rnodePos_final_[iCell];
 	}
     }
 }
@@ -3625,27 +3654,33 @@ void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
 {
     Electrode_Integrator::setInitInitStateFromFinalFinal();
 
-    int iCell, i; 
+    int iCell, i;
     int ntotal = numRCells_ * numKRSpecies_;
     for (i = 0; i < ntotal; ++i) {
-	spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
-	concKRSpecies_Cell_init_init_[i] =  concKRSpecies_Cell_final_final_[i];
-	spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
-	concKRSpecies_Cell_init_init_[i] =  concKRSpecies_Cell_final_final_[i];
+        spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
+	spMoles_KRsolid_Cell_init_[i]      = spMoles_KRsolid_Cell_final_final_[i];
+        concKRSpecies_Cell_init_init_[i]   = concKRSpecies_Cell_final_final_[i];
+	concKRSpecies_Cell_init_[i]        = concKRSpecies_Cell_final_final_[i];
+	spMf_KRSpecies_Cell_init_[i]       = spMf_KRSpecies_Cell_final_[i];
+	actCoeff_Cell_init_[i]             = actCoeff_Cell_final_[i];
     }
 
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
-	concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
-	concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_[i];
+        concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
+        concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_[i];
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-	rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
-	rnodePos_init_init_[iCell] = rnodePos_final_final_[iCell];
-	rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
-	rnodePos_init_init_[iCell] = rnodePos_final_final_[iCell];
+        rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
+	rLatticeCBR_init_[iCell]      = rLatticeCBR_final_final_[iCell];
+        rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
+        rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
+	cellBoundR_init_[iCell]       = cellBoundR_final_[iCell];
     }
+
+    onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
+    onRegionBoundary_init_      =  onRegionBoundary_final_final_;
 }
 //====================================================================================================================
 void Electrode_SimpleDiff::setFinalStateFromInit()
@@ -3660,8 +3695,9 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
     int ntotal = numRCells_ * numKRSpecies_;
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_final_[i] = spMoles_KRsolid_Cell_init_[i];
-	concKRSpecies_Cell_final_[i] = concKRSpecies_Cell_init_[i];
-	actCoeff_Cell_final_[i] = actCoeff_Cell_init_[i];
+	concKRSpecies_Cell_final_[i]   = concKRSpecies_Cell_init_[i];
+	actCoeff_Cell_final_[i]        = actCoeff_Cell_init_[i];
+	spMf_KRSpecies_Cell_final_[i]  = spMf_KRSpecies_Cell_init_[i];
     }
     
     for (i = 0; i < iTotal; ++i) {
@@ -3670,10 +3706,11 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
     
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rLatticeCBR_final_[iCell] = rLatticeCBR_init_[iCell];
-	rnodePos_final_[iCell] = rnodePos_init_[iCell];
-	cellBoundR_final_[iCell] = cellBoundR_init_[iCell];
-	cellBoundL_final_[iCell] = cellBoundL_init_[iCell];
+	rnodePos_final_[iCell]    = rnodePos_init_[iCell];
+	cellBoundR_final_[iCell]  = cellBoundR_init_[iCell];
+	cellBoundL_final_[iCell]  = cellBoundL_init_[iCell];
     }
+    onRegionBoundary_final_ =  onRegionBoundary_init_;
 }
 //====================================================================================================================
 //    Set the internal initial intermediate from the internal initial global state
