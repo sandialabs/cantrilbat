@@ -448,6 +448,7 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     int predictSolnResid();
+    int predictSolnResid2();
 
     //! Predict the solution
     /*!
@@ -464,6 +465,7 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln();
+  
 
     //! Unpack the soln vector
     /*!
@@ -596,6 +598,17 @@ public:
      */
     int  calcResid(double* const resid, const ResidEval_Type_Enum evalType);
     int  calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
+
+
+    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
+    /*!
+     *  This routine uses a root finder to find the voltage at which there
+     *  is zero net electron production.  It leaves the object unchanged. However, it
+     *  does change the voltage of the phases during the calculation, so this is a non const function.
+     *
+     * @param isk  Reacting surface domain id
+     */
+    virtual double openCircuitVoltage(int isk);
 
 
 protected:
@@ -1009,6 +1022,13 @@ public:
      *             - assumes a volume fraction of 1 for the phase
      */
     int formulationTypeTotalConc_;
+
+    double numLattices_final_;
+    double numLattices_init_;
+    double numLattices_pred_;
+
+    std::vector<double> numLatticeCBR_init_;
+    std::vector<double> numLatticeCBR_final_;
 
     friend class Cantera::EState;
     friend class Cantera::EState_RadialDistrib;
