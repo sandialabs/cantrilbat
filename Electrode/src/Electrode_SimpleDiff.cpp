@@ -1346,6 +1346,11 @@ int Electrode_SimpleDiff::predictSolnResid()
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
 
+#ifdef DEBUG_MODE
+    if ( counterNumberSubIntegrations_ > 13000) {
+	printf("we are here\n");
+    }
+#endif
 
     /*
      *  Calculate the cell boundaries in a pre - loop
@@ -1717,7 +1722,6 @@ int Electrode_SimpleDiff::predictSolnResid2()
     // Cubes of the cell boundaries, Right and Left, for the initial and final times
     double cbR3_final = 0.0;
     double cbL3_final = 0.0;
-    double newRtop, volToBeMoved, newCBR;
  
 
     // Diffusive flux
@@ -2584,6 +2588,7 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
      * Calculate the residual
      */
     calcResid_2(resid, evalType);
+    //calcResid(resid, evalType);
 
   
     int index = 1;
@@ -2783,6 +2788,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
 
+    cbR3_final = 0.0;
+    cbR3_init = 0.0;
+    r0R3_final = 0.0;
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 
         /*
@@ -2838,7 +2846,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	 *
 	 *      When there is no expansion of the lattice,  rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell]
          */
-	if (numLatticeCBR_final_[iCell] = numLatticeCBR_init_[iCell]) {
+	if (numLatticeCBR_final_[iCell] == numLatticeCBR_init_[iCell]) {
 	    resid[rindex] = rLatticeCBR_final_[iCell] - cellBoundR_init_[iCell];
 	} else if (numLatticeCBR_final_[iCell] > numLatticeCBR_init_[iCell]) {
 	    jCell = iCell + 1;
@@ -3196,20 +3204,18 @@ int Electrode_SimpleDiff::calcResid_2(double* const resid, const ResidEval_Type_
      *  Determine the lattice velocity on the left side domain boundary
      */
     //    vLatticeR is currently set to zero -> this is the appropriate default until something more is needed
-    // double volFac = 4. * Pi / 3.0 * particleNumberToFollow_;
+    double volFac = 4. * Pi / 3.0 * particleNumberToFollow_;
     /*
      *  Calculate the cell quantitites in a pre-loop
      */
-    // double cbl, cbr = 0.0;
+    double cbl, cbr = 0.0;
     for (iCell = 0; iCell < numRCells_; iCell++) {
-	/*
 	cbl = cbr;
 
         cbr = cellBoundR_init_[iCell];
 	cbL3_init = cbl * cbl * cbl;
 	cbR3_init = cbr * cbr * cbr;
 	double vol_init_ = volFac * (cbR3_init - cbL3_init);
-	*/
 	/*
 	 *  Calculate the nodal velocity
 	 */
@@ -3223,17 +3229,18 @@ int Electrode_SimpleDiff::calcResid_2(double* const resid, const ResidEval_Type_
 	 *  at every time step.
 	 */
 	rLatticeCBR_ref_[iCell] =  cellBoundR_init_[iCell];
-	/*
 	if (iCell == 0) {
 	    numLatticeCBR_init_[iCell] = concTot_SPhase_Cell_init_[iCell*numSPhases_] * vol_init_;
 	} else {
 	    numLatticeCBR_init_[iCell] =  numLatticeCBR_init_[iCell-1] + concTot_SPhase_Cell_init_[iCell*numSPhases_] * vol_init_;
 	}
-	*/
     }
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
 
+    cbR3_final = 0.0;
+    cbR3_init = 0.0;
+    r0R3_final = 0.0;
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 
         /*
@@ -3813,22 +3820,14 @@ void  Electrode_SimpleDiff::extractInfo()
      *  Load the conditions of the last cell into the ThermoPhase object
      */
     int iCell = numRCells_ - 1;
-
-    for (iCell = 0; iCell < numRCells_; ++iCell) {
-	int kspCell = iCell * numKRSpecies_;
-	//int iphCell = iCell * numSPhases_;
-	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	    // iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    ThermoPhase* tp =  thermoSPhase_List_[jRPh];
-	    tp->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[kspCell]));
-	    // mfSig = spMf_KRSpecies_Cell_final_[kspCell+1];
-
-	    int nsp = tp->nSpecies();
-      
-	    kspCell += nsp;
-	}
+    int kspCell = iCell * numKRSpecies_;
+    for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	ThermoPhase* tp =  thermoSPhase_List_[jRPh];
+	double* spMf_ptr =  &(spMf_KRSpecies_Cell_final_[kspCell]);
+	tp->setState_TPX(temperature_, pressure_, spMf_ptr);
+	int nsp = tp->nSpecies();
+	kspCell += nsp;
     }
-
 
     /*
      * Loop over surface phases, filling in the phase existence fields within the
