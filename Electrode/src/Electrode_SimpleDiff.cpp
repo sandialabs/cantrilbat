@@ -3711,15 +3711,15 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    doublereal r = radialValues[iCell];
-	    printf("\n%s    %-10.4E |", indent.c_str(), r);
+	    printf("%s    %-10.4E |", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < 4; n++) {
 		v_init = vals_init[istart + iBlock * 4 + n];
 		v_final = vals_final[istart + iBlock * 4 + n];
 		printf(" %-10.4E %-10.4E |", v_final, v_init);
 	    }
+	    printf("\n");
 	}
-	printf("\n");
     }
     int nrem = numFields - 4 * numBlockRows;
     if (nrem > 0) {
@@ -3735,16 +3735,17 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    doublereal r = radialValues[iCell];
-	    printf("\n%s    %-10.4E |", indent.c_str(), r);
+	    printf("%s    %-10.4E |", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < nrem; n++) {
 		v_init = vals_init[istart + numBlockRows * 4 + n];
 		v_final = vals_final[istart + numBlockRows * 4 + n];
 		printf(" %-10.4E %-10.4E |", v_final, v_init);
 	    }
+	    printf("\n");
 	}
-	printf("\n");
     }
+    printf("\n");
 }
 
 //====================================================================================================================
@@ -4374,9 +4375,14 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
 	std::vector<double> mf_iph_final(numRCells_ * nsp);
 	std::vector<double> spMoles_iph_init(numRCells_ * nsp);
 	std::vector<double> spMoles_iph_final(numRCells_ * nsp);
+	std::vector<double> concTot_iph_final(numRCells_);
+	std::vector<double> concTot_iph_init(numRCells_);
 	for (int iCell = 0; iCell < numRCells_; iCell++) {
 	    int istart = iCell * nsp;
 	    int jstart = iCell * numKRSpecies_;
+	    concTot_iph_final[iCell] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh];
+	    concTot_iph_init[iCell] = concTot_SPhase_Cell_init_[iCell * numSPhases_ + jPh];
+
 	    for (int kSp = 0; kSp < nsp; kSp++) {
 		int iKRSpecies = kstartKRSolidPhases_[jPh] + kSp;
 		concKRSpecies_iph_init[istart + kSp] = concKRSpecies_Cell_init_[jstart + iKRSpecies];
@@ -4391,13 +4397,18 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
 	std::vector<string> speciesNames;
 	for (int kSp = 0; kSp < nsp; kSp++) {
 	    speciesNames.push_back( tp.speciesName(kSp));
-
-	 
 	}
+        string pName = tp.name();
+	std::vector<string> pNames;
+	pNames.push_back(pName);
 
 	string title = "    Species Cell Moles (final and init)";
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &spMoles_iph_init[0], &spMoles_iph_final[0],
 			      speciesNames, nsp);
+
+	title = "    Phase Concentration (kmol /m3) (final and init)";
+	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &concTot_iph_init[0], &concTot_iph_final[0],
+			      pNames, 1);
 
 
 	title = "   Species Concentrations (kmol /m3) (final and init)";
