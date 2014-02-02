@@ -3593,6 +3593,8 @@ int Electrode::integrateResid(const doublereal tfinal, const doublereal deltaTsu
  *  in the last integration step. If the initial time is input, then the code doesn't advance
  *  or change anything.
  *
+ *  We also assume that the final state is equal to the final_final state
+ *
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
  */
@@ -3630,13 +3632,31 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     }
 
     /*
+     *  Make sure that tfinal and tfinal_final_ are the same. This is a comfort condition
+     */
+    if (fabs(tfinal_ - t_final_final_) > (1.0E-9 * tbase)) {
+        throw CanteraError("Electrode::resetStartingCondition()",
+                           "tfinal_ " + fp2str(tfinal_) + " is not equal to t_final_final_ " + fp2str(t_final_final_) + 
+                           " This condition is needed for some transfers.");
+    }
+
+    /*
      *  Here is where we store the electrons discharged
      */
     if (pendingIntegratedStep_ == 1) {
         electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
     }
 
+    /*
+     * Set the new time to the new value, Tinitial, which is also equal to tfinal_ and t_final_final_
+     */
     t_init_init_ = Tinitial;
+    tinit_ = t_init_init_;
+
+    /*
+     *  Below is close to a  redo of Electrode::setInitInitStateFromFinalFinal()
+     *  Not sure if I should combine the two treatments.
+     */
 
     // reset surface quantities
     for (i = 0; i < numSurfaces_; i++) {
@@ -3648,19 +3668,22 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
+        spMf_init_[k] = spMf_final_[k];
+        spMf_init_init_[k] = spMf_final_[k];
     }
 
-    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
-    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
+    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.0);
 
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
-        phaseMoles_init_[i] = phaseMoles_final_[i];
+        phaseMoles_init_[i]      = phaseMoles_final_[i];
         phaseMoles_init_init_[i] = phaseMoles_final_[i];
     }
 
     // Reset the particle size
     Radius_exterior_init_init_ = Radius_exterior_final_final_;
+    Radius_exterior_init_      = Radius_exterior_final_final_;
 
     /*
      *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps

@@ -2333,8 +2333,6 @@ int Electrode_CSTR::getInitialConditions(const doublereal t0, doublereal* const 
  */
 void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
-    int i;
-
     if (pendingIntegratedStep_ != 1) {
 #ifdef DEBUG_ELECTRODE
         // printf(" Electrode::resetStartingCondition WARNING: resetStartingCondition called with no pending integration step\n");
@@ -2355,43 +2353,6 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
      */
     Electrode::resetStartingCondition(Tinitial);
 
-    tbase = MAX(Tinitial, tbase);
-    tbase = MAX(tbase, t_final_final_);
-    if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-        throw CanteraError("Electrode::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
-                           + fp2str(t_final_final_));
-    }
-
-    /*
-     *  Here is where we store the electrons discharged
-     */
-    if (pendingIntegratedStep_ == 1) {
-        electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
-    }
-
-    t_init_init_ = Tinitial;
-
-    // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
-        surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
-    }
-
-    // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
-        spMoles_init_[k] = spMoles_final_[k];
-        spMoles_init_init_[k] = spMoles_final_[k];
-    }
-
-    // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
-        phaseMoles_init_[i] = phaseMoles_final_[i];
-        phaseMoles_init_init_[i] = phaseMoles_final_[i];
-    }
-
-    // Reset the particle size
-    Radius_exterior_init_init_ = Radius_exterior_final_final_;
-    Radius_exterior_init_      = Radius_exterior_final_final_;
-
     // Copy The final Extent of reaction to the beginning extent
     RelativeExtentRxn_init_init_ =   RelativeExtentRxn_final_final_;
     RelativeExtentRxn_init_      =   RelativeExtentRxn_final_final_;
@@ -2402,17 +2363,6 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
     onRegionBoundary_init_init_  = onRegionBoundary_final_final_;
     onRegionBoundary_init_       = onRegionBoundary_final_final_;
 
-    /*
-     *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
-     *  because we want jacobian calculations to mainly use the same time step history, so that the answers are
-     *  comparible irrespective of the time step truncation error.
-     */;
-    if (deltaTsubcycle_init_next_ < 1.0E299) {
-        deltaTsubcycle_init_init_ = deltaTsubcycle_init_next_;
-    }
-
-    pendingIntegratedStep_ = 0;
-
     if (eState_final_) {
         SAFE_DELETE(xmlStateData_init_init_);
         xmlStateData_init_init_ =   xmlStateData_final_;
@@ -2422,7 +2372,6 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
         SAFE_DELETE(xmlStateData_final_final_);
     }
 }
-
 //====================================================================================================================
 // Check to see that the preceding step is a successful one
 /*
