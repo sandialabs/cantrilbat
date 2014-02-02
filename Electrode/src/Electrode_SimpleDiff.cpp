@@ -2587,8 +2587,8 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
     /*
      * Calculate the residual
      */
-    calcResid_2(resid, evalType);
-    //calcResid(resid, evalType);
+    //calcResid_2(resid, evalType);
+    calcResid(resid, evalType);
 
   
     int index = 1;
@@ -2835,9 +2835,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         double vbarLattice_init  = 1.0 / concTotalVec_SPhase_init[0];
 
 	if (iCell == 0) {
-	    numLatticeCBR_final_[iCell] = concTotalVec_SPhase_final[iCell] * vol_final_;
+	    numLatticeCBR_final_[iCell] = concTotalVec_SPhase_final[0] * vol_final_;
 	} else {
-	    numLatticeCBR_final_[iCell] = numLatticeCBR_final_[iCell-1] + concTotalVec_SPhase_final[iCell] * vol_final_;
+	    numLatticeCBR_final_[iCell] = numLatticeCBR_final_[iCell-1] + concTotalVec_SPhase_final[0] * vol_final_;
 	}
         /*
          * Residual calculation - Value of the Lattice radius at the right cell boundary
@@ -2846,22 +2846,31 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	 *
 	 *      When there is no expansion of the lattice,  rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell]
          */
+	double deltaNum = 0.0;
 	if (numLatticeCBR_final_[iCell] == numLatticeCBR_init_[iCell]) {
 	    resid[rindex] = rLatticeCBR_final_[iCell] - cellBoundR_init_[iCell];
 	} else if (numLatticeCBR_final_[iCell] > numLatticeCBR_init_[iCell]) {
+	    // jCell is the cell to look for within init to find the solution
 	    jCell = iCell + 1;
 	    if (jCell > numRCells_ -1) {
 		jCell = numRCells_ - 1;
+		deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell-1];
+	    } else {
+		deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell];
 	    }
-	    double deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell];
 	    cbl = cellBoundR_init_[jCell-1];
 	    double cbL3_init_j = cbl * cbl * cbl;
 	    double r3 = deltaNum / volFac / concTot_SPhase_Cell_init_[jCell*numSPhases_] + cbL3_init_j;
 	    double r = pow(r3, ONE_THIRD);
 	    resid[rindex] = rLatticeCBR_final_[iCell] - r;
 	} else {
-	    double deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell-1];
-	    cbl = cellBoundR_init_[iCell-1];
+	    if (iCell == 0) {
+		deltaNum = numLatticeCBR_final_[iCell];
+		cbl = 0.0;
+	    } else {
+		deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell-1];
+		cbl = cellBoundR_init_[iCell-1];
+	    }
 	    double cbL3_init_j = cbl * cbl * cbl;
 	    double r3 = deltaNum / volFac / concTotalVec_SPhase_init[0] + cbL3_init_j;
 	    double r = pow(r3, ONE_THIRD);
@@ -2869,8 +2878,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	}
 
 
-	double rhs = r0L3_final + vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
-        resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
+	//double rhs = r0L3_final + vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
+        //resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
 
 	if (formulationType_ > 0) {
 	    resid[rindex] = rLatticeCBR_final_[iCell] - rLatticeCBR_init_[iCell];
@@ -3648,11 +3657,11 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    doublereal r = radialValues[iCell];
-	    printf("\n%s    %-10.4E ", indent.c_str(), r);
+	    printf("\n%s    %- 10.4E ", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < 5; n++) {
 		v = vals[istart + iBlock * 5 + n];
-		printf(" %-10.4E ", v);
+		printf(" %- 10.4E ", v);
 	    }
 	}
 	printf("\n");
@@ -3671,11 +3680,11 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    doublereal r = radialValues[iCell];
-	    printf("\n%s    %-10.4E ", indent.c_str(), r);
+	    printf("\n%s    %- 10.4E ", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < nrem; n++) {
 		v = vals[istart + numBlockRows * 5 + n];
-		printf(" %-10.4E ", v);
+		printf(" %- 10.4E ", v);
 	    }
 	}
 	printf("\n");
@@ -3711,12 +3720,12 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    doublereal r = radialValues[iCell];
-	    printf("%s    %-10.4E |", indent.c_str(), r);
+	    printf("%s    %- 10.4E |", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < 4; n++) {
 		v_init = vals_init[istart + iBlock * 4 + n];
 		v_final = vals_final[istart + iBlock * 4 + n];
-		printf(" %-10.4E %-10.4E |", v_final, v_init);
+		printf(" %- 10.4E %-10.4E |", v_final, v_init);
 	    }
 	    printf("\n");
 	}
@@ -3735,12 +3744,12 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    doublereal r = radialValues[iCell];
-	    printf("%s    %-10.4E |", indent.c_str(), r);
+	    printf("%s    %- 10.4E |", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < nrem; n++) {
 		v_init = vals_init[istart + numBlockRows * 4 + n];
 		v_final = vals_final[istart + numBlockRows * 4 + n];
-		printf(" %-10.4E %-10.4E |", v_final, v_init);
+		printf(" %- 10.4E %- 10.4E |", v_final, v_init);
 	    }
 	    printf("\n");
 	}
@@ -3783,19 +3792,19 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
 
     for (iCell = 0; iCell < numRadialVals; iCell++) {
 	doublereal r = radialValues[iCell];
-	printf("%s    %-10.4E ", indent.c_str(), r);
+	printf("%s    %- 10.4E ", indent.c_str(), r);
 	int istart = iCell * numFields + iField;
-	printf(" %-10.4E ", val_init[istart]);
-	printf(" %-10.4E ", val_final[istart]);
+	printf(" %- 10.4E ", val_init[istart]);
+	printf(" %- 10.4E ", val_final[istart]);
 	istart = iCell *  numEqnsCell + iEqn;
 	if (resid_error) {
-	    printf(" %-10.4E ", resid_error[istart]);
+	    printf(" %- 10.4E ", resid_error[istart]);
 	}
 	if (solnError_tol) {
-	    printf(" %-10.4E ", solnError_tol[istart]);
+	    printf(" %- 10.4E ", solnError_tol[istart]);
 	}
 	printf(" | ");
-	printf(" %-10.4E ", residual[istart]);
+	printf(" %- 10.4E ", residual[istart]);
 	printf("\n");
     }
     drawline(indentSpaces, 80);
