@@ -3600,6 +3600,9 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     int i;
 
+    /*
+     *  If we haven't done a time step then we don't have anything to update.
+     */
     if (pendingIntegratedStep_ != 1) {
 #ifdef DEBUG_ELECTRODE
         // printf(" Electrode::resetStartingCondition WARNING: resetStartingCondition called with no pending integration step\n");
@@ -3607,16 +3610,23 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
         return;
     }
 
+    /*
+     * If this routine is called with Tinitial = t_init_init_, then we should return without doing anything
+     * We have already advanced the time step to the new time.
+     */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
         return;
     }
 
+    /*
+     *  The final_final time must be equal to the new Tinitial time
+     */ 
     tbase = MAX(Tinitial, tbase);
     tbase = MAX(tbase, t_final_final_);
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
         throw CanteraError("Electrode::resetStartingCondition()",
-                           "tinit " + fp2str(Tinitial) + " not compat with t_final_final_ " + fp2str(t_final_final_));
+                           "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
     }
 
     /*
