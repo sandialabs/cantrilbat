@@ -52,6 +52,12 @@ Other key numbers
  Default Diffusion Coefficient = 1.0E-10
 
 
+Initial current =    Current = 5.2243e+06 amps
+
+Capacity Discharged = 10147.7 coulombs = 2.81882 Ah
+
+There is a real lack of capacity utilized / discharged in this electrode object.
+
 
 
 
