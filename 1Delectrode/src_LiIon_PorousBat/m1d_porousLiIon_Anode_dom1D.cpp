@@ -629,7 +629,6 @@ porousLiIon_Anode_dom1D::revertToInitialGlobalTime()
 
     // -- example of how to get a particular residual id
     // if (counterResBaseCalcs_ == 65) {
-    //  printf("we are here\n");
     // }
 
     t_final_ = t;
@@ -743,7 +742,6 @@ porousLiIon_Anode_dom1D::revertToInitialGlobalTime()
 #ifdef DEBUG_RESID
       if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
 	if (iCell == NumLcCells - 1) {
-	  //  printf("we are here\n");
 	}
       }
 #endif
@@ -1495,7 +1493,6 @@ porousLiIon_Anode_dom1D::calcElectrode()
 #ifdef DEBUG_HKM
   if (residType_Curr_ == Base_ShowSolution) {
     if (cIndex_cc_ == 9) {
-      //  printf(" we are here\n");
     }
   }
 #endif

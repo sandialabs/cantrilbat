@@ -743,7 +743,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector &res,
 #ifdef DEBUG_RESID
     if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
       if (iCell == NumLcCells - 1) {
-        printf("we are here\n");
+       // printf("we are here\n");
       }
     }
 #endif
