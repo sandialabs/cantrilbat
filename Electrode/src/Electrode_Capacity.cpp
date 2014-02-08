@@ -70,7 +70,6 @@ double Electrode::capacityInitial(int platNum) const
 {
     return capacityInitialZeroDod_;
 }
-
 //====================================================================================================================
 // Amount of charge that the electrode that has available to be discharged
 /*
@@ -133,7 +132,7 @@ double Electrode::depthOfDischarge(int platNum) const
  *
  * @return  returns the depth of discharge in percent
  */
-double Electrode::depthOfDischargePercentage(int platNum) const
+double Electrode::depthOfDischargeFraction(int platNum) const
 {
     double capLeft = capacityLeft(platNum);
     double capZeroDod = capacity(platNum);

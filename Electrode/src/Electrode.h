@@ -1730,7 +1730,7 @@ public:
      *
      *  @return  returns the depth of discharge as a fraction of the total possible discharged
      */
-    double depthOfDischargePercentage(int platNum = -1) const;
+    double depthOfDischargeFraction(int platNum = -1) const;
 
     //! Report the current depth of discharge divided by the molar size of the electrode
     /*!

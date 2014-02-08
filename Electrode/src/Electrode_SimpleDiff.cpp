@@ -927,8 +927,10 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
 	    kstart += nSpecies;
         }
     }
+
     /*
-     *  Pick a cell to calculate the mole fractions from
+     *  Calculate the total mole fractions, note this won't correspond to any
+     *  particular cell
      */
     int cellSpecial_ = numRCells_ - 1;
     int kstart = cellSpecial_ * numKRSpecies_;
@@ -937,8 +939,14 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
 	kspStart = m_PhaseSpeciesStartIndex[iPh];
 	ThermoPhase* th = thermoSPhase_List_[jRPh];
 	int nSpecies = th->nSpecies();
+	double tmp = 0.0;
 	for (int kSp = 0; kSp < nSpecies; kSp++) {
-	    spMf_final_[kspStart + kSp] = spMf_KRSpecies_Cell_final_[kstart + kSp];
+	    tmp += spMoles_final_[kspStart + kSp];
+	}
+	if (tmp > 1.0E-200) {
+	    for (int kSp = 0; kSp < nSpecies; kSp++) {
+		spMf_final_[kspStart + kSp] = spMoles_final_[kspStart + kSp] / tmp;
+	    }
 	}
 	kstart += nSpecies;
     }
@@ -958,8 +966,7 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
 	for (int k = 0; k < nsp; k++) {
 	    phaseMoles_final_[iPh] += spMoles_final_[istart + k];
 	}
-    
-	// Here we set the state within the phase object
+	// Here we set the state within the phase object for nondistributed phases
 	tp.setState_TPX(temperature_, pressure_, &spMf_final_[istart]);
 	tp.setElectricPotential(phaseVoltages_[iPh]);
 	tp.getPartialMolarVolumes(&(VolPM_[istart]));
@@ -3173,7 +3180,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
  *              . . .
  *            Residual (Concentration _ k=Ns-1)
  *  --------------------------------------------------------------------------------------------------------------
- *         ********************************** BRANCH *****************************************************************
+ *  **********************************DEAD  BRANCH *****************************************************************
  */
 int Electrode_SimpleDiff::calcResid_2(double* const resid, const ResidEval_Type_Enum evalType)
 {
@@ -4264,17 +4271,21 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     vector<std::string> colNames;
     double* netROP = new double[m_NumTotSpecies];
     double egv = TotalVol();
-    printf("   ===============================================================\n");
+    double tsm = SolidTotalMoles();
+    printf("   ==============================================================================================\n");
     if (subTimeStep) {
         printf("      Electrode_SimpleDiff at intermediate-step time final = %12.5E\n", tfinal_);
         printf("                              intermediate-step time init  = %12.5E\n", tinit_);
+	printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
+               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
         printf("      Electrode_SimpleDiff at time final = %12.5E\n", t_final_final_);
         printf("                              time init  = %12.5E\n", t_init_init_);
+	printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
+               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
-    printf("   ===============================================================\n");
+    printf("   ==============================================================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);
-
     if (subTimeStep) {
         printf("          Current = %g amps\n", integratedLocalCurrent());
     } else {
@@ -4284,13 +4295,23 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %10.3E\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %10.3E\n", egv);
+    if (egv > 0.0) {
+        printf("          Porosity     = %10.3E\n", (egv - ElectrodeSolidVolume_) / egv);
+    } else {
+        printf("          Porosity     =       NA\n");
+    }
     printf("          Temperature = %g\n", temperature_);
     printf("          Pressure = %g\n", pressure_);
-    double capacd = capacityDischarged();
-    printf("          Capacity Discharged = %g coulombs = %g Ah\n", capacd, capacd / 3600.);
-    printf("\n");
+    printf("          Total Solid Moles = %11.4E kmol\n", tsm);
+    if (tsm > 0.0) {
+        printf("          Molar Volume of Solid = %11.4E cm3 gmol-1\n", ElectrodeSolidVolume_ / tsm * 1.0E3);
+    } else {
+    }
+    printf("          Particle Number to Follow = %11.4E\n", particleNumberToFollow_);
     printf("          followElectrolyteMoles = %d\n", followElectrolyteMoles_);
     printf("          ElectrolytePseudoMoles = %g\n",  electrolytePseudoMoles_);
+
+    printElectrodeCapacityInfo(pSrc, subTimeStep);
 
     colNames.push_back("LatticeRadius");
     std::string title = "";
@@ -4299,8 +4320,8 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 
     for (iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
-        printf("     ===============================================================\n");
     }
+    printf("   ==============================================================================================\n");
     delete [] netROP;
 }
 //===================================================================================================================
@@ -4343,29 +4364,29 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         printf("                IsExternalSurface = %d\n", ddd);
         double oc = openCircuitVoltage(isph);
         if (oc != 0.0) {
-            printf("                 Open Circuit Voltage = %g\n", oc);
+            printf("                Open Circuit Voltage = %g\n", oc);
         }
     }
     printf("\n");
-    printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
+    printf("                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
     for (int k = 0; k < nsp; k++) {
         string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
-                printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
+                printf("                %-22s %10.3E %10.3E %10.3E %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
                        spMoles_final_[istart + k], spMoles_init_[istart + k],
                        spMoleIntegratedSourceTermLast_[istart + k]);
             } else {
-                printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
+                printf("                %-22s %10.3E %10.3E %10.3E %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
                        spMoles_final_[istart + k], spMoles_init_init_[istart + k],
                        spMoleIntegratedSourceTerm_[istart + k]);
             }
         } else {
             if (subTimeStep) {
-                printf("                %-22s %10.3E %10.3E   %10.3E\n", sname.c_str(), spMf_final_[istart + k],
+                printf("                %-22s %10.3E %10.3E %10.3E %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
                        spMoles_final_[istart + k],   spMoles_init_[istart + k]);
             } else {
-                printf("                %-22s %10.3E %10.3E   %10.3E\n", sname.c_str(), spMf_final_[istart + k],
+                printf("                %-22s %10.3E %10.3E %10.3E %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
                        spMoles_final_[istart + k],   spMoles_init_init_[istart + k]);
             }
         }

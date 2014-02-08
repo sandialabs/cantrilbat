@@ -309,8 +309,7 @@ void EState::copyElectrode_intoState(const Cantera::Electrode* const e)
     capacityInitial_                   = e->capacityInitial();
     depthOfDischarge_                  = e->depthOfDischarge();
 
-    relativeDepthOfDischarge_          = e->depthOfDischargePercentage();
-
+    relativeDepthOfDischarge_          = e->depthOfDischargeFraction();
 
     capacityDischargedToDate_          = e->capacityDischarged();
 

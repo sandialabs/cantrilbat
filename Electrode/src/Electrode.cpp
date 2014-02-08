@@ -4472,7 +4472,14 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
                electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
     printf("   ==============================================================================================\n");
-    printf("\n");
+    printf("          Voltage (phiMetal - phiElectrolyte) = %12.5E volts\n", deltaVoltage_);
+    if (subTimeStep) {
+        double curr = integratedLocalCurrent();
+        printf("          Current = %12.5E amps\n", curr);
+    } else {
+        double curr = integratedCurrent();
+        printf("          Current = %12.5E amps\n", curr);
+    }
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %11.4E m**3\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %11.4E m**3\n", egv);
@@ -4489,14 +4496,6 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
     } else {
     }
     printf("          Particle Number to Follow = %11.4E\n", particleNumberToFollow_);
-    if (subTimeStep) {
-        double curr = integratedLocalCurrent();
-        printf("          Current = %12.5E amps\n", curr);
-    } else {
-        double curr = integratedCurrent();
-        printf("          Current = %12.5E amps\n", curr);
-    }
-    printf("          Voltage (phiMetal - phiElectrolyte) = %12.5E volts\n", deltaVoltage_);
 
     printf("          followElectrolyteMoles = %d\n", followElectrolyteMoles_);
     printf("          ElectrolytePseudoMoles = %g\n", electrolytePseudoMoles_);
@@ -4513,7 +4512,7 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
     for (iph = 0; iph < m; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
-
+    printf("   ==============================================================================================\n");
 }
 //===================================================================================================================
 void Electrode::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
@@ -4521,10 +4520,12 @@ void Electrode::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
     double capacd = capacityDischarged();
     printf("          Capacity Discharged Since Start = %12.6g coulombs = %12.6g Ah\n", capacd, capacd / 3600.);
     double dod = depthOfDischarge();
-    printf("          Depth of Discharge (Current)    = %12.6g coulombs\n", dod);
+    double rdod = depthOfDischargeFraction();
+    printf("          Depth of Discharge (Current)    = %12.6g coulombs    Relative Depth of Discharge = %-12.6g\n",
+           dod, rdod);
     double capLeft = capacityLeft();
     double capZero = capacity();
-    printf("          Capacity Left                   = %12.6g coulombs         Capacity at Zero DOD = %12.6g coulombs\n",
+    printf("          Capacity Left                   = %12.6g coulombs    Capacity at Zero DOD = %-12.6g coulombs\n",
            capLeft, capZero);
 }
 //===================================================================================================================
@@ -4595,7 +4596,7 @@ void Electrode::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
         //double oc = openCircuitVoltage(isurf);
         double oc = openCircuitVoltage(isurf);
         if (oc != 0.0) {
-            printf("                Open Circuit Voltage = %g Volts\n", oc);
+            printf("               Open Circuit Voltage = %g Volts\n", oc);
         }
     }
     if (printLvl_ >= 3) {
