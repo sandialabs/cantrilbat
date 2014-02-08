@@ -496,7 +496,7 @@ int Electrode_CSTR::create_solvers()
 void Electrode_CSTR::setElectrodeSizeParams(doublereal electrodeArea, doublereal
         electrodeThickness, doublereal porosity)
 {
-    Electrode::setElectrodeSizeParams(electrodeArea, electrodeThickness, porosity);
+    Electrode_Integrator::setElectrodeSizeParams(electrodeArea, electrodeThickness, porosity);
     /*
      *  Relcalculate the normalization factor
      */
@@ -2691,7 +2691,7 @@ void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
 //====================================================================================================================
 void Electrode_CSTR::setInitInitStateFromFinalFinal()
 {
-    Electrode::setInitInitStateFromFinalFinal();
+    Electrode_Integrator::setInitInitStateFromFinalFinal();
 
     RelativeExtentRxn_init_init_   = RelativeExtentRxn_final_final_;
     RelativeExtentRxn_init_        = RelativeExtentRxn_final_final_;
