@@ -787,7 +787,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
     k_r_internal_ = revROP[0]/ C_internal_final_;
 
 }
-
+//===============================================================================================================
 void Electrode_SimplePhaseChangeDiffusion::updateState()
 {
     int iph;
