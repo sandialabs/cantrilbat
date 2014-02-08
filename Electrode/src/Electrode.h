@@ -2105,11 +2105,11 @@ protected:
      */
     int numSurfaces_;
 
-    //!  Integer representing we keep a conserved quantity for the electrolyte phase mole numbers or not 
+    //!  Integer representing whehter we keep a conserved quantity for the electrolyte phase mole numbers or not 
     /*!
      *  0:  Constant electrolyte composition but varying amount of electrolyte,
      *      specified porosity
-     *      During a subintegration step the electrode can change volume by changing the solidVolume
+     *      During a subintegration step the electrode can change volume by changing the solidVolume.
      *      The electrolyte moles are not tracked so that the porosity of the electrode is kept constant
      *      or at a specified functional value. Electrolyte flows into or out of the domain
      *      in order to maintain the specified porosity. 
@@ -2139,6 +2139,7 @@ protected:
      *  mole fraction vector to determine the number of moles of
      *  electrolyte species.
      *  @deprecate This is confusing. We don't need it. Just use spMoleNumber(solnPhase).
+     *              HKM - concur 2/6/14
      */
     double electrolytePseudoMoles_;
 
