@@ -554,6 +554,10 @@ Electrode_Integrator::create_solvers()
     }
 
     yvalNLS_.resize(neqNLS, 0.0);
+    yvalNLS_final_final_.resize(neqNLS, 0.0);
+    yvalNLS_init_init_.resize(neqNLS, 0.0);
+    yvalNLS_init_.resize(neqNLS, 0.0);
+
     ydotNLS_.resize(neqNLS, 0.0);
     ylowNLS_.resize(neqNLS, 0.0);
     yhighNLS_.resize(neqNLS, 0.0);
@@ -569,6 +573,14 @@ Electrode_Integrator::create_solvers()
 
     // Add a couple of extra doubles, to the predictor, because some objects store extra info in those slots
     soln_predict_.resize(neqNLS + 2, 0.0);
+   
+
+    solnDot_init_.resize(neqNLS, 0.0);
+    solnDot_final_.resize(neqNLS, 0.0);
+    solnDot_init_init_.resize(neqNLS, 0.0);
+    solnDot_final_final_.resize(neqNLS, 0.0);
+    soln_predict_fromDot_.resize(neqNLS, 0.0);
+
 
     IntegratedSrc_Predicted.resize(numIntegratedSrc_, 0.0);
     IntegratedSrc_final_.resize(numIntegratedSrc_, 0.0);
@@ -643,6 +655,17 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
      *  Zero the global error vectors
      */
     std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.0);
+    int neqNLS = nEquations();
+
+    for (int i = 0; i < neqNLS; i++) {
+        solnDot_init_init_[i] = solnDot_final_final_[i];
+        solnDot_init_[i]      = solnDot_final_final_[i];
+        solnDot_final_[i]     = solnDot_final_final_[i];
+        yvalNLS_init_init_[i] = yvalNLS_final_final_[i];
+        yvalNLS_init_[i]      = yvalNLS_final_final_[i];
+        yvalNLS_[i]           = yvalNLS_final_final_[i];
+    }
+
 }
 //====================================================================================================================
 
@@ -815,6 +838,11 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     determineBigMoleFractions();
 
     /*
+     * Set up the yvalNLS_init 
+     */
+    check_yvalNLS_init(true);
+
+    /*
      *  Save the state into an XML state object
      */
     if (eState_final_) {
@@ -902,7 +930,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         // HKM debugging point
 #ifdef DEBUG_MODE_NOT
         if (fabs(tfinal_ - 0.02) < 0.001) {
-            printf("we are here\n");
+            printf("we are here - 23\n");
         }
 #endif
 
@@ -914,6 +942,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         /*
          *  Check internal consistency of the init solution
          *    -> failures here produce error exits
+         *    -> check
          */
         check_init_consistency();
 
@@ -982,6 +1011,34 @@ topConvergence:
                 setFinalStateFromInit();
                 goto topConvergence;
             }
+
+	    /*
+             *  We've done an explicit predictor. However, for some systems this isn't a good predictor, or it's too expenseive
+	     *  and time consuming to do a good job. Therefore, we will back it up with a traditional predictor -corrector method
+	     *  which 
+	     *  For some other systems, this step can be bypassed. 
+	     *  Whatever is more accurate is used as he error indicator
+             */
+	    info = predictSolnDot();
+	    if (info != 1) {
+                conseqFailures++ ;
+                nonlinConverged = 0;
+                if (printCSVLvl_) {
+                    writeCSVData(-2);
+                }
+                tfinal_ = tinit_;
+                deltaTsubcycle_ = deltaTsubcycle_ * 0.25;
+                deltaTsubcycleNext_ = deltaTsubcycle_;
+                deltaTsubcycleCalc_ = deltaTsubcycle_;
+                tfinal_ += deltaTsubcycle_;
+                /*
+                 * Revert to the old solution -> copy _init_ to _final_
+                 */
+                setFinalStateFromInit();
+                goto topConvergence;
+            }
+
+
             /*
              *  Gather the predicted integrated src prediction and the solution prediction
              */
@@ -1167,6 +1224,10 @@ topConvergence:
 	double pnormSrc = 0.0;
 	double pnormSoln = 0.0;
         if (stepAcceptable) {
+	    /*
+	     *
+	     */
+	    calc_solnDot_final();
             /*
              *  Calculate the integrated source terms and do other items now that we have a completed time step
              */
@@ -1182,7 +1243,7 @@ topConvergence:
              */
             pnormSrc = predictorCorrectorGlobalSrcTermErrorNorm();
 
-             pnormSoln = predictorCorrectorWeightedSolnNorm(yvalNLS_);
+            pnormSoln = predictorCorrectorWeightedSolnNorm(yvalNLS_);
 
             pnorm = fmax(pnormSrc, pnormSoln);
 
@@ -1366,7 +1427,7 @@ topConvergence:
         // HKM debugging point
 #ifdef DEBUG_MODE_NOT
         if (fabs(tfinal_ - 0.02) < 0.001) {
-            printf("we are here\n");
+            printf("we are here - 45\n");
         }
 #endif
 
@@ -1536,6 +1597,20 @@ int  Electrode_Integrator::predictSoln()
     throw CanteraError(" Electrode_Integrator::predictSoln()","unimplemented");
 }
 //==================================================================================================================
+// Do a traditional predictor
+/*
+ *   (virtual from Electrode_Integrator)
+ *
+ */
+int Electrode_Integrator::predictSolnDot()
+{
+    soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
+    for (int i = 1; i < (int) yvalNLS_.size(); i++) {
+	soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
+    }
+    return 1;
+}
+//==================================================================================================================
 // Extract information from cantera
 /*
   *  (virtual fucntion from Electrode_Integrator)
@@ -1578,7 +1653,6 @@ void Electrode_Integrator::gatherIntegratedSrcPrediction()
 {
     throw CanteraError(" Electrode_Integrator::gatherIntegratedSrcPrediction()",  "unimplemented");
 }
-
 //==================================================================================================================
 //   Calculate the integrated source terms and do other items now that we have a completed time step
 /*
@@ -1617,6 +1691,40 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
     }
 }
 //==================================================================================================================
+void  Electrode_Integrator::check_yvalNLS_init(bool doOthers)
+{
+  
+}
+//==================================================================================================================
+void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
+{
+    Electrode::setInitStateFromFinal(setInitInit);
+    int neqNLS = nEquations();
+    for (int i = 0; i < neqNLS; i++) {
+	solnDot_init_[i] =  solnDot_final_[i];
+    }
+    if (setInitInit) {
+	for (int i = 0; i < neqNLS; i++) {
+	    solnDot_init_init_[i] =  solnDot_final_[i];
+	}
+    }
+}
+//==================================================================================================================
+void Electrode_Integrator::setInitInitStateFromFinalFinal()
+{
+    Electrode::setInitInitStateFromFinalFinal();
+
+    int neqNLS = nEquations();
+    for (int i = 0; i < neqNLS; i++) {
+	solnDot_init_init_[i] = solnDot_final_final_[i];
+	solnDot_init_[i]      = solnDot_final_final_[i];
+	solnDot_final_[i]     = solnDot_final_final_[i];
+	yvalNLS_init_init_[i] = yvalNLS_final_final_[i];
+	yvalNLS_init_[i]      = yvalNLS_final_final_[i];
+	yvalNLS_[i]           = yvalNLS_final_final_[i];
+    }
+}
+//==================================================================================================================
 // Set the internal final intermediate and from the internal init state
 /*
  *  (non-virtual function)  -> function should onionize in-first.
@@ -1639,7 +1747,41 @@ void Electrode_Integrator::setFinalStateFromInit_Oin()
 void Electrode_Integrator::setFinalStateFromInit()
 {
     Electrode_Integrator::setFinalStateFromInit_Oin();
+    int neqNLS = nEquations();
+    for (int i = 0; i < neqNLS; i++) {
+	solnDot_final_[i] = solnDot_init_[i];
+	yvalNLS_[i] = yvalNLS_init_[i];
+    }
 }
+//==================================================================================================================
+// Set the internal initial intermediate from the internal initial global state
+/*
+ *  Set the intial state from the init init state. We also can set the final state from this
+ *  routine as well.
+ *
+ *  The final_final is not touched.
+ *
+ * @param setFinal   Boolean indicating whether you should set the final as well
+ */
+void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
+{
+    Electrode::setInitStateFromInitInit(setFinal);
+    int neqNLS = nEquations();
+    for (int i = 0; i < neqNLS; i++) {
+	solnDot_init_[i] = solnDot_init_init_[i];
+	yvalNLS_init_[i] = yvalNLS_init_init_[i];
+    }
+}
+//==================================================================================================================
+ void  Electrode_Integrator::setFinalFinalStateFromFinal()
+ {
+     Electrode::setFinalFinalStateFromFinal();
+     int neqNLS = nEquations();
+     for (int i = 0; i < neqNLS; i++) {
+	 solnDot_final_final_[i] = solnDot_final_[i];
+	 yvalNLS_final_final_[i] = yvalNLS_[i];
+     }
+ }
 //==================================================================================================================
 // Return the number of equations in the equation system that is used to solve the ODE integration
 int Electrode_Integrator::nEquations() const
@@ -1696,6 +1838,14 @@ bool Electrode_Integrator::checkSubIntegrationStepAcceptable() const
     return true;
 }
 //====================================================================================================================
+void Electrode_Integrator::calc_solnDot_final()
+{
+    for (int i = 0; i < neq_; i++) {
+	solnDot_final_[i] = (yvalNLS_[i] -  yvalNLS_init_[i]) / deltaTsubcycleCalc_; 
+    }
+    solnDot_final_[0] = 0.0;
+}
+//====================================================================================================================
 //  Calculate the norm of the difference between the predicted answer and the final converged answer
 //  for the current time step
 /*
@@ -1706,6 +1856,12 @@ bool Electrode_Integrator::checkSubIntegrationStepAcceptable() const
 double Electrode_Integrator::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS)
 {
     double pnorm = l0normM(soln_predict_, yvalNLS, neq_, atolNLS_, rtolNLS_);
+
+    double pnorm_dot = l0normM(soln_predict_fromDot_, yvalNLS, neq_, atolNLS_, rtolNLS_);
+
+    if (pnorm_dot < pnorm) {
+       pnorm = pnorm_dot;
+    }
     return pnorm;
 }
 //====================================================================================================================
@@ -1781,7 +1937,6 @@ double Electrode_Integrator::predictorCorrectorGlobalSrcTermErrorNorm()
 void  Electrode_Integrator::predictorCorrectorPrint(const std::vector<double>& yval,
         double pnormSrc, double pnormSoln) const
 {
-    double atolVal = 1.0E-8;
     double denom;
     double tmp;
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
@@ -1790,22 +1945,22 @@ void  Electrode_Integrator::predictorCorrectorPrint(const std::vector<double>& y
     printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E   deltaTGlob = %12.5E\n",
            counterNumberIntegrations_, t_init_init_, t_final_final_, t_final_final_ - t_init_init_);
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("                          Initial      Prediction      Actual          Difference         Tol   Contrib      |\n");
+    printf("             Initial      Prediction      Actual          Difference        ATol          Contrib  | RTOL = %g\n", rtolNLS_);
 
-    denom = MAX(fabs(yval[0]), fabs(soln_predict_[0]));
-    denom = MAX(denom, atolVal);
+    denom =  rtolNLS_ * MAX(fabs(yval[0]), fabs(soln_predict_[0]));
+    denom = MAX(denom, atolNLS_[0]);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
-    printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
-           deltaTsubcycleCalc_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
+    printf(" DeltaT   |%14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
+           deltaTsubcycleCalc_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolNLS_[0], tmp);
     for (int i = 1; i < (int) yval.size(); i++) {
-        denom = MAX(fabs(yval[i]), fabs(soln_predict_[i]));
-        denom = MAX(denom, atolVal);
+        denom = rtolNLS_ * MAX(fabs(yval[i]), fabs(soln_predict_[i]));
+        denom = MAX(denom, atolNLS_[i]);
         tmp = fabs((yval[i] - soln_predict_[i])/ denom);
-        printf(" soln %3d |              %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
-               i, soln_predict_[i],  yval[i], yval[i] - soln_predict_[i], atolVal, tmp);
+        printf(" soln %3d |               %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
+               i, soln_predict_[i],  yval[i], yval[i] - soln_predict_[i], atolNLS_[i], tmp);
     }
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("                                                                                                        %10.3E\n",
+    printf("                                                                                        %10.3E\n",
            pnormSoln);
 }
 //====================================================================================================================

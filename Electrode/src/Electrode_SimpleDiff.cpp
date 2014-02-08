@@ -503,6 +503,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *      (already set up)
      */ 
   
+    create_solvers();
 
     /*
      *  Initialize all of the variables on the domain
@@ -1348,7 +1349,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 
 #ifdef DEBUG_MODE
     if ( counterNumberSubIntegrations_ > 13000) {
-	printf("we are here\n");
+//	printf("we are here\n");
     }
 #endif
 
@@ -2047,8 +2048,25 @@ int Electrode_SimpleDiff::predictSoln()
      */
     packNonlinSolnVector(DATA_PTR(soln_predict_));
 
+    yvalNLS_init_[0] =  deltaTsubcycleCalc_;
+
     return retn;
 }
+//==================================================================================================================
+void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
+{
+    packNonlinSolnVector(DATA_PTR(yvalNLS_init_));
+
+    if (doOthers) {
+	int neqNLS = nEquations();
+	for (int i = 0; i < neqNLS; i++) {
+	    yvalNLS_[i] = yvalNLS_init_[i];
+	    yvalNLS_final_final_[i] = yvalNLS_init_[i];
+	    yvalNLS_init_init_[i]           = yvalNLS_init_[i];
+	}
+    }
+}
+
 //====================================================================================================================
 // Unpack the soln vector
 /*
@@ -2204,6 +2222,9 @@ void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
 double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
     double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
+
+    double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
+
     return pnorm;
 }
 //====================================================================================================================

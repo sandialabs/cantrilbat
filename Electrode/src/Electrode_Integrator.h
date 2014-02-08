@@ -220,6 +220,8 @@ public:
     void print(int lvl) const;
     bool operator==(const SubIntegrationHistory& other) const;
     bool operator!=(const SubIntegrationHistory& other) const;
+
+    
 	
     //! Number of regular time steps, where there are no special events 
     int nTimeStepsRegular_;
@@ -410,6 +412,7 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln();
+    virtual int predictSolnDot();
 
     //! Extract information from cantera
     /*!
@@ -436,6 +439,9 @@ public:
      *             deltaBoundsMagnitudesNLS_
      */
     virtual void initialPackSolver_nonlinFunction();
+
+    //! formulate and/or check the value of yvalNLS_init
+    virtual void check_yvalNLS_init(bool doOthers);
 
     //! Check the nonlinear residual equations for completeness and the ability to be solved
     /*!
@@ -594,8 +600,6 @@ public:
      */
     virtual int getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot);
 
-
-
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
      * (virtual from Cantera::ResidJacEval)
@@ -619,7 +623,6 @@ public:
                                        const doublereal* const ySolnDot, doublereal* const deltaYSoln,
                                        const doublereal* const solnWeights);
 
-
     //! Unpack the soln vector
     /*!
      *  (virtual from Electrode_Integrator)
@@ -637,6 +640,8 @@ public:
      *  @return Returns a bool true if the step is acceptable, and false if it is unacceptable.
      */
     virtual bool  checkSubIntegrationStepAcceptable() const;
+
+    virtual void calc_solnDot_final();
 
     //!  Calculate the norm of the difference between the predicted answer and the final converged answer
     //!  for the current time step
@@ -767,6 +772,27 @@ public:
     // -------------------------------  SET STATE FUNCTIONS ----------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
 
+    //! Set the internal initial intermediate and initial global state from the internal final state
+    /*!
+     *  (virtual function)
+     *
+     *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
+     *  routine as well.
+     *
+     * @param setInitInit   Boolean indicating whether you should set the init_init state as well
+     */
+    virtual void setInitStateFromFinal(bool setInitInit = false);
+
+    //! Set the internal initial intermediate and initial global state from the internal final_final state
+    /*!
+     *  (virtual function)
+     *
+     *  Set the intial  and init_int state and the final_final from the final state. We also can set the init_init state from this
+     *  routine as well.
+     *
+     */
+    virtual void setInitInitStateFromFinalFinal();
+
     //! Set the internal final intermediate and from the internal init state
     /*!
      *  (non-virtual function)  -> function should onionize in-first.
@@ -776,7 +802,6 @@ public:
      */
     virtual void setFinalStateFromInit_Oin();
 
-
     //! Set the internal final intermediate and from the internal init state
     /*!
      *  (virtual function from Electrode)
@@ -785,6 +810,25 @@ public:
      *
      */
     virtual void setFinalStateFromInit();
+
+    //! Set the internal initial intermediate from the internal initial global state
+    /*!
+     *  Set the intial state from the init init state. We also can set the final state from this
+     *  routine as well.
+     *
+     *  The final_final is not touched.
+     *
+     * @param setFinal   Boolean indicating whether you should set the final as well
+     */
+    virtual void setInitStateFromInitInit(bool setFinal = false);
+
+    //! Set the internal final global state from the internal final intermediate state
+    /*!
+     *  (virtual function from Electrode)
+     *
+     *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
+     */
+    virtual void setFinalFinalStateFromFinal();
 
     // ---------------------------------------------------------------------------------------------
     // ------------------------------ PRINT ROUTINES -----------------------------------------------------------------------
@@ -885,6 +929,13 @@ protected:
     //! Vector of solution values for the nonlinear solver
     std::vector<doublereal> yvalNLS_;
 
+    std::vector<doublereal> yvalNLS_init_;
+    std::vector<doublereal> yvalNLS_init_init_;
+    std::vector<doublereal> yvalNLS_final_final_;
+
+  public:
+    bool haveGood_yvalNLS_init_;
+
     //! Vector of solution dot values for the nonlinear solver
     std::vector<doublereal> ydotNLS_;
 
@@ -916,6 +967,15 @@ protected:
      *  we augment this vector with the onBoundaryRegion value prediction.
      */
     std::vector<double> soln_predict_;
+
+    //! 
+    std::vector<double> solnDot_init_;
+    std::vector<double> solnDot_final_;
+    std::vector<double> solnDot_final_final_;
+    std::vector<double> solnDot_init_init_;
+
+    std::vector<double> soln_predict_fromDot_;
+
 
     //! Pointer to the nonlinear solver
     NonlinearSolver* pSolve_;

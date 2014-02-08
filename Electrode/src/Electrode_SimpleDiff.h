@@ -230,6 +230,12 @@ public:
      */
     void packNonlinSolnVector(double* const y) const;
 
+    //! Check existing or formulate an initial value for the solution vector
+    /*!
+     *  @param doOthers Fill the other yvalNLS values with the value
+     */
+    virtual void check_yvalNLS_init(bool doOthers);
+
     //!   Calculate the integrated source terms and do other items now that we have a completed time step
     /*!
      *  (virtual from Electrode_Integrator)
