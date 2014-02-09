@@ -944,6 +944,7 @@ public:
      */
     virtual void revertToInitialTime(bool revertToInitInit = true);
 
+  private:
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
      *  (non-virtual function)  -> function should onionize in-first.
@@ -954,7 +955,7 @@ public:
      * @param setInitInit   Boolean indicating whether you should set the init_init state as 
      */
     void setInitStateFromFinal_Oin(bool setInitInit = false);
-
+  public:
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
      *  (virtual function)

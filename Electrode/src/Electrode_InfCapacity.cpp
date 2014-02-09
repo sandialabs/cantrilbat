@@ -306,7 +306,7 @@ void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doTest
  */
 void Electrode_InfCapacity::setInitStateFromFinal(bool setInitInit)
 {
-    Electrode::setInitStateFromFinal_Oin(setInitInit);
+    Electrode::setInitStateFromFinal(setInitInit);
 }
 //====================================================================================================================
 void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)

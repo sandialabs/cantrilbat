@@ -3583,7 +3583,7 @@ void Electrode_MP_RxnExtent::setInitStateFromFinal_Oin(bool setInitInit)
     /*
      * Call the parent object
      */
-    Electrode_Integrator::setInitStateFromFinal_Oin(setInitInit);
+    Electrode_Integrator::setInitStateFromFinal(setInitInit);
 
 
     // Copy The final Extent of reaction to the beginning extent

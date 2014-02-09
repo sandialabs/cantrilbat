@@ -510,9 +510,7 @@ Electrode_RadialRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     Electrode::setInitialConditions(ei);
 
-
-
-    setInitStateFromFinal_Oin(true);
+    Electrode::setInitStateFromFinal(true);
 
     setPhaseExistenceForReactingSurfaces();
     // printf("spMoles_final_[2] = %g\n", spMoles_final_[2]);

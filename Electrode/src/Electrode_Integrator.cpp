@@ -838,11 +838,6 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     determineBigMoleFractions();
 
     /*
-     * Set up the yvalNLS_init 
-     */
-    check_yvalNLS_init(true);
-
-    /*
      *  Save the state into an XML state object
      */
     if (eState_final_) {
@@ -878,6 +873,11 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         if (iterSubCycle > 1) {
             setInitStateFromFinal(false);
         }
+
+	/*
+	 * Set up the yvalNLS_init 
+	 */
+	check_yvalNLS_init(true);
 
         /*
          *  Calculate the time interval from the previous step or from the initial value coming into the routine
@@ -1702,10 +1702,12 @@ void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
     int neqNLS = nEquations();
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_init_[i] =  solnDot_final_[i];
+	yvalNLS_init_[i] =  yvalNLS_[i];
     }
     if (setInitInit) {
 	for (int i = 0; i < neqNLS; i++) {
 	    solnDot_init_init_[i] =  solnDot_final_[i];
+	    yvalNLS_init_init_[i] =  yvalNLS_[i];
 	}
     }
 }

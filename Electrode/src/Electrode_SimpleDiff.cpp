@@ -2231,6 +2231,13 @@ double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vecto
     double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
 
     double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
+    if (pnorm_dot < pnorm) {
+#ifdef DEBUG_MODE
+	printf("Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot %g beat out pnorm %g\n",
+	       pnorm_dot, pnorm);
+#endif
+	pnorm = pnorm_dot;
+    }
 
     return pnorm;
 }
@@ -4045,7 +4052,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     /*
      * Call the parent object
      */
-    Electrode_Integrator::setInitStateFromFinal_Oin(setInitInit);
+    Electrode_Integrator::setInitStateFromFinal(setInitInit);
 
     int iCell, i;
  
@@ -4072,7 +4079,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     /*
      *  Now transfer that to other states
      */
-    setFinalFinalStateFromFinal();
+    //setFinalFinalStateFromFinal();
 
     if (setInitInit) {
 	for (i = 0; i < ntotal; ++i) {
