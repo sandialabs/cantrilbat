@@ -652,7 +652,9 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
 
-
+  
+    numIntegratedSrc_ = m_NumTotSpecies;
+    create_solvers();
     /*
      *  Calculate the solid volume and the external radius. Apparently, this step is needed
      */
@@ -685,8 +687,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
     diffusionCoeffRegions_ = ei->diffusionCoeffRegions_;
 
-    numIntegratedSrc_ = m_NumTotSpecies;
-    create_solvers();
+   
 
     return 0;
 }
