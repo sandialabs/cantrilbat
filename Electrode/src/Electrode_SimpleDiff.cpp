@@ -513,6 +513,8 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     initializeAsEvenDistribution();
 
+    resetCapacityDischargedToDate(); 
+
     return 0;
 }
 //====================================================================================================================
@@ -1154,7 +1156,9 @@ void Electrode_SimpleDiff::updateState()
 // under construction
 /*
  *   This routine does several checks
- *
+ *     - Checks to see if the total phase Moles is consistent with the species moles in each cell
+ *     - Checks to see if the mesh geometry for each cell is consistent with the 
+ *       molar volume multiplied by phase moles.
  */
 void Electrode_SimpleDiff::checkGeometry() const
 {
@@ -1227,6 +1231,69 @@ void Electrode_SimpleDiff::checkGeometry() const
 	}
     }
 
+}
+//========================================================================================================================
+//  Here we check to see if we can account for the 
+/*
+ *
+ */
+void Electrode_SimpleDiff::checkMoles_final_init() const
+{
+    double sum, sum_f, sum_i;
+    bool doErr = false;
+    for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	int iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	int iStart = getGlobalSpeciesIndex(iPh, 0);
+	ThermoPhase* th = & thermo(iPh);
+	int nSpecies = th->nSpecies();
+	    
+	for (int kSp = 0; kSp < nSpecies; kSp++) {
+	    int isp = iStart + kSp;
+	    sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
+	    sum_i = spMoles_init_[isp];
+	    sum = sum_f - sum_i;
+	    double denom = std::max(sum_i, 1.0E-30);
+	    if (abs(sum) > sum_i * 1.0E-6) {
+		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
+		       isp, sum_f, sum_i);
+		printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
+		       spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+		   
+		doErr = true;
+	    }		
+	}
+    
+	if (doErr) {
+	    for (int kSp = 0; kSp < nSpecies; kSp++) {
+		int isp = iStart + kSp;
+		sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
+		sum_i = spMoles_init_[isp];
+		sum = sum_f - sum_i;
+		double denom = std::max(sum_i, 1.0E-30);
+	
+		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
+		       isp, sum_f, sum_i);
+		printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
+		       spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+	    
+	    }		
+	    exit(-1);
+	}
+    }
+}
+//========================================================================================================================
+
+void Electrode_SimpleDiff::check_final_state()
+{
+#ifdef DEBUG_NEWMODELS
+    // While in debug mode, check the inventory of capacity to account for all electrons
+    checkCapacityBalances_final();
+#endif
+#ifdef DEBUG_NEWMODELS
+    checkMoles_final_init();
+#endif
 }
 //========================================================================================================================
 //  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.

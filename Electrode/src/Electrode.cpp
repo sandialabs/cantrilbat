@@ -136,6 +136,8 @@ Electrode::Electrode() :
                 electronKmolDischargedToDate_(0.0),
                 capacityLeftSpeciesCoeff_(0),
                 capacityZeroDoDSpeciesCoeff_(0),
+		capacityInitialZeroDod_(0.0),
+		depthOfDischargeStarting_(0.0),
                 Icurrent_(0.0),
                 deltaG_(0),
                 inputParticleDiameter_(1.0E-6),
@@ -243,6 +245,8 @@ Electrode::Electrode(const Electrode& right) :
                 electronKmolDischargedToDate_(0.0),
                 capacityLeftSpeciesCoeff_(0),
                 capacityZeroDoDSpeciesCoeff_(0),
+                capacityInitialZeroDod_(0.0),
+		depthOfDischargeStarting_(0.0),
                 Icurrent_(0.0),
                 deltaG_(0),
                 inputParticleDiameter_(1.0E-6),
@@ -385,6 +389,7 @@ Electrode& Electrode::operator=(const Electrode& right)
     capacityLeftSpeciesCoeff_ = right.capacityLeftSpeciesCoeff_;
     capacityZeroDoDSpeciesCoeff_ = right.capacityZeroDoDSpeciesCoeff_;
     capacityInitialZeroDod_ = right.capacityInitialZeroDod_;
+    depthOfDischargeStarting_ = right.depthOfDischargeStarting_;
     Icurrent_ = right.Icurrent_;
     deltaG_ = right.deltaG_;
     inputParticleDiameter_ = right.inputParticleDiameter_;

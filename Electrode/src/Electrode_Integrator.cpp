@@ -1995,6 +1995,10 @@ void Electrode_Integrator::manageBirthDeathSuccessfulStep()
  */
 void Electrode_Integrator::check_final_state()
 {
+#ifdef DEBUG_NEWMODELS
+    // While in debug mode, check the inventory of capacity to account for all electrons
+    checkCapacityBalances_final();
+#endif
 }
 //====================================================================================================================
 // Print a header for the residual printout

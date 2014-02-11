@@ -355,6 +355,9 @@ protected:
     //! Depth of discharge (coulombs)
     double depthOfDischarge_;
 
+    //! Starting depth of Discharge;
+    double depthOfDischargeStarting_;
+
     //! Initial conditions for the electrode in terms of the initial discharged capacity
     /*!
      *  The default value for this is -1. If default, then this value is used.

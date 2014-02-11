@@ -49,6 +49,7 @@ EState::EState() :
     capacityLeft_(0.0),
     capacityInitial_(0.0),
     depthOfDischarge_(0.0),
+    depthOfDischargeStarting_(0.0),
     relativeElectronsDischargedPerMole_(0.0),
     relativeDepthOfDischarge_(0.0),
     capacityDischargedToDate_(0.0),
@@ -84,6 +85,7 @@ EState::EState(const EState& right) :
     capacityLeft_(0.0),
     capacityInitial_(0.0),
     depthOfDischarge_(0.0),
+    depthOfDischargeStarting_(0.0),
     relativeElectronsDischargedPerMole_(0.0),
     relativeDepthOfDischarge_(0.0),
     capacityDischargedToDate_(0.0),
@@ -129,6 +131,7 @@ EState& EState::operator=(const EState& right)
     capacityLeft_                      = right.capacityLeft_;
     capacityInitial_                   = right.capacityInitial_;
     depthOfDischarge_                  = right.depthOfDischarge_;
+    depthOfDischargeStarting_          = right.depthOfDischargeStarting_;
     relativeElectronsDischargedPerMole_= right.relativeElectronsDischargedPerMole_;
     relativeDepthOfDischarge_          = right.relativeDepthOfDischarge_;
     capacityDischargedToDate_          = right.capacityDischargedToDate_;
@@ -213,6 +216,7 @@ XML_Node*   EState::writeStateToXML() const
     ctml::addFloat(*x, "capacityLeft", capacityLeft_, "coulomb");
     ctml::addFloat(*x, "capacityInitial", capacityInitial_, "coulomb");
     ctml::addFloat(*x, "depthOfDischarge", depthOfDischarge_, "coulomb");
+    ctml::addFloat(*x, "depthOfDischargeStarting", depthOfDischargeStarting_, "coulomb");
     ctml::addFloat(*x, "relativeElectronsDischargedPerMole", relativeElectronsDischargedPerMole_, "");
     ctml::addFloat(*x, "relativeDepthOfDischarge", relativeDepthOfDischarge_, "");
     ctml::addFloat(*x, "capacityDischargedToDate", capacityDischargedToDate_, "coulomb");
@@ -280,6 +284,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     capacityLeft_ = ctml::getFloat(xmlEState, "capacityLeft", "toSI");
     capacityInitial_ = ctml::getFloat(xmlEState, "capacityInitial", "toSI");
     depthOfDischarge_ = ctml::getFloat(xmlEState, "depthOfDischarge", "toSI");
+    depthOfDischargeStarting_ = ctml::getFloat(xmlEState, "depthOfDischargeStarting", "toSI");
     relativeElectronsDischargedPerMole_ = ctml::getFloat(xmlEState, "relativeElectronsDischargedPerMole", "toSI");
     relativeDepthOfDischarge_ = ctml::getFloat(xmlEState, "relativeDepthOfDischarge", "toSI");
     capacityDischargedToDate_ = ctml::getFloat(xmlEState, "capacityDischargedToDate", "toSI");
@@ -308,6 +313,7 @@ void EState::copyElectrode_intoState(const Cantera::Electrode* const e)
     capacityLeft_                      = e->capacityLeft();
     capacityInitial_                   = e->capacityInitial();
     depthOfDischarge_                  = e->depthOfDischarge();
+    depthOfDischargeStarting_          = e->depthOfDischargeStarting();
 
     relativeDepthOfDischarge_          = e->depthOfDischargeFraction();
 
@@ -355,6 +361,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->ElectrodeSolidVolume_              = electrodeSolidVolume_;
     e->Radius_exterior_final_             = radiusExterior_;
     e->surfaceAreaRS_final_               = surfaceAreaRS_;
+    e->depthOfDischargeStarting_          = depthOfDischargeStarting_;
     e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Cantera::Faraday;
 
     e->setCapacityType(electrodeCapacityType_);

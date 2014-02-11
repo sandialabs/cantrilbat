@@ -118,6 +118,58 @@ double Electrode::depthOfDischarge(int platNum) const
     return (dod);
 }
 //====================================================================================================================
+//  Check on the accounting of the capacity, done at t_final
+/*
+ *  This check should be as extensive as possible. It should be more extensive in the child routines. The
+ *  parent routines does a cursory accounting.
+ *  
+ *   Virtual from Electrode
+ *
+ *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+ *
+ *  @return  true if everything checks out. False otherwise
+ */
+bool Electrode::checkCapacityBalances_final(int platNum) const
+{
+    // The following is a default treatment 
+    // It's not very 
+    double capLeft = capacityLeft(platNum);
+
+    double capDischarged = capacityDischarged(platNum);
+
+    double cap = capacity(platNum);
+    double capS = depthOfDischargeStarting(platNum);
+
+    double capOrig = capacityInitial(platNum);
+    double rel = capOrig - cap;
+    double denom = std::max(capOrig, rel);
+    denom = std::max(denom, 1.0E-50);
+    if (abs(rel) > 1.0E-12 * denom) {
+	printf("Electrode::checkCapacityBalances_final ERROR: init cap % 19.12E  not same as curr cap % 19.12E (%d)\n",
+	       capOrig, cap, platNum);
+#ifdef DEBUG_MODE
+	throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity loss mechanism unaccounted for");
+#endif
+	return false;
+    }
+
+    rel = capOrig - capLeft - capDischarged - capS;
+    denom = std::max(capOrig, capDischarged);
+    denom = std::max(denom, 1.0E-50);
+    if (abs(rel) > 1.0E-12 * denom) {
+	printf("Electrode::checkCapacityBalances_final  cap not accounted for by % 19.12E coulombs (%d)\n", rel, platNum);
+	printf("\t\t\tcapOrig       = % 19.12E coulombs  \n", capOrig);
+	printf("\t\t\tcapleft       = % 19.12E\n", capLeft);
+	printf("\t\t\tcapDischarged = % 19.12E\n", capDischarged);
+	printf("\t\t\tDoD_starting  = % 19.12E\n", capS);
+#ifdef DEBUG_MODE
+	//throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity unaccounted for");
+#endif
+	return false;
+    }
+    return true;
+}
+//====================================================================================================================
 // Report the current depth of discharge in percent
 /*
  * Report the current depth of discharge. This is roughly equal to the total
@@ -156,6 +208,11 @@ double Electrode::capacityDischarged(int platNum) const
     return tmp * Cantera::Faraday;
 }
 //======================================================================================================================
+double Electrode::depthOfDischargeStarting(int platNum) const
+{
+    return depthOfDischargeStarting_;
+}
+//======================================================================================================================
 // Reset the counters that keep track of the amount of discharge to date
 void Electrode::resetCapacityDischargedToDate() 
 {
@@ -164,6 +221,7 @@ void Electrode::resetCapacityDischargedToDate()
                         "called during a pending integration step");
   }
   electronKmolDischargedToDate_ = 0.0;
+  depthOfDischargeStarting_ = depthOfDischarge();
 }
 //======================================================================================================================
 Electrode_Capacity_Type_Enum Electrode::capacityType() const

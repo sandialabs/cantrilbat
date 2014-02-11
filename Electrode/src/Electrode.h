@@ -1694,12 +1694,22 @@ public:
      *
      *        At all times the following relation holds:
      *
-     *  capacity() = capacityDischarged() + capacityLeft().
+     *  capacity() = capacityDischarged() + capacityLeft() + capacityStarting().
      *
      *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
      */
     virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+
+
+    //! Initial starting depth of discharge in coulombs
+    /*!
+     * 
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
+    virtual double depthOfDischargeStarting(int platNum = -1) const;
 
     //! Report the current depth of discharge in Amp seconds
     /*!
@@ -1746,6 +1756,9 @@ public:
      *  @return  returns the depth of discharge in percent
      */
     double depthOfDischargePerMole(int platNum = -1) const;
+
+    bool checkCapacityBalances_final(int platNum = -1) const;
+
 
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -2664,6 +2677,12 @@ protected:
      *  units = kmol
      */
     double capacityInitialZeroDod_;
+
+    //! Starting depth of discharge in coulombs
+    /*!
+     *   Initial value of the depth of discharge
+     */
+    double depthOfDischargeStarting_;
 
     //! Current going through the electrode
     /*!

@@ -423,6 +423,9 @@ public:
      *  works on _final_ state only
      */
     void checkGeometry() const;
+    void checkMoles_final_init() const;
+
+    virtual void check_final_state();
 
     //!  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
     /*!
