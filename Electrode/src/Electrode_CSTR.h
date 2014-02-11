@@ -456,7 +456,7 @@ public:
      *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
      */
     virtual void predictorCorrectorPrint(const std::vector<double>& yval,
-                                         double pnormSrc, double pnormSoln);
+                                         double pnormSrc, double pnormSoln) const;
 
     //! Possibly change the solution due to phase births and deaths.
     /*!

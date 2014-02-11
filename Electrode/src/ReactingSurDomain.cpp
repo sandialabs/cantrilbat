@@ -114,7 +114,7 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     speciesDestructionRates_ = right.speciesDestructionRates_;
 
     // Shallow copy of m_pl -> beware
-    m_pl            = m_pl;
+    m_pl            = right.m_pl;
 
     metalPhaseRS_ = right.metalPhaseRS_;
     kElectronRS_ = right.kElectronRS_;

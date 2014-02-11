@@ -49,7 +49,7 @@ class BI_Dependency;
  * Bringing it into the BEInput namespace as it
  * is used in the interface to public functions
  */
-typedef struct TKInput::TOKEN TK_TOKEN;
+typedef class TKInput::TOKEN TK_TOKEN;
 
 //! Convert a double into a c++ string
 /*

@@ -3239,7 +3239,7 @@ void Electrode::addExtraGlobalRxn(EGRInput* egr_ptr)
     }
 
     for (int iErxn = 0; iErxn < egr_ptr->m_numElemReactions; iErxn++) {
-        struct ERSSpec* ers_ptr = egr_ptr->m_ERSList[iErxn];
+        ERSSpec* ers_ptr = egr_ptr->m_ERSList[iErxn];
         RxnVector[ers_ptr->m_reactionIndex] = ers_ptr->m_reactionMultiplier;
     }
     egr->setupElemRxnVector(RxnVector, egr_ptr->m_SS_KinSpeciesKindex);

@@ -2583,7 +2583,7 @@ void Electrode_CSTR::predictorCorrectorGlobalSrcTermErrorVector()
 }
 //====================================================================================================================
 void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval,
-        double pnormSrc, double pnormSoln)
+        double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
     double denom;

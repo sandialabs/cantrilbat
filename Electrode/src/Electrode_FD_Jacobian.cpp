@@ -29,7 +29,6 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
   double electrolytePhaseSource[2];
   double individualSpeciesSource[2];
 
-  int electrolytePhaseIndex = electrode->solnPhaseIndex();
   int electronIndex = electrode->kSpecElectron();
 
   std::vector<double> perturbed_point = centerpoint;

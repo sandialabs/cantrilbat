@@ -245,7 +245,7 @@ void Electrode_SurfaceRegion::updateState()
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_SurfaceRegion::extractInfo(std::vector<int>& justBornMultiSpecies)
+void  Electrode_SurfaceRegion::extractInfoJustBorn(std::vector<int>& justBornMultiSpecies)
 {
 
 

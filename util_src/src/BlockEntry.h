@@ -27,7 +27,7 @@
 namespace BEInput {
 
   // Forward declaration
-  struct LineEntry;
+  class LineEntry;
 
 #define BE_ANY_INDEX -7777779
 

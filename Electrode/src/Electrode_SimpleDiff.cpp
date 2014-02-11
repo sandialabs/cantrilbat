@@ -1252,7 +1252,6 @@ void Electrode_SimpleDiff::checkMoles_final_init() const
 	    sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
 	    sum_i = spMoles_init_[isp];
 	    sum = sum_f - sum_i;
-	    double denom = std::max(sum_i, 1.0E-30);
 	    if (abs(sum) > sum_i * 1.0E-6) {
 		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
 		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
@@ -1270,7 +1269,6 @@ void Electrode_SimpleDiff::checkMoles_final_init() const
 		sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
 		sum_i = spMoles_init_[isp];
 		sum = sum_f - sum_i;
-		double denom = std::max(sum_i, 1.0E-30);
 	
 		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
 		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
@@ -2925,7 +2923,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
          */
         cbR3_init  = cellBoundR_init_[iCell]  * cellBoundR_init_[iCell]  * cellBoundR_init_[iCell];
         cbR3_final = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
-	double vol_final_ = volFac * (cbR3_final - cbL3_final);
+        double vol_final_ = volFac * (cbR3_final - cbL3_final);
         /*
          * Calculate powers of the lattice coordinate at the right cell boundary
          */
@@ -2933,16 +2931,13 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         r0R3_final = r0R_final * r0R_final * r0R_final;
         /*
          * Calculate the molar volume of the first phase, final and init values
-	 *  We will assume for now that this is the lattice molar volume
+         * We will assume for now that this is the lattice molar volume
          */
-        double vbarLattice_final = 1.0 / concTotalVec_SPhase_final[0];
-        double vbarLattice_init  = 1.0 / concTotalVec_SPhase_init[0];
-
-	if (iCell == 0) {
-	    numLatticeCBR_final_[iCell] = concTotalVec_SPhase_final[0] * vol_final_;
-	} else {
-	    numLatticeCBR_final_[iCell] = numLatticeCBR_final_[iCell-1] + concTotalVec_SPhase_final[0] * vol_final_;
-	}
+        if (iCell == 0) {
+            numLatticeCBR_final_[iCell] = concTotalVec_SPhase_final[0] * vol_final_;
+        } else {
+            numLatticeCBR_final_[iCell] = numLatticeCBR_final_[iCell-1] + concTotalVec_SPhase_final[0] * vol_final_;
+        }
         /*
          * Residual calculation - Value of the Lattice radius at the right cell boundary
 	 *  This is Eqn. 21 in the Memo writeup

@@ -3382,7 +3382,7 @@ void Electrode_MP_RxnExtent::predictorCorrectorGlobalSrcTermErrorVector()
  *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
  *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
  */
-void Electrode_MP_RxnExtent::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln)
+void Electrode_MP_RxnExtent::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
     double denom;
@@ -3415,8 +3415,8 @@ void Electrode_MP_RxnExtent::predictorCorrectorPrint(const std::vector<double>& 
      *  Do a special call to the residual evaluator. This will print out predicted quantities versus actual quantities.
      *  This is very useful for debugging the predictor.
      */
-    double resid[8];
-    integrateResid(tfinal_, deltaTsubcycle_, &yvalNLS_[0], &ydotNLS_[0], resid, Base_ShowSolution, 0, 0.0);
+    //double resid[8];
+    //integrateResid(tfinal_, deltaTsubcycle_, &yvalNLS_[0], &ydotNLS_[0], resid, Base_ShowSolution, 0, 0.0);
 
 
 }
@@ -4086,18 +4086,19 @@ double Electrode_MP_RxnExtent::openCircuitVoltage(int isk)
     return openCircuitVoltageRxn(isk, -1);
 }
 //======================================================================================================================
-double Electrode_MP_RxnExtent::openCircuitVoltageRxn(int isk, int iReaction)
+double Electrode_MP_RxnExtent::openCircuitVoltageRxn(int isk, int iReaction) const
 {
     if (isk != indexOfReactingSurface_) {
         return 0.0;
     }
-    double voltBase = Electrode::openCircuitVoltage(indexOfReactingSurface_);
+    //FIXME: This function is not const and is only used for a debug check here, is that debug check really important?
+    //double voltBase = Electrode::openCircuitVoltage(indexOfReactingSurface_);
     double volts =  openCircuitVoltage_Region(RelativeExtentRxn_final_, xRegion_final_);
-    if (fabs(voltBase - volts) > 1.0E-6) {
+    /*if (fabs(voltBase - volts) > 1.0E-6) {
         throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltage()",
                            "Internal inconsistency: " +  fp2str(voltBase) + "  " + fp2str(volts));
-    }
-    return voltBase;
+    }*/
+    return volts;
 }
 //====================================================================================================================
 double Electrode_MP_RxnExtent::openCircuitVoltage_Region(double relativeExtentRxn, int xRegion) const
@@ -4212,7 +4213,7 @@ void  Electrode_MP_RxnExtent::setRelativeCapacityDischargedPerMole(double relDis
     double relativeExtentRxn;
     if (platNum < 0) {
         relativeExtentRxn = relDischargedPerMole;
-    } else  if (platNum >= 0) {
+    } else {
         double bb =  RegionBoundaries_ExtentRxn_[platNum+1] -  RegionBoundaries_ExtentRxn_[platNum];
         if (relDischargedPerMole > bb) {
             throw CanteraError(" Electrode_MP_RxnExtent::setCapacityDischarged()",
@@ -4679,6 +4680,8 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
         } else if (locationOfReactingSurface_ == 2) {
             printf("                FOR PURPOSES OF RXN, Using the external surface area:\n");
             isurfA = 1;
+        } else {
+          throw CanteraError("Electrode_MP_RxnExtent::printElectrodePhase", "locationOfReactingSurface_ != 0,1,2");
         }
 
         radius = sqrt(surfaceAreaRS_final_[isurfA] / (4.0 * Pi * particleNumberToFollow_));

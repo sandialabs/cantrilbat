@@ -895,7 +895,7 @@ void Electrode_RadialRegion::updateStateDistrib(bool zeroGlobals)
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_RadialRegion::extractInfo(std::vector<int>& justBornMultiSpecies)
+void  Electrode_RadialRegion::extractInfoJustBorn(std::vector<int>& justBornMultiSpecies)
 {
 
     updateState();
@@ -1059,7 +1059,7 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
 
 
 
-    double deltaRStar;
+    double deltaRStar = 0.0;
 
 
 

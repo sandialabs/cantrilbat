@@ -214,7 +214,7 @@ int main(int argc, char **argv)
     //electrodeA->enableExtraPrinting_ = 10;
     Tfinal = electrodeA->getFinalTime();
 
-    int rr = remove("soln.xml");
+    remove("soln.xml");
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;

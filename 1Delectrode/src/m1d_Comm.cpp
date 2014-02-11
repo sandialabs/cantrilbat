@@ -275,7 +275,7 @@ stream0::print0(const char *format, ...)
 int
 stream0::fprintf0only(const char *format, ...)
 {
-  int n;
+  int n = 0;
   if (statprocID == 0) {
       va_list ap;
       static char buf[1024];

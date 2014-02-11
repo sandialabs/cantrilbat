@@ -581,8 +581,8 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
         const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x)
 {
 
-    double tinit = tfinal - deltaTsubcycle;
     /*
+    double tinit = tfinal - deltaTsubcycle;
     bool newStep= false;
     if (fabs(tinit - tinit_) > 1.0E-14) {
         newStep = true;

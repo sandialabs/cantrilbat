@@ -162,7 +162,7 @@ CXX=${CXX:=g++}
 #
 # C++ compiler flags to use
 #
-CXXFLAGS=${CXXFLAGS:="-O2 -Wall"}
+CXXFLAGS=${CXXFLAGS:="-O2 -Wall"} # -Werror"}
 #
 # Loader flags for the C++ compiler
 #   -> These default to the CXXFLAGS

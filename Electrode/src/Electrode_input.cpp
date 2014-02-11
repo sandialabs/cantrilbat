@@ -794,7 +794,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     /*
      * OK now define items in the block
      */
-    struct EGRInput* egr_ptr = m_EGRList[0];
+    EGRInput* egr_ptr = m_EGRList[0];
 
     /* --------------------------------------------------------------
      * EGR -> Special Species
@@ -817,7 +817,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     /*
      * OK now define items in the block
      */
-    struct ERSSpec* ers_ptr = egr_ptr->m_ERSList[0];
+    ERSSpec* ers_ptr = egr_ptr->m_ERSList[0];
 
 
     /* ------------------------------------------------------------------

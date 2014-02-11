@@ -511,9 +511,8 @@ void Electrode_RadialDiffRegions::updateState()
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_RadialDiffRegions::extractInfo(std::vector<int>& justBornMultiSpecies)
+void  Electrode_RadialDiffRegions::extractInfoJustBorn(std::vector<int>& justBornMultiSpecies)
 {
-
     updateState();
 }
 //====================================================================================================================

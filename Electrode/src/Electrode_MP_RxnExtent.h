@@ -619,7 +619,7 @@ public:
     virtual double predictorCorrectorGlobalSrcTermErrorNorm();
 
     virtual void predictorCorrectorPrint(const std::vector<double>& yval,
-                                         double pnormSrc, double pnormSoln);
+                                         double pnormSrc, double pnormSoln) const;
 
     //! Check to see that the preceding step is a successful one
     /*!
@@ -737,7 +737,7 @@ public:
      */
     virtual double openCircuitVoltage(int isk);
 
-    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1);
+    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1) const;
 
     //! Returns the equilibrium  open circuit voltage for the current conditions 
     /*!
