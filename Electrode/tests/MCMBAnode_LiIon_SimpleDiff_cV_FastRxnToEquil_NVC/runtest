@@ -51,7 +51,7 @@ then
     echo "Partial Successful test comparison on "`pwd` " but text files differ. See diff_out.txt"
   fi
 else
-  echo "Unsuccessful test comparison on "`pwd` " test. See diff_icsv.txt and diff_gcsv.txt"
+  echo "Unsuccessful test comparison on "`pwd` " test. See diff_csv.txt and diff_gcsv.txt"
   if  test $retnStat_txt != "0"
   then
      echo "            Text files differ also. See diff_out.txt"
