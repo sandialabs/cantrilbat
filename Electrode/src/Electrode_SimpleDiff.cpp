@@ -2300,8 +2300,10 @@ double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vecto
     double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
     if (pnorm_dot < pnorm) {
 #ifdef DEBUG_MODE
-	printf("Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot %g beat out pnorm %g\n",
-	       pnorm_dot, pnorm);
+	if (printLvl_ > 2) {
+	    printf("Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot %g beat out pnorm %g\n",
+		   pnorm_dot, pnorm);
+	}
 #endif
 	pnorm = pnorm_dot;
     }
