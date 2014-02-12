@@ -521,6 +521,7 @@ oc[0] = -0.023098
                            V_C6-bulk               3.653E-01
                            li_site                 0.000E+00
    ==============================================================================================
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 10.7659 beat out pnorm 54.7925
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -639,6 +640,7 @@ oc[0] = -0.023098
                            V_C6-bulk               4.142E-01
                            li_site                 0.000E+00
    ==============================================================================================
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.12757 beat out pnorm 9.13812
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
