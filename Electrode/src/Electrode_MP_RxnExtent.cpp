@@ -4625,7 +4625,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
     int printDetail = 10;
     //int isph;
     int isurfA;
-    int isurf;
+    int isurf=-1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

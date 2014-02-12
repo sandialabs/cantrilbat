@@ -2815,8 +2815,6 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     //double r0L2_final = 0.0;
     // Reference radius cubed, Right and Left, at final time
 
-    double r0R3_final = 0.0;
-    double r0L3_final = 0.0;
     double rRefCBR3 = 0.0;
 
     double fluxTC, fluxM;
@@ -2892,7 +2890,6 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
     cbR3_final = 0.0;
     cbR3_init = 0.0;
-    r0R3_final = 0.0;
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 
         /*
@@ -2902,7 +2899,6 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         cbL3_final  = cbR3_final;
         cbL3_init   = cbR3_init;
         //r0L2_final  = r0R2_final;
-        r0L3_final  = r0R3_final;
 
         /*
          *  Calculate indexes for accessing the residual
@@ -2927,8 +2923,6 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         /*
          * Calculate powers of the lattice coordinate at the right cell boundary
          */
-        double r0R_final = rLatticeCBR_final_[iCell];
-        r0R3_final = r0R_final * r0R_final * r0R_final;
         /*
          * Calculate the molar volume of the first phase, final and init values
          * We will assume for now that this is the lattice molar volume
@@ -4399,7 +4393,7 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 
 void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-    int isph;
+    int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

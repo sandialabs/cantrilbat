@@ -1010,6 +1010,8 @@ int  Electrode_CSTR::predictSoln()
         goNowhere_ = 0;
         if (onRegionBoundary_final_ >= 0) {
 
+          // FIXME: this if block that sets vleft, vright, vtop, vbot will always have them overwritten
+          // by the following block on lines 1026-1034. Should those lines be in an else clause?
             if (onRegionBoundary_init_ == 0) {
                 vleft =  openCircuitVoltage_final_Region(-1);
                 vright = openCircuitVoltage_final_Region(0);
@@ -1026,7 +1028,7 @@ int  Electrode_CSTR::predictSoln()
             if (electrodeType_ == ELECTRODETYPE_CATHODE) {
                 vtop = vleft;
                 vbot = vright;
-            } else if (electrodeType_ == ELECTRODETYPE_ANODE) {
+            } else { // electrodeType_ == ELECTRODETYPE_ANODE
                 vtop = vright;
                 vbot = vleft;
             }
@@ -2179,7 +2181,7 @@ void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 //===================================================================================================================
 void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-    int isph;
+    int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

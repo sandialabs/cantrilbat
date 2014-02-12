@@ -551,7 +551,7 @@ void Electrode_RadialDiffRegions::printElectrode(int pSrc, bool subTimeStep)
 
 void Electrode_RadialDiffRegions::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-    int isph;
+    int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

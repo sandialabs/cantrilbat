@@ -4541,7 +4541,7 @@ void Electrode::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 //===================================================================================================================
 void Electrode::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-    int isurf;
+    int isurf = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

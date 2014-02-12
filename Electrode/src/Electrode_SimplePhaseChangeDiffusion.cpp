@@ -463,7 +463,7 @@ void  Electrode_SimplePhaseChangeDiffusion::resetStartingCondition(double Tiniti
 //================================================================================================
 void  Electrode_SimplePhaseChangeDiffusion::calcRate(double deltaTsubcycle)
 {
-    double  dadd, C_tmp, dadd_f, dadd_i;
+    double  C_tmp, dadd_f, dadd_i;
 
     double ro2 =  Radius_exterior_final_ * Radius_exterior_final_;
     double ro3 = ro2 * Radius_exterior_final_;
@@ -479,11 +479,9 @@ void  Electrode_SimplePhaseChangeDiffusion::calcRate(double deltaTsubcycle)
 
 
     if (C_external_final_ > 1.0E-200) {
-        dadd = deltaCAPdt_ / (4.*Pi*ro2* C_external_final_);
         dadd_f = deltaCAPFdt_ / (4.*Pi*ro2* C_external_final_);
         dadd_i = deltaCAPIdt_ / (4.*Pi*ro2);
     } else {
-        dadd = 0.0;
         dadd_f = 0.0;
         dadd_i = 0.0;
     }
@@ -1329,7 +1327,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrode(int pSrc, bool subTime
 
 void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-    int isph;
+    int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

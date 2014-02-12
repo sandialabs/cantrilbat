@@ -932,7 +932,6 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
 
     // Reference lattice squared, Right and Left, at final time
     double refLat2_RHS_final = 0.0;
-    double refLat2_LHS_final = 0.0;
     // Reference lattice cubed, Right and Left, at final time
     double refLat3_RHS_final = 0.0;
     double refLat3_LHS_final = 0.0;
@@ -943,8 +942,6 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
 
     // Diffusive flux
     double flux[10];
-    // Velocity of the reference radius on the left side of the cell
-    double vrefL = 0.0;
     // Velocity of the refrence radius on the right side of the cell
     double vrefR = 0.0;
     // Temporary pointers for accessing the phase total concentrations (kmol m-3), init and final
@@ -1076,10 +1073,8 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
         /*
          *  Copy right side to left side
          */
-        vrefL       = vrefR;
         cbRadius3_LHS_final  = cbRadius3_RHS_final;
         cbRadius3_LHS_init   = cbRadius3_RHS_init;
-        refLat2_LHS_final  = refLat2_RHS_final;
         refLat3_LHS_final  = refLat3_RHS_final;
 
         /*
@@ -1179,10 +1174,8 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
         /*
          *  Copy left side to right side
          */
-        vrefL       = vrefR;
         cbRadius3_LHS_final  = cbRadius3_RHS_final;
         cbRadius3_LHS_init   = cbRadius3_RHS_init;
-        refLat2_LHS_final  = refLat2_RHS_final;
         refLat3_LHS_final  = refLat3_RHS_final;
 
         /*
@@ -1727,7 +1720,7 @@ void Electrode_RadialRegion::printElectrode(int pSrc, bool subTimeStep)
 
 void Electrode_RadialRegion::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-    int isph;
+    int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();
