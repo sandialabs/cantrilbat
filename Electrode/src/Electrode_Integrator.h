@@ -934,7 +934,6 @@ protected:
     std::vector<doublereal> yvalNLS_final_final_;
 
   public:
-    bool haveGood_yvalNLS_init_;
 
     //! Vector of solution dot values for the nonlinear solver
     std::vector<doublereal> ydotNLS_;
@@ -968,6 +967,12 @@ protected:
      */
     std::vector<double> soln_predict_;
 
+    //! Boolean indicating that solnDot_init_ is filled with an acceptable approximation of the solution derivatives.
+    /*!
+     *  This value starts out as false. Then, it turns positive after the first step. 
+     *  When the value is false, we put the derivative of the current step (i.e., failed step) into solnDot_init_
+     */
+    bool haveGood_solnDot_init_;
     //! 
     std::vector<double> solnDot_init_;
     std::vector<double> solnDot_final_;

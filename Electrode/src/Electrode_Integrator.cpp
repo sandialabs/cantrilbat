@@ -376,6 +376,13 @@ Electrode_Integrator::Electrode_Integrator() :
     deltaBoundsMagnitudesNLS_(0),
     phaseJustDied_(0),
     phaseJustBorn_(0),
+    soln_predict_(0),
+    haveGood_solnDot_init_(false),
+    solnDot_init_(0),
+    solnDot_final_(0),
+    solnDot_final_final_(0),
+    solnDot_init_init_(0),
+    soln_predict_fromDot_(0),
     pSolve_(0),
     jacPtr_(0),
     numIntegratedSrc_(0),
@@ -411,6 +418,13 @@ Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     deltaBoundsMagnitudesNLS_(0),
     phaseJustDied_(0),
     phaseJustBorn_(0),
+    soln_predict_(0),
+    haveGood_solnDot_init_(false),
+    solnDot_init_(0),
+    solnDot_final_(0),
+    solnDot_final_final_(0),
+    solnDot_init_init_(0),
+    soln_predict_fromDot_(0),
     pSolve_(0),
     jacPtr_(0),
     numIntegratedSrc_(0),
@@ -466,6 +480,13 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
 
     phaseJustDied_                      = right.phaseJustDied_;
     phaseJustBorn_                      = right.phaseJustBorn_;
+    soln_predict_                       = right.soln_predict_;
+    haveGood_solnDot_init_              = right.haveGood_solnDot_init_;
+    solnDot_init_                       = right.solnDot_init_;
+    solnDot_final_                      = right.solnDot_final_;
+    solnDot_final_final_                = right.solnDot_final_final_;
+    solnDot_init_init_                  = right.solnDot_init_init_;
+    soln_predict_fromDot_               = right.soln_predict_fromDot_;
 
     SAFE_DELETE(pSolve_);
     pSolve_                             = new NonlinearSolver(this);
@@ -482,6 +503,11 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
     maxNumberSubCycles_                 = right.maxNumberSubCycles_;
     IntegratedSrc_normError_local_      = right.IntegratedSrc_normError_local_;
     IntegratedSrc_normError_global_     = right.IntegratedSrc_normError_global_;
+
+    timeHistory_base_                   = right.timeHistory_base_;
+    timeHistory_current_                = right.timeHistory_current_;
+
+
     relativeLocalToGlobalTimeStepMinimum_ = right.relativeLocalToGlobalTimeStepMinimum_;
     /*
      * Return the reference to the current object
@@ -665,11 +691,8 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
         yvalNLS_init_[i]      = yvalNLS_final_final_[i];
         yvalNLS_[i]           = yvalNLS_final_final_[i];
     }
-
 }
 //====================================================================================================================
-
-
 //  Calculate the change in the state of the system when integrating from T_initial_initial_
 //  to t_final_final_
 /*
@@ -695,7 +718,8 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
  *          Failure due to maxsubcycles exceeded returns a -4. 
  *
  *  When the max subcycles are exceeded, can check the subIntegrationHistory for the time that the
- *  cycle did get to.
+ *  cycle did get to. Also, the value of t_final_final_ is set to the final time that the integration got to.
+ *
  */
 int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
                                      Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType,
@@ -877,7 +901,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 	/*
 	 * Set up the yvalNLS_init 
 	 */
-	check_yvalNLS_init(true);
+	check_yvalNLS_init(false);
 
         /*
          *  Calculate the time interval from the previous step or from the initial value coming into the routine
@@ -1225,7 +1249,7 @@ topConvergence:
 	double pnormSoln = 0.0;
         if (stepAcceptable) {
 	    /*
-	     *
+	     * Calculate solnDot_final_ so that we can use it to evaluate the next step as a predictor.
 	     */
 	    calc_solnDot_final();
             /*
@@ -1328,7 +1352,6 @@ topConvergence:
         timeHistory_current_.addTimeStep(tinit_, tfinal_start, tfinal_, timeTypeSoln,
 					 num_newt_its, pnormSoln, pnormSrc, deltaVoltage_, srcElectronsStep, currentStep);
 
-
         /*
          * Adjust the next time step according to a predictor-corrector critera
          */
@@ -1399,14 +1422,16 @@ topConvergence:
 	    deltaTsubcycleNext_ = dtNew;
 	}
 
-
         /*
          *  If this is the first subcycle time step, calcualte the first time step for the next global iteration
          */
         if ((choiceDeltaTsubcycle_init_ == 1) && (iterSubCycle == 1)) {
             deltaTsubcycle_init_next_ = MIN(deltaTsubcycle_init_next_, deltaTsubcycleNext_);
         }
-
+        /*
+         * Signal that we have a good solnDot_init_ to work with
+         */
+        haveGood_solnDot_init_ = true; 
         /*
          * Determine if we are at the end of the global time step
          */
@@ -1417,22 +1442,15 @@ topConvergence:
 
 	/*
 	 *  Determine if we have reached the end of number of allowed subcycles
+         *  If we have, we adjust the value of t_final_final_ to the current time so that we return a reduced time step length
 	 */
 	if (iterSubCycle > maxNumberSubCycles_) {
 	    notDone = false;
 	    t_final_final_ = tfinal_;
 	}
 	
-
-        // HKM debugging point
-#ifdef DEBUG_MODE_NOT
-        if (fabs(tfinal_ - 0.02) < 0.001) {
-            printf("we are here - 45\n");
-        }
-#endif
-
         /*
-         * Potential write out intermediate data to a CSV file
+         * Potentially write out intermediate data to a CSV file
          */
         if (printCSVLvl_ > 0) {
             if (notDone) {
@@ -1441,19 +1459,17 @@ topConvergence:
                 writeCSVData(2);
             }
         }
-
         /*
-         *  Check the final state for any error conditions
+         *  Check the final state for any error conditions and possibly fix the results
+         *  - one possible use of this is to enforce mass balances up to round-off error.
          */
         check_final_state();
-
         /*
-         *  Calcualte the first time step for the next global iteration
+         *  Calculate the first delta time step value for the next subgrid iteration of the next global iteration
          */
         if (choiceDeltaTsubcycle_init_ == 0) {
             deltaTsubcycle_init_next_ = deltaTsubcycleNext_;
         }
-
         /*
          *  Save the state of the object
          */
@@ -1843,9 +1859,14 @@ bool Electrode_Integrator::checkSubIntegrationStepAcceptable() const
 void Electrode_Integrator::calc_solnDot_final()
 {
     for (int i = 0; i < neq_; i++) {
-	solnDot_final_[i] = (yvalNLS_[i] -  yvalNLS_init_[i]) / deltaTsubcycleCalc_; 
+	solnDot_final_[i] = (yvalNLS_[i] - yvalNLS_init_[i]) / deltaTsubcycleCalc_; 
     }
     solnDot_final_[0] = 0.0;
+    if (!haveGood_solnDot_init_) {
+        for (int i = 0; i < neq_; i++) {
+            solnDot_init_[i] = solnDot_final_[i]; 
+        }
+    }
 }
 //====================================================================================================================
 //  Calculate the norm of the difference between the predicted answer and the final converged answer

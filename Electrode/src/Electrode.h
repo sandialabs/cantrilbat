@@ -846,7 +846,7 @@ public:
      *  @param[out] errorVector         Returns a vector of errors in the state variables for the global step
      *                                  Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
      *                                  would mean the error in the value is 1 part in 1000.
-     *  @return     Returns the large value of the errors in the errorVector.
+     *  @return     Returns the largest value of the errors in the errorVector.
      */
     double reportStateVariableIntegrationError(int& numSV, double* const errorVector) const;
 
