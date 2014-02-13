@@ -96,7 +96,6 @@ SimpleDiff_dom1D::residEval(Epetra_Vector &res,
   NodalVars *nodeCent = 0;
   NodalVars *nodeRight = 0;
   double xdel;
-  double xCellBoundary;
   double Cright;
   double Cleft;
   double Ccent;
@@ -193,7 +192,6 @@ SimpleDiff_dom1D::residEval(Epetra_Vector &res,
          * Calculate the distance between the node points
          */
         xdel = nodeCent->xNodePos() - nodeLeft->xNodePos();
-        xCellBoundary = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
         /*
          *  Establish the environment at the left cell boundary
          */
@@ -271,7 +269,6 @@ SimpleDiff_dom1D::residEval(Epetra_Vector &res,
       fluxR = 0.0;
     } else {
       xdel = nodeRight->xNodePos() - nodeCent->xNodePos();
-      xCellBoundary = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
 
       /*
        *  Establish the environment at the right cell boundary
