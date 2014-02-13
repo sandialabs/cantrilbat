@@ -113,7 +113,7 @@ OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.
                   Electrode_InfCapacity.o Electrode_MP_RxnExtent.o Electrode_Factory.o \
                   Electrode_CSTR.o Electrode_Capacity.o  Electrode_CSTR_MCMBAnode.o \
                   Electrode_CSTR_LiCoO2Cathode.o EState.o EState_RadialDistrib.o Electrode_XMLWriter.o \
-                  Electrode_Integrator.o Electrode_SimpleDiff.o \
+                  Electrode_Integrator.o Electrode_SimpleDiff.o Electrode_DiffTALE.o \
                   Electrode_RadialDiffRegions.o Electrode_RadialRegion.o Electrode_SurfaceRegion.o \
                   Electrode_SuccessiveSubstitution.o Electrode_Equilibrium.o Electrode_Jacobian.o \
                   Electrode_MP_RxnExtent_FeS2.o Electrode_FD_Jacobian.o 
@@ -124,7 +124,7 @@ HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.
                   Electrode_InfCapacity.h Electrode_MP_RxnExtent.h Electrode_Factory.h \
                   Electrode_CSTR.h Electrode_CSTR_MCMBAnode.h \
                   Electrode_CSTR_LiCoO2Cathode.h EState.h Electrode_FuncCurrent.h  EState_RadialDistrib.h \
-                  Electrode_Integrator.h Electrode_SimpleDiff.h \
+                  Electrode_Integrator.h Electrode_SimpleDiff.h Electrode_DIffTALE.h \
                   Electrode_RadialDiffRegions.h  Electrode_RadialRegion.h Electrode_SurfaceRegion.h \
                   Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h \
                   Electrode_MP_RxnExtent_FeS2.h Electrode_Jacobian.h Electrode_FD_Jacobian.h

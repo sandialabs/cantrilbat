@@ -10,8 +10,8 @@
 #include "Electrode_InfCapacity.h"
 #include "Electrode_MP_RxnExtent.h"
 #include "Electrode_MP_RxnExtent_FeS2.h"
-//include "Electrode_MultiPlateau_NoDiff.h"
 #include "Electrode_SimpleDiff.h"
+#include "Electrode_DiffTALE.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_CSTR.h"
 #include "Electrode_CSTR_MCMBAnode.h"
@@ -53,6 +53,7 @@ static void create_string_maps()
     electrode_types_string[MP_RXNEXTENT_ET]                    =  "MP_RxnExtent";
     electrode_types_string[MULTIPLATEAU_NODIFF_ET]             =  "MultiPlateau_NoDiff";
     electrode_types_string[SIMPLE_DIFF_ET]                     =  "SimpleDiff";
+    electrode_types_string[DIFF_TALE_ET]                       =  "DiffTALE";
     electrode_types_string[SIMPLE_PHASE_CHANGE_DIFFUSION_ET]   =  "SimplePhaseChangeDiffusion";
     electrode_types_string[CSTR_ET]                            =  "CSTR";
     electrode_types_string[CSTR_MCMB_ANODE_ET]                 =  "CSTR_MCMBAnode";
@@ -175,9 +176,11 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
     case          MP_RXNEXTENT_ET:
         ee = new    Electrode_MP_RxnExtent();
         break;
-
     case          SIMPLE_DIFF_ET:
 	ee = new Electrode_SimpleDiff();
+        break;
+    case          DIFF_TALE_ET:
+	ee = new Electrode_DiffTALE();
         break;
     case          SIMPLE_PHASE_CHANGE_DIFFUSION_ET:
         ee = new    Electrode_SimplePhaseChangeDiffusion();
@@ -246,6 +249,7 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
         break;
 
     case          SIMPLE_DIFF_ET:
+    case          DIFF_TALE_ET:
     case          RADIAL_DIFF_REGIONS_ET:
         ei = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
         break;

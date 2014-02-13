@@ -1,5 +1,5 @@
 /*
- * $Id: Electrode_SimpleDiff.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+ * $Id: Electrode_DiffTALE.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
 #include <stdio.h>
@@ -8,7 +8,7 @@
 #include <string.h>
 #include "tok_input_util.h"
 
-#include "Electrode_SimpleDiff.h"
+#include "Electrode_DiffTALE.h"
 #include "cantera/integrators.h"
 #include "Electrode_RadialDiffRegions.h"
 #include "EState_RadialDistrib.h"
@@ -37,7 +37,7 @@ namespace Cantera
  *  We initialize the arrays in the structure to the appropriate sizes.
  *  And, we initialize all of the elements of the arrays to defaults.
  */
-Electrode_SimpleDiff::Electrode_SimpleDiff() :
+Electrode_DiffTALE::Electrode_DiffTALE() :
     Electrode_Integrator(),
 
     electrodeType_(ELECTRODETYPE_ANODE),
@@ -125,7 +125,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 /*
  * @param right Object to be copied
  */
-Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
+Electrode_DiffTALE::Electrode_DiffTALE(const Electrode_DiffTALE& right) :
     Electrode_Integrator(),
 
     electrodeType_(ELECTRODETYPE_ANODE),
@@ -214,8 +214,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
 /*
  *  @param right object to be copied
  */
-Electrode_SimpleDiff&
-Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
+Electrode_DiffTALE&
+Electrode_DiffTALE::operator=(const Electrode_DiffTALE& right)
 {
     /*
      * Check for self assignment.
@@ -306,7 +306,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
 }
 //======================================================================================================================
 //   destructor
-Electrode_SimpleDiff::~Electrode_SimpleDiff()
+Electrode_DiffTALE::~Electrode_DiffTALE()
 {
 }
 //======================================================================================================================
@@ -316,12 +316,12 @@ Electrode_SimpleDiff::~Electrode_SimpleDiff()
  *
  *  @return Returns an enum type, called   Electrode_Types_Enum
  */
-Electrode_Types_Enum Electrode_SimpleDiff::electrodeType() const
+Electrode_Types_Enum Electrode_DiffTALE::electrodeType() const
 {
-    return SIMPLE_DIFF_ET;
+    return DIFF_TALE_ET;
 }
 //====================================================================================================================
-int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
+int Electrode_DiffTALE::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
 {
     /*
      *  Malloc an expanded child input
@@ -351,7 +351,7 @@ int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
 }
 //======================================================================================================================
 int
-Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
+Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
     int iPh, jPh;
     /*
@@ -359,7 +359,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_SimpleDiff::electrode_model_create()",
+        throw CanteraError(" Electrode_DiffTALE::electrode_model_create()",
                            " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
 
@@ -536,11 +536,11 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
  *
  *  @return  Returns zero if successful, and -1 if not successful.
  */
-int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
+int Electrode_DiffTALE::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_SimpleDiff::electrode_model_create()",
+        throw CanteraError(" Electrode_DiffTALE::electrode_model_create()",
                            " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
    
@@ -566,7 +566,7 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 }
 //====================================================================================================================
 int
-Electrode_SimpleDiff::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_DiffTALE::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
 {
     eState_final_ = new EState_RadialDistrib();
     int rr = eState_final_->initialize(this);
@@ -577,7 +577,7 @@ Electrode_SimpleDiff::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
 }
 //====================================================================================================================
 void
-Electrode_SimpleDiff::init_sizes()
+Electrode_DiffTALE::init_sizes()
 {
     int kspCell =  numKRSpecies_ *  numRCells_;
     int nPhCell = numSPhases_ * numRCells_;
@@ -654,7 +654,7 @@ Electrode_SimpleDiff::init_sizes()
 }
 //====================================================================================================================
 void
-Electrode_SimpleDiff::init_grid()
+Electrode_DiffTALE::init_grid()
 {
     // inner and outer radius
     double  volContainedCell;
@@ -710,7 +710,7 @@ Electrode_SimpleDiff::init_grid()
 }
 //====================================================================================================================
 void
-Electrode_SimpleDiff::initializeAsEvenDistribution()
+Electrode_DiffTALE::initializeAsEvenDistribution()
 {
     /*
      *  Overall algorithm is to fill out the final state variables. Then populate the other times
@@ -784,7 +784,7 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 /*
  *
  */
-double Electrode_SimpleDiff::SolidVol() const
+double Electrode_DiffTALE::SolidVol() const
 {
     double v0_3 = 4. * Pi * m_rbot0_ * m_rbot0_ * m_rbot0_ / 3.;
     double r_ext = rLatticeCBR_final_[numRCells_ - 1];
@@ -801,12 +801,12 @@ double Electrode_SimpleDiff::SolidVol() const
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
  */
-void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
+void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
     /*
      * If the initial time is input, then the code doesn't advance
      */
-    double tbase = MAX(t_init_init_, 1.0E-50);
+    double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         return;
     }
@@ -850,7 +850,7 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
  *
  *  update phaseMoles_final_[]
  */
-void Electrode_SimpleDiff::updatePhaseNumbers(int iph)
+void Electrode_DiffTALE::updatePhaseNumbers(int iph)
 { 
     int istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
@@ -887,7 +887,7 @@ void Electrode_SimpleDiff::updatePhaseNumbers(int iph)
     }
 }
 //====================================================================================================================
-// Take the state (i.e., the final state) within the Electrode_SimpleDiff and push it up
+// Take the state (i.e., the final state) within the Electrode_DiffTALE and push it up
 // to the zero-dimensional parent object
 /*
  *  update the following variables:
@@ -898,7 +898,7 @@ void Electrode_SimpleDiff::updatePhaseNumbers(int iph)
  *          ElectrodeSolidVolume_ 
  *          Radius_exterior_final_
  */
-void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
+void Electrode_DiffTALE::updateState_OneToZeroDimensions()
 {
     int jRPh, iPh, kspStart;
     /*
@@ -1032,7 +1032,7 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
  *
  * This routine imposes the condition that the cell boundaries are 1/2 between nodes.           
  */
-void Electrode_SimpleDiff::updateState()
+void Electrode_DiffTALE::updateState()
 {
     // Indexes
     int iCell, jRPh;
@@ -1160,7 +1160,7 @@ void Electrode_SimpleDiff::updateState()
  *     - Checks to see if the mesh geometry for each cell is consistent with the 
  *       molar volume multiplied by phase moles.
  */
-void Electrode_SimpleDiff::checkGeometry() const
+void Electrode_DiffTALE::checkGeometry() const
 {
     double  cbL3_final , cbR3_final = 0.0, CBR = 0.0;
     int iCell, iPh;
@@ -1213,7 +1213,7 @@ void Electrode_SimpleDiff::checkGeometry() const
 	    if (phaseTot > 1.0E-200) {
 		rdel = fabs(phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] - phaseTot);
 		if (rdel > 1.0E-10) {
-		    printf("Electrode_SimpleDiff::checkGeometry(): phaseMoles don't agree with spMoles\n");
+		    printf("Electrode_DiffTALE::checkGeometry(): phaseMoles don't agree with spMoles\n");
 		    exit(-1);
 		}
 	    }
@@ -1224,7 +1224,7 @@ void Electrode_SimpleDiff::checkGeometry() const
 	}
 	rdel = fabs(totalCellVol -  totalVolGeom);
 	if (rdel > 1.0E-10) {
-	    printf("Electrode_SimpleDiff::checkGeometry(): Moles and geometry don't match\n");
+	    printf("Electrode_DiffTALE::checkGeometry(): Moles and geometry don't match\n");
 	    printf("         icell = %d,    volGeom = %g   volMoles = %g   rdelta = %g\n", 
 		   iCell, totalVolGeom, totalCellVol, rdel);
 	    exit(-1);
@@ -1237,7 +1237,7 @@ void Electrode_SimpleDiff::checkGeometry() const
 /*
  *
  */
-void Electrode_SimpleDiff::checkMoles_final_init() const
+void Electrode_DiffTALE::checkMoles_final_init() const
 {
     double sum, sum_f, sum_i;
     bool doErr = false;
@@ -1253,7 +1253,7 @@ void Electrode_SimpleDiff::checkMoles_final_init() const
 	    sum_i = spMoles_init_[isp];
 	    sum = sum_f - sum_i;
 	    if (abs(sum) > sum_i * 1.0E-6) {
-		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+		printf("Electrode_DiffTALE::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
 		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
 		       isp, sum_f, sum_i);
 		printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
@@ -1270,7 +1270,7 @@ void Electrode_SimpleDiff::checkMoles_final_init() const
 		sum_i = spMoles_init_[isp];
 		sum = sum_f - sum_i;
 	
-		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+		printf("Electrode_DiffTALE::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
 		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
 		       isp, sum_f, sum_i);
 		printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
@@ -1283,7 +1283,7 @@ void Electrode_SimpleDiff::checkMoles_final_init() const
 }
 //========================================================================================================================
 
-void Electrode_SimpleDiff::check_final_state()
+void Electrode_DiffTALE::check_final_state()
 {
 #ifdef DEBUG_NEWMODELS
     // While in debug mode, check the inventory of capacity to account for all electrons
@@ -1308,7 +1308,7 @@ void Electrode_SimpleDiff::check_final_state()
  *  1/29/14  Confirmed that this routine makes no assumption that cell boundaries are halfway between nodes 
  *
  */
-void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const  
+void Electrode_DiffTALE::diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const  
 { 
     double caC, caR, dcadxR;
     int jPh, iPh, kSp;
@@ -1389,7 +1389,7 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
  *                 0  A predicted solution is not achieved, but go ahead anyway
  *                -1  The predictor suggests that the time step be reduced and a retry occur.
  */
-int Electrode_SimpleDiff::predictSolnResid()
+int Electrode_DiffTALE::predictSolnResid()
 {
     // Indexes
     int iCell, iPh, jPh;
@@ -1787,7 +1787,7 @@ int Electrode_SimpleDiff::predictSolnResid()
  *
  *          EXPERIMENTAL CODE
  */
-int Electrode_SimpleDiff::predictSolnResid2()
+int Electrode_DiffTALE::predictSolnResid2()
 {
     // Indexes
     int iCell, iPh, jPh;
@@ -2071,7 +2071,7 @@ int Electrode_SimpleDiff::predictSolnResid2()
 
 }
 //==================================================================================================================
-int Electrode_SimpleDiff::predictSoln()
+int Electrode_DiffTALE::predictSoln()
 {
     int retn = -1;
 
@@ -2125,7 +2125,7 @@ int Electrode_SimpleDiff::predictSoln()
     return retn;
 }
 //==================================================================================================================
-void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
+void Electrode_DiffTALE::check_yvalNLS_init(bool doOthers)
 {
     packNonlinSolnVector(DATA_PTR(yvalNLS_init_));
 
@@ -2158,7 +2158,7 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
  *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
  *  --------------------------------------------------------------------------------------------------------------
  */
-void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
+void Electrode_DiffTALE::unpackNonlinSolnVector(const double* const y)
 { 
     int index = 0;
     int kstart, jRPh, iKRSpecies;
@@ -2207,7 +2207,7 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
  *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
  *  --------------------------------------------------------------------------------------------------------------
 */
-void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
+void Electrode_DiffTALE::packNonlinSolnVector(double* const y) const
 {
     int index = 0;
     /*
@@ -2243,7 +2243,7 @@ void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
  *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
  *  for the current step, and we are calculating post-processed quantities like source terms.
  */
-void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
+void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
 {
     bool doOneWay = false;
     if (doOneWay) {
@@ -2271,7 +2271,7 @@ void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
  *  Both the predicted solution values and the predicted integrated source terms are used
  *  in the time step control
  */
-void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
+void  Electrode_DiffTALE::gatherIntegratedSrcPrediction()
 {
     /*
      *  Here we don't recalculate anything. It was previously calculated in predictSoln().
@@ -2291,7 +2291,7 @@ void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
  *
  *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
  */
-double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
+double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
     double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
 
@@ -2299,7 +2299,7 @@ double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vecto
     if (pnorm_dot < pnorm) {
 #ifdef DEBUG_MODE
 	if (printLvl_ > 2) {
-	    printf("Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot %g beat out pnorm %g\n",
+	    printf("Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot %g beat out pnorm %g\n",
 		   pnorm_dot, pnorm);
 	}
 #endif
@@ -2320,7 +2320,7 @@ double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vecto
  *    Source terms will have units associated with them.
  *    For example the integrated source term for electrons will have units of kmol
  */
-void Electrode_SimpleDiff::predictorCorrectorGlobalSrcTermErrorVector()
+void Electrode_DiffTALE::predictorCorrectorGlobalSrcTermErrorVector()
 {
 
 }
@@ -2338,7 +2338,7 @@ static double relv(double a, double b, double atol)
 }
 
 //====================================================================================================================
-void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yval,
+void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval,
 						   double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
@@ -2431,9 +2431,6 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
 
 
 
-
-
-
    
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf("                                                                                                        %10.3E\n",
@@ -2457,7 +2454,7 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
  *                     Below this value we do not care about the results.
  *                     atol has units of kmol.
  */
-void Electrode_SimpleDiff::setNLSGlobalSrcTermTolerances(double rtolResid)
+void Electrode_DiffTALE::setNLSGlobalSrcTermTolerances(double rtolResid)
 {
     double sum = SolidTotalMoles();
     double val = 1.0E-14 * sum;
@@ -2479,7 +2476,7 @@ void Electrode_SimpleDiff::setNLSGlobalSrcTermTolerances(double rtolResid)
  *   Calculates residAtolNLS_[]
  *   Calculates atolNLS_[]
  */
-void  Electrode_SimpleDiff::setResidAtolNLS()
+void  Electrode_DiffTALE::setResidAtolNLS()
 { 
     double atolMF = 1.0E-12;
     double deltaT = t_final_final_ - t_init_init_;
@@ -2576,7 +2573,7 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
  *
  * @return
  */
-int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delta_t,
+int  Electrode_DiffTALE::evalResidNJ(const doublereal t, const doublereal delta_t,
                                        const doublereal* const y,
                                        const doublereal* const ySolnDot,
                                        doublereal* const resid,
@@ -2601,7 +2598,7 @@ int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delt
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal delta_t,
+int Electrode_DiffTALE::integrateResid(const doublereal t, const doublereal delta_t,
 					 const doublereal* const y, const doublereal* const ySolnDot,
 					 doublereal* const resid,
 					 const ResidEval_Type_Enum evalType, const int id_x,
@@ -2794,7 +2791,7 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
  *        1/31/14 confirmed that this routine makes no inherent assumption that the cell boundaries are halfway between nodes
  *
  */
-int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_DiffTALE::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
     int iCell, iPh, jPh, jCell;
     double I_j;
@@ -3247,7 +3244,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
  *  --------------------------------------------------------------------------------------------------------------
  *  **********************************DEAD  BRANCH *****************************************************************
  */
-int Electrode_SimpleDiff::calcResid_2(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_DiffTALE::calcResid_2(double* const resid, const ResidEval_Type_Enum evalType)
 {
     int iCell, iPh, jPh, jCell;
     double I_j;
@@ -3641,7 +3638,7 @@ int Electrode_SimpleDiff::calcResid_2(double* const resid, const ResidEval_Type_
     return 1;
 }
 //=======================================================================================================================
-void  Electrode_SimpleDiff::showSolution(int indentSpaces)
+void  Electrode_DiffTALE::showSolution(int indentSpaces)
 {
     std::string title = "Lattice Radius CBR (m)";
     vector<std::string> colNames;
@@ -3669,7 +3666,7 @@ static void drawline(int sp, int ll)
   printf("\n");
 }
 //====================================================================================================================
-void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const residual) 
+void Electrode_DiffTALE::showResidual(int indentSpaces, const double * const residual) 
 {
 
     drawline(124, indentSpaces);
@@ -3722,7 +3719,7 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
 }
 
 //====================================================================================================================
-void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpaces,
+void  Electrode_DiffTALE::showOneField(const std::string &title, int indentSpaces,
 					 const double * const radialValues, int numRadialVals, 
 					 const double * const vals, const std::vector<std::string> &varNames, int numFields)
 {
@@ -3784,7 +3781,7 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
     }
 }
 //====================================================================================================================
-void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int indentSpaces, 
+void  Electrode_DiffTALE::showOneFieldInitFinal(const std::string &title, int indentSpaces, 
 						  const double * const radialValues, int numRadialVals, 
 						  const double * const vals_init,  const double * const vals_final,
 						  const std::vector<std::string> &varNames, int numFields)
@@ -3851,7 +3848,7 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 }
 
 //====================================================================================================================
-void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpaces,
+void  Electrode_DiffTALE::showOneResid(const std::string &title, int indentSpaces,
 					 const double * const radialValues, int numRadialVals, 
 					 int numFields, int iField, const double * const val_init,  
 					 const double * const val_final,
@@ -3910,7 +3907,7 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
  *        ROP_[jRxn]
  *        spNetProdPerArea_List_[isk][kIndexKin]
  */
-void  Electrode_SimpleDiff::extractInfo()
+void  Electrode_DiffTALE::extractInfo()
 {
     //double mfSig = 0.0;
     /*
@@ -3983,7 +3980,7 @@ void  Electrode_SimpleDiff::extractInfo()
  *
  *   (inherited from Electrode_Integrator)
  */
-void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
+void Electrode_DiffTALE::updateSpeciesMoleChangeFinal()
 {
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(0);
     std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.0);
@@ -4023,7 +4020,7 @@ void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
  *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
  *  --------------------------------------------------------------------------------------------------------------
  */
-void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
+void Electrode_DiffTALE::initialPackSolver_nonlinFunction()
 {
     int index = 0;
     /*
@@ -4105,7 +4102,7 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
  *
  * @param setInitInit   Boolean indicating whether you should set the init_init state as well
  */
-void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
+void  Electrode_DiffTALE::setInitStateFromFinal(bool setInitInit)
 {
     /*
      * Call the parent object
@@ -4162,7 +4159,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
  *
  *  Set the initial  and init_init state from the final state.
  */
-void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
+void Electrode_DiffTALE::setInitInitStateFromFinalFinal()
 {
     Electrode_Integrator::setInitInitStateFromFinalFinal();
 
@@ -4195,7 +4192,7 @@ void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
     onRegionBoundary_init_      =  onRegionBoundary_final_final_;
 }
 //====================================================================================================================
-void Electrode_SimpleDiff::setFinalStateFromInit()
+void Electrode_DiffTALE::setFinalStateFromInit()
 {   
     /*
      * Call the parent object
@@ -4234,7 +4231,7 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
  *
  * @param setFinal   Boolean indicating whether you should set the final as well
  */
-void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
+void Electrode_DiffTALE::setInitStateFromInitInit(bool setFinal)
 {
     /*
      * Call the parent object
@@ -4277,7 +4274,7 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
  *
  *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
  */
-void Electrode_SimpleDiff::setFinalFinalStateFromFinal() 
+void Electrode_DiffTALE::setFinalFinalStateFromFinal() 
 {
     /*
      * Call the parent object
@@ -4311,7 +4308,7 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
  *
  * @param isk  Reacting surface domain id
  */
- double  Electrode_SimpleDiff::openCircuitVoltage(int isk)
+ double  Electrode_DiffTALE::openCircuitVoltage(int isk)
  {
      /*
       *  Load the conditions of the last cell into the ThermoPhase object
@@ -4330,7 +4327,7 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
      return val;
  }
 //====================================================================================================================
-void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
+void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
 {
     int iph;
     vector<std::string> colNames;
@@ -4339,12 +4336,12 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     double tsm = SolidTotalMoles();
     printf("   ==============================================================================================\n");
     if (subTimeStep) {
-        printf("      Electrode_SimpleDiff at intermediate-step time final = %12.5E\n", tfinal_);
+        printf("      Electrode_DiffTALE at intermediate-step time final = %12.5E\n", tfinal_);
         printf("                              intermediate-step time init  = %12.5E\n", tinit_);
 	printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
                electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
-        printf("      Electrode_SimpleDiff at time final = %12.5E\n", t_final_final_);
+        printf("      Electrode_DiffTALE at time final = %12.5E\n", t_final_final_);
         printf("                              time init  = %12.5E\n", t_init_init_);
 	printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
@@ -4391,7 +4388,7 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 }
 //===================================================================================================================
 
-void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_DiffTALE::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
     int isph = -1;
     double* netROP = new double[m_NumTotSpecies];

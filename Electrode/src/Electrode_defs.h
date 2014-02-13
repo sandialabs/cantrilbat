@@ -18,6 +18,7 @@ const int cSimplePhaseChangeDiffusion = 6;
 const int cCSTR = 7;
 const int cCSTR_MCMBAnode = 8;
 const int cCSTR_LiCoO2Cathode = 9;
+const int cDiffTALE = 10;
 
 //! Description of what the capacity means in terms of direction, and the
 //! specification of whether this electrode will be used as an anode or a

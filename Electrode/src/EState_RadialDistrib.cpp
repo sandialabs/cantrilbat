@@ -8,6 +8,7 @@
 #include "EState_RadialDistrib.h"
 
 #include "Electrode_SimpleDiff.h"
+#include "Electrode_DiffTALE.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -40,6 +41,35 @@ EState_RadialDistrib::EState_RadialDistrib() :
     electrodeTypeString_ = "SimpleDiff";
 }
 //======================================================================================================================
+/*
+ * EState constructor
+ *
+ *  We initialize the arrays in the structure to the appropriate sizes.
+ *  And, we initialize all of the elements of the arrays to defaults.
+ */
+EState_RadialDistrib::EState_RadialDistrib(std::string electrodeType) :
+    EState(),
+    numRCells_(0),
+    numKRSpecies_(0),
+    numSPhases_(0),
+    rnodePos_(0),
+    cellBoundR_(0),
+    rLatticeCBR_(0),
+    concTot_SPhase_Cell_(0),
+    concKRSpecies_Cell_(0),
+    spMoles_KRsolid_Cell_(0),
+    onRegionBoundary_(-1)
+{
+    EST_fileToBeWritten_ = EST_RADIALDISTRIB;
+    if (electrodeType == "SimpleDiff") {
+        electrodeTypeString_ = "SimpleDiff";
+    } else if  (electrodeType == "SimpleDiff") {
+        electrodeTypeString_ = "DiffTALE";
+    } else {
+         throw Electrode_Error("EState_RadialDistrib::EState_RadialDistrib()", "wrong electrode type");  
+    }
+}
+//======================================================================================================================
 // Copy Constructor
 /*
  * @param right Object to be copied
@@ -58,7 +88,6 @@ EState_RadialDistrib::EState_RadialDistrib(const EState_RadialDistrib& right) :
     onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_MULTIPLATEAU;
-    electrodeTypeString_ = "SimpleDiff";
 
     /*
      * Call the assignment operator.
@@ -117,9 +146,12 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
     EState::initialize(ebase);
 
     const Electrode_SimpleDiff* const e = dynamic_cast<const Electrode_SimpleDiff* const>(ebase);
-    
     if (!e) {
-	throw Electrode_Error("EState_RadialDistrib::initialize()", "Need Electrode_SimpleDiff pointer type");
+        const Electrode_DiffTALE* const e = dynamic_cast<const Electrode_DiffTALE* const>(ebase);
+        if (!e) {
+	    throw Electrode_Error("EState_RadialDistrib::initialize()",
+                                  "Need Electrode_SimpleDiff or Electrode_DiffTALE pointer type");
+        }
     }
 
     numRCells_                   = e->numRCells_;
@@ -196,6 +228,30 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
     ctml::getFloatArray(xmlEState, spMoles_KRsolid_Cell_, true, "", "spMoles_KRsolid_Cell");
 }
 //======================================================================================================================
+void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const Cantera::Electrode_SimpleDiff* const emp)
+{
+    EState::copyElectrode_intoState(emp);
+
+    rnodePos_                    = emp->rnodePos_final_;
+    cellBoundR_                  = emp->cellBoundR_final_;
+    rLatticeCBR_                 = emp->rLatticeCBR_final_;
+    concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
+    concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
+    spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
+}
+//======================================================================================================================
+void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const Cantera::Electrode_DiffTALE* const emp)
+{
+    EState::copyElectrode_intoState(emp);
+
+    rnodePos_                    = emp->rnodePos_final_;
+    cellBoundR_                  = emp->cellBoundR_final_;
+    rLatticeCBR_                 = emp->rLatticeCBR_final_;
+    concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
+    concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
+    spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
+}
+//======================================================================================================================
 // Set the State of this object from the state of the Electrode object
 /*
  *  (virtual function)
@@ -211,28 +267,23 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
  */
 void EState_RadialDistrib::copyElectrode_intoState(const Cantera::Electrode* const e)
 {
-    EState::copyElectrode_intoState(e);
-
     const Cantera::Electrode_SimpleDiff* const emp = dynamic_cast<const Cantera::Electrode_SimpleDiff* const>(e);
-
     if (emp) {
-	rnodePos_                    = emp->rnodePos_final_;
-	cellBoundR_                  = emp->cellBoundR_final_;
-	rLatticeCBR_                 = emp->rLatticeCBR_final_;
-	concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
-	concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
-	spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
+        copyElectrode_SimpleDiff_intoState(emp);
     } else {
-        throw CanteraError("EState_RadialDistrib::copyElectrode_intoState","bad cast");
+       const Cantera::Electrode_DiffTALE* const edt = dynamic_cast<const Cantera::Electrode_DiffTALE* const>(e);
+       if (edt) {
+          copyElectrode_DiffTALE_intoState(edt);
+       } else {
+          throw CanteraError("EState_RadialDistrib::copyElectrode_intoState()","bad cast");
+       }
     }
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object
-void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* const e) const
+void EState_RadialDistrib::setStateElectrode_SimpleDiff_fromEState(Cantera::Electrode_SimpleDiff* const emp) const
 {
-    EState::copyEState_toElectrode(e);
-
-    Electrode_SimpleDiff* emp = dynamic_cast<Electrode_SimpleDiff*>(e);
+    EState::copyEState_toElectrode(emp);
 
     emp->rnodePos_final_             = 	rnodePos_;    
     emp->cellBoundR_final_           = 	cellBoundR_;
@@ -240,14 +291,47 @@ void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* cons
     emp->concTot_SPhase_Cell_final_  = 	concTot_SPhase_Cell_;
     emp->concKRSpecies_Cell_final_   = 	concKRSpecies_Cell_;
     emp->spMoles_KRsolid_Cell_final_ = 	spMoles_KRsolid_Cell_;
-
     /*
      * Now we can do an update
      */
     emp->updateState();
     emp->stateToPhaseFlagsReconciliation(false);
     emp->setInitStateFromFinal(true);
+}
+//======================================================================================================================
+//    Set the state of the Electrode from the state of this object
+void EState_RadialDistrib::setStateElectrode_DiffTALE_fromEState(Cantera::Electrode_DiffTALE* const emp) const
+{
+    EState::copyEState_toElectrode(emp);
 
+    emp->rnodePos_final_             = 	rnodePos_;    
+    emp->cellBoundR_final_           = 	cellBoundR_;
+    emp->rLatticeCBR_final_          =  rLatticeCBR_;
+    emp->concTot_SPhase_Cell_final_  = 	concTot_SPhase_Cell_;
+    emp->concKRSpecies_Cell_final_   = 	concKRSpecies_Cell_;
+    emp->spMoles_KRsolid_Cell_final_ = 	spMoles_KRsolid_Cell_;
+    /*
+     * Now we can do an update
+     */
+    emp->updateState();
+    emp->stateToPhaseFlagsReconciliation(false);
+    emp->setInitStateFromFinal(true);
+}
+//======================================================================================================================
+//    Set the state of the Electrode from the state of this object
+void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* const e) const
+{
+    Electrode_SimpleDiff* emp = dynamic_cast<Electrode_SimpleDiff*>(e);
+    if (emp) {
+	setStateElectrode_SimpleDiff_fromEState(emp); 
+    } else {
+       Cantera::Electrode_DiffTALE* edt = dynamic_cast<Cantera::Electrode_DiffTALE*>(e);
+       if (edt) {
+	   setStateElectrode_DiffTALE_fromEState(edt);
+       } else {
+	   throw CanteraError("EState_RadialDistrib::setStateElectrode_fromEState()","bad cast");
+       }
+    }
 }
 //====================================================================================================================
 } // End of namespace Cantera

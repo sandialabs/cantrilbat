@@ -67,7 +67,9 @@ enum Electrode_Types_Enum {
 
 
     //! network of one or more radial diffusion regions with surrounding interfacial kinetics regions
-    RADIAL_DIFF_REGIONS_ET
+    RADIAL_DIFF_REGIONS_ET,
+
+    DIFF_TALE_ET
         
 };
 

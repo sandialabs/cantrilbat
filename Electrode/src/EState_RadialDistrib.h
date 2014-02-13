@@ -23,6 +23,7 @@ namespace Cantera
 
 class Electrode;
 class Electrode_SimpleDiff;
+class Electrode_DiffTALE;
 
 
 //! Child Class for the EState class concept refering to SimpleDiff Electrode object.
@@ -38,6 +39,9 @@ public:
 
     //! Default constructor for the base object
     EState_RadialDistrib();
+
+    //! Default constructor for the base object
+    EState_RadialDistrib(std::string electrodeType);
 
     //! Copy Constructor
     /*!
@@ -93,6 +97,9 @@ public:
      */
     virtual void readStateFromXML(const XML_Node& xmlEState);
 
+    void copyElectrode_SimpleDiff_intoState(const Cantera::Electrode_SimpleDiff* const emp);
+    void copyElectrode_DiffTALE_intoState(const Cantera::Electrode_DiffTALE* const emp);
+
     //! Set the State of this object from the state of the Electrode object
     /*!
      *  (virtual function)
@@ -108,6 +115,10 @@ public:
      *             correct.
      */
     virtual void copyElectrode_intoState(const Cantera::Electrode* const e);
+
+    void setStateElectrode_SimpleDiff_fromEState(Cantera::Electrode_SimpleDiff* const e) const;
+    void setStateElectrode_DiffTALE_fromEState(Cantera::Electrode_DiffTALE* const e) const;
+
 
     //! Set the state of the Electrode from the state of this object
     /*!
