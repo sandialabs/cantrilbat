@@ -10,6 +10,7 @@ all:
 	cd FeS2_4_MPNewman_cc ; @MAKE@
 	cd FeS2_4_cMPNewman_cc ; @MAKE@
 	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@
@@ -22,6 +23,7 @@ test:
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ -s test
 	cd FeS2_4_MPNewman_cc ; @MAKE@ -s test
 	cd FeS2_4_cMPNewman_cc ; @MAKE@ -s test
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@ -s test
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@ -s test
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@ -s test
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@ -s test
@@ -36,6 +38,7 @@ clean:
 	cd FeS2_4_MPNewman_cc ; @MAKE@  clean
 	cd FeS2_4_cMPNewman_cc ; @MAKE@  clean
 	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@ clean
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@ clean
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  clean
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@ clean
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@ clean
@@ -50,6 +53,7 @@ depends:
 	cd FeS2_4_MPNewman_cc ; @MAKE@  depends
 	cd FeS2_4_cMPNewman_cc ; @MAKE@  depends
 	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@ depends
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@ depends
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  depends
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@ depends
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@ depends
@@ -65,6 +69,7 @@ rebaseline:
 	cd FeS2_5_MultiPlat_cV_restart; @MAKE@  rebaseline
 	cd FeS2_4_MPNewman_cc ; @MAKE@ rebaseline
 	cd FeS2_4_cMPNewman_cc ; @MAKE@ rebaseline
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@ rebaseline
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@ rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@ rebaseline
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@ rebaseline

@@ -618,6 +618,8 @@ AC_OUTPUT(Makefile \
           Electrode/tests/FeS2_3_MPNewman_cV_restart/Makefile \
           Electrode/tests/FeS2_4_MPNewman_cc/Makefile \
           Electrode/tests/FeS2_4_cMPNewman_cc/Makefile \
+          Electrode/tests/MCMBAnode_LiIon_DiffTALE_cV/Makefile \
+          Electrode/tests/MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_3_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC/Makefile \
