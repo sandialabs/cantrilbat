@@ -626,7 +626,6 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_2_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_3_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC/Makefile \
-          Electrode/tests/MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC/Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
           Electrode/tests/UnitTests/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \
