@@ -1,0 +1,65 @@
+
+
+HKM
+
+This is a test with a fast reaction that reaches equilibrium.
+
+
+It starts off with a constant voltage drain of the electrode. The voltage is at 0.2 volts.
+The open circuit voltage of the initial electrode is at -0.023098 volts. At the end,
+electrode has an open circuit voltage of 0.2 volts.
+
+
+The time steps start off with an initial value of
+ 2.5E-4
+It fails the p-c at that time step, but passes at deltaT = 6.25 E-5.
+Even at that time step there is an appreciable change in the outer radial concentration. 
+The vacency concentration changed from 0.2  to 0.33879.
+So that is quite acceptable. the p-c value was 139.6
+
+
+The predictor-corrector is only respondent to the species concentration unknown. All the rest
+are totally zero.
+
+The solution is highly kinetic. Diffusion can't keep up. So, a quasi-equilibrium is formed at
+the boundary of the particle. this occurs at roughly a time constant of 4E-3. Then, the open circuit
+voltage of the electrode is 0.16 volts. The vacancy concentration is 0.943 at the surface, and 0.202 
+within the center of the particle at that time.
+The particle then proceeds to drain via a diffusion time scale.
+
+The deltaT got stuck at 1.0E-4 during this draining. I think this may be an issue. This may mean I have
+to treat the reactions at the surface in a quasi-implicit manner during the predictor. This was discussed
+by Hewson and Moffat.
+
+The outer loop is set at 0.1 deltaT. This is far too much. The subintegrations necessary to attain that
+are 1159 times. By that time the particle is at least half drained by diffusion.
+
+The electrode is pretty much drained by 0.4 seconds, taking 3500 subgrid steps. Only then does the time
+step go beyond 1.0E-4.
+
+
+The predictor overpredicts the vacancy concentration at the surface. This would be remedied by an implicit
+treatment of the surface reaction.
+
+Other key numbers
+    <Arrhenius_ExchangeCurrentDensity>
+     <!--      <A>1.0E22</A> 
+      -->
+           <A>1.0E26</A>
+           <b>0.0</b>
+           <E units="kJ/mol"> 20.000000 </E>
+        </Arrhenius_ExchangeCurrentDensity>
+ Default Diffusion Coefficient = 1.0E-10
+
+
+Initial current =    Current = 5.2243e+06 amps
+
+Capacity Discharged = 10147.7 coulombs = 2.81882 Ah
+
+There is a real lack of capacity utilized / discharged in this electrode object.
+
+
+
+
+
+

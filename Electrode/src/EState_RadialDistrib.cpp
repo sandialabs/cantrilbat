@@ -120,7 +120,6 @@ EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib
     concKRSpecies_Cell_                    = right.concKRSpecies_Cell_;
     spMoles_KRsolid_Cell_                  = right.spMoles_KRsolid_Cell_;
     onRegionBoundary_                      = right.onRegionBoundary_;
-
     /*
      * Return the reference to the current object
      */
@@ -146,24 +145,33 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
     EState::initialize(ebase);
 
     const Electrode_SimpleDiff* const e = dynamic_cast<const Electrode_SimpleDiff* const>(ebase);
-    if (!e) {
-        const Electrode_DiffTALE* const e = dynamic_cast<const Electrode_DiffTALE* const>(ebase);
-        if (!e) {
+    if (e) {
+	numRCells_                   = e->numRCells_;
+	numKRSpecies_                = e->numKRSpecies_;
+	numSPhases_                  = e->numSPhases_;
+	rnodePos_                    = e->rnodePos_final_;
+	cellBoundR_                  = e->cellBoundR_final_;
+	rLatticeCBR_                 = e->rLatticeCBR_final_;
+	concTot_SPhase_Cell_         = e->concTot_SPhase_Cell_final_;
+	concKRSpecies_Cell_          = e->concKRSpecies_Cell_final_;
+	spMoles_KRsolid_Cell_        = e->spMoles_KRsolid_Cell_final_;
+    } else {
+        const Electrode_DiffTALE* const edt = dynamic_cast<const Electrode_DiffTALE* const>(ebase);
+	if (edt) {
+	    numRCells_                   = edt->numRCells_;
+	    numKRSpecies_                = edt->numKRSpecies_;
+	    numSPhases_                  = edt->numSPhases_;
+	    rnodePos_                    = edt->rnodePos_final_;
+	    cellBoundR_                  = edt->cellBoundR_final_;
+	    rLatticeCBR_                 = edt->rLatticeCBR_final_;
+	    concTot_SPhase_Cell_         = edt->concTot_SPhase_Cell_final_;
+	    concKRSpecies_Cell_          = edt->concKRSpecies_Cell_final_;
+	    spMoles_KRsolid_Cell_        = edt->spMoles_KRsolid_Cell_final_;
+	} else {
 	    throw Electrode_Error("EState_RadialDistrib::initialize()",
                                   "Need Electrode_SimpleDiff or Electrode_DiffTALE pointer type");
         }
     }
-
-    numRCells_                   = e->numRCells_;
-    numKRSpecies_                = e->numKRSpecies_;
-    numSPhases_                  = e->numSPhases_;
-    rnodePos_                    = e->rnodePos_final_;
-    cellBoundR_                  = e->cellBoundR_final_;
-    rLatticeCBR_                 = e->rLatticeCBR_final_;
-    concTot_SPhase_Cell_         = e->concTot_SPhase_Cell_final_;
-    concKRSpecies_Cell_          = e->concKRSpecies_Cell_final_;
-    spMoles_KRsolid_Cell_        = e->spMoles_KRsolid_Cell_final_;
-
     return 1;
 }
 //======================================================================================================================

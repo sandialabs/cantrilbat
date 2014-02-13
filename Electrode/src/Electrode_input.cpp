@@ -297,7 +297,7 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
 
     /* --------------------------------------------------------------
      * Electrode Model Name  = ["BaseType", "InfCapacity", "MP_RxnExtent",
-     *			      "MultiPlateau_NoDiff", "SimpleDiff",
+     *			      "MultiPlateau_NoDiff", "SimpleDiff", "DiffTALE"
      *     		      "SimplePhaseChangeDiffusion"};
      *
      *  This must correspond to the name used by the factory method for instanteating
