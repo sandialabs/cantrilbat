@@ -234,12 +234,6 @@ namespace beuler
   {
 
      m_func->residEval(m_resid, true, &y_n, &ydot_n, time_n,  CJ, m1d::Base_ResidEval, m1d::TimeDependentAccurate_Solve);
-    
-     m1d::BatteryResidEval *batResid = dynamic_cast<m1d::BatteryResidEval *>(m_func);
-     
-
-     int maxSubGridTimeSteps = batResid->getMaxSubGridTimeSteps();
-
 
      return 0;
   }

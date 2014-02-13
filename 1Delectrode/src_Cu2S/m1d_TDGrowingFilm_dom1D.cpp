@@ -524,7 +524,6 @@ void TDGrowingFilm_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_
 {
   double xmin = 1E300;
   double xmax = -1.0E300;
-  int cIndex_cc_;
   /*
    * Offsets for the variable unknowns in the solution vector for the bulk domain
    */
@@ -532,7 +531,6 @@ void TDGrowingFilm_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_
   int iVar_Conc_BD = 1;
   
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    cIndex_cc_ = iCell;
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars * nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
     int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
@@ -550,7 +548,6 @@ void TDGrowingFilm_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_
 
 
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    cIndex_cc_ = iCell;
 
     /*
      *    Get the index for the center node 
@@ -587,7 +584,6 @@ void TDGrowingFilm_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra
 {
   double xmin = 1E300;
   double xmax = -1.0E300;
-  int cIndex_cc_;
   /*
    * Offsets for the variable unknowns in the solution vector for the bulk domain
    */
@@ -595,7 +591,6 @@ void TDGrowingFilm_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra
   int iVar_Conc_BD = 1;
   
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    cIndex_cc_ = iCell;
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars * nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
     int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
@@ -613,7 +608,6 @@ void TDGrowingFilm_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra
 
 
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    cIndex_cc_ = iCell;
 
     /*
      *    Get the index for the center node 
@@ -645,7 +639,6 @@ TDGrowingFilm_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff,
 {
   double xmin = 1E300;
   double xmax = -1.0E300;
-  int cIndex_cc_;
  
   /*
    * Offsets for the variable unknowns in the solution vector for the bulk domain
@@ -654,7 +647,6 @@ TDGrowingFilm_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff,
   int iVar_Conc_BD = 1;
   
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    cIndex_cc_ = iCell;
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars * nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
     int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
@@ -671,7 +663,6 @@ TDGrowingFilm_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff,
   double deltaX = xmax - xmin;
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
 
-    cIndex_cc_ = iCell;
 
     /*
      *  ---------------- Get the index for the center node ---------------------------------
@@ -705,7 +696,6 @@ TDGrowingFilm_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relc
 {
   double xmin = 1E300;
   double xmax = -1.0E300;
-  int cIndex_cc_;
  
   /*
    * Offsets for the variable unknowns in the solution vector for the bulk domain
@@ -714,7 +704,6 @@ TDGrowingFilm_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relc
   int iVar_Conc_BD = 1;
   
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    cIndex_cc_ = iCell;
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars * nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
     int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
@@ -731,7 +720,6 @@ TDGrowingFilm_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relc
   double deltaX = xmax - xmin;
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
 
-    cIndex_cc_ = iCell;
 
     /*
      *  ---------------- Get the index for the center node ---------------------------------

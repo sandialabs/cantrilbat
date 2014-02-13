@@ -323,10 +323,6 @@ EpetraJac::eval(const bool doTimeDependentResid,
 
     // loop over the block rows
     for (int iBlockRow = 0; iBlockRow < numLcRowNodes; iBlockRow++) {
-      // Keep track of the column that changed for the block row
-      // There should only be one.
-      int jColLcEqnChanged = -1;
-
       // Find out the global node number
       //int gbNode = m1d::LI_ptr->IndexGbNode_LcNode[iBlockRow];
 
@@ -367,7 +363,6 @@ EpetraJac::eval(const bool doTimeDependentResid,
           int jLcEqn = je + LI_ptr_->IndexLcEqns_LcNode[blockColLcNode];
           // discover which one changed
           if (eChange[jLcEqn]) {
-            jColLcEqnChanged = jLcEqn;
             // Check to make sure that no other equation changed
             if (ifound != -1) {
               AssertThrow("Logic Error","");

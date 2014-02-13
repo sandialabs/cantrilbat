@@ -156,7 +156,7 @@ SolNonlinear::soln_error_norm(const Epetra_Vector_Owned &delta_y, const bool pri
                               const double dampFactor) const
 {
   int i;
-  int idLocalEqnMax;
+  int idLocalEqnMax = -1;
   double sum_norm = 0.0, error;
   stream0 ss;
   double gbSum = 0.0, gmax1;
@@ -285,7 +285,7 @@ SolNonlinear::soln_error_norm(const Epetra_Vector_Owned &delta_y, const bool pri
 double
 SolNonlinear::res_error_norm(const Epetra_Vector_Owned &resid, const char *title, const int printLargest) const
 {
-  int i, idLocalEqnMax;
+  int i, idLocalEqnMax = -1;
   double sum_norm = 0.0, error;
   stream0 ss;
   double gbSum = 0.0, gmax1;
@@ -743,7 +743,6 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
 {
   int i_fbounds = 0;
   int ifbd = 0;
-  int i_fbd = 0;
 
   double fbound = 1.0;
   double f_delta_bounds = 1.0;
@@ -794,7 +793,6 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
     if (ff < f_delta_bounds) {
       f_delta_bounds = ff;
       i_fbounds = i;
-      i_fbd = ifbd;
     }
     f_delta_bounds = MIN(f_delta_bounds, ff);
   }

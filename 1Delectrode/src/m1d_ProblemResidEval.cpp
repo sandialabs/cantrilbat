@@ -1068,10 +1068,8 @@ ProblemResidEval::showProblemSolution(const int ievent,
 {
 
   //bool doAllProcs = false;
-  struct tm *newtime;
   time_t aclock;
   ::time(&aclock); /* Get time in seconds */
-  newtime = localtime(&aclock); /* Convert time to struct tm form */
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   char buf[256];
   bool duplicateOnAllProcs = false;
@@ -1171,10 +1169,8 @@ ProblemResidEval::showSolutionVector(std::string& solnVecName,
 {
 
   //bool doAllProcs = false;
-  struct tm *newtime;
   time_t aclock;
   ::time(&aclock); /* Get time in seconds */
-  newtime = localtime(&aclock); /* Convert time to struct tm form */
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
 
   bool duplicateOnAllProcs = false;
@@ -1268,10 +1264,8 @@ ProblemResidEval::showSolutionIntVector(std::string& solnVecName,
 {
 
   //bool doAllProcs = false;
-  struct tm *newtime;
   time_t aclock;
   ::time(&aclock); /* Get time in seconds */
-  newtime = localtime(&aclock); /* Convert time to struct tm form */
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
 
   bool duplicateOnAllProcs = false;

@@ -341,9 +341,9 @@ LocalRowNodeVBRIndices::alloc_VbrMatrix()
 
   }
 
-  int err = A->FillComplete();
+  A->FillComplete();
 
-  err = A->PutScalar(0.0);
+  A->PutScalar(0.0);
 
   return A;
 }

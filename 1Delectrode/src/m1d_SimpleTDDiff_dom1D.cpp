@@ -102,8 +102,6 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
   double xdelL; // Distance of the cell from the center node to the left cell boundary
   double xdelR; // Distance of the cell from the center node to the right cell boundary
   double xdelCell; // Distance of the cell - right boundary minus the left boundary.
-  double xCellBoundaryL;
-  double xCellBoundaryR;
   double Cright;
   double Cleft;
   double Ccent;
@@ -193,11 +191,9 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
      */
     if (nodeLeft) {
       xdelL = nodeCent->xNodePos() - nodeLeft->xNodePos();
-      xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
     }
     else {
       xdelL = 0.0;
-      xCellBoundaryL = 0.0;
     }
 
     if (doLeftFluxCalc) {
@@ -263,11 +259,9 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
      */
     if (nodeRight == 0) {
       xdelR = 0.0;
-      xCellBoundaryR = nodeCent->xNodePos();
     }
     else {
       xdelR = nodeRight->xNodePos() - nodeCent->xNodePos();
-      xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
     }
     xdelCell = xdelL + xdelR;
 

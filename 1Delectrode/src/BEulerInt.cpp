@@ -699,7 +699,7 @@ void BEulerInt::boundStep_y_pred()
 double BEulerInt::soln_error_norm(const Epetra_Vector &delta_y, const int printLargest, const int typeYsoln,
                                   const double dampFactor) const
 {
-    int i, idLocalEqnMax;
+    int i, idLocalEqnMax=-1;
     double sum_norm = 0.0, error;
     stream0 ss;
     double gbSum = 0.0, gmax1;
@@ -1205,7 +1205,7 @@ double BEulerInt::time_error_norm() const
             const int num_entries = 8;
             double dmax1, normContrib;
             int j;
-            int idLocalEqnMax;
+            int idLocalEqnMax=-1;
             int *imax = mdpUtil::mdp_alloc_int_1(num_entries, -1);
             print0_sync_start(false, ss, *Comm_ptr_);
             if (!mypid_) {
@@ -1618,7 +1618,7 @@ doublereal BEulerInt::step(double t_max)
     bool step_failed = false;
     bool giveUp = false;
     bool convFailure = false;
-    const char *rslt;
+    const char *rslt = "";
     double time_error_factor = 0.0;
     double normFilter = 0.0;
     int numTSFailures = 0;
@@ -1660,7 +1660,6 @@ doublereal BEulerInt::step(double t_max)
     delta_t_n = delta_t_np1;
     time_nm2 = time_nm1;
     time_nm1 = time_n;
-    double delta_t_n_old = delta_t_n;
     do {
 
         m_time_step_attempts++;
