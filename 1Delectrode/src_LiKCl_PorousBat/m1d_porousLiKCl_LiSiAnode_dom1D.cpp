@@ -369,8 +369,6 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
 
   double xCellBoundaryL; //cell boundary left
   double xCellBoundaryR; //cell boundary right
-  // Index of the first equation at the center node
-  int indexCent_EqnStart_BD;
   
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     // Note that we need to create a Factory method to instantiate the desired electrode type.
@@ -415,9 +413,6 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
     index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     // Get the pointer to the NodalVars object for the center node
     nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-    // Index of the first equation in the bulk domain of center node
-    indexCent_EqnStart_BD = 
-      LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
     
     /*
      *  ------------------- Get the index for the left node -----------------------------
@@ -665,12 +660,12 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
     double xCellBoundaryR; //cell boundary right
     
     //  Electrolyte mole fluxes - this is c V dot n at the boundaries of the cells
-    double fluxFright;
+    double fluxFright = 0.;
     double fluxFleft;
     
 
     // Flux of current in the electrode phase at the right and left cell boundaries
-    double fluxVElectrodeRight;
+    double fluxVElectrodeRight = 0.;
     double fluxVElectrodeLeft;
 
     //mole fraction fluxes
@@ -1342,24 +1337,13 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
   NodalVars *nodeCent = 0;
   NodalVars *nodeRight = 0;
 
-  double xdelL; // Distance from the center node to the left node
-  double xdelR; // Distance from the center node to the right node
   double xCellBoundaryL; //cell boundary left
   double xCellBoundaryR; //cell boundary right
-  
 
-  /*
-   * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
-   */
-  int indexLeft_EqnStart_BD;
   /*
    * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
    */
   int indexCent_EqnStart_BD;
-  /*
-   * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
-   */
-  int indexRight_EqnStart_BD;
   
 
   /*
@@ -1404,16 +1388,9 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	 *  We assign node object to zero.
 	 */
 	nodeLeft = 0;
-	/*
-	 *  If there is no left node, we assign the left solution index to the center solution index
-	 */
-	indexLeft_EqnStart_BD = indexCent_EqnStart_BD;
       } else {
 	// get the node structure for the left node
 	nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
-	//index of first equation in the electrolyte of the left node
-	indexLeft_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode]
-          + nodeLeft->OffsetIndex_BulkDomainEqnStart_BDN[0];
       }
      
       /*
@@ -1422,16 +1399,9 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
       index_RightLcNode = Index_RightLcNode_LCO[iCell];
       if (index_RightLcNode < 0) {
 	nodeRight = 0;
-	/*
-	 *  If there is no right node, we assign the right solution index to the center solution index
-	 */
-	indexRight_EqnStart_BD = indexCent_EqnStart_BD;
       } else {
 	//NodalVars
 	nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
-	//index of first equation of right node
-	indexRight_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode]
-          + nodeRight->OffsetIndex_BulkDomainEqnStart_BDN[0];
       }
 
       /*
@@ -1439,20 +1409,16 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
        * Calculate the distance between the left and center node points
        */
       if (nodeLeft) {
-	xdelL = nodeCent->xNodePos() - nodeLeft->xNodePos();
 	xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
       } else {
-	xdelL = 0.0;
 	xCellBoundaryL = nodeCent->xNodePos();
       }
       /*
        * Calculate the distance between the right node and center node points
        */
       if (nodeRight == 0) {
-	xdelR = 0.0;
 	xCellBoundaryR = nodeCent->xNodePos();
       } else {
-	xdelR = nodeRight->xNodePos() - nodeCent->xNodePos();
 	xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
       }
       /*
