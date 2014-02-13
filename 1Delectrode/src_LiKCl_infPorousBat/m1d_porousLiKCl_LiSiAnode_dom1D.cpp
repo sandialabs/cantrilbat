@@ -297,7 +297,7 @@ porousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
   double xCellBoundaryR; //cell boundary right
 
   //  Electrolyte mole fluxes - this is c V dot n at the boundaries of the cells
-  double fluxFright;
+  double fluxFright = 0.;
   double fluxFleft;
 
   // Flux of current in the electrolyte
@@ -305,7 +305,7 @@ porousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
   //double fluxVleft;
 
   // Flux of current in the electrode phase
-  double fluxVElectrodeRight;
+  double fluxVElectrodeRight = 0.;
   double fluxVElectrodeLeft;
 
   //mole fraction fluxes

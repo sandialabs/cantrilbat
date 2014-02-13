@@ -209,11 +209,11 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
   double xCellBoundaryR; //cell boundary right
 
   //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
-  double fluxFright;
+  double fluxFright = 0.;
   double fluxFleft;
 
   //  Electrostatic fluxes (current)
-  double fluxVright;
+  double fluxVright = 0.;
   double fluxVleft;
   //mole fraction fluxes
   std::vector<double> fluxXright(nsp_, 0.0);
