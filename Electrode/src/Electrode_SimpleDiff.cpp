@@ -1815,12 +1815,10 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
  *         Loop over cells                                                            0 <=  iCell < numRCells_
  *                                                                                     j = numEqnsCell_ * iCell
  *                    
- *            Residual (Reference/lattice Position)          rLatticeCBR_final_[iCell];      (1+j)
- *            Residual (Mesh Position)                                                       (j+1) + 1
  *          Loop over distributed Phases
- *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhase_ + jPh]
+ *            Residual (phaseMoles _ k=0)                   phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]
  *              . . .
- *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+ *            Residual (speciesMoles _ k=Ns-1)             spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] 
  *  --------------------------------------------------------------------------------------------------------------
  */
 void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
@@ -1836,13 +1834,12 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
-	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
+	    spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies + 0]= y[index];
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
-		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] = y[index + kSp];
-		concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] -=
-		    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+		spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]      = y[index + kSp];
+		spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies + 0] -= y[index + kSp];
 	    }
 	    kstart += nsp;
 	    index += nsp;
@@ -1857,12 +1854,10 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
  *         Loop over cells                                                            0 <=  iCell < numRCells_
  *                                                                                     j = numEqnsCell_ * iCell
  *                    
- *            Residual (Reference/lattice Position)          rLatticeCBR_final_[iCell];      (1+j)
- *            Residual (Mesh Position)                                                       (j+1) + 1
  *          Loop over distributed Phases
- *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhase_ + jPh]
+ *            Residual (Concentration _ k=0)                phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]
  *              . . .
- *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+ *            Residual (Concentration _ k=Ns-1)             spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] 
  *  --------------------------------------------------------------------------------------------------------------
 */
 void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
@@ -1882,7 +1877,7 @@ void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
 	    y[index] = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];	  
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
-		y[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+		y[index + kSp] = spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
 	    }
 	    kstart += nsp;
 	    index += nsp;
