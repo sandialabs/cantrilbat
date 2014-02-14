@@ -574,19 +574,6 @@ public:
      *
      *   resid[i] = y[i] - yval_retn[i]
      *
-     *  The formulation of the solution vector is as follows. The solution vector will consist of the following form
-     *
-     *     y =   phaseMoles_final[iph]    for iph = phaseIndexSolidPhases[0]
-     *           phaseMoles_final[iph]    for iph = phaseIndexSolidPhases[1]
-     *           . . .
-     *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[0]
-     *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[0]
-     *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[0]
-     *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[0]
-     *           ...
-     *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[1]
-     *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
-
      *
      *                                                             Unknown                           Index
      * --------------------------------------------------------------------------------------------------------------
@@ -595,19 +582,16 @@ public:
      *         Loop over cells                                                            0 <=  iCell < numRCells_
      *                                                                                     j = numEqnsCell_ * iCell
      *                    
-     *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];        (1+j)
-     *            Residual (Mesh Position)                        rnodePos_final_[iCell]            (j+1) + 1
      *            Loop over distributed Phases
-     *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh]
+     *            Residual (Concentration _ k=0)                  totMoles_SPhase__Cell_final_[iCell * numSPhases_ + jPh]
      *              . . .
-     *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+     *            Residual (Concentration _ k=Ns-1)               spMoles_KRSolid_final_[iCell * numKRSpecies_ + iKRSpecies]
      *  --------------------------------------------------------------------------------------------------------------
      *
      *  @param resid   Calculated residual vector whose form is described above
      */
     int  calcResid(double* const resid, const ResidEval_Type_Enum evalType);
-    int  calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
-
+ 
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
     /*!
@@ -694,15 +678,6 @@ protected:
      */
     std::vector<double> spMoles_KRsolid_Cell_init_init_;
 
-    //! Vector of phse moles defined on the grid
-    /*!
-     *
-     *   The inner loop is over the number of species that are defined to have radially dependent
-     *   distributions, numKRSpecies;
-     *   init_init state value
-     */
-    std::vector<double> phaseMoles_KRsolid_Cell_final_;
-
     //! Species Index for the solid species that are distributed radially through the particle
     /*!
      *  The main object is a vector of species representing the homogenized values of the mole
@@ -724,7 +699,7 @@ protected:
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
      *  There are numSPhases_ of these
-     *
+    *
      *  The phaseIndex is the index within the Electrode object
      *
      *  
@@ -767,6 +742,7 @@ protected:
      */
     std::vector<int> phaseIndeciseNonKRsolidPhases_;
 
+    //! Number of phases that are not distributed
     int numNonSPhases_;
 
     //! Total concentration of each of the solid phases that are distributed - global final state
@@ -792,6 +768,31 @@ protected:
      *  concTot_SPhase_Cell_init_init_[numSPhases_ * iCell + iJRPh]
      */
     std::vector<double> concTot_SPhase_Cell_init_init_;
+
+    //! Total moles of each of the solid phases that are distributed - global final state
+    /*!
+     *       phaseMoles_KRsolid_Cell_final_final_[numSPhases_ * iCell + iJRPh]
+     */
+    std::vector<double> phaseMoles_KRsolid_Cell_final_final_;
+
+    //! Total moles of each of the solid phases that are distributed - local final state
+    /*!
+     *     phaseMoles_KRsolid_Cell_final_[numSPhases_ * iCell + iJRPh]
+     */
+    std::vector<double> phaseMoles_KRsolid_Cell_final_;
+
+    //! Total moles of each of the solid phases that are distributed - local init state
+    /*!
+     *   phaseMoles_KRsolid_Cell_init_[numSPhases_ * iCell + iJRPh]
+     */
+    std::vector<double> phaseMoles_KRsolid_Cell_init_;
+
+    //! Total moles of each of the solid phases that are distributed - global init state
+    /*!
+     * phaseMoles_KRsolid_init_init_[numSPhases_ * iCell + iJRPh]
+     */
+    std::vector<double> phaseMoles_KRsolid_Cell_init_init_;
+
 
     //! molar density of each of the solid phases that are distributed - final state
     /*!
@@ -835,14 +836,7 @@ protected:
      */
     std::vector<double> spMf_KRSpecies_Cell_init_;
 
-    //! Molar density of the solid phase in each cell under reference conditions
-    /*!
-     *  This is the molar volume of the first species in the mechanism at the
-     *  starting temperature and pressure.
-     *
-     *  units are kmol m-3.
-     */
-    doublereal MolarVolume_Ref_;
+   
 
     //! Node position of the mesh - final_final
     std::vector<doublereal> rnodePos_final_final_;
@@ -856,19 +850,6 @@ protected:
     //! Node position of the mesh - init_init
     std::vector<doublereal> rnodePos_init_init_;
 
-    //! Reference radius at the right cell boundary - global final value
-    std::vector<doublereal> rLatticeCBR_final_final_;
-
-    //! Reference radius at the right cell boundary - local final value
-    std::vector<doublereal> rLatticeCBR_final_;
-
-    //! Reference radius at the right cell boundary - local init value
-    std::vector<doublereal> rLatticeCBR_init_;
-
-    //! Reference radius at the right cell boundary - global init value
-    std::vector<doublereal> rLatticeCBR_init_init_;
-
-    std::vector<doublereal> rLatticeCBR_ref_;
 
     //! Lattice velocity of the right cell boundary - global final value
     std::vector<doublereal> vLatticeCBR_cell_;

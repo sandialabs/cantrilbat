@@ -151,7 +151,6 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
 	numSPhases_                  = e->numSPhases_;
 	rnodePos_                    = e->rnodePos_final_;
 	cellBoundR_                  = e->cellBoundR_final_;
-	rLatticeCBR_                 = e->rLatticeCBR_final_;
 	concTot_SPhase_Cell_         = e->concTot_SPhase_Cell_final_;
 	concKRSpecies_Cell_          = e->concKRSpecies_Cell_final_;
 	spMoles_KRsolid_Cell_        = e->spMoles_KRsolid_Cell_final_;
@@ -242,7 +241,6 @@ void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const Cantera::Ele
 
     rnodePos_                    = emp->rnodePos_final_;
     cellBoundR_                  = emp->cellBoundR_final_;
-    rLatticeCBR_                 = emp->rLatticeCBR_final_;
     concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
     concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
     spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
@@ -295,7 +293,6 @@ void EState_RadialDistrib::setStateElectrode_SimpleDiff_fromEState(Cantera::Elec
 
     emp->rnodePos_final_             = 	rnodePos_;    
     emp->cellBoundR_final_           = 	cellBoundR_;
-    emp->rLatticeCBR_final_          =  rLatticeCBR_;
     emp->concTot_SPhase_Cell_final_  = 	concTot_SPhase_Cell_;
     emp->concKRSpecies_Cell_final_   = 	concKRSpecies_Cell_;
     emp->spMoles_KRsolid_Cell_final_ = 	spMoles_KRsolid_Cell_;

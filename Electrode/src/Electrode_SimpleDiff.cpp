@@ -50,8 +50,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     spMoles_KRsolid_Cell_init_(0),
     spMoles_KRsolid_Cell_final_final_(0),
     spMoles_KRsolid_Cell_init_init_(0),
-    phaseMoles_KRsolid_Cell_final_(0),
-
+ 
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
     phaseIndeciseKRsolidPhases_(0),
@@ -72,16 +71,12 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 
     spMf_KRSpecies_Cell_final_(0),
     spMf_KRSpecies_Cell_init_(0),
-    MolarVolume_Ref_(0),
+  
     rnodePos_final_final_(0),
     rnodePos_final_(0),
     rnodePos_init_(0),
     rnodePos_init_init_(0),
-    rLatticeCBR_final_final_(0),
-    rLatticeCBR_final_(0),
-    rLatticeCBR_init_(0),
-    rLatticeCBR_init_init_(0),
-    rLatticeCBR_ref_(0),
+
     vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
     cellBoundR_init_(0),
@@ -138,7 +133,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     spMoles_KRsolid_Cell_init_(0),
     spMoles_KRsolid_Cell_final_final_(0),
     spMoles_KRsolid_Cell_init_init_(0),
-    phaseMoles_KRsolid_Cell_final_(0),
+  
 
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
@@ -161,16 +156,11 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
   
     spMf_KRSpecies_Cell_final_(0),
     spMf_KRSpecies_Cell_init_(0),
-    MolarVolume_Ref_(0),
+
     rnodePos_final_final_(0),
     rnodePos_final_(0),
     rnodePos_init_(0),
     rnodePos_init_init_(0),
-    rLatticeCBR_final_final_(0),
-    rLatticeCBR_final_(0),
-    rLatticeCBR_init_(0),
-    rLatticeCBR_init_init_(0),
-    rLatticeCBR_ref_(0),
     vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
     cellBoundR_init_(0),
@@ -254,17 +244,12 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     concKRSpecies_Cell_final_final_     = right.concKRSpecies_Cell_final_final_;
     spMf_KRSpecies_Cell_final_          = right.spMf_KRSpecies_Cell_final_;
     spMf_KRSpecies_Cell_init_           = right.spMf_KRSpecies_Cell_init_;
-    MolarVolume_Ref_                    = right.MolarVolume_Ref_;
+
 
     rnodePos_final_final_               = right.rnodePos_final_final_;
     rnodePos_final_                     = right.rnodePos_final_;
     rnodePos_init_                      = right.rnodePos_init_;
     rnodePos_init_init_                 = right.rnodePos_init_init_;
-    rLatticeCBR_final_final_            = right.rLatticeCBR_final_final_;
-    rLatticeCBR_final_                  = right.rLatticeCBR_final_;
-    rLatticeCBR_init_                   = right.rLatticeCBR_init_;
-    rLatticeCBR_init_init_              = right.rLatticeCBR_init_init_;
-    rLatticeCBR_ref_                    = right.rLatticeCBR_ref_;
     vLatticeCBR_cell_                   = right.vLatticeCBR_cell_;
     cellBoundR_final_                   = right.cellBoundR_final_;
     cellBoundR_init_                    = right.cellBoundR_init_;
@@ -428,7 +413,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 	kstartKRSolidPhases_.push_back(numKRSpecies_);
         numKRSpecies_ += nsp;
     }
-    numEqnsCell_ =  numKRSpecies_ + 2;
+    numEqnsCell_ =  numKRSpecies_;
 
     /*
      * Set the size of the diffusion coefficient array and set it to a default value.
@@ -605,22 +590,21 @@ Electrode_SimpleDiff::init_sizes()
     concTot_SPhase_Cell_init_.resize(nPhCell, 0.0);
     concTot_SPhase_Cell_init_init_.resize(nPhCell, 0.0);
 
+    phaseMoles_KRsolid_Cell_final_final_.resize(nPhCell, 0.0);
+    phaseMoles_KRsolid_Cell_final_.resize(nPhCell, 0.0);
+    phaseMoles_KRsolid_Cell_init_.resize(nPhCell, 0.0);
+    phaseMoles_KRsolid_Cell_init_init_.resize(nPhCell, 0.0);
+
 
     spMf_KRSpecies_Cell_final_.resize(kspCell, 0.0);
     spMf_KRSpecies_Cell_init_.resize(kspCell, 0.0);
 
-    MolarVolume_Ref_ = 1.0;
+ 
 
     rnodePos_final_final_.resize(numRCells_, 0.0);
     rnodePos_final_.resize(numRCells_, 0.0);
     rnodePos_init_.resize(numRCells_, 0.0);
     rnodePos_init_init_.resize(numRCells_, 0.0);
-
-    rLatticeCBR_final_final_.resize(numRCells_, 0.0);
-    rLatticeCBR_final_.resize(numRCells_, 0.0);
-    rLatticeCBR_init_.resize(numRCells_, 0.0);
-    rLatticeCBR_init_init_.resize(numRCells_, 0.0);
-    rLatticeCBR_ref_.resize(numRCells_, 0.0);
 
     vLatticeCBR_cell_.resize(numRCells_, 0.0);
 
@@ -630,7 +614,7 @@ Electrode_SimpleDiff::init_sizes()
     cellBoundL_init_.resize(numRCells_, 0.0);
 
     volPP_Cell_final_.resize(numRCells_, 0.0);
-    //  fracNodePos_.resize(numRCells_, 0.0);
+
     fracVolNodePos_.resize(numRCells_, 0.0);
 
     partialMolarVolKRSpecies_Cell_final_.resize(kspCell, 0.0);
@@ -692,20 +676,13 @@ Electrode_SimpleDiff::init_grid()
 	 rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
-	 rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
-	 rLatticeCBR_final_final_[iCell] = cellBoundR_final_[iCell];
-	 rLatticeCBR_init_[iCell] = cellBoundR_final_[iCell];
-	 rLatticeCBR_init_init_[iCell] = cellBoundR_final_[iCell];
+
 
 	 double cbl3 = cellBoundL_final_[iCell] * cellBoundL_final_[iCell] * cellBoundL_final_[iCell];
 	 double cbR3 = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
 	 volPP_Cell_final_[iCell] = 4. * Pi / 3. * (cbR3 - cbl3);
 
-	 if (iCell ==  0) {
-	     rLatticeCBR_ref_[iCell] =  cellBoundR_final_[iCell];
-	 } else {
-	     rLatticeCBR_ref_[iCell] =  cellBoundR_final_[iCell];
-	 }
+
      }
 }
 //====================================================================================================================
@@ -787,7 +764,7 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 double Electrode_SimpleDiff::SolidVol() const
 {
     double v0_3 = 4. * Pi * m_rbot0_ * m_rbot0_ * m_rbot0_ / 3.;
-    double r_ext = rLatticeCBR_final_[numRCells_ - 1];
+    double r_ext = cellBoundR_final_[numRCells_ - 1];
     double Vext_3 = 4. * Pi * r_ext *  r_ext *  r_ext / 3.;
     double svol = (Vext_3 -  v0_3) * particleNumberToFollow_;
     return svol;
@@ -830,8 +807,6 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-        rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
-	rLatticeCBR_init_[iCell]      = rLatticeCBR_final_final_[iCell];
         rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
         rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
 	cellBoundR_init_[iCell]       = cellBoundR_final_[iCell];
@@ -1015,8 +990,7 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
  *  Fundamental Variables:
  *        concTot_SPhase_Cell_final_[]
  *        concKRSpecies_Cell_final_[1::N-1]
- *        rLatticeCBR_final_[iCell]  
- *        rnodePos_final_[iCell]
+
  *
  *  Variables to be calculated:  (all of the rest)
  *
@@ -1050,6 +1024,10 @@ void Electrode_SimpleDiff::updateState()
      */
     cellBoundL_final_[0] = rnodePos_final_[0];
     for (iCell = 0; iCell < numRCells_-1; iCell++) {
+
+
+
+
         cellBoundR_final_[iCell]  = 0.5 * (rnodePos_final_[iCell] + rnodePos_final_[iCell+1]);
 	cellBoundL_final_[iCell+1] = cellBoundR_final_[iCell];
     }
@@ -1097,6 +1075,9 @@ void Electrode_SimpleDiff::updateState()
                 spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] =
 		    volTotalCell * concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
+
+
+
             }
 	    /*
 	     *  Fill in the quantities for species 0, which aren't formally part of the solution vector
@@ -1367,7 +1348,7 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
  * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
  * We now calculate predicted solution components from these conditions.
  *
- *  Essentially this routine has to come up with data on  deltaSubcycleCalc_  ,  rLatticeCBR_final_[iCell];,
+ *  Essentially this routine has to come up with data on  deltaSubcycleCalc_  ,
  *    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh] and
  *     concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
  *
@@ -1376,8 +1357,6 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
  *         Loop over cells                                                            0 <=  iCell < numRCells_
  *                                                                                     j = numEqnsCell_ * iCell
  *                    
- *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];        (1+j)
- *            Residual (Mesh Position)                        rnodePos_final_[iCell]            (j+1) + 1
  *            Loop over distributed Phases
  *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh]
  *              . . .
@@ -1439,7 +1418,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	cellBoundR_final_[iCell] = cellBoundR_init[iCell];
         cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init[iCell]) / deltaTsubcycleCalc_;
 
-	rLatticeCBR_ref_[iCell] = cellBoundR_init[iCell];	
+	
     }
 
     // ---------------------------  Main Loop Over Cells ----------------------------------------------------
@@ -1574,7 +1553,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	double totalEnclosedVol = totalLeftVol + totalCellVol;
 	cbR3_final = totalEnclosedVol * 3.0 / ( 4.0 * Pi * particleNumberToFollow_);
 	cellBoundR_final_[iCell] = pow(cbR3_final, ONE_THIRD);
-	rLatticeCBR_final_[iCell] = cellBoundR_init_[iCell];
+
 	if (iCell <  numRCells_ - 1) {
 	    rnodePos_final_[iCell+1] = rnodePos_final_[iCell] + 2.0 * (cellBoundR_final_[iCell] - rnodePos_final_[iCell]);
 	} else {
@@ -1756,320 +1735,6 @@ int Electrode_SimpleDiff::predictSolnResid()
     return 1;
 
 }
-//=========================================================================================================================
-// Predict the solution
-/*
- * Ok at this point we have a time step deltalimiTsubcycle_
- * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
- * We now calculate predicted solution components from these conditions.
- *
- *  Essentially this routine has to come up with data on  deltaSubcycleCalc_  ,  rLatticeCBR_final_[iCell];,
- *    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh] and
- *     concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
- *
- *         Residual (Time)                                     deltaSubcycleCalc_                   0
- *                                                                                            1
- *         Loop over cells                                                            0 <=  iCell < numRCells_
- *                                                                                     j = numEqnsCell_ * iCell
- *                    
- *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];        (1+j)
- *            Residual (Mesh Position)                        rnodePos_final_[iCell]            (j+1) + 1
- *            Loop over distributed Phases
- *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh]
- *              . . .
- *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
- *
- * @return   Returns the success of the operation
- *                 1  A predicted solution is achieved
- *                 2  A predicted solution with a multispecies phase pop is achieved
- *                 0  A predicted solution is not achieved, but go ahead anyway
- *                -1  The predictor suggests that the time step be reduced and a retry occur.
- *
- *          EXPERIMENTAL CODE
- */
-int Electrode_SimpleDiff::predictSolnResid2()
-{
-    // Indexes
-    int iCell, iPh, jPh;
- 
-    // Cubes of the cell boundaries, Right and Left, for the initial and final times
-    double cbR3_final = 0.0;
-    double cbL3_final = 0.0;
- 
-
-    // Diffusive flux
-    double fluxR[10];
- 
-    // solution index at the start of the current phase at the current cell
-    //int cIndexPhStart;
-
-    // Location of the right cell boundary at the beginning of the step
-    std::vector<doublereal> cellBoundR_init(numRCells_);
-    // Velocity of the cell boundary during the time step;
-    std::vector<doublereal> cellBoundRVeloc(numRCells_);
-    // Node velocity during the time step
-    std::vector<doublereal> rnodeVeloc(numRCells_);
-    numLattices_pred_ = 0.0;
-    numLattices_init_ = 0.0;
-    checkGeometry();
-
-    // predict that the calculated deltaT is equal to the input deltaT
-    deltaTsubcycleCalc_ = deltaTsubcycle_;
-
-
-    /*
-     *  Calculate the cell boundaries in a pre - loop
-     */
-    for (iCell = 0; iCell < numRCells_; iCell++) {
-	rnodePos_final_[iCell] = rnodePos_init_[iCell];
-        rnodeVeloc[iCell] = 0.0;
-	if (iCell == numRCells_ - 1) {
-	    cellBoundR_init[iCell]   = rnodePos_init_[iCell];
-	} else {
-	    cellBoundR_init[iCell]   = 0.5 * (rnodePos_init_[iCell] + rnodePos_init_[iCell+1]);
-	}
-	cellBoundR_final_[iCell] = cellBoundR_init[iCell];
-        cellBoundRVeloc[iCell] = 0.0;
-
-	rLatticeCBR_ref_[iCell] = cellBoundR_init[iCell];
-    }
-
-    // ---------------------------  Main Loop Over Cells ----------------------------------------------------
-
-    /*
-     *  First     1) Move species due to diffusion
-     *            2) Add species due to reaction at the edge
-     *
-     *   JUST CHANGE SPMOLES
-     */
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-        /*
-         *  Copy right side previous to left side current quantities
-         */
-        cbL3_final  = cbR3_final;
-	// r0L3_final  = r0R3_final;
-        /*
-         *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
-         */
-        double cellBoundR_star2 = (cellBoundR_final_[iCell] * cellBoundR_final_[iCell]
-                                   - cellBoundR_final_[iCell] * cellBoundR_init[iCell] + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
-        double areaR_star = 4.0 * Pi * cellBoundR_star2 * particleNumberToFollow_;
-
-        int indexMidKRSpecies =  iCell    * numKRSpecies_;
-        int indexRightKRSpecies = (iCell+1) * numKRSpecies_;
-        int kstart = 0;
-
-	/*
-	 *  We calculate the diffusion step only on the rhs of each cell. So we skip the last cell.
-	 */
-	if (iCell != numRCells_ - 1) {
-	    /*
-	     *  Find the diffusive flux based on the initial conditions at the right cell boundary
-	     */
-	    diffusiveFluxRCB(fluxR, iCell, false);
-	    /*
-	     *  Then distribute the diffusive fluxes 
-	     */
-	    for (jPh = 0; jPh < numSPhases_; jPh++) {
-		iPh = phaseIndeciseKRsolidPhases_[jPh];
-		ThermoPhase* th = & thermo(iPh);
-		int nSpecies = th->nSpecies();
-		/*
-		 *  Calculation of an explicit diffusion step
-		 *  Here we calculate the 0th species as well
-		 */
-		for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    // Distribute the flux in an explicit step
-		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -= fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
-		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] += fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
-		    if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0) {
-			return -1;
-		    }
-		    if (spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] < 0.0) {
-			return -1;
-		    }
-		}
-		kstart += nSpecies;
-	    }
-	}
-
-	/*
-	 *  The end cell has a special treatment.
-	 *  There is a reaction there that injects species here.
-	 */
-        if (iCell == numRCells_ - 1) {
-            for (jPh = 0; jPh < numSPhases_; jPh++) {
-                iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
-                ThermoPhase* th = & thermo(iPh);
-                int nSpecies = th->nSpecies();
-                for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] += DspMoles_final_[iStart + kSp] * deltaTsubcycleCalc_;
-		    if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0) {
-			return -1;
-		    }
-               
-                }
-		kstart += nSpecies;
-            }	    
-
-	}
-    }
-
-    
-
-
-
-
-
-
-    /*
-     *  Previously we had fixed spMoles. Now, we figure out all of the other information
-     *  Calculate all other quantities
-     *              Calculate control boundaries based on real values
-     *              Calculate external radius based on total stuff.
-     */
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-	int indexMidKRSpecies =  iCell * numKRSpecies_;
-        int kstart = 0;
-	/*
-         *  Copy right side previous to left side current quantities
-         */
-        cbL3_final  = cbR3_final;
-        //r0L3_final  = r0R3_final;
-	double totalCellVol = 0.0;
-	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	    iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    ThermoPhase* th = & thermo(iPh);
-	    int nSpecies = th->nSpecies();
-	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = 0.0;
-	    for (int kSp = 0; kSp < nSpecies; kSp++) {
-		int iKRSpecies = kstart + kSp;
-		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
-	    }
-	    double tot = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
-	    if (tot > 1.0E-200) {
-		for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / tot;
-		}
-	    }
-	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
-	    /*
-	     * Now that we have different mole fractions, we have changed the area of the cell
-	     */
-	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
-	    //molarDensity_ = th->molarDensity();
-	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
-	
-	    th->getPartialMolarVolumes(&(partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies]));
-
-	    totalCellVol += phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] / concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
-	}
-
-	double totalLeftVol = 4.0 * Pi / 3.0 * cbL3_final * particleNumberToFollow_;
-	double totalEnclosedVol = totalLeftVol + totalCellVol;
-	cbR3_final = totalEnclosedVol * 3.0 / ( 4.0 * Pi * particleNumberToFollow_);
-	cellBoundR_final_[iCell] = pow(cbR3_final, ONE_THIRD);
-	rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell];
-	if (iCell <  numRCells_ - 1) {
-	    rnodePos_final_[iCell+1] = rnodePos_final_[iCell] + 2.0 * (cellBoundR_final_[iCell] - rnodePos_final_[iCell]);
-	} else {
-	    double oldRtop = rnodePos_final_[iCell]; 
-	    double newRtop = cellBoundR_final_[iCell];
-	    if (fabs(oldRtop - newRtop) > 1.0E-14) {
-		// This ignores the possibility of creation/destruction of lattice sites
-		rLatticeCBR_final_[iCell] = newRtop;
-		rnodePos_final_[iCell] = cellBoundR_final_[iCell];
-		Radius_exterior_final_ = rnodePos_final_[iCell];
-		//cellBoundR_final_[iCell-1] =  0.5 * (rnodePos_final_[iCell-1] + rnodePos_final_[iCell]);
-		//todo fix the moles in the two cells so that it is conservative.
-	    }
-	}
-    }
-
-
-  
-    /*
-     *  After we have changed the moles, we calculate all of the other quantities.
-     *  Mole fractions, concentrations, and partial molar volumes.
-     */
-    cbR3_final = 0.0;
-    double cbR3_init = 0.0;
-    double cbL3_init = 0.0;
-    double CBR = 0.0, rdel, CBR_init;
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-
-	int indexMidKRSpecies   =  iCell * numKRSpecies_;
-	int kstart = 0;
-	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	    iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    ThermoPhase* th = & thermo(iPh);
-	    int nSpecies = th->nSpecies();
-	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = 0.0;
-	    for (int kSp = 0; kSp < nSpecies; kSp++) {
-		int iKRSpecies = kstart + kSp;
-		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
-	    }
-	    double tot = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
-	    if (tot > 1.0E-200) {
-		for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / tot;
-		}
-	    }
-	    th->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]));
-	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = th->molarDensity();
-	    th->getConcentrations(&(concKRSpecies_Cell_final_[indexMidKRSpecies +  kstart]));
-	    th->getPartialMolarVolumes(&(partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies]));
-	}
-
-
-	if (iCell <  numRCells_ - 1) {
-	    CBR = 0.5 * (rnodePos_final_[iCell] +  rnodePos_final_[iCell+1]);
-	    CBR_init = cellBoundR_init_[iCell];
-	    rdel = fabs(cellBoundR_final_[iCell] - CBR) / CBR;
-	    if (rdel > 1.0E-10) {
-		printf("CBR %d is bad, %g, %g\n",iCell, CBR, cellBoundR_final_[iCell] );
-
-	    }
-	    CBR = cellBoundR_final_[iCell];
-	    cbL3_final = cbR3_final;
-	    cbR3_final = CBR * CBR * CBR;
-	    cbL3_init = cbR3_init;
-	    cbR3_init = CBR_init * CBR_init * CBR_init;
-	} else {
-	    CBR = rnodePos_final_[iCell];
-	    CBR_init = rnodePos_init_[iCell];
-	    rdel = fabs(cellBoundR_final_[iCell] - CBR) / CBR;
-	    if (rdel > 1.0E-10) {
-		printf("Last CBR is bad\n");
-		exit(-1);
-	    }
-	    cbL3_final = cbR3_final;
-	    cbR3_final = CBR * CBR * CBR;
-	    cbL3_init = cbR3_init;
-	    cbR3_init = CBR_init * CBR_init * CBR_init;
-	}
-
-
-	double vol_final =  4.0 / 3.0 * Pi * (cbR3_final - cbL3_final) * particleNumberToFollow_;
-	double vol_init =  4.0 / 3.0 * Pi * (cbR3_init - cbL3_init) * particleNumberToFollow_;
-	numLattices_pred_ += vol_final * concTot_SPhase_Cell_final_[iCell];
-	numLattices_init_ += vol_init * concTot_SPhase_Cell_init_[iCell];
-	
-    }
-
-    
-    
-    // Check the internal consistency
-    checkGeometry();
-
-    return 1;
-
-}
 //==================================================================================================================
 int Electrode_SimpleDiff::predictSoln()
 {
@@ -2104,7 +1769,7 @@ int Electrode_SimpleDiff::predictSoln()
 	 *    Now do a prediction    
 	 */    
 	retn = predictSolnResid();
-	//retn = predictSolnResid2();
+
 	if (retn < 0) {
 	    reDo = 1;
 	}
@@ -2169,14 +1834,7 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 	kstart = 0;
 
-	rLatticeCBR_final_[iCell] = y[index];
-	index++;
-
-	rnodePos_final_[iCell] = y[index];
-	index++;
-
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	    // int iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
 	    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
 	    concKRSpecies_Cell_final_[iCell * numKRSpecies_ + 0] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
@@ -2219,15 +1877,9 @@ void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 	kstart = 0;
 
-	y[index] = rLatticeCBR_final_[iCell];
-	index++;
-
-	y[index] = rnodePos_final_[iCell];
-	index++;
-
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-	    y[index] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];	  
+	    y[index] = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];	  
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
 		y[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
@@ -2370,27 +2022,6 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 	int kstart = 0;
 
-	double rLatticeCBR_final_val = yval[index];
-	double rLatticeCBR_final_predict = soln_predict_[index];
-	tmp =  relv(rLatticeCBR_final_predict, rLatticeCBR_final_val,  atolNLS_[index] / rtolNLS_);
-	printf("rLatticeCBR     %3d      | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
-	       rLatticeCBR_init_[iCell],
-	       rLatticeCBR_final_predict,
-	       rLatticeCBR_final_val,
-	       rLatticeCBR_final_val -  rLatticeCBR_final_predict,
-	       atolNLS_[index], tmp / rtolNLS_);
-	index++;
-
-	double rnodePos_final_val = yval[index];
-	double rnodePos_final_predict = soln_predict_[index];
-	tmp =  relv(rnodePos_final_predict, rnodePos_final_val,  atolNLS_[index]/rtolNLS_);
-	printf("rnodePos        %3d      | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
-	       rnodePos_init_[iCell],
-	       rnodePos_final_predict,
-	       rnodePos_final_val,
-	       rnodePos_final_val -  rnodePos_final_predict,
-	       atolNLS_[index], tmp / rtolNLS_);
-	index++;
 
 
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
@@ -2511,21 +2142,10 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
     index++;
 
     for (int iCell = 0; iCell < numRCells_; iCell++) {
-	int rindex = 1 + numEqnsCell_ * iCell;
-        int xindex = 2 + numEqnsCell_ * iCell;
-        int cindex = 3 + numEqnsCell_ * iCell;
-        int cIndexPhStart = cindex;
-	/*
-	 *  Set atol on the radial equation
-	 */
-	atolNLS_[rindex] = atolMF * Radius_exterior_final_;
-	atolResidNLS_[rindex] = atolNLS_[rindex];
 
-	/*
-	 * set atol on the lattice radial equation
-	 */
-	atolNLS_[xindex] = atolMF * Radius_exterior_final_;
-	atolResidNLS_[xindex] = atolNLS_[xindex];
+        int cindex = 1 + numEqnsCell_ * iCell;
+        int cIndexPhStart = cindex;
+
 
 
 	for (int jPh = 0; jPh < numSPhases_; jPh++) {
@@ -2538,7 +2158,7 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
 	    double molarVol = th->molarVolume();
 	    double phaseConc = 1.0 / molarVol;
 	    atolNLS_[cIndexPhStart] = phaseConc * atolMF;
-	    atolResidNLS_[xindex] = atolNLS_[cIndexPhStart];
+
 
 	    for (int kSp = 1; kSp < nSpecies; kSp++) {
 		atolNLS_[cIndexPhStart + kSp] = phaseConc * atolMF;
@@ -2689,7 +2309,6 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
     /*
      * Calculate the residual
      */
-    //calcResid_2(resid, evalType);
     calcResid(resid, evalType);
 
   
@@ -2796,39 +2415,21 @@ int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal de
  */
 int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
-    int iCell, iPh, jPh, jCell;
-    double I_j;
-    double I_jp1;
-    double Lleft, L3left, rjCBL3;
-    double vbarLattice_final_jcell, vbarLattice_init_jcell;
-    double rnow3, rnow;
-    //double Lright;
-    // double rLtarget;
-
+    int iCell, iPh, jPh;
+  
     // Cubes of the cell boundaries, Right and Left, for the initial and final times
     double cbR3_init = 0.0;
     double cbL3_init = 0.0;
     double cbR3_final = 0.0;
     double cbL3_final = 0.0;
-    // Reference radius squared, Right and Left, at final time
-    //double r0R2_final = 0.0;
-    //double r0L2_final = 0.0;
-    // Reference radius cubed, Right and Left, at final time
-
-    double rRefCBR3 = 0.0;
-
-    double fluxTC, fluxM;
-
+ 
     // Diffusive flux
     double fluxRCB[10];
    
     // Temporary pointers for accessing the phase total concentrations (kmol m-3), init and final
-    double* concTotalVec_SPhase_init = 0;
+  
     double* concTotalVec_SPhase_final = 0;
-    // index of the rref equation
-    int rindex;
-    // index of the mesh motion equation
-    int xindex;
+   
     // index of the start of the concentration equations for the first phase at the current cell
     int cindex;
     // solution index at the start of the current phase at the current cell
@@ -2837,13 +2438,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     numLattices_final_ = 0.0;
     numLattices_init_ = 0.0;
 
-    // Location of the right cell boundary at the beginning of the step
-    //  std::vector<doublereal> cellBoundR_init(numRCells_);
-    // Velocity of the cell boundary during the time step;
-    std::vector<doublereal> cellBoundRVeloc(numRCells_);
-    // Node velocity during the time step
-    std::vector<doublereal> rnodeVeloc(numRCells_);
-
+  
     /*
      *    Residual equation for the time step -> Right now we don't have a model
      */
@@ -2865,19 +2460,8 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	cbL3_init = cbl * cbl * cbl;
 	cbR3_init = cbr * cbr * cbr;
 	double vol_init_ = volFac * (cbR3_init - cbL3_init);
-	/*
-	 *  Calculate the nodal velocity
-	 */
-        rnodeVeloc[iCell] = (rnodePos_final_[iCell] - rnodePos_init_[iCell]) / deltaTsubcycleCalc_;
-	/*
-	 *  Calculate the the velocity of the right cell boundary
-	 */
-        cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init_[iCell]) / deltaTsubcycleCalc_;
-	/*
-	 *  The reference lattice coordinate is rebaselined so that it is linked with the radius coordinate
-	 *  at every time step.
-	 */
-	rLatticeCBR_ref_[iCell] = cellBoundR_init_[iCell];
+
+
 
 	if (iCell == 0) {
 	    numLatticeCBR_init_[iCell] = concTot_SPhase_Cell_init_[iCell*numSPhases_] * vol_init_;
@@ -2895,24 +2479,16 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         /*
          *  Copy right side previous to left side current quantities
          */
-        //vLatticeCBL = vLatticeCBR;
         cbL3_final  = cbR3_final;
         cbL3_init   = cbR3_init;
-        //r0L2_final  = r0R2_final;
 
         /*
          *  Calculate indexes for accessing the residual
          */
-        rindex = 1 + numEqnsCell_ * iCell;
-        xindex = 2 + numEqnsCell_ * iCell;
-        cindex = 3 + numEqnsCell_ * iCell;
+        cindex = 1 + numEqnsCell_ * iCell;
         cIndexPhStart = cindex;
 
-        /*
-         *  Temporary pointer variables for total concentrations of each of the phases within the cell
-         */
-        concTotalVec_SPhase_init  = &(concTot_SPhase_Cell_init_[iCell*numSPhases_]);
-        concTotalVec_SPhase_final = &(concTot_SPhase_Cell_final_[iCell*numSPhases_]);
+  
 
         /*
          * Calculate the cubes of the cell boundary radii
@@ -2932,154 +2508,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
         } else {
             numLatticeCBR_final_[iCell] = numLatticeCBR_final_[iCell-1] + concTotalVec_SPhase_final[0] * vol_final_;
         }
-        /*
-         * Residual calculation - Value of the Lattice radius at the right cell boundary
-	 *  This is Eqn. 21 in the Memo writeup
-	 *      it's the residual equation for determining  rLatticeCBR_final_[iCell]
-	 *
-	 *      When there is no expansion of the lattice,  rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell]
-         */
-	double deltaNum = 0.0;
-	if (numLatticeCBR_final_[iCell] == numLatticeCBR_init_[iCell]) {
-	    resid[rindex] = rLatticeCBR_final_[iCell] - cellBoundR_init_[iCell];
-	} else if (numLatticeCBR_final_[iCell] > numLatticeCBR_init_[iCell]) {
-	    // jCell is the cell to look for within init to find the solution
-	    jCell = iCell + 1;
-	    if (jCell > numRCells_ -1) {
-		jCell = numRCells_ - 1;
-		deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell-1];
-	    } else {
-		deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell];
-	    }
-	    cbl = cellBoundR_init_[jCell-1];
-	    double cbL3_init_j = cbl * cbl * cbl;
-	    double r3 = deltaNum / volFac / concTot_SPhase_Cell_init_[jCell*numSPhases_] + cbL3_init_j;
-	    double r = pow(r3, ONE_THIRD);
-	    resid[rindex] = rLatticeCBR_final_[iCell] - r;
-	} else {
-	    if (iCell == 0) {
-		deltaNum = numLatticeCBR_final_[iCell];
-		cbl = 0.0;
-	    } else {
-		deltaNum = numLatticeCBR_final_[iCell] - numLatticeCBR_init_[iCell-1];
-		cbl = cellBoundR_init_[iCell-1];
-	    }
-	    double cbL3_init_j = cbl * cbl * cbl;
-	    double r3 = deltaNum / volFac / concTotalVec_SPhase_init[0] + cbL3_init_j;
-	    double r = pow(r3, ONE_THIRD);
-	    resid[rindex] = rLatticeCBR_final_[iCell] - r;
-	}
-
-
-	//double rhs = r0L3_final + vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
-        //resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
-
-	if (formulationType_ > 0) {
-	    resid[rindex] = rLatticeCBR_final_[iCell] - rLatticeCBR_init_[iCell];
-	}
-
-        /*
-         *  Calculate the time derivative of the molar volume
-         */
-        //double vbarDot = (vbarLattice_final - vbarLattice_init) / deltaTsubcycleCalc_;
-
-        /*
-         * Find the lattice velocity of the reference radius at the right cell boundary
-         */
-        //double vLatticeCBR = -1.0 / (3. * r0R2_final) *
-	//		     (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) *
-	//		      vbarDot * (cbR3_final - cbL3_final));
-	double vLatticeCBR = 0.0;
-
-	//rLtarget =  rLatticeCBR_ref_[iCell];
-	if ((rLatticeCBR_final_[iCell] > rLatticeCBR_ref_[iCell]) || (iCell == (numRCells_-1))) {
-	    // we are here to when the lattice velocity has put the previous lattice CBR into the current cell
-	    // Assign the cell id the current cell.
-	    //  (In other words the current cell is expanding
-	    jCell = iCell;
-	    // The CBL value is the CBR of the next lowest cell.
-	    // except for the lowest cell
-	    if (jCell == 0) {
-		Lleft =  m_rbot0_;
-	    } else {
-		Lleft =  rLatticeCBR_final_[jCell-1];
-	    }
-	    //Lright =  rLatticeCBR_final_[jCell];
-	    // If the lattice has moved more than one cell, then throw an error condition for now.
-	    // We'll come back to fix this later
-	    if (Lleft > rLatticeCBR_ref_[iCell]) {
-		printf("ERROR: lattice movement not handled\n");
-		exit(-1);
-	    }
-	    // Take the cube of that
-	    L3left = Lleft *  Lleft *  Lleft;
-	    // Find the cubes of the right CBR and left CBR values
-	    //rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rRefCBR3 = rLatticeCBR_ref_[iCell] *rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] *  cellBoundL_final_[jCell];
-	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
-	    vbarLattice_init_jcell = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * (rRefCBR3 - rjCBL3);
-	    rnow = pow(rnow3, ONE_THIRD);
-	    if (rnow >  cellBoundR_final_[jCell]) {
-		if (rnow > cellBoundR_final_[jCell]*(1.0 + 1.0E-14)) {
-		    // printf("analyse condition 1 \n");
-		}
-	    }
-	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
-	} else {
-	    // we are here to when the lattice velocity has put the previous lattice CBR into the next cell
-	    // Assign the cell id the current cell.
-	    jCell = iCell+1;
-	    // The CBL value is the CBR of the next lowest cell.
-	    Lleft =  rLatticeCBR_final_[jCell-1];
-	    //Lright =  rLatticeCBR_final_[jCell];
-	    // If the lattice has moved more than one cell, then throw an error condition for now.
-	    // We'll come back to fix this later
-	    if (Lleft > rLatticeCBR_ref_[iCell]) {
-		printf("ERROR: lattice movement not handled\n");
-		exit(-1);
-	    }
-	    // Take the cube of that
-	    L3left = Lleft *  Lleft *  Lleft;
-	    // Find the cubes of the right CBR and left CBR values
-	    // rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rRefCBR3 = rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] * cellBoundL_final_[jCell];
-	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
-	    vbarLattice_init_jcell = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * (rRefCBR3 - rjCBL3);
-	    rnow = pow(rnow3, ONE_THIRD);
-	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
-	}
-	/*
-	 *  Store the calculated lattice velocity
-	 */
-	vLatticeCBR_cell_[iCell] = vLatticeCBR;
-
-        /*
-         * Node position residual - spline equations, it all depends on the top node's equation formulation.
-         * Everything else get's dragged along with it
-	 * We will calculate the bc when we've calculated the surface reaction rates below.
-	 *         -> special case iCell= 0 set to m_rbot0_
-	 *         ->              iCell= numRCells_-1 -> distinguishing condition set to boundary condition
-         */
-
-	if (iCell == 0) {
-	    resid[xindex] = rnodePos_final_[iCell] - m_rbot0_;
-	} else if (iCell == numRCells_-1) {
-	    // This condition is handled below
-	} else {
-	    double rtop = rnodePos_final_[numRCells_ - 1];
-	    I_j   =  rnodePos_final_[iCell] * rnodePos_final_[iCell] * rnodePos_final_[iCell] / (rtop * rtop * rtop);
-	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] / (rtop * rtop * rtop);
-	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell];
-	}
-	if (formulationType_ > 0) {
-	    resid[xindex] = rnodePos_final_[iCell] - rnodePos_init_[iCell];
-	}
-    
-
+   
         /*
          *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
          */
@@ -3103,36 +2532,20 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
             int nSpecies = th->nSpecies();
 
 	    /*
-	     *  Residual for the total concentration of the phase in the cell
-	     *   -  Skip the first species
+	     *  Residual for the total moles of the phase in the cell
 	     */
-            double old_stuff = concTotalVec_SPhase_init[jPh]  * 4.0 / 3.0 * Pi * (cbR3_init -  cbL3_init)  * particleNumberToFollow_;
-            double new_stuff = concTotalVec_SPhase_final[jPh] * 4.0 / 3.0 * Pi * (cbR3_final - cbL3_final) * particleNumberToFollow_;
+            double old_stuff = phaseMoles_KRsolid_Cell_init_[numSPhases_ * iCell + jPh];
+            double new_stuff = phaseMoles_KRsolid_Cell_final_[numSPhases_ * iCell + jPh];
             /*
              *  Change in the total amount of moles of phase jPh
              */
             resid[cIndexPhStart + kstart] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
 
             /*
-             * Convective flux - mesh movement with NO material movement
+             * Convective flux - mesh movement with NO material movement - none
              */
-            double vtotalR = cellBoundRVeloc[iCell] - vLatticeCBR;
-	    if (formulationType_ > 0) {
-		vtotalR = 0.0;
-	    }
-            if (iCell < (numRCells_- 1)) {
-                if (vtotalR >= 0.0) {
-                    fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell+1) + jPh];
-                } else {
-                    fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell)   + jPh];
-                }
-                resid[cIndexPhStart + kstart]                -= fluxTC * areaR_star;
-                resid[cIndexPhStart + kstart + numEqnsCell_] += fluxTC * areaR_star;
-            }
+          
 
-	    if (formulationTypeTotalConc_ == 1) {
-		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_SPhase_Cell_final_[iCell*numSPhases_ + jPh];
-	    }
 
             /*
              *  Residual for the species in the phase
@@ -3148,26 +2561,12 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
                     resid[cIndexPhStart + iKRSpecies + numEqnsCell_] -= fluxRCB[iKRSpecies] * areaR_star;
                 }
 
-                /*
-                 * Convective flux - mesh movement with NO material movement
-                 */
-                if (iCell < (numRCells_- 1)) {
-                    if (vtotalR >= 0.0) {
-                        fluxM = vtotalR * concKRSpecies_Cell_final_[numKRSpecies_ * (iCell+1) + iKRSpecies];
-                        resid[cIndexPhStart + iKRSpecies]                -= fluxM * areaR_star;
-                        resid[cIndexPhStart + iKRSpecies + numEqnsCell_] += fluxM * areaR_star;
-                    } else {
-                        fluxM = vtotalR * concKRSpecies_Cell_final_[numKRSpecies_ * (iCell)   + iKRSpecies];
-                        resid[cIndexPhStart + iKRSpecies]                -= fluxM * areaR_star;
-                        resid[cIndexPhStart + iKRSpecies + numEqnsCell_] += fluxM * areaR_star;
-                    }
-                }
-
+             
                 /*
                  *  Change in the total amount of moles of phase jPh
                  */
-                old_stuff = concKRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]  * 4.0 / 3.0 * Pi * (cbR3_init  - cbL3_init) * particleNumberToFollow_;
-                new_stuff = concKRSpecies_Cell_final_[numKRSpecies_ * iCell + iKRSpecies] * 4.0 / 3.0 * Pi * (cbR3_final - cbL3_final)* particleNumberToFollow_;
+                old_stuff = spMoles_KRsolid_Cell_init_[iCell*numKRSpecies_ + iKRSpecies];
+                new_stuff = spMoles_KRsolid_Cell_final_[iCell*numKRSpecies_ + iKRSpecies];
                 resid[cIndexPhStart + iKRSpecies] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
             }
 
@@ -3179,41 +2578,28 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
             /*
              *  Do the exterior
              */
-            double SolidVolCreationRate = 0.0;
+        
 	    kstart = 0;
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
                 int iStart = getGlobalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
-                resid[cIndexPhStart + kstart] -= DphMolesSrc_final_[iPh];
-                SolidVolCreationRate += partialMolarVolKRSpecies_Cell_final_[iStart] * DspMoles_final_[iStart];
+         
+		/*
+		 *  Calculate the molar change in species due to the surface reaction.
+		 */
                 for (int kSp = 1; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
                     resid[cIndexPhStart + iKRSpecies] -= DspMoles_final_[iStart + kSp];
-                    SolidVolCreationRate += partialMolarVolKRSpecies_Cell_final_[iStart + kSp] *  DspMoles_final_[iStart + kSp];
+		    resid[cIndexPhStart + kstart]     -= DspMoles_final_[iStart + kSp];
                 }
-
-
-		if (formulationTypeTotalConc_ == 1) {
-		    resid[cIndexPhStart + kstart] = concTotalVec_SPhase_final[jPh] - molarDensity_SPhase_Cell_final_[iCell*numSPhases_ + jPh];
-		}
+		resid[cIndexPhStart + kstart]         -= DspMoles_final_[iStart + 0];
 
 		kstart += nSpecies;
             }
-            /*
-             * Calculation of the movement at the top of the
-             *    C dXdt * Area - SolidCreationRate = 0
-             *
-             *  this is an expression of the conservation of total solid molar volume at the
-             *  r_exterior.
-             */
+    
 
-	    if (formulationType_ > 0) {
-		resid[xindex] += 0.0;
-	    } else {
-		resid[xindex] = rnodeVeloc[iCell] * areaR_star - SolidVolCreationRate;
-	    }
 
         }
 
@@ -3227,429 +2613,12 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
     return 1;
 }
 
-//====================================================================================================================
-// Main routine to calculate the residual
-/*
- *
- *  Format of the residual equations
- *                                                             Unknown                           Index
- * --------------------------------------------------------------------------------------------------------------
- *         Residual (Time)                                     deltaSubcycleCalc_                   0
- *                                                                                            1
- *         Loop over cells                                                            0 <=  iCell < numRCells_
- *                                                                                     j = numEqnsCell_ * iCell
- *                    
- *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];       (1+j)
- *            Residual (Mesh Position)                                                       (j+1) + 1
- *            Residual (Concentration _ k=0)
- *              . . .
- *            Residual (Concentration _ k=Ns-1)
- *  --------------------------------------------------------------------------------------------------------------
- *  **********************************DEAD  BRANCH *****************************************************************
- */
-int Electrode_SimpleDiff::calcResid_2(double* const resid, const ResidEval_Type_Enum evalType)
-{
-    int iCell, iPh, jPh, jCell;
-    double I_j;
-    double I_jp1;
-    double Lleft, L3left, rjCBL3;
-    double vbarLattice_final_jcell, vbarLattice_init_jcell;
-    double rnow3, rnow;
-    //double Lright;
-    // double rLtarget;
-
-    // Cubes of the cell boundaries, Right and Left, for the initial and final times
-    double cbR3_init = 0.0;
-    double cbL3_init = 0.0;
-    double cbR3_final = 0.0;
-    double cbL3_final = 0.0;
-    // Reference radius squared, Right and Left, at final time
-    //double r0R2_final = 0.0;
-    //double r0L2_final = 0.0;
-    // Reference radius cubed, Right and Left, at final time
-
-    double r0R3_final = 0.0;
-    double r0L3_final = 0.0;
-    double rRefCBR3 = 0.0;
-
-    double fluxTC, fluxM;
-
-    // Diffusive flux
-    double fluxRCB[10];
-   
-    // Temporary pointers for accessing the phase total concentrations (kmol m-3), init and final
-    double* concTotalVec_SPhase_init = 0;
-    double* concTotalVec_SPhase_final = 0;
-    // index of the rref equation
-    int rindex;
-    // index of the mesh motion equation
-    int xindex;
-    // index of the start of the concentration equations for the first phase at the current cell
-    int cindex;
-    // solution index at the start of the current phase at the current cell
-    int cIndexPhStart;
-
-
-    // Location of the right cell boundary at the beginning of the step
-    //  std::vector<doublereal> cellBoundR_init(numRCells_);
-    // Velocity of the cell boundary during the time step;
-    std::vector<doublereal> cellBoundRVeloc(numRCells_);
-    // Node velocity during the time step
-    std::vector<doublereal> rnodeVeloc(numRCells_);
-
-    /*
-     *    Residual equation for the time step -> Right now we don't have a model
-     */
-    resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
-
-    /*
-     *  Determine the lattice velocity on the left side domain boundary
-     */
-    //    vLatticeR is currently set to zero -> this is the appropriate default until something more is needed
-    double volFac = 4. * Pi / 3.0 * particleNumberToFollow_;
-    /*
-     *  Calculate the cell quantitites in a pre-loop
-     */
-    double cbl, cbr = 0.0;
-    for (iCell = 0; iCell < numRCells_; iCell++) {
-	cbl = cbr;
-
-        cbr = cellBoundR_init_[iCell];
-	cbL3_init = cbl * cbl * cbl;
-	cbR3_init = cbr * cbr * cbr;
-	double vol_init_ = volFac * (cbR3_init - cbL3_init);
-	/*
-	 *  Calculate the nodal velocity
-	 */
-        rnodeVeloc[iCell] = (rnodePos_final_[iCell] - rnodePos_init_[iCell]) / deltaTsubcycleCalc_;
-	/*
-	 *  Calculate the the velocity of the right cell boundary
-	 */
-        cellBoundRVeloc[iCell] = (cellBoundR_final_[iCell] - cellBoundR_init_[iCell]) / deltaTsubcycleCalc_;
-	/*
-	 *  The reference lattice coordinate is rebaselined so that it is linked with the radius coordinate
-	 *  at every time step.
-	 */
-	rLatticeCBR_ref_[iCell] =  cellBoundR_init_[iCell];
-	if (iCell == 0) {
-	    numLatticeCBR_init_[iCell] = concTot_SPhase_Cell_init_[iCell*numSPhases_] * vol_init_;
-	} else {
-	    numLatticeCBR_init_[iCell] =  numLatticeCBR_init_[iCell-1] + concTot_SPhase_Cell_init_[iCell*numSPhases_] * vol_init_;
-	}
-    }
-
-    // ---------------------------  Main Loop Over Cells ----------------------------------------------------
-
-    cbR3_final = 0.0;
-    cbR3_init = 0.0;
-    r0R3_final = 0.0;
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-
-        /*
-         *  Copy right side previous to left side current quantities
-         */
-        //vLatticeCBL = vLatticeCBR;
-        cbL3_final  = cbR3_final;
-        cbL3_init   = cbR3_init;
-        //r0L2_final  = r0R2_final;
-        r0L3_final  = r0R3_final;
-
-        /*
-         *  Calculate indexes for accessing the residual
-         */
-        rindex = 1 + numEqnsCell_ * iCell;
-        xindex = 2 + numEqnsCell_ * iCell;
-        cindex = 3 + numEqnsCell_ * iCell;
-        cIndexPhStart = cindex;
-
-        /*
-         *  Temporary pointer variables for total concentrations of each of the phases within the cell
-         */
-        concTotalVec_SPhase_init  = &(concTot_SPhase_Cell_init_[iCell*numSPhases_]);
-        concTotalVec_SPhase_final = &(concTot_SPhase_Cell_final_[iCell*numSPhases_]);
-
-        /*
-         * Calculate the cubes of the cell boundary radii
-         */
-        cbR3_init  = cellBoundR_init_[iCell]  * cellBoundR_init_[iCell]  * cellBoundR_init_[iCell];
-        cbR3_final = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
-        /*
-         * Calculate powers of the lattice coordinate at the right cell boundary
-         */
-        double r0R_final = rLatticeCBR_final_[iCell];
-        r0R3_final = r0R_final * r0R_final * r0R_final;
-        /*
-         * Calculate the molar volume of the first phase, final and init values
-	 *  We will assume for now that this is the lattice molar volume
-         */
-        double vbarLattice_final = 1.0 / concTotalVec_SPhase_final[0];
-        double vbarLattice_init  = 1.0 / concTotalVec_SPhase_init[0];
-
-        /*
-         * Residual calculation - Value of the Lattice radius at the right cell boundary
-	 *  This is Eqn. 21 in the Memo writeup
-	 *      it's the residual equation for determining  rLatticeCBR_final_[iCell]
-	 *
-	 *      When there is no expansion of the lattice,  rLatticeCBR_final_[iCell] = cellBoundR_final_[iCell]
-         */
-        double rhs = r0L3_final + vbarLattice_init / vbarLattice_final * (cbR3_final - cbL3_final);
-        resid[rindex] = r0R_final - pow(rhs, ONE_THIRD);
-
-	if (formulationType_ > 0) {
-	    resid[rindex] = rLatticeCBR_final_[iCell] - rLatticeCBR_init_[iCell];
-	}
-
-        /*
-         *  Calculate the time derivative of the molar volume
-         */
-        //double vbarDot = (vbarLattice_final - vbarLattice_init) / deltaTsubcycleCalc_;
-
-        /*
-         * Find the lattice velocity of the reference radius at the right cell boundary
-         */
-        //double vLatticeCBR = -1.0 / (3. * r0R2_final) *
-	//		     (3.0 *r0L2_final * vLatticeCBL - MolarVolume_Ref_ / (vbarLattice_final * vbarLattice_final) *
-	//		      vbarDot * (cbR3_final - cbL3_final));
-	double vLatticeCBR = 0.0;
-
-	//rLtarget =  rLatticeCBR_ref_[iCell];
-	if ((rLatticeCBR_final_[iCell] > rLatticeCBR_ref_[iCell]) || (iCell == (numRCells_-1))) {
-	    // we are here to when the lattice velocity has put the previous lattice CBR into the current cell
-	    // Assign the cell id the current cell.
-	    //  (In other words the current cell is expanding
-	    jCell = iCell;
-	    // The CBL value is the CBR of the next lowest cell.
-	    // except for the lowest cell
-	    if (jCell == 0) {
-		Lleft =  m_rbot0_;
-	    } else {
-		Lleft =  rLatticeCBR_final_[jCell-1];
-	    }
-	    //Lright =  rLatticeCBR_final_[jCell];
-	    // If the lattice has moved more than one cell, then throw an error condition for now.
-	    // We'll come back to fix this later
-	    if (Lleft > rLatticeCBR_ref_[iCell]) {
-		printf("ERROR: lattice movement not handled\n");
-		exit(-1);
-	    }
-	    // Take the cube of that
-	    L3left = Lleft *  Lleft *  Lleft;
-	    // Find the cubes of the right CBR and left CBR values
-	    //rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rRefCBR3 = rLatticeCBR_ref_[iCell] *rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] *  cellBoundL_final_[jCell];
-	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
-	    vbarLattice_init_jcell = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * (rRefCBR3 - rjCBL3);
-	    rnow = pow(rnow3, ONE_THIRD);
-	    if (rnow >  cellBoundR_final_[jCell]) {
-		if (rnow > cellBoundR_final_[jCell]*(1.0 + 1.0E-14)) {
-		    // printf("analyse condition 1 \n");
-		}
-	    }
-	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
-	} else {
-	    // we are here to when the lattice velocity has put the previous lattice CBR into the next cell
-	    // Assign the cell id the current cell.
-	    jCell = iCell+1;
-	    // The CBL value is the CBR of the next lowest cell.
-	    Lleft =  rLatticeCBR_final_[jCell-1];
-	    //Lright =  rLatticeCBR_final_[jCell];
-	    // If the lattice has moved more than one cell, then throw an error condition for now.
-	    // We'll come back to fix this later
-	    if (Lleft > rLatticeCBR_ref_[iCell]) {
-		printf("ERROR: lattice movement not handled\n");
-		exit(-1);
-	    }
-	    // Take the cube of that
-	    L3left = Lleft *  Lleft *  Lleft;
-	    // Find the cubes of the right CBR and left CBR values
-	    // rjCBR3 = cellBoundR_final_[jCell] * cellBoundR_final_[jCell] *  cellBoundR_final_[jCell];
-	    rRefCBR3 = rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell] * rLatticeCBR_ref_[iCell];
-	    rjCBL3 = cellBoundL_final_[jCell] * cellBoundL_final_[jCell] * cellBoundL_final_[jCell];
-	    vbarLattice_final_jcell = 1.0 / concTot_SPhase_Cell_final_[iCell*numSPhases_];
-	    vbarLattice_init_jcell = 1.0 /  concTot_SPhase_Cell_init_[iCell*numSPhases_];
-	    rnow3 =  L3left +  vbarLattice_init_jcell / vbarLattice_final_jcell * (rRefCBR3 - rjCBL3);
-	    rnow = pow(rnow3, ONE_THIRD);
-	    vLatticeCBR = (rnow - rLatticeCBR_ref_[iCell]) / deltaTsubcycleCalc_;
-	}
-	/*
-	 *  Store the calculated lattice velocity
-	 */
-	vLatticeCBR_cell_[iCell] = vLatticeCBR;
-
-        /*
-         * Node position residual - spline equations, it all depends on the top node's equation formulation.
-         * Everything else get's dragged along with it
-	 * We will calculate the bc when we've calculated the surface reaction rates below.
-	 *         -> special case iCell= 0 set to m_rbot0_
-	 *         ->              iCell= numRCells_-1 -> distinguishing condition set to boundary condition
-         */
-
-	if (iCell == 0) {
-	    resid[xindex] = rnodePos_final_[iCell] - m_rbot0_;
-	} else if (iCell == numRCells_-1) {
-	    // This condition is handled below
-	} else {
-	    double rtop = rnodePos_final_[numRCells_ - 1];
-	    I_j   =  rnodePos_final_[iCell] * rnodePos_final_[iCell] * rnodePos_final_[iCell] / (rtop * rtop * rtop);
-	    I_jp1 =  rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] * rnodePos_final_[iCell+1] / (rtop * rtop * rtop);
-	    resid[xindex] = I_jp1 - I_j - fracVolNodePos_[iCell];
-	}
-	if (formulationType_ > 0) {
-	    resid[xindex] = rnodePos_final_[iCell] -  rnodePos_init_[iCell];
-	}
-    
-
-        /*
-         *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
-         */
-        double cellBoundR_star2 = (cellBoundR_init_[iCell] * cellBoundR_init_[iCell]
-                                   + cellBoundR_final_[iCell] * cellBoundR_init_[iCell] + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
-        double areaR_star = 4.0 * Pi * cellBoundR_star2 * particleNumberToFollow_;
-
-   
-        int kstart = 0;
-	/*
-	 * Calculate the molar diffusive flux at the right cell boundary. Note the sum of the molar fluxes over all species
-	 * is zero. This is crucial. 
-	 */
-	if (iCell < (numRCells_-1)) {
-	    diffusiveFluxRCB(fluxRCB, iCell, true);
-	}
-
-        for (jPh = 0; jPh < numSPhases_; jPh++) {
-            iPh = phaseIndeciseKRsolidPhases_[jPh];
-            ThermoPhase* th = & thermo(iPh);
-            int nSpecies = th->nSpecies();
-
-	    /*
-	     *  Residual for the total concentration of the phase in the cell
-	     *   -  Skip the first species
-	     */
-            double old_stuff = concTotalVec_SPhase_init[jPh]  * 4.0 / 3.0 * Pi * (cbR3_init -  cbL3_init)  * particleNumberToFollow_;
-            double new_stuff = concTotalVec_SPhase_final[jPh] * 4.0 / 3.0 * Pi * (cbR3_final - cbL3_final) * particleNumberToFollow_;
-            /*
-             *  Change in the total amount of moles of phase jPh
-             */
-            resid[cIndexPhStart + kstart] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
-
-            /*
-             * Convective flux - mesh movement with NO material movement
-             */
-            double vtotalR = cellBoundRVeloc[iCell] - vLatticeCBR;
-	    if (formulationType_ > 0) {
-		vtotalR = 0.0;
-	    }
-            if (iCell < (numRCells_- 1)) {
-                if (vtotalR >= 0.0) {
-                    fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell+1) + jPh];
-                } else {
-                    fluxTC = vtotalR * concTot_SPhase_Cell_final_[numSPhases_*(iCell)   + jPh];
-                }
-                resid[cIndexPhStart + kstart]                -= fluxTC * areaR_star;
-                resid[cIndexPhStart + kstart + numEqnsCell_] += fluxTC * areaR_star;
-            }
-
-	    if (formulationTypeTotalConc_ == 1) {
-		resid[cIndexPhStart + kstart] =  concTotalVec_SPhase_final[jPh] - molarDensity_SPhase_Cell_final_[iCell*numSPhases_ + jPh];
-	    }
-
-            /*
-             *  Residual for the species in the phase
-             *   -  Skip the first species
-             */
-            for (int kSp = 1; kSp < nSpecies; kSp++) {
-                int iKRSpecies = kstart + kSp;
-                /*
-                 * Diffusive flux at the outer boundary for each species
-                 */
-                if (iCell < (numRCells_ - 1)) {
-                    resid[cIndexPhStart + iKRSpecies]                += fluxRCB[iKRSpecies] * areaR_star;
-                    resid[cIndexPhStart + iKRSpecies + numEqnsCell_] -= fluxRCB[iKRSpecies] * areaR_star;
-                }
-
-                /*
-                 * Convective flux - mesh movement with NO material movement
-                 */
-                if (iCell < (numRCells_- 1)) {
-                    if (vtotalR >= 0.0) {
-                        fluxM = vtotalR * concKRSpecies_Cell_final_[numKRSpecies_ * (iCell+1) + iKRSpecies];
-                        resid[cIndexPhStart + iKRSpecies]                -= fluxM * areaR_star;
-                        resid[cIndexPhStart + iKRSpecies + numEqnsCell_] += fluxM * areaR_star;
-                    } else {
-                        fluxM = vtotalR * concKRSpecies_Cell_final_[numKRSpecies_ * (iCell)   + iKRSpecies];
-                        resid[cIndexPhStart + iKRSpecies]                -= fluxM * areaR_star;
-                        resid[cIndexPhStart + iKRSpecies + numEqnsCell_] += fluxM * areaR_star;
-                    }
-                }
-
-                /*
-                 *  Change in the total amount of moles of phase jPh
-                 */
-                old_stuff = concKRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]  * 4.0 / 3.0 * Pi * (cbR3_init  - cbL3_init) * particleNumberToFollow_;
-                new_stuff = concKRSpecies_Cell_final_[numKRSpecies_ * iCell + iKRSpecies] * 4.0 / 3.0 * Pi * (cbR3_final - cbL3_final)* particleNumberToFollow_;
-                resid[cIndexPhStart + iKRSpecies] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
-            }
-
-            // end of phase loop
-            kstart += nSpecies;
-        }
-
-        if (iCell == numRCells_ - 1) {
-            /*
-             *  Do the exterior
-             */
-            double SolidVolCreationRate = 0.0;
-	    kstart = 0;
-            for (jPh = 0; jPh < numSPhases_; jPh++) {
-                iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
-                ThermoPhase* th = & thermo(iPh);
-                int nSpecies = th->nSpecies();
-                resid[cIndexPhStart + kstart] -= DphMolesSrc_final_[iPh];
-                SolidVolCreationRate += partialMolarVolKRSpecies_Cell_final_[iStart] * DspMoles_final_[iStart];
-                for (int kSp = 1; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-                    resid[cIndexPhStart + iKRSpecies] -= DspMoles_final_[iStart + kSp];
-                    SolidVolCreationRate += partialMolarVolKRSpecies_Cell_final_[iStart + kSp] *  DspMoles_final_[iStart + kSp];
-                }
-
-
-		if (formulationTypeTotalConc_ == 1) {
-		    resid[cIndexPhStart + kstart] = concTotalVec_SPhase_final[jPh] - molarDensity_SPhase_Cell_final_[iCell*numSPhases_ + jPh];
-		}
-
-		kstart += nSpecies;
-            }
-            /*
-             * Calculation of the movement at the top of the
-             *    C dXdt * Area - SolidCreationRate = 0
-             *
-             *  this is an expression of the conservation of total solid molar volume at the
-             *  r_exterior.
-             */
-
-	    if (formulationType_ > 0) {
-		resid[xindex] += 0.0;
-	    } else {
-		resid[xindex] = rnodeVeloc[iCell] * areaR_star - SolidVolCreationRate;
-	    }
-
-        }
-    }
-    return 1;
-}
 //=======================================================================================================================
 void  Electrode_SimpleDiff::showSolution(int indentSpaces)
 {
-    std::string title = "Lattice Radius CBR (m)";
-    vector<std::string> colNames;
-    colNames.push_back("LatticeRadius");
-    showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &rLatticeCBR_final_[0], colNames, 1);
-     
 
-    title = "Phase Concentrations (kmol m-3)";
+
+    string title = "Phase Concentrations (kmol m-3)";
     showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &concTot_SPhase_Cell_final_[0], KRsolid_phaseNames_,
 		 numSPhases_);
 
@@ -3674,17 +2643,13 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
 
     drawline(124, indentSpaces);
 
-    std::string title = "Residual for Lattice Radius CBR (m)";
+    std::string title;
 
     const double * const res = residual + 1;
-    int iTerm = 0;
-
-    showOneResid(title, indentSpaces, &cellBoundR_final_[0], numRCells_, 1, 0, &rLatticeCBR_init_[0],
-		 &rLatticeCBR_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
-		 res);
+  
 
     title = "Residual for position (m)";
-    iTerm = 1;
+    int iTerm = 1;
     showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &rnodePos_init_[0],
 		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
 		 res);
@@ -4052,17 +3017,7 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
     for (int iCell = 0; iCell < numRCells_; iCell++) {
 	kstart = 0;
 
-	yvalNLS_[index] = rLatticeCBR_final_[iCell];
-	ylowNLS_[index] = -1.0E300;
-	yhighNLS_[index] = 1.0E300;
-	deltaBoundsMagnitudesNLS_[index] = 0.1 * Radius_exterior_init_;
-	index++;
 
-	yvalNLS_[index] = rnodePos_final_[iCell];
-	ylowNLS_[index] = -1.0E300;
-	yhighNLS_[index] = 1.0E300;
-	deltaBoundsMagnitudesNLS_[index] = 0.1 * Radius_exterior_init_;
-	index++;
 
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
@@ -4128,7 +3083,6 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-	rLatticeCBR_init_[iCell] = rLatticeCBR_final_[iCell];
 	rnodePos_init_[iCell]    = rnodePos_final_[iCell];
 	cellBoundR_init_[iCell]  = cellBoundR_final_[iCell];
 	cellBoundL_init_[iCell]  = cellBoundL_final_[iCell];
@@ -4150,7 +3104,6 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 	}
 
 	for (iCell = 0; iCell < numRCells_; ++iCell) {
-	    rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_[iCell];
 	    rnodePos_init_init_[iCell]    = rnodePos_final_[iCell];
 	}
     }
@@ -4184,8 +3137,6 @@ void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-        rLatticeCBR_init_init_[iCell] = rLatticeCBR_final_final_[iCell];
-	rLatticeCBR_init_[iCell]      = rLatticeCBR_final_final_[iCell];
         rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
         rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
 	cellBoundR_init_[iCell]       = cellBoundR_final_[iCell];
@@ -4217,7 +3168,6 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
     }
     
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-	rLatticeCBR_final_[iCell] = rLatticeCBR_init_[iCell];
 	rnodePos_final_[iCell]    = rnodePos_init_[iCell];
 	cellBoundR_final_[iCell]  = cellBoundR_init_[iCell];
 	cellBoundL_final_[iCell]  = cellBoundL_init_[iCell];
@@ -4252,7 +3202,6 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
 	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_init_init_[i];
     }
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-	rLatticeCBR_init_[iCell] = rLatticeCBR_init_init_[iCell];
 	rnodePos_init_[iCell] = rnodePos_init_init_[iCell];
     }
 
@@ -4265,7 +3214,6 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
 	    concTot_SPhase_Cell_final_[i] = concTot_SPhase_Cell_init_init_[i];
 	}
 	for (iCell = 0; iCell < numRCells_; ++iCell) {
-	    rLatticeCBR_final_[iCell] = rLatticeCBR_init_init_[iCell];
 	    rnodePos_final_[iCell] = rnodePos_init_init_[iCell];
 	}
     }
@@ -4298,7 +3246,6 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
-	rLatticeCBR_final_final_[iCell] = rLatticeCBR_final_[iCell];
 	rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
     }
 }
@@ -4378,11 +3325,7 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 
     printElectrodeCapacityInfo(pSrc, subTimeStep);
 
-    colNames.push_back("LatticeRadius");
-    std::string title = "";
-    int indentSpaces = 10;
-    showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &rLatticeCBR_final_[0], colNames, 1);
-
+  
     for (iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
