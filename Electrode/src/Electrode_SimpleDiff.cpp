@@ -77,7 +77,6 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     rnodePos_init_(0),
     rnodePos_init_init_(0),
 
-    vLatticeCBR_cell_(0),
     cellBoundR_final_(0),
     cellBoundR_init_(0),
     cellBoundL_final_(0),
@@ -161,7 +160,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     rnodePos_final_(0),
     rnodePos_init_(0),
     rnodePos_init_init_(0),
-    vLatticeCBR_cell_(0),
+
     cellBoundR_final_(0),
     cellBoundR_init_(0),
     cellBoundL_final_(0),
@@ -250,7 +249,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     rnodePos_final_                     = right.rnodePos_final_;
     rnodePos_init_                      = right.rnodePos_init_;
     rnodePos_init_init_                 = right.rnodePos_init_init_;
-    vLatticeCBR_cell_                   = right.vLatticeCBR_cell_;
+ 
     cellBoundR_final_                   = right.cellBoundR_final_;
     cellBoundR_init_                    = right.cellBoundR_init_;
     cellBoundL_final_                   = right.cellBoundL_final_;
@@ -599,14 +598,10 @@ Electrode_SimpleDiff::init_sizes()
     spMf_KRSpecies_Cell_final_.resize(kspCell, 0.0);
     spMf_KRSpecies_Cell_init_.resize(kspCell, 0.0);
 
- 
-
     rnodePos_final_final_.resize(numRCells_, 0.0);
     rnodePos_final_.resize(numRCells_, 0.0);
     rnodePos_init_.resize(numRCells_, 0.0);
     rnodePos_init_init_.resize(numRCells_, 0.0);
-
-    vLatticeCBR_cell_.resize(numRCells_, 0.0);
 
     cellBoundR_final_.resize(numRCells_, 0.0);
     cellBoundR_init_.resize(numRCells_, 0.0);
@@ -625,7 +620,6 @@ Electrode_SimpleDiff::init_sizes()
 
     DphMolesSrc_final_.resize(m_NumTotPhases, 0.0);
 
-
     actCoeff_Cell_final_.resize(kspCell, 1.0);
     actCoeff_Cell_init_.resize(kspCell, 1.0);
 
@@ -634,7 +628,6 @@ Electrode_SimpleDiff::init_sizes()
 
     int maxNumRxns = RSD_List_[0]->nReactions();
     ROP_.resize(maxNumRxns, 0.0);
-
 }
 //====================================================================================================================
 void
@@ -671,6 +664,16 @@ Electrode_SimpleDiff::init_grid()
 	 cellBoundL_final_[iCell+1] = cellBoundR_final_[iCell];
      }
      cellBoundR_final_[numRCells_-1] = rnodePos_final_[numRCells_-1];
+
+     /*
+      *  Have to center the node in the middle to avoid even more confusing logic!
+      */
+     for (int iCell = 0; iCell < numRCells_-1; iCell++) { 
+	 rnodePos_final_[iCell] = 0.5 *(cellBoundL_final_[iCell] + cellBoundR_final_[iCell]);
+     }
+
+
+
 
      for (int iCell = 0; iCell < numRCells_; iCell++) {
 	 rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
@@ -988,21 +991,21 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
  *  prerequisites: The object must have been already created.
  *
  *  Fundamental Variables:
- *        concTot_SPhase_Cell_final_[]
- *        concKRSpecies_Cell_final_[1::N-1]
 
+ *          spMoles_KRsolid_Cell_final_[]
  *
  *  Variables to be calculated:  (all of the rest)
  *
- *          spMoles_KRsolid_Cell_final_[]
  *          concTot_SPhase_Cell_final_[]
+ *          concKRSpecies_Cell_final_[1::N-1]
  *          spMf_KRSpecies_Cell_final_[]
  *          partialMolarVolKRSpecies_Cell_final_[]
  *          actCoeff_Cell_final_[]
  *
  *          cellBoundR_final_[]
- *          cellBoundL_final_;
- *          volPP_Cell_final_;
+ *          cellBoundL_final_[];
+ *          volPP_Cell_final_[];
+ *          rnodePos_final_[]
  *
  * This routine imposes the condition that the cell boundaries are 1/2 between nodes.           
  */
@@ -1011,46 +1014,13 @@ void Electrode_SimpleDiff::updateState()
     // Indexes
     int iCell, jRPh;
     double tmp;
-    // Cubes of the cell boundaries, Right and Left, for the initial and final times
-    double cbR3_final = 0.0;
-    double cbL3_final = 0.0;
+  
 
     /*
-     *   We now have a vector of cells.
-     *   Each of the cells must have their own conditions.
-     *   We need to loop over the conditions and have their activivities calculated
-     *
-     *  Calculate the cell boundaries in a pre - loop
+     *   First we need to find the mole fractions within each cell
+     *   Then, we calculate all the cell thermo properties and store them
      */
-    cellBoundL_final_[0] = rnodePos_final_[0];
-    for (iCell = 0; iCell < numRCells_-1; iCell++) {
-
-
-
-
-        cellBoundR_final_[iCell]  = 0.5 * (rnodePos_final_[iCell] + rnodePos_final_[iCell+1]);
-	cellBoundL_final_[iCell+1] = cellBoundR_final_[iCell];
-    }
-    cellBoundR_final_[numRCells_-1] = rnodePos_final_[numRCells_-1];
-    for (iCell = 0; iCell < numRCells_-1; iCell++) {
-	double l3 =  cellBoundL_final_[iCell] * cellBoundL_final_[iCell] *  cellBoundL_final_[iCell];
-	double r3 =  cellBoundR_final_[iCell] * cellBoundR_final_[iCell] *  cellBoundR_final_[iCell];
-	volPP_Cell_final_[iCell]  = 4.0 * Pi / 3.0 * (r3 - l3);
-    }
-
-
     for (int iCell = 0; iCell < numRCells_; iCell++) {
-        /*
-         *  Calculate the cell size
-         */
-        cbL3_final  = cbR3_final;
-        cbR3_final = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
-        double volCell = 4./3. * Pi * (cbR3_final  - cbL3_final);
-
-	// Calculate the total volume of the cell
-        double volTotalCell = volCell * particleNumberToFollow_;
-	//printf("volTotalCell = %g\n", volTotalCell);
-
         int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
 	int indexCellPhase = iCell * numSPhases_;
@@ -1061,71 +1031,73 @@ void Electrode_SimpleDiff::updateState()
          
             ThermoPhase* th = thermoSPhase_List_[jRPh];
             int nSpecies = th->nSpecies();
-	   
-	    double& concTotPhase = concTot_SPhase_Cell_final_[indexCellPhase  + jRPh];
-	    double concKRSpecies0Phase = concTotPhase;
-	    double phaseMoles = 0.0;
-            for (int kSp = 1; kSp < nSpecies; kSp++) {
-                int iKRSpecies = kstart + kSp;
-                /*
-                 * Find the mole numbers of species in the cell, spMolesKRSpecies_Cell_final_[indexTopKRSpecies + iKRSpecies]
-                 *     from concKRsolid_Cell_final_;
-                 */
-		concKRSpecies0Phase -= concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-                spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] =
-		    volTotalCell * concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
-
-
-
-            }
-	    /*
-	     *  Fill in the quantities for species 0, which aren't formally part of the solution vector
-	     */
-	    concKRSpecies_Cell_final_[indexMidKRSpecies + 0] = concKRSpecies0Phase;
-	    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + 0] = volTotalCell * concKRSpecies_Cell_final_[indexMidKRSpecies + 0];
-	    phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + 0];
-
-	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = phaseMoles;
+	    double phaseMoles = phaseMoles_KRsolid_Cell_final_[indexCellPhase + jRPh];
             /*
              * Find the mole fractions
              *     from spMoles_KRsolid_Cell_final_;
              */
-	    if (concTotPhase > 1.0E-200) {
+	    if (phaseMoles > 1.0E-200) {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
-		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] / concTotPhase;
-		}
-	    } else if (concTotPhase > 1.0E-200) {
-		for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    tmp = spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		    if (tmp < 0.0 || tmp > 1.0) {
-			throw CanteraError("Electrode::updatePhaseNumbers()",
-					   "Mole fractions out of bounds:" + int2str(kSp) + " " + fp2str(tmp));
-		    }
+		    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] =  spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] 
+										  / phaseMoles;
 		}
 	    } else {
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
-		    tmp = spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		    if (tmp < 0.0 || tmp > 1.0) {
-			throw CanteraError("Electrode::updatePhaseNumbers()",
-					   "Mole fractions out of bounds:" + int2str(kSp) + " " + fp2str(tmp));
+		    tmp = spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] ;
+		    if (tmp < -1.0E-200 ) {
+			throw CanteraError("Electrode_SimpleDiff::updatePhaseNumbers()",
+					   "Moles are out of bounds:" + int2str(kSp) + " " + fp2str(tmp));
 		    }
-		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] = 0.0;
 		}
-		concTotPhase = 0.0;
 	    }
 	    /*
 	     * Calculate the activities of the species
 	     */
 	    th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
-	    molarDensity_SPhase_Cell_final_[indexCellPhase  + jRPh] = th->molarDensity();
+	    concTot_SPhase_Cell_final_[indexCellPhase + jRPh] = th->molarDensity();
+	    
 	    th->getActivityCoefficients(&actCoeff_Cell_final_[indexMidKRSpecies + kstart]);
 	    th->getPartialMolarVolumes(&partialMolarVolKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+	    th->getConcentrations(&concKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+	 
+
+	    kstart += nSpecies;
 	}
     }
+
+    /*
+     *  Now, calculate the cell boundaries since we know the amount of material in each cell
+     */
+    cellBoundL_final_[0] = rnodePos_final_[0];
+    double cbL3_final =  cellBoundL_final_[0] *  cellBoundL_final_[0] *  cellBoundL_final_[0];
+    double cbR3_final = cbL3_final;
+    for (iCell = 0; iCell < numRCells_-1; iCell++) {
+	cbL3_final = cbR3_final;
+	int indexCellPhase = iCell * numSPhases_;
+	/*
+	 *  Calculate the volume of the cell
+	 */
+	double cellVol = 0.0;
+	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    double phaseMoles = phaseMoles_KRsolid_Cell_final_[indexCellPhase + jRPh];
+	    cellVol += concTot_SPhase_Cell_final_[indexCellPhase + jRPh] * phaseMoles;
+	}
+	volPP_Cell_final_[iCell]  = cellVol / particleNumberToFollow_;
+	cbR3_final = cbL3_final + volPP_Cell_final_[iCell] * 3.0 / (4.0 * Pi);
+	cellBoundR_final_[iCell] = pow(	cbR3_final, ONE_THIRD);
+	if (iCell <  numRCells_-1) {
+	    cellBoundL_final_[iCell+1] = cellBoundR_final_[iCell];
+	}
+    }
+    rnodePos_final_[0] = 0.0;
+    for (iCell = 1; iCell < numRCells_-2; iCell++) {
+	rnodePos_final_[iCell] = 0.5 * (cellBoundL_final_[iCell] + cellBoundR_final_[iCell]);
+    } 
+    rnodePos_final_[numRCells_-1] = cellBoundR_final_[numRCells_-1];
+
+
 
     /*
      *  Update the state to zero-dimensional parent fields

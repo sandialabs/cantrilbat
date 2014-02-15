@@ -851,8 +851,6 @@ protected:
     std::vector<doublereal> rnodePos_init_init_;
 
 
-    //! Lattice velocity of the right cell boundary - global final value
-    std::vector<doublereal> vLatticeCBR_cell_;
 
     std::vector<doublereal> cellBoundR_final_;
   
