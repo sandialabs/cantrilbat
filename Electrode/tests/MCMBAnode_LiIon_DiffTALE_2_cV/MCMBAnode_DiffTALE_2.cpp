@@ -1,5 +1,4 @@
 /*
- * $Id: MCMBAnode_SimpleDiff.cpp 496 2013-01-07 21:15:37Z hkmoffa $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -22,7 +21,7 @@
 #include "cantera/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
-#include "Electrode_SimpleDiff.h"
+#include "Electrode_DiffTALE.h"
 #include "Electrode_RadialDiffRegions.h"  
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
@@ -41,7 +40,7 @@ int mpequil_debug_print_lvl = 1;
 int VCS_Debug_Print_Lvl = 3;
 
 void printUsage() {
-    cout << "usage: MCMBAnode_SimpleDiff [-h] [-help_cmdfile] [-d #] [anode.inp]"
+    cout << "usage: MCMBAnode_DiffTALE [-h] [-help_cmdfile] [-d #] [anode.inp]"
          <<  endl;
     cout << "    -h               : Prints this help" << endl;
     cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add anode.inp for more information" << endl;
@@ -111,7 +110,7 @@ int main(int argc, char **argv)
 
   try {
   
-    Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
+    Cantera::Electrode_DiffTALE *electrodeA  = new Cantera::Electrode_DiffTALE();
 
     ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     

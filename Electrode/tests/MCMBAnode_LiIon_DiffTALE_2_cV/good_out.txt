@@ -178,7 +178,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 oc[0] = -0.023098
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  0.00000E+00
+      Electrode_DiffTALE at time final =  0.00000E+00
                               time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
@@ -296,7 +296,7 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.00000E-05
                               intermediate-step time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
@@ -405,7 +405,7 @@ oc[0] = -0.023098
    ==============================================================================================
           1e-05         572843
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E-05
+      Electrode_DiffTALE at time final =  1.00000E-05
                               time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
@@ -523,7 +523,7 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  2.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  2.00000E-05
                               intermediate-step time init  =  1.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
@@ -630,10 +630,10 @@ oc[0] = -0.023098
                            V_C6-bulk               2.301E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.261385 beat out pnorm 0.332289
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.261385 beat out pnorm 0.332289
           2e-05         557941
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.00000E-05
+      Electrode_DiffTALE at time final =  2.00000E-05
                               time init  =  1.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
@@ -751,7 +751,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.261385 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  3.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  3.00000E-05
                               intermediate-step time init  =  2.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
@@ -858,10 +858,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.261385 b
                            V_C6-bulk               2.245E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.239491 beat out pnorm 0.388965
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.239491 beat out pnorm 0.388965
           3e-05         544495
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.00000E-05
+      Electrode_DiffTALE at time final =  3.00000E-05
                               time init  =  2.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
@@ -979,7 +979,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.239491 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  4.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  4.00000E-05
                               intermediate-step time init  =  3.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
@@ -1086,10 +1086,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.239491 b
                            V_C6-bulk               2.194E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219838 beat out pnorm 0.451065
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219838 beat out pnorm 0.451065
           4e-05         532313
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.00000E-05
+      Electrode_DiffTALE at time final =  4.00000E-05
                               time init  =  3.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
@@ -1207,7 +1207,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219838 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  5.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  5.00000E-05
                               intermediate-step time init  =  4.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
@@ -1314,10 +1314,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219838 b
                            V_C6-bulk               2.149E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202118 beat out pnorm 0.517918
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202118 beat out pnorm 0.517918
           5e-05         521238
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  5.00000E-05
+      Electrode_DiffTALE at time final =  5.00000E-05
                               time init  =  4.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
@@ -1435,7 +1435,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202118 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  6.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  6.00000E-05
                               intermediate-step time init  =  5.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
@@ -1542,10 +1542,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202118 b
                            V_C6-bulk               2.107E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.186083 beat out pnorm 0.58897
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.186083 beat out pnorm 0.58897
           6e-05         511135
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  6.00000E-05
+      Electrode_DiffTALE at time final =  6.00000E-05
                               time init  =  5.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
    ==============================================================================================
@@ -1663,7 +1663,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.186083 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  7.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  7.00000E-05
                               intermediate-step time init  =  6.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
@@ -1770,10 +1770,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.186083 b
                            V_C6-bulk               2.069E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171532 beat out pnorm 0.663762
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171532 beat out pnorm 0.663762
           7e-05         501892
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  7.00000E-05
+      Electrode_DiffTALE at time final =  7.00000E-05
                               time init  =  6.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
    ==============================================================================================
@@ -1891,7 +1891,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171532 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  8.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  8.00000E-05
                               intermediate-step time init  =  7.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
@@ -1998,10 +1998,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171532 b
                            V_C6-bulk               2.033E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158296 beat out pnorm 0.741903
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158296 beat out pnorm 0.741903
           8e-05         493412
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  8.00000E-05
+      Electrode_DiffTALE at time final =  8.00000E-05
                               time init  =  7.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
    ==============================================================================================
@@ -2119,7 +2119,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158296 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  9.00000E-05
+      Electrode_DiffTALE at intermediate-step time final =  9.00000E-05
                               intermediate-step time init  =  8.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
@@ -2226,10 +2226,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158296 b
                            V_C6-bulk               2.001E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146233 beat out pnorm 0.823061
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146233 beat out pnorm 0.823061
           9e-05         485613
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  9.00000E-05
+      Electrode_DiffTALE at time final =  9.00000E-05
                               time init  =  8.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
    ==============================================================================================
@@ -2348,7 +2348,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146233 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.00000E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.00000E-04
                               intermediate-step time init  =  9.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
@@ -2455,10 +2455,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146233 b
                            V_C6-bulk               1.971E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.135218 beat out pnorm 0.906948
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.135218 beat out pnorm 0.906948
          0.0001         478423
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E-04
+      Electrode_DiffTALE at time final =  1.00000E-04
                               time init  =  9.00000E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
    ==============================================================================================
