@@ -31,7 +31,6 @@ EState_RadialDistrib::EState_RadialDistrib() :
     numSPhases_(0),
     rnodePos_(0),
     cellBoundR_(0),
-    rLatticeCBR_(0),
     concTot_SPhase_Cell_(0),
     concKRSpecies_Cell_(0),
     spMoles_KRsolid_Cell_(0),
@@ -54,7 +53,6 @@ EState_RadialDistrib::EState_RadialDistrib(std::string electrodeType) :
     numSPhases_(0),
     rnodePos_(0),
     cellBoundR_(0),
-    rLatticeCBR_(0),
     concTot_SPhase_Cell_(0),
     concKRSpecies_Cell_(0),
     spMoles_KRsolid_Cell_(0),
@@ -81,7 +79,6 @@ EState_RadialDistrib::EState_RadialDistrib(const EState_RadialDistrib& right) :
     numSPhases_(0),
     rnodePos_(0),
     cellBoundR_(0),
-    rLatticeCBR_(0),
     concTot_SPhase_Cell_(0),
     concKRSpecies_Cell_(0),
     spMoles_KRsolid_Cell_(0),
@@ -115,7 +112,6 @@ EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib
     numSPhases_                            = right.numSPhases_;
     rnodePos_                              = right.rnodePos_;
     cellBoundR_                            = right.cellBoundR_;
-    rLatticeCBR_                           = right.rLatticeCBR_;
     concTot_SPhase_Cell_                   = right.concTot_SPhase_Cell_;
     concKRSpecies_Cell_                    = right.concKRSpecies_Cell_;
     spMoles_KRsolid_Cell_                  = right.spMoles_KRsolid_Cell_;
@@ -162,7 +158,6 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
 	    numSPhases_                  = edt->numSPhases_;
 	    rnodePos_                    = edt->rnodePos_final_;
 	    cellBoundR_                  = edt->cellBoundR_final_;
-	    rLatticeCBR_                 = edt->rLatticeCBR_final_;
 	    concTot_SPhase_Cell_         = edt->concTot_SPhase_Cell_final_;
 	    concKRSpecies_Cell_          = edt->concKRSpecies_Cell_final_;
 	    spMoles_KRsolid_Cell_        = edt->spMoles_KRsolid_Cell_final_;
@@ -205,7 +200,6 @@ XML_Node* EState_RadialDistrib::writeStateToXML() const
 
     ctml::addNamedFloatArray(*x, "rnodePos", numRCells_, DATA_PTR(rnodePos_), "m");
     ctml::addNamedFloatArray(*x, "cellBoundR", numRCells_, DATA_PTR(cellBoundR_), "m");
-    ctml::addNamedFloatArray(*x, "rLatticeCBR", numRCells_, DATA_PTR(rLatticeCBR_), "m");
     ctml::addNamedFloatArray(*x, "concTot_SPhase_Cell", numRCells_ * numSPhases_, DATA_PTR(concTot_SPhase_Cell_), "kmol/m3");
     ctml::addNamedFloatArray(*x, "concKRSpecies_Cell", numRCells_ * numKRSpecies_, DATA_PTR(concKRSpecies_Cell_), "kmol/m3");
     ctml::addNamedFloatArray(*x, "spMoles_KRsolid_Cell", numRCells_ * numKRSpecies_, DATA_PTR(spMoles_KRsolid_Cell_), "kmol");
@@ -228,7 +222,6 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
 
     ctml::getFloatArray(xmlEState, rnodePos_, true, "", "rnodePos");
     ctml::getFloatArray(xmlEState, cellBoundR_, true, "", "cellBoundR"); 
-    ctml::getFloatArray(xmlEState, rLatticeCBR_, true, "", "rLatticeCBR");
 
     ctml::getFloatArray(xmlEState, concTot_SPhase_Cell_, true, "", "concTot_SPhase_Cell");
     ctml::getFloatArray(xmlEState, concKRSpecies_Cell_, true, "", "concKRSpecies_Cell");
@@ -252,7 +245,6 @@ void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const Cantera::Elect
 
     rnodePos_                    = emp->rnodePos_final_;
     cellBoundR_                  = emp->cellBoundR_final_;
-    rLatticeCBR_                 = emp->rLatticeCBR_final_;
     concTot_SPhase_Cell_         = emp->concTot_SPhase_Cell_final_;
     concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
     spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
@@ -311,7 +303,7 @@ void EState_RadialDistrib::setStateElectrode_DiffTALE_fromEState(Cantera::Electr
 
     emp->rnodePos_final_             = 	rnodePos_;    
     emp->cellBoundR_final_           = 	cellBoundR_;
-    emp->rLatticeCBR_final_          =  rLatticeCBR_;
+    emp->rLatticeCBR_final_          =  cellBoundR_;
     emp->concTot_SPhase_Cell_final_  = 	concTot_SPhase_Cell_;
     emp->concKRSpecies_Cell_final_   = 	concKRSpecies_Cell_;
     emp->spMoles_KRsolid_Cell_final_ = 	spMoles_KRsolid_Cell_;

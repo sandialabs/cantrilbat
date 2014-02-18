@@ -158,8 +158,6 @@ protected:
 
     std::vector<doublereal> cellBoundR_;
 
-    //! Reference radius at the right cell boundary - local init value
-    std::vector<doublereal> rLatticeCBR_;
  
     //! Total concentration of each of the solid phases that are distributed - global init state
     /*!
