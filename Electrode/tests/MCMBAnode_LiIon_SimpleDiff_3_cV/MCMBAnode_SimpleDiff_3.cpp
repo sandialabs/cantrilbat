@@ -180,8 +180,6 @@ int main(int argc, char **argv)
 
  //   electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 4;
-    electrodeA->formulationType_ = 0;
-    electrodeA->formulationTypeTotalConc_ = 0;
     electrodeA->setMaxNumberSubCycles(40);
 
     nT = 1; 
