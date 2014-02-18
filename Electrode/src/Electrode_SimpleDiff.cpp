@@ -676,7 +676,7 @@ Electrode_SimpleDiff::init_grid()
      for (int iCell = 1; iCell < numRCells_-2; iCell++) { 
 	 rnodePos_final_[iCell] = 0.5 *(cellBoundL_final_[iCell] + cellBoundR_final_[iCell]);
      }
-     rnodePos_final_[numRCells_] = cellBoundR_final_[numRCells_-1];
+ 
 
 
 
@@ -1585,11 +1585,11 @@ void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
 	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
-	    spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies + 0]= y[index];
+	    spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + kstart + 0]= y[index];
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
 		spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]      = y[index + kSp];
-		spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies + 0] -= y[index + kSp];
+		spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + kstart + 0] -= y[index + kSp];
 	    }
 	    kstart += nsp;
 	    index += nsp;
