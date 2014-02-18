@@ -2238,6 +2238,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
          * Calculate the molar volume of the first phase, final and init values
          * We will assume for now that this is the lattice molar volume
          */
+	concTotalVec_SPhase_final = &concTot_SPhase_Cell_final_[iCell*numSPhases_];
         if (iCell == 0) {
             numLatticeCBR_final_[iCell] = concTotalVec_SPhase_final[0] * vol_final_;
         } else {
