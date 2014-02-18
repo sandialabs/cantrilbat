@@ -79,8 +79,12 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 
     cellBoundR_final_(0),
     cellBoundR_init_(0),
+    cellBoundR_init_init_(0),
+    cellBoundR_final_final_(0),
     cellBoundL_final_(0),
     cellBoundL_init_(0),
+    cellBoundL_init_init_(0),
+    cellBoundL_final_final_(0),
 
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -157,8 +161,12 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
 
     cellBoundR_final_(0),
     cellBoundR_init_(0),
+    cellBoundR_init_init_(0),
+    cellBoundR_final_final_(0),
     cellBoundL_final_(0),
     cellBoundL_init_(0),
+    cellBoundL_init_init_(0),
+    cellBoundL_final_final_(0),
 
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -243,8 +251,12 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
  
     cellBoundR_final_                   = right.cellBoundR_final_;
     cellBoundR_init_                    = right.cellBoundR_init_;
+    cellBoundR_init_init_               = right.cellBoundR_init_init_;
+    cellBoundR_final_final_             = right.cellBoundR_final_final_;
     cellBoundL_final_                   = right.cellBoundL_final_;
     cellBoundL_init_                    = right.cellBoundL_init_;
+    cellBoundL_init_init_               = right.cellBoundL_init_init_;
+    cellBoundL_final_final_             = right.cellBoundL_final_final_;
     volPP_Cell_final_                   = right.volPP_Cell_final_;
 
  
@@ -593,8 +605,12 @@ Electrode_SimpleDiff::init_sizes()
 
     cellBoundR_final_.resize(numRCells_, 0.0);
     cellBoundR_init_.resize(numRCells_, 0.0);
+    cellBoundR_init_init_.resize(numRCells_, 0.0);
+    cellBoundR_final_final_.resize(numRCells_, 0.0);
     cellBoundL_final_.resize(numRCells_, 0.0);
     cellBoundL_init_.resize(numRCells_, 0.0);
+    cellBoundL_init_init_.resize(numRCells_, 0.0);
+    cellBoundL_final_final_.resize(numRCells_, 0.0);
 
     volPP_Cell_final_.resize(numRCells_, 0.0);
 
@@ -639,7 +655,7 @@ Electrode_SimpleDiff::init_grid()
      double rbot3 = r_in * r_in * r_in;
      //double vbot = rbot3 * 4.0 * Pi / 3.0;
    
-     cellBoundL_final_[0] = r_in; 
+     cellBoundL_final_[0] = r_in;
      rnodePos_final_[0] = r_in;
      for (int iCell = 0; iCell < numRCells_-1; iCell++) { 
 	 volContainedCell =  fracVolNodePos_[iCell+1] * vol_total_part;
@@ -656,10 +672,11 @@ Electrode_SimpleDiff::init_grid()
      /*
       *  Have to center the node in the middle to avoid even more confusing logic!
       */
-     for (int iCell = 0; iCell < numRCells_-1; iCell++) { 
+     rnodePos_final_[0] = m_rbot0_;
+     for (int iCell = 1; iCell < numRCells_-2; iCell++) { 
 	 rnodePos_final_[iCell] = 0.5 *(cellBoundL_final_[iCell] + cellBoundR_final_[iCell]);
      }
-
+     rnodePos_final_[numRCells_] = cellBoundR_final_[numRCells_-1];
 
 
 
@@ -729,6 +746,7 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 	    ThermoPhase* tp =  thermoSPhase_List_[jRPh];
 	    tp->setState_TPX(temperature_, pressure_, &(spMf_KRSpecies_Cell_final_[kspCell]));
 	    int nsp = tp->nSpecies();
+	    phaseMoles_KRsolid_Cell_final_[iphCell + jRPh] = tmp * concTot_SPhase_Cell_final_[iphCell + jRPh];
      	   
 	    for (int k = 0; k < nsp; ++k) {
 		spMoles_KRsolid_Cell_final_[kspCell + k] = tmp * concKRSpecies_Cell_final_[kspCell + k];
@@ -795,13 +813,17 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     for (i = 0; i < iTotal; ++i) {
         concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
         concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_[i];
+	phaseMoles_KRsolid_Cell_init_[i] =  phaseMoles_KRsolid_Cell_final_final_[i];
+	phaseMoles_KRsolid_Cell_init_init_[i] = phaseMoles_KRsolid_Cell_final_final_[i];
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
         rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
         rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
-	cellBoundR_init_[iCell]       = cellBoundR_final_[iCell];
-	cellBoundL_init_[iCell]       = cellBoundL_final_[iCell];
+	cellBoundR_init_[iCell]       = cellBoundR_final_final_[iCell];
+	cellBoundL_init_[iCell]       = cellBoundL_final_final_[iCell];
+	cellBoundR_init_init_[iCell]  = cellBoundR_final_final_[iCell];
+	cellBoundL_init_init_[iCell]  = cellBoundL_final_final_[iCell];
     }
 
     onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
@@ -1071,8 +1093,8 @@ void Electrode_SimpleDiff::updateState()
 	 */
 	double cellVol = 0.0;
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	    double phaseMoles = phaseMoles_KRsolid_Cell_final_[indexCellPhase + jRPh];
-	    cellVol += concTot_SPhase_Cell_final_[indexCellPhase + jRPh] * phaseMoles;
+	    double phaseMolesC = phaseMoles_KRsolid_Cell_final_[indexCellPhase + jRPh];
+	    cellVol += phaseMolesC / concTot_SPhase_Cell_final_[indexCellPhase + jRPh];
 	}
 	volPP_Cell_final_[iCell]  = cellVol / particleNumberToFollow_;
 	cbR3_final = cbL3_final + volPP_Cell_final_[iCell] * 3.0 / (4.0 * Pi);
@@ -1108,11 +1130,7 @@ void Electrode_SimpleDiff::checkGeometry() const
     double rdel = 0.0;
     double phaseTot = 0.0;
     for (iCell = 0; iCell < numRCells_; iCell++) {
-
-	/*
-	 *  Check value of cellBoundR_final_ against rnodePos_final_
-	 *   They must be at the midpoints wrt the radial coordinate.
-	 */
+	CBR = cellBoundR_final_[iCell];
 	if (iCell <  numRCells_ - 1) {
 	    cbL3_final = cbR3_final;
 	    cbR3_final = CBR * CBR * CBR;
@@ -1127,7 +1145,7 @@ void Electrode_SimpleDiff::checkGeometry() const
 	 */
 	double totalVolGeom = 4. * Pi / 3.0 * (cbR3_final - cbL3_final) * particleNumberToFollow_;
 	
-	int indexMidKRSpecies =  iCell    * numKRSpecies_;
+	int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
 
         cbL3_final  = cbR3_final;
@@ -2797,6 +2815,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
 	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_final_[i];
+	phaseMoles_KRsolid_Cell_init_[i]  = phaseMoles_KRsolid_Cell_final_[i];
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
@@ -2808,7 +2827,6 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
     /*
      *  Now transfer that to other states
      */
-    //setFinalFinalStateFromFinal();
 
     if (setInitInit) {
 	for (i = 0; i < ntotal; ++i) {
@@ -2818,10 +2836,13 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 	
 	for (i = 0; i < iTotal; ++i) {
 	    concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_[i];
+	    phaseMoles_KRsolid_Cell_init_init_[i] = phaseMoles_KRsolid_Cell_final_[i];
 	}
 
 	for (iCell = 0; iCell < numRCells_; ++iCell) {
 	    rnodePos_init_init_[iCell]    = rnodePos_final_[iCell];
+	    cellBoundR_init_init_[iCell]  = cellBoundR_final_[iCell];
+	    cellBoundL_init_init_[iCell]  = cellBoundL_final_[iCell];
 	}
     }
 }
@@ -2850,13 +2871,18 @@ void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
         concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
-        concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_[i];
+        concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_final_[i];
+	phaseMoles_KRsolid_Cell_init_init_[i] = phaseMoles_KRsolid_Cell_final_final_[i];
+	phaseMoles_KRsolid_Cell_init_[i]  = phaseMoles_KRsolid_Cell_final_final_[i];
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
         rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
         rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
-	cellBoundR_init_[iCell]       = cellBoundR_final_[iCell];
+	cellBoundR_init_init_[iCell]  = cellBoundR_final_final_[iCell];
+	cellBoundR_init_[iCell]       = cellBoundR_final_final_[iCell];
+	cellBoundL_init_init_[iCell]  = cellBoundL_final_final_[iCell];
+	cellBoundL_init_[iCell]       = cellBoundL_final_final_[iCell];
     }
 
     onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
@@ -2882,6 +2908,7 @@ void Electrode_SimpleDiff::setFinalStateFromInit()
     
     for (i = 0; i < iTotal; ++i) {
 	concTot_SPhase_Cell_final_[i] = concTot_SPhase_Cell_init_[i];
+	phaseMoles_KRsolid_Cell_final_[i] = phaseMoles_KRsolid_Cell_init_[i];
     }
     
     for (iCell = 0; iCell < numRCells_; ++iCell) {
@@ -2917,9 +2944,12 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
 	concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_init_init_[i];
+	phaseMoles_KRsolid_Cell_init_[i] = phaseMoles_KRsolid_Cell_init_init_[i];
     }
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rnodePos_init_[iCell] = rnodePos_init_init_[iCell];
+	cellBoundR_init_[iCell]  = cellBoundR_init_init_[iCell];
+	cellBoundL_init_[iCell]  = cellBoundL_init_init_[iCell];
     }
 
     if (setFinal) {
@@ -2929,9 +2959,12 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
 	}
 	for (i = 0; i < iTotal; ++i) {
 	    concTot_SPhase_Cell_final_[i] = concTot_SPhase_Cell_init_init_[i];
+	    phaseMoles_KRsolid_Cell_final_[i] = phaseMoles_KRsolid_Cell_init_init_[i];
 	}
 	for (iCell = 0; iCell < numRCells_; ++iCell) {
 	    rnodePos_final_[iCell] = rnodePos_init_init_[iCell];
+	    cellBoundR_final_[iCell]  = cellBoundR_init_init_[iCell];
+	    cellBoundL_final_[iCell]  = cellBoundL_init_init_[iCell];
 	}
     }
 }
@@ -2960,10 +2993,13 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
 	concTot_SPhase_Cell_final_final_[i] = concTot_SPhase_Cell_final_[i];
+	phaseMoles_KRsolid_Cell_final_final_[i] = phaseMoles_KRsolid_Cell_final_[i];
     }
 
     for (iCell = 0; iCell < numRCells_; ++iCell) {
 	rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
+	cellBoundR_final_final_[iCell]  = cellBoundR_final_[iCell];
+	cellBoundL_final_final_[iCell]  = cellBoundL_final_[iCell];
     }
 }
 //====================================================================================================================

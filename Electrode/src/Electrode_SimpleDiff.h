@@ -848,9 +848,13 @@ protected:
     std::vector<doublereal> cellBoundR_final_;
   
     std::vector<doublereal> cellBoundR_init_;
+    std::vector<doublereal> cellBoundR_init_init_;
+    std::vector<doublereal> cellBoundR_final_final_;
 
     std::vector<doublereal> cellBoundL_final_;
     std::vector<doublereal> cellBoundL_init_;
+    std::vector<doublereal> cellBoundL_init_init_;
+    std::vector<doublereal> cellBoundL_final_final_;
 
     //! Volume of each cell on a per particle basis
     /*!
