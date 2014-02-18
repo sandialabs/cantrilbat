@@ -178,7 +178,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 oc[0] = -0.023098
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  0.00000E+00
+      Electrode_DiffTALE at time final =  0.00000E+00
                               time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
@@ -296,7 +296,7 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  6.25000E-05
+      Electrode_DiffTALE at intermediate-step time final =  6.25000E-05
                               intermediate-step time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
@@ -414,7 +414,7 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.56250E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.56250E-05
                               intermediate-step time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
@@ -521,7 +521,7 @@ oc[0] = -0.023098
                            V_C6-bulk               3.653E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 10.7659 beat out pnorm 54.7925
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 10.7659 beat out pnorm 54.7925
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -533,7 +533,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 10.7659 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  3.90625E-06
+      Electrode_DiffTALE at intermediate-step time final =  3.90625E-06
                               intermediate-step time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
@@ -640,7 +640,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 10.7659 be
                            V_C6-bulk               4.142E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.12757 beat out pnorm 9.13812
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.12757 beat out pnorm 9.13812
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -652,7 +652,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.12757 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  9.76563E-07
+      Electrode_DiffTALE at intermediate-step time final =  9.76563E-07
                               intermediate-step time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
@@ -770,7 +770,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.12757 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  1.97656E-06
                               intermediate-step time init  =  9.76563E-07
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
@@ -877,7 +877,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.12757 be
                            V_C6-bulk               4.375E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.67711 beat out pnorm 0.697938
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.67711 beat out pnorm 0.697938
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -889,7 +889,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.67711 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  2.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  2.97656E-06
                               intermediate-step time init  =  1.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
@@ -996,7 +996,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.67711 be
                            V_C6-bulk               4.231E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.53239 beat out pnorm 0.563874
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.53239 beat out pnorm 0.563874
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1008,7 +1008,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.53239 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  3.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  3.97656E-06
                               intermediate-step time init  =  2.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
@@ -1115,7 +1115,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.53239 be
                            V_C6-bulk               4.116E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.42381 beat out pnorm 0.46358
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.42381 beat out pnorm 0.46358
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1127,7 +1127,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.42381 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  4.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  4.97656E-06
                               intermediate-step time init  =  3.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
@@ -1234,7 +1234,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.42381 be
                            V_C6-bulk               4.022E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.340434 beat out pnorm 0.386182
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.340434 beat out pnorm 0.386182
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1246,7 +1246,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.340434 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  5.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  5.97656E-06
                               intermediate-step time init  =  4.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
@@ -1353,7 +1353,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.340434 b
                            V_C6-bulk               3.945E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.275246 beat out pnorm 0.324768
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.275246 beat out pnorm 0.324768
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1365,7 +1365,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.275246 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  6.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  6.97656E-06
                               intermediate-step time init  =  5.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
@@ -1472,7 +1472,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.275246 b
                            V_C6-bulk               3.882E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.22355 beat out pnorm 0.274807
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.22355 beat out pnorm 0.274807
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1484,7 +1484,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.22355 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  7.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  7.97656E-06
                               intermediate-step time init  =  6.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
@@ -1591,7 +1591,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.22355 be
                            V_C6-bulk               3.830E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.182098 beat out pnorm 0.233254
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.182098 beat out pnorm 0.233254
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1603,7 +1603,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.182098 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  8.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  8.97656E-06
                               intermediate-step time init  =  7.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
@@ -1710,7 +1710,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.182098 b
                            V_C6-bulk               3.787E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148582 beat out pnorm 0.19802
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148582 beat out pnorm 0.19802
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1722,7 +1722,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148582 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  9.97656E-06
+      Electrode_DiffTALE at intermediate-step time final =  9.97656E-06
                               intermediate-step time init  =  8.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
@@ -1829,7 +1829,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148582 b
                            V_C6-bulk               3.752E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121321 beat out pnorm 0.167643
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121321 beat out pnorm 0.167643
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1841,7 +1841,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121321 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.09766E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.09766E-05
                               intermediate-step time init  =  9.97656E-06
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
@@ -1948,7 +1948,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121321 b
                            V_C6-bulk               3.722E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0990623 beat out pnorm 0.141079
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0990623 beat out pnorm 0.141079
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1960,7 +1960,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0990623 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.24766E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.24766E-05
                               intermediate-step time init  =  1.09766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
@@ -2067,7 +2067,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0990623 
                            V_C6-bulk               3.687E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173756 beat out pnorm 0.261799
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173756 beat out pnorm 0.261799
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2079,7 +2079,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173756 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.39766E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.39766E-05
                               intermediate-step time init  =  1.24766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
@@ -2186,7 +2186,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173756 b
                            V_C6-bulk               3.660E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127142 beat out pnorm 0.208505
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127142 beat out pnorm 0.208505
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2198,7 +2198,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127142 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.54766E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.54766E-05
                               intermediate-step time init  =  1.39766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
@@ -2305,7 +2305,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127142 b
                            V_C6-bulk               3.640E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0937935 beat out pnorm 0.165307
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0937935 beat out pnorm 0.165307
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2317,7 +2317,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0937935 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.77266E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.77266E-05
                               intermediate-step time init  =  1.54766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
@@ -2424,7 +2424,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0937935 
                            V_C6-bulk               3.618E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148082 beat out pnorm 0.291956
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148082 beat out pnorm 0.291956
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2436,7 +2436,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148082 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.99766E-05
+      Electrode_DiffTALE at intermediate-step time final =  1.99766E-05
                               intermediate-step time init  =  1.77266E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
@@ -2543,7 +2543,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.148082 b
                            V_C6-bulk               3.602E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0966242 beat out pnorm 0.22513
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0966242 beat out pnorm 0.22513
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2555,7 +2555,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0966242 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  2.33516E-05
+      Electrode_DiffTALE at intermediate-step time final =  2.33516E-05
                               intermediate-step time init  =  1.99766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
@@ -2662,7 +2662,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0966242 
                            V_C6-bulk               3.584E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153624 beat out pnorm 0.391718
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153624 beat out pnorm 0.391718
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2674,7 +2674,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153624 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  2.67266E-05
+      Electrode_DiffTALE at intermediate-step time final =  2.67266E-05
                               intermediate-step time init  =  2.33516E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
@@ -2781,7 +2781,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153624 b
                            V_C6-bulk               3.569E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121279 beat out pnorm 0.333217
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121279 beat out pnorm 0.333217
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2793,7 +2793,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121279 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  3.01016E-05
+      Electrode_DiffTALE at intermediate-step time final =  3.01016E-05
                               intermediate-step time init  =  2.67266E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
    ==============================================================================================
@@ -2900,7 +2900,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121279 b
                            V_C6-bulk               3.553E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123665 beat out pnorm 0.304317
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123665 beat out pnorm 0.304317
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -2912,7 +2912,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123665 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  3.34766E-05
+      Electrode_DiffTALE at intermediate-step time final =  3.34766E-05
                               intermediate-step time init  =  3.01016E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20
    ==============================================================================================
@@ -3019,7 +3019,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123665 b
                            V_C6-bulk               3.536E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134002 beat out pnorm 0.306507
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134002 beat out pnorm 0.306507
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3031,7 +3031,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134002 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  3.68516E-05
+      Electrode_DiffTALE at intermediate-step time final =  3.68516E-05
                               intermediate-step time init  =  3.34766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21
    ==============================================================================================
@@ -3138,7 +3138,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134002 b
                            V_C6-bulk               3.517E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.140953 beat out pnorm 0.349718
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.140953 beat out pnorm 0.349718
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3150,7 +3150,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.140953 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  4.02266E-05
+      Electrode_DiffTALE at intermediate-step time final =  4.02266E-05
                               intermediate-step time init  =  3.68516E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22
    ==============================================================================================
@@ -3257,7 +3257,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.140953 b
                            V_C6-bulk               3.498E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139738 beat out pnorm 0.394332
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139738 beat out pnorm 0.394332
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3269,7 +3269,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139738 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  4.36016E-05
+      Electrode_DiffTALE at intermediate-step time final =  4.36016E-05
                               intermediate-step time init  =  4.02266E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23
    ==============================================================================================
@@ -3376,7 +3376,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139738 b
                            V_C6-bulk               3.480E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.129633 beat out pnorm 0.440442
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.129633 beat out pnorm 0.440442
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3388,7 +3388,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.129633 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  4.69766E-05
+      Electrode_DiffTALE at intermediate-step time final =  4.69766E-05
                               intermediate-step time init  =  4.36016E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24
    ==============================================================================================
@@ -3495,7 +3495,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.129633 b
                            V_C6-bulk               3.463E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112155 beat out pnorm 0.487902
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112155 beat out pnorm 0.487902
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3507,7 +3507,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112155 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  5.03516E-05
+      Electrode_DiffTALE at intermediate-step time final =  5.03516E-05
                               intermediate-step time init  =  4.69766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25
    ==============================================================================================
@@ -3614,7 +3614,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112155 b
                            V_C6-bulk               3.449E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0898265 beat out pnorm 0.536431
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0898265 beat out pnorm 0.536431
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3626,7 +3626,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0898265 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  5.54141E-05
+      Electrode_DiffTALE at intermediate-step time final =  5.54141E-05
                               intermediate-step time init  =  5.03516E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26
    ==============================================================================================
@@ -3733,7 +3733,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0898265 
                            V_C6-bulk               3.434E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.14117 beat out pnorm 0.583538
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.14117 beat out pnorm 0.583538
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3745,7 +3745,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.14117 be
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  6.04766E-05
+      Electrode_DiffTALE at intermediate-step time final =  6.04766E-05
                               intermediate-step time init  =  5.54141E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27
    ==============================================================================================
@@ -3852,7 +3852,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.14117 be
                            V_C6-bulk               3.424E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.115278 beat out pnorm 0.661799
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.115278 beat out pnorm 0.661799
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3864,7 +3864,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.115278 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  6.55391E-05
+      Electrode_DiffTALE at intermediate-step time final =  6.55391E-05
                               intermediate-step time init  =  6.04766E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28
    ==============================================================================================
@@ -3971,7 +3971,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.115278 b
                            V_C6-bulk               3.420E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00332339 beat out pnorm 0.738688
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00332339 beat out pnorm 0.738688
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -3983,7 +3983,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00332339
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  7.31328E-05
+      Electrode_DiffTALE at intermediate-step time final =  7.31328E-05
                               intermediate-step time init  =  6.55391E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29
    ==============================================================================================
@@ -4090,7 +4090,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00332339
                            V_C6-bulk               3.417E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.174634 beat out pnorm 0.819084
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.174634 beat out pnorm 0.819084
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4102,7 +4102,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.174634 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  8.07266E-05
+      Electrode_DiffTALE at intermediate-step time final =  8.07266E-05
                               intermediate-step time init  =  7.31328E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30
    ==============================================================================================
@@ -4209,7 +4209,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.174634 b
                            V_C6-bulk               3.407E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173513 beat out pnorm 0.916455
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173513 beat out pnorm 0.916455
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4221,7 +4221,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173513 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  8.83203E-05
+      Electrode_DiffTALE at intermediate-step time final =  8.83203E-05
                               intermediate-step time init  =  8.07266E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31
    ==============================================================================================
@@ -4328,7 +4328,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173513 b
                            V_C6-bulk               3.381E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.283213 beat out pnorm 0.996182
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.283213 beat out pnorm 0.996182
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4340,7 +4340,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.283213 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  9.59141E-05
+      Electrode_DiffTALE at intermediate-step time final =  9.59141E-05
                               intermediate-step time init  =  8.83203E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32
    ==============================================================================================
@@ -4447,7 +4447,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.283213 b
                            V_C6-bulk               3.329E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.616118 beat out pnorm 1.06527
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.616118 beat out pnorm 1.06527
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4459,7 +4459,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.616118 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  9.97109E-05
+      Electrode_DiffTALE at intermediate-step time final =  9.97109E-05
                               intermediate-step time init  =  9.59141E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33
    ==============================================================================================
@@ -4566,7 +4566,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.616118 b
                            V_C6-bulk               3.292E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.250451 beat out pnorm 1.21609
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.250451 beat out pnorm 1.21609
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4578,7 +4578,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.250451 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.03508E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.03508E-04
                               intermediate-step time init  =  9.97109E-05
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34
    ==============================================================================================
@@ -4685,7 +4685,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.250451 b
                            V_C6-bulk               3.248E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.2643 beat out pnorm 1.26789
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.2643 beat out pnorm 1.26789
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4697,7 +4697,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.2643 bea
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.07305E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.07305E-04
                               intermediate-step time init  =  1.03508E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35
    ==============================================================================================
@@ -4804,7 +4804,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.2643 bea
                            V_C6-bulk               3.198E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.300577 beat out pnorm 1.32162
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.300577 beat out pnorm 1.32162
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4816,7 +4816,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.300577 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.09203E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.09203E-04
                               intermediate-step time init  =  1.07305E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36
    ==============================================================================================
@@ -4923,7 +4923,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.300577 b
                            V_C6-bulk               3.171E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.120413 beat out pnorm 1.44545
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.120413 beat out pnorm 1.44545
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -4935,7 +4935,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.120413 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.11102E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.11102E-04
                               intermediate-step time init  =  1.09203E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37
    ==============================================================================================
@@ -5042,7 +5042,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.120413 b
                            V_C6-bulk               3.142E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123404 beat out pnorm 1.4793
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123404 beat out pnorm 1.4793
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -5054,7 +5054,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123404 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.13000E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.13000E-04
                               intermediate-step time init  =  1.11102E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38
    ==============================================================================================
@@ -5161,7 +5161,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123404 b
                            V_C6-bulk               3.112E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0881984 beat out pnorm 1.51384
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0881984 beat out pnorm 1.51384
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -5173,7 +5173,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0881984 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.15848E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.15848E-04
                               intermediate-step time init  =  1.13000E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 39
    ==============================================================================================
@@ -5280,7 +5280,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0881984 
                            V_C6-bulk               3.066E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205842 beat out pnorm 1.50292
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205842 beat out pnorm 1.50292
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -5292,7 +5292,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205842 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.18695E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.18695E-04
                               intermediate-step time init  =  1.15848E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 40
    ==============================================================================================
@@ -5399,7 +5399,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205842 b
                            V_C6-bulk               3.018E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.210498 beat out pnorm 1.55688
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.210498 beat out pnorm 1.55688
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -5411,7 +5411,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.210498 b
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 3 its
    ==============================================================================================
-      Electrode_SimpleDiff at intermediate-step time final =  1.21543E-04
+      Electrode_DiffTALE at intermediate-step time final =  1.21543E-04
                               intermediate-step time init  =  1.18695E-04
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 41
    ==============================================================================================
@@ -5518,10 +5518,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.210498 b
                            V_C6-bulk               2.968E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.214672 beat out pnorm 1.61276
+Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.214672 beat out pnorm 1.61276
           0.001    8.29167e+06
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.21543E-04
+      Electrode_DiffTALE at time final =  1.21543E-04
                               time init  =  0.00000E+00
                     Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================

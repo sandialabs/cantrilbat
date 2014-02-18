@@ -24,7 +24,7 @@ Electrode Type = anode
 !             default = ""
 !
 !--------------------------------------------------------------------------
-Electrode Model Name = SimpleDiff
+Electrode Model Name = DiffTALE
 
 !-------------------------------------------------------------------------
 ! Number of Cantera Files = int

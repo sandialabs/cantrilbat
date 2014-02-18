@@ -16,7 +16,7 @@
 
 .SUFFIXES: .d
 
-PROGRAM = MCMBAnode_SimpleDiff_3
+PROGRAM = MCMBAnode_DiffTALE_3
 
 OBJ = $(PROGRAM).o
 

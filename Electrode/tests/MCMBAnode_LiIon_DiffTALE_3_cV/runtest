@@ -9,7 +9,7 @@ temp_success="1"
 # Create a symbolic link to electrodeCell, if none exists already
 #
 
-PROG_EXE=./MCMBAnode_SimpleDiff_3
+PROG_EXE=./MCMBAnode_DiffTALE_3
 if test ! -x ${PROG_EXE}  ; then
   echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
   exit -1
