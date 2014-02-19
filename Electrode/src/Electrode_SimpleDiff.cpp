@@ -1568,7 +1568,7 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
  *          Loop over distributed Phases
  *            Residual (phaseMoles _ k=0)                   phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]
  *              . . .
- *            Residual (speciesMoles _ k=Ns-1)             spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] 
+ *            Residual (speciesMoles _ k=Ns-1)              spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies] 
  *  --------------------------------------------------------------------------------------------------------------
  */
 void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
@@ -1892,11 +1892,12 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
 	    int nSpecies = th->nSpecies();
 	    double molarVol = th->molarVolume();
 	    double phaseConc = 1.0 / molarVol;
-	    atolNLS_[cIndexPhStart] = phaseConc * atolMF;
-
+	    double cellVol = volPP_Cell_final_[iCell] * particleNumberToFollow_;
+	    atolNLS_[cIndexPhStart] = cellVol * phaseConc * atolMF;
+	    atolResidNLS_[cIndexPhStart] = atolNLS_[cIndexPhStart];
 
 	    for (int kSp = 1; kSp < nSpecies; kSp++) {
-		atolNLS_[cIndexPhStart + kSp] = phaseConc * atolMF;
+		atolNLS_[cIndexPhStart + kSp] = cellVol * phaseConc * atolMF;
 		atolResidNLS_[cIndexPhStart + kSp] = atolNLS_[cIndexPhStart + kSp];
 	    }
 	    cIndexPhStart += nSpecies;
@@ -2378,17 +2379,13 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
 {
 
     drawline(124, indentSpaces);
-
+    int numFields, iField, iEqn;
     std::string title;
 
     const double * const res = residual + 1;
-  
-
-    title = "Residual for position (m)";
-    int iTerm = 1;
-    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &rnodePos_init_[0],
-		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
-		 res);
+    
+    double *errorField=0;
+    //errorField = &errorLocalNLS_[1]
 
     int kstart = 0;
     for (int jPh = 0; jPh < numSPhases_; jPh++) {
@@ -2396,21 +2393,23 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
 	//int iStart = getGlobalSpeciesIndex(iPh, 0);
 	ThermoPhase* th = & thermo(iPh);
 	int nSpecies = th->nSpecies();
-
-	title = "Residual for total phase concentration " + th->name();
-	iTerm = 2 + kstart;
-	showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &concTot_SPhase_Cell_init_[0],
-		     &concTot_SPhase_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
+	numFields = numSPhases_;
+	iField = kstart;
+	title = "Residual for total cell phase moles for " + th->name();
+	iEqn = kstart;
+	showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numFields, iField, &phaseMoles_KRsolid_Cell_init_[0],
+		     &phaseMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1],
 		     res);
 
-
+	numFields = numKRSpecies_;
 	for (int kSp = 1; kSp < nSpecies; kSp++) {
 	    int iKRSpecies = kstart + kSp;
 
-	    title = "Residual for total species concentration of " + th->speciesName(kSp);
-	    iTerm = 2 + iKRSpecies;
-	    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numKRSpecies_, iKRSpecies, &concKRSpecies_Cell_init_[0],
-			 &concKRSpecies_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
+	    title = "Residual for total cell species moles of " + th->speciesName(kSp);
+	    iEqn = iKRSpecies;
+	    
+	    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numFields, iKRSpecies, &spMoles_KRsolid_Cell_init_[0],
+			 &spMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1],
 			 res);
 
 	}
@@ -2552,6 +2551,12 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 }
 
 //====================================================================================================================
+
+/*
+ *
+ *  @param                                 val_init[iCell * numFields + iField]
+ *  @param                          residual[iCell * numEqnsCell + iEqn]
+ */
 void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpaces,
 					 const double * const radialValues, int numRadialVals, 
 					 int numFields, int iField, const double * const val_init,  
@@ -2567,32 +2572,44 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
     }
   
     drawline(indentSpaces, 80);
-    printf("%s  %s\n", indent.c_str(), title.c_str());
+    printf("%s  %s       (RelResTol = %g)\n", indent.c_str(), title.c_str(), rtolResidNLS_);
  
     drawline(indentSpaces, 80);
     printf("%s        z      ", indent.c_str());
     
     printf(" %-11s", "Init_Value");
     printf(" %-11s", "Final_Value");
-    if (resid_error) {
-	printf(" %-11s", "Error");
-    }
+
+    printf(" %-11s", "RelResError");
+    
     if (solnError_tol) {
-	printf(" %-11s |  ", "Toler");
+	printf(" %-11s |  ", "AbsResErrorTol");
     }
     printf(" %-11s\n", "Resid");
     
     drawline(indentSpaces, 80);
 
+    double localResError = 0.0;
+    double denom, ee;
+   
+ 
+    
+
     for (iCell = 0; iCell < numRadialVals; iCell++) {
 	doublereal r = radialValues[iCell];
 	printf("%s    %- 10.4E ", indent.c_str(), r);
-	int istart = iCell * numFields + iField;
-	printf(" %- 10.4E ", val_init[istart]);
-	printf(" %- 10.4E ", val_final[istart]);
-	istart = iCell *  numEqnsCell + iEqn;
+	int kstart = iCell * numFields + iField;
+	printf(" %- 10.4E ", val_init[kstart]);
+	printf(" %- 10.4E ", val_final[kstart]);
+	int istart = iCell *  numEqnsCell + iEqn;
 	if (resid_error) {
-	    printf(" %- 10.4E ", resid_error[istart]);
+	    printf(" %- 10.4E ", resid_error[istart] / rtolResidNLS_);
+	} else {
+	    denom = rtolResidNLS_ * std::max(residual[istart], 1.0E-100);
+	    denom =  std::max(denom, atolResidNLS_[1 + istart]);
+	    ee = residual[istart] / denom;
+	    localResError = ee;
+	    printf(" %- 10.4E ", localResError);
 	}
 	if (solnError_tol) {
 	    printf(" %- 10.4E ", solnError_tol[istart]);
@@ -2719,9 +2736,9 @@ void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
  *            Residual (Reference/lattice Position)          rLatticeCBR_final_[iCell];      (1+j)
  *            Residual (Mesh Position)                                                       (j+1) + 1
  *          Loop over distributed Phases
- *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhase_ + jPh]
+ *            Residual (Concentration _ k=0)                  phaseMoles_KRsolid_Cell_final_final_[iCell * numSPhases_ + jRPh];
  *              . . .
- *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+ *            Residual (Concentration _ k=Ns-1)               spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
  *  --------------------------------------------------------------------------------------------------------------
  */
 void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
@@ -2757,7 +2774,8 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
 
 	for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-	    yvalNLS_[index] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jRPh];
+	    yvalNLS_[index] = phaseMoles_KRsolid_Cell_final_final_[iCell * numSPhases_ + jRPh];
+
              /*
 	      * If we are birthing a phase, we decide to do this in the predictor. We search for
 	      * a solution where this is the case. If this doesn't happen, we produce a hard error.
@@ -2776,7 +2794,7 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
 	  
 	    for (int kSp = 1; kSp < nsp; kSp++) {
 		iKRSpecies = kstart + kSp;
-		yvalNLS_[index + kSp] = concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+		yvalNLS_[index + kSp] = spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
 		ylowNLS_[index + kSp]  = 0.0;
                 yhighNLS_[index + kSp] = 1.0E3 * yvalNLS_[index];
                 deltaBoundsMagnitudesNLS_[index + kSp] = 1000. * atolVal;

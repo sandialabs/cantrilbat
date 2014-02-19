@@ -171,7 +171,11 @@ int main(int argc, char **argv)
 
     remove("soln.xml");
 
- //   electrodeA->enableExtraPrinting_ = true;
+    // Extra printing for debugging
+    electrodeA->enableExtraPrinting_ = true;
+    electrodeA->detailedResidPrintFlag_ = 12;
+    // Normal printing for testing
+    electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 4;
   
     for (int itimes = 0; itimes < nT; itimes++) {
