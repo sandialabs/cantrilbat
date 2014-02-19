@@ -175,7 +175,7 @@ int main(int argc, char **argv)
     electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 12;
     // Normal printing for testing
-    electrodeA->enableExtraPrinting_ = true;
+    electrodeA->enableExtraPrinting_ = false; 
     electrodeA->detailedResidPrintFlag_ = 4;
   
     for (int itimes = 0; itimes < nT; itimes++) {
