@@ -605,7 +605,7 @@ Electrode_Integrator::create_solvers()
     solnDot_final_.resize(neqNLS, 0.0);
     solnDot_init_init_.resize(neqNLS, 0.0);
     solnDot_final_final_.resize(neqNLS, 0.0);
-    soln_predict_fromDot_.resize(neqNLS, 0.0);
+    soln_predict_fromDot_.resize(neqNLS + 2, 0.0);
 
 
     IntegratedSrc_Predicted.resize(numIntegratedSrc_, 0.0);

@@ -457,7 +457,6 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     int predictSolnResid();
-    int predictSolnResid2();
 
     //! Predict the solution
     /*!

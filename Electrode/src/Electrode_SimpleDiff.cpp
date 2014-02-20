@@ -1512,8 +1512,21 @@ int Electrode_SimpleDiff::predictSolnResid()
 		phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies];
 	    }
 	}
+
+
     }
     updateState();
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+	double CBR = cellBoundR_final_[iCell];
+	double cbR3_final = CBR * CBR * CBR;
+	double CBL = cellBoundL_final_[iCell];
+	double cbL3_final = CBL * CBL * CBL;
+	double vol_final =  4.0 / 3.0 * Pi * (cbR3_final - cbL3_final) * particleNumberToFollow_;
+	double concLattices =  concTot_SPhase_Cell_final_[iCell * numSPhases_ + 0];
+	numLattices_pred_ += vol_final * concLattices;
+    }
+    
  
     // Check the internal consistency
     checkGeometry();
@@ -1569,6 +1582,7 @@ int Electrode_SimpleDiff::predictSoln()
      *  Keep a copy of the estimated soln vector to do a predictor corrector step
      */
     packNonlinSolnVector(DATA_PTR(soln_predict_));
+    soln_predict_[neq_] = -1;
 
     yvalNLS_init_[0] =  deltaTsubcycleCalc_;
 
@@ -1776,25 +1790,25 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
     double atolVal =  1.0E-8;
     double denom;
     double tmp;
-    int onRegionPredict = soln_predict_[2];
-    printf(" -------------------------------------------------------------------------------------------------------------------\n");
+    double bestPredict;
+    int onRegionPredict = soln_predict_[neq_];
+    printf(" ---------------------------------------------------------------------------------------------------------------------------------\n");
     printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E\n",
 	   counterNumberSubIntegrations_, tinit_, tfinal_);
          
     printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E\n",
            counterNumberIntegrations_, t_init_init_, t_final_final_);
-    printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("                               Initial       Prediction      Actual          Difference         Tol   Contrib      |\n");
-    printf("onRegionPredict          |         %3d            %3d          %3d      |                                          |\n",
+    printf(" ---------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("                         |                   Explicit        SolutionDot               |   Best                                   |\n");
+    printf("                         |     Initial       Prediction      Prediction    Actual      |   Difference         Tol   Contrib       |\n");
+    printf("onRegionPredict          |         %3d            %3d                       %3d        |                                          |\n",
            onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
-
-
 
     denom = MAX(fabs(yval[0]), fabs(soln_predict_[0]));
     denom = MAX(denom, atolVal);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
-    printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
-           deltaTsubcycle_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
+    printf("DeltaT                   | %14.7E %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
+           deltaTsubcycle_, soln_predict_[0],  soln_predict_fromDot_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
    
     int index = 1;
 
@@ -1805,27 +1819,41 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    // int iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-	    double concTot_SPhase_Cell_final_val = yval[index];
-	    double concTot_SPhase_Cell_final_predict = soln_predict_[index];
-	    tmp =  relv(concTot_SPhase_Cell_final_predict,  concTot_SPhase_Cell_final_val,  atolNLS_[index] / rtolNLS_);
-	    printf("concTot_SPhase  %3d      | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
-		   concTot_SPhase_Cell_init_[iCell * numSPhases_ + jRPh],
-		   concTot_SPhase_Cell_final_predict,
-		   concTot_SPhase_Cell_final_val ,
-		   concTot_SPhase_Cell_final_val -  concTot_SPhase_Cell_final_predict,
+	    double phaseMoles_SPhase_Cell_final_val = yval[index];
+	    double phaseMoles_SPhase_Cell_final_predict = soln_predict_[index];
+	    double phaseMoles_SPhase_Cell_final_predictDot = soln_predict_fromDot_[index];
+	    bestPredict =  phaseMoles_SPhase_Cell_final_predict;
+	    if (fabs(phaseMoles_SPhase_Cell_final_predictDot - phaseMoles_SPhase_Cell_final_val) < 
+		fabs(bestPredict -  phaseMoles_SPhase_Cell_final_val)) {
+		bestPredict = phaseMoles_SPhase_Cell_final_predict;
+	    }  
+	    tmp =  relv(bestPredict,  phaseMoles_SPhase_Cell_final_val,  atolNLS_[index] / rtolNLS_);
+	    printf("phaseMoles_Cell %3d      | %14.7E %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
+		   phaseMoles_KRsolid_Cell_init_[iCell * numSPhases_ + jRPh],
+		   phaseMoles_SPhase_Cell_final_predict,
+		   phaseMoles_SPhase_Cell_final_predictDot,
+		   phaseMoles_SPhase_Cell_final_val ,
+		   phaseMoles_SPhase_Cell_final_val - bestPredict,
 		   atolNLS_[index], tmp / rtolNLS_);
 	   
 	    for (int kSp = 1; kSp < nsp; kSp++) {
-		//int iKRSpecies = kstart + kSp;
-		double concKRSpecies_Cell_final_val = yval[index + kSp];
-		double concKRSpecies_Cell_final_predict = soln_predict_[index + kSp];
+		///int iKRSpecies = kstart + kSp;
+		double spMoles_KRsolid_Cell_final_val = yval[index + kSp];
+		double spMoles_KRsolid_Cell_final_predict = soln_predict_[index + kSp];
+		double spMoles_KRsolid_Cell_final_predictDot = soln_predict_fromDot_[index + kSp];
+		bestPredict = spMoles_KRsolid_Cell_final_predict;
+		if (fabs(spMoles_KRsolid_Cell_final_predictDot - spMoles_KRsolid_Cell_final_val) < 
+		    fabs(bestPredict -spMoles_KRsolid_Cell_final_val )) {
+		    bestPredict = spMoles_KRsolid_Cell_final_predictDot;
+		}  
 
-		tmp = relv(concKRSpecies_Cell_final_val, concKRSpecies_Cell_final_predict, atolNLS_[index + kSp]/rtolNLS_);
-		printf("ConcKRSpeci     %3d %3d  | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell, kSp,
-		       concKRSpecies_Cell_init_[iCell * numKRSpecies_ + kSp],
-		       concKRSpecies_Cell_final_predict,
-		       concKRSpecies_Cell_final_val,
-		       concKRSpecies_Cell_final_val - concKRSpecies_Cell_final_predict,
+		tmp = relv(bestPredict, spMoles_KRsolid_Cell_final_val, atolNLS_[index + kSp]/rtolNLS_);
+		printf("spMolesKRSpeci  %3d %3d  | %14.7E %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell, kSp,
+		       spMoles_KRsolid_Cell_init_[iCell * numKRSpecies_ + kSp],
+		       spMoles_KRsolid_Cell_final_predict,
+		       spMoles_KRsolid_Cell_final_predictDot,
+		       spMoles_KRsolid_Cell_final_val,
+		       spMoles_KRsolid_Cell_final_val - bestPredict,
 		       atolNLS_[index + kSp], tmp / rtolNLS_);
 		       
 	    }
@@ -1834,12 +1862,12 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
 	}
 
     }
-    printf("total Lattices           | %14.7E %14.7E %14.7E | %14.7E |            |            |\n", numLattices_init_,
+    printf("total Lattices           | %14.7E %14.7E                %14.7E | %14.7E |            |            |\n", numLattices_init_,
 	   numLattices_pred_, numLattices_final_,  numLattices_final_ -  numLattices_init_);
 
 
-    printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("                                                                                                        %10.3E\n",
+    printf(" ---------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("                                                                                                                       %10.3E\n",
            pnormSoln);
 
 }
