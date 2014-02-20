@@ -1085,7 +1085,7 @@ void Electrode_SimpleDiff::updateState()
     cellBoundL_final_[0] = rnodePos_final_[0];
     double cbL3_final =  cellBoundL_final_[0] *  cellBoundL_final_[0] *  cellBoundL_final_[0];
     double cbR3_final = cbL3_final;
-    for (iCell = 0; iCell < numRCells_-1; iCell++) {
+    for (iCell = 0; iCell < numRCells_; iCell++) {
 	cbL3_final = cbR3_final;
 	int indexCellPhase = iCell * numSPhases_;
 	/*
