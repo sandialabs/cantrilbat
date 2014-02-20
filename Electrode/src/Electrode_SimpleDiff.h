@@ -423,7 +423,7 @@ public:
      *  works on _final_ state only
      */
     void checkGeometry() const;
-    void checkMoles_final_init() const;
+    void checkMoles_final_init();
 
     virtual void check_final_state();
 

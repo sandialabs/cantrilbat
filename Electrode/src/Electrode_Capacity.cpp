@@ -157,11 +157,13 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
     denom = std::max(capOrig, capDischarged);
     denom = std::max(denom, 1.0E-50);
     if (abs(rel) > 1.0E-12 * denom) {
-	printf("Electrode::checkCapacityBalances_final  cap not accounted for by % 19.12E coulombs (%d)\n", rel, platNum);
-	printf("\t\t\tcapOrig       = % 19.12E coulombs  \n", capOrig);
-	printf("\t\t\tcapleft       = % 19.12E\n", capLeft);
-	printf("\t\t\tcapDischarged = % 19.12E\n", capDischarged);
-	printf("\t\t\tDoD_starting  = % 19.12E\n", capS);
+        if (printLvl_ > 7) {
+	  printf("Electrode::checkCapacityBalances_final  cap not accounted for by % 19.12E coulombs (%d)\n", rel, platNum);
+	  printf("\t\t\tcapOrig       = % 19.12E coulombs  \n", capOrig);
+  	  printf("\t\t\tcapleft       = % 19.12E\n", capLeft);
+	  printf("\t\t\tcapDischarged = % 19.12E\n", capDischarged);
+	  printf("\t\t\tDoD_starting  = % 19.12E\n", capS);
+        }
 #ifdef DEBUG_MODE
 	//throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity unaccounted for");
 #endif

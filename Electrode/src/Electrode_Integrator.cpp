@@ -1122,8 +1122,13 @@ topConvergence:
             /*
              *  Set the tolerances on the solution variables
              */
+#ifdef DEBUG_NEWMODELS
+            pSolve_->setRtol(0.1 * rtolNLS_);
+            pSolve_->setAtol(DATA_PTR(atolNLS_));
+#else
             pSolve_->setAtol(DATA_PTR(atolNLS_));
             pSolve_->setRtol(0.1 * rtolNLS_);
+#endif
             /*
              *  Set the tolerances on the residual evaluation of the nonlinear solver
              *    We set the relative tolerance of the residual to GlobalRtolElectronSrcTerm/ nsteps_est. This is the
@@ -1157,9 +1162,9 @@ topConvergence:
 #endif
             //   How to turn on the jacobian printing if debugging
 #ifdef DEBUG_NEWMODELS
-            pSolve_->s_print_NumJac = 1;
-            loglevelInput = 10;
-	    pSolve_->m_min_newt_its = 4;
+            //pSolve_->s_print_NumJac = 1;
+            //loglevelInput = 10;
+	    //pSolve_->m_min_newt_its = 4;
 #endif
 
 	    tfinal_start = tfinal_;

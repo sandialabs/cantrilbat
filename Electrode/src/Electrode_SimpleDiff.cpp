@@ -1179,64 +1179,98 @@ void Electrode_SimpleDiff::checkGeometry() const
     }
 }
 //========================================================================================================================
-//  Here we check to see if we can account for the 
+//  Here we check to see if we can account for the mass loss
 /*
- *
+ *  Algorithm is to check for mass loss. If there is some, then add moles back into far last cell.
+ *  Note, this works because we have an accounting of all possible sources for
  */
-void Electrode_SimpleDiff::checkMoles_final_init() const
+void Electrode_SimpleDiff::checkMoles_final_init() 
 {
+    bool doFix = true;
+    bool fatalError = false;
     double sum, sum_f, sum_i;
     bool doErr = false;
+    double diff = 0.0;
     for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	int iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	int iStart = getGlobalSpeciesIndex(iPh, 0);
 	ThermoPhase* th = & thermo(iPh);
 	int nSpecies = th->nSpecies();
-	    
+	double denom = phaseMoles_final_[iPh] + phaseMoles_init_[iPh] + 1.0E-20;
+	 
 	for (int kSp = 0; kSp < nSpecies; kSp++) {
 	    int isp = iStart + kSp;
 	    sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
 	    sum_i = spMoles_init_[isp];
 	    sum = sum_f - sum_i;
-	    if (abs(sum) > sum_i * 1.0E-6) {
-		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
-		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
-		       isp, sum_f, sum_i);
-		printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
-		       spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
-		   
+	    if (abs(sum) > denom * 1.0E-11) {
+		if (printLvl_ > 8) {
+		    printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+		    printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
+			   isp, sum_f, sum_i);
+		    printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
+			   spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+		}
 		doErr = true;
 	    }		
 	}
-    
-	if (doErr) {
+    }
+ 
+    if (doErr) {
+	int indexMidKRSpecies = ( numRCells_ - 1) * numKRSpecies_;
+	int iCell = numRCells_ - 1;
+	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    int kstart = 0;
+	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	    int iStart = getGlobalSpeciesIndex(iPh, 0);
+	    ThermoPhase* th = & thermo(iPh);
+	    int nSpecies = th->nSpecies();
 	    for (int kSp = 0; kSp < nSpecies; kSp++) {
 		int isp = iStart + kSp;
+		int iKRSpecies = kstart + kSp;
 		sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
 		sum_i = spMoles_init_[isp];
-		sum = sum_f - sum_i;
-	
-		printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
-		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
-		       isp, sum_f, sum_i);
-		printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
-		       spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);	    
+		diff = sum_f - sum_i;
+		if (printLvl_ > 8) {
+		    printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+		    printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
+			   isp, sum_f, sum_i);
+		    printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
+			   spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+		}	    
+                if (doFix) {
+		    if (fabs(diff) > 1.0E-4 * spMoles_final_[isp]) {
+			fatalError = true;
+		    }
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] -= diff;
+		    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] -= diff;
+                }
+
 	    }		
-	    exit(-1);
+	    kstart += nSpecies;
+	    if (fatalError) {
+		throw Electrode_Error("Electrode_SimpleDiff::checkMoles_final_init() ERROR",
+				      "Mass loss is too egregeous");
+	    }
 	}
+	updateState();
     }
 }
 //========================================================================================================================
 
 void Electrode_SimpleDiff::check_final_state()
 {
-#ifdef DEBUG_NEWMODELS
+    bool fff = false;
     // While in debug mode, check the inventory of capacity to account for all electrons
-    checkCapacityBalances_final();
-#endif
-#ifdef DEBUG_NEWMODELS
-    checkMoles_final_init();
-#endif
+    fff = checkCapacityBalances_final();
+
+    if (fff) {
+	checkMoles_final_init();
+	fff = checkCapacityBalances_final();
+	if (fff) {
+	    throw Electrode_Error("check_final_state() ERROR", "mole loss unfixed");
+	}
+    }
 }
 //========================================================================================================================
 //  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
