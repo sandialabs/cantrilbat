@@ -1184,35 +1184,36 @@ void Electrode_SimpleDiff::checkGeometry() const
  *  Algorithm is to check for mass loss. If there is some, then add moles back into far last cell.
  *  Note, this works because we have an accounting of all possible sources for
  */
-void Electrode_SimpleDiff::checkMoles_final_init() 
+void Electrode_SimpleDiff::checkMoles_final_init(bool doErr) 
 {
     bool doFix = true;
     bool fatalError = false;
     double sum, sum_f, sum_i;
-    bool doErr = false;
     double diff = 0.0;
-    for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	int iStart = getGlobalSpeciesIndex(iPh, 0);
-	ThermoPhase* th = & thermo(iPh);
-	int nSpecies = th->nSpecies();
-	double denom = phaseMoles_final_[iPh] + phaseMoles_init_[iPh] + 1.0E-20;
+    if (!doErr) {
+	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	    int iStart = getGlobalSpeciesIndex(iPh, 0);
+	    ThermoPhase* th = & thermo(iPh);
+	    int nSpecies = th->nSpecies();
+	    double denom = phaseMoles_final_[iPh] + phaseMoles_init_[iPh] + 1.0E-20;
 	 
-	for (int kSp = 0; kSp < nSpecies; kSp++) {
-	    int isp = iStart + kSp;
-	    sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
-	    sum_i = spMoles_init_[isp];
-	    sum = sum_f - sum_i;
-	    if (abs(sum) > denom * 1.0E-11) {
-		if (printLvl_ > 8) {
-		    printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
-		    printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
-			   isp, sum_f, sum_i);
-		    printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
-			   spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
-		}
-		doErr = true;
-	    }		
+	    for (int kSp = 0; kSp < nSpecies; kSp++) {
+		int isp = iStart + kSp;
+		sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
+		sum_i = spMoles_init_[isp];
+		sum = sum_f - sum_i;
+		if (abs(sum) > denom * 1.0E-12) {
+		    if (printLvl_ > 8) {
+			printf("Electrode_SimpleDiff::checkMoles_final_init ERROR: sum = % 19.12E\n", sum);
+			printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
+			       isp, sum_f, sum_i);
+			printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
+			       spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+		    }
+		    doErr = true;
+		}		
+	    }
 	}
     }
  
@@ -1265,7 +1266,7 @@ void Electrode_SimpleDiff::check_final_state()
     fff = checkCapacityBalances_final();
 
     if (fff) {
-	checkMoles_final_init();
+	checkMoles_final_init(true);
 	fff = checkCapacityBalances_final();
 	if (fff) {
 	    throw Electrode_Error("check_final_state() ERROR", "mole loss unfixed");

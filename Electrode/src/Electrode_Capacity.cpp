@@ -150,7 +150,7 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
 #ifdef DEBUG_MODE
 	throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity loss mechanism unaccounted for");
 #endif
-	return false;
+	return true;
     }
 
     rel = capOrig - capLeft - capDischarged - capS;
@@ -167,9 +167,9 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
 #ifdef DEBUG_MODE
 	//throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity unaccounted for");
 #endif
-	return false;
+	return true;
     }
-    return true;
+    return false;
 }
 //====================================================================================================================
 // Report the current depth of discharge in percent
