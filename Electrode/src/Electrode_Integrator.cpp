@@ -1449,7 +1449,7 @@ topConvergence:
 	 *  Determine if we have reached the end of number of allowed subcycles
          *  If we have, we adjust the value of t_final_final_ to the current time so that we return a reduced time step length
 	 */
-	if (iterSubCycle > maxNumberSubCycles_) {
+	if (iterSubCycle >= maxNumberSubCycles_) {
 	    notDone = false;
 	    t_final_final_ = tfinal_;
 	}
@@ -1490,7 +1490,6 @@ topConvergence:
 
     } while (notDone);
 
-
     /*
      *  Calcualte the first time step for the next global iteration
      */
@@ -1506,7 +1505,6 @@ topConvergence:
     numIntegrationSubCycles_final_final_ = iterSubCycle;
 
     return iterSubCycle;
-
 }
 //==================================================================================================================
 //   Calculate the largest mole fraction in each of the phases

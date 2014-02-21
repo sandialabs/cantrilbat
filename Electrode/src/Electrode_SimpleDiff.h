@@ -828,6 +828,9 @@ protected:
      */
     std::vector<double> spMf_KRSpecies_Cell_init_;
 
+    std::vector<double> spMf_KRSpecies_Cell_final_final_;
+    std::vector<double> spMf_KRSpecies_Cell_init_init_;
+
    
 
     //! Node position of the mesh - final_final

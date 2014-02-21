@@ -3708,6 +3708,24 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     pendingIntegratedStep_ = 0;
 }
 //====================================================================================================================
+// Returns the initial global time
+/*
+ *  @return Returns the initial time
+ */
+double Electrode::timeInitInit() const
+{
+    return t_init_init_;
+}
+//====================================================================================================================
+// Returns the final global
+/*   
+ *  @return Returns the final time
+ */
+double Electrode::timeFinalFinal() const
+{
+    return t_final_final_;
+}
+//====================================================================================================================
 // Set the internal initial intermediate and initial global state from the internal final state
 /*
  *  (non-virtual function)  -> function should onionize in-first.

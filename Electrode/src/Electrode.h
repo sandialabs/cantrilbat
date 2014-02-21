@@ -949,6 +949,18 @@ public:
      */
     virtual void revertToInitialTime(bool revertToInitInit = true);
 
+    //! Returns the initial global time
+    /*!
+     *  @return Returns the initial time
+     */
+    double timeInitInit() const;
+  
+    //! Returns the final global time
+    /*!
+     *  @return Returns the final time
+     */
+    double timeFinalFinal() const;
+
   private:
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!

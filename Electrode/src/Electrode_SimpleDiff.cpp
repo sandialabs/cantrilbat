@@ -71,6 +71,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 
     spMf_KRSpecies_Cell_final_(0),
     spMf_KRSpecies_Cell_init_(0),
+    spMf_KRSpecies_Cell_final_final_(0),
+    spMf_KRSpecies_Cell_init_init_(0),
   
     rnodePos_final_final_(0),
     rnodePos_final_(0),
@@ -153,6 +155,8 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
   
     spMf_KRSpecies_Cell_final_(0),
     spMf_KRSpecies_Cell_init_(0),
+    spMf_KRSpecies_Cell_final_final_(0),
+    spMf_KRSpecies_Cell_init_init_(0),
 
     rnodePos_final_final_(0),
     rnodePos_final_(0),
@@ -242,7 +246,8 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     concKRSpecies_Cell_final_final_     = right.concKRSpecies_Cell_final_final_;
     spMf_KRSpecies_Cell_final_          = right.spMf_KRSpecies_Cell_final_;
     spMf_KRSpecies_Cell_init_           = right.spMf_KRSpecies_Cell_init_;
-
+    spMf_KRSpecies_Cell_final_final_    = right.spMf_KRSpecies_Cell_final_final_;
+    spMf_KRSpecies_Cell_init_init_      = right.spMf_KRSpecies_Cell_init_init_;
 
     rnodePos_final_final_               = right.rnodePos_final_final_;
     rnodePos_final_                     = right.rnodePos_final_;
@@ -597,6 +602,8 @@ Electrode_SimpleDiff::init_sizes()
 
     spMf_KRSpecies_Cell_final_.resize(kspCell, 0.0);
     spMf_KRSpecies_Cell_init_.resize(kspCell, 0.0);
+    spMf_KRSpecies_Cell_final_final_.resize(kspCell, 0.0);
+    spMf_KRSpecies_Cell_init_init_.resize(kspCell, 0.0);
 
     rnodePos_final_final_.resize(numRCells_, 0.0);
     rnodePos_final_.resize(numRCells_, 0.0);
@@ -710,6 +717,8 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 	    i = KRSolid + numKRSpecies_ * iCell;
 	    spMf_KRSpecies_Cell_final_[i] = spMf_final_[k];
 	    spMf_KRSpecies_Cell_init_[i]  = spMf_final_[k];
+	    spMf_KRSpecies_Cell_final_final_[i] = spMf_final_[k];
+	    spMf_KRSpecies_Cell_init_init_[i]  = spMf_final_[k];
 	}
     }
     /*
@@ -805,7 +814,8 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
 	spMoles_KRsolid_Cell_init_[i]      = spMoles_KRsolid_Cell_final_final_[i];
         concKRSpecies_Cell_init_init_[i]   = concKRSpecies_Cell_final_final_[i];
 	concKRSpecies_Cell_init_[i]        = concKRSpecies_Cell_final_final_[i];
-	spMf_KRSpecies_Cell_init_[i]       = spMf_KRSpecies_Cell_final_[i];
+	spMf_KRSpecies_Cell_init_init_[i]  = spMf_KRSpecies_Cell_final_final_[i];
+	spMf_KRSpecies_Cell_init_init_[i]  = spMf_KRSpecies_Cell_final_final_[i];
 	actCoeff_Cell_init_[i]             = actCoeff_Cell_final_[i];
     }
 
@@ -1792,13 +1802,13 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
     double tmp;
     double bestPredict;
     int onRegionPredict = soln_predict_[neq_];
-    printf(" ---------------------------------------------------------------------------------------------------------------------------------\n");
-    printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E\n",
-	   counterNumberSubIntegrations_, tinit_, tfinal_);
+    printf(" ----------------------------------------------------------------------------------------------------------------------------------\n");
+    printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E delta_t = %-10.3E\n",
+	   counterNumberSubIntegrations_, tinit_, tfinal_, tfinal_ - tinit_);
          
     printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E\n",
            counterNumberIntegrations_, t_init_init_, t_final_final_);
-    printf(" ---------------------------------------------------------------------------------------------------------------------------------\n");
+    printf(" ----------------------------------------------------------------------------------------------------------------------------------\n");
     printf("                         |                   Explicit        SolutionDot               |   Best                                   |\n");
     printf("                         |     Initial       Prediction      Prediction    Actual      |   Difference         Tol   Contrib       |\n");
     printf("onRegionPredict          |         %3d            %3d                       %3d        |                                          |\n",
@@ -1866,7 +1876,7 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
 	   numLattices_pred_, numLattices_final_,  numLattices_final_ -  numLattices_init_);
 
 
-    printf(" ---------------------------------------------------------------------------------------------------------------------------------\n");
+    printf(" ----------------------------------------------------------------------------------------------------------------------------------\n");
     printf("                                                                                                                       %10.3E\n",
            pnormSoln);
 
@@ -2914,6 +2924,7 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 	for (i = 0; i < ntotal; ++i) {
 	    spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_[i];
 	    concKRSpecies_Cell_init_init_[i]   = concKRSpecies_Cell_final_[i];
+	    spMf_KRSpecies_Cell_init_init_[i]  = spMf_KRSpecies_Cell_final_[i];
 	}
 	
 	for (i = 0; i < iTotal; ++i) {
@@ -2946,7 +2957,8 @@ void Electrode_SimpleDiff::setInitInitStateFromFinalFinal()
 	spMoles_KRsolid_Cell_init_[i]      = spMoles_KRsolid_Cell_final_final_[i];
         concKRSpecies_Cell_init_init_[i]   = concKRSpecies_Cell_final_final_[i];
 	concKRSpecies_Cell_init_[i]        = concKRSpecies_Cell_final_final_[i];
-	spMf_KRSpecies_Cell_init_[i]       = spMf_KRSpecies_Cell_final_[i];
+	spMf_KRSpecies_Cell_init_[i]       = spMf_KRSpecies_Cell_final_final_[i];
+	spMf_KRSpecies_Cell_init_init_[i]  = spMf_KRSpecies_Cell_final_final_[i];
 	actCoeff_Cell_init_[i]             = actCoeff_Cell_final_[i];
     }
 
@@ -3069,7 +3081,8 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
     int ntotal = numRCells_ * numKRSpecies_;
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_final_final_[i] = spMoles_KRsolid_Cell_final_[i];
-	concKRSpecies_Cell_final_final_[i] =  concKRSpecies_Cell_final_[i];
+	concKRSpecies_Cell_final_final_[i]   = concKRSpecies_Cell_final_[i];
+	spMf_KRSpecies_Cell_final_final_[i]  = spMf_KRSpecies_Cell_final_[i];
     }
 
     int iTotal =  numSPhases_ * numRCells_;
@@ -3220,7 +3233,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
                        spMoles_final_[istart + k], spMoles_init_[istart + k],
                        spMoleIntegratedSourceTermLast_[istart + k]);
             } else {
-                printf("                %-22s %10.3E %10.3E %10.3E %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
+                printf("                %-22s %10.3E %10.3E %10.3E %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_init_[istart + k],
                        spMoles_final_[istart + k], spMoles_init_init_[istart + k],
                        spMoleIntegratedSourceTerm_[istart + k]);
             }
@@ -3229,7 +3242,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
                 printf("                %-22s %10.3E %10.3E %10.3E %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
                        spMoles_final_[istart + k],   spMoles_init_[istart + k]);
             } else {
-                printf("                %-22s %10.3E %10.3E %10.3E %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
+                printf("                %-22s %10.3E %10.3E %10.3E %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_init_[istart + k],
                        spMoles_final_[istart + k],   spMoles_init_init_[istart + k]);
             }
         }
@@ -3274,8 +3287,13 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
 	for (int iCell = 0; iCell < numRCells_; iCell++) {
 	    int istart = iCell * nsp;
 	    int jstart = iCell * numKRSpecies_;
-	    concTot_iph_final[iCell] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh];
-	    concTot_iph_init[iCell] = concTot_SPhase_Cell_init_[iCell * numSPhases_ + jPh];
+	    if (subTimeStep) {
+		concTot_iph_final[iCell] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh];
+		concTot_iph_init[iCell] = concTot_SPhase_Cell_init_[iCell * numSPhases_ + jPh];
+	    } else {
+		concTot_iph_final[iCell] = concTot_SPhase_Cell_final_final_[iCell * numSPhases_ + jPh];
+		concTot_iph_init[iCell] = concTot_SPhase_Cell_init_init_[iCell * numSPhases_ + jPh];
+	    }
 
 	    for (int kSp = 0; kSp < nsp; kSp++) {
 		int iKRSpecies = kstartKRSolidPhases_[jPh] + kSp;
@@ -3286,6 +3304,17 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
 
 		spMoles_iph_init[istart + kSp]  = spMoles_KRsolid_Cell_init_[jstart + iKRSpecies];
 	        spMoles_iph_final[istart + kSp] = spMoles_KRsolid_Cell_final_[jstart + iKRSpecies];
+	    }
+	    if (!subTimeStep) {
+		for (int kSp = 0; kSp < nsp; kSp++) {
+		    int iKRSpecies = kstartKRSolidPhases_[jPh] + kSp;
+		    concKRSpecies_iph_init[istart + kSp] = concKRSpecies_Cell_init_init_[jstart + iKRSpecies];
+		    concKRSpecies_iph_final[istart + kSp] = concKRSpecies_Cell_final_final_[jstart + iKRSpecies];
+		    mf_iph_init[istart + kSp]  = spMf_KRSpecies_Cell_init_init_[jstart + iKRSpecies];
+		    mf_iph_final[istart + kSp] = spMf_KRSpecies_Cell_final_final_[jstart + iKRSpecies];
+		    spMoles_iph_init[istart + kSp]  = spMoles_KRsolid_Cell_init_init_[jstart + iKRSpecies];
+		    spMoles_iph_final[istart + kSp] = spMoles_KRsolid_Cell_final_final_[jstart + iKRSpecies];
+		}
 	    }
 	}
 	std::vector<string> speciesNames;
