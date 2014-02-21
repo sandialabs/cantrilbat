@@ -18,6 +18,8 @@ eCode=0
 #################################################################
 #
 #################################################################
+ELECTRODE_TURN_OFF_PC_PRINTING=true
+export ELECTRODE_TURN_OFF_PC_PRINTING
 
 $PROG_EXE   > out.txt 2>err_out.txt
 retnStat=$?

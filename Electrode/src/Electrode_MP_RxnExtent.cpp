@@ -2530,7 +2530,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
             fclose(fp);
 
             if (counterNumberSubIntegrations_ >= 0) {
-                if (1) {
+                if (s_printLvl_PREDICTOR_CORRECTOR) {
                     printf(" RelativeExtentRxn_final_ = %g\n", 	RelativeExtentRxn_final_);
                     printf(" ROP_[0] = %g\n", ROP_[0]);
                     printf(" DaOuter_ = %g\n",  DaOuter_);
@@ -2896,7 +2896,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
             double pred_surfaceAreaRS1_final_      =  predictSave[5];
             double pred_Radius_internal_final_     =  predictSave[6];
             double pred_Radius_exterior_final_     =  predictSave[7];
-            double pred_fac                        =  predictSave[8];
+            //double pred_fac                        =  predictSave[8];
             double pred_SrcDot_RelativeExtentRxn_final_  = predictSave[9];
             double pred_rop_external               =  predictSave[11];
             double pred_DaOuter_Bar_               = predictSave[12];
@@ -2914,6 +2914,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
             printf("\t\t  RelativeExtentRxn_init_        :    %15.6E        \n", RelativeExtentRxn_init_);
             printf("\t\t  RelativeExtentRxn_final_       :    %15.6E  %15.6E\n", pred_RelativeExtentRxn_final_, RelativeExtentRxn_final_);
             printf("\t\t  ROP_external                   :    %15.6E  %15.6E\n", pred_rop_external, _rop);
+            printf("\t\t  ROP_[0]                        :    %15.6E  %15.6E\n", pred_ROP, ROP_[0]);
             printf("\t\t  Radius_internal_init_          :    %15.6E        \n", Radius_internal_init_);
             printf("\t\t  Radius_internal_final_         :    %15.6E  %15.6E\n", pred_Radius_internal_final_,  Radius_internal_final_);
             printf("\t\t  Radius_exterior_final_         :    %15.6E  %15.6E\n", pred_Radius_exterior_final_,  Radius_exterior_final_);

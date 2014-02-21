@@ -110,6 +110,12 @@ int main(int argc, char **argv)
   }
 
   try {
+
+    /*
+     *  Use this opportunity to set environment to get consistent printing for test cases
+     *  Note, this has moved to electrode_model_create routine, generally.
+     */ 
+    Electrode::readEnvironmentalVariables();
   
     Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
 
@@ -180,23 +186,22 @@ int main(int argc, char **argv)
 
  //   electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 4;
-    electrodeA->setMaxNumberSubCycles(40);
+    //electrodeA->setMaxNumberSubCycles(40);
 
-    nT = 1; 
+    nT = 50; 
     for (int itimes = 0; itimes < nT; itimes++) {
-      Tinitial = Tfinal;
-
+      Tinitial = Tfinal; 
+        
       electrodeA->resetStartingCondition(Tinitial);
-      Tfinal = Tinitial + deltaT;
-      electrodeA->integrate(deltaT);
+      int numSubIntegrations = electrodeA->integrate(deltaT);
+      Tfinal = electrodeA->timeFinalFinal();
       electrodeA->getMoleNumSpecies(molNum);
       doublereal net[12];
       double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
  
-      cout << setw(15) << Tfinal << setw(15) << amps << endl;
+      cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;
       electrodeA->printElectrode();
       electrodeA->writeSolutionTimeIncrement();
-     
     }
     delete cfC;
     delete electrodeA_input;
