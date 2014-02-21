@@ -110,6 +110,15 @@ int main(int argc, char **argv)
   }
 
   try {
+
+    char *PC_PRINTING = 0;
+    PC_PRINTING = getenv("TURN_OFF_PC_PRINTING");
+    if (PC_PRINTING) {
+       //printf ("TURN_OFF_PC_PRINTING = %s\n", PC_PRINTING);
+       if (PC_PRINTING[0] != 'f' && PC_PRINTING[0] != 'F' && PC_PRINTING[0] != '0') {
+          Electrode::s_printLvl_PREDICTOR_CORRECTOR=0;
+       }
+    } 
   
     Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
 

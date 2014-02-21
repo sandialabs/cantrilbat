@@ -18,6 +18,12 @@
 
 PROGRAM = LiCoO2_Cathode_3_cc
 
+BLESSED_FILES = good_out.txt LiCoO2_intResults_blessed.csv
+
+DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
+        metal_Li_LiIon_electrons.xml cathode.inp
+
+
 OBJ = $(PROGRAM).o
 
 ##########################################################################
@@ -127,7 +133,12 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(PROGRAM) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(PROGRAM)
 	./runtest
 
 rebaseline:
@@ -157,6 +168,15 @@ endif
 
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
+	$(RM) ${PROG} runInProgress.txt runBad runGood
+
+real_clean:
+	@MAKE@ clean
+	$(RM) Makefile out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
+
+
+
+
+
 
