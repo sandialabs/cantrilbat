@@ -273,6 +273,13 @@ class Electrode : public Cantera::PhaseList
 {
 public:
 
+    //! Static function to initialize static variables that are read from the environment.
+    /*!
+     *     Environmental Variable                  Static Variable
+     *     ELECTRODE_TURN_OFF_PC_PRINTING                     s_printLvl_PREDICTOR_CORRECTOR
+     */
+    static void readEnvironmentalVariables();
+
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------- BASIC SETUP ROUTINES  -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -1485,6 +1492,8 @@ public:
     virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
 
 
+
+
     //! Return the number of extra print tables
 // Deprecate
     virtual int getNumPrintTables() const;
@@ -1499,6 +1508,17 @@ public:
     virtual void getPrintTable(int itable, std::vector<std::string>& colNames,
                                std::vector<double>& colValues) const;
 
+    //! Toggle switch for Printing for the predictor corrector
+    /*!
+     *  To get printing from the predictor-corrector printing routines, both the general
+     *  printing level must be high enough and this static routine should be turned on.
+     *  Also the ifdef DEBUG_PREDICTOR should be turned on if printing is desired at a
+     *  low level of printLvl_
+     *
+     *   0 No printing 
+     *   1 predictorCorrect printing is turned on (default)
+     */
+    static int s_printLvl_PREDICTOR_CORRECTOR;
 
     /*************************************************************************************************************************
      *  OPEN CIRCUIT VOLTAGE

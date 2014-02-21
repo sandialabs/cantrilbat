@@ -1287,13 +1287,19 @@ topConvergence:
                 stepAcceptable = decide_normHighLogic(pnorm);
             }
 
+            /*
+             * Print out a table of predictions versus corrections. This is a good way to debug the
+             * predictor -corrector process
+             */
+            if (s_printLvl_PREDICTOR_CORRECTOR) {
 #ifdef DEBUG_MODE_PREDICTION
-            predictorCorrectorPrint(yvalNLS_, pnormSrc, pnormSoln);
-#else
-            if (printLvl_ > 4) {
                 predictorCorrectorPrint(yvalNLS_, pnormSrc, pnormSoln);
-            }
+#else
+                if (printLvl_ > 4) {
+                    predictorCorrectorPrint(yvalNLS_, pnormSrc, pnormSoln);
+                }
 #endif
+            }
         }
         /*
          *  HANDLE THE CASE WHERE WE HAVE NOT FOUND THE CURRENT STEP TO BE ACCEPTABLE

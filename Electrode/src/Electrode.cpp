@@ -64,6 +64,21 @@ using namespace TKInput;
 
 namespace Cantera {
 //======================================================================================================================
+// By default predictor_corrector printing is turned on, at least to the printLvl_ level.
+int Electrode::s_printLvl_PREDICTOR_CORRECTOR = 1;
+
+void Electrode::readEnvironmentalVariables() {
+
+     char *PC_PRINTING = getenv("ELECTRODE_TURN_OFF_PC_PRINTING");
+     if (PC_PRINTING) {
+        //printf ("TURN_OFF_PC_PRINTING = %s\n", PC_PRINTING);
+        if (PC_PRINTING[0] != 'f' && PC_PRINTING[0] != 'F' && PC_PRINTING[0] != '0') {
+           Electrode::s_printLvl_PREDICTOR_CORRECTOR=0;
+        }
+     } 
+
+}
+//======================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor
  *
@@ -584,6 +599,11 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                 "Electrode Object Type, " + Electrode_Types_Enum_to_string(ieos) + ", is different than requested type, "
                         + ei->electrodeModelName);
     }
+
+    /*
+     *  Read environmental variables and initialize statics
+     */
+    Electrode::readEnvironmentalVariables();
 
     // use the assignment operator to transfer for now
     // May get more sophisticated
