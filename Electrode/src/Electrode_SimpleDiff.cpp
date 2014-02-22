@@ -568,6 +568,38 @@ Electrode_SimpleDiff::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
     return rr;
 }
 //====================================================================================================================
+// Resize the solid phase and electrolyte mole numbers within the object
+/*
+ *  (virtual from Electrode)
+ * 
+ *  This routine uses particleDiameter_ , particleNumberToFollow_, and porosity_ to recalculate
+ *  all the mole numbers in the electrode. This is done by rescaling all of the numbers.
+ *  At the end of the process, the total volume of the electrode object is
+ *
+ *    grossVol = SolidVol() / ( 1.0 - porosity_)
+ *
+ *  where the SolidVol() is equal to
+ *
+ *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
+ *
+ */
+void Electrode_SimpleDiff::resizeMoleNumbersToGeometry()
+{
+
+    Electrode::resizeMoleNumbersToGeometry();
+
+    initializeAsEvenDistribution();
+
+    updateState();
+    double currentSolidVol = SolidVol();
+    double totalVol = TotalVol();
+    double calcPor = (totalVol - currentSolidVol) / totalVol;
+    if (fabs(calcPor - porosity_) > 1.0E-6) {
+        throw CanteraError("Electrode_SimpleDiff::resizeMoleNumbersToGeometry() Error",
+                           "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
+    }
+}
+//====================================================================================================================
 void
 Electrode_SimpleDiff::init_sizes()
 {
@@ -3034,6 +3066,7 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
     for (i = 0; i < ntotal; ++i) {
 	spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_init_init_[i];
 	concKRSpecies_Cell_init_[i] =  concKRSpecies_Cell_init_init_[i];
+	spMf_KRSpecies_Cell_init_[i]  = spMf_KRSpecies_Cell_init_init_[i];
     }
     int iTotal =  numSPhases_ * numRCells_;
     for (i = 0; i < iTotal; ++i) {
@@ -3050,6 +3083,7 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
 	for (i = 0; i < ntotal; ++i) {
 	    spMoles_KRsolid_Cell_final_[i] = spMoles_KRsolid_Cell_init_init_[i];
 	    concKRSpecies_Cell_final_[i] =  concKRSpecies_Cell_init_init_[i];
+	    spMf_KRSpecies_Cell_final_[i]  = spMf_KRSpecies_Cell_init_init_[i];
 	}
 	for (i = 0; i < iTotal; ++i) {
 	    concTot_SPhase_Cell_final_[i] = concTot_SPhase_Cell_init_init_[i];

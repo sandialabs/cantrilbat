@@ -138,6 +138,22 @@ public:
      */
     virtual int electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei);
 
+    //! Resize the solid phase and electrolyte mole numbers within the object
+    /*!
+     *  (virtual from Electrode)
+     * 
+     *  This routine uses particleDiameter_ , particleNumberToFollow_, and porosity_ to recalculate
+     *  all the mole numbers in the electrode. This is done by rescaling all of the numbers.
+     *  At the end of the process, the total volume of the electrode object is
+     *
+     *    grossVol = SolidVol() / ( 1.0 - porosity_)
+     *
+     *  where the SolidVol() is equal to
+     *
+     *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
+     *
+     */
+    virtual void resizeMoleNumbersToGeometry();
 
     //! Initialize the sizes
     void init_sizes();
