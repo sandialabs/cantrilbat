@@ -28,6 +28,8 @@
 
 #include "BlockEntryGlobal.h"
 
+#include "cantera/base/utilities.h"
+
 using namespace std;
 using namespace BEInput;
 
@@ -378,6 +380,9 @@ EpetraJac::eval(const bool doTimeDependentResid,
             for (int ie = 0; ie < numRowEqns; ie++) {
               int iLcEqn = istart + ie;
               double value = ((*res)[iLcEqn] - resBase[iLcEqn]) * dd;
+#ifdef DEBUG_MODE
+              Cantera::checkFinite(value);
+#endif
 	      (*rowColBlock)(ie, je) = value;
             }
           }

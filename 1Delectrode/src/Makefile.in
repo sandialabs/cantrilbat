@@ -125,6 +125,9 @@ INCLUDE_DIRS = -I../.. -I$(CANTERA_INCROOT) \
 
 # C++ compile flags
 LDEFINES =
+#      Turn on additional debugging
+# -DDEBUG_MODE
+#      Turn on the initial calculation
 # -DDEBUG_INIT_CALCULATION
 CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES)
 
