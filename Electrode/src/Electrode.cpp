@@ -1424,10 +1424,10 @@ void Electrode::resizeMoleNumbersToGeometry()
                            "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
     }
 
-    /*
-     *  Update all of the states again
-     */
-    //Electrode::updateState();
+   
+    capacityInitialZeroDod_ = Electrode::capacity();
+    Electrode::resetCapacityDischargedToDate();
+
 }
 //====================================================================================================================
 //   Resize the electrolyte mole numbers so that it consistent with the porosity

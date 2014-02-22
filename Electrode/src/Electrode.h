@@ -410,6 +410,7 @@ public:
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
     /*!
+     *  (virtual from Electrode)
      *  This routine uses particleDiameter_ , particleNumberToFollow_, and porosity_ to recalculate
      *  all the mole numbers in the electrode. This is done by rescaling all of the numbers.
      *  At the end of the process, the total volume of the electrode object is
