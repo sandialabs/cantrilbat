@@ -202,6 +202,16 @@ clean:
            $(RM) -rf SunWS_cache ; \
          fi )
 
+real_clean:
+	@MAKE@
+	for fff in $(M1D_HDRS) $(BE_HDRS) ; do \
+           $(RM) $(CANTERA_APPS_INSTALL_DIR)/include/$$fff ; \
+	done
+	$(RM) @cta_libdir@/libm1d.a
+	$(RM) @cta_bindir@/tddiff
+	$(RM) @cta_bindir@/Multi1DDomain
+
+
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
