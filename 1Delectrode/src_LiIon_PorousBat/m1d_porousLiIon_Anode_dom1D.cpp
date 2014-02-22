@@ -2510,6 +2510,11 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
     double solidVolCell = ee->SolidVol();
     double porosity = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * electrodeCrossSectionalArea_);
 
+    if (porosity <= 0.0) {
+        throw m1d_Error("porousLiIon_Anode_dom1D::initialConditions() ERROR",
+                        "Calculated porosity, " + fp2str(porosity) + ", is less than zero\n"
+                        "           There is an error in the setup of the anode");
+    }
     // update porosity as computed from electrode input
     porosity_Cell_[iCell] = porosity;
     //porosity_Cell_[iCell] = 0.1827;
