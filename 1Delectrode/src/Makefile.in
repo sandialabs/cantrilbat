@@ -205,8 +205,8 @@ clean:
            $(RM) -rf SunWS_cache ; \
          fi )
 
-real_clean:
-	@MAKE@
+dist_clean:
+	@MAKE@ clean
 	for fff in $(M1D_HDRS) $(BE_HDRS) ; do \
            $(RM) $(CANTERA_APPS_INSTALL_DIR)/include/$$fff ; \
 	done

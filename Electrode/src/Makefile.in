@@ -185,7 +185,6 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
 clean:
 	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
                    fort.* *%  core *.trace tmp*

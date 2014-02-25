@@ -73,7 +73,7 @@ test:
 install:
 	cd util_src;                   @MAKE@ install
 	cd ctpadds;                    @MAKE@ install
-	cd Electrode;                 @MAKE@ install
+	cd Electrode;                  @MAKE@ install
 	cd 1Delectrode;                @MAKE@ install
 	cd mpequil;                    @MAKE@ install
 	cd epequil;                    @MAKE@ install
