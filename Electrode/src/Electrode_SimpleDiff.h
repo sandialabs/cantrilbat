@@ -441,7 +441,32 @@ public:
     void checkGeometry() const;
     void checkMoles_final_init(bool doErr = false);
 
+    //!  Here we fix the mole balance locally from init state to final state
+    /*!
+     *  Algorithm is to check for mole loss for each distributed species in the problem.
+     *  If there is some, then add moles back into far last cell to ensure complete conservation of moles/mass.
+     *  Note, this works because we have an accounting of all possible sources for losses, and because
+     *  It has been experimentally verified that the if you crank the nonlinear solver's convergence requirements down far enough
+     *  then mass conservation up to round-off error occurs.
+     *
+     *  HKM experience. This is a local fix for the local subgrid time step.
+     *                  Therefore, it must be done at every local step irrespective of a cutoff.
+     *                  If this is not done, then the global mole balances may start to drift off of the target.
+     *                  When this is done at every step, then this fix is equivalent to fixCapacityBalances_final();
+     *
+     * @return   Returns the largest mole balance deficit
+     */
+    double fixMoleBalance_final_init();
+
+    //! Experimental routine to enforce a balance on the electrode capacity given previous balance information
+    /*! 
+     *  This routine equalizes the capacity 
+     */
+    virtual void fixCapacityBalances_final();
+    //!
     virtual void check_final_state();
+
+  
 
     //!  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
     /*!

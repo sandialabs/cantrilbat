@@ -3671,13 +3671,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     }
 
     /*
-     *  Here is where we store the electrons discharged
-     */
-    if (pendingIntegratedStep_ == 1) {
-        electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
-    }
-
-    /*
      * Set the new time to the new value, Tinitial, which is also equal to tfinal_ and t_final_final_
      */
     t_init_init_ = Tinitial;
@@ -3700,6 +3693,13 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
         spMoles_init_init_[k] = spMoles_final_[k];
         spMf_init_[k] = spMf_final_[k];
         spMf_init_init_[k] = spMf_final_[k];
+    }
+
+    /*
+     *  Here is where we store the electrons discharged
+     */
+    if (pendingIntegratedStep_ == 1) {
+        electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
     }
 
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);

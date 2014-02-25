@@ -1797,6 +1797,11 @@ public:
 
     bool checkCapacityBalances_final(int platNum = -1) const;
 
+    //! Experimental routine to enforce a balance on the electrode capacity given previous balance information
+    /*! 
+     *  This routine equalizes the capacity 
+     */
+    virtual void fixCapacityBalances_final();
 
 
     // -----------------------------------------------------------------------------------------------------------------

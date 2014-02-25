@@ -837,6 +837,10 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         return;
     }
+
+
+ 
+
     Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
 
     int iCell, i;
@@ -870,6 +874,19 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
 
     onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
     onRegionBoundary_init_      =  onRegionBoundary_final_final_;
+
+   bool fff = checkCapacityBalances_final();
+    if (fff) {
+	fixCapacityBalances_final();
+	fff = checkCapacityBalances_final();
+	if (!fff) {
+	    throw Electrode_Error("", "unrecoverable error");
+	}
+	/*
+	 * reset all of the other states
+	 */
+	setInitStateFromFinal(true);
+    }
 }
 //================================================================================================================
 //  update the global phase numbers 
@@ -1242,7 +1259,7 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 	 
 	    for (int kSp = 0; kSp < nSpecies; kSp++) {
 		int isp = iStart + kSp;
-		sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
+		sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTerm_[isp];
 		sum_i = spMoles_init_[isp];
 		sum = sum_f - sum_i;
 		if (abs(sum) > denom * 1.0E-12) {
@@ -1251,7 +1268,7 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 			printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
 			       isp, sum_f, sum_i);
 			printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
-			       spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+			       spMoles_final_[isp],  spMoleIntegratedSourceTerm_[isp], spMoles_init_[isp]);
 		    }
 		    doErr = true;
 		}		
@@ -1259,7 +1276,17 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 	}
     }
  
+    doErr = true;
     if (doErr) {
+#ifdef DEBUG_MODE
+	double capLeft = capacityLeft();
+	double capDischarged = capacityDischarged();
+	double cap = capacity();
+	double capS = depthOfDischargeStarting();
+	double capOrig = capacityInitial();
+	double relCapDiff = capOrig - capLeft - capDischarged - capS;
+#endif
+
 	int indexMidKRSpecies = ( numRCells_ - 1) * numKRSpecies_;
 	int iCell = numRCells_ - 1;
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
@@ -1280,11 +1307,36 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 			   isp, sum_f, sum_i);
 		    printf("                             spMoles_final = % 19.12E EletrodeSrc = % 19.12E spMoles_init = % 19.12E\n",
 			   spMoles_final_[isp],  spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
-		}	    
+		}
+#ifdef DEBUG_MASSLOSS
+		if (isp == 4) {
+		    FILE *fp = fopen("capCheck.txt", "a");
+		    double capLPD = electronKmolDischargedToDate_;
+		    capLPD += spMoleIntegratedSourceTermLast_[isp] + spMoles_init_[isp] - spMoleIntegratedSourceTerm_[isp];
+		    fprintf(fp,"(BeforeC)  % 21.15E % 21.15E  % 21.15E  % 21.15E % 21.15E % 21.15E\n", cap/Faraday, capLeft/Faraday, 
+			    capDischarged/Faraday, spMoles_final_[4],
+			    capLPD	,  capLeft/Faraday - spMoles_final_[4]); 
+		    fclose(fp);
+		}
+#endif
                 if (doFix) {
 		    if (fabs(diff) > 1.0E-4 * spMoles_final_[isp]) {
 			fatalError = true;
 		    }
+#ifdef DEBUG_MODE  
+		    int kpStart = m_PhaseSpeciesStartIndex[iPh];
+
+		    double coeff = capacityLeftSpeciesCoeff_[kpStart + kSp];
+		    double diffCapLeft = -diff * coeff * Faraday;
+		    double relCapDiffNow = relCapDiff - diffCapLeft;
+		    if (printLvl_ > 10) {
+			printf("relCapDiff = %20.13E, relCapDiffNow = %20.13E\n", relCapDiff, relCapDiffNow);
+			printf("spMoles = %20.13E   , spMolesNow = %20.13E\n", spMoles_final_[kpStart + kSp],
+			       spMoles_final_[kpStart + kSp] - diff); 
+			printf("cap = %20.14E\n", cap);
+		    }
+#endif
+
 		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] -= diff;
 		    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] -= diff;
                 }
@@ -1296,22 +1348,301 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 				      "Mass loss is too egregeous");
 	    }
 	}
+#ifdef DEBUG_MODE  
+	sum_f = spMoles_final_[5] - spMoleIntegratedSourceTermLast_[5];
+	sum_i = spMoles_init_[5];
+	diff = sum_f - sum_i;
+	printf("BEFORE: spMoles_final_[5] = %21.15E , diff = %20.12E\n", spMoles_final_[5], diff);
+	sum_f = spMoles_final_[4] - spMoleIntegratedSourceTermLast_[4];
+	sum_i = spMoles_init_[4];
+	diff = sum_f - sum_i;
+	printf("BEFORE: spMoles_final_[4] = %21.15E , diff = %20.12E\n", spMoles_final_[4], diff);
+#endif
 	updateState();
+#ifdef DEBUG_MODE  
+	sum_f = spMoles_final_[4] - spMoleIntegratedSourceTermLast_[4];
+	sum_i = spMoles_init_[4];
+	diff = sum_f - sum_i;
+	printf("AFTER: spMoles_final_[4]  = %21.15E , diff = %20.12E\n", spMoles_final_[4], diff);
+	sum_f = spMoles_final_[5] - spMoleIntegratedSourceTermLast_[5];
+	sum_i = spMoles_init_[5];
+	diff = sum_f - sum_i;
+	printf("BEFORE: spMoles_final_[5] = %21.15E , diff = %20.12E\n", spMoles_final_[5], diff);
+#endif
     }
+
+    fixCapacityBalances_final();
 }
+//========================================================================================================================
+//  Here we fix the mole balance locally from init state to final state
+/*
+ *  Algorithm is to check for mole loss for each distributed species in the problem.
+ *  If there is some, then add moles back into far last cell to ensure complete conservation of moles/mass.
+ *  Note, this works because we have an accounting of all possible sources for losses, and because
+ *  It has been experimentally verified that the if you crank the nonlinear solver's convergence requirements down far enough
+ *  then mass conservation up to round-off error occurs.
+ *
+ *  HKM experience. This is a local fix for the local subgrid time step.
+ *                  Therefore, it must be done at every local step irrespective of a cutoff.
+ *                  If this is not done, then the global mole balances may start to drift off of the target.
+ *                  When this is done at every step, then this fix is equivalent to fixCapacityBalances_final();
+ */
+double Electrode_SimpleDiff::fixMoleBalance_final_init()
+{
+    double sum_f, sum_i, diff;
+    bool fatalError = false;
+#ifdef DEBUG_MODE
+    double capLeft = capacityLeft();
+    double capDischarged = capacityDischarged();
+#ifdef DEBUG_MASSLOSS
+    double cap = capacity();
+#endif
+    double capS = depthOfDischargeStarting();
+    double capOrig = capacityInitial();
+    double relCapDiff = capOrig - capLeft - capDischarged - capS;
+#endif
+    double diffMax = 0.0;
+    int indexMidKRSpecies = ( numRCells_ - 1) * numKRSpecies_;
+    int iCell = numRCells_ - 1;
+    for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+	int kstart = 0;
+	int iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	int iStart = getGlobalSpeciesIndex(iPh, 0);
+	ThermoPhase* th = & thermo(iPh);
+	int nSpecies = th->nSpecies();
+	for (int kSp = 0; kSp < nSpecies; kSp++) {
+	    int isp = iStart + kSp;
+	    int iKRSpecies = kstart + kSp;
+	    sum_f = spMoles_final_[isp] - spMoleIntegratedSourceTermLast_[isp];
+	    sum_i = spMoles_init_[isp];
+	    diff = sum_f - sum_i;
+	    diffMax = max(fabs(diff), diffMax);
+#ifdef DEBUG_MODE
+	    if (printLvl_ > 8) {
+		printf("Electrode_SimpleDiff::checkMoles_final_init INFO: diff = % 19.12E\n", diff);
+		printf("                                isp = %2d    sum_f  = % 19.12E sum_i = % 19.12E\n",
+		       isp, sum_f, sum_i);
+		printf("                             spMoles_final = % 20.15E EletrodeSrc = % 20.15E spMoles_init = % 19.12E\n",
+		       spMoles_final_[isp], spMoleIntegratedSourceTermLast_[isp], spMoles_init_[isp]);
+		printf("                             relCapDiff = % 20.15E\n",  relCapDiff);
+	    }
+#endif
+#ifdef DEBUG_MASSLOSS
+	    if (isp == 4) {
+		string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
+		FILE *fp = fopen(fff.c_str(), "a");
+		double capLPD =  electronKmolDischargedToDate_;
+		capLPD += spMoleIntegratedSourceTermLast_[isp] + spMoles_init_[isp] - spMoleIntegratedSourceTerm_[isp];
+		fprintf(fp,"(BeforeC)  % 21.15E % 21.15E  % 21.15E  % 21.15E % 21.15E % 21.15E\n",
+			cap/Faraday, capLeft/Faraday, 
+			capDischarged/Faraday, spMoles_final_[4],
+			capLPD	,  capLeft/Faraday - spMoles_final_[4]);
+		fclose(fp);
+	    }
+#endif
+             
+	    if (fabs(diff) > 1.0E-4 * spMoles_final_[isp]) {
+		fatalError = true;
+	    }
+
+	    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] -= diff;
+	    phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]  -= diff;
+	}
+	kstart += nSpecies;
+	if (fatalError) {
+	    throw Electrode_Error("Electrode_SimpleDiff::checkMoles_final_init() ERROR",
+				  "Mass loss is too egregeous");
+	}
+    }
+#ifdef DEBUG_MODE
+    if (printLvl_ > 8) {
+	sum_f = spMoles_final_[5] - spMoleIntegratedSourceTermLast_[5];
+	sum_i = spMoles_init_[5];
+	diff = sum_f - sum_i;
+	printf("BEFORE %2d: spMoles_final_[5] = %21.15E , diff = %20.12E\n", electrodeCellNumber_, spMoles_final_[5], diff);
+	sum_f = spMoles_final_[4] - spMoleIntegratedSourceTermLast_[4];
+	sum_i = spMoles_init_[4];
+	diff = sum_f - sum_i;
+	printf("BEFORE %2d: spMoles_final_[4] = %21.15E , diff = %20.12E\n", electrodeCellNumber_, spMoles_final_[4], diff);
+    }
+#endif
+    /*
+     *   We've changed the moles. Need to propagate that to all other quantities.
+     */
+    updateState();
+
+#ifdef DEBUG_MODE  
+    if (printLvl_ > 8) {
+	sum_f = spMoles_final_[4] - spMoleIntegratedSourceTermLast_[4];
+	sum_i = spMoles_init_[4];
+	diff = sum_f - sum_i;
+	printf("AFTER: spMoles_final_[4]  = %21.15E , diff = %20.12E\n", spMoles_final_[4], diff);
+	sum_f = spMoles_final_[5] - spMoleIntegratedSourceTermLast_[5];
+	sum_i = spMoles_init_[5];
+	diff = sum_f - sum_i;
+	printf("BEFORE: spMoles_final_[5] = %21.15E , diff = %20.12E\n", spMoles_final_[5], diff);
+    }
+#endif
+    
+    // Don't need to do this 
+    // fixCapacityBalances_final();
+
+    return diffMax;
+}
+//========================================================================================================================
+// Experimental routine to enforce a balance on the electrode capacity given previous balance information
+/* 
+ *  This routine equalizes the capacity 
+ */
+void Electrode_SimpleDiff::fixCapacityBalances_final()
+{
+#ifdef DEBUG_MASSLOSS
+    static int firstTime = 1;
+#endif
+    double capLeft = capacityLeft();
+    double capDischarged = capacityDischarged();
+    double cap = capacity();
+    double capS = depthOfDischargeStarting();
+    double capOrig = capacityInitial();
+    double capLost = capOrig - cap;
+    double beforeMole4 = spMoles_final_[4];
+    // rel is the missing capacity that is numerically unaccounted for
+    double rel = capOrig - capLeft - capDischarged - capS - capLost;
+    // relMole is the moles that are missing.
+    double relMole = rel / Faraday;
+    int iKpadd = -1, iKadd = -1;
+    int iKpsub = -1, iKsub = -1;
+    double denom;
+    double relMoleStart = relMole;
+
+#ifdef DEBUG_MASSLOSS
+    string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
+    FILE *fp = fopen(fff.c_str(), "a");
+    if (firstTime) {
+	fprintf(fp,"                  \"cap\"               \"capLeft\"             \" capDischarged\"            \"spMoles4\"   "
+		"\"capLeft + capDisc\"    \"capLeft - spMoles[4]\"\n");
+	firstTime = 0;
+    }
+    fprintf(fp,"(BeforeF)  % 21.15E % 21.15E  % 21.15E  % 21.15E % 21.15E % 21.15E\n", cap/Faraday, capLeft/Faraday, 
+	    capDischarged/Faraday, spMoles_final_[4],
+	    capLeft/Faraday + capDischarged/Faraday,  capLeft/Faraday - spMoles_final_[4]);
+    fclose(fp);
+#endif
+
+    if (relMole != 0.0) {
+
+        double coeffA = 0.0;
+        double coeffB = 0.0;
+        for (int iph = 0; iph < m_NumTotPhases; iph++) {
+            if (iph == solnPhase_ || iph == metalPhase_) {
+                continue;
+            }
+            int kpStart = m_PhaseSpeciesStartIndex[iph];
+            ThermoPhase& tp = thermo(iph);
+            int nspPhase = tp.nSpecies();
+            for (int k = 0; k < nspPhase; k++) {
+                if (capacityLeftSpeciesCoeff_[kpStart + k] > 0.0 && spMoles_final_[kpStart + k] > 0.0) {
+                    iKpadd = k + kpStart;
+		    iKadd = k;
+                    coeffA = capacityLeftSpeciesCoeff_[kpStart + k];
+                }
+                if (capacityLeftSpeciesCoeff_[kpStart + k] == 0.0 && spMoles_final_[kpStart + k] > 0.0) {
+                    if (capacityZeroDoDSpeciesCoeff_[kpStart + k] > 0.0) {
+                        iKpsub = k + kpStart;
+			iKsub = k;
+                        coeffB = capacityZeroDoDSpeciesCoeff_[kpStart + k];
+                    }
+                }
+            }
+        }
+
+        if (iKadd >= 0) {
+            spMoles_final_[iKpadd] -= relMole / coeffA;
+        }
+        if (iKsub >= 0) {
+            spMoles_final_[iKpsub] += relMole / coeffB;
+        }
+
+	int indexMidKRSpecies = ( numRCells_ - 1) * numKRSpecies_;
+	int iCell = numRCells_ - 1;
+	int jRPh = 0;
+
+	  
+
+	int aKRSpecies = iKadd;
+	double diff = relMole / coeffA;
+		
+	spMoles_KRsolid_Cell_final_[indexMidKRSpecies + aKRSpecies] += diff;
+	phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]  += diff;
+
+	int bKRSpecies = iKsub;
+	diff = relMole / coeffB;
+		
+	spMoles_KRsolid_Cell_final_[indexMidKRSpecies + bKRSpecies] -= diff;
+	phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]  -= diff;
+
+
+	updateState();
+
+	capLeft = capacityLeft();
+	capDischarged = capacityDischarged();
+	cap = capacity();
+	capS = depthOfDischargeStarting();
+	capOrig = capacityInitial();
+	capLost = capOrig - cap;
+	// rel is the missing capacity that is numerically unaccounted for
+	rel = capOrig - capLeft - capDischarged - capS - capLost;
+	denom = cap / Faraday;
+	// relMole is the moles that are missing.
+	relMole = rel / Faraday;
+#ifdef DEBUG_MASSLOSS
+	string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
+	FILE *fp = fopen(fff.c_str(), "a");
+	fprintf(fp,"(AfterF )  % 21.15E % 21.15E  % 21.15E  % 21.15E % 21.15E % 21.15E\n", 
+		cap/Faraday, capLeft/Faraday, capDischarged/Faraday, spMoles_final_[4],
+		capLeft/Faraday + capDischarged/Faraday,  capLeft/Faraday - spMoles_final_[4]);
+	fclose(fp);
+#endif
+#ifdef DEBUG_MODE
+	printf("Electrode_SimpleDiff::fixCapacityBalances_final() report:\n");
+	printf("                         Before Rel moles = %g, After Rel moles = %g\n", relMoleStart, relMole);
+	printf("                         normalized diff  = %g                  = %g\n", relMoleStart/denom, relMole/denom);
+	printf("                        Before spMoles_final_[4] = %21.15E\n", beforeMole4);
+	printf("                        After  spMoles_final_[4] = %21.15E\n",  spMoles_final_[4]);
+#endif
+
+    } else {
+#ifdef DEBUG_MODE
+	printf("Electrode_SimpleDiff::fixCapacityBalances_final() report:\n");
+	printf("                         Before Rel moles = %g no action \n", relMoleStart);
+#endif
+    }
+    
+}
+
 //========================================================================================================================
 
 void Electrode_SimpleDiff::check_final_state()
 {
-    bool fff = false;
-    // While in debug mode, check the inventory of capacity to account for all electrons
-    fff = checkCapacityBalances_final();
+    bool fff = true;
+#ifdef DEBUG_MODE
+    //if (electrodeCellNumber_ == 4 && counterNumberSubIntegrations_ >= 11161) {
+    //	printf(" we are here cell=4, 11161\n");
+    //	printLvl_ = 15;
+    //}  
+    double diffMax = fixMoleBalance_final_init();
+    if (printLvl_ > 8) {
+	printf("Electrode_SimpleDiff::check_final_state() INFO: diffMax = %g\n", diffMax);
+    }
+#else
+    fixMoleBalance_final_init();
+#endif
 
     if (fff) {
-	checkMoles_final_init(true);
+	// eventually, we can turn this off
 	fff = checkCapacityBalances_final();
 	if (fff) {
-	    throw Electrode_Error("check_final_state() ERROR", "mole loss unfixed");
+	    throw Electrode_Error("Electrode_SimpleDiff::check_final_state() ERROR", "mole loss unfixed");
 	}
     }
 }

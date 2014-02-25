@@ -1240,7 +1240,7 @@ topConvergence:
         /*
          * Print out intermediate results if the print level is high enough
          */
-        if (printLvl_ > 3) {
+       if (printLvl_ > 3) {
             calcSrcTermsOnCompletedStep();
             accumulateSrcTermsOnCompletedStep();
             printElectrode(true, true);
