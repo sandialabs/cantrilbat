@@ -12,6 +12,10 @@ all:
 clean:
 	cd src; $(RM) .depends ; @MAKE@ clean
 
+dist_clean:
+	cd src; $(RM) .depends ; @MAKE@ dist_clean
+
+
 depends:
 	cd src; @MAKE@ depends
 

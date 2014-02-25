@@ -14,9 +14,10 @@
 
 #########################################################################
 #        Changes to Make setup
+#                need .mak to avoid dependency on .depends
 #########################################################################
 
-.SUFFIXES: .d
+.SUFFIXES: .d .mak
 
 #########################################################################
 #         Common Commands
@@ -157,7 +158,14 @@ install:
 	$(INSTALL_TSC) $(LIBP) $(DESTLIBDIR)
 
 clean:
-	$(RM) $(LIBOBJS) $(LIBP) *.d
+	$(RM) $(LIBOBJS) $(LIBP) *.d .depends
+
+dist_clean:
+	$(RM) $(LIBOBJS) $(LIBP) *.d .depends
+	(for lh in $(INCFILES) ; do \
+          $(RM)  $(INCDIR)/$${lh} ; \
+        done)
+	$(RM) $(DESTLIBDIR)/$(LIBP)
 
 depends: 
 	$(RM) *.d .depends

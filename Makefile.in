@@ -36,7 +36,7 @@ clean:
 	cd imt_model;                   @MAKE@ clean
 
 dist_clean:
-	cd util_src;                    @MAKE@ clean
+	cd util_src;                    @MAKE@ dist_clean
 	cd ctpadds;			$(RM) .depends ;     @MAKE@ clean
 	cd Electrode;                   @MAKE@ dist_clean
 	cd 1Delectrode;                 @MAKE@ clean
