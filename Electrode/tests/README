@@ -3,4 +3,4 @@
 
 The templated test for copying is located in
     LiCoO2_LiIonCathode_CSTR_3_cc
-This has the option to check
+This has the option to check for whether the test results are current and for not running the test again.

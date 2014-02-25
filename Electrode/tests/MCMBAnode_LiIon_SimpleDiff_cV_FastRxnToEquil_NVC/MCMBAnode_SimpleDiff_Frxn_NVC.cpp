@@ -177,6 +177,9 @@ int main(int argc, char **argv)
     // Normal printing for testing
     electrodeA->enableExtraPrinting_ = false; 
     electrodeA->detailedResidPrintFlag_ = 4;
+
+     electrodeA->fixCapacityBalances_final();
+     //exit(-2);
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
