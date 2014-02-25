@@ -51,6 +51,8 @@ F2C_INC=$(CANTERA_INCROOT)/cantera
 # LDEFINES =   -DDEBUG_ELECTRODE
 #       Useful for adding more debugging to new models
 # LDEFINES =   -DDEBUG_NEWMODELS
+#       Useful IO for debugging mole conservation issues in the radial models - prints out a file
+# LDEFINES =   -DDEBUG_MASSLOSS
 # LDEFINES =   -DDEBUG_MODE_PREDICTION -DDEBUG_HKM
 #
 # Set up the global include directory macro
