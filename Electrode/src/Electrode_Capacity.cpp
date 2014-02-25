@@ -131,6 +131,9 @@ double Electrode::depthOfDischarge(int platNum) const
  */
 bool Electrode::checkCapacityBalances_final(int platNum) const
 {
+#ifdef DEBUG_MASSLOSS
+    static int firstTime = 1;
+#endif
     // The following is a default treatment 
     // It's not very 
     double capLeft = capacityLeft(platNum);
@@ -156,13 +159,30 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
     rel = capOrig - capLeft - capDischarged - capS;
     denom = std::max(capOrig, capDischarged);
     denom = std::max(denom, 1.0E-50);
+#ifdef DEBUG_MASSLOSS
+    string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
+    FILE *fp = fopen(fff.c_str(), "a");
+    if (firstTime) {
+	fprintf(fp,"                  \"cap\"               \"capLeft\"             \" capDischarged\"            \"spMoles4\"   "
+		"\"capLeft + capDisc\"    \"RelativeOff\"\n");
+	firstTime = 0;
+    }
+    fprintf(fp,"(BeforeB)  % 21.15E % 21.15E  % 21.15E  % 21.15E % 21.15E % 21.15E\n", cap/Faraday, capLeft/Faraday, 
+	    capDischarged/Faraday, capS/Faraday,
+	    capLeft/Faraday + capDischarged/Faraday,  rel/Faraday);
+    fclose(fp);
+#endif
     if (abs(rel) > 1.0E-12 * denom) {
         if (printLvl_ > 7) {
 	  printf("Electrode::checkCapacityBalances_final  cap not accounted for by % 19.12E coulombs (%d)\n", rel, platNum);
-	  printf("\t\t\tcapOrig       = % 19.12E coulombs  \n", capOrig);
-  	  printf("\t\t\tcapleft       = % 19.12E\n", capLeft);
-	  printf("\t\t\tcapDischarged = % 19.12E\n", capDischarged);
-	  printf("\t\t\tDoD_starting  = % 19.12E\n", capS);
+	  printf("\t\t\t  capOrig       = % 21.14E coulombs  \n", capOrig);
+	  printf("\t\t\t -capAccounted  = % 21.14E\n", capLeft + capDischarged + capS);
+  	  printf("\t\t\t- capleft       = % 21.14E\n", capLeft);
+	  printf("\t\t\t- capDischarged = % 21.14E\n", capDischarged);
+	  printf("\t\t\t- DoD_starting  = % 21.14E\n", capS);
+
+	  printf("\t\t\t= Missing       = % 21.14E\n", rel  );
+	  printf("\t\t\t                          =  % 21.15E moles\n", rel/Faraday);
         }
 #ifdef DEBUG_MODE
 	//throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity unaccounted for");
@@ -170,6 +190,60 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
 	return true;
     }
     return false;
+}
+//====================================================================================================================
+// Experimental routine to enforce a balance on the electrode capacity given previous balance information
+/* 
+ *  This routine equalizes the capacity 
+ */
+void Electrode::fixCapacityBalances_final()
+{
+    double capLeft = capacityLeft();
+    double capDischarged = capacityDischarged();
+    double cap = capacity();
+    double capS = depthOfDischargeStarting();
+    double capOrig = capacityInitial();
+    double capLost = capOrig - cap;
+    // rel is the missing capacity that is numerically unaccounted for
+    double rel = capOrig - capLeft - capDischarged - capS - capLost;
+    // relMole is the moles that are missing.
+    double relMole = rel / Faraday;
+    int iKadd = -1;
+    int iKsub = -1;
+    if (relMole != 0.0) {
+
+	double coeffA = 0.0;
+	double coeffB = 0.0;
+	for (int iph = 0; iph < m_NumTotPhases; iph++) {
+	    if (iph == solnPhase_ || iph == metalPhase_) {
+		continue;
+	    }
+	    int kStart = m_PhaseSpeciesStartIndex[iph];
+	    ThermoPhase& tp = thermo(iph);
+	    int nspPhase = tp.nSpecies();
+	    for (int k = 0; k < nspPhase; k++) {
+		if (capacityLeftSpeciesCoeff_[kStart + k] > 0.0 && spMoles_final_[kStart + k] > 0.0) {
+		    iKadd = k + kStart;
+		    coeffA = capacityLeftSpeciesCoeff_[kStart + k];
+		}
+		if (capacityLeftSpeciesCoeff_[kStart + k] == 0.0 && spMoles_final_[kStart + k] > 0.0) {
+		    if (capacityZeroDoDSpeciesCoeff_[kStart + k] > 0.0) {
+			iKsub = k + kStart;
+			coeffB = capacityZeroDoDSpeciesCoeff_[kStart + k];
+		    }
+		}
+	    }
+	}
+
+	if (iKadd >= 0) {
+	    spMoles_final_[iKadd] -= relMole / coeffA;
+	}
+	if (iKsub >= 0) {
+	    spMoles_final_[iKsub] += relMole / coeffB;
+	}
+    }
+
+  
 }
 //====================================================================================================================
 // Report the current depth of discharge in percent
