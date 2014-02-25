@@ -171,7 +171,7 @@ clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
 	$(RM) ${PROG} runInProgress.txt runBad runGood
 
-real_clean:
+dist_clean:
 	@MAKE@ clean
 	$(RM) Makefile out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
 
