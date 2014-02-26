@@ -39,6 +39,18 @@ clean:
 	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
 	cd test_suite;                    @MAKE@ clean
 
+dist_clean:
+	cd src;                           (/bin/rm -f .depends ; @MAKE@ dist_clean )
+	cd src_test;	              (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_CanteraElectrode;          (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_Cu2S;                      (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
+	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
+	cd test_suite;                    @MAKE@ clean
+
+
 depends:
 	cd src;                           @MAKE@ depends
 	cd src_test;                      @MAKE@ depends
