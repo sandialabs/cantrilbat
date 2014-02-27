@@ -1,0 +1,13 @@
+.depends
+LiCoO2_LiIonCathode_SimpleDiff_cV
+diff_csv.txt
+out.txt
+.nfs*
+Makefile
+diff_out.txt
+err_out.txt
+plotDischarge.m
+LiCoO2_globalResults_0_0.csv
+LiCoO2_intResults_0_0.csv
+runGood
+runBad
