@@ -57,6 +57,19 @@ public:
      */
     int indexRegion_;
 
+    //! Phase indeces of the solid phases comprising the species that are radially distributed
+    //! within the current region
+    /*!
+     *   This is a very important indexing array.
+     *   There are numSPhase_ of these.
+     *
+     *  Length =  numSPhase_
+     *  access method = phaseIndeciseKRsolidPhases_[iSPphase_] = iPhaseIndex;
+     *
+     *  The iPhaseIndex is the index within the Electrode object.
+     */
+    std::vector<int> phaseIndeciseKRsolidPhases_;
+
     //! Solid state diffusion model identification
     /*!
      *   0 = There is no diffusion model (default)
@@ -84,8 +97,13 @@ public:
      *  Units = m**2 s-1
      */
 
-    std::vector<double> diffusionCoeffSpecies_; 
+    std::vector<double> diffusionCoeffSpecies_;   
 
+    //! Default diffusion coefficients for species within the region
+    /*!
+     *  Defaults to 1.0E-12 m2/s = 1.0E-8 cm2/s
+     */
+    double defaultDiffusionCoeff_;
 };
 
     class Electrode_RadialDiffRegions;

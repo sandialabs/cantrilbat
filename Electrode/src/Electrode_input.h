@@ -57,7 +57,10 @@ namespace Cantera
 class Electrode;
 }
 
-//!  HKM -> getting rid of the Bath class
+//! This class contain information about the electrode input from the input file
+/*!
+*   TODO: There is no reason for this class. It should be transfered into the ELECTRODE_KEY_INPUT class
+*/
 class ElectrodeBath
 {
 public:
@@ -85,27 +88,21 @@ public:
     //! total mass of given phase
     std::vector<double> PhaseMass;
 
-    ElectrodeBath() :
-        XmolPLSpecVec(0),
-        XmolPLPhases(0),
-        MolalitiesPLSpecVec(0),
-        MolalitiesPLPhases(0),
-        CapLeftCoeffPhases(0),
-        CapLeftCoeffSpecVec(0),
-        CapZeroDoDCoeffPhases(0),
-        CapZeroDoDCoeffSpecVec(0) {
-    }
+    ElectrodeBath();
 
-    ~ElectrodeBath() {
-        mdpUtil::mdp_safe_free((void**) &XmolPLSpecVec);
-        mdpUtil::mdp_safe_free((void**) &XmolPLPhases);
-        mdpUtil::mdp_safe_free((void**) &MolalitiesPLSpecVec);
-        mdpUtil::mdp_safe_free((void**) &MolalitiesPLPhases);
-        mdpUtil::mdp_safe_free((void**) &CapLeftCoeffPhases);
-        mdpUtil::mdp_safe_free((void**) &CapLeftCoeffSpecVec);
-        mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffPhases);
-        mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffSpecVec);
-    }
+    //! Copy Constructor
+    /*!
+     * @param right Object to be copied
+     */
+    ElectrodeBath(const ElectrodeBath &right);
+
+    //! Assignment operator
+    /*!
+     *  @param right object to be copied
+     */
+    ElectrodeBath& operator=(const ElectrodeBath& right);
+
+    ~ElectrodeBath();
 };
 
 
@@ -123,8 +120,24 @@ public:
     //! Constructor
     ELECTRODE_KEY_INPUT(int printLvl = 0);
 
+    //! Copy Constructor
+    /*!
+     * @param right Object to be copied
+     */
+    ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right);
+
+    //! Assignment operator
+    /*!
+     *  @param right object to be copied
+     */
+    ELECTRODE_KEY_INPUT& operator=(const ELECTRODE_KEY_INPUT& right);
+
+
     //! Virtual destructor
     virtual ~ELECTRODE_KEY_INPUT();
+
+
+    
 
     //! Initialize the fields within the Electrode for reading
     /*!
@@ -291,6 +304,7 @@ public:
     //! Command file that is used to initialize the object
     std::string commandFile_;
 
+    //! Shallow pointer not owned
     BEInput::BlockEntry* lastBlockEntryPtr_;
 
     //! This is assigned to the first surface phase found in the PhaseList

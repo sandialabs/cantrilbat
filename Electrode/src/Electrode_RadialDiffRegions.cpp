@@ -64,8 +64,7 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(int
     solidDiffusionModel_(0),
     numRadialCellsRegions_(0),
     diffusionCoeffRegions_(0),
-    rxnPerturbRegions_(0),
-    rregions_(0)
+    rxnPerturbRegions_(0)
 {
     numRadialCellsRegions_.resize(1, 5);
 }
@@ -109,13 +108,14 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEnt
     /*
      * Obtain the number of regions
      */
-    LE_OneInt* s1 = new LE_OneInt("Number of Regions", &(numRegions_), 0, "numRegions");
+    LE_OneInt* s1 = new LE_OneInt("Number of Regions", &(numRegions_), 1, "numRegions");
     s1->set_default(1);
     cf->addLineEntry(s1);
     BaseEntry::set_SkipUnknownEntries(true);
 
     /*
-     * Obtain the number of regions
+     * Obtain the diffusion model
+     *   - Eliminate 
      */
     LE_OneInt* sdm = new LE_OneInt("Solid Diffusion Model", &(solidDiffusionModel_), 0, "solidDiffusionModel");
     sdm->set_default(0);
@@ -197,7 +197,10 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
 {
     cf->print_usage(0);
     rregions_.clear();
-    rregions_.push_back(RadialDiffRegionSpec());
+    /*
+     * Create an ELECTRODE_RadialRegion_KEY_INPUT() object and save it in a vector
+     */
+    rregions_.push_back( ELECTRODE_RadialRegion_KEY_INPUT() );
     const BEInput::BlockEntry* be = cf->searchBlockEntry("Radial Diffusion Region", false);
      const BEInput::BlockEntry* be_cand;
     std::set<const BlockEntry*> cc = cf->collectBlockEntries("Radial Diffusion Region", false);
@@ -225,7 +228,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
 
     const char** curPN = lepn_int->currentTypedValue();
     int numPS = lepn_int->get_NumTimesProcessed();
-    RadialDiffRegionSpec& r0 = rregions_[0];
+    ELECTRODE_RadialRegion_KEY_INPUT& r0 = rregions_[0];
 
     for (int i = 0; i < numPS; i++) {
        const char * cP = curPN[i];

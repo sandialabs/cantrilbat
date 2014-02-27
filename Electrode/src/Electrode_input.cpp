@@ -46,6 +46,66 @@ using namespace ca_ab;
 using namespace mdpUtil;
 
 #include <string>
+//================================================================================================
+ElectrodeBath::ElectrodeBath() :
+    XmolPLSpecVec(0),
+    XmolPLPhases(0),
+    MolalitiesPLSpecVec(0),
+    MolalitiesPLPhases(0),
+    CapLeftCoeffPhases(0),
+    CapLeftCoeffSpecVec(0),
+    CapZeroDoDCoeffPhases(0),
+    CapZeroDoDCoeffSpecVec(0)
+{
+}
+//================================================================================================
+ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
+    XmolPLSpecVec(0),
+    XmolPLPhases(0),
+    MolalitiesPLSpecVec(0),
+    MolalitiesPLPhases(0),
+    CapLeftCoeffPhases(0),
+    CapLeftCoeffSpecVec(0),
+    CapZeroDoDCoeffPhases(0),
+    CapZeroDoDCoeffSpecVec(0)
+{
+    operator=(right);
+}
+
+//================================================================================================
+ ElectrodeBath& ElectrodeBath::operator=(const ElectrodeBath& right)
+ {
+    if (this == &right) {
+        return *this;
+     }
+
+    // Shallow pointer representation -> this is wrong and must be fixed up in parent routine.
+    XmolPLSpecVec                = right.XmolPLSpecVec;
+    XmolPLPhases                 = right.XmolPLPhases;
+    MolalitiesPLSpecVec          = right.MolalitiesPLSpecVec;
+    MolalitiesPLPhases           = right.MolalitiesPLPhases;
+    CapLeftCoeffPhases           = right.CapLeftCoeffPhases;
+    CapLeftCoeffSpecVec          = right.CapLeftCoeffSpecVec;
+    CapZeroDoDCoeffPhases        = right.CapZeroDoDCoeffPhases;
+    CapZeroDoDCoeffSpecVec       = right.CapZeroDoDCoeffSpecVec;
+ 
+    PhaseMoles                   = right.PhaseMoles;
+    PhaseMass                    = right.PhaseMass;
+ 
+    return *this;
+ }
+//================================================================================================
+ElectrodeBath::~ElectrodeBath() 
+{
+    mdpUtil::mdp_safe_free((void**) &XmolPLSpecVec);
+    mdpUtil::mdp_safe_free((void**) &XmolPLPhases);
+    mdpUtil::mdp_safe_free((void**) &MolalitiesPLSpecVec);
+    mdpUtil::mdp_safe_free((void**) &MolalitiesPLPhases);
+    mdpUtil::mdp_safe_free((void**) &CapLeftCoeffPhases);
+    mdpUtil::mdp_safe_free((void**) &CapLeftCoeffSpecVec);
+    mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffPhases);
+    mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffSpecVec);
+}
 /*************************************************************************
  *
  * MPEQUIL_KEY_INPUT(): constructor
@@ -99,9 +159,252 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     m_EGRList[0] = new EGRInput();
     m_EGRList[1] = 0;
 }
-/****************************************************************************
- *
- */
+//===============================================================================================
+ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
+    printLvl_(right.printLvl_),
+    commandFile_(""),
+    CanteraFNSurface(""),
+    NumberCanteraFiles(1),
+    CanteraFileNames(0),
+    Temperature(300.),
+    Pressure(OneAtm),
+    Vol(1.0),
+    m_BG(0),
+    MoleNumber(0),
+    MoleFraction(0),
+    PotentialPLPhases(0),
+    PhaseInclude(0),
+    ProblemType(TP),
+    SpeciesNames(0),
+    PhaseNames(0),
+    ElementNames(0),
+    ElementAbundances(0),
+    specifiedElementAbundances(false),
+    specifiedBlockKmolSpecies(0),
+    xmlStateInfoLevel(0),
+    electrodeModelName(""),
+    electrodeCapacityType(0),
+    electrodeName(""),
+    particleDiameter(1.0E-6),
+    particleNumberToFollow(-1.0),
+    electrodeGrossArea(-1.0),
+    electrodeGrossDiameter(-1.0),
+    electrodeGrossThickness(-1.0),
+    porosity(-1.0),
+    RxnExtTopLimit(-1.0),
+    RxnExtBotLimit(-1.0),
+    numExtraGlobalRxns(0),
+    m_EGRList(0),
+    nTotPhases(0),
+    nTotSpecies(0),
+    nTotElements(0),
+    RelativeCapacityDischargedPerMole(-1.0),
+    m_pl(0)
+{   
+    ELECTRODE_KEY_INPUT::operator=(right);
+}
+//===============================================================================================
+ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& right)
+ {
+     if (this == &right) {
+        return *this;
+     }
+
+     printLvl_                       = right.printLvl_;
+     commandFile_                    = right.commandFile_;
+     lastBlockEntryPtr_              = right.lastBlockEntryPtr_;
+     CanteraFNSurface                = right.CanteraFNSurface;
+     NumberCanteraFiles              = right.NumberCanteraFiles;
+
+     if (CanteraFileNames) {
+        for (int i = 0; CanteraFileNames[i] != 0; i++) {
+            free(CanteraFileNames[i]);
+        }
+        free(CanteraFileNames);
+     }
+     if (!right.CanteraFileNames) {
+       CanteraFileNames = 0;
+     } else {
+       CanteraFileNames = (char**) mdpUtil::mdp_alloc_ptr_1(NumberCanteraFiles +1);
+       for (int i = 0; i <  NumberCanteraFiles     ; i++) {
+          CanteraFileNames[i] = copy_string(right.CanteraFileNames[i]);
+       }
+     }
+
+     Temperature                      = right.Temperature;
+     Pressure                         = right.Pressure;
+     Vol                              = right.Vol;
+     nTotSpecies                      = right.nTotSpecies;
+     nTotPhases                       = right.nTotPhases;
+     nTotElements                     = right.nTotElements;
+     if (m_BG) {
+	 delete m_BG;
+     } 
+    
+     m_BG = new ElectrodeBath(*right.m_BG);
+
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG->XmolPLSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG->XmolPLSpecVec, (right.m_BG)->XmolPLSpecVec, nTotSpecies);
+
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->XmolPLPhases), nTotPhases, 0);
+
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG->MolalitiesPLSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG->MolalitiesPLSpecVec, (right.m_BG)->MolalitiesPLSpecVec, nTotSpecies);
+
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->MolalitiesPLPhases), nTotPhases, 0);
+
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG->CapLeftCoeffSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG->CapLeftCoeffSpecVec, (right.m_BG)->CapLeftCoeffSpecVec, nTotSpecies);
+
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->CapLeftCoeffPhases), nTotPhases, 0);
+     
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG->CapZeroDoDCoeffSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG->CapZeroDoDCoeffSpecVec, (right.m_BG)->CapZeroDoDCoeffSpecVec, nTotSpecies);
+   
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->CapZeroDoDCoeffPhases), nTotPhases, 0);
+
+     int nVolPhases = right.m_pl->nVolPhases();
+     for (int iph = 0; iph < nVolPhases; iph++) {
+	 int kstart =  right.m_pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+	 m_BG->XmolPLPhases[iph]          = m_BG->XmolPLSpecVec + kstart;
+	 m_BG->MolalitiesPLPhases[iph]    = m_BG->MolalitiesPLSpecVec + kstart;
+	 m_BG->CapLeftCoeffPhases[iph]    = m_BG->CapLeftCoeffSpecVec + kstart;
+	 m_BG->CapZeroDoDCoeffPhases[iph] = m_BG->CapZeroDoDCoeffSpecVec + kstart;
+     }
+
+     //---
+   
+     mdpUtil::mdp_realloc_dbl_1(&MoleNumber, nTotSpecies, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(MoleNumber, right.MoleNumber, nTotSpecies);
+
+     mdpUtil::mdp_realloc_dbl_1(&MoleFraction, nTotSpecies, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(MoleFraction, right.MoleFraction, nTotSpecies);
+
+     mdpUtil::mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(PotentialPLPhases, right.PotentialPLPhases, nTotPhases);
+
+     mdp_realloc_int_1(&PhaseInclude, nTotPhases, 0);
+     mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
+     
+     ProblemType                       = right.ProblemType;
+
+     if (SpeciesNames) {
+        for (int i = 0; i < nTotSpecies; i++) {
+            free(SpeciesNames[i]);
+        }
+        free(SpeciesNames);
+     }
+     SpeciesNames = (char**) mdp_alloc_ptr_1(nTotSpecies);
+     for (int i = 0; i < nTotSpecies; i++) {
+	SpeciesNames[i] = copy_string(right.SpeciesNames[i]);
+     }
+
+     if (PhaseNames) {
+        for (int i = 0; i < nTotPhases; i++) {
+            free(PhaseNames[i]);
+        }
+        free(PhaseNames);
+     }
+     PhaseNames = (char**) mdp_alloc_ptr_1(nTotPhases);
+     for (int i = 0; i < nTotPhases; i++) {
+	PhaseNames[i] = copy_string(right.PhaseNames[i]);
+     }
+
+     if (ElementNames) {
+        for (int i = 0; i < nTotElements; i++) {
+            free(ElementNames[i]);
+        }
+        free(ElementNames);
+     }
+     ElementNames = (char**) mdp_alloc_ptr_1(nTotElements);
+     for (int i = 0; i < nTotElements; i++) {
+	ElementNames[i] = copy_string(right.ElementNames[i]);
+     }
+
+     mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
+     mdp_copy_dbl_1(PotentialPLPhases, right.PotentialPLPhases, nTotPhases);
+
+     mdp_realloc_int_1(&PhaseInclude, nTotPhases, 0);
+     mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
+     
+     ProblemType                       = right.ProblemType;
+
+     if (SpeciesNames) {
+        for (int i = 0; i < nTotSpecies; i++) {
+            free(SpeciesNames[i]);
+        }
+        free(SpeciesNames);
+     }
+     SpeciesNames = (char**) mdp_alloc_ptr_1(nTotSpecies);
+     for (int i = 0; i < nTotSpecies; i++) {
+	SpeciesNames[i] = copy_string(right.SpeciesNames[i]);
+     }
+
+     if (PhaseNames) {
+        for (int i = 0; i < nTotPhases; i++) {
+            free(PhaseNames[i]);
+        }
+        free(PhaseNames);
+     }
+     PhaseNames = (char**) mdp_alloc_ptr_1(nTotPhases);
+     for (int i = 0; i < nTotPhases; i++) {
+	PhaseNames[i] = copy_string(right.PhaseNames[i]);
+     }
+
+     if (ElementNames) {
+        for (int i = 0; i < nTotElements; i++) {
+            free(ElementNames[i]);
+        }
+        free(ElementNames);
+     }
+     ElementNames = (char**) mdp_alloc_ptr_1(nTotElements);
+     for (int i = 0; i < nTotElements; i++) {
+	ElementNames[i] = copy_string(right.ElementNames[i]);
+     }
+
+     mdp_realloc_dbl_1(&ElementAbundances, nTotElements, 0, 0.0);
+     mdp_copy_dbl_1(ElementAbundances, right.ElementAbundances, nTotElements);
+
+     specifiedElementAbundances          = right.specifiedElementAbundances;
+     specifiedBlockKmolSpecies           = right.specifiedBlockKmolSpecies;
+     xmlStateInfoLevel                   = right.xmlStateInfoLevel;
+     electrodeModelName                  = right.electrodeModelName;
+     electrodeCapacityType               = right.electrodeCapacityType;
+     electrodeName                       = right.electrodeName;
+     particleDiameter                    = right.particleDiameter;
+     particleNumberToFollow              = right.particleNumberToFollow;
+     electrodeGrossArea                  = right.electrodeGrossArea;
+     electrodeGrossDiameter              = right.electrodeGrossDiameter;
+     electrodeGrossThickness             = right.electrodeGrossThickness;
+     porosity                            = right.porosity;
+     RxnExtTopLimit                      = right.RxnExtTopLimit;
+     RxnExtBotLimit                      = right.RxnExtBotLimit;
+     numExtraGlobalRxns                  = right.numExtraGlobalRxns;
+
+     if (m_EGRList) {
+        EGRInput** ptr;
+        for (ptr = m_EGRList; *ptr != 0; ptr++) {
+            delete *ptr;
+        }
+        free(m_EGRList);
+    }
+     m_EGRList = (EGRInput**) mdp_alloc_ptr_1(numExtraGlobalRxns+1);
+     for (int i = 0; i < numExtraGlobalRxns  ; i++) {
+	 m_EGRList[i] = new EGRInput(* right.m_EGRList[i]);
+     }
+
+     RelativeCapacityDischargedPerMole   = right.RelativeCapacityDischargedPerMole;
+
+     if (m_pl) {
+	 delete m_pl;
+     }
+     m_pl = new Cantera::PhaseList(*(right.m_pl));
+
+   
+     return *this;
+ }
+//===============================================================================================
+
 ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 {
     if (CanteraFileNames) {
@@ -110,7 +413,9 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
         }
         free(CanteraFileNames);
     }
-    delete(m_BG);
+    if (m_BG) {
+      delete(m_BG);
+    }
     m_BG=0;
 
     delete [] PhaseInclude;
@@ -527,6 +832,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     BI_Dependency* dep_ePorosity_dpNum = new BI_Dependency(dpNum, BIDT_ENTRYPROCESSED, BIDRT_ONENUMTR);
     ePorosity->declareDependency(dep_ePorosity_dpNum);
 
+
+
     //   If the 'Electrode Area' card is in the input deck, then the 'Electrode Porosity' card is prohibited.
     //BI_Dependency *dep_ePorosity_eArea = new BI_Dependency(eArea, BIDT_ENTRYPROCESSED, BIDRT_ANTITHETICAL_ERROR);
     //ePorosity->declareDependency(dep_ePorosity_eArea);
@@ -598,7 +905,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
         BlockEntry* bbathphase = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bbathphase);
-        int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+        int kstart = pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
 
         /* --------------------------------------------------------------
          * BG.PotentialPLPhases
@@ -653,9 +960,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         /* --------------------------------------------------------------
          * BG.CapLeftCoeffPhases -
          *
-         * Create a PickList Line Element made out of the list of  species
+         *  Create a StrDbl block vector made out of the list of species.
+	 *  We store the capacity coefficients for the species here
          */
-        // double *xstart = BG.CapLeftCoeffPhases + kstart;
         BE_StrDbl* pclc= new BE_StrDbl("Capacity Left Coefficients", &(BG.CapLeftCoeffPhases[iph]), 0, 1,
                                        SpeciesNames+kstart, nSpecies, 0, "CapLeftCoeff");
         pclc->generateDefLE();
@@ -695,7 +1002,12 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
         }
 
+
+
+
     }
+
+ 
 
 
 

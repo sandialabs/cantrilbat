@@ -375,7 +375,7 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     /*
      *  Get the volume phases which are distributed across the radial region
      */
-    RadialDiffRegionSpec& r0 = ei->rregions_[0];
+    ELECTRODE_RadialRegion_KEY_INPUT& r0 = ei->rregions_[0];
     phaseIndeciseKRsolidPhases_ = r0.phaseIndeciseKRsolidPhases_;
     /*
      *  Get a count of the distributed phases

@@ -98,15 +98,15 @@ public:
 
     //   MEMBER DATA
 
-    //! Number of plateau regions in the model
+    //! Number of regions in the model
     /*!
-     *  The number of regions refers to the continuity of the electrode open circuit model.
-     *  Within each region the ss open circuit model is continuous. Either the voltage is
-     *  constant or it is a linear function of the extent of reaction variable.
+     *  The number of regions refers to the distribution of phases within the radially symmetric
+     *  model. Within each region a certain number of phases are distributed radially. They are
+     *  connected to other regions by interfacial surface regions.
      */
     int numRegions_;
  
-    //! Number of region domains entered by the user.
+    //! Number of region domains actually entered by the user.
     int numRegionsEntered_;
 
     //! Solid state diffusion model identification
@@ -145,7 +145,7 @@ public:
     std::vector<double> rxnPerturbRegions_;
 
     //! Vector of RadialDiffRegionSpec classes that are used to store the information about the regions
-    std::vector<RadialDiffRegionSpec> rregions_;
+    std::vector<ELECTRODE_RadialRegion_KEY_INPUT> rregions_;
 };
 
 //==============================================================================================================================

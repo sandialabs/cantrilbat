@@ -35,7 +35,10 @@ namespace Cantera
 ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     indexRegion_(0),
-    solidDiffusionModel_(0)
+    phaseIndeciseKRsolidPhases_(0),
+    solidDiffusionModel_(0),
+    diffusionCoeffSpecies_(0),
+    defaultDiffusionCoeff_(1.0E-12)
 {
 
 }
@@ -48,7 +51,11 @@ ELECTRODE_RadialRegion_KEY_INPUT::~ELECTRODE_RadialRegion_KEY_INPUT()
 ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(const ELECTRODE_RadialRegion_KEY_INPUT& right) :
     ELECTRODE_KEY_INPUT(right),
     indexRegion_(right.indexRegion_),
-    solidDiffusionModel_(right.solidDiffusionModel_)
+    phaseIndeciseKRsolidPhases_(right.phaseIndeciseKRsolidPhases_),
+    solidDiffusionModel_(right.solidDiffusionModel_),
+    diffusionCoeffSpecies_(0),
+    defaultDiffusionCoeff_(right.defaultDiffusionCoeff_)
+
 {
     diffusionCoeffSpecies_          = right.diffusionCoeffSpecies_;
 }
@@ -63,8 +70,10 @@ ELECTRODE_RadialRegion_KEY_INPUT::operator=(const ELECTRODE_RadialRegion_KEY_INP
     ELECTRODE_KEY_INPUT::operator=(right);
 
     indexRegion_                    = right.indexRegion_;
+    phaseIndeciseKRsolidPhases_     = right.phaseIndeciseKRsolidPhases_;
     solidDiffusionModel_            = right.solidDiffusionModel_;
     diffusionCoeffSpecies_          = right.diffusionCoeffSpecies_;
+    defaultDiffusionCoeff_          = right.defaultDiffusionCoeff_;
 
     return *this;
 }
@@ -88,7 +97,8 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
     BaseEntry::set_SkipUnknownEntries(true);
 
     /*
-     * Name of the ThermoPhase associated with the region
+     * Name of the ThermoPhase phase associated with the region
+     * Note we will expand this when we go to multiple phase regions.
      */
     LE_OneStr* pname = new LE_OneStr("Phase Name", &(phaseName_), 1, 1, 1, "phaseName");
     cf->addLineEntry(pname);

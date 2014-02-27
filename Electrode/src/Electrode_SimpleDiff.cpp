@@ -316,7 +316,7 @@ int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
     /*
      *  Malloc an expanded child input
      */
-    ELECTRODE_RadialRegion_KEY_INPUT * ei_radial = new ELECTRODE_RadialRegion_KEY_INPUT();
+    ELECTRODE_RadialDiffRegions_KEY_INPUT * ei_radial = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     /*
      *  Find the command file
      */
@@ -365,7 +365,10 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     /*
      *  Get the volume phases which are distributed across the radial region
      */
-    RadialDiffRegionSpec& r0 = ei->rregions_[0];
+    ELECTRODE_RadialRegion_KEY_INPUT& r0 = ei->rregions_[0];
+    /*
+     *  Copy the solid phases to this object.
+     */
     phaseIndeciseKRsolidPhases_ = r0.phaseIndeciseKRsolidPhases_;
     /*
      *  Get a count of the distributed phases
