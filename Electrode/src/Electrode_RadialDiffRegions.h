@@ -26,34 +26,7 @@ namespace Cantera
 
 class Electrode_RadialRegion;
 class Electrode_SurfaceRegion;
-//==============================================================================================================================
-//! Small class to hold the input for distributed regions from the class ELECTRODE_RadialDiffRegions_KEY_INPUT
-class RadialDiffRegionSpec
-{
-public:
-    //! Constructor
-    RadialDiffRegionSpec();
 
-    //! Copy constructor
-    RadialDiffRegionSpec(const RadialDiffRegionSpec& b);
-
-    RadialDiffRegionSpec& operator=(const RadialDiffRegionSpec& right);
-
-    //! Phase indecises of the phases which are distributed across the radial region
-    std::vector<int> phaseIndeciseKRsolidPhases_;
-
-    //!  Diffusion coefficients for species within the region
-    /*!
-     *  Length = number of species in distributed phases
-     */
-    std::vector<double> DiffusionCoeffs_;
-
-    //! Default diffusion coefficients for species within the region
-    /*!
-     *  Defaults to 1.0E-12 m2/s = 1.0E-8 cm2/s
-     */
-    double defaultDiffusionCoeff_;
-};
 //==============================================================================================================================
 //! Extra Input for models with distributed radial diffusion regions
 /*!
@@ -144,7 +117,7 @@ public:
     //! Unused atm
     std::vector<double> rxnPerturbRegions_;
 
-    //! Vector of RadialDiffRegionSpec classes that are used to store the information about the regions
+    //! Vector of  classes that are used to store the information about the regions
     std::vector<ELECTRODE_RadialRegion_KEY_INPUT> rregions_;
 };
 

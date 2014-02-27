@@ -31,31 +31,6 @@ using namespace TKInput;
 namespace Cantera
 {
 //====================================================================================================================
-RadialDiffRegionSpec::RadialDiffRegionSpec() :
-    phaseIndeciseKRsolidPhases_(0),
-    DiffusionCoeffs_(0),
-    defaultDiffusionCoeff_(1.0E-12)
-{
-}
-//====================================================================================================================
-RadialDiffRegionSpec::RadialDiffRegionSpec(const RadialDiffRegionSpec& b) :
-    phaseIndeciseKRsolidPhases_(b.phaseIndeciseKRsolidPhases_),
-    DiffusionCoeffs_(b.DiffusionCoeffs_),
-    defaultDiffusionCoeff_(b.defaultDiffusionCoeff_)
-{
-}
-//====================================================================================================================
-RadialDiffRegionSpec& RadialDiffRegionSpec::operator=(const RadialDiffRegionSpec& right)
-{
-    if (this == &right) {
-        return *this;
-    }
-    phaseIndeciseKRsolidPhases_ = right.phaseIndeciseKRsolidPhases_;
-    DiffusionCoeffs_            = right.DiffusionCoeffs_;
-    defaultDiffusionCoeff_      = right.defaultDiffusionCoeff_;
-    return *this;
-}
-//====================================================================================================================
 //====================================================================================================================
 ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
@@ -269,9 +244,7 @@ Electrode_RadialDiffRegions::Electrode_RadialDiffRegions() :
     SurfaceRegionList_(0)
 {
 
-
 }
-
 //======================================================================================================================
 // Copy Constructor
 /*
@@ -286,7 +259,7 @@ Electrode_RadialDiffRegions::Electrode_RadialDiffRegions(const Electrode_RadialD
     /*
      * Call the assignment operator.
      */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
 // Assignment operator
@@ -395,8 +368,6 @@ Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
         Electrode_SurfaceRegion* sr = SurfaceRegionList_[nn];
         sr->electrode_model_create(eibase);
-
-
     }
 
     /*
@@ -409,13 +380,8 @@ Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     initializeAsEvenDistribution();
 
-
-
-
-
     return 0;
 }
-
 //=====================================================================================================================
 int
 Electrode_RadialDiffRegions::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
@@ -451,7 +417,6 @@ Electrode_RadialDiffRegions::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 void
 Electrode_RadialDiffRegions::init_sizes()
 {
-
 }
 //====================================================================================================================
 void
@@ -478,8 +443,6 @@ void  Electrode_RadialDiffRegions::resetStartingCondition(double Tinitial, bool 
         return;
     }
     Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
-
-
 }
 //====================================================================================================================
 //! Take the state (i.e., the final state) within the Electrode_Model and push it down
@@ -508,7 +471,6 @@ void  Electrode_RadialDiffRegions::resetStartingCondition(double Tinitial, bool 
  */
 void Electrode_RadialDiffRegions::updateState()
 {
-
 }
 //================================================================================================
 /*

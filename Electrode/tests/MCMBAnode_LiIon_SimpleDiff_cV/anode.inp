@@ -80,6 +80,8 @@ Electrode Porosity = 0.35
 Level of XML State Information Created = intermediateSteps
 !------------------------------------------------------------------------
 
+Number of Regions = 1
+
 start block Radial Diffusion Region = simple_whole
   Number of Cells in Region = 3
   Phase Name within distributed region = MCMB_Interstitials_anode
