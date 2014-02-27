@@ -654,7 +654,8 @@ namespace BEInput {
       for (int i = 0; i < numLineInput; i++) {
 	LineEntry *le = BlockLineInput[i];    
 	if (! le->checkRequirements(true)) {
-	  throw BI_MissingRequired("BlockEntry::Wrapup",
+          string ss = string(EntryName.orig_str);
+	  throw BI_MissingRequired(string("BlockEntry::Wrapup for block ") + ss,
 				   le->EntryName.orig_str,
 				   le->m_numTimesRequired,
 				   le->m_numTimesProcessed);

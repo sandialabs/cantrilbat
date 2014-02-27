@@ -35,7 +35,7 @@ public:
    * @param procedure Procedure where it happened
    * @param msg       Msg to be printed out
    */
-  BI_InputError(std::string procedure, std::string msg);
+  explicit BI_InputError(std::string procedure, std::string msg);
 
   //! Returns the error message string
   std::string errorMessage() const;

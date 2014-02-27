@@ -32,7 +32,7 @@ namespace BEInput {
     (void) sprintf(buf, "%d", n);
     return std::string(buf);
   };
-
+  //==============================================================================================================
   BI_InputError::BI_InputError(std::string procedure, std::string msg) :
     m_procedure_msg(procedure + ": " + msg)
   {
@@ -80,13 +80,13 @@ namespace BEInput {
 		  " Expected -> \"" + expected + "\"<-")
   {
   }
-
+  //===========================================================================================================
   BI_MissingRequired::BI_MissingRequired(std::string procedure,
 					 std::string lineTok,
 					 int numR, int numP) :
     BI_InputError(procedure, 
 		  "\tMissing Required Number of Line Entries ->\"" 
-		  + lineTok + "\"<- :" + integerToStr(numR) + " : " + 
+		  + lineTok + "\"<- : Required = " + integerToStr(numR) + " : Processed = " + 
 		  integerToStr(numP))
   {
   }
