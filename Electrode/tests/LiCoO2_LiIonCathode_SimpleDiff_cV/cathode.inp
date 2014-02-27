@@ -1,0 +1,114 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion",  "CSTR_MCMBAnode" ,
+                            "CSTR_LiCoO2Cathode", "CSTR", "SimpleDiff"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimpleDiff
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+       PF6-  = 0.08
+       ECDMC = 0.84
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Margules_1
+   Phase Moles = 1.0E-10
+   start block Bath Species Mole Fraction
+       CoO2 = 0.4
+       LiCoO2 =  0.6
+   End block Bath Species Mole Fraction
+
+   Start block Capacity Left Coefficients
+       CoO2   = 1.0
+       LiCoO2 = 0.0 
+   End block Capacity Left Coefficients
+
+   Start block Capacity At Zero DoD Coefficients
+       CoO2   = 1.0
+       LiCoO2 = 1.0 
+   End block Capacity At Zero DoD Coefficients
+
+end block Bath Specification for Phase LiCoO2_Margules_1
+
+
+!start block Relative Extent Boundaries
+!   start block phase number 0
+!     Relative extent beginning boundary = 0.55
+!     Relative extent ending boundary = 0.94
+!   end block phase number
+!end block Relative Extent Boundaries
+
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
