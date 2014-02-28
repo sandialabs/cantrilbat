@@ -1144,7 +1144,10 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     } else if (electrodeModelType_ == 5) {
         setCapacityCoeff_MCMB();
     } else {
-	setCapacityCoeffFromInput(ei);
+	Electrode_Types_Enum  etype = electrodeType();
+	if (etype != MP_RXNEXTENT_ET && etype != MP_RXNEXTENT_FES2_ET ) {
+	    setCapacityCoeffFromInput(ei);
+	}
     }
 
     if (ei->RelativeCapacityDischargedPerMole != -1) {
