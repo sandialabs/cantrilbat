@@ -35,6 +35,7 @@ namespace Cantera
 ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     indexRegion_(0),
+    numRadialCells_(3),
     phaseIndeciseKRsolidPhases_(0),
     solidDiffusionModel_(0),
     diffusionCoeffSpecies_(0),
@@ -51,6 +52,7 @@ ELECTRODE_RadialRegion_KEY_INPUT::~ELECTRODE_RadialRegion_KEY_INPUT()
 ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(const ELECTRODE_RadialRegion_KEY_INPUT& right) :
     ELECTRODE_KEY_INPUT(right),
     indexRegion_(right.indexRegion_),
+    numRadialCells_(right.numRadialCells_),
     phaseIndeciseKRsolidPhases_(right.phaseIndeciseKRsolidPhases_),
     solidDiffusionModel_(right.solidDiffusionModel_),
     diffusionCoeffSpecies_(0),
@@ -70,6 +72,7 @@ ELECTRODE_RadialRegion_KEY_INPUT::operator=(const ELECTRODE_RadialRegion_KEY_INP
     ELECTRODE_KEY_INPUT::operator=(right);
 
     indexRegion_                    = right.indexRegion_;
+    numRadialCells_                 = right.numRadialCells_;
     phaseIndeciseKRsolidPhases_     = right.phaseIndeciseKRsolidPhases_;
     solidDiffusionModel_            = right.solidDiffusionModel_;
     diffusionCoeffSpecies_          = right.diffusionCoeffSpecies_;
@@ -84,24 +87,37 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
      * Obtain the number of regions
      */
     LE_OneInt* s1 = new LE_OneInt("Index of the Region", &(indexRegion_), 0, "indexRegion");
-    s1->set_default(1);
+    s1->set_default(0);
     cf->addLineEntry(s1);
-    BaseEntry::set_SkipUnknownEntries(true);
+
+    /* --------------------------------------------------------------
+     *   numRadialCells
+     *  Input the number of cells in the region
+     */
+    LE_OneInt* nRm = new LE_OneInt("Number of Cells in Region", &(numRadialCells_), 0, "numRadialCells");
+    nRm->set_default(3);
+    cf->addLineEntry(nRm);
 
     /*
      * Obtain the number of regions
      */
+
+
     LE_OneInt* sdm = new LE_OneInt("Solid Diffusion Model", &(solidDiffusionModel_), 0, "solidDiffusionModel");
     sdm->set_default(0);
     cf->addLineEntry(sdm);
     BaseEntry::set_SkipUnknownEntries(true);
 
     /*
-     * Name of the ThermoPhase phase associated with the region
-     * Note we will expand this when we go to multiple phase regions.
+     * NAME OF THE THERMOPHASE PHASE ASSOCIATED WITH THE REGION
+     * NOTE WE WILL EXPAND THIS WHEN WE GO TO MULTIPLE PHASE REGIONS.
      */
-    LE_OneStr* pname = new LE_OneStr("Phase Name", &(phaseName_), 1, 1, 1, "phaseName");
-    cf->addLineEntry(pname);
+    LE_OneStr *pnames = new LE_OneStr("Phase Names within Distributed region", &phaseName_, 1, 1, 0, "phaseNames");
+
+      //  LE_MultiCStr* pnames = new LE_MultiCStr("Phase Names within Distributed region", 1, 10, 1, 1, "phaseNames");
+
+    cf->addLineEntry(pnames);
+
     BaseEntry::set_SkipUnknownEntries(true);
 
 }

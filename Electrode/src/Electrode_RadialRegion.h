@@ -57,6 +57,9 @@ public:
      */
     int indexRegion_;
 
+    //! Number of radial cells in the region
+    int numRadialCells_;
+
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     //! within the current region
     /*!
@@ -85,7 +88,6 @@ public:
      */
     std::string phaseName_;
 
-
     //! Diffusion coefficient in the outer region of a two region spherical model
     /*!
      *  We identify the solids by Zones, which are related to regions. Generally, when the extent of reaction is
@@ -96,7 +98,6 @@ public:
      *  Length = numRegions_ + 1
      *  Units = m**2 s-1
      */
-
     std::vector<double> diffusionCoeffSpecies_;   
 
     //! Default diffusion coefficients for species within the region
@@ -106,7 +107,7 @@ public:
     double defaultDiffusionCoeff_;
 };
 
-    class Electrode_RadialDiffRegions;
+class Electrode_RadialDiffRegions;
 
 //! This class is a derived class used to model phase-change or intercalating electrodes
 /*!

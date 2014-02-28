@@ -119,13 +119,18 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
     /*
      * Put a potential loop over regions here
      */ 
-
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     BE_MultiBlockNested* be_rdr = new BE_MultiBlockNested("Radial Diffusion Region", &numRegionsEntered_, 1, cf);
-
 
     cf->addSubBlock(be_rdr);
 
     int iCell = 0;
+    // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    LE_OneInt* s1 = new LE_OneInt("Index of the Region", 0, 0, "indexRegion");
+    s1->set_default(0);
+    be_rdr->addLineEntry(s1);
+
+
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     LE_OneInt* nRm = new LE_OneInt("Number of Cells in Region", &(numRadialCellsRegions_[iCell]), 0, "numRadialCellsRegions");
     nRm->set_default(5);
@@ -133,9 +138,8 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
 
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    LE_MultiCStr* pid = new LE_MultiCStr("Phase Name within Distributed region", 0, 10, 1, 1, "phaseNames");
+    LE_MultiCStr* pid = new LE_MultiCStr("Phase Names within Distributed region", 0, 10, 1, 1, "phaseNames");
     be_rdr->addLineEntry(pid);
-
 
     /*
      * Make the diffusion coefficients optional unless the solid diffusion model is turned on
@@ -164,8 +168,6 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
 //====================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child3(BEInput::BlockEntry* cf)
 {
-
-
 }
 //======================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntry* cf)
@@ -194,7 +196,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
     BEInput::LineEntry *le = be_rdr->searchLineEntry("Number of Cells in Region");
     BEInput::LE_OneInt* le_int = dynamic_cast<LE_OneInt*>(le);
 
-    BEInput::LineEntry *lepn = be_rdr->searchLineEntry("Phase Name within Distributed Region");
+    BEInput::LineEntry *lepn = be_rdr->searchLineEntry("Phase Names within Distributed Region");
     BEInput::LE_MultiCStr* lepn_int = dynamic_cast<LE_MultiCStr*>(lepn);
    
     int iCell = 0;
