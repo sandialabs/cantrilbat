@@ -3504,13 +3504,13 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     if (subTimeStep) {
         printf("      Electrode_SimpleDiff at intermediate-step time final = %12.5E\n", tfinal_);
         printf("                              intermediate-step time init  = %12.5E\n", tinit_);
-	printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
-               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
+	printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
+               electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
         printf("      Electrode_SimpleDiff at time final = %12.5E\n", t_final_final_);
         printf("                              time init  = %12.5E\n", t_init_init_);
-	printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
-               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
+	printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
+               electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);

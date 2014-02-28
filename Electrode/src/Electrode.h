@@ -2830,17 +2830,19 @@ protected:
 
 public:
 
-    //! Electrode model type
+    //! Electrode Chemistry model type
     /*!
-     *   Electrode model type is used to set the capacity coefficients
+     *   Electrode Chemistry model type is used to set the capacity coefficients for specific chemical mechanisms.
+     *   This is used as an expedient to set up some problems. Names of phases are used to trigger the usage
+     *   of this. The default is not to use this expedient.
      *
-     *      0  Undetermined type
+     *      0  Undetermined chemistry model type
      *      1  LiSi anode with an initial composition of pure Li13Si4(S) and a final state of pure Si(s).
      *      2  FeS2 anode with an initial composition of pure FeS2(S) and a final state of Li2S(s) and Fe(s).
      *      3  LiSi anode with one plateau and interstitial diffusion model
      *      4  FeS2 cathode with a simplified thermo
      */
-    int electrodeModelType_;
+    int electrodeChemistryModelType_;
 
     //! Domain number of the electrode object
     /*!

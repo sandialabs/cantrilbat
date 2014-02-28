@@ -2245,14 +2245,14 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
         printf("      Electrode at intermediate-step time final = %g\n", tfinal_);
         printf("                   intermediate-step time init  = %g                deltaT = %g\n",
                tinit_, deltaTsubcycleCalc_);
-        printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
-               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
+        printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
+               electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
         printf("      Electrode at time final = %g\n", t_final_final_);
         printf("                   time init  = %g                         deltaTglobal = %g\n", t_init_init_,
                t_final_final_ - t_init_init_);
-        printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
-               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
+        printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
+               electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("\n");

@@ -38,7 +38,7 @@ namespace Cantera
  */
 double Electrode::capacity(int platNum) const
 {
-    if (electrodeModelType_ == 2) {
+    if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
     double capZeroDoD = 0.0;
@@ -77,7 +77,7 @@ double Electrode::capacityInitial(int platNum) const
  */
 double Electrode::capacityLeft(int platNum, double voltsMax, double voltsMin) const
 {
-    if (electrodeModelType_ == 2) {
+    if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
     double capLeft = 0.0;

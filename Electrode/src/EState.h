@@ -290,7 +290,7 @@ protected:
      *      3  LiSi anode with one plateau and interstitial diffusion model
      *      4  FeS2 cathode with a simplified thermo
      */
-    int electrodeModelType_;
+    int electrodeChemistryModelType_;
 
     //! Domain number of the electrode object
     /*!

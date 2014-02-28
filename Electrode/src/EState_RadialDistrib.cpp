@@ -179,7 +179,7 @@ XML_Node*   EState_RadialDistrib::writeIdentificationToXML() const
 
     ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
     ctml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
-    ctml::addInteger(*x, "electrodeModelType",  electrodeModelType_);
+    ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
 

@@ -4431,8 +4431,8 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
                t_final_final_ - t_init_init_);
     }
     printf("\n");
-    printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
-           electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
+    printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
+           electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     printf("   ==============================================================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);
     printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);

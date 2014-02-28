@@ -175,7 +175,7 @@ Electrode::Electrode() :
                 xmlStateData_final_final_(0),
                 eState_final_(0),
                 baseNameSoln_("soln"),
-                electrodeModelType_(0),
+                electrodeChemistryModelType_(0),
                 electrodeDomainNumber_(0),
                 electrodeCellNumber_(0),
                 counterNumberIntegrations_(0),
@@ -284,7 +284,7 @@ Electrode::Electrode(const Electrode& right) :
                 xmlStateData_final_final_(0),
                 eState_final_(0),
                 baseNameSoln_("soln"),
-                electrodeModelType_(0),
+                electrodeChemistryModelType_(0),
                 electrodeDomainNumber_(0),
                 electrodeCellNumber_(0),
                 counterNumberIntegrations_(0),
@@ -451,7 +451,7 @@ Electrode& Electrode::operator=(const Electrode& right)
 
     baseNameSoln_ = right.baseNameSoln_;
 
-    electrodeModelType_ = right.electrodeModelType_;
+    electrodeChemistryModelType_ = right.electrodeChemistryModelType_;
     electrodeDomainNumber_ = right.electrodeDomainNumber_;
     electrodeCellNumber_ = right.electrodeCellNumber_;
     printLvl_ = right.printLvl_;
@@ -1075,22 +1075,22 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     for (iph = 0; iph < m_NumTotPhases; iph++) {
 
         if (PhaseNames_[iph] == "LiFeS_X_combo") {
-            electrodeModelType_ = 4;
+            electrodeChemistryModelType_ = 4;
             break;
         }
         if (PhaseNames_[iph] == "FeS2(S)") {
-            electrodeModelType_ = 2;
+            electrodeChemistryModelType_ = 2;
         }
         if (PhaseNames_[iph] == "Li13Si4(S)") {
-            if (electrodeModelType_ != 3) {
-                electrodeModelType_ = 1;
+            if (electrodeChemistryModelType_ != 3) {
+                electrodeChemistryModelType_ = 1;
             }
         }
         if (PhaseNames_[iph] == "Li7Si3_Interstitial") {
-            electrodeModelType_ = 3;
+            electrodeChemistryModelType_ = 3;
         }
         if (PhaseNames_[iph] == "MCMB_Interstitials_anode") {
-            electrodeModelType_ = 5;
+            electrodeChemistryModelType_ = 5;
         }
     }
 
@@ -1099,7 +1099,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  we expect from the model type.
      */
     int nRSD = RSD_List_.size();
-    if (electrodeModelType_ == 1) {
+    if (electrodeChemistryModelType_ == 1) {
         pmatch(PhaseNames_, 2, "Li13Si4(S)");
         pmatch(PhaseNames_, 3, "Li7Si3(S)");
         if (nRSD > 1) {
@@ -1109,7 +1109,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             pmatch(PhaseNames_, 5, "Si(S)");
         }
     }
-    if (electrodeModelType_ == 2) {
+    if (electrodeChemistryModelType_ == 2) {
         pmatch(PhaseNames_, 2, "FeS2(S)");
         pmatch(PhaseNames_, 3, "Li3Fe2S4(S)");
         if (nRSD > 1) {
@@ -1121,7 +1121,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             pmatch(PhaseNames_, 7, "Fe(S)");
         }
     }
-    if (electrodeModelType_ == 4) {
+    if (electrodeChemistryModelType_ == 4) {
         pmatch(PhaseNames_, 2, "FeS2(S)");
         pmatch(PhaseNames_, 3, "Li3Fe2S4(S)");
         if (nRSD > 1) {
@@ -1133,15 +1133,15 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
 
-    if (electrodeModelType_ == 1) {
+    if (electrodeChemistryModelType_ == 1) {
         setCapacityCoeff_LiSi();
-    } else if (electrodeModelType_ == 2) {
+    } else if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
-    } else if (electrodeModelType_ == 3) {
+    } else if (electrodeChemistryModelType_ == 3) {
         setCapacityCoeff_LiSi_Li();
-    } else if (electrodeModelType_ == 4) {
+    } else if (electrodeChemistryModelType_ == 4) {
         setCapacityCoeff_FeS2_Combo();
-    } else if (electrodeModelType_ == 5) {
+    } else if (electrodeChemistryModelType_ == 5) {
         setCapacityCoeff_MCMB();
     } else {
 	Electrode_Types_Enum  etype = electrodeType();
@@ -4515,14 +4515,14 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
         printf("      Electrode at intermediate-step time final = %g\n", tfinal_);
         printf("                   intermediate-step time init  = %g                deltaT = %g\n", tinit_,
                deltaTsubcycle_);
-        printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
-               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
+        printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
+               electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
         printf("      Electrode at time final = %g\n", t_final_final_);
         printf("                   time init  = %g                         deltaTglobal = %g\n", t_init_init_,
                t_final_final_ - t_init_init_);
-        printf("                    Model Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
-               electrodeModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
+        printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
+               electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("          Voltage (phiMetal - phiElectrolyte) = %12.5E volts\n", deltaVoltage_);

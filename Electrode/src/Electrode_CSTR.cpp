@@ -734,7 +734,7 @@ double Electrode_CSTR::openCircuitVoltage_final_Region(int xRegion)
  */
 double Electrode_CSTR::capacity(int platNum) const
 {
-    if (electrodeModelType_ == 2) {
+    if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
     double unFillable = 0.0;
@@ -775,7 +775,7 @@ double Electrode_CSTR::capacity(int platNum) const
  */
 double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMin) const
 {
-    if (electrodeModelType_ == 2) {
+    if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
     int lastRegionBoundary = RelativeExtentRxn_RegionBoundaries_.size() - 1;

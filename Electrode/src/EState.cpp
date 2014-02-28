@@ -36,7 +36,7 @@ EState::EState() :
     phaseVoltages_(0),
     temperature_(298.15),
     pressure_(OneAtm),
-    electrodeModelType_(0),
+    electrodeChemistryModelType_(0),
     electrodeDomainNumber_(-1),
     electrodeCellNumber_(-1),
     particleNumberToFollow_(0.0),
@@ -72,7 +72,7 @@ EState::EState(const EState& right) :
     phaseVoltages_(0),
     temperature_(298.15),
     pressure_(OneAtm),
-    electrodeModelType_(0),
+    electrodeChemistryModelType_(0),
     electrodeDomainNumber_(-1),
     electrodeCellNumber_(-1),
     particleNumberToFollow_(0.0),
@@ -118,7 +118,7 @@ EState& EState::operator=(const EState& right)
     phaseVoltages_                     = right.phaseVoltages_;
     temperature_                       = right.temperature_;
     pressure_                          = right.pressure_;
-    electrodeModelType_                = right.electrodeModelType_;
+    electrodeChemistryModelType_       = right.electrodeChemistryModelType_;
     electrodeDomainNumber_             = right.electrodeDomainNumber_;
     electrodeCellNumber_               = right.electrodeCellNumber_;
     particleNumberToFollow_            = right.particleNumberToFollow_;
@@ -161,7 +161,7 @@ int EState::initialize(const Cantera::Electrode* const e)
 {
     eRef_ = e;
     electrodeTypeString_    = Electrode_Types_Enum_to_string(e->electrodeType());
-    electrodeModelType_     = e->electrodeModelType_;
+    electrodeChemistryModelType_  = e->electrodeChemistryModelType_;
     electrodeDomainNumber_  = e->electrodeDomainNumber_;
     electrodeCellNumber_    = e->electrodeCellNumber_;
 
@@ -179,7 +179,7 @@ XML_Node*   EState::writeIdentificationToXML() const
 
     ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
     ctml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
-    ctml::addInteger(*x, "electrodeModelType",  electrodeModelType_);
+    ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
 
@@ -202,7 +202,7 @@ XML_Node*   EState::writeStateToXML() const
 
     ctml::addFloat(*x, "temperature",  temperature_, "Kelvin");
     ctml::addFloat(*x, "pressure",  pressure_, "Pa");
-    ctml::addInteger(*x, "electrodeModelType",  electrodeModelType_);
+    ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
     ctml::addFloat(*x, "particleNumberToFollow",  particleNumberToFollow_, "");
@@ -255,7 +255,7 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEState)
     }
 
     electrodeCapacityType_ = (Cantera::Electrode_Capacity_Type_Enum) ctml::getInteger(xmlEState, "electrodeCapacityType");
-    electrodeModelType_ = ctml::getInteger(xmlEState, "electrodeModelType");
+    electrodeChemistryModelType_ = ctml::getInteger(xmlEState, "electrodeModelType");
     electrodeDomainNumber_ = ctml::getInteger(xmlEState, "electrodeDomainNumber");
     electrodeCellNumber_ = ctml::getInteger(xmlEState, "electrodeCellNumber");
 }
@@ -271,7 +271,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     ctml::getFloatArray(xmlEState, phaseVoltages_, true, "volts", "phaseVoltages");
     temperature_ = ctml::getFloat(xmlEState, "temperature", "toSI");
     pressure_ = ctml::getFloat(xmlEState, "pressure", "toSI");
-    electrodeModelType_ = ctml::getInteger(xmlEState, "electrodeModelType");
+    electrodeChemistryModelType_ = ctml::getInteger(xmlEState, "electrodeModelType");
     electrodeDomainNumber_ = ctml::getInteger(xmlEState, "electrodeDomainNumber");
     electrodeCellNumber_ = ctml::getInteger(xmlEState, "electrodeCellNumber");
     particleNumberToFollow_ = ctml::getFloat(xmlEState, "particleNumberToFollow", "toSI");
@@ -299,7 +299,7 @@ void EState::copyElectrode_intoState(const Cantera::Electrode* const e)
     phaseVoltages_                     = e->phaseVoltages_;
     temperature_                       = e->temperature_;
     pressure_                          = e->pressure_;
-    electrodeModelType_                = e->electrodeModelType_;
+    electrodeChemistryModelType_       = e->electrodeChemistryModelType_;
     electrodeDomainNumber_             = e->electrodeDomainNumber_;
     electrodeCellNumber_               = e->electrodeCellNumber_;
     particleNumberToFollow_            = e->particleNumberToFollow_;
@@ -354,7 +354,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->phaseVoltages_                     = phaseVoltages_;
     e->temperature_                       = temperature_;
     e->pressure_                          = pressure_;
-    e->electrodeModelType_                = electrodeModelType_;
+    e->electrodeChemistryModelType_                = electrodeChemistryModelType_;
     e->electrodeDomainNumber_             = electrodeDomainNumber_;
     e->electrodeCellNumber_               = electrodeCellNumber_;
     e->particleNumberToFollow_            = particleNumberToFollow_;
