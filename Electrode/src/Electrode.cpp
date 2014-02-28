@@ -1145,7 +1145,11 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         setCapacityCoeff_MCMB();
     } else {
 	Electrode_Types_Enum  etype = electrodeType();
-	if (etype != MP_RXNEXTENT_ET && etype != MP_RXNEXTENT_FES2_ET ) {
+	if (etype != MP_RXNEXTENT_ET && etype != MP_RXNEXTENT_FES2_ET &&
+            etype != CSTR_ZN_ANODE_ET &&
+            etype != CSTR_MCMB_ANODE_ET &&
+            etype != CSTR_LICO2_CATHODE_ET &&
+            etype != MP_RXNEXTENT_LISI_ET ) {
 	    setCapacityCoeffFromInput(ei);
 	}
     }

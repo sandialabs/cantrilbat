@@ -1202,7 +1202,7 @@ oc[0] = 3.98922
    ==============================================================================================
       Electrode at time final = 0
                    time init  = 0                         deltaTglobal = 0
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1518,7 +1518,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.02
                    time init  = 0                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 20
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 20
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1710,7 +1710,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.04
                    time init  = 0.02                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 31
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 31
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1891,7 +1891,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.06
                    time init  = 0.04                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 42
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 42
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2072,7 +2072,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.08
                    time init  = 0.06                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 53
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 53
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2253,7 +2253,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.1
                    time init  = 0.08                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 64
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 64
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2434,7 +2434,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.12
                    time init  = 0.1                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 75
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 75
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2615,7 +2615,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.14
                    time init  = 0.12                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 86
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 86
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2796,7 +2796,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.16
                    time init  = 0.14                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 97
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 97
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2977,7 +2977,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.18
                    time init  = 0.16                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 108
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 108
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3158,7 +3158,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.2
                    time init  = 0.18                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 119
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 119
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3339,7 +3339,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.22
                    time init  = 0.2                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 130
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 130
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3520,7 +3520,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.24
                    time init  = 0.22                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 141
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 141
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3701,7 +3701,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.26
                    time init  = 0.24                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 152
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 152
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3882,7 +3882,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.28
                    time init  = 0.26                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 163
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 163
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4063,7 +4063,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.3
                    time init  = 0.28                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 174
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 174
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4244,7 +4244,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.32
                    time init  = 0.3                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 185
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 185
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4425,7 +4425,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.34
                    time init  = 0.32                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 196
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 196
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4606,7 +4606,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.36
                    time init  = 0.34                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 207
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 207
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4787,7 +4787,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.38
                    time init  = 0.36                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 218
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 218
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4968,7 +4968,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.4
                    time init  = 0.38                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 229
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 229
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5149,7 +5149,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.42
                    time init  = 0.4                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 240
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 240
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5330,7 +5330,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.44
                    time init  = 0.42                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 251
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 251
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5511,7 +5511,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.46
                    time init  = 0.44                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 262
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 262
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5692,7 +5692,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.48
                    time init  = 0.46                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 273
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 273
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5873,7 +5873,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.5
                    time init  = 0.48                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 284
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 284
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6054,7 +6054,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.52
                    time init  = 0.5                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 295
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 295
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6235,7 +6235,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.54
                    time init  = 0.52                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 306
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 306
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6416,7 +6416,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.56
                    time init  = 0.54                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 317
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 317
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6597,7 +6597,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.58
                    time init  = 0.56                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 328
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 328
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6778,7 +6778,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.6
                    time init  = 0.58                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 339
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 339
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6959,7 +6959,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.62
                    time init  = 0.6                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 350
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 350
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7140,7 +7140,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.64
                    time init  = 0.62                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 361
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 361
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7321,7 +7321,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.66
                    time init  = 0.64                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 372
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 372
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7502,7 +7502,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.68
                    time init  = 0.66                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 383
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 383
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7683,7 +7683,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.7
                    time init  = 0.68                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 394
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 394
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7864,7 +7864,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.72
                    time init  = 0.7                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 405
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 405
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8045,7 +8045,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.74
                    time init  = 0.72                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 416
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 416
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8226,7 +8226,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.76
                    time init  = 0.74                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 427
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 427
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8407,7 +8407,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.78
                    time init  = 0.76                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 438
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 438
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8588,7 +8588,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.8
                    time init  = 0.78                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 449
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 449
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8769,7 +8769,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.82
                    time init  = 0.8                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 460
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 460
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8950,7 +8950,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.84
                    time init  = 0.82                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 471
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 471
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9131,7 +9131,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.86
                    time init  = 0.84                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 482
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 482
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9312,7 +9312,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.88
                    time init  = 0.86                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 493
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 493
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9493,7 +9493,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.9
                    time init  = 0.88                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 504
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 504
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9674,7 +9674,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.92
                    time init  = 0.9                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 515
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 515
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9855,7 +9855,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.94
                    time init  = 0.92                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 526
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 526
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10036,7 +10036,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.96
                    time init  = 0.94                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 537
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 537
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10217,7 +10217,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 0.98
                    time init  = 0.96                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 548
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 548
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10398,7 +10398,7 @@ RootFind success: convergence achieved
    ==============================================================================================
       Electrode at time final = 1
                    time init  = 0.98                         deltaTglobal = 0.02
-                    Model Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 559
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 559
    ==============================================================================================
 
           Number of external surfaces = 1

@@ -187,7 +187,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode_SimpleDiff at time final =  0.00000E+00
                               time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1.15919e+07 amps
@@ -304,7 +304,7 @@ Electrode_SimpleDiff::fixCapacityBalances_final() report:
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.50000E-04
                               intermediate-step time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 5.2243e+06 amps
@@ -415,7 +415,7 @@ Electrode_SimpleDiff::fixCapacityBalances_final() report:
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.25000E-05
                               intermediate-step time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 8.32038e+06 amps
@@ -526,7 +526,7 @@ Electrode_SimpleDiff::fixCapacityBalances_final() report:
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.37500E-04
                               intermediate-step time init  =  6.25000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 7.03684e+06 amps
@@ -638,7 +638,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 51.1917 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.27500E-04
                               intermediate-step time init  =  1.37500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 4.40135e+06 amps
@@ -750,7 +750,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 98.4693 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.27500E-04
                               intermediate-step time init  =  2.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 3.4716e+06 amps
@@ -862,7 +862,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 35.7535 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.27500E-04
                               intermediate-step time init  =  3.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 3.16502e+06 amps
@@ -974,7 +974,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 10.7367 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.27500E-04
                               intermediate-step time init  =  4.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1.89005e+06 amps
@@ -1086,7 +1086,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 40.7296 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.27500E-04
                               intermediate-step time init  =  5.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1.08971e+06 amps
@@ -1198,7 +1198,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 25.2152 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.27500E-04
                               intermediate-step time init  =  6.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 725367 amps
@@ -1310,7 +1310,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 11.4539 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.27500E-04
                               intermediate-step time init  =  7.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 544830 amps
@@ -1421,7 +1421,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 5.64661 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.27500E-04
                               intermediate-step time init  =  8.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 444356 amps
@@ -1532,7 +1532,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 3.12082 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.02750E-03
                               intermediate-step time init  =  9.27500E-04
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 382972 amps
@@ -1643,7 +1643,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 1.891 beat
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.12750E-03
                               intermediate-step time init  =  1.02750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 342592 amps
@@ -1754,7 +1754,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 1.23226 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.22750E-03
                               intermediate-step time init  =  1.12750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 314186 amps
@@ -1865,7 +1865,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.857931 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.32750E-03
                               intermediate-step time init  =  1.22750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 292671 amps
@@ -1976,7 +1976,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.642951 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.42750E-03
                               intermediate-step time init  =  1.32750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 274867 amps
@@ -2087,7 +2087,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.52698 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.52750E-03
                               intermediate-step time init  =  1.42750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 258668 amps
@@ -2198,7 +2198,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.476081 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.62750E-03
                               intermediate-step time init  =  1.52750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 242745 amps
@@ -2309,7 +2309,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.465841 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.72750E-03
                               intermediate-step time init  =  1.62750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 226473 amps
@@ -2420,7 +2420,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.474753 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.82750E-03
                               intermediate-step time init  =  1.72750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 209847 amps
@@ -2531,7 +2531,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.484122 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.92750E-03
                               intermediate-step time init  =  1.82750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 193296 amps
@@ -2642,7 +2642,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.481096 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.02750E-03
                               intermediate-step time init  =  1.92750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 177415 amps
@@ -2753,7 +2753,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.460747 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.12750E-03
                               intermediate-step time init  =  2.02750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 162737 amps
@@ -2864,7 +2864,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.425003 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.22750E-03
                               intermediate-step time init  =  2.12750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 149603 amps
@@ -2975,7 +2975,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.379421 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.32750E-03
                               intermediate-step time init  =  2.22750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 138146 amps
@@ -3086,7 +3086,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.330032 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.42750E-03
                               intermediate-step time init  =  2.32750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 128339 amps
@@ -3197,7 +3197,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.28154 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.52750E-03
                               intermediate-step time init  =  2.42750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 120054 amps
@@ -3308,7 +3308,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.236857 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.62750E-03
                               intermediate-step time init  =  2.52750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 113116 amps
@@ -3419,7 +3419,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.197369 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.72750E-03
                               intermediate-step time init  =  2.62750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 107336 amps
@@ -3530,7 +3530,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163428 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.82750E-03
                               intermediate-step time init  =  2.72750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 102535 amps
@@ -3641,7 +3641,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134785 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.92750E-03
                               intermediate-step time init  =  2.82750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 98551.1 amps
@@ -3752,7 +3752,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.110902 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.02750E-03
                               intermediate-step time init  =  2.92750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 95244.4 amps
@@ -3863,7 +3863,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0911431 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.17750E-03
                               intermediate-step time init  =  3.02750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 91438.5 amps
@@ -3974,7 +3974,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.154547 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.32750E-03
                               intermediate-step time init  =  3.17750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 88506.3 amps
@@ -4085,7 +4085,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.116706 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.47750E-03
                               intermediate-step time init  =  3.32750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 86235 amps
@@ -4196,7 +4196,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0882812 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.70250E-03
                               intermediate-step time init  =  3.47750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 83830.8 amps
@@ -4307,7 +4307,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134263 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.92750E-03
                               intermediate-step time init  =  3.70250E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 82110.1 amps
@@ -4418,7 +4418,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0916243 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.26500E-03
                               intermediate-step time init  =  3.92750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 80439.6 amps
@@ -4529,7 +4529,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.122515 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.60250E-03
                               intermediate-step time init  =  4.26500E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 79324.3 amps
@@ -4641,7 +4641,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0748767 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.10875E-03
                               intermediate-step time init  =  4.60250E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 39
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 39
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 78305.3 amps
@@ -4753,7 +4753,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0977934 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.86812E-03
                               intermediate-step time init  =  5.10875E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 40
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 40
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 77451.6 amps
@@ -4865,7 +4865,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.150334 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.62750E-03
                               intermediate-step time init  =  5.86812E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 41
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 41
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 76940.8 amps
@@ -4978,7 +4978,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0987074 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.76656E-03
                               intermediate-step time init  =  6.62750E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 42
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 42
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 76477.9 amps
@@ -5091,7 +5091,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.15931 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.90562E-03
                               intermediate-step time init  =  7.76656E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 43
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 43
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 76119 amps
@@ -5203,7 +5203,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.143914 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.00447E-02
                               intermediate-step time init  =  8.90562E-03
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 44
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 44
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 75772.2 amps
@@ -5315,7 +5315,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.151942 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.11837E-02
                               intermediate-step time init  =  1.00447E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 45
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 45
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 75412 amps
@@ -5427,7 +5427,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.15802 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.23228E-02
                               intermediate-step time init  =  1.11837E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 46
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 46
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 75049.1 amps
@@ -5539,7 +5539,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.152623 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.34619E-02
                               intermediate-step time init  =  1.23228E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 47
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 47
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 74707.1 amps
@@ -5651,7 +5651,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.13481 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.46009E-02
                               intermediate-step time init  =  1.34619E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 74410 amps
@@ -5763,7 +5763,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.10803 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.57400E-02
                               intermediate-step time init  =  1.46009E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 74174.2 amps
@@ -5877,7 +5877,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0773618 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.74486E-02
                               intermediate-step time init  =  1.57400E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 50
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 50
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 73950.4 amps
@@ -5991,7 +5991,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.195508 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.91572E-02
                               intermediate-step time init  =  1.74486E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 51
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 51
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 73845 amps
@@ -6105,7 +6105,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.232803 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.08658E-02
                               intermediate-step time init  =  1.91572E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 52
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 52
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 73796.4 amps
@@ -6219,7 +6219,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.231963 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.25744E-02
                               intermediate-step time init  =  2.08658E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 53
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 53
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 73722 amps
@@ -6333,7 +6333,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.188811 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.42830E-02
                               intermediate-step time init  =  2.25744E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 54
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 54
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 73539.6 amps
@@ -6447,7 +6447,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.108527 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.59916E-02
                               intermediate-step time init  =  2.42830E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 55
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 55
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 73181.9 amps
@@ -6561,7 +6561,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.188548 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.77002E-02
                               intermediate-step time init  =  2.59916E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 56
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 56
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 72603.7 amps
@@ -6675,7 +6675,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.292802 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.94088E-02
                               intermediate-step time init  =  2.77002E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 57
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 57
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 71784 amps
@@ -6787,7 +6787,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.397116 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.02630E-02
                               intermediate-step time init  =  2.94088E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 58
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 58
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 71292.2 amps
@@ -6899,7 +6899,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.119109 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.11173E-02
                               intermediate-step time init  =  3.02630E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 59
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 59
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 70733.7 amps
@@ -7011,7 +7011,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.13025 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.19716E-02
                               intermediate-step time init  =  3.11173E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 60
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 60
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 70116.1 amps
@@ -7123,7 +7123,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.140371 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.28259E-02
                               intermediate-step time init  =  3.19716E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 61
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 61
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 69444.8 amps
@@ -7235,7 +7235,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.149316 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.36802E-02
                               intermediate-step time init  =  3.28259E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 62
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 62
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 68725.1 amps
@@ -7347,7 +7347,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.15699 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.45345E-02
                               intermediate-step time init  =  3.36802E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 63
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 63
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 67962.2 amps
@@ -7459,7 +7459,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163349 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.53888E-02
                               intermediate-step time init  =  3.45345E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 64
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 64
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 67161.7 amps
@@ -7571,7 +7571,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.168383 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.62431E-02
                               intermediate-step time init  =  3.53888E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 65
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 65
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 66329.4 amps
@@ -7683,7 +7683,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.172112 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.70974E-02
                               intermediate-step time init  =  3.62431E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 66
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 66
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 65471.2 amps
@@ -7795,7 +7795,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.17458 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.79517E-02
                               intermediate-step time init  =  3.70974E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 67
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 67
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 64593 amps
@@ -7907,7 +7907,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.175853 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.88060E-02
                               intermediate-step time init  =  3.79517E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 68
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 68
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 63700.5 amps
@@ -8019,7 +8019,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.17601 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.96603E-02
                               intermediate-step time init  =  3.88060E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 69
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 69
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 62799.2 amps
@@ -8131,7 +8131,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.175142 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.05146E-02
                               intermediate-step time init  =  3.96603E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 70
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 70
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 61894.4 amps
@@ -8243,7 +8243,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.173345 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.13689E-02
                               intermediate-step time init  =  4.05146E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 71
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 71
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 60991.1 amps
@@ -8355,7 +8355,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.17072 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.22232E-02
                               intermediate-step time init  =  4.13689E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 72
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 72
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 60093.7 amps
@@ -8467,7 +8467,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.167704 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.30775E-02
                               intermediate-step time init  =  4.22232E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 73
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 73
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 59206.4 amps
@@ -8579,7 +8579,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.165551 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.39318E-02
                               intermediate-step time init  =  4.30775E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 74
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 74
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 58333 amps
@@ -8691,7 +8691,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.162729 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.47861E-02
                               intermediate-step time init  =  4.39318E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 75
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 75
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 57476.8 amps
@@ -8803,7 +8803,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.159317 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.56404E-02
                               intermediate-step time init  =  4.47861E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 76
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 76
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 56640.8 amps
@@ -8915,7 +8915,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.155383 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.64947E-02
                               intermediate-step time init  =  4.56404E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 77
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 77
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 55827.5 amps
@@ -9027,7 +9027,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.150989 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.73490E-02
                               intermediate-step time init  =  4.64947E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 78
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 78
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 55039.3 amps
@@ -9139,7 +9139,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146187 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.82033E-02
                               intermediate-step time init  =  4.73490E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 79
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 79
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 54278 amps
@@ -9251,7 +9251,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.141025 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.90576E-02
                               intermediate-step time init  =  4.82033E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 80
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 80
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 53545.4 amps
@@ -9363,7 +9363,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.135542 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.99119E-02
                               intermediate-step time init  =  4.90576E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 81
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 81
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 52842.7 amps
@@ -9475,7 +9475,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.129776 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.07662E-02
                               intermediate-step time init  =  4.99119E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 82
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 82
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 52171.2 amps
@@ -9587,7 +9587,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123759 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.16205E-02
                               intermediate-step time init  =  5.07662E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 83
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 83
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 51531.8 amps
@@ -9699,7 +9699,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.117521 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.24748E-02
                               intermediate-step time init  =  5.16205E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 84
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 84
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 50925.1 amps
@@ -9811,7 +9811,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.111092 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.33291E-02
                               intermediate-step time init  =  5.24748E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 85
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 85
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 50351.7 amps
@@ -9923,7 +9923,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.104499 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.41834E-02
                               intermediate-step time init  =  5.33291E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 86
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 86
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 49812 amps
@@ -10036,7 +10036,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0977727 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.54648E-02
                               intermediate-step time init  =  5.41834E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 87
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 87
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 49070.7 amps
@@ -10149,7 +10149,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.199722 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.67463E-02
                               intermediate-step time init  =  5.54648E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 88
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 88
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 48403.1 amps
@@ -10262,7 +10262,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.176598 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.80277E-02
                               intermediate-step time init  =  5.67463E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 89
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 89
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 47810.1 amps
@@ -10375,7 +10375,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153362 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.93091E-02
                               intermediate-step time init  =  5.80277E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 90
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 90
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 47290.8 amps
@@ -10488,7 +10488,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.130284 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.05906E-02
                               intermediate-step time init  =  5.93091E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 91
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 91
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 46843.5 amps
@@ -10601,7 +10601,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.107649 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.18720E-02
                               intermediate-step time init  =  6.05906E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 92
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 92
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 46465.5 amps
@@ -10714,7 +10714,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0857582 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.37942E-02
                               intermediate-step time init  =  6.18720E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 93
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 93
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 46026.4 amps
@@ -10827,7 +10827,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.138445 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.57164E-02
                               intermediate-step time init  =  6.37942E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 94
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 94
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 45716.7 amps
@@ -10942,7 +10942,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0918968 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.85996E-02
                               intermediate-step time init  =  6.57164E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 95
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 95
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 45464.2 amps
@@ -11057,7 +11057,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.102598 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.14829E-02
                               intermediate-step time init  =  6.85996E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 96
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 96
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 45377.8 amps
@@ -11174,7 +11174,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0932624 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.58077E-02
                               intermediate-step time init  =  7.14829E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 97
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 97
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 45323 amps
@@ -11291,7 +11291,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.256916 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.01326E-02
                               intermediate-step time init  =  7.58077E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 98
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 98
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 44947.9 amps
@@ -11408,7 +11408,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.277422 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.44575E-02
                               intermediate-step time init  =  8.01326E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 99
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 99
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 43822.9 amps
@@ -11521,7 +11521,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.823 beat
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.66199E-02
                               intermediate-step time init  =  8.44575E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 100
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 100
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 42901.2 amps
@@ -11633,7 +11633,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.387419 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.77012E-02
                               intermediate-step time init  =  8.66199E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 101
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 101
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 42338.1 amps
@@ -11745,7 +11745,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121363 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.87824E-02
                               intermediate-step time init  =  8.77012E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 102
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 102
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 41695.8 amps
@@ -11857,7 +11857,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.136304 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.98636E-02
                               intermediate-step time init  =  8.87824E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 103
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 103
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 40984.2 amps
@@ -11969,7 +11969,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.15035 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.09448E-02
                               intermediate-step time init  =  8.98636E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 104
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 104
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 40209.6 amps
@@ -12081,7 +12081,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163207 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.20260E-02
                               intermediate-step time init  =  9.09448E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 105
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 105
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 39378.3 amps
@@ -12193,7 +12193,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.174621 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.31073E-02
                               intermediate-step time init  =  9.20260E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 106
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 106
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 38497.1 amps
@@ -12305,7 +12305,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.184392 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.41885E-02
                               intermediate-step time init  =  9.31073E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 107
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 107
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 37573.5 amps
@@ -12417,7 +12417,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.192375 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.52697E-02
                               intermediate-step time init  =  9.41885E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 108
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 108
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 36615.7 amps
@@ -12529,7 +12529,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.198487 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.63509E-02
                               intermediate-step time init  =  9.52697E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 109
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 109
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 35632.2 amps
@@ -12641,7 +12641,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202705 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.74321E-02
                               intermediate-step time init  =  9.63509E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 110
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 110
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 34631.5 amps
@@ -12753,7 +12753,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205061 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.85134E-02
                               intermediate-step time init  =  9.74321E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 111
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 111
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 33621.9 amps
@@ -12865,7 +12865,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205634 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.95946E-02
                               intermediate-step time init  =  9.85134E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 112
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 112
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 32611.5 amps
@@ -12976,7 +12976,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.204546 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.00000E-01
                               intermediate-step time init  =  9.95946E-02
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 113
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 113
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 32232.4 amps
@@ -13079,7 +13079,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0289529 
    ==============================================================================================
       Electrode_SimpleDiff at time final =  1.00000E-01
                               time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 84414.7 amps
@@ -13190,7 +13190,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0289529 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.01081E-01
                               intermediate-step time init  =  1.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 114
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 114
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 31230.8 amps
@@ -13302,7 +13302,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.200602 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.02162E-01
                               intermediate-step time init  =  1.01081E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 115
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 115
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 30246.2 amps
@@ -13414,7 +13414,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.196191 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.03244E-01
                               intermediate-step time init  =  1.02162E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 116
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 116
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 29282.9 amps
@@ -13526,7 +13526,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.190679 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.04325E-01
                               intermediate-step time init  =  1.03244E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 117
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 117
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 28345.5 amps
@@ -13638,7 +13638,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.184238 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.05406E-01
                               intermediate-step time init  =  1.04325E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 118
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 118
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 27437.6 amps
@@ -13750,7 +13750,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.177034 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.06487E-01
                               intermediate-step time init  =  1.05406E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 119
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 119
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 26562.2 amps
@@ -13862,7 +13862,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.169221 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.07569E-01
                               intermediate-step time init  =  1.06487E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 120
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 120
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 25721.5 amps
@@ -13974,7 +13974,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.160934 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.08650E-01
                               intermediate-step time init  =  1.07569E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 121
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 121
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 24916.8 amps
@@ -14086,7 +14086,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.152294 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.09731E-01
                               intermediate-step time init  =  1.08650E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 122
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 122
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 24149.2 amps
@@ -14198,7 +14198,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.143405 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.10812E-01
                               intermediate-step time init  =  1.09731E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 123
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 123
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 23418.9 amps
@@ -14310,7 +14310,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.134353 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.11893E-01
                               intermediate-step time init  =  1.10812E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 124
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 124
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 22725.8 amps
@@ -14422,7 +14422,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.125212 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.12975E-01
                               intermediate-step time init  =  1.11893E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 125
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 125
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 22069.4 amps
@@ -14534,7 +14534,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.116045 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.14056E-01
                               intermediate-step time init  =  1.12975E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 126
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 126
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 21448.9 amps
@@ -14646,7 +14646,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.106902 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.15137E-01
                               intermediate-step time init  =  1.14056E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 127
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 127
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 20863.3 amps
@@ -14758,7 +14758,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0978261 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.16759E-01
                               intermediate-step time init  =  1.15137E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 128
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 128
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 20054.8 amps
@@ -14870,7 +14870,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.192769 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.18381E-01
                               intermediate-step time init  =  1.16759E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 129
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 129
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 19315.3 amps
@@ -14982,7 +14982,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163616 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.20003E-01
                               intermediate-step time init  =  1.18381E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 130
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 130
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 18640.6 amps
@@ -15094,7 +15094,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.143102 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.21624E-01
                               intermediate-step time init  =  1.20003E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 131
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 131
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 18026 amps
@@ -15206,7 +15206,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.129191 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.23246E-01
                               intermediate-step time init  =  1.21624E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 132
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 132
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 17466.7 amps
@@ -15318,7 +15318,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.116425 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.24868E-01
                               intermediate-step time init  =  1.23246E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 133
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 133
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 16957.9 amps
@@ -15430,7 +15430,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.104755 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.26490E-01
                               intermediate-step time init  =  1.24868E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 134
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 134
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 16495.3 amps
@@ -15543,7 +15543,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.094126 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.28923E-01
                               intermediate-step time init  =  1.26490E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 135
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 135
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 15884.4 amps
@@ -15656,7 +15656,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.183693 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.31355E-01
                               intermediate-step time init  =  1.28923E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 136
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 136
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 15351.2 amps
@@ -15769,7 +15769,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.156162 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.33788E-01
                               intermediate-step time init  =  1.31355E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 137
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 137
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 14885.3 amps
@@ -15882,7 +15882,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.132716 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.36221E-01
                               intermediate-step time init  =  1.33788E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 138
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 138
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 14476.4 amps
@@ -15994,7 +15994,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.161469 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.38654E-01
                               intermediate-step time init  =  1.36221E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 139
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 139
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 14114.8 amps
@@ -16106,7 +16106,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.20238 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.41086E-01
                               intermediate-step time init  =  1.38654E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 140
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 140
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 13791 amps
@@ -16218,7 +16218,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.234849 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.43519E-01
                               intermediate-step time init  =  1.41086E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 141
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 141
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 13496.9 amps
@@ -16330,7 +16330,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.259118 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.45952E-01
                               intermediate-step time init  =  1.43519E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 142
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 142
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 13224.2 amps
@@ -16442,7 +16442,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.275577 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.48385E-01
                               intermediate-step time init  =  1.45952E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 143
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 143
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 12965.1 amps
@@ -16554,7 +16554,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.284753 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.50817E-01
                               intermediate-step time init  =  1.48385E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 144
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 144
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 12712.1 amps
@@ -16666,7 +16666,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.287273 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.53250E-01
                               intermediate-step time init  =  1.50817E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 145
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 145
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 12458 amps
@@ -16778,7 +16778,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.283851 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.55683E-01
                               intermediate-step time init  =  1.53250E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 146
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 146
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 12196.2 amps
@@ -16890,7 +16890,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.275253 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.58116E-01
                               intermediate-step time init  =  1.55683E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 147
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 147
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 11920.7 amps
@@ -17002,7 +17002,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.262288 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.60548E-01
                               intermediate-step time init  =  1.58116E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 148
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 148
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 11626.3 amps
@@ -17114,7 +17114,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.245785 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.62981E-01
                               intermediate-step time init  =  1.60548E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 149
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 149
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 11309.1 amps
@@ -17226,7 +17226,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.226577 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.65414E-01
                               intermediate-step time init  =  1.62981E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 150
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 150
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 10966.5 amps
@@ -17338,7 +17338,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.205483 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.67847E-01
                               intermediate-step time init  =  1.65414E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 151
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 151
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 10597.6 amps
@@ -17450,7 +17450,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.183283 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.70279E-01
                               intermediate-step time init  =  1.67847E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 152
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 152
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 10203 amps
@@ -17562,7 +17562,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.160694 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.72712E-01
                               intermediate-step time init  =  1.70279E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 153
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 153
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 9785.03 amps
@@ -17674,7 +17674,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.138346 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.75145E-01
                               intermediate-step time init  =  1.72712E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 154
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 154
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 9347.52 amps
@@ -17786,7 +17786,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.123747 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.77577E-01
                               intermediate-step time init  =  1.75145E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 155
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 155
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 8895.51 amps
@@ -17898,7 +17898,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.128522 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.80010E-01
                               intermediate-step time init  =  1.77577E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 156
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 156
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 8434.87 amps
@@ -18010,7 +18010,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131429 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.82443E-01
                               intermediate-step time init  =  1.80010E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 157
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 157
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 7971.92 amps
@@ -18122,7 +18122,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.132375 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.84876E-01
                               intermediate-step time init  =  1.82443E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 158
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 158
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 7512.96 amps
@@ -18234,7 +18234,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.131396 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.87308E-01
                               intermediate-step time init  =  1.84876E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 159
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 159
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 7063.97 amps
@@ -18346,7 +18346,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.128638 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.89741E-01
                               intermediate-step time init  =  1.87308E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 160
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 160
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 6630.26 amps
@@ -18458,7 +18458,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.124328 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.92174E-01
                               intermediate-step time init  =  1.89741E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 161
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 161
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 6216.3 amps
@@ -18570,7 +18570,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.118745 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.94607E-01
                               intermediate-step time init  =  1.92174E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 162
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 162
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 5825.56 amps
@@ -18682,7 +18682,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112188 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.97039E-01
                               intermediate-step time init  =  1.94607E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 163
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 163
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 5460.56 amps
@@ -18794,7 +18794,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.104951 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.99472E-01
                               intermediate-step time init  =  1.97039E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 164
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 164
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 5122.86 amps
@@ -18905,7 +18905,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0973054 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.00000E-01
                               intermediate-step time init  =  1.99472E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 165
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 165
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 5050.63 amps
@@ -19008,7 +19008,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00458007
    ==============================================================================================
       Electrode_SimpleDiff at time final =  2.00000E-01
                               time init  =  1.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 13756.6 amps
@@ -19119,7 +19119,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00458007
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.03649E-01
                               intermediate-step time init  =  2.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 166
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 166
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 4616.82 amps
@@ -19231,7 +19231,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.18751 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.07298E-01
                               intermediate-step time init  =  2.03649E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 167
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 167
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 4242.98 amps
@@ -19343,7 +19343,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163067 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.10947E-01
                               intermediate-step time init  =  2.07298E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 168
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 168
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 3924.62 amps
@@ -19455,7 +19455,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139766 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.14596E-01
                               intermediate-step time init  =  2.10947E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 169
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 169
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 3656.5 amps
@@ -19567,7 +19567,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.118083 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.18246E-01
                               intermediate-step time init  =  2.14596E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 170
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 170
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 3432.62 amps
@@ -19679,7 +19679,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0981885 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.23719E-01
                               intermediate-step time init  =  2.18246E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 171
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 171
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 3175.51 amps
@@ -19791,7 +19791,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.164128 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.29193E-01
                               intermediate-step time init  =  2.23719E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 172
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 172
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2975.71 amps
@@ -19903,7 +19903,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121134 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.34667E-01
                               intermediate-step time init  =  2.29193E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 173
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 173
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2813.99 amps
@@ -20015,7 +20015,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.364162 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.37403E-01
                               intermediate-step time init  =  2.34667E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 174
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 174
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2739.74 amps
@@ -20127,7 +20127,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.143601 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.40140E-01
                               intermediate-step time init  =  2.37403E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 175
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 175
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2670.04 amps
@@ -20239,7 +20239,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.179347 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.42877E-01
                               intermediate-step time init  =  2.40140E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 176
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 176
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2603.05 amps
@@ -20351,7 +20351,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.213627 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.45614E-01
                               intermediate-step time init  =  2.42877E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 177
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 177
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2537.23 amps
@@ -20463,7 +20463,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.244993 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.48351E-01
                               intermediate-step time init  =  2.45614E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 178
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 178
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2471.36 amps
@@ -20575,7 +20575,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.272154 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.51088E-01
                               intermediate-step time init  =  2.48351E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 179
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 179
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2404.53 amps
@@ -20687,7 +20687,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.294091 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.53824E-01
                               intermediate-step time init  =  2.51088E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 180
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 180
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2336.15 amps
@@ -20798,7 +20798,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.310135 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.55193E-01
                               intermediate-step time init  =  2.53824E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 181
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 181
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2301.46 amps
@@ -20909,7 +20909,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0806553 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.57246E-01
                               intermediate-step time init  =  2.55193E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 182
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 182
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2248.34 amps
@@ -21020,7 +21020,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.182515 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.59298E-01
                               intermediate-step time init  =  2.57246E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 183
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 183
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2194.05 amps
@@ -21131,7 +21131,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.183516 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.61351E-01
                               intermediate-step time init  =  2.59298E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 184
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 184
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2138.78 amps
@@ -21242,7 +21242,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.18272 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.63403E-01
                               intermediate-step time init  =  2.61351E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 185
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 185
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2082.65 amps
@@ -21353,7 +21353,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.180297 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.65456E-01
                               intermediate-step time init  =  2.63403E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 186
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 186
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2025.85 amps
@@ -21464,7 +21464,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.176449 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.67509E-01
                               intermediate-step time init  =  2.65456E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 187
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 187
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1968.62 amps
@@ -21575,7 +21575,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171395 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.69561E-01
                               intermediate-step time init  =  2.67509E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 188
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 188
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1911.18 amps
@@ -21686,7 +21686,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.16536 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.71614E-01
                               intermediate-step time init  =  2.69561E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 189
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 189
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1853.82 amps
@@ -21797,7 +21797,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158564 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.73667E-01
                               intermediate-step time init  =  2.71614E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 190
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 190
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1796.77 amps
@@ -21908,7 +21908,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.151213 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.75719E-01
                               intermediate-step time init  =  2.73667E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 191
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 191
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1740.31 amps
@@ -22019,7 +22019,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.143494 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.77772E-01
                               intermediate-step time init  =  2.75719E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 192
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 192
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1684.66 amps
@@ -22130,7 +22130,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.135572 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.79824E-01
                               intermediate-step time init  =  2.77772E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 193
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 193
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1630.06 amps
@@ -22241,7 +22241,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127587 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.81877E-01
                               intermediate-step time init  =  2.79824E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 194
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 194
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1576.71 amps
@@ -22352,7 +22352,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.119655 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.83930E-01
                               intermediate-step time init  =  2.81877E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 195
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 195
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1524.77 amps
@@ -22463,7 +22463,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.111871 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.85982E-01
                               intermediate-step time init  =  2.83930E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 196
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 196
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1474.41 amps
@@ -22574,7 +22574,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.104308 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.88035E-01
                               intermediate-step time init  =  2.85982E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 197
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 197
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1425.74 amps
@@ -22685,7 +22685,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0970209 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.91114E-01
                               intermediate-step time init  =  2.88035E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 198
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 198
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1356.87 amps
@@ -22796,7 +22796,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.197368 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.94193E-01
                               intermediate-step time init  =  2.91114E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 199
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 199
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1292.15 amps
@@ -22907,7 +22907,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.176022 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.97272E-01
                               intermediate-step time init  =  2.94193E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 200
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 200
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1231.79 amps
@@ -23018,7 +23018,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.156454 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.00000E-01
                               intermediate-step time init  =  2.97272E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 201
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 201
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1181.74 amps
@@ -23121,7 +23121,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.109853 b
    ==============================================================================================
       Electrode_SimpleDiff at time final =  3.00000E-01
                               time init  =  2.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2486.22 amps
@@ -23231,7 +23231,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.109853 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.02728E-01
                               intermediate-step time init  =  3.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 202
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 202
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1135.12 amps
@@ -23342,7 +23342,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.09854 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.06821E-01
                               intermediate-step time init  =  3.02728E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 203
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 203
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1072.51 amps
@@ -23453,7 +23453,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.192337 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.10913E-01
                               intermediate-step time init  =  3.06821E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 204
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 204
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 1016.61 amps
@@ -23564,7 +23564,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163559 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.15005E-01
                               intermediate-step time init  =  3.10913E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 205
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 205
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 967.128 amps
@@ -23675,7 +23675,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139679 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.19098E-01
                               intermediate-step time init  =  3.15005E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 206
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 206
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 923.43 amps
@@ -23786,7 +23786,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.120506 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.23190E-01
                               intermediate-step time init  =  3.19098E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 207
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 207
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 884.879 amps
@@ -23897,7 +23897,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.105888 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.27283E-01
                               intermediate-step time init  =  3.23190E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 208
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 208
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 850.794 amps
@@ -24008,7 +24008,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0957088 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.33421E-01
                               intermediate-step time init  =  3.27283E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 209
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 209
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 807.521 amps
@@ -24119,7 +24119,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.199835 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.39560E-01
                               intermediate-step time init  =  3.33421E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 210
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 210
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 769.396 amps
@@ -24230,7 +24230,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.200548 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.45698E-01
                               intermediate-step time init  =  3.39560E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 211
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 211
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 734.551 amps
@@ -24341,7 +24341,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219665 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.51837E-01
                               intermediate-step time init  =  3.45698E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 212
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 212
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 700.673 amps
@@ -24452,7 +24452,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.253285 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.57975E-01
                               intermediate-step time init  =  3.51837E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 213
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 213
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 665.849 amps
@@ -24563,7 +24563,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.295507 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.64114E-01
                               intermediate-step time init  =  3.57975E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 214
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 214
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 628.65 amps
@@ -24674,7 +24674,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.338947 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.67183E-01
                               intermediate-step time init  =  3.64114E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 215
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 215
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 609.056 amps
@@ -24785,7 +24785,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0944992 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.71787E-01
                               intermediate-step time init  =  3.67183E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 216
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 216
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 577.847 amps
@@ -24896,7 +24896,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.221089 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.76391E-01
                               intermediate-step time init  =  3.71787E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 217
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 217
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 544.577 amps
@@ -25007,7 +25007,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.23028 be
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.80995E-01
                               intermediate-step time init  =  3.76391E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 218
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 218
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 509.596 amps
@@ -25118,7 +25118,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.234052 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.85599E-01
                               intermediate-step time init  =  3.80995E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 219
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 219
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 473.337 amps
@@ -25229,7 +25229,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.232298 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.90203E-01
                               intermediate-step time init  =  3.85599E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 220
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 220
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 436.347 amps
@@ -25340,7 +25340,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.225455 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.94807E-01
                               intermediate-step time init  =  3.90203E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 221
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 221
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 399.234 amps
@@ -25451,7 +25451,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.214357 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.99411E-01
                               intermediate-step time init  =  3.94807E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 222
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 222
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 362.603 amps
@@ -25561,7 +25561,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.200054 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.00000E-01
                               intermediate-step time init  =  3.99411E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 223
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 223
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 358.016 amps
@@ -25664,7 +25664,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00332619
    ==============================================================================================
       Electrode_SimpleDiff at time final =  4.00000E-01
                               time init  =  3.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 702.126 amps
@@ -25774,7 +25774,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00332619
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.04604E-01
                               intermediate-step time init  =  4.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 224
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 224
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 322.446 amps
@@ -25885,7 +25885,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.181336 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.09208E-01
                               intermediate-step time init  =  4.04604E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 225
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 225
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 288.587 amps
@@ -25996,7 +25996,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163745 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.13812E-01
                               intermediate-step time init  =  4.09208E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 226
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 226
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 256.68 amps
@@ -26107,7 +26107,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146094 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.18416E-01
                               intermediate-step time init  =  4.13812E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 227
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 227
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 226.988 amps
@@ -26218,7 +26218,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.128984 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.23020E-01
                               intermediate-step time init  =  4.18416E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 228
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 228
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 199.668 amps
@@ -26329,7 +26329,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112868 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.27624E-01
                               intermediate-step time init  =  4.23020E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 229
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 229
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 174.787 amps
@@ -26440,7 +26440,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0980264 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.34530E-01
                               intermediate-step time init  =  4.27624E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 230
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 230
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 142.84 amps
@@ -26551,7 +26551,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.177247 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.41435E-01
                               intermediate-step time init  =  4.34530E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 231
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 231
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 115.885 amps
@@ -26662,7 +26662,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.141838 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.48341E-01
                               intermediate-step time init  =  4.41435E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 232
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 232
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 93.4239 amps
@@ -26773,7 +26773,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112614 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.55247E-01
                               intermediate-step time init  =  4.48341E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 233
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 233
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 74.9075 amps
@@ -26884,7 +26884,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0888875 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.65606E-01
                               intermediate-step time init  =  4.55247E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 234
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 234
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 54.2035 amps
@@ -26995,7 +26995,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.141648 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.75965E-01
                               intermediate-step time init  =  4.65606E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 235
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 235
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 38.9627 amps
@@ -27106,7 +27106,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.100047 b
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.86324E-01
                               intermediate-step time init  =  4.75965E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 236
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 236
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 27.8578 amps
@@ -27217,7 +27217,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0703869 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.00000E-01
                               intermediate-step time init  =  4.86324E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 237
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 237
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 18.1433 amps
@@ -27319,7 +27319,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0703869 
    ==============================================================================================
       Electrode_SimpleDiff at time final =  5.00000E-01
                               time init  =  4.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 112.149 amps
@@ -27429,7 +27429,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0703869 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.15538E-01
                               intermediate-step time init  =  5.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 238
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 238
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 11.2213 amps
@@ -27539,7 +27539,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0703869 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.38846E-01
                               intermediate-step time init  =  5.15538E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 239
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 239
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 5.79443 amps
@@ -27648,7 +27648,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0703869 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.73807E-01
                               intermediate-step time init  =  5.38846E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 240
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 240
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 2.63846 amps
@@ -27758,7 +27758,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0703869 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.00000E-01
                               intermediate-step time init  =  5.73807E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 241
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 241
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.855249 amps
@@ -27861,7 +27861,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at time final =  6.00000E-01
                               time init  =  5.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 4.24059 amps
@@ -27970,7 +27970,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.52442E-01
                               intermediate-step time init  =  6.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 242
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 242
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.368058 amps
@@ -28079,7 +28079,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.00000E-01
                               intermediate-step time init  =  6.52442E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 243
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 243
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.11656 amps
@@ -28181,7 +28181,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at time final =  7.00000E-01
                               time init  =  6.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.24845 amps
@@ -28290,7 +28290,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.78663E-01
                               intermediate-step time init  =  7.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 244
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 244
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.0276865 amps
@@ -28399,7 +28399,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.00000E-01
                               intermediate-step time init  =  7.78663E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 245
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 245
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.0139651 amps
@@ -28501,7 +28501,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at time final =  8.00000E-01
                               time init  =  7.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.0247587 amps
@@ -28610,7 +28610,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.00000E-01
                               intermediate-step time init  =  8.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 246
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 246
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.00305855 amps
@@ -28712,7 +28712,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at time final =  9.00000E-01
                               time init  =  8.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.00305855 amps
@@ -28821,7 +28821,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0174724 
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.00000E+00
                               intermediate-step time init  =  9.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 247
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 247
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.000511232 amps
@@ -28924,7 +28924,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00012898
    ==============================================================================================
       Electrode_SimpleDiff at time final =  1.00000E+00
                               time init  =  9.00000E-01
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.2 volts
           Current = 0.000511232 amps
