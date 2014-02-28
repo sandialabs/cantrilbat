@@ -46,7 +46,7 @@ temp_success="1"
 # Create a symbolic link to electrodeCell, if none exists already
 #
 
-PROG_EXE=./LiCoO2_Cathode_3_cc
+PROG_EXE=./LiCoO2_LiIonCathode_SimpleDiff_cV
 if test ! -x ${PROG_EXE}  ; then
   echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
   exit -1

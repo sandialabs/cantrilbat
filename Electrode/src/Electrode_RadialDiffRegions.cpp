@@ -175,11 +175,18 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
     cf->print_usage(0);
     rregions_.clear();
     /*
-     * Create an ELECTRODE_RadialRegion_KEY_INPUT() object and save it in a vector
+     *  Create an ELECTRODE_RadialRegion_KEY_INPUT() object and save it in a vector
+     *  We will use it to store information
      */
     rregions_.push_back( ELECTRODE_RadialRegion_KEY_INPUT() );
+    /*
+     *  Search for the radial diffusion region block in the block entries
+     */
     const BEInput::BlockEntry* be = cf->searchBlockEntry("Radial Diffusion Region", false);
-     const BEInput::BlockEntry* be_cand;
+    const BEInput::BlockEntry* be_cand;
+    /*
+     *  Collect a set of block entries for the Radial Diffusion Rgions
+     */
     std::set<const BlockEntry*> cc = cf->collectBlockEntries("Radial Diffusion Region", false);
 
     std::set<const BlockEntry*>::iterator cc_ptr;
@@ -189,7 +196,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
       if (numT > 0) {
           be = *cc_ptr;
       }
-      be_cand->print_usage(0);     
+      be_cand->print_usage(0);
     }
 
     const BEInput::BE_MultiBlockNested* be_rdr = dynamic_cast<const BE_MultiBlockNested*>(be);
@@ -212,8 +219,9 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
        string sP(cP);
        int k = m_pl->globalPhaseIndex(sP);
        if (k < 0) {
-         printf("error\n");
-         exit(-1); 
+	   throw Electrode_Error("ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2() ERROR",
+				 "Could not find Phase Name within Distributed region, " + sP + 
+				 ", in the list of available phases");
        }
 
        (r0.phaseIndeciseKRsolidPhases_).push_back(k);
