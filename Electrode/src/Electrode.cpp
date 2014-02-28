@@ -1143,6 +1143,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         setCapacityCoeff_FeS2_Combo();
     } else if (electrodeModelType_ == 5) {
         setCapacityCoeff_MCMB();
+    } else {
+	setCapacityCoeffFromInput(ei);
     }
 
     if (ei->RelativeCapacityDischargedPerMole != -1) {

@@ -342,6 +342,67 @@ void Electrode::setCapacityCalcParams(std::string sName, double coeffLeft, doubl
     }
 }
 //====================================================================================================================
+//   Set the capacity coefficients from the input file
+/*
+ *  Here we set :
+ *
+ *  These are set from the input file.
+ *
+ *      capacityLeftSpeciesCoeff_[iGlobSpeciesIndex
+ *	    capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex]
+ *
+ *  It is a fatal error to call this member function if the coefficients have
+ *  not been set from the input file.
+ *
+ *  @param ei   Input Key file object
+ */
+void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
+{
+    double** CapLeftPhase = ei->m_BG->CapLeftCoeffPhases;
+    double** CapZeroDoDPhase = ei->m_BG->CapZeroDoDCoeffPhases;
+    double* capLeft = 0;
+    double* capZero = 0;
+    bool foundNonZeroLeft = false;
+    bool foundNonZeroDoD = false;
+    if (!CapLeftPhase) {
+	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Left coefficients not set in the input file");
+    }
+    if (!CapZeroDoDPhase) {
+	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Zero DoD coefficients not set in the input file");
+    }
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
+            continue;
+        }
+        int kStart = m_PhaseSpeciesStartIndex[iph];
+        ThermoPhase& tp = thermo(iph);
+        int nspPhase = tp.nSpecies();
+	capLeft = CapLeftPhase[iph];
+	capZero = CapZeroDoDPhase[iph];
+        for (int k = 0; k < nspPhase; k++) {
+            int iGlobSpeciesIndex = kStart + k;
+            std::string sss = speciesName(iGlobSpeciesIndex);
+	    capacityLeftSpeciesCoeff_[iGlobSpeciesIndex] =  capLeft[k];
+	    capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = capZero[k];
+	    if (capLeft[k] != 0.0) {
+		foundNonZeroLeft = true;
+		if (capZero[k] == 0.0) {
+		    throw Electrode_Error("Electrode::setCapacityCoeffFromInput(", "Capacity Zero is zero but capacity Left is nonzero");
+		}
+	    }
+	    if (capZero[k] != 0.0) {
+		foundNonZeroDoD = true;
+	    }
+        }
+    }
+    if (!foundNonZeroLeft) {
+        throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Didn't find any nonzero capacity Left coefficients");
+    }   
+    if (!foundNonZeroDoD) {
+        throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Didn't find any nonzero Dod capacity coefficients");
+    }  
+}
+//====================================================================================================================
 void Electrode::setCapacityCoeff_LiSi() const
 {
     double DoDElectronTmp;

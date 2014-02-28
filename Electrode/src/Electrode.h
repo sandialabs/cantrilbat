@@ -1889,10 +1889,24 @@ public:
      */
     void setCapacityCoeff_MCMB() const;
 
+    //! Set the capacity coefficients from the input file
+    /*!
+     *  Here we set :
+     *
+     *  These are set from the input file.
+     *
+     *      capacityLeftSpeciesCoeff_[iGlobSpeciesIndex
+     *	    capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex]
+     *
+     *  It is a fatal error to call this member function if the coefficients have
+     *  not been set from the input file.
+     *
+     *  @param ei   Input Key file object
+     */
+    void setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei);
+
+
     // --------------            EXTRA GLOBAL RXN PATHWAYS  -----------------------------
-
-
-
 
     //! Add a global reaction object to the internal list
     /*!

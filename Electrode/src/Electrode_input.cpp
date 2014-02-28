@@ -1463,9 +1463,9 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
 }
 //=========================================================================================
 //   Initialize some of the fields in the ELECTRODE_KEY_INPUT structure by
-//   post processing some of the data entry
+//   post processing some of the data entries
 /*
- *     Fields that are filled in and changed by this routine
+ *     Fields that are filled in and changed by this routine:
  *         MoleNumber[]
  *         MoleFraction[]
  *
@@ -1476,22 +1476,9 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
 int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
 {
     int nt, iph;
-
     /*
-     * Determine the total number of kmols for each species
-     */
-    /*
-    bool molesSpecified = false;
-    BlockEntry* be = cf->searchBlockEntry("Species Initial KMoles");
-    specifiedBlockKmolSpecies = be->get_NumTimesProcessed();
-    if (specifiedBlockKmolSpecies > 0) {
-        molesSpecified = true;
-    }
-    */
-
-    /*
-     *  Loop Over all phases in the PhaseList, adding these
-     *  formally to the electrodeCell object.
+     *  Loop Over all phases in the PhaseList, locating any default specifications
+     *  of the mole numbers and mole fractions that exist in the input file.
      */
     for (iph = 0; iph < m_pl->nPhases(); iph++) {
         int  kstart = m_pl->getGlobalSpeciesIndex(iph, 0);
@@ -1530,7 +1517,9 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             } else {
                 tphase->getMoleFractions(MoleFraction + kstart);
             }
-
+	    /*
+	     *  Process the Phase Mass entry
+	     */
             if (nt_pmoles == 0) {
                 BEInput::LineEntry*  pbpm = pblock->searchLineEntry("Phase Mass");
                 if (pbpm) {
@@ -1566,11 +1555,12 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                 }
             }
             /*
-             * From the bath gas specification, get the total number of moles of
-             * the bath gas phase
+             * From the bath specification, get the total number of moles of the phase
              */
             double totalMoles = m_BG->PhaseMoles[iph];
-
+	    /*
+	     *  Set the electric potential of the phase 
+	     */
             tphase->setElectricPotential(PotentialPLPhases[iph]);
             /*
              *  Setup the global MoleNumber array in the Electrode object
