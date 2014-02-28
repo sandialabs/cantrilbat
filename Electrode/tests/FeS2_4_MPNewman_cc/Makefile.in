@@ -18,6 +18,11 @@
 
 PROGRAM = FeS2_4_MPNewman_cc
 
+BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv
+
+DATA_FILES = FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml  LiKCl_recipmoltenSalt.xml \
+            cathode.inp Li_Liquid.xml  metal_Li_LiCl_electrons.xml
+
 OBJ = $(PROGRAM).o
 
 ##########################################################################
@@ -127,7 +132,12 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(PROGRAM) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(PROGRAM)
 	./runtest
 
 rebaseline:

@@ -1311,7 +1311,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at time final = 1
                    time init  = 1                         deltaTglobal = 0
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1409,7 +1409,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.01161
                    intermediate-step time init  = 1                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1507,7 +1507,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.02322
                    intermediate-step time init  = 1.01161                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1605,7 +1605,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.03483
                    intermediate-step time init  = 1.02322                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1703,7 +1703,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.04645
                    intermediate-step time init  = 1.03483                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1801,7 +1801,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.05806
                    intermediate-step time init  = 1.04645                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1899,7 +1899,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.06967
                    intermediate-step time init  = 1.05806                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1997,7 +1997,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.08128
                    intermediate-step time init  = 1.06967                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2095,7 +2095,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.09289
                    intermediate-step time init  = 1.08128                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2194,7 +2194,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.1045
                    intermediate-step time init  = 1.09289                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2293,7 +2293,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.11612
                    intermediate-step time init  = 1.1045                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2392,7 +2392,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.12773
                    intermediate-step time init  = 1.11612                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2491,7 +2491,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.13934
                    intermediate-step time init  = 1.12773                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2590,7 +2590,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.15095
                    intermediate-step time init  = 1.13934                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2689,7 +2689,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.16256
                    intermediate-step time init  = 1.15095                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2788,7 +2788,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.17417
                    intermediate-step time init  = 1.16256                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2887,7 +2887,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.18579
                    intermediate-step time init  = 1.17417                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2986,7 +2986,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.1974
                    intermediate-step time init  = 1.18579                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3084,7 +3084,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.2
                    intermediate-step time init  = 1.1974                deltaT = 0.00260175
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3175,7 +3175,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at time final = 1.2
                    time init  = 1                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3274,7 +3274,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.21161
                    intermediate-step time init  = 1.2                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3373,7 +3373,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.22322
                    intermediate-step time init  = 1.21161                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3472,7 +3472,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.23483
                    intermediate-step time init  = 1.22322                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3571,7 +3571,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.24645
                    intermediate-step time init  = 1.23483                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3670,7 +3670,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.25806
                    intermediate-step time init  = 1.24645                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3769,7 +3769,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.26967
                    intermediate-step time init  = 1.25806                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3868,7 +3868,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.28128
                    intermediate-step time init  = 1.26967                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3967,7 +3967,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.29289
                    intermediate-step time init  = 1.28128                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4066,7 +4066,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.3045
                    intermediate-step time init  = 1.29289                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4165,7 +4165,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.31612
                    intermediate-step time init  = 1.3045                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4264,7 +4264,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.32773
                    intermediate-step time init  = 1.31612                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4363,7 +4363,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.33934
                    intermediate-step time init  = 1.32773                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4462,7 +4462,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.35095
                    intermediate-step time init  = 1.33934                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4561,7 +4561,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.36256
                    intermediate-step time init  = 1.35095                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4660,7 +4660,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.37417
                    intermediate-step time init  = 1.36256                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4759,7 +4759,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.38579
                    intermediate-step time init  = 1.37417                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4858,7 +4858,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.3974
                    intermediate-step time init  = 1.38579                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4956,7 +4956,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.4
                    intermediate-step time init  = 1.3974                deltaT = 0.00260175
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5047,7 +5047,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at time final = 1.4
                    time init  = 1.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5146,7 +5146,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.41161
                    intermediate-step time init  = 1.4                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5245,7 +5245,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.42322
                    intermediate-step time init  = 1.41161                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5344,7 +5344,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.43483
                    intermediate-step time init  = 1.42322                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 39
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 39
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5443,7 +5443,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.44645
                    intermediate-step time init  = 1.43483                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 40
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 40
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5542,7 +5542,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.45806
                    intermediate-step time init  = 1.44645                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 41
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 41
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5641,7 +5641,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.46967
                    intermediate-step time init  = 1.45806                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 42
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 42
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5740,7 +5740,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.48128
                    intermediate-step time init  = 1.46967                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 43
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 43
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5839,7 +5839,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.49289
                    intermediate-step time init  = 1.48128                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 44
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 44
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5938,7 +5938,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.5045
                    intermediate-step time init  = 1.49289                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 45
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 45
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6037,7 +6037,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.51612
                    intermediate-step time init  = 1.5045                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 46
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 46
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6136,7 +6136,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode at intermediate-step time final = 1.52773
                    intermediate-step time init  = 1.51612                deltaT = 0.0116117
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 47
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 47
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6236,7 +6236,7 @@ deltaT reduced to 0.00419358 from 0.0116117 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53192
                    intermediate-step time init  = 1.52773                deltaT = 0.00419358
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6335,7 +6335,7 @@ deltaT reduced to 0.00419358 from 0.0116117 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53063
                    intermediate-step time init  = 1.52773                deltaT = 0.00290292
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6435,7 +6435,7 @@ deltaT reduced to 0.0012818 from 0.00435437 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53191
                    intermediate-step time init  = 1.53063                deltaT = 0.0012818
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6534,7 +6534,7 @@ deltaT reduced to 0.0012818 from 0.00435437 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53172
                    intermediate-step time init  = 1.53063                deltaT = 0.00108859
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6634,7 +6634,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53191
                    intermediate-step time init  = 1.53172                deltaT = 0.000192704
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 50
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 50
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6733,7 +6733,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53273
                    intermediate-step time init  = 1.53191                deltaT = 0.000816445
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 51
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 51
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6834,7 +6834,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53395
                    intermediate-step time init  = 1.53273                deltaT = 0.00122467
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 52
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 52
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6935,7 +6935,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53579
                    intermediate-step time init  = 1.53395                deltaT = 0.001837
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 53
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 53
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7036,7 +7036,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.53855
                    intermediate-step time init  = 1.53579                deltaT = 0.0027555
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 54
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 54
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7137,7 +7137,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.54268
                    intermediate-step time init  = 1.53855                deltaT = 0.00413325
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 55
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 55
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7238,7 +7238,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.54888
                    intermediate-step time init  = 1.54268                deltaT = 0.00619988
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 56
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 56
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7339,7 +7339,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.55818
                    intermediate-step time init  = 1.54888                deltaT = 0.00929982
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 57
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 57
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7440,7 +7440,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.57213
                    intermediate-step time init  = 1.55818                deltaT = 0.0139497
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 58
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 58
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7541,7 +7541,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.59305
                    intermediate-step time init  = 1.57213                deltaT = 0.0209246
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 59
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 59
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7642,7 +7642,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.6
                    intermediate-step time init  = 1.59305                deltaT = 0.00694663
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 60
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 60
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7736,7 +7736,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 1.6
                    time init  = 1.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7836,7 +7836,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.63139
                    intermediate-step time init  = 1.6                deltaT = 0.0313869
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 61
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 61
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7937,7 +7937,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.67847
                    intermediate-step time init  = 1.63139                deltaT = 0.0470803
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 62
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 62
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8038,7 +8038,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.74909
                    intermediate-step time init  = 1.67847                deltaT = 0.0706205
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 63
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 63
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8139,7 +8139,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.8
                    intermediate-step time init  = 1.74909                deltaT = 0.0509123
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 64
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 64
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8233,7 +8233,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 1.8
                    time init  = 1.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8334,7 +8334,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 1.90593
                    intermediate-step time init  = 1.8                deltaT = 0.105931
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 65
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 65
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8435,7 +8435,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 2
                    intermediate-step time init  = 1.90593                deltaT = 0.0940693
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 66
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 66
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8529,7 +8529,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 2
                    time init  = 1.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8630,7 +8630,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 2.1589
                    intermediate-step time init  = 2                deltaT = 0.158896
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 67
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 67
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8731,7 +8731,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 2.2
                    intermediate-step time init  = 2.1589                deltaT = 0.0411039
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 68
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 68
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8825,7 +8825,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 2.2
                    time init  = 2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8926,7 +8926,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 2.4
                    intermediate-step time init  = 2.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 69
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 69
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9020,7 +9020,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 2.4
                    time init  = 2.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9121,7 +9121,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 2.6
                    intermediate-step time init  = 2.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 70
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 70
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9215,7 +9215,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 2.6
                    time init  = 2.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9316,7 +9316,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 2.8
                    intermediate-step time init  = 2.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 71
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 71
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9410,7 +9410,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 2.8
                    time init  = 2.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9511,7 +9511,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 3
                    intermediate-step time init  = 2.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 72
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 72
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9605,7 +9605,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 3
                    time init  = 2.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9706,7 +9706,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 3.2
                    intermediate-step time init  = 3                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 73
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 73
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9800,7 +9800,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 3.2
                    time init  = 3                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 11
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 11
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9901,7 +9901,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 3.4
                    intermediate-step time init  = 3.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 74
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 74
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9995,7 +9995,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 3.4
                    time init  = 3.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 12
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 12
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10096,7 +10096,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 3.6
                    intermediate-step time init  = 3.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 75
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 75
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10190,7 +10190,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 3.6
                    time init  = 3.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 13
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 13
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10291,7 +10291,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 3.8
                    intermediate-step time init  = 3.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 76
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 76
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10385,7 +10385,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 3.8
                    time init  = 3.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 14
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 14
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10486,7 +10486,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 4
                    intermediate-step time init  = 3.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 77
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 77
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10580,7 +10580,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 4
                    time init  = 3.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 15
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 15
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10681,7 +10681,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 4.2
                    intermediate-step time init  = 4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 78
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 78
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10775,7 +10775,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 4.2
                    time init  = 4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 16
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 16
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10876,7 +10876,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 4.4
                    intermediate-step time init  = 4.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 79
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 79
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10970,7 +10970,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 4.4
                    time init  = 4.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 17
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 17
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11071,7 +11071,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 4.6
                    intermediate-step time init  = 4.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 80
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 80
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11165,7 +11165,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 4.6
                    time init  = 4.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 18
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 18
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11266,7 +11266,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 4.8
                    intermediate-step time init  = 4.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 81
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 81
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11360,7 +11360,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 4.8
                    time init  = 4.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 19
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 19
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11461,7 +11461,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 5
                    intermediate-step time init  = 4.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 82
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 82
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11555,7 +11555,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 5
                    time init  = 4.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 20
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 20
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11656,7 +11656,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 5.2
                    intermediate-step time init  = 5                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 83
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 83
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11750,7 +11750,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 5.2
                    time init  = 5                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 21
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 21
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11851,7 +11851,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 5.4
                    intermediate-step time init  = 5.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 84
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 84
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11945,7 +11945,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 5.4
                    time init  = 5.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 22
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 22
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12046,7 +12046,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 5.6
                    intermediate-step time init  = 5.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 85
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 85
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12140,7 +12140,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 5.6
                    time init  = 5.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 23
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 23
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12241,7 +12241,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 5.8
                    intermediate-step time init  = 5.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 86
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 86
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12335,7 +12335,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 5.8
                    time init  = 5.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 24
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 24
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12436,7 +12436,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 6
                    intermediate-step time init  = 5.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 87
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 87
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12530,7 +12530,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 6
                    time init  = 5.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 25
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 25
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12631,7 +12631,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 6.2
                    intermediate-step time init  = 6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 88
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 88
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12725,7 +12725,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 6.2
                    time init  = 6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 26
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 26
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12826,7 +12826,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 6.4
                    intermediate-step time init  = 6.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 89
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 89
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -12920,7 +12920,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 6.4
                    time init  = 6.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 27
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 27
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13021,7 +13021,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 6.6
                    intermediate-step time init  = 6.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 90
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 90
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13115,7 +13115,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 6.6
                    time init  = 6.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 28
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 28
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13216,7 +13216,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 6.8
                    intermediate-step time init  = 6.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 91
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 91
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13310,7 +13310,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 6.8
                    time init  = 6.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 29
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 29
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13411,7 +13411,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 7
                    intermediate-step time init  = 6.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 92
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 92
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13505,7 +13505,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 7
                    time init  = 6.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 30
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 30
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13606,7 +13606,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 7.2
                    intermediate-step time init  = 7                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 93
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 93
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13700,7 +13700,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 7.2
                    time init  = 7                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 31
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 31
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13801,7 +13801,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 7.4
                    intermediate-step time init  = 7.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 94
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 94
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13895,7 +13895,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 7.4
                    time init  = 7.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 32
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 32
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -13996,7 +13996,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 7.6
                    intermediate-step time init  = 7.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 95
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 95
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14090,7 +14090,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 7.6
                    time init  = 7.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 33
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 33
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14191,7 +14191,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 7.8
                    intermediate-step time init  = 7.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 96
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 96
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14285,7 +14285,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 7.8
                    time init  = 7.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 34
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 34
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14386,7 +14386,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 8
                    intermediate-step time init  = 7.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 97
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 97
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14480,7 +14480,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 8
                    time init  = 7.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 35
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 35
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14581,7 +14581,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 8.2
                    intermediate-step time init  = 8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 98
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 98
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14675,7 +14675,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 8.2
                    time init  = 8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 36
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 36
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14776,7 +14776,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 8.4
                    intermediate-step time init  = 8.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 99
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 99
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14870,7 +14870,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 8.4
                    time init  = 8.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 37
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 37
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -14971,7 +14971,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 8.6
                    intermediate-step time init  = 8.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 100
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 100
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15065,7 +15065,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 8.6
                    time init  = 8.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 38
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 38
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15166,7 +15166,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 8.8
                    intermediate-step time init  = 8.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 101
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 101
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15260,7 +15260,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 8.8
                    time init  = 8.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 39
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 39
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15361,7 +15361,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 9
                    intermediate-step time init  = 8.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 102
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 102
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15455,7 +15455,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 9
                    time init  = 8.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 40
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 40
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15556,7 +15556,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 9.2
                    intermediate-step time init  = 9                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 103
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 103
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15650,7 +15650,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 9.2
                    time init  = 9                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 41
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 41
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15751,7 +15751,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 9.4
                    intermediate-step time init  = 9.2                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 104
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 104
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15845,7 +15845,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 9.4
                    time init  = 9.2                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 42
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 42
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -15946,7 +15946,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 9.6
                    intermediate-step time init  = 9.4                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 105
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 105
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -16040,7 +16040,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 9.6
                    time init  = 9.4                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 43
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 43
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -16141,7 +16141,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 9.8
                    intermediate-step time init  = 9.6                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 106
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 106
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -16235,7 +16235,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 9.8
                    time init  = 9.6                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 44
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 44
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -16336,7 +16336,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at intermediate-step time final = 10
                    intermediate-step time init  = 9.8                deltaT = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 107
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 107
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -16430,7 +16430,7 @@ deltaT reduced to 0.000192704 from 0.00163289 due to phase death capture
    ==============================================================================================
       Electrode at time final = 10
                    time init  = 9.8                         deltaTglobal = 0.2
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 45
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 45
    ==============================================================================================
 
           Number of external surfaces = 1

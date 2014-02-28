@@ -136,9 +136,10 @@
     END BLOCK Extra Global Reaction
     START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
         => timesProcessed = 1 multiContribIndex = 0 
+        Index of the Region = (integer) with default 0
         Number of Cells in Region = (integer) with default 5
              => Number of Cells in Region ====> numRadialCellsRegions = 3
-        Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+        Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
              ====> phaseNames =  MCMB_Interstitials_anode
         Default Diffusion Coefficient = (double) with default 1e-12
              ====> defaultDiffusionCoefficient = 1e-09
@@ -147,8 +148,9 @@
     END BLOCK Radial Diffusion Region
     START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
         => timesProcessed = 0 multiContribIndex = 1 
+        Index of the Region = (integer) with default -2147483647
         Number of Cells in Region = (integer) with default -2147483647
-        Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+        Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
         Default Diffusion Coefficient = (double) with default 1e-12
         Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
@@ -156,9 +158,10 @@
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
 START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
     => timesProcessed = 1 multiContribIndex = 0 
+    Index of the Region = (integer) with default 0
     Number of Cells in Region = (integer) with default 5
          => Number of Cells in Region ====> numRadialCellsRegions = 3
-    Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
          ====> phaseNames =  MCMB_Interstitials_anode
     Default Diffusion Coefficient = (double) with default 1e-12
          ====> defaultDiffusionCoefficient = 1e-09
@@ -167,8 +170,9 @@ START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
 END BLOCK Radial Diffusion Region
 START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
     => timesProcessed = 0 multiContribIndex = 1 
+    Index of the Region = (integer) with default -2147483647
     Number of Cells in Region = (integer) with default -2147483647
-    Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
     Default Diffusion Coefficient = (double) with default 1e-12
     Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
     Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
@@ -181,7 +185,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode_DiffTALE at time final =  0.00000E+00
                               time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 589463 amps
@@ -299,7 +303,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  1.00000E-05
                               intermediate-step time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 572843 amps
@@ -408,7 +412,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode_DiffTALE at time final =  1.00000E-05
                               time init  =  0.00000E+00
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 572843 amps
@@ -526,7 +530,7 @@ oc[0] = -0.023098
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  2.00000E-05
                               intermediate-step time init  =  1.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 557941 amps
@@ -636,7 +640,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.261385 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  2.00000E-05
                               time init  =  1.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 557941 amps
@@ -754,7 +758,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.261385 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  3.00000E-05
                               intermediate-step time init  =  2.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 544495 amps
@@ -864,7 +868,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.239491 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  3.00000E-05
                               time init  =  2.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 544495 amps
@@ -982,7 +986,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.239491 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  4.00000E-05
                               intermediate-step time init  =  3.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 532313 amps
@@ -1092,7 +1096,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219838 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  4.00000E-05
                               time init  =  3.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 532313 amps
@@ -1210,7 +1214,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.219838 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  5.00000E-05
                               intermediate-step time init  =  4.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 521238 amps
@@ -1320,7 +1324,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202118 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  5.00000E-05
                               time init  =  4.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 521238 amps
@@ -1438,7 +1442,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.202118 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  6.00000E-05
                               intermediate-step time init  =  5.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 511135 amps
@@ -1548,7 +1552,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.186083 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  6.00000E-05
                               time init  =  5.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 511135 amps
@@ -1666,7 +1670,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.186083 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  7.00000E-05
                               intermediate-step time init  =  6.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 501892 amps
@@ -1776,7 +1780,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171532 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  7.00000E-05
                               time init  =  6.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 501892 amps
@@ -1894,7 +1898,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.171532 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  8.00000E-05
                               intermediate-step time init  =  7.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 493412 amps
@@ -2004,7 +2008,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158296 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  8.00000E-05
                               time init  =  7.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 493412 amps
@@ -2122,7 +2126,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158296 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  9.00000E-05
                               intermediate-step time init  =  8.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 485613 amps
@@ -2232,7 +2236,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146233 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  9.00000E-05
                               time init  =  8.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 485613 amps
@@ -2351,7 +2355,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146233 bea
    ==============================================================================================
       Electrode_DiffTALE at intermediate-step time final =  1.00000E-04
                               intermediate-step time init  =  9.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 478423 amps
@@ -2461,7 +2465,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.135218 bea
    ==============================================================================================
       Electrode_DiffTALE at time final =  1.00000E-04
                               time init  =  9.00000E-05
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
+                Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 478423 amps
