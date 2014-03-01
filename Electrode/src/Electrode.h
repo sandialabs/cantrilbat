@@ -1715,7 +1715,13 @@ public:
     //! Amount of charge that the electrode has discharged up to this point (coulombs)
     /*!
      *   We report the number in terms of Amp seconds = coulombs.
-     *   Note cathodes will have a negative discharge here as the current is defined as the amount
+     *   Note the capacity discharged for cathodes will be defined as the negative of the electron
+     *   source term, as this refers to the forward discharge of a cathode.
+     *   This definition is necessary for the following to be true.
+     *
+     *         capacity() = capacityDischarged() + capacityLeft()
+     *
+     *   Note, the current is defined as the amount
      *   of positive charge that goes from the solid into the electrolyte.
      *
      *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.

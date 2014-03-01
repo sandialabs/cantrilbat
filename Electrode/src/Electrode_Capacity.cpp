@@ -281,7 +281,11 @@ double Electrode::capacityDischarged(int platNum) const
     if (pendingIntegratedStep_) {
         tmp += spMoleIntegratedSourceTerm_[kElectron_];
     }
-    return tmp * Cantera::Faraday;
+    double sgn = 1.0;
+    if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+       sgn = -1.0;
+    }
+    return sgn * tmp * Cantera::Faraday;
 }
 //======================================================================================================================
 double Electrode::depthOfDischargeStarting(int platNum) const

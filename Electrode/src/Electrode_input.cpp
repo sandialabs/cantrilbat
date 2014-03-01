@@ -685,19 +685,16 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     PhaseList* pl = m_pl;
     int iph;
 
-
     /* --------------------------------------------------------------
      * Electrode Type = ["anode", "cathode"]
      *    (required)
      *    default = anode
      */
-    const char* etype[2] = {"cathode", "anode"};
+    const char* etype[2] = {"anode", "cathode"};
     LE_PickList* leptype =
         new LE_PickList("Electrode Type", &(electrodeCapacityType), etype, 2, 1, "ElectrodeType");
     leptype->set_default(0);
     cf->addLineEntry(leptype);
-
-
 
     /* --------------------------------------------------------------
      * Electrode Name  = Identifying name to be used on printouts

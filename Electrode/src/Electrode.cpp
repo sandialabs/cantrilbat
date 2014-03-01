@@ -1072,6 +1072,15 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         //nSpecies
     }
 
+    /*
+     *  Process the Electrode Capacity Type information from the input file.
+     */
+    if (ei->electrodeCapacityType == 0) {
+      electrodeCapacityType_ = CAPACITY_ANODE_ECT;
+    } else if (ei->electrodeCapacityType == 1) {
+      electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
+    }
+
     for (iph = 0; iph < m_NumTotPhases; iph++) {
 
         if (PhaseNames_[iph] == "LiFeS_X_combo") {
