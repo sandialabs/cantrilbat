@@ -170,11 +170,9 @@ int main(int argc, char **argv)
     double Tinitial = 0.0;
     double Tfinal = 0.0;
 
-    electrodeC->setVoltages(3.4, 0.0);
     double molNum[10];
 
     electrodeC->setPhaseExistenceForReactingSurfaces(true);
- 
     
     electrodeC->setVoltages(3.9, 0.0);
 
@@ -203,7 +201,7 @@ int main(int argc, char **argv)
       
       Tfinal = Tinitial + deltaT;
 
-      electrodeC->integrateConstantCurrent(amps, deltaT, 4.0, 2.5);
+      electrodeC->integrate(deltaT);
 
       electrodeC->getMoleNumSpecies(molNum);
       doublereal net[12];

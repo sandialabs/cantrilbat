@@ -18,10 +18,11 @@ all:
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@
 	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV; @MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV; @MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_cc;                    @MAKE@ 
-	cd LiSi_5_Anode_Integrate ; @MAKE@
-	cd UnitTests ; @MAKE@
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV;			@MAKE@ 
+	cd MCMBAnode_LiIon_SimpleDiff_cc;                   	@MAKE@ 
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@
+	cd LiSi_5_Anode_Integrate ;				@MAKE@
+	cd UnitTests ; 						@MAKE@
 
 test:
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ -s test
@@ -39,6 +40,7 @@ test:
 	cd MCMBAnode_LiIon_SimpleDiff_cc; @MAKE@ -s test
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ -s test
 	cd LiSi_5_Anode_Integrate ; @MAKE@ -s test
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ -s test
 	cd UnitTests ; @MAKE@ -s test
 
 
@@ -57,7 +59,8 @@ clean:
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@ clean
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV; @MAKE@ -s clean
 	cd MCMBAnode_LiIon_SimpleDiff_3_cV; @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cc;               @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_cc;               	@MAKE@ clean
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@  clean
 	cd LiSi_5_Anode_Integrate ; @MAKE@ clean
 	cd UnitTests ; @MAKE@ clean
 
@@ -77,6 +80,7 @@ depends:
 	cd MCMBAnode_LiIon_SimpleDiff_3_cV; @MAKE@ depends
 	cd MCMBAnode_LiIon_SimpleDiff_cc;               @MAKE@ depends
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ depends
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ depends
 	cd LiSi_5_Anode_Integrate ; @MAKE@ depends
 	cd UnitTests ; @MAKE@ depends
 
@@ -94,6 +98,7 @@ rebaseline:
 	cd MCMBAnode_LiIon_SimpleDiff_3_cV; @MAKE@ rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_cc;                    @MAKE@ rebaseline
 	cd MCMBAnode_LiIon_DiffTALE_3_cV; @MAKE@ rebaseline
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ rebaseline
 	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ rebaseline
 	cd LiSi_5_Anode_Integrate ; @MAKE@ rebaseline
 
