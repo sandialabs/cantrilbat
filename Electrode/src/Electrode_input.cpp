@@ -960,7 +960,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *  Create a StrDbl block vector made out of the list of species.
 	 *  We store the capacity coefficients for the species here
          */
-        BE_StrDbl* pclc= new BE_StrDbl("Capacity Left Coefficients", &(BG.CapLeftCoeffPhases[iph]), 0, 1,
+        BE_StrDbl* pclc= new BE_StrDbl("Capacity Left Coefficients", &(BG.CapLeftCoeffPhases[iph]), 0, 0,
                                        SpeciesNames+kstart, nSpecies, 0, "CapLeftCoeff");
         pclc->generateDefLE();
         bbathphase->addSubBlock(pclc);
@@ -971,7 +971,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          * Create a PickList Line Element made out of the list of  species
          */
         BE_StrDbl* pczc= new BE_StrDbl("Capacity At Zero DoD Coefficients",
-                                       &(BG.CapZeroDoDCoeffPhases[iph]), 0, 1, SpeciesNames+kstart,
+                                       &(BG.CapZeroDoDCoeffPhases[iph]), 0, 0, SpeciesNames+kstart,
                                        nSpecies, 0, "CapZeroDoDCoeff");
         pczc->generateDefLE();
         bbathphase->addSubBlock(pczc);
@@ -1377,6 +1377,8 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
      * -> Might have to print out the input and quit as well.
      */
     setup_input_pass3(cf);
+    //cf->print_usage();
+    //exit(-1);
 
     /*
      * Possibly change the print level for the last
@@ -1401,6 +1403,8 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
      *   -> here we figure out what the MoleNumber[] and MoleFraction[] vectors should be
      */
     post_input_pass3(cf);
+    //cf->print_usage();
+    //exit(-1);
 
     return retn;
 }
