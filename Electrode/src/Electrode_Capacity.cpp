@@ -374,8 +374,9 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
     if (!CapZeroDoDPhase) {
 	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Zero DoD coefficients not set in the input file");
     }
+    bool capacityInvolvesSoln_ = false;
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+        if (iph == metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -393,9 +394,16 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
 		if (capZero[k] == 0.0) {
 		    throw Electrode_Error("Electrode::setCapacityCoeffFromInput(", "Capacity Zero is zero but capacity Left is nonzero");
 		}
+                if (iph == solnPhase_) {
+                     capacityInvolvesSoln_ = true; 
+                }
 	    }
+            
 	    if (capZero[k] != 0.0) {
 		foundNonZeroDoD = true;
+                if (iph == solnPhase_) {
+                     capacityInvolvesSoln_ = true; 
+                }
 	    }
         }
     }
