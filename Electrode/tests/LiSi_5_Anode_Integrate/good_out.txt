@@ -253,7 +253,7 @@ Electrode Name = LiSi
 !-------------------------------------------------------------------------
 Electrode Type = anode
  => Electrode Type = anode
- ====> ElectrodeType = anode, list item 1
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !

@@ -8,10 +8,10 @@
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  MCMB_RedlichKister.xml
          ====> CanteraFileNames =  MCMBAnode_electrode.xml
-    Electrode Type = (LIST) with default cathode : 0 (REQUIRED LINE) where:
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
         LIST = 
-            cathode : 0
-            anode : 1
+            anode : 0
+            cathode : 1
     Electrode Name = (string) with Token limits(15, 1)
     Temperature = (double) with limits (0, 3000) with default 300
          ====> Temperature = 298.15
