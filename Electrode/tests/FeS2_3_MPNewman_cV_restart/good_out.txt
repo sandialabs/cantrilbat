@@ -288,7 +288,7 @@ Electrode Name = FeS2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -739,7 +739,7 @@ Electrode Name = FeS2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -921,7 +921,7 @@ Electrode Name = FeS2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -1104,7 +1104,7 @@ Electrode Name = FeS2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -1288,7 +1288,7 @@ Electrode Name = FeS2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -1471,7 +1471,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -4.48788E+04 amps
-          Capacity Discharged (total)  =     -5146.57 coulombs =      -1.4296 Ah
+          Capacity Discharged (total)  =      5146.57 coulombs =       1.4296 Ah
           Depth of Discharge           =      5146.57 coulombs
           Capacity Left                =         6963 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs

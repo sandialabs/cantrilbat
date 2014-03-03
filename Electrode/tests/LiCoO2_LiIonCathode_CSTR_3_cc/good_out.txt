@@ -242,7 +242,7 @@ Electrode Name = LiCoO2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -615,7 +615,7 @@ Electrode Name = LiCoO2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -765,7 +765,7 @@ Electrode Name = LiCoO2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -915,7 +915,7 @@ Electrode Name = LiCoO2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -1065,7 +1065,7 @@ Electrode Name = LiCoO2
 !-------------------------------------------------------------------------
 Electrode Type = cathode
  => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 0
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -1219,7 +1219,7 @@ oc[0] = 3.98922
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =            0 coulombs =            0 Ah
+          Capacity Discharged Since Start =           -0 coulombs =           -0 Ah
           Depth of Discharge (Current)    =     0.165195 coulombs
           Capacity Left                   =      1.12333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.6
@@ -1535,7 +1535,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.002 coulombs = -5.55556e-07 Ah
+          Capacity Discharged Since Start =        0.002 coulombs =  5.55556e-07 Ah
           Depth of Discharge (Current)    =     0.167195 coulombs
           Capacity Left                   =      1.12133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.600605
@@ -1727,7 +1727,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.004 coulombs = -1.11111e-06 Ah
+          Capacity Discharged Since Start =        0.004 coulombs =  1.11111e-06 Ah
           Depth of Discharge (Current)    =     0.169195 coulombs
           Capacity Left                   =      1.11933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.601211
@@ -1908,7 +1908,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.006 coulombs = -1.66667e-06 Ah
+          Capacity Discharged Since Start =        0.006 coulombs =  1.66667e-06 Ah
           Depth of Discharge (Current)    =     0.171195 coulombs
           Capacity Left                   =      1.11733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.601816
@@ -2089,7 +2089,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.008 coulombs = -2.22222e-06 Ah
+          Capacity Discharged Since Start =        0.008 coulombs =  2.22222e-06 Ah
           Depth of Discharge (Current)    =     0.173195 coulombs
           Capacity Left                   =      1.11533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.602421
@@ -2270,7 +2270,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.01 coulombs = -2.77778e-06 Ah
+          Capacity Discharged Since Start =         0.01 coulombs =  2.77778e-06 Ah
           Depth of Discharge (Current)    =     0.175195 coulombs
           Capacity Left                   =      1.11333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.603027
@@ -2451,7 +2451,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.012 coulombs = -3.33333e-06 Ah
+          Capacity Discharged Since Start =        0.012 coulombs =  3.33333e-06 Ah
           Depth of Discharge (Current)    =     0.177195 coulombs
           Capacity Left                   =      1.11133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.603632
@@ -2632,7 +2632,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.014 coulombs = -3.88889e-06 Ah
+          Capacity Discharged Since Start =        0.014 coulombs =  3.88889e-06 Ah
           Depth of Discharge (Current)    =     0.179195 coulombs
           Capacity Left                   =      1.10933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.604237
@@ -2813,7 +2813,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.016 coulombs = -4.44444e-06 Ah
+          Capacity Discharged Since Start =        0.016 coulombs =  4.44444e-06 Ah
           Depth of Discharge (Current)    =     0.181195 coulombs
           Capacity Left                   =      1.10733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.604843
@@ -2994,7 +2994,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.018 coulombs =       -5e-06 Ah
+          Capacity Discharged Since Start =        0.018 coulombs =        5e-06 Ah
           Depth of Discharge (Current)    =     0.183195 coulombs
           Capacity Left                   =      1.10533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.605448
@@ -3175,7 +3175,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.02 coulombs = -5.55556e-06 Ah
+          Capacity Discharged Since Start =         0.02 coulombs =  5.55556e-06 Ah
           Depth of Discharge (Current)    =     0.185195 coulombs
           Capacity Left                   =      1.10333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.606053
@@ -3356,7 +3356,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.022 coulombs = -6.11111e-06 Ah
+          Capacity Discharged Since Start =        0.022 coulombs =  6.11111e-06 Ah
           Depth of Discharge (Current)    =     0.187195 coulombs
           Capacity Left                   =      1.10133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.606659
@@ -3537,7 +3537,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.024 coulombs = -6.66667e-06 Ah
+          Capacity Discharged Since Start =        0.024 coulombs =  6.66667e-06 Ah
           Depth of Discharge (Current)    =     0.189195 coulombs
           Capacity Left                   =      1.09933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.607264
@@ -3718,7 +3718,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.026 coulombs = -7.22222e-06 Ah
+          Capacity Discharged Since Start =        0.026 coulombs =  7.22222e-06 Ah
           Depth of Discharge (Current)    =     0.191195 coulombs
           Capacity Left                   =      1.09733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.607869
@@ -3899,7 +3899,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.028 coulombs = -7.77778e-06 Ah
+          Capacity Discharged Since Start =        0.028 coulombs =  7.77778e-06 Ah
           Depth of Discharge (Current)    =     0.193195 coulombs
           Capacity Left                   =      1.09533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.608475
@@ -4080,7 +4080,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.03 coulombs = -8.33333e-06 Ah
+          Capacity Discharged Since Start =         0.03 coulombs =  8.33333e-06 Ah
           Depth of Discharge (Current)    =     0.195195 coulombs
           Capacity Left                   =      1.09333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.60908
@@ -4261,7 +4261,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.032 coulombs = -8.88889e-06 Ah
+          Capacity Discharged Since Start =        0.032 coulombs =  8.88889e-06 Ah
           Depth of Discharge (Current)    =     0.197195 coulombs
           Capacity Left                   =      1.09133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.609686
@@ -4442,7 +4442,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.034 coulombs = -9.44444e-06 Ah
+          Capacity Discharged Since Start =        0.034 coulombs =  9.44444e-06 Ah
           Depth of Discharge (Current)    =     0.199195 coulombs
           Capacity Left                   =      1.08933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.610291
@@ -4623,7 +4623,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.036 coulombs =       -1e-05 Ah
+          Capacity Discharged Since Start =        0.036 coulombs =        1e-05 Ah
           Depth of Discharge (Current)    =     0.201195 coulombs
           Capacity Left                   =      1.08733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.610896
@@ -4804,7 +4804,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.038 coulombs = -1.05556e-05 Ah
+          Capacity Discharged Since Start =        0.038 coulombs =  1.05556e-05 Ah
           Depth of Discharge (Current)    =     0.203195 coulombs
           Capacity Left                   =      1.08533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.611502
@@ -4985,7 +4985,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.04 coulombs = -1.11111e-05 Ah
+          Capacity Discharged Since Start =         0.04 coulombs =  1.11111e-05 Ah
           Depth of Discharge (Current)    =     0.205195 coulombs
           Capacity Left                   =      1.08333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.612107
@@ -5166,7 +5166,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.042 coulombs = -1.16667e-05 Ah
+          Capacity Discharged Since Start =        0.042 coulombs =  1.16667e-05 Ah
           Depth of Discharge (Current)    =     0.207195 coulombs
           Capacity Left                   =      1.08133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.612712
@@ -5347,7 +5347,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.044 coulombs = -1.22222e-05 Ah
+          Capacity Discharged Since Start =        0.044 coulombs =  1.22222e-05 Ah
           Depth of Discharge (Current)    =     0.209195 coulombs
           Capacity Left                   =      1.07933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.613318
@@ -5528,7 +5528,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.046 coulombs = -1.27778e-05 Ah
+          Capacity Discharged Since Start =        0.046 coulombs =  1.27778e-05 Ah
           Depth of Discharge (Current)    =     0.211195 coulombs
           Capacity Left                   =      1.07733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.613923
@@ -5709,7 +5709,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.048 coulombs = -1.33333e-05 Ah
+          Capacity Discharged Since Start =        0.048 coulombs =  1.33333e-05 Ah
           Depth of Discharge (Current)    =     0.213195 coulombs
           Capacity Left                   =      1.07533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.614528
@@ -5890,7 +5890,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.05 coulombs = -1.38889e-05 Ah
+          Capacity Discharged Since Start =         0.05 coulombs =  1.38889e-05 Ah
           Depth of Discharge (Current)    =     0.215195 coulombs
           Capacity Left                   =      1.07333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.615134
@@ -6071,7 +6071,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.052 coulombs = -1.44444e-05 Ah
+          Capacity Discharged Since Start =        0.052 coulombs =  1.44444e-05 Ah
           Depth of Discharge (Current)    =     0.217195 coulombs
           Capacity Left                   =      1.07133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.615739
@@ -6252,7 +6252,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.054 coulombs =     -1.5e-05 Ah
+          Capacity Discharged Since Start =        0.054 coulombs =      1.5e-05 Ah
           Depth of Discharge (Current)    =     0.219195 coulombs
           Capacity Left                   =      1.06933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.616344
@@ -6433,7 +6433,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.056 coulombs = -1.55556e-05 Ah
+          Capacity Discharged Since Start =        0.056 coulombs =  1.55556e-05 Ah
           Depth of Discharge (Current)    =     0.221195 coulombs
           Capacity Left                   =      1.06733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.61695
@@ -6614,7 +6614,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.058 coulombs = -1.61111e-05 Ah
+          Capacity Discharged Since Start =        0.058 coulombs =  1.61111e-05 Ah
           Depth of Discharge (Current)    =     0.223195 coulombs
           Capacity Left                   =      1.06533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.617555
@@ -6795,7 +6795,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.06 coulombs = -1.66667e-05 Ah
+          Capacity Discharged Since Start =         0.06 coulombs =  1.66667e-05 Ah
           Depth of Discharge (Current)    =     0.225195 coulombs
           Capacity Left                   =      1.06333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.61816
@@ -6976,7 +6976,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.062 coulombs = -1.72222e-05 Ah
+          Capacity Discharged Since Start =        0.062 coulombs =  1.72222e-05 Ah
           Depth of Discharge (Current)    =     0.227195 coulombs
           Capacity Left                   =      1.06133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.618766
@@ -7157,7 +7157,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.064 coulombs = -1.77778e-05 Ah
+          Capacity Discharged Since Start =        0.064 coulombs =  1.77778e-05 Ah
           Depth of Discharge (Current)    =     0.229195 coulombs
           Capacity Left                   =      1.05933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.619371
@@ -7338,7 +7338,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.066 coulombs = -1.83333e-05 Ah
+          Capacity Discharged Since Start =        0.066 coulombs =  1.83333e-05 Ah
           Depth of Discharge (Current)    =     0.231195 coulombs
           Capacity Left                   =      1.05733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.619976
@@ -7519,7 +7519,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.068 coulombs = -1.88889e-05 Ah
+          Capacity Discharged Since Start =        0.068 coulombs =  1.88889e-05 Ah
           Depth of Discharge (Current)    =     0.233195 coulombs
           Capacity Left                   =      1.05533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.620582
@@ -7700,7 +7700,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.07 coulombs = -1.94444e-05 Ah
+          Capacity Discharged Since Start =         0.07 coulombs =  1.94444e-05 Ah
           Depth of Discharge (Current)    =     0.235195 coulombs
           Capacity Left                   =      1.05333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.621187
@@ -7881,7 +7881,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.072 coulombs =       -2e-05 Ah
+          Capacity Discharged Since Start =        0.072 coulombs =        2e-05 Ah
           Depth of Discharge (Current)    =     0.237195 coulombs
           Capacity Left                   =      1.05133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.621792
@@ -8062,7 +8062,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.074 coulombs = -2.05556e-05 Ah
+          Capacity Discharged Since Start =        0.074 coulombs =  2.05556e-05 Ah
           Depth of Discharge (Current)    =     0.239195 coulombs
           Capacity Left                   =      1.04933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.622398
@@ -8243,7 +8243,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.076 coulombs = -2.11111e-05 Ah
+          Capacity Discharged Since Start =        0.076 coulombs =  2.11111e-05 Ah
           Depth of Discharge (Current)    =     0.241195 coulombs
           Capacity Left                   =      1.04733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.623003
@@ -8424,7 +8424,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.078 coulombs = -2.16667e-05 Ah
+          Capacity Discharged Since Start =        0.078 coulombs =  2.16667e-05 Ah
           Depth of Discharge (Current)    =     0.243195 coulombs
           Capacity Left                   =      1.04533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.623608
@@ -8605,7 +8605,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.08 coulombs = -2.22222e-05 Ah
+          Capacity Discharged Since Start =         0.08 coulombs =  2.22222e-05 Ah
           Depth of Discharge (Current)    =     0.245195 coulombs
           Capacity Left                   =      1.04333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.624214
@@ -8786,7 +8786,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.082 coulombs = -2.27778e-05 Ah
+          Capacity Discharged Since Start =        0.082 coulombs =  2.27778e-05 Ah
           Depth of Discharge (Current)    =     0.247195 coulombs
           Capacity Left                   =      1.04133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.624819
@@ -8967,7 +8967,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.084 coulombs = -2.33333e-05 Ah
+          Capacity Discharged Since Start =        0.084 coulombs =  2.33333e-05 Ah
           Depth of Discharge (Current)    =     0.249195 coulombs
           Capacity Left                   =      1.03933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.625424
@@ -9148,7 +9148,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.086 coulombs = -2.38889e-05 Ah
+          Capacity Discharged Since Start =        0.086 coulombs =  2.38889e-05 Ah
           Depth of Discharge (Current)    =     0.251195 coulombs
           Capacity Left                   =      1.03733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.62603
@@ -9329,7 +9329,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.088 coulombs = -2.44444e-05 Ah
+          Capacity Discharged Since Start =        0.088 coulombs =  2.44444e-05 Ah
           Depth of Discharge (Current)    =     0.253195 coulombs
           Capacity Left                   =      1.03533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.626635
@@ -9510,7 +9510,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =        -0.09 coulombs =     -2.5e-05 Ah
+          Capacity Discharged Since Start =         0.09 coulombs =      2.5e-05 Ah
           Depth of Discharge (Current)    =     0.255195 coulombs
           Capacity Left                   =      1.03333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.62724
@@ -9691,7 +9691,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.092 coulombs = -2.55556e-05 Ah
+          Capacity Discharged Since Start =        0.092 coulombs =  2.55556e-05 Ah
           Depth of Discharge (Current)    =     0.257195 coulombs
           Capacity Left                   =      1.03133 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.627846
@@ -9872,7 +9872,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.094 coulombs = -2.61111e-05 Ah
+          Capacity Discharged Since Start =        0.094 coulombs =  2.61111e-05 Ah
           Depth of Discharge (Current)    =     0.259195 coulombs
           Capacity Left                   =      1.02933 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.628451
@@ -10053,7 +10053,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.096 coulombs = -2.66667e-05 Ah
+          Capacity Discharged Since Start =        0.096 coulombs =  2.66667e-05 Ah
           Depth of Discharge (Current)    =     0.261195 coulombs
           Capacity Left                   =      1.02733 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.629057
@@ -10234,7 +10234,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =       -0.098 coulombs = -2.72222e-05 Ah
+          Capacity Discharged Since Start =        0.098 coulombs =  2.72222e-05 Ah
           Depth of Discharge (Current)    =     0.263195 coulombs
           Capacity Left                   =      1.02533 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.629662
@@ -10415,7 +10415,7 @@ RootFind success: convergence achieved
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =         -0.1 coulombs = -2.77778e-05 Ah
+          Capacity Discharged Since Start =          0.1 coulombs =  2.77778e-05 Ah
           Depth of Discharge (Current)    =     0.265195 coulombs
           Capacity Left                   =      1.02333 coulombs         Capacity at Zero DOD =      1.28852 coulombs
           RelativeExtentRxn_final_final         = 0.630267

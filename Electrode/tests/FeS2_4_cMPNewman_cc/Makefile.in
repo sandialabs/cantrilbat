@@ -133,7 +133,7 @@ depends:
 
 test: 
 	@gmake -s
-	@echo -n 'Checking need to run test ' $(PROGRAM) ': '
+	@nnn=`pwd`; echo -n 'Checking need to run test ' `basename $${nnn}`  ': '
 	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
