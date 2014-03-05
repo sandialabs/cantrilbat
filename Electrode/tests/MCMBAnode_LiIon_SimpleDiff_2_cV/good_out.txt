@@ -47,10 +47,10 @@
             electron_Li_LiIon = (double) with limits (0, 1) with default 0
         END BLOCK Bath Species Mole Fraction
         START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
-            electron_Li_LiIon = (double) with default 0 (REQUIRED LINE)
+            electron_Li_LiIon = (double) with default 0
         END BLOCK Capacity Left Coefficients
         START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
-            electron_Li_LiIon = (double) with default 0 (REQUIRED LINE)
+            electron_Li_LiIon = (double) with default 0
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase metal_Li_LiIon_electrons
     START BLOCK Bath Specification for Phase ECDMC_LiPF6           (OPTIONAL BLOCK)
@@ -69,14 +69,14 @@
                  ====> PF6- = 0.08
         END BLOCK Bath Species Mole Fraction
         START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
-            ECDMC = (double) with default 0 (REQUIRED LINE)
-            Li+ = (double) with default 0 (REQUIRED LINE)
-            PF6- = (double) with default 0 (REQUIRED LINE)
+            ECDMC = (double) with default 0
+            Li+ = (double) with default 0
+            PF6- = (double) with default 0
         END BLOCK Capacity Left Coefficients
         START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
-            ECDMC = (double) with default 0 (REQUIRED LINE)
-            Li+ = (double) with default 0 (REQUIRED LINE)
-            PF6- = (double) with default 0 (REQUIRED LINE)
+            ECDMC = (double) with default 0
+            Li+ = (double) with default 0
+            PF6- = (double) with default 0
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase ECDMC_LiPF6
     START BLOCK Bath Specification for Phase MCMB_Interstitials_anode           (OPTIONAL BLOCK)
@@ -93,12 +93,12 @@
                  ====> V_C6-bulk = 0.2
         END BLOCK Bath Species Mole Fraction
         START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
-            Li_C6-bulk = (double) with default 0 (REQUIRED LINE)
-            V_C6-bulk = (double) with default 0 (REQUIRED LINE)
+            Li_C6-bulk = (double) with default 0
+            V_C6-bulk = (double) with default 0
         END BLOCK Capacity Left Coefficients
         START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
-            Li_C6-bulk = (double) with default 0 (REQUIRED LINE)
-            V_C6-bulk = (double) with default 0 (REQUIRED LINE)
+            Li_C6-bulk = (double) with default 0
+            V_C6-bulk = (double) with default 0
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase MCMB_Interstitials_anode
     START BLOCK Bath Specification for Phase anode_surface           (OPTIONAL BLOCK)
