@@ -132,11 +132,9 @@ public:
      *  and the electrode object has a restart capability.
      *  If the pointer is null, no restart information is generated
      *
-     *  @param ei Electrode Key Input
-     *
      *  @return  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_stateSave_create();
 
 
     //! Initialize the sizes

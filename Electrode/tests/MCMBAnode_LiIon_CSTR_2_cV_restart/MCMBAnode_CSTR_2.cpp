@@ -157,7 +157,7 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
-    retn = electrodeA->electrode_stateSave_create(electrodeA_input);
+    retn = electrodeA->electrode_stateSave_create();
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);

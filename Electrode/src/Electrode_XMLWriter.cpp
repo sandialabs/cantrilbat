@@ -178,6 +178,18 @@ void Electrode::addtoXML_TI_final(bool notDone)
 
     xmlTimeIncrementData_->mergeAsChild(*xmt);
 }
+
+void Electrode::writeTimeStateFinal_toXML(XML_Node& bb) const
+{
+
+    XML_Node* xmt = new XML_Node("timeState");
+    xmt->addAttribute("type", "t_final");
+    xmt->addChild("time", tfinal_);
+    xmt->addChild(*xmlStateData_final_);
+
+    bb.mergeAsChild(*xmt);
+
+}
 //====================================================================================================================
 // Given a Time increment record this routine loads the saved solution for t_final into the electrode object
 /*

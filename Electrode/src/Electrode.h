@@ -394,7 +394,7 @@ public:
      *
      *  @return  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_stateSave_create();
 
     //! Set the sizes of the electrode from the input parameters
     /*!
@@ -2094,6 +2094,9 @@ public:
      *  element.
      */
     void writeSolutionTimeIncrement();
+
+    void writeTimeStateFinal_toXML(XML_Node&  bb) const;
+
 
     //!  Select the globa time step increment record by the consequatively numbered record index number
     /*!

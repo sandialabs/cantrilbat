@@ -204,7 +204,7 @@ public:
 
 
 
-    virtual int electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_stateSave_create();
 
     //! Set the sizes of the electrode from the input parameters
     /*!

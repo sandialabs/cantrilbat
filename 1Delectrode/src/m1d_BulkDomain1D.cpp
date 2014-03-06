@@ -334,9 +334,9 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
   int numNodes = lastGbNode - firstGbNode + 1;
 
   bdom.addAttribute("id", id());
-  bdom.addAttribute("points", numNodes);
+  bdom.addAttribute("points", (size_t)numNodes);
   bdom.addAttribute("type", "bulk");
-  bdom.addAttribute("numVariables", numEquationsPerNode);
+  bdom.addAttribute("numVariables", (size_t) numEquationsPerNode);
 
   // Dump out the coordinates
   Cantera::XML_Node& gv = bdom.addChild("grid_data");

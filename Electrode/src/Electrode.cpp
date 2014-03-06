@@ -1340,8 +1340,9 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
     return 0;
 }
 //====================================================================================================================
-int Electrode::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
+int Electrode::electrode_stateSave_create()
 {
+    throw Electrode_Error("Electrode::electrode_stateSave_create()", "unimplemented base class");
     return 0;
 }
 //====================================================================================================================

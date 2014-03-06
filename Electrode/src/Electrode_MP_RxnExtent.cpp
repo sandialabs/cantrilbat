@@ -877,7 +877,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
 //====================================================================================================================
 int
-Electrode_MP_RxnExtent::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_MP_RxnExtent::electrode_stateSave_create()
 {
     eState_final_ = new EState();
     int rr = eState_final_->initialize(this);

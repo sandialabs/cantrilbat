@@ -391,7 +391,7 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
      *  Set the initial subcycle deltaT policy
      */
     ee->choiceDeltaTsubcycle_init_ = 1;
-
+     
     
     int retn = ee->electrode_model_create(PSinput.cathode_input_);
     if (retn == -1) {
@@ -404,6 +404,11 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
       printf("exiting with error\n");
       exit(-1);
     }
+
+    /*
+     *  turn on the saving of states in xml files. We need this for restarts.
+     */
+    ee->electrode_stateSave_create();
 
     /* 
      * Compute cell volume 

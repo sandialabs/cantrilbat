@@ -561,7 +561,7 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 }
 //====================================================================================================================
 int
-Electrode_SimpleDiff::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_SimpleDiff::electrode_stateSave_create()
 {
     eState_final_ = new EState_RadialDistrib();
     int rr = eState_final_->initialize(this);

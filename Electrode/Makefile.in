@@ -27,7 +27,7 @@ clean:
 #	cd examples;                                     @MAKE@ clean
 
 dist_clean:
-	cd src:			     $(RM) .depends ; @MAKE@ dist_clean
+	cd src;			     $(RM) .depends ; @MAKE@ dist_clean
 	cd tests;                                     @MAKE@ clean
 	cd tests_develop;                             @MAKE@ clean
 

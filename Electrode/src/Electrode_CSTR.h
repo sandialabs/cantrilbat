@@ -148,11 +148,9 @@ public:
      *  The pointer to the malloced object is saved in the internal variable eState_final_ .
      *  Because there is an object, the state of the electrode will be saved at each step.
      *
-     *  @param ei Electrode Key Input
-     *
      *  @return  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_stateSave_create();
 
     //! local routine to resize arrays that this object is responsible for
     void init_sizes();

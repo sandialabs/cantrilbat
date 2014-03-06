@@ -437,7 +437,7 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 }
 //====================================================================================================================
 int
-Electrode_CSTR::electrode_stateSave_create(ELECTRODE_KEY_INPUT* ei)
+Electrode_CSTR::electrode_stateSave_create()
 {
     eState_final_ = new EState();
     int rr = eState_final_->initialize(this);

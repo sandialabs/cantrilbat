@@ -389,9 +389,9 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
     ee->setPrintLevel(0); 
     ee->setID(0, iCell);
     /*
-     *   
+     *    Turn on the creation of xml state files. We need this for restart
      */
-
+    ee->electrode_stateSave_create();
 
 
     /*
@@ -1715,7 +1715,7 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
   // get the NodeVars object pertaining to this global node
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
-  // Add a child for this domain
+  // Add an XML child for this domain. We will add the data to this child
   Cantera::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
@@ -1759,8 +1759,26 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
       varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
     }
     ctml::addFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
-
   }
+
+#ifdef DEBUG_RESTART
+  for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+    int iCell = iGbNode - firstGbNode;
+
+    Electrode *ee = Electrode_Cell_[iCell];
+    // ee->writeStateToXML();
+
+    ee->writeTimeStateFinal_toXML(bdom);
+  }
+
+
+
+
+
+
+#endif
+
+
 }
 //=====================================================================================================================
 static void

@@ -89,7 +89,10 @@ int main(int argc, char **argv) {
 	equilibrate(*gas,"UV", -1);
 	//endLogGroup("topEquil");
 	cout << gas->report() << endl;
+//        csvFile <<  gas->report() << endl;
+
 	//gas->reportCSV(textFile,csvFile);
+	gas->reportCSV(csvFile);
 #if defined (CANTERA_VERSION_18_LTD)
        	gas->reportCSV(csvFile);
 #endif
