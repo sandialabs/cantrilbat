@@ -512,6 +512,7 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln();
+    virtual int predictSolnDot();
   
 
     //! Unpack the soln vector

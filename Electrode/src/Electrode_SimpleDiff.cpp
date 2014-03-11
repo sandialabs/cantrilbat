@@ -1967,6 +1967,19 @@ int Electrode_SimpleDiff::predictSoln()
     return retn;
 }
 //==================================================================================================================
+int Electrode_SimpleDiff::predictSolnDot()
+{
+  soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
+  for (int i = 1; i < (int) yvalNLS_.size(); i++) {
+    soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
+  }
+  unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+  updateState();
+  extractInfo();
+  updateSpeciesMoleChangeFinal();
+  return 1;
+}
+//==================================================================================================================
 void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
 {
     packNonlinSolnVector(DATA_PTR(yvalNLS_init_));
