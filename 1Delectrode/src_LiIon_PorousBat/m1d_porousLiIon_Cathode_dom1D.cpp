@@ -273,6 +273,11 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     throw CanteraError(" porousLiIon_Cathode_dom1D::domain_prep()", "bad dynamic cast ");
   }
 
+  /*
+   *  In the bulk domain description object, we have a prototypical Electrode object already instantiated
+   *  for the cathode. We will use this to figure out the number of Electrode species and the number of
+   *  Electrode surfaces.
+   */
   Cantera::Electrode *ee = BDD_FeS2_Cathode->Electrode_;
   nSpeciesElectrode_ = ee->nSpecies();
   nSurfsElectrode_ = ee->nSurfaces();
@@ -1719,7 +1724,7 @@ porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
   icurrElectrode_trCurr_ = -conductivityElectrode_ * gradVElectrode_trCurr_;
 }
 //=====================================================================================================================
-// saving the solution on the domain in an xml node.
+// Saving the solution on the domain in an xml node.
 /*
  *
  * @param oNode                Reference to the XML_Node

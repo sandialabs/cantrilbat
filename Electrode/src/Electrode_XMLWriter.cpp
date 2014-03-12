@@ -82,12 +82,16 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
     if (addInitState) {
         XML_Node* xmi = new XML_Node("timeState");
         xmi->addAttribute("type", "t_init");
+        xmi->addAttribute("domain", electrodeDomainNumber_);
+        xmi->addAttribute("cellNumber", electrodeCellNumber_);
         xmi->addChild("time", tinit_, fmt);
         xmi->addChild(*xmlStateData_init_);
         xmlTimeIncrementIntermediateData_->mergeAsChild(*xmi);
     }
     XML_Node* xmt = new XML_Node("timeState");
     xmt->addAttribute("type", "t_intermediate");
+    xmt->addAttribute("domain", electrodeDomainNumber_);
+    xmt->addAttribute("cellNumber", electrodeCellNumber_);
     xmt->addChild("time", tfinal_, fmt);
     xmt->addChild(*xmlStateData_final_);
     xmlTimeIncrementIntermediateData_->mergeAsChild(*xmt);
@@ -130,6 +134,8 @@ void Electrode::startXML_TI_final(bool addInitState)
     if (addInitState) {
         XML_Node* xmi = new XML_Node("timeState");
         xmi->addAttribute("type", "t_init");
+        xmi->addAttribute("domain", electrodeDomainNumber_);
+        xmi->addAttribute("cellNumber", electrodeCellNumber_);
         xmi->addChild("time", tinit_, fmt);
         xmi->addChild(*xmlStateData_init_);
         xmlTimeIncrementData_->mergeAsChild(*xmi);
@@ -173,22 +179,22 @@ void Electrode::addtoXML_TI_final(bool notDone)
     } else {
         xmt->addAttribute("type", "t_final");
     }
+    xmt->addAttribute("domain", electrodeDomainNumber_);
+    xmt->addAttribute("cellNumber", electrodeCellNumber_);
     xmt->addChild("time", tfinal_, fmt);
     xmt->addChild(*xmlStateData_final_);
 
     xmlTimeIncrementData_->mergeAsChild(*xmt);
 }
-
+//====================================================================================================================
 void Electrode::writeTimeStateFinal_toXML(XML_Node& bb) const
 {
-
-    XML_Node* xmt = new XML_Node("timeState");
-    xmt->addAttribute("type", "t_final");
-    xmt->addChild("time", tfinal_);
-    xmt->addChild(*xmlStateData_final_);
-
-    bb.mergeAsChild(*xmt);
-
+    XML_Node&ts = bb.addChild("timeState");
+    ts.addAttribute("type", "t_final");
+    ts.addAttribute("domain", electrodeDomainNumber_);
+    ts.addAttribute("cellNumber", electrodeCellNumber_);
+    ts.addChild("time", tfinal_);
+    ts.addChild(*xmlStateData_final_);
 }
 //====================================================================================================================
 // Given a Time increment record this routine loads the saved solution for t_final into the electrode object

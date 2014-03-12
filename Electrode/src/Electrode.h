@@ -2095,8 +2095,19 @@ public:
      */
     void writeSolutionTimeIncrement();
 
+    //!  Write the State of the Electrode at the t_final time out to the output XML node
+    /*!
+     *  This routine is used by the 1Dsolvers to write a restart file for the electrode object out
+     *  to an XML file
+     *
+     *       <TimeState Cell Number="0" Domain="0" type="t_final">
+     *          <time> 1e-08 </time>
+     *            <electrodeState>
+     *
+     *
+     *   @param bb  Output XML mode
+     */
     void writeTimeStateFinal_toXML(XML_Node&  bb) const;
-
 
     //!  Select the globa time step increment record by the consequatively numbered record index number
     /*!

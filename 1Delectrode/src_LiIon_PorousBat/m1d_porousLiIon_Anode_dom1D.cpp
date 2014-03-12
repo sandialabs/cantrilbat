@@ -1761,7 +1761,6 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
     ctml::addFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
   }
 
-#ifdef DEBUG_RESTART
   for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
     int iCell = iGbNode - firstGbNode;
 
@@ -1775,8 +1774,6 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
 
 
 
-
-#endif
 
 
 }
