@@ -1250,7 +1250,7 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 {
     bool doFix = true;
     bool fatalError = false;
-    double sum, sum_f, sum_i;
+    double sum = 0.0, sum_f, sum_i;
     double diff = 0.0;
     if (!doErr) {
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
@@ -1508,15 +1508,17 @@ void Electrode_SimpleDiff::fixCapacityBalances_final()
     double capS = depthOfDischargeStarting();
     double capOrig = capacityInitial();
     double capLost = capOrig - cap;
-    double beforeMole4 = spMoles_final_[4];
     // rel is the missing capacity that is numerically unaccounted for
     double rel = capOrig - capLeft - capDischarged - capS - capLost;
     // relMole is the moles that are missing.
     double relMole = rel / Faraday;
     int iKpadd = -1, iKadd = -1;
     int iKpsub = -1, iKsub = -1;
+#ifdef DEBUG_MODE
+    double beforeMole4 = spMoles_final_[4];
     double denom;
     double relMoleStart = relMole;
+#endif
 
 #ifdef DEBUG_MASSLOSS
     string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
@@ -1595,7 +1597,6 @@ void Electrode_SimpleDiff::fixCapacityBalances_final()
 	capLost = capOrig - cap;
 	// rel is the missing capacity that is numerically unaccounted for
 	rel = capOrig - capLeft - capDischarged - capS - capLost;
-	denom = cap / Faraday;
 	// relMole is the moles that are missing.
 	relMole = rel / Faraday;
 #ifdef DEBUG_MASSLOSS
@@ -1607,6 +1608,7 @@ void Electrode_SimpleDiff::fixCapacityBalances_final()
 	fclose(fp);
 #endif
 #ifdef DEBUG_MODE
+	denom = cap / Faraday;
 	printf("Electrode_SimpleDiff::fixCapacityBalances_final() report:\n");
 	printf("                         Before Rel moles = %g, After Rel moles = %g\n", relMoleStart, relMole);
 	printf("                         normalized diff  = %g                  = %g\n", relMoleStart/denom, relMole/denom);
@@ -1963,6 +1965,19 @@ int Electrode_SimpleDiff::predictSoln()
     yvalNLS_init_[0] =  deltaTsubcycleCalc_;
 
     return retn;
+}
+//==================================================================================================================
+int Electrode_SimpleDiff::predictSolnDot()
+{
+  soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
+  for (int i = 1; i < (int) yvalNLS_.size(); i++) {
+    soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
+  }
+  unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+  updateState();
+  extractInfo();
+  updateSpeciesMoleChangeFinal();
+  return 1;
 }
 //==================================================================================================================
 void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
