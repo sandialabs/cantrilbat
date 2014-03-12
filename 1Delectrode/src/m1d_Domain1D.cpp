@@ -233,6 +233,14 @@ Domain1D::saveDomain(Cantera::XML_Node& oNode,
   err("saveDomain()");
 }
 //====================================================================================================================
+void
+Domain1D::readDomain(const Cantera::XML_Node& oNode,
+                     Epetra_Vector * const soln_GLALL_ptr,
+                     Epetra_Vector * const solnDot_GLALL_ptr)
+{
+  err("readDomain()");
+}
+//====================================================================================================================
   //! Method for writing the header for the surface domain to a tecplot file.
   /*
    * Only proc0 will write tecplot files.

@@ -228,6 +228,20 @@ public:
              const double t,
              bool duplicateOnAllProcs = false);
 
+  //! Base Class for reading the solution from the saved file
+  /*!
+   *
+   * @param oNode                Reference to the XML_Node to read the solution from
+   * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+   * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+   *
+   */
+  virtual void 
+  readDomain(const Cantera::XML_Node& oNode,
+             Epetra_Vector * const soln_GlAll_ptr,
+             Epetra_Vector * const solnDot_GlAll_ptr);
+
+
   //! Method for writing the header for the surface domain to a tecplot file.
   /**
    * Only proc0 will write tecplot files.
