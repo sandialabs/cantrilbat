@@ -9,6 +9,9 @@
 
 #include "m1d_DomainDescription.h"
 
+#include "cantera/base/ctml.h"
+
+
 #include "stdio.h"
 #include "stdlib.h"
 
@@ -231,6 +234,19 @@ Domain1D::saveDomain(Cantera::XML_Node& oNode,
                      bool duplicateOnAllProcs)
 {
   err("saveDomain()");
+}
+//====================================================================================================================
+void
+Domain1D::readSimulation(const Cantera::XML_Node& simulationNode,
+			 Epetra_Vector * const soln_GLALL_ptr,
+			 Epetra_Vector * const solnDot_GLALL_ptr)
+{
+    string ida = id();
+    Cantera::XML_Node* domainNode = simulationNode.findNameID("domain", ida);
+    if (!domainNode) {
+	throw m1d_Error("Domain1D::readSimulation()", "cant find domain node" + ida);
+    }
+    readDomain(*domainNode, soln_GLALL_ptr, solnDot_GLALL_ptr);
 }
 //====================================================================================================================
 void

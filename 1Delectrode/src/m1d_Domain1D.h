@@ -231,13 +231,26 @@ public:
   //! Base Class for reading the solution from the saved file
   /*!
    *
+   * @param simulationNode       Reference to the XML_Node named simulation
+   * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+   * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+   */
+  virtual void
+  readSimulation(const Cantera::XML_Node& simulationNode,
+		 Epetra_Vector * const soln_GlAll_ptr,
+		 Epetra_Vector * const solnDot_GlAll_ptr);
+
+
+  //! Base Class for reading the solution from the saved file
+  /*!
+   *
    * @param oNode                Reference to the XML_Node to read the solution from
    * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
    * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
    *
    */
   virtual void 
-  readDomain(const Cantera::XML_Node& oNode,
+  readDomain(const Cantera::XML_Node& domainNode,
              Epetra_Vector * const soln_GlAll_ptr,
              Epetra_Vector * const solnDot_GlAll_ptr);
 
