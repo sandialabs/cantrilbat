@@ -364,6 +364,68 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
 
   }
 }
+
+//====================================================================================================================
+void
+BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
+                         Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)
+{
+    // get the NodeVars object pertaining to this global node
+    GlobalIndices *gi = LI_ptr_->GI_ptr_;
+
+    // Number of equations per node
+    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+
+    // Vector containing the variable names as they appear in the solution vector
+    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+
+    //! First global node of this bulk domain
+    int firstGbNode = BDD_.FirstGbNode;
+
+    //! Last Global node of this bulk domain
+    int lastGbNode = BDD_.LastGbNode;
+    int numNodes = lastGbNode - firstGbNode + 1;
+
+
+    string iidd = domainNode["id"]; 
+    string s_points  = domainNode["points"]; 
+    int points = atoi(s_points.c_str());
+    if (points != numNodes) {
+        printf("we have an unequal number of points\n");
+        exit(-1);
+    }
+    string ttype    = domainNode["type"]; 
+    string snumVar  = domainNode["numVariables"]; 
+    int numVar = atoi(snumVar.c_str());
+    if (numVar != numEquationsPerNode) {
+       printf("we have an unequal number of equations\n");
+       exit(-1);
+    }
+
+    const Cantera::XML_Node* gd_ptr = domainNode.findByName("gridData");
+
+    std::vector<double> varContig(numNodes);
+    ctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");
+    int i = 0;
+    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+      NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+      varContig[i] = nv->x0NodePos();
+      nv->setupInitialNodePosition(varContig[i], 0.0);
+    }
+
+    for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
+       VarType vt = variableNameList[iVar];
+       i = 0;
+       std::string nmm = vt.VariableName(200);
+       ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
+       for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+          NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+          int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+          int istart = nv->EqnStart_GbEqnIndex;
+          (*soln_GLALL_ptr)[istart + ibulk + iVar] =  varContig[i];
+       }
+    }
+}
 //====================================================================================================================
 //  Fill the vector isAlgebraic with the values from the DomainDescription
 void
