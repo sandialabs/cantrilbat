@@ -701,12 +701,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -5.85749e+06       -4.367e+08     J
-   internal energy    -5.85754e+06       -4.367e+08     J
-           entropy         1107.42        8.256e+04     J/K
-    Gibbs function    -6.18767e+06       -4.613e+08     J
- heat capacity c_p         688.012        5.129e+04     J/K
- heat capacity c_v         688.012        5.129e+04     J/K
+          enthalpy     -5.8575e+06       -4.367e+08     J
+   internal energy     -5.8575e+06       -4.367e+08     J
+           entropy          1107.4        8.256e+04     J/K
+    Gibbs function     -6.1877e+06       -4.613e+08     J
+ heat capacity c_p          688.01        5.129e+04     J/K
+ heat capacity c_v          688.01        5.129e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -722,12 +722,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy         -561197       -2.649e+08     J
-   internal energy         -561211       -2.649e+08     J
-           entropy         407.805        1.925e+05     J/K
-    Gibbs function         -682784       -3.223e+08     J
- heat capacity c_p         215.971         1.02e+05     J/K
- heat capacity c_v         215.971         1.02e+05     J/K
+          enthalpy      -5.612e+05       -2.649e+08     J
+   internal energy     -5.6121e+05       -2.649e+08     J
+           entropy           407.8        1.925e+05     J/K
+    Gibbs function     -6.8278e+05       -3.223e+08     J
+ heat capacity c_p          215.97         1.02e+05     J/K
+ heat capacity c_v          215.97         1.02e+05     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -743,12 +743,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     0.000100412          0.02014     J
-   internal energy        -7.47986            -1500     J
+          enthalpy      0.00010041          0.02014     J
+   internal energy         -7.4799            -1500     J
            entropy          379.02        7.603e+04     J/K
-    Gibbs function         -113005       -2.267e+07     J
- heat capacity c_p         139.478        2.798e+04     J/K
- heat capacity c_v         139.478        2.798e+04     J/K
+    Gibbs function       -1.13e+05       -2.267e+07     J
+ heat capacity c_p          139.48        2.798e+04     J/K
+ heat capacity c_v          139.48        2.798e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -765,12 +765,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy         12.1851         0.006641     J
-   internal energy    -4.54854e+09       -2.479e+06     J
+          enthalpy          12.185         0.006641     J
+   internal energy     -4.5485e+09       -2.479e+06     J
            entropy      1.1989e+08        6.534e+04     J/K
-    Gibbs function    -3.57452e+10       -1.948e+07     J
- heat capacity c_p     2.64552e+07        1.442e+04     J/K
- heat capacity c_v     2.64552e+07        1.442e+04     J/K
+    Gibbs function     -3.5745e+10       -1.948e+07     J
+ heat capacity c_p      2.6455e+07        1.442e+04     J/K
+ heat capacity c_v      2.6455e+07        1.442e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

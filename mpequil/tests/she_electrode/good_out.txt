@@ -366,11 +366,11 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy      0.00658857          0.01328     J
-   internal energy    -1.22971e+06       -2.479e+06     J
-           entropy         64825.4        1.307e+05     J/K
-    Gibbs function    -1.93277e+07       -3.896e+07     J
- heat capacity c_p         14304.5        2.884e+04     J/K
+          enthalpy       0.0065886          0.01328     J
+   internal energy     -1.2297e+06       -2.479e+06     J
+           entropy           64825        1.307e+05     J/K
+    Gibbs function     -1.9328e+07       -3.896e+07     J
+ heat capacity c_p           14305        2.884e+04     J/K
  heat capacity c_v           10180        2.052e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
@@ -388,12 +388,12 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy         12.1851         0.006641     J
-   internal energy        -34.6163         -0.01887     J
+          enthalpy          12.185         0.006641     J
+   internal energy         -34.616         -0.01887     J
            entropy      1.1989e+08        6.534e+04     J/K
-    Gibbs function    -3.57452e+10       -1.948e+07     J
- heat capacity c_p     2.64552e+07        1.442e+04     J/K
- heat capacity c_v     2.64552e+07        1.442e+04     J/K
+    Gibbs function     -3.5745e+10       -1.948e+07     J
+ heat capacity c_p      2.6455e+07        1.442e+04     J/K
+ heat capacity c_v      2.6455e+07        1.442e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

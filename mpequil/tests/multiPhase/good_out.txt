@@ -406,12 +406,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -2.47721e+06       -6.882e+07     J
-   internal energy    -2.79145e+06       -7.755e+07     J
-           entropy         244.295             6787     J/K
-    Gibbs function    -2.73372e+06       -7.595e+07     J
+          enthalpy     -2.4772e+06       -6.882e+07     J
+   internal energy     -2.7914e+06       -7.755e+07     J
+           entropy           244.3             6787     J/K
+    Gibbs function     -2.7337e+06       -7.595e+07     J
  heat capacity c_p               0                0     J/K
- heat capacity c_v        -299.271            -8314     J/K
+ heat capacity c_v         -299.27            -8314     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -438,7 +438,7 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
                           1 kg            1 kmol
                        -----------      ------------
           enthalpy               0                0     J
-   internal energy        -28.7855           -345.7     J
+   internal energy         -28.786           -345.7     J
            entropy               0                0     J/K
     Gibbs function               0                0     J
  heat capacity c_p               0                0     J/K
@@ -459,7 +459,7 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
                           1 kg            1 kmol
                        -----------      ------------
           enthalpy               0                0     J
-   internal energy        -28.7855            -1608     J
+   internal energy         -28.786            -1608     J
            entropy               0                0     J/K
     Gibbs function               0                0     J
  heat capacity c_p               0                0     J/K
@@ -479,10 +479,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -9.43678e+06       -5.292e+08     J
-   internal energy    -9.43681e+06       -5.292e+08     J
+          enthalpy     -9.4368e+06       -5.292e+08     J
+   internal energy     -9.4368e+06       -5.292e+08     J
            entropy               0                0     J/K
-    Gibbs function    -9.43678e+06       -5.292e+08     J
+    Gibbs function     -9.4368e+06       -5.292e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
@@ -500,10 +500,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -3.29388e+06       -7.627e+08     J
-   internal energy    -3.29391e+06       -7.627e+08     J
+          enthalpy     -3.2939e+06       -7.627e+08     J
+   internal energy     -3.2939e+06       -7.627e+08     J
            entropy               0                0     J/K
-    Gibbs function    -3.29388e+06       -7.627e+08     J
+    Gibbs function     -3.2939e+06       -7.627e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
@@ -521,10 +521,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -9.41629e+06       -9.424e+08     J
-   internal energy    -9.41632e+06       -9.425e+08     J
+          enthalpy     -9.4163e+06       -9.424e+08     J
+   internal energy     -9.4163e+06       -9.425e+08     J
            entropy               0                0     J/K
-    Gibbs function    -9.41629e+06       -9.424e+08     J
+    Gibbs function     -9.4163e+06       -9.424e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
@@ -542,10 +542,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -2.69923e+06       -1.939e+08     J
-   internal energy    -2.69926e+06       -1.939e+08     J
+          enthalpy     -2.6992e+06       -1.939e+08     J
+   internal energy     -2.6993e+06       -1.939e+08     J
            entropy               0                0     J/K
-    Gibbs function    -2.69923e+06       -1.939e+08     J
+    Gibbs function     -2.6992e+06       -1.939e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  

@@ -386,8 +386,7 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
     int lastGbNode = BDD_.LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
-
-    string iidd = domainNode["id"]; 
+    string iidd      = domainNode["id"]; 
     string s_points  = domainNode["points"]; 
     int points = atoi(s_points.c_str());
     if (points != numNodes) {
@@ -461,7 +460,6 @@ BulkDomain1D::fillIsAlgebraic(Epetra_IntVector  & isAlgebraic)
     }
     
   }
-
 }
 //====================================================================================================================
 //  Fill the vector isAlgebraic with the values from the DomainDescription

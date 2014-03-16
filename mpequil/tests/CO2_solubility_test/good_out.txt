@@ -149,12 +149,12 @@ Moles: 0.101623
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -172,12 +172,12 @@ Moles: 0.00885547
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -236,8 +236,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E  -3.390180745121E-17    1         0
-                          cn  3.390180745121E-17    2         1
+                          E  -1.133988122406E-17    1         0
+                          cn  1.133988122406E-17    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -341,12 +341,12 @@ Moles: 0.217082
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -364,12 +364,12 @@ Moles: 1.03614
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -428,8 +428,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E  -1.252759337920E-18    1         0
-                          cn  1.252759337920E-18    2         1
+                          E  -1.044393601443E-18    1         0
+                          cn  1.044393601443E-18    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -533,12 +533,12 @@ Moles: 0.33254
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -556,12 +556,12 @@ Moles: 2.06342
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -620,8 +620,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E   3.980143397934E-17    1         0
-                          cn -3.980143397934E-17    2         1
+                          E   3.985054261310E-17    1         0
+                          cn -3.985054261310E-17    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -725,12 +725,12 @@ Moles: 0.447999
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -748,12 +748,12 @@ Moles: 3.0907
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -812,8 +812,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E  -4.049559587146E-17    1         0
-                          cn  4.049559587146E-17    2         1
+                          E  -4.072767506018E-17    1         0
+                          cn  4.072767506018E-17    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -917,12 +917,12 @@ Moles: 0.563457
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -940,12 +940,12 @@ Moles: 4.11799
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1004,8 +1004,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E  -2.516114077543E-18    1         0
-                          cn  2.516114077543E-18    2         1
+                          E  -2.317907721651E-18    1         0
+                          cn  2.317907721651E-18    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -1109,12 +1109,12 @@ Moles: 0.678916
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1132,12 +1132,12 @@ Moles: 5.14527
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1196,8 +1196,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E  -2.512126576821E-17    1         0
-                          cn  2.512126576821E-17    2         1
+                          E  -2.507637252764E-17    1         0
+                          cn  2.507637252764E-17    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -1301,12 +1301,12 @@ Moles: 0.794374
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1324,12 +1324,12 @@ Moles: 6.17255
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1388,8 +1388,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E   7.616194782296E-18    1         0
-                          cn -7.616194782296E-18    2         1
+                          E   7.655156123289E-18    1         0
+                          cn -7.655156123289E-18    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -1493,12 +1493,12 @@ Moles: 0.909833
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1516,12 +1516,12 @@ Moles: 7.19984
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98894e+06       -3.894e+08     J
-   internal energy    -9.04651e+06       -3.919e+08     J
-           entropy         4948.07        2.144e+05     J/K
-    Gibbs function    -1.04734e+07       -4.537e+08     J
- heat capacity c_p         856.848        3.712e+04     J/K
- heat capacity c_v         664.935        2.881e+04     J/K
+          enthalpy     -8.9889e+06       -3.894e+08     J
+   internal energy     -9.0465e+06       -3.919e+08     J
+           entropy          4948.1        2.144e+05     J/K
+    Gibbs function     -1.0473e+07       -4.537e+08     J
+ heat capacity c_p          856.85        3.712e+04     J/K
+ heat capacity c_v          664.94        2.881e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1580,8 +1580,8 @@ Elemental Abundances:             Target_kmol    ElemType ElActive
                           N   0.000000000000E+00    0         1
                           Na  1.000000999001E+00    0         1
                           Cl  1.000000999001E+00    0         1
-                          E  -1.321382874040E-18    1         0
-                          cn  1.321382874040E-18    2         1
+                          E  -1.312065691758E-18    1         0
+                          cn  1.312065691758E-18    2         1
                           Fe  0.000000000000E+00    0         1
                           Ca  0.000000000000E+00    0         1
 
@@ -1623,11 +1623,11 @@ H2O(L)              0.000e+00         8.115e-01       -1.000e+300
 Cl-                 0.000e+00         9.416e-02       -1.000e+300
 H+                  0.000e+00         1.015e-06       -1.000e+300
 Na+                 0.000e+00         9.416e-02       -1.000e+300
-OH-                 0.000e+00         5.654e-13       -1.000e+300
+OH-                 0.000e+00         5.661e-13       -1.000e+300
 K+                  0.000e+00         0.000e+00       -1.000e+300
 HCO3-               0.000e+00         1.015e-06       -1.000e+300
-CO3--               0.000e+00         3.167e-12       -1.000e+300
-CO2(aq)             0.000e+00         1.610e-04       -1.000e+300
+CO3--               0.000e+00         3.169e-12       -1.000e+300
+CO2(aq)             0.000e+00         1.614e-04       -1.000e+300
 O2(aq)              0.000e+00         3.195e-16       -1.000e+300
 NaCl(S)             1.000e+00         1.000e+00       -4.328e+08
 O2                  2.210e-27         2.696e-28       -2.199e+08
@@ -1663,15 +1663,15 @@ Moles: 0
                                                           (J/kmol)      (J/kmol)                 
                      -------------    ------------     ------------  ------------    ------------
             H2O(L)      0.811515          55.5084     -3.07574e+08   -3.06816e+08         0.9091
-               Cl-      0.094161          6.44071     -1.79374e+08   -1.84129e+08        1.04458
-                H+   1.01462e-06      6.94008e-05     -1.94595e+07              0        5.89526
-               Na+      0.094161          6.44071     -2.53088e+08   -2.57849e+08        1.04719
-               OH-   5.65379e-13      3.86725e-11     -2.88113e+08   -2.26821e+08       0.550892
-                K+             0                0          N/A      -2.82449e+08       0.525382 
-             HCO3-   1.01461e-06      6.94003e-05     -7.45817e+08   -7.19542e+08       0.383637
-             CO3--   3.16746e-12      2.16658e-10     -7.26351e+08    -6.6031e+08      0.0146402
-           CO2(aq)   0.000161033        0.0110148     -4.57413e+08   -4.49069e+08        3.20035
-            O2(aq)   3.19502e-16      2.18542e-14     -1.19139e+08   -4.48239e+07        5.26361
+               Cl-     0.0941609           6.4407     -1.79374e+08   -1.84129e+08        1.04457
+                H+   1.01462e-06      6.94009e-05     -1.94595e+07              0        5.89524
+               Na+     0.0941609           6.4407     -2.53088e+08   -2.57849e+08         1.0472
+               OH-   5.66082e-13      3.87206e-11      -2.8811e+08   -2.26821e+08       0.550892
+                K+             0                0          N/A      -2.82449e+08       0.525385 
+             HCO3-   1.01461e-06      6.94005e-05     -7.45817e+08   -7.19542e+08       0.383638
+             CO3--   3.16894e-12      2.16759e-10      -7.2635e+08    -6.6031e+08      0.0146402
+           CO2(aq)   0.000161407        0.0110404     -4.57407e+08   -4.49069e+08        3.20035
+            O2(aq)   3.19501e-16      2.18542e-14     -1.19139e+08   -4.48239e+07         5.2636
 
 *************** NaCl(S) *****************
 Moles: 1
@@ -1685,12 +1685,12 @@ Moles: 1
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1708,12 +1708,12 @@ Moles: 8.19998
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.98286e+06       -3.899e+08     J
-   internal energy    -9.04033e+06       -3.924e+08     J
-           entropy         4938.12        2.144e+05     J/K
-    Gibbs function    -1.04643e+07       -4.542e+08     J
- heat capacity c_p         855.466        3.713e+04     J/K
- heat capacity c_v         663.923        2.882e+04     J/K
+          enthalpy     -8.9829e+06       -3.899e+08     J
+   internal energy     -9.0403e+06       -3.924e+08     J
+           entropy          4938.1        2.144e+05     J/K
+    Gibbs function     -1.0464e+07       -4.542e+08     J
+ heat capacity c_p          855.47        3.713e+04     J/K
+ heat capacity c_v          663.92        2.882e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1813,11 +1813,11 @@ Pressure    = 101325 Pa
 -------------------------------------------------------------
 H2O(L)              0.000e+00         8.073e-01       -1.000e+300
 Cl-                 0.000e+00         9.627e-02       -1.000e+300
-H+                  0.000e+00         1.751e-09       -1.000e+300
+H+                  0.000e+00         1.753e-09       -1.000e+300
 Na+                 0.000e+00         9.627e-02       -1.000e+300
 OH-                 0.000e+00         4.293e-10       -1.000e+300
 K+                  0.000e+00         0.000e+00       -1.000e+300
-HCO3-               0.000e+00         1.322e-09       -1.000e+300
+HCO3-               0.000e+00         1.323e-09       -1.000e+300
 CO3--               0.000e+00         8.655e-14       -1.000e+300
 CO2(aq)             0.000e+00         1.740e-04       -1.000e+300
 O2(aq)              0.000e+00         8.655e-14       -1.000e+300
@@ -1856,11 +1856,11 @@ Moles: 0
                      -------------    ------------     ------------  ------------    ------------
             H2O(L)      0.807287          55.5084     -3.07604e+08   -3.06816e+08       0.902847
                Cl-     0.0962693           6.6194     -1.79246e+08   -1.84129e+08        1.06991
-                H+   1.75112e-09      1.20406e-07     -3.51398e+07              0        6.32548
+                H+   1.75294e-09      1.20531e-07     -3.51372e+07              0        6.32548
                Na+     0.0962693           6.6194     -2.52959e+08   -2.57849e+08        1.07285
                OH-   4.29324e-10        2.952e-08     -2.71548e+08   -2.26821e+08       0.552581
                 K+             0                0          N/A      -2.82449e+08       0.525238 
-             HCO3-   1.32163e-09      9.08741e-08     -7.62416e+08   -7.19542e+08        0.37733
+             HCO3-   1.32344e-09      9.09989e-08     -7.62413e+08   -7.19542e+08        0.37733
              CO3--   8.65543e-14       5.9514e-12     -7.35343e+08    -6.6031e+08      0.0144925
            CO2(aq)   0.000174041        0.0119669     -4.57148e+08   -4.49069e+08        3.27585
             O2(aq)   8.65535e-14      5.95135e-12     -1.05065e+08   -4.48239e+07        5.45255
@@ -1877,12 +1877,12 @@ Moles: 1
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -1900,12 +1900,12 @@ Moles: 9.19998
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.97813e+06       -3.903e+08     J
+          enthalpy     -8.9781e+06       -3.903e+08     J
    internal energy     -9.0355e+06       -3.928e+08     J
-           entropy         4930.31        2.143e+05     J/K
-    Gibbs function    -1.04572e+07       -4.546e+08     J
- heat capacity c_p         854.388        3.714e+04     J/K
- heat capacity c_v         663.133        2.883e+04     J/K
+           entropy          4930.3        2.143e+05     J/K
+    Gibbs function     -1.0457e+07       -4.546e+08     J
+ heat capacity c_p          854.39        3.714e+04     J/K
+ heat capacity c_v          663.13        2.883e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -2048,11 +2048,11 @@ Moles: 0
                      -------------    ------------     ------------  ------------    ------------
             H2O(L)      0.803513          55.5084     -3.07632e+08   -3.06816e+08       0.897046
                Cl-     0.0981504          6.78045     -1.79132e+08   -1.84129e+08        1.09358
-                H+   1.20439e-09      8.32022e-08     -3.59028e+07              0        6.74143
+                H+    1.2044e-09      8.32023e-08     -3.59028e+07              0        6.74143
                Na+     0.0981504          6.78045     -2.52844e+08   -2.57849e+08        1.09682
                OH-   3.96394e-10      2.73838e-08     -2.71729e+08   -2.26821e+08       0.554157
                 K+             0                0          N/A      -2.82449e+08       0.525093 
-             HCO3-   8.07827e-10      5.58065e-08     -7.63671e+08   -7.19542e+08       0.371527
+             HCO3-   8.07828e-10      5.58066e-08     -7.63671e+08   -7.19542e+08       0.371527
              CO3--   8.65542e-14      5.97936e-12      -7.3535e+08    -6.6031e+08      0.0143869
            CO2(aq)   0.000186443        0.0128799     -4.56913e+08   -4.49069e+08        3.34403
             O2(aq)   8.65535e-14      5.97931e-12     -1.04976e+08   -4.48239e+07        5.62588
@@ -2069,12 +2069,12 @@ Moles: 1
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -7.03302e+06        -4.11e+08     J
-   internal energy    -7.03307e+06        -4.11e+08     J
+          enthalpy      -7.033e+06        -4.11e+08     J
+   internal energy     -7.0331e+06        -4.11e+08     J
            entropy          1239.2        7.242e+04     J/K
-    Gibbs function    -7.40478e+06       -4.328e+08     J
- heat capacity c_p         864.844        5.054e+04     J/K
- heat capacity c_v         864.844        5.054e+04     J/K
+    Gibbs function     -7.4048e+06       -4.328e+08     J
+ heat capacity c_p          864.84        5.054e+04     J/K
+ heat capacity c_v          864.84        5.054e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -2092,11 +2092,11 @@ Moles: 10.2
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -8.97433e+06       -3.906e+08     J
-   internal energy    -9.03163e+06       -3.931e+08     J
+          enthalpy     -8.9743e+06       -3.906e+08     J
+   internal energy     -9.0316e+06       -3.931e+08     J
            entropy            4924        2.143e+05     J/K
-    Gibbs function    -1.04515e+07       -4.549e+08     J
- heat capacity c_p         853.524        3.715e+04     J/K
+    Gibbs function     -1.0452e+07       -4.549e+08     J
+ heat capacity c_p          853.52        3.715e+04     J/K
  heat capacity c_v           662.5        2.884e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
