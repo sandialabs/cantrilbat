@@ -1056,8 +1056,104 @@ ProblemResidEval::readSolution(const int iNumber,
 			       const double &t_read,
 			       const double &delta_t_read,
                                const double &delta_t_next_read)
- {
+{ 
+    //
+    // Flesh out the name of the file
+    //
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    if (mypid != 0) {
+	baseFileName += ("_" + Cantera::int2str(mypid));
+    }
+    std::string fname = baseFileName + ".xml";
+
+    //
+    //    Read in the XML file 
+    //
+    XML_Node* xSavedSoln = get_XML_File(baseFileName);
+    if (!xSavedSoln) {
+	throw m1d_Error("ProblemResidEval::readSolution()",
+			"Error could not read the file " + baseFileName);
+    }
  
+    XML_Node* simulRecord = selectGlobalTimeStep(xSavedSoln, iNumber);
+    if (!simulRecord) {
+	throw m1d_Error("ProblemResidEval::readSolution()",
+			"Error could not find the requested record " +  int2str(iNumber));	
+    }
+    
+    // Get a local copy of the domain layout
+    DomainLayout &DL = *DL_ptr_;
+
+    //
+    //  Go get a vector for the global solution vector -> this has already been malloced  (i hope)
+    //
+    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+  
+    // 
+    //  Go get a vector for the global solution vector dot -> this has already been malloced  (i hope)
+    //
+    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+
+    //
+    //   Loop over the domains reading in the current solution vector
+    //
+    Domain1D *d_ptr = DL.SurDomain1D_List[0];
+    do {
+	d_ptr->readDomain(*simulRecord, solnAll, soln_dot_All);
+
+
+	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
+	if (bd_ptr) {
+	    //BulkDomainDescription &BDD_;
+	    SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+	    if (sdd) {
+		int idS = sdd->ID();
+		d_ptr = DL.SurDomain1D_List[idS];
+	    } else {
+		d_ptr = 0;
+	    }
+	} else {
+	    SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
+	    DomainDescription *dd = sd_ptr->SDD_.RightDomain;
+	    if (dd) {
+		BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
+		int idS = bdd->ID();
+		d_ptr = DL.BulkDomain1D_List[idS];
+	    } else {
+		d_ptr = 0;
+	    }
+	}
+    } while (d_ptr);
+
+ 
+    if (mypid == 0) {
+	Cantera::writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
+    }
+    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
+ 
+}
+//====================================================================================================================
+//  Select the global time step increment record by the consequuatively numbered record index number
+/*
+ *    @param   xSoln               Solution file for the simulation object
+ *    @param   globalTimeStepNum   Time step number to select
+ *
+ */
+ XML_Node* ProblemResidEval::selectGlobalTimeStep(XML_Node* xSoln, int globalTimeStepNum)
+ {   
+     /*
+      *  Search for a particular global step number
+      */
+     XML_Node* eRecord = xSoln->findNameIDIndex("simulation", "", globalTimeStepNum);
+     if (!eRecord) {
+	 throw m1d_Error("selectGlobalTimeStep()",
+			 "Record not found : " + int2str(globalTimeStepNum));
+     }
+     /*
+      * Return a pointer to the record
+      */
+     return eRecord;
  }
 //=====================================================================================================================
 static void

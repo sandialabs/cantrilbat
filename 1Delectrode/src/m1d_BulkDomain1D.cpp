@@ -378,7 +378,17 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
 //
 //  Also we don't consider any interpolation in between time steps. We enter with an XML_Node specific
 //  to a particular time step. And then populate the solution vector with the saved solution.
+//
+//  MP Implementation
+//     We've punted on this for now. The basic strategy will be to identity which of the three situations
+//     we are currently doing:
+//     
+//          1) global data into local-processor data structure
+//          2) global data into global data structure
+//          3) local-processor data into local-processor data structure
 // 
+//     We are currently set up for #1. However, that may change. Even #1 will fail
+//     
 void
 BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
                          Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)

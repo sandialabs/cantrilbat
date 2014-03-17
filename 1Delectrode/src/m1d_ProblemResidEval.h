@@ -25,6 +25,7 @@
 #include "m1d_VBRIndices.h"
 #include "m1d_LocalNodeIndices.h"
 #include "m1d_EqnVarTypes.h"
+#include "cantera/base/xml.h"
 
 namespace m1d
 {
@@ -638,6 +639,14 @@ public:
 	       const double &t_read,
 	       const double &delta_t_read,
 	       const double &delta_t_next_read);
+
+  //!  Select the global time step increment record by the consequuatively numbered record index number
+  /*
+   *    @param   xSoln               Solution file for the simulation object
+   *    @param   globalTimeStepNum   Time step number to select
+   *
+   */
+  Cantera::XML_Node* selectGlobalTimeStep(Cantera::XML_Node* xSoln, int globalTimeStepNum);
 
   //! Write the solution to either the screen or to a log file
   /*!
