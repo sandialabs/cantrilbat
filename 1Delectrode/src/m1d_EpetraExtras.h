@@ -64,6 +64,9 @@ gather_nodeIntV_OnAll(Epetra_IntVector & global_node_IV, const Epetra_IntVector 
 //! Create a new view of the original vector using potentially a different map
 Epetra_Vector * new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_BlockMap& nmap);
 
+void 
+scatterToAllFrom0(Epetra_Vector& globalSoln, Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
+
 
 
 }

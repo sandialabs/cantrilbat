@@ -294,5 +294,56 @@ Epetra_Vector* new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_Bloc
     return (Epetra_Vector*) xNew;
 }
 //=====================================================================================================================
+//
+//  HKM I put this together. However, I haven't tested it
+//
+void
+scatterToAllFrom0(Epetra_Vector& globalSoln, Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
+{
+  Epetra_Comm *comm_ptr = acomm_ptr;
+  if (acomm_ptr == 0) {
+    if (Comm_ptr) {
+      comm_ptr = Comm_ptr;
+    } else {
+      throw m1d_Error("scatterToAllFrom0", "no comm pointer");
+    }
+  }
+  //int procID = comm_ptr->MyPID();
+
+  // Elements are the number of block rows in the grid
+  // HKM -> Check for numEqs > 1 compatibility
+  //int numMyElements = 0;
+  //int numGlobalElements = distribV.GlobalLength();
+  //if (procID == 0) {
+  //numMyElements = numGlobalElements;
+  //}
+
+  /*
+   * Extract the map from the global vector
+   */
+  const Epetra_BlockMap& e0_map = globalSoln.Map();
+
+  /*
+   *  Extract the map for the distributed vector from the Epetra_Vector
+   */
+  const Epetra_BlockMap &distribMap = distribV.Map();
+
+  /*
+   *  Create an import object that describes the communication to distribute
+   *  all of the unknowns from the global proc 0 object to all other processors. 
+   */
+  Epetra_Import* importAll = new Epetra_Import(distribMap, e0_map);
+
+
+  /*
+   *  Distribute all of the data from processor zero to all of the other processors
+   */
+ 
+  distribV.Import(globalSoln, *importAll, Insert, 0);
+
+  delete importAll;
+
+}
+//=====================================================================================================================
 }
 //=====================================================================================================================
