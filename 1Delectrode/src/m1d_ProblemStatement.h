@@ -90,7 +90,11 @@ public:
 	 */
 	virtual void post_process_input();
 
+        //============================================================================================================
 	//!        DATA FROM INPUT FILES
+        //============================================================================================================
+
+        
 
 	//! BlockEntry structure for the command file.
 	BEInput::BlockEntry *cf_;
@@ -189,6 +193,19 @@ public:
 	 *   9 -> Print a lot of information when any residual is called
 	 */
 	int Residual_printLvl_;
+
+        //!  Record number for the restart capability
+        /*!
+         *  Defaults to -1, in which case there is no restart. 
+         *  If the value is greater than the number of records, then the last record is used.
+         */ 
+        int restartRecordNumber_;
+
+        //!  String name of the restart solution file
+        /*!
+         *  Defaults to the name solutionRestart.xml   
+         */
+        std::string restartFileName_;
 
 	//! Pointer to the solver input record block
 	RecordTree_base *I_LinearSolverBlock;

@@ -44,6 +44,21 @@
 Problem Type = 0
 !-------------------------------------------------------------------------
 !
+! Restart Record Number - int (default = -1) (not required)
+!
+!   If the restart record number is positive, then the calculateion
+!   is started from a saved solution in the restart file.
+!-----------------------------------------------------------------------
+Restart Record Number = -1
+!-----------------------------------------------------------------------
+!
+! Restart File Name - string (default = solutionRestart.xml) (not required)
+!
+!   This is an xml file with simulation records.
+!-----------------------------------------------------------------------
+Restart File Name = solutionRestart.xml
+!-----------------------------------------------------------------------
+!
 ! Energy Equation Problem Type
 !
 !    List of available options

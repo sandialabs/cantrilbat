@@ -45,6 +45,8 @@ bool PrintInputFormat = false;
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
     Residual_printLvl_(0),
+    restartRecordNumber_(-1),
+    restartFileName_("solutionRestart.xml"),
     I_LinearSolverBlock(0),
     startTime_(0.0),
     endTime_(3000.0),
@@ -67,6 +69,8 @@ bool PrintInputFormat = false;
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
     Residual_printLvl_(0),
+    restartRecordNumber_(-1),
+    restartFileName_("solutionRestart.xml"),
     I_LinearSolverBlock(0),
     startTime_(0.0),
     endTime_(3000.0),
@@ -106,6 +110,8 @@ bool PrintInputFormat = false;
     TimeStepper_printLvl_      = right.TimeStepper_printLvl_;
     NonlinSolver_printLvl_     = right.NonlinSolver_printLvl_;
     Residual_printLvl_         = right.Residual_printLvl_;
+    restartRecordNumber_       = right.restartRecordNumber_;
+    restartFileName_           = right.restartFileName_;
     I_LinearSolverBlock        = right.I_LinearSolverBlock;
     startTime_                 = right.startTime_;
     endTime_                   = right.endTime_;
@@ -172,18 +178,32 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
 void
 ProblemStatement::setup_input_pass2(BlockEntry *cf)
 {
+    /* ------------------------------------------------------------------
+     * Line Input For the problem type
+     *
+     */
+    int reqd = 0;
+    LE_OneInt *i2 = new LE_OneInt("Number of CVs Per Domain", &(initDefaultNumCVsPerDomain_), reqd, "numCVs");
+    i2->set_default(10);
+    i2->set_limits(1000, 1);
+    cf->addLineEntry(i2);
 
- /* ------------------------------------------------------------------
-   * Line Input For the problem type
-   *
-   */
-  int reqd = 0;
-  LE_OneInt *i2 = new LE_OneInt("Number of CVs Per Domain", &(initDefaultNumCVsPerDomain_),
-			        reqd, "numCVs");
-  i2->set_default(10);
-  i2->set_limits(1000, 1);
-  cf->addLineEntry(i2);
- 
+    /* ------------------------------------------------------------------
+     * Record number for the restart Capability
+     *
+     */
+    LE_OneInt *iRestart = new LE_OneInt("Restart Record Number", &(restartRecordNumber_), reqd, "restartRecordNumber");
+    iRestart->set_default(-1);
+    iRestart->set_limits(100000000, -1);
+    cf->addLineEntry(iRestart);
+
+    /* ------------------------------------------------------------------
+     * Restart file name
+     *
+     */
+    LE_OneStr *iResName = new LE_OneStr("Restart File Name ", &(restartFileName_), 1, 1, reqd, "restartFileName");
+    iResName->set_default("solutionRestart.xml");
+    cf->addLineEntry(iResName);
 }
 //=====================================================================================================================
 void
