@@ -244,9 +244,9 @@ public:
   //! Base Class for reading the solution from the saved file
   /*!
    *
-   * @param oNode                Reference to the XML_Node to read the solution from
-   * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-   * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+   * @param domainNode          Reference to the XML_Node to read the solution from
+   * @param soln_GLALL_ptr      Pointer to the Global-All solution vector
+   * @param solnDot_ptr         Pointer to the time derivative of the Global-All solution vector
    *
    */
   virtual void 

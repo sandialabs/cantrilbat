@@ -212,11 +212,26 @@ public:
 
   //! Base Class for reading the solution from the saved file
   /*!
+   *  This class assumes that the XML_Node is <domain> in the example below.
    *
-   * @param oNode                Reference to the XML_Node to read the solution from
+   *  <simulation id="0">
+   *    <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
+   *    <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
+   *    <StepNumber type="time" vtype="integer"> 0 </StepNumber>
+   *    <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
+   *      <grid_data>
+   *        <floatArray size="10" title="X0" type="length" units="m">
+   *          0.000000000000000E+00,   8.748888888888889E-05,   1.749777777777778E-04,
+   *          2.624666666666667E-04,   3.499555555555555E-04,   4.374444444444444E-04,
+   *          5.249333333333334E-04,   6.124222222222222E-04,   6.999111111111111E-04,
+   *          7.873999999999999E-04
+   *        </floatArray>
+   *     </domain>
+   *  </simulation>
+   *
+   * @param domainNode           Reference to the XML_Node, named domain, to read the solution from
    * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
    * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
-   *
    */
   virtual void 
   readDomain(const Cantera::XML_Node& domainNode,
@@ -256,7 +271,6 @@ public:
   void writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
 			    const Epetra_Vector *solnDot_GlAll_ptr,
 			    const double t );
-
 
 
   //! Base class for writing the solution on the domain to a logfile.

@@ -156,6 +156,24 @@ public:
 
   //! Base Class for reading the solution from the saved file
   /*!
+   *  This class assumes that the XML_Node is <domain> in the example below.
+   *
+   *  <simulation id="0">
+   *    <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
+   *    <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
+   *    <StepNumber type="time" vtype="integer"> 0 </StepNumber>
+   *    <domain id="SurDomain1D_0" numVariables="6" points="1" type="surface">
+   *      <X0 vtype="float"> 0.000000000000000E+00 </X0>
+   *      <X vtype="float"> 0.000000000000000E+00 </X>
+   *      <Vel_axial(0) vtype="float"> 0.000000000000000E+00 </Vel_axial(0)>
+   *      <MF_sp(ECDMC) vtype="float"> 9.200000000000000E-01 </MF_sp(ECDMC)>
+   *      <MF_sp(Li+) vtype="float"> 4.000000000000000E-02 </MF_sp(Li+)>
+   *      <MF_sp(PF6-) vtype="float"> 4.000000000000000E-02 </MF_sp(PF6-)>
+   *      <Volt(Electrolyte) vtype="float"> -7.000000000000001E-02 </Volt(Electrolyte)>
+   *      <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+   *    </domain>
+   *  </simulation>
+   *
    *
    * @param domainNode                Reference to the XML_Node to read the solution from
    * @param soln__GLALL_ptr      Pointer to the Global-All solution vector

@@ -366,6 +366,19 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
 }
 
 //====================================================================================================================
+//
+//  This treatment assumes that the problem size stays constant. If this is not the case, the routine will
+//  error exit. If we need to change the problem size, then we will need to reinitialize a lot more that just
+//  the solution vector. This is best done after we have put in grid refinement.
+//
+//  Also, we assume that the number of variables stays the same. This may be fiddled with sooner than the number
+//  of grid points. There are probably some interesting possibilities here with just initializing a subset of 
+//  variables. However, right now, if the number of variables aren't equal and in the same order, the
+//  routine will error exit.
+//
+//  Also we don't consider any interpolation in between time steps. We enter with an XML_Node specific
+//  to a particular time step. And then populate the solution vector with the saved solution.
+// 
 void
 BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
                          Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)
@@ -401,6 +414,9 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
        exit(-1);
     }
 
+    //
+    //  Go get the grid data XML node and read it in
+    //
     const Cantera::XML_Node* gd_ptr = domainNode.findByName("gridData");
 
     std::vector<double> varContig(numNodes);
@@ -424,6 +440,7 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
           (*soln_GLALL_ptr)[istart + ibulk + iVar] =  varContig[i];
        }
     }
+
 }
 //====================================================================================================================
 //  Fill the vector isAlgebraic with the values from the DomainDescription

@@ -502,6 +502,19 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
     }
 }
 //====================================================================================================================
+//
+//  This treatment assumes that the problem size stays constant. If this is not the case, the routine will
+//  error exit. If we need to change the problem size, then we will need to reinitialize a lot more that just
+//  the solution vector. This is best done after we have put in grid refinement.
+//
+//  Also, we assume that the number of variables stays the same. This may be fiddled with sooner than the number
+//  of grid points. There are probably some interesting possibilities here with just initializing a subset of 
+//  variables. However, right now, if the number of variables aren't equal and in the same order, the
+//  routine will error exit.
+//
+//  Also we don't consider any interpolation in between time steps. We enter with an XML_Node specific
+//  to a particular time step. And then populate the solution vector with the saved solution.
+// 
 void
 SurDomain1D::readDomain(const Cantera::XML_Node& domainNode,
                         Epetra_Vector * const soln_GLALL_ptr,
@@ -511,6 +524,10 @@ SurDomain1D::readDomain(const Cantera::XML_Node& domainNode,
      *   Find the global node number of the node where this surface domain resides
      */
     int locGbNode = SDD_.LocGbNode;
+
+    // Number of equations per node
+    int numEquationsPerNode = SDD_.NumEquationsPerNode;
+
     /*
      * get the NodeVars object pertaining to this global node
      */
@@ -523,10 +540,19 @@ SurDomain1D::readDomain(const Cantera::XML_Node& domainNode,
 
     string iidd = domainNode["id"]; 
 
-    string points  = domainNode["points"]; 
+    string s_points  = domainNode["points"]; 
+    int points = atoi(s_points.c_str());
+    if (points != 1) {
+        printf("we have an unequal number of points\n");
+        exit(-1);
+    }
     string ttype  = domainNode["type"]; 
     string snumVar  = domainNode["numVariables"]; 
     int numVar = atoi(snumVar.c_str());
+    if (numVar != numEquationsPerNode) {
+       printf("we have an unequal number of equations\n");
+       exit(-1);
+    }
 
     double x0pos = ctml::getFloat(domainNode, "X0", "toSI");     
     double xpos = ctml::getFloat(domainNode, "X", "toSI");     

@@ -1033,6 +1033,33 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   delete ydot_n_owned_ptr;
 }
 //=====================================================================================================================
+// Read the solution from a saved file.
+/*
+ *  We read only successful final steps
+ *
+ * @param iNumber      Solution number to read from. Solutions are numbered consequetively from 
+ *                     zero to the number of global time steps
+ *
+ * @param baseFileName to be used. .xml is appended onto the filename
+ *          processors other than 0 have the pid appended to the name
+ * @param m_y_n        Current value of the solution vector
+ * @param m_ydot_n     Current value of the derivative of the solution vector
+ * @param t_read       time that is read out
+ * @param delta_t_read delta time step for the last time step.
+ * @param delta_t_next_read delta time step for the next time step if available
+ */
+void
+ProblemResidEval::readSolution(const int iNumber,
+			       std::string baseFileName,
+			       Epetra_Vector_Ghosted &y_n_ghosted,
+			       Epetra_Vector_Ghosted * const ydot_n_ghosted,
+			       const double &t_read,
+			       const double &delta_t_read,
+                               const double &delta_t_next_read)
+ {
+ 
+ }
+//=====================================================================================================================
 static void
 sprint_line(char * buf, const char * const st, const int num)
 {

@@ -613,6 +613,32 @@ public:
                   const double t,
                   const double delta_t);
 
+  //! Read the solution from a saved file.
+  /*!
+   *  We read only successful final steps
+   *
+   * @param iNumber            Solution number to read from. Solutions are numbered consequetively from 
+   *                           zero to the number of global time steps. We will use the last
+   *                           time step if there aren't as many time steps in the solution file
+   *                           as requested.
+   *
+   * @param baseFileName       to be used. .xml is appended onto the filename
+   *                           processors other than 0 have the pid appended to the name
+   * @param y_n_ghosted        Current value of the solution vector
+   * @param ydot_n_ghosted     Current value of the derivative of the solution vector
+   * @param t_read             time that is read in
+   * @param delta_t_read       delta time step for the last time step.
+   * @param delta_t_next_read  delta time step for the next time step if available
+   */
+  void
+  readSolution(const int itype,
+	       std::string baseFileName,
+	       Epetra_Vector_Ghosted &y_n_ghosted,
+	       Epetra_Vector_Ghosted * const ydot_n_ghosted,
+	       const double &t_read,
+	       const double &delta_t_read,
+	       const double &delta_t_next_read);
+
   //! Write the solution to either the screen or to a log file
   /*!
    *  This is a general output utility to Cantera's logfile.
