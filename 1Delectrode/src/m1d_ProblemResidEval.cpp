@@ -641,6 +641,21 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     solnDot->PutScalar(0.0);
   }
 
+  int rrn = psInput_ptr_->restartRecordNumber_; 
+
+  double t_read;
+  double delta_t_read;
+  double delta_t_next_read;
+
+  if (rrn >= 0) {
+      string& rfn = psInput_ptr_->restartFileName_;
+      size_t locdot = rfn.find('.');
+      string baseFileName = rfn.substr(0, locdot);
+
+      readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
+
+  } 
+
 
   /*
    * We set initial conditions here that make sense to do by looping over nodes
@@ -659,6 +674,7 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     //probably want to change this later
     d_ptr->writeSolutionTecplotHeader();
   }
+  
   /*
    *    Loop over ths Surface Domains
    */
@@ -1069,10 +1085,10 @@ ProblemResidEval::readSolution(const int iNumber,
     //
     //    Read in the XML file 
     //
-    XML_Node* xSavedSoln = get_XML_File(baseFileName);
+    XML_Node* xSavedSoln = get_XML_File(fname);
     if (!xSavedSoln) {
 	throw m1d_Error("ProblemResidEval::readSolution()",
-			"Error could not read the file " + baseFileName);
+			"Error could not read the file " + fname);
     }
  
     XML_Node* simulRecord = selectGlobalTimeStep(xSavedSoln, iNumber);
@@ -1145,10 +1161,11 @@ ProblemResidEval::readSolution(const int iNumber,
      /*
       *  Search for a particular global step number
       */
-     XML_Node* eRecord = xSoln->findNameIDIndex("simulation", "", globalTimeStepNum);
+     string id_s = int2str(globalTimeStepNum);
+     XML_Node* eRecord = xSoln->findNameID("simulation", id_s);
      if (!eRecord) {
 	 throw m1d_Error("selectGlobalTimeStep()",
-			 "Record not found : " + int2str(globalTimeStepNum));
+			 "Record not found : " + id_s);
      }
      /*
       * Return a pointer to the record

@@ -516,7 +516,7 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
 //  to a particular time step. And then populate the solution vector with the saved solution.
 // 
 void
-SurDomain1D::readDomain(const Cantera::XML_Node& domainNode,
+SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
                         Epetra_Vector * const soln_GLALL_ptr,
                         Epetra_Vector * const solnDot_GLALL_ptr)
 {
@@ -527,36 +527,39 @@ SurDomain1D::readDomain(const Cantera::XML_Node& domainNode,
 
     // Number of equations per node
     int numEquationsPerNode = SDD_.NumEquationsPerNode;
-
+    string ids = id();
+    Cantera::XML_Node *domainNode_ptr = simulationNode.findNameID("domain", ids);
     /*
      * get the NodeVars object pertaining to this global node
      */
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    int numVar = nv->NumEquations;
+
     /*
      *  Get the global equation number index of the unknowns at this surface domain
      */
     int eqnStart = nv->EqnStart_GbEqnIndex;
 
-    string iidd = domainNode["id"]; 
+    string iidd = (*domainNode_ptr)["id"]; 
 
-    string s_points  = domainNode["points"]; 
+    string s_points  = (*domainNode_ptr)["points"]; 
     int points = atoi(s_points.c_str());
     if (points != 1) {
         printf("we have an unequal number of points\n");
         exit(-1);
     }
-    string ttype  = domainNode["type"]; 
-    string snumVar  = domainNode["numVariables"]; 
-    int numVar = atoi(snumVar.c_str());
-    if (numVar != numEquationsPerNode) {
-       printf("we have an unequal number of equations\n");
+    string ttype  = (*domainNode_ptr)["type"]; 
+    string snumVar  = (*domainNode_ptr)["numVariables"]; 
+    int numVarRstart = atoi(snumVar.c_str());
+    if (numVarRstart != numVar) {
+       printf("we have an unequal number of variables at the node\n");
        exit(-1);
     }
 
-    double x0pos = ctml::getFloat(domainNode, "X0", "toSI");     
-    double xpos = ctml::getFloat(domainNode, "X", "toSI");     
-    double xfrac = ctml::getFloat(domainNode, "Xfraction", "toSI");     
+    double x0pos = ctml::getFloat(*domainNode_ptr, "X0", "toSI");     
+    double xpos = ctml::getFloat(*domainNode_ptr, "X", "toSI");     
+    double xfrac = ctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");     
     nv->setupInitialNodePosition(x0pos, xfrac);
     nv->changeNodePosition(xpos);
 
@@ -565,7 +568,7 @@ SurDomain1D::readDomain(const Cantera::XML_Node& domainNode,
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        sval = ctml::getFloat(domainNode, nm, "toSI");
+        sval = ctml::getFloat(*domainNode_ptr, nm, "toSI");
         (*soln_GLALL_ptr)[eqnStart + k] = sval;
     }
 }
@@ -1614,8 +1617,10 @@ void SurBC_Dirichlet::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *
     inlt.addAttribute("numVariables", numVar);
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
+    double xfrac = nv->xFracNodePos(); 
     ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
     ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", Cantera::Undef, Cantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];

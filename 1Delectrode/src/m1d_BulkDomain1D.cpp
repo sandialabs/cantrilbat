@@ -246,8 +246,6 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
  *   use the virtual function structure to go from general to the more
  *   specific direction (i.e., parent to child calling).
  *
- *   In this routine, we make sure that if there are displacement unknowns
- *   then the initial solution holds the X0NodePos values.
  *
  * @param doTimeDependentResid    Boolean indicating whether we should
  *                                formulate the time dependent residual
@@ -258,6 +256,9 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
  * @param t                       Time
  * @param delta_t                 delta_t for the initial time step
  */
+//
+//   HKM This function should be filled in with a capability to initialize constant values for 
+//       field variables, at least!
 void
 BulkDomain1D::initialConditions(const bool doTimeDependentResid,
                                 Epetra_Vector *soln,
@@ -348,7 +349,7 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
     NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
     varContig[i] = nv->x0NodePos();
   }
-  ctml::addFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
+  ctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
 
   for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
     VarType vt = variableNameList[iVar];
@@ -360,7 +361,7 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
       int istart = nv->EqnStart_GbEqnIndex;
       varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
     }
-    ctml::addFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
 
   }
 }
@@ -390,11 +391,14 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
 //     We are currently set up for #1. However, that may change. Even #1 will fail
 //     
 void
-BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
+BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
                          Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)
 {
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
+
+    string ids = id();
+    Cantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
 
     // Number of equations per node
     int numEquationsPerNode = BDD_.NumEquationsPerNode;
@@ -409,15 +413,15 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
     int lastGbNode = BDD_.LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
-    string iidd      = domainNode["id"]; 
-    string s_points  = domainNode["points"]; 
+    string iidd      = (*domainNode_ptr)["id"]; 
+    string s_points  = (*domainNode_ptr)["points"]; 
     int points = atoi(s_points.c_str());
     if (points != numNodes) {
         printf("we have an unequal number of points\n");
         exit(-1);
     }
-    string ttype    = domainNode["type"]; 
-    string snumVar  = domainNode["numVariables"]; 
+    string ttype    = (*domainNode_ptr)["type"]; 
+    string snumVar  = (*domainNode_ptr)["numVariables"]; 
     int numVar = atoi(snumVar.c_str());
     if (numVar != numEquationsPerNode) {
        printf("we have an unequal number of equations\n");
@@ -427,7 +431,7 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& domainNode,
     //
     //  Go get the grid data XML node and read it in
     //
-    const Cantera::XML_Node* gd_ptr = domainNode.findByName("gridData");
+    const Cantera::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
 
     std::vector<double> varContig(numNodes);
     ctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");
