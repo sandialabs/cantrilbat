@@ -1,0 +1,25 @@
+
+
+
+This is an ongoing history of testing of cantrilbat and cantrilbat_test as a function of time.
+Data points are by date with the newest appearing first. The basic premise is
+that successful combinations are to be recorded when they occur.
+
+=================================================================================
+Date of Run = 3/18/
+
+cantera version (svn number) =  
+cantrilbat version (git date) = 
+cantrilbat_test version (git date) = 
+
+Status of tests = 
+=================================================================================
+
+
+
+
+
+
+
+
+
