@@ -1823,7 +1823,7 @@ porousLiKCl_LiSiAnode_dom1D::saveDomain(Cantera::XML_Node& oNode,
     NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
     varContig[i] = nv->x0NodePos();
   }
-  ctml::addFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
+  ctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
 
   for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
     VarType vt = variableNameList[iVar];
@@ -1835,7 +1835,7 @@ porousLiKCl_LiSiAnode_dom1D::saveDomain(Cantera::XML_Node& oNode,
       int istart = nv->EqnStart_GbEqnIndex;
       varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
     }
-    ctml::addFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
 
   }
 }

@@ -462,8 +462,8 @@ static void print_usage() {
   printf("\t  -r rtol = Set relative tolerance parameter - default = 1.0E-3\n");
   printf("\t\n");
   printf("\t Shell Return Values:\n");
-  printf("\t   1 = Comparison was successful\n");
-  printf("\t   0 = One or more nodal values failed the comparison\n");
+  printf("\t   0 = Comparison was successful\n");
+  printf("\t   1 = One or more nodal values failed the comparison\n");
   printf("\t  -1 = Apples to oranges, the files can not even be compared against\n");
   printf("\t       one another.\n");
   printf("\t\n");
@@ -600,7 +600,7 @@ int main(int argc, char *argv[])
     sim2_List[iSim2] = new m1d::SolnLayout(sim2);
 
   };
-  int iTotal = 1;
+  int iTotal = 0;
   for (int iSim1 = 0; iSim1 < numSim1; iSim1++) {
     SolnLayout * sim1_SL =   sim1_List[iSim1];
     SolnLayout * sim2_SL =   sim2_List[iSim1];
@@ -632,7 +632,7 @@ int main(int argc, char *argv[])
       bool iSame = compareBulkDomains(sim1_SL->SolnDomainBulk_List[iBulkD],
 				      sim2_SL->SolnDomainBulk_List[iBulkD]);
       if (!iSame) {
-	iTotal = 0;
+	iTotal = 1;
 	printf("FAILURE: One or more variables on the bulk domain %d are different\n", iBulkD);
       }
     }

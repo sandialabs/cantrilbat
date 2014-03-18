@@ -98,18 +98,18 @@ namespace m1d {
     NumNodes= Cantera::fpValueCheck(sss);
     
     XML_Node * bulkgXML_ptr = bulkXML.findByName("grid_data");
-
-    XML_Node *x0XML = ctml::getByTitle(*bulkgXML_ptr, "X0");
-    if (!x0XML) {
-      throw CanteraError("", "");
+    if (!bulkgXML_ptr) {
+	throw CanteraError(" SolnDomainBulk::readXML", "Can't find grid_data");
     }
-    ctml::getFloatArray(*x0XML, X0NodePos);
+
+ 
+    ctml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
     int sz = X0NodePos.size();
     if (sz != NumNodes) {
-      throw CanteraError("SolnDomainBulk::readXML", "sz of X0Node not right: " + Cantera::int2str(sz) + "  " + Cantera::int2str(NumNodes));
+      throw CanteraError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + Cantera::int2str(sz) + "  " + Cantera::int2str(NumNodes));
     }
 
-    XML_Node *xXML = ctml::getByTitle(*bulkgXML_ptr, "X");
+    XML_Node *xXML = bulkgXML_ptr->findByName("X");
     if (xXML) {
       ctml::getFloatArray(*xXML, XNodePos);
       sz = XNodePos.size();
@@ -117,25 +117,33 @@ namespace m1d {
 	throw CanteraError("SolnDomainBulk::readXML", "sz of XNode not right: " + int2str(sz) + "  " + int2str(NumNodes));
       }
     }
-    
+
+
+    const std::vector<XML_Node *>& gridChildren = bulkgXML_ptr->children();
     std::vector<XML_Node *> dataList; 
-    bulkgXML_ptr->getChildren("floatArray", dataList);
-    int numData = dataList.size();
+    for (size_t iC = 0; iC < gridChildren.size(); iC++) {
+       XML_Node* xx = gridChildren[iC]->findByAttr("vtype", "floatArray");
+       if (xx) {
+         dataList.push_back(xx);
+       }
+    }
+    
+    //bulkgXML_ptr->getChildren("floatArray", dataList);
+    size_t numData = dataList.size();
 
     int numVars = 0;
-    for (int i = 0; i < numData; i++) {
+    for (size_t i = 0; i < numData; i++) {
       XML_Node *dataXML = dataList[i];
-      string title = (*dataXML)["title"];
-      string type = (*dataXML)["type"];
-      if (title == "X0") continue;
-      if (title == "X") continue;
+      string vtitle = (*dataXML).name();
+      string vtype = (*dataXML)["type"];
+      if (vtitle == "X0") continue;
+      if (vtitle == "X") continue;
       numVars++;
-      VarNames.push_back(title);
-      VarTypes.push_back(type);
+      VarNames.push_back(vtitle);
+      VarTypes.push_back(vtype);
       std::vector<double> dataValues;
-      ctml::getFloatArray(*dataXML, dataValues);
-      int sz = dataValues.size();
-      if (sz != NumNodes) {
+      size_t sz = ctml::getFloatArray(*dataXML, dataValues, false, "", vtitle);
+      if (sz != (size_t) NumNodes) {
 	throw CanteraError("SolnDomainBulk::readXML", "sz of data not right: " + int2str(sz) + "  " + int2str(NumNodes));
       }
       DataArray.push_back(dataValues);
