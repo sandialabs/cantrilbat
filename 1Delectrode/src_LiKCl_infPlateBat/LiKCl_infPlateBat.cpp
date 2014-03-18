@@ -314,7 +314,9 @@ main(int argc, char **argv)
     print0_sync_end(true, w0, Comm);
 #endif
 
-    ps->initialConditions(false, soln, 0, 0.0, 0.0);
+    double t_init = 0.0;
+    double delta_t = 1.0E-8;
+    ps->initialConditions(false, soln, 0, t_init, delta_t);
     ps->residEval(res, false, soln, 0, 0.0, 0.0);
 
     print0_epMultiVector(*res, "Residual Value");
@@ -434,10 +436,10 @@ main(int argc, char **argv)
 	double smallTimeShift = MAX( 1e-4 * PSinput.initialTimeStep_, 1e-10 * TFinal );
 	//double smallTimeShift = 1e-10 * TFinal;
 	Tstop = TFinal - smallTimeShift;
-	Tstop = t1.integratePRE( Tstop, TInit );
+	Tstop = t1.integratePRE( Tstop );
       } 
       else {
-	Tstop = t1.integratePRE( TFinal, TInit );
+	Tstop = t1.integratePRE( TFinal );
       }
       
       TInit = TFinal;

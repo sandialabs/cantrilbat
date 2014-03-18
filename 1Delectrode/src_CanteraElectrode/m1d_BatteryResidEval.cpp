@@ -110,8 +110,8 @@ namespace m1d
   BatteryResidEval::initialConditions(const bool doTimeDependentResid,
 				      Epetra_Vector_Ghosted *soln,
 				      Epetra_Vector_Ghosted *solnDot,
-				      const double t,
-				      const double delta_t)
+				      double &t,
+				      double &delta_t)
   {
     //loop over all volume and surface domains providing initial guess
     ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);

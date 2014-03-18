@@ -301,7 +301,10 @@ main(int argc, char **argv)
     print0_sync_end(true, w0, Comm);
 #endif
 
-    ps->initialConditions(false, soln, 0, 0.0, 0.0);
+    double t_init = 0.0;
+    double delta_t = 1.0E-8;
+
+    ps->initialConditions(false, soln, 0, t_init, delta_t);
     ps->residEval(res, false, soln, 0, 0.0, 0.0);
 
     print0_epMultiVector(*res, "Residual Value");

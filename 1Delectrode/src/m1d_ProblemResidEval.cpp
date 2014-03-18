@@ -623,8 +623,8 @@ ProblemResidEval::setStateFromSolution(const bool doTimeDependentResid,
  */
 void
 ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln,
-                                    Epetra_Vector_Ghosted *solnDot, const double t,
-                                    const double delta_t)
+                                    Epetra_Vector_Ghosted *solnDot, double& t,
+                                    double& delta_t)
 {
 
   if (!solnOld_ptr_) {
@@ -653,7 +653,8 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
       string baseFileName = rfn.substr(0, locdot);
 
       readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
-
+      t = t_read;
+      delta_t = delta_t_read;
   } 
 
 
@@ -1069,9 +1070,9 @@ ProblemResidEval::readSolution(const int iNumber,
 			       std::string baseFileName,
 			       Epetra_Vector_Ghosted &y_n_ghosted,
 			       Epetra_Vector_Ghosted * const ydot_n_ghosted,
-			       const double &t_read,
-			       const double &delta_t_read,
-                               const double &delta_t_next_read)
+			       double &t_read,
+			       double &delta_t_read,
+                               double &delta_t_next_read)
 { 
     //
     // Flesh out the name of the file
@@ -1110,12 +1111,17 @@ ProblemResidEval::readSolution(const int iNumber,
     //
     Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
 
+
+    t_read = ctml::getFloat(*simulRecord, "time");
+    delta_t_read = ctml::getFloat(*simulRecord, "delta_t");
+    delta_t_next_read = 0.0;
+
     //
     //   Loop over the domains reading in the current solution vector
     //
     Domain1D *d_ptr = DL.SurDomain1D_List[0];
     do {
-	d_ptr->readDomain(*simulRecord, solnAll, soln_dot_All);
+	d_ptr->readDomain(*simulRecord, &y_n_ghosted, ydot_n_ghosted);
 
 
 	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);

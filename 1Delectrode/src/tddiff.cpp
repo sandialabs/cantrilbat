@@ -314,6 +314,9 @@ main(int argc, char **argv)
     //SolNonlinear::s_print_NumJac = true;
 #endif
 
+    /*
+     *  The default starting time is 0. However, it may be overridden 
+     */
     t1.determineInitialConditions(0.0);
 
     printFlag = 6;

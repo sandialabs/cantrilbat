@@ -489,6 +489,7 @@ void BEulerInt::initializePRE(m1d::ProblemResidEval &func )
     m_func->fillIsAlgebraic(*m_isAlgebraic);
 }
 //=====================================================================================================================
+// We input t0 here. However, the initialConditions function may override.
 void BEulerInt::determineInitialConditions(double t0)
 {
     m_t0 = t0;
@@ -506,7 +507,7 @@ void BEulerInt::determineInitialConditions(double t0)
     /*
      * Initialize the various time counters in the object
      */
-    time_n = t0;
+    time_n = m_t0;
     time_nm1 = time_n;
     time_nm2 = time_nm1;
     delta_t_nm1 = delta_t_n;
@@ -1397,7 +1398,7 @@ int BEulerInt::findTimeRegion(double val, bool start)
  *  defaults are located in the .h file. They are as follows:
  *     time_init = 0.0
  */
-double BEulerInt::integratePRE(double tout, double time_init)
+double BEulerInt::integratePRE(double tout)
 {
     double time_current;
     bool weAreNotFinished = true;
@@ -1416,18 +1417,18 @@ double BEulerInt::integratePRE(double tout, double time_init)
      */
     int istep = 0;
     int printStep = 0;
-    double print_time = time_init;
+    double print_time = m_t0;
     bool doPrintSoln = false;
-    time_current = time_init;
-    time_n = time_init;
-    time_nm1 = time_init;
-    time_nm2 = time_init;
+    time_current = m_t0;
+    time_n = m_t0;
+    time_nm1 = m_t0;
+    time_nm2 = m_t0;
 
     /*
      *   Check for output time crossing a time region
      */
     if (m_timeRegionBoundaries.size() > 0) {
-        int startRegion = findTimeRegion(time_init, true);
+        int startRegion = findTimeRegion(m_t0, true);
         int endRegion = findTimeRegion(tout, false);
         m_currentTimeRegion = startRegion;
         if (endRegion != startRegion) {

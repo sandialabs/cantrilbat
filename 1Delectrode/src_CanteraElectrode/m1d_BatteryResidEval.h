@@ -79,8 +79,8 @@ public:
      * @param delta_t                 delta_t for the initial time step
      */
     void
-    initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln, Epetra_Vector_Ghosted *solnDot, const double t,
-                      const double delta_t);
+    initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln, Epetra_Vector_Ghosted *solnDot, double &t,
+                      double &delta_t);
 
     //! Make an attempt to improve the initial guess for the electrolyte voltage  based on the boundary conditions
     void

@@ -198,7 +198,7 @@ public:
     /*************************************** Member functions ***********************************************/
     /******************************       BASIC INTEGRATION FUNCTIONS                    *********************************/
 
-    virtual double integratePRE(double tout, double tinit = 0.0);
+    virtual double integratePRE(double tout);
 
     //!    This routine advances the calculations one time step
     /*!

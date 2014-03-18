@@ -286,6 +286,7 @@ main(int argc, char **argv)
     Epetra_Vector *b = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
     Epetra_Vector *res = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
     Epetra_Vector *soln = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoLcBlockNodeEqnsColMap));
+    Epetra_Vector *solnDot = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoLcBlockNodeEqnsColMap));
 
     v->PutScalar(0.0);
 
@@ -311,14 +312,14 @@ main(int argc, char **argv)
     ssprint0(w0);
     print0_sync_end(true, w0, Comm);
 #endif
-    ps->initialConditions(false, soln, 0, 0.0, 0.0);
-  ps->initialConditions(false, soln, 0, 0.0, 0.0);
+    double t_init = 0.0;
+    double delta_t = 1.0E-8;
+    ps->initialConditions(false, soln, solnDot, t_init,  delta_t);
 #ifdef DEBUG_MATRIX_STRUCTURE
     std::string snn  = "Initial Solution";
     ps->showSolutionVector(snn, 0.0, 0.0, *soln);
 #endif
     ps->residEval(res, false, soln, 0, 0.0, 0.0);
-  ps->initialConditions(false, soln, 0, 0.0, 0.0);
 #ifdef DEBUG_MATRIX_STRUCTURE
     snn  = "Residual";
     ps->showSolutionVector(snn, 0.0, 0.0, *res);
@@ -326,7 +327,6 @@ main(int argc, char **argv)
     print0_epMultiVector(*res, "Residual Value");
     print0_epMultiVector(*soln, "Solution Values");
 #endif
- ps->initialConditions(false, soln, 0, 0.0, 0.0);
     BEulerInt_Battery t1;
 
 #ifdef DO_INIT_CALC
@@ -347,7 +347,6 @@ main(int argc, char **argv)
 
     t1.initializePRE(*ps);
 
-   ps->initialConditions(false, soln, 0, 0.0, 0.0);
     /*
      * Set the initial time step size for the calculate
      */
@@ -475,10 +474,10 @@ main(int argc, char **argv)
 	double smallTimeShift = MAX( 1e-4 * PSinput.initialTimeStep_, 1e-10 * TFinal );
 	//double smallTimeShift = 1e-10 * TFinal;
 	Tstop = TFinal - smallTimeShift;
-	Tstop = t1.integratePRE( Tstop, TInit );
+	Tstop = t1.integratePRE( Tstop );
       } 
       else {
-	Tstop = t1.integratePRE( TFinal, TInit );
+	Tstop = t1.integratePRE( TFinal );
       }
       
       TInit = TFinal;

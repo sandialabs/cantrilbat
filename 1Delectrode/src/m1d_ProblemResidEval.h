@@ -310,8 +310,8 @@ public:
   initialConditions(const bool doTimeDependentResid,
                     Epetra_Vector_Ghosted *soln,
                     Epetra_Vector_Ghosted *solnDot,
-                    const double t,
-                    const double delta_t);
+                    double& t,
+                    double& delta_t);
 
   //! Allocate and create storage for the Jacobian matrix for this problem
   void
@@ -636,9 +636,9 @@ public:
 	       std::string baseFileName,
 	       Epetra_Vector_Ghosted &y_n_ghosted,
 	       Epetra_Vector_Ghosted * const ydot_n_ghosted,
-	       const double &t_read,
-	       const double &delta_t_read,
-	       const double &delta_t_next_read);
+	       double &t_read,
+	       double &delta_t_read,
+	       double &delta_t_next_read);
 
   //!  Select the global time step increment record by the consequuatively numbered record index number
   /*
