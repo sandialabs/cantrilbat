@@ -688,6 +688,8 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_2/Makefile \
+          1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2/Makefile \
+          1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff3/Makefile \
           util_src/Makefile \
           util_src/src/Makefile \
 	  Experiment/Makefile \
