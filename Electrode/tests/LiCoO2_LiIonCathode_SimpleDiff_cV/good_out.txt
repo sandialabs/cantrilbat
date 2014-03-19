@@ -3115,7 +3115,7 @@ oc[0] = 3.98922
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =   0.00235893 coulombs =  6.55258e-07 Ah
+          Capacity Discharged Since Start =   0.00235893 coulombs =  6.55257e-07 Ah
           Depth of Discharge (Current)    =       1.9847 coulombs    Relative Depth of Discharge = 0.600714    
           Capacity Left                   =       1.3192 coulombs    Capacity at Zero DOD = 3.30391      coulombs
      ===============================================================
@@ -3402,14 +3402,14 @@ oc[0] = 3.98922
                            CoO2                   -3.997E-10
                            li_site                 0.000E+00
    ==============================================================================================
-            0.3    -0.00967898
+            0.3    -0.00967897
    ==============================================================================================
       Electrode_SimpleDiff at time final =  3.00000E-01
                               time init  =  2.80000E-01
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 15
    ==============================================================================================
           Voltage = 3.9 volts
-          Current = -0.00967898 amps
+          Current = -0.00967897 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
@@ -3421,13 +3421,13 @@ oc[0] = 3.98922
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =   0.00294051 coulombs =  8.16807e-07 Ah
+          Capacity Discharged Since Start =    0.0029405 coulombs =  8.16807e-07 Ah
           Depth of Discharge (Current)    =      1.98528 coulombs    Relative Depth of Discharge = 0.60089     
           Capacity Left                   =      1.31862 coulombs    Capacity at Zero DOD = 3.30391      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = -0.00967898 amps 
+                Current = -0.00967897 amps 
                 Electric Potential = 3.9
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
@@ -3727,7 +3727,7 @@ oc[0] = 3.98922
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
-          Capacity Discharged Since Start =   0.00351968 coulombs =  9.77688e-07 Ah
+          Capacity Discharged Since Start =   0.00351967 coulombs =  9.77687e-07 Ah
           Depth of Discharge (Current)    =      1.98586 coulombs    Relative Depth of Discharge = 0.601065    
           Capacity Left                   =      1.31804 coulombs    Capacity at Zero DOD = 3.30391      coulombs
      ===============================================================
@@ -4678,7 +4678,7 @@ oc[0] = 3.98922
                       z      | (f) LiCoO2        (i) | (f) CoO2          (i) | 
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.2846E-09  1.2846E-09 |  8.5552E-10  8.5556E-10 |
-                   7.9370E-06 |  1.3564E-08  1.3563E-08 |  8.9971E-09  8.9985E-09 |
+                   7.9370E-06 |  1.3564E-08  1.3563E-08 |  8.9972E-09  8.9985E-09 |
                    1.0000E-05 |  5.7509E-09  5.7503E-09 |  3.7900E-09  3.7906E-09 |
 
               --------------------------------------------------------------------------------
@@ -4780,7 +4780,7 @@ oc[0] = 3.98922
                       z      | (f) LiCoO2        (i) | (f) CoO2          (i) | 
               --------------------------------------------------------------------------------
                    0.0000E+00 |  1.2847E-09  1.2846E-09 |  8.5547E-10  8.5552E-10 |
-                   7.9370E-06 |  1.3566E-08  1.3564E-08 |  8.9958E-09  8.9971E-09 |
+                   7.9370E-06 |  1.3566E-08  1.3564E-08 |  8.9958E-09  8.9972E-09 |
                    1.0000E-05 |  5.7515E-09  5.7509E-09 |  3.7894E-09  3.7900E-09 |
 
               --------------------------------------------------------------------------------
