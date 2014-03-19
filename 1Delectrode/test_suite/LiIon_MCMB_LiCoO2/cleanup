@@ -2,4 +2,4 @@
   out.txt \
   dout.txt \
   douta.txt \
-  outa.txt diff*
+  outa.txt diff* err_out.txt

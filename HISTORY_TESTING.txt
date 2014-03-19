@@ -8,7 +8,7 @@ that successful combinations are to be recorded when they occur.
 =================================================================================
 Date of Run = 3/18/
 
-cantera version (svn number) =  
+cantera version (svn number) =  2826
 cantrilbat version (git date) = 
 cantrilbat_test version (git date) = 
 
