@@ -114,10 +114,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "electronSHE" IN PHASE "metalElectrons"
         Carrier Species (used in diff. calcs) = H2O(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1          H2O(L)          0.9720       5.459E-02       9.895E-01
-              2             Cl-          0.0210       1.180E-03       4.898E-01
-              3              H+          0.0000       9.834E-11       2.598E-08
-              4             OH-          0.0000       9.834E-11       4.082E-08
+              1          H2O(L)          0.9720       5.459E-02       9.896E-01
+              2             Cl-          0.0210       1.180E-03       4.877E-01
+              3              H+          0.0000       9.834E-11       2.587E-08
+              4             OH-          0.0000       9.834E-11       4.064E-08
               5           Al+++          0.0070       3.934E-04       2.894E-03
           ------------------------------------------------------------------------------
 
