@@ -9,12 +9,12 @@ number of components = 1
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     1.32407e+07        3.448e+08     J
-   internal energy     1.26021e+07        3.281e+08     J
-           entropy         12321.8        3.208e+05     J/K
+          enthalpy      1.3241e+07        3.448e+08     J
+   internal energy      1.2602e+07        3.281e+08     J
+           entropy           12322        3.208e+05     J/K
     Gibbs function     -1.1403e+07       -2.969e+08     J
- heat capacity c_p         3110.33        8.099e+04     J/K
- heat capacity c_v         2791.01        7.267e+04     J/K
+ heat capacity c_p          3110.3        8.099e+04     J/K
+ heat capacity c_v            2791        7.267e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

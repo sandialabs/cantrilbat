@@ -74,12 +74,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -2.15423e+06       -4.487e+07     J
-   internal energy    -2.27397e+06       -4.737e+07     J
-           entropy         13915.5        2.899e+05     J/K
-    Gibbs function    -6.32888e+06       -1.318e+08     J
- heat capacity c_p         1573.95        3.279e+04     J/K
- heat capacity c_v         1174.81        2.447e+04     J/K
+          enthalpy     -2.1542e+06       -4.487e+07     J
+   internal energy      -2.274e+06       -4.737e+07     J
+           entropy           13916        2.899e+05     J/K
+    Gibbs function     -6.3289e+06       -1.318e+08     J
+ heat capacity c_p            1574        3.279e+04     J/K
+ heat capacity c_v          1174.8        2.447e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -301,12 +301,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy         1780.19        5.413e+04     J
-   internal energy        -80257.8        -2.44e+06     J
-           entropy         9907.73        3.012e+05     J/K
-    Gibbs function    -2.97054e+06       -9.032e+07     J
- heat capacity c_p         961.332        2.923e+04     J/K
- heat capacity c_v         687.872        2.091e+04     J/K
+          enthalpy          1780.2        5.413e+04     J
+   internal energy          -80258        -2.44e+06     J
+           entropy          9907.7        3.012e+05     J/K
+    Gibbs function     -2.9705e+06       -9.032e+07     J
+ heat capacity c_p          961.33        2.923e+04     J/K
+ heat capacity c_v          687.87        2.091e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -528,12 +528,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -1.14612e+06       -2.258e+07     J
-   internal energy    -1.99035e+06        -3.92e+07     J
-           entropy         12850.2        2.531e+05     J/K
-    Gibbs function    -2.68466e+07       -5.288e+08     J
- heat capacity c_p         1998.75        3.937e+04     J/K
- heat capacity c_v         1576.63        3.106e+04     J/K
+          enthalpy     -1.1461e+06       -2.258e+07     J
+   internal energy     -1.9904e+06        -3.92e+07     J
+           entropy           12850        2.531e+05     J/K
+    Gibbs function     -2.6847e+07       -5.288e+08     J
+ heat capacity c_p          1998.7        3.937e+04     J/K
+ heat capacity c_v          1576.6        3.106e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -755,12 +755,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     1.81203e+06        2.448e+07     J
-   internal energy          581018        7.849e+06     J
-           entropy         24255.8        3.277e+05     J/K
-    Gibbs function    -4.66997e+07       -6.308e+08     J
- heat capacity c_p         2630.04        3.553e+04     J/K
- heat capacity c_v         2014.53        2.721e+04     J/K
+          enthalpy       1.812e+06        2.448e+07     J
+   internal energy      5.8102e+05        7.849e+06     J
+           entropy           24256        3.277e+05     J/K
+    Gibbs function       -4.67e+07       -6.308e+08     J
+ heat capacity c_p            2630        3.553e+04     J/K
+ heat capacity c_v          2014.5        2.721e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

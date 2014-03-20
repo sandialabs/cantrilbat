@@ -8,12 +8,12 @@
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     2.06334e+07        3.981e+08     J
-   internal energy     1.78325e+07        3.441e+08     J
-           entropy         13279.9        2.562e+05     J/K
-    Gibbs function    -6.56863e+07       -1.267e+09     J
- heat capacity c_p         1497.54         2.89e+04     J/K
- heat capacity c_v         1066.65        2.058e+04     J/K
+          enthalpy      2.0633e+07        3.981e+08     J
+   internal energy      1.7833e+07        3.441e+08     J
+           entropy           13280        2.562e+05     J/K
+    Gibbs function     -6.5686e+07       -1.267e+09     J
+ heat capacity c_p          1497.5         2.89e+04     J/K
+ heat capacity c_v          1066.6        2.058e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -40,12 +40,12 @@ attempted equil at (H,P) = 2.0533e+07,      1e+05
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     2.05334e+07        3.969e+08     J
-   internal energy     1.77413e+07        3.429e+08     J
-           entropy         13264.6        2.564e+05     J/K
-    Gibbs function    -6.55622e+07       -1.267e+09     J
- heat capacity c_p         1495.83        2.891e+04     J/K
- heat capacity c_v         1065.66         2.06e+04     J/K
+          enthalpy      2.0533e+07        3.969e+08     J
+   internal energy      1.7741e+07        3.429e+08     J
+           entropy           13265        2.564e+05     J/K
+    Gibbs function     -6.5562e+07       -1.267e+09     J
+ heat capacity c_p          1495.8        2.891e+04     J/K
+ heat capacity c_v          1065.7         2.06e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -72,12 +72,12 @@ attempted equil at (S,P) =      13365,      1e+05
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     2.11854e+07         4.05e+08     J
-   internal energy     1.83365e+07        3.506e+08     J
-           entropy         13364.6        2.555e+05     J/K
-    Gibbs function    -6.63625e+07       -1.269e+09     J
- heat capacity c_p         1507.07        2.881e+04     J/K
- heat capacity c_v         1072.16         2.05e+04     J/K
+          enthalpy      2.1185e+07         4.05e+08     J
+   internal energy      1.8336e+07        3.506e+08     J
+           entropy           13365        2.555e+05     J/K
+    Gibbs function     -6.6362e+07       -1.269e+09     J
+ heat capacity c_p          1507.1        2.881e+04     J/K
+ heat capacity c_v          1072.2         2.05e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -104,12 +104,12 @@ attempted equil at (S,V,dens) =      13365,     31.655,    0.03159
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     2.08452e+07        4.003e+08     J
-   internal energy     1.80386e+07        3.464e+08     J
-           entropy         13364.6        2.567e+05     J/K
-    Gibbs function    -6.57932e+07       -1.264e+09     J
- heat capacity c_p         1500.01        2.881e+04     J/K
- heat capacity c_v         1067.07        2.049e+04     J/K
+          enthalpy      2.0845e+07        4.003e+08     J
+   internal energy      1.8039e+07        3.464e+08     J
+           entropy           13365        2.567e+05     J/K
+    Gibbs function     -6.5793e+07       -1.264e+09     J
+ heat capacity c_p            1500        2.881e+04     J/K
+ heat capacity c_v          1067.1        2.049e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -135,12 +135,12 @@ attempted equil at (T,V, dens) =       6800,     31.655,    0.03159
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     2.41715e+07          4.4e+08     J
-   internal energy     2.10656e+07        3.835e+08     J
-           entropy         13820.3        2.516e+05     J/K
-    Gibbs function    -6.98062e+07       -1.271e+09     J
- heat capacity c_p         1559.92         2.84e+04     J/K
- heat capacity c_v         1103.17        2.008e+04     J/K
+          enthalpy      2.4171e+07          4.4e+08     J
+   internal energy      2.1066e+07        3.835e+08     J
+           entropy           13820        2.516e+05     J/K
+    Gibbs function     -6.9806e+07       -1.271e+09     J
+ heat capacity c_p          1559.9         2.84e+04     J/K
+ heat capacity c_v          1103.2        2.008e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -167,12 +167,12 @@ attempted equil at (U,V,dens) = 2.0966e+07,     31.655,    0.03159
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     2.40615e+07        4.388e+08     J
-   internal energy     2.09656e+07        3.823e+08     J
-           entropy         13805.5        2.517e+05     J/K
-    Gibbs function    -6.96769e+07       -1.271e+09     J
- heat capacity c_p         1557.88        2.841e+04     J/K
- heat capacity c_v         1101.92        2.009e+04     J/K
+          enthalpy      2.4062e+07        4.388e+08     J
+   internal energy      2.0966e+07        3.823e+08     J
+           entropy           13806        2.517e+05     J/K
+    Gibbs function     -6.9677e+07       -1.271e+09     J
+ heat capacity c_p          1557.9        2.841e+04     J/K
+ heat capacity c_v          1101.9        2.009e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

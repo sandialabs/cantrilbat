@@ -9,11 +9,11 @@
                           1 kg            1 kmol
                        -----------      ------------
           enthalpy     -1.7981e+06       -3.746e+07     J
-   internal energy    -1.99767e+06       -4.161e+07     J
-           entropy         10204.8        2.126e+05     J/K
-    Gibbs function    -6.90049e+06       -1.437e+08     J
- heat capacity c_p         1908.33        3.975e+04     J/K
- heat capacity c_v         1509.19        3.144e+04     J/K
+   internal energy     -1.9977e+06       -4.161e+07     J
+           entropy           10205        2.126e+05     J/K
+    Gibbs function     -6.9005e+06       -1.437e+08     J
+ heat capacity c_p          1908.3        3.975e+04     J/K
+ heat capacity c_v          1509.2        3.144e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -80,12 +80,12 @@
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy          198007         6.02e+06     J
-   internal energy         61277.3        1.863e+06     J
-           entropy         7258.12        2.207e+05     J/K
-    Gibbs function    -3.43105e+06       -1.043e+08     J
- heat capacity c_p         1003.28         3.05e+04     J/K
- heat capacity c_v         729.822        2.219e+04     J/K
+          enthalpy      1.9801e+05         6.02e+06     J
+   internal energy           61277        1.863e+06     J
+           entropy          7258.1        2.207e+05     J/K
+    Gibbs function     -3.4311e+06       -1.043e+08     J
+ heat capacity c_p          1003.3         3.05e+04     J/K
+ heat capacity c_v          729.82        2.219e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -152,12 +152,12 @@
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -1.14349e+06       -2.252e+07     J
-   internal energy    -1.98772e+06       -3.915e+07     J
-           entropy         12854.9        2.532e+05     J/K
-    Gibbs function    -2.68534e+07       -5.289e+08     J
- heat capacity c_p         2004.72        3.949e+04     J/K
- heat capacity c_v         1582.61        3.117e+04     J/K
+          enthalpy     -1.1435e+06       -2.252e+07     J
+   internal energy     -1.9877e+06       -3.915e+07     J
+           entropy           12855        2.532e+05     J/K
+    Gibbs function     -2.6853e+07       -5.289e+08     J
+ heat capacity c_p          2004.7        3.949e+04     J/K
+ heat capacity c_v          1582.6        3.117e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -224,12 +224,12 @@
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy     1.84736e+06        2.493e+07     J
-   internal energy          615229        8.303e+06     J
-           entropy         24280.4        3.277e+05     J/K
-    Gibbs function    -4.67135e+07       -6.304e+08     J
- heat capacity c_p         2638.92        3.562e+04     J/K
- heat capacity c_v         2022.85         2.73e+04     J/K
+          enthalpy      1.8474e+06        2.493e+07     J
+   internal energy      6.1523e+05        8.303e+06     J
+           entropy           24280        3.277e+05     J/K
+    Gibbs function     -4.6713e+07       -6.304e+08     J
+ heat capacity c_p          2638.9        3.562e+04     J/K
+ heat capacity c_v          2022.9         2.73e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
