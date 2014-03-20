@@ -10,6 +10,9 @@ build_python=@BUILD_PYTHON@
 all:
 	cd src; @MAKE@
 
+allsrc:
+	cd src; @MAKE@
+
 clean:
 	cd src; $(RM) .depends ; @MAKE@ clean
 

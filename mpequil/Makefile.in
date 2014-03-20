@@ -12,6 +12,9 @@ all:
 	cd tests; @MAKE@
 	cd failures; @MAKE@
 
+allsrc:
+	cd src; @MAKE@
+
 test:
 	cd tests; @MAKE@ -s test
 

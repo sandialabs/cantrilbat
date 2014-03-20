@@ -10,6 +10,9 @@ build_python=@BUILD_PYTHON@
 all:
 	cd src; @MAKE@
 
+allsrc:
+	cd src; @MAKE@
+
 clean:
 	cd src; $(RM) .depends ; @MAKE@ clean
 	cd tests; @MAKE@ clean
@@ -19,7 +22,6 @@ depends:
 
 install:
 	cd src; @MAKE@ install
-	cd tests; @MAKE@ install
 
 test:
 	cd tests; @MAKE@ test

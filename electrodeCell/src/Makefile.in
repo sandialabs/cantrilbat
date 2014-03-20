@@ -59,6 +59,8 @@ INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -
 
 all: .depends electrodeCell
 
+allsrc: .depends electrodeCell
+
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)

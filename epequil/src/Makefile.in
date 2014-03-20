@@ -43,6 +43,8 @@ INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
 
 all: .depends epequil
 
+allsrc: .depends epequil
+
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)

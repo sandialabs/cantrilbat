@@ -18,6 +18,15 @@ all:
 	cd src_LiIon_PorousBat;           @MAKE@
 	cd test_suite;                    @MAKE@
 
+allsrc:
+	cd src;                           @MAKE@
+	cd src_test;                      @MAKE@
+	cd src_CanteraElectrode;          @MAKE@
+	cd src_Cu2S;                      @MAKE@
+	cd src_LiKCl_infPlateBat;         @MAKE@
+	cd src_LiKCl_infPorousBat;        @MAKE@
+	cd src_LiKCl_PorousBat;           @MAKE@
+	cd src_LiIon_PorousBat;           @MAKE@
 
 test:
 	cd test_suite;                    @MAKE@ test

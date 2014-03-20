@@ -23,6 +23,19 @@ all:
 	cd electrodeCell;                 @MAKE@
 	cd imt_model;                     @MAKE@
 
+# allsrc:  This makes executables and libraries that will be installed, only.
+#          It skips making tests for the most part
+allsrc:
+	cd util_src;                      @MAKE@
+	cd ctpadds;                       @MAKE@
+	cd Electrode;                     @MAKE@ allsrc
+	cd 1Delectrode;                   @MAKE@ allsrc
+	cd mpequil;                       @MAKE@ allsrc
+	cd epequil;                       @MAKE@ allsrc
+	cd cttables;                      @MAKE@ allsrc
+	cd electrodeCell;                 @MAKE@ allsrc
+
+
 clean:
 	cd util_src;                    @MAKE@ clean
 	cd ctpadds;$(RM) .depends ;     @MAKE@ clean

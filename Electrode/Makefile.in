@@ -12,6 +12,9 @@ all:
 #	cd tests_develop;             @MAKE@ 
 #	cd examples;                  @MAKE@ 
 
+allsrc:
+	cd src;				@MAKE@
+
 debug:
 	cd src; make debug
 	cd tests; make debug
