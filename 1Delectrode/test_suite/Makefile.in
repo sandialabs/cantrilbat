@@ -18,35 +18,53 @@ all:
 
 
 test:
-#	cd LiKCl_PorousBat_SPCD_MPNewman; ./runtest
-	cd LiIon_MCMB_LiCoO2;                    ./runtest
-	cd LiIon_MCMB_LiCoO2_2;                  ./runtest
-	cd LiIon_MCMB_LiCoO2_Diff2;              ./runtest
-	cd LiIon_MCMB_LiCoO2_Diff3;              ./runtest
+#	cd LiKCl_PorousBat_SPCD_MPNewman;              @MAKE@ test
+	cd LiIon_MCMB_LiCoO2;	                       @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_2;	                       @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Diff2;	               @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Diff3;	               @MAKE@ test
 
 testd:
-	cd LiIon_MCMB_LiCoO2; ./runtestd
+#	cd LiKCl_PorousBat_SPCD_MPNewman;              @MAKE@ test
+	cd LiIon_MCMB_LiCoO2;	                       @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_2;	                       @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Diff2;	               @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Diff3;	               @MAKE@ test
 
 clean:
-	cd LiKCl_PorousBat_SPCD_MPNewman;         ./cleanup
-	cd LiIon_MCMB_LiCoO2;                     ./cleanup
-	cd LiIon_MCMB_LiCoO2_2;                   ./cleanup
-	cd LiIon_MCMB_LiCoO2_Diff2;               ./cleanup
-	cd LiIon_MCMB_LiCoO2_Diff3;               ./cleanup
+	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ clean
+	cd LiIon_MCMB_LiCoO2;	              		@MAKE@ clean
+	cd LiIon_MCMB_LiCoO2_2;	                   	@MAKE@ clean
+	cd LiIon_MCMB_LiCoO2_Diff2;	       	 	@MAKE@ clean
+	cd LiIon_MCMB_LiCoO2_Diff3;	        	@MAKE@ clean
+
+test_clean:
+	cd LiKCl_PorousBat_SPCD_MPNewman;	  @MAKE@ test_clean
+	cd LiIon_MCMB_LiCoO2;                     @MAKE@ test_clean
+	cd LiIon_MCMB_LiCoO2_2;                   @MAKE@ test_clean
+	cd LiIon_MCMB_LiCoO2_Diff2;               @MAKE@ test_clean
+	cd LiIon_MCMB_LiCoO2_Diff3;               @MAKE@ test_clean
+
+dist_clean:
+	cd LiKCl_PorousBat_SPCD_MPNewman;         @MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2;                     @MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_2;                   @MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_Diff2;               @MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_Diff3;               @MAKE@ dist_clean
 
 test_bat:
-	cd LiKCl_PorousBat_SPCD_MPNewman;         ./runtest
-	cd LiIon_MCMB_LiCoO2;                     ./runtest
-	cd LiIon_MCMB_LiCoO2_2; ./runtest
-	cd LiIon_MCMB_LiCoO2_Diff2; ./runtest
-	cd LiIon_MCMB_LiCoO2_Diff3; ./runtest
+	cd LiKCl_PorousBat_SPCD_MPNewman;	  @MAKE@ test
+	cd LiIon_MCMB_LiCoO2;	                  @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_2;                  @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Diff2;               @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Diff3;               @MAKE@ test
 
 rebaseline:
-	cd LiKCl_PorousBat_SPCD_MPNewman;   ./rebaseline
-	cd LiIon_MCMB_LiCoO2;               ./rebaseline
-	cd LiIon_MCMB_LiCoO2_2;             ./rebaseline
-	cd LiIon_MCMB_LiCoO2_Diff2;         ./rebaseline
-	cd LiIon_MCMB_LiCoO2_Diff3;         ./rebaseline
+	cd LiKCl_PorousBat_SPCD_MPNewman;         ./rebaseline
+	cd LiIon_MCMB_LiCoO2;	                  ./rebaseline
+	cd LiIon_MCMB_LiCoO2_2;	                  ./rebaseline
+	cd LiIon_MCMB_LiCoO2_Diff2;	          ./rebaseline
+	cd LiIon_MCMB_LiCoO2_Diff3;	          ./rebaseline
 #
 
 install:

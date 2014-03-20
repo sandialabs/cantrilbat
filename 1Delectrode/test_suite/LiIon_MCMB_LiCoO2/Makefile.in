@@ -72,13 +72,14 @@ include .depends
 endif
 
 clean:
-	$(RM) runGood runBad $(PROGRAM) runInProgress.txt transport_log.xml
-	./cleanup
+	$(RM) $(PROGRAM) runInProgress.txt transport_log.xml  
+
+test_clean:
+	$(RM) SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
+              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat runGood runBad \
+              out.txt  diff*  $(PROGRAM) runInProgress.txt transport_log.xml
 
 dist_clean:
-	$(RM) SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
-              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat 
-
-
+	@MAKE@ test_clean
 
 

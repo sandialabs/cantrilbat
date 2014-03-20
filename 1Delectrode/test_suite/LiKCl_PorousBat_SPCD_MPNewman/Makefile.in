@@ -12,25 +12,25 @@
 
 .SUFFIXES: .d
 
-PROGRAM = LiIon_PorousBat
-TEST_NAME = LiIon_MCMB_LiCoO2_2
+PROGRAM = LiKCl_PorousBat
+TEST_NAME = LiKCl_PorousBat_SPCD_MPNewman
 
-DATA =  ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
-        MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml \
-        MgO.xml  
+DATA = \
+FeS2_A.xml          Li12Si7.xml  LiKCl_Margules_trans.xml         LiKCl_recipmoltenSalt.xml  LiSi_2_electrode.xml  LiSi_Ext_electrode.xml       MgO.xml                \
+FeS2_B.xml          Li13Si4.xml  LiKCl_Margules.xml               Li_Liquid.xml              LiSi_3_electrode.xml  LiSi_InternalSurf.xml        Si_Solid.xml  \
+FeS2_electrode.xml  Li7Si3.xml   LiKCl_recipmoltenSalt_trans.xml  LiSi_1_electrode.xml       LiSi_electrode.xml    metal_Li_LiCl_electrons.xml  
 
-BLESSED_FILES = BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  SurDomain1D_0_blessed.dat \
-                SurDomain1D_2_blessed.dat  timeDep_IV_blessed.dat \
-                BulkDomain1D_1_blessed.dat  solution_blessed.xml \
-                SurDomain1D_1_blessed.dat  SurDomain1D_3_blessed.dat
+BLESSED_FILES = \
+BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  SurDomain1D_0_blessed.dat  SurDomain1D_2_blessed.dat  timeDep_IV_blessed.dat \
+BulkDomain1D_1_blessed.dat  solution_blessed.xml        SurDomain1D_1_blessed.dat  SurDomain1D_3_blessed.dat good_out.txt
 
-INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp
+INPUT_FILES = anode.inp  cathode.inp  LiKCl_PorousBat.inp
 
 ##########################################################################
 #           Setup The Cantera Directory locations
 #########################################################################
 
-PROGRAM_ORIGIN = ../../src_LiIon_PorousBat/$(PROGRAM)
+PROGRAM_ORIGIN = ../../src_LiKCl_PorousBat/$(PROGRAM)
 
 PURIFY=@PURIFY@
 
@@ -56,7 +56,7 @@ test:
 	@echo -n 'Checking need to run test $(TEST_NAME): '
 	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
-runGood: $(PROGRAM_ORIGIN) $(DATA) $(BLESSED_FILES)
+runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
 	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ./runtest)
 
@@ -71,18 +71,15 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-# Clean temporary files.
-# Don't touch the results of the test run
 clean:
-	$(RM)   runInProgress.txt transport_log.xml
+	$(RM) runInProgress.txt transport_log.xml  
 
-# Wipe out all output files from the test sweet.
 test_clean:
 	$(RM) SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
-              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat $(PROGRAM) \
-	      diff* err_out.txt out.txt outa.txt
+              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat runGood runBad \
+              out.txt  diff*  $(PROGRAM) runInProgress.txt transport_log.xml
 
-# Get the system back to its pristine unbuilt condition
 dist_clean:
 	@MAKE@ test_clean
+
 
