@@ -1,19 +1,46 @@
 
 
-
 This is an ongoing history of testing of cantrilbat and cantrilbat_test as a function of time.
 Data points are by date with the newest appearing first. The basic premise is
 that successful combinations are to be recorded when they occur.
 
-=================================================================================
-Date of Run = 3/18/
+Default configuration of scons:
 
-cantera version (svn number) =  2826
-cantrilbat version (git date) = 
-cantrilbat_test version (git date) = 
+prefix = '/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_dbg'
+python_package = 'full'
+python_array_home =
+'/usr/netpub/numpy/numpy-1.6.2/lib/python2.7/site-packages/numpy'
+python3_package = 'n'
+matlab_toolbox = 'n'
+matlab_path = '/usr/local/matlab/8.1'
+f90_interface = 'y'
+debug_verbose = True
+doxygen_docs = True
+use_sundials = 'y'
+sundials_include = '/usr/netpub/sundials/sundials-2.5.0/include'
+sundials_libdir = '/usr/netpub/sundials/sundials-2.5.0/lib'
+env_vars = 'PYTHONPATH,LD_LIBRARY_PATH'
+optimize = False
+install_gtest = True
+single_library = False
 
-Status of tests = 
+
 =================================================================================
+Date of Analysis = 3/20/14
+   Debug versions of all codes
+
+cantera version (svn number)       =  r2826         3/20/14
+cantrilbat version (git date)      =  b5fc419e4     3/20/14
+cantrilbat_test version (git date) =  fafb28b393c   3/20/14
+
+Status of tests =  All good tests Passed
+
+
+
+=================================================================================
+
+
+
 
 
 
