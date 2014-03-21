@@ -187,14 +187,26 @@ void Electrode::addtoXML_TI_final(bool notDone)
     xmlTimeIncrementData_->mergeAsChild(*xmt);
 }
 //====================================================================================================================
-void Electrode::writeTimeStateFinal_toXML(XML_Node& bb) const
+//  Returns true if the step was successful, and false otherwise
+bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb) const
 {
-    XML_Node&ts = bb.addChild("timeState");
-    ts.addAttribute("type", "t_final");
-    ts.addAttribute("domain", electrodeDomainNumber_);
-    ts.addAttribute("cellNumber", electrodeCellNumber_);
-    ts.addChild("time", tfinal_);
-    ts.addChild(*xmlStateData_final_);
+    //
+    //   There may be situations when we haven't created the state data. When that happens we will forgo creating
+    //   the XML record.
+    //
+    if (xmlStateData_final_) {
+	XML_Node&ts = bb.addChild("timeState");
+	ts.addAttribute("type", "t_final");
+	ts.addAttribute("domain", electrodeDomainNumber_);
+	ts.addAttribute("cellNumber", electrodeCellNumber_);
+	ts.addChild("time", tfinal_);
+	//
+	//  Add information from the saved solution to the record. (Lengthy operation)
+	//
+	ts.addChild(*xmlStateData_final_);
+	return true;
+    }
+    return false;
 }
 //====================================================================================================================
 // Given a Time increment record this routine loads the saved solution for t_final into the electrode object

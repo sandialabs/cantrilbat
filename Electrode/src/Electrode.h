@@ -2095,19 +2095,32 @@ public:
      */
     void writeSolutionTimeIncrement();
 
-    //!  Write the State of the Electrode at the t_final time out to the output XML node
+    //!  Write the state of the Electrode object at the t_final time out to the output XML_Node
     /*!
      *  This routine is used by the 1Dsolvers to write a restart file for the electrode object out
-     *  to an XML file
+     *  to an XML file. The following XML records are written out by this routine, usually into 
+     *  a surrounding domain XML_Node
      *
-     *       <TimeState Cell Number="0" Domain="0" type="t_final">
+     *    <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
+     *       <TimeState Cell Number="0" Domain="0" type="t_final">   <----------------------------- Routines writes this out
      *          <time> 1e-08 </time>
-     *            <electrodeState>
+     *          <electrodeState>
+     *              . . .
+     *          </electrodeState>
+     *       </TimeState>
+     *       . . .
+     *    </domain>
      *
+     *   The electrodeState record is written out by the child Electrode objects from saved data.
+     *   Usually, all objects within the domain write their own records.
      *
      *   @param bb  Output XML mode
+     *
+     *   @return Returns whether the step was successful or not. Note, the electrode object doesn't
+     *           necessarily create the XML information to be saved, in which case this routine
+     *           will return false.
      */
-    void writeTimeStateFinal_toXML(XML_Node&  bb) const;
+    bool writeTimeStateFinal_toXML(XML_Node&  bb) const;
 
     //!  Select the globa time step increment record by the consequatively numbered record index number
     /*!
@@ -2117,7 +2130,6 @@ public:
      *  @TODO shouldn't this be a static routine.
      */
     XML_Node* selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTimeStepNum);
-
 
     //! Given a Time increment record this routine loads the saved solution for t_final into the electrode object
     /*!
