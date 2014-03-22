@@ -44,19 +44,19 @@
 
 namespace m1d
 {
-  class ProblemResidEval;
-  class GlobalIndices;
-  class LocalRowNodeVBRIndices;
+class ProblemResidEval;
+class GlobalIndices;
+class LocalRowNodeVBRIndices;
 }
 
-extern m1d::BatteryResidEval *PS_ptr;
+extern m1d::BatteryResidEval* PS_ptr;
 
 Epetra_VbrMatrix*
 alloc_VbrMatrix(M1D_MPI_Comm mpi_comm);
 
 
 int
-alloc_double_matrix_3d(double ****double_matrix_3d, int L, int M, int N);
+alloc_double_matrix_3d(double**** double_matrix_3d, int L, int M, int N);
 
 void
 ex_write_output_file(M1D_MPI_Comm mpi_comm,
@@ -71,5 +71,5 @@ ex_write_output_file(M1D_MPI_Comm mpi_comm,
  *s
  */
 void
-generateDomain1D(m1d::BatteryResidEval *ps);
+generateDomain1D(m1d::BatteryResidEval* ps);
 
