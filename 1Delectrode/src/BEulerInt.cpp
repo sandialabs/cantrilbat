@@ -496,9 +496,9 @@ void BEulerInt::determineInitialConditions(double t0)
     /*
      *  Get the initial conditions. The initial conditions will depend on delta_t_n, as source term may be integrals
      *  over time. This means that their values depend on the time increment.
+     *  We may get a delta_t_np1 from this procedure.
      */
-    m_func->initialConditions(true, m_y_n, m_ydot_n, m_t0, delta_t_n);
-
+    m_func->initialConditions(true, m_y_n, m_ydot_n, m_t0, delta_t_n, delta_t_np1);
     /*
      *  This is necessary to calculate the "old" variables
      */
@@ -1455,7 +1455,8 @@ double BEulerInt::integratePRE(double tout)
      *   Always call writeSolution to write out the initial conditions
      */
     if (m_print_flag > 0) {
-        m_func->writeSolution(0, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
+        m_func->writeSolution(0, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
+			      TimeDependentAccurate_Solve, delta_t_np1);
     }
 
     /*
@@ -1477,7 +1478,9 @@ double BEulerInt::integratePRE(double tout)
         print_lvl3_Header();
     }
 #endif
-
+    //
+    //   MAIN LOOP OVER THE TIME STEPS
+    //
     do {
 
         print_time = getPrintTime(time_current);
@@ -1549,9 +1552,12 @@ double BEulerInt::integratePRE(double tout)
 
         /*
          * Call the printout routine.
+	 *    -> We included the expected delta t for the next step, delta_t_np1, into the call so that
+	 *       we can have good restart capability and reproducibility.
          */
         if (doPrintSoln && flag != BE_FAILURE) {
-            m_func->writeSolution(1, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
+            m_func->writeSolution(1, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n,
+				  TimeDependentAccurate_Solve, delta_t_np1);
             printStep = 0;
             doPrintSoln = false;
             if (m_print_flag == 1) {
@@ -1597,7 +1603,8 @@ double BEulerInt::integratePRE(double tout)
      * that will probably print to a file.
      */
     if (flag == BE_SUCCESS) {
-        m_func->writeSolution(2, false, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
+        m_func->writeSolution(2, false, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
+			      TimeDependentAccurate_Solve, delta_t_np1);
         m_func->user_out(2, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
     }
     if (flag != BE_SUCCESS) {

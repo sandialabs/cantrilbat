@@ -111,13 +111,14 @@ namespace m1d
 				      Epetra_Vector_Ghosted *soln,
 				      Epetra_Vector_Ghosted *solnDot,
 				      double &t,
-				      double &delta_t)
+				      double &delta_t,
+                                      double &delta_t_np1)
   {
     //loop over all volume and surface domains providing initial guess
-    ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
+    ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t, delta_t_np1);
     //improveInitialConditions(soln);
   }
-
+  //====================================================================================================================
   //! Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
   /*!
    * Not currently finished
@@ -416,10 +417,11 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
 				  int istep,
 				  const Epetra_Vector_Ghosted &y_n,
 				  const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				  const Solve_Type_Enum solveType)
+				  const Solve_Type_Enum solveType, 
+                                  const double delta_t_np1)
   {
     ProblemResidEval::writeSolution(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
-				    ydot_n_ptr, solveType);
+				    ydot_n_ptr, solveType, delta_t_np1);
     if (ievent == 0 || ievent == 1 || ievent == 2) {
       write_IV(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     }

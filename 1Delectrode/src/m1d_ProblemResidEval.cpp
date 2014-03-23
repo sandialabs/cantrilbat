@@ -619,14 +619,14 @@ ProblemResidEval::setStateFromSolution(const bool doTimeDependentResid,
  * @param solnDot                 OUTPUT Solution Dot Vector. On return this contains the initial time derivative
  *                                      of the solution vector.
  * @param t                       INPUT Time
- * @param delta_t                 INPUT delta_t for the initial time step
+ * @param delta_t                 INPUT/OUTPUT delta_t for the initial time step
+ * @param delta_t                 OUTPUT       delta_t_np1 for the initial time step
  */
 void
 ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln,
                                     Epetra_Vector_Ghosted *solnDot, double& t,
-                                    double& delta_t)
+                                    double& delta_t, double& delta_t_np1)
 {
-
   if (!solnOld_ptr_) {
     solnOld_ptr_ = new Epetra_Vector(*soln);
   }
@@ -641,12 +641,13 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     solnDot->PutScalar(0.0);
   }
 
+  // Find the restart record number. If this is greater than zero, then the user has
+  // signaled that a restart file should be used
   int rrn = psInput_ptr_->restartRecordNumber_; 
-
   double t_read;
-  double delta_t_read;
-  double delta_t_next_read;
-
+  double delta_t_read = delta_t;
+  double delta_t_next_read = delta_t;
+  delta_t_np1 = delta_t;
   if (rrn >= 0) {
       string& rfn = psInput_ptr_->restartFileName_;
       size_t locdot = rfn.find('.');
@@ -655,8 +656,8 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
       readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
       t = t_read;
       delta_t = delta_t_read;
+      delta_t_np1 = delta_t_next_read;
   } 
-
 
   /*
    * We set initial conditions here that make sense to do by looping over nodes
@@ -675,7 +676,6 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     //probably want to change this later
     d_ptr->writeSolutionTecplotHeader();
   }
-  
   /*
    *    Loop over ths Surface Domains
    */
@@ -687,18 +687,15 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     //probably want to change this later
     d_ptr->writeSolutionTecplotHeader();
   }
-
   /*
    *  Create an initial value of the atol vector used in the convergence of the time stepping
    *  algorithm and in the nonlinear solver.
    */
   setAtolVector(psInput_ptr_->absTol_, *soln);
-
   /*
    *  Create an initial vector of delta damping for the nonlinear solver
    */
   setAtolDeltaDamping(1.0, *soln);
-
 }
 //=====================================================================================================================
 void
@@ -937,7 +934,8 @@ ProblemResidEval::saveSolutionEnd(const int itype,
                                   const Epetra_Vector_Ghosted &y_n_ghosted,
                                   const Epetra_Vector_Ghosted *ydot_n_ghosted,
                                   const double t,
-                                  const double delta_t)
+                                  const double delta_t,
+                                  const double delta_t_np1)
 {
   //bool doAllProcs = false;
   struct tm *newtime;
@@ -972,7 +970,10 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   ctml::addFloat(sim, "time", t, "s", "time");
   if (delta_t > 0.0) {
     ctml::addFloat(sim, "delta_t", delta_t, "s", "time");
+  } else {
+      ctml::addFloat(sim, "delta_t", 0.0, "s", "time");
   }
+  ctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
   ctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
 
   // Get a local copy of the domain layout
@@ -1104,17 +1105,17 @@ ProblemResidEval::readSolution(const int iNumber,
     //
     //  Go get a vector for the global solution vector -> this has already been malloced  (i hope)
     //
-    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+    // Epetra_Vector *solnAll = GI_ptr_->SolnAll;
   
     // 
     //  Go get a vector for the global solution vector dot -> this has already been malloced  (i hope)
     //
-    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+    // Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
 
 
     t_read = ctml::getFloat(*simulRecord, "time");
     delta_t_read = ctml::getFloat(*simulRecord, "delta_t");
-    delta_t_next_read = 0.0;
+    delta_t_next_read = ctml::getFloat(*simulRecord, "delta_t_np1");
 
     //
     //   Loop over the domains reading in the current solution vector
@@ -1210,7 +1211,8 @@ ProblemResidEval::showProblemSolution(const int ievent,
                                       const double delta_t,
                                       const Epetra_Vector_Ghosted &y_n,
                                       const Epetra_Vector_Ghosted * const ydot_n,
-				      const Solve_Type_Enum solveType)
+				      const Solve_Type_Enum solveType,
+                                      const double delta_t_np1)
 {
 
   //bool doAllProcs = false;
@@ -1248,6 +1250,8 @@ ProblemResidEval::showProblemSolution(const int ievent,
     sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
     Cantera::writelog(buf);
     sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
     Cantera::writelog(buf);
     sprintf(buf, "%s", ind);
     sprint_line(buf, "-", 100);
@@ -1504,16 +1508,18 @@ ProblemResidEval::writeSolution(const int ievent,
                                 int istep,
                                 const Epetra_Vector_Ghosted &y_n,
                                 const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				const Solve_Type_Enum solveType)
+				const Solve_Type_Enum solveType,
+                                const double delta_t_np1)
 {
-  if (ievent == 0 || ievent == 1 || ievent == 2) {
-    saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n);
-  }
-  if (ievent == 0 || ievent == 1 || ievent == 2) {
-    if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
-      showProblemSolution(ievent,  doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType);
+    if (ievent == 0 || ievent == 1 || ievent == 2) {
+	saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
     }
-  }
+    if (ievent == 0 || ievent == 1 || ievent == 2) {
+	if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
+	    showProblemSolution(ievent,  doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType, 
+                                delta_t_np1);
+	}
+    }
 }
 //=====================================================================================================================
 /*

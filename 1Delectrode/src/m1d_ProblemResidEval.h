@@ -304,14 +304,17 @@ public:
    * @param solnDot                 Solution vector. This is the input to
    *                                the residual calculation.
    * @param t                       Time
-   * @param delta_t                 delta_t for the initial time step
+   * @param delta_t                 delta_t for the current time step
+   * @param delta_t_np1             delta_t_np1 for the next step. This 
+   *                                may come from a saved solution.
    */
   void
   initialConditions(const bool doTimeDependentResid,
                     Epetra_Vector_Ghosted *soln,
                     Epetra_Vector_Ghosted *solnDot,
                     double& t,
-                    double& delta_t);
+                    double& delta_t,
+                    double& delta_t_np1);
 
   //! Allocate and create storage for the Jacobian matrix for this problem
   void
@@ -605,6 +608,9 @@ public:
    *          processors other than 0 have the pid appended to the name
    * @param m_y_n    Current value of the solution vector
    * @param m_ydot_n  Current value of the derivative of the solution vector
+   *
+   *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
+   *                               good guess for the next delta_t).
    */
   virtual void
   saveSolutionEnd(const int itype,
@@ -612,7 +618,8 @@ public:
                   const Epetra_Vector_Ghosted &m_y_n,
                   const Epetra_Vector_Ghosted *m_ydot_n,
                   const double t,
-                  const double delta_t);
+                  const double delta_t,
+                  const double delta_t_np1 = 0.0);
 
   //! Read the solution from a saved file.
   /*!
@@ -673,7 +680,8 @@ public:
                       const double delta_t,
                       const Epetra_Vector_Owned &y_n,
                       const Epetra_Vector_Owned * const ydot_n,
-		      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+		      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                      const double delta_t_np1 = 0.0);
 
   //! Write a solution vector type to either the screen or a log file
   /*!
@@ -703,7 +711,6 @@ public:
                      const Epetra_IntVector &solnVector,
                      FILE *outFile = stdout);
 
-
   //! Write out to a file or to standard output the current solution
   /*!
    *   These functions are affected by the print controls of the nonlinear solver
@@ -725,6 +732,8 @@ public:
    *      @param istep             Current step number
    *      @param soln_n               Current value of the solution vector
    *      @param solnDot_n_ptr            Current value of the time deriv of the solution vector
+   *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
+   *                               good guess for the next delta_t).
    */
   virtual void
   writeSolution(const int ievent, 
@@ -734,7 +743,8 @@ public:
                 const int istep,
                 const Epetra_Vector_Ghosted &soln_n,
                 const Epetra_Vector_Ghosted * const solnDot_n_ptr,
-		const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+		const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                const double delta_t_np1 = 0.0);
 
   //! This function may be used to create output at various points in the
   //! execution of an application.
@@ -839,7 +849,6 @@ public:
 
   //! Residual used for internal calculation
   Epetra_Vector_Owned *resInternal_ptr_;
-
 
   //! Absolute tolerances used for nonlinear solver convergences
   Epetra_Vector_Ghosted *m_atolVector;

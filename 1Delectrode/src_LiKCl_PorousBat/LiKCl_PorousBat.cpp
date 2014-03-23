@@ -297,7 +297,8 @@ int main(int argc, char **argv)
          */
         double t_init = 0.0;
         double delta_t = 1.0E-8;
-        ps->initialConditions(false, soln, 0, t_init, delta_t);
+        double delta_t_np1;
+        ps->initialConditions(false, soln, 0, t_init, delta_t, delta_t_np1);
         ps->residEval(res, false, soln, 0, 0.0, 0.0);
         //    We need to get rid of state information about time step in the electrode objects, because
         //    we will be manipulating the initial conditions in the Electrode objects.
@@ -332,8 +333,11 @@ int main(int argc, char **argv)
         /*
          * Set the initial time step size for the calculate
          */
-        t1.setInitialTimeStep(PSinput.initialTimeStep_);
-
+        if (PSinput.initialTimeStep_ > 0.0) {
+            t1.setInitialTimeStep(PSinput.initialTimeStep_);
+        } else {
+            t1.setInitialTimeStep(delta_t_np1);
+        }
         /*
          *  Set the nonlinear solver options used within the time stepper, and the
          *  initial DAE solve algorithm

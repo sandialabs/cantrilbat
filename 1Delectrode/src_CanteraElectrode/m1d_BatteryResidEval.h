@@ -80,7 +80,7 @@ public:
      */
     void
     initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln, Epetra_Vector_Ghosted *solnDot, double &t,
-                      double &delta_t);
+                      double &delta_t, double& delta_t_np1);
 
     //! Make an attempt to improve the initial guess for the electrolyte voltage  based on the boundary conditions
     void
@@ -135,11 +135,14 @@ public:
      *      @param istep             Current step number
      *      @param soln_n               Current value of the solution vector
      *      @param solnDot_n_ptr            Current value of the time deriv of the solution vector
+     *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
+     *                               good guess for the next delta_t).
      */
     virtual void
     writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n,
                   const int istep, const Epetra_Vector_Ghosted &soln_n, const Epetra_Vector_Ghosted * const solnDot_n_ptr,
-                  const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+                  const Solve_Type_Enum solveType = TimeDependentAccurate_Solve, 
+	          const double delta_t_np1 = 0.0);
 
     //! This function may be used to create output at various points in the
     //! execution of an application.

@@ -314,7 +314,8 @@ main(int argc, char** argv)
 #endif
         double t_init = 0.0;
         double delta_t = 1.0E-8;
-        ps->initialConditions(false, soln, solnDot, t_init,  delta_t);
+        double delta_t_np1;
+        ps->initialConditions(false, soln, solnDot, t_init,  delta_t, delta_t_np1);
 #ifdef DEBUG_MATRIX_STRUCTURE
         std::string snn  = "Initial Solution";
         ps->showSolutionVector(snn, 0.0, 0.0, *soln);
@@ -348,9 +349,16 @@ main(int argc, char** argv)
         t1.initializePRE(*ps);
 
         /*
-         * Set the initial time step size for the calculate
+         * Set the initial time step size for the calculation.
+         *   If it's specified in the input file use that.
+         *    else If it's specified in the restart file then use then.
+         *      else use 1.0E-8. 
          */
-        t1.setInitialTimeStep(PSinput.initialTimeStep_);
+        if (PSinput.initialTimeStep_ > 0.0) {
+             t1.setInitialTimeStep(PSinput.initialTimeStep_);
+        } else {
+             t1.setInitialTimeStep(delta_t_np1);
+        }
         /*
          *  Set the nonlinear solver options used within the time stepper, and the
          *  initial DAE solve algorithm

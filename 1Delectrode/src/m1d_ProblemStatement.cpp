@@ -50,11 +50,11 @@ bool PrintInputFormat = false;
     I_LinearSolverBlock(0),
     startTime_(0.0),
     endTime_(3000.0),
-    initialTimeStep_(1e-8),
+    initialTimeStep_(0.0),
     MaxTimeStep_(1.0E6),
     MinTimeStep_(1.0E-15),
-    absTol_(1e-8),
-    relTol_(1e-3),
+    absTol_(1.0e-8),
+    relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
     maxNumTimeSteps_(1000)
   {
@@ -74,11 +74,11 @@ bool PrintInputFormat = false;
     I_LinearSolverBlock(0),
     startTime_(0.0),
     endTime_(3000.0),
-    initialTimeStep_(1e-8),
+    initialTimeStep_(0.0),
     MaxTimeStep_(1.0E6),
     MinTimeStep_(1.0E-15),
-    absTol_(1e-8),
-    relTol_(1e-3),
+    absTol_(1.0e-8),
+    relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
     maxNumTimeSteps_(1000)
   {
@@ -225,8 +225,6 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   i2->set_default(0);
   i2->set_limits(1000, 0);
   cf->addLineEntry(i2);
-  /*
-   */
 
   /* ------------------------------------------------------------------
    * Line Input For Simulation Start Time
@@ -245,19 +243,18 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   LE_OneDbl *d2 = new LE_OneDbl("End Time", &(endTime_), reqd, "endTime_");
   d2->set_default(3000.0);
   cf->addLineEntry(d2);
-  /*
-   */
 
   /* ------------------------------------------------------------------
    * Line Input For Initial Time Step
-   *
+   *   -> This is not a required key work.
+   *   ->  The default value for this is 0.0. This means that the application should evaluate and
+   *       determine its own value for this. If this is added to the input deck, then the input
+   *       deck should be adhered to.
    */
   reqd = 0;
   LE_OneDbl *d3 = new LE_OneDbl("Initial Time Step", &(initialTimeStep_), reqd, "initialTimeStep_");
-  d3->set_default(1e-8);
+  d3->set_default(0.0);
   cf->addLineEntry(d3);
-  /*
-   */
 
  /* ------------------------------------------------------------------
    * Line Input For Maximum value of the Time Step
@@ -267,8 +264,6 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   LE_OneDbl *dmax = new LE_OneDbl("Maximum Time Step", &(MaxTimeStep_), reqd, "MaxTimeStep_");
   dmax->set_default(1e6);
   cf->addLineEntry(dmax);
-  /*
-   */
 
   /* ------------------------------------------------------------------
    * Line Input For Minimum value of the Time Step
@@ -278,8 +273,6 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   LE_OneDbl *dmin = new LE_OneDbl("Minimum Time Step", &(MinTimeStep_), reqd, "MinTimeStep_");
   dmin->set_default(1e-15);
   cf->addLineEntry(dmin);
-  /*
-   */
 
   /* ------------------------------------------------------------------
    * Line Input For Absolute Tolerance
@@ -289,8 +282,6 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   LE_OneDbl *d4 = new LE_OneDbl("Absolute Tolerance", &(absTol_), reqd, "absTol_");
   d4->set_default(1e-8);
   cf->addLineEntry(d4);
-  /*
-   */
 
   /* ------------------------------------------------------------------
    * Line Input For Relative Tolerance
@@ -314,7 +305,6 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
    *   5 -> Print additional information at each time step
    *   6 -> Print some information about each electrode object at each time step
    *   7 -> Print a lot of information about each electrode object at each time step
-
    */
   reqd = 0;
   LE_OneInt *sb1 = new LE_OneInt("Solution Behavior Print Level", &(SolutionBehavior_printLvl_), reqd, 
@@ -370,27 +360,25 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   i3->set_limits(20, -1);
   cf->addLineEntry(i3);
 
-
   /* -------------------------------------------------------------------------------------------------------------------
    * Level of residual information printing done to stdout
    *
-        *   0 -> Don't print anything
-	*   1 -> Print only about significant issues going on
-	*   2 -> Print status information at regular intervals.
-	*   3 -> Print ShowResidual at regular intervals
-	*   4 -> Print ShowResidual at all successful time steps
-	*   5 -> Print additional information when ShowSolution is called.
-	*   6 -> Print additional information when any residual is called.
-	*   7 -> Print a lot of information about each when ShowSolution is called.
-	*   8 -> Print a lot of information when any base or show residual is called
-	*   9 -> Print a lot of information when any residual is called
+   *   0 -> Don't print anything
+   *   1 -> Print only about significant issues going on
+   *   2 -> Print status information at regular intervals.
+   *   3 -> Print ShowResidual at regular intervals
+   *   4 -> Print ShowResidual at all successful time steps
+   *   5 -> Print additional information when ShowSolution is called.
+   *   6 -> Print additional information when any residual is called.
+   *   7 -> Print a lot of information about each when ShowSolution is called.
+   *   8 -> Print a lot of information when any base or show residual is called
+   *   9 -> Print a lot of information when any residual is called
    */
   reqd = 0;
   LE_OneInt *irp = new LE_OneInt("Residual Print Level", &(Residual_printLvl_), reqd, "Residual_printLvl");
   irp->set_default(0);
   irp->set_limits(20, 0);
   cf->addLineEntry(irp);
-
 
   /* -------------------------------------------------------------------------------------------------------------------
    * Line Input for the maximum number of time steps
@@ -408,7 +396,6 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   /* -------------------------------------------------------------------------------------------------------------------
    *   Setup a block for the linear solver 
    */
-
   I_LinearSolverBlock = EpetraJac::setupMDinput_pass1(cf);
 
 
