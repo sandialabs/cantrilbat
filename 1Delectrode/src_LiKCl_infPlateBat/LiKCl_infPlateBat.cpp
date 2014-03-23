@@ -421,7 +421,11 @@ main(int argc, char **argv)
 
     for ( step = stepTimes.begin(); step != stepTimes.end(); step++ )  {
 
-      t1.setInitialTimeStep( PSinput.initialTimeStep_ );
+      if (PSinput.initialTimeStep_ > 0.0) {
+          t1.setInitialTimeStep(PSinput.initialTimeStep_);
+      } else {
+          t1.setInitialTimeStep(delta_t_np1);
+      }
       
       fprintf(stderr, "BOUNDARY CONDITION time step until %f\n", *step );
 
