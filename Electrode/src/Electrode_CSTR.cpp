@@ -929,6 +929,49 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
         SrcDot_RxnExtent_final_  = - DspMoles_final_[kElectron_];
     }
 }
+//================================================================================================================
+void Electrode_CSTR::speciesProductionRate(doublereal* const spMoleDot)
+{     
+    std::fill_n(spMoleDot, m_NumTotSpecies, 0.0);
+    //
+    //  For non-pending we calculate the instantaneous value
+    // 
+    if (pendingIntegratedStep_ != 1) {
+	printf("WARNING: speciesProductionRate called with pendingIntegratedStep_ = 1\n");
+    }
+  
+    //
+    // Look over active kinetics surfaces
+    //
+    for (int isk = 0; isk < numSurfaces_; isk++) {
+	if (ActiveKineticsSurf_[isk]) {
+	    /*
+	     *  For each Reacting surface
+	     *      (  m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
+	     *  Get the species production rates for the reacting surface
+	     */
+	    // TODO: Check this logic for end of region conditions and goNowhere issues
+	    const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+ 
+	    /*
+	     *  loop over the phases in the reacting surface
+	     *  Get the net production vector
+	     */
+	    int nphRS = RSD_List_[isk]->nPhases();
+	    int jph, kph;
+	    int kIndexKin = 0;
+	    for (kph = 0; kph < nphRS; kph++) {
+		jph = RSD_List_[isk]->kinOrder[kph];
+		int istart = m_PhaseSpeciesStartIndex[jph];
+		int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+		for (int k = 0; k < nsp; k++) {
+		    spMoleDot[istart + k] += rsSpeciesProductionRates[kIndexKin] * surfaceAreaRS_final_[isk];
+		    kIndexKin++;
+		}
+	    }
+	}
+    }
+}
 //====================================================================================================================
 //
 /*

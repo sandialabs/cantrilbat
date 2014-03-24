@@ -491,11 +491,28 @@ public:
 
     double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
                    const std::vector<double>& atolVec, const double rtol) const;
+
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    //     -- These are now called "ProductionRate" values
+
+    //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
+    /*!
+     *  (virtual from Electrode)
+     *
+     *  This is the rate of change in the moles of species defined in the electrode  at t_final.
+     *  This calculation does not necessarily use an interval of time to calculate anything.
+     *
+     *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
+     *                     electrode. (kmol s-1)
+     */
+    virtual void speciesProductionRate(doublereal* const spMoleDot);
+
     // ---------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------
     // ---------------------------------------------------------------------------------------------
-
-
 
 
     //! The internal state of the electrode must be kept for the initial and
