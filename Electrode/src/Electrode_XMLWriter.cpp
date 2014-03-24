@@ -264,15 +264,21 @@ void Electrode::loadGlobalTimeStepTFinalState(XML_Node* xGTS)
         throw CanteraError("Electrode::loadGlobalTimeStepTFinalState()",
                            "could not find a node with attribute type t_final within timeIncrement");
     }
+    // load
+    loadTimeStateFinal(*rTFinal);
+}
+//====================================================================================================================
+double Electrode::loadTimeStateFinal(XML_Node& xFinal)
+{
     /*
      *  Get the time
      */
-    double time = ctml::getFloat(*rTFinal, "time");
+    double time = ctml::getFloat(xFinal, "time");
     /*
      *  Get the XML state record from the timeState "t_final" XML element.
      *  Store the pointer in xState.
      */
-    XML_Node* xState = rTFinal->findByName("electrodeState");
+    XML_Node* xState = xFinal.findByName("electrodeState");
     if (!xState) {
         throw CanteraError("Electrode::loadGlobalTimeStepTFinalState()",
                            "could not find the electrodeState XMl element within XML state record");
@@ -290,6 +296,7 @@ void Electrode::loadGlobalTimeStepTFinalState(XML_Node* xGTS)
      *  Set the time
      */
     setTime(time);
+    return time;
 }
 //====================================================================================================================
 //  Select the global time step increment record by the consequuatively numbered record index number

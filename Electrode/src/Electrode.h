@@ -2159,6 +2159,9 @@ public:
      */
     void loadGlobalTimeStepTFinalState(XML_Node* xGTSI);
 
+
+    double loadTimeStateFinal(XML_Node& xTimeStateFinal);
+
     //--------------------------------------------------------------------------------------
 
 protected:
