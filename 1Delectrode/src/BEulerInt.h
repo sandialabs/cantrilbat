@@ -192,8 +192,11 @@ public:
     //! Call the problem residual to establish initial conditions
     /*!
      *  @param t0        Initial time for the simulation
+     *  @param delta_t   Initial time step for the simulation 
+     *                   (this is used if no other source for this is specified
+     *
      */
-    void determineInitialConditions(double t0);
+    void determineInitialConditions(double t0, double delta_t);
 
     /*************************************** Member functions ***********************************************/
     /******************************       BASIC INTEGRATION FUNCTIONS                    *********************************/
@@ -768,6 +771,7 @@ protected:
      * the delta T is uniform
      */
     int m_numInitialConstantDeltaTSteps;
+
     /**
      * Failure Counter -> keeps track of the number
      * of consequetive failures

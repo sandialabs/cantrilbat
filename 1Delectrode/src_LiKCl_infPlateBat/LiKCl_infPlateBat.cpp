@@ -335,7 +335,7 @@ main(int argc, char **argv)
 #endif
 
     t1.initializePRE(*ps);
-    t1.determineInitialConditions(0);
+    t1.determineInitialConditions(0, 1.0E-8);
 
     Epetra_Vector_Ghosted &solnInt = t1.solnVector();
 

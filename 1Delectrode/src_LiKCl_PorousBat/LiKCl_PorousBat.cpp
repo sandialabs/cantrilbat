@@ -331,14 +331,6 @@ int main(int argc, char **argv)
          */
         t1.initializePRE(*ps);
         /*
-         * Set the initial time step size for the calculate
-         */
-        if (PSinput.initialTimeStep_ > 0.0) {
-            t1.setInitialTimeStep(PSinput.initialTimeStep_);
-        } else {
-            t1.setInitialTimeStep(delta_t_np1);
-        }
-        /*
          *  Set the nonlinear solver options used within the time stepper, and the
          *  initial DAE solve algorithm
          */
@@ -357,7 +349,7 @@ int main(int argc, char **argv)
         */
 #endif
 
-        t1.determineInitialConditions(PSinput.startTime_);
+        t1.determineInitialConditions(PSinput.startTime_, delta_t);
 
         Epetra_Vector_Ghosted &solnInt = t1.solnVector();
         Epetra_Vector_Ghosted &solnDot = t1.solnDotVector();

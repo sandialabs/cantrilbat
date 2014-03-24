@@ -225,6 +225,11 @@ public:
 	//! Minimum value of the time step
 	double MinTimeStep_;
 
+	//!  Number of initial time steps to take where the
+	//!  time truncation error tolerances are not checked. Instead
+	//! the delta T is uniform
+	int  m_numInitialConstantDeltaTSteps;
+
 	//! Relative tolerance for time integration
 	double absTol_;
 

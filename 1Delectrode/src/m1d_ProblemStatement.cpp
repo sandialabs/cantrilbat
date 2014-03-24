@@ -53,6 +53,7 @@ bool PrintInputFormat = false;
     initialTimeStep_(0.0),
     MaxTimeStep_(1.0E6),
     MinTimeStep_(1.0E-15),
+    m_numInitialConstantDeltaTSteps(3),
     absTol_(1.0e-8),
     relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
@@ -77,6 +78,7 @@ bool PrintInputFormat = false;
     initialTimeStep_(0.0),
     MaxTimeStep_(1.0E6),
     MinTimeStep_(1.0E-15),
+    m_numInitialConstantDeltaTSteps(3),
     absTol_(1.0e-8),
     relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
@@ -118,6 +120,7 @@ bool PrintInputFormat = false;
     initialTimeStep_           = right.initialTimeStep_;
     MaxTimeStep_               = right.MaxTimeStep_;
     MinTimeStep_               = right.MinTimeStep_;
+    m_numInitialConstantDeltaTSteps = right.m_numInitialConstantDeltaTSteps;
     absTol_                    = right.absTol_;
     relTol_                    = right.relTol_;
     initDefaultNumCVsPerDomain_= right.initDefaultNumCVsPerDomain_;
@@ -273,6 +276,18 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   LE_OneDbl *dmin = new LE_OneDbl("Minimum Time Step", &(MinTimeStep_), reqd, "MinTimeStep_");
   dmin->set_default(1e-15);
   cf->addLineEntry(dmin);
+
+  /* ------------------------------------------------------------------
+   *     Number of initial time steps to take where the
+   *    time truncation error tolerances are not checked. Instead
+   *    the delta T is uniform
+   *               - int (optional) (default = 3)
+   */
+  reqd = 0;
+  LE_OneInt *nCS = new LE_OneInt("Number of Initial Constant deltaT Steps", &(m_numInitialConstantDeltaTSteps), reqd,
+				 "numInitialConstantDeltaTSteps");
+  nCS->set_default(3);
+  cf->addLineEntry(nCS);
 
   /* ------------------------------------------------------------------
    * Line Input For Absolute Tolerance

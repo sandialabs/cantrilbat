@@ -490,7 +490,7 @@ void BEulerInt::initializePRE(m1d::ProblemResidEval &func )
 }
 //=====================================================================================================================
 // We input t0 here. However, the initialConditions function may override.
-void BEulerInt::determineInitialConditions(double t0)
+void BEulerInt::determineInitialConditions(double t0, double delta_t)
 {
     m_t0 = t0;
     /*
@@ -498,7 +498,23 @@ void BEulerInt::determineInitialConditions(double t0)
      *  over time. This means that their values depend on the time increment.
      *  We may get a delta_t_np1 from this procedure.
      */
+    delta_t_n = delta_t;
     m_func->initialConditions(true, m_y_n, m_ydot_n, m_t0, delta_t_n, delta_t_np1);
+    //
+    //   Set up the initial time step
+    //
+    ProblemStatement *ps = m_func->psInput_ptr_;
+    if (ps->initialTimeStep_ > 0.0) {
+       setInitialTimeStep(ps->initialTimeStep_);
+    } else {
+       setInitialTimeStep(delta_t_np1);
+    }
+   
+    //
+    // Setup the inital delta T constant field
+    //
+    m_numInitialConstantDeltaTSteps = ps->m_numInitialConstantDeltaTSteps;
+
     /*
      *  This is necessary to calculate the "old" variables
      */
@@ -2195,7 +2211,8 @@ int BEulerInt::calcConsistentInitialDerivs()
      *   Always call writeSolution to write out the initial conditions
      */
     if (m_print_flag > 0) {
-        m_func->writeSolution(0, true, time_n, delta_t_n, 0.0, *m_y_n, m_ydot_n);
+        m_func->writeSolution(0, true, time_n, delta_t_n, 0.0, *m_y_n, m_ydot_n,
+                              TimeDependentAccurate_Solve, delta_t_np1);
     }
     if (m_print_flag > 0) {
         std::string snn = "Solution Time Derivative";

@@ -130,6 +130,15 @@ Maximum Time Step = 1.0
 Maximum Time Step = 1.0E-12
 !---------------------------------------------------------------------------------------
 !
+!     Number of initial time steps to take where the
+!     time truncation error tolerances are not checked. Instead
+!     the delta T is uniform
+!                - int (optional) (default = 3)
+!     
+!---------------------------------------------------------------------------------------
+Number of Initial Constant deltaT Steps = 3 
+!---------------------------------------------------------------------------------------
+!
 ! Absolute Error Tolerance - double (optional)
 !
 !  Simulation absolute error tolerance

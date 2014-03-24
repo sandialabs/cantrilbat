@@ -349,17 +349,6 @@ main(int argc, char** argv)
         t1.initializePRE(*ps);
 
         /*
-         * Set the initial time step size for the calculation.
-         *   If it's specified in the input file use that.
-         *    else If it's specified in the restart file then use then.
-         *      else use 1.0E-8. 
-         */
-        if (PSinput.initialTimeStep_ > 0.0) {
-             t1.setInitialTimeStep(PSinput.initialTimeStep_);
-        } else {
-             t1.setInitialTimeStep(delta_t_np1);
-        }
-        /*
          *  Set the nonlinear solver options used within the time stepper, and the
          *  initial DAE solve algorithm
          */
@@ -378,7 +367,7 @@ main(int argc, char** argv)
 
 
 
-        t1.determineInitialConditions(PSinput.startTime_);
+        t1.determineInitialConditions(PSinput.startTime_, delta_t);
 
         if (PSinput.rootFinderForConstantCurrent_ > 0) {
             SolGlobalNonlinear* sn = new SolNonlinear_CurrentSolve();

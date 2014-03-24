@@ -337,7 +337,7 @@ main(int argc, char **argv)
 #endif
 
     t1.initializePRE(*ps);
-    t1.determineInitialConditions(PSinput.startTime_);
+    t1.determineInitialConditions(PSinput.startTime_, delta_t);
 
     if (PSinput.rootFinderForConstantCurrent_ > 0) {
        SolGlobalNonlinear *sn = new SolNonlinear_CurrentSolve();

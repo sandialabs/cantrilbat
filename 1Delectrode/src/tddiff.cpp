@@ -317,7 +317,7 @@ main(int argc, char **argv)
     /*
      *  The default starting time is 0. However, it may be overridden 
      */
-    t1.determineInitialConditions(0.0);
+    t1.determineInitialConditions(0.0, 1.0E-8);
 
     printFlag = 6;
     t1.setPrintFlag(printFlag);
@@ -340,15 +340,12 @@ main(int argc, char **argv)
     const Epetra_Vector_Owned &abstol = ps->atolVector();
     t1.setTolerancesEpetra(PSinput.relTol_, abstol);
 
-    int numInitialConstantDeltaTSteps = 3;
-    t1.setNumInitialConstantDeltaTSteps(numInitialConstantDeltaTSteps);
-
-
     printSolnSteps = 3;
-    printSolnInterval = 1;
     printSolnFirstSteps = 4;
+    int printSolnNumberToTout = 1;
+    int printSolnStepInterval = 1;
     dumpJacobians = 0;
-    t1.setPrintSolnOptions(printSolnSteps, printSolnInterval, printSolnFirstSteps, dumpJacobians);
+    t1.setPrintSolnOptions(printSolnStepInterval, printSolnNumberToTout, printSolnFirstSteps, dumpJacobians);
 
   
     t1.setMaxNumTimeSteps(PSinput.maxNumTimeSteps_);
@@ -390,6 +387,10 @@ main(int argc, char **argv)
   catch (m1d::m1d_Error &mE) {
     cerr << "caught an error\n" << endl;
     m1d::showErrors(std::cerr);
+  }
+  catch (Cantera::CanteraError &mC) {
+    Cantera::showErrors(std::cerr);
+
   }
 
 }
