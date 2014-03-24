@@ -682,6 +682,20 @@ public:
      */
     virtual double integratedSourceTerm(doublereal* const spMoleDelta);
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
+    /*!
+     *  This is the rate of change in the moles of species defined in the electrode  at t_final.
+     *  This calculation does not necessarily use an interval of time to calculate anything.
+     *
+     *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
+     *                     electrode. (kmol s-1)
+     */
+    virtual void speciesProductionRate(doublereal* const spMoleDot);
+
     //! Report the energy source term for the electrode over an interval in time
     /*!
      *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
@@ -716,7 +730,7 @@ public:
      *
      *  @param deltaT     time to integrate
      *  @param spMoleDelta The end result in terms of the change in moles of species in the
-     *                     electrode.
+     *                     electrode. (kmol s-1)
      *
      *  @return Tfinal    Final time to integrate to.
      */

@@ -948,7 +948,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      */
     // particle diameter is a required parameter
     if (ei->particleDiameter <= 0.0) {
-        throw CanteraError("Electrode::electrode_model_create()", "Particle diameter is <= 0");
+        throw Electrode_Error("Electrode::electrode_model_create()", "Particle diameter is <= 0");
     }
     inputParticleDiameter_ = ei->particleDiameter;
     Radius_exterior_final_ = inputParticleDiameter_ / 2.0;
@@ -986,7 +986,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             if (grossVolume > 0.0) {
                 porosity_ = (grossVolume - ElectrodeSolidVolume_) / grossVolume;
             } else {
-                throw CanteraError(" Electrode::electrode_model_create() ",
+                throw Electrode_Error(" Electrode::electrode_model_create() ",
                                    " Need to either specify the total superficial volume or the porosity");
             }
             porosity_ = 0.3;
@@ -4345,6 +4345,67 @@ double Electrode::integratedSourceTerm(doublereal* const spMoleDelta)
     return tfinal_;
 }
 //====================================================================================================================
+//! Calculate the instantaneous time derivative of the species vector as determined by all source terms
+/*!
+ *  This is the rate of change in the moles of species defined in the electrode  at t_final.
+ *  This calculation does not necessarily use an interval of time to calculate anything.
+ *
+ *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
+ *                     electrode. phaseList format. (kmol s-1)
+ */
+void Electrode::speciesProductionRate(doublereal* const spMoleDot)
+{     
+
+    std::fill_n(spMoleDot, m_NumTotSpecies, 0.);
+    //
+    //  For non-pending we calculate the instantaneous value
+    //
+    if (pendingIntegratedStep_ != 1) {
+	//
+	// Look over active kinetics surfaces
+	//
+	for (int isk = 0; isk < numSurfaces_; isk++) {
+	    if (ActiveKineticsSurf_[isk]) {
+		/*
+		 *  For each Reacting surface
+		 *      (  m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
+		 *  Get the species production rates for the reacting surface
+		 */
+		
+		const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+	    
+		
+		/*
+		 *  loop over the phases in the reacting surface
+		 *  Get the net production vector
+		 */
+		int nphRS = RSD_List_[isk]->nPhases();
+		int jph, kph;
+		int kIndexKin = 0;
+		for (kph = 0; kph < nphRS; kph++) {
+		    jph = RSD_List_[isk]->kinOrder[kph];
+		    int istart = m_PhaseSpeciesStartIndex[jph];
+		    int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+		    for (int k = 0; k < nsp; k++) {
+			spMoleDot[istart + k] += rsSpeciesProductionRates[kIndexKin] * surfaceAreaRS_final_[isk];
+			kIndexKin++;
+		    }
+		}
+	    }
+	}
+    } else {
+	double invDelT = 1.0;
+	if (t_final_final_ > t_init_init_) {
+	    invDelT = 1.0 / (t_final_final_ - t_init_init_);
+	} else {
+	    throw Electrode_Error("", "");
+	}
+	for (size_t k = 0; k < (size_t)m_NumTotSpecies; k++) {
+	    spMoleDot[k] = invDelT * spMoleIntegratedSourceTerm_[k];
+	}	
+    }
+}
+//====================================================================================================================
 //! Report the energy source term for the electrode over an interval in time
 /*!
  *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
@@ -4407,9 +4468,9 @@ double Electrode::getSourceTerm(SOURCES sourceType)
  *
  *  @param deltaT     time to integrate
  *  @param spMoleDelta The end result in terms of the change in moles of species in the
- *                     electrode.
+ *                     electrode. (kmol s-1)
  *
- *  @return Tfinal    Final time to integrate to.
+ *  @return Tfinal    Final time to integrate to. (s)
  */
 double Electrode::integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta)
 {
