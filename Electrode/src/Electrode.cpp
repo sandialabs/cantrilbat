@@ -4459,26 +4459,6 @@ double Electrode::getSourceTerm(SOURCES sourceType)
   return result;
 }
 //====================================================================================================================
-// Calculate the integrated source term for the electrode over an interval in time.
-/*
- *  This is the net change in the moles of species defined in the electrode over that
- *  interval of time. The conditions at the beginning of the interval are used to carry
- *  out the integrations. This may be used at the start of the time step, since no
- *  unknown conditions are required.
- *
- *  @param deltaT     time to integrate
- *  @param spMoleDelta The end result in terms of the change in moles of species in the
- *                     electrode. (kmol s-1)
- *
- *  @return Tfinal    Final time to integrate to. (s)
- */
-double Electrode::integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta)
-{
-    integrate(deltaT);
-    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), spMoleDelta);
-    return t_final_final_;
-}
-//====================================================================================================================
 // Set the phase existence flag in the electrode kinetics object so that kinetics
 // are calculated correctly
 /*

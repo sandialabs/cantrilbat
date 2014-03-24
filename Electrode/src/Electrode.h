@@ -740,7 +740,6 @@ public:
      */
     double getFinalTime() const;
 
-
     //! Returns the initial global time
     /*!
      *  @return Returns the initial time
@@ -772,22 +771,6 @@ public:
      *                         Defaults to true
      */
     virtual void revertToInitialTime(bool revertToInitInit = true);
-
-    //! Calculate the integrated source term for the electrode over an interval in time.
-    /*!
-     *  This is the net change in the moles of species defined in the electrode over that
-     *  interval of time. The conditions at the beginning of the interval are used to carry
-     *  out the integrations. This may be used at the start of the time step, since no
-     *  unknown conditions are required.
-     *
-     *  @param deltaT     time to integrate
-     *  @param spMoleDelta The end result in terms of the change in moles of species in the
-     *                     electrode. (kmol s-1)
-     *
-     *  @return Tfinal    Final time to integrate to.
-     */
-// Deprecate in favor of separate integrate() and integratedSourceTerm() calls
-    double integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta);
 
     //!  Calculate the change in the state of the system when integrating from T_initial_initial_
     //!  to t_final_final_
