@@ -491,9 +491,9 @@ public:
     //! Return the current porosity
     double porosity() const;
 
-
+    //
     // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
-
+    //
     //!    Return the total volume of solid material
     /*!
      *  (virtual from Electrode.h)
@@ -533,8 +533,9 @@ public:
 // Deprecate
     virtual void getPhaseVol(double* const phaseVols) const;
 
-    // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
-
+    //-------------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------- SURFACE AREAS ------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------
     //! Return the number of surfaces in the Electrode object
     /*!
      *  The number of surfaces may differ from the number of surface kinetics objects now.
@@ -556,8 +557,9 @@ public:
      */
     void getSurfaceAreas(double* const surfArea) const;
 
+    //-------------------------------------------------------------------------------------------------------------------
     // ----------------------------------- QUERY AND SET VOLTAGES -------------------------------------------------------
-
+    //-------------------------------------------------------------------------------------------------------------------
     //! This sets the metal and solution voltage
     /*!
      *  This sets the metal and the electrolyte voltages
@@ -593,7 +595,9 @@ public:
      */
     void setPhaseVoltage(int iph, double volts);
 
+    //-------------------------------------------------------------------------------------------------------------------
     // -------------------------------- QUERY AND SET MOLE NUMBERS-------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------
 
     //! Set the mole numbers in the electrolyte phase
     /*!
@@ -668,23 +672,11 @@ public:
 //Can protect
     void updatePhaseNumbers(int iph);
 
-    //! Report the integrated source term for the electrode over an interval in time.
-    /*!
-     *  This is the net change in the moles of species defined in the electrode over that
-     *  interval of time. The conditions at the end of the interval are used to carry
-     *  out the integrations.
-     *
-     *  @param spMoleDelta The end result in terms of the change in moles of species in the
-     *                     electrode.
-     *
-     *  @return Tfinal    Final time to integrate to.
-     *
-     */
-    virtual double integratedSourceTerm(doublereal* const spMoleDelta);
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
+    //     -- These are now called "ProductionRate" values
 
     //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
     /*!
@@ -696,30 +688,90 @@ public:
      */
     virtual void speciesProductionRate(doublereal* const spMoleDot);
 
-    //! Report the energy source term for the electrode over an interval in time
+    //!  Returns the current and the net production rates of all species in the electrode object
+    //!  at the current conditions from one surface kinetics object
     /*!
-     *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
-     *  This should only be called after integrate() has finished running.
+     * @param isk   Surface index to get the net production rates from
+     * @param net   Species net production rates [kmol/m^2/s]. Return the species
+     *
+     *   @return   Returns the current columb sec-1 m-2
      */
-    virtual double energySourceTerm();
+// Deprecate
+    doublereal getNetProductionRatesCurrent(const int isk, doublereal* const net) const;
 
-    virtual double getSourceTerm(SOURCES sourceType);
+    //! Get the net production rates of all species in the electrode object
+    //! at the current conditions from one surface kinetics object
+    /*!
+     * @param isk   Surface index to get the net production rates from
+     * @param net   Species net production rates [kmol/m^2/s]. Return the species
+     *
+     */
+//Can protect
+    void getNetProductionRates(const int isk, doublereal* const net) const;
+
+    //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
+    /*!
+     *  Returns the net production rates of all phases from reactions on a single surface
+     *
+     *  @param isk Surface ID to get the fluxes from.
+     *  @param phaseMassFlux  Returns the mass fluxes of the phases
+     */
+// Deprecate
+    void getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux);
+
+
+    //!  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
+    /*!
+     *  Returns the net production rates of all phases from reactions on a single surface
+     *
+     *  @param isk Surface ID to get the fluxes from.
+     *  @param phaseMassFlux  Returns the mass fluxes of the phases
+     */
+// Deprecate
+    void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-
-    //! Set the time
-    /*!
-     *   Set the time
-     */
-    void setTime(double time);
 
     //! Get the final state time
     /*!
      *  @return  Returns the time used in the _final_ state.
      */
     double getFinalTime() const;
+
+
+    //! Returns the initial global time
+    /*!
+     *  @return Returns the initial time
+     */
+    double timeInitInit() const;
+  
+    //! Returns the final global time
+    /*!
+     *  @return Returns the final time
+     */
+    double timeFinalFinal() const;
+
+    //! The internal state of the electrode must be kept for the initial and final times of an integration step.
+    /*!
+     *  This function advances the initial state to the final state that was calculated
+     *  in the last integration step.
+     *
+     * @param Tinitial   This is the new initial time. This time is compared against the "old"
+     *                   final time, to see if there is any problem.
+     */
+    virtual void resetStartingCondition(double Tinitial, bool doTestsAlways = false);
+
+    //! Revert the object's conditions to the initial conditions
+    /*!
+     *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init.
+     *  We get rid of the pending flag here as well.
+     *
+     * @param revertToInitInit revert to the t_init_init solution
+     *                         Defaults to true
+     */
+    virtual void revertToInitialTime(bool revertToInitInit = true);
 
     //! Calculate the integrated source term for the electrode over an interval in time.
     /*!
@@ -860,8 +912,9 @@ public:
 // Deprecate
     virtual void calculateTimeDerivatives(doublereal deltaTsubcycle);
 
-
-    // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION ------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION -------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
 
     //! Report the number of state variables and their relative integration errors during the
     //! current global integration step
@@ -878,10 +931,88 @@ public:
     double reportStateVariableIntegrationError(int& numSV, double* const errorVector) const;
 
     //------------------------------------------------------------------------------------------------------------------
-    // ---------------------------- INTEGRATED SOURCE TERM CALCULATIONS ------------------------------------------------
+    // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
+    //! Report the integrated source term for the electrode over an interval in time.
+    /*!
+     *  This is the net change in the moles of species defined in the electrode over that
+     *  interval of time. The conditions at the end of the interval are used to carry
+     *  out the integrations.
+     *
+     *  @param spMoleDelta The end result in terms of the change in moles of species in the
+     *                     electrode.
+     *
+     *  @return Tfinal    Final time to integrate to.
+     *
+     */
+    virtual double integratedSourceTerm(doublereal* const spMoleDelta);
 
+    //! Report the energy source term for the electrode over an interval in time
+    /*!
+     *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
+     *  This should only be called after integrate() has finished running.
+     */
+    virtual double energySourceTerm();
+
+    //! Get the integrated source term values for one of a set of sources
+    /*!
+     *     
+     */
+    virtual double getSourceTerm(SOURCES sourceType);
+
+    //!  Returns the net production rates of all species in the electrode object
+    //!  over the last integration step
+    /*!
+     *  We calculate a rate here by taking the total production amounts and then
+     *  divide by the time step.
+     *
+     *   @param net   Species net production rates [kmol/s].
+     *   @return   Returns the current, amps = columb sec-1
+     */
+    doublereal getIntegratedProductionRatesCurrent(doublereal* const net) const;
+
+    //!  Returns the net current in the electrode object
+    //!  at the current conditions over the current last local time step
+    /*!
+     *   Note we must have integrated a local time step previously.
+     *
+     *   @return   Returns the current columb sec-1 = amps
+     */
+//Can protect
+    doublereal integratedLocalCurrent() const;
+
+    //!  Returns the net production rates of all species in the electrode object
+    //!  over the last integration step
+    /*!
+     *  We calculate a rate here by taking the total production amounds and then
+     *  divide by the time step.
+     *
+     *   @param net   Species net production rates [kmol/s].
+     */
+//Can protect
+    void getIntegratedProductionRates(doublereal* const net) const;
+
+  
+    //!  Returns the net current in the electrode object
+    //!  at the current conditions over the current global time step
+    /*!
+     *   Note we must have integrated a global time step previously.
+     *
+     *   @return   Returns the current columb sec-1 = amps
+     */
+//Can protect
+    doublereal integratedCurrent() const;
+
+
+    //! Returns the integrated moles transfered for each phase in the electrode object
+    //! over the time step
+    /*!
+     *    @param  phaseMolesTransfered vector of moles transfered (length = number of total
+     *            phases in the electrode object)
+     *            units = kmol
+     */
+    virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
@@ -948,40 +1079,15 @@ public:
     int phasePop(int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
     //------------------------------------------------------------------------------------------------------------------
-    // -------------------------------  SetState Functions -------------------------------------------------------
+    // -------------------------------  SetState Functions -------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
 
-    //! The internal state of the electrode must be kept for the initial and final times of an integration step.
+    //! Set the time
     /*!
-     *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step.
-     *
-     * @param Tinitial   This is the new initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
+     *   Set the time
      */
-    virtual void resetStartingCondition(double Tinitial, bool doTestsAlways = false);
+    void setTime(double time);
 
-    //! Revert the object's conditions to the initial conditions
-    /*!
-     *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init.
-     *  We get rid of the pending flag here as well.
-     *
-     * @param revertToInitInit revert to the t_init_init solution
-     *                         Defaults to true
-     */
-    virtual void revertToInitialTime(bool revertToInitInit = true);
-
-    //! Returns the initial global time
-    /*!
-     *  @return Returns the initial time
-     */
-    double timeInitInit() const;
-  
-    //! Returns the final global time
-    /*!
-     *  @return Returns the final time
-     */
-    double timeFinalFinal() const;
 
   private:
     //! Set the internal initial intermediate and initial global state from the internal final state
@@ -1077,6 +1183,7 @@ public:
      *   numExternalInterfacialSurfaces_;
      */
 //Can protect
+// deprecate
     virtual double calcSurfaceAreaChange(double deltaT);
 
 
@@ -1141,10 +1248,6 @@ public:
      */
     double elementSolidMoles(std::string eName) const;
 
-
-
-
-
     //! Returns the electrochemical potential of a single species
     /*!
      *     @param[in] Value of the global species index of the species
@@ -1205,7 +1308,6 @@ public:
      *           participate in the  current ReactingSurDomain object
      */
 // Deprecate
-
     int ReactingSurfacePhaseIndex(int isk, int PLph) const;
 
 
@@ -1351,100 +1453,6 @@ public:
 //Can protect
     double productStoichCoeff(const int isk, int kGlobal, int i) const;
 
-    //! Get the net production rates of all species in the electrode object
-    //! at the current conditions from one surface kinetics object
-    /*!
-     * @param isk   Surface index to get the net production rates from
-     * @param net   Species net production rates [kmol/m^2/s]. Return the species
-     *
-     */
-//Can protect
-    void getNetProductionRates(const int isk, doublereal* const net) const;
-
-
-    //!  Returns the net production rates of all species in the electrode object
-    //!  over the last integration step
-    /*!
-     *  We calculate a rate here by taking the total production amounds and then
-     *  divide by the time step.
-     *
-     *   @param net   Species net production rates [kmol/s].
-     */
-//Can protect
-    void getIntegratedProductionRates(doublereal* const net) const;
-
-    //!  Returns the current and the net production rates of all species in the electrode object
-    //!  at the current conditions from one surface kinetics object
-    /*!
-     * @param isk   Surface index to get the net production rates from
-     * @param net   Species net production rates [kmol/m^2/s]. Return the species
-     *
-     *   @return   Returns the current columb sec-1 m-2
-     */
-// Deprecate
-    doublereal getNetProductionRatesCurrent(const int isk, doublereal* const net) const;
-
-    //!  Returns the net current  in the electrode object
-    //!  at the current conditions over the current global time step
-    /*!
-     *   Note we must have integrated a global time step previously.
-     *
-     *   @return   Returns the current columb sec-1 = amps
-     */
-//Can protect
-    doublereal integratedCurrent() const;
-
-    //!  Returns the net current in the electrode object
-    //!  at the current conditions over the current last local time step
-    /*!
-     *   Note we must have integrated a local time step previously.
-     *
-     *   @return   Returns the current columb sec-1 = amps
-     */
-//Can protect
-    doublereal integratedLocalCurrent() const;
-
-    //!  Returns the net production rates of all species in the electrode object
-    //!  over the last integration step
-    /*!
-     *  We calculate a rate here by taking the total production amounts and then
-     *  divide by the time step.
-     *
-     *   @param net   Species net production rates [kmol/s].
-     *   @return   Returns the current, amps = columb sec-1
-     */
-    doublereal getIntegratedProductionRatesCurrent(doublereal* const net) const;
-
-    //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
-    /*!
-     *  Returns the net production rates of all phases from reactions on a single surface
-     *
-     *  @param isk Surface ID to get the fluxes from.
-     *  @param phaseMassFlux  Returns the mass fluxes of the phases
-     */
-// Deprecate
-    void getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux);
-
-
-    //!  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
-    /*!
-     *  Returns the net production rates of all phases from reactions on a single surface
-     *
-     *  @param isk Surface ID to get the fluxes from.
-     *  @param phaseMassFlux  Returns the mass fluxes of the phases
-     */
-// Deprecate
-    void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
-
-    //! Returns the integrated moles transfered for each phase in the electrode object
-    //! over the time step
-    /*!
-     *    @param  phaseMolesTransfered vector of moles transfered (length = number of total
-     *            phases in the electrode object)
-     *            units = kmol
-     */
-    virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
-
     //! Returns the current potential drop across the electrode
     /*!
      *   This is equal to phiMetal - phiSoln
@@ -1535,9 +1543,9 @@ public:
      */
     static int s_printLvl_PREDICTOR_CORRECTOR;
 
-    /*************************************************************************************************************************
+    /********************************************************************************************************************
      *  OPEN CIRCUIT VOLTAGE
-     *************************************************************************************************************************/
+     *******************************************************************************************************************/
 
     //! Returns the standard state E0 for the electrode based on a single reaction (virtual)
     /*!
@@ -1674,9 +1682,9 @@ public:
 
     virtual int numSolnPhaseSpecies() const;
 
-    // ------------------------------------------------------------------------------------------------
-    // --------------------------- CAPACITY CALCULATION OUTPUT  ---------------------------------------
-    // ------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
     //  Capacity versus DepthOfDischarge
     //   The difference occurs when there is a loss of capacity due to irreversible changes in the
@@ -1958,9 +1966,9 @@ public:
     void updatePhaseNumbersTmp(std::vector<doublereal>& spMoles_tmp,
                                std::vector<doublereal>& phaseMoles_tmp, std::vector<doublereal>& spMf_tmp);
 
-    //--------------------------------------------------------------------------------------------------
-    // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------
-    //--------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------
+    // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------
 
     //! Determines the level of printing for each step.
     /*!
@@ -2116,7 +2124,7 @@ public:
      *  a surrounding domain XML_Node
      *
      *    <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
-     *       <TimeState Cell Number="0" Domain="0" type="t_final">   <----------------------------- Routines writes this out
+     *       <TimeState Cell Number="0" Domain="0" type="t_final">   <------------------------ Routines writes this out
      *          <time> 1e-08 </time>
      *          <electrodeState>
      *              . . .
@@ -2176,7 +2184,7 @@ public:
 
     double loadTimeStateFinal(XML_Node& xTimeStateFinal);
 
-    //--------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
 
 protected:
 
@@ -3000,4 +3008,4 @@ int electrode_input(ELECTRODE_KEY_INPUT* input,  std::string commandFile,
 
 
 #endif
-/*****************************************************************************/
+/**********************************************************************************************************************/

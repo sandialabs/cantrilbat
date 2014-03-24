@@ -1881,7 +1881,6 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
     }
 
 
-
     /*
      *  Find a solid phase that may disappear. Mark the phase that disappears the fastest with the
      *  variable minPH_. Calculate the deltaT that zeroes the phase by the variable minDT.
