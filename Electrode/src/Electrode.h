@@ -686,7 +686,7 @@ public:
      *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
      *                     electrode. (kmol s-1)
      */
-    virtual void speciesProductionRate(doublereal* const spMoleDot);
+    virtual void speciesProductionRates(doublereal* const spMoleDot);
 
     //!  Returns the current and the net production rates of all species in the electrode object
     //!  at the current conditions from one surface kinetics object
@@ -729,6 +729,8 @@ public:
      */
 // Deprecate
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
+
+    void getPhaseProductionRates(const double * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------

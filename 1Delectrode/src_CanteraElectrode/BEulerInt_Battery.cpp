@@ -232,8 +232,8 @@ namespace beuler
   int BEulerInt_Battery::check_predicted_soln(m1d::Epetra_Vector_Ghosted & y_n, m1d::Epetra_Vector_Ghosted & ydot_n,
 			                      double CJ, double time_n)
   {
-
-     m_func->residEval(m_resid, true, &y_n, &ydot_n, time_n,  CJ, m1d::Base_ResidEval, m1d::TimeDependentAccurate_Solve);
+     // took this out as it doesn't do anything
+     //m_func->residEval(m_resid, true, &y_n, &ydot_n, time_n,  CJ, m1d::Base_ResidEval, m1d::TimeDependentAccurate_Solve);
 
      return 0;
   }

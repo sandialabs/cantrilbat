@@ -2698,6 +2698,22 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
     }
 }
 //================================================================================================
+void Electrode::getPhaseProductionRates(const doublereal* const speciesProductionRates,
+					doublereal* const phaseProductionRates) const
+{
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        phaseProductionRates[iph] = 0.0;
+        ThermoPhase& tp = thermo(iph);
+        //string pname = tp.id();
+        int istart = m_PhaseSpeciesStartIndex[iph];
+        int nsp = tp.nSpecies();
+        for (int ik = 0; ik < nsp; ik++) {
+            int k = istart + ik;
+            phaseProductionRates[iph] += speciesProductionRates[k];
+        } 
+    }
+}
+//================================================================================================
 
 void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
 {
@@ -2709,7 +2725,7 @@ void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTrans
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMolesTransfered[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
-        string pname = tp.id();
+        //string pname = tp.id();
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();
         for (int ik = 0; ik < nsp; ik++) {
@@ -4353,13 +4369,13 @@ double Electrode::integratedSourceTerm(doublereal* const spMoleDelta)
  *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
  *                     electrode. phaseList format. (kmol s-1)
  */
-void Electrode::speciesProductionRate(doublereal* const spMoleDot)
+void Electrode::speciesProductionRates(doublereal* const spMoleDot)
 {
     std::fill_n(spMoleDot, m_NumTotSpecies, 0.);
     //
     //  For non-pending we calculate the instantaneous value
     //
-    if (pendingIntegratedStep_ != 1) {
+    if (pendingIntegratedStep_ == 1) {
 	printf("WARNING: speciesProductionRate called with pendingIntegratedStep_ = 1\n");
     }
     //

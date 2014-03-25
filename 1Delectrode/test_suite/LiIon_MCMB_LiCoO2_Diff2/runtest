@@ -41,7 +41,7 @@ echo $$ > runInProgress.txt
 trap cleanup INT TERM TSTP QUIT
 
 temp_success="1"
-/bin/rm  -f  out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt \
+/bin/rm  -f  out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt runGood runBad \
              solution.xml diff_b0.txt diff_b2.txt diff_b2.txt diff_s0.txt diff_s3.txt diff_IV.txt
 #
 # Create a symbolic link to mpequil, if none exists already

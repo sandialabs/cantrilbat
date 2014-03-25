@@ -508,7 +508,7 @@ public:
      *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
      *                     electrode. (kmol s-1)
      */
-    virtual void speciesProductionRate(doublereal* const spMoleDot);
+    virtual void speciesProductionRates(doublereal* const spMoleDot);
 
     // ---------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------

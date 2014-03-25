@@ -1804,7 +1804,15 @@ doublereal BEulerInt::step(double t_max)
          *
          */
         calc_ydot(m_order, *m_y_n, *m_ydot_n);
-
+        /*
+         * Calculate CJ, the coefficient for the jacobian corresponding to the
+         * derivative of the residual wrt to the acceleration vector.
+         */
+        if (m_order < 2) {
+            CJ = 1.0 / delta_t_n;
+	} else {
+	    CJ = 2.0 / delta_t_n;
+        }
         /*
          * Check to see if the predicted solution is ok
          */
@@ -1815,15 +1823,6 @@ doublereal BEulerInt::step(double t_max)
         }
 
         if (! step_failed)  {
-	    /*
-	     * Calculate CJ, the coefficient for the jacobian corresponding to the
-	     * derivative of the residual wrt to the acceleration vector.
-	     */
-	    if (m_order < 2) {
-		CJ = 1.0 / delta_t_n;
-	    } else {
-		CJ = 2.0 / delta_t_n;
-	    }
 
 	    /*
 	     * Calculate a new Solution Error Weighting vector
@@ -2135,7 +2134,6 @@ int BEulerInt::check_predicted_soln(m1d::Epetra_Vector_Ghosted & y_n, m1d::Epetr
 {
   return 0;
 }
-
 //====================================================================================================================
 // Solve for the consistent initial conditions and consistent initial time derivatives.
 /*

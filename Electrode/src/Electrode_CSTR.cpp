@@ -930,13 +930,13 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     }
 }
 //================================================================================================================
-void Electrode_CSTR::speciesProductionRate(doublereal* const spMoleDot)
+void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
 {     
     std::fill_n(spMoleDot, m_NumTotSpecies, 0.0);
     //
     //  For non-pending we calculate the instantaneous value
     // 
-    if (pendingIntegratedStep_ != 1) {
+    if (pendingIntegratedStep_ == 1) {
 	printf("WARNING: speciesProductionRate called with pendingIntegratedStep_ = 1\n");
     }
   
