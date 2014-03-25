@@ -415,9 +415,6 @@ main(int argc, char** argv)
 #endif
         /***************************************************************************/
 
-        t1.setInitialTimeStep(PSinput.initialTimeStep_);
-        int numInitialConstantDeltaTSteps = 3;
-        t1.setNumInitialConstantDeltaTSteps(numInitialConstantDeltaTSteps);
         int printNumToTout = 30;
         int printSolnInterval = 1;
         int printSolnFirstSteps = 30;
@@ -455,7 +452,7 @@ main(int argc, char** argv)
 
         for (step = stepTimes.begin(); step != stepTimes.end(); step++)  {
 
-            t1.setInitialTimeStep(PSinput.initialTimeStep_);
+            //t1.setInitialTimeStep(PSinput.initialTimeStep_);
 
             fprintf(stderr, "BOUNDARY CONDITION time step until %f\n", *step);
 

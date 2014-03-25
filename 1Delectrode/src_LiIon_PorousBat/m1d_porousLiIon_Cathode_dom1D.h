@@ -168,7 +168,8 @@ public:
                       const Epetra_Vector* solnOld_ptr,
                       const double t,
                       const double rdelta_t,
-                      const ResidEval_Type_Enum residType);
+                      const ResidEval_Type_Enum residType,
+                      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
     //!  Calculate the electrode reaction rates and store it in internal variables
     /*!
@@ -238,6 +239,34 @@ public:
 
     void
     getMFElectrolyte_soln(const double* const solnElectrolyte);
+
+    //! Base Class for reading the solution from the saved file
+    /*!
+     *  This class assumes that the XML_Node is <domain> in the example below.
+     *
+     *  <simulation id="0">
+     *    <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
+     *    <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
+     *    <StepNumber type="time" vtype="integer"> 0 </StepNumber>
+     *    <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
+     *      <grid_data>
+     *        <floatArray size="10" title="X0" type="length" units="m">
+     *          0.000000000000000E+00,   8.748888888888889E-05,   1.749777777777778E-04,
+     *          2.624666666666667E-04,   3.499555555555555E-04,   4.374444444444444E-04,
+     *          5.249333333333334E-04,   6.124222222222222E-04,   6.999111111111111E-04,
+     *          7.873999999999999E-04
+     *        </floatArray>
+     *     </domain>
+     *  </simulation>
+     *
+     * @param domainNode           Reference to the XML_Node, named domain, to read the solution from
+     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+     */
+    virtual void
+    readDomain(const Cantera::XML_Node& domainNode,
+               Epetra_Vector* const soln_GlAll_ptr,
+               Epetra_Vector* const solnDot_GlAll_ptr);
 
     //! Base class for saving the solution on the domain in an xml node.
     /*!
@@ -657,12 +686,12 @@ protected:
      */
     std::vector<double> icurrInterface_Cell_;
 
-    //! Phase mole fluxes from the electrode reactions
+    //! Phase mole transfers from the electrode reactions
     /*!
-     *  Vector of mole fluxes for each phase in the electrode
-     *  Units = kmol /m2 sec
+     *  Vector of mole transfers for each phase in the electrode
+     *  Units = kmol
      */
-    std::vector<double> phaseMoleFlux_;
+    std::vector<double> phaseMoleTransfer_;
 
     //! soln Phase mole fluxes from the electrode reactions
     /*!

@@ -188,12 +188,17 @@ void Electrode::addtoXML_TI_final(bool notDone)
 }
 //====================================================================================================================
 //  Returns true if the step was successful, and false otherwise
-bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb) const
+bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 {
     //
-    //   There may be situations when we haven't created the state data. When that happens we will forgo creating
-    //   the XML record.
+    //   There may be situations when we haven't created the state data. When that happens we will create the
+    //   the state data right here. This currently occurs for writing out initial conditions.
     //
+    if (!xmlStateData_final_) {
+	if (eState_final_) {
+	    xmlStateData_final_ = eState_final_->writeStateToXML();
+	}
+    }
     if (xmlStateData_final_) {
 	XML_Node&ts = bb.addChild("timeState");
 	ts.addAttribute("type", "t_final");

@@ -1469,10 +1469,12 @@ double BEulerInt::integratePRE(double tout)
 
     /*
      *   Always call writeSolution to write out the initial conditions
+     *    -> we use a special flag for the solution type, because we may not have solved a problem 
+     *       at t_nm1
      */
     if (m_print_flag > 0) {
         m_func->writeSolution(0, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
-			      TimeDependentAccurate_Solve, delta_t_np1);
+			      TimeDependentInitial, delta_t_np1);
     }
 
     /*

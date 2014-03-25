@@ -568,6 +568,10 @@ LocalNodeIndices::ExtractPositionsFromSolution(const Epetra_Vector * const soln_
   }
 }
 //=====================================================================================================================
+//  We set initial conditions here that make sense from a global perspective.
+//  This should be done as a starting point. If there are better answers, it should be overridden.
+//
+//    Set Displacement_Axial unknowns to 0.
 void
 LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
                                        Epetra_Vector *soln,

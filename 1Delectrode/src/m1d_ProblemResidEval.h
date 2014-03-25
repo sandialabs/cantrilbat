@@ -57,6 +57,9 @@ typedef Epetra_Vector Epetra_Vector_GlAll;
   enum Solve_Type_Enum {
     SteadyState_Solve = 0,
     TimeDependentAccurate_Solve,
+    //! Specify this when we don't have a previous initially solved solution
+    //!   -> in other words the electrode objects don't have a history for a previous time step
+    TimeDependentInitial,
     TimeDependentRelax_Solve,
     //! Initial conditions for a DAE system
     DAESystemInitial_Solve

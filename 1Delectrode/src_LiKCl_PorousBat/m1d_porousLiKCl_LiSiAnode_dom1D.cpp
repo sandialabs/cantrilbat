@@ -1314,7 +1314,8 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 					       const Epetra_Vector *solnOld_ptr,
 					       const double t,
 					       const double rdelta_t,
-					       ResidEval_Type_Enum residType)
+					       const ResidEval_Type_Enum residType,
+					       const Solve_Type_Enum solveType)
 {
   residType_Curr_ = residType;
   const Epetra_Vector &soln = *soln_ptr;

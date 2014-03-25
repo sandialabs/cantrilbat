@@ -142,7 +142,8 @@ public:
 		    const Epetra_Vector *solnOld_ptr,
 		    const double t,
 		    const double rdelta_t,
-		    const ResidEval_Type_Enum residType);
+		    const ResidEval_Type_Enum residType,
+		    const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
   //! Auxiliary function to calculate the residual for the current domain.
   /*!

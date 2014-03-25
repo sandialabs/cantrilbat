@@ -166,7 +166,8 @@ public:
                       const Epetra_Vector* solnOld_ptr,
                       const double t,
                       const double rdelta_t,
-                      const ResidEval_Type_Enum residType);
+                      const ResidEval_Type_Enum residType,
+                      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
     //!  Calculate the electrode reaction rates and store it in internal variables
     /*!

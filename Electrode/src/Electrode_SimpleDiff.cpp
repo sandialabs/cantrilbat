@@ -557,6 +557,11 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
      */
     setInitStateFromFinal(true);
 
+    if (eState_final_) {
+        SAFE_DELETE(xmlStateData_final_);
+        xmlStateData_final_ = eState_final_->writeStateToXML();	 
+    }
+
     return 0;
 }
 //====================================================================================================================
@@ -568,6 +573,8 @@ Electrode_SimpleDiff::electrode_stateSave_create()
     if (rr >= 0) {
         rr = 0;
     }
+    SAFE_DELETE(xmlStateData_final_);
+    xmlStateData_final_ = eState_final_->writeStateToXML();
     return rr;
 }
 //====================================================================================================================

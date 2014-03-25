@@ -393,7 +393,6 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
          */
         ee->electrode_stateSave_create();
 
-
         /*
          *  Set the initial subcycle deltaT policy
          */
@@ -1270,7 +1269,8 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
                                            const Epetra_Vector* solnOld_ptr,
                                            const double t,
                                            const double rdelta_t,
-                                           ResidEval_Type_Enum residType)
+                                           const ResidEval_Type_Enum residType,
+                                           const Solve_Type_Enum solveType)
 {
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
@@ -1284,7 +1284,12 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     if (rdelta_t < 1.0E-200) {
         t_init_ = t;
     } else {
-        t_init_ = t - 1.0/rdelta_t;
+        // We want an infinitly small time step 
+        if (solveType == TimeDependentInitial) {
+           t_init_ = t;
+        } else {
+           t_init_ = t - 1.0/rdelta_t;
+        }
     }
 
     NodalVars* nodeLeft = 0;
@@ -1791,15 +1796,10 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
 
     for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
         int iCell = iGbNode - firstGbNode;
-
         Electrode* ee = Electrode_Cell_[iCell];
-        // ee->writeStateToXML();
-
         ee->writeTimeStateFinal_toXML(bdom);
     }
-
 }
-
 //====================================================================================================================
 //
 //  This treatment assumes that the problem size stays constant. If this is not the case, the routine will

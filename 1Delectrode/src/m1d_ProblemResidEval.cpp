@@ -641,24 +641,6 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     solnDot->PutScalar(0.0);
   }
 
-  // Find the restart record number. If this is greater than zero, then the user has
-  // signaled that a restart file should be used
-  int rrn = psInput_ptr_->restartRecordNumber_; 
-  double t_read;
-  double delta_t_read = delta_t;
-  double delta_t_next_read = delta_t;
-  delta_t_np1 = delta_t;
-  if (rrn >= 0) {
-      string& rfn = psInput_ptr_->restartFileName_;
-      size_t locdot = rfn.find('.');
-      string baseFileName = rfn.substr(0, locdot);
-
-      readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
-      t = t_read;
-      delta_t = delta_t_read;
-      delta_t_np1 = delta_t_next_read;
-  } 
-
   /*
    * We set initial conditions here that make sense to do by looping over nodes
    * instead of cells.
@@ -687,6 +669,25 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     //probably want to change this later
     d_ptr->writeSolutionTecplotHeader();
   }
+
+  // Find the restart record number. If this is greater than zero, then the user has
+  // signaled that a restart file should be used
+  int rrn = psInput_ptr_->restartRecordNumber_; 
+  double t_read;
+  double delta_t_read = delta_t;
+  double delta_t_next_read = delta_t;
+  delta_t_np1 = delta_t;
+  if (rrn >= 0) {
+      string& rfn = psInput_ptr_->restartFileName_;
+      size_t locdot = rfn.find('.');
+      string baseFileName = rfn.substr(0, locdot);
+
+      readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
+      t = t_read;
+      delta_t = delta_t_read;
+      delta_t_np1 = delta_t_next_read;
+  } 
+
   /*
    *  Create an initial value of the atol vector used in the convergence of the time stepping
    *  algorithm and in the nonlinear solver.
@@ -1247,7 +1248,11 @@ ProblemResidEval::showProblemSolution(const int ievent,
     Cantera::writelog(buf);
     sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
     Cantera::writelog(buf);
-    sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+    if (solveType == TimeDependentInitial) {
+       sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
+    } else {
+       sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+    }
     Cantera::writelog(buf);
     sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
     Cantera::writelog(buf);

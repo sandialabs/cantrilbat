@@ -2127,7 +2127,7 @@ public:
      *           necessarily create the XML information to be saved, in which case this routine
      *           will return false.
      */
-    bool writeTimeStateFinal_toXML(XML_Node&  bb) const;
+    bool writeTimeStateFinal_toXML(XML_Node&  bb);
 
     //!  Select the globa time step increment record by the consequatively numbered record index number
     /*!

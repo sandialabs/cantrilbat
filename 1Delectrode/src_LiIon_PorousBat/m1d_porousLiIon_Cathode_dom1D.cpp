@@ -61,7 +61,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BulkDomainDescription& bdd)
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
     electrodeSpeciesMoleDelta_Cell_(0),
     icurrInterface_Cell_(0),
-    phaseMoleFlux_(0), solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
+    phaseMoleTransfer_(0), solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
     icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
     icurrRxn_Cell_(0), LiFlux_Cell_(0),
     iECDMC_(-1),
@@ -130,7 +130,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_d
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
     electrodeSpeciesMoleDelta_Cell_(0),
     icurrInterface_Cell_(0),
-    phaseMoleFlux_(0), solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
+    phaseMoleTransfer_(0), solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
     icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
     icurrRxn_Cell_(0), LiFlux_Cell_(0),
     iECDMC_(-1),
@@ -220,7 +220,7 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
 
     electrodeSpeciesMoleDelta_Cell_ = r.electrodeSpeciesMoleDelta_Cell_;
     icurrInterface_Cell_ = r.icurrInterface_Cell_;
-    phaseMoleFlux_ = r.phaseMoleFlux_;
+    phaseMoleTransfer_ = r.phaseMoleTransfer_;
     solnMoleFluxInterface_Cell_ = r.solnMoleFluxInterface_Cell_;
     icurrElectrode_CBL_ = r.icurrElectrode_CBL_;
     icurrElectrode_CBR_ = r.icurrElectrode_CBR_;
@@ -318,7 +318,7 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     jFlux_trCurr_.resize(3, 0.0);
 
     electrodeSpeciesMoleDelta_Cell_.resize(nSpeciesElectrode_ * NumLcCells, 0.0);
-    phaseMoleFlux_.resize(20, 0.0);
+    phaseMoleTransfer_.resize(20, 0.0);
 
     solnTemp.resize(10, 0.0);
 
@@ -1068,7 +1068,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         if (IOwnLeft && iCell == 0) {
             if (residType == Base_ShowSolution) {
                 residBefore =  res[indexCent_EqnStart_BD + EQ_TCont_offset_BD];
-                double tmp3 = solnMoleFluxInterface_Cell_[iCell] * rdelta_t;
+                double tmp3 = solnMoleFluxInterface_Cell_[iCell];
                 double sum5 = residBefore + fluxFright - tmp3;
                 printf(" Cell = %d, ResBefore = -fluxleft = %10.3e, FluxRight = %10.3e, Prod = %10.3e total = %10.3e \n", iCell,
                        residBefore, fluxFright, tmp3, sum5);
@@ -1150,7 +1150,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          *     Add in the molar flux from the electrode into the electrolyte phase
          *     We are assuming for the current problem that the volumes stay constant
          */
-        res[indexCent_EqnStart_BD + EQ_TCont_offset_BD] -= solnMoleFluxInterface_Cell_[iCell] * rdelta_t;
+        res[indexCent_EqnStart_BD + EQ_TCont_offset_BD] -= solnMoleFluxInterface_Cell_[iCell];
 
         /*
          *   Current conservation equation
@@ -1265,8 +1265,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             if (residType == Base_ShowSolution) {
                 if (iCell == 7) {
                     printf(" Cell = %d, Totalflux_R = %- 14.7e, -Totalflux_L = %- 14.7e", iCell, fluxFright, -fluxFleft);
-                    printf(", -Source/dt = %- 14.7e", -solnMoleFluxInterface_Cell_[iCell] * rdelta_t);
-                    double sumResidualTC = fluxFright - fluxFleft - solnMoleFluxInterface_Cell_[iCell] * rdelta_t;
+                    printf(", -Source/dt = %- 14.7e", -solnMoleFluxInterface_Cell_[iCell]);
+                    double sumResidualTC = fluxFright - fluxFleft - solnMoleFluxInterface_Cell_[iCell];
                     printf(" ==  %- 14.7e\n", sumResidualTC);
                 }
             }
@@ -1330,7 +1330,8 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
                                              const Epetra_Vector* solnOld_ptr,
                                              const double t,
                                              const double rdelta_t,
-                                             ResidEval_Type_Enum residType)
+                                             const ResidEval_Type_Enum residType,
+                                             const Solve_Type_Enum solveType)
 {
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
@@ -1345,7 +1346,12 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     if (rdelta_t < 1.0E-200) {
         t_init_ = t;
     } else {
-        t_init_ = t - 1.0/rdelta_t;
+        // Needed for a correct capacity calculation 
+        if (solveType == TimeDependentInitial) {
+            t_init_ = t;
+        } else {
+            t_init_ = t - 1.0/rdelta_t;
+        }
     }
 
     NodalVars* nodeLeft = 0;
@@ -1468,31 +1474,81 @@ int
 porousLiIon_Cathode_dom1D::calcElectrode()
 {
     Electrode* Electrode_ptr = Electrode_Cell_[cIndex_cc_];
-
+    bool doInstanteous = false;
+    int numSubcycles = 0;
     double deltaT = t_final_ - t_init_;
     if (deltaT == 0.0) {
         deltaT = 1.0E-8;
+	doInstanteous = true;
     }
     Electrode_ptr->updateState();
-    /*
-     *  Integrate the subgrid Model
-     */
 
-    int numSubcycles = Electrode_ptr->integrate(deltaT);
+    if (doInstanteous) {
+        //
+        //  Write into regular array using different units
+        // 
+        Electrode_ptr->speciesProductionRates(&electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_]);
+        int kelectron = Electrode_ptr->kSpecElectron();
+
+        icurrInterface_Cell_[cIndex_cc_] = Faraday *
+                                           electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_ + kelectron]
+                                           / (electrodeCrossSectionalArea_);
+
+        Electrode_ptr->getPhaseProductionRates(&electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_],
+                                               DATA_PTR(phaseMoleTransfer_));
+        int sf = Electrode_ptr->solnPhaseIndex();
+
+        solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleTransfer_[sf] / electrodeCrossSectionalArea_;
+
+    } else {
+        //
+        //     Carry out the integration from t_init_init   to t_final_final
+        //
+        numSubcycles = Electrode_ptr->integrate(deltaT);
 #ifdef DEBUG_HKM
-    if (ProblemResidEval::s_printFlagEnv > 0 && BDD_.Residual_printLvl_ > 8) {
-        if (numSubcycles > 15) {
-            printf("      cathode::calcElectrode(): problematic integration (%d) : Cell = %d,  counterNumberIntegrations_ = %d\n",
-                   numSubcycles,
-                   cIndex_cc_, Electrode_ptr->counterNumberIntegrations_);
+        if (ProblemResidEval::s_printFlagEnv > 0 && BDD_.Residual_printLvl_ > 8) {
+            if (numSubcycles > 15) {
+                printf("      anode::calcElectrode(): problematic integration ( %d) : Cell = %d, counterNumberIntegrations_ = %d\n",
+                       numSubcycles, cIndex_cc_, Electrode_ptr->counterNumberIntegrations_);
+            }
         }
-    }
 #endif
+        /*
+         *  Get the kmol 's produced by the electrode reactions. Units = kmol
+         */
+        Electrode_ptr->integratedSourceTerm(&electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_]);
 
-    /*
-     *  Get the kmol 's produced by the electrode reactions. Units = kmol
-     */
-    Electrode_ptr->integratedSourceTerm(&(electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_]));
+
+
+        int kelectron = Electrode_ptr->kSpecElectron();
+
+        /*
+         *  Calculate the total electron current coming from the extrinsic electrode object
+         *   -> this is in amps. We make the assumption that the current is constant throught
+         *      the time interval, so we divide by the deltaT of the time.
+         *      We divide by the cross sectional area of the electrode.
+         */
+        icurrInterface_Cell_[cIndex_cc_] = Faraday * electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_  * cIndex_cc_ +
+                                                                                     kelectron]
+                                           / (deltaT * electrodeCrossSectionalArea_);
+
+#ifdef DEBUG_HKM
+        if (residType_Curr_ == Base_ShowSolution) {
+            if (cIndex_cc_ == 9) {
+            }
+        }
+#endif
+       /*
+         * Get the phase mole flux from the Electrode object  units - kmol
+         */
+        Electrode_ptr->getIntegratedPhaseMoleTransfer(DATA_PTR(phaseMoleTransfer_));
+        /*
+         *  Calculate and store the electrolye molar flux units = kmol/m2/s
+         */
+        int sf = Electrode_ptr->solnPhaseIndex();
+
+        solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleTransfer_[sf] / (electrodeCrossSectionalArea_ * deltaT);
+    }
 
     /*
      * Download the surface area from the electrode object, This is an
@@ -1507,37 +1563,12 @@ porousLiIon_Cathode_dom1D::calcElectrode()
             saExternal += sa[ph];
         }
     }
-
-    int kelectron = Electrode_ptr->kSpecElectron();
-
-    /*
-     *  Calculate the total extrinsic current coming from the extrinsic electrode object
-     *   -> this is in amps. We make the assumption that the current is constant throught
-     *      the time interval, so we divide by the deltaT of the time.
-     *      We divide by the cross sectional area of the electrode.
-     */
-    icurrInterface_Cell_[cIndex_cc_] = Faraday * electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_ +
-                                                                                 kelectron]
-                                       / (deltaT * electrodeCrossSectionalArea_);
-
-    /*
-     * Get the phase mole flux from the Electrode object  units kmol/s
-     */
-    Electrode_ptr->getIntegratedPhaseMoleTransfer(&phaseMoleFlux_[0]);
-    /*
-     *  Calculate and store the electrolye molar flux units = kmol/m2/s
-     */
-    int sf = Electrode_ptr->solnPhaseIndex();
-    solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleFlux_[sf] / electrodeCrossSectionalArea_;
-
-
     /*
      * What comes out of the surface electrode object is the total surface area in the electrode.
      * Remember the electrode is an extrinsic object that should be based on a m**2 area basis.
      * To get the surface area per cross-section we need to divide by the cross sectional area of the electrode
      */
     surfaceArea_Cell_[cIndex_cc_] = saExternal / electrodeCrossSectionalArea_;
-
     /*
      *  Calculate the current per external surface area of electrode. To do this calculation
      *  we divide the total extrinsic current by the total extrinsic surface area
@@ -1797,7 +1828,118 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
             varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
         }
         ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    }
 
+    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+        int iCell = iGbNode - firstGbNode;
+        Electrode* ee = Electrode_Cell_[iCell];	
+        ee->writeTimeStateFinal_toXML(bdom);
+    }
+
+}
+
+//====================================================================================================================
+//
+//  This treatment assumes that the problem size stays constant. If this is not the case, the routine will
+//  error exit. If we need to change the problem size, then we will need to reinitialize a lot more that just
+//  the solution vector. This is best done after we have put in grid refinement.
+//
+//  Also, we assume that the number of variables stays the same. This may be fiddled with sooner than the number
+//  of grid points. There are probably some interesting possibilities here with just initializing a subset of 
+//  variables. However, right now, if the number of variables aren't equal and in the same order, the
+//  routine will error exit.
+//
+//  Also we don't consider any interpolation in between time steps. We enter with an XML_Node specific
+//  to a particular time step. And then populate the solution vector with the saved solution.
+//
+//  MP Implementation
+//     We've punted on this for now. The basic strategy will be to identity which of the three situations
+//     we are currently doing:
+//     
+//          1) global data into local-processor data structure
+//          2) global data into global data structure
+//          3) local-processor data into local-processor data structure
+// 
+//     We are currently set up for #1. However, that may change. Even #1 will fail
+//     
+void
+porousLiIon_Cathode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
+				      Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)
+{
+   // get the NodeVars object pertaining to this global node
+    GlobalIndices *gi = LI_ptr_->GI_ptr_;
+
+    string ids = id();
+    Cantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
+
+    // Number of equations per node
+    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+
+    // Vector containing the variable names as they appear in the solution vector
+    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+
+    //! First global node of this bulk domain
+    int firstGbNode = BDD_.FirstGbNode;
+
+    //! Last Global node of this bulk domain
+    int lastGbNode = BDD_.LastGbNode;
+    int numNodes = lastGbNode - firstGbNode + 1;
+
+    string iidd      = (*domainNode_ptr)["id"];
+    string s_points  = (*domainNode_ptr)["points"];
+    int points = atoi(s_points.c_str());
+    if (points != numNodes) {
+        printf("we have an unequal number of points\n");
+        exit(-1);
+    }
+    string ttype    = (*domainNode_ptr)["type"];
+    string snumVar  = (*domainNode_ptr)["numVariables"];
+    int numVar = atoi(snumVar.c_str());
+    if (numVar != numEquationsPerNode) {
+       printf("we have an unequal number of equations\n");
+       exit(-1);
+    }
+  //
+    //  Go get the grid data XML node and read it in
+    //
+    const Cantera::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
+
+    std::vector<double> varContig(numNodes);
+    ctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");
+    int i = 0;
+    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+      NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+      varContig[i] = nv->x0NodePos();
+      nv->setupInitialNodePosition(varContig[i], 0.0);
+    }
+
+    for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
+       VarType vt = variableNameList[iVar];
+       i = 0;
+       std::string nmm = vt.VariableName(200);
+       ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
+       for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+          NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+          int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+          int istart = nv->EqnStart_GbEqnIndex;
+          (*soln_GLALL_ptr)[istart + ibulk + iVar] =  varContig[i];
+       }
+    }
+
+    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+        int iCell = iGbNode - firstGbNode;
+
+        Electrode* ee = Electrode_Cell_[iCell];
+        int cellNum = ee->electrodeCellNumber_;
+        // ee->writeStateToXML();
+
+        XML_Node *xCell = domainNode_ptr->findByAttr("cellNumber", int2str(cellNum), 1);
+        if (!xCell) {
+            throw m1d_Error("porousLiIon_Cathode_dom1D::readDomain() ERROR",
+                            "Can't find cell number " + int2str(cellNum));
+        }
+        //  Read the state into the electrode object
+        ee->loadTimeStateFinal(*xCell);
     }
 }
 //=====================================================================================================================
@@ -1824,10 +1966,6 @@ drawline0(int sp, int ll)
     }
     sprint0("\n");
 }
-
-
-
-
 //=====================================================================================================================
 // Method for writing the header for the surface domain to a tecplot file.
 void

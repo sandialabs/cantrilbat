@@ -309,7 +309,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	d_ptr->incrementCounters(residType);
-	d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType);
+	d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
     }
     /*
      *    Loop over the Surface Domains
@@ -317,7 +317,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
 	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
 	d_ptr->incrementCounters(residType);
-	d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType);
+	d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
     }
     /*
      *   Loop over the Volume Domains
