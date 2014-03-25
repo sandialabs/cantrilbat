@@ -897,6 +897,9 @@ public:
 // Deprecate
     virtual void calculateTimeDerivatives(doublereal deltaTsubcycle);
 
+
+
+
     //------------------------------------------------------------------------------------------------------------------
     // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION -------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -939,6 +942,18 @@ public:
      *  This should only be called after integrate() has finished running.
      */
     virtual double energySourceTerm();
+
+    //! Overpotential term for the heat generation
+    /*!
+     *
+     */
+    virtual double thermalEnergySourceTerm_overpotential();
+
+    //! Reversible Enthalpy term leading to  heat generation
+    /*!
+     *
+     */
+    virtual double thermalEnergySourceTerm_reversibleEntropy();
 
     //! Get the integrated source term values for one of a set of sources
     /*!

@@ -4422,9 +4422,28 @@ double Electrode::energySourceTerm()
     for (int iph = 0; iph < NumVolPhases_; iph++) {
         ThermoPhase& tp = thermo(iph);
         //int nspPhase = tp.nSpecies();
+	// HKM -> this formula is in error. Enthalpy per mole could have changed over the interval.
         energySource += tp.enthalpy_mole() * (phaseMoles_final_[iph] - phaseMoles_init_init_[iph]);
     }
     return energySource;
+}
+//====================================================================================================================
+// Overpotential term for the heat generation
+/*
+ *
+ */
+double Electrode::thermalEnergySourceTerm_overpotential()
+{   
+    return 0.0;
+}
+//====================================================================================================================
+// Reversible Enthalpy term leading to  heat generation
+/*
+ *
+ */
+double Electrode::thermalEnergySourceTerm_reversibleEntropy()
+{
+    return 0.0;
 }
 //====================================================================================================================
 double Electrode::getSourceTerm(SOURCES sourceType)
