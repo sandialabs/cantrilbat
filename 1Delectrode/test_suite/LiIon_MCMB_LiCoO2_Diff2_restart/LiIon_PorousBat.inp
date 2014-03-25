@@ -1,0 +1,275 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Title = One-Dimensional Thermal Battery Cell Model
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 2
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = MgO.xml
+!-------------------------------------------------------------------------
+!
+! Electrolyte Phase = [string] [ required ]
+!
+! Name of phase containing electrolyte description
+! 
+!-------------------------------------------------------------------------
+Electrolyte Phase = ECDMC_LiPF6
+!-------------------------------------------------------------------------
+!
+! Restart Record Number - int (default = -1) (not required)
+!
+!   If the restart record number is positive, then the calculateion
+!   is started from a saved solution in the restart file.
+!-----------------------------------------------------------------------
+Restart Record Number = 4
+!-----------------------------------------------------------------------
+! 
+! Specify electrolyte phase mole fractions 
+!-------------------------------------------------------------------------
+START BLOCK Electrolyte Mole Fractions
+     ECDMC = 0.92
+     Li+   = 0.04
+     PF6-  = 0.04
+END BLOCK   Electrolyte Mole Fractions
+!-------------------------------------------------------------------------
+!
+! Identify the separator phase
+! 
+!-------------------------------------------------------------------------
+Separator Phase = MgO(S)
+!-------------------------------------------------------------------------
+!
+! Specify the mass of the Separator Species in the Separator 
+! units = [kg]
+!-------------------------------------------------------------------------
+Separator Mass = 0.84 g
+!-------------------------------------------------------------------------
+!
+! Specify the thickness of the Separator 
+! Units = [m]
+!-------------------------------------------------------------------------
+Separator Thickness = 0.04826 cm
+!-------------------------------------------------------------------------
+!
+! Specify the area of the Separator [m^2]
+!-------------------------------------------------------------------------
+Separator Area = 25.47 cm2
+!-------------------------------------------------------------------------
+!BLOCK FORMAT FOR SEPARATOR
+!START BLOCK Separator
+!   Species = MgO(S)
+!   Cantera File = MgO.xml
+!   Mass Fraction = 0.35
+!END BLOCK Separator
+!
+!-------------------------------------------------------------------------
+!
+! Input Anode File = [string] [ required ]
+!
+! Name of input file containing anode description
+! 
+!-------------------------------------------------------------------------
+Input Anode File = anode.inp
+!-------------------------------------------------------------------------
+!
+! Input Cathode File = [string] [ required ]
+!
+! Name of input file containing anode description
+! 
+!-------------------------------------------------------------------------
+Input Cathode File = cathode.inp
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+! Reference Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Reference Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+Reference Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!  Problem Type - int (required)
+!
+!--------------------------------------------------------------------------
+Problem Type = 0
+!-------------------------------------------------------------------------
+!
+!  Cathode BC Type - int (required)
+!     0 - Specify a fixed voltage at the cathode
+!     1 - Specify a fixed discharge current through the battery
+!     2 - Specify a time dependent voltage...must specify time dependence 
+!         in main
+!--------------------------------------------------------------------------
+Cathode BC Type = 0
+!-------------------------------------------------------------------------
+!
+! Discharge Current - double [Amp / cm2] (no default) 
+!                         (conditionally required if Problem Type = 1)
+!
+!     Specify the current in amps per cm2 for the battery.
+!     This is only needed when the Problem Type is 1
+! units = [Amp/m^2]
+!--------------------------------------------------------------------------
+Discharge Current = 0.3 Amp/cm2
+!-------------------------------------------------------------------------
+!
+!  Cathode Voltage - double [volts] (no default) (required)
+!
+!     Specify the initial cathode voltage. Note the anode voltage is
+!     always set to 0.0.
+!     For a problem type of 0, this is the Dirichlet condition on the
+!     cathode voltage. For a problem type of 1, this value is used to
+!     set the initial condition of the cathode voltage.
+! units = [V]
+!--------------------------------------------------------------------------
+Cathode Voltage = 3.8 V
+!-------------------------------------------------------------------------
+!
+! DAKOTA INTERFACE (optional)
+! 
+! Turn on the interface with Dakota
+!-------------------------------------------------------------------------
+! Use Dakota Interface = TRUE
+!-------------------------------------------------------------------------
+!
+! Optional names of Dakota interface files.
+!
+! File name to receive parameters from Dakota:
+!  Dakota Parameters File Name = [ filename (default = 'params.in') ]
+!-------------------------------------------------------------------------
+! Dakota Parameters File Name = params.in
+!-------------------------------------------------------------------------
+!
+! File name to receive parameters from Dakota:
+!  Dakota Results File Name = [ filename (default = 'results.out') ]
+!-------------------------------------------------------------------------
+! Dakota Results File Name = results.out
+!-------------------------------------------------------------------------
+!
+!
+!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+!  Nonlinear Solver Inputs
+!-------------------------------------------------------------------------
+!
+! Simulation start time  [s]
+Start Time = 0.0
+!-------------------------------------------------------------------------
+! 
+! Simulation end time  [s]
+End Time = 30000.0
+!-------------------------------------------------------------------------
+!
+! Initial Time Step [s]
+!   have it read from the input file
+!Initial Time Step = 1e-8
+!-------------------------------------------------------------------------
+!
+! Absolute Tolerances for time integration 
+Absolute Tolerance = 1e-8
+!-------------------------------------------------------------------------
+!
+! Relative Tolerances for time integration 
+Relative Tolerance = 1e-3
+!-------------------------------------------------------------------------
+!
+! Maximum Time step - double (optional)
+!
+!  Simulation maximum time step
+!
+!---------------------------------------------------------------------------------------
+Maximum Time Step = 100.0
+!-------------------------------------------------------------------------
+!
+!   Set the level of printing that occurs for each time step
+!
+! Level of solution printing done to stdout
+!
+!   0 -> Don't print anything
+!   1 -> Print only about significant issues going on
+!   2 -> Print status information at regular intervals.
+!   3 -> Print ShowSolution at regular intervals
+!   4 -> Print ShowSolution at all successful time steps
+!   5 -> Print additional information at each time step
+!   6 -> Print some information about each electrode object at each time step
+!   7 -> Print a lot of information about each electrode object at
+!        each time step
+!
+!-------------------------------------------------------------------------
+Solution Behavior Print Level = 5
+!-------------------------------------------------------------------------
+!
+!  Time Stepper Print Level - int (optiona)
+!  Block Input for the time stepper
+!  Set the level of printing that occurs for each time step
+!
+!   0 -> absolutely nothing is printed for a single time step.
+!   1 -> One line summary per time step
+!   2 -> short description, points of interest
+!   3 -> More printed per time step -> major algorithm issues are displayed
+!   4 -> Additional time step error control information is printed out
+!        One line summary of the nonlinear solve
+!   5 -> Summaries of the nonlinear solve iterates are printed out
+!   6 -> Algorithm information on the nonlinear iterates are printed out
+!   7 -> Additional info on the nonlinear iterates are printed out
+!   8 -> Additional info on the linear solve is printed out.
+!   9 -> Info on a per iterate of the linear solve is printed out.
+!
+!-------------------------------------------------------------------------
+Time Stepper Print Level = 6
+!-------------------------------------------------------------------------
+!
+!    Nonlinear Solver Log Level - int (optional)
+!    Block Input For the nonlinear solver log level
+!
+!  -1 -> Takes the value that the time stepper printLvl wants
+!   0 -> absolutely nothing is printed for a single nonlinear call
+!   1 -> One line summary per solve_nonlinear call
+!   2 -> short description, points of interest: Table of nonlinear solve - one line per iteration
+!   3 -> Table is included -> More printing per nonlinear iteration (default) that occurs during the table
+!   4 -> Summaries of the nonlinear solve iteration as they are occurring -> table no longer printed
+!   5 -> Algorithm information on the nonlinear iterates are printed out
+!   6 -> Additional info on the nonlinear iterates are printed out
+!   7 -> Additional info on the linear solve is printed out.
+!   8 -> Info on a per iterate of the linear solve is printed out.
+!
+!-------------------------------------------------------------------------
+Nonlinear Solver Log Level = 3
+!--------------------------------------------------------------------------
+!
+!---------------------------------------------------------------------------------------
+!
+!     Number of initial time steps to take where the
+!     time truncation error tolerances are not checked. Instead
+!     the delta T is uniform
+!                - int (optional) (default = 3)
+!
+!---------------------------------------------------------------------------------------
+Number of Initial Constant deltaT Steps = 0
+!---------------------------------------------------------------------------------------
+
+
