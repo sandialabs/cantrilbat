@@ -1376,6 +1376,37 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
   }
 }
 //=====================================================================================================================
+double
+BulkDomain1D::getPointTemperature(const doublereal* const solutionPoint) const
+{
+    /*
+     * Get the temperature: Check to see if the temperature is in the solution vector.
+     *   If it is not, then use the reference temperature
+     */
+    int iTemp = BDD_.VariableIndexStart_VarName[Temperature];
+    if (iTemp >= 0) {
+        return solutionPoint[iTemp];
+    }
+    return TemperatureReference_;
+}
+//=====================================================================================================================
+double
+BulkDomain1D::getPointPressure(const doublereal* const solutionPoint) const
+{
+    // 
+    //  Note there are two pressure variables listed, Pressure_Axial and Pressure_Radial
+    //  Pressure_Radial is really an eigenvalue, so it doesn't factor in here
+    //  Pressure_Axial is not live, yet. When it is, will have to reevaluate this.
+    //
+    int iPres = BDD_.VariableIndexStart_VarName[Pressure_Axial];
+    if (iPres >= 0) {
+        return solutionPoint[iPres];
+    }
+    return PressureReference_;
+}
+//=====================================================================================================================
+// Get parameters specified by text strings
+//=====================================================================================================================
 // Get parameters specified by text strings
 int 
 BulkDomain1D::getSolutionParam(std::string paramName, double * const paramVal)

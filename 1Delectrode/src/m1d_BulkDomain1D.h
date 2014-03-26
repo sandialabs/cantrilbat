@@ -378,6 +378,30 @@ public:
   //! Get parameters specified by text strings
   virtual int getSolutionParam(std::string paramName, double * const paramVal);
 
+  //! Get the local value of the temperature at a node or control volume interface
+  //! given the local solution vector at that point
+  /*!
+   *   This function checks to see if the temperature is part of the solution 
+   *   vector. If it is not, it returns the TemperatureReference_ value. If 
+   *   it is, it looks up the index into the solution vector and then returns 
+   *   the value.
+   *   
+   *   @return Returns the temperature in Kelvin
+   */
+  double getPointTemperature(const doublereal* const solutionPoint) const;
+
+  //! Get the local value of the total pressure at a node or control volume interface
+  //! given the local solution vector at that point
+  /*!
+   *   This function checks to see if the pressure is part of the solution 
+   *   vector. If it is not, it returns the PressureReference_ value. If 
+   *   it is, it looks up the index into the solution vector and then returns 
+   *   the value of the total pressure based on the local condition
+   *
+   *     @return Returns the total pressure in Pascals
+   */
+  double getPointPressure(const doublereal* const solutionPoint) const;
+
   // ===========================================================================
 
   //! Light description of what this domain is about
