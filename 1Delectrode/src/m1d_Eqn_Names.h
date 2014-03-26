@@ -47,6 +47,7 @@ enum EQ_Name_Enum
   Momentum_Swirl,
   MeshDisplacement_Axial,
   Enthalpy_Conservation,
+  Thermal_Conservation,
   Continuity,                // 5
   Continuity_Global,
   Species_Conservation,        // 7
@@ -57,6 +58,7 @@ enum EQ_Name_Enum
   ChargeNeutrality_Summation,   // 12
   Current_Specification,
   Voltage_Specification,
+  Dirichlet_Specification,
   Max_Eq_Name
 //! must be last in the list
 };

@@ -175,6 +175,35 @@ public:
     void write_IV(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n, int istep,
                   const Epetra_Vector_Ghosted &y_n, const Epetra_Vector_Ghosted * const ydot_n_ptr);
 
+
+    //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
+    //! to be time dependent
+    /*!
+     *   Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
+     *   It can be used to track supplemental quantities in the calculation, especially if they need to be
+     *   integrated in time.
+     *
+     *   An example of this may be total flux quantites that are dumped into a phase.
+     *
+     *   This routine is called at the beginning of the time stepping, in order to set up any initializations,
+     *   and it is called after every successful time step, once.
+     *
+     *   This is used to calculate the heat source terms in a battery
+     *
+     * @param ifunc   0 Initial call to the function, done whenever the time stepper is entered
+     *                1 Called after every successful time step.
+     * @param t       Current time
+     * @param deltaT  Current value of deltaT
+     * @param y       Current value of the solution vectors
+     * @param ydot    Current value of time derivative of the solution vectors.
+     */
+    virtual void
+    evalTimeTrackingEqns(const int ifunc,
+			 const double t,
+			 const double deltaT,
+			 const Epetra_Vector_Ghosted & y,
+			 const Epetra_Vector_Ghosted * const ydot);
+    
     //! Set a solution parameter 
     /*!
      *  @param paramName   String identifying the parameter to be set
@@ -235,8 +264,46 @@ public:
      */
     int getMaxSubGridTimeSteps() const;
 
+    //! Boolean indicating whether to calculate Heat Source Time tracking terms
+    int doHeatSourceTracking_;
+
  protected:
     int maxSubGridTimeSteps_;
+
+    //! Heat generation term for the battery sandwidge at the time step t_n
+    /*!
+     *   units are Joules per time per m2.
+     *   It's the heat generation per unit area of the battery at the t_n time step.
+     */
+    double QdotPerArea_n_;
+
+    //! Heat generation term for the battery sandwidge at the time step t_n
+    /*!
+     *   units are Joules per time per m2.
+     *   It's the heat generation per unit area of the battery at the t_n time step.
+     */
+    double QdotPerArea_nm1_;
+
+    //! Heat generation term for the battery anode at the time step t_n
+    /*!
+     *   units are Joules per time per m2.
+     *   It's the heat generation per unit area of the battery at the t_n time step.
+     */
+    double QdotAnodePerArea_n_;
+
+    //! Heat generation term for the battery separator at the time step t_n
+    /*!
+     *   units are Joules per time per m2.
+     *   It's the heat generation per unit area of the battery at the t_n time step.
+     */
+    double QdotSeparatorPerArea_n_;
+
+    //! Heat generation term for the battery cathode at the time step t_n
+    /*!
+     *   units are Joules per time per m2.
+     *   It's the heat generation per unit area of the battery at the t_n time step.
+     */
+    double QdotCathodePerArea_n_;
 
 };
 

@@ -109,6 +109,17 @@ Reference Pressure = 1.0 atm
 !--------------------------------------------------------------------------
 Problem Type = 0
 !-------------------------------------------------------------------------
+!    
+! Energy Equation Problem Type
+!
+!   0  = None (default)
+!   1  = Fixed                 Don't solve an energy equation
+!   2  = Dirichlet Equation    Solve a Dirichlet equation for temperature. 
+!   3  = Enthalpy Equation     Solve an enthalpy equation for temperature
+!   4  = Temperature Equation  Solve a temperatuer equation for temperature
+!-------------------------------------------------------------------------
+Energy Equation Problem Type = 0
+!-------------------------------------------------------------------------
 !
 ! Number of CVs in Anode Domain = [int]
 !        Number of control volumes in the anode (default = 10)

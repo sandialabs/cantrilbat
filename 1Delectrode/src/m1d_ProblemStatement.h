@@ -113,7 +113,7 @@ public:
 
 	//! Integer representing the Problem type.
 	/*!
-	 *  The identity of  what is held constant. Currently,
+	 *   The identity of  what is held constant. Currently,
 	 *   T and P are held constant, and this input is ignored
 	 */
 	int prob_type;

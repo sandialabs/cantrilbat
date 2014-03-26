@@ -166,8 +166,40 @@ BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr) :
     IsArithmeticScaled_NE[eqnIndex] = 1;
     eqnIndex++;
 
-    // Enthalpy conservation is used to solve for the temperature
-    // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
+    //  Temperature field is a given function across the domain
+    //          
+    if (PSinput.Energy_equation_prob_type_ == 2) {
+	EqnType td = EqnType(Dirichlet_Specification, 0, "Temperature_Dirichlet");
+	EquationNameList.push_back(td);
+	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+	IsAlgebraic_NE[eqnIndex] = 1;
+	IsArithmeticScaled_NE[eqnIndex] = 0;
+	eqnIndex++;
+    }
+
+    //  Enthalpy conservation is used to solve for the temperature
+    //           EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
+    //           This is not an algebraic equation. It has a time derivative.
+    if (PSinput.Energy_equation_prob_type_ == 3) {
+	EqnType ht = EqnType(Enthalpy_Conservation, 0, "Enthalpy Conservation");
+	EquationNameList.push_back(ht);
+	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+	IsAlgebraic_NE[eqnIndex] = 0;
+	IsArithmeticScaled_NE[eqnIndex] = 0;
+	eqnIndex++;
+    }
+
+    //  Thermal conservation is used to solve for the temperature
+    //           
+    if (PSinput.Energy_equation_prob_type_ == 4) {
+	EqnType ht = EqnType(Thermal_Conservation, 0, "Thermal_Conservation");
+	EquationNameList.push_back(ht);
+	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+	IsAlgebraic_NE[eqnIndex] = 0;
+	IsArithmeticScaled_NE[eqnIndex] = 0;
+	eqnIndex++;
+    }
+
 }
 //=====================================================================================================================
 BDT_porAnode_LiIon::BDT_porAnode_LiIon(const BDT_porAnode_LiIon& r) :

@@ -48,7 +48,13 @@ namespace m1d
    */
   BatteryResidEval::BatteryResidEval(double atol) :
     ProblemResidEval(atol),
-    maxSubGridTimeSteps_(0)
+    doHeatSourceTracking_(0),
+    maxSubGridTimeSteps_(0),
+    QdotPerArea_n_(0.0),
+    QdotPerArea_nm1_(0.0),
+    QdotAnodePerArea_n_(0.0),
+    QdotSeparatorPerArea_n_(0.0),
+    QdotCathodePerArea_n_(0.0)
   {
   }
   //=====================================================================================================================
@@ -86,7 +92,13 @@ namespace m1d
 
     ProblemResidEval::operator=(r);
 
-   maxSubGridTimeSteps_ = r.maxSubGridTimeSteps_;
+    doHeatSourceTracking_              = r.doHeatSourceTracking_;
+    maxSubGridTimeSteps_               = r.maxSubGridTimeSteps_;
+    QdotPerArea_n_                     = r.QdotPerArea_n_;
+    QdotPerArea_nm1_                   = r.QdotPerArea_nm1_;
+    QdotAnodePerArea_n_                = r.QdotAnodePerArea_n_;
+    QdotSeparatorPerArea_n_            = r.QdotSeparatorPerArea_n_;
+    QdotCathodePerArea_n_              = r.QdotCathodePerArea_n_;
 
     return *this;
   }
@@ -487,8 +499,57 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     }
     Comm_ptr->Barrier();
   }
+//====================================================================================================================
+// Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
+// to be time dependent
+/*
+ *   Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
+ *   It can be used to track supplemental quantities in the calculation, especially if they need to be
+ *   integrated in time.
+ *
+ *   An example of this may be total flux quantites that are dumped into a phase.
+ *
+ *   This routine is called at the beginning of the time stepping, in order to set up any initializations,
+ *   and it is called after every successful time step, once.
+ *
+ * @param ifunc   0 Initial call to the function, done whenever the time stepper is entered
+ *                1 Called after every successful time step.
+ * @param t       Current time
+ * @param deltaT  Current value of deltaT
+ * @param y       Current value of the solution vectors
+ * @param ydot    Current value of time derivative of the solution vectors.
+ */
+void
+BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
+                                       const double t,
+                                       const double deltaT,
+                                       const Epetra_Vector_Ghosted & y,
+                                       const Epetra_Vector_Ghosted * const ydot)
+{
+    if (doHeatSourceTracking_) {
+	DomainLayout &DL = *DL_ptr_;
+	/*
+	//
+	//   Loop over the Volume Domains
+	//
+	for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	    d_ptr->eval_PostSoln(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
+	}
+	//
+	//    Loop over the Surface Domains
+	//
+	for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	    d_ptr->eval_PostSoln(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
+	}
+	*/
+	
 
-  //====================================================================================================================
+    }
+
+}
+//====================================================================================================================
   int
   BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
     if (paramName != "CathodeCollectorVoltage") {
