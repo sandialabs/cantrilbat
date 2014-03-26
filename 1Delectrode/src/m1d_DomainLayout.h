@@ -182,12 +182,12 @@ public:
    *  The temperature and pressure is passed down to all Domain1D objects within the
    *  DomainLayout
    *
-   * @param temp_ref value of the temperature
-   * @param pres_ref value of the pressure
+   * @param temp_ref value of the temperature (Kelvin)
+   * @param pres_ref value of the pressure  (Pascal)
    */
   void set_TP_Reference(const double temp_ref, const double pres_ref);
 
-  //=======================================================================
+  //===============================================================================================================
 
   //! Total number of domains, both surface and bulk
   /*!
