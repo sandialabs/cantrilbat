@@ -320,8 +320,8 @@ void
 LocalNodeIndices::initLcNodeMaps()
 {
   /*
-   *  Create a map of the local nodes and ghost modes. The global ids are the global node numbers.
-   *  We relie on Epetra to tally up the total number of global elements produced. This map will included ghosted nodes.
+   *  Create a map of the local nodes and ghost nodes. The global ids are the global node numbers.
+   *  We rely on Epetra to tally up the total number of global elements produced. This map will included ghosted nodes.
    */
   GbNodetoLcNodeColMap = new Epetra_Map(-1, NumLcNodes, DATA_PTR(IndexGbNode_LcNode), 0, *Comm_ptr_);
 #ifdef DEBUG_MATRIX_STRUCTURE
@@ -330,7 +330,7 @@ LocalNodeIndices::initLcNodeMaps()
 
   /*
    *  Create a map of the local nodes. The global ids are the global node numbers.
-   *  We relie on Epetra to tally up the total number of global elements produced. This map will not include ghosted nodes.
+   *  We rely on Epetra to tally up the total number of global elements produced. This map will not include ghosted nodes.
    */
    GbNodetoOwnedLcNodeMap = new Epetra_Map(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode), 0, *Comm_ptr_);
 
@@ -342,11 +342,11 @@ LocalNodeIndices::initLcBlockNodeMaps()
   /*
    *  Create a block map of the local eqns and ghost eqns. The global element ids are the global node numbers.
    *  The number of rows in the block are the number of equations defined at each node.
-   *  We relie on Epetra to tally up the total number of global elements produced. This map will included ghosted nodes
+   *  We rely on Epetra to tally up the total number of global elements produced. This map will included ghosted nodes
    *  and equations
    */
   GbBlockNodeEqnstoLcBlockNodeEqnsColMap = new Epetra_BlockMap(-1, NumLcNodes, DATA_PTR(IndexGbNode_LcNode), DATA_PTR(
-      NumEqns_LcNode), 0, *Comm_ptr_);
+                                                               NumEqns_LcNode), 0, *Comm_ptr_);
 
   /*
    *  Create a map of the local equations only. The global ids are the global node numbers.
@@ -354,7 +354,7 @@ LocalNodeIndices::initLcBlockNodeMaps()
    *  not include ghosted nodes, and therefore will be 1 to 1.
    */
   GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap = new Epetra_BlockMap(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode),
-      DATA_PTR(NumEqns_LcNode), 0, *Comm_ptr_);
+                                                                    DATA_PTR(NumEqns_LcNode), 0, *Comm_ptr_);
 }
 //===========================================================================
 // Construct a coloring map for the LcNodes on this processor.
@@ -587,8 +587,8 @@ LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
     int offset = (nv->Offset_VarType)[Displacement_Axial];
     if (offset >= 0) {
       (*soln)[startN + offset] = 0.0;
-      AssertTrace(xpos == (*Xpos_LcNode_p)[iNode]);
     }
+    AssertTrace(xpos == (*Xpos_LcNode_p)[iNode]);
   }
 }
 //=====================================================================================================================

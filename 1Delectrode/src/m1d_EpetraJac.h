@@ -298,8 +298,7 @@ public:
   _value(const int iGlobalEqn, const int jGlobalEqn) const;
 
   //! Returns the number of global equations in the matrix
-  int
-  nRows() const;
+  int nRows() const;
 
   //! Number of columns
   int
@@ -379,7 +378,8 @@ public:
    * This is not owned by this object
    */
   ProblemResidEval* m_resid;
-  double m_rtol, m_atol;
+  double m_rtol; 
+  double m_atol;
   double m_elapsed;
   Epetra_Vector *m_ssdiag;
 

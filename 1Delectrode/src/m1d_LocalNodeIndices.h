@@ -107,21 +107,33 @@ public:
   void
   determineLcEqnMaps();
 
-  //! Initialize the Epetra map associated with specifying
-  //! the local nodes on the processor, whether they are owned or not
+  //! Initialize the Epetra_Map objects associated with specifying
+  //! the local nodes on the processor, including whether they are owned or not
   /*!
-   *  This map is not a 1 to 1 map.
-   *
-   * @param comm_ptr
+   *    GbNodetoLcNodeColMap   a map of the local nodes and ghost nodes. The global ids are the global node numbers.
+   *                           This map will included ghosted nodes.
+   *                            This map is not a 1 to 1 map. 
+   *   
+   *    GbNodetoOwnedLcNodeMap A map of the local nodes. The global ids are the global node numbers.
+   *                           This map will not include ghosted nodes.
+   *                           This map is a 1 to 1 map. 
    */
   void
   initLcNodeMaps();
 
+  //! Initialize the Epetra_Map objects associated with specifying
+  //! the local block equations on the processor, including whether they are owned or not
+  /*!
+   *   GbBlockNodeEqnstoLcBlockNodeEqnsColMap
+   *                           Create a block map of the local eqns and ghost eqns. The global element ids are the global node numbers.
+   *                           The number of rows in the block are the number of equations defined at each node.
+   *
+   *   GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap
+   *                           Create a map of the local equations only. The global ids are the global node numbers.
+   *                           This map will not include ghosted nodes, and therefore will be 1 to 1.
+   */
   void
   initLcBlockNodeMaps();
-
-  Epetra_VbrMatrix*
-  alloc_VbrMatrix();
 
   //! Construct a coloring map for the LcNodes on this processor.
   /*!
@@ -201,6 +213,15 @@ public:
   void
   ExtractPositionsFromSolution(const Epetra_Vector * const soln_p);
 
+
+  //!  We set initial conditions here that make sense from a global perspective.
+  //!  This should be done as a starting point. If there are better answers, it should be overridden.
+  /*!
+   *   Current activities:
+   *
+   *     Set Displacement_Axial unknowns to 0.0
+   *     Assert that nodal value of x0NodePos is equal to the local vector of *Xpos_LcNode_p
+   */
   void
   setInitialConditions(const bool doTimeDependentResid,
                        Epetra_Vector *soln,
@@ -211,10 +232,18 @@ public:
   //! Generate the nodal variables structure
   /*!
    *   This routine will update the pointer to the NodalVars structure
+   *   and it will update the positions
    */
   void
   GenerateNodalVars();
 
+  //! Generate the importers
+  /*!
+   *   Data members calculated
+   *
+   *        Importer_GhostEqns 
+   *        Importer_NodalValues
+   */
   void
   makeImporters();
 

@@ -886,7 +886,6 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
     }
   }
 
-
   return fbound;
 }
 //=====================================================================================================================

@@ -493,7 +493,7 @@ BulkDomain1D::fillIsAlgebraic(Epetra_IntVector  & isAlgebraic)
   }
 }
 //====================================================================================================================
-//  Fill the vector isAlgebraic with the values from the DomainDescription
+//  Fill the vector isArithmeticScaled with the values from the DomainDescription
 void
 BulkDomain1D::fillIsArithmeticScaled(Epetra_IntVector  & isArithmeticScaled)     
 {

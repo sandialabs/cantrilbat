@@ -143,7 +143,7 @@ BulkDomainDescription::SetEquationDescription()
 {
   /*
    * We will assume that EquationNameList is fully populated.
-   * Then populate everything else from there
+   * Then populate everything else using that List here 
    */
   if (EquationNameList.size() == 0) {
     throw m1d_Error("BulkDomainDescription::SetEquationDescription()", "No Equations are defined");
@@ -214,7 +214,7 @@ BulkDomainDescription::SetEquationDescription()
       VarType varN(Voltage, subT);
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
-
+      IsArithmeticScaled_NE[iEqn] = 1;
     } else if (eqnT.EquationType == MoleFraction_Summation) {
       VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
       VarType varN(Concentration_Species, subT, eqnT.EquationSubTypeName);
@@ -244,6 +244,14 @@ BulkDomainDescription::SetEquationDescription()
       if (EquationIndexStart_EqName[iSpeciesConservationTPos] == -1) {
 	EquationIndexStart_EqName[iSpeciesConservationTPos] = iEqn;
       }
+    } else if (eqnT.EquationType == Current_Specification) {
+	throw m1d_Error("BulkDomainDescription::SetEquationDescription()", "Current Specification for bulk domain");
+    } else if (eqnT.EquationType == Voltage_Specification) {
+	throw m1d_Error("BulkDomainDescription::SetEquationDescription()", "Voltage Specification for bulk domain");
+    } else if (eqnT.EquationType == Dirichlet_Specification) {
+	//   We can have different variables with this specification. The first one is temperature
+	// VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
+	EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
     } else {
       throw m1d_Error("BulkDomainDescription::SetEquationDescription()", "Unknown Conversion");
     }

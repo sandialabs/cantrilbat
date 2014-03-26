@@ -93,7 +93,6 @@ public:
   /*!
    * This vector defines the ordering of the equations on the domain.
    *
-   *
    * Length = number of equations defined on the domain
    */
   std::vector<EqnType> EquationNameList;
@@ -119,7 +118,7 @@ public:
    */
   std::vector<int> IsAlgebraic_NE;
 
-  //! Vector containing the info on whether these variables are algebraic scaled variables
+  //! Vector containing the info on whether these variables are arithmetically scaled variables
   /*!
    * Length = number of equations defined on the domain
    */
