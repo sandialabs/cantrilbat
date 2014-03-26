@@ -1,0 +1,46 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2011/12/21 23:20:06 $
+#  $Revision: 1.13 $
+#
+###############################################################
+
+MP_MACHINEFILE_DEFAULT=@MP_MACHINEFILE_DEFAULT@
+
+#
+# Determine the machine file to use
+#  (gnu make: The shell command evaluates the shell command and sets the variable equal to its output)
+#  
+MPMACH := $(shell if test -z ${MP_MACHINEFILE}; then echo $(MP_MACHINEFILE_DEFAULT) ; else echo ${MP_MACHINEFILE} ; fi)
+
+all:
+
+
+test:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ test
+
+testd:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ test
+
+clean:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ clean
+
+test_clean:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ test_clean
+
+dist_clean:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ dist_clean
+
+test_bat:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ test
+
+rebaseline:
+	cd LiIon_MCMB_LiCoO2_Enthalpy;                 ./rebaseline
+
+install:
+
+
+depends:
+
+
