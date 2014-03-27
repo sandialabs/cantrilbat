@@ -54,6 +54,10 @@ protected:
 
 };
 
+//! Assert two number are equal up to a number of digits
+bool doubleEqual(double a1, double a2, double atol = 1.0E-3, int digits = 13);
+
+
 //! Provides a line number
 #define XSTR_TRACE_LINE(s) STR_TRACE_LINE(s)
 
