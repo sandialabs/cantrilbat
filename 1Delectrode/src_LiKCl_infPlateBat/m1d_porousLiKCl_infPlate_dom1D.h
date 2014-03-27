@@ -1,12 +1,12 @@
 /*
- * m1d_porousLiKCl_dom1D.h
+ * m1d_porousLiKCl_infPlate_dom1D.h
  *
  *  Created on: May 19, 2009
  *      Author: hkmoffa
  */
 
-#ifndef M1D_POROUSLIKCL_DOM1D_H_
-#define M1D_POROUSLIKCL_DOM1D_H_
+#ifndef M1D_POROUSLIKCL_INFPLATE_DOM1D_H_
+#define M1D_POROUSLIKCL_INFPLATE_DOM1D_H_
 
 //! This is derived class  provides the function
 //! evaluation for a porous electrolyte bulk domain.
@@ -35,7 +35,7 @@ class LocalNodeIndices;
  * There is a 1 to 1 mapping between the global control volume indexing
  * and the Global node number indexing that is given by a single offset.
  */
-class porousLiKCl_dom1D : public BulkDomain1D
+class porousLiKCl_infPlate_dom1D : public BulkDomain1D
 {
 
 public:
@@ -44,25 +44,25 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_dom1D(m1d::BulkDomainDescription &bdd);
+  porousLiKCl_infPlate_dom1D(m1d::BulkDomainDescription &bdd);
 
   //! Copy constructor
   /*!
    * @param r      Object to be copied into the current object
    */
-  porousLiKCl_dom1D(const porousLiKCl_dom1D &r);
+  porousLiKCl_infPlate_dom1D(const porousLiKCl_infPlate_dom1D &r);
 
   //! Destructor
   virtual
-  ~porousLiKCl_dom1D();
+  ~porousLiKCl_infPlate_dom1D();
 
   //! Assignment operator
   /*!
    * @param r      Object to be copied into the current object
    * @return       Returns a changeable reference to the current object
    */
-  porousLiKCl_dom1D &
-  operator=(const porousLiKCl_dom1D &r);
+  porousLiKCl_infPlate_dom1D &
+  operator=(const porousLiKCl_infPlate_dom1D &r);
 
   //! Prepare all of the indices for fast calculation of the residual
   /*!

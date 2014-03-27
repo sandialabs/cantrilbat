@@ -1,5 +1,4 @@
 /**
- * @file tddiff.cpp
  *
  */
 
@@ -36,6 +35,7 @@
 #include "m1d_SolNonlinear.h"
 #include "m1d_ProblemStatement.h"
 #include "m1d_DomainLayout_LiKCl_infPlateBat.h"
+#include "m1d_DomainLayout.h"
 
 #include "m1d_ProblemStatementCell.h"
 
@@ -61,7 +61,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "tddiff.h"
 #include "m1d_solvers.h"
 
 //=====================================================================================
@@ -109,12 +108,19 @@
 #include "m1d_exception.h"
 #include "m1d_VBRIndices.h"
 #include "m1d_ProblemResidEval.h"
+#include "m1d_FlatBatteryResidEval.h"  
+
+
+extern void generateDomain1D(m1d::ProblemResidEval *ps);
+
 
 using namespace std;
 using namespace m1d;
 using namespace beuler;
 
-m1d::ProblemResidEval *PS_ptr = 0;
+//m1d::ProblemResidEval *PS_ptr = 0;
+m1d::FlatBatteryResidEval* PS_ptr = 0;
+
 
 m1d::ProblemStatementCell PSinput;
 
@@ -207,7 +213,8 @@ main(int argc, char **argv)
       exit(-1);
     }
 
-    m1d::ProblemResidEval *ps = new ProblemResidEval(1.0E-13);
+    m1d::FlatBatteryResidEval* ps = new FlatBatteryResidEval(1.0E-13);
+    //m1d::ProblemResidEval *ps = new ProblemResidEval(1.0E-13);
     PS_ptr = ps;
 
     /*
@@ -415,7 +422,7 @@ main(int argc, char **argv)
       BC->resetSteps();
     }
 
-    double TInit = PSinput.startTime_ ;
+    //double TInit = PSinput.startTime_ ;
     double TFinal = PSinput.startTime_ ;
     double Tstop;
 
@@ -447,7 +454,7 @@ main(int argc, char **argv)
 	Tstop = t1.integratePRE( TFinal );
       }
       
-      TInit = TFinal;
+      //TInit = TFinal;
     }
 
     //double tend = second();

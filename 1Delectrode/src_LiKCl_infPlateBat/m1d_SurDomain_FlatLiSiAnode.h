@@ -322,6 +322,8 @@ protected:
   std::vector<double> phaseMoleFlux_;
 
   double surfaceArea_;
+
+  friend class FlatBatteryResidEval;
 };
 
 //==================================================================================

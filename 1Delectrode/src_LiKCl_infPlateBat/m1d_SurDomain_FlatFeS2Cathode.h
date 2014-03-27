@@ -332,6 +332,8 @@ protected:
    */
   double icurrCathodeSpecified_;
 
+  friend class FlatBatteryResidEval;
+
 };
 
 //==================================================================================

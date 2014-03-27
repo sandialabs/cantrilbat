@@ -8,7 +8,7 @@
 
 #include "m1d_BDT_porousLiKCl.h"
 
-#include "m1d_porousLiKCl_dom1D.h"
+#include "m1d_porousLiKCl_infPlate_dom1D.h"
 
 #include "m1d_ProblemStatementCell.h"
 extern m1d::ProblemStatementCell PSinput;
@@ -129,7 +129,7 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
 BulkDomain1D *
 BDT_porousLiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_dom1D(*this);
+  BulkDomainPtr_ = new porousLiKCl_infPlate_dom1D(*this);
   return BulkDomainPtr_;
 }
 //==================================================================

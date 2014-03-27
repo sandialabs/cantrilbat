@@ -18,8 +18,8 @@ PROG_NAME = LiKCl_infPlateBat
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
 OBJS = $(PROG_NAME).o  \
-	m1d_DomainLayout_LiKCl_infPlateBat.o \
-	m1d_porousLiKCl_dom1D.o m1d_BDT_porousLiKCl.o \
+	m1d_DomainLayout_LiKCl_infPlateBat.o m1d_FlatBatteryResidEval.o\
+	m1d_porousLiKCl_infPlate_dom1D.o m1d_BDT_porousLiKCl.o \
 	m1d_SDT_FlatCathode.o m1d_SDT_FlatAnode.o \
         m1d_SurDomain_FlatLiSiAnode.o m1d_SurDomain_FlatFeS2Cathode.o \
         m1d_ReactingSurDomain.o  

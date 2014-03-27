@@ -1,12 +1,12 @@
 /*
- * m1d_porousLiKCl_dom1D.cpp
+ * m1d_porousLiKCl_infPlate_dom1D.cpp
  *
  *  $Id: m1d_porousLiKCl_dom1D.cpp 540 2013-02-27 22:18:26Z hkmoffa $ 
  */
 
 //  This is a heavyweight base class that provides the function
 //evaluation for a single bulk domain.
-#include "m1d_porousLiKCl_dom1D.h"
+#include "m1d_porousLiKCl_infPlate_dom1D.h"
 #include "m1d_BDT_porousLiKCl.h"
 
 #include "m1d_NodalVars.h"
@@ -31,7 +31,7 @@ namespace m1d
 {
 
 //==============================================================================
-porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
+porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BulkDomainDescription & bdd) :
   BulkDomain1D(bdd), temp_Curr_(TemperatureReference_), ivb_(VB_MOLEAVG)
 {
 
@@ -46,18 +46,18 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
 
 }
 //==============================================================================
-porousLiKCl_dom1D::porousLiKCl_dom1D(const porousLiKCl_dom1D &r) :
+porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(const porousLiKCl_infPlate_dom1D &r) :
   BulkDomain1D(r.BDD_), temp_Curr_(TemperatureReference_), ivb_(VB_MOLEAVG)
 {
-  porousLiKCl_dom1D::operator=(r);
+  porousLiKCl_infPlate_dom1D::operator=(r);
 }
 //==============================================================================
-porousLiKCl_dom1D::~porousLiKCl_dom1D()
+porousLiKCl_infPlate_dom1D::~porousLiKCl_infPlate_dom1D()
 {
 }
 //==============================================================================
-porousLiKCl_dom1D &
-porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
+porousLiKCl_infPlate_dom1D &
+porousLiKCl_infPlate_dom1D::operator=(const porousLiKCl_infPlate_dom1D &r)
 {
   if (this == &r) {
     return *this;
@@ -90,7 +90,7 @@ porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
  *  recursive fashion.
  */
 void
-porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
+porousLiKCl_infPlate_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
   /*
    * First call the parent domain prep to get the node information
@@ -181,7 +181,7 @@ porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
  *
  */
 void
-porousLiKCl_dom1D::residEval(Epetra_Vector &res,
+porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
                              const bool doTimeDependentResid,
                              const Epetra_Vector *soln_ptr,
                              const Epetra_Vector *solnDot_ptr,
@@ -684,7 +684,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, int type)
+porousLiKCl_infPlate_dom1D::SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, int type)
 {
   updateElectrolyte(solnElectrolyte_Curr);
   if (type == 0) {
@@ -693,7 +693,7 @@ porousLiKCl_dom1D::SetupThermoShop1(const doublereal * const solnElectrolyte_Cur
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
+porousLiKCl_infPlate_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
                                     const doublereal * const solnElectrolyte_CurrR,
                                     int type)
 {
@@ -716,7 +716,7 @@ porousLiKCl_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_Cur
  * @param solnElectrolyte
  */
 void
-porousLiKCl_dom1D::updateElectrolyte(const doublereal * const solnElectrolyte_Curr)
+porousLiKCl_infPlate_dom1D::updateElectrolyte(const doublereal * const solnElectrolyte_Curr)
 {
   /*
    * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -745,7 +745,7 @@ porousLiKCl_dom1D::updateElectrolyte(const doublereal * const solnElectrolyte_Cu
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::getVoltages(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
+porousLiKCl_infPlate_dom1D::getVoltages(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
 {
   int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
@@ -755,7 +755,7 @@ porousLiKCl_dom1D::getVoltages(const double * const solnElectrolyte_Curr, const 
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::getMFElectrolyte_soln(const double * const solnElectrolyte_Curr)
+porousLiKCl_infPlate_dom1D::getMFElectrolyte_soln(const double * const solnElectrolyte_Curr)
 {
   int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
@@ -771,7 +771,7 @@ porousLiKCl_dom1D::getMFElectrolyte_soln(const double * const solnElectrolyte_Cu
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::SetupTranShop(const double xdel, const int type)
+porousLiKCl_infPlate_dom1D::SetupTranShop(const double xdel, const int type)
 {
 
   /*
@@ -822,7 +822,7 @@ porousLiKCl_dom1D::SetupTranShop(const double xdel, const int type)
  * @param delta_t                 delta_t for the initial time step
  */
 void
-porousLiKCl_dom1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector *soln_ptr,
+porousLiKCl_infPlate_dom1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector *soln_ptr,
                                      Epetra_Vector *solnDot, const double t,
                                      const double delta_t)
 {
@@ -870,7 +870,7 @@ porousLiKCl_dom1D::initialConditions(const bool doTimeDependentResid, Epetra_Vec
  *  @param soln soln vector
  *  @param atolVector Reference for the atol vector to fill up
  */
-void porousLiKCl_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
+void porousLiKCl_infPlate_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 				      Epetra_Vector_Ghosted & atolVector, const Epetra_Vector_Ghosted * const atolV)
 {
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -930,7 +930,7 @@ void porousLiKCl_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Gh
 /*
  * @param atolVector Reference for the atol vector to fill up
  */
-void porousLiKCl_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln, 
+void porousLiKCl_infPlate_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 					      const Epetra_Vector_Ghosted & solnDot,
 					      Epetra_Vector_Ghosted & atolVector,
 					      const Epetra_Vector_Ghosted * const atolV)
@@ -987,7 +987,7 @@ void porousLiKCl_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_V
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff, 
+porousLiKCl_infPlate_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff, 
 				       const Epetra_Vector_Ghosted & soln, 
 				       Epetra_Vector_Ghosted & atolDeltaDamping,
 				       const Epetra_Vector_Ghosted * const atolV)
@@ -1047,7 +1047,7 @@ porousLiKCl_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff,
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, 
+porousLiKCl_infPlate_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, 
 					       const Epetra_Vector_Ghosted & soln, 
 					       const Epetra_Vector_Ghosted & solnDot, 
 					       Epetra_Vector_Ghosted & atolDeltaDamping,
@@ -1109,9 +1109,9 @@ porousLiKCl_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoe
 
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::err(const char *msg)
+porousLiKCl_infPlate_dom1D::err(const char *msg)
 {
-  printf("porousLiKCl_dom1D: function not implemented: %s\n", msg);
+  printf("porousLiKCl_infPlate_dom1D: function not implemented: %s\n", msg);
   exit(-1);
 }
 //=====================================================================================================================
