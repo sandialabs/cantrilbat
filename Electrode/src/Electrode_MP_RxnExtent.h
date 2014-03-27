@@ -467,8 +467,6 @@ public:
     // ---------------------------------------------------------------------------------------------
 
 
-    //! Return the number of equations in the equation system
-    virtual  int nEquations() const;
 
     //! Unpack the soln vector
     /*!

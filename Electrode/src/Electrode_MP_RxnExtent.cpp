@@ -3760,11 +3760,6 @@ int Electrode_MP_RxnExtent::getInitialConditions(const doublereal t0, doublereal
     }
     return 1;
 }
-//  -----------------------------------------------------------------------------------------------------------------
-int  Electrode_MP_RxnExtent::nEquations() const
-{
-    return 2;
-}
 //====================================================================================================================
 doublereal
 Electrode_MP_RxnExtent::filterNewStep(const doublereal timeCurrent,
