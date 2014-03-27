@@ -588,7 +588,9 @@ LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
     if (offset >= 0) {
       (*soln)[startN + offset] = 0.0;
     }
-    AssertTrace(xpos == (*Xpos_LcNode_p)[iNode]);
+    if (! m1d::doubleEqual(xpos, (*Xpos_LcNode_p)[iNode], 1.0E-3)) {
+        AssertTrace(xpos == (*Xpos_LcNode_p)[iNode]);
+    }
   }
 }
 //=====================================================================================================================
