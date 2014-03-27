@@ -25,6 +25,17 @@ install_gtest = True
 single_library = False
 
 
+
+=================================================================================
+Date of Analysis = 3/27/14
+   Debug versions of all codes
+
+cantera version (svn number)       =  r2826          3/20/14
+cantrilbat version (git date)      =  45ae3d26841    3/27/14
+cantrilbat_test version (git date) =  2e27e98b64d    3/27/14
+
+Status of tests =  All good tests Passed
+
 =================================================================================
 Date of Analysis = 3/20/14
    Debug versions of all codes
