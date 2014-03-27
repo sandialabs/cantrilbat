@@ -1023,7 +1023,7 @@ public:
     /*!
      *  This is also equal to the number of state variables in the problem
      */
-    virtual int nEquations() const;
+    //virtual int nEquations() const;
 
     // -----------------------------------------------------------------------------------------------------------------
 

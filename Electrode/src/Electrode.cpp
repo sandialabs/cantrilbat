@@ -3340,6 +3340,7 @@ int Electrode::phasePop_Resid::evalSS(const doublereal t, const doublereal* cons
     int retn = ee_->phasePopResid(iphaseTarget_, y, deltaTsubcycle_, r);
     return retn;
 }
+
 int Electrode::phasePop_Resid::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
 {
     int ne = nEquations();
@@ -3594,10 +3595,10 @@ double Electrode::reportStateVariableIntegrationError(int& numSV, double* const 
 /*
  *  This is also equal to the number of state variables in the problem
  */
-int Electrode::nEquations() const
-{
-    throw CanteraError("Electrode::nEquations()", "Base Class Called");
-}
+//int Electrode::nEquations() const
+//{
+//    throw CanteraError("Electrode::nEquations()", "Base Class Called");
+//}
 //====================================================================================================================
 Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
                 ResidJacEval(),
