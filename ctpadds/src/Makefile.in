@@ -191,6 +191,7 @@ libctpadds.a: $(OBJ_CTPADDS) Makefile
 	$(AR) rv libctpadds.a $(OBJ_CTPADDS)
 
 install:
+	@INSTALL@ -d @cta_incdir@
 	@INSTALL@ -d @cta_libdir@
 	@INSTALL@ -m 644 libctpadds.a @cta_libdir@
 	@INSTALL@ -m 644  $(HDR_CTPADDS) @cta_incdir@
