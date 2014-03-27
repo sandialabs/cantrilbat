@@ -10,12 +10,11 @@
 #include "m1d_exception.h"
 #include "m1d_app.h"
 #include "m1d_globals.h"
-
 #include <cmath>
 
 namespace m1d
 {
-
+//======================================================================================================
 m1d_Error::m1d_Error(const std::string &proc, const std::string &msg)
 {
   m1d::app()->addError(proc, msg);
@@ -32,5 +31,5 @@ bool doubleEqual(double a1, double a2, double atol, int digits)
     }
     return false;
 }
-//==============================================================================
+//=====================================================================================================
 }
