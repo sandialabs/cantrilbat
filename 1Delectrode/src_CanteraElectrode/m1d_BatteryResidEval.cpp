@@ -477,7 +477,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     cd_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
 
     FILE *fp = 0;
-    if (time_current == 0.0) {
+    if (ievent == 0) {
       fp = fopen("timeDep_IV.dat", "w");
       fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
       fprintf(fp, "VARIABLES = \" T [s]\"\n");
