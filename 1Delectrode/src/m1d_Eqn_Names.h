@@ -21,18 +21,18 @@ enum Var_Name_Enum
 {
   Variable_Type_Unspecified = -2,//!< Variable_Type_Unspecified
   Variable_Type_Any,             //!< Variable_Type_Any
-  Velocity_Axial,          // 0
+  Displacement_Axial,       //0     //!< Displacement_axial
+  Velocity_Axial,          // 1
   Velocity_Radial,               //!< Velocity_radial
   Velocity_Swirl,                //!< Velocity_swirl
-  Displacement_Axial,            //!< Displacement_axial
-  Temperature,                   //!< Temperature
-  Pressure_Axial,           // 5
-  PressureGradient_Radial,       //!< PressureGradient_radial
+  Pressure_Axial,           // 4
+  PressureGradient_Radial,  //5     //!< PressureGradient_radial
+  Concentration_Species,     // adding in extra variable types
   MoleFraction_Species,     // 7
   VolumeFraction_Species,        //!< VolumeFraction_species
   VolumeFraction_Phase,          //!< VolumeFraction_phase
   Voltage,                 // 10
-  Concentration_Species,     // adding in extra variable types
+  Temperature,             // 11      //!< Temperature
   Max_Var_Name                   //!< Max_Var_Name
 //! must be last in the list
 };
