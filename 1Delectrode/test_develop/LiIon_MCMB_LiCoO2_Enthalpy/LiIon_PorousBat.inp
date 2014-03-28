@@ -126,13 +126,13 @@ Input Anode File = anode.inp
 Input Cathode File = cathode.inp
 !-------------------------------------------------------------------------
 !-------------------------------------------------------------------------
-! Reference Temperature - double (no default) (required)
+! Reference Temperature - double (no default) (optional)
 ! 
 !-------------------------------------------------------------------------
 Reference Temperature = 298.15
 !-------------------------------------------------------------------------
 !
-! Pressure - double [Pressure_unit] (no default) (required)
+! Pressure - double [Pressure_unit] (no default) (optional)
 !
 !-------------------------------------------------------------------------
 Reference Pressure = 1.0 atm
