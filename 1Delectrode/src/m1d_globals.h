@@ -34,6 +34,13 @@ extern Epetra_Comm *Comm_ptr;
 class Appl;
 class ProblemStatement;
 
+extern int s_printLvl_TimingInformation;
+
+extern int s_printLvl_DebugTables;
+
+extern void readEnvironmentalVariables();
+
+
 //! Print input options and exit
 /*!
  *  If this is true, then we print all of the entire input options, as much as possible,

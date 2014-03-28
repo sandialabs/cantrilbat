@@ -13,6 +13,7 @@
 #include "m1d_ProblemStatement.h"
 
 #include "m1d_exception.h"
+#include "m1d_globals.h"
 
 #include <iostream>
 
@@ -31,6 +32,7 @@ DomainLayout::DomainLayout(ProblemStatement *psInput_ptr) :
   problemResid_(0), psInput_ptr_(psInput_ptr),
   domainList_(0)
 {
+   m1d::readEnvironmentalVariables();
 }
 //===========================================================================
   DomainLayout::DomainLayout(std::vector<std::string>  domainList, ProblemStatement *psInput_ptr,

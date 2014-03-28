@@ -591,6 +591,7 @@ LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
     if (offset >= 0) {
       (*soln)[startN + offset] = 0.0;
     }
+    offset = (nv->Offset_VarType)[Temperature];
     if (offset >= 0) {
       (*soln)[startN + offset] = PSinput_ptr->TemperatureReference_;
     }

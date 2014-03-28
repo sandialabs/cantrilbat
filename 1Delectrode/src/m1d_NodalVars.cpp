@@ -13,6 +13,9 @@
 #include "m1d_DomainLayout.h"
 #include "m1d_BulkDomainDescription.h"
 #include "m1d_SurfDomainDescription.h"
+#include "m1d_globals.h"
+
+#include <list> 
 
 namespace m1d
 {
@@ -114,6 +117,41 @@ NodalVars::DiscoverDomainsAtThisNode()
   }
 
 }
+
+void  insert_into_list(std::list<VarType>& varList, VarType& v1)
+{
+    //   int ss = varList.size();
+    std::list<VarType>::iterator it; 
+    for (it = varList.begin(); it != varList.end(); ++it) {
+	VarType vtL = *it; 
+      if (v1 == vtL) {
+	    printf("shouldn't be here\n");
+    return;
+        }
+        if (vtL > v1) {
+	    varList.insert(it,v1);
+            return;
+        }
+    }
+    varList.push_back(v1);
+}
+//============================================================================================================
+static int lookupPosition(int val, std::vector<int>& yy) {
+    for (size_t i = 0; i < yy.size(); i++) {
+	if (val == yy[i]) {
+	    return (int) i;
+	}
+    }
+    return -1;
+}
+static void print_line(const char *str, int n)
+{
+    for (int i = 0; i < n; i++) {
+        printf("%s", str);
+    }
+    printf("\n");
+}
+
 //===========================================================================
 // This routine discovers and order the equation unknowns at a node
 /*
@@ -204,62 +242,239 @@ NodalVars::GenerateEqnOrder()
         iOffset++;
       }
     }
+    NumEquations = iOffset;
 
   } else {
-    SurfDomainDescription * sdd = 0;
-    for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
-      int ibdd = BulkDomainIndex_BDN[ibd];
-      BulkDomainDescription *bdd = DL.BulkDomainDesc_global[ibdd];
-      int numEqnsBulk = bdd->NumEquationsPerNode;
-      OffsetIndex_BulkDomainEqnStart_BDN[ibd] = iOffset;
-      bool domainEqnContract = false;
-      if (ibd == 1) {
-        domainEqnContract = true;
-        int sdi = SurfDomainIndex_SDN[0];
-        sdd = DL.SurfDomainDesc_global[sdi];
-      }
-      for (int iEqn = 0; iEqn < numEqnsBulk; iEqn++) {
-        /*
-         *  If the right bulk equation is to be mapped into a
-         *  left bulk equation at the domain, then we do not add a separate
-         *  equation for it at the interface. Instead, we skip to the 
-         *  next equation
-         */
-        if (domainEqnContract) {
-          int j = sdd->RightToLeftBulkEqnMapping[iEqn];
-          if (j != -1)
-            continue;
-        }
-        VariableNameList_EqnNum.push_back(bdd->VariableNameList[iEqn]);
-        EquationNameList_EqnNum.push_back(bdd->EquationNameList[iEqn]);
-        VariableSubType_EqnNum.push_back(VariableNameList_EqnNum[iOffset].VariableSubType);
-        EquationSubType_EqnNum.push_back(EquationNameList_EqnNum[iOffset].EquationSubType);
-        iOffset++;
-      }
-    }
 
-    for (int isd = 0; isd < NumSurfDomains; isd++) {
-      int isdd = SurfDomainIndex_SDN[isd];
-      SurfDomainDescription *sdd = DL.SurfDomainDesc_global[isdd];
-      int numEqnsSurf = sdd->NumEquationsPerNode;
-      OffsetIndex_SurfDomainEqnStart_SDN[isd] = iOffset;
-      for (int iEqn = 0; iEqn < numEqnsSurf; iEqn++) {
-        VariableNameList_EqnNum.push_back(sdd->VariableNameList[iEqn]);
-        EquationNameList_EqnNum.push_back(sdd->EquationNameList[iEqn]);
-        VariableSubType_EqnNum.push_back(VariableNameList_EqnNum[iOffset].VariableSubType);
-        EquationSubType_EqnNum.push_back(EquationNameList_EqnNum[iOffset].EquationSubType);
+      if (NumBulkDomains < 2) {
+	  SurfDomainDescription * sdd = 0;
+	  for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
+	      int ibdd = BulkDomainIndex_BDN[ibd];
+	      BulkDomainDescription *bdd = DL.BulkDomainDesc_global[ibdd];
+	      int numEqnsBulk = bdd->NumEquationsPerNode;
+	      OffsetIndex_BulkDomainEqnStart_BDN[ibd] = iOffset;
+	      bool domainEqnContract = false;
+	      if (ibd == 1) {
+		  domainEqnContract = true;
+		  int sdi = SurfDomainIndex_SDN[0];
+		  sdd = DL.SurfDomainDesc_global[sdi];
+	      }
+	      for (int iEqn = 0; iEqn < numEqnsBulk; iEqn++) {
+		  /*
+		   *  If the right bulk equation is to be mapped into a
+		   *  left bulk equation at the domain, then we do not add a separate
+		   *  equation for it at the interface. Instead, we skip to the 
+		   *  next equation
+		   */
+		  if (domainEqnContract) {
+		      int j = sdd->RightToLeftBulkEqnMapping[iEqn];
+		      if (j != -1)
+			  continue;
+		  }
+		  VariableNameList_EqnNum.push_back(bdd->VariableNameList[iEqn]);
+		  EquationNameList_EqnNum.push_back(bdd->EquationNameList[iEqn]);
+		  VariableSubType_EqnNum.push_back(VariableNameList_EqnNum[iOffset].VariableSubType);
+		  EquationSubType_EqnNum.push_back(EquationNameList_EqnNum[iOffset].EquationSubType);
+		  iOffset++;
+	      }
+	  }
 
-        iOffset++;
+	  for (int isd = 0; isd < NumSurfDomains; isd++) {
+	      int isdd = SurfDomainIndex_SDN[isd];
+	      SurfDomainDescription *sdd = DL.SurfDomainDesc_global[isdd];
+	      int numEqnsSurf = sdd->NumEquationsPerNode;
+	      OffsetIndex_SurfDomainEqnStart_SDN[isd] = iOffset;
+	      for (int iEqn = 0; iEqn < numEqnsSurf; iEqn++) {
+		  VariableNameList_EqnNum.push_back(sdd->VariableNameList[iEqn]);
+		  EquationNameList_EqnNum.push_back(sdd->EquationNameList[iEqn]);
+		  VariableSubType_EqnNum.push_back(VariableNameList_EqnNum[iOffset].VariableSubType);
+		  EquationSubType_EqnNum.push_back(EquationNameList_EqnNum[iOffset].EquationSubType);
+		  
+		  iOffset++;
+	      }
+	  }
+      } else if ( NumBulkDomains == 2) {
+ 
+	  // Two bulk domains.
+	  std::list<VarType> varList;
+	  std::list<EqnType> eqnList;
+	  std::vector<int> EqntoLeftMapping;
+	  std::vector<int> EqntoRightMapping;
+	  std::vector<int> RightToEqnMapping;
+	  std::vector<int> LeftToEqnMapping;
+	  int leftBulkDomEqn = 0;
+	  int rightBulkDomEqn = 0;
+	  bool endOfVars = false;
+	  int ibddL = BulkDomainIndex_BDN[0];
+	  int ibddR = BulkDomainIndex_BDN[1];
+	  int iEqn = 0;
+	  BulkDomainDescription *bddL = DL.BulkDomainDesc_global[ibddL];
+	  BulkDomainDescription *bddR = DL.BulkDomainDesc_global[ibddR];
+	  OffsetIndex_BulkDomainEqnStart_BDN[0] = 0;
+	  OffsetIndex_BulkDomainEqnStart_BDN[1] = 0;
+	  int numEqnsBulkL = bddL->NumEquationsPerNode;
+	  int numEqnsBulkR = bddR->NumEquationsPerNode;
+	  int sdi = SurfDomainIndex_SDN[0];
+	  SurfDomainDescription *sdd = DL.SurfDomainDesc_global[sdi];
+	  do {
+	      VarType varL = VarType(Max_Var_Name);
+	      EqnType eqnL = EqnType(Max_Eq_Name);
+	      if (leftBulkDomEqn < numEqnsBulkL) {
+		  varL = bddL->VariableNameList[leftBulkDomEqn];
+		  eqnL = bddL->EquationNameList[leftBulkDomEqn];
+	      }
+	      VarType varR = VarType(Max_Var_Name);
+	      EqnType eqnR = EqnType(Max_Eq_Name);
+	      if (rightBulkDomEqn < numEqnsBulkR) {
+		  varR = bddR->VariableNameList[rightBulkDomEqn];
+		  eqnR = bddR->EquationNameList[rightBulkDomEqn];
+	      }
+	      if (varL.VariableType <= varR.VariableType) {
+		  {
+		     
+		      //! Add the left equation and variable
+		      varList.push_back(varL);
+		      eqnList.push_back(eqnL);
+		      LeftToEqnMapping.push_back(iEqn);
+		      EqntoLeftMapping.push_back(leftBulkDomEqn);
+		      EqntoRightMapping.push_back(-1);
+		      //m1d::VAR_TYPE_SUBNUM varSubL = varL.VariableSubType;
+		      // increment counters
+		      iEqn++;
+		      leftBulkDomEqn++;
+
+		  }
+	
+	      } else {
+		  int jLEqn = sdd->RightToLeftBulkEqnMapping[rightBulkDomEqn];
+		  if (jLEqn < 0) {
+		      varList.push_back(varR);
+		      eqnList.push_back(eqnR);
+		      RightToEqnMapping.push_back(iEqn);
+		      EqntoLeftMapping.push_back(-1);
+		      EqntoRightMapping.push_back(rightBulkDomEqn);
+		      // increment counters
+		      iEqn++;
+		      rightBulkDomEqn++;
+		  } else {
+		      // Will have to fix up cases later
+		      int pos = lookupPosition(jLEqn, LeftToEqnMapping);
+		      if (pos >= 0) {
+			  RightToEqnMapping.push_back(pos);
+			  EqntoRightMapping[pos] = rightBulkDomEqn;
+		      } else {  
+			  RightToEqnMapping.push_back(-1);
+		      }
+		      rightBulkDomEqn++;
+		  }
+	      }
+	      if ((leftBulkDomEqn >= numEqnsBulkL) &&  (rightBulkDomEqn >= numEqnsBulkR)) {
+		  endOfVars = true;
+	      }
+	  } while (!endOfVars);
+	  NumEquations = iEqn;
+	  for (int rightBulkDomEqn = 0; rightBulkDomEqn < numEqnsBulkR;  rightBulkDomEqn++) {
+	      if (RightToEqnMapping[rightBulkDomEqn] == -1) {
+		  int leftBulkDomEqn = sdd->RightToLeftBulkEqnMapping[rightBulkDomEqn];
+		  if (leftBulkDomEqn < 0) {
+		      printf("logic error\n");
+		      exit(-1);
+		  }
+		  iEqn = LeftToEqnMapping[leftBulkDomEqn];
+		  RightToEqnMapping[rightBulkDomEqn] = iEqn;
+		  EqntoRightMapping[iEqn] = rightBulkDomEqn;
+	      }
+	  }
+  
+	  std::list<VarType>::iterator itVList;
+	  std::list<EqnType>::iterator itEList;
+	  for (itVList = varList.begin(), itEList = eqnList.begin(); itVList != varList.end(); ++itVList, ++itEList) {
+	      VariableNameList_EqnNum.push_back(*itVList);
+	      EquationNameList_EqnNum.push_back(*itEList);
+	      VariableSubType_EqnNum.push_back(itVList->VariableSubType);
+	      EquationSubType_EqnNum.push_back(itEList->EquationSubType);
+	  }
+
+	  for (int isd = 0; isd < NumSurfDomains; isd++) {
+	      int isdd = SurfDomainIndex_SDN[isd];
+	      SurfDomainDescription *sdd = DL.SurfDomainDesc_global[isdd];
+	      int numEqnsSurf = sdd->NumEquationsPerNode;
+	      OffsetIndex_SurfDomainEqnStart_SDN[isd] = NumEquations;
+	      for (int iEqnSurf = 0; iEqnSurf < numEqnsSurf; iEqnSurf++) {
+		  VariableNameList_EqnNum.push_back(sdd->VariableNameList[iEqnSurf]);
+		  EquationNameList_EqnNum.push_back(sdd->EquationNameList[iEqnSurf]);
+		  VariableSubType_EqnNum.push_back(VariableNameList_EqnNum[NumEquations].VariableSubType);
+		  EquationSubType_EqnNum.push_back(EquationNameList_EqnNum[NumEquations].EquationSubType);
+		  EqntoRightMapping.push_back(-1);
+		  EqntoLeftMapping.push_back(-1);
+		  NumEquations++;
+	      }
+	  }
+	  bool printResult = false;
+#ifdef DEBUG_MODE
+          if (m1d::s_printLvl_DebugTables) {
+              printResult = true;
+          }
+#endif
+	  //
+	  //  With all complicated logic we best have to have a print out section to see the results
+	  //
+	  if (printResult) {
+	      print_line("-", 152);
+	      printf("    Equation Order for Global Node %d", GbNode);
+	      printf("          numbulkdomains = %d", NumBulkDomains);
+	      printf("          numsurfdomains = %d\n", NumSurfDomains);
+	      printf("                 EQUATION                         |               "
+		     "  LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |\n");
+	      printf("     eqnNum             Var                 Eqn   |    eqnNum          Var  "
+		     "                  Eqn   |     eqnNum           Var               Eqn       |\n");
+	      for (int iEqn = 0; iEqn <  NumEquations; iEqn++) {
+		  VarType var =  VariableNameList_EqnNum[iEqn];
+		  EqnType eqn =  EquationNameList_EqnNum[iEqn];
+		  string varS = var.VariableName(20);
+		  string eqnS = eqn.EquationName(20);
+		  int rightEqn = EqntoRightMapping[iEqn];
+		  int leftEqn =  EqntoLeftMapping[iEqn];
+
+		  printf(" %5d %20.20s  %20.20s |", iEqn, varS.c_str(), eqnS.c_str());
+		  if (leftEqn >= 0) {
+		      VarType varL =  bddL->VariableNameList[leftEqn];
+		      EqnType eqnL =  bddL->EquationNameList[leftEqn];
+		      string varLS = varL.VariableName(20);
+		      string eqnLS = eqnL.EquationName(20);
+		      printf("%5d %20.20s  %20.20s |", leftEqn, varLS.c_str(), eqnLS.c_str());
+		  } else {
+		      printf("                                                 |");
+		  }
+		  if (rightEqn >= 0) {
+		      VarType varR =  bddR->VariableNameList[rightEqn];
+		      EqnType eqnR =  bddR->EquationNameList[rightEqn];
+		      string varRS = varR.VariableName(20);
+		      string eqnRS = eqnR.EquationName(20);
+		      printf(" %5d %20.20s  %20.20s |", rightEqn, varRS.c_str(), eqnRS.c_str());
+		  } else {
+		      printf("                                                  |");
+		  }
+		  printf("\n");
+	      }
+	      print_line("-", 152);
+	  }
+
+      } else {
+	  printf("NUmbers of bulk domains greater than 2 hasn't been coded yet\n");
+	  exit(-1);
       }
-    }
-  }
+
+  } // End of Complex method
   /*
-   *  Ok, now we can finally calculate how many equations are at this node
+   *  Ok, now we have finally calculated how many equations are at this node.
    *  We still don't know what EqnStart_LcEqnIndex is until we sum up the
    *  equations on a local processor and global unknown basis.
    */
-  NumEquations = iOffset;
-
+ 
+  //
+  //  Create Offset_VarType array
+  //
   Offset_VarType.clear();
   for (VAR_TYPE iv = Variable_Type_Unspecified; iv < Max_Var_Name; ++iv) {
     Offset_VarType[iv] = -1;
@@ -276,6 +491,7 @@ NodalVars::GenerateEqnOrder()
       }
     }
   }
+
 }
 //=====================================================================================================================
 // Generate a name for the kth variable at the node

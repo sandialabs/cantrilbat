@@ -108,6 +108,11 @@ public:
   //! of a particular type within the domain
   /*!
    *  Length is the length of the EQ_Name_Enum structure
+   *
+   *  NOT_RECCOMMENDED FOR Bulk domains
+   *               This indexing is not sufficiently complex for situations
+   *               at the boundaries of the domains. The variables within a 
+   *               domain are not contiguous within the solution vector !!!!
    */
   std::vector<int> VariableIndexStart_VarName;
 

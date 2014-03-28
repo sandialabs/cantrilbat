@@ -151,9 +151,13 @@ public:
   //! to each domain located at this node
   /*!
    *  Length = number of domains
+   *   
+   *
+   *    @deprecated  This doesn't make any sense to have. The bulk equations
+   *                 are intermixed between domains, and are not contiguous
+   *                 within each bulk domain.
    */
   std::vector<int> OffsetIndex_BulkDomainEqnStart_BDN;
-
 
   //! Map from the bulk domain id to the order index at the current node
   /*!
@@ -172,6 +176,9 @@ public:
   //! to each domain located at this node
   /*!
    *  Length = number of domains
+   *
+   *    This makes sense still to have because the surface unknowns 
+   *    if there are any, are contiguous.
    */
   std::vector<int> OffsetIndex_SurfDomainEqnStart_SDN;
 
@@ -209,12 +216,8 @@ public:
 
   //! Map between the variable type and offset of the variable in the unknowns for the node
   /*!
-   *   Note dangerous, because the unknowns are not contiguous wrt variable.
-   *   Replace with the preferred treatment where the unknown offsets are located in m1d_DomainDescription
-   *   They are contiguous wrt domains.
    *       Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
    *
-   *      @deprecated
    */
   std::map<VAR_TYPE, int> Offset_VarType;
 

@@ -60,6 +60,8 @@ VarType::VarMainName(const VAR_TYPE variableType)
     case Voltage:
       return string("Volt");
       break;
+    case Max_Var_Name:
+      return string("Max_ Variable");
     default:
       throw m1d_Error("VarMainName", "unknown");
       break;
@@ -116,6 +118,9 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
       break;
     case Voltage_Specification:
       return std::string("Voltage_specification");
+      break;
+    case Max_Eq_Name:
+      return std::string("Max_Eq_Name");
       break;
     default:
       throw m1d_Error("EqnMainName", "unknown");
