@@ -19,6 +19,9 @@
 #include "m1d_NodalVars.h"
 #include "m1d_Comm.h"
 
+#include "m1d_globals.h"
+#include "m1d_ProblemStatement.h"
+
 
 namespace m1d
 {
@@ -588,6 +591,14 @@ LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
     if (offset >= 0) {
       (*soln)[startN + offset] = 0.0;
     }
+    if (offset >= 0) {
+      (*soln)[startN + offset] = PSinput_ptr->TemperatureReference_;
+    }
+    offset = (nv->Offset_VarType)[Pressure_Axial];
+    if (offset >= 0) {
+      (*soln)[startN + offset] = 0.0;
+    }
+
     if (! m1d::doubleEqual(xpos, (*Xpos_LcNode_p)[iNode], 1.0E-3)) {
         AssertTrace(xpos == (*Xpos_LcNode_p)[iNode]);
     }

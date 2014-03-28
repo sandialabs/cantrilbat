@@ -152,6 +152,11 @@ GlobalIndices::discoverNumEqnsPerNode()
 {
   int numEqn = 0;
   for (int iGbNode = 0; iGbNode < NumGbNodes; iGbNode++) {
+#ifdef DEBUG_MODE
+  if (iGbNode == 18) {
+       //printf("we are here\n");
+  }
+#endif
     NodalVars *nv = NodalVars_GbNode[iGbNode];
     nv->DiscoverDomainsAtThisNode();
     nv->GenerateEqnOrder();
