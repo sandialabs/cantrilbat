@@ -164,8 +164,25 @@ public:
  */
 bool
 operator==(const VarType &a, const VarType &b);
+
 bool
 operator!=(const VarType &a, const VarType &b);
+
+//! Greater than  operator for VarType Objects
+/*!
+ * VarTypes are first compared numerically via their
+ * enum values. Then, they are compared via their
+ * subindex numbers. This provides an ordering.
+ *
+ * @param a Object 1
+ * @param b Object 2
+ * @return Returns whether object a is greater
+ *         than object b.
+ */
+bool
+operator>(const VarType &a, const VarType &b);
+
+
 
 bool
 operator==(const EqnType &a, const EqnType &b);

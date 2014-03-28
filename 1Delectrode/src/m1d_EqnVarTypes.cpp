@@ -179,6 +179,7 @@ VarType::operator=(const VarType &r)
   strncpy(VariableSubTypeName, r.VariableSubTypeName, 23);
   return *this;
 }
+
 //=====================================================================================================================
 void
 VarType::setID(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType, const char *subName)
@@ -332,6 +333,23 @@ operator!=(const VarType &a, const VarType &b)
     }
   }
   return true;
+}
+//=====================================================================================================================
+bool
+operator>(const VarType &a, const VarType &b)
+{
+  if (a.VariableType > b.VariableType) {
+    return true;
+  } else if (a.VariableType < b.VariableType) {
+    return false;
+  } else {
+    if (a.VariableSubType > b.VariableSubType) {
+      return true;
+    } else if (a.VariableSubType < b.VariableSubType) {
+      return false;
+    }
+  }
+  return false;
 }
 //=====================================================================================================================
 bool
