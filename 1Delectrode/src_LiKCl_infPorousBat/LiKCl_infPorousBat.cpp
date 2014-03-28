@@ -281,7 +281,7 @@ main(int argc, char **argv)
      *  Set the reference temperature for all domains
      *  Do this after we have malloced the Domain1D structures
      */
-    dl->set_TP_Reference(PSinput.TemperatureRef_, PSinput.PressureRef_);
+    dl->set_TP_Reference(PSinput.TemperatureReference_, PSinput.PressureReference_);
 
     // bool copyMode = false;
     // ps->LRN_VBR_ptr_ = new m1d::LocalRowNodeVBRIndices(Comm_ptr, copyMode, ps->GI_ptr_, ps->LI_ptr_);
@@ -422,7 +422,7 @@ main(int argc, char **argv)
       BC->resetSteps();
     }
 
-    double TInit = PSinput.startTime_ ;
+    //double TInit = PSinput.startTime_ ;
     double TFinal = PSinput.startTime_ ;
     double Tstop;
 
@@ -454,7 +454,6 @@ main(int argc, char **argv)
 	Tstop = t1.integratePRE( TFinal );
       }
       
-      TInit = TFinal;
     }
 
     //double tend = second();

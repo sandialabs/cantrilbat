@@ -39,6 +39,9 @@ bool PrintInputFormat = false;
   ProblemStatement::ProblemStatement() : 
     cf_(0),
     commandFile_(""),
+    Title(""),
+    TemperatureReference_(298.15),
+    PressureReference_(1.01325E5),
     prob_type(0),
     Energy_equation_prob_type_(0),
     SolutionBehavior_printLvl_(4),
@@ -64,6 +67,9 @@ bool PrintInputFormat = false;
   ProblemStatement::ProblemStatement(const ProblemStatement &right) : 
     cf_(0),
     commandFile_(""),
+    Title(""),
+    TemperatureReference_(298.15),
+    PressureReference_(1.01325E5),
     prob_type(0),
     Energy_equation_prob_type_(0),
     SolutionBehavior_printLvl_(4),
@@ -106,6 +112,9 @@ bool PrintInputFormat = false;
     cf_ =  (right.cf_)->duplMyselfAsBlockEntry();
 
     commandFile_               = right.commandFile_;
+    Title                      = right.Title;
+    TemperatureReference_      = right.TemperatureReference_;
+    PressureReference_         = right.PressureReference_;
     prob_type                  = right.prob_type;
     Energy_equation_prob_type_ = right.Energy_equation_prob_type_;
     SolutionBehavior_printLvl_ = right.SolutionBehavior_printLvl_;
@@ -155,27 +164,47 @@ ProblemStatement::InitForInput()
 void
 ProblemStatement::setup_input_pass1(BlockEntry *cf)
 {
-  /*
-   * Nothing to do yet
-   */
-   BaseEntry::set_SkipUnknownEntries(true);
+    /*
+     * Nothing to do yet
+     */
+    BaseEntry::set_SkipUnknownEntries(true);
 
-   /* --------------------------------------------------------------------
-    * 
-    * Energy Equation Problem Type
-    *
-    *   0  = None (default)
-    *   1  = Fixed
-    *   2  = Dirichlet Equation
-    *   3  = Enthalpy Equation
-    *   4  = Temperature Equation
-    */
-   const char *energyEqList[5] = {"None", "Fixed", "Dirichlet Equation", "Enthalpy Equation", "Temperature Equation"};
+    /* --------------------------------------------------------------
+     * Reference Temperature
+     *      Defaults to  298.15, optional 
+     */
+    LE_OneDbl *r1 = new LE_OneDbl("Reference Temperature", &(TemperatureReference_), 0, "TemperatureRef");
+    r1->set_default(298.15);
+    r1->set_limits(3000., 0.0);
+    cf->addLineEntry(r1);
 
-   LE_PickList *lepkm = new LE_PickList("Energy Equation Problem Type", &Energy_equation_prob_type_,
-                                        energyEqList, 5, 0, "Energy_equation_prob_type_");
-   lepkm->set_default(0);
-   cf->addLineEntry(lepkm);
+    /* --------------------------------------------------------------
+     * Reference Pressure -
+     *    Defaults to OneAtm in pascal - optional
+     *
+     * Configure the application Pressure
+     */
+    BE_UnitConversion *ucPres = new BE_UnitConversionPressure();
+    LE_OneDblUnits *r2 = new LE_OneDblUnits("Reference Pressure", &(PressureReference_), 0, "PO.PressureRef", ucPres);
+    r2->set_default(1.01325E5);
+    r2->set_limits(1.E20, 0.0);
+    cf->addLineEntry(r2);
+
+    /* --------------------------------------------------------------------
+     * 
+     * Energy Equation Problem Type
+     *
+     *   0  = None (default)
+     *   1  = Fixed
+     *   2  = Dirichlet Equation
+     *   3  = Enthalpy Equation
+     *   4  = Temperature Equation
+     */
+    const char *energyEqList[5] = {"None", "Fixed", "Dirichlet Equation", "Enthalpy Equation", "Temperature Equation"};
+    LE_PickList *lepkm = new LE_PickList("Energy Equation Problem Type", &Energy_equation_prob_type_,
+					 energyEqList, 5, 0, "Energy_equation_prob_type_");
+    lepkm->set_default(0);
+    cf->addLineEntry(lepkm);
 }
 //=====================================================================================================================
 void

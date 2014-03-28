@@ -26,10 +26,18 @@
 !-------------------------------------------------------------------------
 !Cantera File Name = silane.xml
 !-------------------------------------------------------------------------
-! Temperature - double (no default) (required)
-! 
+!
+! Reference Temperature - double (default is 298.15 K) (optional)
+!
 !-------------------------------------------------------------------------
-!Temperature = 1500.
+! Reference Temperature = 1500.
+!-------------------------------------------------------------------------
+!
+! Reference Pressure = double (default is 1.01325E5 Pascals = 1 Atm (optional)
+!  Units = Pressure units
+!
+!-------------------------------------------------------------------------
+! Reference Pressure = 1.01325E5
 !-------------------------------------------------------------------------
 !
 ! Pressure - double [Pressure_unit] (no default) (required)

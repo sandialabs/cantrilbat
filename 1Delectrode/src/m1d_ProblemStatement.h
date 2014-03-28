@@ -109,7 +109,13 @@ public:
         /*!
          * defaults to 298.15 K
          */
-        double Temperature_;
+        double TemperatureReference_;
+
+        //! Default Pressure in (Pascal)
+        /*!
+         * defaults to OneAtm
+         */
+        double PressureReference_;
 
 	//! Integer representing the Problem type.
 	/*!

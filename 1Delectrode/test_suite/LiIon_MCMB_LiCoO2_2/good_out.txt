@@ -7,6 +7,10 @@
  STARTING PROCESSING COMMAND FILE LiIon_PorousBat.inp, PASS # 1
 ==========================================================
  => Number of Cantera Files ====> NumCanteraFiles = 2
+ => Reference Temperature = 298.15
+ ====> TemperatureRef = 298.15
+ => Reference Pressure = 1.0 atm
+ ====> PO.PressureRef = 101325
 =========================================================
  FINISHED PROCESSING COMMAND FILE LiIon_PorousBat.inp, PASS # 1
 =========================================================
@@ -18,6 +22,10 @@
  ====> CanteraFileNames =  ECsoln_ion.xml
  => Cantera File Name = MgO.xml
  ====> CanteraFileNames =  MgO.xml
+ => Reference Temperature = 298.15
+ ====> TemperatureRef = 298.15
+ => Reference Pressure = 1.0 atm
+ ====> PO.PressureRef = 101325
 =========================================================
  FINISHED PROCESSING COMMAND FILE LiIon_PorousBat.inp, PASS # 2
 =========================================================

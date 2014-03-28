@@ -40,7 +40,6 @@ namespace m1d
 ProblemStatementCell::ProblemStatementCell() :
   ProblemStatement(), 
   NumberCanteraFiles(0), CanteraFileNames(0),
-  TemperatureRef_(298.15), PressureRef_(1.01325E5),
   cathodeBCType_(0), cathodeBCFile_("BC.xml"),
   icurrDischargeSpecified_(1.0),
   CathodeVoltageSpecified_(1.9),
@@ -153,24 +152,6 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
 
   int reqd = 0;
 
-  /* --------------------------------------------------------------
-   * Temperature
-   */
-  LE_OneDbl *r1 = new LE_OneDbl("Reference Temperature", &(TemperatureRef_), 1, "TemperatureRef");
-  r1->set_default(298.15);
-  r1->set_limits(3000., 0.0);
-  cf->addLineEntry(r1);
-
-  /* --------------------------------------------------------------
-   * Pressure -
-   *
-   * Configure the application Pressure
-   */
-  BE_UnitConversion *ucPres = new BE_UnitConversionPressure();
-  LE_OneDblUnits *r2 = new LE_OneDblUnits("Reference Pressure", &(PressureRef_), 1, "PO.PressureRef", ucPres);
-  r2->set_default(1.01325E5);
-  r2->set_limits(1.E20, 0.0);
-  cf->addLineEntry(r2);
 
   /* -------------------------------------------------------------------------
    *
@@ -439,14 +420,15 @@ ProblemStatementCell::post_process_input()
   if ( useDakota_ ) {
     DakotaInterface di( fromDakotaFileName_, toDakotaFileName_ );
 
-    if ( di.hasParam( "temperature" ) )
-      TemperatureRef_ = di.value( "temperature" );
-
-    if ( di.hasParam( "current" ) )
+    if ( di.hasParam( "temperature" ) ) {
+      TemperatureReference_ = di.value( "temperature" );
+    }
+    if ( di.hasParam( "current" ) ) {
       icurrDischargeSpecified_ = di.value( "current" );
-
-    if ( di.hasParam( "separatorThickness" ) )
+    }
+    if ( di.hasParam( "separatorThickness" ) ) {
       separatorThickness_ = di.value( "separatorThickness" );
+    }
   }
 #endif
   /*

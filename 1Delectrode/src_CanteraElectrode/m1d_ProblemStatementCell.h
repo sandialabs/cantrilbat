@@ -99,18 +99,6 @@ public:
   //! Vector containing the names of the cantera files
   char ** CanteraFileNames;
 
-  //! Global temperature
-  /*!
-   *   This is an input temperature 
-   */
-  double TemperatureRef_;
-
-  //! global pressure
-  /*!
-   *   This is in units of Pa
-   */
-  double PressureRef_;
-
   //! Type of the boundary condition specified on the cathode
   /*!
    *     0 - Specify a fixed voltage at the cathode
