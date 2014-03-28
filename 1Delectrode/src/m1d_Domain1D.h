@@ -468,16 +468,6 @@ public:
    */
   double PressureReference_;
 
-  //! Reference Voltage (voltage)
-  /*!
-   *  For each domain, we have a reference voltage. This voltage will be used for property
-   *  evaluation as the default voltage within the domain whenever there isn't another source for 
-   *  the value of the voltage.
-   *
-   *  The default is 0.0 volts
-   */
-  double VoltageReference_;
-
 protected:
 
   //! Current value of the residual type

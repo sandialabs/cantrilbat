@@ -10,6 +10,8 @@
 #include "m1d_DomainDescription.h"
 
 #include "cantera/base/ctml.h"
+#include "m1d_globals.h"
+#include "m1d_ProblemStatement.h"
 
 
 #include "stdio.h"
@@ -24,15 +26,16 @@ namespace m1d
 // Constructor
 Domain1D::Domain1D() :
   NumDomainEqns(0), CoordinateSystem_(0), CellArea_(1.0), TemperatureReference_(298.15), PressureReference_(1.01325e5),
-      VoltageReference_(0.0), residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
+      residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
       counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0)
 {
-
+    TemperatureReference_ = PSinput_ptr->TemperatureReference_;
+    PressureReference_ = PSinput_ptr->PressureReference_;
 }
 //=====================================================================================================================
 Domain1D::Domain1D(const Domain1D &r) :
   NumDomainEqns(0), CoordinateSystem_(0), CellArea_(1.0), TemperatureReference_(298.15), PressureReference_(1.01325e5),
-      VoltageReference_(0.0),  residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
+       residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
       counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0)
 {
   *this = r;
@@ -59,7 +62,6 @@ Domain1D::operator=(const Domain1D &r)
   counterResShowSolutionCalcs_ = r.counterResShowSolutionCalcs_;
   TemperatureReference_ = r.TemperatureReference_;
   PressureReference_ = r.PressureReference_;
-  VoltageReference_ = r.VoltageReference_;
 
   return *this;
 }
