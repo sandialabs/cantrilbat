@@ -74,17 +74,17 @@ BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr) :
     for (int k = 0; k < nsp; k++) {
         if (namesSp[k] == "ECDMC") {
             iMFS = k;
-            VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[k]).c_str()));
+            VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
             EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
             IsAlgebraic_NE[1 + k] = 2;
         } else if (namesSp[k] == "PF6-") {
             iCN = k;
-            VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[k]).c_str()));
+            VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
             EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
             IsAlgebraic_NE[1 + k] = 2;
         } else {
-            VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[k]).c_str()));
-            EquationNameList.push_back(EqnType(Species_Conservation, 0, (namesSp[k]).c_str()));
+            VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
+            EquationNameList.push_back(EqnType(Species_Conservation, k, (namesSp[k]).c_str()));
             IsAlgebraic_NE[1 + k] = 0;
         }
         eqnIndex++;
