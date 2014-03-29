@@ -445,7 +445,6 @@ end block Bath Specification for Phase LiCoO2_Margules_1
      4    Volt(Electrolyte)  Current_conservation |    4    Volt(Electrolyte)  Current_conservation |     4    Volt(Electrolyte)  Current_conservation |
      5   Volt(AnodeVoltage)  Current_conservation |    5   Volt(AnodeVoltage)  Current_conservation |                                                  |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-we are here
 --------------------------------------------------------------------------------------------------------------------------------------------------------
     Equation Order for Global Node 18          numbulkdomains = 2          numsurfdomains = 1
                  EQUATION                         |                 LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |

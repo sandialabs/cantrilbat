@@ -77,7 +77,9 @@ MULTI1DDOMAIN_EXE=${MULTI1DDOMAIN_EXE:=LiIon_PorousBat}
 # Specify the program options
 #
 PROGRAM_OPTS="LiIon_PorousBat.inp"
-
+#
+export M1D_PRINT_DEBUGTABLES="false"
+export M1D_PRINT_TIMINGINFORMATION="false"
 #
 # Execute the command
 #
