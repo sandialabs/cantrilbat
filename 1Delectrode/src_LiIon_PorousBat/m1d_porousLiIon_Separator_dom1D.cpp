@@ -279,7 +279,118 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
 
     }
 }
+//=====================================================================================================================
+void
+porousLiIon_Separator_dom1D:: residSetupTmps()
+{
+    size_t index_CentLcNode;
 
+    NodalVars *nodeCent = 0;
+    NodalVars *nodeLeft = 0;
+    NodalVars *nodeRight = 0;
+
+    size_t  indexCent_EqnStart_BD;
+    size_t  indexLeft_EqnStart_BD;
+    size_t  indexRight_EqnStart_BD;
+
+    int  index_LeftLcNode;
+    int  index_RightLcNode;
+
+    cellTmpsVect_Cell_.resize(NumLcCells);
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
+
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeLeft_;
+
+	/*
+         *  ---------------- Get the index for the center node ---------------------------------
+         */
+        index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+
+        /*
+         *   Get the pointer to the NodalVars object for the center node
+         */
+        nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+	nodeTmpsCenter.nv = nodeCent;
+	cTmps.nodeCent = nodeCent; 
+        /*
+         *  Index of the first equation in the bulk domain of center node
+         */
+        indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
+                                + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	nodeTmpsCenter.index_EqnStart_BD = indexCent_EqnStart_BD;
+	
+	/*
+	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
+	 */
+	nodeTmpsCenter.Offset_Voltage = nodeCent->indexBulkDomainVar0((size_t)Voltage);
+
+
+
+        /*
+         *  ------------------- Get the index for the left node -----------------------------
+         *    There may not be a left node if we are on the left boundary. In that case
+         *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
+         */
+        index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+        if (index_LeftLcNode < 0) {
+            /*
+             *  We assign node object to zero.
+             */
+            nodeLeft = 0;
+            /*
+             *  If there is no left node, we assign the left solution index to the center solution index
+             */
+            indexLeft_EqnStart_BD = indexCent_EqnStart_BD;
+	    nodeTmpsLeft.index_EqnStart_BD = indexLeft_EqnStart_BD;
+
+	    nodeTmpsLeft.Offset_Voltage = nodeTmpsCenter.Offset_Voltage;
+
+        } else {
+            // get the node structure for the left node
+            nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
+            //index of first equation in the electrolyte of the left node
+            indexLeft_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode]
+                                    + nodeLeft->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	    /*
+	     *
+	     */
+	 
+	    nodeTmpsLeft.Offset_Voltage = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
+
+        }
+	cTmps.nodeLeft = nodeLeft;
+	
+
+	/*
+         * ------------------------ Get the indexes for the right node ------------------------------------
+         */
+        index_RightLcNode = Index_RightLcNode_LCO[iCell];
+        if (index_RightLcNode < 0) {
+            nodeRight = 0;
+            /*
+             *  If there is no right node, we assign the right solution index to the center solution index
+             */
+            indexRight_EqnStart_BD = indexCent_EqnStart_BD;
+	    nodeTmpsRight.index_EqnStart_BD = indexRight_EqnStart_BD;
+
+	    nodeTmpsRight.Offset_Voltage = nodeTmpsCenter.Offset_Voltage;
+
+        } else {
+            //NodalVars
+            nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+            //index of first equation of right node
+            indexRight_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode]
+                                     + nodeRight->OffsetIndex_BulkDomainEqnStart_BDN[0];
+
+	    nodeTmpsRight.Offset_Voltage = nodeRight->indexBulkDomainVar0((size_t)Voltage);
+        }
+	cTmps.nodeRight = nodeRight; 
+    }
+}
 //=====================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
@@ -312,6 +423,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                                        const ResidEval_Type_Enum residType,
                                        const Solve_Type_Enum solveType)
 {
+    static int tmpsSetup = 0;
+    if (!tmpsSetup) {
+	residSetupTmps();
+	tmpsSetup = 1;
+    }
     residType_Curr_ = residType;
     int index_RightLcNode;
     int index_LeftLcNode;
@@ -374,7 +490,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      */
     int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
     int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    //int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    //size_t iVar_Voltage_Cent = nodeCent->indexBulkDomainVar0((size_t)Voltage);
+
 
     incrementCounters(residType);
     Fright_cc_ = 0.0;
@@ -438,6 +556,13 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
         indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
                                 + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	/*
+	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
+	 */
+	size_t iVar_Voltage_Cent = nodeCent->indexBulkDomainVar0((size_t)Voltage);
+	size_t iVar_Voltage_Left = iVar_Voltage_Cent;
+	size_t iVar_Voltage_Right = iVar_Voltage_Cent;
+
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
@@ -459,6 +584,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             //index of first equation in the electrolyte of the left node
             indexLeft_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode]
                                     + nodeLeft->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	    /*
+	     *
+	     */
+	    iVar_Voltage_Left = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
         }
         /*
          * If we are past the first cell, then we have already done the calculation
@@ -484,6 +613,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             //index of first equation of right node
             indexRight_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode]
                                      + nodeRight->OffsetIndex_BulkDomainEqnStart_BDN[0];
+
+	    iVar_Voltage_Right = nodeRight->indexBulkDomainVar0((size_t)Voltage);
         }
 
         /*
@@ -524,7 +655,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         for (int k = 0; k < nsp_; k++) {
             Xcent_cc_[k] = soln[indexCent_EqnStart_BD + iVar_Species_BD + k];
         }
-        Vcent_cc_ = soln[indexCent_EqnStart_BD + iVar_Voltage_BD];
+        Vcent_cc_ = soln[indexCent_EqnStart_BD + iVar_Voltage_Cent];
 
         if (nodeLeft != 0) {
             /*
@@ -536,7 +667,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             for (int k = 0; k < nsp_; k++) {
                 Xleft_cc_[k] = soln[indexLeft_EqnStart_BD + iVar_Species_BD + k];
             }
-            Vleft_cc_ = soln[indexLeft_EqnStart_BD + iVar_Voltage_BD];
+            Vleft_cc_ = soln[indexLeft_EqnStart_BD + iVar_Voltage_Left];
         } else {
             /*
              * We are here when we are at the left most part of the boundary. Then, there is no
@@ -564,7 +695,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             for (int k = 0; k < nsp_; k++) {
                 Xright_cc_[k] = soln[indexRight_EqnStart_BD + iVar_Species_BD + k];
             }
-            Vright_cc_ = soln[indexRight_EqnStart_BD + iVar_Voltage_BD];
+            Vright_cc_ = soln[indexRight_EqnStart_BD + iVar_Voltage_Right];
         } else {
 
             for (int k = 0; k < nsp_; k++) {

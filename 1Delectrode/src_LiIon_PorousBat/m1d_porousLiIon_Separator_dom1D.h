@@ -22,6 +22,39 @@ namespace m1d
 {
 class LocalNodeIndices;
 
+
+
+class NodeTmps
+{
+public:
+ 
+    NodalVars *nv;
+
+    size_t index_EqnStart_BD;
+
+    size_t Offset_Voltage;
+
+};
+
+
+class cellTmps
+{
+public:
+   NodalVars* nodeCent;
+   NodalVars* nodeLeft;
+   NodalVars* nodeRight;
+
+   NodeTmps NodeLeft_;
+   NodeTmps NodeCenter_;
+   NodeTmps NodeRight_;
+
+
+
+
+};
+
+
+
 //!  This is derived class  provides the function evaluation for a porous electrolyte bulk domain.
 /*!
  *  The porous electrolyte domain is characterized by a
@@ -102,6 +135,9 @@ public:
                         const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                         const double t, const double t_old);
 
+    //! Set up tmps for quick calculation of residuals
+    void 
+    residSetupTmps();
 
     //! Basic function to calculate the residual for the domain.
     /*!
@@ -457,6 +493,8 @@ protected:
     int iPF6m_;
 
     std::vector<double> solnTemp;
+
+    std::vector<cellTmps> cellTmpsVect_Cell_;
 
     //! Velocity basis of the transport equations
     Cantera::VelocityBasis ivb_;
