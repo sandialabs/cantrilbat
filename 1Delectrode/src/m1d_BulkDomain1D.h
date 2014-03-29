@@ -388,7 +388,8 @@ public:
    *   
    *   @return Returns the temperature in Kelvin
    */
-  double getPointTemperature(const doublereal* const solutionPoint) const;
+  double getPointTemperature(const NodalVars* const nv, 
+			     const doublereal* const solutionPoint) const;
 
   //! Get the local value of the total pressure at a node or control volume interface
   //! given the local solution vector at that point
@@ -400,7 +401,8 @@ public:
    *
    *     @return Returns the total pressure in Pascals
    */
-  double getPointPressure(const doublereal* const solutionPoint) const;
+  double getPointPressure(const NodalVars* const nv, 
+			  const doublereal* const solutionPoint) const;
 
   // ===========================================================================
 

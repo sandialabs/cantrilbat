@@ -73,6 +73,10 @@ const double M1D_DOUBLE_NOTSET(-1.234567E300);
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 #endif
+
+//! index returned by functions to indicate "no position"
+const size_t npos = static_cast<size_t>(-1);
+
 }
 
 #endif

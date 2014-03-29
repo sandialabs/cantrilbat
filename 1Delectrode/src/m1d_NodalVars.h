@@ -113,10 +113,30 @@ public:
 
   //!  Find the index of a particular variable into the nodal solution vector
   /*!
+   *  These functions are important as they are used frequently to index into the
+   *  solution vector. 
    *
+   *    @param variableType   VAR_TYPE to look up the index for
+   *    @param subVarIndex    VAR_TYPE_SUBNUM subindex to look up the variable
    *
+   *    @return  Returns -1 if there isn't a variable of that type and subtype.
+   *             Returns the index into the solution vector from the start of
+   *             variables at that node.
    */
-  int indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM SubVarIndex) const;
+  size_t indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM subVarIndex) const;
+
+  //!  Find the index of a particular variable into the nodal solution vector
+  /*!
+   *   These functions are important as they are used frequently to index into the
+   *   solution vector. 
+   *
+   *    @param variableType   VAR_TYPEsize_t value to look up the index for
+   *
+   *    @return  Returns npos=size_t(-1) if there isn't a variable of that type 
+   *             Returns the index into the solution vector from the start of
+   *             variables of that VAR_TYPE at that node.
+   */
+  inline size_t indexBulkDomainVar0(size_t variableTypeS) const;
 
   //! Returns the node position
   double
@@ -129,6 +149,8 @@ public:
   //! Return the fraction node position from the left boundary
   double
   xFracNodePos() const;
+
+  //  ------------------------------------------------------------------------------------------------------------
 
   //! What Global Node am I
   int GbNode;
@@ -225,11 +247,27 @@ public:
   //! Map between the variable type and offset of the variable in the unknowns for the node
   /*!
    *       Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
-   *
    */
-  std::map<VAR_TYPE, int> Offset_VarType;
+  std::map<VAR_TYPE, size_t> Offset_VarType;
 
-  std::map<VAR_TYPE, int> Number_VarType;
+  //! Vector between the variable type redefined as a size_t and the offset of the variable in the unknowns for the node
+  /*!
+   *       Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
+   */
+  std::vector<size_t> Offset_VarTypeVector;
+
+  //! Map between the variable type and the number of variables of that VAR_TYPE in the unknowns for the node
+  /*!
+   *       Offset_VarType[MoleFraction_Species] is the number of mole fraction variables.
+   */
+  std::map<VAR_TYPE, size_t> Number_VarType;
+
+  //! Vector between the variable type redefined as a size_t and the number of variables of that
+  //! VAR_TYPE in the unknowns for the node
+  /*!
+   *       Offset_VarType[MoleFraction_Species] is the number of mole fraction variables.
+   */
+  std::vector<size_t> Number_VarTypeVector;
 
 protected:
   //! Current Spatial position of the node
@@ -248,15 +286,17 @@ protected:
   double XFracNodePos;
 
 public:
-  //! Right cell boundary position
-  //double XcellBoundRight;
-
-  //! Left cell boundary position;
-  //double XcellBoundLeft;
-
+  //! Owning Domain Layout for the node
   DomainLayout *DL_ptr_;
 
 };
+
+//====================================================================================================
+inline size_t NodalVars::indexBulkDomainVar0(size_t variableTypeS) const
+{
+    return Offset_VarTypeVector[variableTypeS];
+}
+//====================================================================================================
 
 }
 

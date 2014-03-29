@@ -22,8 +22,10 @@ namespace m1d
 
 //===========================================================================
 NodalVars::NodalVars(DomainLayout *dl_ptr) :
-  GbNode(-1), NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1),
-      XNodePos(M1D_DOUBLE_NOTSET), X0NodePos(M1D_DOUBLE_NOTSET), XFracNodePos(M1D_DOUBLE_NOTSET), DL_ptr_(dl_ptr)
+      GbNode(-1), NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1),
+      XNodePos(M1D_DOUBLE_NOTSET), 
+      X0NodePos(M1D_DOUBLE_NOTSET), 
+      XFracNodePos(M1D_DOUBLE_NOTSET), DL_ptr_(dl_ptr)
 {
 }
 //===========================================================================
@@ -51,25 +53,32 @@ NodalVars::operator=(const NodalVars &r)
   if (this == &r)
     return *this;
 
-  GbNode = r.GbNode;
-  NumEquations = r.NumEquations;
-  NumBulkDomains = r.NumBulkDomains;
-  NumSurfDomains = r.NumSurfDomains;
-  EqnStart_GbEqnIndex = r.EqnStart_GbEqnIndex;
-  BulkDomainIndex_BDN = r.BulkDomainIndex_BDN;
-  OffsetIndex_BulkDomainEqnStart_BDN = r.OffsetIndex_BulkDomainEqnStart_BDN;
-  SurfDomainIndex_SDN = r.SurfDomainIndex_SDN;
-  OffsetIndex_SurfDomainEqnStart_SDN = r.OffsetIndex_SurfDomainEqnStart_SDN;
-  VariableNameList_EqnNum = r.VariableNameList_EqnNum;
-  VariableSubType_EqnNum = r.VariableSubType_EqnNum;
-  EquationNameList_EqnNum = r.EquationNameList_EqnNum;
-  EquationSubType_EqnNum = r.EquationSubType_EqnNum;
-  Offset_VarType = r.Offset_VarType;
-  XNodePos = r.XNodePos;
-  X0NodePos = r.X0NodePos;
-  XFracNodePos = r.XFracNodePos;
-  //XcellBoundRight = r.XcellBoundRight;
-  //XcellBoundLeft = r.XcellBoundLeft;
+  GbNode                                  = r.GbNode;
+  NumEquations                            = r.NumEquations;
+  NumBulkDomains                          = r.NumBulkDomains;
+  NumSurfDomains                          = r.NumSurfDomains;
+  EqnStart_GbEqnIndex                     = r.EqnStart_GbEqnIndex;
+  BulkDomainIndex_BDN                     = r.BulkDomainIndex_BDN;
+  OffsetIndex_BulkDomainEqnStart_BDN      = r.OffsetIndex_BulkDomainEqnStart_BDN;
+  BulkDomainIndex_fromID                  = r.BulkDomainIndex_fromID;
+  SurfDomainIndex_SDN                     = r.SurfDomainIndex_SDN;
+  OffsetIndex_SurfDomainEqnStart_SDN      = r.OffsetIndex_SurfDomainEqnStart_SDN;
+  SurfDomainIndex_fromID                  = r.SurfDomainIndex_fromID;
+  VariableNameList_EqnNum                 = r.VariableNameList_EqnNum;
+  VariableSubType_EqnNum                  = r.VariableSubType_EqnNum;
+  EquationNameList_EqnNum                 = r.EquationNameList_EqnNum;
+  EquationSubType_EqnNum                  = r.EquationSubType_EqnNum;
+  Offset_VarType                          = r.Offset_VarType;
+  Offset_VarTypeVector                    = r.Offset_VarTypeVector;
+  Number_VarType                          = r.Number_VarType;
+  Number_VarTypeVector                    = r.Number_VarTypeVector;
+  XNodePos                                = r.XNodePos;
+  X0NodePos                               = r.X0NodePos;
+  XFracNodePos                            = r.XFracNodePos;
+  //
+  //  Do a shallow pointer copy here. This is appropriate in most cases
+  //
+  DL_ptr_                                 = r.DL_ptr_;
 
   return *this;
 }
@@ -477,14 +486,14 @@ NodalVars::GenerateEqnOrder()
   //
   Offset_VarType.clear();
   for (VAR_TYPE iv = Variable_Type_Unspecified; iv < Max_Var_Name; ++iv) {
-    Offset_VarType[iv] = -1;
+    Offset_VarType[iv] = npos;
     if (iv == Variable_Type_Unspecified) {
       Offset_VarType[iv] = 0;
     } else {
       for (int iOffset = 0; iOffset < NumEquations; iOffset++) {
         VAR_TYPE cv = VariableNameList_EqnNum[iOffset].VariableType;
         if (cv == iv) {
-          if (Offset_VarType[iv] == -1) {
+          if (Offset_VarType[iv] == npos) {
             Offset_VarType[iv] = iOffset;
           }
         }
@@ -514,6 +523,26 @@ NodalVars::GenerateEqnOrder()
             }
              Number_VarType[iv] = count;
         }
+    }
+  }
+
+  //
+  //  Create Offset_VarTypeVector Number_VarTypeVector
+  //
+  size_t ss = Max_Var_Name;
+  Offset_VarTypeVector.resize(ss, npos);
+  Number_VarTypeVector.resize(ss, npos);
+  for (VAR_TYPE iv = Displacement_Axial; iv < Max_Var_Name; ++iv) {
+    size_t siv = (size_t) iv;
+    if (Offset_VarType[iv] >= 0) {
+         Offset_VarTypeVector[siv] = (size_t) Offset_VarType[iv];
+    } else {
+         Offset_VarTypeVector[siv] = npos;
+    }
+    if (Number_VarType[iv] >= 0) {
+         Number_VarTypeVector[siv] = (size_t) Number_VarType[iv];
+    } else {
+         Number_VarTypeVector[siv] = npos;
     }
   }
 
@@ -561,36 +590,36 @@ NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
 //  This means that mole fractions in different domains that are different should have different
 //  VAR_TYPE_SUBNUM values. This has to be detemined by the application.
 //
-int NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variableSubType) const
+size_t NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variableSubType) const
 {
-    std::map<VAR_TYPE, int>::const_iterator it;
+    std::map<VAR_TYPE, size_t>::const_iterator it;
     if ((it = Offset_VarType.find(variableType)) == Offset_VarType.end()) {
-      return -1;
+      return npos;
     } 
-    int start = it->second;
+    size_t start = it->second;
 #ifdef DEBUG_MODE
     if ((it = Number_VarType.find(variableType)) == Number_VarType.end()) {
-        return -1;
+        return npos;
     } 
-    int numV = it->second;
+    size_t numV = it->second;
 #else
-    int numV = Number_VarType.find(variableType)->second;
+    size_t numV = Number_VarType.find(variableType)->second;
 #endif
     //
     //  We do a quick trial for a common case.
-    if (variableSubType < numV) {
+    if (variableSubType < (int) numV) {
 	VarType vt = VariableNameList_EqnNum[start + variableSubType];
 	if (variableSubType == vt.VariableSubType) {
 	    return start + variableSubType;
 	}
     }
-    for (int i = 0; i < numV; i++) {
+    for (size_t i = 0; i < numV; i++) {
 	VarType vt = VariableNameList_EqnNum[start + i];
 	if (variableSubType == vt.VariableSubType) {
 	    return start + i;
 	}
     }
-    return -1;
+    return npos;
 }
 //=====================================================================================================================
 //! returns the node position
