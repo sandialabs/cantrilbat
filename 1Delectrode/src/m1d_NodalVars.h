@@ -110,6 +110,14 @@ public:
   void
   setupInitialNodePosition(double x0NodePos, double xFracNodePos);
 
+
+  //!  Find the index of a particular variable into the nodal solution vector
+  /*!
+   *
+   *
+   */
+  int indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM SubVarIndex);
+
   //! Returns the node position
   double
   xNodePos() const;
@@ -220,6 +228,8 @@ public:
    *
    */
   std::map<VAR_TYPE, int> Offset_VarType;
+
+  std::map<VAR_TYPE, int> Number_VarType;
 
 protected:
   //! Current Spatial position of the node

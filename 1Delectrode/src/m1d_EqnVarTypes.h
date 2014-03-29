@@ -18,6 +18,20 @@ namespace m1d
 //! This class contains a name of a variable
 /*!
  *   The class is used to identify variables.
+ *
+ *              Identification of Variables within the code.
+ * 
+ *      VAR_TYPE and VAR_TYPE_SUBNUM  pair completely identify a variable within the program.
+ *      What that means is that if the axial velocity has a step jump located at an interface,
+ *      then the axial velocity variable in the two adjacent bulk regions must have different
+ *      VAR_TYPE_SUBNUM values.
+ *
+ *      Also, if mole fraction unknowns for adjacent domains refer to different species in 
+ *      different phases, then they must have different VAR_TYPE_SUBNUM values. Moreover, within
+ *      these phases they have to have continuous values of the index. This means that the
+ *      application is responsible for assigning indexes from 0 to (nsp_i - 1) in phase i
+ *      and then (nsp_i) to (nsp_i + nsp_j - 1) in the adjacent phase j.
+ *
  */
 class VarType {
 public:

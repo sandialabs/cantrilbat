@@ -117,7 +117,7 @@ NodalVars::DiscoverDomainsAtThisNode()
   }
 
 }
-
+//============================================================================================================
 void  insert_into_list(std::list<VarType>& varList, VarType& v1)
 {
     //   int ss = varList.size();
@@ -492,6 +492,31 @@ NodalVars::GenerateEqnOrder()
     }
   }
 
+  // 
+  //  Create Number_VarType
+  //
+ for (VAR_TYPE iv = Variable_Type_Unspecified; iv < Max_Var_Name; ++iv) {
+    if (iv == Variable_Type_Unspecified) {
+        Number_VarType[iv] = 0;
+    } else {
+        int voff = Offset_VarType[iv];
+        if (voff < 0) {
+            Number_VarType[iv] = 0;
+        } else {
+            int count = 0;
+            for (size_t index = voff; index < VariableNameList_EqnNum.size(); index++) {
+                VarType vt = VariableNameList_EqnNum[index];
+                if (vt.VariableType != iv) {
+                    break;
+                } else {
+                    count++;
+                }
+            }
+             Number_VarType[iv] = count;
+        }
+    }
+  }
+
 }
 //=====================================================================================================================
 // Generate a name for the kth variable at the node
@@ -529,6 +554,35 @@ NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
   XNodePos = x0NodePos;
   X0NodePos = x0NodePos;
   XFracNodePos = xFracNodePos;
+}
+//=====================================================================================================================
+//
+//  variableType and variableSubType completely determine a variable within the code.
+//  This means that mole fractions in different domains that are different should have different
+//  VAR_TYPE_SUBNUM values. This has to be detemined by the application.
+//
+int NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variableSubType)
+{
+    int start = Offset_VarType[variableType];
+    if (start < 0) return -1;
+    int numV = Number_VarType[variableType];
+    //
+    //  We do a quick trial for a common case.
+    if (variableSubType < numV) {
+	VarType vt = VariableNameList_EqnNum[start + variableSubType];
+	if (variableSubType == vt.VariableSubType) {
+	    return start + variableSubType;
+	}
+    }
+
+    for (int i = 0; i < numV; i++) {
+	VarType vt = VariableNameList_EqnNum[start + i];
+	if (variableSubType == vt.VariableSubType) {
+	    return start + i;
+	}
+    }
+
+    return -1;
 }
 //=====================================================================================================================
 //! returns the node position
