@@ -78,6 +78,11 @@ MULTI1DDOMAIN_EXE=${MULTI1DDOMAIN_EXE:=LiIon_PorousBat}
 #
 PROGRAM_OPTS="LiIon_PorousBat.inp"
 #
+# Specify Environmental variables
+#
+export M1D_PRINT_DEBUGTABLES="false"
+export M1D_PRINT_TIMINGINFORMATION="false"
+#
 # Execute the command
 #
 echo "$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt"

@@ -27,17 +27,17 @@ void readEnvironmentalVariables() {
 
      char *PC_PRINTING = getenv("M1D_PRINT_TIMINGINFORMATION");
      if (PC_PRINTING) {
-        if (PC_PRINTING[0] == 'f' && PC_PRINTING[0] == 'F' && PC_PRINTING[0] == '0') {
+        if (PC_PRINTING[0] == 'f' || PC_PRINTING[0] == 'F' || PC_PRINTING[0] == '0') {
            m1d::s_printLvl_TimingInformation = 0;
-        } else  if (PC_PRINTING[0] == 't' && PC_PRINTING[0] == 'T' && PC_PRINTING[0] == '1') {
+        } else  if (PC_PRINTING[0] == 't' || PC_PRINTING[0] == 'T' || PC_PRINTING[0] == '1') {
            m1d::s_printLvl_TimingInformation = 1;
         }
      }
      PC_PRINTING = getenv("M1D_PRINT_DEBUGTABLES");
      if (PC_PRINTING) {
-        if (PC_PRINTING[0] == 'f' && PC_PRINTING[0] == 'F' && PC_PRINTING[0] == '0') {
+        if (PC_PRINTING[0] == 'f' || PC_PRINTING[0] == 'F' || PC_PRINTING[0] == '0') {
            m1d::s_printLvl_DebugTables = 0;
-        } else  if (PC_PRINTING[0] == 't' && PC_PRINTING[0] == 'T' && PC_PRINTING[0] == '1') {
+        } else  if (PC_PRINTING[0] == 't' || PC_PRINTING[0] == 'T' || PC_PRINTING[0] == '1') {
            m1d::s_printLvl_DebugTables = 1;
         }
      }
