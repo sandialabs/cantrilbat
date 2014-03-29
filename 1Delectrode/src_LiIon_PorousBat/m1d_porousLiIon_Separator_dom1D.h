@@ -23,6 +23,7 @@ namespace m1d
 class LocalNodeIndices;
 
 // --------------------------------------------------------------------------------------------------
+
 //! Intermediate bookkeeping information for nodes based on loops over cells
 class NodeTmps
 {
@@ -32,7 +33,7 @@ public:
     NodalVars *nv;
 
     //!  Offset of the nodal variables from the start of the solution vector
-    size_t index_EqnStart_BD;
+    size_t index_EqnStart;
 
     //!  Offset of variables wrt the start of the nodal solution vector.
     size_t Offset_Voltage;
@@ -62,7 +63,6 @@ public:
 };
 
 // --------------------------------------------------------------------------------------------------
-
 
 //!  This is derived class  provides the function evaluation for a porous electrolyte bulk domain.
 /*!

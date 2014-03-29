@@ -289,9 +289,9 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
     NodalVars *nodeLeft = 0;
     NodalVars *nodeRight = 0;
 
-    size_t  indexCent_EqnStart_BD;
-    size_t  indexLeft_EqnStart_BD;
-    size_t  indexRight_EqnStart_BD;
+    size_t  indexCent_EqnStart;
+    size_t  indexLeft_EqnStart;
+    size_t  indexRight_EqnStart;
 
     int  index_LeftLcNode;
     int  index_RightLcNode;
@@ -319,9 +319,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
-	nodeTmpsCenter.index_EqnStart_BD = indexCent_EqnStart_BD;
+        indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+	nodeTmpsCenter.index_EqnStart = indexCent_EqnStart;
 	
 	/*
 	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
@@ -344,8 +343,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             /*
              *  If there is no left node, we assign the left solution index to the center solution index
              */
-            indexLeft_EqnStart_BD = indexCent_EqnStart_BD;
-	    nodeTmpsLeft.index_EqnStart_BD = indexLeft_EqnStart_BD;
+            indexLeft_EqnStart = indexCent_EqnStart;
+	    nodeTmpsLeft.index_EqnStart = indexLeft_EqnStart;
 
 	    nodeTmpsLeft.Offset_Voltage = nodeTmpsCenter.Offset_Voltage;
 
@@ -353,8 +352,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
             //index of first equation in the electrolyte of the left node
-            indexLeft_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode]
-                                    + nodeLeft->OffsetIndex_BulkDomainEqnStart_BDN[0];
+            indexLeft_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode];
 	    /*
 	     *
 	     */
@@ -374,8 +372,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             /*
              *  If there is no right node, we assign the right solution index to the center solution index
              */
-            indexRight_EqnStart_BD = indexCent_EqnStart_BD;
-	    nodeTmpsRight.index_EqnStart_BD = indexRight_EqnStart_BD;
+            indexRight_EqnStart = indexCent_EqnStart;
+	    nodeTmpsRight.index_EqnStart = indexRight_EqnStart;
 
 	    nodeTmpsRight.Offset_Voltage = nodeTmpsCenter.Offset_Voltage;
 
@@ -383,8 +381,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
             //index of first equation of right node
-            indexRight_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode]
-                                     + nodeRight->OffsetIndex_BulkDomainEqnStart_BDN[0];
+            indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
 
 	    nodeTmpsRight.Offset_Voltage = nodeRight->indexBulkDomainVar0((size_t)Voltage);
         }
