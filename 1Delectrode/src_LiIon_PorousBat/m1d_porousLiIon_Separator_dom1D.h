@@ -22,21 +22,33 @@ namespace m1d
 {
 class LocalNodeIndices;
 
-
-
+// --------------------------------------------------------------------------------------------------
+//! Intermediate bookkeeping information for nodes based on loops over cells
 class NodeTmps
 {
 public:
  
+    //!  Pointer to the NodalVars struct 
     NodalVars *nv;
 
+    //!  Offset of the nodal variables from the start of the solution vector
     size_t index_EqnStart_BD;
 
+    //!  Offset of variables wrt the start of the nodal solution vector.
     size_t Offset_Voltage;
 
 };
 
+// --------------------------------------------------------------------------------------------------
 
+//! Intermediate bookkeeping information for loops over cells
+/*!
+ *    If we are on a left boundary, there will be no Left Node. Instead, the left and center node
+ *    are really collocated.  In that case NodeLeft_ will be a duplicate of NodeCenter_.
+ *    And, nodeLeft member value will be set to zero.
+ *
+ *    An analogous treatment of right boundaries where there is no right node is also done. 
+ */
 class cellTmps
 {
 public:
@@ -47,12 +59,9 @@ public:
    NodeTmps NodeLeft_;
    NodeTmps NodeCenter_;
    NodeTmps NodeRight_;
-
-
-
-
 };
 
+// --------------------------------------------------------------------------------------------------
 
 
 //!  This is derived class  provides the function evaluation for a porous electrolyte bulk domain.
