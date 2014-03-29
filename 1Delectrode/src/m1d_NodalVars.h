@@ -116,7 +116,7 @@ public:
    *
    *
    */
-  int indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM SubVarIndex);
+  int indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM SubVarIndex) const;
 
   //! Returns the node position
   double

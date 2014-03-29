@@ -561,11 +561,21 @@ NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
 //  This means that mole fractions in different domains that are different should have different
 //  VAR_TYPE_SUBNUM values. This has to be detemined by the application.
 //
-int NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variableSubType)
+int NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variableSubType) const
 {
-    int start = Offset_VarType[variableType];
-    if (start < 0) return -1;
-    int numV = Number_VarType[variableType];
+    std::map<VAR_TYPE, int>::const_iterator it;
+    if ((it = Offset_VarType.find(variableType)) == Offset_VarType.end()) {
+      return -1;
+    } 
+    int start = it->second;
+#ifdef DEBUG_MODE
+    if ((it = Number_VarType.find(variableType)) == Number_VarType.end()) {
+        return -1;
+    } 
+    int numV = it->second;
+#else
+    int numV = Number_VarType.find(variableType)->second;
+#endif
     //
     //  We do a quick trial for a common case.
     if (variableSubType < numV) {
@@ -574,14 +584,12 @@ int NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variabl
 	    return start + variableSubType;
 	}
     }
-
     for (int i = 0; i < numV; i++) {
 	VarType vt = VariableNameList_EqnNum[start + i];
 	if (variableSubType == vt.VariableSubType) {
 	    return start + i;
 	}
     }
-
     return -1;
 }
 //=====================================================================================================================
