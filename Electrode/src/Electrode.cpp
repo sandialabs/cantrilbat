@@ -105,12 +105,14 @@ Electrode::Electrode() :
                 deltaTsubcycle_init_next_(1.0E300),
                 choiceDeltaTsubcycle_init_(0),
                 numIntegrationSubCycles_final_final_(1),
+                doThermalPropertyCalculations_(false),
                 temperature_(298.15),
                 pressure_(1.0E5),
                 ElectrodeSolidVolume_(0.0),
                 phaseMolarVolumes_(0),
                 sphaseMolarAreas_(0),
                 VolPM_(0),
+                CvPM_(0),
                 spMoles_final_(0),
                 spMoles_final_final_(0),
                 spMoles_init_(0),
@@ -214,12 +216,14 @@ Electrode::Electrode(const Electrode& right) :
                 deltaTsubcycle_init_next_(1.0E300),
                 choiceDeltaTsubcycle_init_(0),
                 numIntegrationSubCycles_final_final_(1),
+                doThermalPropertyCalculations_(false),
                 temperature_(298.15),
                 pressure_(1.0E5),
                 ElectrodeSolidVolume_(0.0),
                 phaseMolarVolumes_(0),
                 sphaseMolarAreas_(0),
                 VolPM_(0),
+                CvPM_(0),
                 spMoles_final_(0),
                 spMoles_final_final_(0),
                 spMoles_init_(0),
@@ -356,12 +360,14 @@ Electrode& Electrode::operator=(const Electrode& right)
     deltaTsubcycle_init_next_ = right.deltaTsubcycle_init_next_;
     choiceDeltaTsubcycle_init_ = right.choiceDeltaTsubcycle_init_;
     numIntegrationSubCycles_final_final_ = right.numIntegrationSubCycles_final_final_;
+    doThermalPropertyCalculations_ = right.doThermalPropertyCalculations_;
     temperature_ = right.temperature_;
     pressure_ = right.pressure_;
     ElectrodeSolidVolume_ = right.ElectrodeSolidVolume_;
     phaseMolarVolumes_ = right.phaseMolarVolumes_;
     sphaseMolarAreas_ = right.sphaseMolarAreas_;
     VolPM_ = right.VolPM_;
+    CvPM_ = right.CvPM_;
     spMoles_final_ = right.spMoles_final_;
     spMoles_final_final_ = right.spMoles_final_final_;
     spMoles_init_ = right.spMoles_init_;
@@ -646,6 +652,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     spMf_init_init_.resize(m_NumTotSpecies, 0.0);
     spMf_final_final_.resize(m_NumTotSpecies, 0.0);
     VolPM_.resize(m_NumTotSpecies, 0.0);
+    CvPM_.resize(m_NumTotSpecies, 0.0);
     spElectroChemPot_.resize(m_NumTotSpecies, 0.0);
 
     capacityLeftSpeciesCoeff_.resize(m_NumTotSpecies, 0.0);
@@ -1840,6 +1847,10 @@ void Electrode::updatePhaseNumbers(int iph)
         int isurf = iph - NumVolPhases_;
         sphaseMolarAreas_[isurf] = tp.molarVolume();
     }
+    // Right now we use the Cp calculation from Cantera until we expand Cantera to calculate Cv
+    if (doThermalPropertyCalculations_) {
+       tp.getPartialMolarCp(&(CvPM_[istart]));
+    }
 }
 //================================================================================================
 void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
@@ -2203,6 +2214,34 @@ void Electrode::getPhaseVol(double* const phaseVols) const
             phaseVols[iph] = 0.0;
         }
     }
+}
+//====================================================================================================================
+double Electrode::SolidHeatCapacityCV() const
+{
+    //
+    //   Calculate CvPM_ on the fly if it isn't part of the normal calculation.
+    //         -> debatable about how to do this most efficiently.
+    //
+    if (!doThermalPropertyCalculations_) {
+	for (int iph = 0; iph < m_NumTotPhases; iph++) {
+	    int istart = m_PhaseSpeciesStartIndex[iph];
+	    ThermoPhase& tp = thermo(iph);
+	    tp.getPartialMolarCp(&(CvPM_[istart]));
+	}
+    }
+
+    double heatCapacity = 0.0;
+    for (int iph = 0; iph < NumVolPhases_; iph++) {
+        int kStart = m_PhaseSpeciesStartIndex[iph];
+        ThermoPhase& tp = thermo(iph);
+        int nspPhase = tp.nSpecies();
+        if (iph != solnPhase_) {
+            for (int k = 0; k < nspPhase; k++) {
+               heatCapacity += spMoles_final_[kStart + k] * CvPM_[kStart + k];
+            }
+        }
+    }
+    return heatCapacity;
 }
 //====================================================================================================================
 int Electrode::nSurfaces() const

@@ -163,14 +163,23 @@ public:
      */
     virtual double SolidVol() const;
 
+    //
+    // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
+    //
+
+    //!  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
+    /*!
+     *  This is an extensive quantity.
+     *  (virtual from Electrode)
+     *
+     *  @return Joule K-1
+     */
+    virtual double SolidHeatCapacityCV() const;
+
     // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
 
 
-
     void calcRate(double deltaT);
-
-
-
 
     //!  Print one set of field variables
     /*!
@@ -905,6 +914,12 @@ protected:
      */
     std::vector<doublereal> partialMolarVolKRSpecies_Cell_final_;
 
+    //!  Partial molar Heat Capacity  of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar heat capacity const press (KRSpecies, iCell)
+     *   Units of Joules/(kmol K)
+     */
+    mutable std::vector<doublereal> partialMolarCpKRSpecies_Cell_final_;
 
     //! Rate of progress of the surface reactions
     /*!

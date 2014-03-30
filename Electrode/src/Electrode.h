@@ -532,6 +532,17 @@ public:
      */
 // Deprecate
     virtual void getPhaseVol(double* const phaseVols) const;
+    //
+    // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
+    //
+
+    //!  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
+    /*!
+     *  This is an extensive quantity.
+     *
+     *  @return Joule K-1
+     */
+    virtual double SolidHeatCapacityCV() const;
 
     //-------------------------------------------------------------------------------------------------------------------
     // --------------------------------------------- SURFACE AREAS ------------------------------------------------------
@@ -2336,6 +2347,13 @@ public:
     //! Number of subcyles taken on the last
     int numIntegrationSubCycles_final_final_;
 
+    //! Boolean indicating whether we should be doing thermal property calculations during updateState()
+    //! calculations.
+    /*!
+     *   This is public and can be changed externally
+     */
+    bool doThermalPropertyCalculations_;
+
 protected:
 
     //! Temperature of the electrode (Kelvin)
@@ -2376,6 +2394,13 @@ protected:
      */
 // Is this a duplicate of phaseMolarVolumes_?
     std::vector<double> VolPM_;
+
+    //! Partial molar Heat Capacity at constant volume of all of the species
+    /*!
+     *  Length = global number of species in PhaseList species vector
+     *  Units = Joules / Kelvin
+     */
+    mutable std::vector<double> CvPM_;
 
     //! Number of moles of each species in each phase at the end of each
     //! subcycle of the integration step
