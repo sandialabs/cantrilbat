@@ -429,8 +429,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     }
     residType_Curr_ = residType;
  
-    int index_CentLcNode;
-
     NodalVars* nodeLeft = 0;
     NodalVars* nodeCent = 0;
     NodalVars* nodeRight = 0;
@@ -462,18 +460,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     /*
      * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexCent_EqnStart;
+    size_t indexCent_EqnStart;
     /*
      * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
      */
     size_t indexRight_EqnStart;
-
-    /*
-     * offset of the electolyte solution unknowns at the current node
-     */
-    index_CentLcNode = Index_DiagLcNode_LCO[0];
-    nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
     /*
      *  Offsets for the equation unknowns in the residual vector for the electrolyte domain
      */
@@ -521,7 +512,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeLeft_;
 	NodeTmps& nodeTmpsRight  = cTmps.NodeRight_;
 
-
 #ifdef DEBUG_HKM_NOT
         if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
             if (iCell == NumLcCells - 1) {
@@ -545,26 +535,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
         /*
          *  ---------------- Get the index for the center node ---------------------------------
-         */
-        index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-	
-        /*
          *   Get the pointer to the NodalVars object for the center node
+	 *   Index of the first equation in the bulk domain of center node
          */
-        nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+	nodeCent = cTmps.nodeCent;
+	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 
-
-        /*
-         *  Index of the first equation in the bulk domain of center node
-         */
-        indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
-
-	AssertTrace( nodeCent ==  cTmps.nodeCent);
-	AssertTrace(indexCent_EqnStart == (int) nodeTmpsCenter.index_EqnStart);
-	/*
-	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
-	 */
-	
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
