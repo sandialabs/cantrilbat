@@ -457,15 +457,15 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexLeft_EqnStart_BD;
+    int indexLeft_EqnStart;
     /*
      * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexCent_EqnStart_BD;
+    int indexCent_EqnStart;
     /*
      * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexRight_EqnStart_BD;
+    int indexRight_EqnStart;
 
     /*
      * offset of the electolyte solution unknowns at the current node
@@ -487,9 +487,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      */
     int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
     int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    //int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
-    //size_t iVar_Voltage_Cent = nodeCent->indexBulkDomainVar0((size_t)Voltage);
-
 
     incrementCounters(residType);
     Fright_cc_ = 0.0;
@@ -557,8 +554,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
 	/*
 	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
 	 */
@@ -581,13 +577,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              *  If there is no left node, we assign the left solution index to the center solution index
              */
-            indexLeft_EqnStart_BD = indexCent_EqnStart_BD;
+            indexLeft_EqnStart = indexCent_EqnStart;
         } else {
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
             //index of first equation in the electrolyte of the left node
-            indexLeft_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode]
-                                    + nodeLeft->OffsetIndex_BulkDomainEqnStart_BDN[0];
+            indexLeft_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode];
 	    /*
 	     *
 	     */
@@ -610,15 +605,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              *  If there is no right node, we assign the right solution index to the center solution index
              */
-            indexRight_EqnStart_BD = indexCent_EqnStart_BD;
+            indexRight_EqnStart = indexCent_EqnStart;
         } else {
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
             //index of first equation of right node
-            indexRight_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode]
-                                     + nodeRight->OffsetIndex_BulkDomainEqnStart_BDN[0];
-
-	    //iVar_Voltage_Right = nodeRight->indexBulkDomainVar0((size_t)Voltage);
+            indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
         }
 
         /*
@@ -657,9 +649,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
 
         for (int k = 0; k < nsp_; k++) {
-            Xcent_cc_[k] = soln[indexCent_EqnStart_BD + iVar_Species_BD + k];
+            Xcent_cc_[k] = soln[indexCent_EqnStart + iVar_Species_BD + k];
         }
-        Vcent_cc_ = soln[indexCent_EqnStart_BD + nodeTmpsCenter.Offset_Voltage];
+        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
 
         if (nodeLeft != 0) {
             /*
@@ -667,11 +659,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              * The left cell boundary velocity is stored at the previous (left)
              * cell index as per our conventions.
              */
-            Fleft_cc_ = soln[indexLeft_EqnStart_BD + iVAR_Vaxial_BD];
+            Fleft_cc_ = soln[indexLeft_EqnStart + iVAR_Vaxial_BD];
             for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = soln[indexLeft_EqnStart_BD + iVar_Species_BD + k];
+                Xleft_cc_[k] = soln[indexLeft_EqnStart + iVar_Species_BD + k];
             }
-            Vleft_cc_ = soln[indexLeft_EqnStart_BD + nodeTmpsLeft.Offset_Voltage];
+            Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
         } else {
             /*
              * We are here when we are at the left most part of the boundary. Then, there is no
@@ -692,14 +684,14 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * The right velocity is stored at the current cell index.
          */
-        Fright_cc_ = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
+        Fright_cc_ = soln[indexCent_EqnStart + iVAR_Vaxial_BD];
 
         if (nodeRight != 0) {
 
             for (int k = 0; k < nsp_; k++) {
-                Xright_cc_[k] = soln[indexRight_EqnStart_BD + iVar_Species_BD + k];
+                Xright_cc_[k] = soln[indexRight_EqnStart + iVar_Species_BD + k];
             }
-            Vright_cc_ = soln[indexRight_EqnStart_BD + nodeTmpsRight.Offset_Voltage];
+            Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
         } else {
 
             for (int k = 0; k < nsp_; k++) {
@@ -730,7 +722,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                 /*
                  *  Establish the environment at the left cell boundary
                  */
-                SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart_BD]), nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
+                SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart]), nodeCent, &(soln[indexCent_EqnStart]), 0);
 
                 SetupTranShop(xdelL, 0);
 
@@ -781,7 +773,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              */
             AssertTrace(iCell == NumLcCells-1);
             // fluxFright = 0.0;
-            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
+            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]), 0);
             Fright_cc_ = 0.0;
             fluxFright = Fright_cc_ * concTot_Curr_;
             icurrElectrolyte_CBR_[iCell] = 0.0;
@@ -792,7 +784,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              *  Establish the environment at the right cell boundary
              */
-            SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart_BD]), nodeRight, &(soln[indexRight_EqnStart_BD]), 1);
+            SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
 
             SetupTranShop(xdelR, 1);
 
@@ -855,14 +847,14 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *                              fluxes coming and going from the cell.
          *                    R =   d rho d t + del dot (rho V) = 0
          */
-        res[indexCent_EqnStart_BD + EQ_TCont_offset_BD] += (fluxFright - fluxFleft);
+        res[indexCent_EqnStart + EQ_TCont_offset_BD] += (fluxFright - fluxFleft);
 
         /*
          * Species continuity Equation
          */
         for (int k = 0; k < nsp_; k++) {
             if ((k != iECDMC_) && (k != iPF6m_)) {
-                res[indexCent_EqnStart_BD + EQ_Species_offset_BD + k] += (fluxXright[k] - fluxXleft[k]);
+                res[indexCent_EqnStart + EQ_Species_offset_BD + k] += (fluxXright[k] - fluxXleft[k]);
             }
         }
 
@@ -877,7 +869,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          *   Current conservation equation
          */
-        res[indexCent_EqnStart_BD + EQ_Current_offset_BD] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
+        res[indexCent_EqnStart + EQ_Current_offset_BD] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
 
         /*
          * --------------------------------------------------------------------------
@@ -885,7 +877,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          * --------------------------------------------------------------------------
          */
 
-        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]), 0);
 
 
         /*
@@ -895,17 +887,17 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * Mole fraction summation equation
          */
-        res[indexCent_EqnStart_BD + EQ_MFSum_offset_BD] = 1.0;
+        res[indexCent_EqnStart + EQ_MFSum_offset_BD] = 1.0;
         for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart_BD + EQ_MFSum_offset_BD] -= Xcent_cc_[k];
+            res[indexCent_EqnStart + EQ_MFSum_offset_BD] -= Xcent_cc_[k];
         }
 
         /*
          * Electroneutrality equation
          */
-        res[indexCent_EqnStart_BD + EQ_ChargeBal_offset_BD] = 0.0;
+        res[indexCent_EqnStart + EQ_ChargeBal_offset_BD] = 0.0;
         for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart_BD + EQ_ChargeBal_offset_BD] += Xcent_cc_[k] * spCharge_[k];
+            res[indexCent_EqnStart + EQ_ChargeBal_offset_BD] += Xcent_cc_[k] * spCharge_[k];
         }
 
         /*
@@ -948,7 +940,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              * Setup shop with the old time step
              */
-            SetupThermoShop1(nodeCent, &(solnOld[indexCent_EqnStart_BD]), 0);
+            SetupThermoShop1(nodeCent, &(solnOld[indexCent_EqnStart]), 0);
 
             double oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
             oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
@@ -971,7 +963,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
             for (int k = 0; k < nsp_; k++) {
                 if (k != iECDMC_ && k != iPF6m_) {
-                    res[indexCent_EqnStart_BD + EQ_Species_offset_BD + k] += tmp;
+                    res[indexCent_EqnStart + EQ_Species_offset_BD + k] += tmp;
                 }
             }
 
@@ -984,7 +976,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              *   .................... Go back to setting up shop at the current time
              */
-            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
+            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]), 0);
         }
 
     }
