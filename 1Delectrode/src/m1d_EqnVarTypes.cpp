@@ -119,8 +119,8 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
     case Voltage_Specification:
       return std::string("Voltage_specification");
       break;
-    case Max_Eq_Name:
-      return std::string("Max_Eq_Name");
+    case Max_Eqn_Name:
+      return std::string("Max_Eqn_Name");
       break;
     default:
       throw m1d_Error("EqnMainName", "unknown");

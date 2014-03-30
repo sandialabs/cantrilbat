@@ -59,7 +59,7 @@ enum EQ_Name_Enum
   Current_Specification,
   Voltage_Specification,
   Dirichlet_Specification,
-  Max_Eq_Name
+  Max_Eqn_Name
 //! must be last in the list
 };
 
@@ -74,6 +74,10 @@ typedef int VAR_TYPE_SUBNUM;
 
 inline void operator++(VAR_TYPE & eVal) {
   eVal = VAR_TYPE(eVal+1);
+};
+
+inline void operator++(EQ_TYPE & eVal) {
+  eVal = EQ_TYPE(eVal+1);
 };
 
 }

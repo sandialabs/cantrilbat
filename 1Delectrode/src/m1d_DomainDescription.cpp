@@ -26,7 +26,7 @@ namespace m1d
   SolutionBehavior_printLvl_(0),
   Residual_printLvl_(0)
 {
-    EquationIndexStart_EqName.resize((int) Max_Eq_Name, -1);
+    EquationIndexStart_EqName.resize((int) Max_Eqn_Name, -1);
     VariableIndexStart_VarName.resize((int) Max_Var_Name, -1);
 
     /*

@@ -327,13 +327,13 @@ NodalVars::GenerateEqnOrder()
 	  SurfDomainDescription *sdd = DL.SurfDomainDesc_global[sdi];
 	  do {
 	      VarType varL = VarType(Max_Var_Name);
-	      EqnType eqnL = EqnType(Max_Eq_Name);
+	      EqnType eqnL = EqnType(Max_Eqn_Name);
 	      if (leftBulkDomEqn < numEqnsBulkL) {
 		  varL = bddL->VariableNameList[leftBulkDomEqn];
 		  eqnL = bddL->EquationNameList[leftBulkDomEqn];
 	      }
 	      VarType varR = VarType(Max_Var_Name);
-	      EqnType eqnR = EqnType(Max_Eq_Name);
+	      EqnType eqnR = EqnType(Max_Eqn_Name);
 	      if (rightBulkDomEqn < numEqnsBulkR) {
 		  varR = bddR->VariableNameList[rightBulkDomEqn];
 		  eqnR = bddR->EquationNameList[rightBulkDomEqn];
@@ -501,10 +501,29 @@ NodalVars::GenerateEqnOrder()
     }
   }
 
+  //
+  //  Create Offset_EqnType array
+  //
+  Offset_EqnType.clear();
+  for (EQ_TYPE iv = Equation_Type_Unspecified; iv < Max_Eqn_Name; ++iv) {
+    Offset_EqnType[iv] = npos;
+    if (iv == Equation_Type_Unspecified) {
+      Offset_EqnType[iv] = 0;
+    } else {
+      for (int iOffset = 0; iOffset < NumEquations; iOffset++) {
+        EQ_TYPE cv = EquationNameList_EqnNum[iOffset].EquationType;
+        if (cv == iv) {
+          if (Offset_EqnType[iv] == npos) {
+            Offset_EqnType[iv] = iOffset;
+          }
+        }
+      }
+    }
+  }
   // 
   //  Create Number_VarType
   //
- for (VAR_TYPE iv = Variable_Type_Unspecified; iv < Max_Var_Name; ++iv) {
+  for (VAR_TYPE iv = Variable_Type_Unspecified; iv < Max_Var_Name; ++iv) {
     if (iv == Variable_Type_Unspecified) {
         Number_VarType[iv] = 0;
     } else {
@@ -525,9 +544,32 @@ NodalVars::GenerateEqnOrder()
         }
     }
   }
-
+  // 
+  //  Create Number_EqnType
   //
-  //  Create Offset_VarTypeVector Number_VarTypeVector
+  for (EQ_TYPE iv = Equation_Type_Unspecified; iv < Max_Eqn_Name; ++iv) {
+    if (iv == Equation_Type_Unspecified) {
+        Number_EqnType[iv] = 0;
+    } else {
+        int voff = Offset_EqnType[iv];
+        if (voff < 0) {
+            Number_EqnType[iv] = 0;
+        } else {
+            int count = 0;
+            for (size_t index = voff; index < EquationNameList_EqnNum.size(); index++) {
+                EqnType vt = EquationNameList_EqnNum[index];
+                if (vt.EquationType != iv) {
+                    break;
+                } else {
+                    count++;
+                }
+            }
+            Number_EqnType[iv] = count;
+        }
+    }
+  }
+  //
+  //  Create Offset_VarTypeVector and Number_VarTypeVector
   //
   size_t ss = Max_Var_Name;
   Offset_VarTypeVector.resize(ss, npos);
@@ -545,6 +587,27 @@ NodalVars::GenerateEqnOrder()
          Number_VarTypeVector[siv] = npos;
     }
   }
+
+  //
+  //  Create Offset_EqnTypeVector and Number_EqnTypeVector
+  //
+  ss = Max_Eqn_Name;
+  Offset_EqnTypeVector.resize(ss, npos);
+  Number_EqnTypeVector.resize(ss, npos);
+  for (EQ_TYPE iv = Momentum_Axial; iv < Max_Eqn_Name; ++iv) {
+    size_t siv = (size_t) iv;
+    if (Offset_EqnType[iv] >= 0) {
+         Offset_EqnTypeVector[siv] = (size_t) Offset_EqnType[iv];
+    } else {
+         Offset_EqnTypeVector[siv] = npos;
+    }
+    if (Number_EqnType[iv] >= 0) {
+         Number_EqnTypeVector[siv] = (size_t) Number_EqnType[iv];
+    } else {
+         Number_EqnTypeVector[siv] = npos;
+    }
+  }
+
 
 }
 //=====================================================================================================================

@@ -138,6 +138,9 @@ public:
    */
   inline size_t indexBulkDomainVar0(size_t variableTypeS) const;
 
+  size_t indexBulkDomainEqn(EQ_TYPE equationType, EQ_TYPE_SUBNUM subEqnIndex) const;
+
+
   //! Returns the node position
   double
   xNodePos() const;
@@ -250,17 +253,23 @@ public:
    */
   std::map<VAR_TYPE, size_t> Offset_VarType;
 
+  std::map<EQ_TYPE, size_t> Offset_EqnType;
+
+
   //! Vector between the variable type redefined as a size_t and the offset of the variable in the unknowns for the node
   /*!
    *       Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
    */
   std::vector<size_t> Offset_VarTypeVector;
+  std::vector<size_t> Offset_EqnTypeVector;
+
 
   //! Map between the variable type and the number of variables of that VAR_TYPE in the unknowns for the node
   /*!
    *       Offset_VarType[MoleFraction_Species] is the number of mole fraction variables.
    */
   std::map<VAR_TYPE, size_t> Number_VarType;
+  std::map<EQ_TYPE, size_t> Number_EqnType;
 
   //! Vector between the variable type redefined as a size_t and the number of variables of that
   //! VAR_TYPE in the unknowns for the node
@@ -268,6 +277,7 @@ public:
    *       Offset_VarType[MoleFraction_Species] is the number of mole fraction variables.
    */
   std::vector<size_t> Number_VarTypeVector;
+  std::vector<size_t> Number_EqnTypeVector;
 
 protected:
   //! Current Spatial position of the node
