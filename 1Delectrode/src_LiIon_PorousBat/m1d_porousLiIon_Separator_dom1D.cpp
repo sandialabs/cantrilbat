@@ -301,9 +301,9 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
         cIndex_cc_ = iCell;
 
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	NodeTmps& nodeTmpsCenter = cTmps.NodeCenter_;
-	NodeTmps& nodeTmpsLeft   = cTmps.NodeLeft_;
-	NodeTmps& nodeTmpsRight  = cTmps.NodeRight_;
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
 	/*
          *  ---------------- Get the index for the center node ---------------------------------
@@ -315,7 +315,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
          */
         nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
 	nodeTmpsCenter.nv = nodeCent;
-	cTmps.nodeCent = nodeCent; 
+	cTmps.nvCent_ = nodeCent; 
         /*
          *  Index of the first equation in the bulk domain of center node
          */
@@ -361,7 +361,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsLeft.Offset_Voltage = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
 
         }
-	cTmps.nodeLeft = nodeLeft;
+	cTmps.nvLeft_ = nodeLeft;
 	
 
 	/*
@@ -387,7 +387,35 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 
 	    nodeTmpsRight.Offset_Voltage = nodeRight->indexBulkDomainVar0((size_t)Voltage);
         }
-	cTmps.nodeRight = nodeRight; 
+	cTmps.nvRight_ = nodeRight; 
+
+	/*
+         * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
+         * Calculate the distance between the left and center node points
+         */
+        if (nodeLeft) {
+            cTmps.xdelL_ = nodeCent->xNodePos() - nodeLeft->xNodePos();
+            cTmps.xCellBoundaryL_ = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
+        } else {
+            cTmps.xdelL_ = 0.0;
+            cTmps.xCellBoundaryL_ = nodeCent->xNodePos();
+        }
+        /*
+         * Calculate the distance between the right and center node points
+         */
+        if (nodeRight == 0) {
+            cTmps.xdelR_ = 0.0;
+            cTmps.xCellBoundaryR_ = nodeCent->xNodePos();
+        } else {
+            cTmps.xdelR_ = nodeRight->xNodePos() - nodeCent->xNodePos();
+            cTmps.xCellBoundaryR_ = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
+        }
+        /*
+         * Calculate the cell width
+         */
+        cTmps.xdelCell_ = cTmps.xCellBoundaryR_ - cTmps.xCellBoundaryL_;
+
+
     }
 }
 //=====================================================================================================================
@@ -436,8 +464,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double xdelCell; // cell width - right boundary minus the left boundary.
-    double xCellBoundaryL; //cell boundary left
-    double xCellBoundaryR; //cell boundary right
+    //double xCellBoundaryL; //cell boundary left
+    //double xCellBoundaryR; //cell boundary right
 
     //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
     double fluxFright = 0.;
@@ -508,9 +536,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         cIndex_cc_ = iCell;
 
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	NodeTmps& nodeTmpsCenter = cTmps.NodeCenter_;
-	NodeTmps& nodeTmpsLeft   = cTmps.NodeLeft_;
-	NodeTmps& nodeTmpsRight  = cTmps.NodeRight_;
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
 #ifdef DEBUG_HKM_NOT
         if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
@@ -538,7 +566,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *   Get the pointer to the NodalVars object for the center node
 	 *   Index of the first equation in the bulk domain of center node
          */
-	nodeCent = cTmps.nodeCent;
+	nodeCent = cTmps.nvCent_;
 	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 
         /*
@@ -547,7 +575,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *    set the pointer to zero and the index to -1.
 	 *    The solution index is set to the center solution index in that case as well.
          */
-	nodeLeft = cTmps.nodeLeft;
+	nodeLeft = cTmps.nvLeft_;
 	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
         /*
          * If we are past the first cell, then we have already done the calculation
@@ -560,35 +588,24 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * ------------------------ Get the indexes for the right node ------------------------------------
          */
-	nodeRight = cTmps.nodeRight;
+	nodeRight = cTmps.nvRight_;
 	indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 
         /*
          * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
          * Calculate the distance between the left and center node points
          */
-        if (nodeLeft) {
-            xdelL = nodeCent->xNodePos() - nodeLeft->xNodePos();
-            xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
-        } else {
-            xdelL = 0.0;
-            xCellBoundaryL = nodeCent->xNodePos();
-        }
+	xdelL = cTmps.xdelL_;
+	//xCellBoundaryL = cTmps.xCellBoundaryL_;
         /*
          * Calculate the distance between the right and center node points
          */
-        if (nodeRight == 0) {
-            xdelR = 0.0;
-            xCellBoundaryR = nodeCent->xNodePos();
-        } else {
-            xdelR = nodeRight->xNodePos() - nodeCent->xNodePos();
-            xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
-        }
+	xdelR = cTmps.xdelR_;
+	//xCellBoundaryR = cTmps.xCellBoundaryR_;
         /*
          * Calculate the cell width
          */
-        xdelCell = xCellBoundaryR - xCellBoundaryL;
-
+	xdelCell = cTmps.xdelCell_;
         /*
          * --------------------------- DO PRE-SETUPSHOP RASTER OVER LEFT,CENTER,RIGHT -----------------------------
          * Calculate the distance between the left and center node points
@@ -962,21 +979,60 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
         solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
     }
+
+    double tempL = getPointTemperature(nvL, solnElectrolyte_CurrL); 
+    double tempR = getPointTemperature(nvR, solnElectrolyte_CurrR); 
+    temp_Curr_ = 0.5 * (tempL + tempR);
+    /*
+     * Get the pressure
+     */
+    pres_Curr_ = PressureReference_;
+
+    size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
+    size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
+
+
+    mfElectrolyte_Soln_Curr_[0] = 0.5 * (solnElectrolyte_CurrL[indexMFL] +solnElectrolyte_CurrR[indexMFR]);
+    mfElectrolyte_Soln_Curr_[1] = 0.5 * (solnElectrolyte_CurrL[indexMFL+1] +solnElectrolyte_CurrR[indexMFR+1]);
+    mfElectrolyte_Soln_Curr_[2] = 0.5 * (solnElectrolyte_CurrL[indexMFL+2] +solnElectrolyte_CurrR[indexMFR+2]);
+    double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1b = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double mf2b = MAX(mfElectrolyte_Soln_Curr_[2], 0.0);
+    double mf1 = mf1b;
+    double mf2 = mf2b;
+    if (mf1b != mf2b) {
+        mf1 = 0.5 * (mf1b + mf2b);
+        mf2 = 0.5 * (mf1b + mf2b);
+    }
+    double tmp = mf0 + mf1 + mf2;
+
+    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
+    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
+    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+
+    size_t indexVS = nvL->indexBulkDomainVar0(Voltage);
+    double phiElectrolyteL = solnElectrolyte_CurrL[indexVS];
+    indexVS = nvR->indexBulkDomainVar0(Voltage);
+    double phiElectrolyteR = solnElectrolyte_CurrR[indexVS];
+    phiElectrolyte_Curr_ = 0.5 * (phiElectrolyteL + phiElectrolyteR);
+
     if (type == 0) {
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ - 1] + porosity_Cell_[cIndex_cc_]);
     } else {
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
     }
-    updateElectrolyte(nvR, &solnTemp[0]);
+    /*
+     *  Set the ThermoPhase states
+     */
+    ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
+    ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+    //
+    // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
+    //
+    concTot_Curr_ = ionicLiquid_->molarDensity();
 }
 //=====================================================================================================================
-// Function updates the ThermoPhase object for the electrolyte
-// given the solution vector
-/*
- *   Routine will update the molten salt ThermoPhase object with the current state of the electrolyte
- *
- * @param solnElectrolyte
- */
+// Function updates the ThermoPhase object for the electrolyte given the solution vector
 void
 porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
@@ -984,46 +1040,42 @@ porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const 
      * Get the temperature: Check to see if the temperature is in the solution vector.
      *   If it is not, then use the reference temperature
      */
-    temp_Curr_ = TemperatureReference_;
-    int iTemp = BDD_.VariableIndexStart_VarName[Temperature];
-    if (iTemp >= 0) {
-        temp_Curr_ = solnElectrolyte_Curr[iTemp];
-    }
+    temp_Curr_ = getPointTemperature(nv, solnElectrolyte_Curr);  
     /*
      * Get the pressure
      */
     pres_Curr_ = PressureReference_;
-
+    /*
+     *  Assemble electrolyte mole fractions into mfElectrolyte_Thermo_Curr_[]
+     */
     getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
+    /*
+     *  assemble electrolyte potential into phiElectrolyte_Curr_
+     */
     getVoltages(nv, solnElectrolyte_Curr);
-
+    /*
+     *  Set the ThermoPhase states
+     */
     ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
-
     ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
-
-    // Calculate the total concentration of the electrolyte kmol m-3.
+    //
+    // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
+    //
     concTot_Curr_ = ionicLiquid_->molarDensity();
-
 }
 //=====================================================================================================================
 void
 porousLiIon_Separator_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
-    int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
-    int newIndexVS = nv->indexBulkDomainVar(Voltage, 0);
-    AssertTrace(indexVS == newIndexVS);
-
+    size_t indexVS = nv->indexBulkDomainVar0(Voltage);
     phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
 }
 //=====================================================================================================================
 void
 porousLiIon_Separator_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
-    int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
     // We are assuming that mf species start with subindex 0 here
-    int newIndexMF = nv->indexBulkDomainVar(MoleFraction_Species, 0);
-    AssertTrace(indexMF == newIndexMF);
-
+    size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
     mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
     mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
     mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
