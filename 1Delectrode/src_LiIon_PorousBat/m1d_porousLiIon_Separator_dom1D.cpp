@@ -325,10 +325,9 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	/*
 	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
 	 */
-	nodeTmpsCenter.Offset_Voltage = nodeCent->indexBulkDomainVar0((size_t)Voltage);
-
-
-
+	nodeTmpsCenter.Offset_Voltage              = nodeCent->indexBulkDomainVar0((size_t)Voltage);
+	nodeTmpsCenter.Offset_MoleFraction_Species = nodeCent->indexBulkDomainVar0((size_t)MoleFraction_Species);
+	nodeTmpsCenter.Offset_Velocity_Axial       = nodeCent->indexBulkDomainVar0((size_t)Velocity_Axial);
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
@@ -346,23 +345,21 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             indexLeft_EqnStart = indexCent_EqnStart;
 	    nodeTmpsLeft.index_EqnStart = indexLeft_EqnStart;
 
-	    nodeTmpsLeft.Offset_Voltage = nodeTmpsCenter.Offset_Voltage;
-
+	    nodeTmpsLeft.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
+	    nodeTmpsLeft.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
+	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
         } else {
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
             //index of first equation in the electrolyte of the left node
             indexLeft_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode];
 	    nodeTmpsLeft.index_EqnStart = indexLeft_EqnStart;
-	    /*
-	     *
-	     */
-	 
-	    nodeTmpsLeft.Offset_Voltage = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
 
+	    nodeTmpsLeft.Offset_Voltage              = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
+	    nodeTmpsLeft.Offset_MoleFraction_Species = nodeLeft->indexBulkDomainVar0((size_t)MoleFraction_Species);
+	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeLeft->indexBulkDomainVar0((size_t)Velocity_Axial);
         }
 	cTmps.nvLeft_ = nodeLeft;
-	
 
 	/*
          * ------------------------ Get the indexes for the right node ------------------------------------
@@ -376,8 +373,9 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             indexRight_EqnStart = indexCent_EqnStart;
 	    nodeTmpsRight.index_EqnStart = indexRight_EqnStart;
 
-	    nodeTmpsRight.Offset_Voltage = nodeTmpsCenter.Offset_Voltage;
-
+	    nodeTmpsRight.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
+	    nodeTmpsRight.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
+	    nodeTmpsRight.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
         } else {
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
@@ -385,7 +383,9 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
 	    nodeTmpsRight.index_EqnStart = indexRight_EqnStart;
 
-	    nodeTmpsRight.Offset_Voltage = nodeRight->indexBulkDomainVar0((size_t)Voltage);
+	    nodeTmpsRight.Offset_Voltage              = nodeRight->indexBulkDomainVar0((size_t)Voltage);
+	    nodeTmpsRight.Offset_MoleFraction_Species = nodeRight->indexBulkDomainVar0((size_t)MoleFraction_Species);
+	    nodeTmpsRight.Offset_Velocity_Axial       = nodeRight->indexBulkDomainVar0((size_t)Velocity_Axial);
         }
 	cTmps.nvRight_ = nodeRight; 
 
@@ -414,7 +414,6 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
          * Calculate the cell width
          */
         cTmps.xdelCell_ = cTmps.xCellBoundaryR_ - cTmps.xCellBoundaryL_;
-
 
     }
 }
@@ -502,12 +501,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
     int EQ_ChargeBal_offset_BD = BDD_.EquationIndexStart_EqName[ChargeNeutrality_Summation];
 
-    /*
-     * Offsets for the variable unknowns in the solution vector for the electrolyte domain
-     */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-
     incrementCounters(residType);
     Fright_cc_ = 0.0;
     /*
@@ -539,6 +532,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+	//AssertTrace((int) nodeTmpsCenter.Offset_MoleFraction_Species == iVar_Species_BD);
 
 #ifdef DEBUG_HKM_NOT
         if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
@@ -616,7 +611,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
 
         for (int k = 0; k < nsp_; k++) {
-            Xcent_cc_[k] = soln[indexCent_EqnStart + iVar_Species_BD + k];
+            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
 
@@ -626,9 +621,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              * The left cell boundary velocity is stored at the previous (left)
              * cell index as per our conventions.
              */
-            Fleft_cc_ = soln[indexLeft_EqnStart + iVAR_Vaxial_BD];
+            Fleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
             for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = soln[indexLeft_EqnStart + iVar_Species_BD + k];
+                Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
             }
             Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
         } else {
@@ -651,12 +646,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * The right velocity is stored at the current cell index.
          */
-        Fright_cc_ = soln[indexCent_EqnStart + iVAR_Vaxial_BD];
+        Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
 
         if (nodeRight != 0) {
 
             for (int k = 0; k < nsp_; k++) {
-                Xright_cc_[k] = soln[indexRight_EqnStart + iVar_Species_BD + k];
+                Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
             }
             Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
         } else {

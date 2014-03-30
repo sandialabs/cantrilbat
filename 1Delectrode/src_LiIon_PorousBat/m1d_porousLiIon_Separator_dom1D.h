@@ -35,8 +35,14 @@ public:
     //!  Offset of the nodal variables from the start of the solution vector
     size_t index_EqnStart;
 
+    //! Offset of axial
+    size_t Offset_Velocity_Axial;
+
     //!  Offset of variables wrt the start of the nodal solution vector.
     size_t Offset_Voltage;
+
+    //!  Offset of variables wrt the start of the nodal solution vector.
+    size_t Offset_MoleFraction_Species;
 
 };
 
