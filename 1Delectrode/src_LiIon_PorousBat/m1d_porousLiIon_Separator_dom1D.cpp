@@ -303,7 +303,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	NodeTmps& nodeTmpsCenter = cTmps.NodeCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeLeft_;
-	NodeTmps& nodeTmpsRight  = cTmps.NodeLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeRight_;
 
 	/*
          *  ---------------- Get the index for the center node ---------------------------------
@@ -353,6 +353,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
             //index of first equation in the electrolyte of the left node
             indexLeft_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode];
+	    nodeTmpsLeft.index_EqnStart = indexLeft_EqnStart;
 	    /*
 	     *
 	     */
@@ -382,6 +383,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
             //index of first equation of right node
             indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
+	    nodeTmpsRight.index_EqnStart = indexRight_EqnStart;
 
 	    nodeTmpsRight.Offset_Voltage = nodeRight->indexBulkDomainVar0((size_t)Voltage);
         }
@@ -518,7 +520,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	NodeTmps& nodeTmpsCenter = cTmps.NodeCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeLeft_;
-	NodeTmps& nodeTmpsRight  = cTmps.NodeLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeRight_;
 
 
 #ifdef DEBUG_HKM_NOT
@@ -546,6 +548,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *  ---------------- Get the index for the center node ---------------------------------
          */
         index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+	
         /*
          *   Get the pointer to the NodalVars object for the center node
          */
@@ -569,6 +572,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
          */
         index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+
         if (index_LeftLcNode < 0) {
             /*
              *  We assign node object to zero.
@@ -588,6 +592,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	     */
 	    //iVar_Voltage_Left = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
         }
+	//nodeLeft = cellTmps.NodeLeft_;
+	AssertTrace(cTmps.nodeLeft == nodeLeft);
+	AssertTrace(indexLeft_EqnStart == (int) nodeTmpsLeft.index_EqnStart);
         /*
          * If we are past the first cell, then we have already done the calculation
          * for this flux at the right cell edge of the previous cell
@@ -612,6 +619,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             //index of first equation of right node
             indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
         }
+	AssertTrace(cTmps.nodeRight == nodeRight);
+	AssertTrace(indexRight_EqnStart == (int) nodeTmpsRight.index_EqnStart);
 
         /*
          * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
