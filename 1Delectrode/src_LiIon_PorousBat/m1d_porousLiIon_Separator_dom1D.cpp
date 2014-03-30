@@ -428,8 +428,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	tmpsSetup = 1;
     }
     residType_Curr_ = residType;
-    int index_RightLcNode;
-    int index_LeftLcNode;
+ 
     int index_CentLcNode;
 
     NodalVars* nodeLeft = 0;
@@ -459,7 +458,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexLeft_EqnStart;
+    size_t indexLeft_EqnStart;
     /*
      * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
      */
@@ -467,7 +466,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     /*
      * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexRight_EqnStart;
+    size_t indexRight_EqnStart;
 
     /*
      * offset of the electolyte solution unknowns at the current node
@@ -554,47 +553,26 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
         nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
 
+
         /*
          *  Index of the first equation in the bulk domain of center node
          */
         indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+
+	AssertTrace( nodeCent ==  cTmps.nodeCent);
+	AssertTrace(indexCent_EqnStart == (int) nodeTmpsCenter.index_EqnStart);
 	/*
 	 * Offsets for the variable unknowns in the solution vector for the electrolyte domain
 	 */
 	
-//	size_t iVar_Voltage_Cent = nodeCent->indexBulkDomainVar0((size_t)Voltage);
-	//size_t iVar_Voltage_Left = iVar_Voltage_Cent;
-//	size_t iVar_Voltage_Right = iVar_Voltage_Cent;
-
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
-         *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
+         *    set the pointer to zero and the index to -1.
+	 *    The solution index is set to the center solution index in that case as well.
          */
-        index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
-
-        if (index_LeftLcNode < 0) {
-            /*
-             *  We assign node object to zero.
-             */
-            nodeLeft = 0;
-            /*
-             *  If there is no left node, we assign the left solution index to the center solution index
-             */
-            indexLeft_EqnStart = indexCent_EqnStart;
-        } else {
-            // get the node structure for the left node
-            nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
-            //index of first equation in the electrolyte of the left node
-            indexLeft_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode];
-	    /*
-	     *
-	     */
-	    //iVar_Voltage_Left = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
-        }
-	//nodeLeft = cellTmps.NodeLeft_;
-	AssertTrace(cTmps.nodeLeft == nodeLeft);
-	AssertTrace(indexLeft_EqnStart == (int) nodeTmpsLeft.index_EqnStart);
+	nodeLeft = cTmps.nodeLeft;
+	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
         /*
          * If we are past the first cell, then we have already done the calculation
          * for this flux at the right cell edge of the previous cell
@@ -606,21 +584,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * ------------------------ Get the indexes for the right node ------------------------------------
          */
-        index_RightLcNode = Index_RightLcNode_LCO[iCell];
-        if (index_RightLcNode < 0) {
-            nodeRight = 0;
-            /*
-             *  If there is no right node, we assign the right solution index to the center solution index
-             */
-            indexRight_EqnStart = indexCent_EqnStart;
-        } else {
-            //NodalVars
-            nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
-            //index of first equation of right node
-            indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
-        }
-	AssertTrace(cTmps.nodeRight == nodeRight);
-	AssertTrace(indexRight_EqnStart == (int) nodeTmpsRight.index_EqnStart);
+	nodeRight = cTmps.nodeRight;
+	indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 
         /*
          * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
