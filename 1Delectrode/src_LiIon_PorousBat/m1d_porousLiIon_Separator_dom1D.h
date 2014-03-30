@@ -401,6 +401,8 @@ protected:
      */
     std::vector<double> concTot_Cell_old_;
 
+    
+
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
 
@@ -515,6 +517,10 @@ protected:
 
     std::vector<double> solnTemp;
 
+    //! Vector of temporary indexing quantities for each cell
+    /*!
+     * These are calculated once at the start of the program
+     */
     std::vector<cellTmps> cellTmpsVect_Cell_;
 
     //! Velocity basis of the transport equations

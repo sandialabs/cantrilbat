@@ -79,13 +79,31 @@ public:
 
 
   // -------------------------------------------------------------------------------------------------------------------
-  // --- DATA
+  // --- DATA 
+  // -------------------------------------------------------------------------------------------------------------------
 
-  // ------------------------------------------------------------------------
-protected:
+  // ------------------- Thermodynamics quantities on the domain -------------------------------------------------------
+
+  //!  Partial molar Heat Capacity  of the electrolyte species located in all of the cells
+  /*!
+   *   Vector of partial molar heat capacity const press (KRSpecies, iCell)
+   *   Units of Joules/(kmol K)
+   */
+  std::vector<doublereal> CpPM_lyte_Cell_;
+
+  //!  Partial molar Enthalpy  of the electrolyte species located in all of the cells
+  /*!
+   *   Vector of partial molar enthalpy  (KRSpecies, iCell)
+   *   Units of Joules/(kmol)
+   */
+  std::vector<doublereal> EnthPM_lyte_Cell_;
+
+
+
 
   // ------------------- Porosity of the Domain -----------------------------------------------------------------------
 
+protected:
   //! Volume Fraction of the electrolyte within each control volume
   /*!
    * (change to CV)
