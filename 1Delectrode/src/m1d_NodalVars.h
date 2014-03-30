@@ -138,7 +138,10 @@ public:
    */
   inline size_t indexBulkDomainVar0(size_t variableTypeS) const;
 
+
   size_t indexBulkDomainEqn(EQ_TYPE equationType, EQ_TYPE_SUBNUM subEqnIndex) const;
+
+  inline size_t indexBulkDomainEqn0(size_t equationTypeS) const;
 
 
   //! Returns the node position
@@ -307,7 +310,11 @@ inline size_t NodalVars::indexBulkDomainVar0(size_t variableTypeS) const
     return Offset_VarTypeVector[variableTypeS];
 }
 //====================================================================================================
-
+inline size_t NodalVars::indexBulkDomainEqn0(size_t equationTypeS) const
+{
+    return Offset_EqnTypeVector[equationTypeS];
+}
+//====================================================================================================
 }
 
 #endif

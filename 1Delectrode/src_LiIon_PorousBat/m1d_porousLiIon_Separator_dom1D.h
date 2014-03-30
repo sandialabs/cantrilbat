@@ -44,6 +44,9 @@ public:
     //!  Offset of variables wrt the start of the nodal solution vector.
     size_t Offset_MoleFraction_Species;
 
+    //!  Offset of Residual for the current conservation equation
+    size_t RO_Current_Conservation;
+
 };
 
 // --------------------------------------------------------------------------------------------------

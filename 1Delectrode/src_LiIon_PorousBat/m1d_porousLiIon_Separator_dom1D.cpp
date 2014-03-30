@@ -328,6 +328,9 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	nodeTmpsCenter.Offset_Voltage              = nodeCent->indexBulkDomainVar0((size_t)Voltage);
 	nodeTmpsCenter.Offset_MoleFraction_Species = nodeCent->indexBulkDomainVar0((size_t)MoleFraction_Species);
 	nodeTmpsCenter.Offset_Velocity_Axial       = nodeCent->indexBulkDomainVar0((size_t)Velocity_Axial);
+
+	nodeTmpsCenter.RO_Current_Conservation     = nodeCent->indexBulkDomainEqn0((size_t)Current_Conservation);
+	
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
@@ -348,6 +351,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsLeft.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
 	    nodeTmpsLeft.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
 	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
+	    nodeTmpsLeft.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
+
         } else {
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
@@ -358,6 +363,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsLeft.Offset_Voltage              = nodeLeft->indexBulkDomainVar0((size_t)Voltage);
 	    nodeTmpsLeft.Offset_MoleFraction_Species = nodeLeft->indexBulkDomainVar0((size_t)MoleFraction_Species);
 	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeLeft->indexBulkDomainVar0((size_t)Velocity_Axial);
+
+	    nodeTmpsLeft.RO_Current_Conservation     = nodeLeft->indexBulkDomainEqn0((size_t)Current_Conservation);
         }
 	cTmps.nvLeft_ = nodeLeft;
 
@@ -376,6 +383,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsRight.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
 	    nodeTmpsRight.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
 	    nodeTmpsRight.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
+	    nodeTmpsRight.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
         } else {
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
@@ -386,6 +394,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsRight.Offset_Voltage              = nodeRight->indexBulkDomainVar0((size_t)Voltage);
 	    nodeTmpsRight.Offset_MoleFraction_Species = nodeRight->indexBulkDomainVar0((size_t)MoleFraction_Species);
 	    nodeTmpsRight.Offset_Velocity_Axial       = nodeRight->indexBulkDomainVar0((size_t)Velocity_Axial);
+
+	    nodeTmpsRight.RO_Current_Conservation     = nodeRight->indexBulkDomainEqn0((size_t)Current_Conservation);
         }
 	cTmps.nvRight_ = nodeRight; 
 
@@ -532,6 +542,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+	AssertTrace(EQ_Current_offset_BD == (int) nodeTmpsRight.RO_Current_Conservation);
 
 	//AssertTrace((int) nodeTmpsCenter.Offset_MoleFraction_Species == iVar_Species_BD);
 
