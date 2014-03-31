@@ -2930,7 +2930,49 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
     }
     return 0.0;
 }
+//=================================================================================================
+// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions.
+/*
+ *  When there is more than a single reaction,
+ *  pick open circuit potential for reaction that is
+ *  closest to equilibrium given the cell voltage since this one
+ *  is the one for which open circuit is most relevant.
+ */
+void Electrode::getOpenCircuitVoltages(int isk, double* ocv) const
+{
+    ReactingSurDomain* rsd = RSD_List_[isk];
+    if (!rsd) {
+        ocv[0] = 0.0;
+        return;
+    }
+    /*
+     * reaction Gibbs free energy divided by number of electrons and Faraday constant
+     */
+    rsd->getDeltaGibbs(DATA_PTR(deltaG_));
 
+    //loop over reactions
+    size_t nr = rsd->rmcVector.size();
+
+    int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    if (metalPhaseRS >= 0) {
+        RxnMolChange* rmc;
+        double nStoichElectrons;
+        for (size_t i = 0; i < nr; i++) {
+            rmc = rsd->rmcVector[i];
+            nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
+            if (nStoichElectrons != 0.0) {
+                ocv[i] = deltaG_[i] / Faraday / nStoichElectrons;
+            } else {
+                ocv[i] = 0.0;
+            }
+        }
+
+    } else {
+        // no metalPhase_
+        ocv[0] = 0.0;
+    }
+    return;
+}
 //======================================================================================================
 // A calculation of the open circuit potential of a surface
 /*!
@@ -3170,49 +3212,7 @@ double Electrode::openCircuitVoltage(int isk)
     return phiRxn;
 }
 
-//=================================================================================================
-// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions.
-/*
- *  When there is more than a single reaction,
- *  pick open circuit potential for reaction that is
- *  closest to equilibrium given the cell voltage since this one
- *  is the one for which open circuit is most relevant.
- */
-void Electrode::getOpenCircuitVoltages(int isk, double* ocv) const
-{
-    ReactingSurDomain* rsd = RSD_List_[isk];
-    if (!rsd) {
-        ocv[0] = 0.0;
-        return;
-    }
-    /*
-     * reaction Gibbs free energy divided by number of electrons and Faraday constant
-     */
-    rsd->getDeltaGibbs(DATA_PTR(deltaG_));
 
-    //loop over reactions
-    double length = rsd->rmcVector.size();
-
-    int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
-    if (metalPhaseRS >= 0) {
-        RxnMolChange* rmc;
-        double nStoichElectrons;
-        for (int i = 0; i < length; i++) {
-            rmc = rsd->rmcVector[i];
-            nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
-            if (nStoichElectrons != 0.0) {
-                ocv[i] = deltaG_[i] / Faraday / nStoichElectrons;
-            } else {
-                ocv[i] = 0.0;
-            }
-        }
-
-    } else {
-        // no metalPhase_
-        ocv[0] = 0.0;
-    }
-    return;
-}
 //====================================================================================================================
 // Returns the overpotential for the current conditions
 /*
@@ -3261,12 +3261,14 @@ double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
         return io;
     }
 }
+
+
+
 //====================================================================================================================
 int Electrode::kKinSpecElectron(int isurf) const
 {
     return kKinSpecElectron_sph_[isurf];
 }
-
 //====================================================================================================================
 int Electrode::metalPhaseIndex() const
 {

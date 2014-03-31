@@ -1526,8 +1526,6 @@ public:
     virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
 
 
-
-
     //! Return the number of extra print tables
 // Deprecate
     virtual int getNumPrintTables() const;
@@ -1669,7 +1667,6 @@ public:
      *   @param isk   reacting surface number
      *   @param irxn  Reaction number
      */
-// Deprecate
     double overpotentialRxn(int isk, int irxn = -1);
 
     //! Return the kinetics species index of the electron for the surface phase, isph
