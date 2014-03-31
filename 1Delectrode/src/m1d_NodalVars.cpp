@@ -513,8 +513,17 @@ NodalVars::GenerateEqnOrder()
       for (int iOffset = 0; iOffset < NumEquations; iOffset++) {
         EQ_TYPE cv = EquationNameList_EqnNum[iOffset].EquationType;
         if (cv == iv) {
-          if (Offset_EqnType[iv] == npos) {
-            Offset_EqnType[iv] = iOffset;
+            if (Offset_EqnType[iv] == npos) {
+              Offset_EqnType[iv] = iOffset;
+            }
+        }
+        if (iv == Species_Eqn_Offset) {
+          if ((cv == Species_Conservation) || 
+	      (cv == MoleFraction_Summation) ||
+              (cv == ChargeNeutrality_Summation)) {
+              if (Offset_EqnType[iv] == npos) {
+                  Offset_EqnType[iv] = iOffset;
+              }
           }
         }
       }
@@ -540,7 +549,7 @@ NodalVars::GenerateEqnOrder()
                     count++;
                 }
             }
-             Number_VarType[iv] = count;
+            Number_VarType[iv] = count;
         }
     }
   }

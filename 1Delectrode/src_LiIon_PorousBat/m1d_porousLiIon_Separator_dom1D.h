@@ -47,6 +47,7 @@ public:
     //!  Offset of Residual for the current conservation equation
     size_t RO_Current_Conservation;
     size_t RO_Electrolyte_Continuity;
+    size_t RO_Species_Eqn_Offset;
 
 };
 

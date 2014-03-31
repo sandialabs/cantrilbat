@@ -331,6 +331,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 
 	nodeTmpsCenter.RO_Current_Conservation     = nodeCent->indexBulkDomainEqn0((size_t) Current_Conservation);
 	nodeTmpsCenter.RO_Electrolyte_Continuity   = nodeCent->indexBulkDomainEqn0((size_t) Continuity);
+	nodeTmpsCenter.RO_Species_Eqn_Offset       = nodeCent->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
 	
         /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -354,7 +355,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
 	    nodeTmpsLeft.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
 	    nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
-
+	    nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset;
         } else {
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
@@ -368,6 +369,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 
 	    nodeTmpsLeft.RO_Current_Conservation     = nodeLeft->indexBulkDomainEqn0((size_t) Current_Conservation);
 	    nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeLeft->indexBulkDomainEqn0((size_t) Continuity);
+	    nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeLeft->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
         }
 	cTmps.nvLeft_ = nodeLeft;
 
@@ -388,6 +390,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsRight.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
 	    nodeTmpsRight.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
 	    nodeTmpsRight.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
+	    nodeTmpsRight.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset; 
         } else {
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
@@ -401,6 +404,7 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 
 	    nodeTmpsRight.RO_Current_Conservation     = nodeRight->indexBulkDomainEqn0((size_t) Current_Conservation);
 	    nodeTmpsRight.RO_Electrolyte_Continuity   = nodeRight->indexBulkDomainEqn0((size_t) Continuity);
+	    nodeTmpsRight.RO_Species_Eqn_Offset       = nodeRight->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
         }
 	cTmps.nvRight_ = nodeRight; 
 
@@ -511,7 +515,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      *  Offsets for the equation unknowns in the residual vector for the electrolyte domain
      */
     //int EQ_Current_offset_BD = BDD_.EquationIndexStart_EqName[Current_Conservation];
-    int EQ_TCont_offset_BD = BDD_.EquationIndexStart_EqName[Continuity];
+    //int EQ_TCont_offset_BD = BDD_.EquationIndexStart_EqName[Continuity];
     int EQ_Species_offset_BD = BDD_.EquationIndexStart_EqName[Species_Conservation];
     int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
     int EQ_ChargeBal_offset_BD = BDD_.EquationIndexStart_EqName[ChargeNeutrality_Summation];
@@ -527,7 +531,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      * it will be cell 0
      */
     if (IOwnLeft) {
-        DiffFluxLeftBound_LastResid_NE[EQ_TCont_offset_BD] = fluxL;
+	cellTmps& cTmps          = cellTmpsVect_Cell_[0];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+        DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = fluxL;
     }
     /*
      *  Boolean flag that specifies whether the left flux should be recalculated.
@@ -548,7 +554,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
-        AssertTrace(EQ_TCont_offset_BD == (int) nodeTmpsRight.RO_Electrolyte_Continuity);
+        AssertTrace(EQ_Species_offset_BD == (int) nodeTmpsCenter.RO_Species_Eqn_Offset);
 
 
 

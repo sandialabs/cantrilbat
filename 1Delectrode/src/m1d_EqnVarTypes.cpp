@@ -119,6 +119,9 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
     case Voltage_Specification:
       return std::string("Voltage_specification");
       break;
+    case Species_Eqn_Offset:
+      return std::string("Species_Eqn_Offset");
+      break;
     case Max_Eqn_Name:
       return std::string("Max_Eqn_Name");
       break;
@@ -412,6 +415,8 @@ EqnToVarEnum(EQ_TYPE eqType)
     return Variable_Type_Any;
   } else if (eqType == Equation_Type_Unspecified) {
     return Variable_Type_Unspecified;
+  } else if (eqType == Species_Eqn_Offset) {
+    return Concentration_Species;
   } else {
     m1d_Error("EqnToVarEnum", "Unknown Conversion");
   }
