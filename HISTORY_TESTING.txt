@@ -26,6 +26,16 @@ single_library = False
 
 
 
+
+=================================================================================
+Date of Analysis = 3/30/14
+   Debug versions of all codes
+
+cantera version (svn number)       =  r2826          3/20/14
+cantrilbat version (git date)      =  e99ff5a28ba    3/30/14
+cantrilbat_test version (git date) =  5f5ecdd922a    3/30/14
+
+Status of tests =  All good tests Passed
 =================================================================================
 Date of Analysis = 3/27/14
    Debug versions of all codes
