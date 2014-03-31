@@ -48,6 +48,9 @@ public:
     size_t RO_Current_Conservation;
     size_t RO_Electrolyte_Continuity;
     size_t RO_Species_Eqn_Offset;
+    size_t RO_MFSum_offset;
+    size_t RO_ChargeBal_offset;
+
 
 };
 

@@ -332,6 +332,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	nodeTmpsCenter.RO_Current_Conservation     = nodeCent->indexBulkDomainEqn0((size_t) Current_Conservation);
 	nodeTmpsCenter.RO_Electrolyte_Continuity   = nodeCent->indexBulkDomainEqn0((size_t) Continuity);
 	nodeTmpsCenter.RO_Species_Eqn_Offset       = nodeCent->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
+ 	nodeTmpsCenter.RO_MFSum_offset             = nodeCent->indexBulkDomainEqn0((size_t) MoleFraction_Summation);
+    	nodeTmpsCenter.RO_ChargeBal_offset         = nodeCent->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
 	
         /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -356,6 +358,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsLeft.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
 	    nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
 	    nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset;
+	    nodeTmpsLeft.RO_MFSum_offset             = nodeTmpsCenter.RO_MFSum_offset;
+	    nodeTmpsLeft.RO_ChargeBal_offset         = nodeTmpsCenter.RO_ChargeBal_offset;
         } else {
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
@@ -370,6 +374,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsLeft.RO_Current_Conservation     = nodeLeft->indexBulkDomainEqn0((size_t) Current_Conservation);
 	    nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeLeft->indexBulkDomainEqn0((size_t) Continuity);
 	    nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeLeft->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
+	    nodeTmpsLeft.RO_MFSum_offset             = nodeCent->indexBulkDomainEqn0((size_t) MoleFraction_Summation);
+	    nodeTmpsLeft.RO_ChargeBal_offset         = nodeCent->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
         }
 	cTmps.nvLeft_ = nodeLeft;
 
@@ -391,6 +397,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsRight.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
 	    nodeTmpsRight.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
 	    nodeTmpsRight.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset; 
+	    nodeTmpsRight.RO_MFSum_offset             = nodeTmpsCenter.RO_MFSum_offset;
+	    nodeTmpsRight.RO_ChargeBal_offset         = nodeTmpsCenter.RO_ChargeBal_offset;
         } else {
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
@@ -405,6 +413,8 @@ porousLiIon_Separator_dom1D:: residSetupTmps()
 	    nodeTmpsRight.RO_Current_Conservation     = nodeRight->indexBulkDomainEqn0((size_t) Current_Conservation);
 	    nodeTmpsRight.RO_Electrolyte_Continuity   = nodeRight->indexBulkDomainEqn0((size_t) Continuity);
 	    nodeTmpsRight.RO_Species_Eqn_Offset       = nodeRight->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
+	    nodeTmpsRight.RO_MFSum_offset             = nodeRight->indexBulkDomainEqn0((size_t) MoleFraction_Summation);
+	    nodeTmpsRight.RO_ChargeBal_offset         = nodeRight->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
         }
 	cTmps.nvRight_ = nodeRight; 
 
@@ -482,8 +492,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double xdelCell; // cell width - right boundary minus the left boundary.
-    //double xCellBoundaryL; //cell boundary left
-    //double xCellBoundaryR; //cell boundary right
 
     //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
     double fluxFright = 0.;
@@ -511,14 +519,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
      */
     size_t indexRight_EqnStart;
-    /*
-     *  Offsets for the equation unknowns in the residual vector for the electrolyte domain
-     */
-    //int EQ_Current_offset_BD = BDD_.EquationIndexStart_EqName[Current_Conservation];
-    //int EQ_TCont_offset_BD = BDD_.EquationIndexStart_EqName[Continuity];
-    int EQ_Species_offset_BD = BDD_.EquationIndexStart_EqName[Species_Conservation];
-    int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
-    int EQ_ChargeBal_offset_BD = BDD_.EquationIndexStart_EqName[ChargeNeutrality_Summation];
 
     incrementCounters(residType);
     Fright_cc_ = 0.0;
@@ -553,10 +553,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
-
-        AssertTrace(EQ_Species_offset_BD == (int) nodeTmpsCenter.RO_Species_Eqn_Offset);
-
-
 
 #ifdef DEBUG_HKM_NOT
         if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
@@ -839,7 +835,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
         for (int k = 0; k < nsp_; k++) {
             if ((k != iECDMC_) && (k != iPF6m_)) {
-                res[indexCent_EqnStart + EQ_Species_offset_BD + k] += (fluxXright[k] - fluxXleft[k]);
+                res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
             }
         }
 
@@ -872,17 +868,17 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * Mole fraction summation equation
          */
-        res[indexCent_EqnStart + EQ_MFSum_offset_BD] = 1.0;
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] = 1.0;
         for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart + EQ_MFSum_offset_BD] -= Xcent_cc_[k];
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] -= Xcent_cc_[k];
         }
 
         /*
          * Electroneutrality equation
          */
-        res[indexCent_EqnStart + EQ_ChargeBal_offset_BD] = 0.0;
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_ChargeBal_offset] = 0.0;
         for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart + EQ_ChargeBal_offset_BD] += Xcent_cc_[k] * spCharge_[k];
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_ChargeBal_offset] += Xcent_cc_[k] * spCharge_[k];
         }
 
         /*
@@ -948,7 +944,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
             for (int k = 0; k < nsp_; k++) {
                 if (k != iECDMC_ && k != iPF6m_) {
-                    res[indexCent_EqnStart + EQ_Species_offset_BD + k] += tmp;
+                    res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += tmp;
                 }
             }
 
@@ -996,9 +992,9 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
                                               int type)
 {
    // Needs major work
-    for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
-        solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
-    }
+   // for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
+   //     solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
+   // }
 
     double tempL = getPointTemperature(nvL, solnElectrolyte_CurrL); 
     double tempR = getPointTemperature(nvR, solnElectrolyte_CurrR); 
