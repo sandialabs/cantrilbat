@@ -1493,21 +1493,20 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                    + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-        int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-        int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-        int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+        int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
 
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
          */
-        double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-        atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = MAX(1.0E-4, 1.0E-1 * vax);
+        double vax = soln[indexCent_EqnStart + iVAR_Vaxial];
+        atolVector[indexCent_EqnStart + iVAR_Vaxial] = MAX(1.0E-4, 1.0E-1 * vax);
 
         /*
          * Set atol values for the species mole fractions time derivatives
@@ -1517,7 +1516,7 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
             val = 1.0E-6;
         }
         for (int k = 0; k < nsp_; k++) {
-            atolVector[indexCent_EqnStart_BD + iVar_Species_BD + k] = val;
+            atolVector[indexCent_EqnStart + iVar_Species + k] = val;
         }
 
         /*
@@ -1525,7 +1524,7 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
          *      arithmetically scaled.-> so this is a characteristic value
          *         1 kcal gmol-1 = 0.05 volts
          */
-        atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05;
+        atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
     }
 }
 //======================================================================================================================
