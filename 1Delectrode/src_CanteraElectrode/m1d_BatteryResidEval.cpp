@@ -527,7 +527,7 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
                                        const Epetra_Vector_Ghosted * const ydot)
 {
     if (doHeatSourceTracking_) {
-	DomainLayout &DL = *DL_ptr_;
+	//DomainLayout &DL = *DL_ptr_;
 	/*
 	//
 	//   Loop over the Volume Domains

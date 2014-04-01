@@ -117,6 +117,16 @@ protected:
    */
   std::vector<double> porosity_Cell_old_;
 
+
+
+  // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
+  //                         ( these are intermediate values and all have the suffix _Curr_ )
+  //                         ( these all refer to the new time value)
+
+  //! Temperature at the current point (Kelvin)
+  double temp_Curr_;
+
+
   
 
 };

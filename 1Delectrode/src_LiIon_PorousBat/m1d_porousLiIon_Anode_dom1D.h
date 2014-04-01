@@ -635,7 +635,7 @@ protected:
     Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
 
     //! Local value of the temperature
-    double temp_Curr_;
+    //double temp_Curr_;
 
     //! Local value of the pressure
     double pres_Curr_;

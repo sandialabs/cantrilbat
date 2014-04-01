@@ -51,7 +51,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     t_final_(0.0),
     t_init_(0.0),
     Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-    mfElectrolyte_Thermo_Curr_(0), temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
+    mfElectrolyte_Thermo_Curr_(0), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
     phiElectrode_Curr_(0.0), concTot_Curr_(0.0),
     porosity_Curr_(0.0), conductivityElectrode_(1.0E6), gradT_trCurr_(0.0),
     gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
@@ -119,7 +119,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
     t_final_(0.0),  t_init_(0.0),
     Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-    mfElectrolyte_Thermo_Curr_(0), temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
+    mfElectrolyte_Thermo_Curr_(0), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
     phiElectrode_Curr_(0.0), concTot_Curr_(0.0), porosity_Curr_(0.0), conductivityElectrode_(1.0E6), gradT_trCurr_(0.0),
     gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
     icurrElectrode_trCurr_(0.0),
@@ -193,7 +193,6 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     spCharge_ = r.spCharge_;
     mfElectrolyte_Soln_Curr_ = r.mfElectrolyte_Soln_Curr_;
     mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
-    temp_Curr_ = r.temp_Curr_;
     pres_Curr_ = r.pres_Curr_;
     phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
     phiElectrode_Curr_ = r.phiElectrode_Curr_;
