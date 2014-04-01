@@ -196,17 +196,15 @@ public:
               const ResidEval_Type_Enum residType = Base_ResidEval,
               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
-    //!  Setup shop at a particular point in the domain, calculating intermediate quantites
+    //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
     /*!
      *  All member data with the suffix, _Curr_, are updated by this function.
      *
      * @param solnElectrolyte_Curr  Current value of the solution vector
-     * @param type                  Type of call
-     *                              0 - at the current cell center
      */
     void
-    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr, int type);
+    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
     //!  Setup shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects

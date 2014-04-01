@@ -548,7 +548,7 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
         int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] +
                                     nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
@@ -864,7 +864,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          * Advance the electrode forward and compute the new porosity
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
 
         /*
          *  Calculate the electrode reactions.  Also update porosity.
@@ -999,7 +999,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              */
             AssertTrace(iCell == NumLcCells-1);
             Fright_cc_ = 0.0;
-            SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+            SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
             //fluxFright = Fright_cc_ * concTot_Curr_;
             fluxFright = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
@@ -1100,7 +1100,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
 
         /*
          *    Source terms for the species production rate of Li+.
@@ -1398,7 +1398,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          * Setup the thermo
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
 
         /*
          *  Calculate the electrode reactions.  Also update porosity.
@@ -1549,11 +1549,9 @@ porousLiIon_Anode_dom1D::calcElectrode()
  *                              0 - at the current cell center
  */
 void
-porousLiIon_Anode_dom1D::SetupThermoShop1(const doublereal* const solnElectrolyte_Curr, int type)
+porousLiIon_Anode_dom1D::SetupThermoShop1(const doublereal* const solnElectrolyte_Curr)
 {
-    if (type == 0) {
-        porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-    }
+    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(solnElectrolyte_Curr);
     updateElectrode();
 }
