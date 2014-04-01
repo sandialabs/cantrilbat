@@ -1245,9 +1245,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-		    // HKM TODO Will need to find the correct index into solution vector. This code still assumes 
-		    //          variables are contiguous within solution vector for each bulk domain.
-                    v = (*soln_GlAll_ptr)[istart + iBlock * 5 + n];
+		    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+		    if (offset == npos) {
+			throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+		    }
+                    v = (*soln_GlAll_ptr)[istart + offset];
                     ss.print0(" %-10.4E ", v);
                 }
             }
@@ -1277,7 +1279,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + nn * 5 + n];
+		    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+		    if (offset == npos) {
+			throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+		    }
+                    v = (*soln_GlAll_ptr)[istart + offset];
                     ss.print0(" %-10.4E ", v);
                 }
                 ss.print0("\n");
