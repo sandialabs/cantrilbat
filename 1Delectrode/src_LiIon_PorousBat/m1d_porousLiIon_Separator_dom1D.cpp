@@ -264,10 +264,9 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] +
-                                    nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
 
-        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]), 0);
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
@@ -610,12 +609,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          * Calculate the distance between the left and center node points
          */
 	xdelL = cTmps.xdelL_;
-	//xCellBoundaryL = cTmps.xCellBoundaryL_;
         /*
          * Calculate the distance between the right and center node points
          */
 	xdelR = cTmps.xdelR_;
-	//xCellBoundaryR = cTmps.xCellBoundaryR_;
         /*
          * Calculate the cell width
          */
@@ -814,7 +811,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         double residBefore = 0.0;
         if (IOwnLeft && iCell == 0) {
             if (residType == Base_ShowSolution) {
-                residBefore =  res[indexCent_EqnStart_BD + nodeTmpsCent.RO_Electrolyte_Continuity];
+                residBefore =  res[indexCent_EqnStart + nodeTmpsCent.RO_Electrolyte_Continuity];
                 double tmp3 = 0.0;
                 double sum5 = residBefore + fluxFright - tmp3;
                 printf("ResidSep Cell = %d, ResBefore = -fluxleft = %10.3e, FluxRight = %10.3e, Prod = %10.3e total = %10.3e \n", iCell,
@@ -953,7 +950,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              *         note: the current problem will have this term equally zero always.
              *               However, we put it in here for the next problem.
              */
-            //  res[indexCent_EqnStart_BD + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
+            //  res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
             /*
              *   .................... Go back to setting up shop at the current time
              */
@@ -1244,12 +1241,13 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("\n%s    %-10.4E ", ind, x);
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + ibulk + iBlock * 5 + n];
+		    // HKM TODO Will need to find the correct index into solution vector. This code still assumes 
+		    //          variables are contiguous within solution vector for each bulk domain.
+                    v = (*soln_GlAll_ptr)[istart + iBlock * 5 + n];
                     ss.print0(" %-10.4E ", v);
                 }
             }
@@ -1275,12 +1273,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("%s    %-10.4E ", ind, x);
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + ibulk + nn * 5 + n];
+                    v = (*soln_GlAll_ptr)[istart + nn * 5 + n];
                     ss.print0(" %-10.4E ", v);
                 }
                 ss.print0("\n");
@@ -1363,20 +1360,18 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
          *   Get the pointer to the NodalVars object for the center node
          */
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                    + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-        int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-        int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-        int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
 
-        soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = 0.0;
+        soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
 
         /*
          * Get initial mole fractions from PSinput
@@ -1394,13 +1389,11 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
             throw CanteraError("confused", "confused");
         }
 
-        soln[indexCent_EqnStart_BD + iVar_Species_BD + iECDMC_] = PSinput.electrolyteMoleFracs_[igECDMC];
-        soln[indexCent_EqnStart_BD + iVar_Species_BD + iLip_] = PSinput.electrolyteMoleFracs_[igLip];
-        soln[indexCent_EqnStart_BD + iVar_Species_BD + iPF6m_] = PSinput.electrolyteMoleFracs_[igPF6m];
+        soln[indexCent_EqnStart + iVar_Species + iECDMC_] = PSinput.electrolyteMoleFracs_[igECDMC];
+        soln[indexCent_EqnStart + iVar_Species + iLip_]   = PSinput.electrolyteMoleFracs_[igLip];
+        soln[indexCent_EqnStart + iVar_Species + iPF6m_]  = PSinput.electrolyteMoleFracs_[igPF6m];
 
-
-        soln[indexCent_EqnStart_BD + iVar_Voltage_BD] = -0.07;
-
+        soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
     }
 }
 //=====================================================================================================================
@@ -1416,36 +1409,30 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
 {
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
-
         /*
          *    Get the index for the center node
          */
         int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-
         /*
          *   Get the pointer to the NodalVars object for the center node
          */
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                    + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-        int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-        int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-        int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
-
+	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
          */
-        double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-        atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = MAX(1.0E-4, 1.0E-1 * vax);
-
+        double vax = soln[indexCent_EqnStart + iVAR_Vaxial];
+        atolVector[indexCent_EqnStart + iVAR_Vaxial] = MAX(1.0E-4, 1.0E-1 * vax);
         /*
          * Set atol values for the species mole fractions
          */
@@ -1454,15 +1441,14 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
             val = 1.0E-12;
         }
         for (int k = 0; k < nsp_; k++) {
-            atolVector[indexCent_EqnStart_BD + iVar_Species_BD + k] = val;
+            atolVector[indexCent_EqnStart + iVar_Species + k] = val;
         }
-
         /*
          * Set the atol value for the electrolyte voltage
          *      arithmetically scaled.-> so this is a characteristic value
          *         1 kcal gmol-1 = 0.05 volts
          */
-        atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05;
+        atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
     }
 }
 //=====================================================================================================================
@@ -1489,7 +1475,6 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
          *   Get the pointer to the NodalVars object for the center node
          */
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
         /*
          *  Index of the first equation in the bulk domain of center node
          */
@@ -1500,7 +1485,6 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
         int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
         int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
 	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
-
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
@@ -1536,36 +1520,29 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relc
 {
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
-
         /*
          *    Get the index for the center node
          */
         int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-
         /*
          *   Get the pointer to the NodalVars object for the center node
          */
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                    + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-        int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-        int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-        int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
-
+	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
          */
-        //double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-        atolDeltaDamping[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = 1.0E-4 * relcoeff;
-
+        atolDeltaDamping[indexCent_EqnStart + iVAR_Vaxial] = 1.0E-4 * relcoeff;
         /*
          * Set atol values for the species mole fractions
          */
@@ -1574,15 +1551,14 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relc
             val = 1.0E-4;
         }
         for (int k = 0; k < nsp_; k++) {
-            atolDeltaDamping[indexCent_EqnStart_BD + iVar_Species_BD + k] = val * relcoeff;
+            atolDeltaDamping[indexCent_EqnStart + iVar_Species + k] = val * relcoeff;
         }
-
         /*
          * Set the atol value for the electrolyte voltage
          *      arithmetically scaled.-> so this is a characteristic value
          *         1 kcal gmol-1 = 0.05 volts
          */
-        atolDeltaDamping[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05 * relcoeff;
+        atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
     }
 }
 //======================================================================================================================
@@ -1595,36 +1571,29 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, dou
 {
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
-
         /*
          *    Get the index for the center node
          */
         int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-
         /*
          *   Get the pointer to the NodalVars object for the center node
          */
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                    + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-        int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-        int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-        int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
-
+	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
          */
-        //double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-        atolDeltaDamping[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = 1.0E-4 * relcoeff;
-
+        atolDeltaDamping[indexCent_EqnStart + iVAR_Vaxial] = 1.0E-4 * relcoeff;
         /*
          * Set atol values for the species mole fractions
          */
@@ -1633,15 +1602,14 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, dou
             val = 1.0E-1;
         }
         for (int k = 0; k < nsp_; k++) {
-            atolDeltaDamping[indexCent_EqnStart_BD + iVar_Species_BD + k] = val * relcoeff;
+            atolDeltaDamping[indexCent_EqnStart + iVar_Species + k] = val * relcoeff;
         }
-
         /*
          * Set the atol value for the electrolyte voltage
          *      arithmetically scaled.-> so this is a characteristic value
          *         1 kcal gmol-1 = 0.05 volts
          */
-        atolDeltaDamping[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05 * relcoeff;
+        atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
     }
 }
 //=====================================================================================================================
