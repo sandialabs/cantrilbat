@@ -1585,9 +1585,9 @@ public:
      *  closest to equilibrium given the cell voltage, since this one
      *  is the one for which open circuit is most relevant.
      *
-     * @param isk  Reacting surface domain id
-     *  @param iReaction   Explicit index of the reaction. If -1, then it attempts
-     *                     to pick the reaction that best represents the open circuit potential.
+     *   @param isk         Reacting surface domain id
+     *   @param iReaction   Explicit index of the reaction. If -1, then it attempts
+     *                      to pick the reaction that best represents the open circuit potential.
      */
     virtual double openCircuitVoltageRxn(int isk, int iReaction = -1) const;
 

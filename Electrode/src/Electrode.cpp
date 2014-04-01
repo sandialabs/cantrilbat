@@ -2892,7 +2892,7 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
     rsd->getDeltaGibbs(DATA_PTR(deltaG_));
 
     int nR = rsd->nReactions();
-    double PhiRxn = 0.0; // store open circuit voltage here
+    double ERxn = 0.0; // store open circuit voltage here
 
     int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
     if (metalPhaseRS >= 0) {
@@ -2903,10 +2903,10 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
          */
         double nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons != 0.0) {
-            PhiRxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
+            ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
         }
         if (iReaction >= 0) {
-            return PhiRxn;
+            return ERxn;
         }
         /*
          *  Compute open circuit potential from other reactions.
@@ -2919,14 +2919,14 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
                 rmc = rsd->rmcVector[i];
                 nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
                 if (nStoichElectrons != 0.0) {
-                    if (fabs(deltaVoltage_ - PhiRxn) > fabs(deltaVoltage_ - deltaG_[i] / Faraday / nStoichElectrons)) {
+                    if (fabs(deltaVoltage_ - ERxn) > fabs(deltaVoltage_ - deltaG_[i] / Faraday / nStoichElectrons)) {
                         rxnIndex = i;
-                        PhiRxn = deltaG_[i] / Faraday / nStoichElectrons;
+                        ERxn = deltaG_[i] / Faraday / nStoichElectrons;
                     }
                 }
             }
         }
-        return PhiRxn;
+        return ERxn;
     }
     return 0.0;
 }
@@ -2938,19 +2938,19 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
  *  closest to equilibrium given the cell voltage since this one
  *  is the one for which open circuit is most relevant.
  */
-void Electrode::getOpenCircuitVoltages(int isk, double* ocv) const
+void Electrode::getOpenCircuitVoltages(int isk, double* Erxn) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
-        ocv[0] = 0.0;
+        Erxn[0] = 0.0;
         return;
     }
     /*
-     * reaction Gibbs free energy divided by number of electrons and Faraday constant
+     *  get the reaction Gibbs free energy for all reactions defined on the reacting surface 
      */
     rsd->getDeltaGibbs(DATA_PTR(deltaG_));
 
-    //loop over reactions
+    //find number of reactions
     size_t nr = rsd->rmcVector.size();
 
     int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
@@ -2959,17 +2959,22 @@ void Electrode::getOpenCircuitVoltages(int isk, double* ocv) const
         double nStoichElectrons;
         for (size_t i = 0; i < nr; i++) {
             rmc = rsd->rmcVector[i];
+            // 
+            //  nStoichElectrons are the net number of product electrons
+            //
             nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
             if (nStoichElectrons != 0.0) {
-                ocv[i] = deltaG_[i] / Faraday / nStoichElectrons;
+                Erxn[i] = deltaG_[i] / Faraday / nStoichElectrons;
             } else {
-                ocv[i] = 0.0;
+                Erxn[i] = 0.0;
             }
         }
 
     } else {
         // no metalPhase_
-        ocv[0] = 0.0;
+        for (size_t i = 0; i < nr; i++) {
+            Erxn[0] = 0.0;
+        }
     }
     return;
 }
@@ -3006,7 +3011,7 @@ double Electrode::openCircuitVoltage(int isk)
         return 0.0;
     }
     int nP = rsd->nPhases();
-    double phiRxn = 0.0; // store open circuit voltage here
+    double ERxn = 0.0; // store open circuit voltage here
 
     vector<int> phaseExistsInit(nP, 1);
     vector<int> phaseStabInit(nP, 1);
@@ -3039,9 +3044,9 @@ double Electrode::openCircuitVoltage(int isk)
         nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons != 0.0) {
             nT++;
-            phiRxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
-            phiMax = std::max(phiMax, phiRxn);
-            phiMin = std::min(phiMin, phiRxn);
+            ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
+            phiMax = std::max(phiMax, ERxn);
+            phiMin = std::min(phiMin, ERxn);
 
             for (int jph = 0; jph < nP; jph++) {
                 if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
@@ -3052,13 +3057,13 @@ double Electrode::openCircuitVoltage(int isk)
             }
 
         } else {
-            phiRxn = 0.0;
+            ERxn = 0.0;
             reactionTurnedOn[i] = 0;
         }
 
         if (printLvl_ > printDebug) {
             string rstring = rsd->reactionString(i);
-            printf("%d %100.100s %g  \n", i, rstring.c_str(), phiRxn);
+            printf("%d %100.100s %g  \n", i, rstring.c_str(), ERxn);
         }
         if (reactionTurnedOn[i]) {
             thereIsOneTurnedOn = true;
@@ -3074,7 +3079,7 @@ double Electrode::openCircuitVoltage(int isk)
      *  We just calculated it above. Therefore, we can do a quick return.
      */
     if (nT <= 1) {
-        return phiRxn;
+        return ERxn;
     }
     double phiMetalInit = phaseVoltages_[metalPhase_];
 
@@ -3083,7 +3088,7 @@ double Electrode::openCircuitVoltage(int isk)
     vector<int> phaseExists(phaseExistsInit);
     vector<int> phaseStab(phaseStabInit);
 
-    double phiRxnBest = 1.0E300;
+    double ERxnBest = 1.0E300;
     for (int i = 0; i < nR; i++) {
         bool electReact = false;
         bool electProd = false;
@@ -3103,13 +3108,13 @@ double Electrode::openCircuitVoltage(int isk)
         }
         if (nStoichElectrons != 0.0) {
 
-            phiRxn = deltaG_[i] / Faraday / nStoichElectrons;
-            if (fabs(deltaVoltage_ - phiRxnBest) > fabs(deltaVoltage_ - phiRxn)) {
-                phiRxnBest = phiRxn;
+            ERxn = deltaG_[i] / Faraday / nStoichElectrons;
+            if (fabs(deltaVoltage_ - ERxnBest) > fabs(deltaVoltage_ - ERxn)) {
+                ERxnBest = ERxn;
             }
             if (!thereIsOneTurnedOn) {
                 if (electProd) {
-                    if (phiRxn > deltaVoltage_) {
+                    if (ERxn > deltaVoltage_) {
                         for (int jph = 0; jph < nP; jph++) {
                             if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
                                 phaseExists[jph] = 1;
@@ -3119,7 +3124,7 @@ double Electrode::openCircuitVoltage(int isk)
                     }
                 }
                 if (electReact) {
-                    if (phiRxn <= deltaVoltage_) {
+                    if (ERxn <= deltaVoltage_) {
                         for (int jph = 0; jph < nP; jph++) {
                             if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
                                 phaseExists[jph] = 1;
@@ -3165,9 +3170,9 @@ double Electrode::openCircuitVoltage(int isk)
 
     RootFind rf(&ep);
 
-    phiRxn = openCircuitVoltageSSRxn(isk);
-    phiRxn = phiRxnBest;
-    double phiMetalRxn = phiRxn + phaseVoltages_[solnPhase_];
+    ERxn = openCircuitVoltageSSRxn(isk);
+    ERxn = ERxnBest;
+    double phiMetalRxn = ERxn + phaseVoltages_[solnPhase_];
     if (printLvl_ > printDebug) {
         rf.setPrintLvl(15);
     }
@@ -3193,7 +3198,7 @@ double Electrode::openCircuitVoltage(int isk)
         exit(-1);
     }
     phaseVoltages_[metalPhase_] = phiMetalInit;
-    phiRxn = phiMetalRxn - phaseVoltages_[solnPhase_];
+    ERxn = phiMetalRxn - phaseVoltages_[solnPhase_];
 
     for (int iph = 0; iph < rmc->m_nPhases; iph++) {
         rsd->setPhaseExistence(iph, phaseExistsInit[iph]);
@@ -3209,7 +3214,7 @@ double Electrode::openCircuitVoltage(int isk)
 
     oIts++;
 
-    return phiRxn;
+    return ERxn;
 }
 
 
