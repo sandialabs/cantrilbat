@@ -468,7 +468,7 @@ protected:
     // double pres_Curr_;
 
     //!  Current value of the voltage
-    double phiElectrolyte_Curr_;
+    //double phiElectrolyte_Curr_;
 
     //!  Total concentration
     double concTot_Curr_;

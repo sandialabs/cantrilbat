@@ -129,6 +129,9 @@ protected:
   //! Local value of the pressure (Pascal)
   double pres_Curr_;
 
+  //!  Current value of the voltage
+  double phiElectrolyte_Curr_;
+
 
   
 

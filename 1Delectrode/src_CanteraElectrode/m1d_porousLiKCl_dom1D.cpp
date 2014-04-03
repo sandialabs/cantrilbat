@@ -53,7 +53,6 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
   mfElectrolyte_Soln_Cell_old_(0,0),
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
-  phiElectrolyte_Curr_(0.0),
   concTot_Curr_(0.0),
   concTotDot_Curr_(0.0),
   porosity_Curr_(0.0),
@@ -83,7 +82,6 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(const porousLiKCl_dom1D &r) :
   mfElectrolyte_Soln_Cell_old_(0,0),
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
-  phiElectrolyte_Curr_(0.0),
   concTot_Curr_(0.0),
   concTotDot_Curr_(0.0),
   porosity_Curr_(0.0),
@@ -129,7 +127,6 @@ porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
   mfElectrolyte_Soln_Cell_old_ = r.mfElectrolyte_Soln_Cell_old_;
   mfElectrolyte_SolnDot_Curr_ = r.mfElectrolyte_SolnDot_Curr_;
   pmVolElectrolyte_Curr_ = r.pmVolElectrolyte_Curr_;
-  phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
   concTot_Curr_ = r.concTot_Curr_;
   concTotDot_Curr_ = r.concTotDot_Curr_;
   porosity_Curr_ = r.porosity_Curr_;
@@ -920,9 +917,6 @@ porousLiKCl_dom1D::getVoltages(const double * const solnElectrolyte_Curr, const 
 {
   int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
-
-  //int indexVE = SDD_.VariableIndexStart_VarName[Voltage];
-  //phiAnode_ = solnSolid[indexVE];
 }
 //=====================================================================================================================
 void
