@@ -24,7 +24,8 @@ namespace m1d
     BulkDomain1D(bdd),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
-    temp_Curr_(TemperatureReference_)
+    temp_Curr_(TemperatureReference_),
+    pres_Curr_(PressureReference_)
   {
 
   }
@@ -33,7 +34,8 @@ namespace m1d
     BulkDomain1D(r.BDD_),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
-   temp_Curr_(TemperatureReference_)
+    temp_Curr_(TemperatureReference_),
+    pres_Curr_(PressureReference_)
   {
     porousFlow_dom1D::operator=(r);
   }
@@ -55,7 +57,7 @@ namespace m1d
     porosity_Cell_ = r.porosity_Cell_;
     porosity_Cell_old_ = r.porosity_Cell_old_;
     temp_Curr_ = r.temp_Curr_;
-
+    pres_Curr_ = r.pres_Curr_;
 
     return *this;
   }

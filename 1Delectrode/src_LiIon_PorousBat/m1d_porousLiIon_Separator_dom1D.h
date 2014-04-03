@@ -465,7 +465,7 @@ protected:
     //double temp_Curr_;
 
     //! Local value of the pressure
-    double pres_Curr_;
+    // double pres_Curr_;
 
     //!  Current value of the voltage
     double phiElectrolyte_Curr_;
