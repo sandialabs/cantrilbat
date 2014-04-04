@@ -904,6 +904,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         cIndex_cc_ = iCell;
         Electrode* Electrode_ptr = Electrode_Cell_[iCell];
 
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+
 #ifdef DEBUG_RESID
         if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
             if (iCell == NumLcCells - 1) {

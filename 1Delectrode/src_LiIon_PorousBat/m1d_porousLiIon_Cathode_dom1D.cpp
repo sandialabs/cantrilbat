@@ -840,7 +840,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
      */
-    int indexLeft_EqnStart_BD;
+    int indexLeft_EqnStart;
     /*
      * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
      */
@@ -912,6 +912,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         cIndex_cc_ = iCell;
         Electrode* Electrode_ptr = Electrode_Cell_[iCell];
 
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
 #ifdef DEBUG_RESID
         if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
             if (iCell == NumLcCells - 1) {
@@ -947,15 +952,12 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          *    There may not be a left node if we are on the left boundary. In that case
          *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
          */
+	nodeLeft = cTmps.nvLeft_;
+	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+     /*
         index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
         if (index_LeftLcNode < 0) {
-            /*
-             *  We assign node object to zero.
-             */
             nodeLeft = 0;
-            /*
-             *  If there is no left node, we assign the left solution index to the center solution index
-             */
             indexLeft_EqnStart_BD = indexCent_EqnStart_BD;
         } else {
             // get the node structure for the left node
@@ -964,6 +966,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             indexLeft_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode]
                                     + nodeLeft->OffsetIndex_BulkDomainEqnStart_BDN[0];
         }
+   */
         /*
          * If we are past the first cell, then we have already done the calculation
          * for this flux at the right cell edge of the previous cell
@@ -1046,12 +1049,12 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              * The left cell boundary velocity is stored at the previous (left)
              * cell index as per our conventions.
              */
-            Fleft_cc_ = soln[indexLeft_EqnStart_BD + iVAR_Vaxial_BD];
+            Fleft_cc_ = soln[indexLeft_EqnStart + iVAR_Vaxial_BD];
             for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = soln[indexLeft_EqnStart_BD + iVar_Species_BD + k];
+                Xleft_cc_[k] = soln[indexLeft_EqnStart + iVar_Species_BD + k];
             }
-            Vleft_cc_ = soln[indexLeft_EqnStart_BD + iVar_Voltage_BD];
-            VElectrodeLeft_cc_ = soln[indexLeft_EqnStart_BD + iVar_Voltage_BD + 1];
+            Vleft_cc_ = soln[indexLeft_EqnStart + iVar_Voltage_BD];
+            VElectrodeLeft_cc_ = soln[indexLeft_EqnStart + iVar_Voltage_BD + 1];
         } else {
             /*
              * We are here when we are at the left most part of the boundary. Then, there is no
@@ -1114,7 +1117,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                 /*
                  *  Establish the environment at the left cell boundary
                  */
-                SetupThermoShop2(&(soln[indexLeft_EqnStart_BD]), &(soln[indexCent_EqnStart_BD]), 0);
+                SetupThermoShop2(&(soln[indexLeft_EqnStart]), &(soln[indexCent_EqnStart_BD]), 0);
 
                 SetupTranShop(xdelL, 0);
 
