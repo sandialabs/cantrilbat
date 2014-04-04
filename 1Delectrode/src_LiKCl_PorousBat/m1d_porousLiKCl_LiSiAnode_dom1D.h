@@ -641,20 +641,8 @@ protected:
   //! Partial molar volume of the electrolyte species
   std::vector<double> pmVolElectrolyte_Curr_;
 
-  //! Local value of the temperature
-  // double temp_Curr_;
-
-  //! Local value of the pressure
-  // double pres_Curr_;
-
-  //!  Current value of the electrolyte voltage
-  // double phiElectrolyte_Curr_;
-
   //!  Current value of the voltage in the anode
   double phiElectrode_Curr_;
-
-  //!  Total concentration
-  double concTot_Curr_;
 
   //! Time derivative of the total concentration
   double concTotDot_Curr_;

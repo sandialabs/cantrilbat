@@ -53,7 +53,6 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
   mfElectrolyte_Soln_Cell_old_(0,0),
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
-  concTot_Curr_(0.0),
   concTotDot_Curr_(0.0),
       gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
       icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), solnTemp(0), ivb_(VB_MOLEAVG)
@@ -81,7 +80,6 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(const porousLiKCl_dom1D &r) :
   mfElectrolyte_Soln_Cell_old_(0,0),
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
-  concTot_Curr_(0.0),
   concTotDot_Curr_(0.0),
       gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
       icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), solnTemp(0), ivb_(VB_MOLEAVG)
@@ -125,7 +123,6 @@ porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
   mfElectrolyte_Soln_Cell_old_ = r.mfElectrolyte_Soln_Cell_old_;
   mfElectrolyte_SolnDot_Curr_ = r.mfElectrolyte_SolnDot_Curr_;
   pmVolElectrolyte_Curr_ = r.pmVolElectrolyte_Curr_;
-  concTot_Curr_ = r.concTot_Curr_;
   concTotDot_Curr_ = r.concTotDot_Curr_;
   gradT_trCurr_ = r.gradT_trCurr_;
   gradV_trCurr_ = r.gradV_trCurr_;

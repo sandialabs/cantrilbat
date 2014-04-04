@@ -34,7 +34,6 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& 
     concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
-    concTot_Curr_(0.0), 
     gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
     icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0),
     iECDMC_(-1),
@@ -74,7 +73,6 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
     concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
-    concTot_Curr_(0.0), 
     gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
     icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0),
     iECDMC_(-1),
@@ -121,7 +119,6 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     mfElectrolyte_Soln_Curr_              = r.mfElectrolyte_Soln_Curr_;
     mfElectrolyte_Thermo_Curr_            = r.mfElectrolyte_Thermo_Curr_;
     mfElectrolyte_Soln_Cell_old_          = r.mfElectrolyte_Soln_Cell_old_;
-    concTot_Curr_                         = r.concTot_Curr_;
     gradT_trCurr_                         = r.gradT_trCurr_;
     gradV_trCurr_                         = r.gradV_trCurr_;
     gradX_trCurr_                         = r.gradX_trCurr_;

@@ -55,7 +55,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BulkDomainDescription& bdd)
     t_init_(0.0),
     Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
     mfElectrolyte_Thermo_Curr_(0), 
-    phiElectrode_Curr_(0.0), concTot_Curr_(0.0), conductivityElectrode_(1.0E2),
+    phiElectrode_Curr_(0.0), conductivityElectrode_(1.0E2),
     gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
     jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0),
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
@@ -124,7 +124,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_d
     t_init_(0.0),
     Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
     mfElectrolyte_Thermo_Curr_(0),
-    phiElectrode_Curr_(0.0), concTot_Curr_(0.0), conductivityElectrode_(1.0E2),
+    phiElectrode_Curr_(0.0), conductivityElectrode_(1.0E2),
     gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
     jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0),
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
@@ -169,7 +169,6 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
     surfaceArea_Cell_ = r.surfaceArea_Cell_;
     icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
     xdelCell_Cell_ = r.xdelCell_Cell_;
-    concTot_Cell_ = r.concTot_Cell_;
     concTot_Cell_old_ = r.concTot_Cell_old_;
     electrodeCrossSectionalArea_ = r.electrodeCrossSectionalArea_;
 

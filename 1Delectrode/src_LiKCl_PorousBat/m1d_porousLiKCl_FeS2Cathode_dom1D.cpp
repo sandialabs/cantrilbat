@@ -74,7 +74,6 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
   phiElectrode_Curr_(0.0), 
-  concTot_Curr_(0.0),
   concTotDot_Curr_(0.0),
   conductivityElectrode_(1.0E2),
   gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
@@ -133,7 +132,6 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
   phiElectrode_Curr_(0.0),
-  concTot_Curr_(0.0),
   concTotDot_Curr_(0.0),
   conductivityElectrode_(1.0E2),
   gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
@@ -176,7 +174,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   surfaceArea_Cell_ = r.surfaceArea_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
   xdelCell_Cell_ = r.xdelCell_Cell_;
-  concTot_Cell_ = r.concTot_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
   electrodeCrossSectionalArea_ = r.electrodeCrossSectionalArea_;
 

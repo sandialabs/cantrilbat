@@ -383,7 +383,7 @@ protected:
   //double phiElectrolyte_Curr_;
 
   //!  Total concentration
-  double concTot_Curr_;
+  // double concTot_Curr_;
 
   //! Time derivative of the total concentration
   double concTotDot_Curr_;

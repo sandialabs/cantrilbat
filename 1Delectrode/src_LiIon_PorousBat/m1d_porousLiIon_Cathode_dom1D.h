@@ -612,23 +612,8 @@ protected:
 
     Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
 
-    //! Local value of the temperature
-    //double temp_Curr_;
-
-    //! Local value of the pressure
-    // double pres_Curr_;
-
-    //!  Current value of the electrolyte voltage
-    // double phiElectrolyte_Curr_;
-
     //! Current value of the cathode voltage
     double phiElectrode_Curr_;
-
-    //!  Total concentration
-    double concTot_Curr_;
-
-    //! Current porosity
-    // double porosity_Curr_;
 
     //! Electrical conductivity of the electrode
     /*!
