@@ -22,6 +22,7 @@
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include "m1d_DomainDescription.h"
 #include "m1d_BulkDomain1D.h"
+#include "m1d_porousFlow_dom1D.h"
 #include "Electrode.h"
 
 //=====================================================================================================================
@@ -42,7 +43,7 @@ class LocalNodeIndices;
  * There is a 1 to 1 mapping between the global control volume indexing
  * and the Global node number indexing that is given by a single offset.
  */
-class porousLiKCl_FeS2Cathode_dom1D : public BulkDomain1D
+class porousLiKCl_FeS2Cathode_dom1D : public porousFlow_dom1D
 {
 
 public:
