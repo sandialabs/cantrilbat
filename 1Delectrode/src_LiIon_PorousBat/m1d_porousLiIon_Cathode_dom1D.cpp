@@ -795,6 +795,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                                      const  ResidEval_Type_Enum residType,
                                      const Solve_Type_Enum solveType)
 {
+    static int tmpsSetup = 0;
+    if (!tmpsSetup) {
+	residSetupTmps();
+	tmpsSetup = 1;
+    }
     residType_Curr_ = residType;
     int index_RightLcNode;
     int index_LeftLcNode;
