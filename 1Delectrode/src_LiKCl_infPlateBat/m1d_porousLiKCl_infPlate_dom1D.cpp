@@ -22,6 +22,8 @@
 #include "stdlib.h"
 
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_porousFlow_dom1D.h"
+
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
@@ -32,7 +34,9 @@ namespace m1d
 
 //==============================================================================
 porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BulkDomainDescription & bdd) :
-  BulkDomain1D(bdd), temp_Curr_(TemperatureReference_), ivb_(VB_MOLEAVG)
+  porousFlow_dom1D(bdd), 
+  temp_Curr_(TemperatureReference_), 
+  ivb_(VB_MOLEAVG)
 {
 
   BDT_porousLiKCl *fa = dynamic_cast<BDT_porousLiKCl *> (&bdd);
@@ -47,7 +51,9 @@ porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BulkDomainDescription & b
 }
 //==============================================================================
 porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(const porousLiKCl_infPlate_dom1D &r) :
-  BulkDomain1D(r.BDD_), temp_Curr_(TemperatureReference_), ivb_(VB_MOLEAVG)
+  porousFlow_dom1D(r.BDD_), 
+  temp_Curr_(TemperatureReference_), 
+  ivb_(VB_MOLEAVG)
 {
   porousLiKCl_infPlate_dom1D::operator=(r);
 }
@@ -63,7 +69,7 @@ porousLiKCl_infPlate_dom1D::operator=(const porousLiKCl_infPlate_dom1D &r)
     return *this;
   }
   // Call the parent assignment operator
-  BulkDomain1D::operator=(r);
+  porousFlow_dom1D::operator=(r);
 
   ionicLiquid_ = r.ionicLiquid_;
   trans_ = r.trans_;
