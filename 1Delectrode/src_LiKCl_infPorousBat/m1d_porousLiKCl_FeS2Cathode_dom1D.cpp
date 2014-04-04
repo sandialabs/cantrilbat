@@ -43,7 +43,7 @@ namespace m1d
 
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescription & bdd) :
-  porousFlow_dom1D(bdd), 
+  porousElectrode_dom1D(bdd), 
   ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
@@ -85,7 +85,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
 }
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
-  porousFlow_dom1D(r.BDD_), 
+  porousElectrode_dom1D(r.BDD_), 
   ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
@@ -119,7 +119,7 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
     return *this;
   }
   // Call the parent assignment operator
-  porousFlow_dom1D::operator=(r);
+  porousElectrode_dom1D::operator=(r);
 
   ionicLiquid_ = r.ionicLiquid_;
   trans_ = r.trans_;

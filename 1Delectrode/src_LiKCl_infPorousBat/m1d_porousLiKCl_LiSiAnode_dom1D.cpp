@@ -41,7 +41,8 @@ namespace m1d
 
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BulkDomainDescription & bdd) :
-  BulkDomain1D(bdd), ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+      porousElectrode_dom1D(bdd), 
+      ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0),
   xdelCell_Cell_(0),
       concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
@@ -77,7 +78,7 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BulkDomainDescription &
 }
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
-  BulkDomain1D(r.BDD_), ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+  porousElectrode_dom1D(r.BDD_), ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0), 
   xdelCell_Cell_(0),
       concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
