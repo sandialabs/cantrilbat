@@ -22,6 +22,69 @@ namespace m1d
 {
 class LocalNodeIndices;
 
+
+// --------------------------------------------------------------------------------------------------
+
+//! Intermediate bookkeeping information for nodes based on loops over cells
+class NodeTmps
+{
+public:
+ 
+    //!  Pointer to the NodalVars struct 
+    NodalVars *nv;
+
+    //!  Offset of the nodal variables from the start of the solution vector
+    size_t index_EqnStart;
+
+    //! Offset of axial
+    size_t Offset_Velocity_Axial;
+
+    //!  Offset of variables wrt the start of the nodal solution vector.
+    size_t Offset_Voltage;
+
+    //!  Offset of variables wrt the start of the nodal solution vector.
+    size_t Offset_MoleFraction_Species;
+
+    //!  Offset of Residual for the current conservation equation
+    size_t RO_Current_Conservation;
+    size_t RO_Electrolyte_Continuity;
+    size_t RO_Species_Eqn_Offset;
+    size_t RO_MFSum_offset;
+    size_t RO_ChargeBal_offset;
+
+
+};
+
+
+// --------------------------------------------------------------------------------------------------
+
+//! Intermediate bookkeeping information for loops over cells
+/*!
+ *    If we are on a left boundary, there will be no Left Node. Instead, the left and center node
+ *    are really collocated.  In that case NodeLeft_ will be a duplicate of NodeCenter_.
+ *    And, nodeLeft member value will be set to zero.
+ *
+ *    An analogous treatment of right boundaries where there is no right node is also done. 
+ */
+class cellTmps
+{
+public:
+    NodalVars* nvLeft_;
+    NodalVars* nvCent_;
+    NodalVars* nvRight_;
+    
+    NodeTmps NodeTmpsLeft_;
+    NodeTmps NodeTmpsCenter_;
+    NodeTmps NodeTmpsRight_;
+    
+    double xdelL_; // Distance from the center node to the left node
+    double xdelR_; // Distance from the center node to the right node
+    double xdelCell_; // cell width - right boundary minus the left boundary.
+    double xCellBoundaryL_; //cell boundary left
+    double xCellBoundaryR_; //cell boundary right
+};
+
+
 //======================================================================================================================
 //! This is derived class  provides the function
 //! evaluation for a porous electrolyte anode.
@@ -103,6 +166,10 @@ public:
     advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
                         const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                         const double t, const double t_old);
+
+    //! Set up tmps for quick calculation of residuals
+    void 
+    residSetupTmps();
 
     //! Revert the domain object's conditions to the conditions at the start of the global time step
     /*!
@@ -772,6 +839,12 @@ protected:
     // --------------------------------------------------------------------------
 
     std::vector<double> solnTemp;
+
+    //! Vector of temporary indexing quantities for each cell
+    /*!
+     * These are calculated once at the start of the program
+     */
+    std::vector<cellTmps> cellTmpsVect_Cell_;
 
     //! Velocity basis of the transport equations
     Cantera::VelocityBasis ivb_;

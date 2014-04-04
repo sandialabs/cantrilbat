@@ -67,14 +67,14 @@ public:
 class cellTmps
 {
 public:
-   NodalVars* nvLeft_;
-   NodalVars* nvCent_;
-   NodalVars* nvRight_;
-
-   NodeTmps NodeTmpsLeft_;
-   NodeTmps NodeTmpsCenter_;
-   NodeTmps NodeTmpsRight_;
-
+    NodalVars* nvLeft_;
+    NodalVars* nvCent_;
+    NodalVars* nvRight_;
+    
+    NodeTmps NodeTmpsLeft_;
+    NodeTmps NodeTmpsCenter_;
+    NodeTmps NodeTmpsRight_;
+    
     double xdelL_; // Distance from the center node to the left node
     double xdelR_; // Distance from the center node to the right node
     double xdelCell_; // cell width - right boundary minus the left boundary.
