@@ -956,9 +956,9 @@ public:
 
     //! Overpotential term for the heat generation
     /*!
-     *
+     *   @param irxn Surface index 
      */
-    virtual double thermalEnergySourceTerm_overpotential();
+    virtual double thermalEnergySourceTerm_overpotential(int irxn);
 
     //! Reversible Enthalpy term leading to  heat generation
     /*!

@@ -1487,9 +1487,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.860606    
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.860606    Volts
-          i_o                                                    -6.5516972E+04 coul/sec/m2 
+          i_o                                                    -6.5516972E+04 coul/sec/m2
           nStoich                                                -1          
           nu                                                     -0.2606065   Volts
+          beta                                                    0.5         beta
+          i_curr                                                  5.2213352E+05 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1593,9 +1595,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      0           Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -0.0000000E+00 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1708,9 +1712,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1823,9 +1829,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1938,9 +1946,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2045,9 +2055,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2160,9 +2172,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2275,9 +2289,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2382,9 +2398,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2497,9 +2515,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2604,9 +2624,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2719,9 +2741,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2826,9 +2850,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2941,9 +2967,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3048,9 +3076,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3163,9 +3193,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3270,9 +3302,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3385,9 +3419,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3492,9 +3528,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3607,9 +3645,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3714,9 +3754,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3829,9 +3871,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3936,9 +3980,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4051,9 +4097,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4158,9 +4206,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4273,9 +4323,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4380,9 +4432,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4495,9 +4549,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4602,9 +4658,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4717,9 +4775,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4824,9 +4884,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4939,9 +5001,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5046,9 +5110,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5161,9 +5227,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5268,9 +5336,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5383,9 +5453,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5490,9 +5562,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5605,9 +5679,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5712,9 +5788,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5827,9 +5905,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5934,9 +6014,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6049,9 +6131,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6156,9 +6240,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6271,9 +6357,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6378,9 +6466,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6493,9 +6583,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6600,9 +6692,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6715,9 +6809,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6822,9 +6918,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6937,9 +7035,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7044,9 +7144,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7159,9 +7261,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7266,9 +7370,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7381,9 +7487,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7488,9 +7596,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7603,9 +7713,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7710,9 +7822,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7825,9 +7939,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7932,9 +8048,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8047,9 +8165,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8154,9 +8274,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8269,9 +8391,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8376,9 +8500,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8491,9 +8617,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8598,9 +8726,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8713,9 +8843,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8820,9 +8952,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8935,9 +9069,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9042,9 +9178,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9157,9 +9295,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9264,9 +9404,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9379,9 +9521,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9486,9 +9630,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9601,9 +9747,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9708,9 +9856,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9823,9 +9973,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9930,9 +10082,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10045,9 +10199,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10152,9 +10308,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10267,9 +10425,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10374,9 +10534,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10489,9 +10651,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10596,9 +10760,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10711,9 +10877,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10818,9 +10986,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10933,9 +11103,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11040,9 +11212,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11155,9 +11329,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11262,9 +11438,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11377,9 +11555,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11484,9 +11664,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11599,9 +11781,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11706,9 +11890,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11821,9 +12007,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11928,9 +12116,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12043,9 +12233,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12150,9 +12342,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12265,9 +12459,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12372,9 +12568,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12487,9 +12685,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12594,9 +12794,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12709,9 +12911,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12816,9 +13020,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12931,9 +13137,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -13038,9 +13246,11 @@ oc[0] = 0
           OpenCircuitVoltage                                      1.6         
           ElectrodeVoltage                                        1.6        
           OCV from (rsd)                                          1.6         Volts
-          i_o                                                    -5.3022903E+05 coul/sec/m2 
+          i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
+          beta                                                    0.5         beta
+          i_curr                                                 -9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   

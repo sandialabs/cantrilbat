@@ -212,9 +212,9 @@ const std::vector<double>& ReactingSurDomain::calcDestructionRates()
 
 //====================================================================================================================
 
-void ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
+double ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
         double* nStoich, doublereal* OCV, doublereal* io,
-        doublereal* nu)
+        doublereal* nu, doublereal *beta)
 {
     // This will calculate the equilibrium constant
     updateROP();
@@ -255,6 +255,7 @@ void ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
         iO *= pow(rkc[irxn], m_beta[irxn]);
     }
     double b = m_beta[irxn];
+    *beta = m_beta[irxn];
     double omb = 1.0 - b;
 
     int m_nTotalSpecies = m_conc.size();
@@ -278,6 +279,16 @@ void ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
     double phiSoln = thermo(solnPhaseRS_).electricPotential();
     double E = phiMetal - phiSoln;
     *nu = E - *OCV;
+
+    return calcCurrent(*nu, *nStoich, *io, *beta, m_temp);
+}
+//====================================================================================================================
+double ReactingSurDomain::calcCurrent(double nu, double nStoich,  double io, double beta, double temp) const
+{
+     double exp1 = nu * Faraday * beta / (GasConstant * temp);
+     double exp2 = -nu * Faraday * (1.0 - beta) / (GasConstant * temp);
+     double val = io * (exp(exp1) - exp(exp2));
+     return val;
 }
 //====================================================================================================================
 /*
@@ -288,6 +299,7 @@ void ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
  *  This is a "friend" function to the class IdealReactingGas.
  *  Both this function and report are in the Cantera namespace.
  *
+
  *  Note -> The output doesn't cover kinetics.
  */
 std::ostream& operator<<(std::ostream& s,

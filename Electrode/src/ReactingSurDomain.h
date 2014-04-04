@@ -142,10 +142,14 @@ public:
      *   @param   io       Exchange Current density value (can be negative)
      *                        units coulombs / sec / m^2
      *   @param   nu       Overpotential for the reaction (can be positive or negative)
+     *   @param   beta     Symmetry factor
+     *
+     *  @return  returns the current for the reaction
      */
-    void getExchangeCurrentFormulation(int irxn,  doublereal* nStoich, doublereal* OCV,
-                                       doublereal* io, doublereal* nu);
+    double getExchangeCurrentFormulation(int irxn,  doublereal* nStoich, doublereal* OCV,
+                                       doublereal* io, doublereal* nu, doublereal *beta);
 
+    double calcCurrent(double, double, double, double, double) const;
 
     //!  Identify the metal phase and the electrons species
     /*!

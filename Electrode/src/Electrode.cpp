@@ -3243,7 +3243,6 @@ double Electrode::overpotentialRxn(int isk, int irxn)
     double Erxn = openCircuitVoltageRxn(isk, irxn);
     return (deltaVoltage_ - Erxn);
 }
-
 //====================================================================================================================
 //=================================================================================================
 // Returns the vector of exchange current densities for given surface
@@ -3254,6 +3253,7 @@ double Electrode::overpotentialRxn(int isk, int irxn)
  */
 double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
 {
+    double i = 0.0;
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
@@ -3262,9 +3262,11 @@ double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
         double ocv;
         double io;
         double nu;
-        rsd->getExchangeCurrentFormulation(irxn, &nstoich, &ocv, &io, &nu);
+        double beta;
+        i = rsd->getExchangeCurrentFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
         return io;
     }
+    return i;
 }
 
 
@@ -4479,9 +4481,23 @@ double Electrode::energySourceTerm()
 /*
  *
  */
-double Electrode::thermalEnergySourceTerm_overpotential()
+double Electrode::thermalEnergySourceTerm_overpotential(int isk)
 {   
-    return 0.0;
+    double nstoich, ocv, io, nu, beta;
+    double iCurr;
+    double q = 0.0;
+    if (RSD_List_[isk]) {
+         ReactingSurDomain* rsd = RSD_List_[isk];
+         double sa = surfaceAreaRS_final_[isk];
+         size_t nr = rsd->nReactions();
+         for (size_t irxn = 0; irxn < nr; irxn++) {
+             double overpotential = overpotentialRxn(isk, (int) irxn);
+             iCurr = rsd->getExchangeCurrentFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	     q += sa * iCurr * overpotential;
+         }
+
+    }
+    return q;
 }
 //====================================================================================================================
 // Reversible Enthalpy term leading to  heat generation
