@@ -26,7 +26,8 @@ namespace m1d
     porosity_Cell_old_(0),
     temp_Curr_(TemperatureReference_),
     pres_Curr_(PressureReference_),
-    phiElectrolyte_Curr_(0.0)
+    phiElectrolyte_Curr_(0.0),
+    porosity_Curr_(0.0)
   {
 
   }
@@ -37,7 +38,8 @@ namespace m1d
     porosity_Cell_old_(0),
     temp_Curr_(TemperatureReference_),
     pres_Curr_(PressureReference_),
-    phiElectrolyte_Curr_(0.0)
+    phiElectrolyte_Curr_(0.0),
+    porosity_Curr_(0.0)
   {
     porousFlow_dom1D::operator=(r);
   }
@@ -61,6 +63,7 @@ namespace m1d
     temp_Curr_ = r.temp_Curr_;
     pres_Curr_ = r.pres_Curr_;
     phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
+    porosity_Curr_ = r.porosity_Curr_;
 
     return *this;
   }

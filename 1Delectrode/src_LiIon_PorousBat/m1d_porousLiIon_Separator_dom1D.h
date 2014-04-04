@@ -474,7 +474,7 @@ protected:
     double concTot_Curr_;
 
     //! Current porosity
-    double porosity_Curr_;
+    //double porosity_Curr_;
 
     // --------------------------------------------------------------------------
     //!  Current transport values of quantities at the current point

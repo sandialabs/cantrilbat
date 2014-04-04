@@ -54,8 +54,8 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BulkDomainDescription& bdd)
     t_final_(0.0),
     t_init_(0.0),
     Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-    mfElectrolyte_Thermo_Curr_(0), phiElectrolyte_Curr_(-10000.),
-    phiElectrode_Curr_(0.0), concTot_Curr_(0.0), porosity_Curr_(0.0), conductivityElectrode_(1.0E2),
+    mfElectrolyte_Thermo_Curr_(0), 
+    phiElectrode_Curr_(0.0), concTot_Curr_(0.0), conductivityElectrode_(1.0E2),
     gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
     jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0),
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
@@ -123,8 +123,8 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_d
     t_final_(0.0),
     t_init_(0.0),
     Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-    mfElectrolyte_Thermo_Curr_(0), phiElectrolyte_Curr_(-10000.),
-    phiElectrode_Curr_(0.0), concTot_Curr_(0.0), porosity_Curr_(0.0), conductivityElectrode_(1.0E2),
+    mfElectrolyte_Thermo_Curr_(0),
+    phiElectrode_Curr_(0.0), concTot_Curr_(0.0), conductivityElectrode_(1.0E2),
     gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
     jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0),
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
@@ -201,10 +201,8 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
     mfElectrolyte_Soln_Curr_ = r.mfElectrolyte_Soln_Curr_;
     mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
     mfElectrolyte_Soln_Cell_old_          = r.mfElectrolyte_Soln_Cell_old_;
-    phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
     phiElectrode_Curr_ = r.phiElectrode_Curr_;
     concTot_Curr_ = r.concTot_Curr_;
-    porosity_Curr_ = r.porosity_Curr_;
     conductivityElectrode_ = r.conductivityElectrode_;
     gradT_trCurr_ = r.gradT_trCurr_;
     gradV_trCurr_ = r.gradV_trCurr_;

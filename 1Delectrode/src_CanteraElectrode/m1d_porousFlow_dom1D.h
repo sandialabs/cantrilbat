@@ -132,6 +132,9 @@ protected:
   //!  Current value of the voltage
   double phiElectrolyte_Curr_;
 
+  //! Current porosity
+  double porosity_Curr_;
+
 
   
 

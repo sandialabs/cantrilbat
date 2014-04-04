@@ -619,7 +619,7 @@ protected:
     // double pres_Curr_;
 
     //!  Current value of the electrolyte voltage
-    double phiElectrolyte_Curr_;
+    // double phiElectrolyte_Curr_;
 
     //! Current value of the cathode voltage
     double phiElectrode_Curr_;
@@ -628,7 +628,7 @@ protected:
     double concTot_Curr_;
 
     //! Current porosity
-    double porosity_Curr_;
+    // double porosity_Curr_;
 
     //! Electrical conductivity of the electrode
     /*!

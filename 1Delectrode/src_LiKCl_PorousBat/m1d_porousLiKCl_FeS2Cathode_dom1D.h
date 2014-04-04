@@ -640,13 +640,13 @@ protected:
   std::vector<double> pmVolElectrolyte_Curr_;
 
   //! Local value of the temperature
-  double temp_Curr_;
+  // double temp_Curr_;
 
   //! Local value of the pressure
-  double pres_Curr_;
+  // double pres_Curr_;
 
   //!  Current value of the electrolyte voltage
-  double phiElectrolyte_Curr_;
+  // double phiElectrolyte_Curr_;
 
   //! Current value of the cathode voltage
   double phiElectrode_Curr_;
@@ -658,7 +658,7 @@ protected:
   double concTotDot_Curr_;
 
   //! Current porosity
-  double porosity_Curr_;
+  // double porosity_Curr_;
 
   //! Electrical conductivity of the electrode
   /*!
