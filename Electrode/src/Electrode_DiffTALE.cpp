@@ -4532,7 +4532,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iph, int pSrc, bool subTimeStep
         }
     }
     if (iph >= NumVolPhases_) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);

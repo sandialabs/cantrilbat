@@ -951,7 +951,7 @@ void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
 	     *  Get the species production rates for the reacting surface
 	     */
 	    // TODO: Check this logic for end of region conditions and goNowhere issues
-	    const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+	    const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
  
 	    /*
 	     *  loop over the phases in the reacting surface
@@ -2297,7 +2297,7 @@ void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
     }
     if (printLvl_ >= 4) {
         if (iph >= NumVolPhases_) {
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);

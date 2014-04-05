@@ -190,7 +190,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
              *  Get the species production rates for the reacting surface
              */
             //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
 
             double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);

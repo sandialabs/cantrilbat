@@ -175,10 +175,10 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
  *   This routine calls thet getNetProductionRate function
  *   and then returns a reference to the result.
  *
- * @return Vector of length m_kk containing the species net
+ * @return Vector of length m_kk containing the species net (kmol s-1 m-2)
  *         production rates
  */
-const std::vector<double>& ReactingSurDomain::calcNetProductionRates()
+const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
 {
     getNetProductionRates(&speciesProductionRates_[0]);
     return speciesProductionRates_;
@@ -189,9 +189,9 @@ const std::vector<double>& ReactingSurDomain::calcNetProductionRates()
  *   This routine calls thet getCreationRate function
  *   and then returns a reference to the result.
  *
- * @return Vector of length m_kk containing the species creation rates
+ * @return Vector of length m_kk containing the species creation rates (kmol s-1 m-2)
  */
-const std::vector<double>& ReactingSurDomain::calcCreationRates()
+const std::vector<double>& ReactingSurDomain::calcSurfaceCreationRateDensities()
 {
     getCreationRates(&speciesCreationRates_[0]);
     return speciesCreationRates_;
@@ -202,17 +202,45 @@ const std::vector<double>& ReactingSurDomain::calcCreationRates()
  *   This routine calls thet getDestructionRate function
  *   and then returns a reference to the result.
  *
- * @return Vector of length m_kk containing the species destruction rates
+ * @return Vector of length m_kk containing the species destruction rates (kmol s-1 m-2)
  */
-const std::vector<double>& ReactingSurDomain::calcDestructionRates()
+const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensities()
 {
     getDestructionRates(&speciesDestructionRates_[0]);
     return speciesDestructionRates_;
 }
-
+//====================================================================================================================
+double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn) 
+{
+    double netCurrentDensity = 0.0;
+    double ps, rs;
+    if (kElectronRS_< 0) {
+	return netCurrentDensity;
+    }
+    size_t nr = nReactions();
+    // update rates of progress -> puts this into m_ropnet[]
+    updateROP();
+    if (currentDensityRxn) {
+	for (size_t irxn = 0; irxn < nr; irxn++) {
+	    rs = m_rrxn[kElectronRS_][irxn];
+	    ps = m_prxn[kElectronRS_][irxn];
+	    double electronProd = (ps - rs) * m_ropnet[irxn];
+	    currentDensityRxn[irxn] = Faraday * electronProd;
+	    netCurrentDensity += currentDensityRxn[irxn];
+	}
+    } else {
+	for (size_t irxn = 0; irxn < nr; irxn++) {
+	    rs = m_rrxn[kElectronRS_][irxn];
+	    ps = m_prxn[kElectronRS_][irxn];
+	    double electronProd = (ps - rs) * m_ropnet[irxn];
+	    netCurrentDensity +=  Faraday * electronProd;
+	}
+    }
+    return netCurrentDensity;
+}
 //====================================================================================================================
 
-double ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
+double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
         double* nStoich, doublereal* OCV, doublereal* io,
         doublereal* nu, doublereal *beta)
 {
@@ -280,10 +308,10 @@ double ReactingSurDomain::getExchangeCurrentFormulation(int irxn,
     double E = phiMetal - phiSoln;
     *nu = E - *OCV;
 
-    return calcCurrent(*nu, *nStoich, *io, *beta, m_temp);
+    return calcCurrentDensity(*nu, *nStoich, *io, *beta, m_temp);
 }
 //====================================================================================================================
-double ReactingSurDomain::calcCurrent(double nu, double nStoich,  double io, double beta, double temp) const
+double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich,  double io, double beta, double temp) const
 {
      double exp1 = nu * Faraday * beta / (GasConstant * temp);
      double exp2 = -nu * Faraday * (1.0 - beta) / (GasConstant * temp);

@@ -81,9 +81,9 @@ public:
      *   and then returns a reference to the result.
      *
      * @return Vector of length m_kk containing the species net
-     *         production rates
+     *         production rates (kmol s-1 m-2)
      */
-    const std::vector<double>& calcNetProductionRates();
+    const std::vector<double>& calcNetSurfaceProductionRateDensities();
 
     //! Returns a reference to the calculated creation rates of species
     /*!
@@ -92,7 +92,7 @@ public:
      *
      * @return Vector of length m_kk containing the species creation rates
      */
-    const std::vector<double>& calcCreationRates();
+    const std::vector<double>& calcSurfaceCreationRateDensities();
 
     //! Returns a reference to the calculated destruction rates of species
     /*!
@@ -101,8 +101,14 @@ public:
      *
      * @return Vector of length m_kk containing the species destruction rates
      */
-    const std::vector<double>& calcDestructionRates();
+    const std::vector<double>& calcSurfaceDestructionRateDensities();
 
+
+    //! Get the net current for the set of reactions on this surface
+    /*!
+     *       
+     */
+    double getCurrentDensityRxn(double *currentDensityRxn = 0);
 
     //! Get the exchange current density formulation for the current reaction rate
     /*!
@@ -116,7 +122,7 @@ public:
      *
      *              and E = Phi(Metal) - Phi(Soln)
      *
-     *   where the current is defined as
+     *   where the current density (amps m-2) is defined as
      *
      *         i = - z_e- * F * d[e-]/dt
      *
@@ -126,7 +132,7 @@ public:
      *
      *   A note about signs
      *
-     *    i is defined here as being positive if there is a net current going from the metal into solution.
+     *    i is defined here as being positive if there is a net current density going from the metal into solution.
      *    This in turn means that if there is a positive generation of electrons, then the current
      *    is positive.
      *
@@ -144,12 +150,20 @@ public:
      *   @param   nu       Overpotential for the reaction (can be positive or negative)
      *   @param   beta     Symmetry factor
      *
-     *  @return  returns the current for the reaction
+     *  @return  returns the current density for the reaction (amps m-2)
      */
-    double getExchangeCurrentFormulation(int irxn,  doublereal* nStoich, doublereal* OCV,
-                                       doublereal* io, doublereal* nu, doublereal *beta);
+    double getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV,
+                                                doublereal* io, doublereal* nu, doublereal *beta);
 
-    double calcCurrent(double, double, double, double, double) const;
+
+    //! Utility routine to calculate the current density given the parameters for
+    //! an exchange current density formulation of the reaction rate
+    /*!
+     *
+     *  @param returns the current density (amps m-2)
+     */
+    double calcCurrentDensity(double nu, double nStoich, double io, double beta, 
+                              double temp) const;
 
     //!  Identify the metal phase and the electrons species
     /*!

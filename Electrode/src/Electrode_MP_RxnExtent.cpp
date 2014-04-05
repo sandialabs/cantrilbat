@@ -1507,7 +1507,7 @@ void Electrode_MP_RxnExtent::extractInfo()
      *
      *  Get the species production rates for the reacting surface
      */
-    const vector<double>& rsSpeciesProductionRates = rsd->calcNetProductionRates();
+    const vector<double>& rsSpeciesProductionRates = rsd->calcNetSurfaceProductionRateDensities();
 
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(indexOfReactingSurface_);
 
@@ -4532,7 +4532,7 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     double io;
     double nu;
     double beta;
-    double icurr = rsd->getExchangeCurrentFormulation(irxn,  &dStoich, &OCV, &io, &nu, &beta);
+    double icurr = rsd->getExchangeCurrentDensityFormulation(irxn,  &dStoich, &OCV, &io, &nu, &beta);
     printf("          OCV from (rsd)                                         %- 12.7g Volts\n", OCV);
     printf("          i_o                                                    %- 12.7E coul/sec/m2\n", io);
     printf("          nStoich                                                %- 12.7g\n", dStoich);
@@ -4731,7 +4731,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
     }
     if (pSrc) {
         if (iph >= NumVolPhases_) {
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetProductionRates();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);

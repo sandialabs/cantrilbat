@@ -958,13 +958,15 @@ public:
     /*!
      *   @param irxn Surface index 
      */
-    virtual double thermalEnergySourceTerm_overpotential(int irxn);
+    virtual double thermalEnergySourceTerm_overpotential(int isk);
+
+  
 
     //! Reversible Enthalpy term leading to  heat generation
     /*!
      *
      */
-    virtual double thermalEnergySourceTerm_reversibleEntropy();
+    virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 
     //! Get the integrated source term values for one of a set of sources
     /*!

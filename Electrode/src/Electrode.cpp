@@ -2547,7 +2547,7 @@ void Electrode::getNetProductionRates(const int isk, doublereal* const net) cons
         /*
          *  Get the species production rates for the reacting surface
          */
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
         /*
          *  loop over the phases in the reacting surface
@@ -2690,7 +2690,7 @@ void Electrode::getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux)
     std::fill_n(phaseMassFlux, m_NumTotPhases, 0.);
 
     if (ActiveKineticsSurf_[isk]) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
         int nphRS = RSD_List_[isk]->nPhases();
         int kIndexKin = 0;
@@ -2720,7 +2720,7 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
 {
     std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
         int nphRS = RSD_List_[isk]->nPhases();
         int PLph, RSph;
         int kIndexKin = 0;
@@ -3263,14 +3263,11 @@ double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
         double io;
         double nu;
         double beta;
-        i = rsd->getExchangeCurrentFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+        i = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
         return io;
     }
     return i;
 }
-
-
-
 //====================================================================================================================
 int Electrode::kKinSpecElectron(int isurf) const
 {
@@ -3492,7 +3489,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
              *  Get the species production rates for the reacting surface
              */
             //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
             double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
             /*
@@ -4438,7 +4435,7 @@ void Electrode::speciesProductionRates(doublereal* const spMoleDot)
 	     *  Get the species production rates for the reacting surface
 	     */
 	    // TODO: Check this logic for end of region conditions and goNowhere issues
-	    const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
+	    const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 	    
 	    /*
 	     *  loop over the phases in the reacting surface
@@ -4492,10 +4489,11 @@ double Electrode::thermalEnergySourceTerm_overpotential(int isk)
          size_t nr = rsd->nReactions();
          for (size_t irxn = 0; irxn < nr; irxn++) {
              double overpotential = overpotentialRxn(isk, (int) irxn);
-             iCurr = rsd->getExchangeCurrentFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
-	     q += sa * iCurr * overpotential;
+             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	     if (nstoich != 0.0) {
+		 q += sa * iCurr * overpotential;
+	     }
          }
-
     }
     return q;
 }
@@ -4504,9 +4502,29 @@ double Electrode::thermalEnergySourceTerm_overpotential(int isk)
 /*
  *
  */
-double Electrode::thermalEnergySourceTerm_reversibleEntropy()
+double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
 {
-    return 0.0;
+    double nstoich, ocv, io, nu, beta;
+    double iCurr;
+    double q = 0.0;
+    static vector<double> s_deltaS;
+    if (RSD_List_[isk]) {
+         ReactingSurDomain* rsd = RSD_List_[isk];
+         double sa = surfaceAreaRS_final_[isk];
+         size_t nr = rsd->nReactions();
+	 size_t ss = std::max(s_deltaS.size(), nr);
+	 s_deltaS.resize(ss, 0.0);
+	 rsd->getDeltaEntropy(&(s_deltaS[0]));
+
+         for (size_t irxn = 0; irxn < nr; irxn++) {
+             double overpotential = overpotentialRxn(isk, (int) irxn);
+             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	     if (nstoich != 0.0) {
+		 q += sa * iCurr * overpotential;
+	     }
+         }
+    }
+    return q; 
 }
 //====================================================================================================================
 double Electrode::getSourceTerm(SOURCES sourceType)
@@ -4822,7 +4840,7 @@ void Electrode::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
     }
     if (printLvl_ >= 4) {
         if (iph >= NumVolPhases_) {
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetProductionRates();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);

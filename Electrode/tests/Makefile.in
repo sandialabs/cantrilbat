@@ -6,18 +6,19 @@
 ###############################################################
 
 all:
-	cd FeS2_3_MPNewman_cV_restart; @MAKE@
-	cd FeS2_4_MPNewman_cc ; @MAKE@
-	cd FeS2_4_cMPNewman_cc ; @MAKE@
-	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@
-	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@
-	cd MCMBAnode_LiIon_DiffTALE_2_cV; @MAKE@ 
-	cd MCMBAnode_LiIon_DiffTALE_3_cV; @MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@
-	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@
-	cd MCMBAnode_LiIon_SimpleDiff_2_cV; @MAKE@ 
+	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@
+	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@
+	cd FeS2_4_MPNewman_cc ;                                 @MAKE@
+	cd FeS2_4_cMPNewman_cc ;                                @MAKE@
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   @MAKE@
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      @MAKE@
+	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       @MAKE@ 
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ 
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    @MAKE@
+	cd MCMBAnode_LiIon_SimpleDiff_cV;                       @MAKE@
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     @MAKE@ 
 	cd MCMBAnode_LiIon_SimpleDiff_3_cV;			@MAKE@ 
 	cd MCMBAnode_LiIon_SimpleDiff_cc;                   	@MAKE@ 
 	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@
@@ -25,6 +26,7 @@ all:
 	cd UnitTests ; 						@MAKE@
 
 test:
+	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ -s test
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ -s test
 	cd FeS2_4_MPNewman_cc ; @MAKE@ -s test
 	cd FeS2_4_cMPNewman_cc ; @MAKE@ -s test
@@ -45,6 +47,7 @@ test:
 
 
 clean:
+	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@  clean
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ clean
 	cd FeS2_4_MPNewman_cc ; @MAKE@  clean
 	cd FeS2_4_cMPNewman_cc ; @MAKE@  clean
@@ -66,6 +69,7 @@ clean:
 
 
 depends:
+	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@  depends
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ depends
 	cd FeS2_4_MPNewman_cc ; @MAKE@  depends
 	cd FeS2_4_cMPNewman_cc ; @MAKE@  depends
@@ -87,7 +91,8 @@ depends:
 
 
 rebaseline:
-	cd FeS2_3_MPNewman_cV_restart; @MAKE@ rebaseline
+	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ rebaseline
+	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@ rebaseline
 	cd FeS2_5_MultiPlat_cV_restart; @MAKE@  rebaseline
 	cd FeS2_4_MPNewman_cc ; @MAKE@ rebaseline
 	cd FeS2_4_cMPNewman_cc ; @MAKE@ rebaseline

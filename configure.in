@@ -619,6 +619,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/FeS2_4_MPNewman_cc/Makefile \
           Electrode/tests/FeS2_4_cMPNewman_cc/Makefile \
           Electrode/tests/LiCoO2_LiIonCathode_SimpleDiff_cV/Makefile \
+          Electrode/tests/LiCoO2_LiIonCathode_CSTR_thermal/Makefile \
           Electrode/tests/MCMBAnode_LiIon_DiffTALE_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_DiffTALE_2_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_DiffTALE_3_cV/Makefile \
