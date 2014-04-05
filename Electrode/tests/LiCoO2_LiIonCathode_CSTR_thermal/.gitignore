@@ -1,0 +1,15 @@
+.depends
+LiCoO2_Cathode_thermal
+diff_csv.txt
+out.txt
+.nfs*
+Makefile
+diff_out.txt
+err_out.txt
+plotDischarge.m
+LiCoO2_Cathode_3_cc
+LiCoO2_Cathode_3_cc.d
+LiCoO2_globalResults_0_0.csv
+LiCoO2_intResults_0_0.csv
+runGood
+runBad

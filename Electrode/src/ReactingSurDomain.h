@@ -85,6 +85,8 @@ public:
      */
     const std::vector<double>& calcNetSurfaceProductionRateDensities();
 
+    const std::vector<double>& calcNetSurfaceROP();
+
     //! Returns a reference to the calculated creation rates of species
     /*!
      *   This routine calls thet getCreationRate function

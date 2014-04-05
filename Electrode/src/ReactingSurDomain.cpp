@@ -184,6 +184,12 @@ const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensit
     return speciesProductionRates_;
 }
 //====================================================================================================================
+const std::vector<double>& ReactingSurDomain::calcNetSurfaceROP()
+{
+    updateROP();
+    return m_ropnet;
+}
+//====================================================================================================================
 //    Returns a reference to the calculated creation rates of species
 /*
  *   This routine calls thet getCreationRate function

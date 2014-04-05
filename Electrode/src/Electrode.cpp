@@ -4457,12 +4457,12 @@ void Electrode::speciesProductionRates(doublereal* const spMoleDot)
     }
 }
 //====================================================================================================================
-//! Report the energy source term for the electrode over an interval in time
+//! Report the enthalpy source term for the electrode over an interval in time
 /*!
  *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
  *  This should only be called after integrate() has finished running.
  */
-double Electrode::energySourceTerm()
+double Electrode::enthalpySourceTerm()
 {
     doublereal energySource = 0.0;
     for (int iph = 0; iph < NumVolPhases_; iph++) {
@@ -4498,7 +4498,7 @@ double Electrode::thermalEnergySourceTerm_overpotential(int isk)
     return q;
 }
 //====================================================================================================================
-// Reversible Enthalpy term leading to  heat generation
+// Reversible Enthalpy term leading to heat generation
 /*
  *
  */
@@ -4508,19 +4508,63 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
     double iCurr;
     double q = 0.0;
     static vector<double> s_deltaS;
+    static vector<double> iCurrDens;
     if (RSD_List_[isk]) {
          ReactingSurDomain* rsd = RSD_List_[isk];
          double sa = surfaceAreaRS_final_[isk];
          size_t nr = rsd->nReactions();
 	 size_t ss = std::max(s_deltaS.size(), nr);
 	 s_deltaS.resize(ss, 0.0);
+	 iCurrDens.resize(ss, 0.0);
 	 rsd->getDeltaEntropy(&(s_deltaS[0]));
+         iCurr = rsd->getCurrentDensityRxn(&(iCurrDens[0]));
+	 double tt = temperature_;
 
          for (size_t irxn = 0; irxn < nr; irxn++) {
-             double overpotential = overpotentialRxn(isk, (int) irxn);
              iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
 	     if (nstoich != 0.0) {
-		 q += sa * iCurr * overpotential;
+		 q -= sa * iCurr * tt * s_deltaS[irxn] / Faraday;
+	     } else {
+
+	     }
+
+         }
+
+    }
+    return q; 
+}
+//====================================================================================================================
+// Reversible Entropy term leading to  heat generation
+/*
+ *
+ */
+double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
+{
+    double nstoich, ocv, io, nu, beta;
+    double iCurr;
+    double q = 0.0;
+    static vector<double> s_deltaH;
+    static vector<double> iCurrDens;
+   
+    if (RSD_List_[isk]) {
+         ReactingSurDomain* rsd = RSD_List_[isk];
+         double sa = surfaceAreaRS_final_[isk];
+         size_t nr = rsd->nReactions();
+	 size_t ss = std::max(s_deltaH.size(), nr);
+	 s_deltaH.resize(ss, 0.0);
+	 iCurrDens.resize(ss, 0.0);
+	 rsd->getDeltaEnthalpy(&(s_deltaH[0]));
+         iCurr = rsd->getCurrentDensityRxn(&(iCurrDens[0]));
+	 //double tt = temperature_;
+	 const std::vector<double>& ROP = rsd->calcNetSurfaceROP();
+
+         for (size_t irxn = 0; irxn < nr; irxn++) {
+             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	     if (nstoich != 0.0) {
+		 q -= sa * iCurr * s_deltaH[irxn] / Faraday;
+		 q += sa * iCurr * deltaVoltage_;
+	     } else {
+		 q -= sa * ROP[irxn] * s_deltaH[irxn];
 	     }
          }
     }
@@ -4552,7 +4596,7 @@ double Electrode::getSourceTerm(SOURCES sourceType)
     }
     break;
   case ENTHALPY_SOURCE:
-    result = energySourceTerm();
+    result = enthalpySourceTerm();
     break;
   case SPECIES_SOURCE:
     result = spMoleIntegratedSourceTerm_[solnSpeciesStart + species_index];

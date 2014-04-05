@@ -947,12 +947,15 @@ public:
      */
     virtual double integratedSourceTerm(doublereal* const spMoleDelta);
 
-    //! Report the energy source term for the electrode over an interval in time
+    //! Report the enthalpy source term for the electrode over an interval in time
     /*!
+     *   FIX!!!
+     *  HKM -> This formula is in error for standard reactions for multispecies phases,
+     *         and it is wholly inadequate for electrode reactions. 
      *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
      *  This should only be called after integrate() has finished running.
      */
-    virtual double energySourceTerm();
+    virtual double enthalpySourceTerm();
 
     //! Overpotential term for the heat generation
     /*!
@@ -962,11 +965,17 @@ public:
 
   
 
-    //! Reversible Enthalpy term leading to  heat generation
+    //! Reversible Entropy term leading to  heat generation
     /*!
      *
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
+
+    //! Reversible Entropy term leading to  heat generation
+    /*!
+     *
+     */
+    virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
     //! Get the integrated source term values for one of a set of sources
     /*!
