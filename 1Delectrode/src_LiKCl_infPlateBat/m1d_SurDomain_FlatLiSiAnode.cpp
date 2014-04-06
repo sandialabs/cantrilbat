@@ -299,7 +299,7 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
    * Calculate the rates of production of all species in the Electrode
    * and determine the current
    */
-  double icurr = ElectrodeA_->getNetProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
+  double icurr = ElectrodeA_->getNetSurfaceProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
 
   /*
    * Get the phase mass flux
@@ -602,7 +602,7 @@ SurDomain_FlatLiSiAnode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   /*
    * Calculate the rates of production of all species in the Electrode
    */
-  double icurr = ElectrodeA_->getNetProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
+  double icurr = ElectrodeA_->getNetSurfaceProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
 
   /*
    * Get the phase mass flux
@@ -753,7 +753,7 @@ SurDomain_FlatLiSiAnode::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_pt
     /*
      * Calculate the rates of production of all species in the Electrode
      */
-    double icurr = ElectrodeA_->getNetProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
+    double icurr = ElectrodeA_->getNetSurfaceProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
 
     //time
     fprintf( ofp, "%g \t", t );

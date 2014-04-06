@@ -715,7 +715,7 @@ public:
      *   @return   Returns the current columb sec-1 m-2
      */
 // Deprecate
-    doublereal getNetProductionRatesCurrent(const int isk, doublereal* const net) const;
+    doublereal getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const;
 
     //! Get the net production rates of all species in the electrode object
     //! at the current conditions from one surface kinetics object
@@ -725,7 +725,7 @@ public:
      *
      */
 //Can protect
-    void getNetProductionRates(const int isk, doublereal* const net) const;
+    void getNetSurfaceProductionRates(const int isk, doublereal* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     /*!
@@ -972,7 +972,7 @@ public:
 
     //! Reversible Entropy term leading to  heat generation
     /*!
-     *
+     *    @param isk   
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 

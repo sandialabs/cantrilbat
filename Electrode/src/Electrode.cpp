@@ -2529,7 +2529,7 @@ double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
  *
  *  This routine assumes that the underlying objects have been updated
  */
-void Electrode::getNetProductionRates(const int isk, doublereal* const net) const
+void Electrode::getNetSurfaceProductionRates(const int isk, doublereal* const net) const
 {
     std::fill_n(net, m_NumTotSpecies, 0.);
 
@@ -2586,9 +2586,9 @@ void Electrode::getIntegratedProductionRates(doublereal* const net) const
 /*
  *    columb sec-1 m-2
  */
-double Electrode::getNetProductionRatesCurrent(const int isk, doublereal* const net) const
+double Electrode::getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const
 {
-    getNetProductionRates(isk, net);
+    getNetSurfaceProductionRates(isk, net);
     // kmol sec-1 m-2
     double Eprod = net[kElectron_];
     // coulomb / kmol
@@ -2608,7 +2608,7 @@ double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) con
         std::fill_n(net, m_NumTotSpecies, 0.);
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
-                getNetProductionRates(isk, netOne);
+                getNetSurfaceProductionRates(isk, netOne);
                 for (int k = 0; k < m_NumTotSpecies; k++) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
@@ -2631,7 +2631,7 @@ double Electrode::integratedCurrent() const
         double* netOne = &deltaG_[0];
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
-                getNetProductionRates(isk, netOne);
+                getNetSurfaceProductionRates(isk, netOne);
                 for (int k = 0; k < m_NumTotSpecies; k++) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
@@ -2658,7 +2658,7 @@ double Electrode::integratedLocalCurrent() const
         double* netOne = &deltaG_[0];
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
-                getNetProductionRates(isk, netOne);
+                getNetSurfaceProductionRates(isk, netOne);
                 for (int k = 0; k < m_NumTotSpecies; k++) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }

@@ -911,7 +911,7 @@ porousLiKCl_FeS2Cathode_dom1D::calcElectrode()
    * Calculate the rates of production of all species in the Electrode
    * and determine the current
    */
-  icurrInterface_Curr_ = Electrode_->getNetProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
+  icurrInterface_Curr_ = Electrode_->getNetSurfaceProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
   icurrInterfacePerSurfaceArea_Cell_[cIndex_cc_] = icurrInterface_Curr_;
   /*
    * Get the phase mole flux

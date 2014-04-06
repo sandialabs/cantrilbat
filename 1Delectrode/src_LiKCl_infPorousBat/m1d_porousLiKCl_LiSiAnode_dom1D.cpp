@@ -909,7 +909,7 @@ porousLiKCl_LiSiAnode_dom1D::calcElectrode()
    * Calculate the rates of production of all species in the Electrode
    * and determine the current
    */
-  icurrInterface_Curr_ = Electrode_->getNetProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
+  icurrInterface_Curr_ = Electrode_->getNetSurfaceProductionRatesCurrent(0, &electrodeSpeciesProdRates_[0]);
   //  Let's store this for future use in showSolution() to debug the electrode
   icurrInterfacePerSurfaceArea_Cell_[cIndex_cc_] = icurrInterface_Curr_;
 

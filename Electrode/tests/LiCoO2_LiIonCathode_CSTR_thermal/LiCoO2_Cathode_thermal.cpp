@@ -219,7 +219,7 @@ int main(int argc, char **argv)
       printf("currentDensity0 = %g\n", cd0);
       printf("current0 = %g amps\n", current0);
 
-      double cd1 = electrodeC->getNetProductionRatesCurrent(0, ROP);
+      double cd1 = electrodeC->getNetSurfaceProductionRatesCurrent(0, ROP);
       printf("cd1 = %g\n", cd1);
       double current1 = cd1 * sa[0];
       printf("current1 = %g amps\n", current1);

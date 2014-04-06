@@ -178,7 +178,7 @@ namespace m1d
     /*
      * Calculate the rates of production of all species in the Electrode
      */
-    double icurr = ElectrodeC_->getNetProductionRatesCurrent(0, &c_ptr->electrodeSpeciesProdRates_[0]);
+    double icurr = ElectrodeC_->getNetSurfaceProductionRatesCurrent(0, &c_ptr->electrodeSpeciesProdRates_[0]);
 
 
     double c_icurr =  icurr * c_ptr->surfaceArea_;
@@ -188,8 +188,7 @@ namespace m1d
     SurDomain_FlatLiSiAnode *ac_ptr = dynamic_cast<SurDomain_FlatLiSiAnode *>(ad_ptr);
 
     Cantera::Electrode *ElectrodeA_ = ac_ptr->ElectrodeA_;
-    double icurrA = ElectrodeA_->getNetProductionRatesCurrent(0, &ac_ptr->electrodeSpeciesProdRates_[0]);
-
+    double icurrA = ElectrodeA_->getNetSurfaceProductionRatesCurrent(0, &ac_ptr->electrodeSpeciesProdRates_[0]);
    
     double a_icurr = icurrA * ac_ptr->surfaceArea_;
     

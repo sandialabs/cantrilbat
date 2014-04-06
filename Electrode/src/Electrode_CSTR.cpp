@@ -877,7 +877,7 @@ void Electrode_CSTR::extractInfo()
                  *  Get the species production rates for the reacting surface.
                  *  This is used to integrate cell model equations.
                  */
-                getNetProductionRates(isk, spNetProdPerArea);
+                getNetSurfaceProductionRates(isk, spNetProdPerArea);
                 /*
                  *  Get reaction net rates of progress for the reacting surface.
                  *  This does not appear to be used (cmtenne 2012.06.06).
