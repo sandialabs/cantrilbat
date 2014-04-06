@@ -34,6 +34,10 @@ namespace Cantera {
 class Electrode_Jacobian {
 
 public:
+
+  //! This pair definition marries an independent variable specififed by a DOF enum
+  //! with a source term specified by the SOURCES enum. The two of them together
+  //! signifies a Jacobian term (i.e., an entry in a 2D matrix). 
   typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR ;
 
   Electrode_Jacobian(Electrode* elect);

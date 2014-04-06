@@ -73,6 +73,9 @@ enum Electrode_Types_Enum {
         
 };
 
+//!  The SOURCES enum lists the source terms that are supplied by the electrode object to the calling
+//!  routine.  This is currently only used in the Jacobian wrapper. However, it may be used
+//!  more widely in the future later.
 enum SOURCES
 {
     CURRENT_SOURCE,
@@ -81,6 +84,10 @@ enum SOURCES
     SPECIES_SOURCE,
     MAX_SOURCE
 };
+
+//!  The DOFS enum lists the independent degrees of freedom that the electrode object can
+//!  handle. This is currently only used in the Jacobian wrapper. However, it may be used
+//!  more widely in the future later.
 enum DOFS
 {
     SOLID_VOLTAGE,
@@ -955,15 +962,13 @@ public:
      *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
      *  This should only be called after integrate() has finished running.
      */
-    virtual double enthalpySourceTerm();
+    virtual double integratedEnthalpySourceTerm();
 
     //! Overpotential term for the heat generation
     /*!
      *   @param irxn Surface index 
      */
     virtual double thermalEnergySourceTerm_overpotential(int isk);
-
-  
 
     //! Reversible Entropy term leading to  heat generation
     /*!
@@ -979,9 +984,12 @@ public:
 
     //! Get the integrated source term values for one of a set of sources
     /*!
-     *     
+     *     @param sourceType   The enum source term value. Species indecises are 
+     *                         designated by indexing on top of the base SPECIES_SOURCE
+     *
+     *     @return Returns the source term
      */
-    virtual double getSourceTerm(SOURCES sourceType);
+    virtual double getIntegratedSourceTerm(SOURCES sourceType);
 
     //!  Returns the net production rates of all species in the electrode object
     //!  over the last integration step

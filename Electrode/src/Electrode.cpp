@@ -4459,10 +4459,11 @@ void Electrode::speciesProductionRates(doublereal* const spMoleDot)
 //====================================================================================================================
 //! Report the enthalpy source term for the electrode over an interval in time
 /*!
+ * FIX!
  *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
  *  This should only be called after integrate() has finished running.
  */
-double Electrode::enthalpySourceTerm()
+double Electrode::integratedEnthalpySourceTerm()
 {
     doublereal energySource = 0.0;
     for (int iph = 0; iph < NumVolPhases_; iph++) {
@@ -4571,15 +4572,14 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
     return q; 
 }
 //====================================================================================================================
-double Electrode::getSourceTerm(SOURCES sourceType)
+double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
 {
   double result = 0.0;
 
   int species_index = 0;
   int solnSpeciesStart = m_PhaseSpeciesStartIndex[solnPhase_];
   int nsp = thermo(solnPhase_).nSpecies();
-  if( sourceType > SPECIES_SOURCE )
-  {
+  if (sourceType > SPECIES_SOURCE) {
     species_index = sourceType - SPECIES_SOURCE;
     AssertThrow(species_index < nsp, "Electrode::getSourceTerm");
     sourceType = SPECIES_SOURCE;
@@ -4596,7 +4596,7 @@ double Electrode::getSourceTerm(SOURCES sourceType)
     }
     break;
   case ENTHALPY_SOURCE:
-    result = enthalpySourceTerm();
+    result = integratedEnthalpySourceTerm();
     break;
   case SPECIES_SOURCE:
     result = spMoleIntegratedSourceTerm_[solnSpeciesStart + species_index];

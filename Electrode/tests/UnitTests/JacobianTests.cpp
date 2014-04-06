@@ -47,7 +47,7 @@ public:
 
   virtual int numSolnPhaseSpecies() const { return 3; }
 
-  virtual double energySourceTerm()
+  virtual double integratedEnthalpySourceTerm()
   { return temperature_; }
 
   virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
@@ -68,7 +68,7 @@ public:
     return 1.0;
   }
 
-  virtual double getSourceTerm(SOURCES sourceType)
+  virtual double getIntegratedSourceTerm(SOURCES sourceType)
   {
     double result = 0.0;
     switch( sourceType )
@@ -81,7 +81,7 @@ public:
       }
       break;
     case ENTHALPY_SOURCE:
-      result = energySourceTerm();
+      result = integratedEnthalpySourceTerm();
       break;
     default:
       result = 0.;

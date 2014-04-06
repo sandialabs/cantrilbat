@@ -52,8 +52,8 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
       run_electrode_integration(perturbed_point, dt);
 
       // Store off the source term results in temporary storage
-      energySource[negative] = electrode->getSourceTerm(Cantera::ENTHALPY_SOURCE);
-      electrolytePhaseSource[negative] = electrode->getSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
+      energySource[negative] = electrode->getIntegratedSourceTerm(Cantera::ENTHALPY_SOURCE);
+      electrolytePhaseSource[negative] = electrode->getIntegratedSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
       electrode->integratedSourceTerm(&speciesSources[negative][0]);
 
       perturbed_point[*dof_it] = centerpoint[*dof_it];
