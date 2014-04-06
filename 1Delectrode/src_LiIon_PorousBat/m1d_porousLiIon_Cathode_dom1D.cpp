@@ -818,8 +818,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double xdelCell; // cell width - right boundary minus the left boundary.
-    double xCellBoundaryL; //cell boundary left
-    double xCellBoundaryR; //cell boundary right
 
     //  Electrolyte total molar fluxe on Right side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
     double fluxFright = 0.;
@@ -965,27 +963,19 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
          * Calculate the distance between the left and center node points
          */
-        if (nodeLeft) {
-            xdelL = nodeCent->xNodePos() - nodeLeft->xNodePos();
-            xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
-        } else {
-            xdelL = 0.0;
-            xCellBoundaryL = nodeCent->xNodePos();
-        }
+        /*
+         * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
+         * Calculate the distance between the left and center node points
+         */
+        xdelL = cTmps.xdelL_;
         /*
          * Calculate the distance between the right and center node points
          */
-        if (nodeRight == 0) {
-            xdelR = 0.0;
-            xCellBoundaryR = nodeCent->xNodePos();
-        } else {
-            xdelR = nodeRight->xNodePos() - nodeCent->xNodePos();
-            xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
-        }
+        xdelR = cTmps.xdelR_;
         /*
          * Calculate the cell width
          */
-        xdelCell = xCellBoundaryR - xCellBoundaryL;
+        xdelCell = cTmps.xdelCell_;
         xdelCell_Cell_[iCell] = xdelCell;
 
         /*
