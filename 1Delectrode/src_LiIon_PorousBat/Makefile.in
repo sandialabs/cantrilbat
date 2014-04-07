@@ -129,8 +129,8 @@ $(TOBJS) $(DEPENDS): Makefile
 
 rebaseline:
 
-$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
-            $(APPL_BASE_DEP) $(M1D_BASE_DEP)
+$(PROGRAM): $(OBJS) $(M1D_BASE_DEP)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
+            $(APPL_BASE_DEP) 
 	$(CXX) -o $(PROGRAM) \
 		  $(OBJS)  \
                   $(LCXX_FLAGS) $(LINK_OPTIONS) \

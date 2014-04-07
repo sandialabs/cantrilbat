@@ -871,9 +871,12 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    //int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
+    //int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
+    //int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+    int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+    int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
 
     Fright_cc_ = 0.0;
 
@@ -988,10 +991,10 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          */
 
         for (int k = 0; k < nsp_; k++) {
-            Xcent_cc_[k] = soln[indexCent_EqnStart + iVar_Species_BD + k];
+            Xcent_cc_[k] = soln[indexCent_EqnStart + iVar_Species + k];
         }
-        Vcent_cc_ = soln[indexCent_EqnStart + iVar_Voltage_BD];
-        VElectrodeCent_cc_ = soln[indexCent_EqnStart + iVar_Voltage_BD + 1];
+        Vcent_cc_ = soln[indexCent_EqnStart + iVar_Voltage];
+        VElectrodeCent_cc_ = soln[indexCent_EqnStart + iVar_Voltage + 1];
 
 
         /*
@@ -1007,12 +1010,12 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              * The left cell boundary velocity is stored at the previous (left)
              * cell index as per our conventions.
              */
-            Fleft_cc_ = soln[indexLeft_EqnStart + iVAR_Vaxial_BD];
+            Fleft_cc_ = soln[indexLeft_EqnStart + iVAR_Vaxial];
             for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = soln[indexLeft_EqnStart + iVar_Species_BD + k];
+                Xleft_cc_[k] = soln[indexLeft_EqnStart + iVar_Species + k];
             }
-            Vleft_cc_ = soln[indexLeft_EqnStart + iVar_Voltage_BD];
-            VElectrodeLeft_cc_ = soln[indexLeft_EqnStart + iVar_Voltage_BD + 1];
+            Vleft_cc_ = soln[indexLeft_EqnStart + iVar_Voltage];
+            VElectrodeLeft_cc_ = soln[indexLeft_EqnStart + iVar_Voltage + 1];
         } else {
             /*
              * We are here when we are at the left most part of the boundary. Then, there is no
@@ -1034,15 +1037,15 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         /*
          * The right velocity is stored at the current cell index.
          */
-        Fright_cc_ = soln[indexCent_EqnStart + iVAR_Vaxial_BD];
+        Fright_cc_ = soln[indexCent_EqnStart + iVAR_Vaxial];
 
         if (nodeRight != 0) {
 
             for (int k = 0; k < nsp_; k++) {
-                Xright_cc_[k] = soln[indexRight_EqnStart + iVar_Species_BD + k];
+                Xright_cc_[k] = soln[indexRight_EqnStart + iVar_Species + k];
             }
-            Vright_cc_ = soln[indexRight_EqnStart + iVar_Voltage_BD];
-            VElectrodeRight_cc_ = soln[indexRight_EqnStart + iVar_Voltage_BD + 1];
+            Vright_cc_ = soln[indexRight_EqnStart + iVar_Voltage];
+            VElectrodeRight_cc_ = soln[indexRight_EqnStart + iVar_Voltage + 1];
         } else {
 
             for (int k = 0; k < nsp_; k++) {
@@ -1507,7 +1510,6 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
      */
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
-
 
         /*
          *  ---------------- Get the index for the center node ---------------------------------
