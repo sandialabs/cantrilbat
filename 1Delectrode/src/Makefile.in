@@ -153,6 +153,8 @@ DEPENDS=$(TOBJS:.o=.d)
 
 all: libm1d.a  Multi1DDomain .depends tddiff
 
+allsrc: libm1d.a  Multi1DDomain .depends tddiff
+
 $(TOBJS) $(DEPENDS): Makefile
 
 rebaseline:

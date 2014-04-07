@@ -19,7 +19,7 @@ all:
 	cd test_suite;                    @MAKE@
 
 allsrc:
-	cd src;                           @MAKE@
+	cd src;                           @MAKE@ allsrc
 	cd src_test;                      @MAKE@
 	cd src_CanteraElectrode;          @MAKE@
 	cd src_Cu2S;                      @MAKE@
