@@ -1642,8 +1642,7 @@ porousLiIon_Cathode_dom1D::calcElectrode()
         /*
          *  Get the kmol 's produced by the electrode reactions. Units = kmol
          */
-        Electrode_ptr->integratedSourceTerm(&electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_]);
-
+        Electrode_ptr->integratedSpeciesSourceTerm(&electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_]);
 
 
         int kelectron = Electrode_ptr->kSpecElectron();

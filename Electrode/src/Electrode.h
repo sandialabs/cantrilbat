@@ -948,7 +948,7 @@ public:
      *  @return Tfinal    Final time to integrate to.
      *
      */
-    virtual double integratedSourceTerm(doublereal* const spMoleDelta);
+    virtual double integratedSpeciesSourceTerm(doublereal* const spMoleDelta);
 
     //! Report the enthalpy source term for the electrode over an interval in time
     /*!

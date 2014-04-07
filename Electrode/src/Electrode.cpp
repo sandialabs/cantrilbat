@@ -4432,10 +4432,10 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
  *
  *  @return Tfinal    Final time to integrate to.
  */
-double Electrode::integratedSourceTerm(doublereal* const spMoleDelta)
+double Electrode::integratedSpeciesSourceTerm(doublereal* const spMoleDelta)
 {
     if (tfinal_ == tinit_) {
-        throw CanteraError(" Electrode::integratedSourceTerm()", "tfinal == tinit");
+        throw CanteraError(" Electrode::integratedSpeciesSourceTerm()", "tfinal == tinit");
     }
     /*
      *  We may do more here to ensure that the last integration is implicit

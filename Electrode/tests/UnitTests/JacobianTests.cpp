@@ -59,7 +59,7 @@ public:
     }
   }
 
-  virtual double integratedSourceTerm(doublereal* const spMoleDelta)
+  virtual double integratedSpeciesSourceTerm(doublereal* const spMoleDelta)
   {
     spMoleDelta[0] = deltaVoltage_;
     spMoleDelta[1] = 2*fake_electrolyte_mole_nums[0];

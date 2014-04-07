@@ -1698,10 +1698,9 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
      */
     for (int i = 0; i < m_NumTotSpecies; i++) {
         spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
-
     }
     if (doThermalPropertyCalculations_) {
-        integratedThermalEnergySourceTermLast_ =  thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+        integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
     }
 }
 //==================================================================================================================
@@ -1717,10 +1716,16 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
         for (int i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTerm_[i] -= spMoleIntegratedSourceTermLast_[i];
         }
+	if (doThermalPropertyCalculations_) {
+	    integratedThermalEnergySourceTerm_ -= integratedThermalEnergySourceTermLast_;
+	}
     } else {
         for (int i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTerm_[i] += spMoleIntegratedSourceTermLast_[i];
         }
+	if (doThermalPropertyCalculations_) {
+	    integratedThermalEnergySourceTerm_ += integratedThermalEnergySourceTermLast_;
+	}
     }
 }
 //==================================================================================================================
