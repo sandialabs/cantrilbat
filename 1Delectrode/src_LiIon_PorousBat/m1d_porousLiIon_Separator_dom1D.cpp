@@ -632,7 +632,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              */
             Fleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
             for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+                Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
             }
             Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
         } else {
@@ -840,7 +840,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          *   Current conservation equation
          */
-        res[indexCent_EqnStart + nodeTmpsRight.RO_Current_Conservation] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
 
         /*
          * --------------------------------------------------------------------------
