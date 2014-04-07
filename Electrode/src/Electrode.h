@@ -978,9 +978,13 @@ public:
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
-
+    //! Energy released 
+    /*!
+     *     Energy released within the electrode during a local time step
+     *
+     *   @param energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
-
 
     //! Get the integrated source term values for one of a set of sources
     /*!
@@ -1034,7 +1038,6 @@ public:
 //Can protect
     doublereal integratedCurrent() const;
 
-
     //! Returns the integrated moles transfered for each phase in the electrode object
     //! over the time step
     /*!
@@ -1054,15 +1057,6 @@ public:
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-
-    //! Return the number of equations in the Nonlinear equation system used to solve the system
-    //! at every time step
-    /*!
-     *  This is also equal to the number of state variables in the problem
-     */
-    //virtual int nEquations() const;
-
     // -----------------------------------------------------------------------------------------------------------------
 
     //! Class used in the nonlinear solve of the integration equations

@@ -198,9 +198,6 @@ public:
 
     void calcRate(double deltaT);
 
-
-
-
     //!  Print one set of field variables
     /*!
      *  @param indentSpaces  Number of spacies to indent the whole group
@@ -315,6 +312,13 @@ public:
     virtual void predictorCorrectorPrint(const std::vector<double>& yval,
                                          double pnormSrc, double pnormSoln) const;
 
+    //! Energy released 
+    /*!
+     *     Energy released within the electrode during a local time step
+     *
+     *   @param energy released (joules)
+     */
+    virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -535,14 +539,6 @@ public:
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
      */
     virtual void unpackNonlinSolnVector(const double* const y);
-
-
-
-
-
-
-
-
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
@@ -944,6 +940,20 @@ protected:
      *   Units of Joules/(kmol K)
      */
     mutable std::vector<doublereal> partialMolarCpKRSpecies_Cell_final_;
+
+    //!  Partial molar Enthalpy of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol)
+     */
+    mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_final_;
+
+    //!  Partial molar Enthalpy of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol)
+     */
+    mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_init_;
 
     //! Rate of progress of the surface reactions
     /*!
