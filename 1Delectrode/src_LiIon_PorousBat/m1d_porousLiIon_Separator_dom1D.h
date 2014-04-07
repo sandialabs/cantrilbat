@@ -196,6 +196,7 @@ public:
               const ResidEval_Type_Enum residType = Base_ResidEval,
               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
+
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
     /*!

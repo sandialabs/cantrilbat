@@ -524,26 +524,40 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
                                        const double t,
                                        const double deltaT,
                                        const Epetra_Vector_Ghosted & y,
-                                       const Epetra_Vector_Ghosted * const ydot)
+                                       const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
+    const Epetra_Vector_Ghosted *soln_ptr = &y;
     if (doHeatSourceTracking_) {
-	//DomainLayout &DL = *DL_ptr_;
-	/*
+
+        double rdelta_t = 1.0E8;
+        if (deltaT > 0.0) {
+          rdelta_t = 1.0 / deltaT;
+        }
+
+        bool doTimeDependentResid = true;
+        /*
+         * We calculate solnOld_ptr_ here
+         */
+        if (doTimeDependentResid) {
+            calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
+        }
+
+ 
+	DomainLayout &DL = *DL_ptr_;
 	//
 	//   Loop over the Volume Domains
 	//
 	for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
 	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	    d_ptr->eval_PostSoln(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
+	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
 	}
 	//
 	//    Loop over the Surface Domains
 	//
 	for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
 	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-	    d_ptr->eval_PostSoln(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
+	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
 	}
-	*/
 	
 
     }

@@ -127,6 +127,17 @@ Domain1D::residEval(Epetra_Vector &res,
   err("residEval()");
 }
 //=====================================================================================================================
+void
+Domain1D::eval_PostSoln(
+                    const bool doTimeDependentResid,
+                    const Epetra_Vector *soln_ptr,
+                    const Epetra_Vector *solnDot_ptr,
+                    const Epetra_Vector *solnOld_ptr,
+                    const double t,
+                    const double rdelta_t)
+{
+}
+//=====================================================================================================================
 // Utility function to calculate quantities before the main residual routine.
 /*
  *  This is used for a loop over nodes. All calculated quantities must be internally storred.
