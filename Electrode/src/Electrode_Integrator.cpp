@@ -875,7 +875,6 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     //
     // Loop over any possible subcycling of the time step
     do {
-
         /*
          *  Increment the local subcycle counter
          */
@@ -1542,7 +1541,6 @@ void  Electrode_Integrator::check_init_consistency() const
 void  Electrode_Integrator::prepareProblemStatement()
 {
 
-
 }
 //==================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
@@ -1657,7 +1655,6 @@ void  Electrode_Integrator::extractInfo()
 void Electrode_Integrator::updateSpeciesMoleChangeFinal()
 {
     throw CanteraError(" Electrode_Integrator::updateSpeciesMoleChangeFinal()",  "unimplemented");
-
 }
 //==================================================================================================================
 // calculate the residual

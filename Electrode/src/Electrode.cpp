@@ -1,7 +1,6 @@
 /*
  * $Id: Electrode.cpp 593 2013-05-13 21:25:47Z hkmoffa $
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -68,7 +67,6 @@ namespace Cantera {
 int Electrode::s_printLvl_PREDICTOR_CORRECTOR = 1;
 
 void Electrode::readEnvironmentalVariables() {
-
      char *PC_PRINTING = getenv("ELECTRODE_TURN_OFF_PC_PRINTING");
      if (PC_PRINTING) {
         //printf ("TURN_OFF_PC_PRINTING = %s\n", PC_PRINTING);
@@ -76,7 +74,6 @@ void Electrode::readEnvironmentalVariables() {
            Electrode::s_printLvl_PREDICTOR_CORRECTOR=0;
         }
      } 
-
 }
 //======================================================================================================================
 /*
@@ -194,10 +191,7 @@ Electrode::Electrode() :
                 detailedResidPrintFlag_(0),
                 enableExtraPrinting_(false)
 {
-    //m_pl = new PhaseList();
-    //m_rSurDomain = new ReactingSurDomain();
 }
-
 //======================================================================================================================
 // Copy Constructor
 /*
@@ -311,9 +305,6 @@ Electrode::Electrode(const Electrode& right) :
                 detailedResidPrintFlag_(0),
                 enableExtraPrinting_(false)
 {
-    /*
-     * Call the assignment operator.
-     */
     operator=(right);
 }
 //======================================================================================================================
@@ -542,7 +533,6 @@ Electrode::~Electrode()
     SAFE_DELETE(xmlStateData_final_final_);
 
     SAFE_DELETE(eState_final_);
-
 }
 //======================================================================================================================
 // Duplicator function
@@ -611,9 +601,7 @@ void pmatch(std::vector<std::string>& pn, int pos, std::string expected)
  */
 int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
-
     int i, iph;
-
     Electrode_Types_Enum ieos = electrodeType();
     Electrode_Types_Enum seos = string_to_Electrode_Types_Enum(ei->electrodeModelName);
 
@@ -623,7 +611,6 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                 "Electrode Object Type, " + Electrode_Types_Enum_to_string(ieos) + ", is different than requested type, "
                         + ei->electrodeModelName);
     }
-
     /*
      *  Read environmental variables and initialize statics
      */
@@ -1481,7 +1468,6 @@ void Electrode::resizeMoleNumbersToGeometry()
    
     capacityInitialZeroDod_ = Electrode::capacity();
     Electrode::resetCapacityDischargedToDate();
-
 }
 //====================================================================================================================
 //   Resize the electrolyte mole numbers so that it consistent with the porosity
@@ -1932,7 +1918,6 @@ double Electrode::calcSurfaceAreaChange(double deltaT)
     double sa_final = surfaceAreaRS_init_[0];
     return sa_final;
 }
-
 //=====================================================================================================================
 double Electrode::updateElectrolytePseudoMoles()
 {
@@ -1994,7 +1979,6 @@ void Electrode::turnOnFollowElectrolyteMoles()
             throw CanteraError("Electrode::turnOnFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
         }
     }
-
 }
 //====================================================================================================================
 // Get the ID of the external surface, if there is one
@@ -2415,7 +2399,6 @@ void Electrode::updateState()
 void Electrode::updateState_OnionOut()
 {
     int iph;
-
     /*
      * However, I want to make sure mole fractions are
      * consistent with final moles.
@@ -2816,6 +2799,17 @@ void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTrans
      */
 }
 //=================================================================================================
+// Returns the integrated thermal energy source term (Joules)
+/*
+ *    Returns the heat release that has occurred during the global time step. 
+ *
+ *  @param Returns the heat release (joules)
+ */
+double Electrode::getIntegratedThermalEnergySoruceTerm()
+{
+  return integratedThermalEnergySourceTerm_;
+}
+//=================================================================================================
 // Returns the current potential drop across the electrode
 /*
  *   This is equal to phiMetal - phiSoln
@@ -2831,7 +2825,6 @@ double Electrode::potentialDrop() const
     }
     return deltaVoltage_;
 }
-
 //=================================================================================================
 // Returns the standard state OCV for the selected ReactingSurfaceDomain.
 /*
@@ -3241,8 +3234,6 @@ double Electrode::openCircuitVoltage(int isk)
 
     return ERxn;
 }
-
-
 //====================================================================================================================
 // Returns the overpotential for the current conditions
 /*
@@ -3269,7 +3260,6 @@ double Electrode::overpotentialRxn(int isk, int irxn)
     return (deltaVoltage_ - Erxn);
 }
 //====================================================================================================================
-//=================================================================================================
 // Returns the vector of exchange current densities for given surface
 /*
  * For an exchange current to be relevant, we need the reaction to involve an electron.
@@ -3313,7 +3303,6 @@ int Electrode::numSolnPhaseSpecies() const
 {
     return getPhase(phaseName(solnPhase_).c_str())->nSpecies();
 }
-
 //====================================================================================================================
 // Return the number of extra print tables
 int Electrode::getNumPrintTables() const
@@ -3324,7 +3313,6 @@ int Electrode::getNumPrintTables() const
 //! Get the values that are printed in tables for the 1D code.
 void Electrode::getPrintTable(int itable, std::vector<std::string>& colNames, std::vector<double>& colValues) const
 {
-
 }
 //====================================================================================================================
 // Set the current depth of discharge
@@ -3345,7 +3333,6 @@ void Electrode::setRelativeCapacityDischargedPerMole(double relDischargedPerMole
     }
     throw CanteraError(" Electrode::setRelativeCapacityDischargedPerMole()", "not implemented");
 }
-
 //====================================================================================================================
 RxnMolChange* Electrode::rxnMolChangesEGR(int iegr)
 {
@@ -3385,7 +3372,6 @@ int Electrode::processExtraGlobalRxnPathways()
     return numExtraGlobalRxns;
 }
 //====================================================================================================================
-
 Cantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(int iegr)
 {
     return m_egr[iegr];
@@ -3405,12 +3391,13 @@ Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, int iphaseTarget, doubl
                 deltaTsubcycle_(deltaTsubcycle)
 {
 }
+//===================================================================================================================
 int Electrode::phasePop_Resid::evalSS(const doublereal t, const doublereal* const y, doublereal* const r)
 {
     int retn = ee_->phasePopResid(iphaseTarget_, y, deltaTsubcycle_, r);
     return retn;
 }
-
+//===================================================================================================================
 int Electrode::phasePop_Resid::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
 {
     int ne = nEquations();
@@ -3419,6 +3406,7 @@ int Electrode::phasePop_Resid::getInitialConditions(const doublereal t0, doubler
     }
     return 1;
 }
+//===================================================================================================================
 int Electrode::phasePop_Resid::nEquations() const
 {
     ThermoPhase* tp = &(ee_->thermo(iphaseTarget_));
@@ -3650,25 +3638,13 @@ int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double delta
     delete pSolve_Res;
     return retn;
 }
-
 //====================================================================================================================
-
 double Electrode::reportStateVariableIntegrationError(int& numSV, double* const errorVector) const
 {
     numSV = 0;
     throw CanteraError("Electrode::reportStateVariableIntegrationError()", "Base Class Called");
     return 0.0;
 }
-//====================================================================================================================
-// Return the number of equations in the Nonlinear equation system used to solve the system
-// at every time step
-/*
- *  This is also equal to the number of state variables in the problem
- */
-//int Electrode::nEquations() const
-//{
-//    throw CanteraError("Electrode::nEquations()", "Base Class Called");
-//}
 //====================================================================================================================
 Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
                 ResidJacEval(),
@@ -3717,7 +3693,6 @@ int Electrode::integrateResid(const doublereal tfinal, const doublereal deltaTsu
         const doublereal* const ydot, doublereal* const resid, const ResidEval_Type_Enum evalType, const int id_x,
         const doublereal delta_x)
 {
-
     throw CanteraError(" Electrode::integrateResid()", "Base class called");
     return 0;
 }
@@ -3812,7 +3787,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
     std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.0);
-
     integratedThermalEnergySourceTerm_ = 0.0;
     integratedThermalEnergySourceTermLast_ = 0.0;
 
@@ -5286,9 +5260,7 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpG, " \n");
         fclose(fpG);
     }
-
 }
-
 //====================================================================================================================
 }// End of namespace Cantera
 //======================================================================================================================

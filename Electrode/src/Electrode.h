@@ -1044,6 +1044,14 @@ public:
      */
     virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
 
+    //! Returns the integrated thermal energy source term (Joules)
+    /*!
+     *    Returns the heat release that has occurred during the global time step. 
+     *
+     *  @param Returns the heat release (joules)
+     */
+    virtual double getIntegratedThermalEnergySoruceTerm();
+
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
