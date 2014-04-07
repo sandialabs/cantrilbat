@@ -531,14 +531,7 @@ public:
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ----------------------------------------------
     // ---------------------------------------------------------------------------------------------
 
-    //! Return the number of equations in the Nonlinear equation system used to solve the system
-    //! at every time step
-    /*!
-     * (virtual from NonlinearSolver)
-     *  This is also equal to the number of state variables in the problem
-     */
-    virtual int nEquations() const;
-
+ 
 protected:
     //! Set the Residual and Solution absolute error tolerance vectors
     /*!

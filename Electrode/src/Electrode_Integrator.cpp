@@ -1820,12 +1820,6 @@ void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
      }
  }
 //==================================================================================================================
-// Return the number of equations in the equation system that is used to solve the ODE integration
-int Electrode_Integrator::nEquations() const
-{
-    return neq_;
-}
-//==================================================================================================================
 //  Return a vector of delta y's for calculation of the numerical Jacobian
 /*
  * (virtual from ResidJacEval)
