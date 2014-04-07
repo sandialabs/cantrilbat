@@ -149,6 +149,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
+    electrodeC->doThermalPropertyCalculations_ = true;
   
     retn = electrodeC->electrode_model_create(electrodeC_input);
     if (retn == -1) {
@@ -161,6 +162,8 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
+
+    electrodeC->doThermalPropertyCalculations_ = true;
 
     double deltaT = 0.1;
     double Tinitial = 0.0;
@@ -235,15 +238,24 @@ int main(int argc, char **argv)
       double q_entrop = electrodeC->thermalEnergySourceTerm_reversibleEntropy(0);
       double q_enth   = electrodeC->thermalEnergySourceTerm_EnthalpyFormulation(0);
 
+      double q_enth2  = electrodeC->thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+      q_enth2 /= deltaT;
+
       printf("    Check of Thermal Source terms: These should add up to each other:\n");
       printf (" q_over    = %g\n", q_over);
       printf (" q_entrop  = %g\n", q_entrop);
       printf (" q_enth    = %g\n", q_enth);
-      double diff = q_enth -  q_over - q_entrop;
+      printf (" q_enth2   = %g\n", q_enth2);
+      double diff = q_enth - q_over - q_entrop;
       if (fabs(diff) < 1.0E-16) {
           diff = 0.0;
       }
-      printf(" diff =  q_enth - q_over  - q_entrop = %g\n", diff);
+      double diff2 = q_enth2 - q_over - q_entrop;
+      if (fabs(diff2) < 1.0E-11) {
+          diff2 = 0.0;
+      }
+      printf(" diff  =  q_enth -  q_over  - q_entrop = %g\n", diff);
+      printf(" diff2 =  q_enth2 - q_over  - q_entrop = %g\n", diff2);
     }
 
     delete cfC;

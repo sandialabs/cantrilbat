@@ -1565,18 +1565,23 @@ void  Electrode_Integrator::setNLSGlobalSrcTermTolerances(double rtolResid)
 {
     throw CanteraError("Electrode_Integrator::setNLSGlobalSrcTermTolerances","unimplemented");
 }
-
 //======================================================================================================================
 void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
 {
     /*
      *  Zero the global error vectors
      */
-    std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.);
+    std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.0);
     /*
      *   Zero the integrated source term - This will be accumulated over the subcycling
      */
-    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
+    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
+    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.0);
+    /*
+     *  Zero the ThermalEnergySourceTerm
+     */
+    integratedThermalEnergySourceTerm_ = 0.0;
+    integratedThermalEnergySourceTermLast_ = 0.0;
 }
 //==================================================================================================================
 // Number of degrees of freedom in the integrated source terms that constitute the output
@@ -1694,6 +1699,9 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
     for (int i = 0; i < m_NumTotSpecies; i++) {
         spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
 
+    }
+    if (doThermalPropertyCalculations_) {
+        integratedThermalEnergySourceTermLast_ =  thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
     }
 }
 //==================================================================================================================

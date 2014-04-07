@@ -140,6 +140,12 @@ Electrode::Electrode() :
                 spNetProdPerArea_List_(0, 0),
                 spMoleIntegratedSourceTerm_(0),
                 spMoleIntegratedSourceTermLast_(0),
+		enthalpyMolar_init_init_(0),
+		enthalpyMolar_init_(0),
+		enthalpyMolar_final_(0),
+		enthalpyMolar_final_final_(0),
+                integratedThermalEnergySourceTerm_(0.0),
+                integratedThermalEnergySourceTermLast_(0.0),
                 electrodeName_("Electrode"),
                 numExtraGlobalRxns(0),
                 m_EGRList(0),
@@ -251,6 +257,12 @@ Electrode::Electrode(const Electrode& right) :
                 spNetProdPerArea_List_(0, 0),
                 spMoleIntegratedSourceTerm_(0),
                 spMoleIntegratedSourceTermLast_(0),
+		enthalpyMolar_init_init_(0),
+		enthalpyMolar_init_(0),
+		enthalpyMolar_final_(0),
+		enthalpyMolar_final_final_(0),
+                integratedThermalEnergySourceTerm_(0.0),
+                integratedThermalEnergySourceTermLast_(0.0),
                 electrodeName_("Electrode"),
                 numExtraGlobalRxns(0),
                 m_EGRList(0),
@@ -396,6 +408,12 @@ Electrode& Electrode::operator=(const Electrode& right)
     spNetProdPerArea_List_ = right.spNetProdPerArea_List_;
     spMoleIntegratedSourceTerm_ = right.spMoleIntegratedSourceTerm_;
     spMoleIntegratedSourceTermLast_ = right.spMoleIntegratedSourceTermLast_;
+    enthalpyMolar_init_init_ = right.enthalpyMolar_init_init_;
+    enthalpyMolar_init_ = right.enthalpyMolar_init_;
+    enthalpyMolar_final_ = right.enthalpyMolar_final_;
+    enthalpyMolar_final_final_ = right.enthalpyMolar_final_final_;
+    integratedThermalEnergySourceTerm_ = right.integratedThermalEnergySourceTerm_;
+    integratedThermalEnergySourceTermLast_ = right.integratedThermalEnergySourceTermLast_;
     electrodeName_ = right.electrodeName_;
     numExtraGlobalRxns = right.numExtraGlobalRxns;
     Cantera::deepStdVectorPointerCopy<EGRInput>(right.m_EGRList, m_EGRList);
@@ -640,6 +658,9 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     ActiveKineticsSurf_.resize(numSurfaces_, 0);
     sphaseMolarAreas_.resize(numSurfaces_, 0.0);
 
+
+
+
     // Resize species vectors
     spMoles_init_.resize(m_NumTotSpecies, 0.0);
     spMoles_final_.resize(m_NumTotSpecies, 0.0);
@@ -651,6 +672,12 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     spMf_init_.resize(m_NumTotSpecies, 0.0);
     spMf_init_init_.resize(m_NumTotSpecies, 0.0);
     spMf_final_final_.resize(m_NumTotSpecies, 0.0);
+
+    enthalpyMolar_init_init_.resize(m_NumTotSpecies, 0.0);
+    enthalpyMolar_init_.resize(m_NumTotSpecies, 0.0);
+    enthalpyMolar_final_.resize(m_NumTotSpecies, 0.0);
+    enthalpyMolar_final_final_.resize(m_NumTotSpecies, 0.0);
+
     VolPM_.resize(m_NumTotSpecies, 0.0);
     CvPM_.resize(m_NumTotSpecies, 0.0);
     spElectroChemPot_.resize(m_NumTotSpecies, 0.0);
@@ -711,13 +738,14 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     spMoleIntegratedSourceTerm_.resize(m_NumTotSpecies, 0.0);
     spMoleIntegratedSourceTermLast_.resize(m_NumTotSpecies, 0.0);
     spNetProdPerArea_List_.resize(m_NumTotSpecies, numSurfaces_, 0.0);
+    integratedThermalEnergySourceTerm_ = 0.0;
+    integratedThermalEnergySourceTermLast_ = 0.0;
 
     /*
      * Load up the temperature and pressure
      */
     temperature_ = ei->Temperature;
     pressure_ = ei->Pressure;
-
     /*
      *  Loop Over all phases in the PhaseList, adding these
      *  formally to the Electrode object.
@@ -1850,6 +1878,7 @@ void Electrode::updatePhaseNumbers(int iph)
     // Right now we use the Cp calculation from Cantera until we expand Cantera to calculate Cv
     if (doThermalPropertyCalculations_) {
        tp.getPartialMolarCp(&(CvPM_[istart]));
+       tp.getPartialMolarEnthalpies(&(enthalpyMolar_final_[istart]));
     }
 }
 //================================================================================================
@@ -2521,7 +2550,6 @@ double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
     double rst = rsd->productStoichCoeff(krsd, i);
     return rst;
 }
-
 //====================================================================================================================
 // Get the net production rates of all species in the electrode object
 // at the current conditions
@@ -2532,7 +2560,6 @@ double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
 void Electrode::getNetSurfaceProductionRates(const int isk, doublereal* const net) const
 {
     std::fill_n(net, m_NumTotSpecies, 0.);
-
     /*
      *  This routine basically translates between species lists for the reacting surface
      *  domain and the Electrode.
@@ -2618,7 +2645,7 @@ double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) con
         return Eprod * Faraday;
     }
     getIntegratedProductionRates(net);
-    // kmol sec-1 m-2
+    // kmol sec-1
     double Eprod = net[kElectron_];
     // coulomb / kmol
     return Eprod * Faraday;
@@ -2645,7 +2672,7 @@ double Electrode::integratedCurrent() const
     if (t_final_final_ > t_init_init_) {
         invDelT = 1.0 / (t_final_final_ - t_init_init_);
     }
-    // kmol sec-1 m-2
+    // kmol sec-1
     double Eprod = invDelT * spMoleIntegratedSourceTerm_[kElectron_];
     // coulomb / kmol
     return Eprod * Faraday;
@@ -2753,10 +2780,8 @@ void Electrode::getPhaseProductionRates(const doublereal* const speciesProductio
     }
 }
 //================================================================================================
-
 void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
 {
-
     if (!pendingIntegratedStep_) {
         throw CanteraError(" Electrode::getIntegratedPhaseMoleTransfer", "no pending integration step");
     }
@@ -3774,6 +3799,8 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
         spMoles_init_init_[k] = spMoles_final_[k];
         spMf_init_[k] = spMf_final_[k];
         spMf_init_init_[k] = spMf_final_[k];
+        enthalpyMolar_init_[k] = enthalpyMolar_final_[k];
+        enthalpyMolar_init_init_[k] = enthalpyMolar_final_[k];
     }
 
     /*
@@ -3785,6 +3812,9 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
     std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.0);
+
+    integratedThermalEnergySourceTerm_ = 0.0;
+    integratedThermalEnergySourceTermLast_ = 0.0;
 
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
@@ -3854,9 +3884,11 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
         spMoles_init_[k] = spMoles_final_[k];
         spMf_init_[k] = spMf_final_[k];
         spMoles_final_final_[k] = spMoles_final_[k];
+        enthalpyMolar_init_[k] = enthalpyMolar_final_[k];
         if (setInitInit) {
             spMf_init_init_[k] = spMf_final_[k];
             spMoles_init_init_[k] = spMoles_final_[k];
+            enthalpyMolar_init_init_[k] = enthalpyMolar_final_[k];
         }
     }
 
@@ -3945,6 +3977,8 @@ void Electrode::setInitInitStateFromFinalFinal()
         spMf_init_[k] = spMf_final_final_[k];
         spMf_init_init_[k] = spMf_final_final_[k];
         spMoles_init_init_[k] = spMoles_final_final_[k];
+        enthalpyMolar_init_[k] = enthalpyMolar_final_final_[k];
+        enthalpyMolar_init_init_[k] = enthalpyMolar_final_final_[k];
     }
 
     // Reset the total phase moles quantities
@@ -4018,6 +4052,7 @@ void Electrode::setFinalStateFromInit_Oin()
     for (i = 0; i < m_NumTotSpecies; i++) {
         spMoles_final_[i] = spMoles_init_[i];
         spMf_final_[i] = spMf_init_[i];
+        enthalpyMolar_final_[i] = enthalpyMolar_init_[i]; 
     }
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
@@ -4040,7 +4075,6 @@ void Electrode::setFinalStateFromInit_Oin()
 void Electrode::setFinalStateFromInit()
 {
     setFinalStateFromInit_Oin();
-//    updateState();
 }
 //====================================================================================================================
 //    Set the internal initial intermediatefrom the internal initial global state
@@ -4067,11 +4101,14 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
             spMoles_final_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
             spMf_final_[k] = spMf_init_init_[k];
+            enthalpyMolar_init_[k] = enthalpyMolar_init_init_[k]; 
+            enthalpyMolar_final_[k] = enthalpyMolar_init_init_[k]; 
         }
     } else {
         for (k = 0; k < m_NumTotSpecies; k++) {
             spMoles_init_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
+            enthalpyMolar_init_[k] = enthalpyMolar_init_init_[k]; 
         }
 
     }
@@ -4556,20 +4593,91 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
 	 iCurrDens.resize(ss, 0.0);
 	 rsd->getDeltaEnthalpy(&(s_deltaH[0]));
          iCurr = rsd->getCurrentDensityRxn(&(iCurrDens[0]));
-	 //double tt = temperature_;
 	 const std::vector<double>& ROP = rsd->calcNetSurfaceROP();
-
+#ifdef DEBUG_THERMAL
+         for (int k = 0; k < m_NumTotSpecies; k++) {
+            printf("h %d = %20.9E\n", k, enthalpyMolar_final_[k]);
+         }
+#endif
          for (size_t irxn = 0; irxn < nr; irxn++) {
              iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+#ifdef DEBUG_THERMAL
+	     double deltaM = - iCurr * sa / Faraday;
+             printf ("delta moles = %g\n", deltaM * deltaTsubcycle_);
+             printf ("delta moles rate = %g\n", deltaM);
+             printf(" deltaH = %20.9E\n", s_deltaH[irxn]);
+             double term0 =  deltaM * enthalpyMolar_final_[0];
+             printf(" term0 =  %g \n", deltaM * enthalpyMolar_final_[0]);
+             printf(" term0_int =  %g \n", deltaM * enthalpyMolar_final_[0] * deltaTsubcycle_);
+             double term4 = - deltaM * enthalpyMolar_final_[4];
+             printf(" term4 =  %g \n", - deltaM * enthalpyMolar_final_[4]);
+             printf(" term4_int =  %g \n", - deltaM * enthalpyMolar_final_[4] * deltaTsubcycle_);
+             double volt0_term = - deltaM * Faraday * phaseVoltages_[0];
+             printf(" volt0 term = %g \n",  - deltaM * Faraday * phaseVoltages_[0]);
+             printf(" volt0 term_int = %g \n",  - deltaM * Faraday * phaseVoltages_[0] * deltaTsubcycle_);
+#endif
 	     if (nstoich != 0.0) {
-		 q -= sa * iCurr * s_deltaH[irxn] / Faraday;
+		 q -= sa * iCurr * s_deltaH[irxn] / (Faraday * nstoich);
 		 q += sa * iCurr * deltaVoltage_;
 	     } else {
 		 q -= sa * ROP[irxn] * s_deltaH[irxn];
 	     }
+#ifdef DEBUG_THERMAL
+             printf("  term0 + term4 + volt0 term = %g\n", term0 + term4 + volt0_term );
+#endif
          }
     }
     return q; 
+}
+//==============================================================================================================
+double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
+{
+    double q = 0.0;
+    double phiPhase = 0.0;
+     
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        ThermoPhase& tp = thermo(iph);
+        phiPhase = phaseVoltages_[iph];
+
+        int istart = m_PhaseSpeciesStartIndex[iph];
+        int nsp = tp.nSpecies();
+        if (iph == metalPhase_ || iph == solnPhase_) {
+	    for (int ik = 0; ik < nsp; ik++) {
+		int k = istart + ik;
+		double cc = tp.charge(k);
+		double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+		printf("deltaNH_%d = %g,   deltaN = %g\n", k, -deltaNH, deltaN);
+#endif
+		q -= deltaNH;
+		if (cc != 0.0) {
+		    q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+		}
+	    }
+        } else {
+	    for (int ik = 0; ik < nsp; ik++) {
+		int k = istart + ik;  
+		double cc = tp.charge(k);
+		double deltaNH = enthalpyMolar_final_[k] * spMoles_final_[k] - enthalpyMolar_init_[k] * spMoles_init_[k];
+#ifdef DEBUG_THERMAL
+		double deltaN = spMoles_final_[k] - spMoles_init_[k];
+		printf("deltaNH_%d = %g,   deltaN = %g\n", k, -deltaNH, deltaN);
+#endif
+		q -= deltaNH;
+		if (cc != 0.0) {
+		    q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+		}
+	    }
+        }
+    }
+    return q;
 }
 //====================================================================================================================
 double Electrode::getIntegratedSourceTerm(SOURCES sourceType)

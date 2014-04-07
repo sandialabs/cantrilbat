@@ -714,7 +714,6 @@ public:
      *
      *   @return   Returns the current columb sec-1 m-2
      */
-// Deprecate
     doublereal getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const;
 
     //! Get the net production rates of all species in the electrode object
@@ -915,9 +914,6 @@ public:
 // Deprecate
     virtual void calculateTimeDerivatives(doublereal deltaTsubcycle);
 
-
-
-
     //------------------------------------------------------------------------------------------------------------------
     // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION -------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -981,6 +977,10 @@ public:
      *
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
+
+
+    virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+
 
     //! Get the integrated source term values for one of a set of sources
     /*!
@@ -2714,6 +2714,16 @@ protected:
      */
     std::vector<double> spMoleIntegratedSourceTermLast_;
 
+    
+    std::vector<double> enthalpyMolar_init_init_;
+    std::vector<double> enthalpyMolar_init_;
+    std::vector<double> enthalpyMolar_final_;
+    std::vector<double> enthalpyMolar_final_final_;
+
+
+    double integratedThermalEnergySourceTerm_;
+    double integratedThermalEnergySourceTermLast_;
+
     //! Name of the electrode to be used in printouts
     std::string electrodeName_;
 
@@ -2765,7 +2775,6 @@ protected:
     //! This is the Phi_metal - Phi_soln.
     //! In other words, the voltage drop across the interface.
     double deltaVoltage_;
-
 
     //! Amount of electrons that have left the electrode
     /*!

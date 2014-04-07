@@ -43,8 +43,7 @@
   </speciesData>
 
  <reactionData id="data_LiElectrode">
-
-  <!--
+    <!--
        Lumped reaction on the LiCoO2 electrode
     -->
     <reaction reversible="yes" type="surface" id="0001">
@@ -60,7 +59,6 @@
       <reactants> LiCoO2:1.0 </reactants>
       <products> Li+:1.0  electron_Li_LiIon:1.0 CoO2:1.0 </products>
     </reaction>
-
 
   </reactionData>
 

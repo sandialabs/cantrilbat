@@ -1531,7 +1531,9 @@ current2 = -0.106531 amps
  q_over    = 0.0222882
  q_entrop  = 0.0237412
  q_enth    = 0.0460294
- diff =  q_enth - q_over  - q_entrop = 0
+ q_enth2   = 0.0460294
+ diff  =  q_enth -  q_over  - q_entrop = 0
+ diff2 =  q_enth2 - q_over  - q_entrop = 0
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
@@ -1773,4 +1775,6 @@ current2 = -0.10652 amps
  q_over    = 0.0222854
  q_entrop  = 0.0237392
  q_enth    = 0.0460247
- diff =  q_enth - q_over  - q_entrop = 0
+ q_enth2   = 0.0460247
+ diff  =  q_enth -  q_over  - q_entrop = 0
+ diff2 =  q_enth2 - q_over  - q_entrop = 0
