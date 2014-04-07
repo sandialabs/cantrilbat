@@ -138,6 +138,10 @@ protected:
   //! Current porosity
   double porosity_Curr_;
 
+  std::vector<double> qSource_Cell_curr_;
+
+  std::vector<double> qSource_Cell_accumul_;
+
 
   
 

@@ -67,6 +67,8 @@ namespace m1d
     pres_Curr_ = r.pres_Curr_;
     phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
     porosity_Curr_ = r.porosity_Curr_;
+    qSource_Cell_curr_ = r.qSource_Cell_curr_;
+    qSource_Cell_accumul_ = r.qSource_Cell_accumul_;
 
     return *this;
   }
@@ -96,7 +98,9 @@ namespace m1d
 
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
-
+    qSource_Cell_curr_.resize(NumLcCells, 0.0);
+    qSource_Cell_accumul_.resize(NumLcCells, 0.0);
+ 
   }
 
   //=====================================================================================================================

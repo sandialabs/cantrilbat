@@ -196,6 +196,15 @@ public:
               const ResidEval_Type_Enum residType = Base_ResidEval,
               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
+  virtual void
+  eval_PostSoln(
+            const bool doTimeDependentResid,
+            const Epetra_Vector *soln_ptr,
+            const Epetra_Vector *solnDot_ptr,
+            const Epetra_Vector *solnOld_ptr,
+            const double t,
+            const double rdelta_t);
+
 
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
@@ -451,6 +460,7 @@ protected:
      * Length = number of electrolyte species = 3
      */
     std::vector<double> spCharge_;
+
 
     // -----------------------------------------------------------------------
     //!  Current Thermo value of quantities at the current point
