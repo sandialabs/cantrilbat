@@ -58,7 +58,8 @@ ProblemStatementCell::ProblemStatementCell() :
   ElementNames_(0),
   initDefaultNumCVsAnode_(10),
   initDefaultNumCVsCathode_(10),
-  initDefaultNumCVsSeparator_(10)
+  initDefaultNumCVsSeparator_(10),
+  doHeatSourceTracking_(0)
 {
   PhaseList_ = new Cantera::PhaseList();
 }
@@ -103,6 +104,20 @@ ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
   s1->set_default(0);
   cf->addLineEntry(s1);
   BaseEntry::set_SkipUnknownEntries(true);
+
+  /* -------------------------------------------------------------------------
+   *
+   *     Heat Source Tracking
+   *
+   *   0 = Do not do any heat source tracking
+   *   1 = calculate heat sources, print them out, and have them available for external communication
+   */
+  int reqd = 0;
+  LE_OneInt *i2 = new LE_OneInt("Heat Source Tracking", &(doHeatSourceTracking_), reqd, "doHeatSourceTracking");
+  i2->set_default(0);
+  i2->set_limits(9, 0);
+  cf->addLineEntry(i2);
+
 }
 //=====================================================================================================================
 void
@@ -397,7 +412,6 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   BaseEntry::set_SkipUnknownEntries(false);
 
 }
-//=====================================================================================================================
 //=====================================================================================================================
 /**
  * Do any post processing required.

@@ -83,7 +83,7 @@ Restart File Name = solutionRestart.xml
 !  field that may potentially vary in space and time. The method for input of this temperature
 !  field is unspecified as of now, until a concrete example is constructed.
 ! 
-!  If the problem type is "Dirichlet Eqeuation", then an alternative fixed equation is used.
+!  If the problem type is "Dirichlet Equation", then an alternative fixed equation is used.
 !  Typically this would just impose a fixed temperature field option. However, the matrix
 !  structure is the same as the full problem.
 !

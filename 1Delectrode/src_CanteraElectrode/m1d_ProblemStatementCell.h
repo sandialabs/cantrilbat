@@ -244,6 +244,7 @@ public:
   //! Initial number of cells in the cathode
   int initDefaultNumCVsSeparator_;
 
+  int doHeatSourceTracking_;
 
 };
 //=====================================================================================================================

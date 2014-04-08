@@ -56,6 +56,7 @@ namespace m1d
     QdotSeparatorPerArea_n_(0.0),
     QdotCathodePerArea_n_(0.0)
   {
+     doHeatSourceTracking_ = PSinput.doHeatSourceTracking_;
   }
   //=====================================================================================================================
   // Destructor

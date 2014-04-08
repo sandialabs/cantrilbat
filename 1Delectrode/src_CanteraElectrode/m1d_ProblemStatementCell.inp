@@ -8,8 +8,52 @@
 !---------------------------------------------------------------------------------------------------------
 Root Finder for Constant Current = 1
 !---------------------------------------------------------------------------------------------------------
-
-
+!
+!     Heat Source Tracking - int (optional) (default = 0)
+!
+!   0 = Do not do any heat source tracking
+!   1 = calculate heat sources, print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Heat Source Tracking = 0
+!---------------------------------------------------------------------------------------------------------
+!
+!
+! -------------------------------------------------------------------------
+!
+! Cathode BC Type - int (required)
+!
+!     0 - Specify a fixed voltage at the cathode
+!     1 - Specify a fixed discharge current through the battery
+!     2 - Time dependent voltage at the cathode
+!     3 - Time dependent current at the cathode
+!     4 - specify time dependent voltage BoundaryCondition BCconstant
+!     5 - specify time dependent current BoundaryCondition BCconstant
+!     6 - specify time dependent voltage BoundaryCondition BCsteptable
+!     7 - specify time dependent current BoundaryCondition BCsteptable
+!     8 - specify time dependent voltage BoundaryCondition BClineartable
+!     9 - specify time dependent current BoundaryCondition BClineartable
+!
+! -------------------------------------------------------------------------
+Cathode BC Type = 0
+! -------------------------------------------------------------------------
+!
+!   Name of XML formatted input file for the cathode boundary condition
+!
+!  Input Cathode BC File = XML_FILE_NAME.xml (optional) (default = BC.xml)
+!
+! -------------------------------------------------------------------------
+!Input Cathode BC File = XML_FILE_NAME.xml
+! -------------------------------------------------------------------------
+!
+!        Discharge Current - double [Amps / cm2] (no default)
+!    (conditionally required if Problem Type = 1)
+!   
+!    Specify the current in amps per cm2 for the battery.
+!     This is only needed when the Problem Type is 1
+! -------------------------------------------------------------------------
+ Discharge Current = 1.0 amps / cm2
+! -------------------------------------------------------------------------
 
 
 

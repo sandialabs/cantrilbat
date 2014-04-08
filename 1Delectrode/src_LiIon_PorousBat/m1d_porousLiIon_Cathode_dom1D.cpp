@@ -2835,6 +2835,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
     }
 
+
+
+
+
 }
 //=====================================================================================================================
 // Generate the initial conditions
