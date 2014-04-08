@@ -2805,7 +2805,7 @@ void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTrans
  *
  *  @param Returns the heat release (joules)
  */
-double Electrode::getIntegratedThermalEnergySoruceTerm()
+double Electrode::getIntegratedThermalEnergySourceTerm()
 {
   return integratedThermalEnergySourceTerm_;
 }

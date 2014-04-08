@@ -1053,7 +1053,7 @@ public:
      *
      *  @param Returns the heat release (joules)
      */
-    virtual double getIntegratedThermalEnergySoruceTerm();
+    virtual double getIntegratedThermalEnergySourceTerm();
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
