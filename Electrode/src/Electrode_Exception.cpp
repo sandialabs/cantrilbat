@@ -11,9 +11,8 @@ namespace Cantera
 
 //==============================================================================
 Electrode_Error::Electrode_Error(const std::string &proc, const std::string &msg) :
-    CanteraError()
+    CanteraError("Electrode_Error: " + proc, msg)
 {
-    CanteraError("Electrode_Error: " + proc, msg);
 }
 //==============================================================================
 Electrode_Error::~Electrode_Error() throw()
