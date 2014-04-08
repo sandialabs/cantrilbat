@@ -1085,7 +1085,9 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
             icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
 
 	    qSource_Cell_curr_[iCell] +=  gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
+	    
 	}
+	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
 //=====================================================================================================================

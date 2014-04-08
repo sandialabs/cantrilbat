@@ -563,11 +563,70 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
     }
 
 }
+//================================================================================================================
+double
+BatteryResidEval::heatSourceLastStep() const
+{
+    double q = 0.0;
+    DomainLayout &DL = *DL_ptr_;
+    //
+    //   Loop over the Volume Domains
+    //
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	porousFlow_dom1D* p_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
+	if (p_ptr) {
+	    q += p_ptr->heatSourceLastStep();
+	}
+    }
+    //
+    //    Loop over the Surface Domains (no terms yet)
+    //
+    // for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+    //	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+    //	d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
+    //  }
+    return q;
+}
+//================================================================================================================
+double
+BatteryResidEval::heatSourceAccumulated() const 
+{
+    double q = 0.0;
+    DomainLayout &DL = *DL_ptr_;
+    //
+    //   Loop over the Volume Domains
+    //
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	porousFlow_dom1D* p_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
+	if (p_ptr) {
+	    q += p_ptr->heatSourceAccumulated();
+	}
+    }
+    return q;
+}
+//================================================================================================================
+void
+BatteryResidEval::heatSourceZeroAccumulated() const
+{
+    DomainLayout &DL = *DL_ptr_;
+    //
+    //   Loop over the Volume Domains
+    //
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	porousFlow_dom1D* p_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
+	if (p_ptr) {
+	   p_ptr->heatSourceZeroAccumulated();
+	}
+    }
+}
 //====================================================================================================================
-  int
-  BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
+int
+BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
     if (paramName != "CathodeCollectorVoltage") {
-      return -1;
+	return -1;
     } 
     // Go find the Cathode Collector object
     DomainLayout &DL = *DL_ptr_;
@@ -685,6 +744,8 @@ int   BatteryResidEval::getMaxSubGridTimeSteps() const
 {
     return maxSubGridTimeSteps_;
 }
+
+
 //=====================================================================================================================
 } // end of m1d namespace
 //=====================================================================================================================

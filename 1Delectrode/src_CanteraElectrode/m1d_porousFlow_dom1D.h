@@ -77,6 +77,12 @@ public:
   virtual void
   domain_prep(LocalNodeIndices *li_ptr);
 
+  virtual double heatSourceLastStep() const;
+  
+  virtual double heatSourceAccumulated() const;
+
+  virtual void heatSourceZeroAccumulated() const;
+
 
   // -------------------------------------------------------------------------------------------------------------------
   // --- DATA 
@@ -138,9 +144,9 @@ protected:
   //! Current porosity
   double porosity_Curr_;
 
-  std::vector<double> qSource_Cell_curr_;
+  mutable std::vector<double> qSource_Cell_curr_;
 
-  std::vector<double> qSource_Cell_accumul_;
+  mutable std::vector<double> qSource_Cell_accumul_;
 
 
   

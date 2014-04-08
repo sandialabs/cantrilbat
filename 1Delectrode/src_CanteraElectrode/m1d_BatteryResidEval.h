@@ -264,6 +264,12 @@ public:
      */
     int getMaxSubGridTimeSteps() const;
 
+    double heatSourceLastStep() const;
+
+    double heatSourceAccumulated() const;
+
+    void heatSourceZeroAccumulated() const;
+
     //! Boolean indicating whether to calculate Heat Source Time tracking terms
     int doHeatSourceTracking_;
 
