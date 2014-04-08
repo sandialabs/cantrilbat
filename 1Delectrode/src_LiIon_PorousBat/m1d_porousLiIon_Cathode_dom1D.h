@@ -208,6 +208,14 @@ public:
               const ResidEval_Type_Enum residType = Base_ResidEval,
               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
+  virtual void
+  eval_PostSoln(
+            const bool doTimeDependentResid,
+            const Epetra_Vector *soln_ptr,
+            const Epetra_Vector *solnDot_ptr,
+            const Epetra_Vector *solnOld_ptr,
+            const double t,
+            const double rdelta_t);
 
     //! Utility function to calculate quantities before the main residual routine.
     /*!
@@ -266,8 +274,8 @@ public:
      *                              1 - at the right cell boundary
      */
     void
-    SetupThermoShop2(const doublereal* const solnElectrolyte_CurrL,
-                     const doublereal* const solnElectrolyte_CurrR,
+    SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
+                     const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
                      int type);
 
     //! Calculate gradients and fluxes at the current point
