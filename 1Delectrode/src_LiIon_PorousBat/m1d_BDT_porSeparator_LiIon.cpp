@@ -9,7 +9,8 @@
 #include "m1d_BDT_porSeparator_LiIon.h"
 #include "m1d_porousLiIon_Separator_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
+#include "LiIon_PorousBat.h"
+//extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
 using namespace Cantera;

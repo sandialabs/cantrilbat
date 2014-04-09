@@ -148,8 +148,12 @@ protected:
 
   mutable std::vector<double> qSource_Cell_accumul_;
 
+  std::vector<double> jouleHeat_lyte_Cell_curr_;
+  std::vector<double> jouleHeat_solid_Cell_curr_;
 
-  
+  std::vector<double> electrodeHeat_Cell_curr_; 
+  std::vector<double> overPotentialHeat_Cell_curr_;
+  std::vector<double> deltaSHeat_Cell_curr_;
 
 };
 //======================================================================================================================

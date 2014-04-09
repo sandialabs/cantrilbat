@@ -395,6 +395,13 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
         ee->choiceDeltaTsubcycle_init_ = 1;
 
         /*
+         *  Do thermal property calculations within the electrode
+         */
+        if (PSinput.doHeatSourceTracking_) {
+            ee->doThermalPropertyCalculations_ = true;
+        }
+
+        /*
          * Compute cell volume
          */
         //Get the index for the center node

@@ -3,9 +3,6 @@
  *
  */
 
-/*
- *  $Id: LiIon_PorousBat.cpp 506 2013-01-07 22:43:59Z hkmoffa $
- */
 
 #define HAVE_MPI
 #ifdef HAVE_MPI
@@ -15,54 +12,16 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include <cantera/thermo/StoichSubstance.h>  // separator
-//#include "cantera/base/mdp_allo.h"
-
-#include "Ifpack.h"
-#include "AztecOO.h"
-
 #include "m1d_defs.h"
 #include "LiIon_PorousBat.h"
-
-
-#include "m1d_Comm.h"
-#include "m1d_EpetraExtras.h"
-
-#include "m1d_BulkDomain1D.h"
-
-
-#include "m1d_SolNonlinear.h"
 #include "m1d_SolNonlinear_CurrentSolve.h"
-#include "m1d_ProblemStatement.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
-#include "m1d_EpetraJac.h"
-#include "m1d_ProblemStatementCell.h"
-
 #include "BEulerInt_Battery.h"
+#include "m1d_GlobalIndices.h"
 
-
-#include <vector>
 #include <set>
 #include <iterator>
-#include <iostream>
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include "m1d_solvers.h"
-#include "m1d_GlobalIndices.h"
-#include "m1d_LocalNodeIndices.h"
-#include "m1d_exception.h"
-#include "m1d_VBRIndices.h"
 //=====================================================================================
 /*
  * HKM

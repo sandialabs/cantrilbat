@@ -69,6 +69,9 @@ namespace m1d
     porosity_Curr_ = r.porosity_Curr_;
     qSource_Cell_curr_ = r.qSource_Cell_curr_;
     qSource_Cell_accumul_ = r.qSource_Cell_accumul_;
+    jouleHeat_lyte_Cell_curr_ = r.jouleHeat_lyte_Cell_curr_;
+    jouleHeat_solid_Cell_curr_ = r.jouleHeat_solid_Cell_curr_;
+
 
     return *this;
   }
@@ -98,11 +101,16 @@ namespace m1d
 
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
+
     qSource_Cell_curr_.resize(NumLcCells, 0.0);
     qSource_Cell_accumul_.resize(NumLcCells, 0.0);
- 
-  }
+    jouleHeat_lyte_Cell_curr_.resize(NumLcCells, 0.0);
+    jouleHeat_solid_Cell_curr_.resize(NumLcCells, 0.0);
+    electrodeHeat_Cell_curr_.resize(NumLcCells, 0.0);
+    overPotentialHeat_Cell_curr_.resize(NumLcCells, 0.0);
+    deltaSHeat_Cell_curr_.resize(NumLcCells, 0.0);
 
+  }
 //=====================================================================================================================
 double porousFlow_dom1D::heatSourceLastStep() const
 {

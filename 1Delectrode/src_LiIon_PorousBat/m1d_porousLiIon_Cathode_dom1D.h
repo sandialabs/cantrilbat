@@ -10,8 +10,6 @@
 
 #include "m1d_porousElectrode_dom1D.h"
 
-#include "cantera/transport.h"
-
 namespace Cantera
 {
 class Electrode;

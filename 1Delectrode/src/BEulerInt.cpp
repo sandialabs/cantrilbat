@@ -1461,11 +1461,12 @@ double BEulerInt::integratePRE(double tout)
     const Epetra_Vector_Owned & aabstol = m_func->atolVector();
     setTolerancesEpetra(m_reltol, aabstol);
 
+    m_func->evalTimeTrackingEqns(0, time_current, 0.0, *m_y_n, m_ydot_n);
+
     /*
-     *  HKM -> Not sure that this call is necessary. Consider taking it out
+     *
      */
     m_func->advanceTimeBaseline(true, m_y_n, m_ydot_n, m_y_nm1, time_current, time_nm1);
-    m_func->evalTimeTrackingEqns(0, time_current, 0.0, *m_y_n, m_ydot_n);
 
     /*
      *   Always call writeSolution to write out the initial conditions
