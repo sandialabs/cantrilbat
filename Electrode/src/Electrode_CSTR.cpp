@@ -2575,6 +2575,9 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
             spMoleIntegratedSourceTermLast_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
         }
     }
+    if (doThermalPropertyCalculations_) {
+        integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+    }
 }
 //====================================================================================================================
 //!  Gather the predicted solution values and the predicted integrated source terms

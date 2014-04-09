@@ -3216,6 +3216,9 @@ void Electrode_MP_RxnExtent::calcSrcTermsOnCompletedStep()
             spMoleIntegratedSourceTermLast_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
         }
     }
+    if (doThermalPropertyCalculations_) {
+        integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+    }
 }
 //==================================================================================================================
 //   Accumulate src terms and other results from the local step into the global holding bins.
