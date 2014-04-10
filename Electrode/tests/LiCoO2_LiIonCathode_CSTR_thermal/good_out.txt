@@ -1529,7 +1529,9 @@ cd2 = -0.423872
 current2 = -0.106531 amps
     Check of Thermal Source terms: These should add up to each other:
  q_over    = 0.0222882
+ q_over2   = 0.0222884
  q_entrop  = 0.0237412
+ q_entrop2 = 0.023741
  q_enth    = 0.0460294
  q_enth2   = 0.0460294
  diff  =  q_enth -  q_over  - q_entrop = 0
@@ -1773,7 +1775,9 @@ cd2 = -0.423828
 current2 = -0.10652 amps
     Check of Thermal Source terms: These should add up to each other:
  q_over    = 0.0222854
+ q_over2   = 0.0222857
  q_entrop  = 0.0237392
+ q_entrop2 = 0.023739
  q_enth    = 0.0460247
  q_enth2   = 0.0460247
  diff  =  q_enth -  q_over  - q_entrop = 0

@@ -241,9 +241,17 @@ int main(int argc, char **argv)
       double q_enth2  = electrodeC->thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
       q_enth2 /= deltaT;
 
+      double q_over2  =  electrodeC->thermalEnergySourceTerm_Overpotential_SingleStep();
+      q_over2 /= deltaT;
+
+      double q_entrop2 = electrodeC->thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
+      q_entrop2 /= deltaT;
+
       printf("    Check of Thermal Source terms: These should add up to each other:\n");
       printf (" q_over    = %g\n", q_over);
+      printf (" q_over2   = %g\n", q_over2);
       printf (" q_entrop  = %g\n", q_entrop);
+      printf (" q_entrop2 = %g\n", q_entrop2);
       printf (" q_enth    = %g\n", q_enth);
       printf (" q_enth2   = %g\n", q_enth2);
       double diff = q_enth - q_over - q_entrop;

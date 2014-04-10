@@ -141,6 +141,14 @@ Electrode::Electrode() :
 		enthalpyMolar_init_(0),
 		enthalpyMolar_final_(0),
 		enthalpyMolar_final_final_(0),
+		entropyMolar_init_init_(0),
+		entropyMolar_init_(0),
+		entropyMolar_final_(0),
+		entropyMolar_final_final_(0),
+		chempotMolar_init_init_(0),
+		chempotMolar_init_(0),
+		chempotMolar_final_(0),
+		chempotMolar_final_final_(0),
                 integratedThermalEnergySourceTerm_(0.0),
                 integratedThermalEnergySourceTermLast_(0.0),
                 electrodeName_("Electrode"),
@@ -254,7 +262,15 @@ Electrode::Electrode(const Electrode& right) :
 		enthalpyMolar_init_init_(0),
 		enthalpyMolar_init_(0),
 		enthalpyMolar_final_(0),
-		enthalpyMolar_final_final_(0),
+                enthalpyMolar_final_final_(0),
+                entropyMolar_init_init_(0),
+                entropyMolar_init_(0),
+                entropyMolar_final_(0),
+                entropyMolar_final_final_(0),
+                chempotMolar_init_init_(0),
+                chempotMolar_init_(0),
+                chempotMolar_final_(0),
+                chempotMolar_final_final_(0),
                 integratedThermalEnergySourceTerm_(0.0),
                 integratedThermalEnergySourceTermLast_(0.0),
                 electrodeName_("Electrode"),
@@ -403,6 +419,14 @@ Electrode& Electrode::operator=(const Electrode& right)
     enthalpyMolar_init_ = right.enthalpyMolar_init_;
     enthalpyMolar_final_ = right.enthalpyMolar_final_;
     enthalpyMolar_final_final_ = right.enthalpyMolar_final_final_;
+    entropyMolar_init_init_ = right.entropyMolar_init_init_;
+    entropyMolar_init_ = right.entropyMolar_init_;
+    entropyMolar_final_ = right.entropyMolar_final_;
+    entropyMolar_final_final_ = right.entropyMolar_final_final_;
+    chempotMolar_init_init_ = right.chempotMolar_init_init_;
+    chempotMolar_init_ = right.chempotMolar_init_;
+    chempotMolar_final_ = right.chempotMolar_final_;
+    chempotMolar_final_final_ = right.chempotMolar_final_final_;
     integratedThermalEnergySourceTerm_ = right.integratedThermalEnergySourceTerm_;
     integratedThermalEnergySourceTermLast_ = right.integratedThermalEnergySourceTermLast_;
     electrodeName_ = right.electrodeName_;
@@ -664,6 +688,14 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     enthalpyMolar_init_.resize(m_NumTotSpecies, 0.0);
     enthalpyMolar_final_.resize(m_NumTotSpecies, 0.0);
     enthalpyMolar_final_final_.resize(m_NumTotSpecies, 0.0);
+    entropyMolar_init_init_.resize(m_NumTotSpecies, 0.0);
+    entropyMolar_init_.resize(m_NumTotSpecies, 0.0);
+    entropyMolar_final_.resize(m_NumTotSpecies, 0.0);
+    entropyMolar_final_final_.resize(m_NumTotSpecies, 0.0);
+    chempotMolar_init_init_.resize(m_NumTotSpecies, 0.0);
+    chempotMolar_init_.resize(m_NumTotSpecies, 0.0);
+    chempotMolar_final_.resize(m_NumTotSpecies, 0.0);
+    chempotMolar_final_final_.resize(m_NumTotSpecies, 0.0);
 
     VolPM_.resize(m_NumTotSpecies, 0.0);
     CvPM_.resize(m_NumTotSpecies, 0.0);
@@ -1865,6 +1897,8 @@ void Electrode::updatePhaseNumbers(int iph)
     if (doThermalPropertyCalculations_) {
        tp.getPartialMolarCp(&(CvPM_[istart]));
        tp.getPartialMolarEnthalpies(&(enthalpyMolar_final_[istart]));
+       tp.getPartialMolarEntropies(&(entropyMolar_final_[istart]));
+       tp.getChemPotentials(&(chempotMolar_final_[istart]));
     }
 }
 //================================================================================================
@@ -3776,6 +3810,10 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
         spMf_init_init_[k] = spMf_final_[k];
         enthalpyMolar_init_[k] = enthalpyMolar_final_[k];
         enthalpyMolar_init_init_[k] = enthalpyMolar_final_[k];
+	entropyMolar_init_[k] = entropyMolar_final_[k];
+	entropyMolar_init_init_[k] = entropyMolar_final_[k];
+	chempotMolar_init_[k] = chempotMolar_final_[k];
+	chempotMolar_init_init_[k] = chempotMolar_final_[k];
     }
 
     /*
@@ -3859,10 +3897,14 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
         spMf_init_[k] = spMf_final_[k];
         spMoles_final_final_[k] = spMoles_final_[k];
         enthalpyMolar_init_[k] = enthalpyMolar_final_[k];
+	entropyMolar_init_[k] = entropyMolar_final_[k];
+	chempotMolar_init_[k] = chempotMolar_final_[k];
         if (setInitInit) {
             spMf_init_init_[k] = spMf_final_[k];
             spMoles_init_init_[k] = spMoles_final_[k];
             enthalpyMolar_init_init_[k] = enthalpyMolar_final_[k];
+	    entropyMolar_init_init_[k] = entropyMolar_final_[k];
+	    chempotMolar_init_init_[k] = chempotMolar_final_[k];
         }
     }
 
@@ -3953,6 +3995,10 @@ void Electrode::setInitInitStateFromFinalFinal()
         spMoles_init_init_[k] = spMoles_final_final_[k];
         enthalpyMolar_init_[k] = enthalpyMolar_final_final_[k];
         enthalpyMolar_init_init_[k] = enthalpyMolar_final_final_[k];
+	entropyMolar_init_[k] = entropyMolar_final_final_[k];
+	entropyMolar_init_init_[k] = entropyMolar_final_final_[k];
+	chempotMolar_init_[k] = chempotMolar_final_final_[k];
+	chempotMolar_init_init_[k] = chempotMolar_final_final_[k];
     }
 
     // Reset the total phase moles quantities
@@ -4027,6 +4073,8 @@ void Electrode::setFinalStateFromInit_Oin()
         spMoles_final_[i] = spMoles_init_[i];
         spMf_final_[i] = spMf_init_[i];
         enthalpyMolar_final_[i] = enthalpyMolar_init_[i]; 
+	entropyMolar_final_[i] = entropyMolar_init_[i]; 
+	chempotMolar_final_[i] = chempotMolar_init_[i]; 
     }
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {
@@ -4077,12 +4125,18 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
             spMf_final_[k] = spMf_init_init_[k];
             enthalpyMolar_init_[k] = enthalpyMolar_init_init_[k]; 
             enthalpyMolar_final_[k] = enthalpyMolar_init_init_[k]; 
+	    entropyMolar_init_[k] = entropyMolar_init_init_[k];
+	    entropyMolar_final_[k] = entropyMolar_init_init_[k];
+	    chempotMolar_init_[k] = chempotMolar_init_init_[k];
+	    chempotMolar_final_[k] = chempotMolar_init_init_[k];
         }
     } else {
         for (k = 0; k < m_NumTotSpecies; k++) {
             spMoles_init_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
             enthalpyMolar_init_[k] = enthalpyMolar_init_init_[k]; 
+	    entropyMolar_init_[k] = entropyMolar_init_init_[k];
+	    chempotMolar_init_[k] = chempotMolar_init_init_[k];
         }
 
     }
@@ -4652,6 +4706,101 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
         }
     }
     return q;
+}
+//==============================================================================================================
+// This is called at the end of a single step.
+/*
+ *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
+ *    on all of the surfaces.
+ */
+double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
+{
+    //
+    //  Ok we have calculated q one way, calc q another way so that we can have options.
+    // 
+    double q_alt = 0.0;
+    double tt = temperature_;
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        ThermoPhase& tp = thermo(iph);
+        int istart = m_PhaseSpeciesStartIndex[iph];
+        int nsp = tp.nSpecies();
+        if (iph == metalPhase_ || iph == solnPhase_) {
+	    for (int ik = 0; ik < nsp; ik++) {
+		int k = istart + ik;
+		double deltaNS = tt * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+		printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
+#endif
+		q_alt -= deltaNS;
+	    }
+        } else {
+	    for (int ik = 0; ik < nsp; ik++) {
+		int k = istart + ik;
+		double deltaNS = tt * (entropyMolar_final_[k] * spMoles_final_[k] - entropyMolar_init_[k] * spMoles_init_[k]);
+#ifdef DEBUG_THERMAL
+		double deltaN = spMoles_final_[k] - spMoles_init_[k];
+		printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
+#endif
+		q_alt -= deltaNS;
+	    }
+        }
+    }
+    return q_alt;
+}
+//==============================================================================================================
+// This is called at the end of a single step.
+/*
+ *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
+ *    on all of the surfaces.
+ */
+double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
+{
+    double q_alt = 0.0;
+    double phiPhase = 0.0;    
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        ThermoPhase& tp = thermo(iph);
+        phiPhase = phaseVoltages_[iph];
+
+        int istart = m_PhaseSpeciesStartIndex[iph];
+        int nsp = tp.nSpecies();
+        if (iph == metalPhase_ || iph == solnPhase_) {
+	    for (int ik = 0; ik < nsp; ik++) {
+		int k = istart + ik;
+		double cc = tp.charge(k);
+		double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+		printf("deltaNG_%d = %g,   deltaN = %g\n", k, -deltaNG, deltaN);
+#endif
+		q_alt -= deltaNG;
+		if (cc != 0.0) {
+		    q_alt -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+		}
+	    }
+        } else {
+	    for (int ik = 0; ik < nsp; ik++) {
+		int k = istart + ik;  
+		double cc = tp.charge(k);
+		double deltaNG = chempotMolar_final_[k] * spMoles_final_[k] - chempotMolar_init_[k] * spMoles_init_[k];
+#ifdef DEBUG_THERMAL
+		double deltaN = spMoles_final_[k] - spMoles_init_[k];
+		printf("deltaNG_%d = %g,   deltaN = %g\n", k, -deltaNG, deltaN);
+#endif
+		q_alt -= deltaNG;
+		if (cc != 0.0) {
+		    q_alt -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+		}
+	    }
+        }
+    }
+    return q_alt;
 }
 //====================================================================================================================
 double Electrode::getIntegratedSourceTerm(SOURCES sourceType)

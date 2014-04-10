@@ -986,6 +986,9 @@ public:
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
+    virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
+    virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
+
     //! Get the integrated source term values for one of a set of sources
     /*!
      *     @param sourceType   The enum source term value. Species indecises are 
@@ -2722,6 +2725,16 @@ protected:
     std::vector<double> enthalpyMolar_final_;
     std::vector<double> enthalpyMolar_final_final_;
 
+
+    std::vector<double> entropyMolar_init_init_;
+    std::vector<double> entropyMolar_init_;
+    std::vector<double> entropyMolar_final_;
+    std::vector<double> entropyMolar_final_final_;
+
+    std::vector<double> chempotMolar_init_init_;
+    std::vector<double> chempotMolar_init_;
+    std::vector<double> chempotMolar_final_;
+    std::vector<double> chempotMolar_final_final_;
 
     double integratedThermalEnergySourceTerm_;
     double integratedThermalEnergySourceTermLast_;
