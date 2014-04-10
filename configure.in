@@ -691,6 +691,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2/Makefile \
+          1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2_heatSource/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff3/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_DiffTALE2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2_restart/Makefile \
