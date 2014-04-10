@@ -389,6 +389,13 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
             throw  m1d_Error("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()",
                              "Electrode factory method failed");
         }
+        /*
+         *  Do thermal property calculations within the electrode when we are doing heat
+         *  transfer calculations
+         */
+        if (PSinput.doHeatSourceTracking_) {
+         ee->doThermalPropertyCalculations_ = true;
+        }
 
         // Turn off printing from the electrode object
         ee->setPrintLevel(0);
@@ -464,13 +471,6 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
          * Calculate the cell width
          */
         xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
-
-        /*
-         *  Do thermal property calculations within the electrode
-         */
-        if (PSinput.doHeatSourceTracking_) {
-         ee->doThermalPropertyCalculations_ = true;
-        }
 
         // Compute total electrode volume
         double totalElectrodeVolume;

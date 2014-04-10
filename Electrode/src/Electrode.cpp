@@ -1399,6 +1399,8 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
      */
     if (ei->RelativeCapacityDischargedPerMole != -1) {
         setRelativeCapacityDischargedPerMole(ei->RelativeCapacityDischargedPerMole);
+	Electrode::updateState();
+	Electrode::updateSurfaceAreas();
     }
 
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
