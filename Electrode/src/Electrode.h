@@ -1058,6 +1058,12 @@ public:
      */
     virtual double getIntegratedThermalEnergySourceTerm();
 
+
+    virtual double getIntegratedThermalEnergySourceTerm_overpotential();
+
+    virtual double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
+
+
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -2738,6 +2744,11 @@ protected:
 
     double integratedThermalEnergySourceTerm_;
     double integratedThermalEnergySourceTermLast_;
+
+    double integratedThermalEnergySourceTerm_overpotential_;
+    double integratedThermalEnergySourceTerm_overpotential_Last_;
+    double integratedThermalEnergySourceTerm_reversibleEntropy_;
+    double integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 
     //! Name of the electrode to be used in printouts
     std::string electrodeName_;

@@ -2577,6 +2577,11 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
     }
     if (doThermalPropertyCalculations_) {
         integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+        /*
+         * these last two are needed for informative output only
+         */
+        integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
+        integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
 //====================================================================================================================

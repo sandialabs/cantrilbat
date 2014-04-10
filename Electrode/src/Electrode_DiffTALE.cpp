@@ -2342,6 +2342,8 @@ void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
     }
     if (doThermalPropertyCalculations_) {
         integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+        integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
+        integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
 //==================================================================================================================

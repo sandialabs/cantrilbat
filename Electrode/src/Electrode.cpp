@@ -151,6 +151,10 @@ Electrode::Electrode() :
 		chempotMolar_final_final_(0),
                 integratedThermalEnergySourceTerm_(0.0),
                 integratedThermalEnergySourceTermLast_(0.0),
+		integratedThermalEnergySourceTerm_overpotential_(0.0),
+		integratedThermalEnergySourceTerm_overpotential_Last_(0.0),
+		integratedThermalEnergySourceTerm_reversibleEntropy_(0.0),
+		integratedThermalEnergySourceTerm_reversibleEntropy_Last_(0.0),
                 electrodeName_("Electrode"),
                 numExtraGlobalRxns(0),
                 m_EGRList(0),
@@ -273,6 +277,10 @@ Electrode::Electrode(const Electrode& right) :
                 chempotMolar_final_final_(0),
                 integratedThermalEnergySourceTerm_(0.0),
                 integratedThermalEnergySourceTermLast_(0.0),
+                integratedThermalEnergySourceTerm_overpotential_(0.0),
+		integratedThermalEnergySourceTerm_overpotential_Last_(0.0),
+		integratedThermalEnergySourceTerm_reversibleEntropy_(0.0),
+		integratedThermalEnergySourceTerm_reversibleEntropy_Last_(0.0),
                 electrodeName_("Electrode"),
                 numExtraGlobalRxns(0),
                 m_EGRList(0),
@@ -429,6 +437,10 @@ Electrode& Electrode::operator=(const Electrode& right)
     chempotMolar_final_final_ = right.chempotMolar_final_final_;
     integratedThermalEnergySourceTerm_ = right.integratedThermalEnergySourceTerm_;
     integratedThermalEnergySourceTermLast_ = right.integratedThermalEnergySourceTermLast_;
+    integratedThermalEnergySourceTerm_overpotential_ = right.integratedThermalEnergySourceTerm_overpotential_;
+    integratedThermalEnergySourceTerm_overpotential_Last_ = right.integratedThermalEnergySourceTerm_overpotential_Last_;
+    integratedThermalEnergySourceTerm_reversibleEntropy_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_;
+    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
     electrodeName_ = right.electrodeName_;
     numExtraGlobalRxns = right.numExtraGlobalRxns;
     Cantera::deepStdVectorPointerCopy<EGRInput>(right.m_EGRList, m_EGRList);
@@ -759,6 +771,10 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     spNetProdPerArea_List_.resize(m_NumTotSpecies, numSurfaces_, 0.0);
     integratedThermalEnergySourceTerm_ = 0.0;
     integratedThermalEnergySourceTermLast_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_Last_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 
     /*
      * Load up the temperature and pressure
@@ -2844,6 +2860,16 @@ double Electrode::getIntegratedThermalEnergySourceTerm()
   return integratedThermalEnergySourceTerm_;
 }
 //=================================================================================================
+double Electrode::getIntegratedThermalEnergySourceTerm_overpotential()
+{
+  return integratedThermalEnergySourceTerm_overpotential_;
+}
+//=================================================================================================
+double Electrode::getIntegratedThermalEnergySourceTerm_reversibleEntropy()
+{
+  return integratedThermalEnergySourceTerm_reversibleEntropy_;
+}
+//=================================================================================================
 // Returns the current potential drop across the electrode
 /*
  *   This is equal to phiMetal - phiSoln
@@ -3827,6 +3853,10 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.0);
     integratedThermalEnergySourceTerm_ = 0.0;
     integratedThermalEnergySourceTermLast_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_Last_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 
     // Reset the total phase moles quantities
     for (i = 0; i < m_NumTotPhases; i++) {

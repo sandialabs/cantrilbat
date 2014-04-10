@@ -1746,7 +1746,7 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
     double xdelR; // Distance from the center node to the right node
 
     double deltaT = 1.0 / rdelta_t;
-    double term;
+    //double term;
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
@@ -1890,6 +1890,9 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 
 	// Add in the electrode contribution
 	electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm();
+	overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential();
+	deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy();
+
 	qSource_Cell_curr_[iCell] += 	electrodeHeat_Cell_curr_[iCell];
 
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
@@ -2888,8 +2891,8 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	    ss.print0("\n");
 	    drawline0(indentSpaces, 100);
 	}
-	NodalVars* nvl;
-	NodalVars* nvr;
+	//NodalVars* nvl;
+	//NodalVars* nvr;
 	for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
 	    print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
 	    if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
@@ -2897,7 +2900,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 		x = nv->xNodePos();
 		ss.print0("%s    %-10.4E ", ind, x);
-		Electrode* ee = Electrode_Cell_[iCell];
+		//Electrode* ee = Electrode_Cell_[iCell];
 
 		ss.print0("% -11.4E ", qSource_Cell_curr_[iCell]);
 

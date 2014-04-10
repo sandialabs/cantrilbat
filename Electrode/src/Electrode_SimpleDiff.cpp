@@ -2188,8 +2188,11 @@ void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
 
     if (doThermalPropertyCalculations_) {
         integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+        integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
+        integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
+
 //==================================================================================================================
 //  Gather the predicted solution values and the predicted integrated source terms
 /*

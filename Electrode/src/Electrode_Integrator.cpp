@@ -1580,6 +1580,10 @@ void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
      */
     integratedThermalEnergySourceTerm_ = 0.0;
     integratedThermalEnergySourceTermLast_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_Last_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 }
 //==================================================================================================================
 // Number of degrees of freedom in the integrated source terms that constitute the output
@@ -1698,6 +1702,11 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
     }
     if (doThermalPropertyCalculations_) {
         integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
+        /*
+         * these last two are needed for informative output only
+         */
+        integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
+        integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
 //==================================================================================================================
@@ -1722,6 +1731,8 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
         }
 	if (doThermalPropertyCalculations_) {
 	    integratedThermalEnergySourceTerm_ += integratedThermalEnergySourceTermLast_;
+            integratedThermalEnergySourceTerm_overpotential_ += integratedThermalEnergySourceTerm_overpotential_Last_;
+            integratedThermalEnergySourceTerm_reversibleEntropy_ += integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 	}
     }
 }
