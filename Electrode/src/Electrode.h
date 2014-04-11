@@ -694,7 +694,7 @@ public:
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    //     -- These are now called "ProductionRate" values
+    //     -- These are now called "ProductionRate"  or SourceTerms values
 
     //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
     /*!
@@ -748,6 +748,25 @@ public:
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
 
     void getPhaseProductionRates(const double * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
+
+
+    //! Overpotential term for the heat generation from a single surface
+    /*!
+     *   @param irxn Surface index 
+     */
+    virtual double thermalEnergySourceTerm_overpotential(int isk);
+
+    //! Reversible Entropy term leading to  heat generation
+    /*!
+     *    @param isk   
+     */
+    virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
+
+    //! Reversible Entropy term leading to  heat generation
+    /*!
+     *
+     */
+    virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
@@ -960,23 +979,7 @@ public:
      */
     virtual double integratedEnthalpySourceTerm();
 
-    //! Overpotential term for the heat generation
-    /*!
-     *   @param irxn Surface index 
-     */
-    virtual double thermalEnergySourceTerm_overpotential(int isk);
-
-    //! Reversible Entropy term leading to  heat generation
-    /*!
-     *    @param isk   
-     */
-    virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
-
-    //! Reversible Entropy term leading to  heat generation
-    /*!
-     *
-     */
-    virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
+  
 
     //! Energy released 
     /*!
@@ -1058,9 +1061,18 @@ public:
      */
     virtual double getIntegratedThermalEnergySourceTerm();
 
-
+    //! The thermal energy source term can be broken into two parts. This part is the irreversible
+    //! heat generation term due to the non-zero overpotential 
+    /*!
+     *   @return returns an 
+     */
     virtual double getIntegratedThermalEnergySourceTerm_overpotential();
 
+    //! The thermal energy source term can be broken into two parts. This part is the reversible
+    //! heat generation term due to the entropy change of reaction
+    /*!
+     *   @return returns a double
+     */
     virtual double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
 
 
