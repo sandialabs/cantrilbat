@@ -18,6 +18,7 @@
 #include "Epetra_Comm.h"
 
 #include "cantera/transport/Tortuosity.h"
+#include "LiIon_PorousBat.h"
 
 #include "m1d_ProblemStatementCell.h"
 extern m1d::ProblemStatementCell PSinput;
@@ -370,37 +371,36 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
             throw  m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()",
                              "Electrode factory method failed");
         }
+	/*
+         *  Do thermal property calculations within the electrode when we are doing heat
+         *  transfer calculations
+         */
+        if (PSinput.doHeatSourceTracking_) {
+         ee->doThermalPropertyCalculations_ = true;
+        }
+	// Turn off printing from the electrode object
+        ee->setPrintLevel(0);
+        ee->setID(0, iCell);
+        /*
+         *  Set the initial subcycle deltaT policy
+         */
+        ee->choiceDeltaTsubcycle_init_ = 1;
 
         int retn = ee->electrode_model_create(PSinput.anode_input_);
         if (retn == -1) {
             printf("exiting with error\n");
             exit(-1);
         }
+
         retn = ee->setInitialConditions(PSinput.anode_input_);
         if (retn == -1) {
             printf("exiting with error\n");
             exit(-1);
         }
-        // Turn off printing from the electrode object
-        ee->setPrintLevel(0);
-        ee->setID(0, iCell);
         /*
          *    Turn on the creation of xml state files. We need this for restart
          */
         ee->electrode_stateSave_create();
-
-        /*
-         *  Set the initial subcycle deltaT policy
-         */
-        ee->choiceDeltaTsubcycle_init_ = 1;
-
-        /*
-         *  Do thermal property calculations within the electrode
-         */
-        if (PSinput.doHeatSourceTracking_) {
-            ee->doThermalPropertyCalculations_ = true;
-        }
-
         /*
          * Compute cell volume
          */
@@ -1627,6 +1627,13 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
          */
 	nodeCent = cTmps.nvCent_;
 	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	for (int k = 0; k < nsp_; k++) {
+            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+        }
+        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+        // HKM fix up - technically correct
+        VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
+
 
         /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -1636,6 +1643,12 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
          */
 	nodeLeft = cTmps.nvLeft_;
 	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+        for (int k = 0; k < nsp_; k++) {
+            Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
+        }
+        Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
+        VElectrodeLeft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage + 1];
+
         /*
          * If we are past the first cell, then we have already done the calculation
          * for this flux at the right cell edge of the previous cell
@@ -1656,6 +1669,11 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
          */
 	nodeRight = cTmps.nvRight_;
 	indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	for (int k = 0; k < nsp_; k++) {
+            Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
+        }
+        Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
+        VElectrodeRight_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage + 1];
 
 
 	if (nodeLeft != 0) {
@@ -1681,14 +1699,15 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
 	    icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
 	    icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
 	    /*
-	     *  Joule heating term in electrolyte
-	     */
-	    qSource_Cell_curr_[iCell] +=  gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelL * 0.5 * deltaT;
-	    /*
-	     *  Joule heating term in electrode
-	     */
-	    qSource_Cell_curr_[iCell] += gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
-	    
+             *  Joule heating term in electrolyte
+             */
+            qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
+            jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
+            /*
+             *  Joule heating term in electrode
+             */
+            qSource_Cell_curr_[iCell]        += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
+            jouleHeat_solid_Cell_curr_[iCell]+= - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
 	}
 
 	if (nodeRight != 0) {
@@ -1715,20 +1734,25 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
                 icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
             }
             icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
-
-	    qSource_Cell_curr_[iCell] +=  gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
 	    /*
-	     *  Joule heating term in electrode
-	     */
-	    qSource_Cell_curr_[iCell] += gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
-	    
+             *  Joule heating term in electrolyte
+             */
+            qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
+            jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
+            /*
+             *  Joule heating term in electrode
+             */
+            qSource_Cell_curr_[iCell        ]  += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
+            jouleHeat_solid_Cell_curr_[iCell ] += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;    
 	}
-
-
 	// Add in the electrode contribution
-	qSource_Cell_curr_[iCell] +=  Electrode_ptr->getIntegratedThermalEnergySourceTerm();
+        electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm();
+        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential();
+        deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy();
 
-	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
+        qSource_Cell_curr_[iCell] +=    electrodeHeat_Cell_curr_[iCell];
+
+        qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
 //======================================================================================================================
@@ -2894,6 +2918,44 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("\n");
         }
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
+    }
+    if (PS_ptr->doHeatSourceTracking_) {
+        if (do0Write) {
+            // ----------------------------------------------------
+            // --         PRINT HEAT GENERATION TERMS for DOMAIN --
+            // ----------------------------------------------------
+
+            ss.print0("\n");
+            drawline0(indentSpaces, 100);
+            ss.print0("%s        z     qHeat_step    qHeat_accum Joule_Lyte Joule_Solid electrodHeat OverpotHeat deltaSHeat", ind);
+            ss.print0("\n");
+            drawline0(indentSpaces, 100);
+        }
+        //NodalVars* nvl;
+        //NodalVars* nvr;
+        for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+            print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
+            if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
+                iCell = iGbNode - BDD_.FirstGbNode;
+                NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+                x = nv->xNodePos();
+                ss.print0("%s    %-10.4E ", ind, x);
+                //Electrode* ee = Electrode_Cell_[iCell];
+
+                ss.print0("% -11.4E ", qSource_Cell_curr_[iCell]);
+
+                ss.print0("% -11.4E ",  qSource_Cell_accumul_[iCell]);
+                ss.print0("% -11.4E ",  jouleHeat_lyte_Cell_curr_[iCell]);
+                ss.print0("% -11.4E ",  jouleHeat_solid_Cell_curr_[iCell]);
+
+                ss.print0("% -11.4E ",  electrodeHeat_Cell_curr_[iCell]);
+                ss.print0("% -11.4E ",  overPotentialHeat_Cell_curr_[iCell]);
+                ss.print0("% -11.4E ",  deltaSHeat_Cell_curr_[iCell]);
+
+                ss.print0("\n");
+            }
+            print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
+        }
     }
 
 }

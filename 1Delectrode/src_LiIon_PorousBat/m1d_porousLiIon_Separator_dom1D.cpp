@@ -16,6 +16,8 @@
 #include "cantera/thermo/StoichSubstance.h"
 
 #include "m1d_ProblemStatementCell.h"
+
+#include "LiIon_PorousBat.h"
 extern m1d::ProblemStatementCell PSinput;
 
 #include "stdio.h"
@@ -995,6 +997,9 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
         NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
 	qSource_Cell_curr_[iCell] = 0.0;
+        jouleHeat_lyte_Cell_curr_[iCell] = 0.0;
+        jouleHeat_solid_Cell_curr_[iCell] = 0.0;
+
 	/*
          *  ---------------- Get the index for the center node ---------------------------------
          *   Get the pointer to the NodalVars object for the center node
@@ -1002,6 +1007,10 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
          */
 	nodeCent = cTmps.nvCent_;
 	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+        for (int k = 0; k < nsp_; k++) {
+            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+        }
+        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
 
         /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -1010,7 +1019,12 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 	 *    The solution index is set to the center solution index in that case as well.
          */
 	nodeLeft = cTmps.nvLeft_;
-	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;    
+	for (int k = 0; k < nsp_; k++) {
+            Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
+        }
+        Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
+
         /*
          * If we are past the first cell, then we have already done the calculation
          * for this flux at the right cell edge of the previous cell
@@ -1031,6 +1045,10 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
          */
 	nodeRight = cTmps.nvRight_;
 	indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	for (int k = 0; k < nsp_; k++) {
+            Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
+        }
+        Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
 
 
 	if (nodeLeft != 0) {
@@ -1055,8 +1073,9 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 	    }
 	    icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
 
-	    qSource_Cell_curr_[iCell] +=  gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-	    
+	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
+	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
+
 	}
 
 	if (nodeRight != 0) {
@@ -1084,8 +1103,9 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
             }
             icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
 
-	    qSource_Cell_curr_[iCell] +=  gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-	    
+	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
+	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
+  
 	}
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
@@ -1159,6 +1179,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     //
     concTot_Curr_ = ionicLiquid_->molarDensity();
 }
+
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte given the solution vector
 void
@@ -1277,6 +1298,18 @@ drawline(int sp, int ll)
         Cantera::writelog("-");
     }
     Cantera::writelog("\n");
+}
+//=====================================================================================================================
+static void
+drawline0(int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        sprint0(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        sprint0("-");
+    }
+    sprint0("\n");
 }
 //=====================================================================================================================
 // Base class for writing the solution on the domain to a logfile.
@@ -1445,6 +1478,46 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         }
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
     }
+
+    if (PS_ptr->doHeatSourceTracking_) {
+        if (do0Write) {
+            // ----------------------------------------------------
+            // --         PRINT HEAT GENERATION TERMS for DOMAIN --
+            // ----------------------------------------------------
+
+            ss.print0("\n");
+            drawline0(indentSpaces, 80);
+            ss.print0("%s        z     qHeat_step    qHeat_accum Joule_Lyte Joule_Solid ", ind);
+            ss.print0("\n");
+            drawline0(indentSpaces, 80);
+        }
+        //NodalVars* nvl;
+        //NodalVars* nvr;
+        for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+            print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
+            if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
+                iCell = iGbNode - BDD_.FirstGbNode;
+                NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+                x = nv->xNodePos();
+                ss.print0("%s    %-10.4E ", ind, x);
+                //Electrode* ee = Electrode_Cell_[iCell];
+
+                ss.print0("% -11.4E ", qSource_Cell_curr_[iCell]);
+
+                ss.print0("% -11.4E ",  qSource_Cell_accumul_[iCell]);
+                ss.print0("% -11.4E ",  jouleHeat_lyte_Cell_curr_[iCell]);
+                ss.print0("% -11.4E ",  jouleHeat_solid_Cell_curr_[iCell]);
+
+                ss.print0("\n");
+            }
+            print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
+        }
+
+
+
+    }
+
+
 
 }
 //=====================================================================================================================

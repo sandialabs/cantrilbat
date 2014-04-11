@@ -4704,7 +4704,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
         if (iph == metalPhase_ || iph == solnPhase_) {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;
-		double cc = tp.charge(k);
+		double cc = tp.charge(ik);
 		double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
 		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
@@ -4721,7 +4721,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
         } else {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;  
-		double cc = tp.charge(k);
+		double cc = tp.charge(ik);
 		double deltaNH = enthalpyMolar_final_[k] * spMoles_final_[k] - enthalpyMolar_init_[k] * spMoles_init_[k];
 #ifdef DEBUG_THERMAL
 		double deltaN = spMoles_final_[k] - spMoles_init_[k];
@@ -4799,7 +4799,7 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
         if (iph == metalPhase_ || iph == solnPhase_) {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;
-		double cc = tp.charge(k);
+		double cc = tp.charge(ik);
 		double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
 		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
@@ -4816,7 +4816,7 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
         } else {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;  
-		double cc = tp.charge(k);
+		double cc = tp.charge(ik);
 		double deltaNG = chempotMolar_final_[k] * spMoles_final_[k] - chempotMolar_init_[k] * spMoles_init_[k];
 #ifdef DEBUG_THERMAL
 		double deltaN = spMoles_final_[k] - spMoles_init_[k];
