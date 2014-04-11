@@ -8,18 +8,17 @@
 #include <string.h>
 #include "tok_input_util.h"
 
+#include "cantera/thermo.h"
 #include "cantera/equilibrium.h"
 
 #include "Electrode_MP_RxnExtent.h"
 
 #include "BlockEntryGlobal.h"
 
-
 using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
@@ -2142,7 +2141,7 @@ void Electrode_MP_RxnExtent::setNLSGlobalSrcTermTolerances(double rtolResid)
 void  Electrode_MP_RxnExtent::setResidAtolNLS()
 {
     double deltaT = t_final_final_ - t_init_init_;
-    deltaT = MAX(deltaT, 1.0E-3);
+    deltaT = std::max(deltaT, 1.0E-3);
     /*
      *  We don't care about differences that are 1E-6 less than the global time constant.
      *  residual has the same units as soln.
@@ -3102,8 +3101,8 @@ double Electrode_MP_RxnExtent::l0normM(const std::vector<double>& v1, const std:
     for (int k = 0; k < num; k++) {
 
         diff = fabs(v1[k] - v2[k]);
-        denom = rtol * MAX(fabs(v1[k]), fabs(v2[k]));
-        denom = MAX(denom, atolVec[k]);
+        denom = rtol * std::max(fabs(v1[k]), fabs(v2[k]));
+        denom = std::max(denom, atolVec[k]);
         ee = diff / denom;
         if (ee > max0) {
             max0 = ee;
@@ -3406,7 +3405,7 @@ void Electrode_MP_RxnExtent::predictorCorrectorPrint(const std::vector<double>& 
     printf("                               Initial       Prediction      Actual          Difference         Tol   Contrib      |\n");
     printf("onRegionPredict          |         %3d            %3d          %3d      |                                          |\n",
            onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
-    denom = MAX(fabs(yval[0]), fabs(soln_predict_[0]));
+    denom = std::max(fabs(yval[0]), fabs(soln_predict_[0]));
     denom = MAX(denom, atolVal);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
     printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",

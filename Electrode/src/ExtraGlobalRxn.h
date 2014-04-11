@@ -16,15 +16,9 @@
 #ifndef EXTRAGLOBALRXN_H
 #define EXTRAGLOBALRXN_H
 
-#include "cantera/thermo/IdealGasPhase.h"
-#include "cantera/kinetics/GasKinetics.h"
 #include "cantera/kinetics/InterfaceKinetics.h"
-
-
-#include "cantera/kinetics.h"
 #include <string>
 #include <vector>
-
 
 namespace Cantera
 {
