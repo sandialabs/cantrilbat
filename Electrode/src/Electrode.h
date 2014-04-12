@@ -979,17 +979,36 @@ public:
      */
     virtual double integratedEnthalpySourceTerm();
 
-  
-
-    //! Energy released 
+    //! Energy released during a single local time step
     /*!
+     * (virtual from Electrode.h)
+     *
      *     Energy released within the electrode during a local time step
      *
-     *   @param energy released (joules)
+     *   @param return the energy released (joules)
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
+    //! Reversible Entropy release during a single step
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step
+     *     due to reversible entropy generation
+     *
+     *   @param return the energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
+
+    //! Irreversible thermal energy release during a single step
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step
+     *     due to the overpotential
+     *
+     *   @param return the energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
 
     //! Get the integrated source term values for one of a set of sources
@@ -1030,10 +1049,8 @@ public:
      *
      *   @param net   Species net production rates [kmol/s].
      */
-//Can protect
-    void getIntegratedProductionRates(doublereal* const net) const;
+    void getIntegratedSpeciesProductionRates(doublereal* const net) const;
 
-  
     //!  Returns the net current in the electrode object
     //!  at the current conditions over the current global time step
     /*!
@@ -1044,9 +1061,10 @@ public:
 //Can protect
     doublereal integratedCurrent() const;
 
-    //! Returns the integrated moles transfered for each phase in the electrode object
-    //! over the time step
+    //! Returns the integrated moles transfered for each phase in the electrode object over the time step
     /*!
+     *  (virtual from Electrode.h)
+     *
      *    @param  phaseMolesTransfered vector of moles transfered (length = number of total
      *            phases in the electrode object)
      *            units = kmol
@@ -1059,22 +1077,21 @@ public:
      *
      *  @param Returns the heat release (joules)
      */
-    virtual double getIntegratedThermalEnergySourceTerm();
+    double getIntegratedThermalEnergySourceTerm();
 
     //! The thermal energy source term can be broken into two parts. This part is the irreversible
     //! heat generation term due to the non-zero overpotential 
     /*!
      *   @return returns an 
      */
-    virtual double getIntegratedThermalEnergySourceTerm_overpotential();
+    double getIntegratedThermalEnergySourceTerm_overpotential();
 
     //! The thermal energy source term can be broken into two parts. This part is the reversible
     //! heat generation term due to the entropy change of reaction
     /*!
      *   @return returns a double
      */
-    virtual double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
-
+    double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------

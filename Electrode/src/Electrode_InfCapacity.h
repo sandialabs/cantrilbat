@@ -129,14 +129,14 @@ public:
      */
     virtual void setInitStateFromFinal(bool setInitInit = false);
 
-    //! Returns the integrated moles transfered for each phase in the electrode object
-    //! over the time step
+    //! Returns the integrated moles transfered for each phase in the electrode object over the time step
     /*!
-     *  rewrite because there is no check on phase_mole changes
+     *   (virtual from Electrode.h)
      *
-     *    @param  phaseMolesTransfered vector of moles transfered (length = number of total
-     *            phases in the electrode object)
-     *            units = kmol
+     *    Rewrite because there is no check on phase_mole changes.
+     *
+     *    @param  phaseMolesTransfered   Vector of moles transfered (length = number of total phases in the electrode object)
+     *                                   units = kmol
      */
     virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
 

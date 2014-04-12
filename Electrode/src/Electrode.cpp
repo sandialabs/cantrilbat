@@ -2629,11 +2629,11 @@ void Electrode::getNetSurfaceProductionRates(const int isk, doublereal* const ne
     }
 }
 //====================================================================================================================
-void Electrode::getIntegratedProductionRates(doublereal* const net) const
+void Electrode::getIntegratedSpeciesProductionRates(doublereal* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
-        throw CanteraError(" Electrode:integratedProductionRatesCurrent()",
-                           " No integration step has been carried out");
+        throw Electrode_Error("Electrode::integratedSpeciesProductionRates()",
+                              "No integration step has been carried out");
     }
     double invDelT = 1.0;
     if (t_final_final_ > t_init_init_) {
@@ -2679,7 +2679,7 @@ double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) con
         double Eprod = net[kElectron_];
         return Eprod * Faraday;
     }
-    getIntegratedProductionRates(net);
+    getIntegratedSpeciesProductionRates(net);
     // kmol sec-1
     double Eprod = net[kElectron_];
     // coulomb / kmol

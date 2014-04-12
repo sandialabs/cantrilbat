@@ -350,16 +350,36 @@ public:
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    //! Energy released 
+    //! Energy released during a single local time step
     /*!
+     * (virtual from Electrode.h)
+     *
      *     Energy released within the electrode during a local time step
      *
-     *   @param energy released (joules)
+     *   @param return the energy released (joules)
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
+    //! Reversible Entropy release during a single step
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step
+     *     due to reversible entropy generation
+     *
+     *   @param return the energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
 
+    //! Irreversible thermal energy release during a single step
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step
+     *     due to the overpotential
+     *
+     *   @param return the energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
 
     // -----------------------------------------------------------------------------------------------------------------

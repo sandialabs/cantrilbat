@@ -18,13 +18,6 @@ using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-
-#ifndef MIN
-#define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
-#endif
 
 
 static const double ONE_THIRD = 1.0 / 3.0;
@@ -928,7 +921,7 @@ double Electrode_SimpleDiff::SolidHeatCapacityCV() const
     }
     return heatCapacity;
 }
-//===========================================================================================================================================
+//=============================================================================================================================
 void Electrode_SimpleDiff::setState_exteriorSurface()
 {
     int indexMidKRSpecies = (numRCells_ - 1) * numKRSpecies_;
@@ -940,7 +933,7 @@ void Electrode_SimpleDiff::setState_exteriorSurface()
 	kstart += nSpecies;
     }
 }
-//====================================================================================================================
+//=============================================================================================================================
 // Overpotential term for the heat generation
 /*
  *
@@ -963,23 +956,19 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(int isk)
     //
     setState_exteriorSurface();
 
-   
     ReactingSurDomain* rsd = RSD_List_[isk];
-    double sa = surfaceAreaRS_final_[isk];
     double r_init  = Radius_exterior_init_;
     double r_final = Radius_exterior_final_;
     double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final) * particleNumberToFollow_;
-    sa = surfaceArea_star;
 
     size_t nr = rsd->nReactions();
     for (size_t irxn = 0; irxn < nr; irxn++) {
 	double overpotential = overpotentialRxn(isk, (int) irxn);
 	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
 	if (nstoich != 0.0) {
-	    q += sa * iCurr * overpotential;
+	    q += surfaceArea_star * iCurr * overpotential;
 	}
     }
-    
     return q;
 }
 //====================================================================================================================
@@ -1077,7 +1066,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
     const std::vector<double>& ROP = rsd->calcNetSurfaceROP();
 
 #ifdef DEBUG_THERMAL
-    int indexMidKRSpecies = (numRCells_ - 1) * numKRSpecies_;
+    size_t indexMidKRSpecies = (numRCells_ - 1) * numKRSpecies_;
     double* enthalpyMolar_final_exterior = &partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies];
 #endif
 
@@ -1091,20 +1080,11 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
 	double term0 =  deltaM * enthalpyMolar_final_[0];
 	printf(" term0 =  %g \n", term0);
 	printf(" term0_int =  %g \n", term0 * deltaTsubcycle_);
-
-
-
 	double term_s0 =  deltaM * enthalpyMolar_final_exterior[0];
 	printf(" term_s0 =  %g \n", term_s0);
 	printf(" term_s0_int =  %g \n", term_s0 * deltaTsubcycle_);
-
-
 	printf("    Voltage term = %g\n", sa * iCurrDT * deltaVoltage_);
-	
 #endif
-
-
-
 	if (nstoich != 0.0) {
 	    q -= sa * iCurrDT * s_deltaH[irxn] / (Faraday * nstoich);
 	    q += sa * iCurrDT * deltaVoltage_;
@@ -1128,7 +1108,7 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     /*
      * If the initial time is input, then the code doesn't advance
      */
-    double tbase = MAX(t_init_init_, 1.0E-50);
+    double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         return;
     }
@@ -2506,8 +2486,8 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
     printf("onRegionPredict          |         %3d            %3d                       %3d        |                                          |\n",
            onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
 
-    denom = MAX(fabs(yval[0]), fabs(soln_predict_[0]));
-    denom = MAX(denom, atolVal);
+    denom = std::max(fabs(yval[0]), fabs(soln_predict_[0]));
+    denom = std::max(denom, atolVal);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
     printf("DeltaT                   | %14.7E %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
            deltaTsubcycle_, soln_predict_[0],  soln_predict_fromDot_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
@@ -2616,7 +2596,7 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
 { 
     double atolMF = 1.0E-12;
     double deltaT = t_final_final_ - t_init_init_;
-    deltaT = MAX(deltaT, 1.0E-3);
+    deltaT = std::max(deltaT, 1.0E-3);
     /*
      *  calculate the total moles of solid. This is used to dimensionalize the atol mole numbers
      *  -> Might rethink this, because we are using concentrations here
@@ -3573,7 +3553,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleS
 {
     double q = 0.0;
     double phiPhase = 0.0;
-    double subdeltaT = tfinal_ - tinit_;
+    // double subdeltaT = tfinal_ - tinit_;
     if (pendingIntegratedStep_ != 1) {
 	throw Electrode_Error("Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()",
 			      " no pending integrated step");
@@ -3713,15 +3693,17 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_ReversibleEntropy_SingleSte
 		double deltaNS =
 		    (   partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]
 		      - partialMolarEntropyKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] *  spMoles_KRsolid_Cell_init_[indexMidKRSpecies + iKRSpecies]);
-		
+#ifdef DEBUG_THERMAL
 		double hstar = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] +
 			       tt *  partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		double hstar2 = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		double diff = hstar - hstar2;
 		printf(" diff = %g, hstar2 = %g\n", diff, hstar2);
-
+#endif
 		deltaNS *= tt;
+#ifdef DEBUG_THERMAL
 		deltaNS_JJ[kSp] -= deltaNS;
+#endif
 		q_alt -= deltaNS;
 	    }
 	    kstart += nsp;
@@ -3765,12 +3747,13 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
 {
     double q = 0.0;
     double phiPhase = 0.0;
-    double subdeltaT = tfinal_ - tinit_;
+ 
     if (pendingIntegratedStep_ != 1) {
 	throw Electrode_Error("Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()",
 			      " no pending integrated step");
     }
 #ifdef DEBUG_THERMAL
+    double subdeltaT = tfinal_ - tinit_;
     printf("Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep() Debug Output:\n");
     double deltaNG_JJ[3];
     deltaNG_JJ[0] = 0.0;
@@ -3782,12 +3765,10 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
     for (int iCell = 0; iCell < numRCells_; iCell++) {
         int indexMidKRSpecies =  iCell * numKRSpecies_;
         int kstart = 0;
-        //int indexCellPhase = iCell * numSPhases_;
         /*
          *  Loop over distributed phases, assume that there are no charged species in these phases
          */
         for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
-	    // ThermoPhase* th = thermoSPhase_List_[jRPh];
 	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
 	    int kspStart = m_PhaseSpeciesStartIndex[iPh];
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
@@ -3798,13 +3779,14 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
 		double deltaNG =
 		    (   chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]
 		      - chemPotKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] *  spMoles_KRsolid_Cell_init_[indexMidKRSpecies + iKRSpecies]);
+#ifdef DEBUG_THERMAL
 		deltaNG_JJ[kSp] -= deltaNG;
-
 		double hstar = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] +
 			       tt * partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		double hstar2 = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		double diff = hstar - hstar2;
 		printf(" diff = %g, hstar2 = %g\n", diff, hstar2);
+#endif
 		q -= deltaNG;
 	    }
 	    kstart += nsp;
