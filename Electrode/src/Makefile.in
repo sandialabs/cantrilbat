@@ -54,6 +54,8 @@ F2C_INC=$(CANTERA_INCROOT)/cantera
 #       Useful IO for debugging mole conservation issues in the radial models - prints out a file
 # LDEFINES =   -DDEBUG_MASSLOSS
 # LDEFINES =   -DDEBUG_MODE_PREDICTION -DDEBUG_HKM
+#       Temporary IO for debugging thermal terms
+# LDEFINES =   -DDEBUG_THERMAL
 #
 # Set up the global include directory macro
 #
@@ -64,7 +66,6 @@ INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
 # the C++ compiler
 #
 CXX = @CXX@
-DEBUG_FLAGS = -O0 -fno-inline -g
 CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
@@ -80,17 +81,9 @@ CFLAGS = @CXXFLAGS@
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
 
-
 all: .depends libElectrode.a
 
 allsrc: .depends libElectrode.a
-
-debug: CXXFLAGS=$(DEBUG_FLAGS)
-debug: CFLAGS=$(DEBUG_FLAGS)
-debug: LCXX_FLAGS=$(DEBUG_FLAGS)
-debug: .depends libElectrode.a
-
-.SUFFIXES: .src .prj .d
 
 .c.o:
 	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -I$(F2C_INC) -c $<

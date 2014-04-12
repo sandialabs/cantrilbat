@@ -2,20 +2,10 @@
  * $Id: Electrode_InfCapacity.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
-
-
 #include "Electrode_InfCapacity.h"
-
 
 using namespace Cantera;
 using namespace std;
-
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-#ifndef MIN
-#define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
-#endif
 
 namespace Cantera
 {
@@ -288,7 +278,7 @@ void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doTest
     /*
      * If the initial time is input, then the code doesn't advance
      */
-    double tbase = MAX(t_init_init_, 1.0E-50);
+    double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
         return;
     }

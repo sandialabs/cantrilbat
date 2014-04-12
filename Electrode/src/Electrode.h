@@ -1141,6 +1141,7 @@ public:
      */
     void setTime(double time);
 
+  
 
   private:
     //! Set the internal initial intermediate and initial global state from the internal final state

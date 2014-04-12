@@ -4672,6 +4672,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
              double term4 = - deltaM * enthalpyMolar_final_[4];
              printf(" term4 =  %g \n", - deltaM * enthalpyMolar_final_[4]);
              printf(" term4_int =  %g \n", - deltaM * enthalpyMolar_final_[4] * deltaTsubcycle_);
+
              double volt0_term = - deltaM * Faraday * phaseVoltages_[0];
              printf(" volt0 term = %g \n",  - deltaM * Faraday * phaseVoltages_[0]);
              printf(" volt0 term_int = %g \n",  - deltaM * Faraday * phaseVoltages_[0] * deltaTsubcycle_);

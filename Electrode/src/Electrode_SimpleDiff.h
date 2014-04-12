@@ -248,6 +248,23 @@ public:
     // -----------------------------------------------------------------------------------------------------------------
     //     -- These are now called "ProductionRate"  or SourceTerms values
 
+    //! Overpotential term for the heat generation from a single surface
+    /*!
+     *   @param irxn Surface index 
+     */
+    virtual double thermalEnergySourceTerm_overpotential(int isk);
+
+    //! Reversible Entropy term leading to  heat generation
+    /*!
+     *    @param isk   
+     */
+    virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
+
+    //! Reversible Entropy term leading to  heat generation
+    /*!  
+     *  (virtual from Electrode.h)
+     */
+    virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -333,7 +350,6 @@ public:
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-
     //! Energy released 
     /*!
      *     Energy released within the electrode during a local time step
@@ -342,6 +358,9 @@ public:
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
+    virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
+
+    virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
@@ -452,6 +471,13 @@ public:
      *
      */
     void updateState_OneToZeroDimensions();
+
+    //!  Set the state of the ThermoPhases to the exterior surface
+    /*!
+     *      We can set the ThermoPhases using the common temperature and pressure and the mole fraction
+     *      to the exterior cell.
+     */
+    void setState_exteriorSurface();
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state
@@ -679,6 +705,9 @@ public:
      */
     virtual double openCircuitVoltage(int isk);
 
+#ifdef DEBUG_THERMAL
+    double netElectrons();
+#endif
 
 protected:
 
@@ -982,6 +1011,36 @@ protected:
      *   Units of Joules/(kmol)
      */
     mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_init_;
+
+    //!  Partial molar chemical potential of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol)
+     */
+    mutable  std::vector<doublereal> chemPotKRSpecies_Cell_final_;
+
+    //!  Partial molar chemical potential of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol)
+     */
+    mutable  std::vector<doublereal> chemPotKRSpecies_Cell_init_;
+
+    //!  Partial molar Entropy of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Entropy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol K)
+     */
+    mutable  std::vector<doublereal> partialMolarEntropyKRSpecies_Cell_final_;
+
+    //!  Partial molar Entropy of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Entropy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol K)
+     */
+    mutable  std::vector<doublereal> partialMolarEntropyKRSpecies_Cell_init_;
+
+
 
     //! Rate of progress of the surface reactions
     /*!
