@@ -1247,7 +1247,6 @@ porousLiIon_Separator_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, co
 void
 porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
 {
-
     /*
      * Determine diffusion velocities
      */

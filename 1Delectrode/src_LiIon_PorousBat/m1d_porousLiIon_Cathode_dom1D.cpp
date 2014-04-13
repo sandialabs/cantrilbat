@@ -1850,20 +1850,55 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
                                             const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
                                             int type)
 {
-    for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
-        solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
+    double tempL = getPointTemperature(nvL, solnElectrolyte_CurrL);
+    double tempR = getPointTemperature(nvR, solnElectrolyte_CurrR);
+    temp_Curr_ = 0.5 * (tempL + tempR);
+    /*
+     * Get the pressure
+     */
+    pres_Curr_ = PressureReference_;
+
+    size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
+    size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
+
+    mfElectrolyte_Soln_Curr_[0] = 0.5 * (solnElectrolyte_CurrL[indexMFL] +solnElectrolyte_CurrR[indexMFR]);
+    mfElectrolyte_Soln_Curr_[1] = 0.5 * (solnElectrolyte_CurrL[indexMFL+1] +solnElectrolyte_CurrR[indexMFR+1]);
+    mfElectrolyte_Soln_Curr_[2] = 0.5 * (solnElectrolyte_CurrL[indexMFL+2] +solnElectrolyte_CurrR[indexMFR+2]);
+    double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1b = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double mf2b = MAX(mfElectrolyte_Soln_Curr_[2], 0.0);
+    double mf1 = mf1b;
+    double mf2 = mf2b;
+    if (mf1b != mf2b) {
+        mf1 = 0.5 * (mf1b + mf2b);
+        mf2 = 0.5 * (mf1b + mf2b);
     }
+    double tmp = mf0 + mf1 + mf2;
+
+    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
+    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
+    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+
+    size_t indexVS = nvL->indexBulkDomainVar0(Voltage);
+    double phiElectrolyteL = solnElectrolyte_CurrL[indexVS];
+    indexVS = nvR->indexBulkDomainVar0(Voltage);
+    double phiElectrolyteR = solnElectrolyte_CurrR[indexVS];
+    phiElectrolyte_Curr_ = 0.5 * (phiElectrolyteL + phiElectrolyteR);
+
     if (type == 0) {
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ - 1] + porosity_Cell_[cIndex_cc_]);
     } else {
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
     }
-    const NodalVars* nv = nvR;
-    if (!nv) {
-	nv = nvL;
-    }
-    updateElectrolyte(nv, &solnTemp[0]);
-    updateElectrode();
+    /*
+     *  Set the ThermoPhase states
+     */
+    ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
+    ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+    //
+    // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
+    //
+    concTot_Curr_ = ionicLiquid_->molarDensity();
 }
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte
@@ -1890,11 +1925,10 @@ porousLiIon_Cathode_dom1D::updateElectrolyte(const NodalVars* const nv, const do
      */
     pres_Curr_ = PressureReference_;
 
-    getMFElectrolyte_soln(solnElectrolyte_Curr);
-    getVoltages(solnElectrolyte_Curr);
+    getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
+    getVoltages(nv, solnElectrolyte_Curr);
 
     ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
-
     ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
 
     // Calculate the total concentration of the electrolyte kmol m-3.
@@ -1929,18 +1963,20 @@ porousLiIon_Cathode_dom1D::updateElectrode()
  * @param solnElectrolyte start of the solution vector at the current node
  */
 void
-porousLiIon_Cathode_dom1D::getVoltages(const double* const solnElectrolyte_Curr)
+porousLiIon_Cathode_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
-    int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
+    size_t indexVS = nv->indexBulkDomainVar0(Voltage);
+
+    //int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
     phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
     phiElectrode_Curr_ = solnElectrolyte_Curr[indexVS + 1];
 }
 //=====================================================================================================================
 void
-porousLiIon_Cathode_dom1D::getMFElectrolyte_soln(const double* const solnElectrolyte_Curr)
+porousLiIon_Cathode_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
-
-    int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
+    //int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
+    size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
 
     mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
     mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
@@ -2082,9 +2118,7 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
         Electrode* ee = Electrode_Cell_[iCell];	
         ee->writeTimeStateFinal_toXML(bdom);
     }
-
 }
-
 //====================================================================================================================
 //
 //  This treatment assumes that the problem size stays constant. If this is not the case, the routine will

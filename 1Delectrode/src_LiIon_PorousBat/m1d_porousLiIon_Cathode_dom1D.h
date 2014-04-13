@@ -304,10 +304,10 @@ public:
      * @param solnElectrolyte start of the solution vector at the current node
      */
     void
-    getVoltages(const double* const solnElectrolyte);
+    getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
     void
-    getMFElectrolyte_soln(const double* const solnElectrolyte);
+    getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
     //! Base Class for reading the solution from the saved file
     /*!
