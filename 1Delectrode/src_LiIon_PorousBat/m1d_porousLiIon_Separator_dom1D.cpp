@@ -1453,7 +1453,6 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
             ss.print0("%s    ", ind);
             if (iGbNode == BDD_.FirstGbNode) {
-
                 iCell = 0;
                 nvr = gi->NodalVars_GbNode[BDD_.FirstGbNode];
                 x = nvr->xNodePos();
@@ -1500,24 +1499,15 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 x = nv->xNodePos();
                 ss.print0("%s    %-10.4E ", ind, x);
                 //Electrode* ee = Electrode_Cell_[iCell];
-
                 ss.print0("% -11.4E ", qSource_Cell_curr_[iCell]);
-
                 ss.print0("% -11.4E ",  qSource_Cell_accumul_[iCell]);
                 ss.print0("% -11.4E ",  jouleHeat_lyte_Cell_curr_[iCell]);
                 ss.print0("% -11.4E ",  jouleHeat_solid_Cell_curr_[iCell]);
-
                 ss.print0("\n");
             }
             print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
         }
-
-
-
     }
-
-
-
 }
 //=====================================================================================================================
 // Generate the initial conditions

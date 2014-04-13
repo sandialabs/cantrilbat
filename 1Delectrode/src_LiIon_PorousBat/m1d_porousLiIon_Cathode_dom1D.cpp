@@ -568,10 +568,9 @@ porousLiIon_Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, 
         /*
          *  Index of the first equation in the bulk domain of center node
          */
-        int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] +
-                                    nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
 
-        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
@@ -895,7 +894,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
         DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = fluxL;
 
-        //DiffFluxLeftBound_LastResid_NE[EQ_TCont_offset_BD] = fluxL;
+        //DiffFluxLeftBound_LastResid_NE[EQ_TCont_offset] = fluxL;
         indexCent_EqnStart =
             LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
         for (int k = 0; k < nsp_; k++) {
@@ -2093,9 +2092,10 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
         std::string nmm = vt.VariableName(200);
         for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-            int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+	    //  int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
             int istart = nv->EqnStart_GbEqnIndex;
-            varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
+            varContig[i] = (*soln_GLALL_ptr)[istart + offset];
         }
         ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
     }
@@ -2574,12 +2574,18 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("\n%s    %-10.4E ", ind, x);
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+                //int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + ibulk + iBlock * 5 + n];
+		    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+		    if (offset == npos) {
+                        throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+                    }
+                    //v = (*soln_GlAll_ptr)[istart + ibulk + iBlock * 5 + n];
+		    v = (*soln_GlAll_ptr)[istart + offset];
+
                     ss.print0(" %-11.5E ", v);
                 }
             }
@@ -2605,12 +2611,16 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("%s    %-10.4E ", ind, x);
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+                //int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + ibulk + nn * 5 + n];
+		    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+		    if (offset == npos) {
+                        throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+                    }
+		    v = (*soln_GlAll_ptr)[istart + offset];
                     if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
                         if (iGbNode ==  BDD_.LastGbNode) {
@@ -2620,7 +2630,6 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                         }
                         oldVaxial = newVaxial;
                     }
-
                     ss.print0(" %-11.5E ", v);
                 }
                 ss.print0("\n");
@@ -3180,7 +3189,7 @@ porousLiIon_Cathode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, doubl
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
          */
-        //double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
+        //double vax = soln[indexCent_EqnStart + iVAR_Vaxial];
         atolDeltaDamping[indexCent_EqnStart + iVAR_Vaxial] = 1.0E-4 * relcoeff;
 
         /*
