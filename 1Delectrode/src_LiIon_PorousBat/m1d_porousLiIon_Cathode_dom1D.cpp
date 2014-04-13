@@ -1841,7 +1841,7 @@ void
 porousLiIon_Cathode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-    updateElectrolyte(solnElectrolyte_Curr);
+    updateElectrolyte(nv, solnElectrolyte_Curr);
     updateElectrode();
 }
 //=====================================================================================================================
@@ -1858,7 +1858,11 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
     } else {
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
     }
-    updateElectrolyte(&solnTemp[0]);
+    const NodalVars* nv = nvR;
+    if (!nv) {
+	nv = nvL;
+    }
+    updateElectrolyte(nv, &solnTemp[0]);
     updateElectrode();
 }
 //=====================================================================================================================
@@ -1870,7 +1874,7 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
  * @param solnElectrolyte
  */
 void
-porousLiIon_Cathode_dom1D::updateElectrolyte(const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Cathode_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.

@@ -293,7 +293,7 @@ public:
      * @param solnElectrolyte
      */
     void
-    updateElectrolyte(const doublereal* const solnElectrolyte);
+    updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
 
     //! Functions updates the Electrode object from the current values that are stored within the object
     void
