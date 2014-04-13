@@ -571,7 +571,7 @@ porousLiIon_Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, 
         int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] +
                                     nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
@@ -1010,7 +1010,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          * Advance the electrode forward and compute the new porosity
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
 
         if (nodeLeft != 0) {
@@ -1140,7 +1140,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
             AssertTrace(iCell == NumLcCells-1);
             // fluxFright = 0.0;
-            SetupThermoShop1(&(soln[indexCent_EqnStart]));
+            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
             fluxFright = Fright_cc_ * concTot_Curr_;
             // fluxVRight = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
@@ -1252,7 +1252,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         /*
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
          */
-        SetupThermoShop1(&(soln[indexCent_EqnStart]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
         /*
          * Species Conservation equations
@@ -1508,6 +1508,7 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 
         cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
         NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodalVars* nodeCent = cTmps.nvCent_;
 
         /*
          *   Get the pointer to the NodalVars object for the center node
@@ -1535,7 +1536,7 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         /*
          * Setup the thermo
          */
-        SetupThermoShop1(&(soln[indexCent_EqnStart]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
         /*
          *  Calculate the electrode reactions.  Also update porosity.
@@ -1837,7 +1838,7 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 }
 //=====================================================================================================================
 void
-porousLiIon_Cathode_dom1D::SetupThermoShop1(const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Cathode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(solnElectrolyte_Curr);

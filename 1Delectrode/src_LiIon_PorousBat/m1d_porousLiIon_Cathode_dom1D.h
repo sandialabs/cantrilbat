@@ -257,7 +257,7 @@ public:
      * @param solnElectrolyte_Curr  Current value of the solution vector
      */
     void
-    SetupThermoShop1(const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
     //!  Setup shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
