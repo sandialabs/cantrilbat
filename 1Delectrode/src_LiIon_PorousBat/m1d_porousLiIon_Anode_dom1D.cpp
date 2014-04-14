@@ -551,7 +551,7 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
         int indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] +
                                     nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
@@ -1045,7 +1045,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          * Advance the electrode forward and compute the new porosity
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 
         /*
          *  Calculate the electrode reactions.  Also update porosity.
@@ -1180,7 +1180,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              */
             AssertTrace(iCell == NumLcCells-1);
             Fright_cc_ = 0.0;
-            SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
+            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
             //fluxFright = Fright_cc_ * concTot_Curr_;
             fluxFright = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
@@ -1281,7 +1281,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 
         /*
          *    Source terms for the species production rate of Li+.
@@ -1579,7 +1579,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          * Setup the thermo
          */
 
-        SetupThermoShop1(&(soln[indexCent_EqnStart_BD]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 
         /*
          *  Calculate the electrode reactions.  Also update porosity.
@@ -1894,10 +1894,10 @@ porousLiIon_Anode_dom1D::calcElectrode()
  *                              0 - at the current cell center
  */
 void
-porousLiIon_Anode_dom1D::SetupThermoShop1(const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-    updateElectrolyte(solnElectrolyte_Curr);
+    updateElectrolyte(nv, solnElectrolyte_Curr);
     updateElectrode();
 }
 //=====================================================================================================================
@@ -1927,7 +1927,11 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
     }
     //porosity_Curr_ = 0.1827;
-    updateElectrolyte(&solnTemp[0]);
+    const NodalVars*  nv = nvL;
+    if (!nv) {
+	nv = nvR;
+    }
+    updateElectrolyte(nv, &solnTemp[0]);
     updateElectrode();
 }
 //=====================================================================================================================
@@ -1939,24 +1943,21 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
  * @param solnElectrolyte
  */
 void
-porousLiIon_Anode_dom1D::updateElectrolyte(const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Anode_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
      *   If it is not, then use the reference temperature
      */
-    temp_Curr_ = TemperatureReference_;
-    int iTemp = BDD_.VariableIndexStart_VarName[Temperature];
-    if (iTemp >= 0) {
-        temp_Curr_ = solnElectrolyte_Curr[iTemp];
-    }
+    temp_Curr_ = getPointTemperature(nv, solnElectrolyte_Curr);
+
     /*
      * Get the pressure
      */
     pres_Curr_ = PressureReference_;
 
-    getMFElectrolyte_soln(solnElectrolyte_Curr);
-    getVoltages(solnElectrolyte_Curr);
+    getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
+    getVoltages(nv, solnElectrolyte_Curr);
 
     ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
 
@@ -1991,17 +1992,18 @@ porousLiIon_Anode_dom1D::updateElectrode()
  * @param solnElectrolyte start of the solution vector at the current node
  */
 void
-porousLiIon_Anode_dom1D::getVoltages(const double* const solnElectrolyte)
-{
-    int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
+porousLiIon_Anode_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte)
+{  
+    size_t indexVS = nv->indexBulkDomainVar0(Voltage);
     phiElectrolyte_Curr_ = solnElectrolyte[indexVS];
     phiElectrode_Curr_ = solnElectrolyte[indexVS + 1];
 }
 //=====================================================================================================================
 void
-porousLiIon_Anode_dom1D::getMFElectrolyte_soln(const double* const solnElectrolyte_Curr)
+porousLiIon_Anode_dom1D::getMFElectrolyte_soln(const NodalVars*  const nv, const double* const solnElectrolyte_Curr)
 {
-    int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
+  
+    size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
     mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
     mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
     mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];

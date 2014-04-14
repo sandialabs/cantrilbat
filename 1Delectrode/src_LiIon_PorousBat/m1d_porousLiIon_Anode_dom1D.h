@@ -260,7 +260,7 @@ public:
      * @param solnElectrolyte_Curr  Current value of the solution vector
      */
     void
-    SetupThermoShop1(const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
     //!  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
@@ -296,7 +296,7 @@ public:
      * @param solnElectrolyte
      */
     void
-    updateElectrolyte(const doublereal* const solnElectrolyte);
+    updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
 
     //! Functions updates the Electrode object from the current values that are stored within the object
     void
@@ -307,10 +307,10 @@ public:
      * @param solnElectrolyte start of the solution vector at the current node
      */
     void
-    getVoltages(const double* const solnElectrolyte);
+    getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
     void
-    getMFElectrolyte_soln(const double* const solnElectrolyte);
+    getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
     //! Base class for saving the solution on the domain in an xml node.
     /*!
