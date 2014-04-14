@@ -878,8 +878,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
+    //int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
+    //int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
     //int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
 
     Fright_cc_ = 0.0;
@@ -936,41 +936,20 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                 cIndex_cc_ = iCell;
             }
         }
-
-        /*
+	/*
          *  ---------------- Get the index for the center node ---------------------------------
-         */
-        index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-        /*
          *   Get the pointer to the NodalVars object for the center node
+         *   Index of the first equation in the bulk domain of center node
          */
-        nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
-        /*
-         *  Index of the first equation in the bulk domain of center node
-         */
-        indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+        nodeCent = cTmps.nvCent_;
+        indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
          *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
          */
-        index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
-        if (index_LeftLcNode < 0) {
-            /*
-             *  We assign node object to zero.
-             */
-            nodeLeft = 0;
-            /*
-             *  If there is no left node, we assign the left solution index to the center solution index
-             */
-            indexLeft_EqnStart = indexCent_EqnStart;
-        } else {
-            // get the node structure for the left node
-            nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
-            //index of first equation in the electrolyte of the left node
-            indexLeft_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_LeftLcNode];
-        }
+        nodeLeft = cTmps.nvLeft_;
+        indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
         /*
          * If we are past the first cell, then we have already done the calculation
          * for this flux at the right cell edge of the previous cell. We don't need to redo it
@@ -978,51 +957,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         if (iCell > 0) {
             doLeftFluxCalc = false;
         }
-
-        /*
+	/*
          * ------------------------ Get the indexes for the right node ------------------------------------
          */
-        index_RightLcNode = Index_RightLcNode_LCO[iCell];
-        if (index_RightLcNode < 0) {
-            nodeRight = 0;
-            /*
-             *  If there is no right node, we assign the right solution index to the center solution index
-             */
-            indexRight_EqnStart = indexCent_EqnStart;
-        } else {
-            //NodalVars
-            nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
-            //index of first equation of right node
-            indexRight_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_RightLcNode];
-        }
-
-        /*
-         * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
-         * Calculate the distance between the left and center node points
-         */
-        if (nodeLeft) {
-            xdelL = nodeCent->xNodePos() - nodeLeft->xNodePos();
-            xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
-        } else {
-            xdelL = 0.0;
-            xCellBoundaryL = nodeCent->xNodePos();
-        }
-        /*
-         * Calculate the distance between the right node and center node points
-         */
-        if (nodeRight == 0) {
-            xdelR = 0.0;
-            xCellBoundaryR = nodeCent->xNodePos();
-        } else {
-            xdelR = nodeRight->xNodePos() - nodeCent->xNodePos();
-            xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
-        }
-        /*
+        nodeRight = cTmps.nvRight_;
+        indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	/*
          * Calculate the cell width
          */
-        xdelCell = xCellBoundaryR - xCellBoundaryL;
+        xdelCell = cTmps.xdelCell_;
         xdelCell_Cell_[iCell] = xdelCell;
-
         /*
          * --------------------------- DO PRE-SETUPSHOP RASTER OVER LEFT,CENTER,RIGHT -----------------------------
          * Calculate the distance between the left and center node points
