@@ -870,8 +870,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     int EQ_Current_offset_BD = BDD_.EquationIndexStart_EqName[Current_Conservation];
     int EQ_Current_offset_ED = EQ_Current_offset_BD + 1;
     int EQ_TCont_offset_BD = BDD_.EquationIndexStart_EqName[Continuity];
-    int EQ_Species_offset_BD = BDD_.EquationIndexStart_EqName[Species_Conservation];
-    int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
+    //int EQ_Species_offset_BD = BDD_.EquationIndexStart_EqName[Species_Conservation];
+    //int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
     // int EQ_ChargeBal_offset_BD = BDD_.EquationIndexStart_EqName[ChargeNeutrality_Summation];
 
     /*
@@ -1220,14 +1220,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *                              fluxes coming and going from the cell.
          *                    R =   d rho d t + del dot (rho V) = 0
          */
-        res[indexCent_EqnStart + EQ_TCont_offset_BD] += (fluxFright - fluxFleft);
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
 
         /*
          * Species continuity Equation
          */
         for (int k = 0; k < nsp_; k++) {
             if (k != iECDMC_ && k != iPF6m_) {
-                res[indexCent_EqnStart + EQ_Species_offset_BD + k] += (fluxXright[k] - fluxXleft[k]);
+                res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
             }
         }
 
@@ -1253,7 +1253,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          */
         for (int k = 0; k < nsp_; k++) {
             if (k != iECDMC_ && k != iPF6m_) {
-                res[indexCent_EqnStart + EQ_Species_offset_BD + k] -=
+                res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] -=
                     electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + k] * rdelta_t /
                     electrodeCrossSectionalArea_;
             }
@@ -1262,9 +1262,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         /*
          * Mole fraction summation equation
          */
-        res[indexCent_EqnStart + EQ_MFSum_offset_BD] = 1.0;
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] = 1.0;
         for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart + EQ_MFSum_offset_BD] -= Xcent_cc_[k];
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] -= Xcent_cc_[k];
         }
 
         /*
@@ -1374,7 +1374,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              */
             for (int k = 0; k < nsp_; k++) {
                 if (k != iECDMC_ && k != iPF6m_) {
-                    res[indexCent_EqnStart + EQ_Species_offset_BD + k] += tmp;
+                    res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += tmp;
                 }
             }
 

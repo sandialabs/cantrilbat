@@ -1224,10 +1224,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         }
 
         /*
-         * Mole fraction summation equation
-         */
-
-        /*
          * Electroneutrality equation
          */
 
