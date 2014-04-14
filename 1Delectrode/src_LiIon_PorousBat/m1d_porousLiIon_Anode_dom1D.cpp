@@ -1914,6 +1914,57 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
                                           const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
                                           int type)
 {
+    double tempL = getPointTemperature(nvL, solnElectrolyte_CurrL);
+    double tempR = getPointTemperature(nvR, solnElectrolyte_CurrR);
+    temp_Curr_ = 0.5 * (tempL + tempR);
+    /*
+     * Get the pressure
+     */
+    pres_Curr_ = PressureReference_;
+
+    size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
+    size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
+
+    mfElectrolyte_Soln_Curr_[0] = 0.5 * (solnElectrolyte_CurrL[indexMFL] +solnElectrolyte_CurrR[indexMFR]);
+    mfElectrolyte_Soln_Curr_[1] = 0.5 * (solnElectrolyte_CurrL[indexMFL+1] +solnElectrolyte_CurrR[indexMFR+1]);
+    mfElectrolyte_Soln_Curr_[2] = 0.5 * (solnElectrolyte_CurrL[indexMFL+2] +solnElectrolyte_CurrR[indexMFR+2]);
+    double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1b = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double mf2b = MAX(mfElectrolyte_Soln_Curr_[2], 0.0);
+    double mf1 = mf1b;
+    double mf2 = mf2b;
+    if (mf1b != mf2b) {
+        mf1 = 0.5 * (mf1b + mf2b);
+        mf2 = 0.5 * (mf1b + mf2b);
+    }
+    double tmp = mf0 + mf1 + mf2;
+    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
+    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
+    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+
+    size_t indexVS = nvL->indexBulkDomainVar0(Voltage);
+    double phiElectrolyteL = solnElectrolyte_CurrL[indexVS];
+    indexVS = nvR->indexBulkDomainVar0(Voltage);
+    double phiElectrolyteR = solnElectrolyte_CurrR[indexVS];
+    phiElectrolyte_Curr_ = 0.5 * (phiElectrolyteL + phiElectrolyteR);
+
+    if (type == 0) {
+        porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ - 1] + porosity_Cell_[cIndex_cc_]);
+    } else {
+        porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
+    }
+    /*
+     *  Set the ThermoPhase states
+     */
+    ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
+    ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+    //
+    // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
+    //
+    concTot_Curr_ = ionicLiquid_->molarDensity();
+
+
+/*
     for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
         solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
     }
@@ -1929,6 +1980,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
     }
     updateElectrolyte(nv, &solnTemp[0]);
     updateElectrode();
+*/
 }
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte
