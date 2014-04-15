@@ -106,10 +106,6 @@ public:
                         const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                         const double t, const double t_old);
 
-    //! Set up tmps for quick calculation of residuals
-    void 
-    residSetupTmps();
-
     //! Basic function to calculate the residual for the domain.
     /*!
      *  All residual terms are written with the following sign convention
@@ -460,12 +456,6 @@ protected:
     int iPF6m_;
 
     std::vector<double> solnTemp;
-
-    //! Vector of temporary indexing quantities for each cell
-    /*!
-     * These are calculated once at the start of the program
-     */
-    std::vector<cellTmps> cellTmpsVect_Cell_;
 
     //! Velocity basis of the transport equations
     Cantera::VelocityBasis ivb_;

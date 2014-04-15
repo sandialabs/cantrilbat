@@ -18,6 +18,7 @@
 namespace m1d
 {
 class LocalNodeIndices;
+class cellTmps;
 
 //======================================================================================================================
 //! This is derived class  provides the function
@@ -83,6 +84,9 @@ public:
 
   virtual void heatSourceZeroAccumulated() const;
 
+  //! Set up tmps for quick calculation of residuals
+  void residSetupTmps();
+
 
   // -------------------------------------------------------------------------------------------------------------------
   // --- DATA 
@@ -143,6 +147,13 @@ protected:
 
   //! Current porosity
   double porosity_Curr_;
+
+  //! Vector of temporary indexing quantities for each cell
+  /*!
+   * These are calculated once at the start of the program
+   */
+  std::vector<cellTmps> cellTmpsVect_Cell_;
+
 
   mutable std::vector<double> qSource_Cell_curr_;
 
