@@ -2089,7 +2089,6 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
         for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 	    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
-	    //  int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
             int istart = nv->EqnStart_GbEqnIndex;
             varContig[i] = (*soln_GLALL_ptr)[istart + offset];
         }
@@ -2184,9 +2183,9 @@ porousLiIon_Cathode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
        ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
        for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
           NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-          int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+          size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
           int istart = nv->EqnStart_GbEqnIndex;
-          (*soln_GLALL_ptr)[istart + ibulk + iVar] =  varContig[i];
+          (*soln_GLALL_ptr)[istart + offset] =  varContig[i];
        }
     }
 
@@ -2356,6 +2355,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
         //! Last Global node of this bulk domain
         int lastGbNode = BDD_.LastGbNode;
         int numNodes = lastGbNode - firstGbNode + 1;
+        std::vector<VarType>& variableNameList = BDD_.VariableNameList;
 
 
         //open tecplot file
@@ -2374,11 +2374,10 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
             fprintf(ofp, "%g \t", nv->xNodePos());
 
             for (int iVar = 0; iVar < numVar; iVar++) {
-
-                //other variables
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+                VarType vt = variableNameList[iVar];
+               	size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
                 int istart = nv->EqnStart_GbEqnIndex;
-                fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + ibulk + iVar]);
+                fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + offset]);
             }
             fprintf(ofp, "\n");
 
@@ -2570,7 +2569,6 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("\n%s    %-10.4E ", ind, x);
-                //int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
@@ -2579,7 +2577,6 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 		    if (offset == npos) {
                         throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
                     }
-                    //v = (*soln_GlAll_ptr)[istart + ibulk + iBlock * 5 + n];
 		    v = (*soln_GlAll_ptr)[istart + offset];
 
                     ss.print0(" %-11.5E ", v);
@@ -2607,7 +2604,6 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("%s    %-10.4E ", ind, x);
-                //int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;

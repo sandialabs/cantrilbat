@@ -2025,9 +2025,12 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
         std::string nmm = vt.VariableName(200);
         for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-            int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
             int istart = nv->EqnStart_GbEqnIndex;
-            varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
+	    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+	    if (offset == npos) {
+		throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+	    }
+            varContig[i] = (*soln_GLALL_ptr)[istart + offset];
         }
         ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
     }
@@ -2120,9 +2123,9 @@ porousLiIon_Anode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
        ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
        for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
           NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-          int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	  size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
           int istart = nv->EqnStart_GbEqnIndex;
-          (*soln_GLALL_ptr)[istart + ibulk + iVar] =  varContig[i];
+          (*soln_GLALL_ptr)[istart + offset] =  varContig[i];
        }
     }
 
@@ -2296,6 +2299,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         //! Last Global node of this bulk domain
         int lastGbNode = BDD_.LastGbNode;
         int numNodes = lastGbNode - firstGbNode + 1;
+	std::vector<VarType>& variableNameList = BDD_.VariableNameList;
 
         //
         //use SetupThermoShop methods to prepare for thermo model evaluation
@@ -2317,11 +2321,10 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
             fprintf(ofp, "%g \t", nv->xNodePos());
 
             for (int iVar = 0; iVar < numVar; iVar++) {
-
-                //other variables
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+		VarType vt = variableNameList[iVar];
+                size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
                 int istart = nv->EqnStart_GbEqnIndex;
-                fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + ibulk + iVar]);
+                fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + offset]);
             }
             fprintf(ofp, "\n");
 
@@ -2510,12 +2513,15 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("\n%s    %-10.4E ", ind, x);
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + ibulk + iBlock * 5 + n];
+		    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+                    if (offset == npos) {
+                        throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+                    }
+		    v = (*soln_GlAll_ptr)[istart + offset];
 
                     /*
                      *  Special case the axial velocity because it's not located at the nodes.
@@ -2556,12 +2562,16 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("%s    %-10.4E ", ind, x);
-                int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
                     VarType vt = variableNameList[ivar];
-                    v = (*soln_GlAll_ptr)[istart + ibulk + nn * 5 + n];
+		    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+                    if (offset == npos) {
+                        throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+                    }
+		    v = (*soln_GlAll_ptr)[istart + offset];
+
                     /*
                      *  Special case the axial velocity because it's not located at the nodes.
                      */
