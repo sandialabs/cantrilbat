@@ -1355,7 +1355,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              *         note: the current problem will have this term equally zero always.
              *               However, we put it in here for the next problem.
              */
-            //	res[indexCent_EqnStart_BD + EQ_TCont_offset_BD] += (newStuffTC - oldStuffTC) * rdelta_t;
+            //	res[indexCent_EqnStart + EQ_TCont_offset_BD nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
 
         }
 
@@ -3162,7 +3162,6 @@ porousLiIon_Anode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double 
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
          */
-        //double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
         atolDeltaDamping[indexCent_EqnStart + iVAR_Vaxial] = 1.0E-4 * relcoeff;
 
         /*
