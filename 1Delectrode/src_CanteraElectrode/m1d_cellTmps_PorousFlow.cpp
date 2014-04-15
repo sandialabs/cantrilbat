@@ -16,6 +16,7 @@ NodeTmps::NodeTmps() :
     Offset_Velocity_Axial(npos),
     Offset_Voltage(npos),
     Offset_MoleFraction_Species(npos),
+    Offset_Temperature(npos),
     RO_Current_Conservation(npos),
     RO_Electrolyte_Continuity(npos),
     RO_Species_Eqn_Offset(npos),
@@ -30,6 +31,7 @@ NodeTmps::NodeTmps(const NodeTmps & r) :
     Offset_Velocity_Axial(r.Offset_Velocity_Axial),
     Offset_Voltage(r.Offset_Voltage),
     Offset_MoleFraction_Species(r.Offset_MoleFraction_Species),
+    Offset_Temperature(r.Offset_Temperature),
     RO_Current_Conservation(r.RO_Current_Conservation),
     RO_Electrolyte_Continuity(r.RO_Electrolyte_Continuity),
     RO_Species_Eqn_Offset(r.RO_Species_Eqn_Offset),
@@ -53,6 +55,7 @@ NodeTmps& NodeTmps::operator=(const NodeTmps &r)
     Offset_Velocity_Axial = r.Offset_Velocity_Axial;
     Offset_Voltage = r.Offset_Voltage;
     Offset_MoleFraction_Species = r.Offset_MoleFraction_Species;
+    Offset_Temperature = r.Offset_Temperature;
     RO_Current_Conservation = r.RO_Current_Conservation;
     RO_Electrolyte_Continuity = r.RO_Electrolyte_Continuity;
     RO_Species_Eqn_Offset = r.RO_Species_Eqn_Offset;

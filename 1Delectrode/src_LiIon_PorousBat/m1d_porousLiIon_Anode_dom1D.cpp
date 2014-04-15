@@ -621,7 +621,7 @@ porousLiIon_Anode_dom1D::residSetupTmps()
          *  ---------------- Get the index for the center node ---------------------------------
          */
         index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-    /*
+        /*
          *   Get the pointer to the NodalVars object for the center node
          */
         nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -639,8 +639,7 @@ porousLiIon_Anode_dom1D::residSetupTmps()
 	nodeTmpsCenter.Offset_Voltage              = nodeCent->indexBulkDomainVar0((size_t) Voltage);
 	nodeTmpsCenter.Offset_MoleFraction_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
 	nodeTmpsCenter.Offset_Velocity_Axial       = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-	// this may be npos
-	//nodeTmpsCenter.Offset_Temperature          = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+	nodeTmpsCenter.Offset_Temperature          = nodeCent->indexBulkDomainVar0((size_t) Temperature);
 
 	nodeTmpsCenter.RO_Current_Conservation     = nodeCent->indexBulkDomainEqn0((size_t) Current_Conservation);
 	nodeTmpsCenter.RO_Electrolyte_Continuity   = nodeCent->indexBulkDomainEqn0((size_t) Continuity);
@@ -667,7 +666,7 @@ porousLiIon_Anode_dom1D::residSetupTmps()
 	    nodeTmpsLeft.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
 	    nodeTmpsLeft.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
 	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
-	   // nodeTmpsLeft.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
+	    nodeTmpsLeft.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
 
 	    nodeTmpsLeft.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
 	    nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
@@ -684,7 +683,7 @@ porousLiIon_Anode_dom1D::residSetupTmps()
 	    nodeTmpsLeft.Offset_Voltage              = nodeLeft->indexBulkDomainVar0((size_t) Voltage);
 	    nodeTmpsLeft.Offset_MoleFraction_Species = nodeLeft->indexBulkDomainVar0((size_t) MoleFraction_Species);
 	    nodeTmpsLeft.Offset_Velocity_Axial       = nodeLeft->indexBulkDomainVar0((size_t) Velocity_Axial);
-	   // nodeTmpsLeft.Offset_Temperature          = nodeLeft->indexBulkDomainVar0((size_t) Temperature);
+	    nodeTmpsLeft.Offset_Temperature          = nodeLeft->indexBulkDomainVar0((size_t) Temperature);
 
 	    nodeTmpsLeft.RO_Current_Conservation     = nodeLeft->indexBulkDomainEqn0((size_t) Current_Conservation);
 	    nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeLeft->indexBulkDomainEqn0((size_t) Continuity);
@@ -709,7 +708,7 @@ porousLiIon_Anode_dom1D::residSetupTmps()
 	    nodeTmpsRight.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
 	    nodeTmpsRight.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
 	    nodeTmpsRight.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
-	    //nodeTmpsRight.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
+	    nodeTmpsRight.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
 
 	    nodeTmpsRight.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
 	    nodeTmpsRight.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
@@ -726,7 +725,7 @@ porousLiIon_Anode_dom1D::residSetupTmps()
 	    nodeTmpsRight.Offset_Voltage              = nodeRight->indexBulkDomainVar0((size_t) Voltage);
 	    nodeTmpsRight.Offset_MoleFraction_Species = nodeRight->indexBulkDomainVar0((size_t) MoleFraction_Species);
 	    nodeTmpsRight.Offset_Velocity_Axial       = nodeRight->indexBulkDomainVar0((size_t) Velocity_Axial);
-	    //nodeTmpsRight.Offset_Temperature          = nodeRight->indexBulkDomainVar0((size_t) Temperature);
+	    nodeTmpsRight.Offset_Temperature          = nodeRight->indexBulkDomainVar0((size_t) Temperature);
 
 	    nodeTmpsRight.RO_Current_Conservation     = nodeRight->indexBulkDomainEqn0((size_t) Current_Conservation);
 	    nodeTmpsRight.RO_Electrolyte_Continuity   = nodeRight->indexBulkDomainEqn0((size_t) Continuity);
