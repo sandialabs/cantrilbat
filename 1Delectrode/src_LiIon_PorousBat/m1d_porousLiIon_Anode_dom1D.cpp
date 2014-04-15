@@ -822,9 +822,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double fluxFright = 0.;
     double fluxFleft;
 
-
     // Flux of current in the electrode phase at the right and left cell boundaries
-    double fluxVElectrodeRight = 0.;
+    double fluxVElectrodeRight = 0.0;
     double fluxVElectrodeLeft;
 
     //mole fraction fluxes
@@ -832,11 +831,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     std::vector<double> fluxXleft(nsp_, 0.0);
 
     double fluxL = 0.0;
-    ;
-    // double fluxR;
+
 
     const Epetra_Vector& soln = *soln_ptr;
-    //const Epetra_Vector &solnOld = *solnOld_ptr;
+
 
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
@@ -1392,11 +1390,15 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
                                            const ResidEval_Type_Enum residType,
                                            const Solve_Type_Enum solveType)
 {
+   static int tmpsSetup = 0;
+    if (!tmpsSetup) {
+        residSetupTmps();
+        tmpsSetup = 1;
+    }
+
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
-    int index_RightLcNode;
-    int index_LeftLcNode;
-    int index_CentLcNode;
+
 
     maxElectrodeSubIntegrationSteps_ = 0;
 
@@ -1412,28 +1414,6 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         }
     }
 
-    NodalVars* nodeLeft = 0;
-    NodalVars* nodeCent = 0;
-    NodalVars* nodeRight = 0;
-
-    double xCellBoundaryL; //cell boundary left
-    double xCellBoundaryR; //cell boundary right
-
-
-    /*
-     * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
-     */
-    int indexCent_EqnStart_BD;
-
-
-    /*
-     * Offsets for the variable unknowns in the solution vector for the electrolyte domain
-     */
-    // int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
-
-
     /*
      *  ------------------------------ LOOP OVER CELL -------------------------------------------------
      *  Loop over the number of Cells in this domain on this processor
@@ -1442,91 +1422,35 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
 
+        cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+        NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+        NodalVars* nodeCent = cTmps.nvCent_;
 
-        /*
-         *  ---------------- Get the index for the center node ---------------------------------
-         */
-        index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-        /*
+	/*
          *   Get the pointer to the NodalVars object for the center node
          */
-        nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
-        /*
-         *  Index of the first equation in the bulk domain of center node
-         */
-        indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
-                                + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
-        /*
-         *  ------------------- Get the index for the left node -----------------------------
-         *    There may not be a left node if we are on the left boundary. In that case
-         *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
-         */
-        index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
-        if (index_LeftLcNode < 0) {
-            /*
-             *  We assign node object to zero.
-             */
-            nodeLeft = 0;
-        } else {
-            // get the node structure for the left node
-            nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
-        }
-
-        /*
-         * ------------------------ Get the indexes for the right node ------------------------------------
-         */
-        index_RightLcNode = Index_RightLcNode_LCO[iCell];
-        if (index_RightLcNode < 0) {
-            nodeRight = 0;
-        } else {
-            //NodalVars
-            nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
-        }
-
-        /*
-         * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
-         * Calculate the distance between the left and center node points
-         */
-        if (nodeLeft) {
-            xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
-        } else {
-            xCellBoundaryL = nodeCent->xNodePos();
-        }
-        /*
-         * Calculate the distance between the right node and center node points
-         */
-        if (nodeRight == 0) {
-            xCellBoundaryR = nodeCent->xNodePos();
-        } else {
-            xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
-        }
+        int indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
         /*
          * Calculate the cell width
          */
-
-        xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
-
+	xdelCell_Cell_[iCell] = cTmps.xCellBoundaryR_ - cTmps.xCellBoundaryL_;
 
         for (int k = 0; k < nsp_; k++) {
-            Xcent_cc_[k] = soln[indexCent_EqnStart_BD + iVar_Species_BD + k];
+            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
         }
-        Vcent_cc_ = soln[indexCent_EqnStart_BD + iVar_Voltage_BD];
-        VElectrodeCent_cc_ = soln[indexCent_EqnStart_BD + iVar_Voltage_BD + 1];
+        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+        VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
 
         /*
          * Setup the thermo
          */
-
-        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
-
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
         /*
          *  Calculate the electrode reactions.  Also update porosity.
          */
         int numSubcycles = calcElectrode();
         maxElectrodeSubIntegrationSteps_ = MAX(maxElectrodeSubIntegrationSteps_, numSubcycles);
     }
-
 }
 //====================================================================================================================
 void
