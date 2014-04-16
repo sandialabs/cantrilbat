@@ -192,6 +192,25 @@ public:
     double
     getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte);
 
+    //! Base class for saving the solution on the domain in an xml node.
+    /*!
+     *
+     * @param oNode                Reference to the XML_Node
+     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+     * @param t                    time
+     *
+     * @param duplicateOnAllProcs  If this is true, all processors will include
+     *                             the same XML_Node information as proc 0. If
+     *                             false, the xml_node info will only exist on proc 0.
+     */
+    virtual void
+    saveDomain(Cantera::XML_Node& oNode,
+               const Epetra_Vector* soln_GlAll_ptr,
+               const Epetra_Vector* solnDot_GlAll_ptr,
+               const double t,
+               bool duplicateOnAllProcs = false);
+
 
     //! Generate the initial conditions
     /*!

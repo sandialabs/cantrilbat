@@ -1881,11 +1881,16 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
             int istart = nv->EqnStart_GbEqnIndex;
 	    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
 	    if (offset == npos) {
-		throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
+		throw m1d_Error("porousLiIon_Separator_dom1D::saveDomain()", "cant find a variable");
 	    }
             varContig[i] = (*soln_GLALL_ptr)[istart + offset];
         }
         ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    }
+
+    if (PS_ptr->doHeatSourceTracking_) {
+        std::string nmm = "qSource_Cell_curr_";
+        ctml::addNamedFloatArray(gv, nmm, numNodes, &(qSource_Cell_curr_[0]), "Joule/s/m2", "");
     }
 
     for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
@@ -2621,7 +2626,6 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     }
 
 
-
     if (do0Write) {
         // ----------------------------------------------------
         // --             PRINT FLUXES AT THE CELL BOUNDARIES --
@@ -2689,8 +2693,6 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("\n");
             drawline0(indentSpaces, 100);
         }
-        //NodalVars* nvl;
-        //NodalVars* nvr;
         for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
             print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
             if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
@@ -2698,9 +2700,8 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 x = nv->xNodePos();
                 ss.print0("%s    %-10.4E ", ind, x);
-                //Electrode* ee = Electrode_Cell_[iCell];
 
-                ss.print0("% -11.4E ", qSource_Cell_curr_[iCell]);
+                ss.print0("% -11.4E ",  qSource_Cell_curr_[iCell]);
 
                 ss.print0("% -11.4E ",  qSource_Cell_accumul_[iCell]);
                 ss.print0("% -11.4E ",  jouleHeat_lyte_Cell_curr_[iCell]);
@@ -2715,7 +2716,6 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
         }
     }
-
 }
 //=====================================================================================================================
 // Generate the initial conditions

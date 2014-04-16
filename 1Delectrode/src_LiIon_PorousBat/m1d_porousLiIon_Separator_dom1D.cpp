@@ -1171,6 +1171,83 @@ drawline0(int sp, int ll)
     }
     sprint0("\n");
 }
+// saving the solution on the domain in an xml node.
+/*
+ *
+ * @param oNode                Reference to the XML_Node
+ * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+ * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+ * @param t                    time
+ *
+ * @param duplicateOnAllProcs  If this is true, all processors will include
+ *                             the same XML_Node information as proc 0. If
+ *                             false, the xml_node info will only exist on proc 0.
+ */
+void
+porousLiIon_Separator_dom1D::saveDomain(Cantera::XML_Node& oNode,
+                                    const Epetra_Vector* soln_GLALL_ptr,
+                                    const Epetra_Vector* solnDot_GLALL_ptr,
+                                    const double t,
+                                    bool duplicateOnAllProcs)
+{
+    // get the NodeVars object pertaining to this global node
+    GlobalIndices* gi = LI_ptr_->GI_ptr_;
+
+    // Add an XML child for this domain. We will add the data to this child
+    Cantera::XML_Node& bdom = oNode.addChild("domain");
+
+    // Number of equations per node
+    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+
+    // Vector containing the variable names as they appear in the solution vector
+    std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+
+    //! First global node of this bulk domain
+    int firstGbNode = BDD_.FirstGbNode;
+
+    //! Last Global node of this bulk domain
+    int lastGbNode = BDD_.LastGbNode;
+    int numNodes = lastGbNode - firstGbNode + 1;
+
+    bdom.addAttribute("id", id());
+    bdom.addAttribute("points", numNodes);
+    bdom.addAttribute("type", "bulk");
+    bdom.addAttribute("numVariables", numEquationsPerNode);
+
+    // Dump out the coordinates
+    Cantera::XML_Node& gv = bdom.addChild("grid_data");
+
+    std::vector<double> varContig(numNodes);
+
+    int i = 0;
+    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+        NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+        varContig[i] = nv->x0NodePos();
+    }
+    ctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
+
+    for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
+        VarType vt = variableNameList[iVar];
+        i = 0;
+        std::string nmm = vt.VariableName(200);
+        for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+            NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+            int istart = nv->EqnStart_GbEqnIndex;
+	    size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+	    if (offset == npos) {
+		throw m1d_Error("porousLiIon_Separator_dom1D::saveDomain()", "cant find a variable");
+	    }
+            varContig[i] = (*soln_GLALL_ptr)[istart + offset];
+        }
+        ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    }
+
+    if (PS_ptr->doHeatSourceTracking_) {
+       std::string nmm = "qSource_Cell_curr_";
+       ctml::addNamedFloatArray(gv, nmm, numNodes, &(qSource_Cell_curr_[0]), "Joule/s/m2", "");
+    }
+
+}
 //=====================================================================================================================
 // Base class for writing the solution on the domain to a logfile.
 /*

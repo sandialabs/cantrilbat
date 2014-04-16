@@ -1948,6 +1948,11 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
         ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
     }
 
+    if (PS_ptr->doHeatSourceTracking_) {
+        std::string nmm = "qSource_Cell_curr_";
+        ctml::addNamedFloatArray(gv, nmm, numNodes, &(qSource_Cell_curr_[0]), "Joule/s/m2", "");
+    }
+
     for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
         int iCell = iGbNode - firstGbNode;
         Electrode* ee = Electrode_Cell_[iCell];	
