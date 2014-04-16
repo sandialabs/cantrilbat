@@ -32,12 +32,15 @@ namespace m1d
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& bdd) :
     porousFlow_dom1D(bdd),
-    ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
+    ionicLiquid_(0), 
+    solidSkeleton_(0),
+    trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
     concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
     gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
-    icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0),
+    icurrElectrolyte_CBL_(0), 
+    icurrElectrolyte_CBR_(0),
     iECDMC_(-1),
     iLip_(-1),
     iPF6m_(-1),
@@ -71,7 +74,9 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& 
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
     porousFlow_dom1D(r.BDD_),
-    ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
+    ionicLiquid_(0),
+    solidSkeleton_(0),
+    trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
     concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
@@ -88,6 +93,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::~porousLiIon_Separator_dom1D()
 {
+    delete solidSkeleton_;
 }
 //=====================================================================================================================
 porousLiIon_Separator_dom1D&
@@ -100,11 +106,13 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     porousFlow_dom1D::operator=(r);
 
     ionicLiquid_                          = r.ionicLiquid_;
+    solidSkeleton_                        = r.solidSkeleton_;
     trans_                                = r.trans_;
     nph_                                  = r.nph_;
     nsp_                                  = r.nsp_;
     concTot_cent_                         = r.concTot_cent_;
     concTot_cent_old_                     = r.concTot_cent_old_;
+    xdelCell_Cell_                        = r.xdelCell_Cell_;
     concTot_Cell_                         = r.concTot_Cell_;
     concTot_Cell_old_                     = r.concTot_Cell_old_;
 
@@ -162,19 +170,17 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      * and then figure out its volume fraction to
      * determine the cell porosity.
      *
-     * We should read in the MgO.xml file to get the MgO density
      */
-    //  StoichSubstanceDef inert( PSinput.separatorXMLFile_,
-    //			    PSinput.separatorPhase_ );
+
     int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.separatorPhase_);
     ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-    StoichSubstance* inert = dynamic_cast<Cantera::StoichSubstance*>(tmpPhase);
+    solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
 
     //need to convert inputs from cgs to SI
     double volumeSeparator =
         PSinput.separatorArea_ * PSinput.separatorThickness_;
     double volumeInert =
-        PSinput.separatorMass_ / inert->density() ;
+        PSinput.separatorMass_ / solidSkeleton_->density() ;
     double porosity = 1.0 - volumeInert / volumeSeparator;
 
     std::cout << "Separator volume is " << volumeSeparator << " m^3 with "
@@ -188,6 +194,7 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     /*
      * Porous electrode domain prep
      */
+    xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
 
@@ -444,7 +451,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * Calculate the cell width
          */
-	xdelCell = cTmps.xdelCell_;
+	xdelCell = cTmps.xdelCell_; 
+	xdelCell_Cell_[iCell] = xdelCell;
+
         /*
          * --------------------------- DO PRE-SETUPSHOP RASTER OVER LEFT,CENTER,RIGHT -----------------------------
          * Calculate the distance between the left and center node points
@@ -1075,6 +1084,24 @@ porousLiIon_Separator_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, co
     mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
     mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
     mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+}
+//=====================================================================================================================
+/*
+ *  We assume that setupthermoshop1 has been called
+ *
+ *   electrodeCrossSectionalArea_
+ */
+double
+porousLiIon_Separator_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+{
+    double cpMolar = ionicLiquid_->cp_mole();
+    double lyteVol = porosity_Curr_ * xdelCell_Cell_[cIndex_cc_];
+    double solidVol = (1.0 - porosity_Curr_) * xdelCell_Cell_[cIndex_cc_];
+    double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
+    double cpMolarSolid = solidSkeleton_->cp_mole();
+    double concSolid = 1.0 / solidSkeleton_->molarDensity();
+    double cpSolid =  solidVol * concSolid * cpMolar;  
+    return cpSolid + cpLyte;
 }
 //=====================================================================================================================
 void

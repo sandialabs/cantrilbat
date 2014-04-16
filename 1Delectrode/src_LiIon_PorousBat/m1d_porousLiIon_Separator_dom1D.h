@@ -189,6 +189,10 @@ public:
     void
     getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
+    double
+    getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte);
+
+
     //! Generate the initial conditions
     /*!
      *   The basic algorithm is to loop over the volume domains.
@@ -310,6 +314,9 @@ protected:
      */
     Cantera::ThermoPhase* ionicLiquid_;
 
+
+    Cantera::ThermoPhase* solidSkeleton_;
+
     //! Pointer to the transport object for the molten salt
     /*!
      * We do not own this object
@@ -321,6 +328,7 @@ protected:
 
     //! number of species solved
     int nsp_;
+
 
 
     //! Total concentration of the electolyte
@@ -342,6 +350,13 @@ protected:
     //at this instant, I will set it to a constant for now.
 
     // ------------------------------------------------------------------------
+
+    //! delta X for the current cell
+    /*!
+     *  Length is number of cells on the processor
+     *  units = m
+     */
+    std::vector<double> xdelCell_Cell_;
 
     //! Total concentration of the electrolyte at cell centers
     /*!
