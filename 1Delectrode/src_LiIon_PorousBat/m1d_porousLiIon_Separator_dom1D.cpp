@@ -1087,7 +1087,8 @@ porousLiIon_Separator_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, co
 }
 //=====================================================================================================================
 /*
- *  We assume that setupthermoshop1 has been called
+ *  We assume that setupthermoshop1 has been called.
+ *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
  *
  *   electrodeCrossSectionalArea_
  */
@@ -1100,7 +1101,7 @@ porousLiIon_Separator_dom1D::getCellHeatCapacity(const NodalVars* const nv, cons
     double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
     double cpMolarSolid = solidSkeleton_->cp_mole();
     double concSolid = 1.0 / solidSkeleton_->molarDensity();
-    double cpSolid =  solidVol * concSolid * cpMolar;  
+    double cpSolid =  solidVol * concSolid * cpMolarSolid;  
     return cpSolid + cpLyte;
 }
 //=====================================================================================================================

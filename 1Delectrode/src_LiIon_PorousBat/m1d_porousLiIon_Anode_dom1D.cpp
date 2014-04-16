@@ -1751,6 +1751,24 @@ porousLiIon_Anode_dom1D::getMFElectrolyte_soln(const NodalVars*  const nv, const
     mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
 }
 //=====================================================================================================================
+/*
+ *  We assume that setupthermoshop1 has been called.
+ *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
+ *
+ *   electrodeCrossSectionalArea_
+ */
+double
+porousLiIon_Anode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+{
+    Electrode* Electrode_ptr = Electrode_Cell_[cIndex_cc_];
+    double cpMolar = ionicLiquid_->cp_mole();
+    double lyteVol = porosity_Curr_ * xdelCell_Cell_[cIndex_cc_];
+    double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
+    double cpSolidTotal = Electrode_ptr->SolidHeatCapacityCV() ;
+    double cpSolid =  cpSolidTotal / electrodeCrossSectionalArea_;
+    return (cpSolid + cpLyte);
+}
+//=====================================================================================================================
 void
 porousLiIon_Anode_dom1D::SetupTranShop(const double xdel, const int type)
 {

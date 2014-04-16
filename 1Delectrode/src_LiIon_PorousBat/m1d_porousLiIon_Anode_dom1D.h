@@ -247,6 +247,8 @@ public:
     void
     getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
+    double getCellHeatCapacity(const m1d::NodalVars* const nv, const double*const solnElectrolyte);
+
     //! Base class for saving the solution on the domain in an xml node.
     /*!
      *
