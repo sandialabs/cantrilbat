@@ -580,7 +580,7 @@ namespace Cantera {
      * OK, Find the first kinetics object
      */   
     int isfound = -1;
-    int ivfound = -1;
+    //int ivfound = -1;
     for (i = 0; i < m_NumSurPhases; i++) {
       if (SurPhaseHasKinetics[i]) {
 	isfound = i;
@@ -590,7 +590,7 @@ namespace Cantera {
     if (isfound == -1) {
       for (i = 0; i < NumVolPhases_; i++) {
 	if (VolPhaseHasKinetics[i]) {
-	  ivfound = i;
+	  //ivfound = i;
 	  break;
 	}
       }
@@ -2134,12 +2134,12 @@ namespace Cantera {
 		                const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x)
   { 
   
-    double tinit = tfinal - deltaTsubcycle;
-    bool newStep= false;
-    if (fabs(tinit - t_init_) > 1.0E-14) {
-      newStep = true;
+    //double tinit = tfinal - deltaTsubcycle;
+    //bool newStep= false;
+    //if (fabs(tinit - t_init_) > 1.0E-14) {
+     // newStep = true;
   
-    }
+    //}
 
 
     for (int k = 0; k < m_NumTotSpecies; k++) {
@@ -2920,23 +2920,14 @@ namespace Cantera {
 
        fprintf(fpI, "         Tinit ,        Tfinal ," );
 
-       fprintf(fpI, "      Volts_Soln ,  Volts_InterfacialMassTransfer ,");
-
-       fprintf(fpI, "      Current ,");
-
-       fprintf(fpI, "  CapDischarged ,");
-
        for (k = 0; k < m_NumTotSpecies; k++) {
 	 string sss = speciesName(k);
 	 fprintf(fpI, " MN_%-20.20s,",  sss.c_str());
        }
-
        for (k = 0; k < m_NumTotSpecies; k++) {
 	 string sss = speciesName(k);
 	 fprintf(fpI, " SRC_%-20.20s,",  sss.c_str());
        }
-
-
        fprintf(fpI, " iType");
        fprintf(fpI, "\n");
        fclose(fpI);
@@ -2947,12 +2938,6 @@ namespace Cantera {
 		       int2str(CellNumber_) + ".csv");
        fpG = fopen(globOutputName.c_str(), "w");
        fprintf(fpG, "         Tinit ,        Tfinal ," );
-
-       fprintf(fpG, "      Volts_Soln ,  Volts_InterfacialMassTransfer ,");
-
-       fprintf(fpG, "      Current ,");
-
-       fprintf(fpG, "  CapDischarged ,");
 
        for (k = 0; k < m_NumTotSpecies; k++) {
 	 string sss = speciesName(k);

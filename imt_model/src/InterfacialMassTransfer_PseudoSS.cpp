@@ -434,12 +434,6 @@ namespace Cantera {
 
        fprintf(fpI, "         Tinit ,        Tfinal ," );
 
-       fprintf(fpI, "      Volts_Soln ,  Volts_InterfacialMassTransfer_PseudoSS ,");
-
-       fprintf(fpI, "      Current ,");
-
-       fprintf(fpI, "  CapDischarged ,");
-
        for (k = 0; k < m_NumTotSpecies; k++) {
 	 string sss = speciesName(k);
 	 fprintf(fpI, " MN_%-20.20s,",  sss.c_str());
@@ -461,12 +455,6 @@ namespace Cantera {
 		       int2str(CellNumber_) + ".csv");
        fpG = fopen(globOutputName.c_str(), "w");
        fprintf(fpG, "         Tinit ,        Tfinal ," );
-
-       fprintf(fpG, "      Volts_Soln ,  Volts_InterfacialMassTransfer_PseudoSS ,");
-
-       fprintf(fpG, "      Current ,");
-
-       fprintf(fpG, "  CapDischarged ,");
 
        for (k = 0; k < m_NumTotSpecies; k++) {
 	 string sss = speciesName(k);
