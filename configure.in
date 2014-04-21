@@ -701,6 +701,36 @@ AC_SUBST(superludist_library_dir)
 
 echo 'using superludist location "'$superludist_library_dir'" and library string "'$superludist_library'"'
 
+#
+#Parmetis
+#
+if test ! -z $PARMETIS_LIBRARY ; then
+    parmetis_library=${PARMETIS_LIBRARY}
+else
+   if test ! -z "$PARMETIS_LIBRARY_NAMES" ; then
+      oldddIFS=$IFS
+      IFS=:
+      aaa=`echo $PARMETIS_LIBRARY_NAMES`
+      IFS=$oldddIFS
+      for i in $aaa ;
+      do
+        bbb=`echo $i | sed s/^lib// | sed s/\.a$//`
+        PARMETIS_LIBRARY="$PARMETIS_LIBRARY"" -l"$bbb
+      done
+   else
+      PARMETIS_LIBRARY="-lparmetis"
+   fi
+fi
+
+parmetis_library=${PARMETIS_LIBRARY}
+AC_SUBST(parmetis_library)
+
+parmetis_library_dir=${PARMETIS_LIBRARY_DIR}
+AC_SUBST(parmetis_library_dir)
+
+echo 'using parmetis location "'$parmetis_library_dir'" and library string "'$parmetis_library'"'
+
+
 
 
 

@@ -99,8 +99,9 @@ LAPACK_LINE=-L$(LAPACK_DIR)  @lapack_library@
 BLAS_DIR=@blas_library_dir@
 BLAS_LINE=-L$(BLAS_DIR) @blas_library@
 
-PARMETIS_DIR=/home/hkmoffa/arch/linux64_gcc472/ParMetis-3.1.1/lib
-PARMETIS_LINE=-L$(PARMETIS_DIR) -lparmetis -lmetis
+PARMETIS_DIR=@parmetis_library_dir@
+PARMETIS_LINE=-L$(PARMETIS_DIR) @parmetis_library@
+
 
 #    fortran is needed
 TRILINOS_LIB_LINE=$(AMESOS_LINE)   $(SUPERLU_LINE) $(UMFPACK_LINE) $(PARMETIS_LINE) -ly12m $(LAPACK_LINE) $(BLAS_LINE) -lgfortran
