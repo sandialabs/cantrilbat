@@ -95,7 +95,8 @@ UMFPACK_LINE=-L$(UMFPACK_DIR) -lumfpack -lamd
 LAPACK_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
 LAPACK_LINE=-L$(LAPACK_DIR) -ly12m -llapack_linux64-gcc472
 
-BLAS_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+#BLAS_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+BLAS_DIR=@blas_library_dir@
 BLAS_LINE=-L$(BLAS_DIR) -lblas_linux64-gcc472
 
 PARMETIS_DIR=/home/hkmoffa/arch/linux64_gcc472/ParMetis-3.1.1/lib

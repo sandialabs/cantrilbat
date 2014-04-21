@@ -136,6 +136,10 @@ BUILD_PYTHON_INTERFACE=${BUILD_PYTHON_INTERFACE:="n"}
 # lines, and enter here the string that should be added to the link
 # command to link to it.
 #
+BLAS_LIBRARY_DIR="/home/hkmoffa/arch/linux64_gcc472/lib"
+#
+BLAS_LIBRARY_NAMES="libblas.a"
+#
 # BLAS_LIBRARY=-lblas
 #
 # LAPACK_LIBRARY=-llapack
@@ -283,6 +287,8 @@ INSTALL_BIN=${INSTALL_BIN:=config/install-sh}
 export CANTERA_VERSION
 export USER_SRC_DIR
 export ARCHIVE
+export BLAS_LIBRARY_DIR
+export BLAS_LIBRARY_NAMES
 export BLAS_LIBRARY
 export BUILD_PYTHON_INTERFACE
 export CANTERA_ROOT
