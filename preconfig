@@ -148,6 +148,7 @@ BLAS_LIBRARY_NAMES=${BLAS_LIBRARY_NAMES:=""}
 LAPACK_LIBRARY_NAMES=${LAPACK_LIBRARY_NAMES:="liblapack.a"}
 #
 # LAPACK_LIBRARY=-llapack
+
 #
 #
 # The options below do not need be set if you are using the default libraries.
@@ -162,6 +163,16 @@ LAPACK_FTN_TRAILING_UNDERSCORE='y'
 # Currently this must be set to 'y'.
 LAPACK_FTN_STRING_LEN_AT_END='y'
 #
+#-----------------------------------------------------------------------------------------
+#  TRILINOS TPL's needed by the package
+#----------------------------------------------------------------------------------------
+#
+export UMFPACK_LIBRARY_DIR=${UMFPACK_LIBRARY_DIR:=""}
+#
+export UMFPACK_LIBRARY_NAMES=${UMFPACK_LIBRARY_NAMES:=""}
+#
+export SUPERLU_LIBRARY_DIR=${SUPERLU_LIBRARY_DIR:=""}
+export SUPERLU_LIBRARY_NAMES=${SUPERLU_LIBRARY_NAMES:=""}
 #
 #------------------------------------------------------------------
 #       C++ compiler options

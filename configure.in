@@ -643,7 +643,66 @@ AC_SUBST(lapack_library)
 lapack_library_dir=${LAPACK_LIBRARY_DIR}
 AC_SUBST(lapack_library_dir)
 
-echo 'using lapack location ' $lapack_library_dir ' and library string ' $lapack_library
+echo 'using lapack location "'$lapack_library_dir'" and library string "'$lapack_library'"'
+#
+# UMFPACK
+#
+if test ! -z $UMFPACK_LIBRARY ; then
+    umfpack_library=${UMFPACK_LIBRARY}
+else
+   if test ! -z "$UMFPACK_LIBRARY_NAMES" ; then
+      oldddIFS=$IFS
+      IFS=:
+      aaa=`echo $UMFPACK_LIBRARY_NAMES`
+      IFS=$oldddIFS
+      for i in $aaa ;
+      do
+        bbb=`echo $i | sed s/^lib// | sed s/\.a$//`
+        UMFPACK_LIBRARY="$UMFPACK_LIBRARY"" -l"$bbb
+      done
+   else
+      UMFPACK_LIBRARY="-lumfpack"
+   fi
+fi
+
+umfpack_library=${UMFPACK_LIBRARY}
+AC_SUBST(umfpack_library)
+
+umfpack_library_dir=${UMFPACK_LIBRARY_DIR}
+AC_SUBST(umfpack_library_dir)
+
+echo 'using umfpack location "'$umfpack_library_dir'" and library string "'$umfpack_library'"'
+#
+# SUPERLUDIST
+#
+if test ! -z $SUPERLUDIST_LIBRARY ; then
+    superludist_library=${SUPERLUDIST_LIBRARY}
+else
+   if test ! -z "$SUPERLUDIST_LIBRARY_NAMES" ; then
+      oldddIFS=$IFS
+      IFS=:
+      aaa=`echo $SUPERLUDIST_LIBRARY_NAMES`
+      IFS=$oldddIFS
+      for i in $aaa ;
+      do
+        bbb=`echo $i | sed s/^lib// | sed s/\.a$//`
+        SUPERLUDIST_LIBRARY="$SUPERLUDIST_LIBRARY"" -l"$bbb
+      done
+   else
+      SUPERLUDIST_LIBRARY="-lsuperludist"
+   fi
+fi
+
+superludist_library=${SUPERLUDIST_LIBRARY}
+AC_SUBST(superludist_library)
+
+superludist_library_dir=${SUPERLUDIST_LIBRARY_DIR}
+AC_SUBST(superludist_library_dir)
+
+echo 'using superludist location "'$superludist_library_dir'" and library string "'$superludist_library'"'
+
+
+
 
 
 #
