@@ -136,13 +136,19 @@ BUILD_PYTHON_INTERFACE=${BUILD_PYTHON_INTERFACE:="n"}
 # lines, and enter here the string that should be added to the link
 # command to link to it.
 #
-BLAS_LIBRARY_DIR="/home/hkmoffa/arch/linux64_gcc472/lib"
+BLAS_LIBRARY_DIR=${BLAS_LIBRARY_DIR:=""}
 #
-BLAS_LIBRARY_NAMES="libblas.a"
+BLAS_LIBRARY_NAMES=${BLAS_LIBRARY_NAMES:=""}
 #
-# BLAS_LIBRARY=-lblas
+# BLAS_LIBRARY="-lblas"
+#
+# - - - - - - - - - - - - - -
+# LAPACK_LIBRARY_DIR="/home/hkmoffa/arch/linux64_gcc472/lib"
+#
+LAPACK_LIBRARY_NAMES=${LAPACK_LIBRARY_NAMES:="liblapack.a"}
 #
 # LAPACK_LIBRARY=-llapack
+#
 #
 # The options below do not need be set if you are using the default libraries.
 #
@@ -155,6 +161,7 @@ LAPACK_FTN_TRAILING_UNDERSCORE='y'
 
 # Currently this must be set to 'y'.
 LAPACK_FTN_STRING_LEN_AT_END='y'
+#
 #
 #------------------------------------------------------------------
 #       C++ compiler options

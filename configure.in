@@ -589,16 +589,14 @@ AC_SUBST(EXE_EXT)
 #
 # -----------------------------------------------------------------------------
 #
-#
-#
 if test ! -z $BLAS_LIBRARY ; then
     blas_library=${BLAS_LIBRARY}
 else
    if test ! -z "$BLAS_LIBRARY_NAMES" ; then
       oldddIFS=$IFS
-      #IFS=:
+      IFS=:
       aaa=`echo $BLAS_LIBRARY_NAMES`
-      #IFS=$oldddIFS
+      IFS=$oldddIFS
       for i in $aaa ;
       do
         # echo 'i = ' $i
@@ -607,11 +605,9 @@ else
         BLAS_LIBRARY="$BLAS_LIBRARY"" -l"$bbb
       done
       # echo BLAS_LIBRARY $BLAS_LIBRARY
-
    else
       BLAS_LIBRARY="-lblas"
    fi
-
 fi
 
 blas_library=${BLAS_LIBRARY}
@@ -620,7 +616,34 @@ AC_SUBST(blas_library)
 blas_library_dir=${BLAS_LIBRARY_DIR}
 AC_SUBST(blas_library_dir)
 
-echo 'using blas location ' $blas_library_dir ' and library string ' $blas_library
+echo 'using blas location "'$blas_library_dir'" and library string "'$blas_library'"'
+
+#
+if test ! -z $LAPACK_LIBRARY ; then
+    lapack_library=${LAPACK_LIBRARY}
+else
+   if test ! -z "$LAPACK_LIBRARY_NAMES" ; then
+      oldddIFS=$IFS
+      IFS=:
+      aaa=`echo $LAPACK_LIBRARY_NAMES`
+      IFS=$oldddIFS
+      for i in $aaa ;
+      do
+        bbb=`echo $i | sed s/^lib// | sed s/\.a$//`
+        LAPACK_LIBRARY="$LAPACK_LIBRARY"" -l"$bbb
+      done
+   else
+      LAPACK_LIBRARY="-llapack"
+   fi
+fi
+
+lapack_library=${LAPACK_LIBRARY}
+AC_SUBST(lapack_library)
+
+lapack_library_dir=${LAPACK_LIBRARY_DIR}
+AC_SUBST(lapack_library_dir)
+
+echo 'using lapack location ' $lapack_library_dir ' and library string ' $lapack_library
 
 
 #
