@@ -519,12 +519,6 @@ install -d ${cta_incdir}
 install -d ${cta_libdir}
 install -d ${cta_bindir}
 
-# 
-# Trilinos install root
-#
-trilinos_root=${TRILINOS_INSTALL_DIR}
-AC_SUBST(trilinos_root)
-# 
 # Cads root
 #
 cads_root=${CADS_ROOT}
@@ -588,6 +582,22 @@ then
   EXE_EXT=$EXEEXT
 fi
 AC_SUBST(EXE_EXT)
+
+#
+# -----------------------------------------------------------------------------
+#   TRILINOS -        BLAS LIBRARIES
+#
+# -----------------------------------------------------------------------------
+#
+
+
+#
+# Trilinos install root
+#
+trilinos_root=${TRILINOS_INSTALL_DIR}
+AC_SUBST(trilinos_root)
+
+
 
 
 ####### ac output SECTION
