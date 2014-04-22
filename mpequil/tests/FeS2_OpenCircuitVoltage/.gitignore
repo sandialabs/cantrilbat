@@ -9,3 +9,4 @@ vcs_equilibrate_res_*.csv
 diff_csv.txt
 diff_out.txt
 err_out.txt
+ocvOutput.csv

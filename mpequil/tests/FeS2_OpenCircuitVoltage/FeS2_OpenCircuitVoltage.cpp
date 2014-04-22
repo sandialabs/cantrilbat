@@ -39,8 +39,6 @@ int main(int argc, char **argv)
   VCSnonideal::vcs_timing_print_lvl = 0;
   int printLvl = 2;
   int retn = 0;
-  bool printedUsage = false;
-  bool printInputFormat = false;
   
   try {
 
@@ -55,10 +53,8 @@ int main(int argc, char **argv)
 	  int nopt = static_cast<int>(tok.size());
 	  for (int n = 1; n < nopt; n++) {
 	    if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
-	      printInputFormat = true;
 	    } else if (tok[n] == 'h') {
 	      printUsage();
-	      printedUsage = true;
 	      exit(1);
 	    } else if (tok[n] == 'd') {
 	      int lvl = 2;
@@ -75,13 +71,11 @@ int main(int argc, char **argv)
 	      }
 	    } else {
 	      printUsage();
-	      printedUsage = true;
 	      exit(1);
 	    }
 	  }
 	} else {
 	  printUsage();
-	  printedUsage = true;
 	  exit(1);
 	}
       }
@@ -94,16 +88,11 @@ int main(int argc, char **argv)
 
 
     int tab = 15;
-    outfile << setw(tab+1) << "x_Fe," << setw(tab+1) << "x_S," << setw(tab+1) << "x_Li," << setw(tab+1) << "Ah/kg FeS2," << setw(tab+1) << "Volts\n";
+    outfile << setw(tab+1) << "x_Fe," << setw(tab+1) << "x_S," << setw(tab+1) << "x_Li," 
+            << setw(tab+1) << "Ah/kg FeS2," << setw(tab+1) << "Volts," << setw(tab+1) << "DeltaGibbs\n";
 
 
-
-    double x[20];
-    for (int k = 0; k < 20; k++) {
-      x[k] = 0.0;
-    }
     double um[20];
-    double pres = OneAtm;
     
     double Temp = 723.15;
 
@@ -153,7 +142,6 @@ int main(int argc, char **argv)
     int i_FeS = FeS->speciesIndex("FeS(B)");
     int i_VaS = FeS->speciesIndex("VaS(B)");
 
-    double xx = 0.1;
     double z = 0.1;
     double y = (0.2 / (1.0 - 2 * z));
   
@@ -261,7 +249,7 @@ int main(int argc, char **argv)
       int estimateEquil = 0;
 
       mmm.getElemAbundances(elemN);
-      double ratio = elemN[iS]/elemN[iFe];
+      //double ratio = elemN[iS]/elemN[iFe];
       if (elemN[iS] > 2*elemN[iFe]) {
 	mmm.setPhaseMoles(5,1.+elemN[iS]/2-elemN[iFe]);
       } else {
@@ -279,12 +267,14 @@ int main(int argc, char **argv)
       elemN[iLi] -= mmm.phaseMoles(iLiFixed);
       double mass = elemN[iFe] * 55.845 + elemN[iS] * 32.065;
       double gibbs = 0;
-      for (int j = 0; j < mmm.nPhases(); j++) {
+      for (size_t j = 0; j <  mmm.nPhases(); j++) {
 	gibbs += mmm.phaseMoles(j) * mmm.phase(j).gibbs_mole();
       }
       gibbs -= mmm.phaseMoles(iLiFixed) * mmm.phase(iLiFixed).gibbs_mole();
       
-      outfile << setw(tab) << elemN[iFe] << "," << setw(tab) << elemN[iS] << "," << setw(tab) << elemN[iLi] << "," << setw(tab) << Faraday * elemN[iLi] / mass  << "," << setw(tab) << volts << "," << setw(tab) << gibbs << endl;
+      outfile << setw(tab) << elemN[iFe] << "," << setw(tab) << elemN[iS] << "," 
+              << setw(tab) << elemN[iLi] << "," << setw(tab) << Faraday * elemN[iLi] / mass  
+              << "," << setw(tab) << volts << "," << setw(tab) << gibbs << endl;
       
     }
 
