@@ -18,7 +18,7 @@
     <kinetics model="SolidKinetics" />
     <standardConc model="unity" />
    <transport model="Simple">
-      <compositionDependence model="Solvent_Only"/>
+      <compositionDependence model="solvent"/>
       <!--
         <compositionDependence model="Mixture_Averaged"/>
       -->

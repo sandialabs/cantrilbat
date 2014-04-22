@@ -13,7 +13,7 @@
 .SUFFIXES: .d
 
 PROGRAM = LiIon_PorousBat
-TEST_NAME = LiIon_MCMB_LiCoO2_Diff2
+TEST_NAME = LiIon_MCMB_LiCoO2_Diff2_heatSource
 
 DATA =  \
 ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml\
