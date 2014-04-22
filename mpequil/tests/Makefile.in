@@ -8,7 +8,6 @@
 all:
 	cd ex_gri; @MAKE@
 	cd CO2_solubility_test; @MAKE@
-	cd FeS2_OpenCircuitVoltage; @MAKE@
 
 test:
 	- cd multiPhase; ./runtest
@@ -16,7 +15,6 @@ test:
 	- cd sce_electrode; ./runtest
 	- cd ex_gri; ./runtest
 	- cd CO2_solubility_test; ./runtest
-	- cd FeS2_OpenCircuitVoltage; ./runtest
 
 testd:
 	- cd multiPhase; ./runtestd
@@ -24,7 +22,6 @@ testd:
 	- cd sce_electrode; ./runtestd
 	- cd ex_gri; ./runtestd
 	- cd CO2_solubility_test; ./runtestd
-	- cd FeS2_OpenCircuitVoltage; ./runtest
 
 clean:
 	cd multiPhase;                 ./cleanup
@@ -32,7 +29,6 @@ clean:
 	cd sce_electrode;              ./cleanup
 	cd ex_gri;                     @MAKE@ clean 
 	cd CO2_solubility_test;        @MAKE@ clean
-	cd FeS2_OpenCircuitVoltage;    @MAKE@ clean
 
 rebaseline:
 	cd multiPhase;       ../rebase.sh
@@ -40,7 +36,6 @@ rebaseline:
 	cd sce_electrode;    ../rebase.sh
 	cd ex_gri;                ../rebase.sh
 	cd CO2_solubility_test;   ../rebase.sh
-	cd FeS2_OpenCircuitVoltage; ../rebase.sh
 
 
 install:
@@ -48,6 +43,5 @@ install:
 depends:
 	cd ex_gri;           @MAKE@ depends
 	cd CO2_solubility_test;   @MAKE@ depends
-	cd FeS2_OpenCircuitVoltage; @MAKE@ depends
 
 # end of file
