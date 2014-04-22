@@ -248,7 +248,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn)
 
 double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
         double* nStoich, doublereal* OCV, doublereal* io,
-        doublereal* nu, doublereal *beta)
+        doublereal* overPotential, doublereal *beta)
 {
     // This will calculate the equilibrium constant
     updateROP();
@@ -266,12 +266,13 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     if (nStoichElectrons != 0.0) {
         *OCV = deltaG[irxn]/Faraday/ nStoichElectrons;
     }
+    //PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
     // we have a vector of standard concentrations calculated from the routine below
     //            m_StandardConc[ik]
-    getExchangeCurrentQuantities();
+    updateExchangeCurrentQuantities();
 
 
-
+    //rkc is reciprocal equilibrium constant
 #define OLDWAY
 #ifdef OLDWAY
     const vector_fp& rf = m_rfn;
@@ -280,7 +281,6 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     const vector_fp& rf = m_kdata->m_rfn;
     const vector_fp& rkc= m_kdata->m_rkcn;
 #endif
-
 
     // start with the forward reaction rate
     double iO = rf[irxn] * Faraday * nStoichElectrons;
@@ -312,9 +312,9 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     double phiMetal = thermo(metalPhaseRS_).electricPotential();
     double phiSoln = thermo(solnPhaseRS_).electricPotential();
     double E = phiMetal - phiSoln;
-    *nu = E - *OCV;
+    *overPotential = E - *OCV;
 
-    return calcCurrentDensity(*nu, *nStoich, *io, *beta, m_temp);
+    return calcCurrentDensity(*overPotential, *nStoich, *io, *beta, m_temp);
 }
 //====================================================================================================================
 double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich,  double io, double beta, double temp) const
