@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+#
+CANTERA_INSTALL_DIR=/home/hea/arch/linux64_gcc472/cantera_trunk_dbg
+export CANTERA_INSTALL_DIR
+#
+CANTERA_ROOT=/tmp/home/hea/Cantera/cantera_trunk
+export CANTERA_ROOT
+#
+CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_dbg"
+export CANTERA_APPS_INSTALL_DIR
+#
+#
+#  BUILD_WITH_F2C is optional on linux. 
+#
+export BUILD_WITH_F2C='n'
+#
+#
+#
+SET_PYTHON_SITE_PACKAGE_TOPDIR=y
+export SET_PYTHON_SITE_PACKAGE_TOPDIR
+#
+PYTHON_SITE_PACKAGE_TOPDIR=/home/hkmoffa/arch/linux64_gcc444/python-2.6.4
+export PYTHON_SITE_PACKAGE_TOPDIR
+#
+CXX=/usr/bin/g++
+
+export CXX
+
+# -DDEBUG_MODE
+# -DDEBUG_HKM
+# -DDO_INIT_CALC
+#CXXFLAGS="-g -Wall -DDEBUG_HKM"
+CXXFLAGS="-g -Wall -DDEBUG_MODE"
+export CXXFLAGS
+#
+LCXX_END_LIBS=" -lgfortran"
+export LCXX_END_LIBS
+#
+# Specify the fortran compiler, because some libraries are
+# written in fortran. This is used to find the libraries
+# to link against
+#
+F77='/usr/bin/gfortran'
+export F77
+#FFLAGS="-g -DDEBUG_HKM  -fno-second-underscore"
+FFLAGS="-g -fno-second-underscore"
+export FFLAGS
+
+export MPIHOME=/shared/CAEBAT/tpl/opt/bin/mpich2-1.3.2p1
+
+MPICXX=${MPIHOME}/bin/mpic++
+export MPICXX
+
+MPICC=${MPIHOME}/bin/mpicc
+export MPICC
+
+MPIF77=${MPIHOME}/bin/mpif90
+export MPIF77
+
+CXX_DEPENDS='/shared/CAEBAT/tpl/opt/bin/mpich2-1.3.2p1/bin/mpic++ -MM'
+# CXX_DEPENDS="${CXX}  -MM"
+echo CXX_DEPENDS = $CXX_DEPENDS
+export CXX_DEPENDS 
+
+#
+#TRILINOS_INSTALL_DIR="/shared/CAEBAT/tpl/opt/bin/trilinos-11.0.4"
+TRILINOS_INSTALL_DIR="/home/hea/arch/linux64_gcc472/trilinos_11_2_3_dbg"
+#TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_10_10_2_dbg"
+# TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc444/trilinos_9.0.1_linux_64_dbg"
+# TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc444/trilinos_9.0.1_linux_64_nompi_dbg"
+export TRILINOS_INSTALL_DIR
+# 
+#  Location and Name of the blas library
+#
+export BLAS_LIBRARY_DIR=/shared/CAEBAT/tpl/lib/acml/gfortran64/lib
+export BLAS_LIBRARY_NAMES="libacml.a:libacml_mv.a"
+# 
+#  Location and Name of the lapack library
+#
+export LAPACK_LIBRARY_DIR=/shared/CAEBAT/tpl/lib/acml/gfortran64/lib
+export LAPACK_LIBRARY_NAMES=libacml.a
+
+export UMFPACK_LIBRARY_DIR=/home/hea/arch/linux64_gcc472/UMFPACK-5.4/lib
+export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
+
+export SUPERLUDIST_LIBRARY_DIR=/home/hea/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
+export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
+
+export PARMETIS_LIBRARY_DIR=/home/hea/arch/linux64_gcc472/ParMetis-3.1.1/lib
+export PARMETIS_LIBRARY_NAMES="libparmetis.a:libmetis.a"
+
+
+DO_MPI='y'
+export DO_MPI
+
+export MP_MACHINEFILE_DEFAULT=~/hostfile.anode
+
+#
+MAKE=gmake
+export MAKE
+#
+./preconfig
