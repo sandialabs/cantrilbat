@@ -28,9 +28,11 @@
 
 #include "m1d_ProblemStatement.h"
 #include "m1d_BoundaryCondition.h"
+#include "m1d_exception.h"
 
 #include "Electrode_input.h"
 #include "Electrode.h"
+#include "Electrode_Factory.h"
 
 #define MPEQUIL_MAX_NAME_LEN_P1 81
 #define MPEQUIL_MAX_NAME_LEN    80

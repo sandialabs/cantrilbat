@@ -132,9 +132,6 @@ MDPLIB     = -L$(UTILSRC_DIR) -lutil_src
 CTBLAS_DEP = $(CANTERA_LIBDIR)/libctblas.a
 CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
 
-CTMATH_DEP = $(CANTERA_LIBDIR)/libctmath.a
-CTMATH    = -L$(CANTERA_LIBDIR) -lctmath
-
 CTLIB_DEP  = $(CANTERA_LIBDIR)/libcantera.a 
 CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
 
@@ -178,7 +175,7 @@ DH_NM_test: DH_NM_test.o  \
 	$(CXXLDR) $(LCXX_FLAGS) $(FLIB_BSD) -o DH_NM_test \
                   DH_NM_test.o  \
                   -L.  $(CTLIB) $(MDPLIB) $(UTILSRC_LIB)  \
-                  $(CTBLAS) $(CTMATH) $(LCXX_END_LIBS) 
+                  $(CTBLAS) $(LCXX_END_LIBS) 
 
 cg_test: cg_noprecond.o cg_test.o vcs_allo.o Makefile \
     $(OBJ_CANTERA_ADDONS) $(CTLIB_DEP) Makefile $(CANTERA_CORE_LIBS_DEP)
@@ -190,7 +187,7 @@ testCalcDens: testCalcDens.o  \
 	$(CXXLDR) $(LCXX_FLAGS) $(FLIB_BSD) -o testCalcDens \
                   testCalcDens.o  \
                   -L.  $(CTLIB) $(MDPLIB)  \
-                  $(CTBLAS) $(CTMATH) $(LCXX_END_LIBS) 
+                  $(CTBLAS) $(LCXX_END_LIBS) 
 
 test:
 

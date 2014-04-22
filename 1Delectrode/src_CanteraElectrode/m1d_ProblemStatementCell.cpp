@@ -10,7 +10,6 @@
 
 #include "m1d_globals.h"
 #include "m1d_ProblemStatementCell.h"
-#include "m1d_BoundaryCondition.h"
 
 #include "Epetra_Comm.h"
 
@@ -459,30 +458,41 @@ ProblemStatementCell::post_process_input()
   /**
    * set up anode ELECTRODE_KEY_INPUT based on anodeFile_
    */
-  anode_input_ = new ELECTRODE_KEY_INPUT();
-
+  ELECTRODE_KEY_INPUT *ei_tmp = new ELECTRODE_KEY_INPUT();
   /**
    * Initialize a block input structure for the command file
    */
   BEInput::BlockEntry *cfA = new BEInput::BlockEntry("command_file");
-
   /*
    * Go get the anode description from the anode input file
    */
-  anode_input_->printLvl_ = 3;
-  int retn = anode_input_->electrode_input(anodeFile_, cfA);
-
+  ei_tmp->printLvl_ = 3;
+  int retn = ei_tmp->electrode_input(anodeFile_, cfA);
   if (retn == -1) {
-    printf("exiting with error\n");
-    exit(-1);
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode failed first creation");
   }
-
+  /*
+   * Given the electrodeModelName from first parse, go through and 
+   * recreate this object.  TODO: create it properly the first time...
+   */
+  anode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName);  
+  anode_input_->printLvl_ = 3;
+  /*
+   *  Parse the complete child input file
+   */
+  retn = anode_input_->electrode_input_child(anodeFile_, cfA);
+  if (retn == -1) {
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode input child method failed");
+  }
+  delete ei_tmp;
+  delete cfA;
 
   /**
    * set up cathode ELECTRODE_KEY_INPUT based on cathodeFile_
    */
-  cathode_input_ = new ELECTRODE_KEY_INPUT();
-
+  ei_tmp = new ELECTRODE_KEY_INPUT();
   /**
    * Initialize a block input structure for the command file
    */
@@ -491,16 +501,28 @@ ProblemStatementCell::post_process_input()
   /*
    * Go get the cathode description from the cathode input file
    */
-  cathode_input_->printLvl_ = 3;
-  retn = cathode_input_->electrode_input(cathodeFile_, cfC);
-
+  ei_tmp->printLvl_ = 3;
+  retn = ei_tmp->electrode_input(cathodeFile_, cfC);
   if (retn == -1) {
-    printf("exiting with error\n");
-    exit(-1);
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode failed first creation");
   }
-
+  /*
+   * Given the electrodeModelName from first parse, go through and 
+   * recreate this object.  TODO: create it properly the first time...
+   */
+  cathode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName);  
+  cathode_input_->printLvl_ = 3;
+  /*
+   *  Parse the complete child input file
+   */
+  retn = cathode_input_->electrode_input_child(cathodeFile_, cfC);
+  if (retn == -1) {
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode input child method failed");
+  }
+  delete ei_tmp;
   delete cfC;
-  delete cfA;
 
   /**
    * Do some checking to see whether we have enough geometry information

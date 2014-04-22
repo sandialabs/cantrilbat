@@ -68,6 +68,25 @@ APPL_BASE_LIB= -L$(APPL_BASE_DIR) -lElectrode   -L$(CTPADDS_DIR) -lctpadds
 #
 ####################################################################################################3
 #
+SUPERLU_DIR=/home/hkmoffa/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
+SUPERLU_LINE=-L$(SUPERLU_DIR) -lsuperludist
+
+AMESOS_LINE=$(Amesos_LIBRARY_DIRS) $(Amesos_LIBRARIES) $(Ifpack_LIBRARIES)
+
+UMFPACK_DIR=/home/hkmoffa/arch/linux64_gcc472/UMFPACK-5.4/lib
+UMFPACK_LINE=-L$(UMFPACK_DIR) -lumfpack -lamd
+
+LAPACK_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+LAPACK_LINE=-L$(LAPACK_DIR) -ly12m -llapack_linux64-gcc472
+
+BLAS_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+BLAS_LINE=-L$(BLAS_DIR) -lblas_linux64-gcc472
+
+PARMETIS_DIR=/home/hkmoffa/arch/linux64_gcc472/ParMetis-3.1.1/lib
+PARMETIS_LINE=-L$(PARMETIS_DIR) -lparmetis -lmetis
+
+TRILINOS_LIB_LINE=$(AMESOS_LINE)   $(SUPERLU_LINE) $(UMFPACK_LINE) $(PARMETIS_LINE) $(LAPACK_LINE) $(BLAS_LINE)
+
 #
 ####################################################################################################3
 #
@@ -84,7 +103,7 @@ CXX = @MPICXX@
 #
 
 INCLUDE_DIRS = -I../src \
-		-I$(CANTERA_INCROOT) \
+		$(CANTERA_TOTAL_INCLUDES) \
 		$(APPL_BASE_INC) \
 	        $(TRILINOS_INC) \
                -I$(UTILSRC_DIR) -I../..
