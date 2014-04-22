@@ -1204,10 +1204,12 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
 
 #ifdef CENTERED_VOLTAGE_TABLE
   //Make a new Voltage Table around Erxn
-  double dVtab[9] = { 0.01, 0.02, 0.05, 0.1, 0.2, 0.35, 0.5, 0.75, 1.0 };
-  for ( int i = 0; i < 9; i++){
-    VV_ptr->addPoint( Erxn + dVtab[i] );
-    VV_ptr->addPoint( Erxn - dVtab[i] );
+  if (IOO.VVincEeq) {
+    double dVtab[9] = { 0.01, 0.02, 0.05, 0.1, 0.2, 0.35, 0.5, 0.75, 1.0 };
+    for ( int i = 0; i < 9; i++){
+      VV_ptr->addPoint( Erxn + dVtab[i] );
+      VV_ptr->addPoint( Erxn - dVtab[i] );
+    }
   }
 #endif // CENTERED_VOLTAGE_TABLE
 
@@ -1951,10 +1953,12 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
 
 #ifdef CENTERED_VOLTAGE_TABLE
   //Make a new Voltage Table around Erxn
-  double dVtab[7] = { 0.01, 0.02, 0.05, 0.1, 0.2, 0.35, 0.5 };
-  for ( int i = 0; i < 7; i++){
-    VV_ptr->addPoint( Erxn + dVtab[i] );
-    VV_ptr->addPoint( Erxn - dVtab[i] );
+  if (IOO.VVincEeq) {
+    double dVtab[7] = { 0.01, 0.02, 0.05, 0.1, 0.2, 0.35, 0.5 };
+    for ( int i = 0; i < 7; i++){
+      VV_ptr->addPoint( Erxn + dVtab[i] );
+      VV_ptr->addPoint( Erxn - dVtab[i] );
+    }
   }
 #endif // CENTERED_VOLTAGE_TABLE
 
