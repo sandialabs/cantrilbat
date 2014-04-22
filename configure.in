@@ -261,7 +261,7 @@ if test -z "$LCXX_END_LIBS"; then
    LCXX_END_LIBS=' '
 fi
 if test -z "$LMPICXX_END_LIBS"; then
-   LMPICXX_END_LIBS= $LCXX_END_LIBS
+   LMPICXX_END_LIBS=$LCXX_END_LIBS
 fi
 
 if test -n "$NEED_CTF2C" ; then
@@ -729,6 +729,36 @@ parmetis_library_dir=${PARMETIS_LIBRARY_DIR}
 AC_SUBST(parmetis_library_dir)
 
 echo 'using parmetis location "'$parmetis_library_dir'" and library string "'$parmetis_library'"'
+
+#
+#  Y12M
+#
+if test ! -z $Y12M_LIBRARY ; then
+    y12m_library=${Y12M_LIBRARY}
+else
+   if test ! -z "$Y12M_LIBRARY_NAMES" ; then
+      oldddIFS=$IFS
+      IFS=:
+      aaa=`echo $Y12M_LIBRARY_NAMES`
+      IFS=$oldddIFS
+      for i in $aaa ;
+      do
+        bbb=`echo $i | sed s/^lib// | sed s/\.a$//`
+        Y12M_LIBRARY="$Y12M_LIBRARY"" -l"$bbb
+      done
+   else
+      Y12M_LIBRARY="-ly12m"
+   fi
+fi
+
+y12m_library=${Y12M_LIBRARY}
+AC_SUBST(y12m_library)
+
+y12m_library_dir=${Y12M_LIBRARY_DIR}
+AC_SUBST(y12m_library_dir)
+
+echo 'using y12m location "'$y12m_library_dir'" and library string "'$y12m_library'"'
+
 
 
 

@@ -68,9 +68,12 @@ LAPACK_LINE=-L$(LAPACK_DIR)  @lapack_library@
 BLAS_DIR=@blas_library_dir@
 BLAS_LINE=-L$(BLAS_DIR) @blas_library@
 
+Y12M_DIR=@y12m_library_dir@
+Y12M_LINE=-L$(Y12M_DIR) @y12m_library@
+
 # (need gfortran for linking)
 
-TRILINOS_LIB_LINE=$(AMESOS_LINE) $(SUPERLUDIST_LINE) $(UMFPACK_LINE) $(PARMETIS_LINE) -ly12m $(LAPACK_LINE) $(BLAS_LINE) -lgfortran
+TRILINOS_LIB_LINE=$(AMESOS_LINE) $(SUPERLUDIST_LINE) $(UMFPACK_LINE) $(PARMETIS_LINE) $(Y12M_LINE) $(LAPACK_LINE) $(BLAS_LINE) -lgfortran
 
 #
 ########################################################################################################
