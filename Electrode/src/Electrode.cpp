@@ -4178,7 +4178,7 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
     }
     if (setFinal) {
         for (i = 0; i < m_NumTotPhases; i++) {
-            phaseMoles_init_init_[i] = phaseMoles_init_init_[i];
+            phaseMoles_final_[i] = phaseMoles_init_init_[i];
         }
     }
     // Reset the particle size
