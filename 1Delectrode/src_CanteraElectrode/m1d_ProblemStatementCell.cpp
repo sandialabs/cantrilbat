@@ -149,6 +149,12 @@ ProblemStatementCell::setup_input_pass2(BlockEntry *cf)
   }
   cf->addLineEntry(s1);
 
+  /* ------------------------------------------------------------------------
+   *  Option to specify if you want to use the root finder for constant current applications
+   *        0  - no
+   *        1  - yes
+   *        2  - Yes, but only when in trouble (under construction)
+   */
   int reqd = 0;
   LE_OneInt *iRoot = new LE_OneInt("Root Finder for Constant Current", &(rootFinderForConstantCurrent_), reqd,
                                    "rootFinderForConstantCurrent");

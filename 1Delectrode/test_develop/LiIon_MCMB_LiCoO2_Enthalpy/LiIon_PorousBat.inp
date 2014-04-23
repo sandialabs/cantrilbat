@@ -70,6 +70,15 @@ Electrolyte Phase = ECDMC_LiPF6
 Energy Equation Problem Type = Enthalpy Equation
 !--------------------------------------------------------------------------------------------------------
 !
+!     Heat Source Tracking - int (optional) (default = 0)
+!
+!   0 = Do not do any heat source tracking
+!   1 = calculate heat sources, print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Heat Source Tracking = 1
+!-------------------------------------------------------------------------
+!
 ! Specify electrolyte phase mole fractions 
 !-------------------------------------------------------------------------
 START BLOCK Electrolyte Mole Fractions
