@@ -306,7 +306,7 @@ Number of Regions = 1
 ================================================================================
 
 ==========================================================
- STARTING PROCESSING COMMAND FILE cathode.inp, PASS # 3
+ STARTING PROCESSING COMMAND FILE anode.inp, PASS # 3
 ==========================================================
 ###################################################################
 #  vcs_Cantera   Command File
@@ -314,26 +314,34 @@ Number of Regions = 1
 #   Master input file describing all of the options in the file
 ##################################################################
 !-------------------------------------------------------------------------
-! Electrode Name
+! Title
 !
 !
 !-------------------------------------------------------------------------
-Electrode Name = LiCoO2
- => Electrode Name = LiCoO2
- ====> ElectrodeName = LiCoO2
+Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
 !
 !
 !-------------------------------------------------------------------------
-Electrode Type = cathode
- => Electrode Type = cathode
- ====> ElectrodeType = cathode, list item 1
-!-------------------------------------------------------------------------
-!   Electrode Model Name
+Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
 !
 !--------------------------------------------------------------------------
-Electrode Model Name = CSTR_LiCoO2Cathode
- => Electrode Model Name = CSTR_LiCoO2Cathode
- ====> ElectrodeModelName = CSTR_LiCoO2Cathode
+Electrode Model Name = SimpleDiff
+ => Electrode Model Name = SimpleDiff
+ ====> ElectrodeModelName = SimpleDiff
+
 !-------------------------------------------------------------------------
 ! Number of Cantera Files = int
 !
@@ -357,12 +365,12 @@ Cantera File Name = metal_Li_LiIon_electrons.xml
 Cantera File Name = ECsoln_ion.xml
  => Cantera File Name = ECsoln_ion.xml
  ====> CanteraFileNames =  ECsoln_ion.xml
-Cantera File Name = LiCoO2_Margules_1.xml
- => Cantera File Name = LiCoO2_Margules_1.xml
- ====> CanteraFileNames =  LiCoO2_Margules_1.xml
-Cantera File Name = LiCoO2Cathode_electrode.xml
- => Cantera File Name = LiCoO2Cathode_electrode.xml
- ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
+Cantera File Name = MCMB_RedlichKister.xml
+ => Cantera File Name = MCMB_RedlichKister.xml
+ ====> CanteraFileNames =  MCMB_RedlichKister.xml
+Cantera File Name = MCMBAnode_electrode.xml
+ => Cantera File Name = MCMBAnode_electrode.xml
+ ====> CanteraFileNames =  MCMBAnode_electrode.xml
 !
 !-------------------------------------------------------------------------
 ! Temperature - double (no default) (required)
@@ -375,10 +383,11 @@ Temperature = 298.15
 !
 ! Pressure - double [Pressure_unit] (no default) (required)
 !
+!-------------------------------------------------------------------------
 Pressure = 1.0 atm
  => Pressure = 1.0 atm
  ====> PO.Pressure = 101325
-!-------------------------------------------------------------------------
+!---------------------------------------------------------------------------------------------------------
 !
 ! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
@@ -396,29 +405,47 @@ Electrode Porosity = 0.35
  => Electrode Porosity = 0.35
  ====> electrodePorosity = 0.35
 !-------------------------------------------------------------------------
-! 
+!
 ! Electrode Gross Area - [m^2]
 !
-Electrode Gross Area = 2.5090e-3 m2
- => Electrode Gross Area = 2.5090e-3 m2
- ====> electrodeGrossArea = 0.002509
+Electrode Gross Area = 2.5063e-3 m2
+ => Electrode Gross Area = 2.5063e-3 m2
+ ====> electrodeGrossArea = 0.0025063
 !
 !-------------------------------------------------------------------------
-! 
+!
 ! Electrode Gross Diameter - [m]
-! 
-! Electrode Gross Diameter = 0.05652 m
+!
+! Electrode Gross Diameter = 0.05649 m
 !
 !-------------------------------------------------------------------------
-! 
+!
 ! Electrode Gross Thickness - [m]
 !
-Electrode Gross Thickness = 6.096e-4 m
- => Electrode Gross Thickness = 6.096e-4 m
- ====> electrodeGrossThickness = 0.0006096
+Electrode Gross Thickness = 7.874e-4 m
+ => Electrode Gross Thickness = 7.874e-4 m
+ ====> electrodeGrossThickness = 0.0007874
 !
 !-------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------
 !
+! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]
+!
+!  Level of output created - defaults to none
+!
+!
+Level of XML State Information Created = intermediateSteps
+ => Level of XML State Information Created = intermediateSteps
+ ====> XMLLevel = intermediateSteps, list item 3
+!------------------------------------------------------------------------
+
+start block Radial Diffusion Region = simple_whole
+  Number of Cells in Region = 3
+  Phase Names within distributed region = MCMB_Interstitials_anode
+  Default Diffusion Coefficient = 1.0E-9
+end block Radial Diffusion Region 
+
 start block Bath Specification for Phase ECDMC_LiPF6
    Phase Moles = 1.0E-10
  => Phase Moles = 1.0E-10
@@ -441,32 +468,228 @@ start block Bath Specification for Phase ECDMC_LiPF6
 	====> End of Summmary of the block, Bath Species Mole Fraction:
 end block Bath Specification for Phase ECDMC_LiPF6
 
-start block Bath Specification for Phase LiCoO2_Margules_1
+start block Bath Specification for Phase MCMB_Interstitials_anode
    Phase Moles = 1.0E-10
  => Phase Moles = 1.0E-10
  ====> PhaseMoles = 1e-10
    start block Bath Species Mole Fraction
-       CoO2 = 0.4
- => CoO2 = 0.4
- ====> CoO2 = 0.4
-       LiCoO2 =  0.6
- => LiCoO2 = 0.6
- ====> LiCoO2 = 0.6
+       Li_C6-bulk = 0.8
+ => Li_C6-bulk = 0.8
+ ====> Li_C6-bulk = 0.8
+       V_C6-bulk =  0.2
+ => V_C6-bulk = 0.2
+ ====> V_C6-bulk = 0.2
    End block Bath Species Mole Fraction
 	====> Summary of the block, Bath Species Mole Fraction:
-	====>   XBathmol[ LiCoO2 : 0 ] = 0.6
-	====>   XBathmol[ CoO2 : 1 ] = 0.4
+	====>   XBathmol[ Li_C6-bulk : 0 ] = 0.8
+	====>   XBathmol[ V_C6-bulk : 1 ] = 0.2
 	====> End of Summmary of the block, Bath Species Mole Fraction:
-end block Bath Specification for Phase LiCoO2_Margules_1
+end block Bath Specification for Phase MCMB_Interstitials_anode
 
-
+Number of Regions = 1
 
 # Capacity Discharged Per Initial Mole = 0.0
 
 
 
 =========================================================
- FINISHED PROCESSING COMMAND FILE cathode.inp, PASS # 3
+ FINISHED PROCESSING COMMAND FILE anode.inp, PASS # 3
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE anode.inp, PASS # 5
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimpleDiff
+ => Electrode Model Name = SimpleDiff
+ ====> ElectrodeModelName = SimpleDiff
+
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+ => Number of Cantera Files ====> NumCanteraFiles = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+ => Cantera File Name = metal_Li_LiIon_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+ => Cantera File Name = ECsoln_ion.xml
+ ====> CanteraFileNames =  ECsoln_ion.xml
+Cantera File Name = MCMB_RedlichKister.xml
+ => Cantera File Name = MCMB_RedlichKister.xml
+ ====> CanteraFileNames =  MCMB_RedlichKister.xml
+Cantera File Name = MCMBAnode_electrode.xml
+ => Cantera File Name = MCMBAnode_electrode.xml
+ ====> CanteraFileNames =  MCMBAnode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!---------------------------------------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+ => Particle Diameter = 20 microns
+ ====> particleDiameter = 2e-05
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+ => Electrode Porosity = 0.35
+ ====> electrodePorosity = 0.35
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 2.5063e-3 m2
+ => Electrode Gross Area = 2.5063e-3 m2
+ ====> electrodeGrossArea = 0.0025063
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Diameter - [m]
+!
+! Electrode Gross Diameter = 0.05649 m
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 7.874e-4 m
+ => Electrode Gross Thickness = 7.874e-4 m
+ ====> electrodeGrossThickness = 0.0007874
+!
+!-------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------
+!
+! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]
+!
+!  Level of output created - defaults to none
+!
+!
+Level of XML State Information Created = intermediateSteps
+ => Level of XML State Information Created = intermediateSteps
+ ====> XMLLevel = intermediateSteps, list item 3
+!------------------------------------------------------------------------
+
+start block Radial Diffusion Region = simple_whole
+  Number of Cells in Region = 3
+ => Number of Cells in Region ====> numRadialCellsRegions = 3
+  Phase Names within distributed region = MCMB_Interstitials_anode
+ => Phase Names within Distributed region = MCMB_Interstitials_anode
+ ====> phaseNames =  MCMB_Interstitials_anode
+  Default Diffusion Coefficient = 1.0E-9
+ => Default Diffusion Coefficient = 1.0E-9
+ ====> defaultDiffusionCoefficient = 1e-09
+end block Radial Diffusion Region 
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+ => Li+ = 0.08
+ ====> Li+ = 0.08
+       PF6-  = 0.08
+ => PF6- = 0.08
+ ====> PF6- = 0.08
+       ECDMC = 0.84
+ => ECDMC = 0.84
+ ====> ECDMC = 0.84
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ ECDMC : 0 ] = 0.84
+	====>   XBathmol[ Li+ : 1 ] = 0.08
+	====>   XBathmol[ PF6- : 2 ] = 0.08
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase MCMB_Interstitials_anode
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li_C6-bulk = 0.8
+ => Li_C6-bulk = 0.8
+ ====> Li_C6-bulk = 0.8
+       V_C6-bulk =  0.2
+ => V_C6-bulk = 0.2
+ ====> V_C6-bulk = 0.2
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ Li_C6-bulk : 0 ] = 0.8
+	====>   XBathmol[ V_C6-bulk : 1 ] = 0.2
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase MCMB_Interstitials_anode
+
+Number of Regions = 1
+ => Number of Regions ====> numRegions = 1
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE anode.inp, PASS # 5
 =========================================================
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
@@ -643,6 +866,1042 @@ START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
     Number of Cells in Region = (integer) with default -2147483647
     Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
     Default Diffusion Coefficient = (double) with default 1e-12
+    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+END BLOCK Radial Diffusion Region
+==========================================================
+ STARTING PROCESSING COMMAND FILE anode.inp, PASS # 5
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimpleDiff
+ => Electrode Model Name = SimpleDiff
+ ====> ElectrodeModelName = SimpleDiff
+
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+ => Number of Cantera Files ====> NumCanteraFiles = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+ => Cantera File Name = metal_Li_LiIon_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+ => Cantera File Name = ECsoln_ion.xml
+ ====> CanteraFileNames =  ECsoln_ion.xml
+Cantera File Name = MCMB_RedlichKister.xml
+ => Cantera File Name = MCMB_RedlichKister.xml
+ ====> CanteraFileNames =  MCMB_RedlichKister.xml
+Cantera File Name = MCMBAnode_electrode.xml
+ => Cantera File Name = MCMBAnode_electrode.xml
+ ====> CanteraFileNames =  MCMBAnode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+!-------------------------------------------------------------------------
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!---------------------------------------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+ => Particle Diameter = 20 microns
+ ====> particleDiameter = 2e-05
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+ => Electrode Porosity = 0.35
+ ====> electrodePorosity = 0.35
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 2.5063e-3 m2
+ => Electrode Gross Area = 2.5063e-3 m2
+ ====> electrodeGrossArea = 0.0025063
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Diameter - [m]
+!
+! Electrode Gross Diameter = 0.05649 m
+!
+!-------------------------------------------------------------------------
+!
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 7.874e-4 m
+ => Electrode Gross Thickness = 7.874e-4 m
+ ====> electrodeGrossThickness = 0.0007874
+!
+!-------------------------------------------------------------------------
+
+!-------------------------------------------------------------------------
+!
+! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]
+!
+!  Level of output created - defaults to none
+!
+!
+Level of XML State Information Created = intermediateSteps
+ => Level of XML State Information Created = intermediateSteps
+ ====> XMLLevel = intermediateSteps, list item 3
+!------------------------------------------------------------------------
+
+start block Radial Diffusion Region = simple_whole
+  Number of Cells in Region = 3
+ => Number of Cells in Region ====> numRadialCellsRegions = 3
+  Phase Names within distributed region = MCMB_Interstitials_anode
+ => Phase Names within Distributed region = MCMB_Interstitials_anode
+ ====> phaseNames =  MCMB_Interstitials_anode
+  Default Diffusion Coefficient = 1.0E-9
+ => Default Diffusion Coefficient = 1.0E-9
+ ====> defaultDiffusionCoefficient = 1e-09
+end block Radial Diffusion Region 
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+ => Li+ = 0.08
+ ====> Li+ = 0.08
+       PF6-  = 0.08
+ => PF6- = 0.08
+ ====> PF6- = 0.08
+       ECDMC = 0.84
+ => ECDMC = 0.84
+ ====> ECDMC = 0.84
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ ECDMC : 0 ] = 0.84
+	====>   XBathmol[ Li+ : 1 ] = 0.08
+	====>   XBathmol[ PF6- : 2 ] = 0.08
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase MCMB_Interstitials_anode
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li_C6-bulk = 0.8
+ => Li_C6-bulk = 0.8
+ ====> Li_C6-bulk = 0.8
+       V_C6-bulk =  0.2
+ => V_C6-bulk = 0.2
+ ====> V_C6-bulk = 0.2
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ Li_C6-bulk : 0 ] = 0.8
+	====>   XBathmol[ V_C6-bulk : 1 ] = 0.2
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase MCMB_Interstitials_anode
+
+Number of Regions = 1
+ => Number of Regions ====> numRegions = 1
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE anode.inp, PASS # 5
+=========================================================
+
+================================================================================
+==================== electrode_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE cathode.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
+!-------------------------------------------------------------------------
+!   Electrode Model Name
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = CSTR_LiCoO2Cathode
+ => Electrode Model Name = CSTR_LiCoO2Cathode
+ ====> ElectrodeModelName = CSTR_LiCoO2Cathode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+ => Number of Cantera Files ====> NumCanteraFiles = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+ => Cantera File Name = metal_Li_LiIon_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+ => Cantera File Name = ECsoln_ion.xml
+ ====> CanteraFileNames =  ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+ => Cantera File Name = LiCoO2_Margules_1.xml
+ ====> CanteraFileNames =  LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+ => Cantera File Name = LiCoO2Cathode_electrode.xml
+ ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+ => Particle Diameter = 20 microns
+ ====> particleDiameter = 2e-05
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+ => Electrode Porosity = 0.35
+ ====> electrodePorosity = 0.35
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 2.5090e-3 m2
+ => Electrode Gross Area = 2.5090e-3 m2
+ ====> electrodeGrossArea = 0.002509
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Diameter - [m]
+! 
+! Electrode Gross Diameter = 0.05652 m
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 6.096e-4 m
+ => Electrode Gross Thickness = 6.096e-4 m
+ ====> electrodeGrossThickness = 0.0006096
+!
+!-------------------------------------------------------------------------
+!
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+ => Li+ = 0.08
+ ====> Li+ = 0.08
+       PF6-  = 0.08
+ => PF6- = 0.08
+ ====> PF6- = 0.08
+       ECDMC = 0.84
+ => ECDMC = 0.84
+ ====> ECDMC = 0.84
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ ECDMC : 0 ] = 0.84
+	====>   XBathmol[ Li+ : 1 ] = 0.08
+	====>   XBathmol[ PF6- : 2 ] = 0.08
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Margules_1
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       CoO2 = 0.4
+ => CoO2 = 0.4
+ ====> CoO2 = 0.4
+       LiCoO2 =  0.6
+ => LiCoO2 = 0.6
+ ====> LiCoO2 = 0.6
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ LiCoO2 : 0 ] = 0.6
+	====>   XBathmol[ CoO2 : 1 ] = 0.4
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase LiCoO2_Margules_1
+
+
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE cathode.inp, PASS # 3
+=========================================================
+
+================================================================================
+==================== electrode_input: START OF PROBLEM STATEMENT =====================
+================================================================================
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE cathode.inp, PASS # 3
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
+!-------------------------------------------------------------------------
+!   Electrode Model Name
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = CSTR_LiCoO2Cathode
+ => Electrode Model Name = CSTR_LiCoO2Cathode
+ ====> ElectrodeModelName = CSTR_LiCoO2Cathode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+ => Number of Cantera Files ====> NumCanteraFiles = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+ => Cantera File Name = metal_Li_LiIon_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+ => Cantera File Name = ECsoln_ion.xml
+ ====> CanteraFileNames =  ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+ => Cantera File Name = LiCoO2_Margules_1.xml
+ ====> CanteraFileNames =  LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+ => Cantera File Name = LiCoO2Cathode_electrode.xml
+ ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+ => Particle Diameter = 20 microns
+ ====> particleDiameter = 2e-05
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+ => Electrode Porosity = 0.35
+ ====> electrodePorosity = 0.35
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 2.5090e-3 m2
+ => Electrode Gross Area = 2.5090e-3 m2
+ ====> electrodeGrossArea = 0.002509
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Diameter - [m]
+! 
+! Electrode Gross Diameter = 0.05652 m
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 6.096e-4 m
+ => Electrode Gross Thickness = 6.096e-4 m
+ ====> electrodeGrossThickness = 0.0006096
+!
+!-------------------------------------------------------------------------
+!
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+ => Li+ = 0.08
+ ====> Li+ = 0.08
+       PF6-  = 0.08
+ => PF6- = 0.08
+ ====> PF6- = 0.08
+       ECDMC = 0.84
+ => ECDMC = 0.84
+ ====> ECDMC = 0.84
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ ECDMC : 0 ] = 0.84
+	====>   XBathmol[ Li+ : 1 ] = 0.08
+	====>   XBathmol[ PF6- : 2 ] = 0.08
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Margules_1
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       CoO2 = 0.4
+ => CoO2 = 0.4
+ ====> CoO2 = 0.4
+       LiCoO2 =  0.6
+ => LiCoO2 = 0.6
+ ====> LiCoO2 = 0.6
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ LiCoO2 : 0 ] = 0.6
+	====>   XBathmol[ CoO2 : 1 ] = 0.4
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase LiCoO2_Margules_1
+
+
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE cathode.inp, PASS # 3
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE cathode.inp, PASS # 5
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
+!-------------------------------------------------------------------------
+!   Electrode Model Name
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = CSTR_LiCoO2Cathode
+ => Electrode Model Name = CSTR_LiCoO2Cathode
+ ====> ElectrodeModelName = CSTR_LiCoO2Cathode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+ => Number of Cantera Files ====> NumCanteraFiles = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+ => Cantera File Name = metal_Li_LiIon_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+ => Cantera File Name = ECsoln_ion.xml
+ ====> CanteraFileNames =  ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+ => Cantera File Name = LiCoO2_Margules_1.xml
+ ====> CanteraFileNames =  LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+ => Cantera File Name = LiCoO2Cathode_electrode.xml
+ ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+ => Particle Diameter = 20 microns
+ ====> particleDiameter = 2e-05
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+ => Electrode Porosity = 0.35
+ ====> electrodePorosity = 0.35
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 2.5090e-3 m2
+ => Electrode Gross Area = 2.5090e-3 m2
+ ====> electrodeGrossArea = 0.002509
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Diameter - [m]
+! 
+! Electrode Gross Diameter = 0.05652 m
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 6.096e-4 m
+ => Electrode Gross Thickness = 6.096e-4 m
+ ====> electrodeGrossThickness = 0.0006096
+!
+!-------------------------------------------------------------------------
+!
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+ => Li+ = 0.08
+ ====> Li+ = 0.08
+       PF6-  = 0.08
+ => PF6- = 0.08
+ ====> PF6- = 0.08
+       ECDMC = 0.84
+ => ECDMC = 0.84
+ ====> ECDMC = 0.84
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ ECDMC : 0 ] = 0.84
+	====>   XBathmol[ Li+ : 1 ] = 0.08
+	====>   XBathmol[ PF6- : 2 ] = 0.08
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Margules_1
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       CoO2 = 0.4
+ => CoO2 = 0.4
+ ====> CoO2 = 0.4
+       LiCoO2 =  0.6
+ => LiCoO2 = 0.6
+ ====> LiCoO2 = 0.6
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ LiCoO2 : 0 ] = 0.6
+	====>   XBathmol[ CoO2 : 1 ] = 0.4
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase LiCoO2_Margules_1
+
+
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE cathode.inp, PASS # 5
+=========================================================
+==========================================================
+ STARTING PROCESSING COMMAND FILE cathode.inp, PASS # 5
+==========================================================
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
+!-------------------------------------------------------------------------
+!   Electrode Model Name
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = CSTR_LiCoO2Cathode
+ => Electrode Model Name = CSTR_LiCoO2Cathode
+ ====> ElectrodeModelName = CSTR_LiCoO2Cathode
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+ => Number of Cantera Files ====> NumCanteraFiles = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+ => Cantera File Name = metal_Li_LiIon_electrons.xml
+ ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+ => Cantera File Name = ECsoln_ion.xml
+ ====> CanteraFileNames =  ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+ => Cantera File Name = LiCoO2_Margules_1.xml
+ ====> CanteraFileNames =  LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+ => Cantera File Name = LiCoO2Cathode_electrode.xml
+ ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+ => Temperature = 298.15
+ ====> Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+ => Particle Diameter = 20 microns
+ ====> particleDiameter = 2e-05
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.35
+ => Electrode Porosity = 0.35
+ ====> electrodePorosity = 0.35
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 2.5090e-3 m2
+ => Electrode Gross Area = 2.5090e-3 m2
+ ====> electrodeGrossArea = 0.002509
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Diameter - [m]
+! 
+! Electrode Gross Diameter = 0.05652 m
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Thickness - [m]
+!
+Electrode Gross Thickness = 6.096e-4 m
+ => Electrode Gross Thickness = 6.096e-4 m
+ ====> electrodeGrossThickness = 0.0006096
+!
+!-------------------------------------------------------------------------
+!
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+ => Li+ = 0.08
+ ====> Li+ = 0.08
+       PF6-  = 0.08
+ => PF6- = 0.08
+ ====> PF6- = 0.08
+       ECDMC = 0.84
+ => ECDMC = 0.84
+ ====> ECDMC = 0.84
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ ECDMC : 0 ] = 0.84
+	====>   XBathmol[ Li+ : 1 ] = 0.08
+	====>   XBathmol[ PF6- : 2 ] = 0.08
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Margules_1
+   Phase Moles = 1.0E-10
+ => Phase Moles = 1.0E-10
+ ====> PhaseMoles = 1e-10
+   start block Bath Species Mole Fraction
+       CoO2 = 0.4
+ => CoO2 = 0.4
+ ====> CoO2 = 0.4
+       LiCoO2 =  0.6
+ => LiCoO2 = 0.6
+ ====> LiCoO2 = 0.6
+   End block Bath Species Mole Fraction
+	====> Summary of the block, Bath Species Mole Fraction:
+	====>   XBathmol[ LiCoO2 : 0 ] = 0.6
+	====>   XBathmol[ CoO2 : 1 ] = 0.4
+	====> End of Summmary of the block, Bath Species Mole Fraction:
+end block Bath Specification for Phase LiCoO2_Margules_1
+
+
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE cathode.inp, PASS # 5
+=========================================================
+********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
+    => timesProcessed = 1 multiContribIndex = 0 
+    Number of Cantera Files = (integer) with default 1
+         => Number of Cantera Files ====> NumCanteraFiles = 4
+    Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
+    Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
+         ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
+         ====> CanteraFileNames =  ECsoln_ion.xml
+         ====> CanteraFileNames =  MCMB_RedlichKister.xml
+         ====> CanteraFileNames =  MCMBAnode_electrode.xml
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
+        LIST = 
+            anode : 0
+            cathode : 1
+    Electrode Name = (string) with Token limits(15, 1)
+    Temperature = (double) with limits (0, 3000) with default 300
+         ====> Temperature = 298.15
+    Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
+	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
+    Particle Diameter = (double) [Units] with limits (0, 1) with default 1e-06 (REQUIRED LINE)
+	Units = Length Units (m cm mm um nm inches ft) (Default = m)
+    Particle Number to Follow = (double) with limits (1, 1e+28) with default -1
+    Electrode Gross Area = (double) [Units] with limits (1e-20, 1e+28) with default -1
+	Units = Length Units (m cm mm um nm inches ft) (Default = m)
+    Electrode Gross Diameter = (double) [Units] with limits (1e-20, 1e+28) with default -1
+	Units = Length Units (m cm mm um nm inches ft) (Default = m)
+    Electrode Gross Thickness = (double) [Units] with limits (1e-20, 1e+28) with default -1 (REQUIRED LINE)
+	Units = Length Units (m cm mm um nm inches ft) (Default = m)
+    Electrode Porosity = (double) with limits (1e-20, 1e+28) with default -1
+         ====> electrodePorosity = 0.35
+    Level of XML State Information Created = (LIST) with default none : 0 where:
+        LIST = 
+            none : 0
+            minimal : 1
+            globalSteps : 2
+            intermediateSteps : 3
+    Capacity Discharged Per Initial Mole = (double) with default -1
+    Number of Regions = (integer) with default 1 (REQUIRED LINE)
+         => Number of Regions ====> numRegions = 1
+    Solid Diffusion Model = (integer) with default 0
+    START BLOCK Bath Specification for Phase metal_Li_LiIon_electrons           (OPTIONAL BLOCK)
+        Voltage = (double) with limits (1e+09, 0) with default 0
+        Phase Moles = (double) with default 0
+        Phase Mass = (double) with default 0
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            electron_Li_LiIon = (double) with limits (0, 1) with default 0
+        END BLOCK Bath Species Mole Fraction
+        START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
+            electron_Li_LiIon = (double) with default 0
+        END BLOCK Capacity Left Coefficients
+        START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
+            electron_Li_LiIon = (double) with default 0
+        END BLOCK Capacity At Zero DoD Coefficients
+    END BLOCK Bath Specification for Phase metal_Li_LiIon_electrons
+    START BLOCK Bath Specification for Phase ECDMC_LiPF6           (OPTIONAL BLOCK)
+        => timesProcessed = 1 multiContribIndex = 0 
+        Voltage = (double) with limits (1e+09, 0) with default 0
+        Phase Moles = (double) with default 0
+             ====> PhaseMoles = 1e-10
+        Phase Mass = (double) with default 0
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            => timesProcessed = 1 multiContribIndex = 0 
+            ECDMC = (double) with limits (0, 1) with default 0
+                 ====> ECDMC = 0.84
+            Li+ = (double) with limits (0, 1) with default 0
+                 ====> Li+ = 0.08
+            PF6- = (double) with limits (0, 1) with default 0
+                 ====> PF6- = 0.08
+        END BLOCK Bath Species Mole Fraction
+        START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
+            ECDMC = (double) with default 0
+            Li+ = (double) with default 0
+            PF6- = (double) with default 0
+        END BLOCK Capacity Left Coefficients
+        START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
+            ECDMC = (double) with default 0
+            Li+ = (double) with default 0
+            PF6- = (double) with default 0
+        END BLOCK Capacity At Zero DoD Coefficients
+    END BLOCK Bath Specification for Phase ECDMC_LiPF6
+    START BLOCK Bath Specification for Phase MCMB_Interstitials_anode           (OPTIONAL BLOCK)
+        => timesProcessed = 1 multiContribIndex = 0 
+        Voltage = (double) with limits (1e+09, 0) with default 0
+        Phase Moles = (double) with default 0
+             ====> PhaseMoles = 1e-10
+        Phase Mass = (double) with default 0
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            => timesProcessed = 1 multiContribIndex = 0 
+            Li_C6-bulk = (double) with limits (0, 1) with default 0
+                 ====> Li_C6-bulk = 0.8
+            V_C6-bulk = (double) with limits (0, 1) with default 0
+                 ====> V_C6-bulk = 0.2
+        END BLOCK Bath Species Mole Fraction
+        START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
+            Li_C6-bulk = (double) with default 0
+            V_C6-bulk = (double) with default 0
+        END BLOCK Capacity Left Coefficients
+        START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
+            Li_C6-bulk = (double) with default 0
+            V_C6-bulk = (double) with default 0
+        END BLOCK Capacity At Zero DoD Coefficients
+    END BLOCK Bath Specification for Phase MCMB_Interstitials_anode
+    START BLOCK Bath Specification for Phase anode_surface           (OPTIONAL BLOCK)
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            li_site = (double) with limits (0, 1) with default 0
+        END BLOCK Bath Species Mole Fraction
+    END BLOCK Bath Specification for Phase anode_surface
+    START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
+        Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)
+        Reaction Extent Bottom Limit = (double) with default -1 (REQUIRED LINE)
+    END BLOCK Reaction Extent Limits
+    START BLOCK Species Initial KMoles           (OPTIONAL BLOCK)
+        electron_Li_LiIon = (double) with default 0
+        ECDMC = (double) with default 0
+        Li+ = (double) with default 0
+        PF6- = (double) with default 0
+        Li_C6-bulk = (double) with default 0
+        V_C6-bulk = (double) with default 0
+        li_site = (double) with default 0
+    END BLOCK Species Initial KMoles
+    START BLOCK Extra Global Reaction           (OPTIONAL BLOCK)
+        Special Species = (LIST) with default electron_Li_LiIon : 0 (REQUIRED LINE) where:
+            LIST = 
+                electron_Li_LiIon : 0
+                ECDMC : 1
+                Li+ : 2
+                PF6- : 3
+                Li_C6-bulk : 4
+                V_C6-bulk : 5
+                li_site : 6
+        START BLOCK Elementary Reaction Specification           (OPTIONAL BLOCK)
+            Reaction Index = (integer) with default -1 (REQUIRED LINE)
+            Reaction Multiplier = (double) with default 0 (REQUIRED LINE)
+        END BLOCK Elementary Reaction Specification
+    END BLOCK Extra Global Reaction
+    START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
+        => timesProcessed = 1 multiContribIndex = 0 
+        Index of the Region = (integer) with default 0
+        Number of Cells in Region = (integer) with default 5
+             => Number of Cells in Region ====> numRadialCellsRegions = 3
+        Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+             ====> phaseNames =  MCMB_Interstitials_anode
+        Default Diffusion Coefficient = (double) with default 1e-12
+             ====> defaultDiffusionCoefficient = 1e-09
+        Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+        Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+    END BLOCK Radial Diffusion Region
+    START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
+        => timesProcessed = 0 multiContribIndex = 1 
+        Index of the Region = (integer) with default -2147483647
+        Number of Cells in Region = (integer) with default -2147483647
+        Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+        Default Diffusion Coefficient = (double) with default 1e-12
+        Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+        Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+    END BLOCK Radial Diffusion Region
+*********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
+START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
+    => timesProcessed = 0 multiContribIndex = 1 
+    Index of the Region = (integer) with default -2147483647
+    Number of Cells in Region = (integer) with default -2147483647
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+    Default Diffusion Coefficient = (double) with default 1e-12
+    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+END BLOCK Radial Diffusion Region
+START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
+    => timesProcessed = 1 multiContribIndex = 0 
+    Index of the Region = (integer) with default 0
+    Number of Cells in Region = (integer) with default 5
+         => Number of Cells in Region ====> numRadialCellsRegions = 3
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+         ====> phaseNames =  MCMB_Interstitials_anode
+    Default Diffusion Coefficient = (double) with default 1e-12
+         ====> defaultDiffusionCoefficient = 1e-09
     Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
     Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
 END BLOCK Radial Diffusion Region
