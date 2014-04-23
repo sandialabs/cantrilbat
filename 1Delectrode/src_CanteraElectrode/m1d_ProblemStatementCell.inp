@@ -107,6 +107,67 @@ Cathode Voltage = 3.0
 !---------------------------------------------------------------------------------------------------------
 Electroyte Phase = ECDMC_LiPF6
 !---------------------------------------------------------------------------------------------------------
+!
+!    Specify electrolyte phase mole fractions (optional)
+!               Block of mole fractions
+!               Note if this is not set, then the mole fractions revert to the default values in the
+!               XML file
+!
+!---------------------------------------------------------------------------------------------------------
+START BLOCK Electrolyte Mole Fractions
+     ECDMC = 0.92
+     Li+   = 0.04
+     PF6-  = 0.04
+END BLOCK  Electrolyte Mole Fractions
+!---------------------------------------------------------------------------------------------------------
+!
+!       Input Anode File - string (default anode.inp) (optional)
+!
+!       Name of the anode input file
+!
+!---------------------------------------------------------------------------------------------------------
+Input Anode File = anode.inp
+!---------------------------------------------------------------------------------------------------------
+!
+!       Input Cathode File - string (default anode.inp) (optional)
+!
+!       Name of the cathode input file
+!
+!---------------------------------------------------------------------------------------------------------
+Input Cathode File = cathode.inp
+!---------------------------------------------------------------------------------------------------------
+!
+!
+!    Separator Phase - string (no default) (required)
+!
+!        Name of the separator phase. Note the phase was already read in and initialized as
+!        a ThermoPhase as part of the Cantera File keywords. The phase name must correspond
+!        to one of the previously read-in phases.
+!
+!---------------------------------------------------------------------------------------------------------
+Separator Phase = MgO2
+!---------------------------------------------------------------------------------------------------------
+!     Separator Mass - double [kg] (optional) 
+!                 (units conversion)
+!
+!        This is the total mass of separator material. This is one way to specify the amount of
+!        separator in the gross separator domain, and therefore to specify the porosity. The code
+!        has more than one way to specify this.
+!
+!---------------------------------------------------------------------------------------------------------
+Separator Mass = 0.01 kg
+!---------------------------------------------------------------------------------------------------------
+!---------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 
