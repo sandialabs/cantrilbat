@@ -93,6 +93,10 @@ public:
    */
   virtual void post_process_input();
 
+
+  virtual void readAnodeInputFile(Electrode_Factory *f = 0);
+  virtual void readCathodeInputFile(Electrode_Factory *f = 0);
+
   //!        DATA
 
   //! Number of cantera files that will be used

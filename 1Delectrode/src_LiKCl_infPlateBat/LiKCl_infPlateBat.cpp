@@ -213,6 +213,9 @@ main(int argc, char **argv)
       exit(-1);
     }
 
+    PSinput.readAnodeInputFile();
+    PSinput.readCathodeInputFile();
+
     m1d::FlatBatteryResidEval* ps = new FlatBatteryResidEval(1.0E-13);
     //m1d::ProblemResidEval *ps = new ProblemResidEval(1.0E-13);
     PS_ptr = ps;

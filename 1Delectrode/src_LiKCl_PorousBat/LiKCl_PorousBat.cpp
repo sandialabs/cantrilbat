@@ -186,6 +186,9 @@ int main(int argc, char **argv)
             exit(-1);
         }
 
+        PSinput.readAnodeInputFile();
+        PSinput.readCathodeInputFile();
+
         m1d::BatteryResidEval *ps = new BatteryResidEval(1.0E-13);
         PS_ptr = ps;
 

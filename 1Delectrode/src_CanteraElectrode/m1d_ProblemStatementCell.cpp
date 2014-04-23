@@ -228,10 +228,6 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   d2->set_limits(6.7, -1.0);
   cf->addLineEntry(d2);
 
-
-
-
-
   /* ------------------------------------------------------------------------
    * Name of Electrolyte phase
    * This phase should be found in one of the listed Cantera files.
@@ -455,109 +451,12 @@ ProblemStatementCell::post_process_input()
   icurrDischargeSpecified_ *= 1e4; // [A/cm^2] to [A/m^2]
   */
 
-  /**
-   * set up anode ELECTRODE_KEY_INPUT based on anodeFile_
-   */
-  ELECTRODE_KEY_INPUT *ei_tmp = new ELECTRODE_KEY_INPUT();
-  /**
-   * Initialize a block input structure for the command file
-   */
-  BEInput::BlockEntry *cfA = new BEInput::BlockEntry("command_file");
-  /*
-   * Go get the anode description from the anode input file
-   */
-  ei_tmp->printLvl_ = 3;
-  int retn = ei_tmp->electrode_input(anodeFile_, cfA);
-  if (retn == -1) {
-    throw  m1d_Error("ProblemStatementCell::post_process_input()",
-                     "Electrode failed first creation");
-  }
-  /*
-   * Given the electrodeModelName from first parse, go through and 
-   * recreate this object.  TODO: create it properly the first time...
-   */
-  anode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName);  
-  anode_input_->printLvl_ = 3;
-  /*
-   *  Parse the complete child input file
-   */
-  retn = anode_input_->electrode_input_child(anodeFile_, cfA);
-  if (retn == -1) {
-    throw  m1d_Error("ProblemStatementCell::post_process_input()",
-                     "Electrode input child method failed");
-  }
-  delete ei_tmp;
-  delete cfA;
-
-  /**
-   * set up cathode ELECTRODE_KEY_INPUT based on cathodeFile_
-   */
-  ei_tmp = new ELECTRODE_KEY_INPUT();
-  /**
-   * Initialize a block input structure for the command file
-   */
-  BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
-
-  /*
-   * Go get the cathode description from the cathode input file
-   */
-  ei_tmp->printLvl_ = 3;
-  retn = ei_tmp->electrode_input(cathodeFile_, cfC);
-  if (retn == -1) {
-    throw  m1d_Error("ProblemStatementCell::post_process_input()",
-                     "Electrode failed first creation");
-  }
-  /*
-   * Given the electrodeModelName from first parse, go through and 
-   * recreate this object.  TODO: create it properly the first time...
-   */
-  cathode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName);  
-  cathode_input_->printLvl_ = 3;
-  /*
-   *  Parse the complete child input file
-   */
-  retn = cathode_input_->electrode_input_child(cathodeFile_, cfC);
-  if (retn == -1) {
-    throw  m1d_Error("ProblemStatementCell::post_process_input()",
-                     "Electrode input child method failed");
-  }
-  delete ei_tmp;
-  delete cfC;
-
-  /**
-   * Do some checking to see whether we have enough geometry information
-   */
-  // First check to see if we have thickness for each layer
-  if (!(separatorThickness_ > 0.0 ) )
-    std::cout << "Warning::ProblemStatementCell() : separator thickness not specified" << std::endl;
-  if (!(anode_input_->electrodeGrossThickness > 0.0 ) )
-    std::cout << "Warning::ProblemStatementCell() : anode thickness not specified" << std::endl;
-  if (!(cathode_input_->electrodeGrossThickness > 0.0 ) )
-    std::cout << "Warning::ProblemStatementCell() : anode thickness not specified" << std::endl;
-
-  // Since we will use the area and not the diameter,
-  // if the diameter is specified, compute the area
-  // We prohibit both area and diameter from being specified so that
-  // if diameter is positive we can safely assume it is the only one specified.
-  if ( separatorDiameter_ > 0.0 )
-    separatorArea_ = 0.25 * Pi * separatorDiameter_ * separatorDiameter_ ;
-  if (anode_input_->electrodeGrossDiameter > 0.0 )
-    anode_input_->electrodeGrossArea = 0.25 * Pi
-      * anode_input_->electrodeGrossDiameter
-      * anode_input_->electrodeGrossDiameter;
-  if ( cathode_input_->electrodeGrossDiameter > 0.0 )
-    cathode_input_->electrodeGrossArea = 0.25 * Pi
-      * cathode_input_->electrodeGrossDiameter
-      * cathode_input_->electrodeGrossDiameter;
+ 
 
   // Next check to see if we have area or diameter for each layer
-  if ( !( separatorArea_ > 0.0 ) )
-    std::cout << "Warning::ProblemStatementCell() : separator area or diameter not specified" << std::endl;
-  if ( !( anode_input_->electrodeGrossArea > 0.0 ) )
-    std::cout << "Warning::ProblemStatementCell() : anode area or diameter not specified" << std::endl;
-  if ( !( cathode_input_->electrodeGrossArea > 0.0 ) )
-    std::cout << "Warning::ProblemStatementCell() : cathode area or diameter not specified" << std::endl;
-
+  if ( !( separatorArea_ > 0.0 ) ) {
+      std::cout << "Warning::ProblemStatementCell() : separator area or diameter not specified" << std::endl;
+  }
   /**
    * If we are using time dependent boundary conditions,
    * read in appropriate XML files and generate BoundaryConditions.
@@ -582,6 +481,104 @@ ProblemStatementCell::post_process_input()
     BC_TimeDep_->setLowerLimit( startTime_ );
     BC_TimeDep_->setUpperLimit( endTime_ );
   }
+}
+//=====================================================================================================================
+void ProblemStatementCell::readAnodeInputFile(Electrode_Factory *f )
+{
+  /**
+   * set up anode ELECTRODE_KEY_INPUT based on anodeFile_
+   */
+  ELECTRODE_KEY_INPUT *ei_tmp = new ELECTRODE_KEY_INPUT();
+  /**
+   * Initialize a block input structure for the command file
+   */
+  BEInput::BlockEntry *cfA = new BEInput::BlockEntry("command_file");
+  /*
+   * Go get the anode description from the anode input file
+   */
+  // ei_tmp->printLvl_ = 3;
+  int retn = ei_tmp->electrode_input(anodeFile_, cfA);
+  if (retn == -1) {
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode failed first creation");
+  }
+  /*
+   * Given the electrodeModelName from first parse, go through and
+   * recreate this object.  TODO: create it properly the first time...
+   */
+  anode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName, f);
+  // anode_input_->printLvl_ = 3;
+  /*
+   *  Parse the complete child input file
+   */
+  retn = anode_input_->electrode_input_child(anodeFile_, cfA);
+  if (retn == -1) {
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode input child method failed");
+  }
+  delete ei_tmp;
+  delete cfA;
+
+  if (!(anode_input_->electrodeGrossThickness > 0.0 ) ) {
+    std::cout << "Warning::ProblemStatementCell() : anode thickness not specified" << std::endl;
+  }
+  if (anode_input_->electrodeGrossDiameter > 0.0 ) {
+      anode_input_->electrodeGrossArea = 0.25 * Pi
+					 * anode_input_->electrodeGrossDiameter
+					 * anode_input_->electrodeGrossDiameter;
+  }
+  if ( !( anode_input_->electrodeGrossArea > 0.0 ) ) {
+      std::cout << "Warning::ProblemStatementCell() : anode area or diameter not specified" << std::endl;
+  }
+
+}
+//=====================================================================================================================
+void ProblemStatementCell::readCathodeInputFile(Electrode_Factory *f )
+{
+  /**
+   * set up cathode ELECTRODE_KEY_INPUT based on cathodeFile_
+   */
+  ELECTRODE_KEY_INPUT *ei_tmp = new ELECTRODE_KEY_INPUT();
+  /**
+   * Initialize a block input structure for the command file
+   */
+  BEInput::BlockEntry *cfA = new BEInput::BlockEntry("command_file");
+  /*
+   * Go get the cathode description from the cathode input file
+   */
+  // ei_tmp->printLvl_ = 3;
+  int retn = ei_tmp->electrode_input(cathodeFile_, cfA);
+  if (retn == -1) {
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode failed first creation");
+  }
+  /*
+   * Given the electrodeModelName from first parse, go through and
+   * recreate this object.  TODO: create it properly the first time...
+   */
+  cathode_input_ = newElectrodeKeyInputObject(ei_tmp->electrodeModelName, f);
+  // cathode_input_->printLvl_ = 3;
+  /*
+   *  Parse the complete child input file
+   */
+  retn = cathode_input_->electrode_input_child(cathodeFile_, cfA);
+  if (retn == -1) {
+    throw  m1d_Error("ProblemStatementCell::post_process_input()",
+                     "Electrode input child method failed");
+  }
+  delete ei_tmp;
+  delete cfA;
+
+  if (!(cathode_input_->electrodeGrossThickness > 0.0 ) ) {
+    std::cout << "Warning::ProblemStatementCell() : cathode thickness not specified" << std::endl;
+  }
+  if (cathode_input_->electrodeGrossDiameter > 0.0 ) {
+      cathode_input_->electrodeGrossArea = 0.25 * Pi * cathode_input_->electrodeGrossDiameter * cathode_input_->electrodeGrossDiameter;
+  }
+  if ( !( cathode_input_->electrodeGrossArea > 0.0 ) ) {
+      std::cout << "Warning::ProblemStatementCell() : cathode area or diameter not specified" << std::endl;
+  }
+
 }
 //=====================================================================================================================
 /**

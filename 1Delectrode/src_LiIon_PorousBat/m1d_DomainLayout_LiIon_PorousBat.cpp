@@ -93,13 +93,14 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     if (!(PSinput.separatorThickness_ > 0.0))
         throw CanteraError("DomainLayout_LiIon_PorousBat::malloc_domains()",
                            "separator thickness not specified");
-    if (!(PSinput.anode_input_->electrodeGrossThickness > 0.0))
+   /*
+    if (!(PSinput.anode_input_->electrodeGrossThickness > 0.0)) 
         throw CanteraError("DomainLayout_LiIon_PorousBat::malloc_domains()",
                            "anode thickness not specified");
     if (!(PSinput.cathode_input_->electrodeGrossThickness > 0.0))
         throw CanteraError("DomainLayout_LiIon_PorousBat::malloc_domains()",
                            "cathode thickness not specified");
-
+   */
     double startZ = 0.0;
     double anodeSize = PSinput.anode_input_->electrodeGrossThickness;
     double sepSize = PSinput.separatorThickness_;
