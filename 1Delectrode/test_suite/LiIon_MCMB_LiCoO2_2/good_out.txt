@@ -47320,7 +47320,6 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
 	Number of Jacobian evals/solvs= 0
 
 ================================================================================
-Solution saved to file solution.xml as solution 125.
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E+04   
                            Delta_t    1.268E+03   
