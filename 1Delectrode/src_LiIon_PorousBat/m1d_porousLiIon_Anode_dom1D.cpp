@@ -498,7 +498,7 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
             ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
         }
         /*
-         *  Save the cross-sectional area of the elctrode to use throughout the code. It does not change within
+         *  Save the cross-sectional area of the electrode to use throughout the code. It does not change within
          *  this calculation
          */
         electrodeCrossSectionalArea_ = electrodeGrossArea;

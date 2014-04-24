@@ -587,6 +587,36 @@ void ProblemStatementCell::readCathodeInputFile(Electrode_Factory *f )
 
 }
 //=====================================================================================================================
+bool ProblemStatementCell::AnodeCathodeCompatibility()
+{
+    double electrodeGrossAreaA;
+    //see if we know the electrode area
+    if (anode_input_->electrodeGrossArea > 0.0) {
+        electrodeGrossAreaA = anode_input_->electrodeGrossArea;
+    } else if (anode_input_->electrodeGrossDiameter > 0.0) {
+        electrodeGrossAreaA = Pi * 0.25 * anode_input_->electrodeGrossDiameter *
+                              anode_input_->electrodeGrossDiameter;
+    }
+
+   double electrodeGrossAreaC;
+    //see if we know the electrode area
+    if (cathode_input_->electrodeGrossArea > 0.0) {
+        electrodeGrossAreaC = cathode_input_->electrodeGrossArea;
+    } else if (anode_input_->electrodeGrossDiameter > 0.0) {
+        electrodeGrossAreaC = Pi * 0.25 * cathode_input_->electrodeGrossDiameter *
+                              cathode_input_->electrodeGrossDiameter;
+    }
+
+    if(! doubleEqual(electrodeGrossAreaA, electrodeGrossAreaC, 1.0E-13, 10)) {
+      throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()",
+                      " areas differ: " + Cantera::fp2str(electrodeGrossAreaA) + " " + Cantera::fp2str(electrodeGrossAreaC));
+    } else {
+       cathode_input_->electrodeGrossArea = electrodeGrossAreaA;
+    } 
+                      
+    return true;
+}
+//=====================================================================================================================
 /**
  *  This processes the phases in the Cantera input files,
  * fills the PhaseList_ object and other auxiliary data like

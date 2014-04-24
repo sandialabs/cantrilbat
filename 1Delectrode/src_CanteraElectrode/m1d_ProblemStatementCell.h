@@ -97,6 +97,15 @@ public:
   virtual void readAnodeInputFile(Electrode_Factory *f = 0);
   virtual void readCathodeInputFile(Electrode_Factory *f = 0);
 
+  //!  Test whether the anode and the cathode are compatible
+  /*!
+   *    The only test so far is to determine if the electrode areas input from
+   *    the anode and the cathode are the same.
+   *
+   *    @return true if they are. False if they are not compatible.
+   */
+  bool AnodeCathodeCompatibility();
+
   //!        DATA
 
   //! Number of cantera files that will be used

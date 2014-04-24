@@ -534,7 +534,7 @@ protected:
     /*!
      *  The electrode objects are extrinsic objects that have a cross-sectional area associated
      *  with them. This is the value of that area. The rest of the code is based on a per m2 basis.
-     *  Therefore, we need to
+     *  Therefore, we need to modify all real currents by this value.
      */
     double electrodeCrossSectionalArea_;
 

@@ -163,6 +163,7 @@ main(int argc, char** argv)
 
         PSinput.readAnodeInputFile();
         PSinput.readCathodeInputFile();
+        PSinput.AnodeCathodeCompatibility();
 
         m1d::BatteryResidEval* ps = new BatteryResidEval(1.0E-13);
         PS_ptr = ps;
