@@ -958,6 +958,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
      savedBase = fname;
   }
   if (savedBase != fname) {
+     solNumAlt = 0;
      savedAltBase = fname;
   }
 
@@ -1063,7 +1064,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   }
   Epetra_Comm *c = LI_ptr_->Comm_ptr_;
   c->Barrier();
- if (fname == savedBase) {
+  if (fname == savedBase) {
       solNum++;
   } else if (fname == savedAltBase) {
       solNumAlt++;

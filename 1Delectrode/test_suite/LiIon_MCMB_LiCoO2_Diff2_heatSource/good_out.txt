@@ -8,6 +8,7 @@
 ==========================================================
  => Number of Cantera Files ====> NumCanteraFiles = 2
  => Heat Source Tracking ====> doHeatSourceTracking = 1
+ => Write Start and End File ====> writeStartEndFile = 1
  => Reference Temperature = 298.15
  ====> TemperatureRef = 298.15
  => Reference Pressure = 1.0 atm
@@ -24,6 +25,7 @@
  => Cantera File Name = MgO.xml
  ====> CanteraFileNames =  MgO.xml
  => Heat Source Tracking ====> doHeatSourceTracking = 1
+ => Write Start and End File ====> writeStartEndFile = 1
  => Reference Temperature = 298.15
  ====> TemperatureRef = 298.15
  => Reference Pressure = 1.0 atm
@@ -46,6 +48,7 @@ Species name 3 is MgO(S)
  => Cantera File Name = MgO.xml
  ====> CanteraFileNames =  MgO.xml
  => Heat Source Tracking ====> doHeatSourceTracking = 1
+ => Write Start and End File ====> writeStartEndFile = 1
  => Electrolyte Phase = ECDMC_LiPF6
  ====> electrolytePhase = ECDMC_LiPF6
  => ECDMC = 0.92
@@ -440,15 +443,6 @@ END BLOCK Radial Diffusion Region
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
-    => timesProcessed = 0 multiContribIndex = 1 
-    Index of the Region = (integer) with default -2147483647
-    Number of Cells in Region = (integer) with default -2147483647
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-    Default Diffusion Coefficient = (double) with default 1e-12
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
 START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
     => timesProcessed = 1 multiContribIndex = 0 
     Index of the Region = (integer) with default 0
@@ -458,6 +452,15 @@ START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
          ====> phaseNames =  MCMB_Interstitials_anode
     Default Diffusion Coefficient = (double) with default 1e-12
          ====> defaultDiffusionCoefficient = 1e-09
+    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+END BLOCK Radial Diffusion Region
+START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
+    => timesProcessed = 0 multiContribIndex = 1 
+    Index of the Region = (integer) with default -2147483647
+    Number of Cells in Region = (integer) with default -2147483647
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+    Default Diffusion Coefficient = (double) with default 1e-12
     Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
     Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
 END BLOCK Radial Diffusion Region
@@ -505,6 +508,7 @@ Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m
 Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
 Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
 Solution saved to file solution.xml as solution 0.
+Solution saved to file solutionStartEnd.xml as solution 0.
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       0.000E+00   
                            Delta_t    1.000E-08     (initial solution with no previous solution)
@@ -21956,6 +21960,7 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
 
 ================================================================================
 Solution saved to file solution.xml as solution 51.
+Solution saved to file solutionStartEnd.xml as solution 0.
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E+00   
                            Delta_t    4.810E-01   
