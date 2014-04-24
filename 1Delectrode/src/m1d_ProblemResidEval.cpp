@@ -947,6 +947,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   static int solNumAlt = 0;
   static string savedBase = baseFileName;
   static string savedAltBase;
+  int appendAtEnd = 1;
   ::time(&aclock); /* Get time in seconds */
   newtime = localtime(&aclock); /* Convert time to struct tm form */
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
@@ -956,10 +957,17 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   std::string fname = baseFileName + ".xml";
   if (solNum == 0) {
      savedBase = fname;
+     appendAtEnd = 0;
   }
   if (savedBase != fname) {
-     solNumAlt = 0;
-     savedAltBase = fname;
+     if ((fname != savedAltBase) && (savedAltBase == "")) {
+         solNumAlt = 0;
+         savedAltBase = fname;
+         appendAtEnd = 0;
+     }
+  }
+  if ((fname != savedBase) && (fname != savedAltBase)) {
+     appendAtEnd = 0;
   }
 
   Epetra_BlockMap *nmap = ownedMap();
@@ -1037,26 +1045,33 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   } while (d_ptr);
 
   if (mypid == 0) {
-    int length = 0;
-    ifstream sr(fname.c_str());
-    if (sr) {
-      sr.seekg(0, ios::end);
-      length = sr.tellg();
-      sr.close();
-    }
+      if (!appendAtEnd) {
+	  fstream s(fname.c_str(), fstream::in | fstream::out | ios::trunc);
+	  root.write(s);
+	  s.close();
+      } else {
 
-    if (length > 0) {
-      fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
-      //int pos = s.tellp();
-      s.seekp(-8, ios_base::end);
-      sim.write(s, 2);
-      s.write("</ctml>\n", 8);
-      s.close();
-    } else {
-      fstream s(fname.c_str(), fstream::in | fstream::out | fstream::app);
-      root.write(s);
-      s.close();
-    }
+	  int length = 0;
+	  ifstream sr(fname.c_str());
+	  if (sr) {
+	      sr.seekg(0, ios::end);
+	      length = sr.tellg();
+	      sr.close();
+	  }
+
+	  if (length > 0) {
+	      fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
+	      //int pos = s.tellp();
+	      s.seekp(-8, ios_base::end);
+	      sim.write(s, 2);
+	      s.write("</ctml>\n", 8);
+	      s.close();
+	  } else {
+	      fstream s(fname.c_str(), fstream::in | fstream::out | fstream::app);
+	      root.write(s);
+	      s.close();
+	  }
+      }
   }
 
   if (mypid == 0) {
@@ -1537,20 +1552,28 @@ ProblemResidEval::writeSolution(const int ievent,
 				const Solve_Type_Enum solveType,
                                 const double delta_t_np1)
 {
+    static double lastTime = -10000000.;
     if (ievent == 0 || ievent == 1 || ievent == 2) {
-	saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+        if (ievent == 2) {
+           if (fabs(lastTime - time_current) > 1.0E-3 * delta_t_n) {
+	       saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+            }
+        } else {
+	    saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+        }
     }
     if (m_writeStartEndFile) {
-    if (ievent == 0 || ievent == 2) {
-	saveSolutionEnd(ievent, "solutionStartEnd", y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
-    }
+        if (ievent == 0 || ievent == 2) {
+  	    saveSolutionEnd(ievent, "solutionStartEnd", y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+        }
     }
     if (ievent == 0 || ievent == 1 || ievent == 2) {
-	if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
+ 	if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
 	    showProblemSolution(ievent,  doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType, 
                                 delta_t_np1);
 	}
     }
+    lastTime = time_current;
 }
 //=====================================================================================================================
 /*
