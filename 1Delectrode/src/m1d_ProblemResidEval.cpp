@@ -47,7 +47,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <vector>
+//#include <vector>
 
 using namespace std;
 
@@ -77,6 +77,7 @@ ProblemResidEval::ProblemResidEval(double atol) :
   psInput_ptr_(0),
   m_numTimeRegions(1),
   m_currentTimeRegion(0),
+  m_writeStartEndFile(0),
   counterResBaseCalcs_(0), counterJacBaseCalcs_(0), 
   counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
   SolutionBehavior_printLvl_(0),
@@ -100,6 +101,7 @@ ProblemResidEval::ProblemResidEval(double atol) :
      }
     }
   }
+  m_writeStartEndFile = PSinput_ptr->writeStartEndFile_;
 }
 //=====================================================================================================================
 // Destructor
@@ -1518,6 +1520,11 @@ ProblemResidEval::writeSolution(const int ievent,
 {
     if (ievent == 0 || ievent == 1 || ievent == 2) {
 	saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+    }
+    if (m_writeStartEndFile) {
+    if (ievent == 0 || ievent == 2) {
+	saveSolutionEnd(ievent, "solutionStartEnd", y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+    }
     }
     if (ievent == 0 || ievent == 1 || ievent == 2) {
 	if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {

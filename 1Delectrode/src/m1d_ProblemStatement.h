@@ -124,6 +124,9 @@ public:
 	 */
 	int prob_type;
 
+        //! Write a start and end file
+        int writeStartEndFile_;
+
         //! Integer representing the energy equation problem type
 	/*!
          *  0 -> isothermal               Don't solve an energy equation (default)

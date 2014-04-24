@@ -37,6 +37,15 @@ Cantera File Name = MgO.xml
 Heat Source Tracking = 1
 !-------------------------------------------------------------------------
 !
+!    Write Start and End File = [int]  (optional) (default = 0)
+!          This is a boolean input that controls whether the program writes a special start and
+!          end solution file. This option is needed for CAEBAT.
+!          The name of the solution file is hardwired to solutionStartEnd.xml
+!
+!-----------------------------------------------------------------------------------------------------
+Write Start and End File = 1
+!-----------------------------------------------------------------------------------------------------
+!
 ! Electrolyte Phase = [string] [ required ]
 !
 ! Name of phase containing electrolyte description

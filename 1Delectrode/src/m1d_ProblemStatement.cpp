@@ -43,6 +43,7 @@ bool PrintInputFormat = false;
     TemperatureReference_(298.15),
     PressureReference_(1.01325E5),
     prob_type(0),
+    writeStartEndFile_(0),
     Energy_equation_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
@@ -71,6 +72,7 @@ bool PrintInputFormat = false;
     TemperatureReference_(298.15),
     PressureReference_(1.01325E5),
     prob_type(0),
+    writeStartEndFile_(0),
     Energy_equation_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
@@ -116,6 +118,7 @@ bool PrintInputFormat = false;
     TemperatureReference_      = right.TemperatureReference_;
     PressureReference_         = right.PressureReference_;
     prob_type                  = right.prob_type;
+    writeStartEndFile_         = right.writeStartEndFile_;
     Energy_equation_prob_type_ = right.Energy_equation_prob_type_;
     SolutionBehavior_printLvl_ = right.SolutionBehavior_printLvl_;
     TimeStepper_printLvl_      = right.TimeStepper_printLvl_;
@@ -205,6 +208,15 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
 					 energyEqList, 5, 0, "Energy_equation_prob_type_");
     lepkm->set_default(0);
     cf->addLineEntry(lepkm);
+
+    /* -----------------------------------------------------------------
+     *   Write a start and end solution file
+     *     the file is hardwired to solutionStartEnd.xml 
+     */
+    LE_OneInt *iStartEnd = new LE_OneInt("Write Start and End File", &(writeStartEndFile_), 0, "writeStartEndFile");
+    iStartEnd->set_default(0);
+    iStartEnd->set_limits(1, 0);
+    cf->addLineEntry(iStartEnd);
 }
 //=====================================================================================================================
 void

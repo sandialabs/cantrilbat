@@ -254,7 +254,15 @@ Solution Behavior Print Level = 5
 !--------------------------------------------------------------------------
 Maximum Number of Time Steps = 1000
 !--------------------------------------------------------------------------
-
+!
+!    Write Start and End File = [int]  (optional) (default = 0)
+!          This is a boolean input that controls whether the program writes a special start and
+!          end solution file. This option is needed for CAEBAT.
+!          The name of the solution file is hardwired to solutionStartEnd.xml
+!
+!-----------------------------------------------------------------------------------------------------
+Write Start and End File = 1
+!-----------------------------------------------------------------------------------------------------
 !
 !
 Start Block Linear Solver

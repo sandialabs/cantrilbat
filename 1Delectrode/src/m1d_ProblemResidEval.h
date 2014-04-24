@@ -884,6 +884,11 @@ public:
    */
   int m_currentTimeRegion;
 
+  //! Write a special solution consisting of the starting and ending condition
+  /*!
+   *  this is used as a restart file for ORNL CAEBAT program
+   */
+  int m_writeStartEndFile;
 
 public:
 
