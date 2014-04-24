@@ -1,0 +1,104 @@
+#!/bin/sh
+#
+#   install_ts source DEST_DIR'
+#
+#  Install a file checking the time step first
+#
+# HKM -> openBSD doesn't have a -v option
+#
+function tscompare()
+{
+   if test $1 -nt $2 ; then
+     return 0
+   fi
+#  echo we are here
+   return 1
+}
+
+
+
+if test $# -ne 2 ; then
+  echo 'install_ts ERROR: This program requires 2 and only 2 parameters:'
+  echo '   install_ts source DEST_DIR'
+  exit -1
+fi
+lh=$1
+destdir=$2
+destdirname=`dirname $2`
+destbasename=`basename $2`
+#echo 'distdirname = ' $destdirname
+#echo 'distbasename = ' $destbasename
+
+if test -d $2 ; then
+  destdir=$2
+  destfilename=`basename $1`
+else
+ if test -d $destdirname ; then
+   destdir=$destdirname
+   destfilename=$destbasename
+   
+ else
+   if test -f $2 ; then
+    destdir=$destdirname 
+    destfilename=`basename $2`
+   else
+     if test -e $2 ; then
+       /bin/rm $2
+       destdir=$destdirname
+       destfilename=`basename $2`
+     else
+       /usr/bin/install -c -d $2
+       if test -d $2 ; then
+         destdir=$2
+         destfilename=`basename $1`
+       else
+         echo 'Could not create destination dir ' $2
+         exit -1
+       fi
+     fi  
+   fi
+ fi
+fi
+
+#
+VERBOSE=-v
+verbose='y'
+if test "x$VERBOSE" = "x-v" ; then
+  verbose=
+fi
+INSTALL_XV="/usr/bin/install -c -m 755 -c $VERBOSE "
+INSTALL_V="/usr/bin/install -c -m 644 -c $VERBOSE "
+#
+# If the destination directory doesn't exist yet, create it
+#
+th="${destdir}"/"${destfilename}"  ; 
+# echo 'th = ' $th
+if test ! -f "${lh}" ; then
+  echo 'install_ts ERROR: the file, ' ${lh} ', does not exist' 
+  exit -1
+fi
+if test ! -f "${th}" ; then
+    if test -x "${lh}" ; then
+      $INSTALL_XV "${lh}" "${th}"
+    else
+      $INSTALL_V  "${lh}" "${th}"
+    fi
+    if test x"$verbose" = xy ; then
+      echo "${lh}" ' -> '   "${th}"  
+    fi
+else 
+#            if test "${lh}" -nt "${th}" ; then 
+   tscompare "${lh}" "${th}"
+   res=$?
+   if test "$res" = "0" ; then
+    if test -x "${lh}" ; then
+      $INSTALL_XV "${lh}" "${th}"
+    else
+      $INSTALL_V  "${lh}" "${th}"
+    fi
+    if test x"$verbose" = xy ; then
+      echo "${lh}" ' -> '   "${th}"  
+    fi
+  fi 
+fi
+exit 0

@@ -99,7 +99,7 @@ allsrc: .depends libElectrode.a
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
-INSTALL = $(CHEMKIN_HOME)/bin/bsdinstall.sh 
+INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
@@ -172,10 +172,13 @@ test:
 install:
 	@INSTALL@ -d @cta_incdir@
 	@INSTALL@ -d @cta_libdir@
-	cp   $(HDR_CTAPPLBASE) @cta_incdir@
-	cp   libElectrode.a @cta_libdir@
+	@for iFile in $(HDR_CTAPPLBASE) ; do               \
+           $(INSTALL_TSC) $${iFile} @cta_incdir@/$${iFile}        ;     \
+        done
+	$(INSTALL_TSC)  libElectrode.a @cta_libdir@
 
 
+#cp   $(HDR_CTAPPLBASE) @cta_incdir@
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
