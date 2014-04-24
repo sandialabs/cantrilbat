@@ -90,6 +90,9 @@ export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
 export PARMETIS_LIBRARY_DIR=/home/hea/arch/linux64_gcc472/ParMetis-3.1.1/lib
 export PARMETIS_LIBRARY_NAMES="libparmetis.a:libmetis.a"
 
+export Y12M_LIBRARY_DIR=/home/hea/arch/linux64_gcc472/lib
+export Y12M_LIBRARY_NAMES="liby12m.a"
+
 
 DO_MPI='y'
 export DO_MPI
