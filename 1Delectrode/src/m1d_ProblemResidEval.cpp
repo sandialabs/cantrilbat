@@ -944,6 +944,9 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   struct tm *newtime;
   time_t aclock;
   static int solNum = 0;
+  static int solNumAlt = 0;
+  static string savedBase = baseFileName;
+  static string savedAltBase;
   ::time(&aclock); /* Get time in seconds */
   newtime = localtime(&aclock); /* Convert time to struct tm form */
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
@@ -951,6 +954,12 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     baseFileName += ("_" + Cantera::int2str(mypid));
   }
   std::string fname = baseFileName + ".xml";
+  if (solNum == 0) {
+     savedBase = fname;
+  }
+  if (savedBase != fname) {
+     savedAltBase = fname;
+  }
 
   Epetra_BlockMap *nmap = ownedMap();
   Epetra_Vector *y_n_owned_ptr =  new_EpetraVectorView(y_n_ghosted, *nmap);
@@ -964,7 +973,12 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   Cantera::XML_Node& ct = root.addChild("ctml");
 
   Cantera::XML_Node& sim = ct.addChild("simulation");
-  std::string id = Cantera::int2str(solNum);
+  std::string id = "0";
+  if (fname == savedBase) {
+      id = Cantera::int2str(solNum);
+  } else if (fname == savedAltBase) {
+      id = Cantera::int2str(solNumAlt);
+  }
   sim.addAttribute("id", id);
   ctml::addString(sim, "timestamp", asctime(newtime));
   // if (desc != "")
@@ -1049,7 +1063,11 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   }
   Epetra_Comm *c = LI_ptr_->Comm_ptr_;
   c->Barrier();
-  solNum++;
+ if (fname == savedBase) {
+      solNum++;
+  } else if (fname == savedAltBase) {
+      solNumAlt++;
+  }
   delete y_n_owned_ptr;
   delete ydot_n_owned_ptr;
 }

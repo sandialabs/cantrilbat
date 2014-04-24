@@ -94,6 +94,16 @@ public:
      * We own the electrode object.
      */
     Cantera::Electrode* Electrode_;
+
+    //! Starting Capacity
+    /*!
+     *   Capacity of the electrode in amp sec = coulombs
+     */
+    double Capacity_initial_;
+
+    double CapacityDischarged_initial_;
+
+    double CapacityLeft_initial_;
 };
 //=====================================================================================================================
 }

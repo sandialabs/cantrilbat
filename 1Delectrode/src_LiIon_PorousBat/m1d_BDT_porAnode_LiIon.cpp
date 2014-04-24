@@ -24,7 +24,10 @@ BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr) :
     ionicLiquid_(0),
     trans_(0),
     m_position(0),
-    Electrode_(0)
+    Electrode_(0),
+    Capacity_initial_(0.0),
+    CapacityDischarged_initial_(0.0),
+    CapacityLeft_initial_(0.0)
 {
     int eqnIndex = 0;
     IsAlgebraic_NE.resize(7,0);
@@ -92,6 +95,13 @@ BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr) :
     }
 
     delete cfA;
+
+
+    Capacity_initial_ = Electrode_->capacity();
+
+    CapacityDischarged_initial_ = Electrode_->capacityDischarged();
+
+    CapacityLeft_initial_ = Electrode_->capacityLeft();
 
     /*
      *  Create a vector of Equation Names

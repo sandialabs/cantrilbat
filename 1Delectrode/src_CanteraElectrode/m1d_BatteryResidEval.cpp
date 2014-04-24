@@ -515,6 +515,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
  *
  * @param ifunc   0 Initial call to the function, done whenever the time stepper is entered
  *                1 Called after every successful time step.
+ *                2 Called 
  * @param t       Current time
  * @param deltaT  Current value of deltaT
  * @param y       Current value of the solution vectors
@@ -527,12 +528,15 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
                                        const Epetra_Vector_Ghosted & y,
                                        const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
+    static FILE *fstep = 0;
+    FILE *facc = 0;
+    static double tinit_calculation = 0.0;
     const Epetra_Vector_Ghosted *soln_ptr = &y;
     if (doHeatSourceTracking_) {
 
         double rdelta_t = 1.0E8;
         if (deltaT > 0.0) {
-          rdelta_t = 1.0 / deltaT;
+	    rdelta_t = 1.0 / deltaT;
         }
 
         bool doTimeDependentResid = true;
@@ -541,6 +545,22 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
          */
         if (doTimeDependentResid) {
             calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
+        }
+
+        if (ifunc == 0) {
+            fstep = fopen("stepwiseHeatSource.txt", "w");
+            fprintf(fstep, "      tinit  ,     tfinal  ,         anode        ,        separator     ,  "
+		    "      cathode       ,         total\n");
+            fflush(fstep);
+	    tinit_calculation = t;
+ 
+            facc = fopen("accumulatedHeatSource.txt", "w");
+            fprintf(facc, "      tinit  ,     tfinal  ,         anode        ,        separator     ,  "
+		    "      cathode       ,         total\n");
+            fflush(facc);
+	    fclose(facc);
+	    tinit_calculation = t;
+        
         }
 
  
@@ -559,7 +579,39 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
 	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
 	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
 	}
-	
+
+        if (ifunc == 1)  {
+            double qtot = 0.0;
+	    double tinit = t - deltaT;
+            fprintf(fstep, "% 13.5E , % 13.5E ", tinit,  t);
+            for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+                porousFlow_dom1D* p_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
+                double qstep = p_ptr->heatSourceLastStep();
+                qtot += qstep;
+                fprintf(fstep, " , % 20.7E", qstep);
+            }
+            fprintf(fstep, " ,  % 20.7E\n", qtot); 
+            fflush(fstep);
+	}
+
+        
+        //	
+        // 
+        if (ifunc == 2) {
+            double q = heatSourceAccumulated();          
+            // MP issues
+            facc = fopen("accumulatedHeatSource.txt", "a");
+	    fprintf(facc, "% 13.5E , % 13.5E ", tinit_calculation,  t);
+            for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+                porousFlow_dom1D* p_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
+                double qstep = p_ptr->heatSourceAccumulated();
+                fprintf(facc, " , % 20.7E", qstep);
+            }
+            fprintf(facc, " , % 20.7E\n", q);
+            fclose(facc);
+        }
 
     }
 

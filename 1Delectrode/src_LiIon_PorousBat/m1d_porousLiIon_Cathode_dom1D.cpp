@@ -495,7 +495,7 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
             printf("Cathode porosity is %f with %g m^3 solid volume and %g m^3 electrode volume.\n",porosity, ee->SolidVol(),
                    totalElectrodeVolume);
             if (porosity <= 0.0) {
-                throw CanteraError("porousLiIon_Cathode_dom1D::initialConditions()",
+                throw CanteraError("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()",
                                    "Computed porosity is not positive.");
             }
             /*
@@ -509,7 +509,7 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
              */
             porosity = PSinput.cathode_input_->porosity;
             if (porosity <= 0.0) {
-                throw CanteraError("porousLiIon_Cathode_dom1D::initialConditions()",
+                throw CanteraError("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()",
                                    "Input porosity is not positive.");
             }
             if (electrodeArea <= 0.0) {
