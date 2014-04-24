@@ -3460,7 +3460,7 @@ Initial data for these two species and TBP*H2O(org) is based on the equilibrium 
     <kinetics model="none" >
     </kinetics>
     <transport model="Simple">
-      <compositionDependence model="Solvent_Only"/>
+      <compositionDependence model="solvent"/>
       <speciesDiffusivity model="Constant"> 1.0E-5 </speciesDiffusivity>
       <!--
         <compositionDependence model="Mixture_Averaged"/>
