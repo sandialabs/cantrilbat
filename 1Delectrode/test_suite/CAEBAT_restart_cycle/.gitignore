@@ -24,9 +24,6 @@ timeDep_IV_blessed.dat_1.1
 timeDep_IV_blessed.dat_1.2
 LiKCl_PorousBat.TVD.v3breakpoints
 LiIon_PorousBat
-workdir1/*
-workdir2/*
-workdir3/*
 solutionRestart.xml
 solutionStartEnd.xml
 solutionStartEnd1.xml
@@ -48,6 +45,7 @@ solutionStartEnd.xml
 solutionStartEnd1.xml
 solutionStartEnd2.xml
 solutionStartEnd3.xml
+.nfs*
 
 
 
