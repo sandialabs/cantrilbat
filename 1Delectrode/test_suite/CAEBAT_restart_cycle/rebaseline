@@ -1,0 +1,22 @@
+cp out.txt good_out.txt
+cp solution.xml solution_blessed.xml
+cp timeDep_IV.dat timeDep_IV_blessed.dat
+cp SurDomain1D_0.dat  SurDomain1D_0_blessed.dat
+cp SurDomain1D_1.dat  SurDomain1D_1_blessed.dat
+cp SurDomain1D_2.dat  SurDomain1D_2_blessed.dat
+cp SurDomain1D_3.dat  SurDomain1D_3_blessed.dat
+
+cp BulkDomain1D_0.dat BulkDomain1D_0_blessed.dat
+cp BulkDomain1D_1.dat BulkDomain1D_1_blessed.dat
+cp BulkDomain1D_2.dat BulkDomain1D_2_blessed.dat
+
+cp  solutionStartEnd1.xml  solutionStartEnd1_blessed.xml 
+cp  solutionStartEnd2.xml  solutionStartEnd2_blessed.xml 
+cp  solutionStartEnd3.xml  solutionStartEnd3_blessed.xml 
+
+cp accumulatedHeatSource1.txt accumulatedHeatSource1_blessed.txt
+cp accumulatedHeatSource2.txt accumulatedHeatSource2_blessed.txt
+cp accumulatedHeatSource3.txt accumulatedHeatSource3_blessed.txt
+
+
+

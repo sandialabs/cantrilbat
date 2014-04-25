@@ -181,6 +181,13 @@ Cathode Voltage = 3.8 V
 !-------------------------------------------------------------------------
 !
 !
+! Restart Record Number - int (default = -1) (not required)
+!
+!   If the restart record number is positive, then the calculateion
+!   is started from a saved solution in the restart file.
+!-----------------------------------------------------------------------
+Restart Record Number = 1
+!
 !-------------------------------------------------------------------------
 !-------------------------------------------------------------------------
 !  Nonlinear Solver Inputs
@@ -195,7 +202,7 @@ End Time = XXXENDTIMEXXX
 !-------------------------------------------------------------------------
 !
 ! Initial Time Step [s]
-Initial Time Step = 1e-8
+! Initial Time Step = 1.0E-6
 !-------------------------------------------------------------------------
 !
 ! Absolute Tolerances for time integration 
@@ -269,6 +276,17 @@ Time Stepper Print Level = 6
 !-------------------------------------------------------------------------
 Nonlinear Solver Log Level = 3
 !--------------------------------------------------------------------------
+!---------------------------------------------------------------------------------------
+!
+!     Number of initial time steps to take where the
+!     time truncation error tolerances are not checked. Instead
+!     the delta T is uniform
+!                - int (optional) (default = 3)
+!
+!---------------------------------------------------------------------------------------
+Number of Initial Constant deltaT Steps = 0
+!---------------------------------------------------------------------------------------
+
 !
 
 

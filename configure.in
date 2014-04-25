@@ -879,6 +879,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff3/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_DiffTALE2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2_restart/Makefile \
+          1Delectrode/test_suite/CAEBAT_restart_cycle/Makefile \
           util_src/Makefile \
           util_src/src/Makefile \
 	  Experiment/Makefile \

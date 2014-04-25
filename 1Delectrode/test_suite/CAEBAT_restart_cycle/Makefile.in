@@ -13,19 +13,17 @@
 .SUFFIXES: .d
 
 PROGRAM = LiIon_PorousBat
-TEST_NAME = LiIon_MCMB_LiCoO2_Diff2_heatSource
+TEST_NAME = CAEBAT_restart_cycle
 
 DATA =  \
 ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml\
 MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml 
 
 
-BLESSED_FILES = \
-BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  SurDomain1D_0_blessed.dat  SurDomain1D_2_blessed.dat  timeDep_IV_blessed.dat \
-BulkDomain1D_1_blessed.dat  solution_blessed.xml        SurDomain1D_1_blessed.dat  SurDomain1D_3_blessed.dat
+BLESSED_FILES =accumulatedHeatSource1_blessed.txt accumulatedHeatSource2_blessed.txt accumulatedHeatSource3_blessed.txt \
+ solutionStartEnd1_blessed.xml solutionStartEnd2_blessed.xml solutionStartEnd3_blessed.xml
 
-
-INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp
+INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp  LiIon_PorousBat.inp.tmpl     
 
 ##########################################################################
 #           Setup The Cantera Directory locations
