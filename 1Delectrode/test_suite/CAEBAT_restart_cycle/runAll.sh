@@ -15,6 +15,19 @@ function cleanup {
 #
 trap cleanup INT TERM TSTP QUIT
 
+if test ! -d workdir1
+then
+   mkdir workdir1
+fi
+if test ! -d workdir2
+then
+   mkdir workdir2
+fi
+if test ! -d workdir3
+then
+   mkdir workdir3
+fi
+
 run
 cp solutionStartEnd.xml  solutionStartEnd_begin.xml
 
