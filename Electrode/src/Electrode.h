@@ -1044,8 +1044,8 @@ public:
     //!  Returns the net production rates of all species in the electrode object
     //!  over the last integration step
     /*!
-     *  We calculate a rate here by taking the total production amounds and then
-     *  divide by the time step.
+     *  We calculate a rate here by taking the total production amounts and then
+     *  dividing by the time step to get a rate.
      *
      *   @param net   Species net production rates [kmol/s].
      */
@@ -1082,14 +1082,14 @@ public:
     //! The thermal energy source term can be broken into two parts. This part is the irreversible
     //! heat generation term due to the non-zero overpotential 
     /*!
-     *   @return returns an 
+     *   @return returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_overpotential();
 
     //! The thermal energy source term can be broken into two parts. This part is the reversible
     //! heat generation term due to the entropy change of reaction
     /*!
-     *   @return returns a double
+     *   @return returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
 
@@ -2772,7 +2772,14 @@ protected:
     std::vector<double> chempotMolar_final_;
     std::vector<double> chempotMolar_final_final_;
 
+    //!
+    /*!
+     *  units = Joules
+     */
     double integratedThermalEnergySourceTerm_;
+    /*!
+     *  units = Joules
+     */
     double integratedThermalEnergySourceTermLast_;
 
     double integratedThermalEnergySourceTerm_overpotential_;

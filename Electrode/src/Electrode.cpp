@@ -2862,11 +2862,13 @@ double Electrode::getIntegratedThermalEnergySourceTerm()
   return integratedThermalEnergySourceTerm_;
 }
 //=================================================================================================
+//  Remember this is in joules
 double Electrode::getIntegratedThermalEnergySourceTerm_overpotential()
 {
   return integratedThermalEnergySourceTerm_overpotential_;
 }
 //=================================================================================================
+//  Remember this is in joules
 double Electrode::getIntegratedThermalEnergySourceTerm_reversibleEntropy()
 {
   return integratedThermalEnergySourceTerm_reversibleEntropy_;

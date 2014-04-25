@@ -25,6 +25,7 @@ timeDep_IV_blessed.dat_1.2
 LiKCl_PorousBat.TVD.v3breakpoints
 LiIon_PorousBat
 solutionRestart.xml
+solutionStartEnd_begin.xml
 solutionStartEnd.xml
 solutionStartEnd1.xml
 solutionStartEnd2.xml

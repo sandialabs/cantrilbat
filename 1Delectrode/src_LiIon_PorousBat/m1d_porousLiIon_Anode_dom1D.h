@@ -696,6 +696,9 @@ protected:
     std::vector<double> jFlux_trCurr_;
 
     //! current flow in the electrode due to conduction
+    /*!
+     *   Units are amps / m2 and the area is the cross-sectional area of the battery
+     */
     double icurrElectrode_trCurr_;
 
     //! Number of species in the electrode object
@@ -742,19 +745,27 @@ protected:
     //! Electrode Current at the cell boundaries: left boundary
     /*!
      *  Length is the number of cells
+     *   Units are amps / m2 and the area is the cross-sectional area of the battery
      */
     std::vector<double> icurrElectrode_CBL_;
 
     //! Electrode Current at the cell boundaries: right boundary
     /*!
      *  Length is the number of cells
+     *   Units are amps / m2 and the area is the cross-sectional area of the battery
      */
     std::vector<double> icurrElectrode_CBR_;
 
     //! Electrolyte Current at the cell boundaries - left
+    /*!
+     *   Units are amps / m2 and the area is the cross-sectional area of the battery
+     */
     std::vector<double> icurrElectrolyte_CBL_;
 
     //! Electrolyte Current at the cell boundaries - right
+    /*!
+     *   Units are amps / m2 and the area is the cross-sectional area of the battery
+     */
     std::vector<double> icurrElectrolyte_CBR_;
 
     //! Electrostatic potential difference between electrolyte and metal phases
@@ -763,6 +774,9 @@ protected:
     std::vector<double> Ess_Cell_;
     //!overpotential for each surface (plateau)
     std::vector<double> overpotential_Cell_;
+    /*!
+     *   Units are amps / m2 and the area is the cross-sectional area of the battery
+     */
     std::vector<double> icurrRxn_Cell_;
     std::vector<double> LiFlux_Cell_;
 
