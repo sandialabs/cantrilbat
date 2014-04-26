@@ -411,13 +411,7 @@ void SurDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vect
      */
     if (NumOwnedNodes == 0) {
         return;
-    }
-    /*
-     *   Figure out the node to apply the equation on
-     *   It is one node -> This can be done using base class level
-     */
-    //  NodalVars* node = LI_ptr_->NodalVars_LcNode[Index_LcNode];
-    
+    } 
     /*
      *  Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -469,12 +463,8 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
     // Find the number of global equations on this domain, whether it's local or not
     //int numEquationsGb = SDD_.NumEquationsPerNode;
     // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
+    //int locGbNode = SDD_.LocGbNode;
 
-    // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
     int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
     Cantera::XML_Node& inlt = oNode.addChild("domain");
@@ -483,17 +473,17 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
     inlt.addAttribute("points", 1);
     inlt.addAttribute("type", "surface");
     inlt.addAttribute("numVariables", numVar);
-    double x0pos = nv->x0NodePos();
-    double xpos = nv->xNodePos();
-    double xfrac = nv->xFracNodePos(); 
+    double x0pos = NodalVarPtr->x0NodePos();
+    double xpos =  NodalVarPtr->xNodePos();
+    double xfrac = NodalVarPtr->xFracNodePos(); 
     ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
     ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
     ctml::addFloat(inlt, "Xfraction", xfrac, "", "", Cantera::Undef, Cantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
-        string nm = nv->VariableName(k);
-        VarType vv = nv->VariableNameList_EqnNum[k];
+        string nm = NodalVarPtr->VariableName(k);
+        VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
         ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
     }
@@ -520,7 +510,7 @@ SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
     /*
      *   Find the global node number of the node where this surface domain resides
      */
-    int locGbNode = SDD_.LocGbNode;
+    //int locGbNode = SDD_.LocGbNode;
 
     // Number of equations per node
     //int numEquationsPerNode = SDD_.NumEquationsPerNode;
@@ -529,15 +519,12 @@ SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
     /*
      * get the NodeVars object pertaining to this global node
      */
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-    int numVar = nv->NumEquations;
+    int numVar = NodalVarPtr->NumEquations;
 
     /*
      *  Get the global equation number index of the unknowns at this surface domain
      */
-    int eqnStart = nv->EqnStart_GbEqnIndex;
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
 
     string iidd = (*domainNode_ptr)["id"]; 
 
@@ -558,13 +545,13 @@ SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
     double x0pos = ctml::getFloat(*domainNode_ptr, "X0", "toSI");     
     double xpos = ctml::getFloat(*domainNode_ptr, "X", "toSI");     
     double xfrac = ctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");     
-    nv->setupInitialNodePosition(x0pos, xfrac);
-    nv->changeNodePosition(xpos);
+    NodalVarPtr->setupInitialNodePosition(x0pos, xfrac);
+    NodalVarPtr->changeNodePosition(xpos);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
-        string nm = nv->VariableName(k);
-        VarType vv = nv->VariableNameList_EqnNum[k];
+        string nm = NodalVarPtr->VariableName(k);
+        VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
         sval = ctml::getFloat(*domainNode_ptr, nm, "toSI");
         (*soln_GLALL_ptr)[eqnStart + k] = sval;

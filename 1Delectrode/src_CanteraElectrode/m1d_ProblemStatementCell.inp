@@ -193,7 +193,7 @@ Separator Thickness = 70.0E-6
 !        The boundary condition is turned into a Robin boundary condition.
 !        The default resistance of cathode current collector is taken to be the resistance of aluminum. 
 !---------------------------------------------------------------------------------------------------------
-! Anode Current Collector Thickness = 0.01 m
+! Cathode Current Collector Thickness = 0.01 m
 !---------------------------------------------------------------------------------------------------------
 !
 !     Separator Diameter - double [m] optional (default = -1.0)
