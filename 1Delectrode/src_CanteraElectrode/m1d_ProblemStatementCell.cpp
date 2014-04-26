@@ -46,8 +46,10 @@ ProblemStatementCell::ProblemStatementCell() :
   anodeFile_("anode.inp"), cathodeFile_("cathode.inp"),
   electrolytePhase_("LiKCl_electrolyte"), separatorPhase_("MgO"),
   separatorMass_(0.0), separatorArea_(-1.0),
-  separatorThickness_(1.0), 
+  separatorThickness_(70E-6), 
   separatorDiameter_(-1.0),
+  anodeCCThickness_(0.0),
+  cathodeCCThickness_(0.0),
   useDakota_(false),
   maxSubgridTimeStepsPerGlobalTimeStep_(100),
   fromDakotaFileName_("params.in"), toDakotaFileName_("results.out"),
@@ -337,6 +339,25 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   BI_Dependency * dep_sepDia_sepArea = new BI_Dependency(d4, BIDT_ENTRYPROCESSED, BIDRT_ANTITHETICAL_ERROR);
   d6->declareDependency(dep_sepDia_sepArea);
 
+  /* ------------------------------------------------------------------------------------------------------------------
+   *  Anode Current Collector thickness
+   */
+  reqd = 0;
+  BE_UnitConversion *ucL4 = new BE_UnitConversionLength();
+  LE_OneDblUnits *dacc = new LE_OneDblUnits("Anode Current Collector Thickness", &(anodeCCThickness_), reqd,
+                                            "anodeCCThickness", ucL4);
+  dacc->set_default(0.0);
+  cf->addLineEntry(dacc);
+
+  /* ------------------------------------------------------------------------------------------------------------------
+   *  Cathode Current Collector thickness
+   */
+  reqd = 0;
+  BE_UnitConversion *ucL5 = new BE_UnitConversionLength();
+  LE_OneDblUnits *dccc = new LE_OneDblUnits("Cathode Current Collector Thickness", &(cathodeCCThickness_), reqd,
+                                            "cathodeCCThickness", ucL5);
+  dccc->set_default(0.0);
+  cf->addLineEntry(dccc);
 
   /* -------------------------------------------------------------------------------------------------------------------
    * Number of control volumes in anode

@@ -31,6 +31,48 @@
 namespace m1d {
 
 //============================================================================================================
+BoundaryCondition::BoundaryCondition() :
+    title_(""),
+    lowerLim_(-1.0 * BigNumber),
+    upperLim_(BigNumber),
+    indepUnits_(""),
+    depenUnits_(""),
+    step_(0),
+    stepMax_(0)
+{
+}
+//============================================================================================================
+ BoundaryCondition::~BoundaryCondition()
+ {
+ }
+//============================================================================================================
+BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
+    title_(""),
+    lowerLim_(-1.0 * BigNumber),
+    upperLim_(BigNumber),
+    indepUnits_(""),
+    depenUnits_(""),
+    step_(0),
+    stepMax_(0)
+{
+    *this = right;
+}
+//============================================================================================================
+BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
+{
+    if (&right != this) {
+	return *this;
+    }
+    title_ = right.title_;
+    lowerLim_ = right.lowerLim_;
+    upperLim_ = right.upperLim_;
+    indepUnits_ = right.indepUnits_;
+    depenUnits_ = right.depenUnits_;
+    step_ = right.step_;
+    stepMax_ = right.stepMax_;
+    return *this;
+}
+//============================================================================================================
 // return the dependent variable value given
 // the independent variable argument
 /*
@@ -40,6 +82,92 @@ namespace m1d {
 double BoundaryCondition::value(double indVar, int interval)
 {
     return err("BoundaryCondition::value");
+}
+//============================================================================================================
+double BoundaryCondition::valueAtTime(double time, double indVar, int interval)
+{
+    return value(indVar, interval);
+}
+//============================================================================================================
+double BoundaryCondition::valueAtTime_full(double time, double* solnVecNode, int interval)
+{
+    return valueAtTime(time, solnVecNode[0], interval);
+}
+//===========================================================================================================
+double BoundaryCondition::nextStep()
+{
+    return err("BoundaryCondition::nextStep");
+}
+//===========================================================================================================
+void BoundaryCondition::resetSteps()
+{
+    step_ = 0;
+}
+//===========================================================================================================
+void BoundaryCondition::writeProfile()
+{
+}
+//===========================================================================================================
+double BoundaryCondition::lowerLimit()
+{
+    return lowerLim_;
+}
+//===========================================================================================================
+double BoundaryCondition::upperLimit()
+{
+    return upperLim_;
+}
+//=========================================================================================================== 
+std::string BoundaryCondition::indepUnits()
+{
+    return indepUnits_;
+}
+//===========================================================================================================
+std::string BoundaryCondition::depenUnits()
+{
+    return depenUnits_;
+}
+//===========================================================================================================
+std::string BoundaryCondition::title()
+{
+    return title_;
+}
+//===========================================================================================================
+void BoundaryCondition::setTitle(std::string name)
+{
+    title_ = name;
+}
+//===========================================================================================================
+void BoundaryCondition::setLowerLimit(double indVal)
+{
+    lowerLim_ = indVal;
+}
+//===========================================================================================================
+void BoundaryCondition::setUpperLimit(double indVal)
+{
+    upperLim_ = indVal;
+}
+//===========================================================================================================
+void BoundaryCondition::setIndepUnits(std::string unitString)
+{
+    indepUnits_ = unitString;
+}
+//===========================================================================================================
+void BoundaryCondition::setDepenUnits(std::string unitString)
+{
+    depenUnits_ = unitString;
+}
+//===========================================================================================================
+int BoundaryCondition::findStep(double indVar, int interval)
+{
+    err("BoundaryCondition::findStep");
+    return -1;
+}
+//===========================================================================================================
+double BoundaryCondition::err(std::string msg) const
+{
+    throw CanteraError("BoundaryCondition Base Class\n", "**** Method " + msg + " not implemented\n");
+    return 0.0;
 }
 //============================================================================================================
 ////////////////////////////////////////////////////////////

@@ -119,7 +119,7 @@ SDT_CathodeCollector::SetEquationDescription()
     case 5:
     case 7:
     case 9:
-      addFluxCondition(e1, v1, voltageVarBCType_, BC_timeDep );
+      addFluxCondition(e1, v1, voltageVarBCType_, BC_timeDep);
       break;
     default:
       throw m1d_Error("SDT_CathodeCollector::SetEquationDescription", 

@@ -70,8 +70,7 @@ SDT_Dirichlet::operator=(const SDT_Dirichlet &r)
  * @param  value  Value to apply
  */
 void
-SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, double value)
-{
+SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, double value) {
   NumConditions++;
   EquationID.push_back(equationID);
   VariableID.push_back(variableID);
@@ -100,6 +99,7 @@ SDT_Dirichlet::addDirichletCondition(VarType variableID, double value)
   BC_TimeDep_.push_back(0);
   BC_Type_.push_back(0);
 }
+
 //=====================================================================================================================
 // Add a Dirichlet Condition with time dependence
 /*
@@ -259,10 +259,29 @@ SDT_Mixed::addFluxCondition(EqnType equationID, VarType variableID, int BC_Type,
   NumConditions++;
   EquationID.push_back(equationID);
   VariableID.push_back(variableID);
-  Value.push_back(0);
+  Value.push_back(0.0);
   TimeDep.push_back(0);
   BC_TimeDep_.push_back(BC_timeDep);
   BC_Type_.push_back(BC_Type);
+}
+//=====================================================================================================================
+// Add a Robin Mixed boundary Condition
+/*
+ *
+ * @param  equationID  Equation ID to apply the flux condition to
+ * @param  variableID  VariableID to apply the flux condition to
+ * @param  value  Value to apply
+ */
+void
+SDT_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition *BC_timeDep)
+{
+  NumConditions++;
+  EquationID.push_back(equationID);
+  VariableID.push_back(variableID);
+  Value.push_back(0.0);
+  TimeDep.push_back(0);
+  BC_TimeDep_.push_back(BC_timeDep);
+  BC_Type_.push_back(10);
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

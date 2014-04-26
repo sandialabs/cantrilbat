@@ -526,7 +526,7 @@ SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
     int locGbNode = SDD_.LocGbNode;
 
     // Number of equations per node
-    int numEquationsPerNode = SDD_.NumEquationsPerNode;
+    //int numEquationsPerNode = SDD_.NumEquationsPerNode;
     string ids = id();
     Cantera::XML_Node *domainNode_ptr = simulationNode.findNameID("domain", ids);
     /*
@@ -1479,6 +1479,7 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
                                 const double rdelta_t, const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
 {
     int ieqn;
+    double resistance;
     const Epetra_Vector &soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
@@ -1573,6 +1574,11 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
                  */
                 // CAL: WARNING m1d_SurDomain_CathodeCollector.cpp has += val
                 res[ieqn] -= BC_TimeDep_NE[i]->value(t, timeRegion);
+                break;
+            case 10: // cathode collector
+                val = Value_NE[i];
+                resistance = BC_TimeDep_NE[i]->value(t, timeRegion);
+                res[ieqn] -= resistance * (val - solnVal);
                 break;
             default:
                 throw m1d_Error("SDT_CathodeCollector::SetEquationDescription",

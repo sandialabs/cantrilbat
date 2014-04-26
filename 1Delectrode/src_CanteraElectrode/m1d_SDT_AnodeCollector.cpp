@@ -69,34 +69,34 @@ SDT_AnodeCollector::operator=(const SDT_AnodeCollector &r)
 void
 SDT_AnodeCollector::SetEquationDescription()
 {
-  /*
-   * Set the policy for connecting bulk domains
-   * This really isn't set yet.
-   */
-  setRLMapping(0);
-  /*
-   * Fill in the rest of the information
-   */
-  SurfDomainDescription::SetEquationDescription();
+   /*
+    * Set the policy for connecting bulk domains
+    * This really isn't set yet.
+    */
+   setRLMapping(0);
+   /*
+    * Fill in the rest of the information
+    */
+   SurfDomainDescription::SetEquationDescription();
 
-  /*
-   *  Add the Dirichlet condition onto the bulk domain equation
-   */
-  EqnType e1(Current_Conservation, 1, "Anode Current Conservation");
-  VarType v1(Voltage, 1, "AnodeVoltage");
-  addDirichletCondition(e1, v1, 0.0);
-  /*
-   *  All of the other boundary conditions default to zero flux at the interface
-   *      This includes:
-   *
-   *           axial velocity
-   *           flux of Li+
-   *           flux of K+
-   *           flux of Cl-
-   *           flux of current
-   */
+   /*
+    *  Add the Dirichlet condition onto the bulk domain equation
+    */
+   EqnType e1(Current_Conservation, 1, "Anode Current Conservation");
+   VarType v1(Voltage, 1, "AnodeVoltage");
+   addDirichletCondition(e1, v1, 0.0);
+   /*
+    *  All of the other boundary conditions default to zero flux at the interface
+    *      This includes:
+    *
+    *           axial velocity
+    *           flux of Li+
+    *           flux of K+
+    *           flux of Cl-
+    *           flux of current
+    */
 
-  /*
+   /*
     *  All of the other boundary conditions default to zero flux at the interface
     *      This includes:
     *

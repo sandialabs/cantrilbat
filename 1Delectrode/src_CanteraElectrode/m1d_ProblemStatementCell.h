@@ -195,14 +195,20 @@ public:
   //! Separator species mass 
   double separatorMass_;
 
-  //! Separator area
+  //! Separator area (m2)
   double separatorArea_;
 
-  //! Separator thickness
+  //! Separator thickness (m)
   double separatorThickness_;
 
-  //! Separator diameter
+  //! Separator diameter (m)
   double separatorDiameter_;
+
+  //! Thickness of anode current collector (m)
+  double anodeCCThickness_;
+
+  //! Thickness of cathode current collector (m)
+  double cathodeCCThickness_;
 
   //! Flag to use Dakota I/O
   bool useDakota_;

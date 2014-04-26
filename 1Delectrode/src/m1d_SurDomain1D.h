@@ -647,8 +647,8 @@ public:
    *   @param vtDir    Variable type class. Note, general matches are allowed with this parameter
    *   Outputs
    *   @param BC_Type  Type of the boundary condition
-   *   @param value    Value of the dirichlet condition or flux - default 0.0
-   *   @param BC_TimeDep BoundaryCondition Pointers for time dependent BC for BC_Tppe = 3,4,5
+   *   @param value    Value of the Dirichlet condition or flux - default 0.0
+   *   @param BC_TimeDep BoundaryCondition Pointers for time dependent BC for BC_Type = 3,4,5
    *                   (default 0)
    *   @param TimeDep  Function pointer to a function that returns a double given a single parameter (the time).
    *                   Defaults to a NULL pointer.
@@ -808,6 +808,11 @@ public:
    *   3
    *   4
    *   5
+   *   6
+   *   7
+   *   8
+   *   9 
+   *  10  Robin boundary condition
    *
    *   Vector has length equal to the number of equations defined at the node
    */

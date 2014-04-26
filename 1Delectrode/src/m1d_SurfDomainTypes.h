@@ -23,94 +23,94 @@ class SDT_Dirichlet : public SurfDomainDescription
 {
 public:
 
-  //! Constructor
-  /*!
-   *   We construct the object but don't actually specify any Dirichlet conditions.
-   *   Later we can add dirichlet conditions into the object.
-   *
-   * @param dl_ptr  Domain Layout object that owns this description.
-   */
-  SDT_Dirichlet(DomainLayout *dl_ptr,  std::string domainName = "");
+    //! Constructor
+    /*!
+     *   We construct the object but don't actually specify any Dirichlet conditions.
+     *   Later we can add dirichlet conditions into the object.
+     *
+     * @param dl_ptr  Domain Layout object that owns this description.
+     */
+    SDT_Dirichlet(DomainLayout *dl_ptr,  std::string domainName = "");
 
-  //! In this constructor, we set all variables in
-  //! adjoining bulk domains to a single constant value
-  /*!
-   *  Note this specification isn't for all cases. Setting all values of all variables
-   *  to a single number must be considered to be a very, very special case.
-   *
-   * @param value    Value to set all boundary conditions to.
-   */
-  SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string domainName = "");
+    //! In this constructor, we set all variables in
+    //! adjoining bulk domains to a single constant value
+    /*!
+     *  Note this specification isn't for all cases. Setting all values of all variables
+     *  to a single number must be considered to be a very, very special case.
+     *
+     * @param value    Value to set all boundary conditions to.
+     */
+    SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string domainName = "");
 
-  //! Destructor
-  virtual
-  ~SDT_Dirichlet();
+    //! Destructor
+    virtual
+	~SDT_Dirichlet();
 
-  //! Copy Constructor
-  /*!
-   * @param r Object to be copied
-   */
-  SDT_Dirichlet(const SDT_Dirichlet &r);
+    //! Copy Constructor
+    /*!
+     * @param r Object to be copied
+     */
+    SDT_Dirichlet(const SDT_Dirichlet &r);
 
-  //! Assignment operator
-  /*!
-   * @param r    Object to be copied
-   * @return     Returns a changeable reference to the current object
-   */
-  SDT_Dirichlet &
-  operator=(const SDT_Dirichlet &r);
+    //! Assignment operator
+    /*!
+     * @param r    Object to be copied
+     * @return     Returns a changeable reference to the current object
+     */
+    SDT_Dirichlet &
+	operator=(const SDT_Dirichlet &r);
 
-  //! Add a Dirichlet Condition
-  /*!
-   *
-   * @param  equationID  Equation ID to apply the Dirichlet condition to
-   * @param  variableID  VariableID to apply the Dirichlet condition to
-   * @param  value  Value to apply
-   */
-  void
-  addDirichletCondition(EqnType equationID, VarType VariableID, double value);
+    //! Add a Dirichlet Condition
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the Dirichlet condition to
+     * @param  variableID  VariableID to apply the Dirichlet condition to
+     * @param  value  Value to apply
+     */
+    void
+	addDirichletCondition(EqnType equationID, VarType VariableID, double value);
 
-  //! Add a Dirichlet Condition, assuming the default mapping between variable
-  //! and equation ID.
-  /*!
-   * @param  variableID  VariableID to apply the Dirichlet condition to
-   * @param  value  Value to apply
-   */
-  void
-  addDirichletCondition(VarType VariableID, double value);
+    //! Add a Dirichlet Condition, assuming the default mapping between variable
+    //! and equation ID.
+    /*!
+     * @param  variableID  VariableID to apply the Dirichlet condition to
+     * @param  value  Value to apply
+     */
+    void
+	addDirichletCondition(VarType VariableID, double value);
 
-  //! Add a Dirichlet Condition with time dependent function pointer
-  /*!
-   *
-   * @param  equationID  Equation ID to apply the flux condition to
-   * @param  variableID  VariableID to apply the flux condition to
-   * @param  value  Value to apply
-   * @param  timeDep function pointer
-   */
-  void
-  addDirichletCondition(EqnType equationID, VarType VariableID, double value, double (*timeDep)(double));
+    //! Add a Dirichlet Condition with time dependent function pointer
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the flux condition to
+     * @param  variableID  VariableID to apply the flux condition to
+     * @param  value  Value to apply
+     * @param  timeDep function pointer
+     */
+    void
+    addDirichletCondition(EqnType equationID, VarType VariableID, double value, double (*timeDep)(double));
 
-  //! Add a Dirichlet Condition with BoundaryCondition class
-  /*!
-   *
-   * @param  equationID  Equation ID to apply the flux condition to
-   * @param  variableID  VariableID to apply the flux condition to
-   * @param  BC_Type boundary condition type 3, 4, 5  for const, stepTable, linearTable
-   * @param  BC_timeDep time dependent boundary condition pointer
-   */
-  void
-  addDirichletCondition(EqnType equationID, VarType VariableID, int BC_Type, BoundaryCondition * BC_timeDep);
+    //! Add a Dirichlet Condition with BoundaryCondition class
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the flux condition to
+     * @param  variableID  VariableID to apply the flux condition to
+     * @param  BC_Type boundary condition type 3, 4, 5  for const, stepTable, linearTable
+     * @param  BC_timeDep time dependent boundary condition pointer
+     */
+    void
+	addDirichletCondition(EqnType equationID, VarType VariableID, int BC_Type, BoundaryCondition * BC_timeDep);
 
-  //! Set the equation description
-  /*!
-   *  This routine is responsible for setting the variables:
-   *    - NumEquationsPerNode
-   *    - VariableNameList
-   *    - EquationNameList
-   *    - EquationIndexStart_EqName
-   */
-  virtual void
-  SetEquationDescription();
+    //! Set the equation description
+    /*!
+     *  This routine is responsible for setting the variables:
+     *    - NumEquationsPerNode
+     *    - VariableNameList
+     *    - EquationNameList
+     *    - EquationIndexStart_EqName
+     */
+    virtual void
+	SetEquationDescription();
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
@@ -183,77 +183,82 @@ class SDT_Mixed : public SDT_Dirichlet
 {
 public:
 
-  //! Constructor
-  /*!
-   *   We construct the object but don't actually specify any Dirichlet conditions.
-   *   Later we can add dirichlet conditions into the object.
-   *
-   * @param dl_ptr  Domain Layout object that owns this description.
-   */
-  SDT_Mixed(DomainLayout *dl_ptr, std::string domainName = "");
+    //! Constructor
+    /*!
+     *   We construct the object but don't actually specify any Dirichlet conditions.
+     *   Later we can add dirichlet conditions into the object.
+     *
+     * @param dl_ptr  Domain Layout object that owns this description.
+     */
+    SDT_Mixed(DomainLayout *dl_ptr, std::string domainName = "");
 
-  //! Destructor
-  virtual
-  ~SDT_Mixed();
+    //! Destructor
+    virtual
+	~SDT_Mixed();
 
-  //! Copy Constructor
-  /*!
-   * @param r Object to be copied
-   */
-  SDT_Mixed(const SDT_Mixed &r);
+    //! Copy Constructor
+    /*!
+     * @param r Object to be copied
+     */
+    SDT_Mixed(const SDT_Mixed &r);
 
-  //! Assignment operator
-  /*!
-   * @param r    Object to be copied
-   * @return     Returns a changeable reference to the current object
-   */
-  SDT_Mixed &
-  operator=(const SDT_Mixed &r);
+    //! Assignment operator
+    /*!
+     * @param r    Object to be copied
+     * @return     Returns a changeable reference to the current object
+     */
+    SDT_Mixed &operator=(const SDT_Mixed &r);
 
-  //! Add a flux Condition
-  /*!
-   *
-   * @param  equationID  Equation ID to apply the flux condition to
-   * @param  variableID  VariableID to apply the flux condition to
-   * @param  value  Value to apply
-   */
-  void
-    addFluxCondition(EqnType equationID, VarType VariableID, double value);
+    //! Add a flux Condition
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the flux condition to
+     * @param  variableID  VariableID to apply the flux condition to
+     * @param  value  Value to apply
+     */
+    void addFluxCondition(EqnType equationID, VarType VariableID, double value);
 
-  //! Add a flux Condition using time dependent continuous function
-  /*!
-   *
-   * @param  equationID  Equation ID to apply the flux condition to
-   * @param  variableID  VariableID to apply the flux condition to
-   * @param  value  Value to apply
-   */
-  void
-    addFluxCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double));
+    //! Add a flux Condition using time dependent continuous function
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the flux condition to
+     * @param  variableID  VariableID to apply the flux condition to
+     * @param  value  Value to apply
+     */
+    void addFluxCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double));
 
-  //! Add a flux Condition using Boundary Condition class
-  /*!
-   *
-   * @param  equationID  Equation ID to apply the flux condition to
-   * @param  variableID  VariableID to apply the flux condition to
-   * @param  value  Value to apply
-   */
-  void
+    //! Add a flux Condition using Boundary Condition class
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the flux condition to
+     * @param  variableID  VariableID to apply the flux condition to
+     * @param  value  Value to apply
+     */
+    void
     addFluxCondition(EqnType equationID, VarType variableID, int BC_Type, BoundaryCondition *BC_timeDep);
 
-  //! Malloc and Return the object that will calculate the residual efficiently
-  /*!
-   *
-   * @return  Returns a pointer to the object that will calculate the residual
-   *          efficiently
-   */
-  virtual SurDomain1D *
-  mallocDomain1D();
+    //! Add a Robin Mixed boundary Condition
+    /*!
+     *
+     * @param  equationID  Equation ID to apply the flux condition to
+     * @param  variableID  VariableID to apply the flux condition to
+     * @param  value  Value to apply
+     */
+    void addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition *BC_timeDep);
+	
+    //! Malloc and Return the object that will calculate the residual efficiently
+    /*!
+     *
+     * @return  Returns a pointer to the object that will calculate the residual
+     *          efficiently
+     */
+    virtual SurDomain1D* mallocDomain1D();
 
-  //! SBC type
-  /*!
-   *   value of zero here indicates that an inherited class handles all setup functions
-   */
-  int SBC_Type_;
+    //! SBC type
+    /*!
+     *   value of zero here indicates that an inherited class handles all setup functions
+     */
+    int SBC_Type_;
 
 };
 

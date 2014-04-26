@@ -41,53 +41,18 @@ class BoundaryCondition
 public:
 
     //!  Constructor.
-    BoundaryCondition() :
-            title_(""),
-            lowerLim_(-1.0 * BigNumber),
-            upperLim_(BigNumber),
-            indepUnits_(""),
-            depenUnits_(""),
-            step_(0),
-            stepMax_(0)
-    {
-    }
+    BoundaryCondition();
 
     //! Destructor.
-    virtual ~BoundaryCondition()
-    {
-        ;
-    }
+    virtual ~BoundaryCondition();
 
     //!  Copy Constructor.
-    BoundaryCondition(const BoundaryCondition &right) :
-            title_(""),
-            lowerLim_(-1.0 * BigNumber),
-            upperLim_(BigNumber),
-            indepUnits_(""),
-            depenUnits_(""),
-            step_(0),
-            stepMax_(0)
-    {
-        *this = right;
-    }
+    BoundaryCondition(const BoundaryCondition &right);
 
     //! Assignment operator
-    BoundaryCondition& operator=(const BoundaryCondition& right)
-    {
-        if (&right != this) {
-            return *this;
-        }
-        title_ = right.title_;
-        lowerLim_ = right.lowerLim_;
-        upperLim_ = right.upperLim_;
-        indepUnits_ = right.indepUnits_;
-        depenUnits_ = right.depenUnits_;
-        step_ = right.step_;
-        stepMax_ = right.stepMax_;
-        return *this;
-    }
+    BoundaryCondition& operator=(const BoundaryCondition& right);
 
-    //! return the dependent variable value given
+    //! Return the dependent variable value given
     //! the independent variable argument
     /*!
      *   @param indVar  Independentvariable
@@ -96,87 +61,70 @@ public:
      */
     virtual double value(double indVar, int interval = -1);
 
+    //! Returns the dependent variable given the time and the independent variable
+    /*!
+     *   @param time   Value of the time
+     *   @param indVar independent variable
+     *   @param interval  If greater than zero, then checking is done on the interval specified
+     *                    Also ties, i.e. numbers on the boundary go to the interval value.
+     *
+     *   @result   returns the value as a double.  
+     */
+    virtual double valueAtTime(double time, double indVar, int interval = -1);
+
+    //! Returns the dependent variable given the time and the vector of solution values present at the local node
+    /*!
+     *   @param time   Value of the time
+     *   @param solnVecNode  Vector of solution values at the current node
+     *   @param interval  If greater than zero, then checking is done on the interval specified
+     *                    Also ties, i.e. numbers on the boundary go to the interval value.
+     *
+     *   @result   returns the value as a double.  
+     */
+    virtual double valueAtTime_full(double time, double *solnVecNode, int interval = -1);
+
     //! return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
     /**
      * This is designed to guide grid generation and time stepping
      */
-    virtual double nextStep()
-    {
-        return err("BoundaryCondition::nextStep");
-    }
+    virtual double nextStep();
 
     //! reset the step counter to zero
-    void resetSteps()
-    {
-        step_ = 0;
-    }
+    void resetSteps();
 
     //! Write out the profile in tabular format.
-    virtual void writeProfile()
-    {
-    }
-    ;
+    virtual void writeProfile();
 
     //!lower limit of dependent variable for which BC applies
-    double lowerLimit()
-    {
-        return lowerLim_;
-    }
+    double lowerLimit();
 
     //!upper limit of dependent variable for which BC applies
-    double upperLimit()
-    {
-        return upperLim_;
-    }
+    double upperLimit();
 
     //! the string defining the independent variable units
-    std::string indepUnits()
-    {
-        return indepUnits_;
-    }
+    std::string indepUnits();
 
     //! the string defining the dependent variable units
-    std::string depenUnits()
-    {
-        return depenUnits_;
-    }
+    std::string depenUnits();
 
     //! return the title or name of boundary condition
-    std::string title()
-    {
-        return title_;
-    }
+    std::string title();
 
     //! set title or name of boundary condition
-    void setTitle(std::string name)
-    {
-        title_ = name;
-    }
+    void setTitle(std::string name);
 
     //!set lower limit of independent variable for which BC applies
-    void setLowerLimit(double indVal)
-    {
-        lowerLim_ = indVal;
-    }
+    void setLowerLimit(double indVal);
 
     //!set upper limit of independent variable for which BC applies
-    void setUpperLimit(double indVal)
-    {
-        upperLim_ = indVal;
-    }
+    void setUpperLimit(double indVal);
 
     //! set the string defining the independent variable units
-    void setIndepUnits(std::string unitString)
-    {
-        indepUnits_ = unitString;
-    }
+    void setIndepUnits(std::string unitString);
 
     //! set the string defining the dependent variable units
-    void setDepenUnits(std::string unitString)
-    {
-        depenUnits_ = unitString;
-    }
+    void setDepenUnits(std::string unitString);
 
 protected:
     //! title or name of boundary condition
@@ -211,11 +159,7 @@ protected:
      *                    So, if indVar is at a boundary, then the interval chose is
      *                    equal to the value of the interval variable.
      */
-    virtual int findStep(double indVar, int interval = -1)
-    {
-        err("BoundaryCondition::findStep");
-        return -1;
-    }
+    virtual int findStep(double indVar, int interval = -1);
 
     //! Error routine
     /*!
@@ -226,14 +170,7 @@ protected:
      *
      *  @return  returns a double, though we will never get there
      */
-    double err(std::string msg) const
-    {
-        throw CanteraError("BoundaryCondition Base Class\n", "**** Method " + msg + " not implemented\n");
-        return 0.0;
-    }
-
-private:
-
+    double err(std::string msg) const;
 };
 
 ////////////////////////////////////////////////////////////
