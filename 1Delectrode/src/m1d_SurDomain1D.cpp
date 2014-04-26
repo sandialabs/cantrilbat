@@ -199,17 +199,12 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
          *
          */
         NumDomainEqns = SDD_.NumEquationsPerNode;
-        /*
-         *   Figure out the node to apply the equation on
-         *   It is one node -> This can be done using base class level
-         */
-        NodalVars* node = LI_ptr_->NodalVars_LcNode[Index_LcNode];
 
         /*
          * Determine Index_NodalSD_
          */
-        for (int i = 0; i < node->NumSurfDomains; i++) {
-            int id = node->SurfDomainIndex_SDN[i];
+        for (int i = 0; i < NodalVarPtr->NumSurfDomains; i++) {
+            int id = NodalVarPtr->SurfDomainIndex_SDN[i];
             if (id == SDD_.ID()) {
                 Index_NodalSD_ = id;
                 break;
@@ -421,7 +416,8 @@ void SurDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vect
      *   Figure out the node to apply the equation on
      *   It is one node -> This can be done using base class level
      */
-    NodalVars* node = LI_ptr_->NodalVars_LcNode[Index_LcNode];
+    //  NodalVars* node = LI_ptr_->NodalVars_LcNode[Index_LcNode];
+    
     /*
      *  Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -432,7 +428,7 @@ void SurDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     /*
      *   Find the offset of this domain on the node
      */
-    int offsetSD = node->OffsetIndex_SurfDomainEqnStart_SDN[Index_NodalSD_];
+    int offsetSD = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[Index_NodalSD_];
     /*
      *   Find the number of equations actually owned by this surface domain
      */
@@ -478,10 +474,11 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    int eqnStart = nv->EqnStart_GbEqnIndex;
+    AssertTrace(NodalVarPtr == nv);
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
     Cantera::XML_Node& inlt = oNode.addChild("domain");
-    int numVar = nv->NumEquations;
+    int numVar = NodalVarPtr->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
     inlt.addAttribute("type", "surface");
@@ -534,6 +531,7 @@ SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
      */
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
     int numVar = nv->NumEquations;
 
     /*
@@ -585,6 +583,7 @@ void SurDomain1D::fillIsAlgebraic(Epetra_IntVector & isAlgebraic)
     // Get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
 
     int mySDD_ID = SDD_.ID();
 
@@ -629,6 +628,7 @@ void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
     // Get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
 
     int mySDD_ID = SDD_.ID();
 
@@ -702,6 +702,7 @@ void SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const
     // Get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
 
     int mySDD_ID = SDD_.ID();
 
@@ -767,6 +768,7 @@ void SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoef
     // Get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
 
     int mySDD_ID = SDD_.ID();
 
@@ -850,6 +852,7 @@ void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll *soln_GlAll_ptr
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
     int eqnStart = nv->EqnStart_GbEqnIndex;
 
     int numVar = nv->NumEquations;
@@ -983,6 +986,7 @@ void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
     int eqnStart = nv->EqnStart_GbEqnIndex;
     std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
@@ -1099,6 +1103,7 @@ void SurDomain1D::showSolutionIntVector(std::string& solnVecName, const Epetra_I
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
     int eqnStart = nv->EqnStart_GbEqnIndex;
     std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
@@ -1164,6 +1169,7 @@ void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Ep
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    AssertTrace(NodalVarPtr == nv);
     int eqnStart = nv->EqnStart_GbEqnIndex;
     std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
@@ -1479,7 +1485,6 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
                                 const double rdelta_t, const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
 {
     int ieqn;
-    double resistance;
     const Epetra_Vector &soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
@@ -1577,8 +1582,7 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
                 break;
             case 10: // cathode collector
                 val = Value_NE[i];
-                resistance = BC_TimeDep_NE[i]->value(t, timeRegion);
-                res[ieqn] -= resistance * (val - solnVal);
+                res[ieqn] -= BC_TimeDep_NE[i]->valueAtTime(t, val, timeRegion);
                 break;
             default:
                 throw m1d_Error("SDT_CathodeCollector::SetEquationDescription",

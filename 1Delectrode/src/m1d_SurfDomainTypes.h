@@ -58,7 +58,7 @@ public:
      * @return     Returns a changeable reference to the current object
      */
     SDT_Dirichlet &
-	operator=(const SDT_Dirichlet &r);
+    operator=(const SDT_Dirichlet &r);
 
     //! Add a Dirichlet Condition
     /*!
@@ -68,7 +68,7 @@ public:
      * @param  value  Value to apply
      */
     void
-	addDirichletCondition(EqnType equationID, VarType VariableID, double value);
+    addDirichletCondition(EqnType equationID, VarType VariableID, double value);
 
     //! Add a Dirichlet Condition, assuming the default mapping between variable
     //! and equation ID.
@@ -77,7 +77,7 @@ public:
      * @param  value  Value to apply
      */
     void
-	addDirichletCondition(VarType VariableID, double value);
+    addDirichletCondition(VarType VariableID, double value);
 
     //! Add a Dirichlet Condition with time dependent function pointer
     /*!
@@ -99,7 +99,7 @@ public:
      * @param  BC_timeDep time dependent boundary condition pointer
      */
     void
-	addDirichletCondition(EqnType equationID, VarType VariableID, int BC_Type, BoundaryCondition * BC_timeDep);
+    addDirichletCondition(EqnType equationID, VarType VariableID, int BC_Type, BoundaryCondition * BC_timeDep);
 
     //! Set the equation description
     /*!
@@ -171,6 +171,7 @@ public:
     *  7 Time Dependent pure flux using BCsteptable
     *  8 Time Dependent Dirichlet using BClineartable
     *  9 Time Dependent pure flux using BClineartable
+    * 10 Robin boundary condition (time dependent boundary condition [ flux = h (T - T0) ]
     */
    std::vector<int> BC_Type_;
 };
@@ -193,8 +194,7 @@ public:
     SDT_Mixed(DomainLayout *dl_ptr, std::string domainName = "");
 
     //! Destructor
-    virtual
-	~SDT_Mixed();
+    virtual ~SDT_Mixed();
 
     //! Copy Constructor
     /*!
@@ -259,9 +259,7 @@ public:
      *   value of zero here indicates that an inherited class handles all setup functions
      */
     int SBC_Type_;
-
 };
 
 }
-
 #endif /* M1D_SURFDOMAINTYPES_H_ */

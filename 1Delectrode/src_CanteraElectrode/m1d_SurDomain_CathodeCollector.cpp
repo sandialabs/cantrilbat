@@ -175,6 +175,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
       ieqn = index_EqnStart + i;
       double solnVal = soln[ieqn];
       double val = Value_NE[i];
+
       switch (BC_Type_NE[i]) {
       case 0:
 	/*
@@ -182,6 +183,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
 	 */
 	res[ieqn] = val - solnVal;
 	break;
+
       case 1:
 	/*
 	 *  For flux boundary conditions, subtract from equation indicating a flux out
@@ -189,12 +191,14 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
 	res[ieqn] += val;
 	//CAL: WARNING m1d_SurDomain1D.cpp has -= val
 	break;
+
       case 2:
 	/*
 	 *  For Dirichlet boundary conditions with oscillation, replace the equation
 	 */
 	res[ieqn] = val * TimeDep_NE[i](t) - solnVal;
 	break;
+
       case 3:
 	/*
 	 *  For flux boundary conditions with oscillation, replace the equation
@@ -202,6 +206,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
 	//CAL: WARNING m1d_SurDomain1D.cpp has -= val
 	res[ieqn] += val * TimeDep_NE[i](t);
 	break;
+
       case 4: // voltage BCconstant
       case 6: // voltage BCsteptable
       case 8: // voltage BClineartable
@@ -210,6 +215,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
 	 */
 	res[ieqn] = BC_TimeDep_NE[i]->value(t, timeRegion) - solnVal;
 	break;
+
       case 5: // current BCconstant
       case 7: // current BCsteptable
       case 9: // current BClineartable
@@ -219,6 +225,11 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
 	//CAL: WARNING m1d_SurDomain1D.cpp has -= val
 	res[ieqn] += BC_TimeDep_NE[i]->value(t, timeRegion);
 	break;
+
+      case 10:  // Collector constant current with collector plat resistance
+	res[ieqn] += BC_TimeDep_NE[i]->valueAtTime(t, val, timeRegion);
+        break;
+
       default:
 	throw m1d_Error("SurDomain_CathodeCollector::residEval",
                         "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");

@@ -126,11 +126,12 @@ public:
    *     7 - specify time dependent current BoundaryCondition BCsteptable
    *     8 - specify time dependent voltage BoundaryCondition BClineartable
    *     9 - specify time dependent current BoundaryCondition BClineartable
+   *    10 - Cathode Collector - robin boundary condition
    */
   int cathodeBCType_;
 
   //! Provides XML formatted input for the boundary condition specified on the cathode.  Only relevant for cathodeBCType_ = 6, 7, 8 or 9. 
- /*!
+  /*!
    * For cathodeBCType_ = 6 or 7 the voltage or current 
    * is specified as a step function with value given 
    * held until the next time value.  See class BCsteptable.
@@ -187,7 +188,7 @@ public:
   std::string electrolytePhase_;
 
   //! Mole fractions of electrolyte
-  double * electrolyteMoleFracs_;
+  double* electrolyteMoleFracs_;
 
   //! Name of Separator species
   std::string separatorPhase_;

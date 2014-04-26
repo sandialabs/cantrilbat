@@ -782,8 +782,6 @@ public:
    */
   std::vector<double> Value_NE;
 
- 
-
   //! Function Pointers for time dependent BC for BC_Type_NE = 2
   /*!
    *   Vector has length equal to the number of equations defined at the node
@@ -817,8 +815,6 @@ public:
    *   Vector has length equal to the number of equations defined at the node
    */
   std::vector<int> BC_Type_NE;
-
-
 
 };
 

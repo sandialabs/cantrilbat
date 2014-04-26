@@ -143,6 +143,9 @@ public:
   //! voltage electrode
   double phiAnode_;
 
+  //! Voltage at the edge of the anode current collector
+  double phiAnodeCC_;
+
   //! current at the collector
   double icurrCollector_;
 

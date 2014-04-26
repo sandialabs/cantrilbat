@@ -170,6 +170,36 @@ double BoundaryCondition::err(std::string msg) const
     return 0.0;
 }
 //============================================================================================================
+BCconstant::BCconstant(double value, std::string titleName, std::string indepUnits,
+		       std::string depenUnits) :
+    BoundaryCondition(),
+    dependentVal_(value)
+{
+    setTitle(titleName);
+    setIndepUnits(indepUnits);
+    setDepenUnits(depenUnits);
+        stepMax_ = 1;
+}
+//============================================================================================================
+BCconstant::~BCconstant()
+{
+}
+//============================================================================================================
+double BCconstant::value(double indVar, int interval)
+{
+    return dependentVal_;
+}
+//============================================================================================================
+double BCconstant::nextStep()
+{
+    if (step_ < stepMax_) {
+	++step_;
+	return upperLim_;
+    } else {
+	return -1;
+    }
+}
+//============================================================================================================
 ////////////////////////////////////////////////////////////
 // class BCsteptable
 ////////////////////////////////////////////////////////////
@@ -227,6 +257,10 @@ BCsteptable::BCsteptable(XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
+}
+//=====================================================================================================================
+BCsteptable::~BCsteptable()
+{
 }
 //=====================================================================================================================
 // fill independent and dependent values from XML_Node
@@ -409,6 +443,10 @@ BClineartable::BClineartable(XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
+}
+//=====================================================================================================================
+BClineartable::~BClineartable()
+{
 }
 //=====================================================================================================================
 // fill independent and dependent values from XML_Node

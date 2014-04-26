@@ -183,19 +183,9 @@ class BCconstant: public BoundaryCondition
 public:
 
     BCconstant(double value = 0.0, std::string titleName = "BCtitle", std::string indepUnits = "unknownUnits",
-               std::string depenUnits = "unknownUnits") :
-            BoundaryCondition(),
-            dependentVal_(value)
-    {
-        setTitle(titleName);
-        setIndepUnits(indepUnits);
-        setDepenUnits(depenUnits);
-        stepMax_ = 1;
-    }
+               std::string depenUnits = "unknownUnits");
 
-    ~BCconstant()
-    {
-    }
+    virtual ~BCconstant();
 
     //! Return the dependent variable value given the independent variable argument
     /*!
@@ -203,10 +193,7 @@ public:
      *   @param interval If greater than zero, then checking is done on the interval specified
      *                   Also ties, i.e. numbers on the boundary go to the interval value.
      */
-    virtual double value(double indVar, int interval = -1)
-    {
-        return dependentVal_;
-    }
+    virtual double value(double indVar, int interval = -1);
 
     //! return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
@@ -214,21 +201,12 @@ public:
      * This is designed to guide grid generation and time stepping.
      * For this constant BC subclass, this provides no real information.
      */
-    virtual double nextStep()
-    {
-        if (step_ < stepMax_) {
-            ++step_;
-            return upperLim_;
-        } else {
-            return -1;
-        }
-    }
+    virtual double nextStep();
 
 protected:
 
-    //The fixed dependent variable
+    //!      The fixed dependent variable
     double dependentVal_;
-
 };
 
 /**
@@ -244,7 +222,6 @@ protected:
  */
 class BCsteptable: public BoundaryCondition
 {
-
 public:
 
     BCsteptable(vector_fp indValue, vector_fp depValue, vector_fp compareVals_, std::string titleName = "BCsteptable",
@@ -257,10 +234,7 @@ public:
     BCsteptable(XML_Node& node);
 
     //! destructor
-    virtual ~BCsteptable()
-    {
-        ;
-    }
+    virtual ~BCsteptable();
 
     //! fill independent and dependent values from XML_Node
     void useXML(XML_Node& node);
@@ -334,10 +308,7 @@ public:
     BClineartable(XML_Node& node);
 
     //! destructor
-    virtual ~BClineartable()
-    {
-
-    }
+    virtual ~BClineartable();
 
     //! fill independent and dependent values from XML_Node
     void useXML(XML_Node& node);

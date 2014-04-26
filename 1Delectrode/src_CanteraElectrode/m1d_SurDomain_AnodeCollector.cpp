@@ -29,8 +29,10 @@ namespace m1d
 {
 //=====================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription &sdd, int problemType) :
-  SurBC_Dirichlet(sdd), bedd_(0), phiElectrolyte_(0.0), phiAnode_(0.0), icurrCollector_(0.0)
-
+  SurBC_Dirichlet(sdd), bedd_(0), phiElectrolyte_(0.0), 
+  phiAnode_(0.0),
+  phiAnodeCC_(0.0), 
+  icurrCollector_(0.0)
 {
   //! Determine bedd_
   //       use SurfDomainDescription &SDD_;
@@ -45,7 +47,10 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription &sdd, i
 }
 //=====================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(const SurDomain_AnodeCollector &r) :
-  SurBC_Dirichlet(r.SDD_), bedd_(0), phiElectrolyte_(0.0), phiAnode_(0.0), icurrCollector_(0.0)
+  SurBC_Dirichlet(r.SDD_), bedd_(0), phiElectrolyte_(0.0), 
+  phiAnode_(0.0), 
+  phiAnodeCC_(0.0), 
+  icurrCollector_(0.0)
 {
   operator=(r);
 }
@@ -73,6 +78,7 @@ SurDomain_AnodeCollector::operator=(const SurDomain_AnodeCollector &r)
   bedd_ = r.bedd_;
   phiElectrolyte_ = r.phiElectrolyte_;
   phiAnode_ = r.phiAnode_;
+  phiAnodeCC_ = r.phiAnodeCC_;
   icurrCollector_ = r.icurrCollector_;
 
   return *this;
@@ -201,6 +207,11 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector &res,
 	   */
 	  res[ieqn] -= BC_TimeDep_NE[i]->value(t);
 	  break;
+ 
+        case 10: // Anode collector plate at constant voltage
+	  res[ieqn] -= BC_TimeDep_NE[i]->valueAtTime(t, val);
+          break;
+
 	default:
 	  throw m1d_Error("SurDomain_AnodeCollector::residEval", 
 			  "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence"); 

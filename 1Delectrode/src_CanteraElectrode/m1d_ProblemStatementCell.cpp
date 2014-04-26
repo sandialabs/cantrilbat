@@ -46,7 +46,7 @@ ProblemStatementCell::ProblemStatementCell() :
   anodeFile_("anode.inp"), cathodeFile_("cathode.inp"),
   electrolytePhase_("LiKCl_electrolyte"), separatorPhase_("MgO"),
   separatorMass_(0.0), separatorArea_(-1.0),
-  separatorThickness_(70E-6), 
+  separatorThickness_(70.0E-6), 
   separatorDiameter_(-1.0),
   anodeCCThickness_(0.0),
   cathodeCCThickness_(0.0),
@@ -323,7 +323,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   BE_UnitConversion *ucL2 = new BE_UnitConversionLength();
   reqd = 0;
   LE_OneDblUnits *d5 = new LE_OneDblUnits("Separator Thickness", &(separatorThickness_), reqd, "separatorThickness", ucL2);
-  d5->set_default(1.0);
+  d5->set_default(70.0E-6);
   cf->addLineEntry(d5);
 
   /* -------------------------------------------------------------------------
