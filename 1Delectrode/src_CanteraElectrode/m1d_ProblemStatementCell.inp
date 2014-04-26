@@ -163,7 +163,7 @@ Separator Mass = 0.01 kg
 !         I'm not sure this is used. The cross-sectional areas of the three regions must be equal
 !         The separator area is assumed to be equal to anode and cathode areas which is input
 !---------------------------------------------------------------------------------------------------------
-!  Separator Area = 1.0E-8 
+!  Separator Area = 1.0E-4 
 !---------------------------------------------------------------------------------------------------------
 !
 !     Separator Thickness - double [m] optional (default = 70.0E-6)
@@ -171,45 +171,84 @@ Separator Mass = 0.01 kg
 !---------------------------------------------------------------------------------------------------------
 Separator Thickness = 70.0E-6
 !---------------------------------------------------------------------------------------------------------
-
-
-
-
+!
+!     Separator Diameter - double [m] optional (default = -1.0)
+!
 !---------------------------------------------------------------------------------------------------------
+! Separator Diameter = 0.01 m
 !---------------------------------------------------------------------------------------------------------
+!
+!   Anode Current Collector Thickness - double [m] optional (default = 0.0)
+!
+!        If this option is turned on, the boundary condition for constant voltage conditions is changed.
+!        The boundary condition is turned into a Robin boundary condition. 
+!        The default resistance of the anode current collector is taken to be the resistance of copper.
 !---------------------------------------------------------------------------------------------------------
+! Anode Current Collector Thickness = 0.01 m
 !---------------------------------------------------------------------------------------------------------
+!
+!   Cathode Current Collector Thickness - double [m] optional (default = 0.0)
+!
+!        If this option is turned on, the boundary condition for constant voltage conditions is changed.
+!        The boundary condition is turned into a Robin boundary condition.
+!        The default resistance of cathode current collector is taken to be the resistance of aluminum. 
 !---------------------------------------------------------------------------------------------------------
+! Anode Current Collector Thickness = 0.01 m
 !---------------------------------------------------------------------------------------------------------
+!
+!     Separator Diameter - double [m] optional (default = -1.0)
+!
 !---------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+! Separator Diameter = 0.01 m
+!---------------------------------------------------------------------------------------------------------
+!
+!   Number of CVs in Anode Domain - int optional (default = 10)
+!
+!         If the is not input, then the default is used
+!---------------------------------------------------------------------------------------------------------
+ Number of CVs in Anode Domain =10
+!---------------------------------------------------------------------------------------------------------
+!
+!   Number of CVs in Separator Domain - int optional (default = 10)
+!
+!         If the is not input, then the default is used
+!---------------------------------------------------------------------------------------------------------
+ Number of CVs in Separator Domain =10
+!---------------------------------------------------------------------------------------------------------
+!
+!   Number of CVs in Cathode Domain - int optional (default = 10)
+!
+!         If the is not input, then the default is used
+!---------------------------------------------------------------------------------------------------------
+ Number of CVs in Cathode Domain =10
+!---------------------------------------------------------------------------------------------------------
+!
+!  Maximum Number of Subcycle Steps per Global Steps  - int optional (default = 100)
+!
+!---------------------------------------------------------------------------------------------------------
+Maximum Number of Subcycle Steps per Global Steps = 100
+!---------------------------------------------------------------------------------------------------------
+!
+!  Use Dakota Interface = bool, optional (default = false)
+!     
+!---------------------------------------------------------------------------------------------------------
+! Use Dakota Interface = false
+!---------------------------------------------------------------------------------------------------------
+!
+!   Dakota Parameters File Name
+!
+!      Name of file name to receive parameters from Dakota
+!      Dakota Parameters File Name = params.in
+!---------------------------------------------------------------------------------------------------------
+! Dakota Parameters File Name = params.in
+!---------------------------------------------------------------------------------------------------------
+!
+!   Dakota Results File Name
+!
+!      Name of file name to send results to Dakota
+!      Dakota Results File Name = results.out
+!---------------------------------------------------------------------------------------------------------
+! Dakota Results File Name = results.out
+!---------------------------------------------------------------------------------------------------------
 
 

@@ -384,20 +384,19 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   cf->addLineEntry(iCVS);
 
   /* -------------------------------------------------------------------------------------------------------------------
-   * Maximum Number of subcycle stesps per global steps
+   * Maximum Number of subcycle steps per global steps
    *     - optional
    *     default = 100;
    */ 
   reqd = 0;
   LE_OneInt *iMAX_SG = new LE_OneInt("Maximum Number of Subcycle Steps per Global Steps", &maxSubgridTimeStepsPerGlobalTimeStep_,
 				     reqd, "maxSubgridTimeStepsPerGlobalTimeStep");
-
   iMAX_SG->set_default(100);
   iMAX_SG->set_limits(10000, 1);
   cf->addLineEntry(iMAX_SG);
 
 
-  /******** DAKOTA INTERFACE ********/
+  /************************************ DAKOTA INTERFACE ********************************************/
   /* -------------------------------------------------------------------------
    * Use Dakota interface = TRUE
    */
@@ -417,7 +416,6 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   s5->set_default("params.in");
   cf->addLineEntry(s5);
 
-
   /* ------------------------------------------------------------------------
    * Name of file name to send results to Dakota
    * Dakota Results File Name = results.out
@@ -429,10 +427,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   s6->set_default("results.out");
   cf->addLineEntry(s6);
 
-
-
   BaseEntry::set_SkipUnknownEntries(false);
-
 }
 //=====================================================================================================================
 /**
