@@ -94,6 +94,10 @@ Discharge Current = 1.0 amps / cm2
 !         cathode voltage. For a problem type of 1, this value is used to
 !         set the initial condition of the cathode voltage.
 !
+!         When there is a nonzero cathode collector thickness or when there is an extra 
+!         resistance added to the cathode in series, the voltage specified here is the voltage
+!         of the cathode current collector and/or on the other side of the extra resistance.
+!
 !---------------------------------------------------------------------------------------------------------
 Cathode Voltage = 3.0
 !---------------------------------------------------------------------------------------------------------
@@ -192,8 +196,23 @@ Separator Thickness = 70.0E-6
 !        If this option is turned on, the boundary condition for constant voltage conditions is changed.
 !        The boundary condition is turned into a Robin boundary condition.
 !        The default resistance of cathode current collector is taken to be the resistance of aluminum. 
+!
 !---------------------------------------------------------------------------------------------------------
 ! Cathode Current Collector Thickness = 0.01 m
+!---------------------------------------------------------------------------------------------------------
+!
+!   Extra Series Resistance on Cathode - double [Ohms]  optional (default = 0.0)
+!
+!       When this option is selected a resistor is put in series with the cathode current collector.
+!       The resistor is in terms of ohms. Therefore, the cross sectional area of the battery is multiplied
+!       into this number within the battery.
+!
+!     icurr = (Vcath - V_cathCC) / ((resistivity_al * cc_thick) + ExtraResistance * ElectrodeCrossSectionArea)
+!
+!       If a closed loop condition is required, then set V_cathCC to zero.
+!
+!---------------------------------------------------------------------------------------------------------
+! Extra Resistance in Series with Cathode = 0.0 ohms
 !---------------------------------------------------------------------------------------------------------
 !
 !     Separator Diameter - double [m] optional (default = -1.0)

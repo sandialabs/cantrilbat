@@ -770,7 +770,7 @@ public:
   //int NumNodeEqns;
 
   //! Boolean flag indicating which variables at the node are being specified
-  //! with Dirichlet conditions
+  //! with Dirichlet conditions or with other boundary conditions such as flux conditions.
   /*!
    *   Vector has length equal to the number of equations defined at the node
    */

@@ -38,6 +38,33 @@ protected:
     double thickness_;
 };
 
+//!  Boundary condition to apply to the current equation that takes into
+//!  account of the resistance of the current collector
+class BC_cathodeCC: public BoundaryCondition
+{
+
+public:
+
+    BC_cathodeCC(double thickness, double extraResistance, double electrodeCrossSectionalArea,
+                 double cathodeCC_volts);
+    BC_cathodeCC(const BC_cathodeCC& right);
+    virtual ~BC_cathodeCC();
+    BC_cathodeCC& operator=(const BC_cathodeCC& right);
+
+    virtual double valueAtTime(double time, double voltsCathode, int interval);
+
+protected:
+
+    double cathodeCC_volts_;
+
+    double thickness_;
+
+    double extraResistance_;
+
+    double electrodeCrossSectionalArea_;
+};
+
+
 } //namespace m1d
 
 #endif // M1D_BOUNDARYCONDITION

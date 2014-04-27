@@ -65,5 +65,54 @@ double BC_anodeCC::valueAtTime(double time, double voltsAnode, int interval)
     return val; 
 }
 //=====================================================================================================================
+//=====================================================================================================================
+
+BC_cathodeCC::BC_cathodeCC(double thickness, double extraResistance, double electrodeCrossSectionalArea,
+                           double cathodeCC_volts) :
+        BoundaryCondition(),
+        cathodeCC_volts_(cathodeCC_volts),
+        thickness_(thickness),
+        extraResistance_(extraResistance),
+        electrodeCrossSectionalArea_(electrodeCrossSectionalArea)
+{
+}
+//=====================================================================================================================
+BC_cathodeCC::~BC_cathodeCC()
+{
+}
+//=====================================================================================================================
+BC_cathodeCC::BC_cathodeCC(const BC_cathodeCC& right) :
+   BoundaryCondition(right),
+   cathodeCC_volts_(right.cathodeCC_volts_),
+   thickness_(right.thickness_),
+   extraResistance_(right.extraResistance_),
+   electrodeCrossSectionalArea_(right.electrodeCrossSectionalArea_)
+{
+}
+//=====================================================================================================================
+BC_cathodeCC& BC_cathodeCC::operator=(const BC_cathodeCC& right)
+{
+   if (&right == this) {
+     return *this;
+   }
+   BoundaryCondition::operator=(right);
+   cathodeCC_volts_=right.cathodeCC_volts_;
+   thickness_=right.thickness_;
+   extraResistance_ = right.extraResistance_;
+   electrodeCrossSectionalArea_ = right.electrodeCrossSectionalArea_;
+
+   return *this;
+}
+//=====================================================================================================================
+double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval)
+{
+    double resistivity = resistivity_aluminum(298.);
+    double denom = resistivity * thickness_ + extraResistance_ * electrodeCrossSectionalArea_;
+    denom = std::max(denom, 1.0E-11);
+    double val = (voltsCathode - cathodeCC_volts_) / denom;
+    return val;
+}
+
+//=====================================================================================================================
 }//namespace m1d
 //=====================================================================================================================

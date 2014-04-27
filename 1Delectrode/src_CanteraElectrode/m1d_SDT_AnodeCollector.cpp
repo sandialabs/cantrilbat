@@ -98,11 +98,7 @@ SDT_AnodeCollector::SetEquationDescription()
        if (anodeCCThickness_ > 0.0) {
 
 	   BoundaryCondition* BC_timeDep = new BC_anodeCC(anodeCCThickness_ , 0.0);
-
-	   
 	   addRobinCondition(e1, v1, BC_timeDep);
-
-
        } else {
 	   
        }

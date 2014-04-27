@@ -52,6 +52,7 @@ ProblemStatementCell::ProblemStatementCell() :
   separatorDiameter_(-1.0),
   anodeCCThickness_(0.0),
   cathodeCCThickness_(0.0),
+  extraCathodeResistance_(0.0),
   useDakota_(false),
   maxSubgridTimeStepsPerGlobalTimeStep_(100),
   fromDakotaFileName_("params.in"), toDakotaFileName_("results.out"),
@@ -190,6 +191,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
    *     7 - specify time dependent current BoundaryCondition BCsteptable
    *     8 - specify time dependent voltage BoundaryCondition BClineartable
    *     9 - specify time dependent current BoundaryCondition BClineartable
+   *    10 - Extra resistance or closed-loop boundary condition
    */
   reqd = 1;
   LE_OneInt *i2 = new LE_OneInt("Cathode BC Type", &(cathodeBCType_), reqd, "cathode_bc_type");
@@ -361,6 +363,15 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   dccc->set_default(0.0);
   cf->addLineEntry(dccc);
 
+  /* ------------------------------------------------------------------------------------------------------------------
+   *  Extra Resistance in Series with Cathode
+   */
+  reqd = 0;
+  LE_OneDblUnits *derc = new LE_OneDblUnits("Extra Resistance in Series with Cathode", 
+					    &(extraCathodeResistance_), reqd, "extraCathodeResistance");
+  derc->set_default(0.0);
+  cf->addLineEntry(derc);
+
   /* -------------------------------------------------------------------------------------------------------------------
    * Number of control volumes in anode
    */
@@ -487,6 +498,13 @@ ProblemStatementCell::post_process_input()
          anodeBCType_ = 10;
      }
   }
+
+  if (cathodeCCThickness_ > 0.0 ||  extraCathodeResistance_ > 0.0) {
+     if (cathodeBCType_ == 0) {
+         cathodeBCType_ = 10;
+     }
+  }
+
   /**
    * If we are using time dependent boundary conditions,
    * read in appropriate XML files and generate BoundaryConditions.

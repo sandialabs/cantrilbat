@@ -218,6 +218,14 @@ public:
   //! Thickness of cathode current collector (m)
   double cathodeCCThickness_;
 
+  //! Extra resistance put in series with the cathode (ohms)
+  /*!
+   *  Note the effective resistance for the battery stack is
+   *
+   *     extraCathodeResistance_ * electrodeCrossSection
+   */
+  double extraCathodeResistance_;
+
   //! Flag to use Dakota I/O
   bool useDakota_;
 

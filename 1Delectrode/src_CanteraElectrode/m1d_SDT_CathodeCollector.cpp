@@ -10,6 +10,7 @@
 #include "m1d_SurDomain_CathodeCollector.h"
 
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_BC_Battery.h"
 
 extern m1d::ProblemStatementCell PSinput;
 
@@ -18,11 +19,22 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
-  SDT_Mixed(dl_ptr,domainName), m_position(pos), voltageVarBCType_(0), icurrCathodeSpecified_(0.0), voltageCathodeSpecified_(1.9)
+  SDT_Mixed(dl_ptr,domainName), 
+  m_position(pos), 
+  voltageVarBCType_(0), 
+  icurrCathodeSpecified_(0.0), 
+  voltageCathodeSpecified_(1.9),
+  cathodeCCThickness_(0.0),
+  extraResistanceCathode_(0.0) 
 {
 
   voltageVarBCType_ = PSinput.cathodeBCType_;
   icurrCathodeSpecified_ = PSinput.icurrDischargeSpecified_;
+
+
+  cathodeCCThickness_ = PSinput.cathodeCCThickness_;
+  extraResistanceCathode_ = PSinput.extraCathodeResistance_;
+
 
   /*
    *  Add an equation for this surface domain
@@ -90,6 +102,13 @@ SDT_CathodeCollector::SetEquationDescription()
   BoundaryCondition* BC_timeDep = PSinput.BC_TimeDep_;
   EqnType e1(Current_Conservation, 2, "Cathode Current Conservation");
   VarType v1(Voltage, 2, "CathodeVoltage");
+  double area = PSinput.cathode_input_->electrodeGrossArea;
+  if (voltageVarBCType_ == 10) { 
+       delete BC_timeDep;
+  BC_timeDep = new BC_cathodeCC(cathodeCCThickness_, extraResistanceCathode_,
+                                                       area, voltageCathodeSpecified_);
+ }
+
   switch (voltageVarBCType_)
     {
     case 0:
@@ -114,6 +133,9 @@ SDT_CathodeCollector::SetEquationDescription()
     case 9:
       addFluxCondition(e1, v1, voltageVarBCType_, BC_timeDep);
       break;
+    case 10:
+         addRobinCondition(e1, v1, BC_timeDep);
+         break;
     default:
       throw m1d_Error("SDT_CathodeCollector::SetEquationDescription", 
 		      "voltageVarBCType not 0, 1, 2 for Dirichlet, Neumann, or Diriclet with sin oscillation" );

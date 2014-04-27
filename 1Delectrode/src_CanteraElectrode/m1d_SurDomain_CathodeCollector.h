@@ -107,6 +107,35 @@ public:
   void
   getVoltages(const double * const solnElectrolyte);
 
+  //! Base class for writing the solution on the domain to a logfile.
+  /*!
+   *
+   * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
+   * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
+   * @param soln_ptr             Pointer to the solution vector
+   * @param solnDot_ptr          Pointer to the time derivative of the solution vector
+   * @param solnOld_ptr          Pointer to the solution vector at the old time step
+   * @param residInternal _ptr   Pointer to the current value of the residual just calculated
+   *                             by a special call to the residEval()
+   * @param t                    time
+   * @param rdelta_t             The inverse of the value of delta_t
+   * @param indentSpaces         Indentation that all output should have as a starter
+   * @param duplicateOnAllProcs  If this is true, all processors will include
+   *                             the same log information as proc 0. If
+   *                             false, the loginfo will only exist on proc 0.
+   */
+  virtual void
+  showSolution(const Epetra_Vector *soln_GlAll_ptr,
+               const Epetra_Vector *solnDot_GlAll_ptr,
+               const Epetra_Vector *soln_ptr,
+               const Epetra_Vector *solnDot_ptr,
+               const Epetra_Vector *solnOld_ptr,
+               const Epetra_Vector_Owned *residInternal_ptr,
+               const double t,
+               const double rdelta_t,
+               int indentSpaces,
+               bool duplicateOnAllProcs = false);
+
   //! Generate the initial conditions
   /*!
    *   For surface dirichlet conditions, we impose the t = 0- condition.
@@ -127,6 +156,25 @@ public:
                     const double t,
                     const double delta_t);
 
+  //! Class for saving the solution on the domain in an xml node.
+  /*!
+   *
+   * @param oNode                Reference to the XML_Node
+   * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+   * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+   * @param t                    time
+   *
+   * @param duplicateOnAllProcs  If this is true, all processors will include
+   *                             the same XML_Node information as proc 0. If
+   *                             false, the xml_node info will only exist on proc 0.
+   */
+  virtual void
+  saveDomain(Cantera::XML_Node& oNode,
+             const Epetra_Vector *soln_GlAll_ptr,
+             const Epetra_Vector *solnDot_GlAll_ptr,
+             const double t,
+             bool duplicateOnAllProcs = false);
+
   // ******************************************************************************
   //  Member Data for this boundary condition
   // ******************************************************************************
@@ -142,8 +190,25 @@ public:
   //! voltage of the electrode
   double phiCathode_;
 
+  double phiCathodeCC_;
+
   //! current at the collector
   double icurrCollector_;
+
+  //! Thickness of the aluminum cathode current collector
+  /*!
+   *  Units = meters
+   */
+  double CCThickness_;
+
+  //! Extra cathode resistance put onto the whole battery
+  /*!
+   *  Effective resitance = 
+   *
+   *  Units = ohms
+   */
+  double extraCathodeResistance_;
+
 };
 
 //==================================================================================

@@ -91,6 +91,8 @@ public:
   /*!
    *   0 specify the voltage
    *   1 specify the current
+   *
+   *  10 Set a Robin boundary condition ---   current = R_anodeCC (v_acc - vanode)
    */
   int voltageVarBCType_;
 
@@ -104,7 +106,17 @@ public:
    */
   double icurrCathodeSpecified_;
 
+  //! Specified voltage at the cathode and sometimes at the cathode current collector
   double voltageCathodeSpecified_;
+
+  //!  Thickness of the anode current collector
+  double cathodeCCThickness_;
+
+  //! Extra resistance
+  /*!
+   *    units ohms
+   */
+  double extraResistanceCathode_;
 
   //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
   friend class SurDomain_CathodeCollector;

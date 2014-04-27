@@ -196,9 +196,10 @@ public:
   //! Voltage at the edge of the anode current collector
   double phiAnodeCC_;
 
-  //! current at the collector
+  //! Current at the collector
   double icurrCollector_;
 
+  //! Thickness of the copper anode current collector
   double CCThickness_;
 
 };
