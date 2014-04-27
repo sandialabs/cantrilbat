@@ -39,7 +39,9 @@ namespace m1d
 ProblemStatementCell::ProblemStatementCell() :
   ProblemStatement(), 
   NumberCanteraFiles(0), CanteraFileNames(0),
-  cathodeBCType_(0), cathodeBCFile_("BC.xml"),
+  anodeBCType_(0), 
+  cathodeBCType_(0), 
+  cathodeBCFile_("BC.xml"),
   icurrDischargeSpecified_(1.0),
   CathodeVoltageSpecified_(1.9),
   rootFinderForConstantCurrent_(0),
@@ -476,16 +478,22 @@ ProblemStatementCell::post_process_input()
  
 
   // Next check to see if we have area or diameter for each layer
-  if ( !( separatorArea_ > 0.0 ) ) {
+  if (!(separatorArea_ > 0.0)) {
       std::cout << "Warning::ProblemStatementCell() : separator area or diameter not specified" << std::endl;
+  } 
+
+  if (anodeCCThickness_ > 0.0) {
+     if (anodeBCType_ == 0) {
+         anodeBCType_ = 10;
+     }
   }
   /**
    * If we are using time dependent boundary conditions,
    * read in appropriate XML files and generate BoundaryConditions.
    * Note that an alternate means of generating these objects is with an XML node
    */
-  if ( cathodeBCType_ == 6 || cathodeBCType_ == 7 ) {
-    BC_TimeDep_ = new BCsteptable( cathodeBCFile_ );
+  if (cathodeBCType_ == 6 || cathodeBCType_ == 7 ) {
+      BC_TimeDep_ = new BCsteptable( cathodeBCFile_ );
   }
   if ( cathodeBCType_ == 8 || cathodeBCType_ == 9 ) {
     BC_TimeDep_ = new BClineartable( cathodeBCFile_ );

@@ -135,7 +135,7 @@ Maximum Time Step = 1.0
 !  Simulation minimum time step
 !
 !---------------------------------------------------------------------------------------
-Maximum Time Step = 1.0E-12
+Minimum Time Step = 1.0E-12
 !---------------------------------------------------------------------------------------
 !
 !     Number of initial time steps to take where the

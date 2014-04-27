@@ -9,11 +9,7 @@
  * may require a license from the United States Government.
  */
 
-
-
-
 #include "FuncElectrodeCurrent.h"
-
 
 using namespace std;
 using namespace Cantera;

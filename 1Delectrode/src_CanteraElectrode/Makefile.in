@@ -21,7 +21,7 @@ M1D_C_OBJS = \
 	m1d_SurDomain_AnodeCollector.o m1d_SurDomain_CathodeCollector.o  \
         m1d_SolNonlinear_CurrentSolve.o FuncElectrodeCurrent.o BEulerInt_Battery.o \
         m1d_porousElectrode_dom1D.o m1d_porousFlow_dom1D.o m1d_cellTmps_PorousFlow.o \
-        m1d_materials.o
+        m1d_materials.o m1d_BC_Battery.o
 
 M1D_C_HDRS = \
 	m1d_ProblemStatementCell.h m1d_BatteryResidEval.h \
@@ -30,7 +30,7 @@ M1D_C_HDRS = \
 	m1d_SurDomain_AnodeCollector.h m1d_SurDomain_CathodeCollector.h  \
         m1d_SolNonlinear_CurrentSolve.h FuncElectrodeCurrent.h  BEulerInt_Battery.h \
         m1d_porousElectrode_dom1D.h m1d_porousFlow_dom1D.h m1d_cellTmps_PorousFlow.h \
-        m1d_materials.h
+        m1d_materials.h m1d_BC_Battery.h
 
 TOBJS = $(M1D_C_OBJS)
 

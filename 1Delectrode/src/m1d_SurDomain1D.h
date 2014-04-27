@@ -25,7 +25,7 @@ class NodalVars;
 class LocalNodeIndices;
 
 
-  typedef double (*TimeDepFunctionPtr)(double time);
+typedef double (*TimeDepFunctionPtr)(double time);
 
 
 //! Basic object to calculate the surface residuals for surface domains.

@@ -659,7 +659,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
     // Flux of current in the electrode phase at the right and left cell boundaries
     double fluxVElectrodeRight = 0.0;
-    double fluxVElectrodeLeft;
+    double fluxVElectrodeLeft = 0.0;
 
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);

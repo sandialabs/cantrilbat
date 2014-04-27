@@ -579,8 +579,8 @@ void SurDomain1D::fillIsAlgebraic(Epetra_IntVector & isAlgebraic)
         return;
     }
 
-    int bmatch = nv->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = nv->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -624,8 +624,8 @@ void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
         return;
     }
 
-    int bmatch = nv->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = nv->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -651,21 +651,14 @@ void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
 void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, Epetra_Vector_Ghosted & atolVector,
                                 const Epetra_Vector_Ghosted * const atolV)
 {
-    // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
-
-    // Get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-
     int mySDD_ID = SDD_.ID();
 
     // This node may not exist on this processor. If it doesn't, there is no entry in isAlgebraic[] to fill
     if (Index_LcNode < 0) {
         return;
     }
-    int bmatch = nv->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = nv->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -683,22 +676,14 @@ void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted 
 void SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted & soln,
                                       Epetra_Vector_Ghosted & atolDeltaDamping, const Epetra_Vector_Ghosted * const atolV)
 {
-    // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
-
-    // Get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-
     int mySDD_ID = SDD_.ID();
 
     // This node may not exist on this processor. If it doesn't, there is no entry in isAlgebraic[] to fill
     if (Index_LcNode < 0) {
         return;
     }
-    int bmatch = nv->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = nv->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -716,21 +701,14 @@ void SurDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_
                                         const Epetra_Vector_Ghosted & solnDot, Epetra_Vector_Ghosted & atolVector_DAEInit,
                                         const Epetra_Vector_Ghosted * const atolV)
 {
-    // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
-
-    // Get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-
     int mySDD_ID = SDD_.ID();
 
     // This node may not exist on this processor. If it doesn't, there is no entry in isAlgebraic[] to fill
     if (Index_LcNode < 0) {
         return;
     }
-    int bmatch = nv->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = nv->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -749,22 +727,14 @@ void SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoef
                                               const Epetra_Vector_Ghosted & solnDot, Epetra_Vector_Ghosted & atolDeltaDamping,
                                               const Epetra_Vector_Ghosted * const atolV)
 {
-    // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
-
-    // Get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-
     int mySDD_ID = SDD_.ID();
 
     // This node may not exist on this processor. If it doesn't, there is no entry in isAlgebraic[] to fill
     if (Index_LcNode < 0) {
         return;
     }
-    int bmatch = nv->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = nv->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
@@ -781,17 +751,12 @@ void SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoef
 // Method for writing the header for the surface domain to a tecplot file.
 void SurDomain1D::writeSolutionTecplotHeader()
 {
-    int locGbNode = SDD_.LocGbNode;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid; //only proc 0 should write
 
     if (doWrite) {
-
-        // get the NodeVars object pertaining to this global node
-        GlobalIndices *gi = LI_ptr_->GI_ptr_;
-        NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-        std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
-        int numVar = nv->NumEquations;
+        std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+        int numVar = NodalVarPtr->NumEquations;
 
         //open tecplot file
         FILE* ofp;
@@ -832,45 +797,33 @@ void SurDomain1D::writeSolutionTecplotHeader()
 void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll *soln_GlAll_ptr, const Epetra_Vector_GlAll *solnDot_GlAll_ptr,
                                        const double t)
 {
-    int locGbNode = SDD_.LocGbNode;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid; //only proc 0 should write
 
-    // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-    int eqnStart = nv->EqnStart_GbEqnIndex;
-
-    int numVar = nv->NumEquations;
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    int numVar = NodalVarPtr->NumEquations;
 
     if (doWrite) {
-
         //open tecplot file
         FILE* ofp;
         string sss = id();
         char filename[20];
         sprintf(filename, "%s%s", sss.c_str(), ".dat");
         ofp = fopen(filename, "a");
-
         //time
         fprintf(ofp, "%g \t", t);
-
         //x-position
-        doublereal x0 = nv->x0NodePos();
+        doublereal x0 = NodalVarPtr->x0NodePos();
         fprintf(ofp, "%g \t", x0);
 
         // Write general variables
         for (int k = 0; k < numVar; k++) {
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
             fprintf(ofp, "%g \t", sval);
-
         }
         fprintf(ofp, "\n");
-
         fclose(ofp);
     }
-
 }
 //=====================================================================================================================
 // Extract the double value out of a solution vector for a particular
@@ -970,13 +923,10 @@ void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra
         indent += " ";
     }
     const char *ind = indent.c_str();
-    // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-    int eqnStart = nv->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
-    int numVar = nv->NumEquations;
+ 
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    int numVar = NodalVarPtr->NumEquations;
     string sss = id();
     stream0 ss;
 
@@ -985,7 +935,7 @@ void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra
         drawline0(ss, indentSpaces, 80);
         ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-        doublereal x0 = nv->x0NodePos();
+        doublereal x0 = NodalVarPtr->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 80);
         ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
@@ -1029,12 +979,10 @@ void SurDomain1D::showSolutionVector(std::string& solnVecName, const Epetra_Vect
         indent += " ";
     }
     const char *ind = indent.c_str();
-    // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    int eqnStart = nv->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
-    int numVar = nv->NumEquations;
+
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    int numVar = NodalVarPtr->NumEquations;
     string sss = id();
     stream0 ss(of);
 
@@ -1044,7 +992,7 @@ void SurDomain1D::showSolutionVector(std::string& solnVecName, const Epetra_Vect
         ss.print0("%s  %s Vector on Surface Domain %10s : Number of variables = %d\n", ind, solnVecName.c_str(), sss.c_str(),
                 numVar);
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-        doublereal x0 = nv->x0NodePos();
+        doublereal x0 = NodalVarPtr->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 100);
         ss.print0("%s     VariableName   GblEqnInd      Value  \n", ind);
@@ -1088,12 +1036,10 @@ void SurDomain1D::showSolutionIntVector(std::string& solnVecName, const Epetra_I
     }
     const char *ind = indent.c_str();
     // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-    int eqnStart = nv->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
-    int numVar = nv->NumEquations;
+   
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    int numVar = NodalVarPtr->NumEquations;
     string sss = id();
     stream0 ss(of);
 
@@ -1103,7 +1049,7 @@ void SurDomain1D::showSolutionIntVector(std::string& solnVecName, const Epetra_I
         ss.print0("%s  %s Vector on Surface Domain %10s : Number of variables = %d\n", ind, solnVecName.c_str(), sss.c_str(),
                 numVar);
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-        doublereal x0 = nv->x0NodePos();
+        doublereal x0 = NodalVarPtr->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 100);
         ss.print0("%s     VariableName   GblEqnInd      Value  \n", ind);
@@ -1153,13 +1099,9 @@ void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Ep
         indent += " ";
     }
     const char *ind = indent.c_str();
-    // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
-    AssertTrace(NodalVarPtr == nv);
-    int eqnStart = nv->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
-    int numVar = nv->NumEquations;
+    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    int numVar = NodalVarPtr->NumEquations;
     string sss = id();
     if (doWrite) {
         drawline(indentSpaces, 80);
@@ -1167,7 +1109,7 @@ void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Ep
         Cantera::writelog(buf);
         sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
         Cantera::writelog(buf);
-        doublereal x0 = nv->x0NodePos();
+        doublereal x0 = NodalVarPtr->x0NodePos();
         sprintf(buf, "%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         Cantera::writelog(buf);
         drawline(indentSpaces, 80);

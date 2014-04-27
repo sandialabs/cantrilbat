@@ -17,6 +17,9 @@
 #include "m1d_BulkDomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 
+#include "m1d_Comm.h"
+
+
 #include "m1d_SDT_AnodeCollector.h"
 
 #include "Epetra_Comm.h"
@@ -28,11 +31,26 @@ using namespace std;
 namespace m1d
 {
 //=====================================================================================================================
+static void drawline0(stream0 &ss, int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        ss.print0(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        ss.print0("-");
+    }
+    ss.print0("\n");
+}
+
+//=====================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription &sdd, int problemType) :
-  SurBC_Dirichlet(sdd), bedd_(0), phiElectrolyte_(0.0), 
+  SurBC_Dirichlet(sdd),
+  bedd_(0), 
+  phiElectrolyte_(0.0), 
   phiAnode_(0.0),
   phiAnodeCC_(0.0), 
-  icurrCollector_(0.0)
+  icurrCollector_(0.0),
+  CCThickness_(0.0)
 {
   //! Determine bedd_
   //       use SurfDomainDescription &SDD_;
@@ -44,13 +62,18 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription &sdd, i
   if (!bedd_) {
     throw m1d_Error("SurDomain_FlatLiSiAnode::SurDomain_FlatLiSiAnode", "Can't find adjoining bulk electrolyte domain");
   }
+  const SDT_AnodeCollector* sdta_ptr = dynamic_cast<const SDT_AnodeCollector*>(&SDD_);
+  CCThickness_ = sdta_ptr->anodeCCThickness_;
+
+
 }
 //=====================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(const SurDomain_AnodeCollector &r) :
   SurBC_Dirichlet(r.SDD_), bedd_(0), phiElectrolyte_(0.0), 
   phiAnode_(0.0), 
   phiAnodeCC_(0.0), 
-  icurrCollector_(0.0)
+  icurrCollector_(0.0),
+  CCThickness_(0.0)
 {
   operator=(r);
 }
@@ -80,6 +103,7 @@ SurDomain_AnodeCollector::operator=(const SurDomain_AnodeCollector &r)
   phiAnode_ = r.phiAnode_;
   phiAnodeCC_ = r.phiAnodeCC_;
   icurrCollector_ = r.icurrCollector_;
+  CCThickness_ =r.CCThickness_;
 
   return *this;
 }
@@ -103,6 +127,13 @@ SurDomain_AnodeCollector::domain_prep(LocalNodeIndices *li_ptr)
    */
   SurBC_Dirichlet::domain_prep(li_ptr);
 
+  for (int j = 0; j < NumNodeEqns; j++) {
+     if (BC_Type_NE[j] == 10) {
+        //SpecFlag_NE[j] = 0;
+     }
+
+  }
+  
 }
 //=====================================================================================================================
 // Basic function to calculate the residual for the domain.
@@ -209,7 +240,7 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector &res,
 	  break;
  
         case 10: // Anode collector plate at constant voltage
-	  res[ieqn] -= BC_TimeDep_NE[i]->valueAtTime(t, val);
+	  res[ieqn] -= BC_TimeDep_NE[i]->valueAtTime(t, solnVal);
           break;
 
 	default:
@@ -240,6 +271,81 @@ SurDomain_AnodeCollector::getVoltages(const double * const solnElectrolyte)
   int indexVS = bedd_->VariableIndexStart_VarName[Voltage];
   phiElectrolyte_ = solnElectrolyte[indexVS];
   phiAnode_ = solnElectrolyte[indexVS + 1];
+}
+//=====================================================================================================================
+// Base class for writing the solution on the domain to a logfile.
+/*
+ *
+ * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
+ * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
+ * @param soln_ptr             Pointer to the solution vector
+ * @param solnDot_ptr          Pointer to the time derivative of the solution vector
+ * @param solnOld_ptr          Pointer to the solution vector at the old time step
+ * @param residInternal _ptr   Pointer to the current value of the residual just calculated
+ *                             by a special call to the residEval()
+ * @param t                    time
+ * @param rdelta_t             The inverse of the value of delta_t
+ * @param indentSpaces         Indentation that all output should have as a starter
+ * @param duplicateOnAllProcs  If this is true, all processors will include
+ *                             the same log information as proc 0. If
+ *                             false, the loginfo will only exist on proc 0.
+ */
+void SurDomain_AnodeCollector::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra_Vector *solnDot_GlAll_ptr,
+                                   const Epetra_Vector *soln_ptr, const Epetra_Vector *solnDot_ptr,
+                                   const Epetra_Vector *solnOld_ptr, const Epetra_Vector_Owned *residInternal_ptr, const double t,
+                                   const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs)
+{
+    int locGbNode = SDD_.LocGbNode;
+    // int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
+    string indent = "";
+    for (int i = 0; i < indentSpaces; i++) {
+        indent += " ";
+    }
+    const char *ind = indent.c_str();
+    // get the NodeVars object pertaining to this global node
+    GlobalIndices *gi = LI_ptr_->GI_ptr_;
+    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    int eqnStart = nv->EqnStart_GbEqnIndex;
+    //std::vector<VarType> &variableNameList = SDD_.VariableNameList;
+    std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
+    int numVar = nv->NumEquations;
+    string sss = id();
+
+    stream0 ss;
+    print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
+    if (doWrite) {
+        drawline0(ss, indentSpaces, 80);
+        ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
+        ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
+        doublereal x0 = nv->x0NodePos();
+        ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
+        drawline0(ss, indentSpaces, 80);
+        ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
+        drawline0(ss, indentSpaces + 2, 60);
+        int jDir = 0;
+        for (int k = 0; k < numVar; k++) {
+            VarType &vt = variableNameListNode[k];
+            string name = vt.VariableName(20);
+            double sval = (*soln_GlAll_ptr)[eqnStart + k];
+            ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
+            if (SpecFlag_NE[k] != 0) {
+                ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
+                jDir++;
+            }
+            ss.print0("\n");
+	    if (vt.VariableType == Voltage && vt.VariableSubType == 1) {
+		if (BC_Type_NE[k] == 10) {
+		    ss.print0("%s   Volts(AnodeCurrentCollector) %-10.4E (thickness = %-10.4E)\n", ind, phiAnodeCC_, CCThickness_);
+		}
+	    }
+        }
+
+	
+        drawline0(ss, indentSpaces + 2, 60);
+        drawline0(ss, indentSpaces, 80);
+    }
+    print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
 }
 //=====================================================================================================================
 // Generate the initial conditions
@@ -302,6 +408,46 @@ SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid,
     }
   }
 }
+//=================================================================================================================
+void SurDomain_AnodeCollector::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr,
+                                 const Epetra_Vector *solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
+{
+    // const doublereal* s = soln_GLALL_ptr + loc();
+    // Find the number of global equations on this domain, whether it's local or not
+    //int numEquationsGb = SDD_.NumEquationsPerNode;
+    // Find the global node number of the node where this domain resides
+    int locGbNode = SDD_.LocGbNode;
+
+    // get the NodeVars object pertaining to this global node
+    GlobalIndices *gi = LI_ptr_->GI_ptr_;
+    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    int eqnStart = nv->EqnStart_GbEqnIndex;
+    //XML_Node& inlt = o.addChild("inlet");
+    Cantera::XML_Node& inlt = oNode.addChild("domain");
+    int numVar = nv->NumEquations;
+    inlt.addAttribute("id", id());
+    inlt.addAttribute("points", 1);
+    inlt.addAttribute("type", "surface");
+    inlt.addAttribute("numVariables", numVar);
+    double x0pos = nv->x0NodePos();
+    double xpos = nv->xNodePos();
+    double xfrac = nv->xFracNodePos();
+    ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", Cantera::Undef, Cantera::Undef);
+
+    for (int k = 0; k < numVar; k++) {
+        double sval = (*soln_GLALL_ptr)[eqnStart + k];
+        string nm = nv->VariableName(k);
+        VarType vv = nv->VariableNameList_EqnNum[k];
+        string type = VarType::VarMainName(vv.VariableType);
+        ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+    }
+    string nm = "Volts(AnodeCCVoltage)";
+    ctml::addFloat(inlt, nm, phiAnodeCC_, "", "", Cantera::Undef, Cantera::Undef);
+
+}
+
 //=====================================================================================================================
 } /* End of Namespace */
 //=====================================================================================================================

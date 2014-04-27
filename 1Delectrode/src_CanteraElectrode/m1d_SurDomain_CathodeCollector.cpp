@@ -212,6 +212,9 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
       case 8: // voltage BClineartable
 	/*
 	 *  For time dependent Dirichlet boundary condition using BoundaryCondition class
+         *
+         *  Replace the equation for current at the boundary with a Dirichlet condition for the electrode 
+         *  voltage involving a function
 	 */
 	res[ieqn] = BC_TimeDep_NE[i]->value(t, timeRegion) - solnVal;
 	break;
@@ -221,12 +224,18 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
       case 9: // current BClineartable
 	/*
 	 *  For time dependent flux boundary condition using BoundaryCondition class
+         *
+         *  For flux boundary conditions we must supply the value of  = icurr dot n_out 
+         *  icurr is the current density (coul / (sec m2)) dotted into the outward facing normal
 	 */
 	//CAL: WARNING m1d_SurDomain1D.cpp has -= val
 	res[ieqn] += BC_TimeDep_NE[i]->value(t, timeRegion);
 	break;
 
       case 10:  // Collector constant current with collector plat resistance
+        /*
+         *     current_dens dot n = Resistance_CC * ( V_cathode - V_cathCC)
+         */
 	res[ieqn] += BC_TimeDep_NE[i]->valueAtTime(t, val, timeRegion);
         break;
 

@@ -114,6 +114,14 @@ public:
   //! Vector containing the names of the cantera files
   char ** CanteraFileNames;
 
+  //! type of the boundary condition specified on the current of the anode
+  /*!
+   *
+   *   0 - Specify a fixed voltage of zero at the anode
+   *  10 - anode Collector - robin boundary condition on the current
+   */
+  int anodeBCType_;
+
   //! Type of the boundary condition specified on the cathode
   /*!
    *     0 - Specify a fixed voltage at the cathode
@@ -146,7 +154,6 @@ public:
   /*!
    *  This is actually the current from the cathode into the electrolyte.
    *  Therefore, during a normal discharge operation of the battery, this will be a
-   *  negative quantity.
    *
    *   Note, this is only relevant when voltageVarBCType_ = 1
    */

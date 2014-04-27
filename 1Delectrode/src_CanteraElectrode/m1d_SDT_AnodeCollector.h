@@ -82,6 +82,18 @@ public:
    */
   int m_position;
 
+  //!  Type of the voltage boundary condition
+  /*!
+   *   There are two possibilities
+   *
+   *     0  Set the anode voltage to zero
+   *    10  Set a Robin boundary condition ---   current = R_anodeCC (v_acc - vanode)
+   */
+  int voltageVarBCType_;
+
+  //!  Thickness of the anode current collector
+  double anodeCCThickness_;
+
   //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
   friend class SurDomain_AnodeCollector;
 };

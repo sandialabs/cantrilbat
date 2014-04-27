@@ -11,13 +11,6 @@
 
 #include "m1d_ProblemStatementCell.h"
 
-#include "Electrode_input.h"
-#include "Electrode.h"
-
-#include "BlockEntry.h"
-
-#include  <string>
-
 extern m1d::ProblemStatementCell PSinput;
 
 //=====================================================================================================================
@@ -94,22 +87,22 @@ SDT_CathodeCollector::SetEquationDescription()
    */
   voltageCathodeSpecified_ = PSinput.CathodeVoltageSpecified_;
   double (*timeDepFunction)(double) = PSinput.TimeDepFunction_;
-  BoundaryCondition * BC_timeDep = PSinput.BC_TimeDep_;
+  BoundaryCondition* BC_timeDep = PSinput.BC_TimeDep_;
   EqnType e1(Current_Conservation, 2, "Cathode Current Conservation");
   VarType v1(Voltage, 2, "CathodeVoltage");
   switch (voltageVarBCType_)
     {
     case 0:
-      addDirichletCondition(e1, v1, voltageCathodeSpecified_ );
+      addDirichletCondition(e1, v1, voltageCathodeSpecified_);
       break;
     case 1:
-      addFluxCondition(e1, v1, icurrCathodeSpecified_ );
+      addFluxCondition(e1, v1, icurrCathodeSpecified_);
       break;
     case 2:
-      addDirichletCondition(e1, v1, voltageCathodeSpecified_, timeDepFunction );
+      addDirichletCondition(e1, v1, voltageCathodeSpecified_, timeDepFunction);
       break;
     case 3:
-      addFluxCondition(e1, v1, icurrCathodeSpecified_, timeDepFunction );
+      addFluxCondition(e1, v1, icurrCathodeSpecified_, timeDepFunction);
       break;
     case 4:
     case 6:
