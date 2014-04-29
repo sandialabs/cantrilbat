@@ -37,6 +37,7 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::ELECTRODE_RadialDiffRegions_KEY_INPUT(int
     numRegions_(1),
     numRegionsEntered_(0),
     solidDiffusionModel_(0),
+    diffusiveFluxModel_(0),
     numRadialCellsRegions_(0),
     diffusionCoeffRegions_(0),
     rxnPerturbRegions_(0)
@@ -52,11 +53,14 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::
 ELECTRODE_RadialDiffRegions_KEY_INPUT(const ELECTRODE_RadialDiffRegions_KEY_INPUT& right) :
     ELECTRODE_KEY_INPUT(right),
     numRegions_(right.numRegions_),
-    solidDiffusionModel_(right.solidDiffusionModel_)
+    numRegionsEntered_(right.numRegionsEntered_),
+    solidDiffusionModel_(right.solidDiffusionModel_),
+    diffusiveFluxModel_(right.diffusiveFluxModel_)
 {
     diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
     numRadialCellsRegions_          = right.numRadialCellsRegions_;
     rxnPerturbRegions_              = right.rxnPerturbRegions_;
+    rregions_                       = right.rregions_;
 }
 //====================================================================================================================
 ELECTRODE_RadialDiffRegions_KEY_INPUT&
@@ -70,6 +74,7 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::operator=(const ELECTRODE_RadialDiffRegio
     numRegions_                     = right.numRegions_;
     numRegionsEntered_              = right.numRegionsEntered_;
     solidDiffusionModel_            = right.solidDiffusionModel_; 
+    diffusiveFluxModel_             = right.diffusiveFluxModel_;
     numRadialCellsRegions_          = right.numRadialCellsRegions_;
     diffusionCoeffRegions_          = right.diffusionCoeffRegions_;
     rxnPerturbRegions_              = right.rxnPerturbRegions_;
@@ -80,7 +85,7 @@ ELECTRODE_RadialDiffRegions_KEY_INPUT::operator=(const ELECTRODE_RadialDiffRegio
 //====================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* cf)
 {
-    /*
+    /*  -------------------------------------------------------------------------------------------------------
      * Obtain the number of regions
      */
     LE_OneInt* s1 = new LE_OneInt("Number of Regions", &(numRegions_), 1, "numRegions");
@@ -88,13 +93,24 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEnt
     cf->addLineEntry(s1);
     BaseEntry::set_SkipUnknownEntries(true);
 
-    /*
+    /*  -------------------------------------------------------------------------------------------------------
      * Obtain the diffusion model
-     *   - Eliminate 
+     *   - Don't eliminate, but populate thinking about the case of LiFePO4
      */
     LE_OneInt* sdm = new LE_OneInt("Solid Diffusion Model", &(solidDiffusionModel_), 0, "solidDiffusionModel");
     sdm->set_default(0);
     cf->addLineEntry(sdm);
+    BaseEntry::set_SkipUnknownEntries(true);
+
+    /*  -------------------------------------------------------------------------------------------------------
+     *   Diffusive flux model
+     *            
+     */
+    LE_OneInt* dfm = new LE_OneInt("Diffusive Flux model", &(diffusiveFluxModel_), 0, "diffusiveFluxModel");
+    dfm->set_default(0);
+    cf->addLineEntry(dfm);
+
+    // Not finished yet
     BaseEntry::set_SkipUnknownEntries(true);
 }
 //====================================================================================================================
@@ -237,9 +253,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
 //======================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child3(BEInput::BlockEntry* cf)
 {
-
 }
-//======================================================================================================================
 //======================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor

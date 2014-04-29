@@ -82,6 +82,13 @@ public:
      */
     int solidDiffusionModel_;
 
+    //!  Model for the formulation of the diffusive flux
+    /*!
+     *   0 = diffusive flux include the activity coefficient
+     *   1 = diffusive flux doesn't include the activity coefficient
+     */
+    int diffusiveFluxModel_;
+
     //!  String name of the phase that is represented by this region
     /*!
      *   Note will expand to multiple phases here soon

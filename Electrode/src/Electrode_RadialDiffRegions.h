@@ -30,7 +30,7 @@ class Electrode_SurfaceRegion;
 //==============================================================================================================================
 //! Extra Input for models with distributed radial diffusion regions
 /*!
- *
+ *   this model is used for Electrode_SimpleDiff
  *
  */
 class ELECTRODE_RadialDiffRegions_KEY_INPUT : public ELECTRODE_KEY_INPUT
@@ -90,6 +90,13 @@ public:
      *       The details of the model is given in the writeup.
      */
     int solidDiffusionModel_;
+
+    //!  Model for the formulation of the diffusive flux
+    /*!
+     *   0 = diffusive flux include the activity coefficient
+     *   1 = diffusive flux doesn't include the activity coefficient
+     */
+    int diffusiveFluxModel_;
 
     //! Number of radial cells in each region
     /*!

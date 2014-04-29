@@ -812,6 +812,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_2_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_3_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_3_thermal/Makefile \
+          Electrode/tests/MCMBAnode_LiIon_SimpleDiff_4_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC/Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cc/Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
@@ -874,6 +875,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/LiKCl_PorousBat_SPCD_MPNewman/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_2/Makefile \
+          1Delectrode/test_suite/LiIon_MCMB_LiCoO2_collectors/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2_heatSource/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff3/Makefile \

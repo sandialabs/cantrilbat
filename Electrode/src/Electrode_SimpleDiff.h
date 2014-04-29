@@ -1102,6 +1102,12 @@ protected:
     //!  Value of the total flux at the outer edge - kmol m-2 s-1
     doublereal NTflux_final_;
 
+    //!  Model for the formulation of the diffusive flux
+    /*!
+     *   0 = diffusive flux include the activity coefficient
+     *   1 = diffusive flux doesn't include the activity coefficient
+     */
+    int diffusiveFluxModel_;
 
     //! Local value of the diffusion coefficient
     doublereal DiffCoeff_;

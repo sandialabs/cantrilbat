@@ -102,6 +102,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 
     surfIndexExteriorSurface_(0),
     NTflux_final_(0.0),
+    diffusiveFluxModel_(0),
     DiffCoeff_(1.0E-12),
     DiffCoeff_default_(1.0E-12),
     actCoeff_Cell_final_(0),
@@ -191,6 +192,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
 
     surfIndexExteriorSurface_(0),
     NTflux_final_(0.0),
+    diffusiveFluxModel_(0),
     DiffCoeff_(1.0E-12),
     DiffCoeff_default_(1.0E-12),
     actCoeff_Cell_final_(0),
@@ -290,6 +292,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     surfIndexExteriorSurface_           = right.surfIndexExteriorSurface_;
 
     NTflux_final_                       = right.NTflux_final_;
+    diffusiveFluxModel_                 = right.diffusiveFluxModel_;
     DiffCoeff_                          = right.DiffCoeff_;
     DiffCoeff_default_                  = right.DiffCoeff_default_;
     actCoeff_Cell_final_                = right.actCoeff_Cell_final_;
@@ -442,6 +445,13 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *   -> lots of room for embelishment later.
      */
     Diff_Coeff_KRSolid_.resize(numKRSpecies_, ei->diffusionCoeffRegions_[0]);
+
+    /*
+     * Determine the type of diffusive flux model from the input deck
+     *   0 - use activity coefficients
+     *   1 - don't use activity coefficients
+     */
+    diffusiveFluxModel_ = ei->diffusiveFluxModel_;
     
     /*
      *  Create the mapping array KRsolid_speciesList_[]
@@ -1112,9 +1122,6 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         return;
     }
-
-
- 
 
     Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
 
@@ -1962,15 +1969,27 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
 	    int nSpecies = th->nSpecies();
 	    double fluxT = 0.0;
 
+            if (diffusiveFluxModel_ == 0) {
 	    for (kSp = 1; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
 		caR = concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexRightKRSpecies + iKRSpecies];
 		caC = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		dcadxR = (caR - caC) / deltaX;
+		// Calculate the flux of moles at the ride side cell boundary out of the cell
+		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
+		fluxT += fluxRCB[iKRSpecies];
+	    }
+            } else if (diffusiveFluxModel_ == 1) {
+	    for (kSp = 1; kSp < nSpecies; kSp++) {
+		int iKRSpecies = kstart + kSp;
+		caR = concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies];
+		caC = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		dcadxR = (caR - caC) / deltaX;	    
 		// Calculate the flux of moles at the ride side cell boundary out of the cell
 		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
 		fluxT += fluxRCB[iKRSpecies];
 	    }
+            }
        
 	    fluxRCB[kstart] = -fluxT;
 	    kstart += nSpecies;
@@ -1983,6 +2002,7 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
 	    int nSpecies = th->nSpecies();
 
 	    double fluxT = 0.0;
+            if (diffusiveFluxModel_ == 0) {
 	    for (kSp = 1; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
 		caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies];
@@ -1992,6 +2012,17 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
 		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
 		fluxT += fluxRCB[iKRSpecies];
 	    }
+            } else if (diffusiveFluxModel_ == 1) {
+	    for (kSp = 1; kSp < nSpecies; kSp++) {
+		int iKRSpecies = kstart + kSp;
+		caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies];
+		caC = concKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies];
+		dcadxR = (caR - caC) / deltaX;	    
+		// Calculate the flux of moles at the ride side cell boundary out of the cell
+		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
+		fluxT += fluxRCB[iKRSpecies];
+	    }
+            }
        
 	    fluxRCB[kstart] = -fluxT;
 	    kstart += nSpecies;
