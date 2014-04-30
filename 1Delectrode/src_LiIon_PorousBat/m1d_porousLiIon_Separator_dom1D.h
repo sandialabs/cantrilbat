@@ -286,6 +286,26 @@ public:
                                 const Epetra_Vector_Ghosted* const atolV = 0);
 
 
+    //! Method for writing the header for the surface domain to a tecplot file.
+    /*!
+     * Only proc0 will write tecplot files.
+     */
+    virtual void writeSolutionTecplotHeader();
+
+    // Method for writing the solution on the surface domain to a tecplot file.
+    /*
+     * Only proc0 will write tecplot files.
+     *
+     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+     * @param t                    time
+     *
+     */
+    virtual void writeSolutionTecplot(const Epetra_Vector* soln_GlAll_ptr,
+                              const Epetra_Vector* solnDot_GlAll_ptr,
+                              const double t);
+
+
     //! Base class for writing the solution on the domain to a logfile.
     /*!
      *

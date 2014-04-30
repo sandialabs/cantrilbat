@@ -1248,6 +1248,117 @@ porousLiIon_Separator_dom1D::saveDomain(Cantera::XML_Node& oNode,
     }
 
 }
+
+//=====================================================================================================================
+// Method for writing the header for the bulk domain to a tecplot file.
+void
+porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
+{
+  int mypid = LI_ptr_->Comm_ptr_->MyPID();
+  bool doWrite = !mypid ; //only proc 0 should write
+
+  if (doWrite) {
+    
+    //open tecplot file
+    FILE* ofp;
+    string sss = id();
+    char filename[20];
+    sprintf(filename,"%s%s",sss.c_str(),".dat");
+    ofp = fopen( filename, "w");
+
+    //write title and variable list
+    fprintf( ofp, "TITLE = \"Solution on Domain %s\"\n",sss.c_str() );
+
+    // Number of equations per node
+    int numVar = BDD_.NumEquationsPerNode;
+    // Vector containing the variable names as they appear in the solution vector
+    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+    //! First global node of this bulk domain
+
+    fprintf( ofp, "VARIABLES = ");
+    fprintf( ofp, "\"x [m]\"  \n" );
+
+    for (int k = 0; k < numVar; k++) {
+      VarType &vt = variableNameList[k];
+      string name = vt.VariableName(15);
+      fprintf( ofp, "\"%s\" \t", name.c_str() );
+    }
+    //print thermal source terms
+    // check dimensions!!
+    fprintf(ofp, "\"qHeat_step [J/m2?]\" \t");
+    fprintf(ofp, "\"qHeat_accum [J/m2?]\" \t");
+    fprintf(ofp, "\"Joule_Lyte [J/m2?]\" \t");
+    fprintf(ofp, "\"Joule_Solid [J/m2?]\" \t");
+    
+    fprintf(ofp, "\n" );
+    fclose(ofp);
+  }
+
+}
+
+// Method for writing the solution on the surface domain to a tecplot file.
+/*
+ *
+ * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
+ * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+ * @param t                    time
+ *
+ * @param duplicateOnAllProcs  If this is true, all processors will include
+ *                             the same log information as proc 0. If
+ *                             false, the loginfo will only exist on proc 0.
+ */
+void 
+porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr, const Epetra_Vector *solnDot_GlAll_ptr,
+			           const double t)
+{
+  int mypid = LI_ptr_->Comm_ptr_->MyPID();
+  bool doWrite = !mypid ; //only proc 0 should write
+  if (doWrite) {
+    // get the NodeVars object pertaining to this global node
+    GlobalIndices *gi = LI_ptr_->GI_ptr_;
+    // Number of equations per node
+    int numVar = BDD_.NumEquationsPerNode;
+    //! First global node of this bulk domain
+    int firstGbNode = BDD_.FirstGbNode;
+    //! Last Global node of this bulk domain
+    int lastGbNode = BDD_.LastGbNode;
+    int numNodes = lastGbNode - firstGbNode + 1;
+    
+    //open tecplot file
+    FILE* ofp;
+    string sss = id();
+    char filename[20];
+    sprintf(filename,"%s%s",sss.c_str(),".dat");
+    ofp = fopen(filename, "a");
+    
+    /*
+     *  Write out the Heading for the solution at the current time. It's put in a ZONE structure
+     *  with T being the heading and SOLUTIONTIME being the value of the time
+     */
+    fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.13E\n", t, numNodes, t);
+
+    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
+      NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+      //x-position
+      fprintf(ofp, "%g \t", nv->xNodePos());
+      for (int iVar = 0; iVar < numVar; iVar++) {
+	//other variables
+	int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
+	int istart = nv->EqnStart_GbEqnIndex;
+	fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + ibulk + iVar]);	
+      }
+      fprintf(ofp, "\n");
+      // print thermal source terms
+      int iCell = iGbNode - firstGbNode;
+      fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell]);
+      fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell]);
+      fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell]);
+      fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell]);
+      fprintf(ofp, "\n");
+    }
+    fclose(ofp);
+  }
+}
 //=====================================================================================================================
 // Base class for writing the solution on the domain to a logfile.
 /*

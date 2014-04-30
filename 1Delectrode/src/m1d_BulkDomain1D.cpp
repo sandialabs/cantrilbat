@@ -656,7 +656,7 @@ BulkDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff,
   }
 }
 //=====================================================================================================================
-// Method for writing the header for the surface domain to a tecplot file.
+// Method for writing the header for the bulk domain to a tecplot file.
 void
 BulkDomain1D::writeSolutionTecplotHeader()
 {

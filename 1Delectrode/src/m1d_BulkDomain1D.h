@@ -257,7 +257,7 @@ public:
   /*
    * Only proc0 will write tecplot files.
    */
-  void writeSolutionTecplotHeader();
+  virtual void writeSolutionTecplotHeader();
 
   // Method for writing the solution on the surface domain to a tecplot file.
   /*
@@ -268,7 +268,7 @@ public:
    * @param t                    time
    *
    */
-  void writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
+  virtual void writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
 			    const Epetra_Vector *solnDot_GlAll_ptr,
 			    const double t );
 

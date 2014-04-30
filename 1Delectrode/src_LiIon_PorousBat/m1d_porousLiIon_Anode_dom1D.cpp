@@ -2031,7 +2031,7 @@ drawline0(int sp, int ll)
 
 
 //=====================================================================================================================
-// Method for writing the header for the surface domain to a tecplot file.
+// Method for writing the header for the bulk domain to a tecplot file.
 void
 porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
 {
