@@ -23,7 +23,7 @@
 
 #include "m1d_DomainLayout.h"
 #include "m1d_ProblemStatementCell.h"
-
+#include "m1d_EpetraExtras.h"
 #include "m1d_Comm.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
@@ -400,40 +400,178 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     }
 
 }
-  //=====================================================================================================================
-  // This function may be used to create output at various points in the
-  // execution of an application.
-  /*
-   *   These functions are not affected by the print controls of the nonlinear solver
-   *   and the time stepper.
-   *
-   *      ievent is a description of the event that caused this
-   *      function to be called.
-   *
-   *      @param ievent  Event that's causing this routine to be called.
-   *                     =  0 Initial conditions for a calculation
-   *                     =  1 Completion of a successful intermediate time step.
-   *                     =  2 Completion of a successful Final time or final calculation.
-   *                     =  3 Completion of a successful Intermediate nonlinear step
-   *                     = -1 unsuccessful time step that converged, but failed otherwise
-   *                     = -2 unsuccessful nonlinear step.
-   *
-   *      @param time_current      Current time
-   *      @param delta_t_n         Current value of delta_t
-   *      @param istep             Current step number
-   *      @param y_n               Current value of the solution vector
-   *      @param ydot_n_ptr        Current value of the time deriv of the solution vector
-   */
-  void
-  BatteryResidEval::user_out(const int ievent,
+//=====================================================================================================================
+// This function may be used to create output at various points in the
+// execution of an application.
+/*
+ *   These functions are not affected by the print controls of the nonlinear solver
+ *   and the time stepper.
+ *
+ *      ievent is a description of the event that caused this
+ *      function to be called.
+ *
+ *      @param ievent  Event that's causing this routine to be called.
+ *                     =  0 Initial conditions for a calculation
+ *                     =  1 Completion of a successful intermediate time step.
+ *                     =  2 Completion of a successful Final time or final calculation.
+ *                     =  3 Completion of a successful Intermediate nonlinear step
+ *                     = -1 unsuccessful time step that converged, but failed otherwise
+ *                     = -2 unsuccessful nonlinear step.
+ *
+ *      @param time_current      Current time
+ *      @param delta_t_n         Current value of delta_t
+ *      @param istep             Current step number
+ *      @param y_n               Current value of the solution vector
+ *      @param ydot_n_ptr        Current value of the time deriv of the solution vector
+ */
+void
+BatteryResidEval::user_out(const int ievent,
 			     const double time_current,
-			     const double delta_t_n,
-			     const int istep,
-			     const Epetra_Vector_Ghosted &y_n,
-			     const Epetra_Vector_Ghosted * const ydot_n_ptr)
-  {
+			   const double delta_t_n,
+			   const int istep,
+			   const Epetra_Vector_Ghosted &y_n,
+			   const Epetra_Vector_Ghosted * const ydot_n_ptr)
+{
     ProblemResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
+    
+    
+}
+//=====================================================================================================================
+static void
+sprint_line(char * buf, const char * const st, const int num)
+{
+  int n = strlen(buf);
+  buf += n;
+  for (int k = 0; k < num; k++, buf++) {
+    sprintf(buf, "%s", st);
   }
+  sprintf(buf, "\n");
+}
+
+//=====================================================================================================================
+// Write the solution to either the screen or to a log file
+/*
+ *
+ * @param ievent  Type of the event. The following form is used:
+ *             0 Initial conditions
+ *             1 Completion of a successful intermediate step.
+ *             2 Final successful conditions.
+ *             3 Intermediate nonlinear step
+ *            -1 unsuccessful step
+ *
+ * @param m_y_n    Current value of the solution vector
+ * @param m_ydot_n  Current value of the derivative of the solution vector
+ */
+void
+BatteryResidEval::showProblemSolution(const int ievent,
+                                      bool doTimeDependentResid,
+                                      const double t,
+                                      const double delta_t,
+                                      const Epetra_Vector_Ghosted &y_n,
+                                      const Epetra_Vector_Ghosted * const ydot_n,
+                                      const Solve_Type_Enum solveType,
+                                      const double delta_t_np1)
+{
+
+  //bool doAllProcs = false;
+  time_t aclock;
+  ::time(&aclock); /* Get time in seconds */
+  int mypid = LI_ptr_->Comm_ptr_->MyPID();
+  char buf[256];
+  bool duplicateOnAllProcs = false;
+  // Get a local copy of the domain layout
+  DomainLayout &DL = *DL_ptr_;
+
+  Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+  m1d::gather_nodeV_OnAll(*solnAll, y_n);
+
+  Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+  if (ydot_n) {
+    m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
+  }
+  double rdelta_t = 0.0;
+  if (delta_t > 0.0) {
+    rdelta_t = 1.0 / delta_t;
+  }
+
+  residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
+ 
+  gatherCapacityStatistics();
+
+
+  int indentSpaces = 4;
+  string indent = "    ";
+  const char *ind = indent.c_str();
+  if (!mypid || duplicateOnAllProcs) {
+    sprintf(buf, "%s", ind);
+    sprint_line(buf, "-", 100);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
+    Cantera::writelog(buf);
+    if (solveType == TimeDependentInitial) {
+       sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
+    } else {
+       sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+    }
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Capacity_Anode        %-12.3E  Amp hr / m2\n", ind, capacityAnodePA_ / 3600.);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Capacity_Anode_Left   %-12.3E  Amp hr / m2\n", ind, capacityLeftAnodePA_ / 3600.);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Capacity_Cathode      %-12.3E  Amp hr / m2\n", ind, capacityCathodePA_ / 3600.);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Capacity_Cathode_Left %-12.3E  Amp hr / m2\n", ind, capacityLeftCathodePA_ / 3600.);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       Crate_current         %-12.3E  \n", ind, Crate_current_);
+    Cantera::writelog(buf);
+
+    sprintf(buf, "%s", ind);
+    sprint_line(buf, "-", 100);
+    Cantera::writelog(buf);
+  }
+
+  Domain1D *d_ptr = DL.SurDomain1D_List[0];
+  do {
+    d_ptr->showSolution(solnAll, soln_dot_All, &y_n, ydot_n, solnOld_ptr_,
+                        resInternal_ptr_, t, rdelta_t, indentSpaces + 2,
+                        duplicateOnAllProcs);
+    BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
+    if (bd_ptr) {
+      //BulkDomainDescription &BDD_;
+      SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+      if (sdd) {
+        int idS = sdd->ID();
+        d_ptr = DL.SurDomain1D_List[idS];
+      } else {
+        d_ptr = 0;
+      }
+    } else {
+      SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
+      DomainDescription *dd = sd_ptr->SDD_.RightDomain;
+      if (dd) {
+        BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
+        int idS = bdd->ID();
+        d_ptr = DL.BulkDomain1D_List[idS];
+      } else {
+        d_ptr = 0;
+      }
+    }
+  } while (d_ptr);
+
+  if (!mypid || duplicateOnAllProcs) {
+    sprintf(buf, "%s", ind);
+    sprint_line(buf, "-", 100);
+    Cantera::writelog(buf);
+  }
+
+  Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+  c->Barrier();
+
+}
 
   //=====================================================================================================================
   // Write the solution to either the screen or to a log file

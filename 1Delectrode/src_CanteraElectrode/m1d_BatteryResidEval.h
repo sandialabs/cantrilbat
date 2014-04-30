@@ -114,6 +114,35 @@ public:
 	      const ResidEval_Type_Enum residType = Base_ResidEval,
 	      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
+    //! Write the solution to either the screen or to a log file
+    /*!
+     *  This is a general output utility to Cantera's logfile.
+     *  It's not hooked into the IO algorithm at all. It should be
+     *  conditionally called depending on the whims of the user.
+     *
+     * @param ievent  Type of the event. The following form is used:
+     *             0 Initial conditions
+     *             1 Completion of a successful intermediate step.
+     *             2 Final successful conditions.
+     *             3 Intermediate nonlinear step
+     *            -1 unsuccessful step
+     * @param doTimeDependentResid   Do the time dependent residual calculation
+     * @param t                      Current time
+     * @param delta_t                delta t
+     * @param y_n    Current value of the solution vector
+     * @param ydot_n  Current value of the derivative of the solution vector
+     */
+    virtual void
+    showProblemSolution(const int ievent,
+			bool doTimeDependentResid,
+			const double t,
+			const double delta_t,
+			const Epetra_Vector_Owned &y_n,
+			const Epetra_Vector_Owned * const ydot_n,
+			const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+			const double delta_t_np1 = 0.0);
+    
+
     //! Write out to a file or to standard output the current solution
     /*!
      *   These functions are affected by the print controls of the nonlinear solver
