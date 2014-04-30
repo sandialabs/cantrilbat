@@ -127,6 +127,11 @@ Solution saved to file solution.xml as solution 0.
                            Delta_t    1.000E-08     (initial solution with no previous solution)
                            StepNumber      0
                            Delta_t_p1 1.000E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.407E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -659,6 +664,11 @@ Solution saved to file solution.xml as solution 1.
                            Delta_t    1.000E-08   
                            StepNumber      1
                            Delta_t_p1 1.000E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         3.037E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -1036,6 +1046,11 @@ Solution saved to file solution.xml as solution 2.
                            Delta_t    1.000E-08   
                            StepNumber      2
                            Delta_t_p1 1.000E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -1413,6 +1428,11 @@ Solution saved to file solution.xml as solution 3.
                            Delta_t    1.000E-08   
                            StepNumber      3
                            Delta_t_p1 1.000E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -1789,6 +1809,11 @@ Solution saved to file solution.xml as solution 4.
                            Delta_t    1.000E-08   
                            StepNumber      4
                            Delta_t_p1 1.500E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -2165,6 +2190,11 @@ Solution saved to file solution.xml as solution 5.
                            Delta_t    1.500E-08   
                            StepNumber      5
                            Delta_t_p1 2.250E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -2541,6 +2571,11 @@ Solution saved to file solution.xml as solution 6.
                            Delta_t    2.250E-08   
                            StepNumber      6
                            Delta_t_p1 3.375E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -2917,6 +2952,11 @@ Solution saved to file solution.xml as solution 7.
                            Delta_t    3.375E-08   
                            StepNumber      7
                            Delta_t_p1 5.063E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -3293,6 +3333,11 @@ Solution saved to file solution.xml as solution 8.
                            Delta_t    5.063E-08   
                            StepNumber      8
                            Delta_t_p1 7.594E-08   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -3669,6 +3714,11 @@ Solution saved to file solution.xml as solution 9.
                            Delta_t    7.594E-08   
                            StepNumber      9
                            Delta_t_p1 1.139E-07   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -4045,6 +4095,11 @@ Solution saved to file solution.xml as solution 10.
                            Delta_t    1.139E-07   
                            StepNumber     10
                            Delta_t_p1 1.709E-07   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -4421,6 +4476,11 @@ Solution saved to file solution.xml as solution 11.
                            Delta_t    1.709E-07   
                            StepNumber     11
                            Delta_t_p1 2.563E-07   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -4797,6 +4857,11 @@ Solution saved to file solution.xml as solution 12.
                            Delta_t    2.563E-07   
                            StepNumber     12
                            Delta_t_p1 3.844E-07   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -5173,6 +5238,11 @@ Solution saved to file solution.xml as solution 13.
                            Delta_t    3.844E-07   
                            StepNumber     13
                            Delta_t_p1 5.767E-07   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -5549,6 +5619,11 @@ Solution saved to file solution.xml as solution 14.
                            Delta_t    5.767E-07   
                            StepNumber     14
                            Delta_t_p1 8.650E-07   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -5925,6 +6000,11 @@ Solution saved to file solution.xml as solution 15.
                            Delta_t    8.650E-07   
                            StepNumber     15
                            Delta_t_p1 1.297E-06   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -6301,6 +6381,11 @@ Solution saved to file solution.xml as solution 16.
                            Delta_t    1.297E-06   
                            StepNumber     16
                            Delta_t_p1 1.946E-06   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -6677,6 +6762,11 @@ Solution saved to file solution.xml as solution 17.
                            Delta_t    1.946E-06   
                            StepNumber     17
                            Delta_t_p1 2.919E-06   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -7053,6 +7143,11 @@ Solution saved to file solution.xml as solution 18.
                            Delta_t    2.919E-06   
                            StepNumber     18
                            Delta_t_p1 4.379E-06   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -7429,6 +7524,11 @@ Solution saved to file solution.xml as solution 19.
                            Delta_t    4.379E-06   
                            StepNumber     19
                            Delta_t_p1 6.568E-06   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -7805,6 +7905,11 @@ Solution saved to file solution.xml as solution 20.
                            Delta_t    6.568E-06   
                            StepNumber     20
                            Delta_t_p1 9.853E-06   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -8181,6 +8286,11 @@ Solution saved to file solution.xml as solution 21.
                            Delta_t    9.853E-06   
                            StepNumber     21
                            Delta_t_p1 1.478E-05   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -8557,6 +8667,11 @@ Solution saved to file solution.xml as solution 22.
                            Delta_t    1.478E-05   
                            StepNumber     22
                            Delta_t_p1 2.217E-05   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -8933,6 +9048,11 @@ Solution saved to file solution.xml as solution 23.
                            Delta_t    2.217E-05   
                            StepNumber     23
                            Delta_t_p1 3.325E-05   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -9309,6 +9429,11 @@ Solution saved to file solution.xml as solution 24.
                            Delta_t    3.325E-05   
                            StepNumber     24
                            Delta_t_p1 4.988E-05   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -9685,6 +9810,11 @@ Solution saved to file solution.xml as solution 25.
                            Delta_t    4.988E-05   
                            StepNumber     25
                            Delta_t_p1 7.482E-05   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -10061,6 +10191,11 @@ Solution saved to file solution.xml as solution 26.
                            Delta_t    7.482E-05   
                            StepNumber     26
                            Delta_t_p1 1.122E-04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -10437,6 +10572,11 @@ Solution saved to file solution.xml as solution 27.
                            Delta_t    1.122E-04   
                            StepNumber     27
                            Delta_t_p1 1.683E-04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -10813,6 +10953,11 @@ Solution saved to file solution.xml as solution 28.
                            Delta_t    1.683E-04   
                            StepNumber     28
                            Delta_t_p1 2.525E-04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.776E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -11189,6 +11334,11 @@ Solution saved to file solution.xml as solution 29.
                            Delta_t    2.525E-04   
                            StepNumber     29
                            Delta_t_p1 3.788E-04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.775E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -11565,6 +11715,11 @@ Solution saved to file solution.xml as solution 30.
                            Delta_t    3.788E-04   
                            StepNumber     30
                            Delta_t_p1 5.682E-04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.775E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -11941,6 +12096,11 @@ Solution saved to file solution.xml as solution 31.
                            Delta_t    5.682E-04   
                            StepNumber     31
                            Delta_t_p1 8.522E-04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.774E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -12317,6 +12477,11 @@ Solution saved to file solution.xml as solution 32.
                            Delta_t    8.522E-04   
                            StepNumber     32
                            Delta_t_p1 1.278E-03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.773E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -12693,6 +12858,11 @@ Solution saved to file solution.xml as solution 33.
                            Delta_t    1.278E-03   
                            StepNumber     33
                            Delta_t_p1 1.918E-03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.476E-01     Amp hr / m2
+                           Crate_current         1.772E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -13069,6 +13239,11 @@ Solution saved to file solution.xml as solution 34.
                            Delta_t    1.918E-03   
                            StepNumber     34
                            Delta_t_p1 2.876E-03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.149E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.475E-01     Amp hr / m2
+                           Crate_current         1.770E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -13445,6 +13620,11 @@ Solution saved to file solution.xml as solution 35.
                            Delta_t    2.876E-03   
                            StepNumber     35
                            Delta_t_p1 4.314E-03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.148E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.475E-01     Amp hr / m2
+                           Crate_current         1.767E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -13821,6 +14001,11 @@ Solution saved to file solution.xml as solution 36.
                            Delta_t    4.314E-03   
                            StepNumber     36
                            Delta_t_p1 6.472E-03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.148E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.475E-01     Amp hr / m2
+                           Crate_current         1.762E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -14197,6 +14382,11 @@ Solution saved to file solution.xml as solution 37.
                            Delta_t    6.472E-03   
                            StepNumber     37
                            Delta_t_p1 9.707E-03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.147E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.474E-01     Amp hr / m2
+                           Crate_current         1.755E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -14573,6 +14763,11 @@ Solution saved to file solution.xml as solution 38.
                            Delta_t    9.707E-03   
                            StepNumber     38
                            Delta_t_p1 1.456E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.147E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.473E-01     Amp hr / m2
+                           Crate_current         1.744E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -14949,6 +15144,11 @@ Solution saved to file solution.xml as solution 39.
                            Delta_t    1.456E-02   
                            StepNumber     39
                            Delta_t_p1 2.184E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.145E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.472E-01     Amp hr / m2
+                           Crate_current         1.729E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -15325,6 +15525,11 @@ Solution saved to file solution.xml as solution 40.
                            Delta_t    2.184E-02   
                            StepNumber     40
                            Delta_t_p1 3.276E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.144E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.471E-01     Amp hr / m2
+                           Crate_current         1.706E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -15701,6 +15906,11 @@ Solution saved to file solution.xml as solution 41.
                            Delta_t    3.276E-02   
                            StepNumber     41
                            Delta_t_p1 4.914E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.141E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.468E-01     Amp hr / m2
+                           Crate_current         1.674E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -16077,6 +16287,11 @@ Solution saved to file solution.xml as solution 42.
                            Delta_t    4.914E-02   
                            StepNumber     42
                            Delta_t_p1 6.621E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.137E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.464E-01     Amp hr / m2
+                           Crate_current         1.627E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -16453,6 +16668,11 @@ Solution saved to file solution.xml as solution 43.
                            Delta_t    6.621E-02   
                            StepNumber     43
                            Delta_t_p1 5.635E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.132E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.459E-01     Amp hr / m2
+                           Crate_current         1.569E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -16829,6 +17049,11 @@ Solution saved to file solution.xml as solution 44.
                            Delta_t    5.635E-02   
                            StepNumber     44
                            Delta_t_p1 6.654E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.128E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.455E-01     Amp hr / m2
+                           Crate_current         1.515E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -17205,6 +17430,11 @@ Solution saved to file solution.xml as solution 45.
                            Delta_t    6.654E-02   
                            StepNumber     45
                            Delta_t_p1 4.578E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.124E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.451E-01     Amp hr / m2
+                           Crate_current         1.466E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -17581,6 +17811,11 @@ Solution saved to file solution.xml as solution 46.
                            Delta_t    4.578E-02   
                            StepNumber     46
                            Delta_t_p1 5.455E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.121E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.448E-01     Amp hr / m2
+                           Crate_current         1.426E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -17957,6 +18192,11 @@ Solution saved to file solution.xml as solution 47.
                            Delta_t    5.455E-02   
                            StepNumber     47
                            Delta_t_p1 3.689E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.117E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.444E-01     Amp hr / m2
+                           Crate_current         1.392E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -18333,6 +18573,11 @@ Solution saved to file solution.xml as solution 48.
                            Delta_t    3.689E-02   
                            StepNumber     48
                            Delta_t_p1 3.831E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.115E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.442E-01     Amp hr / m2
+                           Crate_current         1.362E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -18709,6 +18954,11 @@ Solution saved to file solution.xml as solution 49.
                            Delta_t    3.831E-02   
                            StepNumber     49
                            Delta_t_p1 3.447E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.112E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.439E-01     Amp hr / m2
+                           Crate_current         1.339E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -19085,6 +19335,11 @@ Solution saved to file solution.xml as solution 50.
                            Delta_t    3.447E-02   
                            StepNumber     50
                            Delta_t_p1 5.025E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.110E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.437E-01     Amp hr / m2
+                           Crate_current         1.317E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -19461,6 +19716,11 @@ Solution saved to file solution.xml as solution 51.
                            Delta_t    5.025E-02   
                            StepNumber     51
                            Delta_t_p1 2.910E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.107E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.434E-01     Amp hr / m2
+                           Crate_current         1.294E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -19837,6 +20097,11 @@ Solution saved to file solution.xml as solution 52.
                            Delta_t    2.910E-02   
                            StepNumber     52
                            Delta_t_p1 3.002E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.106E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.432E-01     Amp hr / m2
+                           Crate_current         1.272E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -20213,6 +20478,11 @@ Solution saved to file solution.xml as solution 53.
                            Delta_t    3.002E-02   
                            StepNumber     53
                            Delta_t_p1 3.263E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.104E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.431E-01     Amp hr / m2
+                           Crate_current         1.257E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -20589,6 +20859,11 @@ Solution saved to file solution.xml as solution 54.
                            Delta_t    3.263E-02   
                            StepNumber     54
                            Delta_t_p1 4.894E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.102E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.429E-01     Amp hr / m2
+                           Crate_current         1.239E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -20965,6 +21240,11 @@ Solution saved to file solution.xml as solution 55.
                            Delta_t    4.894E-02   
                            StepNumber     55
                            Delta_t_p1 3.303E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.099E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.426E-01     Amp hr / m2
+                           Crate_current         1.220E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -21341,6 +21621,11 @@ Solution saved to file solution.xml as solution 56.
                            Delta_t    3.303E-02   
                            StepNumber     56
                            Delta_t_p1 3.013E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.097E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.424E-01     Amp hr / m2
+                           Crate_current         1.200E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -21717,6 +22002,11 @@ Solution saved to file solution.xml as solution 57.
                            Delta_t    3.013E-02   
                            StepNumber     57
                            Delta_t_p1 3.794E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.095E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.422E-01     Amp hr / m2
+                           Crate_current         1.186E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -22093,6 +22383,11 @@ Solution saved to file solution.xml as solution 58.
                            Delta_t    3.794E-02   
                            StepNumber     58
                            Delta_t_p1 3.706E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.093E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.420E-01     Amp hr / m2
+                           Crate_current         1.172E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -22469,6 +22764,11 @@ Solution saved to file solution.xml as solution 59.
                            Delta_t    3.706E-02   
                            StepNumber     59
                            Delta_t_p1 3.021E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.091E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.418E-01     Amp hr / m2
+                           Crate_current         1.153E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -22845,6 +23145,11 @@ Solution saved to file solution.xml as solution 60.
                            Delta_t    3.021E-02   
                            StepNumber     60
                            Delta_t_p1 4.144E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.417E-01     Amp hr / m2
+                           Crate_current         1.140E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -23221,6 +23526,11 @@ Solution saved to file solution.xml as solution 61.
                            Delta_t    4.144E-02   
                            StepNumber     61
                            Delta_t_p1 3.735E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.088E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.414E-01     Amp hr / m2
+                           Crate_current         1.127E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -23597,6 +23907,11 @@ Solution saved to file solution.xml as solution 62.
                            Delta_t    3.735E-02   
                            StepNumber     62
                            Delta_t_p1 3.037E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.086E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.412E-01     Amp hr / m2
+                           Crate_current         1.109E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -23973,6 +24288,11 @@ Solution saved to file solution.xml as solution 63.
                            Delta_t    3.037E-02   
                            StepNumber     63
                            Delta_t_p1 4.205E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.084E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.411E-01     Amp hr / m2
+                           Crate_current         1.098E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -24349,6 +24669,11 @@ Solution saved to file solution.xml as solution 64.
                            Delta_t    4.205E-02   
                            StepNumber     64
                            Delta_t_p1 3.912E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.082E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.409E-01     Amp hr / m2
+                           Crate_current         1.086E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -24725,6 +25050,11 @@ Solution saved to file solution.xml as solution 65.
                            Delta_t    3.912E-02   
                            StepNumber     65
                            Delta_t_p1 3.151E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.080E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.407E-01     Amp hr / m2
+                           Crate_current         1.069E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -25101,6 +25431,11 @@ Solution saved to file solution.xml as solution 66.
                            Delta_t    3.151E-02   
                            StepNumber     66
                            Delta_t_p1 4.409E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.078E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.405E-01     Amp hr / m2
+                           Crate_current         1.058E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -25477,6 +25812,11 @@ Solution saved to file solution.xml as solution 67.
                            Delta_t    4.409E-02   
                            StepNumber     67
                            Delta_t_p1 4.158E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.076E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.403E-01     Amp hr / m2
+                           Crate_current         1.046E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -25853,6 +26193,11 @@ Solution saved to file solution.xml as solution 68.
                            Delta_t    4.158E-02   
                            StepNumber     68
                            Delta_t_p1 3.341E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.074E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.401E-01     Amp hr / m2
+                           Crate_current         1.030E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -26229,6 +26574,11 @@ Solution saved to file solution.xml as solution 69.
                            Delta_t    3.341E-02   
                            StepNumber     69
                            Delta_t_p1 4.685E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.073E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.399E-01     Amp hr / m2
+                           Crate_current         1.020E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -26605,6 +26955,11 @@ Solution saved to file solution.xml as solution 70.
                            Delta_t    4.685E-02   
                            StepNumber     70
                            Delta_t_p1 4.477E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.070E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.397E-01     Amp hr / m2
+                           Crate_current         1.008E+02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -26981,6 +27336,11 @@ Solution saved to file solution.xml as solution 71.
                            Delta_t    4.477E-02   
                            StepNumber     71
                            Delta_t_p1 3.601E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.068E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.395E-01     Amp hr / m2
+                           Crate_current         9.923E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -27357,6 +27717,11 @@ Solution saved to file solution.xml as solution 72.
                            Delta_t    3.601E-02   
                            StepNumber     72
                            Delta_t_p1 5.036E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.067E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.393E-01     Amp hr / m2
+                           Crate_current         9.821E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -27733,6 +28098,11 @@ Solution saved to file solution.xml as solution 73.
                            Delta_t    5.036E-02   
                            StepNumber     73
                            Delta_t_p1 4.868E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.064E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.391E-01     Amp hr / m2
+                           Crate_current         9.711E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -28109,6 +28479,11 @@ Solution saved to file solution.xml as solution 74.
                            Delta_t    4.868E-02   
                            StepNumber     74
                            Delta_t_p1 3.929E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.062E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.389E-01     Amp hr / m2
+                           Crate_current         9.554E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -28485,6 +28860,11 @@ Solution saved to file solution.xml as solution 75.
                            Delta_t    3.929E-02   
                            StepNumber     75
                            Delta_t_p1 5.461E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.060E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.387E-01     Amp hr / m2
+                           Crate_current         9.454E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -28861,6 +29241,11 @@ Solution saved to file solution.xml as solution 76.
                            Delta_t    5.461E-02   
                            StepNumber     76
                            Delta_t_p1 5.340E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.058E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.385E-01     Amp hr / m2
+                           Crate_current         9.345E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -29237,6 +29622,11 @@ Solution saved to file solution.xml as solution 77.
                            Delta_t    5.340E-02   
                            StepNumber     77
                            Delta_t_p1 4.335E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.056E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.382E-01     Amp hr / m2
+                           Crate_current         9.190E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -29613,6 +30003,11 @@ Solution saved to file solution.xml as solution 78.
                            Delta_t    4.335E-02   
                            StepNumber     78
                            Delta_t_p1 5.968E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.054E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.381E-01     Amp hr / m2
+                           Crate_current         9.090E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -29989,6 +30384,11 @@ Solution saved to file solution.xml as solution 79.
                            Delta_t    5.968E-02   
                            StepNumber     79
                            Delta_t_p1 5.909E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.051E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.378E-01     Amp hr / m2
+                           Crate_current         8.982E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -30365,6 +30765,11 @@ Solution saved to file solution.xml as solution 80.
                            Delta_t    5.909E-02   
                            StepNumber     80
                            Delta_t_p1 4.835E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.049E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.376E-01     Amp hr / m2
+                           Crate_current         8.829E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -30741,6 +31146,11 @@ Solution saved to file solution.xml as solution 81.
                            Delta_t    4.835E-02   
                            StepNumber     81
                            Delta_t_p1 6.570E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.047E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.374E-01     Amp hr / m2
+                           Crate_current         8.728E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -31117,6 +31527,11 @@ Solution saved to file solution.xml as solution 82.
                            Delta_t    6.570E-02   
                            StepNumber     82
                            Delta_t_p1 6.601E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.044E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.371E-01     Amp hr / m2
+                           Crate_current         8.620E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -31493,6 +31908,11 @@ Solution saved to file solution.xml as solution 83.
                            Delta_t    6.601E-02   
                            StepNumber     83
                            Delta_t_p1 5.486E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.042E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.368E-01     Amp hr / m2
+                           Crate_current         8.467E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -31869,6 +32289,11 @@ Solution saved to file solution.xml as solution 84.
                            Delta_t    5.486E-02   
                            StepNumber     84
                            Delta_t_p1 7.306E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.039E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.366E-01     Amp hr / m2
+                           Crate_current         8.365E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -32245,6 +32670,11 @@ Solution saved to file solution.xml as solution 85.
                            Delta_t    7.306E-02   
                            StepNumber     85
                            Delta_t_p1 7.483E-02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.037E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.363E-01     Amp hr / m2
+                           Crate_current         8.257E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -32621,6 +33051,11 @@ Solution saved to file solution.xml as solution 86.
                            Delta_t    7.483E-02   
                            StepNumber     86
                            Delta_t_p1 1.122E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.034E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.361E-01     Amp hr / m2
+                           Crate_current         8.112E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -32997,6 +33432,11 @@ Solution saved to file solution.xml as solution 87.
                            Delta_t    1.122E-01   
                            StepNumber     87
                            Delta_t_p1 1.684E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.030E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.356E-01     Amp hr / m2
+                           Crate_current         7.957E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -33373,6 +33813,11 @@ Solution saved to file solution.xml as solution 88.
                            Delta_t    1.684E-01   
                            StepNumber     88
                            Delta_t_p1 1.380E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.023E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.350E-01     Amp hr / m2
+                           Crate_current         7.719E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -33749,6 +34194,11 @@ Solution saved to file solution.xml as solution 89.
                            Delta_t    1.380E-01   
                            StepNumber     89
                            Delta_t_p1 2.070E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.019E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.345E-01     Amp hr / m2
+                           Crate_current         7.479E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -34125,6 +34575,11 @@ Solution saved to file solution.xml as solution 90.
                            Delta_t    2.070E-01   
                            StepNumber     90
                            Delta_t_p1 1.331E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.011E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.338E-01     Amp hr / m2
+                           Crate_current         7.260E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -34501,6 +34956,11 @@ Solution saved to file solution.xml as solution 91.
                            Delta_t    1.331E-01   
                            StepNumber     91
                            Delta_t_p1 1.742E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.007E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.334E-01     Amp hr / m2
+                           Crate_current         7.043E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -34877,6 +35337,11 @@ Solution saved to file solution.xml as solution 92.
                            Delta_t    1.742E-01   
                            StepNumber     92
                            Delta_t_p1 1.303E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   4.001E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.328E-01     Amp hr / m2
+                           Crate_current         6.874E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -35253,6 +35718,11 @@ Solution saved to file solution.xml as solution 93.
                            Delta_t    1.303E-01   
                            StepNumber     93
                            Delta_t_p1 1.954E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.997E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.324E-01     Amp hr / m2
+                           Crate_current         6.703E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -35629,6 +36099,11 @@ Solution saved to file solution.xml as solution 94.
                            Delta_t    1.954E-01   
                            StepNumber     94
                            Delta_t_p1 1.420E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.991E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.318E-01     Amp hr / m2
+                           Crate_current         6.545E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -36005,6 +36480,11 @@ Solution saved to file solution.xml as solution 95.
                            Delta_t    1.420E-01   
                            StepNumber     95
                            Delta_t_p1 2.130E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.987E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.314E-01     Amp hr / m2
+                           Crate_current         6.372E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -36381,6 +36861,11 @@ Solution saved to file solution.xml as solution 96.
                            Delta_t    2.130E-01   
                            StepNumber     96
                            Delta_t_p1 1.669E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.981E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.308E-01     Amp hr / m2
+                           Crate_current         6.218E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -36757,6 +37242,11 @@ Solution saved to file solution.xml as solution 97.
                            Delta_t    1.669E-01   
                            StepNumber     97
                            Delta_t_p1 2.503E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.976E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.303E-01     Amp hr / m2
+                           Crate_current         6.042E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -37133,6 +37623,11 @@ Solution saved to file solution.xml as solution 98.
                            Delta_t    2.503E-01   
                            StepNumber     98
                            Delta_t_p1 2.050E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.969E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.296E-01     Amp hr / m2
+                           Crate_current         5.886E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -37509,6 +38004,11 @@ Solution saved to file solution.xml as solution 99.
                            Delta_t    2.050E-01   
                            StepNumber     99
                            Delta_t_p1 3.075E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.964E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.291E-01     Amp hr / m2
+                           Crate_current         5.700E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -37885,6 +38385,11 @@ Solution saved to file solution.xml as solution 100.
                            Delta_t    3.075E-01   
                            StepNumber    100
                            Delta_t_p1 2.712E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.956E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.282E-01     Amp hr / m2
+                           Crate_current         5.535E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -38261,6 +38766,11 @@ Solution saved to file solution.xml as solution 101.
                            Delta_t    2.712E-01   
                            StepNumber    101
                            Delta_t_p1 4.068E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.949E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.276E-01     Amp hr / m2
+                           Crate_current         5.327E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -38637,6 +39147,11 @@ Solution saved to file solution.xml as solution 102.
                            Delta_t    4.068E-01   
                            StepNumber    102
                            Delta_t_p1 3.387E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.939E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.266E-01     Amp hr / m2
+                           Crate_current         5.142E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -39013,6 +39528,11 @@ Solution saved to file solution.xml as solution 103.
                            Delta_t    3.387E-01   
                            StepNumber    103
                            Delta_t_p1 5.080E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.931E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.258E-01     Amp hr / m2
+                           Crate_current         4.942E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -39389,6 +39909,11 @@ Solution saved to file solution.xml as solution 104.
                            Delta_t    5.080E-01   
                            StepNumber    104
                            Delta_t_p1 3.492E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.920E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.247E-01     Amp hr / m2
+                           Crate_current         4.733E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -39765,6 +40290,11 @@ Solution saved to file solution.xml as solution 105.
                            Delta_t    3.492E-01   
                            StepNumber    105
                            Delta_t_p1 5.239E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.912E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.239E-01     Amp hr / m2
+                           Crate_current         4.549E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -40141,6 +40671,11 @@ Solution saved to file solution.xml as solution 106.
                            Delta_t    5.239E-01   
                            StepNumber    106
                            Delta_t_p1 3.728E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.902E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.228E-01     Amp hr / m2
+                           Crate_current         4.353E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -40517,6 +41052,11 @@ Solution saved to file solution.xml as solution 107.
                            Delta_t    3.728E-01   
                            StepNumber    107
                            Delta_t_p1 5.592E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.894E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.221E-01     Amp hr / m2
+                           Crate_current         4.183E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -40893,6 +41433,11 @@ Solution saved to file solution.xml as solution 108.
                            Delta_t    5.592E-01   
                            StepNumber    108
                            Delta_t_p1 5.531E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.884E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.211E-01     Amp hr / m2
+                           Crate_current         4.035E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -41269,6 +41814,11 @@ Solution saved to file solution.xml as solution 109.
                            Delta_t    5.531E-01   
                            StepNumber    109
                            Delta_t_p1 8.296E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.874E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.201E-01     Amp hr / m2
+                           Crate_current         3.861E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -41645,6 +42195,11 @@ Solution saved to file solution.xml as solution 110.
                            Delta_t    8.296E-01   
                            StepNumber    110
                            Delta_t_p1 8.010E-01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.859E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.186E-01     Amp hr / m2
+                           Crate_current         3.662E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -42021,6 +42576,11 @@ Solution saved to file solution.xml as solution 111.
                            Delta_t    8.010E-01   
                            StepNumber    111
                            Delta_t_p1 1.202E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.846E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.173E-01     Amp hr / m2
+                           Crate_current         3.455E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -42397,6 +42957,11 @@ Solution saved to file solution.xml as solution 112.
                            Delta_t    1.202E+00   
                            StepNumber    112
                            Delta_t_p1 1.426E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.828E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.155E-01     Amp hr / m2
+                           Crate_current         3.227E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -42773,6 +43338,11 @@ Solution saved to file solution.xml as solution 113.
                            Delta_t    1.426E+00   
                            StepNumber    113
                            Delta_t_p1 2.139E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.808E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.135E-01     Amp hr / m2
+                           Crate_current         2.967E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -43149,6 +43719,11 @@ Solution saved to file solution.xml as solution 114.
                            Delta_t    2.139E+00   
                            StepNumber    114
                            Delta_t_p1 3.053E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.781E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.108E-01     Amp hr / m2
+                           Crate_current         2.678E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -43525,6 +44100,11 @@ Solution saved to file solution.xml as solution 115.
                            Delta_t    3.053E+00   
                            StepNumber    115
                            Delta_t_p1 4.580E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.748E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.074E-01     Amp hr / m2
+                           Crate_current         2.346E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -43901,6 +44481,11 @@ Solution saved to file solution.xml as solution 116.
                            Delta_t    4.580E+00   
                            StepNumber    116
                            Delta_t_p1 6.870E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.705E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 1.032E-01     Amp hr / m2
+                           Crate_current         1.972E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -44277,6 +44862,11 @@ Solution saved to file solution.xml as solution 117.
                            Delta_t    6.870E+00   
                            StepNumber    117
                            Delta_t_p1 1.031E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.654E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 9.808E-02     Amp hr / m2
+                           Crate_current         1.586E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -44653,6 +45243,11 @@ Solution saved to file solution.xml as solution 118.
                            Delta_t    1.031E+01   
                            StepNumber    118
                            Delta_t_p1 1.546E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.595E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 9.219E-02     Amp hr / m2
+                           Crate_current         1.215E+01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -45029,6 +45624,11 @@ Solution saved to file solution.xml as solution 119.
                            Delta_t    1.546E+01   
                            StepNumber    119
                            Delta_t_p1 1.090E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.530E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 8.571E-02     Amp hr / m2
+                           Crate_current         8.914E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -45405,6 +46005,11 @@ Solution saved to file solution.xml as solution 120.
                            Delta_t    1.090E+01   
                            StepNumber    120
                            Delta_t_p1 1.636E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.495E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 8.218E-02     Amp hr / m2
+                           Crate_current         6.880E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -45781,6 +46386,11 @@ Solution saved to file solution.xml as solution 121.
                            Delta_t    1.636E+01   
                            StepNumber    121
                            Delta_t_p1 8.476E+00   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.452E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 7.790E-02     Amp hr / m2
+                           Crate_current         5.571E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -46157,6 +46767,11 @@ Solution saved to file solution.xml as solution 122.
                            Delta_t    8.476E+00   
                            StepNumber    122
                            Delta_t_p1 1.271E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.433E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 7.603E-02     Amp hr / m2
+                           Crate_current         4.697E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -46533,6 +47148,11 @@ Solution saved to file solution.xml as solution 123.
                            Delta_t    1.271E+01   
                            StepNumber    123
                            Delta_t_p1 1.151E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.409E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 7.355E-02     Amp hr / m2
+                           Crate_current         4.137E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -46909,6 +47529,11 @@ Solution saved to file solution.xml as solution 124.
                            Delta_t    1.151E+01   
                            StepNumber    124
                            Delta_t_p1 1.727E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.389E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 7.159E-02     Amp hr / m2
+                           Crate_current         3.629E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -47285,6 +47910,11 @@ Solution saved to file solution.xml as solution 125.
                            Delta_t    1.727E+01   
                            StepNumber    125
                            Delta_t_p1 1.787E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.363E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 6.902E-02     Amp hr / m2
+                           Crate_current         3.160E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -47661,6 +48291,11 @@ Solution saved to file solution.xml as solution 126.
                            Delta_t    1.787E+01   
                            StepNumber    126
                            Delta_t_p1 2.680E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.341E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 6.675E-02     Amp hr / m2
+                           Crate_current         2.701E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -48037,6 +48672,11 @@ Solution saved to file solution.xml as solution 127.
                            Delta_t    2.680E+01   
                            StepNumber    127
                            Delta_t_p1 3.121E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.312E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 6.389E-02     Amp hr / m2
+                           Crate_current         2.273E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -48413,6 +49053,11 @@ Solution saved to file solution.xml as solution 128.
                            Delta_t    3.121E+01   
                            StepNumber    128
                            Delta_t_p1 4.681E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.285E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 6.115E-02     Amp hr / m2
+                           Crate_current         1.864E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -48789,6 +49434,11 @@ Solution saved to file solution.xml as solution 129.
                            Delta_t    4.681E+01   
                            StepNumber    129
                            Delta_t_p1 6.332E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.252E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 5.791E-02     Amp hr / m2
+                           Crate_current         1.471E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -49165,6 +49815,11 @@ Solution saved to file solution.xml as solution 130.
                            Delta_t    6.332E+01   
                            StepNumber    130
                            Delta_t_p1 9.498E+01   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.219E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 5.462E-02     Amp hr / m2
+                           Crate_current         1.107E+00     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -49541,6 +50196,11 @@ Solution saved to file solution.xml as solution 131.
                            Delta_t    9.498E+01   
                            StepNumber    131
                            Delta_t_p1 1.425E+02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.185E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 5.114E-02     Amp hr / m2
+                           Crate_current         7.774E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -49917,6 +50577,11 @@ Solution saved to file solution.xml as solution 132.
                            Delta_t    1.425E+02   
                            StepNumber    132
                            Delta_t_p1 2.137E+02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.151E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.782E-02     Amp hr / m2
+                           Crate_current         4.957E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -50293,6 +50958,11 @@ Solution saved to file solution.xml as solution 133.
                            Delta_t    2.137E+02   
                            StepNumber    133
                            Delta_t_p1 3.206E+02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.124E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.504E-02     Amp hr / m2
+                           Crate_current         2.767E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -50669,6 +51339,11 @@ Solution saved to file solution.xml as solution 134.
                            Delta_t    3.206E+02   
                            StepNumber    134
                            Delta_t_p1 4.808E+02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.104E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.311E-02     Amp hr / m2
+                           Crate_current         1.280E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -51045,6 +51720,11 @@ Solution saved to file solution.xml as solution 135.
                            Delta_t    4.808E+02   
                            StepNumber    135
                            Delta_t_p1 6.703E+02   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.094E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.210E-02     Amp hr / m2
+                           Crate_current         4.493E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -51421,6 +52101,11 @@ Solution saved to file solution.xml as solution 136.
                            Delta_t    6.703E+02   
                            StepNumber    136
                            Delta_t_p1 1.005E+03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.091E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.175E-02     Amp hr / m2
+                           Crate_current         1.098E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -51797,6 +52482,11 @@ Solution saved to file solution.xml as solution 137.
                            Delta_t    1.005E+03   
                            StepNumber    137
                            Delta_t_p1 1.508E+03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.167E-02     Amp hr / m2
+                           Crate_current         1.676E-03     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -52173,6 +52863,11 @@ Solution saved to file solution.xml as solution 138.
                            Delta_t    1.508E+03   
                            StepNumber    138
                            Delta_t_p1 2.262E+03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         1.390E-04     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -52549,6 +53244,11 @@ Solution saved to file solution.xml as solution 139.
                            Delta_t    2.262E+03   
                            StepNumber    139
                            Delta_t_p1 3.393E+03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         -5.778E-06    
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -52925,6 +53625,11 @@ Solution saved to file solution.xml as solution 140.
                            Delta_t    3.393E+03   
                            StepNumber    140
                            Delta_t_p1 5.090E+03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         -9.016E-08    
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -53301,6 +54006,11 @@ Solution saved to file solution.xml as solution 141.
                            Delta_t    5.090E+03   
                            StepNumber    141
                            Delta_t_p1 7.635E+03   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         -2.314E-11    
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -53677,6 +54387,11 @@ Solution saved to file solution.xml as solution 142.
                            Delta_t    7.635E+03   
                            StepNumber    142
                            Delta_t_p1 1.145E+04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         -2.397E-14    
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -54053,6 +54768,11 @@ Solution saved to file solution.xml as solution 143.
                            Delta_t    6.865E+03   
                            StepNumber    143
                            Delta_t_p1 1.030E+04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         -3.082E-15    
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6
@@ -54404,6 +55124,11 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
                            Delta_t    6.865E+03   
                            StepNumber    143
                            Delta_t_p1 1.030E+04   
+                           Capacity_Anode        4.710E-01     Amp hr / m2
+                           Capacity_Anode_Left   3.090E-01     Amp hr / m2
+                           Capacity_Cathode      1.693E-01     Amp hr / m2
+                           Capacity_Cathode_Left 4.166E-02     Amp hr / m2
+                           Crate_current         -3.082E-15    
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_0 : Number of variables = 6

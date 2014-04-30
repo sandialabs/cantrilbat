@@ -1,7 +1,7 @@
 <ctml>
   <simulation id="0">
     <string title="timestamp">
-      Fri Apr 25 14:27:41 2014
+      Tue Apr 29 21:27:52 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.000000000000000E-05 </time>
     <delta_t type="time" units="s" vtype="float"> 1.848183288574218E-06 </delta_t>
@@ -17,6 +17,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000034866431E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725348767626E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -1120,11 +1121,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999954909624E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454632438062E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="1">
     <string title="timestamp">
-      Fri Apr 25 14:28:35 2014
+      Tue Apr 29 21:28:45 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.000000000000000E-01 </time>
     <delta_t type="time" units="s" vtype="float"> 6.656121850528732E-03 </delta_t>
@@ -1140,6 +1142,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000167421603366E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915670188330288E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -2263,6 +2266,7 @@
       <MF_sp(PF6-) vtype="float"> 3.999831930962712E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915399490300709E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
 </ctml>

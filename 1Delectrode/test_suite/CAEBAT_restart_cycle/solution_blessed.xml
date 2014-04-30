@@ -1,7 +1,7 @@
 <ctml>
   <simulation id="0">
     <string title="timestamp">
-      Fri Apr 25 14:27:03 2014
+      Tue Apr 29 21:27:15 2014
     </string>
     <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
     <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -17,6 +17,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000000000E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> -7.000000000000001E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -1120,11 +1121,12 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000000000E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> -7.000000000000001E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="1">
     <string title="timestamp">
-      Fri Apr 25 14:27:05 2014
+      Tue Apr 29 21:27:17 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.000000000000000E-08 </time>
     <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -1140,6 +1142,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000049099E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 1.134337700613793E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -2243,11 +2246,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999936472E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 1.133956301131906E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="2">
     <string title="timestamp">
-      Fri Apr 25 14:27:06 2014
+      Tue Apr 29 21:27:18 2014
     </string>
     <time type="time" units="s" vtype="float"> 2.000000000000000E-08 </time>
     <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -2263,6 +2267,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000083948E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915720429829089E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -3366,11 +3371,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999891404E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915449737019151E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="3">
     <string title="timestamp">
-      Fri Apr 25 14:27:07 2014
+      Tue Apr 29 21:27:19 2014
     </string>
     <time type="time" units="s" vtype="float"> 3.000000000000000E-08 </time>
     <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -3386,6 +3392,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000118797E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915730159085476E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -4489,11 +4496,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999846336E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915459466768190E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="4">
     <string title="timestamp">
-      Fri Apr 25 14:27:09 2014
+      Tue Apr 29 21:27:20 2014
     </string>
     <time type="time" units="s" vtype="float"> 4.000000000000000E-08 </time>
     <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -4509,6 +4517,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000153648E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725369386394E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -5612,11 +5621,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999801263E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454653052588E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="5">
     <string title="timestamp">
-      Fri Apr 25 14:27:11 2014
+      Tue Apr 29 21:27:23 2014
     </string>
     <time type="time" units="s" vtype="float"> 5.500000000000000E-08 </time>
     <delta_t type="time" units="s" vtype="float"> 1.500000000000000E-08 </delta_t>
@@ -5632,6 +5642,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000205926E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725369362119E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -6735,11 +6746,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999733655E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454653028317E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="6">
     <string title="timestamp">
-      Fri Apr 25 14:27:13 2014
+      Tue Apr 29 21:27:25 2014
     </string>
     <time type="time" units="s" vtype="float"> 7.750000000000000E-08 </time>
     <delta_t type="time" units="s" vtype="float"> 2.250000000000000E-08 </delta_t>
@@ -6755,6 +6767,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000284346E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725369319772E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -7858,11 +7871,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999632244E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454652985979E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="7">
     <string title="timestamp">
-      Fri Apr 25 14:27:15 2014
+      Tue Apr 29 21:27:27 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.112500000000000E-07 </time>
     <delta_t type="time" units="s" vtype="float"> 3.375000000000001E-08 </delta_t>
@@ -7878,6 +7892,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000401970E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725369256318E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -8981,11 +8996,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999480125E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454652922536E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="8">
     <string title="timestamp">
-      Fri Apr 25 14:27:18 2014
+      Tue Apr 29 21:27:29 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.618750000000000E-07 </time>
     <delta_t type="time" units="s" vtype="float"> 5.062500000000001E-08 </delta_t>
@@ -9001,6 +9017,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000578408E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725369161110E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -10104,11 +10121,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999999251947E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454652827347E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="9">
     <string title="timestamp">
-      Fri Apr 25 14:27:20 2014
+      Tue Apr 29 21:27:31 2014
     </string>
     <time type="time" units="s" vtype="float"> 2.378125000000000E-07 </time>
     <delta_t type="time" units="s" vtype="float"> 7.593750000000001E-08 </delta_t>
@@ -10124,6 +10142,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000000843067E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725369018347E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -11227,11 +11246,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999998909680E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454652684609E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="10">
     <string title="timestamp">
-      Fri Apr 25 14:27:22 2014
+      Tue Apr 29 21:27:33 2014
     </string>
     <time type="time" units="s" vtype="float"> 3.517187500000000E-07 </time>
     <delta_t type="time" units="s" vtype="float"> 1.139062500000000E-07 </delta_t>
@@ -11247,6 +11267,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000001240055E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725368804314E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -12350,11 +12371,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999998396281E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454652470617E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="11">
     <string title="timestamp">
-      Fri Apr 25 14:27:24 2014
+      Tue Apr 29 21:27:35 2014
     </string>
     <time type="time" units="s" vtype="float"> 5.225781250000000E-07 </time>
     <delta_t type="time" units="s" vtype="float"> 1.708593750000000E-07 </delta_t>
@@ -12370,6 +12392,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000001835537E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725368483148E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -13473,11 +13496,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999997626180E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454652149510E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="12">
     <string title="timestamp">
-      Fri Apr 25 14:27:26 2014
+      Tue Apr 29 21:27:37 2014
     </string>
     <time type="time" units="s" vtype="float"> 7.788671875000001E-07 </time>
     <delta_t type="time" units="s" vtype="float"> 2.562890625000001E-07 </delta_t>
@@ -13493,6 +13517,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000002728762E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725368001684E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -14596,11 +14621,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999996471031E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454651668135E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="13">
     <string title="timestamp">
-      Fri Apr 25 14:27:28 2014
+      Tue Apr 29 21:27:39 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.163300781250000E-06 </time>
     <delta_t type="time" units="s" vtype="float"> 3.844335937500001E-07 </delta_t>
@@ -14616,6 +14642,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000004068597E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725367279844E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -15719,11 +15746,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999994738308E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454650946429E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="14">
     <string title="timestamp">
-      Fri Apr 25 14:27:30 2014
+      Tue Apr 29 21:27:42 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.739951171875000E-06 </time>
     <delta_t type="time" units="s" vtype="float"> 5.766503906250002E-07 </delta_t>
@@ -15739,6 +15767,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000006078349E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725366197566E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -16842,11 +16871,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999992139223E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454649864352E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="15">
     <string title="timestamp">
-      Fri Apr 25 14:27:33 2014
+      Tue Apr 29 21:27:44 2014
     </string>
     <time type="time" units="s" vtype="float"> 2.604926757812500E-06 </time>
     <delta_t type="time" units="s" vtype="float"> 8.649755859375002E-07 </delta_t>
@@ -16862,6 +16892,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000009092979E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725364576171E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -17965,11 +17996,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999988240599E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454648243258E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="16">
     <string title="timestamp">
-      Fri Apr 25 14:27:35 2014
+      Tue Apr 29 21:27:46 2014
     </string>
     <time type="time" units="s" vtype="float"> 3.902390136718751E-06 </time>
     <delta_t type="time" units="s" vtype="float"> 1.297463378906250E-06 </delta_t>
@@ -17985,6 +18017,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000013614922E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725362147779E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -19088,11 +19121,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999982392671E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454645815318E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="17">
     <string title="timestamp">
-      Fri Apr 25 14:27:37 2014
+      Tue Apr 29 21:27:48 2014
     </string>
     <time type="time" units="s" vtype="float"> 5.848585205078126E-06 </time>
     <delta_t type="time" units="s" vtype="float"> 1.946195068359375E-06 </delta_t>
@@ -19108,6 +19142,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000020397839E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725358513793E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -20211,11 +20246,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999973620793E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454642182007E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="18">
     <string title="timestamp">
-      Fri Apr 25 14:27:39 2014
+      Tue Apr 29 21:27:50 2014
     </string>
     <time type="time" units="s" vtype="float"> 8.767877807617189E-06 </time>
     <delta_t type="time" units="s" vtype="float"> 2.919292602539063E-06 </delta_t>
@@ -20231,6 +20267,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000030572214E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725353082052E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -21334,11 +21371,12 @@
       <MF_sp(PF6-) vtype="float"> 3.999999960463014E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454636751280E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
   <simulation id="19">
     <string title="timestamp">
-      Fri Apr 25 14:27:40 2014
+      Tue Apr 29 21:27:51 2014
     </string>
     <time type="time" units="s" vtype="float"> 1.000000000000000E-05 </time>
     <delta_t type="time" units="s" vtype="float"> 1.232122192382812E-06 </delta_t>
@@ -21354,6 +21392,7 @@
       <MF_sp(PF6-) vtype="float"> 4.000000034866431E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915725348767626E-02 </Volt(Electrolyte)>
       <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
     </domain>
     <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
       <grid_data>
@@ -22457,6 +22496,7 @@
       <MF_sp(PF6-) vtype="float"> 3.999999954909624E-02 </MF_sp(PF6-)>
       <Volt(Electrolyte) vtype="float"> 2.915454632438062E-02 </Volt(Electrolyte)>
       <Volt(CathodeVoltage) vtype="float"> 3.800000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.800000000000000E+00 </Volts(CurrentCCVoltage)>
     </domain>
   </simulation>
 </ctml>
