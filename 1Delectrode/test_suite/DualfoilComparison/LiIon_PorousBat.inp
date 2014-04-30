@@ -173,8 +173,29 @@ Cathode Voltage = 3.8 V
 ! Dakota Results File Name = results.out
 !-------------------------------------------------------------------------
 !
+!      Electrical Conductivity of the Anode Electrode
+!      This is the conductivity in the solid limit
+!      The effective conductivity is
 !
-!-------------------------------------------------------------------------
+!              volume_frac * sigma
+!
+!              Units are  S/m
+!
+!--------------------------------------------------------------------------------------------------------
+!Electrical Conductivity of the Anode Electrode = 100.0
+!--------------------------------------------------------------------------------------------------------
+!
+!      Electrical Conductivity of the Cathode Electrode
+!      This is the conductivity in the solid limit
+!      The effective conductivity is
+!
+!              volume_frac * sigma
+!
+!              Units are  S/m
+!
+!--------------------------------------------------------------------------------------------------------
+!Electrical Conductivity of the Cathode Electrode = 10.0
+!--------------------------------------------------------------------------------------------------------
 !-------------------------------------------------------------------------
 !  Nonlinear Solver Inputs
 !-------------------------------------------------------------------------

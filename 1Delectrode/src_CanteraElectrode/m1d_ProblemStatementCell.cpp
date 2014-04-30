@@ -364,6 +364,15 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   cf->addLineEntry(dccc);
 
   /* ------------------------------------------------------------------------------------------------------------------
+   *  Anode Current Collector 
+   */
+  reqd = 0;
+  LE_OneDblUnits *dccc = new LE_OneDblUnits("Cathode Current Collector Thickness", &(cathodeCCThickness_), reqd,
+                                            "cathodeCCThickness", ucL5);
+  dccc->set_default(0.0);
+  cf->addLineEntry(dccc);
+
+  /* ------------------------------------------------------------------------------------------------------------------
    *  Extra Resistance in Series with Cathode
    */
   reqd = 0;

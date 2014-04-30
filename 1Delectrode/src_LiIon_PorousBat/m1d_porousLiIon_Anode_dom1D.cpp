@@ -797,7 +797,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         xdelCell = cTmps.xdelCell_;
         xdelCell_Cell_[iCell] = xdelCell;
 
-
         /*
          * --------------------------- DO PRE-SETUPSHOP RASTER OVER LEFT,CENTER,RIGHT -----------------------------
          * Calculate the distance between the left and center node points

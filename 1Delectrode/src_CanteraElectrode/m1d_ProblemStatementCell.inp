@@ -182,11 +182,27 @@ Separator Thickness = 70.0E-6
 ! Separator Diameter = 0.01 m
 !---------------------------------------------------------------------------------------------------------
 !
-!  Conductivity of the Anode Electrode
-!---------------------------------------------------------------------------------------------------------
-! Anode Current Collector Thickness = 0.01 m
-!---------------------------------------------------------------------------------------------------------
-
+!      Electrical Conductivity of the Anode Electrode 
+!      This is the conductivity in the solid limit.  The effective conductivity is 
+! 
+!              volume_frac * sigma
+!
+!              Units are  S/m
+!
+!--------------------------------------------------------------------------------------------------------
+!Electrical Conductivity of the Anode Electrode = 100.0
+!--------------------------------------------------------------------------------------------------------
+!
+!      Electrical Conductivity of the Cathode Electrode
+!      This is the conductivity in the solid limit.  The effective conductivity is
+!
+!              volume_frac * sigma
+!
+!              Units are  S/m
+!
+!--------------------------------------------------------------------------------------------------------
+! Electrical Conductivity of the Cathode Electrode = 10.0
+!--------------------------------------------------------------------------------------------------------
 !
 !   Anode Current Collector Thickness - double [m] optional (default = 0.0)
 !

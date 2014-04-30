@@ -212,6 +212,18 @@ public:
   //! Separator diameter (m)
   double separatorDiameter_;
 
+  //! Electrical conductivity of the anode
+  /*!
+   *    units are S/m
+   */
+  double conductivityAnode_;
+
+  //! Electrical conductivity of the cathode
+  /*!
+   *    units are S/m
+   */
+  double conductivityCathode_;
+
   //! Thickness of anode current collector (m)
   double anodeCCThickness_;
 
