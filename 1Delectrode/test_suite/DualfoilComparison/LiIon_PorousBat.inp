@@ -27,6 +27,16 @@ Number of Cantera Files = 2
 Cantera File Name = ECsoln_ion.xml
 Cantera File Name = MgO.xml
 !-------------------------------------------------------------------------
+!---------------------------------------------------------------------------------------------------------
+!
+!     Heat Source Tracking - int (optional) (default = 0)
+!
+!   0 = Do not do any heat source tracking
+!   1 = calculate heat sources, print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Heat Source Tracking = 1
+!---------------------------------------------------------------------------------------------------------
 !
 ! Electrolyte Phase = [string] [ required ]
 !
@@ -196,9 +206,10 @@ Relative Tolerance = 1e-3
 !  Simulation maximum time step
 !
 !---------------------------------------------------------------------------------------
-Maximum Time Step = 100.0
+!~Maximum Time Step = 100.0
+Maximum Time Step = 25.0
 !-------------------------------------------------------------------------
-Maximum Number of Time Steps = 5
+!Maximum Number of Time Steps = 5
 !
 !   Set the level of printing that occurs for each time step
 !

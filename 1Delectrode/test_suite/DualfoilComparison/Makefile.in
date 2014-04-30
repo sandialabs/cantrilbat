@@ -13,11 +13,11 @@
 .SUFFIXES: .d
 
 PROGRAM = LiIon_PorousBat
-TEST_NAME = LiIon_MCMB_LiCoO2_Diff3
+TEST_NAME = DualfoilComparison
 
 DATA =  \
 ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml\
-MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml 
+MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml  anode.inp cathode.inp
 
 
 BLESSED_FILES = \

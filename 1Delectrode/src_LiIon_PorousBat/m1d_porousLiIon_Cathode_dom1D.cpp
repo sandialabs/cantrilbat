@@ -1877,7 +1877,7 @@ porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
     }
 
-    icurrElectrode_trCurr_ = -conductivityElectrode_ * gradVElectrode_trCurr_;
+    icurrElectrode_trCurr_ = -conductivityElectrode_ * (1.0 - porosity_Curr_) * gradVElectrode_trCurr_;
 }
 //=====================================================================================================================
 // Saving the solution on the domain in an xml node.

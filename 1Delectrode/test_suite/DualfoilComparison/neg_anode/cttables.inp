@@ -1,0 +1,86 @@
+#
+#
+#
+Number of Cantera Files = 4
+Cantera File Name = MCMB_RedlichKister.xml
+Cantera File Name = metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = MCMBAnode_electrode.xml
+#
+#
+!Debugging = true
+Bath Temperature = 700.
+Bath Pressure =  1 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 6
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 10.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  ! Added Temperatures = 723.
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Bath Species ID = ECDMC
+   start block Bath Species Mole Fraction
+       Li+   = 0.08
+       PF6-  = 0.08
+       ECDMC = 0.84
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase MCMB_Interstitials_anode
+   Bath Species ID = V_C6-bulk
+   start block Bath Species Mole Fraction
+!       Li_C6-bulk = 0.1
+!       V_C6-bulk =  0.9
+!        Li_C6-bulk = 0.9
+!        V_C6-bulk =  0.1
+        Li_C6-bulk = 0.6
+        V_C6-bulk =  0.4
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase MCMB_Interstitials_anode
+
+Start block Extra Global Reaction
+   Special Species = electron_Li_LiIon
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = -1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+# the above were empty lines

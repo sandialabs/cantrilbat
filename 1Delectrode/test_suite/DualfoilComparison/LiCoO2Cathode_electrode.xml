@@ -52,9 +52,10 @@
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-           <A>1.0E14</A>
+           <A>5.0E7</A>
            <b>0.0</b>
-           <E units="kJ/mol"> 80.000000 </E>
+           <!--   Setting all activation energies to 4000 Kelvin to conform to dualfoil -->
+           <E units="kJ/mol"> 33.25780 </E>
         </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
       <reactants> LiCoO2:1.0 </reactants>

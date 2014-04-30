@@ -182,6 +182,12 @@ Separator Thickness = 70.0E-6
 ! Separator Diameter = 0.01 m
 !---------------------------------------------------------------------------------------------------------
 !
+!  Conductivity of the Anode Electrode
+!---------------------------------------------------------------------------------------------------------
+! Anode Current Collector Thickness = 0.01 m
+!---------------------------------------------------------------------------------------------------------
+
+!
 !   Anode Current Collector Thickness - double [m] optional (default = 0.0)
 !
 !        If this option is turned on, the boundary condition for constant voltage conditions is changed.
