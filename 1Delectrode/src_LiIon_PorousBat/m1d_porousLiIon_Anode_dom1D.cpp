@@ -2118,6 +2118,16 @@ porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
                 }
             }
         }
+	//print thermal source terms
+	// check dimensions!!
+        fprintf(ofp, "\"qHeat_step [J/m2?]\" \t");
+        fprintf(ofp, "\"qHeat_accum [J/m2?]\" \t");
+        fprintf(ofp, "\"Joule_Lyte [J/m2?]\" \t");
+        fprintf(ofp, "\"Joule_Solid [J/m2?]\" \t");
+        fprintf(ofp, "\"electrodHeat [J/m2?]\" \t");
+        fprintf(ofp, "\"OverpotHeat [J/m2?]\" \t");
+        fprintf(ofp, "\"deltaSHeat [J/m2?]\" \t");
+
         fprintf(ofp, "\n");
 
         fprintf(ofp, "\n");
@@ -2239,8 +2249,16 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
                     }
                 }
             }
-            fprintf(ofp, "\n");
+	    // print thermal source terms
+	    fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell]);
+	    fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell]);
+	    fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell]);
+	    fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell]);
+	    fprintf(ofp, "%g \t", electrodeHeat_Cell_curr_[iCell]);
+	    fprintf(ofp, "%g \t", overPotentialHeat_Cell_curr_[iCell]);
+	    fprintf(ofp, "%g \t",  deltaSHeat_Cell_curr_[iCell]);
 
+            fprintf(ofp, "\n");
         }
         fclose(ofp);
 
