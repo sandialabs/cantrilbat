@@ -85,7 +85,25 @@ int porousElectrode_dom1D::getMaxSubGridTimeSteps() const
 {
     return maxElectrodeSubIntegrationSteps_;
 }
-  //=====================================================================================================================
+//=====================================================================================================================
+double porousElectrode_dom1D::capacityPA(int platNum) const
+{
+    //   throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
+    return 0.0;
+}
+//=====================================================================================================================
+double porousElectrode_dom1D::capacityDischargedPA(int platNum) const
+{
+    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacityDischarged", "unimplemented"); 
+    return 0.0;
+}
+//=====================================================================================================================
+double porousElectrode_dom1D::capacityLeftPA(int platNum, double voltsMax, double voltsMin) const
+{
+    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
+    return 0.0;
+}
+//=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
 

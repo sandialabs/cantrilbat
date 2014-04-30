@@ -54,9 +54,22 @@ namespace m1d
     QdotPerArea_nm1_(0.0),
     QdotAnodePerArea_n_(0.0),
     QdotSeparatorPerArea_n_(0.0),
-    QdotCathodePerArea_n_(0.0)
+    QdotCathodePerArea_n_(0.0),
+    electrodeCrossSectionalArea_(0.0),
+    capacityAnodePA_(0.0),
+    capacityCathodePA_(0.0),
+    capacityLeftAnodePA_(0.0),
+    capacityLeftCathodePA_(0.0),
+    capacityDischargedAnodePA_(0.0),
+    capacityDischargedCathodePA_(0.0),
+    capacityPAEff_(0.0),
+    capacityLeftPAEff_(0.0),
+    timeLeft_(0.0),
+    Crate_current_(0.0)
+
   {
      doHeatSourceTracking_ = PSinput.doHeatSourceTracking_;
+     electrodeCrossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
   }
   //=====================================================================================================================
   // Destructor
@@ -101,6 +114,18 @@ namespace m1d
     QdotSeparatorPerArea_n_            = r.QdotSeparatorPerArea_n_;
     QdotCathodePerArea_n_              = r.QdotCathodePerArea_n_;
 
+    electrodeCrossSectionalArea_         = r.electrodeCrossSectionalArea_;
+    capacityAnodePA_                     = r.capacityAnodePA_;
+    capacityCathodePA_                   = r.capacityCathodePA_;
+    capacityLeftAnodePA_                 = r.capacityLeftAnodePA_;
+    capacityLeftCathodePA_               = r.capacityLeftCathodePA_;
+    capacityDischargedAnodePA_           = r.capacityDischargedAnodePA_;
+    capacityDischargedCathodePA_         = r.capacityDischargedCathodePA_;
+    capacityPAEff_                       = r.capacityPAEff_;
+    capacityLeftPAEff_                   = r.capacityLeftPAEff_;
+    timeLeft_                            = r.timeLeft_;
+    Crate_current_                       = r.Crate_current_;
+
     return *this;
   }
   //=====================================================================================================================
@@ -127,6 +152,8 @@ namespace m1d
 				      double &delta_t,
                                       double &delta_t_np1)
   {
+      electrodeCrossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
+
     //loop over all volume and surface domains providing initial guess
     ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t, delta_t_np1);
     //improveInitialConditions(soln);
@@ -798,6 +825,42 @@ int   BatteryResidEval::getMaxSubGridTimeSteps() const
     return maxSubGridTimeSteps_;
 }
 
+//====================================================================================================================
+void BatteryResidEval::gatherCapacityStatistics() 
+{
+    DomainLayout &DL = *DL_ptr_;
+    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
+    porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+    d_ptr = DL.BulkDomain1D_List[2];
+    porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+
+    capacityAnodePA_   =   d_anode_ptr->capacityPA();
+    capacityCathodePA_ = d_cathode_ptr->capacityPA();
+
+    capacityLeftAnodePA_   =   d_anode_ptr->capacityLeftPA();
+    capacityLeftCathodePA_ = d_cathode_ptr->capacityLeftPA();
+
+    capacityDischargedAnodePA_   =   d_anode_ptr->capacityDischargedPA();
+    capacityDischargedCathodePA_ = d_cathode_ptr->capacityDischargedPA();
+
+    capacityPAEff_ = std::min(capacityAnodePA_, capacityCathodePA_);
+    capacityLeftPAEff_ = std::min(capacityLeftAnodePA_, capacityLeftCathodePA_);
+
+  
+    double icurr = reportCathodeCurrent();
+
+    double timeToDischargeWhole = 1.0E10;
+
+    if (icurr  > 1.0E-5) {
+	timeToDischargeWhole = capacityPAEff_ / icurr; 
+    } else if (icurr < 1.0E-5) {
+	timeToDischargeWhole = - capacityPAEff_ / icurr; 
+    }
+   
+    timeLeft_ =  capacityLeftPAEff_ / icurr;
+ 
+    Crate_current_ = 3600. /  timeToDischargeWhole;
+}
 
 //=====================================================================================================================
 } // end of m1d namespace

@@ -252,6 +252,7 @@ public:
     void
     changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep = 0, TimeDepFunctionPtr TimeDep = 0);
 
+    //! Report the cathode voltage
     double reportCathodeVoltage() const;
 
   
@@ -269,6 +270,14 @@ public:
     double heatSourceAccumulated() const;
 
     void heatSourceZeroAccumulated() const;
+
+    //! Here we gather statistics about the current state of the battery by summing up all of the 
+    //! individual cells for the anode and cathode
+    /*!
+     *   The following variables are calculated by this routine
+     *
+     */
+    void gatherCapacityStatistics();
 
     //! Boolean indicating whether to calculate Heat Source Time tracking terms
     int doHeatSourceTracking_;
@@ -310,6 +319,25 @@ public:
      *   It's the heat generation per unit area of the battery at the t_n time step.
      */
     double QdotCathodePerArea_n_;
+
+    double electrodeCrossSectionalArea_;
+
+    double capacityAnodePA_;
+    double capacityCathodePA_;
+
+    double capacityLeftAnodePA_;
+    double capacityLeftCathodePA_;
+    
+    double capacityDischargedAnodePA_;
+    double capacityDischargedCathodePA_;
+
+
+    double  capacityPAEff_;
+
+    double capacityLeftPAEff_;
+
+    double timeLeft_;
+    double Crate_current_;
 
 };
 

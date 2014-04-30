@@ -110,6 +110,36 @@ public:
      */
     virtual int getMaxSubGridTimeSteps() const;
 
+    //! Returns the total capacity of the electrode in Amp seconds
+    /*!
+     *  Returns the capacity of the electrode in Amps seconds.
+     *  This is the same as the number of coulombs that can be delivered at any voltage.
+     *  Note, this number differs from the capacity of electrodes that is usually quoted for
+     *  a battery. That number depends on the rate of discharge and also depends on the
+     *  specification of a cutoff voltage. Here, we dispense with both of these specifications.
+     *  So, it should be considered a theoretical capacity at zero current and minimal cutoff voltage
+     *  considering the current state of the battery. The initial theoretical capacity given
+     *  ideal conditions is given by capacityInitial().
+     *
+     *  It will also include all plateaus that are defined by the electrode object.
+     *
+     *  This capacity may change as degradation mechanisms cause the electrode to lose capability.
+     *  Therefore, the capacity will be a function of time.
+     *  At all times the following relation holds:
+     *
+     *  capacity() = capacityDischarged() + capacityLeft().
+     *
+     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     *
+     *  @return returns the theoretical capacity of the electrode in Amp seconds = coulombs.
+     */
+    virtual double capacityPA(int platNum = -1) const;
+
+    virtual double capacityDischargedPA(int platNum = -1) const;
+ 
+    virtual double capacityLeftPA(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+
 protected:
 
     //! Maximum number of normal electrode subgrid integration steps taken in the last base residual

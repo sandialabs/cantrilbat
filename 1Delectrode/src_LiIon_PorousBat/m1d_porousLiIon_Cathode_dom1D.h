@@ -427,6 +427,14 @@ public:
      */
     int checkPrecipitation();
 
+    virtual double capacityPA(int platNum = -1) const;
+
+    virtual double capacityDischargedPA(int platNum = -1) const;
+ 
+    virtual double capacityLeftPA(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+
+
+
     // -----------------------------------------------------------------------------------------------
     //                                 DATA
     // -----------------------------------------------------------------------------------------------

@@ -3081,7 +3081,38 @@ porousLiIon_Cathode_dom1D::err(const char* msg)
     exit(-1);
 }
 //=====================================================================================================================
+double porousLiIon_Cathode_dom1D::capacityPA(int platNum) const
+{
+    double totalCapacity = 0.0;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+	totalCapacity += ee->capacity(platNum);
+    }
+    totalCapacity /= electrodeCrossSectionalArea_;
+    return totalCapacity;
+}
+//=====================================================================================================================
+double porousLiIon_Cathode_dom1D::capacityDischargedPA(int platNum) const
+{
+    double totalCapacity = 0.0;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+	totalCapacity += ee->capacityDischarged(platNum);
+    }
+    totalCapacity /= electrodeCrossSectionalArea_;
+    return totalCapacity;
+}
+//=====================================================================================================================
+double porousLiIon_Cathode_dom1D::capacityLeftPA(int platNum, double voltsMax, double voltsMin) const
+{
+    double totalCapacity = 0.0;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+	totalCapacity += ee->capacityLeft(platNum, voltsMax, voltsMin);
+    }
+    totalCapacity /= electrodeCrossSectionalArea_;
+    return totalCapacity;
+}
+//=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
-
-
