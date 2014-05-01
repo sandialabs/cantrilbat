@@ -1972,9 +1972,12 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
             if (diffusiveFluxModel_ == 0) {
 	    for (kSp = 1; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
-		caR = concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexRightKRSpecies + iKRSpecies];
-		caC = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		dcadxR = (caR - caC) / deltaX;
+
+                double caAvg = 2.0 / (actCoeff_Cell_final_[indexRightKRSpecies + iKRSpecies] + actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies]);
+                caR = concKRSpecies_Cell_final_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexRightKRSpecies + iKRSpecies];
+                caC = concKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_final_[indexMidKRSpecies + iKRSpecies];
+		dcadxR = caAvg * (caR - caC) / deltaX;
+
 		// Calculate the flux of moles at the ride side cell boundary out of the cell
 		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
 		fluxT += fluxRCB[iKRSpecies];
@@ -2005,9 +2008,11 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
             if (diffusiveFluxModel_ == 0) {
 	    for (kSp = 1; kSp < nSpecies; kSp++) {
 		int iKRSpecies = kstart + kSp;
-		caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies];
-		caC = concKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexMidKRSpecies + iKRSpecies];
-		dcadxR = (caR - caC) / deltaX;	    
+
+                double caAvg = 2.0 / (actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies] + actCoeff_Cell_init_[indexMidKRSpecies + iKRSpecies]);
+                caR = concKRSpecies_Cell_init_[indexRightKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexRightKRSpecies + iKRSpecies];
+                caC = concKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] * actCoeff_Cell_init_[indexMidKRSpecies + iKRSpecies];
+		dcadxR = caAvg * (caR - caC) / deltaX;
 		// Calculate the flux of moles at the ride side cell boundary out of the cell
 		fluxRCB[iKRSpecies] = - Diff_Coeff_KRSolid_[iKRSpecies] * dcadxR;
 		fluxT += fluxRCB[iKRSpecies];
