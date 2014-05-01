@@ -50,6 +50,8 @@ ProblemStatementCell::ProblemStatementCell() :
   separatorMass_(0.0), separatorArea_(-1.0),
   separatorThickness_(70.0E-6), 
   separatorDiameter_(-1.0),
+  conductivityAnode_(1.0E6),
+  conductivityCathode_(100.),
   anodeCCThickness_(0.0),
   cathodeCCThickness_(0.0),
   extraCathodeResistance_(0.0),
@@ -364,13 +366,23 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   cf->addLineEntry(dccc);
 
   /* ------------------------------------------------------------------------------------------------------------------
-   *  Anode Current Collector 
+   * Electrical Conductivity of the Anode Electrode =
    */
   reqd = 0;
-  LE_OneDblUnits *dccc = new LE_OneDblUnits("Cathode Current Collector Thickness", &(cathodeCCThickness_), reqd,
-                                            "cathodeCCThickness", ucL5);
-  dccc->set_default(0.0);
-  cf->addLineEntry(dccc);
+  LE_OneDbl *deca = new LE_OneDbl("Electrical Conductivity of the Anode Electrode", &(conductivityAnode_), reqd,
+                                            "conductivityAnode_");
+  deca->set_default(1.0E6);
+  cf->addLineEntry(deca);
+
+  /* ------------------------------------------------------------------------------------------------------------------
+   * Electrical Conductivity of the Cathode Electrode =
+   */
+  reqd = 0;
+  LE_OneDbl *decc = new LE_OneDbl("Electrical Conductivity of the Cathode Electrode", &(conductivityCathode_), reqd,
+                                            "conductivityCathode_");
+  decc->set_default(1.0E2);
+  cf->addLineEntry(decc);
+
 
   /* ------------------------------------------------------------------------------------------------------------------
    *  Extra Resistance in Series with Cathode

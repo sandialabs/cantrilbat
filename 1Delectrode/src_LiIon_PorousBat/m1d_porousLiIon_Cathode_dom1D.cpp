@@ -145,6 +145,8 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_d
     solnTemp(0), ivb_(VB_MOLEAVG)
 {
     porousLiIon_Cathode_dom1D::operator=(r);
+
+    conductivityElectrode_ = PSinput.conductivityCathode_;
 }
 //=====================================================================================================================
 porousLiIon_Cathode_dom1D::~porousLiIon_Cathode_dom1D()

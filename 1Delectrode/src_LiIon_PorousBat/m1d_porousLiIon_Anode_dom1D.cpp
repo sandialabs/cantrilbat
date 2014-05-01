@@ -133,6 +133,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     ivb_(VB_MOLEAVG)
 {
     porousLiIon_Anode_dom1D::operator=(r);
+    conductivityElectrode_ = PSinput.conductivityAnode_;
 }
 //=====================================================================================================================
 porousLiIon_Anode_dom1D::~porousLiIon_Anode_dom1D()

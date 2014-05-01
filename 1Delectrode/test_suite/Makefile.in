@@ -27,6 +27,7 @@ test:
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ test
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
+	cd DualfoilComparison ;				@MAKE@ test
 
 clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ clean
@@ -38,6 +39,7 @@ clean:
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ clean
 	cd CAEBAT_restart_cycle;		  	@MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ clean
+	cd DualfoilComparison ;				@MAKE@ clean
 
 test_clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ test_clean
@@ -49,6 +51,7 @@ test_clean:
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ test_clean
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test_clean
+	cd DualfoilComparison ;				@MAKE@ test_clean
 
 dist_clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;         @MAKE@ dist_clean
@@ -60,6 +63,7 @@ dist_clean:
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ dist_clean
 	cd CAEBAT_restart_cycle;		  	@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ dist_clean
+	cd DualfoilComparison ;				@MAKE@ dist_clean
 
 test_bat:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ test
@@ -71,6 +75,7 @@ test_bat:
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ test
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
+	cd DualfoilComparison ;				@MAKE@ test
 
 rebaseline:
 	cd LiKCl_PorousBat_SPCD_MPNewman;         ./rebaseline
@@ -82,6 +87,7 @@ rebaseline:
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          ./rebaseline
 	cd CAEBAT_restart_cycle;		  	./rebaseline
 	cd LiIon_MCMB_LiCoO2_collectors;		./rebaseline
+	cd DualfoilComparison ;				./rebaseline
 
 #
 

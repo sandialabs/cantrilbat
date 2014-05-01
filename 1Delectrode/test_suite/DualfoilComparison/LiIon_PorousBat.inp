@@ -182,7 +182,7 @@ Cathode Voltage = 3.8 V
 !              Units are  S/m
 !
 !--------------------------------------------------------------------------------------------------------
-!Electrical Conductivity of the Anode Electrode = 100.0
+Electrical Conductivity of the Anode Electrode = 100.0
 !--------------------------------------------------------------------------------------------------------
 !
 !      Electrical Conductivity of the Cathode Electrode
@@ -194,7 +194,7 @@ Cathode Voltage = 3.8 V
 !              Units are  S/m
 !
 !--------------------------------------------------------------------------------------------------------
-!Electrical Conductivity of the Cathode Electrode = 10.0
+Electrical Conductivity of the Cathode Electrode = 10.0
 !--------------------------------------------------------------------------------------------------------
 !-------------------------------------------------------------------------
 !  Nonlinear Solver Inputs
