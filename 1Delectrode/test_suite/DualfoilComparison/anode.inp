@@ -88,7 +88,7 @@ Electrode Gross Area = 2.5063e-3 m2
 !   This is h1 in the Dualfoil5 input deck
 !
 !------------------------------------------------------------------------------------------------------
-Electrode Gross Thickness = 128.0E-6 m
+Electrode Gross Thickness = 100.0E-6 m
 !------------------------------------------------------------------------------------------------------
 !
 ! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]

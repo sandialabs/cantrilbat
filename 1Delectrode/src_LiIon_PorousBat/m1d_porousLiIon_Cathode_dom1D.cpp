@@ -35,6 +35,11 @@ using namespace Cantera;
 extern m1d::ProblemStatementCell PSinput;
 
 
+//
+//  Necessary expediency until we model dUdT correctly and fully, matching to experiment
+//
+#define DELTASHEAT_ZERO 1
+
 
 //=====================================================================================================================
 namespace m1d
@@ -1653,9 +1658,15 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 	}
 
 	// Add in the electrode contribution
-	electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() /  electrodeCrossSectionalArea_;
+#ifdef DELTASHEAT_ZERO
+	deltaSHeat_Cell_curr_[iCell]= 0.0;
 	overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / electrodeCrossSectionalArea_;
-	deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ electrodeCrossSectionalArea_;
+	electrodeHeat_Cell_curr_[iCell] = overPotentialHeat_Cell_curr_[iCell];
+#else
+        electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() /  electrodeCrossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / electrodeCrossSectionalArea_;
+        deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ electrodeCrossSectionalArea_;
+#endif
 
 	qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];

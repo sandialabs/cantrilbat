@@ -26,8 +26,10 @@ extern m1d::ProblemStatementCell PSinput;
 #include "stdio.h"
 #include "stdlib.h"
 
-using namespace std;
-using namespace Cantera;
+//
+//  Necessary expediency until we model dUdT correctly and fully, matching to experiment
+//
+#define DELTASHEAT_ZERO 1
 
 namespace m1d
 {
@@ -1441,10 +1443,15 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
             jouleHeat_solid_Cell_curr_[iCell ] += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;    
 	}
 	// Add in the electrode contribution
+#ifdef DELTASHEAT_ZERO
+        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / electrodeCrossSectionalArea_;
+        deltaSHeat_Cell_curr_[iCell] = 0.0;
+        electrodeHeat_Cell_curr_[iCell] =  overPotentialHeat_Cell_curr_[iCell];
+#else
         electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / electrodeCrossSectionalArea_;
         overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / electrodeCrossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / electrodeCrossSectionalArea_;
-
+#endif
         qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
         qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }

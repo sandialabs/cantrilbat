@@ -71,7 +71,7 @@ Separator Phase = MgO(S)
 ! Units = [m]
 !  This is h2 in the Dualfoil input deck
 !-------------------------------------------------------------------------
-Separator Thickness = 76.0D-6 cm
+Separator Thickness = 25.0E-6 
 !-------------------------------------------------------------------------
 !
 ! Specify the area of the Separator [m^2]
