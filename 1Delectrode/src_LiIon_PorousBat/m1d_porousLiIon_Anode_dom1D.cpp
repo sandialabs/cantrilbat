@@ -2120,13 +2120,13 @@ porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
         }
 	//print thermal source terms
 	// check dimensions!!
-        fprintf(ofp, "\"qHeat_step [J/m2?]\" \t");
-        fprintf(ofp, "\"qHeat_accum [J/m2?]\" \t");
-        fprintf(ofp, "\"Joule_Lyte [J/m2?]\" \t");
-        fprintf(ofp, "\"Joule_Solid [J/m2?]\" \t");
-        fprintf(ofp, "\"electrodHeat [J/m2?]\" \t");
-        fprintf(ofp, "\"OverpotHeat [J/m2?]\" \t");
-        fprintf(ofp, "\"deltaSHeat [J/m2?]\" \t");
+        fprintf(ofp, "\"qHeat_accum [J/m3]\" \t");
+        fprintf(ofp, "\"qHeat_step [W/m3]\" \t");
+        fprintf(ofp, "\"Joule_Lyte [W/m3]\" \t");
+        fprintf(ofp, "\"Joule_Solid [W/m3]\" \t");
+        fprintf(ofp, "\"electrodHeat [W/m3]\" \t");
+        fprintf(ofp, "\"OverpotHeat [W/m3]\" \t");
+        fprintf(ofp, "\"deltaSHeat [W/m3]\" \t");
 
         fprintf(ofp, "\n");
 
@@ -2156,6 +2156,8 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
     bool doWrite = !mypid ; //only proc 0 should write
 
     if (doWrite) {
+
+        double deltaTime = t_final_ - t_init_;
 
         // get the NodeVars object pertaining to this global node
         GlobalIndices* gi = LI_ptr_->GI_ptr_;
@@ -2250,13 +2252,13 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
                 }
             }
 	    // print thermal source terms
-	    fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell]);
-	    fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell]);
-	    fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell]);
-	    fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell]);
-	    fprintf(ofp, "%g \t", electrodeHeat_Cell_curr_[iCell]);
-	    fprintf(ofp, "%g \t", overPotentialHeat_Cell_curr_[iCell]);
-	    fprintf(ofp, "%g \t",  deltaSHeat_Cell_curr_[iCell]);
+	    fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell] / xdelCell_Cell_[iCell] );
+	    fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	    fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	    fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	    fprintf(ofp, "%g \t", electrodeHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	    fprintf(ofp, "%g \t", overPotentialHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	    fprintf(ofp, "%g \t", deltaSHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
 
             fprintf(ofp, "\n");
         }

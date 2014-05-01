@@ -36,7 +36,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& 
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
     concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
-    Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
+    Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
+    t_final_(0.0), t_init(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
     gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
     icurrElectrolyte_CBL_(0), 
@@ -78,7 +79,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
     concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
-    Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
+    Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
+    t_final_(0.0), t_init(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
     gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
     icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0),
@@ -122,6 +124,8 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     Vleft_cc_                             = r.Vleft_cc_;
     Vcent_cc_                             = r.Vcent_cc_;
     Vright_cc_                            = r.Vright_cc_;
+    t_final_                              = r.t_final_;
+    t_init_                               = r.t_init_;
     Xleft_cc_                             = r.Xleft_cc_;
     Xcent_cc_                             = r.Xcent_cc_;
     Xright_cc_                            = r.Xright_cc_;
@@ -318,7 +322,14 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	tmpsSetup = 1;
     }
     residType_Curr_ = residType;
- 
+
+    t_final_ = t;
+    if (rdelta_t < 1.0E-200) {
+        t_init_ = t;
+    } else {
+        t_init_ = t - 1.0/rdelta_t;
+    }
+
     NodalVars* nodeLeft = 0;
     NodalVars* nodeCent = 0;
     NodalVars* nodeRight = 0;
@@ -1285,10 +1296,10 @@ porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
     }
     //print thermal source terms
     // check dimensions!!
-    fprintf(ofp, "\"qHeat_step [J/m2?]\" \t");
-    fprintf(ofp, "\"qHeat_accum [J/m2?]\" \t");
-    fprintf(ofp, "\"Joule_Lyte [J/m2?]\" \t");
-    fprintf(ofp, "\"Joule_Solid [J/m2?]\" \t");
+    fprintf(ofp, "\"qHeat_accum [J/m3]\" \t");
+    fprintf(ofp, "\"qHeat_step [W/m3]\" \t");
+    fprintf(ofp, "\"Joule_Lyte [W/m3]\" \t");
+    fprintf(ofp, "\"Joule_Solid [W/m3]\" \t");
     
     fprintf(ofp, "\n" );
     fclose(ofp);
@@ -1314,6 +1325,9 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   bool doWrite = !mypid ; //only proc 0 should write
   if (doWrite) {
+
+    double deltaTime = t_final_ - t_init_;
+    
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     // Number of equations per node
@@ -1350,10 +1364,10 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
       fprintf(ofp, "\n");
       // print thermal source terms
       int iCell = iGbNode - firstGbNode;
-      fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell]);
-      fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell]);
-      fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell]);
-      fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell]);
+      fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell] / xdelCell_Cell_[iCell] );
+      fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+      fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+      fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
       fprintf(ofp, "\n");
     }
     fclose(ofp);

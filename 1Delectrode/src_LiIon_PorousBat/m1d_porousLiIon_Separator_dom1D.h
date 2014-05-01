@@ -429,6 +429,9 @@ protected:
     //! Electrostatic potential - right cell
     double Vright_cc_;
 
+    double t_final_;
+    double t_init_;
+
     //! Mole fraction of electrolyte species in the left cell
     /*!
      * Length = number of electrolyte species = 3
