@@ -20,7 +20,7 @@
 1.0d-13   ! dfs3,  diffusion coef. in positive solid (m2/s) 0.8d-14, 3.d-14
 10.0d-6   ! Rad1,  radius of negative particles (m) (ignored in Foil mode) 0.0000042, 0.0000078
 10.0d-6   ! Rad3,  radius of positive particles (m) 0.000002, 17
-0.3       ! ep1,   volume fraction of electrolyte in negative electrode
+0.35      ! ep1,   volume fraction of electrolyte in negative electrode
 0.0d0     ! epp1,  volume fraction of polymer in negative electrode
 0.0       ! epf1,  volume fraction of inert filler in negative electrode
 0.0d0     ! epg1,  volume fraction of gas in negative
