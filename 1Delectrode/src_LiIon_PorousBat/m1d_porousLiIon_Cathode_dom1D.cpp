@@ -1658,7 +1658,8 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 	deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ electrodeCrossSectionalArea_;
 
 	qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
-
+        qSource_Cell_curr_[iCell] += overPotentialHeat_Cell_curr_[iCell];
+        qSource_Cell_curr_[iCell] += deltaSHeat_Cell_curr_[iCell];
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
