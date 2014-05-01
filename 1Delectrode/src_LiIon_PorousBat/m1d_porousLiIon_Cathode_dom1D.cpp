@@ -1658,8 +1658,6 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 	deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ electrodeCrossSectionalArea_;
 
 	qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
-        qSource_Cell_curr_[iCell] += overPotentialHeat_Cell_curr_[iCell];
-        qSource_Cell_curr_[iCell] += deltaSHeat_Cell_curr_[iCell];
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
@@ -2310,13 +2308,16 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
             }
 	    // print thermal source terms
 	    fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell] / xdelCell_Cell_[iCell] );
-	    fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
-	    fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
-	    fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
-	    fprintf(ofp, "%g \t", electrodeHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
-	    fprintf(ofp, "%g \t", overPotentialHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
-	    fprintf(ofp, "%g \t", deltaSHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
-
+	    if ( deltaTime > 1e-80 ) {
+	      fprintf(ofp, "%g \t", qSource_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	      fprintf(ofp, "%g \t", jouleHeat_lyte_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	      fprintf(ofp, "%g \t", jouleHeat_solid_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	      fprintf(ofp, "%g \t", electrodeHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	      fprintf(ofp, "%g \t", overPotentialHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	      fprintf(ofp, "%g \t", deltaSHeat_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime );
+	    } else {
+	      fprintf(ofp, "0.0 \t 0.0 \t 0.0 \t 0.0 \t 0.0 \t 0.0 \t " );
+	    }
             fprintf(ofp, "\n");
 
         }
