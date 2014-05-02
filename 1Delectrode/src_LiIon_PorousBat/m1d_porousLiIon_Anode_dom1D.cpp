@@ -103,6 +103,8 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
         throw CanteraError("confused", "confused");
     }
 
+    conductivityElectrode_ = PSinput.conductivityAnode_;
+
 }
 //=====================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& r) :

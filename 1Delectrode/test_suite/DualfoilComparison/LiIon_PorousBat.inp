@@ -183,6 +183,7 @@ Cathode Voltage = 3.8 V
 !
 !--------------------------------------------------------------------------------------------------------
 Electrical Conductivity of the Anode Electrode = 100.0
+!Electrical Conductivity of the Anode Electrode = 10.0
 !--------------------------------------------------------------------------------------------------------
 !
 !      Electrical Conductivity of the Cathode Electrode
