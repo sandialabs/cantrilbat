@@ -19,9 +19,8 @@
 #include "LE_OneCStr.h"
 #include "mdp_allo.h"
 
-#include <string>
-#include "stdio.h"
-#include "limits.h"
+#include <climits>
+#include <cstdlib>
 
 using namespace mdpUtil;
 

@@ -19,10 +19,7 @@
 #include "LE_VecDbl.h"
 #include "mdp_allo.h"
 
-#include "stdio.h"
-#include "string.h"
-#include "limits.h"
-#include "float.h"
+#include <cfloat>
 
 using namespace TKInput;
 using namespace mdpUtil;

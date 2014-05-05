@@ -19,9 +19,7 @@
 #include "LE_MultiCStr.h"
 #include "mdp_allo.h"
 
-#include <string>
-#include "stdio.h"
-#include "limits.h"
+#include <climits>
 
 using namespace mdpUtil;
 

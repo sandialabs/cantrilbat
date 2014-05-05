@@ -20,9 +20,7 @@
 #ifndef BEMULTIBLOCKNESTED_H
 #define BEMULTIBLOCKNESTED_H
 
-#include "BlockEntry.h"
-#include "stdio.h"
-#include "mdp_allo.h"
+#include "BE_BlockEntry.h"
 
 namespace BEInput {
 

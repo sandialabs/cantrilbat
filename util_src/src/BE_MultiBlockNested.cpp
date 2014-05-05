@@ -18,14 +18,9 @@
  */
 
 #include "BE_MultiBlockNested.h"
-#include "LE_OneDbl.h"
+#include "LE_LineEntry.h"
 #include "mdp_allo.h"
-#include "LE_OneDblUnits.h"
 #include "BE_UnitConversionLength.h"
-
-#include "stdio.h"
-#include "string.h"
-#include "float.h"
 
 using namespace mdpUtil;
 

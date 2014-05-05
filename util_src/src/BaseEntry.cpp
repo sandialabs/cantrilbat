@@ -17,8 +17,6 @@
 #include "mdp_allo.h"
 #include "BI_Dependency.h"
 
-#include <new>
-
 #ifdef WIN32
 #define SNPRINTF _snprintf
 #else

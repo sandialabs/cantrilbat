@@ -18,16 +18,13 @@
 
 #include "LE_OneDblUnits.h"
 #include "mdp_allo.h"
-
-#include "stdio.h"
-#include "string.h"
-#include "limits.h"
-#include "float.h"
 #include "BE_UnitConversion.h"
-#include "BaseEntry.h"
+
+#include <cfloat>
 
 using std::string;
 using namespace TKInput;
+
 namespace BEInput {
 
   /*

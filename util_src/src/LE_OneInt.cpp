@@ -18,10 +18,7 @@
 #include "LE_OneInt.h"
 #include "mdp_allo.h"
 
-#include "stdio.h"
-#include "string.h"
-#include "limits.h"
-#include "float.h"
+#include <climits>
 
 namespace BEInput {
 

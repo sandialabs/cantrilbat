@@ -16,8 +16,6 @@
 #ifndef TOK_INPUT_UTIL_H
 #define TOK_INPUT_UTIL_H
 
-#include <cstdio>
-
 #ifndef TRUE
 #  define TRUE  1
 #  define FALSE 0
@@ -28,7 +26,7 @@
 #endif
 
 #include <vector>
-#include <string>
+#include <cstdio>
 
 namespace TKInput {
 

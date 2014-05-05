@@ -12,13 +12,11 @@
  * See file License.txt for licensing information.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "LE_LineEntry.h"
 #include "mdp_allo.h"
 
+#include <cstdlib>
 #include <string>
 using namespace std;
 

@@ -12,17 +12,16 @@
  * See file License.txt for licensing information.
  */
 
+#include "tok_input_util.h"
+#include "tok_readFile.h"
+
 #include <cstdlib>
-#include <cstdio>
 #include <cstring>
 #include <cmath>
 #include <cfloat>
 #include <climits>
 #include <cctype>
 
-#include "tok_input_util.h"
-#include "tok_readFile.h"
-#include <vector>
 using std::vector;
 
 using namespace TKInput;

@@ -20,7 +20,6 @@
 #include "mdp_allo.h"
 
 #include <string>
-#include "cstdio"
 #include "climits"
 
 using namespace mdpUtil;

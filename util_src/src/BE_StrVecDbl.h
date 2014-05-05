@@ -19,8 +19,7 @@
 #ifndef BE_STRVECDBL_H
 #define BE_STRVECDBL_H
 
-#include "BlockEntry.h"
-#include "stdio.h"
+#include "BE_BlockEntry.h"
 
 namespace BEInput {
 

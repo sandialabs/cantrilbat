@@ -17,8 +17,8 @@
 #include "BaseEntry.h"
 
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include <string>
 using namespace TKInput;

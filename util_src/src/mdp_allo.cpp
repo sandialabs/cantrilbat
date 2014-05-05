@@ -14,14 +14,12 @@
  * See file License.txt for licensing information.
  */
 
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
+#include "mdp_allo.h"
 
 #include <new>
+#include <cstdlib>
+#include <cstdio>
 #include <cstdarg>
-
-#include "mdp_allo.h"
 
 namespace mdpUtil {
 /*

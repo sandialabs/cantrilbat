@@ -19,7 +19,6 @@
 #include "LE_OneDbl.h"
 #include "mdp_allo.h"
 
-#include "stdio.h"
 #include "string.h"
 #include "limits.h"
 #include "float.h"

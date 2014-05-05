@@ -16,7 +16,6 @@
 #include "LE_OneBoolInt.h"
 #include "mdp_allo.h"
 
-
 namespace BEInput {
 
   /**********************************************************************

@@ -17,15 +17,15 @@
  */
 
 
-#include <stdio.h>
-#include <stdlib.h>
-//#include <string.h>
-#include "BlockEntry.h"
+#include "BE_BlockEntry.h"
 #include "LE_LineEntry.h"
 #include "mdp_allo.h"
 #include <set>
 
 #include <string>
+
+#include <cstdlib>
+
 using namespace std;
 using namespace TKInput;
 using namespace mdpUtil;

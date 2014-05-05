@@ -19,7 +19,6 @@
 #include "LE_PickList.h"
 #include "mdp_allo.h"
 
-#include "stdio.h"
 #include "string.h"
 
 using namespace TKInput;

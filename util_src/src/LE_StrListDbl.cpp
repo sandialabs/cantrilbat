@@ -19,8 +19,6 @@
 #include "LE_StrListDbl.h"
 #include "mdp_allo.h"
 
-#include "stdio.h"
-#include "string.h"
 
 using namespace TKInput;
 using namespace mdpUtil;

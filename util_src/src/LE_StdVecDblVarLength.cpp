@@ -18,10 +18,8 @@
 
 #include "LE_StdVecDblVarLength.h"
 
-#include "cstdio"
-#include "cstring"
-#include "climits"
-#include "cfloat"
+#include <cstring>
+#include <cfloat>
 
 #ifndef DATA_PTR
 #define DATA_PTR(x)  &(x[0])

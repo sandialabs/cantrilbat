@@ -18,10 +18,8 @@
 
 #include "LE_StdVecDbl.h"
 
-#include "stdio.h"
-#include "string.h"
-#include "limits.h"
-#include "float.h"
+#include <cstring>
+#include <cfloat>
 
 #define DATA_PTR(x)  &(x[0])
 

@@ -19,6 +19,7 @@
 #include <cfloat>
 #include <climits>
 #include <cstring>
+#include <cctype>
 
 namespace TKInput {
   static char DEFAULT_STR[8] = "default";
