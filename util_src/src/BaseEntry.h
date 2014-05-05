@@ -32,10 +32,7 @@
 #endif
 #endif
 
-#include <cstdlib>
-#include <cstdio>
 #include "tok_input_util.h"
-#include "BI_InputError.h"
 #include "BI_Dependency.h"
 
 namespace BEInput {

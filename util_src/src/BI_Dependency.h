@@ -231,17 +231,17 @@ namespace BEInput {
    */
   enum BIDT_TYPE {
 
-    //! Target BaseEntry has already been processed
+    //! Source BaseEntry has already been processed
     /*!
-     * BIDT_ENTRYPROCESSED -> This dependency states that for an entry to 
-     *                        be valid  another specified entry must have 
+     * BIDT_ENTRYPROCESSED -> This dependency states that for the source entry to 
+     *                        be valid another specified entry must have 
      *                        appeared before this entry in the input deck. 
      *                        The entry must have appeared even if it is 
      *                        officially an optional entry.
      */
     BIDT_ENTRYPROCESSED = 0,
 
-    //! Target BaseEntry has already been processsed and has/will supply
+    //! Source BaseEntry has already been processsed and has/will supply
     //! a single int to the dependent BaseEntry.
     /*!
      * BIDT_ONEINT -> This dependency involves all of what  BIDT_ENTRYPROCESSED
@@ -249,20 +249,19 @@ namespace BEInput {
      *                a single integer to the dependent entry at the time that
      *                dependent entry is called to process a line.
      *                Thus, BIDT_ONEINT only makes sense if the required 
-     *                BaseEntry
-     *                somehow can suppy an int value, and if the dependent BaseEntry
+     *                BaseEntry somehow can suppy an int value, and if the dependent BaseEntry
      *                can somehow use that int value.
      */
     BIDT_ONEINT,
 
-    //!  Target BaseEntry has already been processsed and the supplied
+    //!  Source BaseEntry has already been processed and the supplied
     //!  single int is within a max/min int value.
     /**
      * BIDT_INTMAXMIN -> This dependency involves all of what  BIDT_ENTRYPROCESSED
      *                does. And it requires that the required BaseEntry somehow
      *                supply an int value by hook or crook. That int value is
      *                checked to see if it is between a max and min bounds.
-     *                If it is, then the dependency is satisfied. If it snot
+     *                If it is, then the dependency is satisfied. If it is not
      *                then the dependency is not satisfied, and an error condition
      *                is thrown.
      */
@@ -323,7 +322,7 @@ namespace BEInput {
     /*!
      *    This result indicates that if the dependency check is met, then
      *    the information exchanged is needed for the processing
-     *    of the owning line entry at the time the  owning keyline is encountered in
+     *    of the owning line entry at the time the owning keyline is encountered in
      *    the input deck.
      *    An error condition is set if the dependency is set but not
      *    met when the owning keyline is read.
@@ -341,7 +340,7 @@ namespace BEInput {
 
     //! The dependency check is only made if the dependent BaseEntry
     //! contains an int value between a max int and a min int. Then,
-    //! a regular dependency check on the target BaseEntry is made.
+    //! a regular dependency check on the source BaseEntry is made.
     /*!
      *     This result indicates that a dependency check of the type
      *     specified by BIDDT_#### will be carried out iff the local
@@ -410,13 +409,13 @@ namespace BEInput {
   /* forward declaration */
   class BaseEntry;
 
-  //!  This base class handles dependencies between objects.
+  //!  This base class handles dependencies between base entry objects.
   //!  This class describes what the dependency for the owning object is.
   /*!
    * A line entry or block entry may have multiple dependencies attached to
    * the entry.
    * These entries belong to a line or block entry. However, they point to
-   * a target line or block entry which contains information or is a 
+   * a source line or block entry which contains information or is a 
    * prerequisite for the current entry to be meaningfull.
    *
    */
@@ -425,8 +424,8 @@ namespace BEInput {
 
     //! Default Constructor
     /*!
-     * @param be         const pointer to the target Base entry that 
-     *                   is the source of the dependency
+     * @param be         const pointer to the source BaseEntry that 
+     *                   is the source of the dependency.
      *                   This must be a valid BaseEntry object
      * @param BIDT_type  Type of dependency
      * @param BIDRT_type Result of the dependency 
@@ -458,7 +457,7 @@ namespace BEInput {
 
     //! Checks to see if the dependency is satisfied
     /*!
-     * This function calls ansDepCheck() on the target
+     * This function calls ansDepCheck() on the source
      * BaseEntry to determine whether the dependency has
      * been satisfied.
      *
@@ -468,13 +467,13 @@ namespace BEInput {
 
     //! Checks to see if the dependency is satisfied
     /*!
-     * This function calls ansDepCheckOneInt() on the target
+     * This function calls ansDepCheckOneInt() on the source
      * BaseEntry to determine whether the dependency has
      * been satisfied. 
      * It stores the returned int m_RetnOneInt
      *
      * @param returnInt Output variable containing the int
-     *                  value returned from the target
+     *                  value returned from the source
      *                  BaseEntry
      *
      * @return returns a boolean indicating whether
@@ -507,12 +506,12 @@ namespace BEInput {
     //! Returns the ServiceRequestType of this dependency
     BIDSR_TYPE ServiceRequestType() const;
 
-    //! Returns a const pointer to the target BaseEntry
+    //! Returns a const pointer to the source BaseEntry
     const BaseEntry *TargetBaseEntry() const;
 
   protected:
 
-    //! Pointer to the target BaseEntry for this dependency
+    //! Pointer to the source BaseEntry for this dependency
     /*!
      * Must be nonnull
      */

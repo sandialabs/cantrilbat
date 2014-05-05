@@ -61,7 +61,7 @@ LIBP = libutil_src.a
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
-LIBOBJS = mdp_allo.o sort.o tok_input_util.o tok_readFile.o LineEntry.o \
+LIBOBJS = mdp_allo.o sort.o tok_input_util.o tok_readFile.o LE_LineEntry.o \
 	  BI_InputError.o BE_MoleComp.o BE_StrDbl.o LE_OneDblUnits.o \
           LE_OneStr.o LE_PickList.o  LE_StrListDbl.o LE_VecDbl.o \
           LE_OneBoolInt.o LE_OneDbl.o md_timer.o LE_OneInt.o \
@@ -82,7 +82,7 @@ INCFILES = BaseEntry.h sort.h  BE_UnitConversion.h BlockEntry.h LE_OneInt.h \
           LE_StrListDbl.h  tok_input_util.h BE_StrDbl.h BI_DepIntMaxMin.h \
           LE_OneCStr.h LE_VecDbl.h  tok_readFile.h BE_UnitConversionConcentration.h \
           BI_InputError.h LE_OneDbl.h LE_VecDblVarLength.h \
-          BE_UnitConversionEnergy.h BlockEntryGlobal.h  LE_OneDblUnits.h  LineEntry.h \
+          BE_UnitConversionEnergy.h BlockEntryGlobal.h  LE_OneDblUnits.h  LE_LineEntry.h \
           LE_StdVecDbl.h  LE_StdVecDblVarLength.h \
           BE_StrVecDbl.h BE_MoleComp_VecDbl.h
 

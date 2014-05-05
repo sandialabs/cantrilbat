@@ -1,5 +1,5 @@
 /**
- * @file LineEntry.h
+ * @file LE_LineEntry.h
  *   Declarations for a LineEntry object
  */
  /*
@@ -16,12 +16,11 @@
 /*
  *
  */
-#ifndef LINEENTRY_H
-#define LINEENTRY_H
+#ifndef LE_LINEENTRY_H
+#define LE_LINEENTRY_H
 
-
-#include "BaseEntry.h"
 #include "tok_input_util.h"
+#include "BaseEntry.h"
 #include "BI_Dependency.h"
 
 namespace BEInput {

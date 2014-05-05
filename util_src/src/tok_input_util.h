@@ -16,7 +16,7 @@
 #ifndef TOK_INPUT_UTIL_H
 #define TOK_INPUT_UTIL_H
 
-#include "cstdio"
+#include <cstdio>
 
 #ifndef TRUE
 #  define TRUE  1

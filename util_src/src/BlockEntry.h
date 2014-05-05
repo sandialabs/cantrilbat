@@ -19,7 +19,6 @@
 /*
  * Need to get the definition of the token structure
  */
-#include "tok_input_util.h"
 #include "BaseEntry.h"
 
 #include <set>

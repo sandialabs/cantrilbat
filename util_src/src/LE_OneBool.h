@@ -19,7 +19,7 @@
 #ifndef LEONEBOOL_H
 #define LEONEBOOL_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 namespace BEInput {
 

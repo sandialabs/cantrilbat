@@ -20,7 +20,7 @@
 #define LE_STRLISTDBL_H
 
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 namespace BEInput {
 

@@ -19,7 +19,7 @@
 #ifndef LE_ONEDBLUNITS_H
 #define LE_ONEDBLUNITS_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 namespace BEInput {
   class BE_UnitConversion;

@@ -19,7 +19,7 @@
 #ifndef LE_PICKLIST_H
 #define LE_PICKLIST_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 namespace BEInput {
 

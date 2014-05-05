@@ -19,7 +19,9 @@
 
 #include "BE_MolalityComp.h"
 #include "LE_OneDbl.h"
-#include <math.h>
+#include <cmath>
+
+#include <cstdlib>
 
 namespace BEInput {
 

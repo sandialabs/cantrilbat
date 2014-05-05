@@ -19,7 +19,7 @@
 #ifndef LEONEINT_H
 #define LEONEINT_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 /* TEMPLATE FOR THE OTHER CARDS */
 

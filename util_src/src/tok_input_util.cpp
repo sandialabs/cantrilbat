@@ -13,18 +13,12 @@
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
-
-#include <cstdlib>
-#include <cstdio>
-//#include <string.h>
-#include <cmath>
-#include <cfloat>
-#include <climits>
-#include <cctype>
-#include <cstring>
-
 #include "tok_input_util.h"
 
+#include <cstdlib>
+#include <cfloat>
+#include <climits>
+#include <cstring>
 
 namespace TKInput {
   static char DEFAULT_STR[8] = "default";

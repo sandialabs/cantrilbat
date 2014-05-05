@@ -19,7 +19,7 @@
 #ifndef LESTDVECDBLVARLENGTH_H
 #define LESTDVECDBLVARLENGTH_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 #include <vector>
 
 namespace BEInput {

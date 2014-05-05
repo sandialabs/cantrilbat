@@ -142,43 +142,41 @@
  *  
  */
 
-/*
- * Need to get the definition of the token structure
- */
-#include "tok_input_util.h"
-/*
- * Definitions for error class input
- */
-#include "BI_InputError.h"
-/*
- * Base class for everything, explicitly included here
- */
-#include "BaseEntry.h"
-/*
- * Base class for units conversion capability
- */
+//
+//  Need to get the definition of the token structure
+//
+//#include "tok_input_util.h"
+//
+//  Definitions for error class input
+//
+// #include "BI_InputError.h"
+//
+//  Base class for everything, explicitly included here
+//
+//#include "BaseEntry.h"
+//
+//  Base class for units conversion capability
+//
 #include "BE_UnitConversion.h"
 #include "BE_UnitConversionConcentration.h"
 #include "BE_UnitConversionEnergy.h"
-/*
- * Base class for all line entry classes
- */
-#include "LineEntry.h"
-/*
- * Base class for all block classes classes
- */
-#include "BlockEntry.h"
-
-/*
- * List of individual Units conversion classes
- */
+//
+//  Base class for all line entry classes
+//
+// #include "LineEntry.h"
+//
+//  Base class for all block classes classes
+// 
+// #include "BlockEntry.h"
+//
+// List of individual Units conversion classes
+//
 #include "BE_UnitConversionConcentration.h"
 #include "BE_UnitConversionLength.h"
 #include "BE_UnitConversionPressure.h"
-
-/*
- * List of individual Line Entry classes
- */
+//
+// List of individual Line Entry classes
+//
 #include "LE_MultiCStr.h"
 #include "LE_OneBool.h"
 #include "LE_OneBoolInt.h"
@@ -193,10 +191,9 @@
 #include "LE_VecDblVarLength.h"
 #include "LE_StdVecDbl.h"
 #include "LE_StdVecDblVarLength.h"
-
-/*
- * List of Block Entry Classes
- */
+//
+//  List of individual Block Entry Classes
+//
 #include "BE_MoleComp.h"
 #include "BE_MultiBlock.h"
 #include "BE_MultiBlockNested.h"
@@ -204,5 +201,9 @@
 #include "BE_MolalityComp.h"
 #include "BE_StrVecDbl.h"
 #include "BE_MoleComp_VecDbl.h"
+//
+// List of Dependency Classes
+//
+#include "BI_DepIntMaxMin.h"
 
 #endif

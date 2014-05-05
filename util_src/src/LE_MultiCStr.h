@@ -19,7 +19,7 @@
 #ifndef LEMULTICSTR_H
 #define LEMULTICSTR_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 namespace BEInput {
 

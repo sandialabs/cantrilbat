@@ -19,9 +19,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 #include "BlockEntry.h"
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 #include "mdp_allo.h"
 #include <set>
 

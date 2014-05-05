@@ -19,7 +19,7 @@
 #ifndef LEONECSTR_H
 #define LEONECSTR_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 /*
  *  Keyword = "Character String" 

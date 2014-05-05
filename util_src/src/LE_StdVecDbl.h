@@ -21,7 +21,7 @@
 
 #include <vector>
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 
 namespace BEInput {
 

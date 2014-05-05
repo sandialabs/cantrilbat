@@ -19,7 +19,7 @@
 #ifndef LEONESTR_H
 #define LEONESTR_H
 
-#include "LineEntry.h"
+#include "LE_LineEntry.h"
 #include <string>
 
 namespace BEInput {
