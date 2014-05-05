@@ -81,7 +81,8 @@ ProblemResidEval::ProblemResidEval(double atol) :
   counterResBaseCalcs_(0), counterJacBaseCalcs_(0), 
   counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
   SolutionBehavior_printLvl_(0),
-  Residual_printLvl_(0)
+  Residual_printLvl_(0),
+  coordinateSystemType_(Rectilinear_Coordinates)
 {
   /*
    *  Read an environmental variable to set the static variable s_printFlagEnv
@@ -140,7 +141,8 @@ ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
   m_numTimeRegions(1),
   m_currentTimeRegion(0),
   counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
-  counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0)
+  counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
+  coordinateSystemType_(r.coordinateSystemType_)
 {
   *this = r;
 }
@@ -198,6 +200,7 @@ ProblemResidEval::operator=(const ProblemResidEval &r)
 
   SolutionBehavior_printLvl_ = r.SolutionBehavior_printLvl_;
   Residual_printLvl_ = r.Residual_printLvl_;
+  coordinateSystemType_ = r.coordinateSystemType_;
 
   return *this;
 }
@@ -230,11 +233,15 @@ ProblemResidEval::specifyProblem(int problemType, ProblemStatement *ps_ptr)
 void
 ProblemResidEval::specifyProblem(DomainLayout *dl, ProblemStatement *ps_ptr)
 {
-  psInput_ptr_ = ps_ptr;
-  DL_ptr_ = dl;
+    psInput_ptr_ = ps_ptr;
+    DL_ptr_ = dl;
 
+    //
+    // Specify the type of the coordinate syste
+    //
+    coordinateSystemType_ = psInput_ptr_->coordinateSystemType_;
 
-   SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
+    SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
 }
 //=====================================================================================================================
 /*

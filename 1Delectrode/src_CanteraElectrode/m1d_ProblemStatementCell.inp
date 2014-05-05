@@ -141,7 +141,6 @@ Input Anode File = anode.inp
 Input Cathode File = cathode.inp
 !---------------------------------------------------------------------------------------------------------
 !
-!
 !    Separator Phase - string (no default) (required)
 !
 !        Name of the separator phase. Note the phase was already read in and initialized as

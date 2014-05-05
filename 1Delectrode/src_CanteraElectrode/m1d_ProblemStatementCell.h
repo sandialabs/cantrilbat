@@ -44,7 +44,7 @@ class BlockEntry;
 namespace m1d
 {
 
-//! storage for Command file input
+//! Storage for Command file input
 /*!
  * Complete problem statement
  *

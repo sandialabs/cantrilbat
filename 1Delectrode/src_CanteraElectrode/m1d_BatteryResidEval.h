@@ -349,6 +349,14 @@ public:
      */
     double QdotCathodePerArea_n_;
 
+    //! Electrode Cross sectional area, if in cartesian coordinates
+    /*!
+     *  The overwhelming output from the program is on a per-crosssectional area basis
+     *  However, there are some times when the cross-section is needed. This is the place
+     *  where it is supplied.
+     *
+     *    units m2
+     */
     double electrodeCrossSectionalArea_;
 
     double capacityAnodePA_;

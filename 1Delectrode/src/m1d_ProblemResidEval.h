@@ -82,6 +82,19 @@ enum ResidEval_Type_Enum
   Base_ShowSolution
 };
 
+//! Differentiates the type of coordinate system
+enum CoordinateSystem_Type_Enum
+{
+    //! Rectilinear coordinate system
+    Rectilinear_Coordinates = 0,
+
+    //! Cylindrical coordinate system
+    Cylindrical_Coordinates,
+
+    //! Spherical coordinate system
+    Spherical_Coordinates
+};
+
 /**
  *  A class for the description of 1D problems that
  *  encompass multiple regions in 1D and multiple time regions
@@ -936,6 +949,12 @@ public:
    *   9 -> Print a lot of information when any residual is called
    */
    int Residual_printLvl_;
+
+   //! The type of coordinate system that is used
+   /*!
+    *  There are two that are envisioned: Rectinear_Coordinates and Cylindrical_Coordinates
+    */
+   CoordinateSystem_Type_Enum coordinateSystemType_;
 };
 
 // *****************************************************************

@@ -11,14 +11,13 @@
 #ifndef _M1D_PROBLEMSTATEMENT_H
 #define _M1D_PROBLEMSTATEMENT_H
 
-#include "cantera/equilibrium.h"
 #include "mdp_allo.h"
 #include "tok_input_util.h"
-#include <string>
-#include <vector>
 
 #include "m1d_RecordTree_base.h"
 #include "BlockEntryGlobal.h"
+#include "m1d_ProblemResidEval.h"
+
 namespace BEInput {
 class BlockEntry;
 }
@@ -250,6 +249,12 @@ public:
 
 	//! Maximum Number of time steps to be taken
 	int maxNumTimeSteps_;
+
+        //! The type of coordinate system that is used
+        /*!
+         *  There are two that are envisioned: Rectinear_Coordinates and Cylindrical_Coordinates
+         */
+        CoordinateSystem_Type_Enum coordinateSystemType_;
 
 };
 //=====================================================================================================================

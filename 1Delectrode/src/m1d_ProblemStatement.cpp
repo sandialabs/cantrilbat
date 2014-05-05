@@ -61,7 +61,8 @@ bool PrintInputFormat = false;
     absTol_(1.0e-8),
     relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
-    maxNumTimeSteps_(1000)
+    maxNumTimeSteps_(1000),
+    coordinateSystemType_(Rectilinear_Coordinates)
   {
   }
   //=====================================================================================================================
@@ -90,7 +91,8 @@ bool PrintInputFormat = false;
     absTol_(1.0e-8),
     relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
-    maxNumTimeSteps_(1000)
+    maxNumTimeSteps_(1000),
+    coordinateSystemType_(Rectilinear_Coordinates)
   {
     *this = right;
   }
@@ -137,6 +139,7 @@ bool PrintInputFormat = false;
     relTol_                    = right.relTol_;
     initDefaultNumCVsPerDomain_= right.initDefaultNumCVsPerDomain_;
     maxNumTimeSteps_           = right.maxNumTimeSteps_;
+    coordinateSystemType_      = right.coordinateSystemType_;
 
     return *this;
   }
@@ -167,10 +170,18 @@ ProblemStatement::InitForInput()
 void
 ProblemStatement::setup_input_pass1(BlockEntry *cf)
 {
-    /*
-     * Nothing to do yet
-     */
+  
     BaseEntry::set_SkipUnknownEntries(true);
+
+    /* --------------------------------------------------------------
+     * Coordinate System type
+     *      PickList consisting of two terms: rectilinear or cylindrical
+     *      - defaults to rectilinear
+     */
+    const char *ccpl[2] = {"Rectilinear", "Cylindrical"};
+    LE_PickList *cpl = new LE_PickList("Coordinate System", (int *) &(coordinateSystemType_), ccpl, 2, 0, "CoordinateSystemType");
+    cpl->set_default("Rectilinear");
+    cf->addLineEntry(cpl);
 
     /* --------------------------------------------------------------
      * Reference Temperature

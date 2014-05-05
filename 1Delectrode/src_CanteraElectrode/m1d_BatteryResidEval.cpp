@@ -152,11 +152,18 @@ namespace m1d
 				      double &delta_t,
                                       double &delta_t_np1)
   {
+      //
+      //   We obtain the cross-sectional area from the cathode. 
+      //   However, we require the cross-sectional area to be consistent across inputs
+      //
       electrodeCrossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
-
-    //loop over all volume and surface domains providing initial guess
-    ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t, delta_t_np1);
-    //improveInitialConditions(soln);
+      //
+      //   loop over all volume and surface domains providing initial guess
+      //
+      ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t, delta_t_np1);
+      //
+      //  improveInitialConditions(soln);
+      //
   }
   //====================================================================================================================
   //! Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
