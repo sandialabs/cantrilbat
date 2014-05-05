@@ -73,9 +73,6 @@ MPI_INCLUDE_DIR=@mpi_include_dir@
 UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
 UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
-
-M1D_TARGET=$(CANTERA_APPS_INSTALL_DIR)/lib/libm1d.a
-
 #
 ########################################################################################################
 #       TRILINOS LINK LINE
@@ -116,6 +113,9 @@ os_is_win = @OS_IS_WIN@
 
 # the C++ compiler
 CXX = @MPICXX@ 
+
+INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
+
 #
 # The directory where Cantera include files may be found.
 #
@@ -163,9 +163,8 @@ rebaseline:
 
 libm1d.a: $(M1D_OBJS) $(BE_OBJS)
 	ar ruv libm1d.a $(M1D_OBJS) $(BE_OBJS)
+	touch libm1d.a
 
-$(M1D_TARGET): libm1d.a
-	cp libm1d.a $(M1D_TARGET)
 
 Multi1DDomain: Multi1DDomain.o $(M1D_OBJS)  $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
 	$(CXX) -o Multi1DDomain Multi1DDomain.o $(M1D_OBJS)  \
@@ -177,13 +176,15 @@ tddiff: tddiff.o $(M1D_OBJS) $(BE_OBJS) $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTIL
 
 
 install:
-	@INSTALL@ -d @cta_incdir@
-	@INSTALL@ -d @cta_libdir@
-	@INSTALL@ -d @cta_bindir@
-	@INSTALL@ -m 644 libm1d.a  @cta_libdir@
-	cp  $(M1D_HDRS) $(BE_HDRS) $(CANTERA_APPS_INSTALL_DIR)/include
-	@INSTALL@ -c tddiff @cta_bindir@
-	@INSTALL@ -c Multi1DDomain @cta_bindir@
+	@ @INSTALL@ -d @cta_incdir@
+	@ @INSTALL@ -d @cta_libdir@
+	@ @INSTALL@ -d @cta_bindir@
+	@$(INSTALL_TSC) libm1d.a  @cta_libdir@
+	@(for lh in $(M1D_HDRS) $(BE_HDRS) ; do \
+          $(INSTALL_TSC) "$${lh}" $(CANTERA_APPS_INSTALL_DIR)/include ; \
+        done)
+	@$(INSTALL_TSC)  tddiff @cta_bindir@
+	@$(INSTALL_TSC) Multi1DDomain @cta_bindir@
 
 # depends target -> forces recalculation of dependencies
 depends:
@@ -204,7 +205,7 @@ endif
 	./runtest
 
 clean:
-	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain $(M1D_TARGET) libm1d.a tddiff
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain libm1d.a tddiff
 	(if test -d SunWS_cache ; then \
            $(RM) -rf SunWS_cache ; \
          fi )
