@@ -24,9 +24,7 @@
 #include "imtPSS_NoSurf.h"
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
-#include "BlockEntry.h"
 
-#include <stdio.h>
 #include <sstream>
 #include <iomanip>
 

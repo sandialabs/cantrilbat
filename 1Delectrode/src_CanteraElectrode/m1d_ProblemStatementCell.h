@@ -16,12 +16,8 @@
 #include "PhaseList.h"
 #include "importPL.h"
 #include "tok_input_util.h"
-#include "BlockEntry.h"
-#include "LE_OneStr.h"
-#include "LE_OneBool.h"
-#include "LE_OneDbl.h"
-#include "LE_OneInt.h"
-#include "BE_MoleComp.h"
+
+#include "BlockEntryGlobal.h"
 
 #include <string>
 #include <vector>

@@ -18,16 +18,13 @@
 #include "cantera/equil/vcs_internal.h"
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
 
 #include "Electrode_input.h"
 #include "Electrode.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
-#include "BlockEntry.h"
 
-#include <stdio.h>
 
 using namespace std;
 using namespace Cantera;

@@ -16,7 +16,7 @@
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/ResidJacEval.h"
 
-#include "tok_input_util.h"
+//#include "tok_input_util.h"
 
 #include "PhaseList.h"
 #include "ReactingSurDomain.h"
@@ -25,7 +25,6 @@
 #include "ExtraGlobalRxn.h"
 #include "EState.h"
 
-#include "BlockEntry.h"
 #include "Electrode_Exception.h"
 #include "Electrode_input.h"
 

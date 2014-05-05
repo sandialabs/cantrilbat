@@ -13,11 +13,9 @@
 #include "cantera/equil/vcs_MultiPhaseEquil.h"
 #include "cantera/equil/vcs_solve.h"
 #include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/NonlinearSolver.h"
 #include "cantera/numerics/CVodesIntegrator.h"
-
 #include "cantera/kinetics/AqueousKinetics.h"
 
 #include "InterfacialMassTransfer_input.h"
@@ -27,9 +25,7 @@
 #include "imtPSS_NoSurf.h"
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
-#include "BlockEntry.h"
 
-#include <stdio.h>
 #include <sstream>
 #include <iomanip>
 

@@ -26,9 +26,8 @@
 #include "cell_input.h"
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
-#include "BlockEntry.h"
 
-#include <stdio.h>
+//#include <cstdio>
 
 using namespace std;
 using namespace Cantera;

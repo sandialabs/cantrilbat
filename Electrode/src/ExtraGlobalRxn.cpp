@@ -20,14 +20,10 @@
 //
 
 #include "ExtraGlobalRxn.h"
-//#include "IdealReactingGas.h"
 
-//#include "TemperatureTable.h"
 
 #include "LE_PickList.h"
 #include "BE_MoleComp.h"
-
-//#include "IdealSolidSolnPhase.h"
 
 
 #include "cantera/numerics/DenseMatrix.h"
@@ -36,7 +32,6 @@
 #include "cantera/kinetics.h"
 #include "cantera/kinetics/InterfaceKinetics.h"
 #include "cantera/thermo/SurfPhase.h"
-//#include "SolidKinetics.h"
 #include "cantera/kinetics/KineticsFactory.h"
 
 #include <iostream>
@@ -45,7 +40,6 @@
 #include <vector>
 #include <typeinfo>
 
-//#include "electrodeCell_kin.h"
 
 
 using namespace std;

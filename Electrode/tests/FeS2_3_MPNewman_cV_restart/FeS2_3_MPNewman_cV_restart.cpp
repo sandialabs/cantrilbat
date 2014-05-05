@@ -26,9 +26,8 @@
 #include "Electrode_MP_RxnExtent.h"
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
-#include "BlockEntry.h"
 
-#include <stdio.h>
+#include <cstdio>
 #include <sstream>
 #include <iomanip>
 

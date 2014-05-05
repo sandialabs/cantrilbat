@@ -15,7 +15,6 @@
 #include "Electrode.h"
 #include "Electrode_SuccessiveSubstitution.h"
 
-#include "BlockEntry.h"
 
 #include  <string>
 

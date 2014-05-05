@@ -26,9 +26,7 @@
 #include "Electrode_Factory.h"
 #include "ExtraGlobalRxn.h"
 #include "RxnMolChange.h"
-#include "BlockEntry.h"
 
-#include <stdio.h>
 #include <sstream>
 #include <iomanip>
 

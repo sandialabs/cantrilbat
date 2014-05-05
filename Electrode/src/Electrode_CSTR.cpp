@@ -11,18 +11,8 @@
 #include "cantera/equilibrium.h"
 
 #include "PhaseList.h"
-#include "BlockEntry.h"
-#include "LE_PickList.h"
-#include "BE_MoleComp.h"
-#include "BE_UnitConversionPressure.h"
-#include "BE_MultiBlock.h"
-#include "LE_OneDblUnits.h"
-#include "LE_OneStr.h"
-#include "LE_OneInt.h"
+
 #include "LE_OneDbl.h"
-#include "LE_OneBool.h"
-#include "LE_MultiCStr.h"
-#include "BE_MolalityComp.h"
 
 #include "Electrode_CSTR.h"
 

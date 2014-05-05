@@ -185,8 +185,8 @@ endif
 
 clean:
 	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
-                   fort.* *%  core *.trace tmp*
-	$(RM) ${PROG} 
+                   fort.* *%  core *.trace tmp* *.d
+	$(RM) ${PROG}  .depends
 
 dist_clean:
 	@MAKE@ clean

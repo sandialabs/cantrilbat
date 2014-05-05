@@ -14,8 +14,6 @@
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_Factory.h"
 
-#include "BlockEntry.h"
-
 #include "m1d_ProblemStatementCell.h"
 extern m1d::ProblemStatementCell PSinput;
 

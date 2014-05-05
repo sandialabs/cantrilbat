@@ -12,8 +12,6 @@
 #include "Electrode_input.h"
 #include "Electrode_SuccessiveSubstitution.h"
 
-#include "BlockEntry.h"
-
 #include  <string>
 
 using namespace std;
