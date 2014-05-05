@@ -256,6 +256,26 @@ public:
          */
         CoordinateSystem_Type_Enum coordinateSystemType_;
 
+	//! Cross sectional area, if in cartesian coordinates
+	/*!
+	 *  The overwhelming output from the program is on a per-crosssectional area basis
+	 *  However, there are some times when the cross-section is needed. This is the place
+	 *  where it is supplied.
+	 *
+	 *    units m2
+	 */
+	double crossSectionalArea_;
+	
+	//! Cylinder Length, if in cylindrical coordinates
+	/*!
+	 *  The overwhelming output from the program is on a per-crosssectional area basis
+	 *  However, there are some times when the cross-section is needed. This is the place
+	 *  where it is supplied.  We assume 2 pi radians always, i.e., a full radius
+	 *
+	 *    units m
+	 */
+	double cylinderLength_;
+	
 };
 //=====================================================================================================================
 

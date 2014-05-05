@@ -2,21 +2,11 @@
  * $Id: m1d_ProblemStatement.cpp 567 2013-03-21 23:03:11Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
 
-#include "m1d_globals.h"
 #include "m1d_ProblemStatement.h"
+#include "m1d_globals.h"
 #include "m1d_EpetraJac.h"
-
-#include "Epetra_Comm.h"
-
-
 #include "BlockEntryGlobal.h"
-#include "mdp_allo.h"
 
 using namespace std;
 using namespace BEInput;
@@ -62,7 +52,9 @@ bool PrintInputFormat = false;
     relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
     maxNumTimeSteps_(1000),
-    coordinateSystemType_(Rectilinear_Coordinates)
+    coordinateSystemType_(Rectilinear_Coordinates),
+    crossSectionalArea_(1.0),
+    cylinderLength_(1.0)
   {
   }
   //=====================================================================================================================
@@ -92,7 +84,9 @@ bool PrintInputFormat = false;
     relTol_(1.0e-3),
     initDefaultNumCVsPerDomain_(10),
     maxNumTimeSteps_(1000),
-    coordinateSystemType_(Rectilinear_Coordinates)
+    coordinateSystemType_(Rectilinear_Coordinates),
+    crossSectionalArea_(1.0),
+    cylinderLength_(1.0)
   {
     *this = right;
   }
@@ -140,6 +134,8 @@ bool PrintInputFormat = false;
     initDefaultNumCVsPerDomain_= right.initDefaultNumCVsPerDomain_;
     maxNumTimeSteps_           = right.maxNumTimeSteps_;
     coordinateSystemType_      = right.coordinateSystemType_;
+    crossSectionalArea_        = right.crossSectionalArea_;
+    cylinderLength_            = right.cylinderLength_;
 
     return *this;
   }
@@ -182,6 +178,28 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
     LE_PickList *cpl = new LE_PickList("Coordinate System", (int *) &(coordinateSystemType_), ccpl, 2, 0, "CoordinateSystemType");
     cpl->set_default("Rectilinear");
     cf->addLineEntry(cpl);
+
+
+    /* --------------------------------------------------------------
+     *  Cross-Sectional Area
+     *      Defaults to  298.15, optional 
+     */
+    BE_UnitConversion *uc = new BE_UnitConversion();
+    LE_OneDblUnits *cs1 = new LE_OneDblUnits("Cross Sectional Area", &(crossSectionalArea_), 0, "crossSectionalArea", uc);
+    cs1->set_default(1.0);
+    cs1->set_limits(1.0E200, 1.0E-100);
+    cf->addLineEntry(cs1);
+    // 
+    //  Make the occurance of this card an error unless coordinate system was chosan as rectilinear
+    BI_Dependency* dep1 = new BI_Dependency(cpl, BIDT_ENTRYPROCESSED);
+    cs1->declareDependency(dep1);
+    //
+    //  Declare a dependency stathing that this card requires the Coordinate System Card to occur previously
+    //  and have a value of 0 returned from it when it is queried.
+    //
+    BI_DepIntMaxMin* dmm1 = new BI_DepIntMaxMin(cpl, BIDT_INTMAXMIN, 0, 0,
+                                                 BIDRT_PT_ERROR);
+    cs1->declareDependency(dmm1);
 
     /* --------------------------------------------------------------
      * Reference Temperature

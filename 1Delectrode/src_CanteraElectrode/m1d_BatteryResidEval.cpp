@@ -55,7 +55,6 @@ namespace m1d
     QdotAnodePerArea_n_(0.0),
     QdotSeparatorPerArea_n_(0.0),
     QdotCathodePerArea_n_(0.0),
-    electrodeCrossSectionalArea_(0.0),
     capacityAnodePA_(0.0),
     capacityCathodePA_(0.0),
     capacityLeftAnodePA_(0.0),
@@ -69,7 +68,7 @@ namespace m1d
 
   {
      doHeatSourceTracking_ = PSinput.doHeatSourceTracking_;
-     electrodeCrossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
+     crossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
   }
   //=====================================================================================================================
   // Destructor
@@ -114,7 +113,6 @@ namespace m1d
     QdotSeparatorPerArea_n_            = r.QdotSeparatorPerArea_n_;
     QdotCathodePerArea_n_              = r.QdotCathodePerArea_n_;
 
-    electrodeCrossSectionalArea_         = r.electrodeCrossSectionalArea_;
     capacityAnodePA_                     = r.capacityAnodePA_;
     capacityCathodePA_                   = r.capacityCathodePA_;
     capacityLeftAnodePA_                 = r.capacityLeftAnodePA_;
@@ -156,7 +154,7 @@ namespace m1d
       //   We obtain the cross-sectional area from the cathode. 
       //   However, we require the cross-sectional area to be consistent across inputs
       //
-      electrodeCrossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
+      crossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
       //
       //   loop over all volume and surface domains providing initial guess
       //
