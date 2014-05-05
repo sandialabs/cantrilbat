@@ -112,7 +112,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BulkDomainDescription& bdd)
         throw CanteraError("confused", "confused");
     }
 
-    conductivityElectrode_ = PSinput.conductivityAnode_;
+    conductivityElectrode_ = PSinput.conductivityCathode_;
 
 }
 //=====================================================================================================================
