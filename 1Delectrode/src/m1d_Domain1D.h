@@ -447,19 +447,28 @@ public:
    */
   std::string m_id;
 
-  //! Coordinate system of the domain
+  //! The type of coordinate system that is used
   /*!
-   *   0 = cartesian
-   *   1 = cylindrical  - the axial dimension is r in cylindrical coordinates
-   *   2 = spherical    -the axial dimension is r in spherical coordinates
+   *  There are two that are envisioned: Rectinear_Coordinates and Cylindrical_Coordinates
    */
-  int CoordinateSystem_;
+  CoordinateSystem_Type_Enum coordinateSystemType_;
 
   //! CrossSectional Area of the domain
   /*!
+   *     This get's copied to the object from the problem statement.
    *     The default is 1 m**2
    */
-  double CellArea_;
+  double crossSectionalArea_;
+
+  //! Cylinder Length, if in cylindrical coordinates
+  /*!
+   *  The overwhelming output from the program is on a per-crosssectional area basis
+   *  However, there are some times when the cross-section is needed. This is the place
+   *  where it is supplied.  We assume 2 pi radians always, i.e., a full radius
+   *
+   *    units m
+   */
+  double cylinderLength_;
 
   //! Reference Temperature (Kelvin)
   /*!

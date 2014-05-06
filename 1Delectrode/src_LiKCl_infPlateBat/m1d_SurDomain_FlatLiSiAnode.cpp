@@ -328,12 +328,15 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
    * Boundary conditions on top
    */
   double area_cvb = 1.0;
-  if (CoordinateSystem_ == 1) {
+  if (coordinateSystemType_ == Cylindrical_Coordinates) {
     //  area_cvb = Pi * m_cellBound[m_nodes - 1] * m_xbot0;
-    area_cvb = CellArea_;
-  } else if (CoordinateSystem_ == 2) {
+    //area_cvb = CellArea_;
+    // Whole program needs to be fixed for cylindrical and spherical coordinates
+    exit(-1);
+  } else if (coordinateSystemType_ == Spherical_Coordinates) {
+    exit(-1);
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = CellArea_;
+    //area_cvb = CellArea_;
   }
   surfaceArea_ = 0.01;
 

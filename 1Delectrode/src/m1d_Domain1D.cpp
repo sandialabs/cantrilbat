@@ -25,18 +25,33 @@ namespace m1d
 //=====================================================================================================================
 // Constructor
 Domain1D::Domain1D() :
-  NumDomainEqns(0), CoordinateSystem_(0), CellArea_(1.0), TemperatureReference_(298.15), PressureReference_(1.01325e5),
+    NumDomainEqns(0), 
+    coordinateSystemType_(Rectilinear_Coordinates),
+    crossSectionalArea_(1.0), 
+    cylinderLength_(1.0),
+    TemperatureReference_(298.15), PressureReference_(1.01325e5),
       residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
       counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0)
 {
+    coordinateSystemType_ = PSinput_ptr->coordinateSystemType_;
+    crossSectionalArea_ = PSinput_ptr->crossSectionalArea_;
+    cylinderLength_ = PSinput_ptr->cylinderLength_;
     TemperatureReference_ = PSinput_ptr->TemperatureReference_;
     PressureReference_ = PSinput_ptr->PressureReference_;
 }
 //=====================================================================================================================
 Domain1D::Domain1D(const Domain1D &r) :
-  NumDomainEqns(0), CoordinateSystem_(0), CellArea_(1.0), TemperatureReference_(298.15), PressureReference_(1.01325e5),
-       residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
-      counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0)
+    NumDomainEqns(0), 
+    coordinateSystemType_(Rectilinear_Coordinates),
+    crossSectionalArea_(1.0), 
+    cylinderLength_(1.0),
+    TemperatureReference_(298.15), 
+    PressureReference_(1.01325e5),
+    residType_Curr_(Base_ResidEval), 
+    counterResBaseCalcs_(0), 
+    counterJacBaseCalcs_(0),
+    counterJacDeltaCalcs_(0),
+    counterResShowSolutionCalcs_(0)
 {
   *this = r;
 }
@@ -52,9 +67,10 @@ Domain1D::operator=(const Domain1D &r)
     return *this;
   }
 
-  NumDomainEqns = r.NumDomainEqns;
-  CoordinateSystem_ = r.CoordinateSystem_;
-  CellArea_ = r.CellArea_;
+  NumDomainEqns                   = r.NumDomainEqns;
+  coordinateSystemType_           = r.coordinateSystemType_;
+  crossSectionalArea_             = r.crossSectionalArea_;
+  cylinderLength_                 = r.cylinderLength_;
   residType_Curr_ = r.residType_Curr_;
   counterResBaseCalcs_ = r.counterResBaseCalcs_;
   counterJacBaseCalcs_ = r.counterJacBaseCalcs_;

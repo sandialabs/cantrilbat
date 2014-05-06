@@ -331,12 +331,15 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
    * Boundary conditions on top
    */
   double area_cvb = 1.0;
-  if (CoordinateSystem_ == 1) {
+  if (coordinateSystemType_ == Cylindrical_Coordinates) {
     //  area_cvb = Pi * m_cellBound[m_nodes - 1] * m_xbot0;
-    area_cvb = CellArea_;
-  } else if (CoordinateSystem_ == 2) {
+    //  whole program needs to be fixed for Cylindrical and spherical coordinates
+    //area_cvb = CellArea_;
+    exit(-1);
+  } else if (coordinateSystemType_ == Cylindrical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = CellArea_;
+    //area_cvb = CellArea_;
+    exit(-1);
   }
   surfaceArea_ = 0.1;
 

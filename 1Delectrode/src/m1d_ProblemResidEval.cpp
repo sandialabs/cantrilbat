@@ -17,37 +17,20 @@
 #include "m1d_ProblemResidEval.h"
 
 #include "m1d_DomainLayout.h"
-#include "m1d_VBRIndices.h"
-#include "m1d_LocalNodeIndices.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
-#include "m1d_Comm.h"
 #include "m1d_EpetraJac.h"
 #include "m1d_EpetraExtras.h"
 #include "m1d_NodalVars.h"
-#include "m1d_EqnVarTypes.h"
 
 #include "m1d_ProblemStatement.h"
 
-#include "cantera/numerics/ctlapack.h"
-#include "cantera/base/ctml.h"
-#include "cantera/base/stringUtils.h"
-
-#include "Epetra_ConfigDefs.h"
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>
 #else
 #include "Epetra_SerialComm.h"
 #endif
-
-#include "Epetra_Map.h"
-#include "Epetra_Comm.h"
-#include "Epetra_Vector.h"
-
-#include <iostream>
-#include <fstream>
-//#include <vector>
 
 using namespace std;
 

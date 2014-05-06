@@ -11,7 +11,6 @@
 #ifndef _ELECTRODE_H
 #define _ELECTRODE_H
 
-
 #include "cantera/equilibrium.h"
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/ResidJacEval.h"

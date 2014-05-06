@@ -28,18 +28,6 @@ using namespace CanteraLite;
 namespace m1d
 {
 //=====================================================================================================================
-static void
-drawline(int sp, int ll)
-{
-  for (int i = 0; i < sp; i++) {
-    Cantera::writelog(" ");
-  }
-  for (int i = 0; i < ll; i++) {
-    Cantera::writelog("-");
-  }
-  Cantera::writelog("\n");
-}
-//=====================================================================================================================
 //=====================================================================================================================
 //=====================================================================================================================
 //
@@ -300,12 +288,14 @@ Cu2S_TopSurface::residEval(Epetra_Vector &res,
    * Boundary conditions on top
    */
   double area_cvb = 1.0;
-  if (CoordinateSystem_ == 1) {
-    //  area_cvb = Pi * m_cellBound[m_nodes - 1] * m_xbot0;
-    area_cvb = CellArea_;
-  } else if (CoordinateSystem_ == 2) {
+  if (coordinateSystemType_ == Cylindrical_Coordinates) {
+    //area_cvb = Pi * m_cellBound[NumLcCells - 1] * cylinderLength_;
+    area_cvb = cylinderLength_;
+    exit(-1);
+  } else if (coordinateSystemType_ == Spherical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = CellArea_;
+    area_cvb = 2 * Pi;
+    exit(-1);
   }
   double stoicCoeffC0;
   double stoicCoeffCS;
@@ -778,12 +768,16 @@ Cu2S_BotSurface::residEval(Epetra_Vector &res,
    * Boundary conditions on top
    */
   double area_cvb = 1.0;
-  if (CoordinateSystem_ == 1) {
-    //  area_cvb = Pi * m_cellBound[m_nodes - 1] * m_xbot0;
-    area_cvb = CellArea_;
-  } else if (CoordinateSystem_ == 2) {
+  if (coordinateSystemType_ == Cylindrical_Coordinates) {
+    //area_cvb = Pi * m_cellBound[m_nodes - 1] * cylinderLength_;
+    area_cvb = cylinderLength_;
+    // the whole program needs to get fixed for different coordinate systems
+    exit(-1);
+  } else if (coordinateSystemType_ == Spherical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = CellArea_;
+    area_cvb = 2 * Pi;
+    // the whole program needs to get fixed for different coordinate systems
+    exit(-1);
   }
   double stoicCoeffC0;
   double molarReactionRate;
