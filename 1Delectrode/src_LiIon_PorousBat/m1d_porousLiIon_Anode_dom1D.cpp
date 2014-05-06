@@ -484,7 +484,10 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
 		    throw CanteraError("porousLiIon_Anode_dom1D::initialConditions()",
 				       "Computed porosity is not positive.");
 		}
-	    }
+	    } else {
+		throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()",
+				"Unknown Porosity");
+            }
 	}
         /*
          *  Save the cross-sectional area of the electrode to use throughout the code. It does not change within

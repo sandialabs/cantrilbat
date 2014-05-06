@@ -502,16 +502,6 @@ END BLOCK Radial Diffusion Region
      5 Volt(CathodeVoltage)  Current_conservation |                                                 |     5 Volt(CathodeVoltage)  Current_conservation |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
-Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
 Solution saved to file solution.xml as solution 0.
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       0.000E+00   

@@ -516,14 +516,6 @@ protected:
      */
     std::vector<double> concTot_Cell_old_;
 
-    //! Electrode Cross-Sectional Area
-    /*!
-     *  The electrode objects are extrinsic objects that have a cross-sectional area associated
-     *  with them. This is the value of that area. The rest of the code is based on a per m2 basis.
-     *  Therefore, we need to
-     */
-    double electrodeCrossSectionalArea_;
-
     //! Electrode Cell data for the anode cells
     /*!
      *  Length is the number of owned Cells on the processor
