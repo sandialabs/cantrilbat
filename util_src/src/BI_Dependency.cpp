@@ -2,10 +2,6 @@
  * @file BI_Dependency.cpp
  *    Definitions for the BI_Dependency class
  */
-/* $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -14,10 +10,7 @@
  */
 
 #include "BaseEntry.h"
-#include "BI_InputError.h"
 #include "BI_Dependency.h"
-#include "mdp_allo.h"
-#include "tok_input_util.h"
 
 #include <new>
 namespace BEInput {

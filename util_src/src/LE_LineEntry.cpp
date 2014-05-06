@@ -182,8 +182,12 @@ namespace BEInput {
 	if (!idep->checkDependencySatisfied()) {  
 	  string ename = EntryName.orig_str;
 	  string dname = idep->TargetBaseEntry()->keyname();
+          string extraInfo = "";
+          if (idep->ServiceRequestType() == BIDSR_SIMPLEORDERING) {
+             extraInfo = " That source keyname should occur before this LineEntry.";
+          }
 	  throw BI_InputError("LineEntry::process_LineEntry on \"" + ename + "\"",
-			      "Dependency not satisfied wrt keyname \"" + dname + "\"");
+			      "Dependency not satisfied wrt keyname \"" + dname + "\"." + extraInfo);
 	}
       }
 
