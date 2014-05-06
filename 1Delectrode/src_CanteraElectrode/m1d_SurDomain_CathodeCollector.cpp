@@ -290,11 +290,9 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector &res, const bool doTime
   BulkDomain1D *bd = bedd_->BulkDomainPtr_;
   icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
 
-  double electrodeCrossSectionalArea = PSinput.cathode_input_->electrodeGrossArea;
-
   double resistivity = resistivity_aluminum(298.);
   double denom = resistivity * SDD_cathode_ptr->cathodeCCThickness_ + 
-		 SDD_cathode_ptr->extraResistanceCathode_ * electrodeCrossSectionalArea;
+		 SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_;
   double  phiCathodeCCcalc = phiCathode_ - icurrCollector_ * denom;
 
   if ((SDD_cathode_ptr->voltageVarBCType_ != 1) && (SDD_cathode_ptr->voltageVarBCType_ != 10)) {

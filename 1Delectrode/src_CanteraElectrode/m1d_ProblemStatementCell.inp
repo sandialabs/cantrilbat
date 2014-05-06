@@ -228,7 +228,7 @@ Separator Thickness = 70.0E-6
 !       The resistor is in terms of ohms. Therefore, the cross sectional area of the battery is multiplied
 !       into this number within the battery.
 !
-!     icurr = (Vcath - V_cathCC) / ((resistivity_al * cc_thick) + ExtraResistance * ElectrodeCrossSectionArea)
+!     icurr = (Vcath - V_cathCC) / ((resistivity_al * cc_thick) + ExtraResistance * crossSectionArea)
 !
 !       If a closed loop condition is required, then set V_cathCC to zero.
 !

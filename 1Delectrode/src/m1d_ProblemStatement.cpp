@@ -1,7 +1,12 @@
 /*
  * $Id: m1d_ProblemStatement.cpp 567 2013-03-21 23:03:11Z hkmoffa $
  */
-
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
 
 #include "m1d_ProblemStatement.h"
 #include "m1d_globals.h"
@@ -182,7 +187,7 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
 
     /* --------------------------------------------------------------
      *  Cross-Sectional Area
-     *      Defaults to  298.15, optional 
+     *      Defaults to  1.0, required if [Coordinate System = Rectilinear]
      */
     BE_UnitConversion *uc = new BE_UnitConversion();
     LE_OneDblUnits *cs1 = new LE_OneDblUnits("Cross Sectional Area", &(crossSectionalArea_), 0, "crossSectionalArea", uc);
@@ -190,15 +195,15 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
     cs1->set_limits(1.0E200, 1.0E-100);
     cf->addLineEntry(cs1);
     // 
-    //  Make the occurance of this card an error unless coordinate system was chosan as rectilinear
+    //  Make the occurance of this card an error unless coordinate system was chosen as rectilinear
+    //
     BI_Dependency* dep1 = new BI_Dependency(cpl, BIDT_ENTRYPROCESSED);
     cs1->declareDependency(dep1);
     //
     //  Declare a dependency stathing that this card requires the Coordinate System Card to occur previously
     //  and have a value of 0 returned from it when it is queried.
     //
-    BI_DepIntMaxMin* dmm1 = new BI_DepIntMaxMin(cpl, BIDT_INTMAXMIN, 0, 0,
-                                                 BIDRT_PT_ERROR);
+    BI_DepIntMaxMin* dmm1 = new BI_DepIntMaxMin(cpl, BIDT_INTMAXMIN, 0, 0, BIDRT_PT_ERROR);
     cs1->declareDependency(dmm1);
 
     /* --------------------------------------------------------------

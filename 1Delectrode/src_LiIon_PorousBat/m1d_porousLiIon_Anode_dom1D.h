@@ -438,7 +438,7 @@ public:
      *              porosity_Cell_[iCell]   Initial porosity of the cell
      *              Electrode_Cell_[iCell]  Pointer to the electrode object which is initialized
      *                                      within this routine.
-     *              electrodeCrossSectionalArea_
+     *              crossSectionalArea_
      *              xdelCell_Cell_[iCell]   Thickness of the cell
      */
     virtual void instantiateElectrodeCells();
@@ -535,14 +535,6 @@ protected:
      *  Length is number of cells on the processor.
      */
     std::vector<double> concTot_Cell_old_;
-
-    //! Electrode Cross-Sectional Area
-    /*!
-     *  The electrode objects are extrinsic objects that have a cross-sectional area associated
-     *  with them. This is the value of that area. The rest of the code is based on a per m2 basis.
-     *  Therefore, we need to modify all real currents by this value.
-     */
-    double electrodeCrossSectionalArea_;
 
     //! Electrode Cell data for the anode cells
     /*!

@@ -99,7 +99,6 @@ public:
    *              porosity_Cell_[iCell]   Initial porosity of the cell
    *              Electrode_Cell_[iCell]  Pointer to the electrode object which is initialized
    *                                      within this routine.
-   *              electrodeCrossSectionalArea_
    *              xdelCell_Cell_[iCell]   Thickness of the cell
    */
   virtual void instantiateElectrodeCells();

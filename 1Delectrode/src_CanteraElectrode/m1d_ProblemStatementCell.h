@@ -230,7 +230,7 @@ public:
   /*!
    *  Note the effective resistance for the battery stack is
    *
-   *     extraCathodeResistance_ * electrodeCrossSection
+   *     extraCathodeResistance_ * crossSectionalArea_
    */
   double extraCathodeResistance_;
 

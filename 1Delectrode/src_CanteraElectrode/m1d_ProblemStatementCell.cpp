@@ -112,6 +112,17 @@ ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
   BaseEntry::set_SkipUnknownEntries(true);
 
   /* -------------------------------------------------------------------------
+   *  
+   *   Cross Sectional Area
+   *
+   *      Change this card to being mandatory if the coordinate system is rectilinear 
+   */
+  LineEntry* cs1 = cf->searchLineEntry("Cross Sectional Area");
+  LineEntry* cpl = cf->searchLineEntry("Coordinate System");
+  BI_DepIntMaxMin* dmm2 = new BI_DepIntMaxMin(cpl, BIDT_INTMAXMIN, 0, 0, BIDRT_ONENUMTR);
+  cs1->declareDependency(dmm2);
+
+  /* -------------------------------------------------------------------------
    *
    *     Heat Source Tracking
    *

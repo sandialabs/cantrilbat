@@ -43,7 +43,6 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     icurrInterfacePerSurfaceArea_Cell_(0),
     xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
-    electrodeCrossSectionalArea_(1.0),
     Electrode_Cell_(0),
     capacityDischarged_Cell_(0),
     depthOfDischarge_Cell_(0),
@@ -114,7 +113,6 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     surfaceArea_Cell_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
-    electrodeCrossSectionalArea_(1.0),
     Electrode_Cell_(0),
     capacityDischarged_Cell_(0),
     depthOfDischarge_Cell_(0),
@@ -170,7 +168,6 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     xdelCell_Cell_ = r.xdelCell_Cell_;
     concTot_Cell_ = r.concTot_Cell_;
     concTot_Cell_old_ = r.concTot_Cell_old_;
-    electrodeCrossSectionalArea_ = r.electrodeCrossSectionalArea_;
 
     Electrode_Cell_ = r.Electrode_Cell_;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -361,6 +358,7 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
     double xCellBoundaryL; //cell boundary left
     double xCellBoundaryR; //cell boundary right
 
+
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         // Note that we need to create a Factory method to instantiate the desired electrode type.
         // int nSurPhases = PSinput.anode_input_->m_pl->nSurPhases();
@@ -473,44 +471,44 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
          * if we know the solid and electrode volume, compute porosity
          * otherwise, hopefully we know the porosity
          */
-        if (PSinput.anode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
-            totalElectrodeGrossVolume = electrodeGrossArea * PSinput.anode_input_->electrodeGrossThickness;
-            double totalSolidGrossVolume =  ee->SolidVol();
-            porosity = 1.0 - totalSolidGrossVolume / totalElectrodeGrossVolume;
-            printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
-                   porosity, ee->SolidVol(), totalElectrodeGrossVolume);
-            if (porosity <= 0.0) {
-                throw CanteraError("porousLiIon_Anode_dom1D::initialConditions()",
-                                   "Computed porosity is not positive.");
-            }
-            /*
-             *  reset the moles in the electrode using the computed porosity
-             * and the electrodeWidth FOR THIS node.
-             */
-            ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
-        } else {
-            /*
-             * Case where we know porosity and not volume
-             */
-            porosity = PSinput.anode_input_->porosity;
-            if (porosity <= 0.0) {
-                throw CanteraError("porousLiIon_Anode_dom1D::initialConditions()",
-                                   "Input porosity is not positive.");
-            }
-            if (electrodeGrossArea <= 0.0) {
-                electrodeGrossArea = 0.0;
-            }
-            ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
-        }
+	if (PSinput.anode_input_->porosity > 0.0) {
+	    porosity = PSinput.anode_input_->porosity;
+	} else {
+	    if (PSinput.anode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
+		totalElectrodeGrossVolume = electrodeGrossArea * PSinput.anode_input_->electrodeGrossThickness;
+		double totalSolidGrossVolume =  ee->SolidVol();
+		porosity = 1.0 - totalSolidGrossVolume / totalElectrodeGrossVolume;
+		printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
+		       porosity, ee->SolidVol(), totalElectrodeGrossVolume);
+		if (porosity <= 0.0) {
+		    throw CanteraError("porousLiIon_Anode_dom1D::initialConditions()",
+				       "Computed porosity is not positive.");
+		}
+	    }
+	}
         /*
          *  Save the cross-sectional area of the electrode to use throughout the code. It does not change within
          *  this calculation
          */
-        electrodeCrossSectionalArea_ = electrodeGrossArea;
+        if (electrodeGrossArea > 0.0) {
+	    if (!doubleEqual(crossSectionalArea_, electrodeGrossArea, 1.0E-30, 9)) {
+		throw m1d_Error("porousLiIon_Anode_dom1D::initialConditions()",
+				"crossSectional Area, " + fp2str(crossSectionalArea_) + 
+				", differs from cross sectional area input from anode file, " + fp2str(electrodeGrossArea));
+	    }
+	    electrodeGrossArea = crossSectionalArea_;
+        } else {
+	    electrodeGrossArea = crossSectionalArea_;
+	}
+
+	/*
+	 *  reset the moles in the electrode using the computed porosity
+	 * and the electrodeWidth FOR THIS node.
+	 */
+	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
 
         // update porosity as computed from electrode input
         porosity_Cell_[iCell] = porosity;
-        //porosity_Cell_[iCell] = 0.1827;
 
         Electrode_Cell_[iCell] = ee;
     }
@@ -1066,7 +1064,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             if (k != iECDMC_ && k != iPF6m_) {
                 res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] -=
                     electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + k] * rdelta_t /
-                    electrodeCrossSectionalArea_;
+                    crossSectionalArea_;
             }
         }
 
@@ -1446,13 +1444,13 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
 	}
 	// Add in the electrode contribution
 #ifdef DELTASHEAT_ZERO
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / electrodeCrossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell] = 0.0;
         electrodeHeat_Cell_curr_[iCell] =  overPotentialHeat_Cell_curr_[iCell];
 #else
-        electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / electrodeCrossSectionalArea_;
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / electrodeCrossSectionalArea_;
-        deltaSHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / electrodeCrossSectionalArea_;
+        electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / crossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+        deltaSHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
 #endif
         qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
         qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
@@ -1485,13 +1483,13 @@ porousLiIon_Anode_dom1D::calcElectrode()
 
         icurrInterface_Cell_[cIndex_cc_] = Faraday * 
                                            electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_ + kelectron]
-                                           / (electrodeCrossSectionalArea_);
+                                           / (crossSectionalArea_);
 
 	Electrode_ptr->getPhaseProductionRates(&electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * cIndex_cc_],
 					       DATA_PTR(phaseMoleTransfer_));
 	int sf = Electrode_ptr->solnPhaseIndex();
 	
-	solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleTransfer_[sf] / electrodeCrossSectionalArea_;
+	solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleTransfer_[sf] / crossSectionalArea_;
 
     } else {
 	//
@@ -1522,7 +1520,7 @@ porousLiIon_Anode_dom1D::calcElectrode()
 	 */
 	icurrInterface_Cell_[cIndex_cc_] = Faraday * electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_  * cIndex_cc_ +
 										     kelectron]
-					   / (deltaT * electrodeCrossSectionalArea_);
+					   / (deltaT * crossSectionalArea_);
 
 #ifdef DEBUG_HKM
 	if (residType_Curr_ == Base_ShowSolution) {
@@ -1539,7 +1537,7 @@ porousLiIon_Anode_dom1D::calcElectrode()
 	 */
 	int sf = Electrode_ptr->solnPhaseIndex();
 	
-	solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleTransfer_[sf] / (electrodeCrossSectionalArea_ * deltaT);
+	solnMoleFluxInterface_Cell_[cIndex_cc_] = phaseMoleTransfer_[sf] / (crossSectionalArea_ * deltaT);
     }
 
     /*
@@ -1561,27 +1559,27 @@ porousLiIon_Anode_dom1D::calcElectrode()
      * Remember the electrode is an extrinsic object that should be based on a m**2 area basis.
      * To get the surface area per m**2 we need to divide by the the cross sectional area of the electrode
      */
-    surfaceArea_Cell_[cIndex_cc_] = saExternal / (electrodeCrossSectionalArea_);
+    surfaceArea_Cell_[cIndex_cc_] = saExternal / (crossSectionalArea_);
 
     /*
      *  Calculate the current per external surface area of electrode. To do this calculation
      *  we divide the total extrinsic current by the total extrinsic surface area
      */
-    icurrInterfacePerSurfaceArea_Cell_[cIndex_cc_] = icurrInterface_Cell_[cIndex_cc_] * electrodeCrossSectionalArea_ /
+    icurrInterfacePerSurfaceArea_Cell_[cIndex_cc_] = icurrInterface_Cell_[cIndex_cc_] * crossSectionalArea_ /
                                                      saExternal;
 
     /*
      * Compute new porosity based on a possibily different volume of the solid electrode
      */
     // porosity_Cell_[cIndex_cc_] =
-    // 1 -  Electrode_ptr->SolidVol() / (xdelCell_Cell_[cIndex_cc_] * electrodeCrossSectionalArea_);
+    // 1 -  Electrode_ptr->SolidVol() / (xdelCell_Cell_[cIndex_cc_] * crossSectionalArea_);
 
 
     if (residType_Curr_ == Base_ShowSolution) {
-        capacityDischarged_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / electrodeCrossSectionalArea_;
-        depthOfDischarge_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / electrodeCrossSectionalArea_;
-        capacityLeft_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / electrodeCrossSectionalArea_;
-        capacityZeroDoD_Cell_[cIndex_cc_]= Electrode_ptr->capacity() / electrodeCrossSectionalArea_;
+        capacityDischarged_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / crossSectionalArea_;
+        depthOfDischarge_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / crossSectionalArea_;
+        capacityLeft_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / crossSectionalArea_;
+        capacityZeroDoD_Cell_[cIndex_cc_]= Electrode_ptr->capacity() / crossSectionalArea_;
     }
 
     return numSubcycles;
@@ -1763,7 +1761,7 @@ porousLiIon_Anode_dom1D::getMFElectrolyte_soln(const NodalVars*  const nv, const
  *  We assume that setupthermoshop1 has been called.
  *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
  *
- *   electrodeCrossSectionalArea_
+ *   crossSectionalArea_
  */
 double
 porousLiIon_Anode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
@@ -1773,7 +1771,7 @@ porousLiIon_Anode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const do
     double lyteVol = porosity_Curr_ * xdelCell_Cell_[cIndex_cc_];
     double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
     double cpSolidTotal = Electrode_ptr->SolidHeatCapacityCV() ;
-    double cpSolid =  cpSolidTotal / electrodeCrossSectionalArea_;
+    double cpSolid =  cpSolidTotal / crossSectionalArea_;
     return (cpSolid + cpLyte);
 }
 //=====================================================================================================================
@@ -2226,10 +2224,10 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
             fprintf(ofp, "\n");
 
             // capacity of individual control volumes
-            fprintf(ofp, "%g \t", capacityDischarged_Cell_[iCell] * electrodeCrossSectionalArea_);
+            fprintf(ofp, "%g \t", capacityDischarged_Cell_[iCell] * crossSectionalArea_);
             fprintf(ofp, "%g \t", depthOfDischarge_Cell_[iCell]);
-            fprintf(ofp, "%g \t", capacityLeft_Cell_[iCell] * electrodeCrossSectionalArea_);
-            fprintf(ofp, "%g \t", capacityZeroDoD_Cell_[iCell] * electrodeCrossSectionalArea_);
+            fprintf(ofp, "%g \t", capacityLeft_Cell_[iCell] * crossSectionalArea_);
+            fprintf(ofp, "%g \t", capacityZeroDoD_Cell_[iCell] * crossSectionalArea_);
 
             // print porosity, specific surface area, thickness for each control volume
             fprintf(ofp, "%g \t", porosity_Cell_[iCell]);
@@ -2256,7 +2254,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
                     int nspPhase = tp->nSpecies();
                     int kStart =  ee->getGlobalSpeciesIndex(iph, 0);
                     for (int k = 0; k < nspPhase; k++) {
-                        fprintf(ofp, "%g \t", spmoles[kStart + k] / electrodeCrossSectionalArea_);
+                        fprintf(ofp, "%g \t", spmoles[kStart + k] / crossSectionalArea_);
                     }
                 }
             }
@@ -2646,7 +2644,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                     int nspPhase = tp->nSpecies();
                     int kStart =  ee->getGlobalSpeciesIndex(iph, 0);
                     for (int k = 0; k < nspPhase; k++) {
-                        ss.print0("% -15.6E ", spmoles[kStart + k] / electrodeCrossSectionalArea_);
+                        ss.print0("% -15.6E ", spmoles[kStart + k] / crossSectionalArea_);
                     }
 
                 }
@@ -2820,7 +2818,7 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
 
         Electrode* ee = Electrode_Cell_[iCell];
         double solidVolCell = ee->SolidVol();
-        double porosity = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * electrodeCrossSectionalArea_);
+        double porosity = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
 
         if (porosity <= 0.0) {
             throw m1d_Error("porousLiIon_Anode_dom1D::initialConditions() ERROR",
@@ -3093,7 +3091,7 @@ double porousLiIon_Anode_dom1D::capacityPA(int platNum) const
         Electrode* ee = Electrode_Cell_[iCell];
 	totalCapacity += ee->capacity(platNum);
     }
-    totalCapacity /= electrodeCrossSectionalArea_;
+    totalCapacity /= crossSectionalArea_;
     return totalCapacity;
 }
 //=====================================================================================================================
@@ -3104,7 +3102,7 @@ double porousLiIon_Anode_dom1D::capacityDischargedPA(int platNum) const
         Electrode* ee = Electrode_Cell_[iCell];
 	totalCapacity += ee->capacityDischarged(platNum);
     }
-    totalCapacity /= electrodeCrossSectionalArea_;
+    totalCapacity /= crossSectionalArea_;
     return totalCapacity;
 }
 //=====================================================================================================================
@@ -3115,7 +3113,7 @@ double porousLiIon_Anode_dom1D::capacityLeftPA(int platNum, double voltsMax, dou
         Electrode* ee = Electrode_Cell_[iCell];
 	totalCapacity += ee->capacityLeft(platNum, voltsMax, voltsMin);
     }
-    totalCapacity /= electrodeCrossSectionalArea_;
+    totalCapacity /= crossSectionalArea_;
     return totalCapacity;
 }
 //=====================================================================================================================
