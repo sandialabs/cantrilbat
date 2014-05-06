@@ -50,7 +50,9 @@ if test ! -x LiIon_PorousBat   ; then
   if test -x ../../src_LiIon_PorousBat/LiIon_PorousBat ; then
     ln -s ../../src_LiIon_PorousBat/LiIon_PorousBat .
   else
-    echo 'ERROR: Multi1DDomain executable can not be found'
+    echo 'ERROR:  LiIon_PorousBat executable can not be found'
+    echo "  executable not found: " `date` > runBad
+    /bin/rm -f runInProgress.txt
     exit -1
   fi
 fi
@@ -91,7 +93,9 @@ retnStat=$?
 if test $retnStat != "0" 
 then
   temp_success="0"
-  echo "Multi1DDomain returned with bad status, $retnStat, check output"
+  echo "$MULTI1DDOMAIN_EXE returned with bad status, $retnStat, check output"
+   echo "  Bad return code: " `date` > runBad
+  /bin/rm -f runInProgress.txt
   exit 0
 fi
 

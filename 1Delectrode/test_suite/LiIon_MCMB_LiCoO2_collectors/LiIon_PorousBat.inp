@@ -27,6 +27,12 @@ Number of Cantera Files = 2
 Cantera File Name = ECsoln_ion.xml
 Cantera File Name = MgO.xml
 !-------------------------------------------------------------------------
+!    Cross sectional Area = [double] (required)
+! 
+!-------------------------------------------------------------------------
+Coordinate System = rectilinear
+Cross Sectional Area =  2.5063e-3 m2
+!-------------------------------------------------------------------------
 !
 ! Electrolyte Phase = [string] [ required ]
 !

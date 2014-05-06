@@ -7,6 +7,10 @@
  STARTING PROCESSING COMMAND FILE LiIon_PorousBat.inp, PASS # 1
 ==========================================================
  => Number of Cantera Files ====> NumCanteraFiles = 2
+ => Coordinate System = rectilinear
+ ====> CoordinateSystemType = Rectilinear, list item 0
+ => Cross Sectional Area = 2.5063e-3 m2
+ ====> crossSectionalArea = 0.0025063
  => Reference Temperature = 298.15
  ====> TemperatureRef = 298.15
  => Reference Pressure = 1.0 atm
@@ -22,6 +26,10 @@
  ====> CanteraFileNames =  ECsoln_ion.xml
  => Cantera File Name = MgO.xml
  ====> CanteraFileNames =  MgO.xml
+ => Coordinate System = rectilinear
+ ====> CoordinateSystemType = Rectilinear, list item 0
+ => Cross Sectional Area = 2.5063e-3 m2
+ ====> crossSectionalArea = 0.0025063
  => Reference Temperature = 298.15
  ====> TemperatureRef = 298.15
  => Reference Pressure = 1.0 atm
@@ -43,6 +51,10 @@ Species name 3 is MgO(S)
  ====> CanteraFileNames =  ECsoln_ion.xml
  => Cantera File Name = MgO.xml
  ====> CanteraFileNames =  MgO.xml
+ => Coordinate System = rectilinear
+ ====> CoordinateSystemType = Rectilinear, list item 0
+ => Cross Sectional Area = 2.5063e-3 m2
+ ====> crossSectionalArea = 0.0025063
  => Electrolyte Phase = ECDMC_LiPF6
  ====> electrolytePhase = ECDMC_LiPF6
  => ECDMC = 0.92
@@ -489,16 +501,6 @@ END BLOCK Radial Diffusion Region
      4    Volt(Electrolyte)  Current_conservation |    4    Volt(Electrolyte)  Current_conservation |     4    Volt(Electrolyte)  Current_conservation |
      5 Volt(CathodeVoltage)  Current_conservation |                                                 |     5 Volt(CathodeVoltage)  Current_conservation |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
-Anode porosity is 0.350000 with 1.28275e-06 m^3 solid gross volume and 1.97346e-06 m^3 electrode gross volume.
 Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
 Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
 Cathode porosity is 0.350000 with 9.93096e-07 m^3 solid volume and 1.52784e-06 m^3 electrode volume.
@@ -1018,9 +1020,9 @@ Start of Time Step:     1       Time_n =     1e-08 Time_nm1 =         0
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.095E-02   Y   |    1   2.664E-13 | 4.297E+02  | 1.000E+00|  1.609E-02  |   1.00E+00  0 |   4.297E+02   1.609E-02 
-	   2   1.609E-02   Y   |    1   1.767E-13 | 2.860E+02  | 1.000E+00|  2.595E-03  |   1.00E+00  0 |   2.860E+02   2.595E-03 
-	   3   2.595E-03   Y   |    1   3.092E-14 | 6.412E+01  | 1.000E+00|  3.166E-05  |   1.00E+00  0 |   6.412E+01   3.166E-05 
+	   1   5.095E-02   Y   |    1   2.589E-13 | 4.297E+02  | 1.000E+00|  1.609E-02  |   1.00E+00  0 |   4.297E+02   1.609E-02 
+	   2   1.609E-02   Y   |    1   1.374E-13 | 2.860E+02  | 1.000E+00|  2.595E-03  |   1.00E+00  0 |   2.860E+02   2.595E-03 
+	   3   2.595E-03   Y   |    1   3.568E-14 | 6.412E+01  | 1.000E+00|  3.166E-05  |   1.00E+00  0 |   6.412E+01   3.166E-05 
 	                       |                  |(7.823E-01) |          |             | converged = 3 |              (7.823E-01) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 3 iterations
@@ -1403,8 +1405,8 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.190E-03   Y   |    1   6.731E-14 | 1.496E+02  | 1.000E+00|  3.489E-04  |   1.00E+00  0 |   1.496E+02   3.489E-04 
-	   2   3.489E-04   Y   |    1   5.903E-15 | 1.418E+01  | 1.000E+00|  2.281E-06  |   1.00E+00  0 |   1.418E+01   2.281E-06 
+	   1   4.190E-03   Y   |    1   8.445E-14 | 1.496E+02  | 1.000E+00|  3.489E-04  |   1.00E+00  0 |   1.496E+02   3.489E-04 
+	   2   3.489E-04   Y   |    1   9.966E-15 | 1.418E+01  | 1.000E+00|  2.281E-06  |   1.00E+00  0 |   1.418E+01   2.281E-06 
 	                       |                  |(9.268E-02) |          |             | converged = 3 |              (9.268E-02) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -1787,8 +1789,8 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.338E-03   Y   |    1   7.036E-14 | 1.403E+02  | 1.000E+00|  3.515E-04  |   1.00E+00  0 |   1.403E+02   3.515E-04 
-	   2   3.515E-04   Y   |    1   9.342E-15 | 1.476E+01  | 1.000E+00|  5.795E-06  |   1.00E+00  0 |   1.476E+01   5.795E-06 
+	   1   4.338E-03   Y   |    1   6.307E-14 | 1.403E+02  | 1.000E+00|  3.515E-04  |   1.00E+00  0 |   1.403E+02   3.515E-04 
+	   2   3.515E-04   Y   |    1   1.103E-14 | 1.476E+01  | 1.000E+00|  5.795E-06  |   1.00E+00  0 |   1.476E+01   5.795E-06 
 	                       |                  |(2.434E-01) |          |             | converged = 3 |              (2.434E-01) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -2171,9 +2173,9 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   9.312E-06   Y   |    1   3.268E-16 | 4.093E-01  | 1.000E+00|  3.781E-09  |   1.00E+00  0 |   4.093E-01   3.781E-09 
-	   2   3.781E-09   Y   |    1   6.924E-20 | 1.663E-04  | 1.000E+00|  4.221E-13  |   1.00E+00  0 |   1.663E-04   4.221E-13 
-	                       |                  |(1.857E-08) |          |             | converged = 3 |              (1.857E-08) 
+	   1   9.312E-06   Y   |    1   2.950E-16 | 4.093E-01  | 1.000E+00|  3.781E-09  |   1.00E+00  0 |   4.093E-01   3.781E-09 
+	   2   3.781E-09   Y   |    1   9.604E-20 | 1.663E-04  | 1.000E+00|  5.931E-13  |   1.00E+00  0 |   1.663E-04   5.931E-13 
+	                       |                  |(2.609E-08) |          |             | converged = 3 |              (2.609E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.409487
@@ -2554,23 +2556,23 @@ Start of Time Step:     5       Time_n = 5.105e-08 Time_nm1 =     4e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.400E-06   Y   |    1   2.738E-16 | 2.818E-01  | 1.000E+00|  1.955E-09  |   1.00E+00  0 |   2.818E-01   1.955E-09 
-	   2   1.955E-09   Y   |    1   6.830E-20 | 8.599E-05  | 1.000E+00|  4.541E-13  |   1.00E+00  0 |   8.599E-05   4.541E-13 
-	                       |                  |(1.997E-08) |          |             | converged = 3 |              (1.997E-08) 
+	   1   6.400E-06   Y   |    1   1.822E-16 | 2.818E-01  | 1.000E+00|  1.955E-09  |   1.00E+00  0 |   2.818E-01   1.955E-09 
+	   2   1.955E-09   Y   |    1   4.258E-20 | 8.599E-05  | 1.000E+00|  3.888E-13  |   1.00E+00  0 |   8.599E-05   3.888E-13 
+	                       |                  |(1.710E-08) |          |             | converged = 3 |              (1.710E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.281682
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   105         Volt(CathodeVol)-18     -8.7069e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.3002e-05
-		   111         Volt(CathodeVol)-19     -8.7067e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2962e-05
-		   117         Volt(CathodeVol)-20     -8.7062e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2962e-05
-		   123         Volt(CathodeVol)-21     -8.7053e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.3002e-05
-		   129         Volt(CathodeVol)-22     -8.7040e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2962e-05
-		   135         Volt(CathodeVol)-23     -8.7024e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2962e-05
-		   141         Volt(CathodeVol)-24     -8.7004e-02 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -4.2962e-05
-		   147         Volt(CathodeVol)-25     -8.6981e-02 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -4.2922e-05
+		   105         Volt(CathodeVol)-18     -8.7069e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2841e-05
+		   111         Volt(CathodeVol)-19     -8.7067e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2881e-05
+		   117         Volt(CathodeVol)-20     -8.7062e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2881e-05
+		   123         Volt(CathodeVol)-21     -8.7053e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2841e-05
+		   129         Volt(CathodeVol)-22     -8.7040e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2881e-05
+		   135         Volt(CathodeVol)-23     -8.7024e-02 |   3.8418e+00   3.8419e+00   5.0000e-05 alg  -4.2881e-05
+		   141         Volt(CathodeVol)-24     -8.7004e-02 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -4.2841e-05
+		   147         Volt(CathodeVol)-25     -8.6981e-02 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -4.2841e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     5 was a success: time = 5.10501e-08
@@ -2937,28 +2939,28 @@ Start of Time Step:     6       Time_n = 6.5772e-08 Time_nm1 = 5.105e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.565E-12   Y   |    1   2.967E-25 | 4.284E-10  | 1.000E+00|  4.839E-13  |   1.00E+00  0 |   4.284E-10   4.839E-13 
-	   2   4.839E-13   Y   |    1   8.025E-28 | 1.054E-12  | 1.000E+00|  4.556E-13  |   1.00E+00  0 |   1.054E-12   4.556E-13 
-	                       |                  |(1.054E-13) |          |             | converged = 3 |              (1.054E-13) 
+	   1   1.564E-12   Y   |    1   2.047E-25 | 4.325E-10  | 1.000E+00|  5.428E-13  |   1.00E+00  0 |   4.325E-10   5.428E-13 
+	   2   5.428E-13   Y   |    1   5.613E-28 | 8.178E-13  | 1.000E+00|  4.030E-13  |   1.00E+00  0 |   8.178E-13   4.030E-13 
+	                       |                  |(8.178E-14) |          |             | converged = 3 |              (8.178E-14) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 4.27806e-10
+	Time step truncation error = 4.31904e-10
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   105         Volt(CathodeVol)-18      1.2850e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7495e-05
-		   123         Volt(CathodeVol)-21      1.2850e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7495e-05
-		   159         Volt(CathodeVol)-27      1.2779e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7434e-05
-		   129         Volt(CathodeVol)-22      1.2709e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7495e-05
-		   135         Volt(CathodeVol)-23      1.2709e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7495e-05
-		   141         Volt(CathodeVol)-24      1.2709e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7495e-05
-		   153         Volt(CathodeVol)-26      1.2709e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7465e-05
-		   111         Volt(CathodeVol)-19      1.2639e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7525e-05
+		   135         Volt(CathodeVol)-23      1.2499e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7525e-05
+		   111         Volt(CathodeVol)-19      1.2428e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7555e-05
+		   117         Volt(CathodeVol)-20      1.2428e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7555e-05
+		   129         Volt(CathodeVol)-22      1.2428e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7555e-05
+		   141         Volt(CathodeVol)-24      1.2358e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7525e-05
+		   147         Volt(CathodeVol)-25      1.2358e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7525e-05
+		   123         Volt(CathodeVol)-21      1.2288e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7555e-05
+		   153         Volt(CathodeVol)-26      1.2288e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -3.7525e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     6 was a success: time = 6.57722e-08
 		Estimated Error
-		--------------------   =   4.27806e-10
+		--------------------   =   4.31904e-10
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.20832e-08
@@ -3320,28 +3322,28 @@ Start of Time Step:     7       Time_n = 8.7855e-08 Time_nm1 = 6.5772e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.428E-12   Y   |    1   2.346E-24 | 2.364E-09  | 1.000E+00|  3.480E-13  |   1.00E+00  0 |   2.364E-09   3.480E-13 
-	   2   3.480E-13   Y   |    1   4.171E-28 | 1.035E-12  | 1.000E+00|  5.020E-13  |   1.00E+00  0 |   1.035E-12   5.020E-13 
-	                       |                  |(1.035E-13) |          |             | converged = 3 |              (1.035E-13) 
+	   1   1.030E-12   Y   |    1   1.239E-24 | 2.373E-09  | 1.000E+00|  5.478E-13  |   1.00E+00  0 |   2.373E-09   5.478E-13 
+	   2   5.478E-13   Y   |    1   8.756E-28 | 1.294E-12  | 1.000E+00|  4.884E-13  |   1.00E+00  0 |   1.294E-12   4.884E-13 
+	                       |                  |(1.294E-13) |          |             | converged = 3 |              (1.294E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.36294e-09
+	Time step truncation error = 2.37241e-09
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   111         Volt(CathodeVol)-19      7.4359e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
-		   117         Volt(CathodeVol)-20      7.4359e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
-		   135         Volt(CathodeVol)-23      7.4219e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
-		   141         Volt(CathodeVol)-24      7.4219e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
-		   147         Volt(CathodeVol)-25      7.4219e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
-		   153         Volt(CathodeVol)-26      7.4219e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6209e-05
-		   105         Volt(CathodeVol)-18      7.4149e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6249e-05
-		   123         Volt(CathodeVol)-21      7.4149e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6249e-05
+		   105         Volt(CathodeVol)-18      7.4570e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
+		   111         Volt(CathodeVol)-19      7.4500e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
+		   129         Volt(CathodeVol)-22      7.4500e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
+		   117         Volt(CathodeVol)-20      7.4430e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6249e-05
+		   123         Volt(CathodeVol)-21      7.4430e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6249e-05
+		   153         Volt(CathodeVol)-26      7.4430e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6209e-05
+		   159         Volt(CathodeVol)-27      7.4430e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6209e-05
+		   135         Volt(CathodeVol)-23      7.4359e-10 |   3.8418e+00   3.8418e+00   5.0000e-05 alg  -1.6229e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     7 was a success: time = 8.78553e-08
 		Estimated Error
-		--------------------   =   2.36294e-09
+		--------------------   =   2.37241e-09
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 3.31248e-08
@@ -3703,28 +3705,28 @@ Start of Time Step:     8       Time_n = 1.2098e-07 Time_nm1 = 8.7855e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.671E-12   Y   |    1   2.440E-25 | 5.305E-10  | 1.000E+00|  4.026E-13  |   1.00E+00  0 |   5.305E-10   4.026E-13 
-	   2   4.026E-13   Y   |    1   8.565E-28 | 6.850E-13  | 1.000E+00|  1.618E-13  |   1.00E+00  0 |   6.850E-13   1.618E-13 
-	                       |                  |(6.850E-14) |          |             | converged = 3 |              (6.850E-14) 
+	   1   1.031E-12   Y   |    1   2.924E-25 | 5.126E-10  | 1.000E+00|  1.657E-13  |   1.00E+00  0 |   5.126E-10   1.657E-13 
+	   2   1.657E-13   Y   |    1   1.115E-27 | 1.272E-12  | 1.000E+00|  3.993E-13  |   1.00E+00  0 |   1.272E-12   3.993E-13 
+	                       |                  |(1.272E-13) |          |             | converged = 3 |              (1.272E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 5.30257e-10
+	Time step truncation error = 5.13456e-10
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		     4         Volt(Electrolyt)-0      -9.3926e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5818e-05
-		    22         Volt(Electrolyt)-3      -9.3926e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5818e-05
-		    40         Volt(Electrolyt)-6      -9.3926e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5818e-05
-		    84         Volt(Electrolyt)-14     -9.3926e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5818e-05
-		    89         Volt(Electrolyt)-15     -9.3926e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5818e-05
-		    94         Volt(Electrolyt)-16     -9.3926e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5818e-05
-		    99         Volt(Electrolyt)-17     -9.3926e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5818e-05
-		   116         Volt(Electrolyt)-20     -9.3926e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5818e-05
+		    40         Volt(Electrolyt)-6      -9.0854e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5754e-05
+		    58         Volt(Electrolyt)-9      -9.0854e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5754e-05
+		    64         Volt(Electrolyt)-10     -9.0854e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5754e-05
+		    69         Volt(Electrolyt)-11     -9.0854e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5754e-05
+		   128         Volt(Electrolyt)-22     -9.0854e-11 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5754e-05
+		     4         Volt(Electrolyt)-0      -9.0843e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5755e-05
+		    10         Volt(Electrolyt)-1      -9.0843e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5755e-05
+		    16         Volt(Electrolyt)-2      -9.0843e-11 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5755e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     8 was a success: time = 1.2098e-07
 		Estimated Error
-		--------------------   =   5.30257e-10
+		--------------------   =   5.13456e-10
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 4.96871e-08
@@ -4086,28 +4088,28 @@ Start of Time Step:     9       Time_n = 1.7067e-07 Time_nm1 = 1.2098e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.941E-13   Y   |    1   1.570E-26 | 2.751E-11  | 1.000E+00|  2.477E-13  |   1.00E+00  0 |   2.751E-11   2.477E-13 
-	   2   2.477E-13   Y   |    1   7.084E-28 | 1.097E-12  | 1.000E+00|  2.464E-13  |   1.00E+00  0 |   1.097E-12   2.464E-13 
-	                       |                  |(1.097E-13) |          |             | converged = 3 |              (1.097E-13) 
+	   1   1.379E-12   Y   |    1   1.981E-26 | 3.634E-11  | 1.000E+00|  4.349E-13  |   1.00E+00  0 |   3.634E-11   4.349E-13 
+	   2   4.349E-13   Y   |    1   7.354E-28 | 9.536E-13  | 1.000E+00|  4.120E-13  |   1.00E+00  0 |   9.536E-13   4.120E-13 
+	                       |                  |(9.536E-14) |          |             | converged = 3 |              (9.536E-14) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.83996e-11
+	Time step truncation error = 3.58633e-11
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    16         Volt(Electrolyt)-2       5.2553e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5751e-05
-		    10         Volt(Electrolyt)-1       5.2443e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5752e-05
-		    22         Volt(Electrolyt)-3       5.2443e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5751e-05
-		    34         Volt(Electrolyt)-5       5.2443e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5751e-05
-		    40         Volt(Electrolyt)-6       5.2443e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5751e-05
-		    46         Volt(Electrolyt)-7       5.2443e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5751e-05
-		    74         Volt(Electrolyt)-12      5.2443e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5751e-05
-		    79         Volt(Electrolyt)-13      5.2443e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5751e-05
+		    52         Volt(Electrolyt)-8      -6.5938e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5838e-05
+		    74         Volt(Electrolyt)-12     -6.5938e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5838e-05
+		   116         Volt(Electrolyt)-20     -6.5938e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5838e-05
+		   122         Volt(Electrolyt)-21     -6.5938e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5838e-05
+		   140         Volt(Electrolyt)-24     -6.5938e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5838e-05
+		   158         Volt(Electrolyt)-27     -6.5938e-12 |   3.5027e-02   3.5027e-02   5.0000e-05 alg  -1.5838e-05
+		    28         Volt(Electrolyt)-4      -6.5828e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5838e-05
+		    46         Volt(Electrolyt)-7      -6.5828e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5838e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     9 was a success: time = 1.70667e-07
 		Estimated Error
-		--------------------   =   2.83996e-11
+		--------------------   =   3.58633e-11
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 7.45307e-08
@@ -4469,28 +4471,28 @@ Start of Time Step:    10       Time_n = 2.452e-07 Time_nm1 = 1.7067e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   9.280E-13   Y   |    1   3.033E-26 | 4.103E-11  | 1.000E+00|  4.829E-13  |   1.00E+00  0 |   4.103E-11   4.829E-13 
-	   2   4.829E-13   Y   |    1   5.378E-28 | 8.649E-13  | 1.000E+00|  4.986E-13  |   1.00E+00  0 |   8.649E-13   4.986E-13 
-	                       |                  |(8.649E-14) |          |             | converged = 3 |              (8.649E-14) 
+	   1   1.362E-12   Y   |    1   3.003E-26 | 3.884E-11  | 1.000E+00|  3.666E-13  |   1.00E+00  0 |   3.884E-11   3.666E-13 
+	   2   3.666E-13   Y   |    1   8.702E-28 | 8.887E-13  | 1.000E+00|  4.639E-13  |   1.00E+00  0 |   8.887E-13   4.639E-13 
+	                       |                  |(8.887E-14) |          |             | converged = 3 |              (8.887E-14) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 4.0612e-11
+	Time step truncation error = 3.93393e-11
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    16         Volt(Electrolyt)-2      -7.4495e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5815e-05
-		    22         Volt(Electrolyt)-3      -7.4495e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5815e-05
-		    34         Volt(Electrolyt)-5      -7.4495e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5815e-05
-		    74         Volt(Electrolyt)-12     -7.4495e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5814e-05
-		    79         Volt(Electrolyt)-13     -7.4495e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5814e-05
-		    84         Volt(Electrolyt)-14     -7.4495e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5814e-05
-		    89         Volt(Electrolyt)-15     -7.4495e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5814e-05
-		    94         Volt(Electrolyt)-16     -7.4495e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5814e-05
+		   116         Volt(Electrolyt)-20      7.2192e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5777e-05
+		    69         Volt(Electrolyt)-11      7.2082e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5777e-05
+		    74         Volt(Electrolyt)-12      7.2082e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5777e-05
+		   122         Volt(Electrolyt)-21      7.2082e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5777e-05
+		   140         Volt(Electrolyt)-24      7.2082e-12 |   3.5028e-02   3.5028e-02   5.0000e-05 alg  -1.5777e-05
+		   158         Volt(Electrolyt)-27      7.2082e-12 |   3.5027e-02   3.5027e-02   5.0000e-05 alg  -1.5777e-05
+		     4         Volt(Electrolyt)-0       7.1972e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5777e-05
+		    40         Volt(Electrolyt)-6       7.1972e-12 |   3.5029e-02   3.5029e-02   5.0000e-05 alg  -1.5777e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    10 was a success: time = 2.45198e-07
 		Estimated Error
-		--------------------   =   4.06120e-11
+		--------------------   =   3.93393e-11
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.11796e-07

@@ -1,7 +1,6 @@
 #!/bin/sh
 #
 #
-MP_MACHINEFILE=${MP_MACHINEFILE:=/home/hkmoffa/arch/linux/lib/machinefile_ceerws0603}
 #
 #
 mpirun -tv -machinefile $MP_MACHINEFILE -np 1 LiIon_PorousBat LiIon_PorousBat.inp 
