@@ -4,27 +4,24 @@
  */
 
 /*
- *  $Id: m1d_DomainLayout_LiIon_PorousBat.cpp 5 2012-02-23 21:34:18Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
-#include "m1d_DomainLayout_LiIon_PorousBat.h"
+#include "LiIon_PorousBat.h"
 
+#include "m1d_DomainLayout_LiIon_PorousBat.h"
 #include "m1d_BDT_porSeparator_LiIon.h"
 #include "m1d_BDT_porAnode_LiIon.h"
 #include "m1d_BDT_porCathode_LiIon.h"
 #include "m1d_SDT_AnodeCollector.h"
 #include "m1d_SDT_CathodeCollector.h"
-
-#include <iostream>
-
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
-
-using namespace std;
 
 namespace m1d
 {
-
 //=====================================================================================================================
 //=====================================================================================================================
 //=====================================================================================================================
@@ -142,5 +139,5 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     SurfDomainDescription* sddR3 = cc;
     addSurfDomainToRightEnd(sddR3, bdd);
 }
-//===========================================================================
+//=====================================================================================================
 }

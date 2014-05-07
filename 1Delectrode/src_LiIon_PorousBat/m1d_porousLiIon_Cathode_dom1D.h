@@ -5,6 +5,13 @@
  *      Author: hkmoffa
  */
 
+/*
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
+
 #ifndef M1D_POROUSLIION_CATHODE_DOM1D_H_
 #define M1D_POROUSLIION_CATHODE_DOM1D_H_
 
@@ -20,9 +27,6 @@ class Transport;
 namespace m1d
 {
 class LocalNodeIndices;
-
-
-
 
 //=====================================================================================================================
 //! This is derived class provides the function

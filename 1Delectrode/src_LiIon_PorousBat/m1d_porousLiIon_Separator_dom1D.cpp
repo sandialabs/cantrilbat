@@ -3,32 +3,26 @@
  */
 
 /*
- *   $Id: m1d_porousLiIon_Separator_dom1D.cpp 506 2013-01-07 22:43:59Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
+
+#include "LiIon_PorousBat.h"
 
 #include "m1d_porousLiIon_Separator_dom1D.h"
 #include "m1d_BDT_porSeparator_LiIon.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
-#include "m1d_Comm.h"
-
-#include "cantera/transport/Tortuosity.h"
-#include "cantera/thermo/StoichSubstance.h"
-
 #include "m1d_ProblemStatementCell.h"
 
-#include "LiIon_PorousBat.h"
-extern m1d::ProblemStatementCell PSinput;
-
-#include "stdio.h"
-#include "stdlib.h"
+#include "cantera/transport/Tortuosity.h"
 
 using namespace std;
-using namespace Cantera;
 
 namespace m1d
 {
-
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& bdd) :
     porousFlow_dom1D(bdd),
@@ -1101,7 +1095,6 @@ porousLiIon_Separator_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, co
  *  We assume that setupthermoshop1 has been called.
  *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
  *
- *   electrodeCrossSectionalArea_
  */
 double
 porousLiIon_Separator_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)

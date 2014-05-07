@@ -3,44 +3,29 @@
  */
 
 /*
- *   $Id: m1d_porousLiIon_Cathode_dom1D.cpp 593 2013-05-13 21:25:47Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include "m1d_porousLiIon_Cathode_dom1D.h"
+
+#include "LiIon_PorousBat.h"
 #include "m1d_BDT_porCathode_LiIon.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
-#include "m1d_Comm.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
-
-#include "m1d_BatteryResidEval.h"
-
-#include "Electrode_Factory.h"
-
-#include "Epetra_Comm.h"
+#include "m1d_ProblemStatementCell.h"
 
 #include "cantera/transport/Tortuosity.h"
 
-#include "LiIon_PorousBat.h"
-
-#include "stdio.h"
-#include "stdlib.h"
-
 using namespace std;
-using namespace Cantera;
-
-// #define DEBUG_HKM_LI
-
-#include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
-
 
 //
 //  Necessary expediency until we model dUdT correctly and fully, matching to experiment
 //
 #define DELTASHEAT_ZERO 1
-
-
 //=====================================================================================================================
 namespace m1d
 {
@@ -1199,7 +1184,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                            -fluxXleft[iLip_]);
                     printf(", -Source/dt = %- 14.7e",
                            -electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + 1]
-                           * rdelta_t / electrodeCrossSectionalArea_);
+                           * rdelta_t / crossSectionalArea_);
                 }
             }
 #endif
@@ -1228,7 +1213,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                     printf(", d(XCP)/dt = %- 14.7e", tmp);
                     double sumResidualX = tmp +  fluxXright[iLip_] - fluxXleft[iLip_] -
                                           electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + 1]
-                                          * rdelta_t / electrodeCrossSectionalArea_;
+                                          * rdelta_t / crossSectionalArea_;
                     printf(" ==  %- 14.7e\n", sumResidualX);
                 }
             }
@@ -1835,7 +1820,7 @@ porousLiIon_Cathode_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, cons
  *  We assume that setupthermoshop1 has been called.
  *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
  *
- *   electrodeCrossSectionalArea_
+ *   crossSectionalArea_
  */
 double
 porousLiIon_Cathode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)

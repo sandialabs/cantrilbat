@@ -1,11 +1,5 @@
 /**
- *
- * 
  *  @file m1d_SolnNonlinear.h
- */
-
-/*
- *  $Id: m1d_SolNonlinear.h 504 2013-01-07 22:32:48Z hkmoffa $
  */
 
 /*
@@ -14,18 +8,14 @@
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
+
 #ifndef M1D_SOLNONLINEAR_H
 #define M1D_SOLNONLINEAR_H
 
-#include "m1d_defs.h"
-#include "m1d_exception.h"
-#include "m1d_EpetraJac.h"
-
 #include "m1d_SolGlobalNonlinear.h"
+#include "m1d_exception.h"
 
-#include "cantera/numerics/Integrator.h"
-
-#include "Epetra_Vector.h"
+#include "m1d_EpetraJac.h"
 
 namespace m1d
 {

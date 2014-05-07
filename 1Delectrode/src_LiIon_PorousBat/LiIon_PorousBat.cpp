@@ -1,8 +1,14 @@
 /**
- * @file .cpp
+ * @file LiIon_PorousBat.cpp
  *
  */
 
+/*
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
 
 #define HAVE_MPI
 #ifdef HAVE_MPI
@@ -12,12 +18,13 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include "m1d_defs.h"
 #include "LiIon_PorousBat.h"
+#include "m1d_defs.h"
 #include "m1d_SolNonlinear_CurrentSolve.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
 #include "BEulerInt_Battery.h"
 #include "m1d_GlobalIndices.h"
+#include "m1d_ProblemStatementCell.h"
 
 #include <set>
 #include <iterator>

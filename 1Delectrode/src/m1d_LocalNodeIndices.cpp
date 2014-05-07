@@ -438,7 +438,7 @@ LocalNodeIndices::makeEqnColors()
     int ncolor = (*NodeColorMap)[iNode];
     NodalVars * nv = NodalVars_LcNode[iNode];
     int neqns = nv->NumEquations;
-    colorMaxEqnsLocal[ncolor] = MAX(colorMaxEqnsLocal[ncolor],neqns);
+    colorMaxEqnsLocal[ncolor] = std::max(colorMaxEqnsLocal[ncolor],neqns);
   }
 
   const Epetra_Comm &cc = NodeColorMap->Comm();

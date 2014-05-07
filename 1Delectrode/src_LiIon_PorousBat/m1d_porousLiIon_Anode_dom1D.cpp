@@ -1,30 +1,23 @@
 /**
  * @file m1d_porousLiIon_Anode_dom1D.cpp
  */
-
 /*
- *   $Id: m1d_porousLiIon_Anode_dom1D.cpp 593 2013-05-13 21:25:47Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include "m1d_porousLiIon_Anode_dom1D.h"
+
+#include "LiIon_PorousBat.h"
 #include "m1d_BDT_porAnode_LiIon.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
-#include "m1d_Comm.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
-
-#include "Electrode_Factory.h"
-
-#include "Epetra_Comm.h"
+#include "m1d_ProblemStatementCell.h"
 
 #include "cantera/transport/Tortuosity.h"
-#include "LiIon_PorousBat.h"
-
-#include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
-
-#include "stdio.h"
-#include "stdlib.h"
 
 //
 //  Necessary expediency until we model dUdT correctly and fully, matching to experiment

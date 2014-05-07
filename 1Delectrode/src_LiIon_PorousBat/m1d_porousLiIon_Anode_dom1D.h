@@ -3,7 +3,10 @@
  */
 
 /*
- *   $Id: m1d_porousLiIon_Anode_dom1D.h 593 2013-05-13 21:25:47Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #ifndef M1D_POROUSLIION_ANODE_DOM1D_H_

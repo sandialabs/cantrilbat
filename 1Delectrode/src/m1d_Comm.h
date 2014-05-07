@@ -23,10 +23,9 @@
 #define M1D_MSG_TYPE_RANGE 20
 
 #include "Epetra_Vector.h"
-#include "Epetra_MultiVector.h"
 #include "Epetra_IntVector.h"
-#include "Epetra_VbrMatrix.h"
 #include "Epetra_Comm.h"
+#include "Epetra_VbrMatrix.h"
 
 #include "m1d_defs.h"
 #include "md_wrap_mpi.h"

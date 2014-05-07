@@ -4,7 +4,10 @@
  */
 
 /*
- *  $Id: m1d_defs.h 504 2013-01-07 22:32:48Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #ifndef M1D_DEFS_H
@@ -20,8 +23,6 @@
  * be undef'd here to avoid warnings when this file is included from another package.
  * KL 11/25/02
  */
-
-
 
 #ifdef PACKAGE_NAME
 #undef PACKAGE_NAME
@@ -48,10 +49,6 @@
 #include "cantera/base/ct_defs.h"
 #include "cantera/base/stringUtils.h"
 
-#include <string>
-#include <exception>
-#include <vector>
-
 namespace m1d
 {
 
@@ -70,9 +67,6 @@ namespace m1d
 //! Utility for setting doubles.
 const double M1D_DOUBLE_NOTSET(-1.234567E300);
 
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
 
 //! index returned by functions to indicate "no position"
 const size_t npos = static_cast<size_t>(-1);

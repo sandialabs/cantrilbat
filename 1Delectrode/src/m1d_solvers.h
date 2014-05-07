@@ -4,7 +4,10 @@
  */
 
 /*
- *  $Id: m1d_solvers.h 5 2012-02-23 21:34:18Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #ifndef M1D_SOLVERS_H
@@ -16,9 +19,6 @@
 #include <Epetra_Vector.h>
 #include <Epetra_VbrMatrix.h>
 #include <Epetra_VbrRowMatrix.h>
-
-
-
 
 namespace m1d
 {

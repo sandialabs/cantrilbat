@@ -3,24 +3,18 @@
  */
 
 /*
- *  $Id: m1d_SolGlobalNonlinear.h 504 2013-01-07 22:32:48Z hkmoffa $
- */
-
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
+
 #ifndef M1D_SOLGLOBALNONLINEAR_H
 #define M1D_SOLGLOBALNONLINEAR_H
 
-#include "m1d_defs.h"
-#include "m1d_exception.h"
-#include "m1d_EpetraJac.h"
-#include "m1d_ProblemResidEval.h"
 
-#include "cantera/numerics/Integrator.h"
+#include "m1d_exception.h"
+#include "m1d_ProblemResidEval.h"
 
 #include "Epetra_Vector.h"
 
@@ -29,7 +23,8 @@ namespace m1d
 
 
 enum BEulerMethodType {
-  BEulerFixedStep = 0, BEulerVarStep
+  BEulerFixedStep = 0, 
+  BEulerVarStep
 };
 
 /**

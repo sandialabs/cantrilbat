@@ -1,19 +1,19 @@
 /**
  * @file m1d_BDT_porAnode_LiKCl.cpp
  */
-
 /*
- *  $Id: m1d_BDT_porAnode_LiIon.cpp 552 2013-03-01 21:25:03Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
-
 #include "m1d_BDT_porAnode_LiIon.h"
+
 #include "m1d_porousLiIon_Anode_dom1D.h"
-#include "Electrode_Factory.h"
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
+#include "LiIon_PorousBat.h"
 
 using namespace std;
-using namespace Cantera;
 
 namespace m1d
 {

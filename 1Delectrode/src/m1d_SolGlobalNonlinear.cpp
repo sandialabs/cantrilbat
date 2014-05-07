@@ -6,43 +6,15 @@
  */
 
 /*
- *  $Author: hkmoffa $
- *  $Date: 2013-01-07 15:32:48 -0700 (Mon, 07 Jan 2013) $
- *  $Revision: 504 $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
 
-#include "m1d_defs.h"
-
-#include "m1d_Comm.h"
-#include "m1d_SolNonlinear.h"
-#include "cantera/base/clockWC.h"
-#include "mdp_allo.h"
-
-#include "Epetra_Vector.h"
-#include "Epetra_VbrMatrix.h"
-#include "Epetra_Comm.h"
-#include "Epetra_DataAccess.h"
-
-#include "m1d_LocalNodeIndices.h"
-#include <stdio.h>
-#include <math.h>
-
+#include "m1d_SolGlobalNonlinear.h"
 
 using namespace std;
-
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-
-#ifndef MIN
-#define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
-#endif
 
 namespace m1d
 {
@@ -59,24 +31,22 @@ const int NDAMP = 10;
 //-----------------------------------------------------------
 
 
-
-  class errBC : public m1d_Error {
-  public:
+//=====================================================================================================================
+class errBC : public m1d_Error {
+public:
     errBC(std::string procedure) :
       m1d_Error(procedure, "Base Class SolGlobalNonlinear called")
     {
     }
-  };
-
-
+};
 //=====================================================================================================================
 SolGlobalNonlinear::SolGlobalNonlinear() :
  m_print_flag(3)
 {
 }
 //=====================================================================================================================
-SolGlobalNonlinear::~SolGlobalNonlinear() {
-
+SolGlobalNonlinear::~SolGlobalNonlinear()
+{
 }
 //=====================================================================================================================
 //    L2 Weighted Norm of a delta in the solution

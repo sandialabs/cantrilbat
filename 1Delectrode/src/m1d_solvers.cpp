@@ -4,7 +4,10 @@
  */
 
 /*
- *  $Id: m1d_solvers.cpp 504 2013-01-07 22:32:48Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include <Ifpack.h>
@@ -26,12 +29,6 @@
 #include <Epetra_VbrRowMatrix.h>
 #include "m1d_EpetraJac.h"
 
-//#include <Teuchos_ParameterList.hpp>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <vector>
-#include <iostream>
 
 using namespace std;
 
