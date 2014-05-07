@@ -92,6 +92,11 @@ public:
   // --- DATA 
   // -------------------------------------------------------------------------------------------------------------------
 
+  // ------------------  Options for Processing ------------------------------------------------------------------------
+
+  //! Boolean indicating whether we are solving the enthalpy conservation equation on the domain
+  int doEnthalpyEquation_;
+
   // ------------------- Thermodynamics quantities on the domain -------------------------------------------------------
 
   //!  Partial molar Heat Capacity  of the electrolyte species located in all of the cells
@@ -107,8 +112,6 @@ public:
    *   Units of Joules/(kmol)
    */
   std::vector<doublereal> EnthPM_lyte_Cell_;
-
-
 
 
   // ------------------- Porosity of the Domain -----------------------------------------------------------------------

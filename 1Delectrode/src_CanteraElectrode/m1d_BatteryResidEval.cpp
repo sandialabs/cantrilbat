@@ -27,6 +27,7 @@
 #include "m1d_Comm.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
 #include <iostream>
 #include <fstream>
@@ -34,7 +35,7 @@
 
 using namespace std;
 
-extern m1d::ProblemStatementCell PSinput;
+
 
 namespace m1d
 {
@@ -49,6 +50,7 @@ namespace m1d
   BatteryResidEval::BatteryResidEval(double atol) :
     ProblemResidEval(atol),
     doHeatSourceTracking_(0),
+    doEnthalpyEquation_(0),
     maxSubGridTimeSteps_(0),
     QdotPerArea_n_(0.0),
     QdotPerArea_nm1_(0.0),
@@ -67,8 +69,8 @@ namespace m1d
     Crate_current_(0.0)
 
   {
-     doHeatSourceTracking_ = PSinput.doHeatSourceTracking_;
-     crossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
+     doHeatSourceTracking_ = PSCinput_ptr->doHeatSourceTracking_;
+     crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
   }
   //=====================================================================================================================
   // Destructor
@@ -154,7 +156,7 @@ namespace m1d
       //   We obtain the cross-sectional area from the cathode. 
       //   However, we require the cross-sectional area to be consistent across inputs
       //
-      crossSectionalArea_ = PSinput.cathode_input_->electrodeGrossArea;
+      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
       //
       //   loop over all volume and surface domains providing initial guess
       //
@@ -205,11 +207,11 @@ namespace m1d
       }
     }
 
-    if ( PSinput.cathodeBCType_ == 0 
-	 || PSinput.cathodeBCType_ == 2 
-	 || PSinput.cathodeBCType_ == 4 
-	 || PSinput.cathodeBCType_ == 6 
-	 || PSinput.cathodeBCType_ == 8 ) {
+    if (    PSCinput_ptr->cathodeBCType_ == 0 
+	 || PSCinput_ptr->cathodeBCType_ == 2 
+	 || PSCinput_ptr->cathodeBCType_ == 4 
+	 || PSCinput_ptr->cathodeBCType_ == 6 
+	 || PSCinput_ptr->cathodeBCType_ == 8 ) {
       //! CASE FOR SPECIFIED VOLTAGE 
       //! Prior to this, the voltage in the electrolyte should have been specified
       //! as the specified BC voltage minus the open circuit voltage in the edge domains.

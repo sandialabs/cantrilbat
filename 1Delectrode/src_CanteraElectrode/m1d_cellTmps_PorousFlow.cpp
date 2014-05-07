@@ -21,7 +21,8 @@ NodeTmps::NodeTmps() :
     RO_Electrolyte_Continuity(npos),
     RO_Species_Eqn_Offset(npos),
     RO_MFSum_offset(npos),
-    RO_ChargeBal_offset(npos)
+    RO_ChargeBal_offset(npos),
+    RO_Enthalpy_Conservation(npos)
 {
 }
 //=====================================================================================================================
@@ -36,7 +37,8 @@ NodeTmps::NodeTmps(const NodeTmps & r) :
     RO_Electrolyte_Continuity(r.RO_Electrolyte_Continuity),
     RO_Species_Eqn_Offset(r.RO_Species_Eqn_Offset),
     RO_MFSum_offset(r.RO_MFSum_offset),
-    RO_ChargeBal_offset(r.RO_ChargeBal_offset)
+    RO_ChargeBal_offset(r.RO_ChargeBal_offset),
+    RO_Enthalpy_Conservation(r.RO_Enthalpy_Conservation)
 {
 }
 //=====================================================================================================================
@@ -61,6 +63,7 @@ NodeTmps& NodeTmps::operator=(const NodeTmps &r)
     RO_Species_Eqn_Offset = r.RO_Species_Eqn_Offset;
     RO_MFSum_offset = r.RO_MFSum_offset;
     RO_ChargeBal_offset = r.RO_ChargeBal_offset;
+    RO_Enthalpy_Conservation = r.RO_Enthalpy_Conservation;
 
     return *this;
 }

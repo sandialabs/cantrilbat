@@ -311,6 +311,10 @@ public:
     //! Boolean indicating whether to calculate Heat Source Time tracking terms
     int doHeatSourceTracking_;
 
+    //! Boolean indicating whether to Calculate Enthalpy Equation
+    int doEnthalpyEquation_;
+
+
  protected:
     int maxSubGridTimeSteps_;
 

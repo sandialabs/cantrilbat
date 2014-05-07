@@ -2,16 +2,9 @@
  * $Id: m1d_ProblemStatementCell.cpp 564 2013-03-08 23:35:51Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
-
 #include "m1d_globals.h"
 #include "m1d_ProblemStatementCell.h"
-
-#include "Epetra_Comm.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
 #include "BlockEntryGlobal.h"
 
@@ -27,6 +20,13 @@ using namespace Cantera;
 
 namespace m1d
 {
+//=====================================================================================================================
+//!  Global storage for this global pointer
+/*!
+ *   This pointer needs to be properly taken care of in the calling program
+ */
+ProblemStatementCell* PSCinput_ptr = 0;
+
 //=====================================================================================================================
 /**************************************************************************
  *

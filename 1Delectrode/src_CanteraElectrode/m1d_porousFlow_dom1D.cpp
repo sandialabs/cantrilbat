@@ -1,22 +1,22 @@
 /**
  * @file m1d_porousFlow_dom1D.cpp
  */
-
 /*
- *   $Id: m1d_porousFlow_dom1D.cpp 504 2013-01-07 22:32:48Z hkmoffa $
+ * Copywrite 2013 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include "m1d_porousFlow_dom1D.h"
 
-#include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
 #include "m1d_NodalVars.h"
 #include "m1d_cellTmps_PorousFlow.h"
 
-#include <cantera/thermo/StoichSubstance.h>
+#include "m1d_CanteraElectrodeGlobals.h"
+#include "m1d_ProblemStatementCell.h"
 
 using namespace std;
-using namespace Cantera;
 
 namespace m1d
 {
@@ -24,6 +24,7 @@ namespace m1d
   //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(BulkDomainDescription & bdd) :
     BulkDomain1D(bdd),
+    doEnthalpyEquation_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     temp_Curr_(TemperatureReference_),
@@ -32,11 +33,11 @@ namespace m1d
     phiElectrolyte_Curr_(0.0),
     porosity_Curr_(0.0)
   {
-
   }
   //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     BulkDomain1D(r.BDD_),
+    doEnthalpyEquation_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     temp_Curr_(TemperatureReference_),
@@ -50,7 +51,6 @@ namespace m1d
   //=====================================================================================================================
   porousFlow_dom1D::~porousFlow_dom1D()
   {
-
   }
   //=====================================================================================================================
   porousFlow_dom1D &
@@ -62,6 +62,7 @@ namespace m1d
     // Call the parent assignment operator
     BulkDomain1D::operator=(r);
 
+    doEnthalpyEquation_ = r.doEnthalpyEquation_;
     porosity_Cell_ = r.porosity_Cell_;
     porosity_Cell_old_ = r.porosity_Cell_old_;
     temp_Curr_ = r.temp_Curr_;
@@ -73,7 +74,6 @@ namespace m1d
     qSource_Cell_accumul_ = r.qSource_Cell_accumul_;
     jouleHeat_lyte_Cell_curr_ = r.jouleHeat_lyte_Cell_curr_;
     jouleHeat_solid_Cell_curr_ = r.jouleHeat_solid_Cell_curr_;
-
 
     return *this;
   }
@@ -98,6 +98,9 @@ namespace m1d
      */
     BulkDomain1D::domain_prep(li_ptr);
 
+    if (PSCinput_ptr->Energy_equation_prob_type_ == 3) {
+        doEnthalpyEquation_ = true;
+    }
 
     double porosity = -1.0;
 
@@ -113,8 +116,6 @@ namespace m1d
     deltaSHeat_Cell_curr_.resize(NumLcCells, 0.0);
 
     cellTmpsVect_Cell_.resize(NumLcCells);
-
-
   }
 //=====================================================================================================================
 double porousFlow_dom1D::heatSourceLastStep() const
@@ -196,6 +197,7 @@ porousFlow_dom1D::residSetupTmps()
         nodeTmpsCenter.RO_Species_Eqn_Offset       = nodeCent->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
         nodeTmpsCenter.RO_MFSum_offset             = nodeCent->indexBulkDomainEqn0((size_t) MoleFraction_Summation);
         nodeTmpsCenter.RO_ChargeBal_offset         = nodeCent->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
+        nodeTmpsCenter.RO_Enthalpy_Conservation    = nodeCent->indexBulkDomainEqn0((size_t) Enthalpy_Conservation);
 
       /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -224,6 +226,7 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset;
             nodeTmpsLeft.RO_MFSum_offset             = nodeTmpsCenter.RO_MFSum_offset;
             nodeTmpsLeft.RO_ChargeBal_offset         = nodeTmpsCenter.RO_ChargeBal_offset;
+            nodeTmpsLeft.RO_Enthalpy_Conservation    = nodeTmpsCenter.RO_Enthalpy_Conservation;
         } else {
             // get the node structure for the left node
             nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
@@ -241,6 +244,7 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeLeft->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
             nodeTmpsLeft.RO_MFSum_offset             = nodeLeft->indexBulkDomainEqn0((size_t) MoleFraction_Summation);
             nodeTmpsLeft.RO_ChargeBal_offset         = nodeLeft->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
+            nodeTmpsLeft.RO_Enthalpy_Conservation    = nodeLeft->indexBulkDomainEqn0((size_t) Enthalpy_Conservation);
         }
         cTmps.nvLeft_ = nodeLeft;
       /*
@@ -265,6 +269,7 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsRight.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset;
             nodeTmpsRight.RO_MFSum_offset             = nodeTmpsCenter.RO_MFSum_offset;
             nodeTmpsRight.RO_ChargeBal_offset         = nodeTmpsCenter.RO_ChargeBal_offset;
+            nodeTmpsRight.RO_Enthalpy_Conservation    = nodeTmpsCenter.RO_Enthalpy_Conservation;
         } else {
             //NodalVars
             nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
@@ -282,6 +287,7 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsRight.RO_Species_Eqn_Offset       = nodeRight->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
             nodeTmpsRight.RO_MFSum_offset             = nodeRight->indexBulkDomainEqn0((size_t) MoleFraction_Summation);
             nodeTmpsRight.RO_ChargeBal_offset         = nodeRight->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
+            nodeTmpsRight.RO_Enthalpy_Conservation    = nodeRight->indexBulkDomainEqn0((size_t) Enthalpy_Conservation);
         }
         cTmps.nvRight_ = nodeRight;    
         /*
@@ -316,5 +322,3 @@ porousFlow_dom1D::residSetupTmps()
 //=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
-
-

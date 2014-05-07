@@ -28,8 +28,6 @@
 #include "cantera/thermo.h"
 #include "cantera/thermo/MargulesVPSSTP.h"
 
-#include "stdio.h"
-#include "stdlib.h"
 
 #include "m1d_ProblemStatementCell.h"
 extern m1d::ProblemStatementCell PSinput;

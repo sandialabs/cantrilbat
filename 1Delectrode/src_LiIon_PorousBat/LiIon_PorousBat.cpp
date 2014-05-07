@@ -25,6 +25,7 @@
 #include "BEulerInt_Battery.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
 #include <set>
 #include <iterator>
@@ -152,6 +153,7 @@ main(int argc, char** argv)
         /*
          * Go get the problem description from the input file
          */
+        PSCinput_ptr = &PSinput; 
         retn = PSinput.parse_input_1(commandFile);
         if (retn == -1) {
             printf("exiting with error\n");

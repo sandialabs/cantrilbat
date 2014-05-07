@@ -11,13 +11,6 @@
 
 #include "m1d_defs.h"
 
-#include "mdp_allo.h"
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include <cantera/thermo/StoichSubstance.h>  // separator
-
-
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>
@@ -29,39 +22,10 @@
 #include "m1d_Comm.h"
 #include "m1d_EpetraExtras.h"
 #include "m1d_globals.h"
-#include "m1d_BulkDomain1D.h"
-
-#include "m1d_DomainLayout.h"
-#include "m1d_SolNonlinear.h"
-#include "m1d_ProblemStatement.h"
 #include "m1d_DomainLayout_LiKCl_infPlateBat.h"
-#include "m1d_DomainLayout.h"
-
 #include "m1d_ProblemStatementCell.h"
-
 #include "BEulerInt.h"
-
-#include "Epetra_Map.h"
-#include "Epetra_Vector.h"
-#include "Epetra_CrsMatrix.h"
-#include "Epetra_VbrMatrix.h"
-#include "m1d_EpetraJac.h"
-
-
-#include <vector>
-#include <set>
-#include <iterator>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include "m1d_solvers.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
 //=====================================================================================
 /*
@@ -110,6 +74,7 @@
 #include "m1d_ProblemResidEval.h"
 #include "m1d_FlatBatteryResidEval.h"  
 
+#include "m1d_CanteraElectrodeGlobals.h"
 
 extern void generateDomain1D(m1d::ProblemResidEval *ps);
 
@@ -120,7 +85,6 @@ using namespace beuler;
 
 //m1d::ProblemResidEval *PS_ptr = 0;
 m1d::FlatBatteryResidEval* PS_ptr = 0;
-
 
 m1d::ProblemStatementCell PSinput;
 
@@ -197,6 +161,7 @@ main(int argc, char **argv)
     /*
      * Go get the problem description from the input file
      */
+    PSCinput_ptr = &PSinput;
     retn = PSinput.parse_input_1(commandFile);
     if (retn == -1) {
       printf("exiting with error\n");

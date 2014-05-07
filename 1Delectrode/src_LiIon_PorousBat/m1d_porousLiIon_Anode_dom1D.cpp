@@ -1028,7 +1028,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
 
         /*
-         * Species continuity Equation
+         * Species continuity equation
          */
         for (int k = 0; k < nsp_; k++) {
             if (k != iECDMC_ && k != iPF6m_) {
@@ -1037,9 +1037,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         }
 
         /*
-         *   Current conservation equation
+         *   Current conservation equation in the electrolyte
          */
-
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell];
 
         /*
@@ -1192,8 +1191,20 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
         }
 
-    }
+	if  (doEnthalpyEquation_) {
+	    //  Need to count up the enthalpy over the electrode and the electrolyte
+	    //
+	    // Get the Solid enthalpy in Joules 
+	    //
+	    //double solidEnthalpyNew = electrode->SolidEnthalpy() / crossSectionalArea_;
 
+            /*
+             *   .................... Calculate quantities needed at the previous time step
+             */
+
+	    //res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
+	}
+    }
 }
 //====================================================================================================================
 // Utility function to calculate quantities before the main residual routine.

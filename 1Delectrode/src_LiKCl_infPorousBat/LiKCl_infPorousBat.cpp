@@ -8,7 +8,6 @@
  */
 
 
-#include "mdp_allo.h"
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
@@ -39,28 +38,13 @@
 #include "m1d_DomainLayout_LiKCl_infPorousBat.h"
 
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
 #include "BEulerInt.h"
 
-#include "Epetra_Map.h"
-#include "Epetra_Vector.h"
 #include "Epetra_CrsMatrix.h"
 #include "Epetra_VbrMatrix.h"
-#include "m1d_EpetraJac.h"
 
-
-#include <vector>
-#include <set>
-#include <iterator>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 #include "LiKCl_infPorousBat.h"
 #include "m1d_solvers.h"
@@ -194,6 +178,7 @@ main(int argc, char **argv)
     /*
      * Go get the problem description from the input file
      */
+    PSCinput_ptr = &PSinput;
     retn = PSinput.parse_input_1(commandFile);
     if (retn == -1) {
       printf("exiting with error\n");

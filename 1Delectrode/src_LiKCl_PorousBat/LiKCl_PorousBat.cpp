@@ -7,47 +7,18 @@
  *  $Id: LiKCl_PorousBat.cpp 593 2013-05-13 21:25:47Z hkmoffa $
  */
 
-#include "mdp_allo.h"
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include <cantera/thermo/StoichSubstance.h>  // separator
+
 #include "Ifpack.h"
 #include "AztecOO.h"
-
 #include "m1d_defs.h"
 
 #include "LiKCl_PorousBat.h"
-#include "m1d_BulkDomain1D.h"
-#include "m1d_SolNonlinear.h"
 #include "m1d_SolNonlinear_CurrentSolve.h"
-#include "m1d_ProblemStatement.h"
 #include "m1d_DomainLayout_LiKCl_PorousBat.h"
 #include "m1d_ProblemStatementCell.h"
-
 #include "BEulerInt_Battery.h"
-
-#include "m1d_EpetraJac.h"
-
-#include <vector>
-#include <set>
-#include <iterator>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <cstring>
-#include <ctype.h>
-#include <cmath>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include "m1d_solvers.h"
-
+#include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_GlobalIndices.h"
-#include "m1d_LocalNodeIndices.h"
-#include "m1d_exception.h"
-#include "m1d_VBRIndices.h"
 
 //=====================================================================================
 /*
@@ -170,6 +141,7 @@ int main(int argc, char **argv)
         /*
          * Go get the problem description from the input file
          */
+        PSCinput_ptr = &PSinput;
         retn = PSinput.parse_input_1(commandFile);
         if (retn == -1) {
             printf("exiting with error\n");
