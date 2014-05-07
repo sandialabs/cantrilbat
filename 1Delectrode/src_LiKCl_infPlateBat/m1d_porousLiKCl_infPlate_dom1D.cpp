@@ -767,8 +767,8 @@ porousLiKCl_infPlate_dom1D::getMFElectrolyte_soln(const double * const solnElect
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
   mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
   mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
-  double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
-  double mf1 = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
+  double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+  double mf1 = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
   double tmp = mf0 + mf1;
 
   mfElectrolyte_Thermo_Curr_[0] = (mf0) * 0.5 / tmp;
@@ -910,7 +910,7 @@ void porousLiKCl_infPlate_dom1D::setAtolVector(double atolDefault, const Epetra_
      *   arithmetically scaled -> so this is a characteristic value
      */
     double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = MAX(1.0E-4, 1.0E-1 * vax);
+    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = std::max(1.0E-4, 1.0E-1 * vax);
 
     /*
      * Set atol values for the species mole fractions
@@ -971,7 +971,7 @@ void porousLiKCl_infPlate_dom1D::setAtolVector_DAEInit(double atolDefault, const
      *   arithmetically scaled.
      */
     double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = MAX(1.0E-4, 1.0E-1 * vax);
+    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = std::max(1.0E-4, 1.0E-1 * vax);
 
     /*
      * Set atol values for the species mole fractions

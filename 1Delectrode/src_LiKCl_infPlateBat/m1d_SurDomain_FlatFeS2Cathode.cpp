@@ -505,8 +505,8 @@ SurDomain_FlatFeS2Cathode::getMFElectrolyte_soln(const double * const solnBulk)
   mfElectrolyte_Soln[0] = solnBulk[indexMF];
   mfElectrolyte_Soln[1] = solnBulk[indexMF + 1];
   mfElectrolyte_Soln[2] = solnBulk[indexMF + 2];
-  double mf0 = MAX(mfElectrolyte_Soln[0], 0.0);
-  double mf1 = MAX(mfElectrolyte_Soln[1], 0.0);
+  double mf0 = std::max(mfElectrolyte_Soln[0], 0.0);
+  double mf1 = std::max(mfElectrolyte_Soln[1], 0.0);
   double tmp = mf0 + mf1;
 
   mfElectrolyte_Thermo[0] = (mf0) * 0.5 / tmp;

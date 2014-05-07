@@ -990,9 +990,9 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     mfElectrolyte_Soln_Curr_[0] = 0.5 * (solnElectrolyte_CurrL[indexMFL] +solnElectrolyte_CurrR[indexMFR]);
     mfElectrolyte_Soln_Curr_[1] = 0.5 * (solnElectrolyte_CurrL[indexMFL+1] +solnElectrolyte_CurrR[indexMFR+1]);
     mfElectrolyte_Soln_Curr_[2] = 0.5 * (solnElectrolyte_CurrL[indexMFL+2] +solnElectrolyte_CurrR[indexMFR+2]);
-    double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
-    double mf1b = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
-    double mf2b = MAX(mfElectrolyte_Soln_Curr_[2], 0.0);
+    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1b = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double mf2b = std::max(mfElectrolyte_Soln_Curr_[2], 0.0);
     double mf1 = mf1b;
     double mf2 = mf2b;
     if (mf1b != mf2b) {
@@ -1075,9 +1075,9 @@ porousLiIon_Separator_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, co
     mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
     mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
     mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
-    double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
-    double mf1b = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
-    double mf2b = MAX(mfElectrolyte_Soln_Curr_[2], 0.0);
+    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1b = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double mf2b = std::max(mfElectrolyte_Soln_Curr_[2], 0.0);
     double mf1 = mf1b;
     double mf2 = mf2b;
     if (mf1b != mf2b) {
@@ -1675,7 +1675,7 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
          *   arithmetically scaled -> so this is a characteristic value
          */
         double vax = soln[indexCent_EqnStart + iVAR_Vaxial];
-        atolVector[indexCent_EqnStart + iVAR_Vaxial] = MAX(1.0E-4, 1.0E-1 * vax);
+        atolVector[indexCent_EqnStart + iVAR_Vaxial] = std::max(1.0E-4, 1.0E-1 * vax);
         /*
          * Set atol values for the species mole fractions
          */
@@ -1733,7 +1733,7 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
          *   arithmetically scaled -> so this is a characteristic value
          */
         double vax = soln[indexCent_EqnStart + iVAR_Vaxial];
-        atolVector[indexCent_EqnStart + iVAR_Vaxial] = MAX(1.0E-4, 1.0E-1 * vax);
+        atolVector[indexCent_EqnStart + iVAR_Vaxial] = std::max(1.0E-4, 1.0E-1 * vax);
 
         /*
          * Set atol values for the species mole fractions time derivatives

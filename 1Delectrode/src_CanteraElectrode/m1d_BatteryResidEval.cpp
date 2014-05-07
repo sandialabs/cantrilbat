@@ -400,7 +400,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
 	porousElectrode_dom1D* e_ptr =  dynamic_cast<porousElectrode_dom1D*>(d_ptr);
 	if (e_ptr) {
 	  int maxE = e_ptr->getMaxSubGridTimeSteps();
-	  maxSubGridTimeSteps_ = MAX(maxSubGridTimeSteps_, maxE);
+	  maxSubGridTimeSteps_ = std::max(maxSubGridTimeSteps_, maxE);
         }
     }
 

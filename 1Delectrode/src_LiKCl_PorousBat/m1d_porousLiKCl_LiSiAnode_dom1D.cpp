@@ -21,15 +21,13 @@
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_Factory.h"
 
-#include "Epetra_Comm.h"
-
 #include "cantera/base/ctml.h"
 #include "cantera/transport/Tortuosity.h"
 
 //#include "cantera/base/mdp_allo.h"
 
 //next two lines added for salt precipitation
-#include "cantera/thermo.h"
+//#include "cantera/thermo.h"
 #include "cantera/thermo/MargulesVPSSTP.h"
 extern int flagPrecipitation;
 
@@ -1441,7 +1439,7 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
        *  Calculate the electrode reactions.  Also update porosity.
        */
       int numSubcycles = calcElectrode();
-      maxElectrodeSubIntegrationSteps_ = MAX(maxElectrodeSubIntegrationSteps_, numSubcycles);
+      maxElectrodeSubIntegrationSteps_ = std::max(maxElectrodeSubIntegrationSteps_, numSubcycles);
   }
   
 }
@@ -1694,8 +1692,8 @@ porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_soln(const double * const solnElec
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
   mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
   mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
-  double mf0 = MAX(mfElectrolyte_Soln_Curr_[0], 0.0);
-  double mf1 = MAX(mfElectrolyte_Soln_Curr_[1], 0.0);
+  double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+  double mf1 = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
   double tmp = mf0 + mf1;
 
   mfElectrolyte_Thermo_Curr_[0] = (mf0) * 0.5 / tmp;
@@ -2692,7 +2690,7 @@ void porousLiKCl_LiSiAnode_dom1D::setAtolVector(double atolDefault, const Epetra
      *   arithmetically scaled -> so this is a characteristic value
      */
     double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = MAX(1.0E-4, 1.0E-1 * vax);
+    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = std::max(1.0E-4, 1.0E-1 * vax);
 
     /*
      * Set atol values for the species mole fractions
@@ -2755,7 +2753,7 @@ void porousLiKCl_LiSiAnode_dom1D::setAtolVector_DAEInit(double atolDefault, cons
      *   arithmetically scaled.
      */
     double vax = soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD];
-    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = MAX(1.0E-4, 1.0E-1 * vax);
+    atolVector[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = std::max(1.0E-4, 1.0E-1 * vax);
 
     /*
      * Set atol values for the species mole fractions time derivatives
