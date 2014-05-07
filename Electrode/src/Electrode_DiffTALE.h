@@ -151,8 +151,10 @@ public:
     void initializeAsEvenDistribution();
 
  
-
+    //
     // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
+    //
+
     //!    Return the total volume of solid material
     /*!
      *  (virtual from Electrode.h)
@@ -176,8 +178,22 @@ public:
      */
     virtual double SolidHeatCapacityCV() const;
 
-    // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
+    //
+    // --------------------------------------  QUERY ENTHALPY  -----------------------------------------------------------
+    //
 
+    //!  Returns the total enthalpy of the solid electrode
+    /*!
+     *  This is an extensive quantity.
+     *  (virtual from Electrode)
+     *
+     *  @return Joule 
+     */
+    virtual double SolidEnthalpy() const;
+
+    //
+    // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
+    //
 
     void calcRate(double deltaT);
 
@@ -920,6 +936,21 @@ protected:
      *   Units of Joules/(kmol K)
      */
     mutable std::vector<doublereal> partialMolarCpKRSpecies_Cell_final_;
+
+    //!  Partial molar Enthalpy of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol)
+     */
+    mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_final_;
+
+    //!  Partial molar Enthalpy of all of the solid species located in all of the cells
+    /*!
+     *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
+     *   Units of Joules/(kmol)
+     */
+    mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_init_;
+
 
     //! Rate of progress of the surface reactions
     /*!

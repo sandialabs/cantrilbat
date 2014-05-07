@@ -193,6 +193,16 @@ public:
      *  @return Joule K-1
      */
     virtual double SolidHeatCapacityCV() const;
+
+    //!  Returns the total enthalpy of the Material in the Solid Electrode
+    /*!
+     *  This is an extensive quantity.
+     *  (virtual from Electrode)
+     *
+     *  @return 
+     */
+    virtual double SolidEnthalpy() const;
+
     //-------------------------------------------------------------------------------------------------------------------
     // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------

@@ -868,8 +868,72 @@ double Electrode_SimpleDiff::SolidVol() const
     return svol;
 }
 //====================================================================================================================
-//!  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
-/*!
+//  Returns the total enthalpy of the solid electrode
+/*
+ *  This is an extensive quantity.
+ *  (virtual from Electrode)
+ *
+ *  @return Joule K-1
+ */
+double Electrode_SimpleDiff::SolidEnthalpy() const
+{
+    size_t jRPh, iPh;
+    if (!doThermalPropertyCalculations_) {
+	for (int iph = 0; iph < m_NumTotPhases; iph++) {
+	    for (jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
+		iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+		size_t istart = m_PhaseSpeciesStartIndex[iph];
+		ThermoPhase& tp = thermo(iph);
+		tp.getPartialMolarEnthalpies(&(enthalpyMolar_final_[istart]));
+	    }
+	}
+
+	for (int iCell = 0; iCell < numRCells_; iCell++) {
+	    int indexMidKRSpecies =  iCell * numKRSpecies_;
+	    int kstart = 0;
+	    for (jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+		ThermoPhase* th = thermoSPhase_List_[jRPh];
+		size_t nSpecies = th->nSpecies();
+		th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+		th->getPartialMolarEnthalpies(&partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+		kstart += nSpecies;
+	    }	
+	}
+    }
+
+    double enthalpy = 0.0;
+
+    //
+    // For no-distributed phases, we do the normal heatCapacity calc.
+    //
+    for (jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
+	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+        int kStart = m_PhaseSpeciesStartIndex[iPh];
+        ThermoPhase& tp = thermo(iPh);
+        int nspPhase = tp.nSpecies();
+        if (iPh != (size_t) solnPhase_) {
+            for (size_t k = 0; k < (size_t) nspPhase; k++) {
+		enthalpy += spMoles_final_[kStart + k] * enthalpyMolar_final_[kStart + k];
+            }
+        }
+    }
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+        size_t kstart = iCell * numKRSpecies_;
+        for (jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+            ThermoPhase* th = thermoSPhase_List_[jRPh];
+            size_t nSpecies = th->nSpecies();
+            for (size_t kSp = 0; kSp < nSpecies; kSp++) {
+                enthalpy += spMoles_KRsolid_Cell_final_[kstart + kSp] * partialMolarEnthKRSpecies_Cell_final_[kstart + kSp];
+            }
+	    kstart += nSpecies;
+        }
+    }
+    return enthalpy;
+}
+//====================================================================================================================
+//  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
+/*
  *  This is an extensive quantity.
  *  (virtual from Electrode)
  *

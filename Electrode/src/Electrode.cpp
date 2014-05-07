@@ -2291,12 +2291,40 @@ double Electrode::SolidHeatCapacityCV() const
         ThermoPhase& tp = thermo(iph);
         int nspPhase = tp.nSpecies();
         if (iph != solnPhase_) {
-            for (int k = 0; k < nspPhase; k++) {
+            for (size_t k = 0; k < (size_t) nspPhase; k++) {
                heatCapacity += spMoles_final_[kStart + k] * CvPM_[kStart + k];
             }
         }
     }
     return heatCapacity;
+}
+//====================================================================================================================
+double Electrode::SolidEnthalpy() const
+{
+    //
+    //   Calculate C_ on the fly if it isn't part of the normal calculation.
+    //         -> debatable about how to do this most efficiently.
+    //
+    if (!doThermalPropertyCalculations_) {
+	for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+	    int istart = m_PhaseSpeciesStartIndex[iph];
+	    ThermoPhase& tp = thermo(iph);
+	    tp.getPartialMolarEnthalpies(&(enthalpyMolar_final_[istart]));
+	}
+    }
+
+    double enthalpy = 0.0;
+    for (size_t iph = 0; iph < (size_t) NumVolPhases_; iph++) {
+        int kStart = m_PhaseSpeciesStartIndex[iph];
+        ThermoPhase& tp = thermo(iph);
+        size_t nspPhase = tp.nSpecies();
+        if (iph != (size_t) solnPhase_) {
+            for (size_t k = 0; k < (size_t) nspPhase; k++) {
+               enthalpy += spMoles_final_[kStart + k] * enthalpyMolar_final_[kStart + k];
+            }
+        }
+    }
+    return enthalpy;
 }
 //====================================================================================================================
 int Electrode::nSurfaces() const

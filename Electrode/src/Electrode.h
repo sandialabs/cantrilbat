@@ -549,6 +549,12 @@ public:
      */
     virtual double SolidHeatCapacityCV() const;
 
+    //! Returns the total extrinsic enthalpy of the material in the solid electrode at the current time
+    /*!
+     *  @return Joule
+     */
+    virtual double SolidEnthalpy() const;
+
     //-------------------------------------------------------------------------------------------------------------------
     // --------------------------------------------- SURFACE AREAS ------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
@@ -2756,7 +2762,7 @@ protected:
     
     std::vector<double> enthalpyMolar_init_init_;
     std::vector<double> enthalpyMolar_init_;
-    std::vector<double> enthalpyMolar_final_;
+    mutable std::vector<double> enthalpyMolar_final_;
     std::vector<double> enthalpyMolar_final_final_;
 
 

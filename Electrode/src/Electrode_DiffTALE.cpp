@@ -92,6 +92,8 @@ Electrode_DiffTALE::Electrode_DiffTALE() :
     fracVolNodePos_(0),
     partialMolarVolKRSpecies_Cell_final_(0),
     partialMolarCpKRSpecies_Cell_final_(0),
+    partialMolarEnthKRSpecies_Cell_final_(0),
+    partialMolarEnthKRSpecies_Cell_init_(0),
     ROP_(0),
     DspMoles_final_(0),
     m_rbot0_(0.0),
@@ -182,6 +184,8 @@ Electrode_DiffTALE::Electrode_DiffTALE(const Electrode_DiffTALE& right) :
     fracVolNodePos_(0),
     partialMolarVolKRSpecies_Cell_final_(0),
     partialMolarCpKRSpecies_Cell_final_(0),
+    partialMolarEnthKRSpecies_Cell_final_(0),
+    partialMolarEnthKRSpecies_Cell_init_(0),
     ROP_(0),
     DspMoles_final_(0),
     m_rbot0_(0.0),
@@ -278,6 +282,8 @@ Electrode_DiffTALE::operator=(const Electrode_DiffTALE& right)
     fracVolNodePos_                     = right.fracVolNodePos_;
     partialMolarVolKRSpecies_Cell_final_= right.partialMolarVolKRSpecies_Cell_final_;
     partialMolarCpKRSpecies_Cell_final_ = right.partialMolarCpKRSpecies_Cell_final_;
+    partialMolarEnthKRSpecies_Cell_final_ = right.partialMolarEnthKRSpecies_Cell_final_;
+    partialMolarEnthKRSpecies_Cell_init_ = right.partialMolarEnthKRSpecies_Cell_init_;
 
     ROP_                                = right.ROP_;
     DspMoles_final_                     = right.DspMoles_final_;
@@ -639,6 +645,8 @@ Electrode_DiffTALE::init_sizes()
 
     partialMolarVolKRSpecies_Cell_final_.resize(kspCell, 0.0);
     partialMolarCpKRSpecies_Cell_final_.resize(kspCell, 0.0);
+    partialMolarEnthKRSpecies_Cell_final_.resize(kspCell, 0.0);
+    partialMolarEnthKRSpecies_Cell_init_.resize(kspCell, 0.0);
 
     DspMoles_final_.resize(m_NumTotSpecies, 0.0);
 
@@ -775,6 +783,7 @@ Electrode_DiffTALE::initializeAsEvenDistribution()
 
 	    if (doThermalPropertyCalculations_) {
                 tp->getPartialMolarCp(&(partialMolarCpKRSpecies_Cell_final_[kspCell]));
+                tp->getPartialMolarEnthalpies(&(partialMolarEnthKRSpecies_Cell_final_[kspCell]));
             }
 
 	    kspCell += nsp;
@@ -863,6 +872,69 @@ double Electrode_DiffTALE::SolidHeatCapacityCV() const
         }
     }
     return heatCapacity;
+}
+//====================================================================================================================
+//  Returns the total enthalpy of the solid electrode
+/*
+ *  This is an extensive quantity.
+ *  (virtual from Electrode)
+ *
+ *  @return Joule
+ */
+double Electrode_DiffTALE::SolidEnthalpy() const
+{
+    size_t jRPh, iPh;
+    if (!doThermalPropertyCalculations_) {
+	for (int iph = 0; iph < m_NumTotPhases; iph++) {
+	    for (jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
+		iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+		size_t istart = m_PhaseSpeciesStartIndex[iph];
+		ThermoPhase& tp = thermo(iph);
+		tp.getPartialMolarEnthalpies(&(enthalpyMolar_final_[istart]));
+	    }
+	}
+
+	for (int iCell = 0; iCell < numRCells_; iCell++) {
+	    int indexMidKRSpecies =  iCell * numKRSpecies_;
+	    int kstart = 0;
+	    for (jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+		ThermoPhase* th = thermoSPhase_List_[jRPh];
+		size_t nSpecies = th->nSpecies();
+		th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+		th->getPartialMolarCp(&partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
+		kstart += nSpecies;
+	    }	
+	}
+    }
+    double enthalpy = 0.0;
+
+    //
+    // For no-distributed phases, we do the normal enthalpy calc.
+    //
+    for (jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
+	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+        int kStart = m_PhaseSpeciesStartIndex[iPh];
+        ThermoPhase& tp = thermo(iPh);
+        int nspPhase = tp.nSpecies();
+        if (iPh != (size_t) solnPhase_) {
+            for (size_t k = 0; k < (size_t) nspPhase; k++) {
+		enthalpy += spMoles_final_[kStart + k] * enthalpyMolar_final_[kStart + k];
+            }
+        }
+    }
+
+    for (int iCell = 0; iCell < numRCells_; iCell++) {
+        size_t kstart = iCell * numKRSpecies_;
+        for (jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+            ThermoPhase* th = thermoSPhase_List_[jRPh];
+            size_t nSpecies = th->nSpecies();
+            for (size_t kSp = 0; kSp < nSpecies; kSp++) {
+                enthalpy += spMoles_KRsolid_Cell_final_[kstart + kSp] * partialMolarEnthKRSpecies_Cell_final_[kstart + kSp];
+            }
+	    kstart += nSpecies;
+        }
+    }
+    return enthalpy;
 }
 //====================================================================================================================
 //    The internal state of the electrode must be kept for the initial and final times of an integration step.
