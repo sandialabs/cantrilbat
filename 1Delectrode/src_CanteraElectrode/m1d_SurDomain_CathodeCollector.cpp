@@ -23,12 +23,12 @@
 #include "m1d_Comm.h"
 #include "m1d_materials.h"
 
-#include "Epetra_Comm.h"
-#include "Epetra_Vector.h"
+//#include "Epetra_Comm.h"
+//#include "Epetra_Vector.h"
 
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
-extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
 
@@ -135,7 +135,7 @@ void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices *li_ptr)
      */
     SurBC_Dirichlet::domain_prep(li_ptr);
 
-    phiCathodeCC_   =  PSinput.CathodeVoltageSpecified_;
+    phiCathodeCC_   =  PSCinput_ptr->CathodeVoltageSpecified_;
     phiCathode_ =  phiCathodeCC_;
 
     // TODO: In SurBC_Dirichlet::domain_prep() is is presumed that the

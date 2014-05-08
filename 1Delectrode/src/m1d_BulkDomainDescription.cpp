@@ -12,9 +12,8 @@
 #include "m1d_exception.h"
 #include "m1d_DomainLayout.h"
 
-#ifndef MIN
-#define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
-#endif
+#include "Epetra_Vector.h"
+
 //=====================================================================================================================
 namespace m1d
 {
@@ -208,12 +207,12 @@ BulkDomainDescription::SetEquationDescription()
       if ((varT.VariableType != Concentration_Species) && (varT.VariableType != MoleFraction_Species)) {
         throw m1d_Error("error", "error");
       }
-      EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
+      EquationIndexStart_EqName[iEqnTPos] = std::min(iEqn, EquationIndexStart_EqName[iEqnTPos]);
     } else if (eqnT.EquationType == Current_Conservation) {
       VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
       VarType varN(Voltage, subT);
       AssertTrace(varT == varN);
-      EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
+      EquationIndexStart_EqName[iEqnTPos] = std::min(iEqn, EquationIndexStart_EqName[iEqnTPos]);
       IsArithmeticScaled_NE[iEqn] = 1;
     } else if (eqnT.EquationType == MoleFraction_Summation) {
       VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
@@ -221,11 +220,11 @@ BulkDomainDescription::SetEquationDescription()
       if ((varN.VariableType != varT.VariableType) && (MoleFraction_Species != varT.VariableType)) {
         throw m1d_Error("error", "error");
       }
-      EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
+      EquationIndexStart_EqName[iEqnTPos] = std::min(iEqn, EquationIndexStart_EqName[iEqnTPos]);
       /*
        *  Special line -> want the species to point to to MoleFraction_Summation equation if it is the first species!
        */
-      EquationIndexStart_EqName[iSpeciesConservationTPos] = MIN(iEqn, EquationIndexStart_EqName[iSpeciesConservationTPos]);
+      EquationIndexStart_EqName[iSpeciesConservationTPos] = std::min(iEqn, EquationIndexStart_EqName[iSpeciesConservationTPos]);
       if (EquationIndexStart_EqName[iSpeciesConservationTPos] == -1) {
 	EquationIndexStart_EqName[iSpeciesConservationTPos] = iEqn;
       }
@@ -236,11 +235,11 @@ BulkDomainDescription::SetEquationDescription()
       if ((varN.VariableType != varT.VariableType) && (MoleFraction_Species != varT.VariableType)) {
         throw m1d_Error("error", "error");
       }
-      EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
+      EquationIndexStart_EqName[iEqnTPos] = std::min(iEqn, EquationIndexStart_EqName[iEqnTPos]);
       /*
        *  Special line -> want the species to point to to ChargeNeutrality_Summation equation if it is the first species!
        */
-      EquationIndexStart_EqName[iSpeciesConservationTPos] = MIN(iEqn, EquationIndexStart_EqName[iSpeciesConservationTPos]);
+      EquationIndexStart_EqName[iSpeciesConservationTPos] = std::min(iEqn, EquationIndexStart_EqName[iSpeciesConservationTPos]);
       if (EquationIndexStart_EqName[iSpeciesConservationTPos] == -1) {
 	EquationIndexStart_EqName[iSpeciesConservationTPos] = iEqn;
       }
@@ -251,7 +250,7 @@ BulkDomainDescription::SetEquationDescription()
     } else if (eqnT.EquationType == Dirichlet_Specification) {
 	//   We can have different variables with this specification. The first one is temperature
 	// VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
-	EquationIndexStart_EqName[iEqnTPos] = MIN(iEqn, EquationIndexStart_EqName[iEqnTPos]);
+	EquationIndexStart_EqName[iEqnTPos] = std::min(iEqn, EquationIndexStart_EqName[iEqnTPos]);
     } else {
       throw m1d_Error("BulkDomainDescription::SetEquationDescription()", "Unknown Conversion");
     }

@@ -8,7 +8,6 @@
 
 #include "m1d_BDD_porousElectrode.h"
 #include "m1d_porousElectrode_dom1D.h"
-//#include "Electrode_Factory.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h" 
 
@@ -32,12 +31,12 @@ namespace m1d
   /*
    * Store a copy of the electrolyte ThermoPhase object
    */
-  int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
+  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
   if (iph < 0) {
     throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
-                       "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
+                       "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
   }
-  ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
 
   /*
@@ -66,7 +65,7 @@ namespace m1d
     throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
 		       "Error initializing the anode electrode object");
   }
-  retn = Electrode_->setInitialConditions(PSinput.anode_input_);
+  retn = Electrode_->setInitialConditions(PSCinput_ptr->anode_input_);
   if (retn == -1) {
     throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
 		       "Electrode::setInitialConditions() failed");

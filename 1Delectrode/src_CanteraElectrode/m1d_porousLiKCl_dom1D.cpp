@@ -18,7 +18,6 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_exception.h"
 #include "m1d_DomainLayout.h"
-
 #include "m1d_Comm.h"
 
 #include "cantera/base/ctml.h"
@@ -27,10 +26,8 @@
 //next two lines added for salt precipitation
 #include "cantera/thermo.h"
 #include "cantera/thermo/MargulesVPSSTP.h"
-
-
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
+#include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace std;
 using namespace Cantera;
@@ -163,12 +160,12 @@ porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
    * We should read in the MgO.xml file to get the MgO density
    */
 
-  int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.separatorPhase_);
-  ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
+  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   StoichSubstance* inert = dynamic_cast<Cantera::StoichSubstance *>( tmpPhase );
 
-  double volumeSeparator = PSinput.separatorArea_ * PSinput.separatorThickness_;
-  double volumeInert = PSinput.separatorMass_ / inert->density() ;
+  double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
+  double volumeInert = PSCinput_ptr->separatorMass_ / inert->density() ;
   double porosity = 1.0 - volumeInert / volumeSeparator;
 
   std::cout << "Separator volume is " << volumeSeparator << " m^3 with "
@@ -1205,17 +1202,15 @@ porousLiKCl_dom1D::initialConditions(const bool doTimeDependentResid,
     /*
      * Get initial mole fractions from PSinput
      */
-    int iLiCl = PSinput.PhaseList_->globalSpeciesIndex ("LiCl(L)");
-    int iKCl = PSinput.PhaseList_->globalSpeciesIndex ("KCl(L)");
-    int iLi = PSinput.PhaseList_->globalSpeciesIndex ("Li+");
-    int iK = PSinput.PhaseList_->globalSpeciesIndex ("K+");
+    int iLiCl = PSCinput_ptr->PhaseList_->globalSpeciesIndex ("LiCl(L)");
+    int iKCl =  PSCinput_ptr->PhaseList_->globalSpeciesIndex ("KCl(L)");
+    int iLi =   PSCinput_ptr->PhaseList_->globalSpeciesIndex ("Li+");
+    int iK =    PSCinput_ptr->PhaseList_->globalSpeciesIndex ("K+");
 
     soln[indexCent_EqnStart_BD + iVar_Species_BD + 0] = 
-      PSinput.electrolyteMoleFracs_[iLiCl] / 2.0 +
-      PSinput.electrolyteMoleFracs_[iLi];
+      PSCinput_ptr->electrolyteMoleFracs_[iLiCl] / 2.0 + PSCinput_ptr->electrolyteMoleFracs_[iLi];
     soln[indexCent_EqnStart_BD + iVar_Species_BD + 1] = 
-      PSinput.electrolyteMoleFracs_[iKCl] / 2.0 +
-      PSinput.electrolyteMoleFracs_[iK];
+      PSCinput_ptr->electrolyteMoleFracs_[iKCl] / 2.0 + PSCinput_ptr->electrolyteMoleFracs_[iK];
     soln[indexCent_EqnStart_BD + iVar_Species_BD + 2] = 0.5;
 
     soln[indexCent_EqnStart_BD + iVar_Voltage_BD] = -0.075;  
@@ -1268,7 +1263,7 @@ void porousLiKCl_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Gh
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
+    int iVAR_Vaxial_BD  = BDD_.VariableIndexStart_VarName[Velocity_Axial];
     int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
     int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
 
@@ -1307,7 +1302,6 @@ void porousLiKCl_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_V
 					      Epetra_Vector_Ghosted & atolVector,
 					      const Epetra_Vector_Ghosted * const atolV)
 {
- 
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     cIndex_cc_ = iCell;
 
@@ -1507,12 +1501,12 @@ porousLiKCl_dom1D::checkPrecipitation(  ) {
 
   // molten salt phase
   string id_salt = "LiKCl_Margules";
-  int iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
+  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
     throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
-  ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   
   MargulesVPSSTP *salt ;
   salt = dynamic_cast<Cantera::MargulesVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
@@ -1524,25 +1518,23 @@ porousLiKCl_dom1D::checkPrecipitation(  ) {
 
   //solid LiCl phase
   id_salt = "LiCl(S)";
-  iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
+  iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
     throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
-  tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   Cantera::ThermoPhase *LiCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
 
   //solid KCl phase
   id_salt = "KCl(S)";
-  iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
+  iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
     throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
-  tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   Cantera::ThermoPhase *KCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
-
-
 
   //set current states
   //mole fraction of the electrolyte ions are held in
@@ -1592,11 +1584,7 @@ porousLiKCl_dom1D::checkPrecipitation(  ) {
   
   //no precipitation
   return -1;
-  
 }
-
 //=====================================================================================================================
 }
 //=====================================================================================================================
-
-

@@ -105,6 +105,7 @@ ProblemStatementCell::~ProblemStatementCell()
 void
 ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
 {
+  PSCinput_ptr = this;
   ProblemStatement::setup_input_pass1(cf);
   /*
    * Obtain the number of cantera files to be read

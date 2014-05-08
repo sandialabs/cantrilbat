@@ -13,12 +13,7 @@
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BC_Battery.h"
-
-extern m1d::ProblemStatementCell PSinput;
-
-
-
-
+#include "m1d_CanteraElectrodeGlobals.h"
 
 //=====================================================================================================================
 namespace m1d
@@ -34,9 +29,9 @@ SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char
      *
      * This object will set an anode voltage of zero on that equation.
      */
-    voltageVarBCType_ = PSinput.anodeBCType_;
+    voltageVarBCType_ = PSCinput_ptr->anodeBCType_;
 
-    anodeCCThickness_ = PSinput.anodeCCThickness_;
+    anodeCCThickness_ = PSCinput_ptr->anodeCCThickness_;
 
 }
 //=====================================================================================================================

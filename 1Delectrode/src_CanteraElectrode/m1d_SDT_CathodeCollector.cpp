@@ -13,7 +13,6 @@
 #include "m1d_BC_Battery.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
-//extern m1d::ProblemStatementCell PSinput;
 
 //=====================================================================================================================
 namespace m1d

@@ -11,7 +11,7 @@
 
 #include "m1d_porousFlow_dom1D.h"
 
-#include <cantera/transport.h>    
+//#include <cantera/transport.h>    
 
 namespace Cantera
 {

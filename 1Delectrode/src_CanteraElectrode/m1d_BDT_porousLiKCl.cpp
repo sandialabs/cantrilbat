@@ -11,7 +11,7 @@
 #include "m1d_porousLiKCl_dom1D.h"
 
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
+#include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace Cantera;
 
@@ -26,14 +26,12 @@ BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
 
   IsAlgebraic_NE.resize(6,0);
   IsArithmeticScaled_NE.resize(6, 0);
-  //  ionicLiquid_ = new Cantera::IonsFromNeutralVPSSTP("LiKCl_recipmoltenSalt_trans.xml");
-  //ionicLiquid_ = new Cantera::IonsFromNeutralVPSSTP( PSinput.electrolyteFile_ );
-  int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
+  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
   if (iph < 0) {
     throw CanteraError("BDT_porousLiKCl::BDT_porousLiKCl()", 
-                       "Can't find the phase named " + PSinput.electrolytePhase_);
+                       "Can't find the phase named " + PSCinput_ptr->electrolytePhase_);
   }
-  ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   ionicLiquid_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
 
   trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);

@@ -14,12 +14,12 @@
 
 #include "m1d_defs.h"
 
-#include "Epetra_Vector.h"
 #include "Epetra_IntVector.h"
 
 class Epetra_Map;
 class Epetra_BlockMap;
 class Epetra_Comm;
+class Epetra_Vector;
 
 namespace m1d
 {
@@ -89,9 +89,6 @@ public:
 
   void
   initBlockNodeMaps(int *numEqns_LcNode);
-
-  //  Epetra_Vector *
-  //createDistribEqnVector();
 
   void
   InitMesh();

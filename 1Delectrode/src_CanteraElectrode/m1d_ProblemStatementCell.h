@@ -14,8 +14,6 @@
 #include "m1d_ProblemStatement.h"
 #include "m1d_BoundaryCondition.h"
 #include "Electrode_input.h"
-#include "PhaseList.h"
-#include "BlockEntryGlobal.h"
 
 //=======================================================================================================
 namespace Cantera

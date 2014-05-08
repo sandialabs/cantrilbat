@@ -17,9 +17,10 @@ class Epetra_Map;
 class Epetra_BlockMap;
 class Epetra_VbrMatrix;
 class Epetra_MapColoring;
+class Epetra_IntVector;
+class Epetra_Vector;
+class Epetra_Import;
 
-#include "Epetra_Vector.h"
-#include "Epetra_IntVector.h"
 
 namespace m1d
 {

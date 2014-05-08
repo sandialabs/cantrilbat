@@ -14,12 +14,9 @@
 
 #include "m1d_BatteryResidEval.h"
 #include "m1d_ProblemStatementCell.h"
-
-
+#include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace std;
-
-extern m1d::ProblemStatementCell PSinput;
 
 namespace beuler
 {
@@ -86,8 +83,7 @@ namespace beuler
     // Go get the current value of the cathode voltage and use that as the initial value of the voltage boundary condition
     //  double cathodeVoltage =  batResid->reportCathodeVoltage();
     //! Specify the voltage at the cathode
-    CathodeVoltageBest_ = PSinput.CathodeVoltageSpecified_;
-
+    CathodeVoltageBest_ = m1d::PSCinput_ptr->CathodeVoltageSpecified_;
 
     // Change the problem to a dirichlet condition
     batResid->changeCathodeVoltageBC(0, CathodeVoltageBest_);

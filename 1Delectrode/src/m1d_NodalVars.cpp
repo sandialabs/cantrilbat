@@ -15,6 +15,8 @@
 #include "m1d_SurfDomainDescription.h"
 #include "m1d_globals.h"
 
+#include "Epetra_Import.h"
+
 #include <list> 
 
 namespace m1d
