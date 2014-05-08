@@ -11,35 +11,26 @@
 #ifndef _M1D_PROBLEMSTATEMENTCELL_H
 #define _M1D_PROBLEMSTATEMENTCELL_H
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo.h"
-#include "PhaseList.h"
-#include "importPL.h"
-#include "tok_input_util.h"
-
-#include "BlockEntryGlobal.h"
-
-#include <string>
-#include <vector>
-
 #include "m1d_ProblemStatement.h"
 #include "m1d_BoundaryCondition.h"
-#include "m1d_exception.h"
-
 #include "Electrode_input.h"
-#include "Electrode.h"
-#include "Electrode_Factory.h"
+#include "PhaseList.h"
+#include "BlockEntryGlobal.h"
 
-#define MPEQUIL_MAX_NAME_LEN_P1 81
-#define MPEQUIL_MAX_NAME_LEN    80
+//=======================================================================================================
+namespace Cantera
+{
+class Electrode_Factory;
+}
 
 namespace BEInput
 {
 class BlockEntry;
 }
+//=======================================================================================================
 namespace m1d
 {
-
+//=======================================================================================================
 //! Storage for Command file input
 /*!
  * Complete problem statement
@@ -47,7 +38,6 @@ namespace m1d
  * This is the current command file specification
  *                       of the problem statement.
  */
-
 class ProblemStatementCell : public ProblemStatement {
 public:
   //! Constructor
@@ -90,8 +80,8 @@ public:
   virtual void post_process_input();
 
 
-  virtual void readAnodeInputFile(Electrode_Factory *f = 0);
-  virtual void readCathodeInputFile(Electrode_Factory *f = 0);
+  virtual void readAnodeInputFile(Cantera::Electrode_Factory* f = 0);
+  virtual void readCathodeInputFile(Cantera::Electrode_Factory* f = 0);
 
   //!  Test whether the anode and the cathode are compatible
   /*!
@@ -179,7 +169,7 @@ public:
   /*!
    *   Vector has length equal to the number of equations defined at the node
    */
-  BoundaryCondition *BC_TimeDep_;
+  m1d::BoundaryCondition *BC_TimeDep_;
 
   //! Name of Anode input file
   std::string anodeFile_;

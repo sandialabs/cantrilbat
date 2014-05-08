@@ -13,12 +13,6 @@
 
 #include "m1d_SurDomain1D.h"
 
-#include "Electrode.h"
-
-#include "Epetra_Vector.h"
-
-using namespace Cantera;
-
 //======================================================================================================================
 namespace m1d
 {

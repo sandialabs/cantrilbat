@@ -8,6 +8,9 @@
 
 #include "BlockEntryGlobal.h"
 
+#include "Electrode_Factory.h"
+#include "importPL.h"
+
 #define USE_DAKOTA
 #ifdef USE_DAKOTA
 #include "../../Experiment/src/exp_DakotaInterface.h"

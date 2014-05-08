@@ -8,16 +8,8 @@
 
 #ifndef M1D_SURDOMAIN_CATHODECOLLECTOR_H_
 #define M1D_SURDOMAIN_CATHODECOLLECTOR_H_
-//! This is a heavyweight base class that provides the function
-//! evaluation for a single bulk domain.
 
 #include "m1d_SurDomain1D.h"
-
-#include "Electrode.h"
-
-#include "Epetra_Vector.h"
-
-using namespace Cantera;
 
 //======================================================================================================================
 namespace m1d

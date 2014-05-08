@@ -18,28 +18,21 @@
 
 #include "m1d_SurDomain_AnodeCollector.h"
 #include "m1d_SurDomain_CathodeCollector.h"
+// @deprecated -> shouldn't be needed or called here porousElectrode is the only one
 #include "m1d_porousLiKCl_dom1D.h"
 #include "m1d_porousElectrode_dom1D.h"
 
 #include "m1d_DomainLayout.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_EpetraExtras.h"
-#include "m1d_Comm.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-
 using namespace std;
-
-
 
 namespace m1d
 {
-
   //=====================================================================================================================
 
   // Default constructor

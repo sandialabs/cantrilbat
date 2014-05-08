@@ -12,6 +12,13 @@
 #include "m1d_BDT_porCathode_LiIon.h"
 #include "m1d_porousLiIon_Cathode_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
+
+#include "Electrode.h"
+#include "Electrode_Factory.h"
+
+#include "cantera/thermo.h"
+
+
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;

@@ -15,21 +15,14 @@
 #ifndef M1D_SOLGLOBALNONLINEAR_CURRENTSOLVE_H
 #define M1D_SOLGLOBALNONLINEAR_CURRENTSOLVE_H
 
-#include "m1d_defs.h"
-#include "m1d_exception.h"
-#include "m1d_EpetraJac.h"
-
-#include "cantera/numerics/Integrator.h"
-
-#include "Epetra_Vector.h"
-
 #include "m1d_SolGlobalNonlinear.h"
-#include "m1d_SolNonlinear.h"
 #include "m1d_SurDomain1D.h"
 
 namespace m1d {
 
 class BoundaryCondition;
+class BatteryResidEval;
+class SolNonlinear;
 
 /**
  *  Wrapper class for 'beuler' integrator
@@ -155,10 +148,11 @@ public:
     //--------------------------------------------------------------------------------------------------------
 
     //! Pointer to the normal solver using a damped Newton's method
-    SolNonlinear *m_solverConstantVoltage;
+    m1d::SolNonlinear *m_solverConstantVoltage;
 
     //! Residual problem for the constant voltage or constant current battery
-    ProblemResidEval *m_func;
+    //ProblemResidEval *m_func;
+    BatteryResidEval *m_func;
 
     //! Flag for how the solver works
     /*!
@@ -211,13 +205,13 @@ public:
     /*!
      * We don't own this
      */
-    BoundaryCondition* BCFuncPtr_currentBC_;
+    m1d::BoundaryCondition* BCFuncPtr_currentBC_;
 
     //! Shallow pointer to the boundary condition time function needed for the current bc
     /*!
      * We don't own this
      */
-    TimeDepFunctionPtr TimeDepFuncPtr_currentBC_;
+    m1d::TimeDepFunctionPtr TimeDepFuncPtr_currentBC_;
 
     //! This is the type of constant voltage boundary condition that this object will solve
     /*!
@@ -237,13 +231,13 @@ public:
     /*!
      * We don't own this
      */
-    BoundaryCondition* BCFuncPtr_voltageBC_;
+    m1d::BoundaryCondition* BCFuncPtr_voltageBC_;
 
     //! Shallow pointer to the boundary condition time function needed for the voltage bc
     /*!
      * We don't own this
      */
-    TimeDepFunctionPtr TimeDepFuncPtr_voltageBC_;
+    m1d::TimeDepFunctionPtr TimeDepFuncPtr_voltageBC_;
 
     //! Value of the cathode voltage at the current time step
     doublereal cathodeVoltageBest_;

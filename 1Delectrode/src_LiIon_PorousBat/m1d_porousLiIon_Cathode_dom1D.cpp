@@ -17,6 +17,8 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
 #include "m1d_ProblemStatementCell.h"
+#include "Electrode.h"
+#include "Electrode_Factory.h"
 
 #include "cantera/transport/Tortuosity.h"
 

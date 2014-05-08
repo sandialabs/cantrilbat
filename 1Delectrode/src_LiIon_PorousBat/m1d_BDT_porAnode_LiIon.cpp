@@ -13,6 +13,10 @@
 #include "m1d_ProblemStatementCell.h"
 #include "LiIon_PorousBat.h"
 
+#include "Electrode.h"
+#include "Electrode_input.h"
+#include "Electrode_Factory.h"
+
 using namespace std;
 
 namespace m1d

@@ -17,14 +17,12 @@
  * A porosity/tortuosity is also associated with the domain.
  */
 
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
-#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include "m1d_DomainDescription.h"
 #include "m1d_porousFlow_dom1D.h"
 
-#include "Epetra_Vector.h"
-
+namespace Cantera
+{
+class IonsFromNeutralVPSSTP;
+}
 
 namespace m1d
 {

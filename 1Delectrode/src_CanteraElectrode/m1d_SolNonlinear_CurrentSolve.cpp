@@ -130,8 +130,11 @@ void SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, Epetra_V
     /*
      *  Store the address of the constant voltage or constant current problem
      */
-    m_func = &cv_problem;
-    BatteryResidEval *batResid = dynamic_cast<BatteryResidEval *>(m_func);
+    m_func =  dynamic_cast<BatteryResidEval *>(&cv_problem);
+    if (!m_func) {
+        throw m1d_Error("SolNonlinear_CurrentSolve::setup_problem",
+	                "Dynamic cast failed");
+    }
 
     /*
      *  Call the underlying nonlinear solver for the constant voltage problem.
@@ -146,7 +149,7 @@ void SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, Epetra_V
     double value;
     BoundaryCondition *bcFuncPtr;
     TimeDepFunctionPtr tFuncPtr;
-    batResid->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
+    m_func->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
 
     if (BC_Type == 0 || BC_Type == 2 || BC_Type == 4 || BC_Type == 6 || BC_Type == 8) {
         BC_Now_Voltage_ = true;
@@ -189,14 +192,13 @@ void SolNonlinear_CurrentSolve::transform_cc_to_cv(Epetra_Vector_Ghosted* soln, 
 
     VarType v1(Voltage, 2, "CathodeVoltage");
 
-    BatteryResidEval *batResid = dynamic_cast<BatteryResidEval *>(m_func);
 
     // Go get the boundary condition that is being implemented now
     int BC_Type;
     double value;
     BoundaryCondition *bcFuncPtr;
     TimeDepFunctionPtr tFuncPtr;
-    batResid->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
+    m_func->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
     if (BC_Type == 1 || BC_Type == 3 || BC_Type == 5 || BC_Type == 7 || BC_Type == 9) {
         BC_Type_currentBC_ = BC_Type;
         Value_currentBC_ = value;
@@ -227,12 +229,12 @@ void SolNonlinear_CurrentSolve::transform_cc_to_cv(Epetra_Vector_Ghosted* soln, 
     }
 
     // Go get the current value of the cathode voltage and use that as the initial value of the voltage boundary condition
-    cathodeVoltageOld_ = batResid->reportCathodeVoltage();
+    cathodeVoltageOld_ = m_func->reportCathodeVoltage();
 
     // Go get the current value of the cathode current
-    currentActual_ = batResid->reportCathodeCurrent();
+    currentActual_ = m_func->reportCathodeCurrent();
 
-    DomainLayout &DL = * (batResid->DL_ptr_);
+    DomainLayout &DL = * (m_func->DL_ptr_);
     // want last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     double vCheck = d_ptr->extractSolnValue(soln, v1);
@@ -247,7 +249,7 @@ void SolNonlinear_CurrentSolve::transform_cc_to_cv(Epetra_Vector_Ghosted* soln, 
 
     // Change the problem to a Dirichlet condition problem. We initially specify the voltage as being equal
     // to the current voltage. However, we will iterate on the voltage.
-    batResid->changeCathodeVoltageBC(0, cathodeVoltageBest_);
+    m_func->changeCathodeVoltageBC(0, cathodeVoltageBest_);
 
     // Set max and min values of the voltage. These values will be used in the root-finder.
     cathodeVoltageMin_ = cathodeVoltageBest_ - 0.2;
@@ -271,7 +273,7 @@ void SolNonlinear_CurrentSolve::transform_cv_to_cc(Epetra_Vector_Ghosted * soln,
     double value;
     BoundaryCondition *bcFuncPtr;
     TimeDepFunctionPtr tFuncPtr;
-    batResid->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
+    m_func->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
     /*
      *  First determine if the boundary condition is a Dirichlet condition
      *  If it is, then store the current boundary condition before it is overwritten.
@@ -293,7 +295,7 @@ void SolNonlinear_CurrentSolve::transform_cv_to_cc(Epetra_Vector_Ghosted * soln,
     }
 
     // go get the current value of the cathode current
-    currentActual_ = batResid->reportCathodeCurrent();
+    currentActual_ = m_func->reportCathodeCurrent();
 
     // Go get the current value of the cathode voltage and use that as the initial value of the voltage boundary condition
     double cathodeVoltage = batResid->reportCathodeVoltage();
@@ -313,7 +315,7 @@ void SolNonlinear_CurrentSolve::transform_cv_to_cc(Epetra_Vector_Ghosted * soln,
     cathodeVoltageDot_ = d_ptr->extractSolnValue(solnDot, v1);
 
     // Change the problem to a flux boundary condition
-    batResid->changeCathodeVoltageBC(BC_Type_currentBC_, Value_currentBC_, BCFuncPtr_currentBC_, TimeDepFuncPtr_currentBC_);
+    m_func->changeCathodeVoltageBC(BC_Type_currentBC_, Value_currentBC_, BCFuncPtr_currentBC_, TimeDepFuncPtr_currentBC_);
 
     cathodeVoltageMin_ = cathodeVoltage - 0.1;
     cathodeVoltageMax_ = cathodeVoltage + 0.1;
@@ -419,9 +421,7 @@ int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType,
         m1d_Error("SolNonlinear_CurrentSolve::solve_nonlinear_problem", "confused");
     }
 
-    BatteryResidEval *batResid = dynamic_cast<BatteryResidEval *>(m_func);
-
-    double cathodeVoltage = batResid->reportCathodeVoltage();
+    double cathodeVoltage = m_func->reportCathodeVoltage();
     cathodeVoltageMin_ = cathodeVoltage - 0.75;
     cathodeVoltageMax_ = cathodeVoltage + 0.75;
 
@@ -450,7 +450,7 @@ int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType,
     rf.setFuncIsGenerallyDecreasing(true);
     rf.setDeltaX(cathodeVoltageDelta_);
 
-    int timeRegion = batResid->m_currentTimeRegion;
+    int timeRegion = m_func->m_currentTimeRegion;
 
     // Find the current that's needed at the current time step.
     // We need to do this because the current may change with time.
