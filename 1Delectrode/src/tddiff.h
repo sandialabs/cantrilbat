@@ -7,7 +7,6 @@
  *  $Id: tddiff.h 504 2013-01-07 22:32:48Z hkmoffa $
  */
 
-#include "config.h"
 
 
 #include "Epetra_ConfigDefs.h"
@@ -20,29 +19,9 @@
 #endif
 
 #include "m1d_Comm.h"
-#include "m1d_EpetraExtras.h"
 #include "m1d_globals.h"
 
-#include "m1d_DomainLayout.h"
 
-#include <Epetra_Map.h>
-#include <Epetra_Vector.h>
-#include <Epetra_CrsMatrix.h>
-#include <Epetra_VbrMatrix.h>
-#include <Teuchos_ParameterList.hpp>
-#include <Ifpack.h>
-#include <AztecOO.h>
-
-#include <vector>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 namespace m1d
 {

@@ -11,7 +11,6 @@
 #define M1D_DOMAINDESCRIPTION_H
 
 #include "m1d_EqnVarTypes.h"
-//#include "cantera/equil/MultiPhase.h"
 
 #include <vector>
 #include <string>
@@ -38,7 +37,7 @@ class DomainDescription {
 public:
 
   //! Constructor
-  DomainDescription(DomainLayout *dl_ptr, std::string domainName = "");
+  DomainDescription(DomainLayout* dl_ptr, std::string domainName = "");
 
   //! Copy Constructor
   /*!

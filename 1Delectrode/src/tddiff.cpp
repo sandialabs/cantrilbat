@@ -6,12 +6,7 @@
 /*
  *  $Id: tddiff.cpp 560 2013-03-06 23:50:04Z hkmoffa $
  */
-
-
-#include <AztecOO.h>
-#include <Ifpack.h>
 #include "m1d_defs.h"
-#include "mdp_allo.h"
 
 #ifdef HAVE_MPI
 #include <mpi.h>
@@ -20,38 +15,13 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include "m1d_defs.h"
-#include "m1d_Comm.h"
-#include "m1d_EpetraExtras.h"
-#include "m1d_globals.h"
-#include "m1d_BulkDomain1D.h"
-
-#include "m1d_DomainLayout.h"
-#include "m1d_SolNonlinear.h"
+#include "tddiff.h"
 #include "m1d_ProblemStatement.h"
-
+#include "m1d_GlobalIndices.h"
+#include "m1d_DomainLayout.h"
 #include "BEulerInt.h"
 
-#include <Epetra_Map.h>
-#include <Epetra_Vector.h>
-#include <Epetra_CrsMatrix.h>
-#include <Epetra_VbrMatrix.h>
-#include "m1d_EpetraJac.h"
-#include <Teuchos_ParameterList.hpp>
 
-#include <vector>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include "tddiff.h"
-#include "m1d_solvers.h"
 
 //=====================================================================================
 /*
@@ -93,11 +63,6 @@
  *  For our first step we will assume one domain, with no tie regions !
  */
 
-#include "m1d_GlobalIndices.h"
-#include "m1d_LocalNodeIndices.h"
-#include "m1d_exception.h"
-#include "m1d_VBRIndices.h"
-#include "m1d_ProblemResidEval.h"
 
 using namespace std;
 using namespace m1d;
@@ -105,10 +70,8 @@ using namespace beuler;
 
 m1d::ProblemResidEval *PS_ptr = 0;
 
-ProblemStatement PSinput;
+m1d::ProblemStatement PSinput;
 
-
-//m1d::ProblemStatement PSinput;
 
 void
 printUsage()

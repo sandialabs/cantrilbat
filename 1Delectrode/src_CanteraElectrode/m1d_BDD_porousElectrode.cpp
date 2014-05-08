@@ -10,10 +10,9 @@
 #include "m1d_porousElectrode_dom1D.h"
 //#include "Electrode_Factory.h"
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
+#include "m1d_CanteraElectrodeGlobals.h" 
 
 using namespace std;
-using namespace Cantera;
 
 namespace m1d
 {
@@ -49,8 +48,7 @@ namespace m1d
   /*
    *  Find the hook into the input for the electrode model
    */
-  ProblemStatementCell *psc_ptr = &PSinput;
-  ELECTRODE_KEY_INPUT *ai = psc_ptr->anode_input_;
+  ELECTRODE_KEY_INPUT *ai = PSCinput_ptr->anode_input_;
 
   /*
    *  Use the ElectrodeModelName value as input to the electrode factory to create the electrode

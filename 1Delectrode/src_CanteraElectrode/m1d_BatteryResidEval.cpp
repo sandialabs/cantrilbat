@@ -28,6 +28,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
 #include "m1d_CanteraElectrodeGlobals.h"
+#include "m1d_SurfDomainDescription.h"
 
 using namespace std;
 

@@ -47,14 +47,9 @@
  *  For our first step we will assume one domain, with no tie regions !
  */
 
-#include "m1d_BulkDomainDescription.h"
-#include "m1d_SurfDomainDescription.h"
-#include "m1d_BulkDomain1D.h"
-#include "m1d_SurDomain1D.h"
 #include <cantera/equil/MultiPhase.h>
-#include <cantera/transport.h>      // transport properties
-#include <cantera/thermo.h>      // transport properties
 
+#include <string>
 #include <vector>
 #include <map>
 
@@ -63,7 +58,12 @@ namespace m1d
 
 
 class GlobalIndices;
-  class PreblemResidEval;
+class ProblemResidEval;
+class ProblemStatement;
+class BulkDomainDescription;
+class SurfDomainDescription;
+class BulkDomain1D;
+class SurDomain1D;
 
 //! DomainLayout is a light class that describes the overall
 //! disposition of the domains in the problem
@@ -75,12 +75,12 @@ class DomainLayout
 public:
 
   //! Constructor
-  DomainLayout(ProblemStatement *psInput_ptr = 0);
+  DomainLayout(ProblemStatement* psInput_ptr = 0);
 
   //! Constructor
-  DomainLayout(std::vector<std::string>  domainList, ProblemStatement *psInput_ptr,
-	       std::map<std::string,Cantera::MultiPhase*> bulkMap,
-	       std::map<std::string,int> surfaceMap );
+  DomainLayout(std::vector<std::string> domainList, ProblemStatement *psInput_ptr,
+	       std::map<std::string, Cantera::MultiPhase*> bulkMap,
+	       std::map<std::string, int> surfaceMap);
 
   //! Copy Constructor
   /*!

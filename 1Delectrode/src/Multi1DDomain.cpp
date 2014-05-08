@@ -7,9 +7,6 @@
  *  $Id: Multi1DDomain.cpp 504 2013-01-07 22:32:48Z hkmoffa $
  */
 
-#include <Teuchos_ParameterList.hpp>
-#include <Ifpack.h>
-#include <AztecOO.h>
 #include "m1d_defs.h"
 
 #include "../../config.h"
@@ -21,35 +18,13 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include "mdp_allo.h"
-#include "m1d_Comm.h"
+#include "Multi1DDomain.h"
 #include "m1d_EpetraExtras.h"
 #include "m1d_globals.h"
-#include "m1d_BulkDomain1D.h"
-
 #include "m1d_DomainLayout.h"
 #include "m1d_SolNonlinear.h"
 #include "m1d_ProblemStatement.h"
-
-#include <Epetra_Map.h>
-#include <Epetra_Vector.h>
-#include <Epetra_CrsMatrix.h>
-#include <Epetra_VbrMatrix.h>
-#include "m1d_EpetraJac.h"
-
-#include <vector>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include "Multi1DDomain.h"
-#include "m1d_solvers.h"
+#include "m1d_GlobalIndices.h"
 
 int
 alloc_double_matrix_3d(double ****double_matrix_3d, int L, int M, int N);
@@ -96,12 +71,6 @@ ex_write_output_file(M1D_MPI_Comm mpi_comm, Epetra_CrsMatrix*& A, Epetra_Vector*
  *
  *  For our first step we will assume one domain, with no tie regions !
  */
-
-#include "m1d_GlobalIndices.h"
-#include "m1d_LocalNodeIndices.h"
-#include "m1d_exception.h"
-#include "m1d_VBRIndices.h"
-#include "m1d_ProblemResidEval.h"
 
 using namespace std;
 using namespace m1d;

@@ -48,8 +48,11 @@ extern void readEnvironmentalVariables();
  */
 extern bool PrintInputFormat;
 
-//! Problem statement pointer. This must be defined
-extern ProblemStatement * PSinput_ptr;
+//! Problem statement pointer. This must be defined in the calling program
+/*!
+ *   This is allocated in m1d_ProblemStatement.cpp
+ */
+extern ProblemStatement* PSinput_ptr;
 
 //! Return a pointer to the single application object
 Appl*

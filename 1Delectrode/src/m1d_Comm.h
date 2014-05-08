@@ -22,17 +22,12 @@
 #define M1D_MSG_TYPE_BASE 1056
 #define M1D_MSG_TYPE_RANGE 20
 
+#include "md_wrap_mpi.h"
+
 #include "Epetra_Vector.h"
 #include "Epetra_IntVector.h"
 #include "Epetra_Comm.h"
 #include "Epetra_VbrMatrix.h"
-
-#include "m1d_defs.h"
-#include "md_wrap_mpi.h"
-
-#include <ostream>
-#include <iomanip>
-#include <cstdio>
 
 namespace m1d
 {
@@ -290,11 +285,11 @@ void
 Print0_epMultiVector(stream0 &oss, const Epetra_MultiVector &v);
 
 void
-print0_epIntVector(const Epetra_IntVector &v, const char *label, FILE *of = stdout);
+print0_epIntVector(const Epetra_IntVector& v, const char *label, FILE *of = stdout);
 
 
 void
-Print0_epIntVector(stream0 &os, const Epetra_IntVector &v);
+Print0_epIntVector(stream0 &os, const Epetra_IntVector& v);
 
 //! Prints a Multivector between print0_sync blocks
 /*!
@@ -304,7 +299,7 @@ Print0_epIntVector(stream0 &os, const Epetra_IntVector &v);
  * @param label optional argument will create an extra line with text
  */
 void
-print0_epMultiVector(const Epetra_MultiVector &v, const char *label = 0, FILE *of = stdout);
+print0_epMultiVector(const Epetra_MultiVector& v, const char *label = 0, FILE *of = stdout);
 
 //! Print an Epetra_VbrMatrix using the stream0 process
 /*!
@@ -312,7 +307,7 @@ print0_epMultiVector(const Epetra_MultiVector &v, const char *label = 0, FILE *o
  * @param v     Epetra_VbrMatrix reference
  */
 void
-Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat);
+Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix& mat);
 
 //! Prints a VbrMatrix between print0_sync blocks
 /*!

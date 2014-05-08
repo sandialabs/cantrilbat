@@ -13,21 +13,25 @@
  */
 
 
-#ifndef M1D_BSDOMAIN1D_H_
-#define M1D_BSDOMAIN1D_H_
+#ifndef M1D_DOMAIN1D_H_
+#define M1D_DOMAIN1D_H_
 //! This is a heavyweight base class that provides the function
 //! evaluation for a single domain whether a surface or a bulk.
 
-#include "m1d_DomainDescription.h"
 #include "m1d_ProblemResidEval.h"
 
 #include "Epetra_Vector.h"
+#include "Epetra_IntVector.h"
 
-#include "cantera/base/global.h"
+#include "cantera/base/xml.h"
+
+#include <string>
 
 namespace m1d
 {
+
 class LocalNodeIndices;
+
 //! Base class for solving residuals for bulk and surface domains
 /*!
  *

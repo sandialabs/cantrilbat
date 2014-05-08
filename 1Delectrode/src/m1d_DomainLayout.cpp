@@ -11,6 +11,8 @@
 #include "m1d_BulkDomainTypes.h"
 #include "m1d_SurfDomainTypes.h"
 #include "m1d_ProblemStatement.h"
+#include "m1d_BulkDomain1D.h"
+#include "m1d_SurDomain1D.h"
 
 #include "m1d_exception.h"
 #include "m1d_globals.h"

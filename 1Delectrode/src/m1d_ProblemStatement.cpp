@@ -22,7 +22,12 @@ namespace m1d
 {
 bool PrintInputFormat = false;
 
-  ProblemStatement * PSinput_ptr = 0;
+//====================================================================================================================
+//!  Global allocation of a pointer to the problem statement
+/*!
+ *  There is only one of them, so it is ok for now.
+ */
+ProblemStatement* PSinput_ptr = 0;
 //=====================================================================================================================
 /*
  *

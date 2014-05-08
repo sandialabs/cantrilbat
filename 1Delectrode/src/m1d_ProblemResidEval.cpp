@@ -24,6 +24,9 @@
 #include "m1d_NodalVars.h"
 
 #include "m1d_ProblemStatement.h"
+#include "m1d_SurfDomainDescription.h"
+#include "m1d_BulkDomain1D.h"
+#include "m1d_SurDomain1D.h"
 
 #ifdef HAVE_MPI
 #include <mpi.h>

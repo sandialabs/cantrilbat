@@ -12,7 +12,6 @@
 
 #include <string>
 #include <exception>
-#include <vector>
 
 namespace m1d
 {

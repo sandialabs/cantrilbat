@@ -11,8 +11,9 @@
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BC_Battery.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
-extern m1d::ProblemStatementCell PSinput;
+//extern m1d::ProblemStatementCell PSinput;
 
 //=====================================================================================================================
 namespace m1d
@@ -28,12 +29,12 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
   extraResistanceCathode_(0.0) 
 {
 
-  voltageVarBCType_ = PSinput.cathodeBCType_;
-  icurrCathodeSpecified_ = PSinput.icurrDischargeSpecified_;
+  voltageVarBCType_ = PSCinput_ptr->cathodeBCType_;
+  icurrCathodeSpecified_ = PSCinput_ptr->icurrDischargeSpecified_;
 
 
-  cathodeCCThickness_ = PSinput.cathodeCCThickness_;
-  extraResistanceCathode_ = PSinput.extraCathodeResistance_;
+  cathodeCCThickness_ = PSCinput_ptr->cathodeCCThickness_;
+  extraResistanceCathode_ = PSCinput_ptr->extraCathodeResistance_;
 
 
   /*
@@ -97,12 +98,12 @@ SDT_CathodeCollector::SetEquationDescription()
    *  If we are just fixing the voltage at the cathode, we can set the plain Dirichlet condition here.
    *  If we are setting the current, we will add in a residual equation by hand in residEval().
    */
-  voltageCathodeSpecified_ = PSinput.CathodeVoltageSpecified_;
-  double (*timeDepFunction)(double) = PSinput.TimeDepFunction_;
-  BoundaryCondition* BC_timeDep = PSinput.BC_TimeDep_;
+  voltageCathodeSpecified_ = PSCinput_ptr->CathodeVoltageSpecified_;
+  double (*timeDepFunction)(double) = PSCinput_ptr->TimeDepFunction_;
+  BoundaryCondition* BC_timeDep = PSCinput_ptr->BC_TimeDep_;
   EqnType e1(Current_Conservation, 2, "Cathode Current Conservation");
   VarType v1(Voltage, 2, "CathodeVoltage");
-  double area = PSinput.cathode_input_->electrodeGrossArea;
+  double area = PSCinput_ptr->cathode_input_->electrodeGrossArea;
   if (voltageVarBCType_ == 10) { 
        delete BC_timeDep;
   BC_timeDep = new BC_cathodeCC(cathodeCCThickness_, extraResistanceCathode_,
