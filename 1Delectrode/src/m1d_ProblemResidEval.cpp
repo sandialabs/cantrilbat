@@ -54,8 +54,9 @@ namespace m1d
  * @param atol   Absolute tolerance for calculation
  */
 ProblemResidEval::ProblemResidEval(double atol) :
-  m_atol(atol), m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"), m_StepNumber(0),
-  solnOld_ptr_(0), resInternal_ptr_(0),
+    m_atol(atol), 
+    m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"), m_StepNumber(0),
+    solnOld_ptr_(0), resInternal_ptr_(0),
   m_atolVector(0), 
   m_atolVector_DAEInit(0),
   m_atolDeltaDamping(0),
@@ -68,7 +69,8 @@ ProblemResidEval::ProblemResidEval(double atol) :
   counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
   SolutionBehavior_printLvl_(0),
   Residual_printLvl_(0),
-  coordinateSystemType_(Rectilinear_Coordinates)
+  coordinateSystemType_(Rectilinear_Coordinates),
+  doEnthalpyEquation_(0)
 {
   /*
    *  Read an environmental variable to set the static variable s_printFlagEnv
@@ -89,6 +91,11 @@ ProblemResidEval::ProblemResidEval(double atol) :
     }
   }
   m_writeStartEndFile = PSinput_ptr->writeStartEndFile_;
+
+  if (PSinput_ptr->Energy_equation_prob_type_ == 3) {
+       doEnthalpyEquation_ = true;
+  }
+
 }
 //=====================================================================================================================
 // Destructor
@@ -128,7 +135,8 @@ ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
   m_currentTimeRegion(0),
   counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
   counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
-  coordinateSystemType_(r.coordinateSystemType_)
+  coordinateSystemType_(r.coordinateSystemType_),
+  doEnthalpyEquation_(r.doEnthalpyEquation_)
 {
   *this = r;
 }

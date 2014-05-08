@@ -499,6 +499,8 @@ public:
    */
   double PressureReference_;
 
+  int doEnthalpyEquation_;
+
 protected:
 
   //! Current value of the residual type

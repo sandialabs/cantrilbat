@@ -98,10 +98,6 @@ namespace m1d
      */
     BulkDomain1D::domain_prep(li_ptr);
 
-    if (PSCinput_ptr->Energy_equation_prob_type_ == 3) {
-        doEnthalpyEquation_ = true;
-    }
-
     double porosity = -1.0;
 
     porosity_Cell_.resize(NumLcCells, porosity);
