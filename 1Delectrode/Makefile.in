@@ -17,6 +17,7 @@ all:
 	cd src_LiKCl_PorousBat;           @MAKE@
 	cd src_LiIon_PorousBat;           @MAKE@
 	cd test_suite;                    @MAKE@
+	cd test_develop;                  @MAKE@
 
 allsrc:
 	cd src;                           @MAKE@ allsrc
@@ -31,11 +32,6 @@ allsrc:
 test:
 	cd test_suite;                    @MAKE@ test
 
-testd:
-	cd test_suite ;                   @MAKE@ testd
-
-test_bat:
-	cd test_suite;                    @MAKE@ test_bat
 
 clean:
 	cd src;                           (/bin/rm -f .depends ; @MAKE@ clean )
@@ -47,6 +43,11 @@ clean:
 	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
 	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
 	cd test_suite;                    @MAKE@ clean
+	cd test_develop;                  @MAKE@ clean
+
+test_clean:
+	cd test_suite;                    @MAKE@ test_clean
+	cd test_develop;                  @MAKE@ test_develop
 
 dist_clean:
 	cd src;                           (/bin/rm -f .depends ; @MAKE@ dist_clean )
@@ -58,6 +59,7 @@ dist_clean:
 	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
 	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
 	cd test_suite;                    @MAKE@ clean
+	cd test_develop;                  @MAKE@ clean
 
 
 depends:
@@ -70,6 +72,7 @@ depends:
 	cd src_LiKCl_PorousBat;           @MAKE@ depends
 	cd src_LiIon_PorousBat;           @MAKE@ depends
 	cd test_suite;                    @MAKE@ depends
+	cd test_develop;                  @MAKE@ depends
 
 install:
 	cd src;                           @MAKE@ install

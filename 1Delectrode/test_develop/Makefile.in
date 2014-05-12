@@ -20,9 +20,6 @@ all:
 test:
 	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ test
 
-testd:
-	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ test
-
 clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy;                 @MAKE@ clean
 

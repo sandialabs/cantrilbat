@@ -10,7 +10,9 @@ build_python=@BUILD_PYTHON@
 ctv=@ctversion@
 
 MP_MACHINEFILE_DEFAULT=@MP_MACHINEFILE_DEFAULT@
-
+#
+#  all:   Compiles all programs, both application and tests
+#
 all:
 	cd util_src;                      @MAKE@
 	cd ctpadds;                       @MAKE@
@@ -22,7 +24,7 @@ all:
 	cd fitShomate;                    @MAKE@
 	cd electrodeCell;                 @MAKE@
 	cd imt_model;                     @MAKE@
-
+#
 # allsrc:  This makes executables and libraries that will be installed, only.
 #          It skips making tests for the most part
 allsrc:
@@ -34,8 +36,10 @@ allsrc:
 	cd epequil;                       @MAKE@ allsrc
 	cd cttables;                      @MAKE@ allsrc
 	cd electrodeCell;                 @MAKE@ allsrc
-
-
+#
+# clean: Clean all executables, depends files, and objects from the directory tree.
+#        Leaves the current output from test programs (IMPLEMENTATION IN PROGRESS).
+#
 clean:
 	cd util_src;                    @MAKE@ clean
 	cd ctpadds;$(RM) .depends ;     @MAKE@ clean
@@ -47,7 +51,25 @@ clean:
 	cd fitShomate;                  @MAKE@ clean
 	cd electrodeCell;               @MAKE@ clean
 	cd imt_model;                   @MAKE@ clean
-
+#
+#  test_clean: Clean all traces of tests taken in the directory tree.
+#              Removes objects and executables from test directories.
+#
+test_clean:
+	cd util_src;                    @MAKE@ clean
+	cd ctpadds;$(RM) .depends ;     @MAKE@ clean
+	cd Electrode;                   @MAKE@ test_clean
+	cd 1Delectrode;                 @MAKE@ test_clean
+	cd mpequil;                     @MAKE@ clean
+	cd epequil;                     @MAKE@ clean
+	cd cttables;                    @MAKE@ clean
+	cd fitShomate;                  @MAKE@ clean
+	cd electrodeCell;               @MAKE@ clean
+	cd imt_model;                   @MAKE@ clean
+#
+#  dist_clean: Carries out all of the operations of clean and test_clean:
+#              Also wipes out all installed file that this module is responsible for posting.
+#
 dist_clean:
 	cd util_src;                    @MAKE@ dist_clean
 	cd ctpadds;			$(RM) .depends ;     @MAKE@ clean
@@ -59,8 +81,9 @@ dist_clean:
 	cd fitShomate;                  @MAKE@ clean
 	cd electrodeCell;               @MAKE@ clean
 	cd imt_model;                   @MAKE@ clean
-
-
+#
+# depends:  Calculates all depends files from scratch
+#
 depends:
 	cd util_src;                   @MAKE@ depends
 	cd ctpadds;                    @MAKE@ depends
@@ -72,7 +95,9 @@ depends:
 	cd fitShomate;                 @MAKE@ depends
 	cd electrodeCell;              @MAKE@ depends
 	cd imt_model;                  @MAKE@ depends
-
+#
+# test:       Carries out all tests
+#
 test:
 	cd util_src;         @MAKE@ -s test
 	cd Electrode;        @MAKE@ -s test
@@ -82,7 +107,9 @@ test:
 	cd cttables;         @MAKE@ -s test
 	cd electrodeCell;    @MAKE@ -s test
 	cd imt_model;        @MAKE@ -s test
-
+#
+# install:   Posts all install files 
+#
 install:
 	cd util_src;                   @MAKE@ install
 	cd ctpadds;                    @MAKE@ install
@@ -94,3 +121,4 @@ install:
 	cd fitShomate;                 @MAKE@ install
 	cd electrodeCell;              @MAKE@ install
 	cd imt_model;                  @MAKE@ install
+

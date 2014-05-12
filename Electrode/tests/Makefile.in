@@ -73,6 +73,29 @@ clean:
 	cd LiSi_5_Anode_Integrate ; @MAKE@ clean
 	cd UnitTests ; @MAKE@ clean
 
+test_clean:
+	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@  clean
+	cd FeS2_3_MPNewman_cV_restart; @MAKE@ clean
+	cd FeS2_4_MPNewman_cc ; @MAKE@  clean
+	cd FeS2_4_cMPNewman_cc ; @MAKE@  clean
+	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ clean 
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@ clean
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart; @MAKE@  clean
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; @MAKE@ clean
+	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@  -s clean
+	cd MCMBAnode_LiIon_DiffTALE_2_cV; @MAKE@  -s clean
+	cd MCMBAnode_LiIon_DiffTALE_3_cV; @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV; @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			@MAKE@ -s clean
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV;			 @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@  clean
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		@MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_cc;               	@MAKE@ clean
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@  clean
+	cd LiSi_5_Anode_Integrate ; @MAKE@ clean
+	cd UnitTests ; 						@MAKE@ clean
+
 
 depends:
 	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ depends
