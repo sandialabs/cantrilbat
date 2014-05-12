@@ -50,7 +50,9 @@ if test ! -x LiIon_PorousBat   ; then
   if test -x ../../src_LiIon_PorousBat/LiIon_PorousBat ; then
     ln -s ../../src_LiIon_PorousBat/LiIon_PorousBat .
   else
-    echo 'ERROR: Multi1DDomain executable can not be found'
+    echo 'ERROR: LiIon_PorousBat executable can not be found'
+    echo 'missing executable ' > runBad
+    /bin/rm -rf runInProgress.txt
     exit -1
   fi
 fi
@@ -86,7 +88,9 @@ retnStat=$?
 if test $retnStat != "0" 
 then
   temp_success="0"
-  echo "Multi1DDomain returned with bad status, $retnStat, check output"
+  echo "$MULTI1DDOMAIN_EXE" " returned with bad status, $retnStat, check output"
+  echo 'bad return code ' `date` > runBad
+  /bin/rm -rf runInProgress.txt
   exit 0
 fi
 
@@ -97,7 +101,7 @@ cat out.txt | sed s/-00/+00/ | cat > outa.txt
 diff good_out.txt outa.txt > diff_out.txt
 retnStat_txt=$?
 
-diff  timeDep_IV_blessed.dat  timeDep_IV.dat > diff_IV.txt
+diff timeDep_IV_blessed.dat  timeDep_IV.dat > diff_IV.txt
 retnStat_IV=$?
 
 diff BulkDomain1D_0_blessed.dat  BulkDomain1D_0.dat> diff_b0.txt
