@@ -103,11 +103,35 @@ public:
    */
   virtual void instantiateElectrodeCells();
 
-    //! Return the  Maximum number of normal electrode subgrid integration steps taken in the last base residual
-    /*!
-     *   (birth and deaths of phases aren't counted)
-     */
-    virtual int getMaxSubGridTimeSteps() const;
+  //! Return the  Maximum number of normal electrode subgrid integration steps taken in the last base residual
+  /*!
+   *   (birth and deaths of phases aren't counted)
+   */
+  virtual int getMaxSubGridTimeSteps() const;
+
+  //! Function that gets called at end the start of every time step
+  /*!
+   *  This function provides a hook for a residual that gets called whenever a
+   *  time step has been accepted and we are about to move on to the next time step.
+   *  The call is made with the current time as the time
+   *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
+   *
+   *  After this call interrogation of the previous time step's results will not be
+   *  valid.
+   *
+   *   @param  doTimeDependentResid  This is true if we are solving a time dependent
+   *                                 problem.
+   *   @param  soln_ptr              Solution value at the current time
+   *   @param  solnDot_ptr           derivative of the solution at the current time.
+   *   @param  solnOld_ptr           Solution value at the old time step, n-1
+   *   @param  t                     current time to be accepted, n
+   *   @param  t_old                 previous time step value
+   */
+  virtual void
+  advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                      const double t, const double t_old);
+
 
     //! Returns the total capacity of the electrode in Amp seconds
     /*!

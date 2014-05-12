@@ -78,6 +78,30 @@ public:
   virtual void
   domain_prep(LocalNodeIndices *li_ptr);
 
+  //! Function that gets called at end the start of every time step
+  /*!
+   *  This function provides a hook for a residual that gets called whenever a
+   *  time step has been accepted and we are about to move on to the next time step.
+   *  The call is made with the current time as the time
+   *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
+   *
+   *  After this call interrogation of the previous time step's results will not be
+   *  valid.
+   *
+   *   @param  doTimeDependentResid  This is true if we are solving a time dependent
+   *                                 problem.
+   *   @param  soln_ptr              Solution value at the current time
+   *   @param  solnDot_ptr           derivative of the solution at the current time.
+   *   @param  solnOld_ptr           Solution value at the old time step, n-1
+   *   @param  t                     current time to be accepted, n
+   *   @param  t_old                 previous time step value
+   */
+  virtual void
+  advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                      const double t, const double t_old);
+
+
   virtual double heatSourceLastStep() const;
   
   virtual double heatSourceAccumulated() const;
@@ -143,10 +167,10 @@ protected:
   //! Local value of the pressure (Pascal)
   double pres_Curr_;
 
-  //!  Total concentration
+  //!  Total concentration of the electrolyte at the current position (kmol m-3)
   double concTot_Curr_;
 
-  //!  Current value of the voltage
+  //!  Current value of the electrolyte voltage (volts) 
   double phiElectrolyte_Curr_;
 
   //! Current porosity
@@ -169,6 +193,29 @@ protected:
   std::vector<double> electrodeHeat_Cell_curr_; 
   std::vector<double> overPotentialHeat_Cell_curr_;
   std::vector<double> deltaSHeat_Cell_curr_;
+
+  //!  Total enthalpy within each cell at the current conditions (Joules/m2)
+  /*!
+   *   This only depends on the current conditions of temperatue, pressure, mole numbers of species, and volume
+   *   fractions. It is an extensive quantity.
+   *
+   *   This quantity is malloced always. But it is only calculated when doEnthalpyEquation_ is true.
+   *
+   *   Length = total number of cells.
+   */
+  std::vector<double> nEnthalpy_New_Cell_;
+
+  //!  Total enthalpy within each cell at the previous time step (Joules/m2)
+  /*!
+   *   This only depends on the previous time step conditions of temperatue, pressure, mole numbers of species, and volume
+   *   fractions. It is an extensive quantity.
+   *
+   *   This quantity is malloced always. But it is only calculated when doEnthalpyEquation_ is true.
+   *
+   *   Length = total number of cells.
+   */
+  std::vector<double> nEnthalpy_Old_Cell_;
+ 
 
 };
 //======================================================================================================================

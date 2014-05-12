@@ -1197,13 +1197,26 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	if  (doEnthalpyEquation_) {
 	    //  Need to count up the enthalpy over the electrode and the electrolyte
 	    //
-	    // Get the Solid enthalpy in Joules 
+	    // Get the Solid enthalpy in Joules / m2
 	    //
-	    //double solidEnthalpyNew = electrode->SolidEnthalpy() / crossSectionalArea_;
+	    double solidEnthalpyNew = Electrode_ptr->SolidEnthalpy() / crossSectionalArea_;
 
+            double lyteEnthalpyNew = EnthPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * xdelCell;
+            //
+            // Calculate and store the total enthalpy in the cell at the current conditions
+            //
+            nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
             /*
              *   .................... Calculate quantities needed at the previous time step
+             *         These are already storred in nEnthalpy_Old_Cell_
+             *
+             *  Do the energy time derivative
              */
+            double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
+
+
+            
 
 	    //res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
 	}

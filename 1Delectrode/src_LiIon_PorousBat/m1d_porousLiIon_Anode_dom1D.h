@@ -484,13 +484,13 @@ protected:
 
     //! Total concentration of the electolyte
     /*!
-     *  Units = kg / m3
+     *  Units = kmol / m3
      */
     double concTot_cent_;
 
     //! Total concentration of the electolyte at the previous time step
     /*!
-     *  Units = kg / m3
+     *  Units = kmol / m3
      */
     double concTot_cent_old_;
 

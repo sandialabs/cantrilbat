@@ -74,6 +74,8 @@ namespace m1d
     qSource_Cell_accumul_ = r.qSource_Cell_accumul_;
     jouleHeat_lyte_Cell_curr_ = r.jouleHeat_lyte_Cell_curr_;
     jouleHeat_solid_Cell_curr_ = r.jouleHeat_solid_Cell_curr_;
+    nEnthalpy_New_Cell_        = r.nEnthalpy_New_Cell_;
+    nEnthalpy_Old_Cell_        = r.nEnthalpy_Old_Cell_;
 
     return *this;
   }
@@ -110,6 +112,8 @@ namespace m1d
     electrodeHeat_Cell_curr_.resize(NumLcCells, 0.0);
     overPotentialHeat_Cell_curr_.resize(NumLcCells, 0.0);
     deltaSHeat_Cell_curr_.resize(NumLcCells, 0.0);
+    nEnthalpy_New_Cell_.resize(NumLcCells, 0.0);
+    nEnthalpy_Old_Cell_.resize(NumLcCells, 0.0);
 
     cellTmpsVect_Cell_.resize(NumLcCells);
   }
@@ -195,7 +199,7 @@ porousFlow_dom1D::residSetupTmps()
         nodeTmpsCenter.RO_ChargeBal_offset         = nodeCent->indexBulkDomainEqn0((size_t) ChargeNeutrality_Summation);
         nodeTmpsCenter.RO_Enthalpy_Conservation    = nodeCent->indexBulkDomainEqn0((size_t) Enthalpy_Conservation);
 
-      /*
+        /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
          *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
@@ -314,7 +318,32 @@ porousFlow_dom1D::residSetupTmps()
 
     }
 }
+//====================================================================================================================
+// Function that gets called at end the start of every time step
+/*
+ *  This function provides a hook for a residual that gets called whenever a
+ *  time step has been accepted and we are about to move on to the next time step.
+ *  The call is made with the current time as the time
+ *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
+ *
+ *  After this call interrogation of the previous time step's results will not be
+ *  valid.
+ *
+ *   @param  doTimeDependentResid  This is true if we are solving a time dependent
+ *                                 problem.
+ *   @param  soln_ptr              Solution value at the current time
+ *   @param  solnDot_ptr           derivative of the solution at the current time.
+ *   @param  solnOld_ptr           Solution value at the old time step, n-1
+ *   @param  t                     current time to be accepted, n
+ *   @param  t_old                 previous time step value
+ */
+void
+porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                                      const double t, const double t_old)
+{
 
+}
 //=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
