@@ -792,6 +792,9 @@ AC_OUTPUT(Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \
           Electrode/Makefile \
+          Electrode/examples/Makefile \
+          Electrode/examples/MCMBAnode_LiIon_CSTR_2_cV/Makefile \
+          Electrode/examples/MCMBAnode_LiIon_SimpleDiff_2_cV/Makefile \
           Electrode/src/Makefile \
           Electrode/tests/Makefile \
           Electrode/tests_develop/Makefile \

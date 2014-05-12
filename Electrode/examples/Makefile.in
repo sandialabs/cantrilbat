@@ -1,0 +1,34 @@
+#/bin/sh
+###############################################################
+#  $Date: 2012/02/22 20:41:57 $
+#  $Revision: 1.45 $
+#
+###############################################################
+
+all:
+	cd MCMBAnode_LiIon_CSTR_2_cV;	  	                @MAKE@
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;    	                @MAKE@ 
+
+test:
+	cd MCMBAnode_LiIon_CSTR_2_cV;	  	                @MAKE@ test
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;    	                @MAKE@ test
+
+clean:
+	cd MCMBAnode_LiIon_CSTR_2_cV;	  	                @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;    	                @MAKE@ clean
+
+test_clean:
+	cd MCMBAnode_LiIon_CSTR_2_cV;	  	                @MAKE@ test_clean
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;    	                @MAKE@ test_clean
+
+depends:
+	cd MCMBAnode_LiIon_CSTR_2_cV;	  	                @MAKE@ depends
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;    	                @MAKE@ depends
+
+rebaseline:
+	cd MCMBAnode_LiIon_CSTR_2_cV;	  	                @MAKE@ rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;    	                @MAKE@ rebaseline
+
+install:
+
+
