@@ -12,10 +12,14 @@
 
 #include "Electrode_defs.h"
 
+#include <string>
+#include <vector>
+
 namespace Cantera
 {
 
 class Electrode;
+class XML_Node;
 
 //! Enum indicating the type of Electrode object output file that is written.
 enum EState_Type_Enum {

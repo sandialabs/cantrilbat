@@ -2,19 +2,10 @@
  * $Id: EState.cpp 584 2013-04-03 00:29:38Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "cantera/base/ctml.h"
-
 #include "EState.h"
 #include "Electrode.h"
 #include "Electrode_MP_RxnExtent.h"
 #include "Electrode_Factory.h"
-
-
-using namespace Cantera;
-using namespace std;
 
 namespace Cantera
 {
