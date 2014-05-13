@@ -2,18 +2,12 @@
  * $Id: Electrode_Integrator.cpp 591 2013-05-09 22:06:20Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
 
 #include "Electrode_Integrator.h"
-#include "cantera/integrators.h"
 #include "cantera/numerics/NonlinearSolver.h"
 
 using namespace Cantera;
-using namespace std;
+//using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 
@@ -2320,7 +2314,7 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
+    std::string pname = tp.id();
     int istart = m_PhaseSpeciesStartIndex[iph];
     int nsp = tp.nSpecies();
     printf("     ===============================================================\n");
@@ -2358,7 +2352,7 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     printf("\n");
     printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
     for (int k = 0; k < nsp; k++) {
-        string sname = tp.speciesName(k);
+        std::string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
                 printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
@@ -2380,7 +2374,7 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         }
     }
     if (iph >= NumVolPhases_) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
@@ -2399,7 +2393,7 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
         for (int k = 0; k <  m_NumTotSpecies; k++) {
-            string ss = speciesName(k);
+            std::string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }
     }

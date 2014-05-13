@@ -61,14 +61,14 @@ public:
     /*!
      * This object owns the Kinetics object
      */
-    Kinetics* m_kinetics;
+    Cantera::Kinetics* m_kinetics;
 
     //! This kinetics operator is associated with multiple
     //! homogeneous and surface phases.
     /*!
      * This object owns the Kinetics object
      */
-    InterfaceKinetics* m_InterfaceKinetics;
+    Cantera::InterfaceKinetics* m_InterfaceKinetics;
 
     int m_nKinSpecies;
     int m_nReactants;

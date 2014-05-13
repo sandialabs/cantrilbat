@@ -3,12 +3,6 @@
  *
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 571 $
- * $Date: 2013-03-26 10:44:21 -0600 (Tue, 26 Mar 2013) $
- */
-
-/*
  * Copywrite (2005) Sandia Corporation. Under the terms of
  * Contract DE-AC04-94AL85000 with Sandia Corporation, the
  * U.S. Government retains certain rights in this software.
@@ -17,13 +11,11 @@
 #ifndef REACTINGSURDOMAIN_H
 #define REACTINGSURDOMAIN_H
 
-#include "cantera/thermo/IdealGasPhase.h"
-#include "cantera/kinetics/GasKinetics.h"
 #include "cantera/kinetics/InterfaceKinetics.h"
-#include "cantera/transport.h"
 
 #include <string>
-#include <iostream>
+#include <vector>
+
 class RxnMolChange;
 
 namespace Cantera

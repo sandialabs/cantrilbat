@@ -4,13 +4,14 @@
 
 #include "Electrode.h"
 #include "Electrode_Factory.h"
+#include "Electrode_FuncCurrent.h"
+#include "cantera/numerics/RootFind.h"
 #include "RxnMolChange.h"
 #include "ApplBase_print.h"
 
 using namespace Cantera;
 using namespace std;
 using namespace BEInput;
-using namespace TKInput;
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))

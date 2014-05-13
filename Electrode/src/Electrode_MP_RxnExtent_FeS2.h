@@ -12,9 +12,7 @@
 #define _ELECTRODE_MP_RXNEXTENT_FES2_H
 
 
-
 #include "Electrode_MP_RxnExtent.h"
-
 
 namespace Cantera
 {

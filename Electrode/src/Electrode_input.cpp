@@ -8,6 +8,8 @@
 #include "Electrode_Factory.h"
 #include "importPL.h"
 
+#include "cantera/thermo/MolalityVPSSTP.h"
+
 #include "BlockEntryGlobal.h"
 
 using namespace std;
@@ -15,6 +17,7 @@ using namespace BEInput;
 using namespace TKInput;
 using namespace ca_ab;
 using namespace mdpUtil;
+using namespace Cantera;
 
 #include <string>
 //================================================================================================
@@ -81,7 +84,7 @@ ElectrodeBath::~ElectrodeBath()
 OCV_Override_input::OCV_Override_input() :
     surfacePhaseID(-1),
     surfacePhaseName(""),
-    OCVModel(""),
+    OCVModel("Constant"),
     replacedSpeciesName(""),
     replacedSpeciesID(-1),
     rxnID(0),
@@ -103,7 +106,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
-    Pressure(OneAtm),
+    Pressure(Cantera::OneAtm),
     Vol(1.0),
     m_BG(0),
     MoleNumber(0),
@@ -964,7 +967,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
 
         if (tp->activityConvention() == cAC_CONVENTION_MOLALITY) {
-            MolalityVPSSTP* m_ptr = dynamic_cast<MolalityVPSSTP*>(tp);
+            Cantera::MolalityVPSSTP* m_ptr = dynamic_cast<Cantera::MolalityVPSSTP*>(tp);
             if (m_ptr == 0) {
                 printf("Dynamic cast failed for some reason\n");
                 exit(-1);

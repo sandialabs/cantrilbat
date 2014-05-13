@@ -4,7 +4,7 @@
 
 #include "Electrode_MP_RxnExtent_FeS2.h"
 
-using namespace std;
+//using namespace std;
 
 namespace Cantera
 {

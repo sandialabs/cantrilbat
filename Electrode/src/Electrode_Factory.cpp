@@ -1,12 +1,9 @@
-
 /*
  * $Id: Electrode_Factory.cpp 604 2013-05-24 16:27:35Z hkmoffa $
  */
 
-
-#include "Electrode.h"
-#include "Electrode_input.h"
 #include "Electrode_Factory.h"
+
 #include "Electrode_InfCapacity.h"
 #include "Electrode_MP_RxnExtent.h"
 #include "Electrode_MP_RxnExtent_FeS2.h"
@@ -17,11 +14,8 @@
 #include "Electrode_CSTR_MCMBAnode.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 #include "Electrode_SuccessiveSubstitution.h"
-#include "Electrode_defs.h"
 #include "Electrode_RadialDiffRegions.h"
 
-using namespace Cantera;
-using namespace std;
 
 namespace Cantera
 {

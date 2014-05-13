@@ -14,9 +14,10 @@
 #ifndef ELECTRODE_FD_JACOBIAN_H_
 #define ELECTRODE_FD_JACOBIAN_H_
 
+#include "Electrode_Jacobian.h"
+
 #include <list>
 #include <map>
-#include "Electrode_Jacobian.h"
 
 namespace Cantera {
 

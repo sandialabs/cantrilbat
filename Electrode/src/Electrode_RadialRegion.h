@@ -11,12 +11,7 @@
 #ifndef _ELECTRODE_RADIALREGION_H
 #define _ELECTRODE_RADIALREGION_H
 
-
-#include "Electrode.h"
 #include "Electrode_Integrator.h"
-#include "cantera/integrators.h"
-#include "cantera/numerics/ResidJacEval.h"
-
 
 namespace Cantera
 {

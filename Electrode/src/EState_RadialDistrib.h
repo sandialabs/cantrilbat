@@ -17,7 +17,6 @@
 namespace Cantera
 {
 
-class Electrode;
 class Electrode_SimpleDiff;
 class Electrode_DiffTALE;
 

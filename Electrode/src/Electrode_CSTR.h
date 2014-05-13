@@ -11,9 +11,8 @@
 #ifndef _ELECTRODE_CSTR_H
 #define _ELECTRODE_CSTR_H
 
-#include "Electrode.h"
 
-#include "cantera/numerics/NonlinearSolver.h"
+//#include "cantera/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_Integrator.h"

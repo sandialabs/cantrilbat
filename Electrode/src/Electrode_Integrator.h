@@ -12,9 +12,7 @@
 #define _ELECTRODE_INTEGRATOR_H
 
 
-
 #include "Electrode.h"
-#include "cantera/integrators.h"
 #include "cantera/numerics/ResidJacEval.h"
 
 namespace Cantera

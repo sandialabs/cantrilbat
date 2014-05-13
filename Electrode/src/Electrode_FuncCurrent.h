@@ -11,17 +11,8 @@
 #ifndef _ELECTRODE_FUNCCURRENT_H
 #define _ELECTRODE_FUNCCURRENT_H
 
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
-
-#include "Electrode.h"
-
-#include "ReactingSurDomain.h"
 #include "Electrode_Integrator.h"
-
-using namespace std;
-using namespace Cantera;
-using namespace VCSnonideal;
+#include "cantera/numerics/ResidEval.h"
 
 namespace Cantera
 {

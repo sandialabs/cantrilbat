@@ -590,6 +590,12 @@ end block Bath Specification for Phase LiCoO2_Margules_1
             li_site = (double) with limits (0, 1) with default 0
         END BLOCK Bath Species Mole Fraction
     END BLOCK Bath Specification for Phase cathode_surface
+    START BLOCK Open Circuit Potential Override for interface cathode_surface           (OPTIONAL BLOCK)
+        Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            li_site = (double) with limits (0, 1) with default 0
+        END BLOCK Bath Species Mole Fraction
+    END BLOCK Open Circuit Potential Override for interface cathode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)
         Reaction Extent Bottom Limit = (double) with default -1 (REQUIRED LINE)
@@ -1611,6 +1617,12 @@ end block Bath Specification for Phase LiCoO2_Margules_1
             li_site = (double) with limits (0, 1) with default 0
         END BLOCK Bath Species Mole Fraction
     END BLOCK Bath Specification for Phase cathode_surface
+    START BLOCK Open Circuit Potential Override for interface cathode_surface           (OPTIONAL BLOCK)
+        Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            li_site = (double) with limits (0, 1) with default 0
+        END BLOCK Bath Species Mole Fraction
+    END BLOCK Open Circuit Potential Override for interface cathode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)
         Reaction Extent Bottom Limit = (double) with default -1 (REQUIRED LINE)

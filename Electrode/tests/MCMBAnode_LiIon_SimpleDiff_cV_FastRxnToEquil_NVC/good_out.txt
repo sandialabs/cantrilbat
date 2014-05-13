@@ -107,6 +107,12 @@
             li_site = (double) with limits (0, 1) with default 0
         END BLOCK Bath Species Mole Fraction
     END BLOCK Bath Specification for Phase anode_surface
+    START BLOCK Open Circuit Potential Override for interface anode_surface           (OPTIONAL BLOCK)
+        Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            li_site = (double) with limits (0, 1) with default 0
+        END BLOCK Bath Species Mole Fraction
+    END BLOCK Open Circuit Potential Override for interface anode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)
         Reaction Extent Bottom Limit = (double) with default -1 (REQUIRED LINE)

@@ -11,7 +11,6 @@
 #ifndef _ELECTRODE_SURFACEREGION_H
 #define _ELECTRODE_SURFACEREGION_H
 
-
 #include "Electrode_Integrator.h"
 
 namespace Cantera

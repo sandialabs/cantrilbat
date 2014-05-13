@@ -11,15 +11,10 @@
 #ifndef _ELECTRODE_RADIALDIFFREGIONS_H
 #define _ELECTRODE_RADIALDIFFREGIONS_H
 
-
-#include "Electrode.h"
 #include "Electrode_Integrator.h"
 
 #include "Electrode_RadialRegion.h"
 #include "Electrode_SurfaceRegion.h"
-#include "cantera/integrators.h"
-#include "cantera/numerics/ResidJacEval.h"
-
 
 namespace Cantera
 {

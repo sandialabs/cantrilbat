@@ -11,39 +11,20 @@
  * $Date: 2013-04-02 18:29:38 -0600 (Tue, 02 Apr 2013) $
  */
 
-
-//#include "cantera/equilibrium.h"
-
-#include "cantera/thermo/MolalityVPSSTP.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
-
-#include "cantera/numerics/solveProb.h"
-
-#include "cantera/solvers.h"
-
-
-//#include "PhaseList.h"
-
-#include "Electrode.h"
-
-
-#include "Electrode_input.h"
-#include "Electrode_FuncCurrent.h"
-
-#include "ApplBase_print.h"
-
-
 #ifndef ELECTRODE_FACTORY_H
 #define ELECTRODE_FACTORY_H
 
-//#include "ThermoPhase.h"
-//#include "xml.h"
+#include "Electrode.h"
+#include "ApplBase_print.h"
+#include "cantera/numerics/solveProb.h"
+#include "cantera/base/FactoryBase.h"
 
 #if defined(THREAD_SAFE_CANTERA)
 #include <boost/thread/mutex.hpp>
 #endif
 
-#include "cantera/base/FactoryBase.h"
+#include <string>
+#include <map>
 
 namespace Cantera
 {
@@ -58,7 +39,6 @@ struct Map_ETEnum_String {
     std::map<std::string , Electrode_Types_Enum> string_electrode_types;
 };
 extern Map_ETEnum_String gMap_ETEnum_String;
-
 
 //! Enum to String routine for the enum Electrode_Types_Enum
 /*!
@@ -83,7 +63,7 @@ Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_str
  * This class keeps a list of the known ThermoPhase classes, and is
  * used to create new instances of these classes.
  */
-class Electrode_Factory : public FactoryBase
+class Electrode_Factory : public Cantera::FactoryBase
 {
 
 public:
