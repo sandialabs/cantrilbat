@@ -1,19 +1,28 @@
-###################################################################
-#  vcs_Cantera   Command File
-#
-#   Master input file describing all of the options in the file
-##################################################################
-!-------------------------------------------------------------------------
-! Electrode Name = string      (no default) (optional)
+!---------------------------------------------------------------------------------------------------------------
 !
-!-------------------------------------------------------------------------
+!  Electrode input commands
+!
+!
+!---------------------------------------------------------------------------------------------------------------
+!
+!      Electrode Name = string      (no default) (required)
+!
+!         Identifying name to be used on printouts
+!
+!---------------------------------------------------------------------------------------------------------------
 Electrode Name = FeS2
-!-------------------------------------------------------------------------
+!---------------------------------------------------------------------------------------------------------------
 !
+!      Electrode Type = ["anode", "cathode"]
+!         PickList ->   (required)
+!                     default = anode
+!         The type is mostly never used. It's under consideration for removal, but may be necessary
+!         for specification of the capacity, i.e., we need a direction for the specification of the capacity
 !
-!-------------------------------------------------------------------------
+!---------------------------------------------------------------------------------------------------------------
 Electrode Type = cathode
-!--------------------------------------------------------------------
+!---------------------------------------------------------------------------------------------------------------
+!
 !  Specification of the Electrode Model Name
 !
 !
@@ -24,24 +33,25 @@ Electrode Type = cathode
 !             required = not now but later
 !             default = ""
 !
-!--------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
 Electrode Model Name = InfCapacity
-!-------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
 !
 ! Number of Cantera Files = int
 !
 !   Number of cantera files.  
 !
-!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------------------------------
 Number of Cantera Files = 5
-!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------------------------------
+!
 ! Cantera File Name = [string] [ required ]
 !
 !  Must have a number of lines equal to the number entered on the
 !  line "Number of Cantera Files"
 !   Note, all phases found in each file will be included in the 
 !   equilibrium calculation.
-!-------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------------------------------
 !
 Cantera File Name = metal_Li_LiCl_electrons.xml
 Cantera File Name = LiKCl_recipmoltenSalt.xml
@@ -49,8 +59,13 @@ Cantera File Name = FeS2_A.xml
 Cantera File Name = FeS2_B.xml
 Cantera File Name = FeS2_electrode.xml
 !
-!-------------------------------------------------------------------------
-! Temperature - double (no default) (required)
+!-------------------------------------------------------------------------------------------------------------
+!
+!    Temperature = double (default = 300.0 K) (optional)
+!
+!         The temperature is initialized to this value at the electrode level.
+!         This means that all ThermoPhases are initialized to this level as an initial condition.
+!         The temperature may be overrided by programs that use the Electrode object.
 ! 
 !-------------------------------------------------------------------------
 Temperature = 723.15
@@ -144,16 +159,28 @@ end block Bath Specification for Phase LiKCl_electrolyte
 !
 !--------------------------------------------------------------------------------------------------------------
 !
-!  BLOCK:  Open Circuit voltage Override for interface 
+!      BLOCK:  Open Circuit voltage Override for interface   [optional] [unique block]
 !
+!         Inclusion of this block means that the open circuit voltage for the reactions involving one
+!         species is replaced by an analytical expression that is supplied via utility routines.
+!         What this means in practice is that the thermodynamic expression for one species is 
+!         replaced with a value which creates that desired OCV. 
 !
+!         In the common case of an intercalated solid, the thermo of one of the intercalated species
+!         is replaced with the thermo dictated by the OCV. This means that the particular species to be
+!         replaced must be identified, as well as the particular reaction, whose OCV expression ((i.e., delta G)
+!         is to be specified, must be identified.
 !
+!         Note, in most cases there will only be one reaction on these surfaces, due to the incomplete
+!         thermo representation.
 !
 start block Open Circuit Potential Override for interface LiFe2S4_interface
-   Open Circuit Model = newFit_LiFe2S4
+   Open Circuit Voltage Model = newFit_LiFe2S4
    Replaced Species = LiFe2S4
+   Identify Reaction for OCV Model = 0
    Temperature Derivative = [ ZERO, SPECIES, MODEL ]
-   Open Circuit Temperature Derivative Model =  newFit_LiFe2S4
+   Temperature for OCV = 298.15
+   Open Circuit Temperature Derivative Model = newFit_LiFe2S4
 end block Open Circuit Potential Override for interface LiFe2S4_interface
 
 

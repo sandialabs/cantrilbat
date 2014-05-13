@@ -17,10 +17,14 @@
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -150,10 +154,14 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -473,6 +481,11 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 =========================================================
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
+    Electrode Name = (string) with Token limits(15, 1)
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
+        LIST = 
+            anode : 0
+            cathode : 1
     Number of Cantera Files = (integer) with default 1
          => Number of Cantera Files ====> NumCanteraFiles = 4
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
@@ -481,11 +494,6 @@ end block Bath Specification for Phase LiCoO2_Margules_1
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  LiCoO2_Margules_1.xml
          ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
-    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
-        LIST = 
-            anode : 0
-            cathode : 1
-    Electrode Name = (string) with Token limits(15, 1)
     Temperature = (double) with limits (0, 3000) with default 300
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
@@ -630,10 +638,14 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -763,10 +775,14 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -1482,6 +1498,11 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 =========================================================
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
+    Electrode Name = (string) with Token limits(15, 1)
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
+        LIST = 
+            anode : 0
+            cathode : 1
     Number of Cantera Files = (integer) with default 1
          => Number of Cantera Files ====> NumCanteraFiles = 4
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
@@ -1490,11 +1511,6 @@ end block Bath Specification for Phase LiCoO2_Margules_1
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  LiCoO2_Margules_1.xml
          ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
-    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
-        LIST = 
-            anode : 0
-            cathode : 1
-    Electrode Name = (string) with Token limits(15, 1)
     Temperature = (double) with limits (0, 3000) with default 300
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325

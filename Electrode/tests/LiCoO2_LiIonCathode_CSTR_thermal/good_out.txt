@@ -17,10 +17,14 @@
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -122,10 +126,14 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -390,10 +398,14 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -495,10 +507,14 @@ end block Bath Specification for Phase LiCoO2_Margules_1
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiCoO2
+ => Electrode Name = LiCoO2
+ ====> ElectrodeName = LiCoO2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !

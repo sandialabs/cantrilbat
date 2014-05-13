@@ -17,9 +17,13 @@
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiSi
+ => Electrode Name = LiSi
+ ====> ElectrodeName = LiSi
 !
 !-------------------------------------------------------------------------
 Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -126,9 +130,13 @@ End block Extra Global Reaction
 !
 !-------------------------------------------------------------------------
 Electrode Name = LiSi
+ => Electrode Name = LiSi
+ ====> ElectrodeName = LiSi
 !
 !-------------------------------------------------------------------------
 Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !

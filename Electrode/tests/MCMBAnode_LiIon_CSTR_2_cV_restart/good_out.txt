@@ -17,10 +17,14 @@
 !
 !-------------------------------------------------------------------------
 Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -133,10 +137,14 @@ end block Bath Specification for Phase MCMB_Interstitials_anode
 !
 !-------------------------------------------------------------------------
 Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -425,10 +433,14 @@ end block Bath Specification for Phase MCMB_Interstitials_anode
 !
 !-------------------------------------------------------------------------
 Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -541,10 +553,14 @@ end block Bath Specification for Phase MCMB_Interstitials_anode
 !
 !-------------------------------------------------------------------------
 Electrode Name = MCMB
+ => Electrode Name = MCMB
+ ====> ElectrodeName = MCMB
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = anode
+ => Electrode Type = anode
+ ====> ElectrodeType = anode, list item 0
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !

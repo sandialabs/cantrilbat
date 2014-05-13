@@ -581,6 +581,26 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
      */
     lastBlockEntryPtr_ = cf;
 
+    /* --------------------------------------------------------------
+     * Electrode Name  = Identifying name to be used on printouts
+     *    (required)
+     *    default = ""
+     */
+    LE_OneStr* eName = new LE_OneStr("Electrode Name",  &(electrodeName),
+                                     15, 1, 0, "ElectrodeName");
+    cf->addLineEntry(eName);
+
+    /* --------------------------------------------------------------
+     * Electrode Type = ["anode", "cathode"]
+     *    (required)
+     *    default = anode
+     */
+    const char* etype[2] = {"anode", "cathode"};
+    LE_PickList* leptype =
+        new LE_PickList("Electrode Type", &(electrodeCapacityType), etype, 2, 1, "ElectrodeType");
+    leptype->set_default(0);
+    cf->addLineEntry(leptype);
+
     /*
      * Obtain the number of cantera files to be read
      */
@@ -675,34 +695,16 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     int iph;
 
     /* --------------------------------------------------------------
-     * Electrode Type = ["anode", "cathode"]
-     *    (required)
-     *    default = anode
+     * Temperature -  double  [optional]  [default = 300.0K]
+     *
+     *   The temperature is initialized to this value at the electrode level.
+     *   This means that all ThermoPhases are initialized to this level as an initial condition.
+     *   The temperature may be overrided by programs that use the Electrode object.
      */
-    const char* etype[2] = {"anode", "cathode"};
-    LE_PickList* leptype =
-        new LE_PickList("Electrode Type", &(electrodeCapacityType), etype, 2, 1, "ElectrodeType");
-    leptype->set_default(0);
-    cf->addLineEntry(leptype);
-
-    /* --------------------------------------------------------------
-     * Electrode Name  = Identifying name to be used on printouts
-     *    (required)
-     *    default = ""
-     */
-    LE_OneStr* eName = new LE_OneStr("Electrode Name",  &(electrodeName),
-                                     15, 1, 0, "ElectrodeName");
-    cf->addLineEntry(eName);
-
-    /* --------------------------------------------------------------
-     * Temperature
-     */
-    LE_OneDbl* d1 = new LE_OneDbl("Temperature",
-                                  &(Temperature), 0, "Temperature");
+    LE_OneDbl* d1 = new LE_OneDbl("Temperature", &(Temperature), 0, "Temperature");
     d1->set_default(300.);
     d1->set_limits(3000., 0.0);
     cf->addLineEntry(d1);
-
 
     /* --------------------------------------------------------------
      * Pressure -

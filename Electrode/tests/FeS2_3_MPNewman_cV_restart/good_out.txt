@@ -17,10 +17,14 @@
 !
 !-------------------------------------------------------------------------
 Electrode Name = FeS2
+ => Electrode Name = FeS2
+ ====> ElectrodeName = FeS2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -144,10 +148,14 @@ Molar Volumes Region Boundaries =  26.7E-3   26.7E-3 26.7E-3 26.7E-3 26.7E-3
 !
 !-------------------------------------------------------------------------
 Electrode Name = FeS2
+ => Electrode Name = FeS2
+ ====> ElectrodeName = FeS2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -468,10 +476,14 @@ Molar Volumes Region Boundaries =  26.7E-3   26.7E-3 26.7E-3 26.7E-3 26.7E-3
 !
 !-------------------------------------------------------------------------
 Electrode Name = FeS2
+ => Electrode Name = FeS2
+ ====> ElectrodeName = FeS2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
@@ -595,10 +607,14 @@ Molar Volumes Region Boundaries =  26.7E-3   26.7E-3 26.7E-3 26.7E-3 26.7E-3
 !
 !-------------------------------------------------------------------------
 Electrode Name = FeS2
+ => Electrode Name = FeS2
+ ====> ElectrodeName = FeS2
 !
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
+ => Electrode Type = cathode
+ ====> ElectrodeType = cathode, list item 1
 !--------------------------------------------------------------------
 !  Specification of the Electrode Model Name
 !
