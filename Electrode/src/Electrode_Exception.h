@@ -10,11 +10,9 @@
 #ifndef ELECTRODE_EXCEPTION_H
 #define ELECTRODE_EXCEPTION_H
 
-#include <string>
-#include <exception>
-#include <vector>
-
 #include "cantera/base/ctexceptions.h" 
+
+#include <string>
 
 namespace Cantera 
 {

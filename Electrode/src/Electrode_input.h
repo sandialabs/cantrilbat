@@ -90,6 +90,21 @@ public:
 };
 
 
+struct OCV_Override_input {
+    OCV_Override_input();
+
+   int surfacePhaseID;
+   std::string surfacePhaseName;
+   std::string OCVModel;
+   std::string replacedSpeciesName;
+   int replacedSpeciesID;
+   int rxnID;
+   int temperatureDerivType;
+   double temperatureBase;
+   std::string OCVTempDerivModel;
+};
+
+
 class EGRInput;
 
 

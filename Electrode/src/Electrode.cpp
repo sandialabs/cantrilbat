@@ -1,36 +1,10 @@
 /*
  * $Id: Electrode.cpp 593 2013-05-13 21:25:47Z hkmoffa $
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
-
-#include "cantera/equilibrium.h"
-
-#include "cantera/thermo/MolalityVPSSTP.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
-
-#include "cantera/numerics/solveProb.h"
-#include "cantera/numerics/BEulerInt.h"
-
-#include "cantera/solvers.h"
-
-#include "PhaseList.h"
-
-#include "BlockEntryGlobal.h"
 
 #include "Electrode.h"
-#include "ReactingSurDomain.h"
-#include "importAllCTML.h"
-#include "RxnMolChange.h"
-#include "ExtraGlobalRxn.h"
-
-#include "Electrode_input.h"
-#include "Electrode_FuncCurrent.h"
 #include "Electrode_Factory.h"
-
+#include "RxnMolChange.h"
 #include "ApplBase_print.h"
 
 using namespace Cantera;

@@ -11,14 +11,8 @@
  * $Date: 2013-04-02 18:29:38 -0600 (Tue, 02 Apr 2013) $
  */
 
-// Copyright 2001  California Institute of Technology
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
 
-#include "cantera/equilibrium.h"
+//#include "cantera/equilibrium.h"
 
 #include "cantera/thermo/MolalityVPSSTP.h"
 #include "cantera/thermo/FixedChemPotSSTP.h"
@@ -28,10 +22,9 @@
 #include "cantera/solvers.h"
 
 
-#include "PhaseList.h"
+//#include "PhaseList.h"
 
 #include "Electrode.h"
-
 
 
 #include "Electrode_input.h"

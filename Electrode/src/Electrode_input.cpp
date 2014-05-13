@@ -76,6 +76,22 @@ ElectrodeBath::~ElectrodeBath()
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffPhases);
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffSpecVec);
 }
+
+//================================================================================================
+OCV_Override_input::OCV_Override_input() :
+    surfacePhaseID(-1),
+    surfacePhaseName(""),
+    OCVModel(""),
+    replacedSpeciesName(""),
+    replacedSpeciesID(-1),
+    rxnID(0),
+    temperatureDerivType(0),
+    temperatureBase(298.15),
+    OCVTempDerivModel("")
+{
+}
+//================================================================================================
+
 /*************************************************************************
  *
  * MPEQUIL_KEY_INPUT(): constructor
@@ -608,9 +624,6 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
     BaseEntry::set_SkipUnknownEntries(true);
 }
 //========================================================================================================================
-/****************************************************************************
- *
- */
 void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
 {
     /*
@@ -642,9 +655,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
     cf->addLineEntry(s1);
     BaseEntry::set_SkipUnknownEntries(true);
 }
-
-/************************************************************************
- *
+//========================================================================================================================
+/*
  *
  * generic function Wrapper around new, in order to create a function
  * pointer for BE_MultiBlock
@@ -654,17 +666,13 @@ void* getNewEGRInput(void* data_loc)
     void* ptr = new EGRInput();
     return ptr;
 }
-
+//========================================================================================================================
 void* getNewERSSpec(void* data_loc)
 {
     void* ptr = new ERSSpec();
     return ptr;
 }
-
-
-/****************************************************************************
- *
- */
+//========================================================================================================================
 void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 {
     /*
@@ -786,7 +794,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     dpNum->declareDependency(depw_a);
 
     /* ---------------------------------------------------------------------------
-     * Electrode porosity
+     * Electrode porosity = double
+     *            (optional) (default = -1.0)
      *
      * Configure the fraction of free area within the electrode.
      */
@@ -800,7 +809,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     //   Note that we don't really need porosity IF you bother to compute the volume of the electrode properly
     BI_Dependency* dep_ePorosity_dpNum = new BI_Dependency(dpNum, BIDT_ENTRYPROCESSED, BIDRT_ONENUMTR);
     ePorosity->declareDependency(dep_ePorosity_dpNum);
-
 
 
     //   If the 'Electrode Area' card is in the input deck, then the 'Electrode Porosity' card is prohibited.
@@ -817,7 +825,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
                                           cxml, 4, 0, "XMLLevel");
     lepXML->set_default(0);
     cf->addLineEntry(lepXML);
-
 
 
     /*
@@ -857,11 +864,11 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         BG.CapZeroDoDCoeffPhases[tph] = BG.CapZeroDoDCoeffSpecVec + kstart;
     }
 
+    // ---------------------------------------------------------------------------------
     /*
      *  Specify a block for each Phase to receive inputs on composition
      *  and voltage
      */
-
     for (iph = 0; iph < pl->nVolPhases(); iph++) {
         string phaseBath = "Bath Specification for Phase ";
         ThermoPhase* tp = &(pl->volPhase(iph));
@@ -877,8 +884,10 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         int kstart = pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
 
         /* --------------------------------------------------------------
-         * BG.PotentialPLPhases
-         *  Input the voltage for the phase
+         * BG.PotentialPLPhases[iph]
+         * 
+         *        Voltage = double   [optional] [default = 0.0]
+         *        Input the voltage for the phase
          */
         LE_OneDbl* iVolt = new LE_OneDbl("Voltage", &(PotentialPLPhases[iph]), 0,  "Voltage");
         iVolt->set_default(0.0);
@@ -971,15 +980,10 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
         }
 
-
-
-
     }
-
+    // ---------------------------------------------------------------------------------
  
-
-
-
+    // ---------------------------------------------------------------------------------
     /*
      *  Specify a block for each surface Phase to receive inputs on composition
      *  and voltage
@@ -1001,7 +1005,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
 
 
-
         /* --------------------------------------------------------------
          * BG.BathSpeciesMoleFractions -
          *
@@ -1013,8 +1016,57 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
         bbathphase->addSubBlock(bpmc);
-
     }
+    // ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
+    //  
+    //  Specify a block for each surface phase to receive inputs on OCV Overrides
+    //
+    for (size_t iphS = 0; iphS < (size_t)pl->nSurPhases(); iphS++) {
+        std::string phaseBath = "Open Circuit Potential Override for interface ";
+        iph = pl->nVolPhases() + iphS;
+        ThermoPhase* tp = &(pl->surPhase(iphS));
+        string phaseNm = tp->name();
+        size_t nSpecies = tp->nSpecies();
+        phaseBath += phaseNm;
+
+        struct OCV_Override_input ocv_input;
+        // 
+        //   Create a section method description block and start writing
+        //  line elements in it.
+        // 
+        BlockEntry* bOCVoverride = new BlockEntry(phaseBath.c_str());
+        cf->addSubBlock(bOCVoverride);
+
+        int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
+
+        /* --------------------------------------------------------------
+         *      ocv_input.OCVModel = string   (required)
+         *
+         *  Input a string name that will be inputted into a factor to pick the OCV model
+         *  from a list of options.
+         *  
+         *   default name = "Constant"
+         */
+        LE_OneStr* smodel = new LE_OneStr("Open Circuit Voltage Model", &(ocv_input.OCVModel), 
+                                          10, 1, 1, "SpeciesName");
+        smodel->set_default("Constant");
+        bOCVoverride->addLineEntry(smodel);
+        
+        /* --------------------------------------------------------------
+         * BG.BathSpeciesMoleFractions -
+         *
+         * Create a PickList Line Element made out of the list of
+         * species
+         */
+        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction",
+                                            &(BG.XmolPLPhases[iph]), 0,
+                                            SpeciesNames+kstart, nSpecies, 0, "XBathmol");
+        bpmc->generateDefLE();
+        bOCVoverride->addSubBlock(bpmc);
+    }
+    // ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
 
     BlockEntry* rb = new BlockEntry("Reaction Extent Limits", 0);
     cf->addSubBlock(rb);

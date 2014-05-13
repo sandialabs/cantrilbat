@@ -10,6 +10,9 @@
  */
 
 #include "PhaseList.h"
+#include "Electrode_Exception.h"
+
+#include <new>
 
 using namespace std;
 
@@ -40,7 +43,6 @@ PhaseList::PhaseList(ThermoPhase* const vp, XML_Node* vPhase, double vol,
     m_NumSurPhases(0),
     m_totNumSurSpecies(0),
     SurPhaseList(0),
-
     SurPhaseXMLNodes(0),
     SurPhaseHasKinetics(0),
     PhaseList_(0),
@@ -107,7 +109,7 @@ PhaseList::PhaseList(const PhaseList& right) :
     /*
      * Call the assignment operator
      */
-    *this = operator=(right);
+    operator=(right);
 }
 //================================================================================================
 /*
@@ -221,7 +223,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
  *     meta information lists kept by the PhaseList object
  */
 void PhaseList::
-addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, std::string canteraFile)
+addVolPhase(Cantera::ThermoPhase* const vp, XML_Node* vPhase, std::string canteraFile)
 {
 
     // Check for incompatibilities
@@ -313,8 +315,8 @@ addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, std::string canteraFile)
     }
 
 }
-
-/*************************************************************************
+//==================================================================================================================
+/*
  *
  *  addSurfPhase:
  *
@@ -325,7 +327,7 @@ addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, std::string canteraFile)
  *     meta information lists kept by the PhaseList object
  */
 void PhaseList::
-addSurPhase(ThermoPhase* const sp, XML_Node* sPhase, std::string canteraFile)
+addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase, std::string canteraFile)
 {
 
     // Check for incompatibilities
@@ -412,8 +414,8 @@ addSurPhase(ThermoPhase* const sp, XML_Node* sPhase, std::string canteraFile)
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
     }
 }
-
-/*************************************************************************
+//==================================================================================================================
+/*
  *
  *  getVolPhaseIndex:
  *
@@ -435,8 +437,7 @@ int PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
     }
     return -1;
 }
-
-
+//==================================================================================================================
 int PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
 {
     for (int i = 0; i < m_NumSurPhases; i++) {
@@ -711,6 +712,6 @@ std::string PhaseList::speciesName(int iGlobSpeciesIndex) const
     ThermoPhase& tp = thermo(iPhase);
     return tp.speciesName(kLocal);
 }
-
+//======================================================================================================================
 }
 //======================================================================================================================

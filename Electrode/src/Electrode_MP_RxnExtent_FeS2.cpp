@@ -2,26 +2,18 @@
  * $Id: Electrode_MP_RxnExtent.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
-
 #include "Electrode_MP_RxnExtent_FeS2.h"
 
-using namespace Cantera;
 using namespace std;
-
-
 
 namespace Cantera
 {
-
-
 
 //====================================================================================================================
 Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2() :
     Electrode_MP_RxnExtent()
 {
- 
 }
-//====================================================================================================================
 //====================================================================================================================
 // Copy Constructor
 /*
@@ -29,9 +21,7 @@ Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2() :
  */
 Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2(const Electrode_MP_RxnExtent_FeS2& right) :
     Electrode_MP_RxnExtent()
-  
 {
-  
     operator=(right);
 }
 //======================================================================================================================
@@ -41,23 +31,15 @@ Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2(const Electrode_MP_RxnE
  */
 Electrode_MP_RxnExtent_FeS2& Electrode_MP_RxnExtent_FeS2::operator=(const Electrode_MP_RxnExtent_FeS2& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
-
     Electrode_MP_RxnExtent::operator=(right);
-
-    
-
     return *this;
 }
 //=======================================================================================================
 Electrode_MP_RxnExtent_FeS2::~Electrode_MP_RxnExtent_FeS2()
 {
-
 }
 //=======================================================================================================
 // Return the type of electrode
@@ -70,8 +52,6 @@ Electrode_Types_Enum  Electrode_MP_RxnExtent_FeS2::electrodeType() const
 {
     return MP_RXNEXTENT_FES2_ET;
 }
-
-
 //=======================================================================================================
 double 
 Electrode_MP_RxnExtent_FeS2::openCircuitVoltageSS_Region_NoCheck(double relativeExtentRxn,

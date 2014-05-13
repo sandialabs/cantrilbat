@@ -2,13 +2,7 @@
  * $Id: Electrode_CSTR_LiCoO2Cathode.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
 
-#include "cantera/equilibrium.h"
 
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 

@@ -4,7 +4,6 @@
 
 #include "Electrode_InfCapacity.h"
 
-using namespace Cantera;
 using namespace std;
 
 namespace Cantera
@@ -121,13 +120,13 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     double sa_final;
     counterNumberIntegrations_++;
     counterNumberSubIntegrations_++;
-    vector<doublereal> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    vector<doublereal> phaseMoles_init_init(m_NumTotPhases, 0.0);
-    vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> delta(m_NumTotSpecies, 0.0);
-    vector<int> justBornMultiSpecies(0);
+    std::vector<doublereal> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    std::vector<doublereal> phaseMoles_init_init(m_NumTotPhases, 0.0);
+    std::vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
+    std::vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<doublereal> delta(m_NumTotSpecies, 0.0);
+    std::vector<int> justBornMultiSpecies(0);
 
 
     std::copy(spMoles_init_init_.begin(), spMoles_init_init_.end(), spMoles_init_.begin());
@@ -309,7 +308,7 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(doublereal* const pha
     double sum = 0.0;
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMolesTransfered[iph] = 0.0;
-        ThermoPhase& tp = thermo(iph);
+        Cantera::ThermoPhase& tp = thermo(iph);
         string pname = tp.id();
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();
