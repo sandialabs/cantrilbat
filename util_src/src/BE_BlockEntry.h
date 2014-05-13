@@ -43,8 +43,15 @@ namespace BEInput {
    *  The keylines for the start and end blocks must match
    *  up. It is an error if they don't.
    *
+   *  It may be set as being required in the input block or as being optional
+   *  in the input block. Keylines within the block may be set as being
+   *  required even if the block is optional.
+   *
+   *  The arguments to the block appear after an equals sign. They are tokenized
+   *  and then available for later processing within the block.
+   *
    *  This class contains the methods for recursively scanning
-   *  nested blocks and reading their input
+   *  nested blocks and reading their input.
    *
    * @ingroup blockentryModule
    */
@@ -68,7 +75,7 @@ namespace BEInput {
 			int numTimesRequired = 0,
 			BlockEntry *ParentBlock_input = 0);
 
-    //! copy constructor
+    //! Copy constructor
     /*!
      * @param right object to be copied
      */
