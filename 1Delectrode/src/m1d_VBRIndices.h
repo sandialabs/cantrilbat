@@ -13,12 +13,9 @@
 
 #ifndef _M1D_VBRINDICES_H
 #define _M1D_VBRINDICES_H
-#include "m1d_defs.h"
 
-#include "Epetra_SerialDenseMatrix.h"
-#include "Epetra_VbrMatrix.h"
+
 #include "Epetra_VbrRowMatrix.h"
-#include "Epetra_MapColoring.h"
 
 #include <vector>
 
@@ -26,7 +23,7 @@ namespace m1d
 {
 class GlobalIndices;
 class LocalNodeIndices;
-  class ProblemResidEval;
+class ProblemResidEval;
 
 /**
  * @defgroup matrixInteraction How to interact with the VBR Matrix

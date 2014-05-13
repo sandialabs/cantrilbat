@@ -8,6 +8,7 @@
 
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_SurDomain_CathodeCollector.h"
+#include "m1d_exception.h"
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BC_Battery.h"

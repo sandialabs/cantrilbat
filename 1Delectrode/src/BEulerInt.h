@@ -49,7 +49,6 @@ namespace beuler {
  *   This macro will set the pointer to zero, indicating that the contents are
  *   now inaccessible
  */
-#define safeDelete(ptr)  if (ptr) { delete ptr; ptr = 0; }
 
 enum BEulerMethodType
 {

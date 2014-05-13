@@ -12,7 +12,6 @@
 #ifndef M1D_SOLGLOBALNONLINEAR_H
 #define M1D_SOLGLOBALNONLINEAR_H
 
-
 #include "m1d_exception.h"
 #include "m1d_ProblemResidEval.h"
 

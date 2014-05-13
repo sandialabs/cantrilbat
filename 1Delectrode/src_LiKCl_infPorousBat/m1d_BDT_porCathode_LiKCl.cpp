@@ -8,6 +8,8 @@
 
 #include "m1d_BDT_porCathode_LiKCl.h"
 #include "m1d_porousLiKCl_FeS2Cathode_dom1D.h"
+#include "m1d_exception.h"
+#include "m1d_defs.h"
 
 #include "Electrode_input.h"
 #include "Electrode_InfCapacity.h"

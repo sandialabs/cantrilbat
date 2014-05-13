@@ -5,6 +5,7 @@
 #include "m1d_globals.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h"
+#include "m1d_exception.h"
 
 #include "BlockEntryGlobal.h"
 

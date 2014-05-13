@@ -122,6 +122,11 @@ Species name 3 is MgO(S)
 
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
+    Electrode Name = (string) with Token limits(15, 1)
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
+        LIST = 
+            anode : 0
+            cathode : 1
     Number of Cantera Files = (integer) with default 1
          => Number of Cantera Files ====> NumCanteraFiles = 4
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
@@ -130,11 +135,6 @@ Species name 3 is MgO(S)
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  MCMB_RedlichKister.xml
          ====> CanteraFileNames =  MCMBAnode_electrode.xml
-    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
-        LIST = 
-            anode : 0
-            cathode : 1
-    Electrode Name = (string) with Token limits(15, 1)
     Temperature = (double) with limits (0, 3000) with default 300
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
@@ -301,6 +301,11 @@ START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
 END BLOCK Radial Diffusion Region
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
+    Electrode Name = (string) with Token limits(15, 1)
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
+        LIST = 
+            anode : 0
+            cathode : 1
     Number of Cantera Files = (integer) with default 1
          => Number of Cantera Files ====> NumCanteraFiles = 4
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
@@ -309,11 +314,6 @@ END BLOCK Radial Diffusion Region
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  MCMB_RedlichKister.xml
          ====> CanteraFileNames =  MCMBAnode_electrode.xml
-    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
-        LIST = 
-            anode : 0
-            cathode : 1
-    Electrode Name = (string) with Token limits(15, 1)
     Temperature = (double) with limits (0, 3000) with default 300
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325

@@ -8,8 +8,9 @@
 #include "m1d_Domain1D.h"
 
 #include "m1d_DomainDescription.h"
+#include "m1d_exception.h"
 
-#include "cantera/base/ctml.h"
+//#include "cantera/base/ctml.h"
 #include "m1d_globals.h"
 #include "m1d_ProblemStatement.h"
 

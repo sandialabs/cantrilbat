@@ -6,15 +6,10 @@
 /*
  *  $Id: m1d_VBRIndices.cpp 504 2013-01-07 22:32:48Z hkmoffa $
  */
-#include "m1d_defs.h"
 #include "m1d_VBRIndices.h"
-#include "m1d_LocalNodeIndices.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemResidEval.h"
-#include "m1d_EqnVarTypes.h"
 #include "m1d_Comm.h"
-
-#include "Epetra_Map.h"
 
 
 namespace m1d

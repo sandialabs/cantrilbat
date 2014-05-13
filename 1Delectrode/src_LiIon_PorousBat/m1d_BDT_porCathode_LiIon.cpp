@@ -12,6 +12,8 @@
 #include "m1d_BDT_porCathode_LiIon.h"
 #include "m1d_porousLiIon_Cathode_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_exception.h"
+#include "m1d_defs.h"
 
 #include "Electrode.h"
 #include "Electrode_Factory.h"

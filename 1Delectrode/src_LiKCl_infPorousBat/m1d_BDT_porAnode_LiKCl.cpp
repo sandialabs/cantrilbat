@@ -8,14 +8,16 @@
 
 #include "m1d_BDT_porAnode_LiKCl.h"
 #include "m1d_porousLiKCl_LiSiAnode_dom1D.h"
+#include "m1d_exception.h"
 
 #include "Electrode_input.h"
-#include "Electrode_InfCapacity.h"
+//#include "Electrode_InfCapacity.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_Factory.h"
 
 #include "m1d_ProblemStatementCell.h"
 extern m1d::ProblemStatementCell PSinput;
+#include "m1d_defs.h"
 
 using namespace std;
 using namespace Cantera;

@@ -18,6 +18,7 @@
 #endif
 
 #include "m1d_Comm.h"
+#include "md_wrap_mpi.h"
 #include "m1d_ProblemResidEval.h"
 #include "Epetra_CrsMatrix.h"
 #include "Epetra_VbrMatrix.h"

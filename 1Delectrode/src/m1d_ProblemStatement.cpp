@@ -10,13 +10,11 @@
 
 #include "m1d_ProblemStatement.h"
 #include "m1d_globals.h"
+#include "m1d_exception.h"
 #include "m1d_EpetraJac.h"
-#include "BlockEntryGlobal.h"
 
 using namespace std;
 using namespace BEInput;
-using namespace TKInput;
-using namespace mdpUtil;
 
 namespace m1d
 {
@@ -511,8 +509,8 @@ ProblemStatement::process_input(BEInput::BlockEntry *cf, std::string fileName, i
   static int pass = 0;
   pass++;
   cf->ZeroLineCount();
-  const TOKEN tok_in;
-  TOKEN tok_out;
+  const TKInput::TOKEN tok_in;
+  TKInput::TOKEN tok_out;
   FILE *ifp = fopen(fileName.c_str(), "r");
   if (!ifp) {
     if (printFlag) {
@@ -573,7 +571,7 @@ ProblemStatement::parse_input_1(std::string commandFile)
   int my_pid = Comm_ptr->MyPID();
 
   int printBIProclevel = 9;
-  set_tok_input_print_flag(0);
+  TKInput::set_tok_input_print_flag(0);
   if (!my_pid) {
     BlockEntry::set_printProcessedLine(true);
   } else {

@@ -6,8 +6,7 @@
 /*
  *  $Id: m1d_Comm.cpp 5 2012-02-23 21:34:18Z hkmoffa $
  */
-#include <stdarg.h>
-#include <stdio.h>
+//#include <cstdarg>
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>
@@ -17,6 +16,8 @@
 
 #include <sstream>
 #include <string>
+
+#include "md_wrap_mpi.h"
 
 #include <Epetra_Map.h>
 #include <Epetra_Vector.h>

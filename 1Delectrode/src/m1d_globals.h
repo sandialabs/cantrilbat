@@ -31,9 +31,12 @@ namespace m1d
 //!  Global Epetra comm pointer. There is never more than one of these in this application.
 extern Epetra_Comm *Comm_ptr;
 
+//! Application Class. There is nover more than one of these in the application
 class Appl;
+
 class ProblemStatement;
 
+//! Level of timing information
 extern int s_printLvl_TimingInformation;
 
 extern int s_printLvl_DebugTables;
@@ -55,8 +58,7 @@ extern bool PrintInputFormat;
 extern ProblemStatement* PSinput_ptr;
 
 //! Return a pointer to the single application object
-Appl*
-app();
+Appl* app();
 
 //! Set an error condition in the application class without
 //! throwing an exception.
@@ -94,8 +96,14 @@ showErrors(std::ostream& f);
 void
 popError();
 
-std::string
-intToString(const int p);
+//! Global function to change an int into a string
+/*!
+ *   @param p   Integer to be converted
+ *
+ * 
+ */
+std::string intToString(const int p);
+
 }
 
 #endif

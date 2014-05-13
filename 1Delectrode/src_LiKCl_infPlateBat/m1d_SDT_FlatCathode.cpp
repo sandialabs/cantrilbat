@@ -8,13 +8,12 @@
 
 #include "m1d_SDT_FlatCathode.h"
 #include "m1d_SurDomain_FlatFeS2Cathode.h"
+#include "m1d_defs.h"
 
 #include "m1d_ProblemStatementCell.h"
 
-#include "Electrode_input.h"
 #include "Electrode.h"
 #include "Electrode_SuccessiveSubstitution.h"
-
 
 #include  <string>
 

@@ -8,14 +8,17 @@
 
 #include "m1d_BDT_porAnode_LiKCl.h"
 #include "m1d_porousLiKCl_LiSiAnode_dom1D.h"
+#include "m1d_exception.h"
 
 #include "Electrode_input.h"
 #include "Electrode_InfCapacity.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 #include "Electrode_Factory.h"
+#include "m1d_defs.h"
 
 #include "m1d_ProblemStatementCell.h"
-extern m1d::ProblemStatementCell PSinput;
+//extern m1d::ProblemStatementCell PSinput;
+#include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace std;
 using namespace Cantera;
@@ -30,19 +33,19 @@ BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr) :
   IsAlgebraic_NE.resize(6,0);
   IsArithmeticScaled_NE.resize(6, 0);
 
-  int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
+  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
   if (iph < 0) {
     throw CanteraError("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()",
-                       "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
+                       "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
   }
-  ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
+  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
   ionicLiquid_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
 
   trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
 
 
 
-  ELECTRODE_KEY_INPUT *ai = PSinput.anode_input_;
+  ELECTRODE_KEY_INPUT *ai = PSCinput_ptr->anode_input_;
 
   Electrode_ = newElectrodeObject(ai->electrodeModelName);
   if (!Electrode_) {
@@ -65,14 +68,14 @@ BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr) :
    * Delete the original pointer.
    */
   delete ai;
-  PSinput.anode_input_ = ai_new;
+  PSCinput_ptr->anode_input_ = ai_new;
   
-  retn = Electrode_->electrode_model_create(PSinput.anode_input_);
+  retn = Electrode_->electrode_model_create(PSCinput_ptr->anode_input_);
   if (retn == -1) {
     throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
                      "Electrode model create method failed");
   }
-  retn = Electrode_->setInitialConditions(PSinput.anode_input_);
+  retn = Electrode_->setInitialConditions(PSCinput_ptr->anode_input_);
   if (retn == -1) {
     throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
                      "setInitialConditions method failed");

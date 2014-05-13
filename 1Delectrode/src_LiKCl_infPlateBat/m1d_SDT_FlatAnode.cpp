@@ -8,6 +8,7 @@
 
 #include "m1d_SDT_FlatAnode.h"
 #include "m1d_SurDomain_FlatLiSiAnode.h"
+#include "m1d_defs.h"
 
 #include "Electrode_input.h"
 #include "Electrode_SuccessiveSubstitution.h"
