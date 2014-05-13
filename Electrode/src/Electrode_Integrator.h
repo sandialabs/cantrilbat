@@ -414,9 +414,20 @@ public:
     virtual int predictSoln();
     virtual int predictSolnDot();
 
-    //! Extract information from cantera
+    //! Extract the ROP of the multiple reaction fronts from Cantera within this routine
     /*!
      *  (virtual fucntion from Electrode_Integrator)
+     *
+     *   In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
+     *   The function loops over active ReactingSurDomain objects. It calculates ROP_ for each reaction by
+     *   calling                   
+     *                         getNetRatesOfProgress()
+     * 
+     *   It gets spNetProdPerArea by calling:
+     *            getNetSurfaceProductionRates(isk, spNetProdPerArea);
+     *   
+     *   It may also fill in 
+     *            justBornPhase_[]
      */
     virtual void extractInfo();
 

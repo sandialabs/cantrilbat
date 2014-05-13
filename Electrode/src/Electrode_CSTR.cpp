@@ -890,7 +890,7 @@ void Electrode_CSTR::extractInfo()
 void Electrode_CSTR::updateSpeciesMoleChangeFinal()
 {
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(0);
-    std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.);
+    std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.0);
     double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]);
     mult /= 2.0;
     for (int i = 0; i < m_totNumVolSpecies; i++) {

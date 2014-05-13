@@ -87,26 +87,52 @@ Particle Number to Follow = 2.0E8
 !
 ! Electrode Gross Thickness = 7.874e-4 m
 !-------------------------------------------------------------------------
+! 
+!  Electrode Porosity value 
 !
+!   This is used to specify the porosity within the electrode
+!   The porosity refers to the volume fraction of electrolyte within the electrode.
+!   When we expand to allow for more phases, the porosity will mean the volume
+!   fraction of electrolye. Volume fractions of other phases will reduce the
+!   available volume fraction of electrode.
+!
+!   When this value is specified, value associated with entering the mass
+!   of electrode material will cause error inputs, as this is conflicting
+!   and/or duplicative entries.
+!
+!-------------------------------------------------------------------------
 Electrode Porosity = 0.35
+!--------------------------------------------------------------------------------------------------------------
 !
-
+!  BLOCK:  Bath Specification for phases within the electrode object
+!
+!       start block Bath Specification for Phase [Cantera_Phase_Name] (optional)
+!          Phase Moles = double   (required)
+!          start block Bath Species Mole Fraction (required)
+!               FeS2_A(S) =  1.0
+!          End block Bath Species Mole Fraction
+!       end   block Bath Specification for Phase [Cantera_Phase_Name]
+!
+!--------------------------------------------------------------------------------------------------------------
+!
 start block Bath Specification for Phase FeS2_A(S)
   Phase Moles = 13.0
   start block Bath Species Mole Fraction
     FeS2_A(S) =  1.0
  End block Bath Species Mole Fraction
 end block Bath Specification for Phase  FeS2_A(S)
-
-
+!
+!--------------------------------------------------------------------------------------------------------------
+!
 start block Bath Specification for Phase FeS2_B(S)
   Phase Moles = 1.0E-3
   start block Bath Species Mole Fraction
     FeS2_B(S) =  1.0
  End block Bath Species Mole Fraction
 end block Bath Specification for Phase  FeS2_B(S)
-
-
+!
+!--------------------------------------------------------------------------------------------------------------
+!
 start block Bath Specification for Phase LiKCl_electrolyte
    Phase Moles = 6.6
    start block Bath Species Mole Fraction
@@ -115,6 +141,23 @@ start block Bath Specification for Phase LiKCl_electrolyte
       Cl- = 0.5
    End block Bath Species Mole Fraction
 end block Bath Specification for Phase LiKCl_electrolyte
+!
+!--------------------------------------------------------------------------------------------------------------
+!
+!  BLOCK:  Open Circuit voltage Override for interface 
+!
+!
+!
+!
+start block Open Circuit Potential Override for interface LiFe2S4_interface
+   Open Circuit Model = newFit_LiFe2S4
+   Replaced Species = LiFe2S4
+   Temperature Derivative = [ ZERO, SPECIES, MODEL ]
+   Open Circuit Temperature Derivative Model =  newFit_LiFe2S4
+end block Open Circuit Potential Override for interface LiFe2S4_interface
+
+
+
 
 !------------------------------------------------------------------------
 !
