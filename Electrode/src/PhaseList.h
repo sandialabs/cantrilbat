@@ -14,13 +14,12 @@
 #ifndef CT_PHASELIST_H
 #define CT_PHASELIST_H
 
+#include "cantera/base/xml.h"
+#include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/Elements.h"
 
 namespace Cantera
 {
-
-class ThermoPhase;
-class XML_Node;
 
 //!
 //!   Class PhaseList is a list of Phases. It's used as a container class

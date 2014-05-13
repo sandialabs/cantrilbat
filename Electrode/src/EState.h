@@ -16,7 +16,6 @@
 #define _ESTATE_H
 
 #include "Electrode_defs.h"
-#include "Electrode_defs.h"
 
 namespace Cantera
 {

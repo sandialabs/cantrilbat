@@ -486,7 +486,7 @@ restartStep:
                 }
             }
             for (int i = 0; i < m_NumTotPhases; i++) {
-                updatePhaseNumbers(i);
+                updateState_Phase(i);
             }
 
 

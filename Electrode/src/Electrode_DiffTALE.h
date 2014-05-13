@@ -404,7 +404,7 @@ public:
      */
     virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
 
-    virtual void updatePhaseNumbers(int);
+    virtual void updateState_Phase(int iph);
 
     //! Take the state (i.e., the final state) within the Electrode_DiffTALE and push it up
     //! to the zero-dimensional parent object

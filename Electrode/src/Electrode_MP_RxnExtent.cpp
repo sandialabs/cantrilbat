@@ -646,7 +646,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     std::copy(spMf_final_.begin(), spMf_final_.end(), spMf_init_.begin());
 
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        updatePhaseNumbers(iph);
+        updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
@@ -837,9 +837,8 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     phaseMoles_final_[ip_FeS2_B] =  spMoles_FeS2_Normalization_ / 2.0;
 
 
-
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        updatePhaseNumbers(iph);
+        updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
@@ -941,7 +940,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     }
     molarAtol_ = tMoles * 1.0E-5;
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        updatePhaseNumbers(iph);
+        Electrode::updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_init_.begin());
@@ -981,7 +980,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
         spMoles_init_init_[k] = spMoles_final_[k];
         spMoles_final_final_[k] = spMoles_final_[k];
     }
-    updatePhaseNumbers(solnPhase_);
+    updateState_Phase(solnPhase_);
 
 
     currentSolidVol = SolidVol();
@@ -1387,7 +1386,7 @@ void Electrode_MP_RxnExtent::updateState()
      * Loop over all phases in the object
      */
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        updatePhaseNumbers(iph);
+        Electrode::updateState_Phase(iph);
     }
 
 

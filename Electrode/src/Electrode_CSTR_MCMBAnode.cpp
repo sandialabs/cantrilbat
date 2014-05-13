@@ -216,7 +216,7 @@ void Electrode_CSTR_MCMBAnode::setStateFinal_fromRelativeExtentRxn(double relExt
     /*
      *  Now Update all of the other numbers from spMoles_final_[]
      */
-    updatePhaseNumbers(ip_MCMB_);
+    updateState_Phase(ip_MCMB_);
 }
 //====================================================================================================================
 } // End of namespace Cantera

@@ -849,7 +849,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      * Now that spMoles_final_ is sized appropriately, we can call updatePhaseNumbers()
      */
     for (iph = 0; iph < m_NumTotPhases; iph++) {
-        updatePhaseNumbers(iph);
+        Electrode::updateState_Phase(iph);
     }
 
     electrodeName_ = ei->electrodeName;
@@ -1276,10 +1276,10 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
     molarAtol_ = tMoles * 1.0E-5;
 
     /*
-     * Now that spMoles_final_ is sized appropriately, we can call updatePhaseNumbers()
+     * Now that spMoles_final_ is sized appropriately, we can call updateState_Phase()
      */
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        Electrode::updatePhaseNumbers(iph);
+        Electrode::updateState_Phase(iph);
     }
 
     /*
@@ -1467,7 +1467,7 @@ void Electrode::resizeMoleNumbersToGeometry()
     }
     molarAtol_ = tMoles * 1.0E-5;
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        Electrode::updatePhaseNumbers(iph);
+        updateState_Phase(iph);
     }
     phaseMoles_init_ = phaseMoles_final_;
     phaseMoles_init_init_ = phaseMoles_final_;
@@ -1494,7 +1494,7 @@ void Electrode::resizeMoleNumbersToGeometry()
         spMoles_init_init_[k] = spMoles_final_[k];
         spMoles_final_final_[k] = spMoles_final_[k];
     }
-    Electrode::updatePhaseNumbers(solnPhase_);
+    updateState_Phase(solnPhase_);
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
 
     currentSolidVol = Electrode::SolidVol();
@@ -1540,7 +1540,7 @@ void Electrode::resizeSolutionNumbersToPorosity(doublereal porosityReset)
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
     }
-    updatePhaseNumbers(solnPhase_);
+    updateState_Phase(solnPhase_);
 
 }
 //====================================================================================================================
@@ -1730,7 +1730,7 @@ void Electrode::setPhaseMoleNumbers(int iph, const double* const moleNum)
         spMoles_init_[istart + k] = spMoles_final_[istart + k];
         spMoles_init_init_[istart + k] = spMoles_final_[istart + k];
     }
-    updatePhaseNumbers(iph);
+    updateState_Phase(iph);
 
     spMoles_init_init_ = spMoles_final_;
     spMoles_init_ = spMoles_final_;
@@ -1824,7 +1824,7 @@ double Electrode::getFinalTime() const
  *
  * @param iph     Phase id.
  */
-void Electrode::updatePhaseNumbers(int iph)
+void Electrode::updateState_Phase(int iph)
 {
     int istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
@@ -1913,7 +1913,7 @@ void Electrode::updatePhaseNumbers(int iph)
 void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
         vector<doublereal>& spMf_tmp)
 {
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (int iph = -1; iph < m_NumTotPhases; iph++) {
         int istart = m_PhaseSpeciesStartIndex[iph];
         // ThermoPhase &tp = thermo(solnPhase_);
         int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
@@ -1999,7 +1999,7 @@ void Electrode::turnOffFollowElectrolyteMoles()
     if (electrolytePseudoMoles_ <= 0.0) {
         throw CanteraError("Electrode::turnOffFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
     }
-    updatePhaseNumbers(solnPhase_);
+    updateState_Phase(solnPhase_);
 }
 //====================================================================================================================
 void Electrode::turnOnFollowElectrolyteMoles()
@@ -2009,12 +2009,12 @@ void Electrode::turnOnFollowElectrolyteMoles()
     }
 
     followElectrolyteMoles_ = 1;
-    updatePhaseNumbers(solnPhase_);
+    updateState_Phase(solnPhase_);
 
     if (phaseMoles_final_[solnPhase_] <= 0.0) {
         if (electrolytePseudoMoles_ > 0.0) {
             followElectrolyteMoles_ = 0;
-            updatePhaseNumbers(solnPhase_);
+            updateState_Phase(solnPhase_);
             followElectrolyteMoles_ = 1;
         }
         if (phaseMoles_final_[solnPhase_] <= 0.0) {
@@ -2440,17 +2440,16 @@ void Electrode::setPhaseVoltage(int iph, double volts)
 void Electrode::updateState()
 {
     int iph;
-
-    /*
-     * Loop over all phases in the object, volume and surface phases
-     */
+     // 
+     //   Loop over all phases in the object, volume and surface phases
+     //
     for (iph = 0; iph < m_NumTotPhases; iph++) {
-        updatePhaseNumbers(iph);
+        updateState_Phase(iph);
     }
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
-    /*
-     * Calculate the volume of the electrode phase. This is the main routine to do this.
-     */
+    //
+    //    Calculate the volume of the electrode phase. This is the main routine to do this.
+    //
     ElectrodeSolidVolume_ = SolidVol();
 
     double vol = ElectrodeSolidVolume_ / particleNumberToFollow_;
@@ -2474,9 +2473,8 @@ void Electrode::updateState_OnionOut()
      * consistent with final moles.
      */
     for (int i = 0; i < m_NumTotPhases; i++) {
-        Electrode::updatePhaseNumbers(i);
+        Electrode::updateState_Phase(i);
     }
-
     /*
      * Loop over all phases in the object
      */

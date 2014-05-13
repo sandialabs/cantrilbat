@@ -663,26 +663,29 @@ public:
     virtual void setPhaseMoleNumbers(int iph, const double* const moleNum);
 
 
-
-    //! Update all mole numbers in the object from the mole numbers in the spMoles_final_[] vector
+protected:
+    //! Update all state information for a single phase from the mole numbers in the spMoles_final_[] vector
     /*!
      *  We use the field spMoles_final_[] to set the field phaseMoles_final_[].
-     *
      *  We set the mole numbers of a single phase separately from the rest of the phases.
-     *
      *  We do not clip the mole numbers to be positive. We allow negative mole numbers.
-     *
      *  We make sure that the mole fractions sum to one.
      *
      *   The following fields in this object are set:
      *
-     *            spMf_final_[]
-     *            VolPM_[]
-     *            spElectroChemPot_[]
+     *            spMf_final_[istart + k]
+     *            VolPM_[istart + k]
+     *            spElectroChemPot_[istart + k]
      *
      *            phaseMoles_final_[iph]
      *            phaseVoltages_[iph]
      *            phaseMolarVolumes_[iph]
+     *
+     *            CvPM_[istart + k]
+     *            enthalpyMolar_final_[istart + k]
+     *            entropyMolar_final_[istart + k]
+     *            chempotMolar_final_[istart + k]
+     *
      *
      *  If we are not following  the mole numbers in the electrode, we set the
      *  total moles to the internal constant, electrolytePseudoMoles_, while
@@ -691,15 +694,15 @@ public:
      *
      * @param iph     Phase id.
      */
-//Can protect
-    void updatePhaseNumbers(int iph);
+    void updateState_Phase(int iph);
+
 
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     //     -- These are now called "ProductionRate"  or SourceTerms values
-
+public:
     //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
     /*!
      *  This is the rate of change in the moles of species defined in the electrode  at t_final.

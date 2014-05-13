@@ -274,15 +274,11 @@ void Electrode_CSTR_LiCoO2Cathode::setStateFinal_fromRelativeExtentRxn(double re
     double sum =  spMoles_final_[ig_SolidV_] +  spMoles_final_[ig_SolidLi_];
     spMoles_final_[ig_SolidLi_] =         li_mf * sum;
     spMoles_final_[ig_SolidV_]  = (1.0 - li_mf) * sum;
-
     /*
      *  Now Update all of the other numbers from spMoles_final_[]
      */
-    updatePhaseNumbers(ip_LiCoO2_);
+    updateState_Phase(ip_LiCoO2_);
 }
-
-
-
 //====================================================================================================================
 } // End of namespace Cantera
 //======================================================================================================================

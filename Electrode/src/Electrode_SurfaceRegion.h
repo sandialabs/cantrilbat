@@ -12,10 +12,7 @@
 #define _ELECTRODE_SURFACEREGION_H
 
 
-#include "Electrode.h"
 #include "Electrode_Integrator.h"
-#include "cantera/integrators.h"
-#include "cantera/numerics/ResidJacEval.h"
 
 namespace Cantera
 {

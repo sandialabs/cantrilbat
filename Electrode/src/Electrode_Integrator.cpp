@@ -1645,7 +1645,7 @@ int Electrode_Integrator::predictSolnDot()
 //==================================================================================================================
 // Extract information from cantera
 /*
-  *  (virtual fucntion from Electrode_Integrator)
+ *  (virtual function from Electrode_Integrator)
  */
 void  Electrode_Integrator::extractInfo()
 {

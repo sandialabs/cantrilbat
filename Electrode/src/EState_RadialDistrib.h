@@ -3,9 +3,6 @@
  */
 
 /*
- * $Id: EState_RadialDistrib.h 571 2013-03-26 16:44:21Z hkmoffa $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
  * work by or on behalf of the U.S. Government. Export of this program
@@ -14,7 +11,6 @@
 
 #ifndef _ESTATE_RADIALDISTRIB_H
 #define _ESTATE_RADIALDISTRIB_H
-
 
 #include "EState.h"
 

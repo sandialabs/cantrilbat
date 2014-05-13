@@ -994,7 +994,7 @@ void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doResetAlw
  *
  *  update phaseMoles_final_[]
  */
-void Electrode_DiffTALE::updatePhaseNumbers(int iph)
+void Electrode_DiffTALE::updateState_Phase(int iph)
 { 
     int istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
@@ -1101,7 +1101,7 @@ void Electrode_DiffTALE::updateState_OneToZeroDimensions()
      */
     for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
 	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
-	Electrode::updatePhaseNumbers(iPh);
+	Electrode::updateState_Phase(iPh);
     }
     for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
 	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];

@@ -489,7 +489,7 @@ public:
      */
     virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
 
-    virtual void updatePhaseNumbers(int);
+    void updateState_Phase(int);
 
     //! Take the state (i.e., the final state) within the Electrode_SimpleDiff and push it up
     //! to the zero-dimensional parent object

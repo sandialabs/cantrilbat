@@ -367,7 +367,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->setCapacityType(electrodeCapacityType_);
 
     for (int iph = 0; iph < e->m_NumTotPhases; iph++) {
-        e->updatePhaseNumbers(iph);
+        e->updateState_Phase(iph);
     }
 
     e->deltaTsubcycle_init_next_          = deltaTsubcycle_init_next_;

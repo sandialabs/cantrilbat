@@ -1245,7 +1245,7 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
  *
  * HKM -> Delete this ??
  */
-void Electrode_SimpleDiff::updatePhaseNumbers(int iph)
+void Electrode_SimpleDiff::updateState_Phase(int iph)
 { 
     int istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
@@ -1358,7 +1358,7 @@ void Electrode_SimpleDiff::updateState_OneToZeroDimensions()
      */
     for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
 	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
-	Electrode::updatePhaseNumbers(iPh);
+	Electrode::updateState_Phase(iPh);
     }
     for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
 	iPh = phaseIndeciseNonKRsolidPhases_[jRPh];

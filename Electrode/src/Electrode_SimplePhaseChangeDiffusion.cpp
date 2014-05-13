@@ -795,7 +795,7 @@ void Electrode_SimplePhaseChangeDiffusion::updateState()
      * consistent with final moles.
      */
     for (int i = 0; i < m_NumTotPhases; i++) {
-        updatePhaseNumbers(i);
+        updateState_Phase(i);
     }
 
 
