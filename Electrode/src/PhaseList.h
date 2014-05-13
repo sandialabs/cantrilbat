@@ -358,7 +358,6 @@ protected:
     //! Name of the file containing the first surface phase encountered
     std::string CanteraFNSurface;
 
-
     /*********************************************************************
      *       DERIVED DATA THAT DEPEND ON INDEPENDENT VARIABLES           *
      *********************************************************************/
@@ -382,12 +381,10 @@ private:
      */
     bool IOwnPhasePointers;
 
-
     /*
      * Pointer to the element object
      */
     Elements* m_GlobalElementObj;
-
 };
 
 }

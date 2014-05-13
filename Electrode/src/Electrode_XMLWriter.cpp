@@ -3,39 +3,14 @@
  * $Id: Electrode_XMLWriter.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
-
-#include "cantera/equilibrium.h"
-
-#include "cantera/thermo/MolalityVPSSTP.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
-
-#include "cantera/numerics/solveProb.h"
-#include "cantera/numerics/BEulerInt.h"
-
-#include "cantera/solvers.h"
-
-
 #include "Electrode.h"
 
-#include <iostream>
 #include <fstream>
 
-
-using namespace Cantera;
 using namespace std;
-
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
-#endif
 
 namespace Cantera
 {
-
 //====================================================================================================================
 // Specifies the amount of output that the Electrode object writes to its solution file
 /*

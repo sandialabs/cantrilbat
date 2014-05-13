@@ -16,10 +16,6 @@
 
 
 #include "PhaseList.h"
-#include "ReactingSurDomain.h"
-
-
-
 
 #include "ExtraGlobalRxn.h"
 

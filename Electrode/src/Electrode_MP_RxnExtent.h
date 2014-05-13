@@ -11,13 +11,9 @@
 #ifndef _ELECTRODE_MP_RXNEXTENT_H
 #define _ELECTRODE_MP_RXNEXTENT_H
 
-
-
+#include "Electrode_Integrator.h"
 
 #include "tok_input_util.h"
-
-#include "Electrode.h"
-#include "Electrode_Integrator.h"
 
 #include "cantera/numerics/NonlinearSolver.h"
 

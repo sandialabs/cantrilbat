@@ -2,45 +2,22 @@
  * $Id: Electrode_MP_RxnExtent.cpp 604 2013-05-24 16:27:35Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
-
-#include "cantera/thermo.h"
-#include "cantera/equilibrium.h"
-
 #include "Electrode_MP_RxnExtent.h"
 
 #include "BlockEntryGlobal.h"
+
+#include "cantera/thermo.h"
 
 using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-#ifndef MIN
-#define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
-#endif
-
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
-#endif
-
-
 namespace Cantera
 {
-
-
 #ifdef DEBUG_MODE_PREDICTION
 double predictSave[30];
 #endif
-
-
 //====================================================================================================================
 ELECTRODE_MP_RxnExtent_KEY_INPUT::ELECTRODE_MP_RxnExtent_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
@@ -3405,12 +3382,12 @@ void Electrode_MP_RxnExtent::predictorCorrectorPrint(const std::vector<double>& 
     printf("onRegionPredict          |         %3d            %3d          %3d      |                                          |\n",
            onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
     denom = std::max(fabs(yval[0]), fabs(soln_predict_[0]));
-    denom = MAX(denom, atolVal);
+    denom = std::max(denom, atolVal);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
     printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
            deltaTsubcycle_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
-    denom = MAX(fabs(yval[1]), fabs(soln_predict_[1]));
-    denom = MAX(denom, atolVal);
+    denom = std::max(fabs(yval[1]), fabs(soln_predict_[1]));
+    denom = std::max(denom, atolVal);
     tmp = fabs((yval[1] - soln_predict_[1])/ denom);
     printf("RelativeExtentRxn_final_ | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
            RelativeExtentRxn_init_, soln_predict_[1],  yval[1], yval[1] - soln_predict_[1], atolVal, tmp);
@@ -3475,7 +3452,7 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
      * If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
      * Then, we don't advance the time step.
      */
-    double tbase = MAX(t_init_init_, 1.0E-50);
+    double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
 //      printf("WARNING: resetStartingCondition called out of order\n");
         return;
@@ -3483,8 +3460,8 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 
     Electrode_Integrator::resetStartingCondition(Tinitial);
 
-    tbase = MAX(Tinitial, tbase);
-    tbase = MAX(tbase, t_final_final_);
+    tbase = std::max(Tinitial, tbase);
+    tbase = std::max(tbase, t_final_final_);
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
         throw CanteraError("Electrode_Integrator::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
                            + fp2str(t_final_final_));

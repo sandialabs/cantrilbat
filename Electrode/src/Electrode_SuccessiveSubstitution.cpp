@@ -7,12 +7,6 @@
 using namespace Cantera;
 using namespace std;
 
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-#ifndef MIN
-#define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
-#endif
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
 #endif
@@ -381,7 +375,7 @@ restartStep:
                         if (spMoles_final_[kk] > 0.0) {
                             double ratio = fabs(spMoles_tmp[kk] + spMoles_final_[kk]) / spMoles_final_[kk];
                             double ldamp = 0.01 / ratio;
-                            damp = MIN(ldamp, damp);
+                            damp = std::min(ldamp, damp);
                         }
                         /*
                           if (nsp > 1) {
@@ -405,24 +399,24 @@ restartStep:
                         }
                         if (ratio > 0.2) {
                             double ldamp = 0.15 / ratio;
-                            damp = MIN(ldamp, damp);
+                            damp = std::min(ldamp, damp);
                         }
                         ratio = fabs(spMf_tmp[kk] - spMf_final_[kk]);
                         if (ratio > 0.1) {
                             double ldamp = 0.075 / ratio;
-                            damp = MIN(ldamp, damp);
+                            damp = std::min(ldamp, damp);
                         }
 
                     }
                     if (doMoleFraction) {
                         double rate =  spMoles_tmp[k] - spMoles_init_[k];
                         double dampRate = -0.6 * spMoles_init_[k] / rate;
-                        damp = MIN(dampRate, damp);
+                        damp = std::min(dampRate, damp);
                     }
                     if (doPhase) {
                         double rate = phaseMoles_tmp[iph]- phaseMoles_init_[iph];
                         double dampTStmp = phaseMoles_init_[iph] / -rate;
-                        dampTS = MIN(dampTS, dampTStmp);
+                        dampTS = std::min(dampTS, dampTStmp);
                     }
                 }
             }

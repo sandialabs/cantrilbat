@@ -2,32 +2,14 @@
  * $Id: Electrode_input.cpp 576 2013-03-27 23:13:53Z hkmoffa $
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "tok_input_util.h"
 
-#include "mdp_allo.h"
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "Electrode_input.h"
+#include "Electrode_Factory.h"
+#include "importPL.h"
 
 #include "BlockEntryGlobal.h"
 
-#include "PhaseList.h"
-
-#include "importAllCTML.h"
-#include "RxnMolChange.h"
-#include "ApplBase_print.h"
-#include "ExtraGlobalRxn.h"
-#include "Electrode_input.h"
-#include "Electrode.h"
-#include "Electrode_Factory.h"
-
-#include "importPL.h"
-
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -60,7 +42,6 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
 {
     operator=(right);
 }
-
 //================================================================================================
  ElectrodeBath& ElectrodeBath::operator=(const ElectrodeBath& right)
  {
@@ -144,7 +125,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     m_pl = new PhaseList();
 
     //m_EGRList = new EGRInput*[2];
-    m_EGRList = (EGRInput**) mdp_alloc_ptr_1(2);
+    m_EGRList = (EGRInput**) mdpUtil::mdp_alloc_ptr_1(2);
     m_EGRList[0] = new EGRInput();
     m_EGRList[1] = 0;
 }
@@ -272,8 +253,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      mdpUtil::mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(PotentialPLPhases, right.PotentialPLPhases, nTotPhases);
 
-     mdp_realloc_int_1(&PhaseInclude, nTotPhases, 0);
-     mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
+     mdpUtil::mdp_realloc_int_1(&PhaseInclude, nTotPhases, 0);
+     mdpUtil::mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
      
      ProblemType                       = right.ProblemType;
 
@@ -847,13 +828,13 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     ElectrodeBath& BG = *(m_BG);
 
 
-    BG.XmolPLSpecVec = mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.MolalitiesPLSpecVec = mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.XmolPLPhases = (double**) mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
-    BG.MolalitiesPLPhases = (double**) mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
+    BG.XmolPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    BG.MolalitiesPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    BG.XmolPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
+    BG.MolalitiesPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
 
-    BG.CapLeftCoeffSpecVec = mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.CapLeftCoeffPhases = (double**) mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
+    BG.CapLeftCoeffSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    BG.CapLeftCoeffPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
     BG.CapZeroDoDCoeffSpecVec = mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
     BG.CapZeroDoDCoeffPhases = (double**) mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
 
