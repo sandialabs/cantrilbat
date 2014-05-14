@@ -1888,7 +1888,7 @@ void Electrode::updateState_Phase(int iph)
 void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
         vector<doublereal>& spMf_tmp)
 {
-    for (int iph = -1; iph < m_NumTotPhases; iph++) {
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
         int istart = m_PhaseSpeciesStartIndex[iph];
         // ThermoPhase &tp = thermo(solnPhase_);
         int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
