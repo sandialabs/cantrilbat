@@ -1575,7 +1575,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
     for (iph = 0; iph < m_pl->nPhases(); iph++) {
         int  kstart = m_pl->getGlobalSpeciesIndex(iph, 0);
         ThermoPhase* tphase = &(m_pl->thermo(iph));
-        int nSpecies = tphase->nSpecies();
+        size_t nsp = tphase->nSpecies();
         // Find the name of the input block
         string phaseBath = "Bath Specification for Phase ";
         string phaseNm = tphase->name();
@@ -1602,7 +1602,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                 }
             }
             if (molVecSpecified) {
-                for (int k = 0; k < nSpecies; k++) {
+                for (size_t k = 0; k < nsp; k++) {
                     MoleFraction[kstart + k] = molF[k];
                 }
                 tphase->setMoleFractions(molF);
@@ -1657,7 +1657,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             /*
              *  Setup the global MoleNumber array in the Electrode object
              */
-            for (int k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nsp; k++) {
                 MoleNumber[kstart + k] = totalMoles * molF[k];
             }
         } else {
@@ -1666,13 +1666,52 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
              *  All we can do is set the mole numbers of all of the species to zero
              *  We also read in the mole fraction vector from the ThermoPhase object
              */
-            for (int k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nsp; k++) {
                 MoleNumber[kstart + k] = 0.0;
             }
             tphase->getMoleFractions(MoleFraction + kstart);
         }
 
     }
+
+    //
+    // Post process the OCV override structure
+    //
+    for (size_t iphS = 0; iphS < (size_t) m_pl->nSurPhases(); iphS++) {
+	std::string phaseBath = "Open Circuit Potential Override for interface ";
+        iph = m_pl->nVolPhases() + iphS;
+        ThermoPhase* tp = &(m_pl->surPhase(iphS));
+        string phaseNm = tp->name();
+        phaseBath += phaseNm;
+
+	BEInput::BlockEntry* pblock = cf->searchBlockEntry(phaseBath.c_str());
+        int numTimes = 0;
+        if (pblock) {
+            numTimes = pblock->get_NumTimesProcessed();
+        }
+	if (numTimes > 1) {
+	    throw Electrode_Error("post_process", "block processed more than once");
+	}
+	if (numTimes == 1) {
+	    OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
+
+	}
+    }
+
+
+/*
+  int surfacePhaseID;
+   std::string surfacePhaseName;
+   std::string OCVModel;
+   std::string replacedSpeciesName;
+   int replacedSpeciesID;
+   int rxnID;
+   int temperatureDerivType;
+   double temperatureBase;
+   std::string OCVTempDerivModel;
+*/
+
+
     return 0;
 }
 //======================================================================================================================

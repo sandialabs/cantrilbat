@@ -16,6 +16,8 @@
 #include "Electrode_SuccessiveSubstitution.h"
 #include "Electrode_RadialDiffRegions.h"
 
+#include "RSD_OCVmodel.h"
+
 
 namespace Cantera
 {
@@ -58,6 +60,10 @@ static void create_string_maps()
     electrode_types_string[RADIAL_DIFF_REGIONS_ET]             =  "Radial_Diff_Regions";
 
 
+    // create the OCV model map
+    createOCVmodel_map(gMap_ETEnum_String.OCVmodel_string);
+
+
     // Invert the maps automatically.
     for (std::map<Electrode_Types_Enum, std::string>::iterator pos = electrode_types_string.begin();
             pos != electrode_types_string.end(); ++pos) {
@@ -65,6 +71,15 @@ static void create_string_maps()
         std::string lll =  Cantera::lowercase(pos->second);
         string_electrode_types[lll] = pos->first;
     }
+
+    // Invert the maps automatically.
+    for (std::map<int, std::string>::iterator pos = gMap_ETEnum_String.OCVmodel_string.begin();
+            pos != gMap_ETEnum_String.OCVmodel_string.end(); ++pos) {
+        gMap_ETEnum_String.string_OCVmodel[pos->second] = pos->first;
+        std::string lll =  Cantera::lowercase(pos->second);
+        gMap_ETEnum_String.string_OCVmodel[lll] = pos->first;
+    }
+
 }
 //====================================================================================================================
 // Enum to String routine for the enum Electrode_Types_Enum
@@ -112,8 +127,38 @@ Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_str
     }
     return pos->second;
 }
+//===================================================================================================================
+int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string)
+{
+    if (!gMap_ETEnum_String.string_maps_created) {
+        create_string_maps();
+    }
+    std::map<std::string, int>& string_OCVmodel = gMap_ETEnum_String.string_OCVmodel;
+    std::map<std::string, int>::iterator pos    = string_OCVmodel.find(input_string);
+    if (pos == string_OCVmodel.end())  {
+        std::string iii = Cantera::lowercase(input_string);
+        pos = string_OCVmodel.find(iii);
+        if (pos == string_OCVmodel.end())  {
+            return -1;
+        }
+    }
+    return pos->second;
+}
+//===================================================================================================================
+std::string modelID_to_stringName_RCD_OCVmodel(int modelID)
+{
+    if (!gMap_ETEnum_String.string_maps_created) {
+        create_string_maps();
+    }
+    std::map<int, std::string>& OCVmodel_string = gMap_ETEnum_String.OCVmodel_string;
+    std::map<int, std::string>::iterator pos = OCVmodel_string.find(modelID);
+    if (pos == OCVmodel_string.end())  {
+        return "UnknownModelType";
+    }
+    return pos->second;
+}
 //====================================================================================================================
-//! Private constructors prevents usage
+// Private constructors prevents usage
 Electrode_Factory::Electrode_Factory()
 {
 }
@@ -256,6 +301,26 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
     return ei;
 }
 //====================================================================================================================
+RSD_OCVmodel* Electrode_Factory::newRSD_OCVmodel(std::string smodel)
+{
+    int  ieos = stringName_RCD_OCVmodel_to_modelID(smodel);
+    if (ieos == -1) {
+	throw CanteraError("Electrode_Factory::newRSD_OCVmodel()",
+                           "Unknown OCVoverride model: " + smodel);
+    }
+    RSD_OCVmodel* ei;
+    switch (ieos) {
+    case         OCVAnode_MCMB2528 :
+        ei = new  RSD_OCVmodel(OCVAnode_MCMB2528);
+        break;
+    default:
+	throw CanteraError("Electrode_Factory::newRSD_OCVmodel()",
+                           "Unknown OCVoverride model: " + smodel);
+        break;
+    }
+    return ei;
+}
+//====================================================================================================================
 //  Create a new  instance of an Electrode object
 /*
  * @param model   String to look up the model against
@@ -293,6 +358,25 @@ ELECTRODE_KEY_INPUT* newElectrodeKeyInputObject(std::string model, Electrode_Fac
     }
     return f->newElectrodeKeyInputObject(model);
 }
+//====================================================================================================================
+//  Create a new RSD_OCVmodel Object
+/*
+ * @param model   String to look up the model against
+ * @param f       Eledtrode Factory instance to use in matching the string
+ *
+ * @return
+ *   Returns a pointer to a new RSD_OCVmodel  instance matching the
+ *   model string for the RSD_OCVmodel. Returns NULL if something went wrong.
+ *   Throws an exception  if the string wasn't matched.
+ */
+RSD_OCVmodel* newRSD_OCVmodel(std::string smodel, Electrode_Factory *f)
+{
+   if (f == 0) {
+        f = Electrode_Factory::factory();
+    }
+   return f->newRSD_OCVmodel(smodel);
+}
+
 //====================================================================================================================
 } // End of namespace Cantera
 //======================================================================================================================

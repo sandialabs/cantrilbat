@@ -27,6 +27,7 @@
 
 namespace Cantera
 {
+class RSD_OCVmodel;
 
 struct Map_ETEnum_String {
     Map_ETEnum_String() :
@@ -36,6 +37,10 @@ struct Map_ETEnum_String {
     bool string_maps_created;
     std::map<Electrode_Types_Enum, std::string> electrode_types_string;
     std::map<std::string , Electrode_Types_Enum> string_electrode_types;
+
+    std::map<int, std::string> OCVmodel_string;
+    std::map<std::string, int> string_OCVmodel;
+
 };
 extern Map_ETEnum_String gMap_ETEnum_String;
 
@@ -56,6 +61,19 @@ std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype);
  *  @return      Returns the Enum type for the string
  */
 Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_string);
+
+
+//! String to int routine for the OCV model types
+/*!
+ *   @param     input_string
+ *   @return    Returns the int type for the string
+ *              Unknown models return -1
+ */
+int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string);
+
+
+std::string modelID_to_stringName_RCD_OCVmodel(int modelID);
+
 
 //! Factory class for thermodynamic property managers.
 /*!
@@ -92,7 +110,6 @@ public:
     //!  Create a new ELECTRODE_KEY_INPUT Object
     /*!
      * @param model   String to look up the model against
-     * @param f       ThermoFactor instance to use in matching the string
      *
      * @return
      *   Returns a pointer to a new ELECTRODE_KEY_INPUT instance matching the
@@ -101,6 +118,17 @@ public:
      *   wasn't matched.
      */
     virtual ELECTRODE_KEY_INPUT* newElectrodeKeyInputObject(std::string model);
+
+    //! create a new RSD_OCVmodel object
+    /*!
+     * @param model   String to look up the model against
+     *
+     * @return
+     *   Returns a pointer to a new ELECTRODE_KEY_INPUT instance matching the
+     *   model string for the Electrode. Returns NULL if something went wrong.
+     *   Throws an exception  if the string  wasn't matched.
+     */
+    virtual RSD_OCVmodel* newRSD_OCVmodel(std::string model);
 
 private:
     //! static member of a single instance
@@ -118,32 +146,42 @@ private:
 
 };
 
-
 //!  Create a new Electrode Object
 /*!
  * @param model   String to look up the model against
- * @param f       ThermoFactor instance to use in matching the string
+ * @param f       Electrode Factory instance to use in matching the string
  *
  * @return
  *   Returns a pointer to a new ThermoPhase instance matching the
  *   model string. Returns NULL if something went wrong.
- *   Throws an exception UnknownThermoPhaseModel if the string
- *   wasn't matched.
+ *   Throws an exception if the string wasn't matched.
  */
 Electrode* newElectrodeObject(std::string model, Electrode_Factory* f = 0);
 
 //!  Create a new ELECTRODE_KEY_INPUT Object
 /*!
  * @param model   String to look up the model against
- * @param f       ThermoFactor instance to use in matching the string
+ * @param f       Electrode Factory instance to use in matching the string
  *
  * @return
  *   Returns a pointer to a new ELECTRODE_KEY_INPUT instance matching the
  *   model string for the Electrode. Returns NULL if something went wrong.
- *   Throws an exception  if the string
- *   wasn't matched.
+ *   Throws an exception  if the string wasn't matched.
  */
 ELECTRODE_KEY_INPUT* newElectrodeKeyInputObject(std::string model, Electrode_Factory* f = 0);
+
+//!  Create a new RSD_OCVmodel Object
+/*!
+ * @param model   String to look up the model against
+ * @param f       Eledtrode Factory instance to use in matching the string
+ *
+ * @return
+ *   Returns a pointer to a new RSD_OCVmodel  instance matching the
+ *   model string for the RSD_OCVmodel. Returns NULL if something went wrong.
+ *   Throws an exception  if the string wasn't matched.
+ */
+RSD_OCVmodel* newRSD_OCVmodel(std::string model, Electrode_Factory *f = 0);
+
 
 }
 #endif

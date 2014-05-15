@@ -307,10 +307,10 @@ public:
     //! Pointer vector of Cantera file names
     char** CanteraFileNames;
 
-    //! Temperature of the electrode
+    //! Temperature of the electrode (kelvin)
     double Temperature;
 
-    //! Pressure of the electrode
+    //! Pressure of the electrode (Pascal)
     double Pressure;
 
     double Vol;
@@ -324,7 +324,14 @@ public:
     double* PotentialPLPhases;
     int*    PhaseInclude;
     int    ProblemType;
+
+    //! Vector of species names
+    /*!
+     *  c string format
+     *  length nTotSpecies
+     */
     char** SpeciesNames;
+
     char** PhaseNames;
 
     //!  Names of the elements
@@ -423,8 +430,8 @@ public:
     int numExtraGlobalRxns;
     EGRInput** m_EGRList;
 
+    //! Number of total phases in the phase list
     int nTotPhases;
-
 
     //! Total number of species in the Phase List
     int nTotSpecies;
