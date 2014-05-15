@@ -85,6 +85,7 @@ public:
 };
 
 
+//! Structure for storring the input for OCVoverride models
 struct OCV_Override_input {
     OCV_Override_input();
 
@@ -92,7 +93,8 @@ struct OCV_Override_input {
    std::string surfacePhaseName;
    std::string OCVModel;
    std::string replacedSpeciesName;
-   int replacedSpeciesID;
+   //! the global species id for the species whose thermo will be replaced
+   int replacedGlobalSpeciesID;
    int rxnID;
    int temperatureDerivType;
    double temperatureBase;

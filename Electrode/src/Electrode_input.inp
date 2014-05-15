@@ -19,9 +19,9 @@ Electrode Name = FeS2
 !         The type is mostly never used. It's under consideration for removal, but may be necessary
 !         for specification of the capacity, i.e., we need a direction for the specification of the capacity
 !
-!---------------------------------------------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
 Electrode Type = cathode
-!---------------------------------------------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
 !
 !  Specification of the Electrode Model Name
 !
@@ -34,9 +34,9 @@ Electrode Type = cathode
 !             required = yes
 !             default = ""
 !
-!--------------------------------------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------------------------------
 Electrode Model Name = InfCapacity
-!--------------------------------------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------------------------------
 !
 !  Number of Cantera Files = int [required]
 !
@@ -59,7 +59,7 @@ Cantera File Name = LiKCl_recipmoltenSalt.xml
 Cantera File Name = FeS2_A.xml
 Cantera File Name = FeS2_B.xml
 Cantera File Name = FeS2_electrode.xml
-!-------------------------------------------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
 !    Temperature = double (default = 300.0 K) (optional)
 !
@@ -67,7 +67,7 @@ Cantera File Name = FeS2_electrode.xml
 !         This means that all ThermoPhases are initialized to this level as an initial condition.
 !         The temperature may be overrided by programs that use the Electrode object.
 ! 
-!------------------------------------------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 Temperature = 723.15
 !-----------------------------------------------------------------------------------------------------------
 !
@@ -84,84 +84,119 @@ Pressure = 1.0 atm
 !
 !    Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
+!-----------------------------------------------------------------------------------------------------------
 Particle Diameter = 20 microns
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
 ! Particle Number to Follow - double [unitless] (default 1) (optional)
 !
+!-----------------------------------------------------------------------------------------------------------
 Particle Number to Follow = 2.0E8 
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
 ! Electrode Gross Area - [m^2]
 !
+!-----------------------------------------------------------------------------------------------------------
 ! Electrode Gross Area = 2.5063e-3 m2
-!
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
 ! Electrode Gross Diameter - [m]
 !
+!-----------------------------------------------------------------------------------------------------------
 ! Electrode Gross Diameter = 0.05649 m
-!
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
 ! Electrode Gross Thickness - [m]
 !
+!-----------------------------------------------------------------------------------------------------------
 ! Electrode Gross Thickness = 7.874e-4 m
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 ! 
-!  Electrode Porosity value 
+!  Electrode Porosity = double  [optional - sometimes required]
 !
-!   This is used to specify the porosity within the electrode
-!   The porosity refers to the volume fraction of electrolyte within the electrode.
-!   When we expand to allow for more phases, the porosity will mean the volume
-!   fraction of electrolye. Volume fractions of other phases will reduce the
-!   available volume fraction of electrode.
+!     This is used to specify the porosity within the electrode
+!     The porosity refers to the volume fraction of electrolyte within the electrode.
+!     When we expand to allow for more phases, the porosity will mean the volume
+!     fraction of electrolye. Volume fractions of other phases will reduce the
+!     available volume fraction of electrode.
 !
-!   When this value is specified, value associated with entering the mass
-!   of electrode material will cause error inputs, as this is conflicting
-!   and/or duplicative entries.
+!     When this value is specified, value associated with entering the mass
+!     of electrode material will cause error inputs, as this is conflicting
+!     and/or duplicative entries.
 !
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 Electrode Porosity = 0.35
-!--------------------------------------------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
-!  BLOCK:  Bath Specification for phases within the electrode object
+!  BLOCK:  Bath Specification for phases within the electrode object [optional] 
+!             [default -> the phase defaults for mole fraction is used, along with a mole number of zero
+!                         for the phase as a whole]
+!
+!       A block for each phase within the electrode object is created. This is where the composition and
+!       amount of each phase is specified.
 !
 !       start block Bath Specification for Phase [Cantera_Phase_Name] (optional)
 !          Phase Moles = double   (required)
 !          start block Bath Species Mole Fraction (required)
 !               FeS2_A(S) =  1.0
 !          End block Bath Species Mole Fraction
-!       end   block Bath Specification for Phase [Cantera_Phase_Name]
+!       end block Bath Specification for Phase [Cantera_Phase_Name]
 !
 !--------------------------------------------------------------------------------------------------------------
-!
 start block Bath Specification for Phase FeS2_A(S)
+!--------------------------------------------------------------------------------------------------------------
+  !
+  !------------------------------------------------------------------------------------------------------------
+  !  
+  !   Phase Moles = double  [required]  
+  !      
+  !        Enter the kmoles of species in the phase within the current electrode
+  !        This number is frequently scaled to represent a given specified volume as the initial condition.
+  !        However, the scale of this phase is honored. Therefore, if there are more than one phase
+  !        in the electrode, then the specification of this number in combination with the mole fractions within
+  !        the phase will be important.
+  !
+  !------------------------------------------------------------------------------------------------------------
   Phase Moles = 13.0
-  start block Bath Species Mole Fraction
-    FeS2_A(S) =  1.0
- End block Bath Species Mole Fraction
-end block Bath Specification for Phase  FeS2_A(S)
-!
+  !------------------------------------------------------------------------------------------------------------
+  ! 
+  !  BLOCK: Bath Species Mole Fraction 
+  !
+  !     Standard mole fraction block. Each species in the phase has a line entry where you can
+  !     specify the mole fractions. The default is to set the mole fraction to 0.0. 
+  !     It's an error for the mole fractions to not sum to 1.0 (or very close
+  !
+  !------------------------------------------------------------------------------------------------------------
+  Start block Bath Species Mole Fraction
+    FeS2_A(S) = 1.0
+  End block Bath Species Mole Fraction
+  !------------------------------------------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
+End block Bath Specification for Phase  FeS2_A(S)
 !--------------------------------------------------------------------------------------------------------------
 !
-start block Bath Specification for Phase FeS2_B(S)
+Start block Bath Specification for Phase FeS2_B(S)
   Phase Moles = 1.0E-3
   start block Bath Species Mole Fraction
     FeS2_B(S) =  1.0
  End block Bath Species Mole Fraction
-end block Bath Specification for Phase  FeS2_B(S)
+End block Bath Specification for Phase  FeS2_B(S)
 !
 !--------------------------------------------------------------------------------------------------------------
 !
-start block Bath Specification for Phase LiKCl_electrolyte
+!   The electrolyte phase is also specified. In many problems where the electrode is being interrogated as
+!   a sole entity, the composition of the electrolyte is needed. It is input here. In other problems
+!   where the electrode is only part of the problem, the composition of the electrolyte added here will
+!   be overwritten. 
+!
+Start block Bath Specification for Phase LiKCl_electrolyte
    Phase Moles = 6.6
-   start block Bath Species Mole Fraction
+   Start block Bath Species Mole Fraction
       Li+ = 0.3
       K+  = 0.2
       Cl- = 0.5
    End block Bath Species Mole Fraction
-end block Bath Specification for Phase LiKCl_electrolyte
+End block Bath Specification for Phase LiKCl_electrolyte
 !
 !--------------------------------------------------------------------------------------------------------------
 !
@@ -249,7 +284,7 @@ Start block Open Circuit Potential Override for interface LiFe2S4_interface
    Open Circuit Voltage Temperature Derivative Model = newFit_LiFe2S4
    !-----------------------------------------------------------------------------------------------------------
 !--------------------------------------------------------------------------------------------------------------
-end block Open Circuit Potential Override for interface LiFe2S4_interface
+End block Open Circuit Potential Override for interface LiFe2S4_interface
 !--------------------------------------------------------------------------------------------------------------
 !
 !

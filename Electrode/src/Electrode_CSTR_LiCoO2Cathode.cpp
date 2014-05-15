@@ -2,23 +2,8 @@
  * $Id: Electrode_CSTR_LiCoO2Cathode.cpp 571 2013-03-26 16:44:21Z hkmoffa $
  */
 
-
-
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 
-using namespace Cantera;
-using namespace std;
-
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-#ifndef MIN
-#define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
-#endif
-
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
-#endif
 
 namespace Cantera
 {

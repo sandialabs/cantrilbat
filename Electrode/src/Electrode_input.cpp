@@ -89,7 +89,7 @@ OCV_Override_input::OCV_Override_input() :
     surfacePhaseName(""),
     OCVModel("Constant"),
     replacedSpeciesName(""),
-    replacedSpeciesID(-1),
+    replacedGlobalSpeciesID(-1),
     rxnID(0),
     temperatureDerivType(0),
     temperatureBase(298.15),
@@ -1040,6 +1040,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         if (ocv_input_ptr == 0) {
             OCVoverride_ptrList[iphS] = new OCV_Override_input();
             ocv_input_ptr = OCVoverride_ptrList[iphS]; 
+            ocv_input_ptr->surfacePhaseID = iphS;
         }
 
         // 
@@ -1694,6 +1695,13 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
 	}
 	if (numTimes == 1) {
 	    OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
+            //
+            // discover the replacedSpeciesID
+            //
+            ocv_input_ptr->replacedGlobalSpeciesID = m_pl->globalSpeciesIndex(ocv_input_ptr->replacedSpeciesName);
+
+
+            
 
 	}
     }
