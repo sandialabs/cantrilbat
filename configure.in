@@ -822,6 +822,8 @@ AC_OUTPUT(Makefile \
           Electrode/tests/UnitTests/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \
           Electrode/tests_develop/LiCoO2_Radial_devel_cV/Makefile \
+          Electrode/tests_develop/LiMn2O4_OCP/Makefile \
+          Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_OCV/Makefile \
 	  cttables/Makefile \
 	  cttables/src/Makefile \
 	  cttables/tests/Makefile \
