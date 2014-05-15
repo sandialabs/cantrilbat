@@ -7,9 +7,6 @@
 #include "cantera/numerics/NonlinearSolver.h"
 
 using namespace Cantera;
-//using namespace std;
-using namespace BEInput;
-using namespace TKInput;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}

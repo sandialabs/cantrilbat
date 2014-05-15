@@ -16,7 +16,6 @@
 
 #include "Electrode.h"
 #include "ApplBase_print.h"
-#include "cantera/numerics/solveProb.h"
 #include "cantera/base/FactoryBase.h"
 
 #if defined(THREAD_SAFE_CANTERA)

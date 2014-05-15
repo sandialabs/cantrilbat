@@ -6,6 +6,7 @@
 #include "Electrode_Factory.h"
 #include "Electrode_FuncCurrent.h"
 #include "cantera/numerics/RootFind.h"
+#include "cantera/numerics/solveProb.h"
 #include "RxnMolChange.h"
 #include "ApplBase_print.h"
 

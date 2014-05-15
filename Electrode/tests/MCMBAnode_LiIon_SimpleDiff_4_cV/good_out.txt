@@ -8,15 +8,15 @@
     Number of Cantera Files = (integer) with default 1
          => Number of Cantera Files ====> NumCanteraFiles = 4
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
+    Temperature = (double) with limits (0, 3000) with default 300
+         ====> Temperature = 298.15
+    Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
+	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  MCMB_RedlichKister.xml
          ====> CanteraFileNames =  MCMBAnode_electrode.xml
-    Temperature = (double) with limits (0, 3000) with default 300
-         ====> Temperature = 298.15
-    Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
-	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Particle Diameter = (double) [Units] with limits (0, 1) with default 1e-06 (REQUIRED LINE)
 	Units = Length Units (m cm mm um nm inches ft) (Default = m)
     Particle Number to Follow = (double) with limits (1, 1e+28) with default -1
@@ -110,9 +110,15 @@
     END BLOCK Bath Specification for Phase anode_surface
     START BLOCK Open Circuit Potential Override for interface anode_surface           (OPTIONAL BLOCK)
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
-        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
-            li_site = (double) with limits (0, 1) with default 0
-        END BLOCK Bath Species Mole Fraction
+        Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
+        Identify Reaction for OCV Model = (integer) with default 0
+        Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
+            LIST = 
+                zero : 0
+                species : 1
+                model : 2
+        Temperature for OCV = (double) with default 298.15
+        Open Circuit Voltage Temperature Derivative Model = (string) with Token limits(10, 0) with default Constant 0.0 (REQUIRED LINE)
     END BLOCK Open Circuit Potential Override for interface anode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)

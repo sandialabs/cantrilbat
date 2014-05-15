@@ -5,6 +5,7 @@
 #include "Electrode_CSTR.h"
 
 #include "LE_OneDbl.h"
+#include "BE_BlockEntry.h"
 
 #include "cantera/numerics/NonlinearSolver.h"
 

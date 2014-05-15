@@ -67,11 +67,15 @@ Cantera File Name = LiSi_InternalSurf.xml
 ! 
 !-------------------------------------------------------------------------
 Temperature = 773.15
+ => Temperature = 773.15
+ ====> Temperature = 773.15
 !-------------------------------------------------------------------------
 !
 ! Pressure - double [Pressure_unit] (no default) (required)
 !
 Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
 !-------------------------------------------------------------------------
 !
 ! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
@@ -192,11 +196,15 @@ Cantera File Name = LiSi_InternalSurf.xml
 ! 
 !-------------------------------------------------------------------------
 Temperature = 773.15
+ => Temperature = 773.15
+ ====> Temperature = 773.15
 !-------------------------------------------------------------------------
 !
 ! Pressure - double [Pressure_unit] (no default) (required)
 !
 Pressure = 1.0 atm
+ => Pressure = 1.0 atm
+ ====> PO.Pressure = 101325
 !-------------------------------------------------------------------------
 !
 ! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)

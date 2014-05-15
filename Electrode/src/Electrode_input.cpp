@@ -1,8 +1,12 @@
 /*
  * $Id: Electrode_input.cpp 576 2013-03-27 23:13:53Z hkmoffa $
  */
-
-
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
 
 #include "Electrode_input.h"
 #include "Electrode_Factory.h"
@@ -11,15 +15,14 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "BlockEntryGlobal.h"
+#include "mdp_allo.h"
 
 using namespace std;
 using namespace BEInput;
-using namespace TKInput;
 using namespace ca_ab;
 using namespace mdpUtil;
 using namespace Cantera;
 
-#include <string>
 //================================================================================================
 ElectrodeBath::ElectrodeBath() :
     XmolPLSpecVec(0),
@@ -90,7 +93,7 @@ OCV_Override_input::OCV_Override_input() :
     rxnID(0),
     temperatureDerivType(0),
     temperatureBase(298.15),
-    OCVTempDerivModel("")
+    OCVTempDerivModel("Constant 0.0")
 {
 }
 //================================================================================================
@@ -216,7 +219,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      } else {
        CanteraFileNames = (char**) mdpUtil::mdp_alloc_ptr_1(NumberCanteraFiles +1);
        for (int i = 0; i <  NumberCanteraFiles     ; i++) {
-          CanteraFileNames[i] = copy_string(right.CanteraFileNames[i]);
+          CanteraFileNames[i] = TKInput::copy_string(right.CanteraFileNames[i]);
        }
      }
 
@@ -285,7 +288,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      SpeciesNames = (char**) mdp_alloc_ptr_1(nTotSpecies);
      for (int i = 0; i < nTotSpecies; i++) {
-	SpeciesNames[i] = copy_string(right.SpeciesNames[i]);
+	SpeciesNames[i] = TKInput::copy_string(right.SpeciesNames[i]);
      }
 
      if (PhaseNames) {
@@ -296,7 +299,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      PhaseNames = (char**) mdp_alloc_ptr_1(nTotPhases);
      for (int i = 0; i < nTotPhases; i++) {
-	PhaseNames[i] = copy_string(right.PhaseNames[i]);
+	PhaseNames[i] = TKInput::copy_string(right.PhaseNames[i]);
      }
 
      if (ElementNames) {
@@ -307,7 +310,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      ElementNames = (char**) mdp_alloc_ptr_1(nTotElements);
      for (int i = 0; i < nTotElements; i++) {
-	ElementNames[i] = copy_string(right.ElementNames[i]);
+	ElementNames[i] = TKInput::copy_string(right.ElementNames[i]);
      }
 
      mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
@@ -326,7 +329,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      SpeciesNames = (char**) mdp_alloc_ptr_1(nTotSpecies);
      for (int i = 0; i < nTotSpecies; i++) {
-	SpeciesNames[i] = copy_string(right.SpeciesNames[i]);
+	SpeciesNames[i] = TKInput::copy_string(right.SpeciesNames[i]);
      }
 
      if (PhaseNames) {
@@ -337,7 +340,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      PhaseNames = (char**) mdp_alloc_ptr_1(nTotPhases);
      for (int i = 0; i < nTotPhases; i++) {
-	PhaseNames[i] = copy_string(right.PhaseNames[i]);
+	PhaseNames[i] = TKInput::copy_string(right.PhaseNames[i]);
      }
 
      if (ElementNames) {
@@ -348,7 +351,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      ElementNames = (char**) mdp_alloc_ptr_1(nTotElements);
      for (int i = 0; i < nTotElements; i++) {
-	ElementNames[i] = copy_string(right.ElementNames[i]);
+	ElementNames[i] = TKInput::copy_string(right.ElementNames[i]);
      }
 
      mdp_realloc_dbl_1(&ElementAbundances, nTotElements, 0, 0.0);
@@ -415,6 +418,10 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     free(PhaseNames);
     free(ElementNames);
     delete [] ElementAbundances;
+
+    for (size_t j = 0; j < OCVoverride_ptrList.size(); j++) {
+         delete OCVoverride_ptrList[j];
+    }
 
     if (m_EGRList) {
 
@@ -616,13 +623,37 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
      *
      *  This must correspond to the name used by the factory method for instanteating
      *  Electrode objects.
-     *
      *    (required)
      *    default = ""
      */
     LE_OneStr* eModelName = new LE_OneStr("Electrode Model Name",  &(electrodeModelName),
                                           1, 1, 1, "ElectrodeModelName");
     cf->addLineEntry(eModelName);
+
+    /* --------------------------------------------------------------
+     * Temperature -  double  [optional]  [default = 300.0K]
+     *
+     *   The temperature is initialized to this value at the electrode level.
+     *   This means that all ThermoPhases are initialized to this level as an initial condition.
+     *   The temperature may be overrided by programs that use the Electrode object.
+     */
+    LE_OneDbl* d1 = new LE_OneDbl("Temperature", &(Temperature), 0, "Temperature");
+    d1->set_default(300.);
+    d1->set_limits(3000., 0.0);
+    cf->addLineEntry(d1);
+
+    /* --------------------------------------------------------------
+     * Pressure -
+     *
+     * Configure the application Pressure
+     */
+    BE_UnitConversion* ucPres = new BE_UnitConversionPressure();
+    LE_OneDblUnits* b5 = new LE_OneDblUnits("Pressure", &(Pressure), 0,
+                                            "PO.Pressure", ucPres);
+    b5->set_default(OneAtm);
+    b5->set_limits(1.E20, 0.0);
+    cf->addLineEntry(b5);
+
 
     BaseEntry::set_SkipUnknownEntries(true);
 }
@@ -633,15 +664,13 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
      *  Store the pointer to the BlockEntry structure that is used to parse the command file
      */
     lastBlockEntryPtr_ = cf;
-
     LineEntry* sle1 = 0;
     /*
      *  Get the input deck for
      *  Cantera description of the model.
      */
-    LE_MultiCStr* s1 =
-        new LE_MultiCStr("Cantera File Name", &(CanteraFileNames),
-                         1, 1,  0, "CanteraFileNames");
+    LE_MultiCStr* s1 = new LE_MultiCStr("Cantera File Name", &(CanteraFileNames),
+                                        1, 1,  0, "CanteraFileNames");
     s1->set_default("gas.cti");
 
     /*
@@ -651,10 +680,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
     sle1 = cf->searchLineEntry("Number of Cantera Files");
     int numF = 1;
     (void) sle1->ansDepCheckOneInt(numF);
-
     s1->set_NumTimesRequired(numF);
-
-
     cf->addLineEntry(s1);
     BaseEntry::set_SkipUnknownEntries(true);
 }
@@ -685,30 +711,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     PhaseList* pl = m_pl;
     int iph;
-
-    /* --------------------------------------------------------------
-     * Temperature -  double  [optional]  [default = 300.0K]
-     *
-     *   The temperature is initialized to this value at the electrode level.
-     *   This means that all ThermoPhases are initialized to this level as an initial condition.
-     *   The temperature may be overrided by programs that use the Electrode object.
-     */
-    LE_OneDbl* d1 = new LE_OneDbl("Temperature", &(Temperature), 0, "Temperature");
-    d1->set_default(300.);
-    d1->set_limits(3000., 0.0);
-    cf->addLineEntry(d1);
-
-    /* --------------------------------------------------------------
-     * Pressure -
-     *
-     * Configure the application Pressure
-     */
-    BE_UnitConversion* ucPres = new BE_UnitConversionPressure();
-    LE_OneDblUnits* b5 = new LE_OneDblUnits("Pressure", &(Pressure), 0,
-                                            "PO.Pressure", ucPres);
-    b5->set_default(OneAtm);
-    b5->set_limits(1.E20, 0.0);
-    cf->addLineEntry(b5);
 
     /* ---------------------------------------------------------------------------
      * Particle diameter -
@@ -988,7 +990,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
  
     // ---------------------------------------------------------------------------------
     /*
-     *  Specify a block for each surface Phase to receive inputs on composition
+     *  Specify a block for each surface phase to receive inputs on composition
      *  and voltage
      */
 
@@ -1025,48 +1027,110 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     //  
     //  Specify a block for each surface phase to receive inputs on OCV Overrides
     //
+    OCVoverride_ptrList.resize(pl->nSurPhases(), 0);
     for (size_t iphS = 0; iphS < (size_t)pl->nSurPhases(); iphS++) {
         std::string phaseBath = "Open Circuit Potential Override for interface ";
         iph = pl->nVolPhases() + iphS;
         ThermoPhase* tp = &(pl->surPhase(iphS));
         string phaseNm = tp->name();
-        size_t nSpecies = tp->nSpecies();
+        //size_t nSpecies = tp->nSpecies();
         phaseBath += phaseNm;
 
-        struct OCV_Override_input ocv_input;
+        OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
+        if (ocv_input_ptr == 0) {
+            OCVoverride_ptrList[iphS] = new OCV_Override_input();
+            ocv_input_ptr = OCVoverride_ptrList[iphS]; 
+        }
+
         // 
         //   Create a section method description block and start writing
-        //  line elements in it.
+        //   line elements in it.
         // 
         BlockEntry* bOCVoverride = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bOCVoverride);
 
-        int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
+        //int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
 
         /* --------------------------------------------------------------
          *      ocv_input.OCVModel = string   (required)
          *
-         *  Input a string name that will be inputted into a factor to pick the OCV model
-         *  from a list of options.
+         *  Input a string name that will be input into a factory routine to pick the OCV model
+         *  from a list of options. The first token will be interpreted as the string name.
+         *  All other tokens will be interpreted as doubles and input as parameters for the model.
          *  
          *   default name = "Constant"
          */
-        LE_OneStr* smodel = new LE_OneStr("Open Circuit Voltage Model", &(ocv_input.OCVModel), 
-                                          10, 1, 1, "SpeciesName");
+        LE_OneStr* smodel = new LE_OneStr("Open Circuit Voltage Model", &(ocv_input_ptr->OCVModel), 
+                                          10, 1, 1, "OCVModel");
         smodel->set_default("Constant");
         bOCVoverride->addLineEntry(smodel);
-        
+
+        /* ----------------------------------------------------------------------------------
+         *    Replaced Species = string      (required)
+         *
+         *   Name of the replaced species
+         */
+        LE_OneStr* rspec = new LE_OneStr("Replaced Species", &(ocv_input_ptr->replacedSpeciesName), 
+                                          1, 1, 1, "ReplacedSpeciesName");
+        rspec->set_default("");
+        bOCVoverride->addLineEntry(rspec);
+
+        /* ----------------------------------------------------------------------------------
+         *    Identify Reaction for OCV Model = int      (optional) (default = 0)
+         *
+         *   Integer name of the reaction. Since most models just have one reaction, we will start
+         *   with assuming that it's the first reaction in the mechanism 
+         */
+        LE_OneInt* rid = new LE_OneInt("Identify Reaction for OCV Model", 
+                                       &(ocv_input_ptr->rxnID), 0, "OCVModel_rxnID");
+        rid->set_default(0);
+        bOCVoverride->addLineEntry(rid);
+
         /* --------------------------------------------------------------
-         * BG.BathSpeciesMoleFractions -
+         *    Temperature Derivative = PickList = [Zero, Species, Model] (required)
+         *                                  (default = Zero)
          *
          * Create a PickList Line Element made out of the list of
          * species
+         *        zero    = The temperature derivative is set to zero.
+         *        species = The temperature derivative is set to the value determined
+         *                  by the thermo, even the thermo of the missing species.
+         *        model   = The temperature derivative is set by a model, specified
+         *                  further in the input deck.
          */
-        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction",
-                                            &(BG.XmolPLPhases[iph]), 0,
-                                            SpeciesNames+kstart, nSpecies, 0, "XBathmol");
-        bpmc->generateDefLE();
-        bOCVoverride->addSubBlock(bpmc);
+        const char* ccTD[3] = {"zero", "species", "model"};
+        LE_PickList* plTD = new LE_PickList("Temperature Derivative", 
+                                            &(ocv_input_ptr->temperatureDerivType),
+                                            ccTD, 3, 1, "OCVModel_tempDerivType");
+        plTD->set_default(0);
+        bOCVoverride->addLineEntry(plTD);
+
+        /* --------------------------------------------------------------
+         *    Temperature for OCV =  double [optional]  (default = 298.15 K)
+         *
+         *    Create an initial temperature for the OCV. If a temperature derivative is 
+         *    entered, then this value will be used in a linear interpolation of the OCV.
+         */
+        LE_OneDbl* rtdval =  new LE_OneDbl("Temperature for OCV", &(ocv_input_ptr->temperatureBase),
+                                           0, "OCVModel_tempBase");
+        rtdval->set_default(298.15);
+        bOCVoverride->addLineEntry(rtdval);
+
+        /* --------------------------------------------------------------
+         *      ocv_input.OCVTempDerivModel = string   (required)
+         *
+         *  Input a string name that will be inputted into a factor to pick the OCV model
+         *  from a list of options.
+         *  The first token will be interpreted as the string name for the model.
+         *  All other tokens will be interpreted as doubles and input as parameters for the model.
+         *  
+         *   default name = "Constant"
+         */
+        LE_OneStr* rtdmodel = new LE_OneStr("Open Circuit Voltage Temperature Derivative Model", 
+                                          &(ocv_input_ptr->OCVTempDerivModel),
+                                          10, 0, 1, "OCVTempDerivModel");
+        rtdmodel->set_default("Constant 0.0");
+        bOCVoverride->addLineEntry(rtdmodel);
     }
     // ---------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------
@@ -1197,8 +1261,8 @@ bool process_electrode_input(BlockEntry* cf, string fileName, int printFlag, int
         }
     }
     cf->ZeroLineCount();
-    const TOKEN tok_in;
-    TOKEN tok_out;
+    const TKInput::TOKEN tok_in;
+    TKInput::TOKEN tok_out;
     FILE* ifp = fopen(fileName.c_str(), "r");
     if (!ifp) {
         if (printFlag) {

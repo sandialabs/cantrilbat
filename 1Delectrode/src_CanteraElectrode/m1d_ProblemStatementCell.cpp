@@ -11,6 +11,7 @@
 
 #include "Electrode_Factory.h"
 #include "importPL.h"
+#include "mdp_allo.h"
 
 #define USE_DAKOTA
 #ifdef USE_DAKOTA
@@ -19,7 +20,6 @@
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
-using namespace mdpUtil;
 using namespace Cantera;
 
 namespace m1d
@@ -272,7 +272,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   /* ------------------------------------------------------------------------
    * Electrolyte composition in mole fraction units
    */
-  electrolyteMoleFracs_ = mdp_alloc_dbl_1( nTotSpecies_, 0.0);
+  electrolyteMoleFracs_ = mdpUtil::mdp_alloc_dbl_1( nTotSpecies_, 0.0);
 
   reqd = 0;
   int construct = 1;
@@ -738,12 +738,9 @@ ProblemStatementCell::InitForInput()
   nTotSpecies_ = pl->nSpecies();
   nTotElements_ = pl->nElements();
 
-  SpeciesNames_ = mdp_alloc_VecFixedStrings(nTotSpecies_,
-					   MPEQUIL_MAX_NAME_LEN_P1);
-  PhaseNames_ = mdp_alloc_VecFixedStrings(nTotPhases_,
-					 MPEQUIL_MAX_NAME_LEN_P1);
-  ElementNames_ = mdp_alloc_VecFixedStrings(nTotElements_,
-					   MPEQUIL_MAX_NAME_LEN_P1);
+  SpeciesNames_ = mdpUtil::mdp_alloc_VecFixedStrings(nTotSpecies_, MPEQUIL_MAX_NAME_LEN_P1);
+  PhaseNames_ = mdpUtil::mdp_alloc_VecFixedStrings(nTotPhases_, MPEQUIL_MAX_NAME_LEN_P1);
+  ElementNames_ = mdpUtil::mdp_alloc_VecFixedStrings(nTotElements_, MPEQUIL_MAX_NAME_LEN_P1);
 
   /*
    * Generate list of Phases and Species for reference in parsing

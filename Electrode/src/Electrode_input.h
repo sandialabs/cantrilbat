@@ -11,16 +11,10 @@
 #ifndef _ELECTRODE_INPUT_H
 #define _ELECTRODE_INPUT_H
 
-#include "cantera/equilibrium.h"
-#include "tok_input_util.h"
-
-
 #include "PhaseList.h"
-
-#include "ExtraGlobalRxn.h"
-
+//  adding this file here because most applications will use the object
 #include "BE_BlockEntry.h"
-#include "mdp_allo.h"
+
 #include <string>
 #include <vector>
 /*
@@ -40,6 +34,7 @@ namespace Cantera
 {
 class Electrode;
 }
+
 
 //! This class contain information about the electrode input from the input file
 /*!
@@ -134,9 +129,6 @@ public:
 
     //! Virtual destructor
     virtual ~ELECTRODE_KEY_INPUT();
-
-
-    
 
     //! Initialize the fields within the Electrode for reading
     /*!
@@ -322,7 +314,11 @@ public:
     double Pressure;
 
     double Vol;
+
+    //! Electrode Bath Gas Structure
     ElectrodeBath* m_BG;
+
+
     double* MoleNumber;
     double* MoleFraction;
     double* PotentialPLPhases;
@@ -330,10 +326,17 @@ public:
     int    ProblemType;
     char** SpeciesNames;
     char** PhaseNames;
+
+    //!  Names of the elements
+    /*!
+     *  List of the names of the elements in C-style, nullterminated strings
+     */
     char** ElementNames;
     double* ElementAbundances;
     bool  specifiedElementAbundances;
     int   specifiedBlockKmolSpecies;
+
+    std::vector<OCV_Override_input *> OCVoverride_ptrList;
 
     //! level of the xml State information created
     /*!

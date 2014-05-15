@@ -25,40 +25,40 @@ Electrode Type = cathode
 !
 !  Specification of the Electrode Model Name
 !
+!         This card specifies the type of the electrode to be used. The string is looked up in the
+!         Electrode Factory routine
 !
-!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
-!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent", "SimpleDiff",
 !                          "SimplePhaseChangeDiffusion",  "CSTR_MCMBAnode" ,
                             "CSTR_LiCoO2Cathode", "CSTR", "SimpleDiff"]
-!             required = not now but later
+!             required = yes
 !             default = ""
 !
 !--------------------------------------------------------------------------------------------------------------
 Electrode Model Name = InfCapacity
 !--------------------------------------------------------------------------------------------------------------
 !
-! Number of Cantera Files = int
+!  Number of Cantera Files = int [required]
 !
-!   Number of cantera files.  
+!       Number of cantera files to be input. The Cantera files contain the description of the phases
+!       used within the electrode.  
 !
 !-------------------------------------------------------------------------------------------------------------
 Number of Cantera Files = 5
 !-------------------------------------------------------------------------------------------------------------
 !
-! Cantera File Name = [string] [ required ]
+!  Cantera File Name = [string] [ required ]
 !
-!  Must have a number of lines equal to the number entered on the
-!  line "Number of Cantera Files"
-!   Note, all phases found in each file will be included in the 
-!   equilibrium calculation.
+!      Must have a number of lines equal to the number entered on the
+!      line "Number of Cantera Files"
+!      Note, all phases found in each file will be included in the  equilibrium calculation.
+!
 !-------------------------------------------------------------------------------------------------------------
-!
 Cantera File Name = metal_Li_LiCl_electrons.xml
 Cantera File Name = LiKCl_recipmoltenSalt.xml
 Cantera File Name = FeS2_A.xml
 Cantera File Name = FeS2_B.xml
 Cantera File Name = FeS2_electrode.xml
-!
 !-------------------------------------------------------------------------------------------------------------
 !
 !    Temperature = double (default = 300.0 K) (optional)
@@ -67,16 +67,22 @@ Cantera File Name = FeS2_electrode.xml
 !         This means that all ThermoPhases are initialized to this level as an initial condition.
 !         The temperature may be overrided by programs that use the Electrode object.
 ! 
-!-------------------------------------------------------------------------
+!------------------------------------------------------------------------------------------------------------
 Temperature = 723.15
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
-! Pressure - double [Pressure_unit] (no default) (required)
+!    Pressure - double [Pressure_unit] (no default) (required)
 !
+!
+!         The pressure is initialized to this value at the electrode level.
+!         This means that all ThermoPhases are initialized to this level as an initial condition.
+!         The pressure may be overrided by programs that use the Electrode object.
+!
+!-----------------------------------------------------------------------------------------------------------
 Pressure = 1.0 atm
-!-------------------------------------------------------------------------
+!-----------------------------------------------------------------------------------------------------------
 !
-! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!    Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
 Particle Diameter = 20 microns
 !-------------------------------------------------------------------------
@@ -174,35 +180,79 @@ end block Bath Specification for Phase LiKCl_electrolyte
 !         Note, in most cases there will only be one reaction on these surfaces, due to the incomplete
 !         thermo representation.
 !
-start block Open Circuit Potential Override for interface LiFe2S4_interface
+!--------------------------------------------------------------------------------------------------------------
+Start block Open Circuit Potential Override for interface LiFe2S4_interface
+!--------------------------------------------------------------------------------------------------------------
    !
    !-----------------------------------------------------------------------------------------------------------
+   ! 
+   !      Open Circuit Voltage Model = string   [required] [default = 'Constant']
    !
+   !          String identifying the model for the open circuit voltage. The string is fed into the 
+   !          factory routine to associate the particular model.
    !
    !-----------------------------------------------------------------------------------------------------------
    Open Circuit Voltage Model = newFit_LiFe2S4
    !-----------------------------------------------------------------------------------------------------------
+   !
+   !      Replaced Species = [species string name] [required] 
+   !
+   !          Name of the species whose thermodynamcis will be replaced by the OCV model.
+   !          The way the code handles OCV models is by replacing the thermodynamcis of one of the
+   !          species in the interfacial reaction with the thermo function needed to mimic the OCV
+   !          of the interfacial reaction.
+   !
    !-----------------------------------------------------------------------------------------------------------
    Replaced Species = LiFe2S4
    !----------------------------------------------------------------------------------------------------------- 
+   !
+   !     Identify Reaction for OCV Model = int      (optional) (default = 0)
+   !
+   !         Integer name of the reaction. Since most models just have one reaction, we will start
+   !         with assuming that it's the first reaction in the mechanism 
+   !
    !-----------------------------------------------------------------------------------------------------------
    Identify Reaction for OCV Model = 0
    !-----------------------------------------------------------------------------------------------------------
+   !
+   !    Temperature Derivative = PickList = [Zero, Species, Model] (required)
+   !                                     (default = Zero)
+   !
+   !         Create a PickList Line Element made out of the list of species
+   !              zero    = The temperature derivative is set to zero.
+   !              species = The temperature derivative is set to the value determined
+   !                        by the thermo, even the thermo of the missing species.
+   !              model   = The temperature derivative is set by a model, specified
+   !                        further in the input deck.
+   !
    !-----------------------------------------------------------------------------------------------------------
    Temperature Derivative = [ ZERO, SPECIES, MODEL ]
    !-----------------------------------------------------------------------------------------------------------
+   !
+   !   Temperature for OCV =  double [optional]  (default = 298.15 K)
+   !
+   !        Create an initial temperature for the OCV. If a temperature derivative is 
+   !        entered, then this value will be used in a linear interpolation of the OCV.
+   !
    !-----------------------------------------------------------------------------------------------------------
    Temperature for OCV = 298.15
    !-----------------------------------------------------------------------------------------------------------
+   !    Open Circuit Voltage Temperature Derivative Mode = string  (optional)
+   !
+   !        Input a string name that will be inputted into a factor to pick the OCV model from a list of options.
+   !        The first token will be interpreted as the string name for the model.
+   !        All other tokens will be interpreted as doubles and input as parameters for the model.
+   !       
+   !       default name = "Constant"
+   !
    !-----------------------------------------------------------------------------------------------------------
-   Open Circuit Temperature Derivative Model = newFit_LiFe2S4
+   Open Circuit Voltage Temperature Derivative Model = newFit_LiFe2S4
    !-----------------------------------------------------------------------------------------------------------
-   !-----------------------------------------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
 end block Open Circuit Potential Override for interface LiFe2S4_interface
-
-
-
-
+!--------------------------------------------------------------------------------------------------------------
+!
+!
 !------------------------------------------------------------------------
 !
 !   SPECIFY OTHER WAYS TO INPUT THE CONCENTRATION, without

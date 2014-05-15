@@ -22,7 +22,7 @@
 using namespace std;
 using namespace Cantera;
 using namespace VCSnonideal;
-using namespace mdpUtil;
+//using namespace mdpUtil;
 
 namespace Cantera {
 

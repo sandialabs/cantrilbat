@@ -8,32 +8,13 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
-
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
 #include "cantera/numerics/NonlinearSolver.h"
-
-#include "Electrode_input.h"
-#include "Electrode_CSTR_LiCoO2Cathode.h"
 #include "Electrode_Factory.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
-
-#include <stdio.h>
-#include <sstream>
+#include "BE_BlockEntry.h"
 #include <iomanip>
 
 using namespace std;
 using namespace Cantera;
-using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -49,11 +30,7 @@ void printUsage() {
 	 << endl;
     cout << endl;
 }
-
-
 //=====================================================================================================
-
-
 int main(int argc, char **argv)
 {
   int retn = 0;
@@ -126,7 +103,6 @@ int main(int argc, char **argv)
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
     std::string commandFileC = "cathode.inp";
-
 
 	
     // Initialize a block input structure for the command file

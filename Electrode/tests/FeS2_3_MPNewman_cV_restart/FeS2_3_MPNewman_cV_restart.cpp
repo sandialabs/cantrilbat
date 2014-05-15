@@ -8,32 +8,14 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
-
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
-#include "cantera/equil/vcs_VolPhase.h"
-#include "cantera/equil/vcs_internal.h"
-#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
+#include "Electrode_input.h"
+#include "Electrode_MP_RxnExtent.h"
 #include "cantera/numerics/NonlinearSolver.h"
 
-#include "Electrode_input.h"
-#include "Electrode.h"
-#include "Electrode_MP_RxnExtent.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
-
-#include <cstdio>
-#include <sstream>
 #include <iomanip>
 
 using namespace std;
 using namespace Cantera;
-using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
