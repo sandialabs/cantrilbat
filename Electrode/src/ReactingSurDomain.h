@@ -61,8 +61,10 @@ public:
      */
     virtual Kinetics* duplMyselfAsKinetics(const std::vector<thermo_t*>& tpVector) const;
 
-    //!   Import all the phases from a PhaseList and initialize the
-    //!   object
+    //!   Import all the phases from a PhaseList and initialize the kinetics for this object
+    /*!
+     *
+     */
     bool importFromPL(Cantera::PhaseList* pl, int iskin);
 
     //! Returns a reference to the calculated production rates of species
@@ -147,7 +149,6 @@ public:
     double getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV,
                                                 doublereal* io, doublereal* nu, doublereal *beta);
 
-
     //! Utility routine to calculate the current density given the parameters for
     //! an exchange current density formulation of the reaction rate
     /*!
@@ -171,7 +172,7 @@ public:
     std::vector<RxnMolChange*> rmcVector;
 
     //! Number of phases within the class
-    int numPhases;
+    int numPhases_;
 
     //!  Vector of pointers to xml trees
     std::vector<XML_Node*> xmlList;
@@ -208,7 +209,7 @@ public:
 
     //! ID of the phase in the PhaseList object that has the kinetics
     //! object
-    int iphaseKin;
+    int iphaseKin_;
 
     //! Temp vector that may be eliminated in the future.
     std::vector<int> tplRead;

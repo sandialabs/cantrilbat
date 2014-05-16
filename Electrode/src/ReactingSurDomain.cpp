@@ -33,12 +33,12 @@ namespace Cantera
  */
 ReactingSurDomain::ReactingSurDomain() :
     InterfaceKinetics(),
-    numPhases(0),
+    numPhases_(0),
     xmlList(0),
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
-    iphaseKin(-1),
+    iphaseKin_(-1),
     tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
@@ -58,12 +58,12 @@ ReactingSurDomain::ReactingSurDomain() :
  */
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     InterfaceKinetics(),
-    numPhases(0),
+    numPhases_(0),
     xmlList(0),
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
-    iphaseKin(-1),
+    iphaseKin_(-1),
     tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
@@ -77,7 +77,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     /*
      * Call the assignment operator
      */
-    *this = operator=(right);
+    operator=(right);
 }
 //====================================================================================================================
 // Assignment operator
@@ -98,13 +98,13 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
 
     InterfaceKinetics::operator=(right);
 
-    numPhases       = right.numPhases;
+    numPhases_      = right.numPhases_;
     // Shallow copy of xmlList pointers -> beware
     xmlList         = right.xmlList;
     kinOrder        = right.kinOrder;
     PLtoKinPhaseIndex_ = right.PLtoKinPhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
-    iphaseKin       = right.iphaseKin;
+    iphaseKin_      = right.iphaseKin_;
     tplRead         = right.tplRead;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
     speciesProductionRates_ = right.speciesProductionRates_;
@@ -339,7 +339,7 @@ std::ostream& operator<<(std::ostream& s,
 {
     ThermoPhase* th;
     InterfaceKinetics* iK = &mix;
-    for (int i = 0; i < mix.numPhases; i++) {
+    for (int i = 0; i < mix.numPhases_; i++) {
         th = &(iK->thermo(i));
         std::string r = th->report(true);
         s << r;
@@ -427,19 +427,18 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
         tplRead.resize(nPhasesFound, 0);
         kinOrder.resize(nPhasesFound, -1);
         xmlList.clear();
-        iphaseKin = -1;
+        iphaseKin_ = -1;
         if (iskin >= 0) {
-            iphaseKin = iskin + pl->nVolPhases();
+            iphaseKin_ = iskin + pl->nVolPhases();
             m_DoSurfKinetics = true;
         } 
 
-
-        numPhases = 0;
-        if (iphaseKin >= 0) {
+        numPhases_ = 0;
+        if (iphaseKin_ >= 0) {
             xmlList.push_back(kinXMLPhase);
             tpList.push_back(kinPhase);
-            tplRead[numPhases] = 1;
-            numPhases++;
+            tplRead[numPhases_] = 1;
+            numPhases_++;
         }
 
         /*
@@ -448,7 +447,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
          *  involved with the kinetics object.
          */
         XML_Node* phaseArrayXML = 0;
-        if (iphaseKin >= 0) {
+        if (iphaseKin_ >= 0) {
             XML_Node* xmlPhase = kinXMLPhase;
             phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
             if (phaseArrayXML) {
@@ -466,7 +465,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
                             xmlList.push_back(xmlPhase_j);
                             tpList.push_back(&(pl->surPhase(jph)));
                             tplRead[jph] = 1;
-                            numPhases++;
+                            numPhases_++;
                             break;
                         }
                     }
@@ -479,7 +478,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
                                 xmlList.push_back(xmlPhase_j);
                                 tpList.push_back(&(pl->volPhase(jph)));
                                 tplRead[jph] = 1;
-                                numPhases++;
+                                numPhases_++;
                                 break;
                             }
                         }
@@ -496,14 +495,14 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
             for (iph = 0; iph < pl->nSurPhases(); iph++) {
                 xmlList.push_back(pl->surPhaseXMLNode(iph));
                 tpList.push_back(&(pl->surPhase(iph)));
-                tplRead[numPhases] = 1;
-                numPhases++;
+                tplRead[numPhases_] = 1;
+                numPhases_++;
             }
             for (iph = 0; iph < pl->nVolPhases(); iph++) {
                 xmlList.push_back(pl->volPhaseXMLNode(iph));
                 tpList.push_back(&(pl->volPhase(iph)));
-                tplRead[numPhases] = 1;
-                numPhases++;
+                tplRead[numPhases_] = 1;
+                numPhases_++;
             }
         }
 
