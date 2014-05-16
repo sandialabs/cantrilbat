@@ -712,7 +712,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         int isph = isurf;
         if (SurPhaseHasKinetics[isph]) {
             ReactingSurDomain* rsd = new ReactingSurDomain();
-            int ok = rsd->importFromPL(this, -1, isph);
+            int ok = rsd->importFromPL(this, isph);
             if (!ok) {
                 throw CanteraError("cttables main:", "rSurDomain returned an error");
             }

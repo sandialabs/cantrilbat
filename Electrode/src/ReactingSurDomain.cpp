@@ -397,9 +397,11 @@ void ReactingSurDomain::identifyMetalPhase()
 }
 //====================================================================================================================
 /*
+ *      @param iskin   If this is zero or positive, we will formulate a kinetics mechanism using an 
+ *                     interfacial kinetics object.
  */
 bool ReactingSurDomain::
-importFromPL(Cantera::PhaseList* pl, int ivkin, int iskin)
+importFromPL(Cantera::PhaseList* pl, int iskin)
 {
     try {
         int iph;
@@ -408,17 +410,12 @@ importFromPL(Cantera::PhaseList* pl, int ivkin, int iskin)
         XML_Node* kinXMLPhase = 0;
         ThermoPhase* kinPhase = 0;
 
-        //XML_Node *vPhase = pl->SurPhaseXMLNodes[0];
         if (iskin >= 0) {
             kinXMLPhase = pl->surPhaseXMLNode(iskin);
             kinPhase = &(pl->surPhase(iskin));
-        } else    if (ivkin >= 0) {
-            kinXMLPhase = pl->surPhaseXMLNode(ivkin);
-            kinPhase = &(pl->surPhase(ivkin));
+        } else {
+            throw CanteraError("importFromPL", "iskin is neg");
         }
-        //AssertThrow(vPhase, "vPhase must be defined");
-
-
 
         int nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
         /*
@@ -434,9 +431,7 @@ importFromPL(Cantera::PhaseList* pl, int ivkin, int iskin)
         if (iskin >= 0) {
             iphaseKin = iskin + pl->nVolPhases();
             m_DoSurfKinetics = true;
-        } else if (ivkin >= 0) {
-            throw CanteraError("", "err");
-        }
+        } 
 
 
         numPhases = 0;
@@ -491,7 +486,7 @@ importFromPL(Cantera::PhaseList* pl, int ivkin, int iskin)
                     }
 
                     if (!found) {
-                        throw CanteraError("ReactingSurDomain::importFromPL",
+                        throw CanteraError("ReactingSurDomain::importFromPL()",
                                            "Phase, requested in phaseArray, was not found: "
                                            + phaseID);
                     }

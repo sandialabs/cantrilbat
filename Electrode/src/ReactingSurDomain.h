@@ -63,7 +63,7 @@ public:
 
     //!   Import all the phases from a PhaseList and initialize the
     //!   object
-    bool importFromPL(Cantera::PhaseList* pl, int ivkin, int iskin);
+    bool importFromPL(Cantera::PhaseList* pl, int iskin);
 
     //! Returns a reference to the calculated production rates of species
     /*!

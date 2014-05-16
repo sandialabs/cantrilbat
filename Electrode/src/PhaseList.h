@@ -239,7 +239,9 @@ public:
 
     //! Return a pointer to the volume phase XML Node for a single volume phase
     /*!
-     * @param iVolIndex   volume index of the surface phase
+     *    @param iVolIndex   Volume index of the volume phase
+     *
+     *    @return Returns a pointer to the volume phase XML Node
      */
     XML_Node* volPhaseXMLNode(int iVolIndex) const;
 
@@ -255,7 +257,7 @@ public:
      */
     ThermoPhase& volPhase(int iVolIndex);
 
-    //! Returns a pointer to a single surface phase
+    //! Returns a reference to a single surface phase
     /*!
      *  @param iSurIndex   Surface index of the surface phase
      */
