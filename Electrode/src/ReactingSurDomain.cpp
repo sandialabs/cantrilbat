@@ -33,7 +33,6 @@ namespace Cantera
  */
 ReactingSurDomain::ReactingSurDomain() :
     InterfaceKinetics(),
-    m_transport(0),
     numPhases(0),
     xmlList(0),
     kinOrder(0),
@@ -59,7 +58,6 @@ ReactingSurDomain::ReactingSurDomain() :
  */
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     InterfaceKinetics(),
-    m_transport(0),
     numPhases(0),
     xmlList(0),
     kinOrder(0),

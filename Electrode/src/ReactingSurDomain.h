@@ -169,20 +169,11 @@ public:
     //! Declare a printing routine as a friend to this class
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& vd);
 
-    /*
-     *
-     */
-
-
-    //! Pointer to the transport operator
-    Transport* m_transport;
-
     //! Vector of additional information about each reaction
     std::vector<RxnMolChange*> rmcVector;
 
     //! Number of phases within the class
     int numPhases;
-
 
     //!  Vector of pointers to xml trees
     std::vector<XML_Node*> xmlList;
@@ -237,7 +228,7 @@ public:
 
     //! Pointer to the phaselist object that contains the ThermoPhase objects.
     /*!
-     *  This object doesn't own this
+     *  This object doesn't own this. However, it uses this heavily.
      */
     Cantera::PhaseList* m_pl;
 
