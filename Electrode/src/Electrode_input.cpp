@@ -82,26 +82,57 @@ ElectrodeBath::~ElectrodeBath()
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffPhases);
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffSpecVec);
 }
-
-//================================================================================================
+//====================================================================================================================================================
 OCV_Override_input::OCV_Override_input() :
     surfacePhaseID(-1),
     surfacePhaseName(""),
     OCVModel("Constant"),
     replacedSpeciesName(""),
     replacedGlobalSpeciesID(-1),
+    replacedLocalSpeciesID(-1),
+    replacedSpeciesPhaseID(-1),
     rxnID(0),
     temperatureDerivType(0),
     temperatureBase(298.15),
     OCVTempDerivModel("Constant 0.0")
 {
 }
-//================================================================================================
+//===================================================================================================================================================
+OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
+    surfacePhaseID(right.surfacePhaseID),
+    surfacePhaseName(right.surfacePhaseName),
+    OCVModel(right.OCVModel),
+    replacedSpeciesName(right.replacedSpeciesName),
+    replacedGlobalSpeciesID(right.replacedGlobalSpeciesID),
+    replacedLocalSpeciesID(right.replacedLocalSpeciesID),
+    replacedSpeciesPhaseID(right.replacedSpeciesPhaseID),
+    rxnID(right.rxnID),
+    temperatureDerivType(right.temperatureDerivType),
+    temperatureBase(right.temperatureBase),
+    OCVTempDerivModel(right.OCVTempDerivModel)
+{
+}
+//===================================================================================================================================================
+OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& right)
+{
+    if (this == &right) {
+       return *this;
+    }
+    surfacePhaseID                 = right.surfacePhaseID;
+    surfacePhaseName               = right.surfacePhaseName;
+    OCVModel                       = right.OCVModel;
+    replacedSpeciesName            = right.replacedSpeciesName;
+    replacedGlobalSpeciesID        = right.replacedGlobalSpeciesID;
+    replacedLocalSpeciesID         = right.replacedLocalSpeciesID;
+    replacedSpeciesPhaseID         = right.replacedSpeciesPhaseID;
+    rxnID                          = right.rxnID;
+    temperatureDerivType           = right.temperatureDerivType;
+    temperatureBase                = right.temperatureBase;
+    OCVTempDerivModel              = right.OCVTempDerivModel;
 
-/*************************************************************************
- *
- * MPEQUIL_KEY_INPUT(): constructor
- */
+    return *this;
+}
+//===================================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     printLvl_(printLvl),
     commandFile_(""),
@@ -396,7 +427,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      return *this;
  }
 //===============================================================================================
-
 ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 {
     if (CanteraFileNames) {
@@ -1691,35 +1721,34 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             numTimes = pblock->get_NumTimesProcessed();
         }
 	if (numTimes > 1) {
-	    throw Electrode_Error("post_process", "block processed more than once");
+	    throw Electrode_Error("Electrode_input::post_input_pass3", "block processed more than once");
 	}
 	if (numTimes == 1) {
 	    OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
             //
-            // discover the replacedSpeciesID
+            // Discover the replacedSpeciesID
             //
-            ocv_input_ptr->replacedGlobalSpeciesID = m_pl->globalSpeciesIndex(ocv_input_ptr->replacedSpeciesName);
-
-
+            int kg = ocv_input_ptr->replacedGlobalSpeciesID = m_pl->globalSpeciesIndex(ocv_input_ptr->replacedSpeciesName);
+            if (kg < 0) {
+	        throw Electrode_Error("Electrode_input::post_input_pass3", "Species not found in phaselist : " 
+	                            + ocv_input_ptr->replacedSpeciesName);
+            }
+            ocv_input_ptr->replacedGlobalSpeciesID = kg;
             
-
+            int phaseID; 
+            int localSpeciesIndex; 
+            m_pl->getLocalIndecisesFromGlobalSpeciesIndex(kg, phaseID, localSpeciesIndex);
+            //
+            // Store the phase index and local species index of the replaced species
+            // 
+            ocv_input_ptr->replacedSpeciesPhaseID = phaseID;
+            ocv_input_ptr->replacedLocalSpeciesID = localSpeciesIndex;
+            //
+            // We can't check the validity of the kinetics reaction because we haven't yet set up the ReactingSurDomain,
+            // And, we haven't yet read in the kinetics mechanism. We do this in the ReactingSurDomain setup.
+            // 
 	}
     }
-
-
-/*
-  int surfacePhaseID;
-   std::string surfacePhaseName;
-   std::string OCVModel;
-   std::string replacedSpeciesName;
-   int replacedSpeciesID;
-   int rxnID;
-   int temperatureDerivType;
-   double temperatureBase;
-   std::string OCVTempDerivModel;
-*/
-
-
     return 0;
 }
 //======================================================================================================================
@@ -1745,7 +1774,7 @@ void ELECTRODE_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
 //======================================================================================================================
 // setup for child3
 /*
- *  Virtual function that may get added onto
+ *  Virtual function that may get added into
  *
  *  @param cf Pointer to the BlockEntry to be added onto by this routine
  */
@@ -1783,201 +1812,4 @@ void ELECTRODE_KEY_INPUT::post_input_child3(BEInput::BlockEntry* cf)
 {
 }
 //======================================================================================================================
-int electrode_model_print(Cantera::Electrode* electrodeA,  ELECTRODE_KEY_INPUT* ei,
-                          BEInput::BlockEntry* cf)
-{
-
-    int i, iph;
-
-
-    ElectrodeBath* BG_ptr = ei->m_BG;
-
-    /*
-     *  Store the pointer to the BlockEntry structure that is used to parse the command file
-     */
-    ei->lastBlockEntryPtr_ = cf;
-
-    /*
-     * Load up the temperature and pressure
-     */
-    //electrodeA->T = ei->Temperature;
-    //  electrodeA->Pres = ei->Pressure;
-
-    electrodeA->setState_TP(ei->Temperature, ei->Pressure);
-    /*
-     *  Loop Over all phases in the PhaseList, adding these
-     *  formally to the electrodeCell object.
-     */
-    for (iph = 0; iph < electrodeA->nPhases(); iph++) {
-
-        ThermoPhase* tphase = &(electrodeA->thermo(iph));
-        int nSpecies = tphase->nSpecies();
-
-        // Find the name of the input block
-        string phaseBath = "Bath Specification for Phase ";
-        string phaseNm = tphase->name();
-        phaseBath += phaseNm;
-
-        /*
-         * Set up the Bath Gas Conditions in each of
-         * the ThermoPhase objects
-         */
-
-
-        BEInput::BlockEntry* pblock = cf->searchBlockEntry(phaseBath.c_str());
-        /*
-        bool molVecSpecified = false;
-        if (pblock) {
-            BEInput::BlockEntry* pbsmf = pblock->searchBlockEntry("Bath Species Mole Fraction");
-            if (pbsmf) {
-                if (pbsmf->get_NumTimesProcessed() > 0) {
-                    molVecSpecified = true;
-                }
-            }
-        }
-        */
-
-        double* molesSpecies = new double[nSpecies];
-
-        bool molalVecSpecified = false;
-        if (pblock) {
-            BEInput::BlockEntry* pbsmm = pblock->searchBlockEntry("Bath Species Molalities");
-            if (pbsmm) {
-                if (pbsmm->get_NumTimesProcessed() > 0) {
-                    molalVecSpecified = true;
-                }
-            }
-        }
-        if (molalVecSpecified) {
-            MolalityVPSSTP* m_ptr = dynamic_cast<MolalityVPSSTP*>(tphase);
-            if (m_ptr == 0) {
-                printf("Dynamic cast failed for some reason\n");
-                exit(-1);
-            }
-            m_ptr->setState_TPM(ei->Temperature, ei->Pressure,
-                                BG_ptr->MolalitiesPLPhases[iph]);
-            m_ptr->getMoleFractions(BG_ptr->XmolPLPhases[iph]);
-        }
-        //    electrodeA->phaseMoles_[iph] = BG_ptr->PhaseMoles[iph];
-        double totalMoles = BG_ptr->PhaseMoles[iph];
-
-        setElectrodeBathSpeciesConditions(*tphase, *ei, *BG_ptr, iph, 0);
-
-        /*
-         *  Setup the global arrays in the electrode object
-         */
-        //    int kstart = electrodeA->getGlobalSpeciesIndex(iph, 0);
-        for (int k = 0; k < nSpecies; k++) {
-            molesSpecies[k] =  totalMoles * BG_ptr->XmolPLPhases[iph][k];
-            // electrodeA->spMf[kstart+k] = BG_ptr->XmolPLPhases[iph][k];
-            //      electrodeA->spMoles[kstart+k] = totalMoles * BG_ptr->XmolPLPhases[iph][k];
-        }
-        electrodeA->setPhaseMoleNumbers(iph, molesSpecies);
-        delete[] molesSpecies;
-
-        //    tphase->getPartialMolarVolumes(&(electrodeA->VolPM[kstart]));
-        //   tphase->getElectrochemPotentials(&(electrodeA->spElectroChemPot[kstart]));
-
-        // transfer the voltages to the electrode struct
-        double volts = tphase->electricPotential();
-        electrodeA->setPhaseVoltage(iph, volts);
-    }
-
-
-
-    //            PRINT HEADER INFORMATION
-    printf("\n");
-    printf("            electrode_model_print()\n");
-    printf("             Command file = %s\n", (ei->commandFile_).c_str());
-    printf("\n");
-
-
-    /*
-     * Query whether an initial estimate has been made and then set iest.
-     * Copy guess into vprobin
-     */
-
-
-    /*
-     *          Printout the species information: PhaseID's and mole nums
-     */
-    printf("\n");
-    print_char('-', 80);
-    printf("\n");
-    printf("             Phase IDs of species\n");
-    printf("            species     phaseID        phaseName   ");
-    printf(" Initial_Estimated_KMols\n");
-
-    for (iph = 0; iph < electrodeA->nPhases(); iph++) {
-        ThermoPhase* tphase = &(electrodeA->thermo(iph));
-        int nspeciesP = tphase->nSpecies();
-        string pName = tphase->id();
-        int kstart =  electrodeA->getGlobalSpeciesIndex(iph, 0);
-        for (i = 0; i < nspeciesP; i++) {
-            int kT = kstart + i;
-            string spName = tphase->speciesName(i);
-            printf("%16s      %5d   %16s",
-                   spName.c_str(), iph, pName.c_str());
-            printf("             %-10.5g", electrodeA->moleNumSpecies(kT));
-            printf("\n");
-
-        }
-    }
-
-    /*
-     *   Printout of the Phase structure information
-     */
-    printf("\n");
-    print_char('-', 80);
-    printf("\n");
-    printf("             Information about phases\n");
-    printf("  PhaseName    PhaseNum SingSpec GasPhase NumSpec");
-    printf("  TMolesInert       TKmols\n");
-
-    for (iph = 0; iph < electrodeA->nPhases(); iph++) {
-        ThermoPhase* tphase = &(electrodeA->thermo(iph));
-        int nspeciesP = tphase->nSpecies();
-        string pName = tphase->id();
-        printf("%16s %5d ", pName.c_str(), iph);
-        if (nspeciesP > 1) {
-            printf("  no  ");
-        } else {
-            printf("  yes ");
-        }
-        printf("%8d  ", nspeciesP);
-        printf(" %11g  ", 0.0);
-        printf("%16e\n", electrodeA->phaseMoles(iph));
-    }
-
-    /*
-     *   Printout the Element information
-     */
-    printf("\n");
-    print_char('-', 80);
-    printf("\n");
-    printf("             Information about Elements\n");
-    printf("     ElementName  Abundance_Kmols\n");
-    for (i = 0; i < electrodeA->nElements(); ++i) {
-        string eName = electrodeA->elementName(i);
-        printf("%12s ", eName.c_str());
-        printf("  %11g \n", electrodeA->elementMoles(i));
-    }
-
-
-    printf("\n");
-    print_char('=', 80);
-    printf("\n");
-    print_char('=', 20);
-    printf(" mpequil: END OF PROBLEM STATEMENT ");
-    print_char('=', 23);
-    printf("\n");
-    print_char('=', 80);
-    printf("\n\n");
-
-
-    return 0;
-}
-
-
-//=========================================================================================
 

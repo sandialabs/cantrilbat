@@ -207,7 +207,7 @@ public:
     void
     getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
                                             int& phaseIndex,
-                                            int& localSpeciesindex) const;
+                                            int& localSpeciesIndex) const;
 
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
@@ -353,7 +353,6 @@ protected:
      * length = m_NumTotPhases + 1
      */
     std::vector<int> m_PhaseSpeciesStartIndex;
-
 
     //! Name of the file containing the first surface phase encountered
     std::string CanteraFNSurface;

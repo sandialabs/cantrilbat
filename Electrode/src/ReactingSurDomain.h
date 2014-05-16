@@ -20,8 +20,6 @@ class RxnMolChange;
 
 namespace Cantera
 {
-
-class Transport;
 class PhaseList;
 
 
@@ -245,5 +243,6 @@ protected:
 
 
 };
+
 }
 #endif

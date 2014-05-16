@@ -34,6 +34,7 @@ class ExtraGlobalRxn
 {
 
 public:
+    //!  Constructor takes a default kinetics pointer
     ExtraGlobalRxn(Kinetics* k_ptr);
 
     virtual ~ExtraGlobalRxn();
