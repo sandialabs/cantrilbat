@@ -128,6 +128,7 @@ Electrode::Electrode() :
                 m_EGRList(0),
                 m_egr(0),
                 m_rmcEGR(0),
+                OCVoverride_ptrList_(0),
                 metalPhase_(-1),
                 solnPhase_(-1),
                 kElectron_(-1),
@@ -254,6 +255,7 @@ Electrode::Electrode(const Electrode& right) :
                 m_EGRList(0),
                 m_egr(0),
                 m_rmcEGR(0),
+                OCVoverride_ptrList_(0),
                 metalPhase_(-1),
                 solnPhase_(-1),
                 kElectron_(-1),
@@ -321,6 +323,7 @@ Electrode& Electrode::operator=(const Electrode& right)
 
     /*
      * Copy over the ReactingSurDomain list
+     * The electrode object owns the ReactingSurDomain. 
      */
     for (int i = 0; i < numSurfaces_; i++) {
         bool idHit = false;
@@ -414,6 +417,7 @@ Electrode& Electrode::operator=(const Electrode& right)
     Cantera::deepStdVectorPointerCopy<EGRInput>(right.m_EGRList, m_EGRList);
     Cantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
     Cantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
+    Cantera::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
     metalPhase_ = right.metalPhase_;
     solnPhase_ = right.solnPhase_;
     kElectron_ = right.kElectron_;
@@ -497,13 +501,13 @@ Electrode& Electrode::operator=(const Electrode& right)
  */
 Electrode::~Electrode()
 {
-    int is = m_EGRList.size();
-    for (int i = 0; i < is; i++) {
+    size_t is = m_EGRList.size();
+    for (size_t i = 0; i < is; i++) {
         delete m_EGRList[i];
         m_EGRList[i] = 0;
     }
 
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
         if (RSD_List_[i]) {
             delete RSD_List_[i];
         }
@@ -511,19 +515,23 @@ Electrode::~Electrode()
     //m_rSurDomain = 0;
 
     is = m_egr.size();
-    for (int i = 0; i < is; i++) {
+    for (size_t i = 0; i < is; i++) {
         if (m_egr[i]) {
             delete m_egr[i];
             m_egr[i] = 0;
         }
     }
     is = m_rmcEGR.size();
-    for (int i = 0; i < is; i++) {
+    for (size_t i = 0; i < is; i++) {
         if (m_rmcEGR[i]) {
             delete m_rmcEGR[i];
             m_rmcEGR[i] = 0;
         }
     }
+    for (size_t i = 0; i < OCVoverride_ptrList_.size(); ++i) {
+         delete OCVoverride_ptrList_[i];
+    } 
+
     SAFE_DELETE(xmlTimeIncrementData_);
     SAFE_DELETE(xmlTimeIncrementIntermediateData_);
     SAFE_DELETE(xmlExternalData_init_init_);
@@ -734,6 +742,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             ActiveKineticsSurf_[isurf] = 1;
         }
     }
+    OCVoverride_ptrList_ = ei->OCVoverride_ptrList;
 
     /*
      * Calculate the number of external interfacial surfaces

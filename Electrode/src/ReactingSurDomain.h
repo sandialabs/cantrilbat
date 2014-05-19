@@ -267,6 +267,10 @@ public:
 
     OCV_Override_input *ocv_ptr_;
 
+    //! Pointer to the OCV model that may be used to override the thermodynamics for the OCV for this interface
+    /*!
+     *  If there isn't an override, this is set to zero.
+     */
     RSD_OCVmodel* OCVmodel_;
 
 protected:

@@ -597,9 +597,12 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
 }
 
 //====================================================================================================================
+// An an override for the OCV
 void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
 {
-    
+    //
+    // Save the pointer for the input information  (Question, should I make a deep copy?)
+    //
     ocv_ptr_ = ocv_ptr;
 
 

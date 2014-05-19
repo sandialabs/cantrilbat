@@ -2590,6 +2590,10 @@ protected:
     /*!
      *  This vector has a length equal to the number of surfaces in the problem.
      *  If a surface doesn't have kinetics associated with it, the position is set to null.
+     *  Note, the electrode object does own the ReactingSurDomain's associated with it.
+     *  This means that it owns the interfacial kinetics object wich the ReactingSurDomain object
+     *  is a child object. The interfacial kinetics object points to the ThermoPhase objects
+     *  which are owned by the PhaseList object, which the Electrode object is a child of.
      *
      *     Length = number of surfaces that may be present: numSurfaces_
      */
@@ -2821,7 +2825,8 @@ public:
 
     //! Storage for the OCV override information
     /*
-     *   This is stored as a series of 
+     *   This is stored as a series of pointers to OCV_override_input vectors.
+     *   Length is the number of surfaces
      */
     std::vector<OCV_Override_input *> OCVoverride_ptrList_;
 

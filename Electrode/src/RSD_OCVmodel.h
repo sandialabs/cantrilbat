@@ -75,12 +75,19 @@ class RSD_OCVmodel
 
     //! Copy constructor
     /*!
-     *   
+     *   @param right   Object to be copied
      */
     RSD_OCVmodel(const RSD_OCVmodel& right);
 
+    //! destructor
     virtual ~RSD_OCVmodel();
 
+    //! Assignment operator
+    /*!
+     *   @param right   Object to be copied
+     *
+     *  @return returns a reference to the current object
+     */
     RSD_OCVmodel& operator=(const  RSD_OCVmodel& right);
 
     //! Duplicator function for this class
@@ -89,7 +96,16 @@ class RSD_OCVmodel
      */
     virtual RSD_OCVmodel* duplMyselfAsOCVmodel() const;
 
-    //! 
+    //! Set how the relative extent calculation is carried out
+    /*!
+     *      The usual setup will be to specify the mole fraction of a particular species as being the relative
+     *      depth of discharge.
+     *
+     *   @param tp                Pointer to the ThermoPhase class
+     *   @param kspec             species whose mole fraction will be assigned as the rel extent
+     *   @param dvec              double vector for later expansion
+     *   @param ivec              int vector for later expansion
+     */
     virtual void setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec = 0, int *ivec = 0);
 
     //!  Return the open circuit voltage given the relative extent of reaction
