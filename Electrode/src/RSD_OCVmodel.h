@@ -94,7 +94,9 @@ class RSD_OCVmodel
     /*!
      *  @return Returns a duplication of the current state as a pointer to the base class
      */
-    virtual RSD_OCVmodel* duplMyselfAsOCVmodel() const;
+    virtual RSD_OCVmodel* duplMyselfAsOCVmodel(ThermoPhase* solidPhase = 0) const;
+
+    void assignShallowPointers(ThermoPhase* solidPhase);
 
     //! Set how the relative extent calculation is carried out
     /*!
@@ -147,10 +149,10 @@ protected:
 
     //! model name
     std::string modelName_;
-
+public:
     //! underlying ThermoPhase model
     ThermoPhase* solidPhaseModel_;
-
+protected:
     //! Particular species within the ThermoPhase which indicates the relative depth of discharge
     /*!
      *    The usual setup will be to specify the mole fraction of aa particular species as being the relative

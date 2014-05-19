@@ -164,7 +164,13 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
         }
     }
 
+    //
+    // These are shallow pointers, so they need to be reevaluated
+    //
     VolPhaseXMLNodes=  right.VolPhaseXMLNodes;
+    for (int i = 0; i < NumVolPhases_; i++) {
+        VolPhaseXMLNodes[i] = &(VolPhaseList[i]->xml());
+    }
 
     VolPhaseHasKinetics  = right.VolPhaseHasKinetics;
 
@@ -183,7 +189,13 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
         }
     }
 
+    //
+    // These are shallow pointers, so they need to be reevaluated
+    //
     SurPhaseXMLNodes = right.SurPhaseXMLNodes;
+    for (int i = 0; i < m_NumSurPhases; i++) {
+        SurPhaseXMLNodes[i] = &(SurPhaseList[i]->xml());
+    }
     SurPhaseHasKinetics = right.SurPhaseHasKinetics;
 
     m_numElements = right.m_numElements;

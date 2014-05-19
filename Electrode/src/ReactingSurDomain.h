@@ -225,6 +225,13 @@ public:
     //! object
     int iphaseKin_;
 
+    //! List of names that constitute the ThermoPhases needed for the kinetics object
+    /*!
+     *    Currently this is needed to fix up the shallow pointer copy operation. 
+     *    The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
+     */
+    std::vector<std::string>tpList_IDs_;
+
     //! Temp vector that may be eliminated in the future.
     std::vector<int> tplRead;
 
@@ -250,9 +257,9 @@ public:
 
     std::vector<double> deltaGRxn_;
 
-    //! Pointer to the phaselist object that contains the ThermoPhase objects.
+    //! Pointer to the PhaseList object that contains the ThermoPhase objects.
     /*!
-     *  This object doesn't own this. However, it uses this heavily.
+     *  This object doesn't own this. However, it uses this heavily. It is a shallow pointer.
      */
     Cantera::PhaseList* m_pl;
 

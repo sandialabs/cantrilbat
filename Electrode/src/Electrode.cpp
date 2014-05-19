@@ -335,7 +335,51 @@ Electrode& Electrode::operator=(const Electrode& right)
             RSD_List_[i] = 0;
         }
         if (right.RSD_List_[i]) {
+            //
+            //  Call the copy constructor for the copying operation.
+            //
             RSD_List_[i] = new ReactingSurDomain(*(right.RSD_List_[i]));
+            //
+            // NOTE: we must fix up shallow pointers in the new ReactingSurDomain object
+            //       so that everything points into this object.
+	    //
+	    RSD_List_[i]->m_pl = this;
+	    std::vector<ThermoPhase*> tpList(0);
+	    for (size_t iph = 0; iph < RSD_List_[i]->nPhases(); ++iph) {
+		std::string ss = RSD_List_[i]->tpList_IDs_[iph];
+		bool notFound = true;
+		for (int jph = 0; jph <  nPhases(); jph++)  {
+		    ThermoPhase *tp = & thermo(jph);
+		    if (tp->id() == ss) {
+			notFound = false;
+			tpList.push_back(tp);
+			break;
+		    }
+		}
+		if (notFound) {
+		    throw Electrode_Error("Electrode assignment operator", "could not find id for phase " + ss);
+		}
+	    }
+	    RSD_List_[i]->assignShallowPointers(tpList);
+
+            if (RSD_List_[i]->OCVmodel_) {
+              RSD_OCVmodel* mm = RSD_List_[i]->OCVmodel_;
+              std::string ss = mm->solidPhaseModel_->id();
+	      bool notFound = true;
+              for (int jph = 0; jph <  nPhases(); jph++)  {
+                    ThermoPhase *tp = & thermo(jph);
+                    if (tp->id() == ss) {
+                        notFound = false;
+                        mm->solidPhaseModel_ = tp;
+                        break;
+                    }
+                }
+                if (notFound) {
+                    throw Electrode_Error("Electrode assignment operator", "could not find id for phase " + ss);
+                }
+
+            }
+
             if (idHit) {
                 // m_rSurDomain = RSD_List_[i];
             }

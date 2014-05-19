@@ -66,6 +66,9 @@ RSD_OCVmodel& RSD_OCVmodel::operator=(const RSD_OCVmodel& right)
     }
     modelID_ = right.modelID_;
     modelName_ = right.modelName_;
+    //
+    //  BEWARE:  This is a shallow copy. It will have to be fixed up outside
+    //
     solidPhaseModel_ = right.solidPhaseModel_;
     kSpecies_DoD_ = right.kSpecies_DoD_;
     relExtent_  = right.relExtent_;
@@ -74,11 +77,19 @@ RSD_OCVmodel& RSD_OCVmodel::operator=(const RSD_OCVmodel& right)
     return *this;
 }
 //===============================================================================================================================
-RSD_OCVmodel* RSD_OCVmodel::duplMyselfAsOCVmodel() const
+RSD_OCVmodel* RSD_OCVmodel::duplMyselfAsOCVmodel(ThermoPhase *solidPhase) const
 {
     RSD_OCVmodel* pp = new RSD_OCVmodel(*this);
+    if (solidPhase) {
+	pp->assignShallowPointers(solidPhase);
+    }
     return pp;    
 }
+//===============================================================================================================================
+ void  RSD_OCVmodel::assignShallowPointers(ThermoPhase* solidPhase)
+ {
+     solidPhaseModel_ = solidPhase;
+ }
 //=============================================================================================================================== 
 void RSD_OCVmodel::setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec, int *ivec)
 {
