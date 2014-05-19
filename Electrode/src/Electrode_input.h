@@ -84,7 +84,7 @@ public:
     ~ElectrodeBath();
 };
 
-
+namespace Cantera {
 //! Structure for storring the input for OCVoverride models
 struct OCV_Override_input {
     OCV_Override_input();
@@ -104,7 +104,7 @@ struct OCV_Override_input {
     double temperatureBase;
     std::string OCVTempDerivModel;
 };
-
+}
 
 class EGRInput;
 
@@ -349,7 +349,11 @@ public:
     bool  specifiedElementAbundances;
     int   specifiedBlockKmolSpecies;
 
-    std::vector<OCV_Override_input *> OCVoverride_ptrList;
+    //! Storage for the OCV override information
+    /*
+     *   This is stored as a series of 
+     */
+    std::vector<Cantera::OCV_Override_input *> OCVoverride_ptrList;
 
     //! level of the xml State information created
     /*!

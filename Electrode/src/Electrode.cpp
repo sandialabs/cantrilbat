@@ -5,6 +5,8 @@
 #include "Electrode.h"
 #include "Electrode_Factory.h"
 #include "Electrode_FuncCurrent.h"
+#include "Electrode_Exception.h"
+#include "Electrode_input.h"
 #include "cantera/numerics/RootFind.h"
 #include "cantera/numerics/solveProb.h"
 #include "RxnMolChange.h"
@@ -716,6 +718,16 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             if (!ok) {
                 throw CanteraError("cttables main:", "rSurDomain returned an error");
             }
+            //
+            // Check to see if we have entered an OCVoverride for this species. If we have then
+            // modify the reacting surface
+            //
+	    Cantera::OCV_Override_input *ocv_ptr = ei->OCVoverride_ptrList[isurf];
+            if (ocv_ptr) {
+               rsd->addOCVoverride(ocv_ptr);
+            }
+
+            // if  OCVoverride_ptrList
             // We carry a list of pointers to ReactingSurDomain
             RSD_List_[isurf] = rsd;
             numRxns_[isurf] = rsd->nReactions();

@@ -13,6 +13,8 @@
 
 #include "cantera/kinetics/InterfaceKinetics.h"
 
+#include "RSD_OCVmodel.h"
+
 #include <string>
 #include <vector>
 
@@ -21,7 +23,7 @@ class RxnMolChange;
 namespace Cantera
 {
 class PhaseList;
-
+class OCV_Override_input;
 
 class ReactingSurDomain : public Cantera::InterfaceKinetics
 {
@@ -164,6 +166,18 @@ public:
      */
     void identifyMetalPhase();
 
+    //! Add an open circuit voltage override feature to the current reacting surface
+    /*!
+     *     The open circuit voltage will replace the deltaG calculation for this reaction.
+     *     It will do this by replacing the thermo functions for one of the species in the mechanism.
+     *
+     *      @param ocv_ptr    The open circuit voltage feature is described by this pointer.
+     *
+     */
+    void addOCVoverride(OCV_Override_input *ocv_ptr);
+
+    void deriveEffectiveChemPot();
+
 public:
     //! Declare a printing routine as a friend to this class
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& vd);
@@ -217,13 +231,24 @@ public:
     bool m_DoSurfKinetics;
 
     //! Vector that will expose the species production rates for this kinetics object
+    /*!
+     *  Length is the number of species in the kinetics vector
+     */
     std::vector<double> speciesProductionRates_;
 
     //! Vector that will expose the species creation rates for this kinetics object
+    /*!
+     *  Length is the number of species in the kinetics vector
+     */
     std::vector<double> speciesCreationRates_;
 
     //! Vector that will expose the species destruction rates for this kinetics object
+    /*!
+     *  Length is the number of species in the kinetics vector
+     */
     std::vector<double> speciesDestructionRates_;
+
+    std::vector<double> deltaGRxn_;
 
     //! Pointer to the phaselist object that contains the ThermoPhase objects.
     /*!
@@ -240,8 +265,11 @@ public:
     //! Index of the solution phase in the list of phases for this surface
     int solnPhaseRS_;
 
-protected:
+    OCV_Override_input *ocv_ptr_;
 
+    RSD_OCVmodel* OCVmodel_;
+
+protected:
 
 };
 

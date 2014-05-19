@@ -10,8 +10,8 @@
 #ifndef _FUNCELECTRODECURRENT_H
 #define _FUNCELECTRODECURRENT_H
 
-#include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
+//#include "cantera/numerics/ResidEval.h"
+//#include "cantera/numerics/RootFind.h"
 
 #include "m1d_SolNonlinear.h"
 #include "m1d_SolNonlinear_CurrentSolve.h"
@@ -19,10 +19,6 @@
 
 #include "Electrode.h"
 
-using namespace std;
-using namespace Cantera;
-using namespace VCSnonideal;
-//using namespace mdpUtil;
 
 namespace Cantera {
 

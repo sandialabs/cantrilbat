@@ -229,7 +229,7 @@ public:
     //! encountered when initializing this object
     std::string firstSurfaceFile() const;
 
-    //! returns the number of elements in all of the phases, combined
+    //! Returns the number of elements in all of the phases, combined
     /*!
      * Note, we do not require
      * all element objects have the same number of elements and the

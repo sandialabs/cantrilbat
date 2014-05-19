@@ -9,6 +9,7 @@
  */
 
 #include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/equilibrium.h"
 #include "Electrode_Factory.h"
 #include "BE_BlockEntry.h"
 #include <iomanip>

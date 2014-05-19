@@ -22,6 +22,7 @@
 namespace Cantera 
 {
 
+class ThermoPhase;
 
 // MCMB 2528 graphite measured by Chris Bogatu 2000, 
 //           Telcordia and PolyStor materials.
@@ -40,12 +41,42 @@ namespace Cantera
 extern void createOCVmodel_map(std::map<int, std::string>& smap);
 
 //==================================================================================
-
+//!  Base class for specification of models for the open circuit voltage override
+//!  calculation
+/*!
+ *       These models will calculate the open circuit voltage in a different way
+ *
+ *
+ *   Temperature and pressure are specified by the thermophase. They are not set within this interface.
+ *   The determination of the relative extent of reaction must be specified by this interface. However, the relative extent of
+ *   reaction can't be changed by this interface.
+ *
+ *   Relative Extent of reaction variable
+ *   -------------------------------------
+ *      This denotes the relative extent of reaction of the solid phase.  The model will not be restricted
+ *      from this variable going strictly between 0 and 1. It may go over a more limited range, or a slightly
+ *      larger range. However, it is unitless with an order of magnitude of 1. 
+ *
+ *      The usual setup will be to specify the mole fraction of aa particular species as being the relative
+ *      depth of discharge.
+ *
+ *       
+ */
 class RSD_OCVmodel
 {
   public:
+
+    //! Constructor, with a modelID as a parameter
+    /*!
+     *   @param modelId  Parameter that specifies the model
+     *                   
+     */
     RSD_OCVmodel(int modelId = -1);
 
+    //! Copy constructor
+    /*!
+     *   
+     */
     RSD_OCVmodel(const RSD_OCVmodel& right);
 
     virtual ~RSD_OCVmodel();
@@ -58,17 +89,65 @@ class RSD_OCVmodel
      */
     virtual RSD_OCVmodel* duplMyselfAsOCVmodel() const;
 
-    
-    virtual double OCV_value(double relExtent);
+    //! 
+    virtual void setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec = 0, int *ivec = 0);
 
-    virtual double OCV_dvaldExtent( double relExtent);
+    //!  Return the open circuit voltage given the relative extent of reaction
+    /*!
+     *   @returns Returns the open circuit voltage at the current relative extent of reaction
+     */
+    virtual double OCV_value() const;
 
-    virtual double OCV_dvaldT(double relExtent);
+    //!  Return the derivative of the open circuit voltage wrt the relative extent of reaction
+    /*!
+     *   @returns Return the derivative of the open circuit voltage wrt the relative extent of reaction
+     */
+    virtual double OCV_dvaldExtent() const;
 
-    virtual std::string modelName();
+    //!  Return the derivative of the open circuit voltage wrt the relative extent of reaction
+    /*!
+     *   @returns Return the derivative of the open circuit voltage wrt the relative extent of reaction
+     */
+    virtual double OCV_dvaldT() const;
 
+    //! Return the model name
+    virtual std::string modelName() const;
+
+    //! Return the relative extent
+    virtual double RelExtent() const;
+
+protected:
+    //!  Calculate the relative extent of reaction
+    /*!
+     *  Internal routine that stores the result in relExtent_;
+     */
+    virtual void calcRelExtent() const;
+
+    // - ----------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------      DATA       -----------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------
+    //!  Model id
     int modelID_;
+
+    //! model name
     std::string modelName_;
+
+    //! underlying ThermoPhase model
+    ThermoPhase* solidPhaseModel_;
+
+    //! Particular species within the ThermoPhase which indicates the relative depth of discharge
+    /*!
+     *    The usual setup will be to specify the mole fraction of aa particular species as being the relative
+     *    depth of discharge
+     */
+    size_t kSpecies_DoD_;
+
+    //! Value of the relative extent
+    mutable double relExtent_;
+
+    //! Vector of mole fractions from solidPhaseModel_
+    mutable std::vector<double> xMF_;
+    
 
 };
 

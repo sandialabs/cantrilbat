@@ -11,6 +11,7 @@
 #include "Electrode_input.h"
 #include "Electrode_MP_RxnExtent.h"
 #include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/equilibrium.h"
 
 #include <iomanip>
 

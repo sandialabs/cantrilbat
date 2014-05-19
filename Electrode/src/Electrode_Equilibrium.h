@@ -18,15 +18,15 @@
 #ifndef _ELECTRODE_EQUILIBRIUM_H
 #define _ELECTRODE_EQUILIBRIUM_H
 
-#include "cantera/equilibrium.h"
-#include "cantera/thermo/FixedChemPotSSTP.h"
-
 #include "Electrode.h"
 
 #include <string>
 #include <vector>
 
 namespace Cantera {
+
+class MultiPhase;
+class FixedChemPotSSTP;
 
 //! Class which determines the stability of phases due to kinetics
 /*!

@@ -3,6 +3,7 @@
  */
 
 #include "Electrode_MP_RxnExtent.h"
+#include "Electrode_input.h"
 
 #include "BlockEntryGlobal.h"
 

@@ -11,9 +11,9 @@
 
 #include "FuncElectrodeCurrent.h"
 
+
 using namespace std;
 using namespace Cantera;
-using namespace VCSnonideal;
 
 namespace Cantera {
 

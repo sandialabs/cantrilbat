@@ -30,6 +30,7 @@
 #include "Epetra_DataAccess.h"
 
 #include "m1d_LocalNodeIndices.h"
+#include "cantera/numerics/RootFind.h"
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BatteryResidEval.h"

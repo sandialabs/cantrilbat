@@ -4,6 +4,10 @@
 
 #include "Electrode.h"
 
+#include "cantera/base/ctexceptions.h"
+
+#include <cstdio>
+
 namespace Cantera
 {
 
@@ -237,8 +241,6 @@ void Electrode::fixCapacityBalances_final()
 	    spMoles_final_[iKsub] += relMole / coeffB;
 	}
     }
-
-  
 }
 //====================================================================================================================
 // Report the current depth of discharge in percent
@@ -291,12 +293,12 @@ double Electrode::depthOfDischargeStarting(int platNum) const
 // Reset the counters that keep track of the amount of discharge to date
 void Electrode::resetCapacityDischargedToDate() 
 {
-  if (pendingIntegratedStep_) {
-     throw CanteraError("Electrode::resetCapacityDischargedToDate() ERROR",
-                        "called during a pending integration step");
-  }
-  electronKmolDischargedToDate_ = 0.0;
-  depthOfDischargeStarting_ = depthOfDischarge();
+    if (pendingIntegratedStep_) {
+       throw CanteraError("Electrode::resetCapacityDischargedToDate() ERROR",
+                          "called during a pending integration step");
+    }
+    electronKmolDischargedToDate_ = 0.0;
+    depthOfDischargeStarting_ = depthOfDischarge();
 }
 //======================================================================================================================
 Electrode_Capacity_Type_Enum Electrode::capacityType() const
@@ -581,8 +583,6 @@ void Electrode::setCapacityCoeff_LiSi_Li() const
         }
     }
 }
-
-
 //====================================================================================================================
 // Set the Capacity coefficients for the FeS2 cathode system
 /*
@@ -851,7 +851,6 @@ void Electrode::setCapacityCoeff_FeS2_Combo() const
  */
 void Electrode::setCapacityCoeff_MCMB() const
 {
-
     double  capacityLeftSpeciesCoeff=  1.0;
 
     for (int iph = 0; iph < NumVolPhases_; iph++) {

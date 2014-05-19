@@ -16,9 +16,7 @@
 #include "PhaseList.h"
 #include "RxnMolChange.h"
 #include "cantera/kinetics.h"
-//#include "Cantera/kernel/importKinetics.h"
-
-//static int DebugPrinting = 1;
+#include "Electrode_input.h"
 
 
 using namespace std;
@@ -44,10 +42,12 @@ ReactingSurDomain::ReactingSurDomain() :
     speciesProductionRates_(0),
     speciesCreationRates_(0),
     speciesDestructionRates_(0),
+    deltaGRxn_(0),
     m_pl(0),
     metalPhaseRS_(-1),
     kElectronRS_(-1),
-    solnPhaseRS_(-1)
+    solnPhaseRS_(-1),
+    ocv_ptr_(0)
 {
 }
 //====================================================================================================================
@@ -69,10 +69,12 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     speciesProductionRates_(0),
     speciesCreationRates_(0),
     speciesDestructionRates_(0),
+    deltaGRxn_(0),
     m_pl(0),
     metalPhaseRS_(-1),
     kElectronRS_(-1),
-    solnPhaseRS_(-1)
+    solnPhaseRS_(-1),
+    ocv_ptr_(0)
 {
     /*
      * Call the assignment operator
@@ -110,6 +112,7 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     speciesProductionRates_ = right.speciesProductionRates_;
     speciesCreationRates_ = right.speciesCreationRates_;
     speciesDestructionRates_ = right.speciesDestructionRates_;
+    deltaGRxn_ = right.deltaGRxn_;
 
     // Shallow copy of m_pl -> beware
     m_pl            = right.m_pl;
@@ -129,6 +132,10 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
         }
     }
 
+    if (right.ocv_ptr_) {
+	delete ocv_ptr_;
+	ocv_ptr_ =  new OCV_Override_input(*right.ocv_ptr_);
+    }
 
 
     return *this;
@@ -405,6 +412,9 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
 {
     try {
         int iph;
+        //
+        //  Store the PhaseList as a shallow pointer within the object
+        //
         m_pl = pl;
 
         XML_Node* kinXMLPhase = 0;
@@ -515,7 +525,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
         XML_Node* xmlPhase = pl->surPhaseXMLNode(iskin);
         bool ok = importKinetics(*xmlPhase, tpList, this);
         if (!ok) {
-            throw CanteraError("", "err");
+            throw CanteraError("ReactingSurDomain::importFromPL()", "importKinetics() returned an error");
         }
 
         /*
@@ -531,7 +541,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
             int jph = -1;
             for (int iph = 0; iph < pl->nPhases(); iph++) {
                 ThermoPhase& pp = pl->thermo(iph);
-                string iname = pp.id();
+                std::string iname = pp.id();
                 if (iname == kname) {
                     jph = iph;
 
@@ -539,7 +549,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
                 }
             }
             if (jph == -1) {
-                throw CanteraError("importFromPL", "not found");
+                throw CanteraError("ReactingSurDomain::importFromPL()", "phase not found");
             }
             kinOrder[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
@@ -562,26 +572,111 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
         speciesCreationRates_.resize(m_kk, 0.0);
         speciesDestructionRates_.resize(m_kk, 0.0);
 
-        int nr = nReactions();
-        rmcVector.resize(nr,0);
-        for (int i = 0; i < nr; i++) {
+        /*
+         * Resize the arrays based on the number of reactions
+         */ 
+        rmcVector.resize(m_ii, 0);
+        for (size_t i = 0; i < m_ii; i++) {
             rmcVector[i] = new RxnMolChange(this, i);
         }
+        deltaGRxn_.resize(m_ii, 0.0);
 
+        //
+        //  Identify the electron phase
+        //
         identifyMetalPhase();
-
 
         return true;
 
     } catch (CanteraError) {
         showErrors(cout);
-        throw CanteraError("ReactingSurDomain::importFromPL",
+        throw CanteraError("ReactingSurDomain::importFromPL()",
                            "error encountered");
         return false;
     }
+}
+
+//====================================================================================================================
+void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
+{
+    
+    ocv_ptr_ = ocv_ptr;
+
 
 
 }
+//====================================================================================================================
+void  ReactingSurDomain::deriveEffectiveChemPot()
+{
+    //
+    //  Calculate the delta G and the open circuit voltage normally
+    //
+    //
+    //
+    getDeltaSSGibbs(DATA_PTR(deltaGRxn_));
+  
+    double phiRxnOrig = 0.0;
+
+    //
+    //  If we don't have an electrode reaction bail as being confused
+    //
+    if (metalPhaseRS_ < 0) {
+	throw CanteraError("", "shouldn't be here");
+    }
+    //
+    //  If we don't have an open circuit potential override situation, bail
+    if (!ocv_ptr_) {
+	return;
+    }
+
+    //
+    //  Figure out the reaction id for the override
+    //
+    int rxnID = ocv_ptr_->rxnID;
+    //
+    //  Get a pointer to the RxnMolChange struct, which contains more info about the reaction
+    //
+    RxnMolChange* rmc = rmcVector[rxnID];
+    //
+    //   Find the number of stoichiometric electrons in the reaction
+    //
+    double nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS_];
+    //
+    //  If the number of stoichiometric electrons is zero, we are in kind of a bind, as we shouldn't
+    //  be specifying an open circuit voltage in the first place!
+    //
+   if (nStoichElectrons == 0.0) {
+	throw CanteraError("", "shouldn't be here");
+    }
+    //
+    //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten
+    //
+    phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
+    
+    //
+    // In order to calculate the OCV, we need the relative extent of reaction value
+    //
+
+
+    //
+    //  Now calculate the OCV value to be used from the fit
+    //
+
+ 
+  
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
 //====================================================================================================================
 } // End of namespace cantera
 //======================================================================================================================

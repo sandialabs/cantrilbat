@@ -13,12 +13,8 @@
 
 #include "Electrode_Integrator.h"
 
-#include "tok_input_util.h"
-
 #include "cantera/numerics/NonlinearSolver.h"
 
-#include <string>
-#include <vector>
 /*
  *-----------------------------------------------------------------------------
  *

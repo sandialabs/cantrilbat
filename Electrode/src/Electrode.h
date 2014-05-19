@@ -11,13 +11,11 @@
 #ifndef _ELECTRODE_H
 #define _ELECTRODE_H
 
-#include "cantera/equilibrium.h"
+#include "PhaseList.h"
+
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/ResidJacEval.h"
 
-//#include "tok_input_util.h"
-
-#include "PhaseList.h"
 #include "ReactingSurDomain.h"
 
 #include "Electrode_defs.h"
@@ -32,6 +30,12 @@
 
 class ELECTRODE_KEY_INPUT;
 class EGRInput;
+
+namespace BEInput 
+{
+    class BlockEntry;
+}
+
 namespace Cantera
 {
 
@@ -2814,6 +2818,12 @@ public:
      *      Extra information for each reaction are described by this object
      */
     std::vector<RxnMolChange*> m_rmcEGR;
+
+    //! Storage for the OCV override information
+    /*
+     *   This is stored as a series of 
+     */
+    std::vector<OCV_Override_input *> OCVoverride_ptrList_;
 
 protected:
     //! Phase ID of the metal

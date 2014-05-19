@@ -2,9 +2,11 @@
  * $Id: Electrode_Equilibrium.cpp 496 2013-01-07 21:15:37Z hkmoffa $
  */
 
-#include "cantera/thermo/FixedChemPotSSTP.h"
-
 #include "Electrode_Equilibrium.h"
+
+#include "cantera/thermo/FixedChemPotSSTP.h"
+#include "cantera/equilibrium.h"
+
 
 using namespace Cantera;
 using namespace std;
