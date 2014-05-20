@@ -133,6 +133,10 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
     return *this;
 }
 //===================================================================================================================================================
+OCV_Override_input::~OCV_Override_input()
+{
+}
+//===================================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     printLvl_(printLvl),
     commandFile_(""),

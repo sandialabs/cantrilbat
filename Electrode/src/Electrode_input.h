@@ -90,6 +90,7 @@ struct OCV_Override_input {
     OCV_Override_input();
     OCV_Override_input(const OCV_Override_input& right);
     OCV_Override_input& operator=(const OCV_Override_input& right);
+    ~OCV_Override_input();
 
     int surfacePhaseID;
     std::string surfacePhaseName;
