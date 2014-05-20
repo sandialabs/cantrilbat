@@ -942,11 +942,12 @@ namespace Cantera {
 	 * The phase object automatically constructs an XML object.
 	 * Use this object to store information.
 	 */
-	XML_Node &phaseNode_XML = xml();
+	//XML_Node &phaseNode_XML = xml();
         XML_Node *fxml = new XML_Node();
 	fxml->build(fin);
 	XML_Node *fxml_phase = findXMLPhase(fxml, id);
-	fxml_phase->copy(&phaseNode_XML);
+        setXMLdata(*fxml_phase);
+	//fxml_phase->copy(&phaseNode_XML);
 
 
 #ifdef DEBUG_HKM

@@ -786,7 +786,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             ActiveKineticsSurf_[isurf] = 1;
         }
     }
-    OCVoverride_ptrList_ = ei->OCVoverride_ptrList;
+    Cantera::deepStdVectorPointerCopy<OCV_Override_input>(ei->OCVoverride_ptrList, OCVoverride_ptrList_);
+    //OCVoverride_ptrList_ = ei->OCVoverride_ptrList;
 
     /*
      * Calculate the number of external interfacial surfaces
