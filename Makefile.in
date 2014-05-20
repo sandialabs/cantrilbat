@@ -107,6 +107,18 @@ test:
 	cd cttables;         @MAKE@ -s test
 	cd electrodeCell;    @MAKE@ -s test
 	cd imt_model;        @MAKE@ -s test
+
+#
+# testBack:       Carries out back tests
+#
+testBack:
+	cd util_src;         @MAKE@ -s test
+	cd mpequil;          @MAKE@ -s test
+	cd epequil;          @MAKE@ -s test
+	cd cttables;         @MAKE@ -s test
+	cd electrodeCell;    @MAKE@ -s test
+	cd imt_model;        @MAKE@ -s test
+
 #
 # install:   Posts all install files 
 #
