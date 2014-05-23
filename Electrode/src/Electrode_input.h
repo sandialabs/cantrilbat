@@ -92,6 +92,7 @@ struct OCV_Override_input {
     OCV_Override_input& operator=(const OCV_Override_input& right);
     ~OCV_Override_input();
 
+    int numTimes;
     int surfacePhaseID;
     std::string surfacePhaseName;
     std::string OCVModel;
@@ -100,6 +101,8 @@ struct OCV_Override_input {
     int replacedGlobalSpeciesID;
     int replacedLocalSpeciesID;
     int replacedSpeciesPhaseID;
+    std::string DoDSurrogateSpeciesName;
+    int MF_DoD_LocalSpeciesID;
     int rxnID;
     int temperatureDerivType;
     double temperatureBase;

@@ -84,6 +84,7 @@ ElectrodeBath::~ElectrodeBath()
 }
 //====================================================================================================================================================
 OCV_Override_input::OCV_Override_input() :
+    numTimes(0),
     surfacePhaseID(-1),
     surfacePhaseName(""),
     OCVModel("Constant"),
@@ -91,6 +92,8 @@ OCV_Override_input::OCV_Override_input() :
     replacedGlobalSpeciesID(-1),
     replacedLocalSpeciesID(-1),
     replacedSpeciesPhaseID(-1),
+    DoDSurrogateSpeciesName(""),
+    MF_DoD_LocalSpeciesID(-1),
     rxnID(0),
     temperatureDerivType(0),
     temperatureBase(298.15),
@@ -99,6 +102,7 @@ OCV_Override_input::OCV_Override_input() :
 }
 //===================================================================================================================================================
 OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
+    numTimes(right.numTimes),
     surfacePhaseID(right.surfacePhaseID),
     surfacePhaseName(right.surfacePhaseName),
     OCVModel(right.OCVModel),
@@ -106,6 +110,8 @@ OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
     replacedGlobalSpeciesID(right.replacedGlobalSpeciesID),
     replacedLocalSpeciesID(right.replacedLocalSpeciesID),
     replacedSpeciesPhaseID(right.replacedSpeciesPhaseID),
+    DoDSurrogateSpeciesName(right.DoDSurrogateSpeciesName),
+    MF_DoD_LocalSpeciesID(right.MF_DoD_LocalSpeciesID),
     rxnID(right.rxnID),
     temperatureDerivType(right.temperatureDerivType),
     temperatureBase(right.temperatureBase),
@@ -118,6 +124,7 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
     if (this == &right) {
        return *this;
     }
+    numTimes                       = right.numTimes;
     surfacePhaseID                 = right.surfacePhaseID;
     surfacePhaseName               = right.surfacePhaseName;
     OCVModel                       = right.OCVModel;
@@ -125,6 +132,8 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
     replacedGlobalSpeciesID        = right.replacedGlobalSpeciesID;
     replacedLocalSpeciesID         = right.replacedLocalSpeciesID;
     replacedSpeciesPhaseID         = right.replacedSpeciesPhaseID;
+    DoDSurrogateSpeciesName        = right.DoDSurrogateSpeciesName;
+    MF_DoD_LocalSpeciesID          = right.MF_DoD_LocalSpeciesID;
     rxnID                          = right.rxnID;
     temperatureDerivType           = right.temperatureDerivType;
     temperatureBase                = right.temperatureBase;
@@ -430,7 +439,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
    
      return *this;
  }
-//===============================================================================================
+//==============================================================================================================================================
 ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 {
     if (CanteraFileNames) {
@@ -1166,6 +1175,17 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
                                           10, 0, 1, "OCVTempDerivModel");
         rtdmodel->set_default("Constant 0.0");
         bOCVoverride->addLineEntry(rtdmodel);
+
+	/* ----------------------------------------------------------------------------------
+         *   Species identified as DoD Surrogate = string      (optional) (default = "")
+         *
+         *   Name of the  species whose mole fraction can be identifed with the DoD surrogate
+         */
+        LE_OneStr* dodspec = new LE_OneStr("Species identified as DoD Surrogate", &(ocv_input_ptr->DoDSurrogateSpeciesName), 
+                                          1, 1, 0, "MF_DoD_LocalSpeciesID");
+        dodspec->set_default("");
+        bOCVoverride->addLineEntry(dodspec);
+
     }
     // ---------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------
@@ -1439,7 +1459,6 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
     if (printLvl_ >= 5) {
         printBIProclevel = 3;
     }
-
 
     /*
      *  Save the name of the input file
@@ -1729,6 +1748,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
 	}
 	if (numTimes == 1) {
 	    OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
+            ocv_input_ptr->numTimes = 1;
             //
             // Discover the replacedSpeciesID
             //
@@ -1751,6 +1771,46 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             // We can't check the validity of the kinetics reaction because we haven't yet set up the ReactingSurDomain,
             // And, we haven't yet read in the kinetics mechanism. We do this in the ReactingSurDomain setup.
             // 
+
+	    double * CapZeroDoDCoeff = m_BG->CapZeroDoDCoeffPhases[phaseID];
+
+	    double* CapLeftCoef  =   m_BG->CapLeftCoeffPhases[phaseID];
+
+	    int nsp = m_pl->thermo(phaseID).nSpecies();
+	    //
+	    //  Find a species in the replacing phase whose mole fraction can be used as a simple DoD indicator.
+	    //    (Confirmed to work for at least one case (MCMB -as an anode).
+	    //
+	    int ik = -1;
+	    for (int k = 0; k < nsp; k++) {
+		if (CapZeroDoDCoeff[k] == 1.0) {
+		    if (CapLeftCoef[k] == 0.0) {
+			if (ik != -1) {
+			    // We don't have a simple model to employ
+			    ik = -1;
+			    break;
+			}
+			ik = k;
+		    }
+		}
+	    }
+	    if (ocv_input_ptr->DoDSurrogateSpeciesName != "") {
+		size_t k =  m_pl->thermo(phaseID).speciesIndex(ocv_input_ptr->DoDSurrogateSpeciesName);
+		if (k != npos) {
+		    ocv_input_ptr->MF_DoD_LocalSpeciesID = k;
+		}
+	    }
+	    if (ocv_input_ptr->MF_DoD_LocalSpeciesID < 0) {
+		if (ik >= 0) {
+		    ocv_input_ptr->MF_DoD_LocalSpeciesID = ik;
+		} else {
+		    //  Probably an error: but leaving this unused for the moment
+		    //  throw Electrode_Error("post_input_pass3()",
+		    //			  "Couldn't determine easily the DoD variable");
+		}
+	    }
+
+
 	}
     }
     return 0;

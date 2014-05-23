@@ -99,6 +99,7 @@ public:
      */
     const std::vector<double>& calcSurfaceDestructionRateDensities();
 
+    void updateKc();
 
     //! Get the net current for the set of reactions on this surface
     /*!
@@ -176,6 +177,7 @@ public:
      */
     void addOCVoverride(OCV_Override_input *ocv_ptr);
 
+    //! Calculate the effective chemical potential of the replaced species
     void deriveEffectiveChemPot();
 
 public:
@@ -222,7 +224,7 @@ public:
     std::vector<int> PLtoKinSpeciesIndex_;
 
     //! ID of the phase in the PhaseList object that has the kinetics
-    //! object
+    //! object for this reacting surface.
     int iphaseKin_;
 
     //! List of names that constitute the ThermoPhases needed for the kinetics object
@@ -279,6 +281,9 @@ public:
      *  If there isn't an override, this is set to zero.
      */
     RSD_OCVmodel* OCVmodel_;
+
+    //!  Kinetic species index for species
+    int kReplacedSpeciesRS_;
 
 protected:
 

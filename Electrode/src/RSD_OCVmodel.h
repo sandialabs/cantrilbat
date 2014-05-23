@@ -24,6 +24,8 @@ namespace Cantera
 
 class ThermoPhase;
 
+#define  OCVAnode_CONSTANT                100
+
 // MCMB 2528 graphite measured by Chris Bogatu 2000, 
 //           Telcordia and PolyStor materials.
 //    Modified May 2003 to match data from Joongpyo Shim
@@ -165,6 +167,8 @@ protected:
 
     //! Vector of mole fractions from solidPhaseModel_
     mutable std::vector<double> xMF_;
+
+    std::vector<double> dvec_;
     
 
 };

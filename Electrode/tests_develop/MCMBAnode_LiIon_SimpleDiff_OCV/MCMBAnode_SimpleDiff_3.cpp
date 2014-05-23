@@ -123,6 +123,8 @@ int main(int argc, char **argv)
 
     BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
 
+
+    
  
     // Go get the problem description from the input file
 
@@ -142,6 +144,10 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
+
+
+
+
     retn = electrodeA->setInitialConditions(electrodeA_input);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -158,6 +164,10 @@ int main(int argc, char **argv)
 
     electrodeA->setVoltages(0.0, -0.2);
     double molNum[10];
+
+    double vvolts = electrodeA->openCircuitVoltageRxn(0, 0);
+    printf(" volts = %g\n", vvolts);
+    exit (0);
 
     electrodeA->setPhaseExistenceForReactingSurfaces(true);
     electrodeA->setVoltages(0.0, -0.2);

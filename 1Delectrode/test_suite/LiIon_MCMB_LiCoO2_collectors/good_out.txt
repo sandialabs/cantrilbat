@@ -240,6 +240,7 @@ Species name 3 is MgO(S)
                 model : 2
         Temperature for OCV = (double) with default 298.15
         Open Circuit Voltage Temperature Derivative Model = (string) with Token limits(10, 0) with default Constant 0.0 (REQUIRED LINE)
+        Species identified as DoD Surrogate = (string) with Token limits(1, 1)
     END BLOCK Open Circuit Potential Override for interface anode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)
@@ -431,6 +432,7 @@ END BLOCK Radial Diffusion Region
                 model : 2
         Temperature for OCV = (double) with default 298.15
         Open Circuit Voltage Temperature Derivative Model = (string) with Token limits(10, 0) with default Constant 0.0 (REQUIRED LINE)
+        Species identified as DoD Surrogate = (string) with Token limits(1, 1)
     END BLOCK Open Circuit Potential Override for interface anode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)

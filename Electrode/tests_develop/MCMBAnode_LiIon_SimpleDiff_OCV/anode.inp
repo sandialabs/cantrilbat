@@ -130,6 +130,15 @@ start block Bath Specification for Phase MCMB_Interstitials_anode
        Li_C6-bulk = 0.8
        V_C6-bulk =  0.2
    End block Bath Species Mole Fraction
+   Start block Capacity Left Coefficients
+       Li_C6-bulk = 1.0
+       V_C6-bulk =  0.0
+   End block Capacity Left Coefficients
+   Start block Capacity At Zero DoD Coefficients
+       Li_C6-bulk = 1.0
+       V_C6-bulk =  1.0
+   End block Capacity At Zero DoD Coefficients
+
 end block Bath Specification for Phase MCMB_Interstitials_anode
 
 

@@ -36,7 +36,8 @@ RSD_OCVmodel::RSD_OCVmodel(int modelID) :
     solidPhaseModel_(0),
     kSpecies_DoD_(npos),
     relExtent_(-1.0),
-    xMF_(0)
+    xMF_(0),
+    dvec_(0)
 {
     //
     //  Match the modelID with a string name of the model
@@ -51,7 +52,8 @@ RSD_OCVmodel::RSD_OCVmodel(const RSD_OCVmodel& right) :
     solidPhaseModel_(right.solidPhaseModel_),
     kSpecies_DoD_(right.kSpecies_DoD_),
     relExtent_ (right.relExtent_),
-    xMF_(right.xMF_)
+    xMF_(right.xMF_),
+    dvec_(right.dvec_)
 {
 }
 //===============================================================================================================================
@@ -73,6 +75,7 @@ RSD_OCVmodel& RSD_OCVmodel::operator=(const RSD_OCVmodel& right)
     kSpecies_DoD_ = right.kSpecies_DoD_;
     relExtent_  = right.relExtent_;
     xMF_ = right.xMF_;
+    dvec_ = right.dvec_;
 
     return *this;
 }
@@ -102,6 +105,11 @@ void RSD_OCVmodel::setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec, 
     size_t nsp = solidPhaseModel_->nSpecies();
     xMF_.resize(nsp, 0.0);
     solidPhaseModel_->getMoleFractions(& xMF_[0]);
+
+    if (modelID_ == OCVAnode_CONSTANT) {
+           dvec_.resize(1);
+           dvec_[0] = dvec[0];
+    }
 }
 //=============================================================================================================================== 
 void RSD_OCVmodel::calcRelExtent() const
@@ -115,7 +123,10 @@ double RSD_OCVmodel::OCV_value() const
 {
     calcRelExtent();
     double volts ;
-    if (modelID_ == 101) {
+    if (modelID_ == OCVAnode_CONSTANT) {
+       volts = dvec_[0];
+
+    } else if (modelID_ == 101) {
                 
        //  MCMB 2528 graphite measured by Chris Bogatu 2000, 
        //  Telcordia and PolyStor materials.
@@ -129,6 +140,7 @@ double RSD_OCVmodel::OCV_value() const
                    - 0.022  * tanh( (relExtent_ - 0.98 ) / 0.0164)
                    - 0.011  * tanh( (relExtent_ - 0.124) / 0.0226)
                    + 0.0155 * tanh( (relExtent_ - 0.105) / 0.029));
+
 
     } else {
         printf("model not found\n");

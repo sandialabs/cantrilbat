@@ -18,6 +18,8 @@
 #include "cantera/kinetics.h"
 #include "Electrode_input.h"
 
+#include "Electrode_Factory.h"
+
 
 using namespace std;
 namespace Cantera
@@ -632,7 +634,27 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     //
     ocv_ptr_ = ocv_ptr;
 
+    //
+    OCVmodel_ =  newRSD_OCVmodel(ocv_ptr_->OCVModel);
 
+   
+    //OCVmodel_->assignShallowPointers(ThermoPhase* solidPhase);
+
+    //
+    // Now setup the internal structures within the model to calculate the relative extent
+  
+    int phase_id = m_pl->getPhaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
+    string phaseName = m_pl->phaseName(phase_id);
+    
+    //
+    //  Since the pointers must all be the same, we look up the ThermoPhase pointer in the phase list
+    //  and send that to the RSD_OCVmodel object
+    //
+    ThermoPhase* tp = & thermo(phase_id);
+    int kspec = ocv_ptr_->replacedLocalSpeciesID;
+
+    OCVmodel_-> setup_RelExtent(tp, kspec);
+    
 
 }
 //====================================================================================================================
@@ -675,32 +697,93 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //  If the number of stoichiometric electrons is zero, we are in kind of a bind, as we shouldn't
     //  be specifying an open circuit voltage in the first place!
     //
-   if (nStoichElectrons == 0.0) {
+    if (nStoichElectrons == 0.0) {
 	throw CanteraError("", "shouldn't be here");
     }
     //
     //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten
     //
     phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
-    
     //
-    // In order to calculate the OCV, we need the relative extent of reaction value
+    //    In order to calculate the OCV, we need the relative extent of reaction value. This is determined
+    //    automatically within the OCVmodel object given that the ThermoPhase is current.
+    //    We report the value here.
     //
-
-
+    double relExt =  OCVmodel_->RelExtent();
     //
-    //  Now calculate the OCV value to be used from the fit
+    //    Now calculate the OCV value to be used from the fit presumably from a fit to experiment.
     //
-
+    double phiRxnExp = OCVmodel_->OCV_value();
+    //
+    //    Calculate the deltaGibbs needed to turn phiRxnOrig into phiRxnExp
+    //
+    double deltaG_Exp = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
+    //
+    //
+    //
+    double fstoich =  reactantStoichCoeff(kReplacedSpeciesRS_, ocv_ptr_->rxnID);
+    double rstoich =  productStoichCoeff(kReplacedSpeciesRS_, ocv_ptr_->rxnID);
+    double nstoich = fstoich -  rstoich;
  
+    double deltaChemPot = deltaG_Exp / nstoich;
   
     
+    //
+    // calculate 
+    double mu0 =  m_mu0[kReplacedSpeciesRS_];
+
+    double mu0Exp = mu0 + deltaChemPot;
+
+    m_mu0[kReplacedSpeciesRS_] =  mu0Exp;
     
 }
 
+//=====================================================================================================================
+
+
+void ReactingSurDomain::updateKc()
+{
+    fill(m_rkcn.begin(), m_rkcn.end(), 0.0);
+
+    //static vector_fp mu(nTotalSpecies());
+    if (m_nrev > 0) {
+        /*
+         * Get the vector of standard state electrochemical potentials for species in the Interfacial
+         * kinetics object and store it in m_mu0[]
+         */
+        size_t nsp, ik = 0;
+        doublereal rt = GasConstant*thermo(0).temperature();
+        doublereal rrt = 1.0 / rt;
+        size_t np = nPhases();
+        for (size_t n = 0; n < np; n++) {
+            thermo(n).getStandardChemPotentials(DATA_PTR(m_mu0) + m_start[n]);
+            nsp = thermo(n).nSpecies();
+            for (size_t k = 0; k < nsp; k++) {
+                m_mu0[ik] -= rt * thermo(n).logStandardConc(k);
+                m_mu0[ik] += Faraday * m_phi[n] * thermo(n).charge(k);
+                ik++;
+            }
+        }
 
 
 
+        // compute Delta mu^0 for all reversible reactions
+        m_rxnstoich.getRevReactionDelta(m_ii, DATA_PTR(m_mu0), DATA_PTR(m_rkcn));
+
+        for (size_t i = 0; i < m_nrev; i++) {
+            size_t irxn = m_revindex[i];
+            if (irxn == npos || irxn >= nReactions()) {
+                throw CanteraError("InterfaceKinetics",
+                                   "illegal value: irxn = "+int2str(irxn));
+            }
+            // WARNING this may overflow HKM
+            m_rkcn[irxn] = exp(m_rkcn[irxn]*rrt);
+        }
+        for (size_t i = 0; i != m_nirrev; ++i) {
+            m_rkcn[ m_irrev[i] ] = 0.0;
+        }
+    }
+}
 
 
 

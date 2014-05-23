@@ -14,11 +14,7 @@
 
 using namespace Cantera;
 using namespace std;
-using namespace BEInput;
 
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
 #ifndef MIN
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
@@ -775,7 +771,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             // modify the reacting surface
             //
 	    Cantera::OCV_Override_input *ocv_ptr = ei->OCVoverride_ptrList[isurf];
-            if (ocv_ptr) {
+            if (ocv_ptr->numTimes > 0) {
+
                rsd->addOCVoverride(ocv_ptr);
             }
 
@@ -1690,7 +1687,7 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
     AssertTrace(nsp == (m_PhaseSpeciesStartIndex[solnPhase_+1] - m_PhaseSpeciesStartIndex[solnPhase_]));
     double tmp = 0.0;
     for (int k = 0; k < nsp; k++) {
-        spMoles_final_[istart + k] = MAX(electrolyteMoleNum[k], 0.0);
+        spMoles_final_[istart + k] = std::max(electrolyteMoleNum[k], 0.0);
         tmp += spMoles_final_[istart + k];
     }
     phaseMoles_final_[solnPhase_] = tmp;
@@ -1768,7 +1765,7 @@ void Electrode::setPhaseMoleNumbers(int iph, const double* const moleNum)
     int istart = m_PhaseSpeciesStartIndex[iph];
     int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
     for (int k = 0; k < nsp; k++) {
-        spMoles_final_[istart + k] = MAX(moleNum[k], 0.0);
+        spMoles_final_[istart + k] = std::max(moleNum[k], 0.0);
         spMoles_init_[istart + k] = spMoles_final_[istart + k];
         spMoles_init_init_[istart + k] = spMoles_final_[istart + k];
     }
@@ -3071,12 +3068,10 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
     return 0.0;
 }
 //=================================================================================================
-// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions.
+// Returns the equilibrium OCV for all reactions on the selected ReactingSurfaceDomain at the current conditions.
 /*
  *  When there is more than a single reaction,
- *  pick open circuit potential for reaction that is
- *  closest to equilibrium given the cell voltage since this one
- *  is the one for which open circuit is most relevant.
+ *  there may be many open circuit voltages, one for each for reaction.
  */
 void Electrode::getOpenCircuitVoltages(int isk, double* Erxn) const
 {
@@ -3119,7 +3114,7 @@ void Electrode::getOpenCircuitVoltages(int isk, double* Erxn) const
     return;
 }
 //======================================================================================================
-// A calculation of the open circuit potential of a surface
+// A calculation of the open circuit voltage of a surface
 /*!
  *  This routine uses a root finder to find the voltage at which there
  *  is zero net electron production.  It leaves the object unchanged. However, it
@@ -3849,7 +3844,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
      * If this routine is called with Tinitial = t_init_init_, then we should return without doing anything
      * We have already advanced the time step to the new time.
      */
-    double tbase = MAX(t_init_init_, 1.0E-50);
+    double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
         return;
     }
@@ -3857,8 +3852,8 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     /*
      *  The final_final time must be equal to the new Tinitial time
      */ 
-    tbase = MAX(Tinitial, tbase);
-    tbase = MAX(tbase, t_final_final_);
+    tbase = std::max(Tinitial, tbase);
+    tbase = std::max(tbase, t_final_final_);
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
         throw CanteraError("Electrode::resetStartingCondition()",
                            "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
@@ -4367,7 +4362,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, 
     int oldP = printLvl_;
     double deltaT_curr = deltaT;
     // Turn down printing for lower levels
-    printLvl_ = MAX(0, printLvl_ - 3);
+    printLvl_ = std::max(0, printLvl_ - 3);
     int printLvlLocal = oldP;
     if (printLvlLocal > 0) {
         rf.setPrintLvl(printLvlLocal);

@@ -135,6 +135,9 @@ Electrode Porosity = 0.35
 !       A block for each phase within the electrode object is created. This is where the composition and
 !       amount of each phase is specified.
 !
+!       This is also where the capacity coefficients are specified. The capacity coefficients determine
+!       how the capacity of the electrode and the depth of discharge are calculated.
+!
 !       start block Bath Specification for Phase [Cantera_Phase_Name] (optional)
 !          Phase Moles = double   (required)
 !          start block Bath Species Mole Fraction (required)
@@ -146,6 +149,14 @@ Electrode Porosity = 0.35
 start block Bath Specification for Phase FeS2_A(S)
 !--------------------------------------------------------------------------------------------------------------
   !
+  !------------------------------------------------------------------------------------------------------------
+  !
+  !   Voltage = double (optional) (default = 0.0)
+  !
+  !        Specify the beginning voltage of the phase
+  !
+  !------------------------------------------------------------------------------------------------------------
+  Voltage = 0.0
   !------------------------------------------------------------------------------------------------------------
   !  
   !   Phase Moles = double  [required]  
@@ -159,6 +170,20 @@ start block Bath Specification for Phase FeS2_A(S)
   !------------------------------------------------------------------------------------------------------------
   Phase Moles = 13.0
   !------------------------------------------------------------------------------------------------------------
+  !
+  !   Phase Mass = double  [optional] 
+  !
+  !        Enter the kg of the phase within the current electrode.
+  !        This number is frequently scaled to represent a given specified volume as the initial condition.
+  !        However, the scale of this phase is honored. Therefore, if there are more than one phase
+  !        in the electrode, then the specification of this number in combination with the mole fractions within
+  !        the phase will be important.
+  !  
+  !        (antithetical to Phase Moles)
+  !
+  !------------------------------------------------------------------------------------------------------------
+  ! Phase Mass = 0.1
+  !------------------------------------------------------------------------------------------------------------
   ! 
   !  BLOCK: Bath Species Mole Fraction 
   !
@@ -170,6 +195,46 @@ start block Bath Specification for Phase FeS2_A(S)
   Start block Bath Species Mole Fraction
     FeS2_A(S) = 1.0
   End block Bath Species Mole Fraction
+  !------------------------------------------------------------------------------------------------------------
+  ! 
+  !  BLOCK: Capacity Left Coefficients
+  !
+  !     Standard block of species with Capacity Left coefficients specified for each species
+  !     The default for missing species is  0.0. 
+  !     The dot product of this vector with mole numbers yields the Capacity left for the electrode.
+  !
+  !------------------------------------------------------------------------------------------------------------
+  Start block Capacity Left Coefficients
+    FeS2_A(S) = 1.0
+  End block Capacity Left Coefficients
+  !------------------------------------------------------------------------------------------------------------
+  !
+  !  BLOCK: Capacity At Zero DoD Coefficients
+  !
+  !     Standard block of species with Capacity at Zero DoD coefficients specified for each species
+  !     The default for missing species is  0.0.      
+  !     The dot product of this vector with mole numbers yields the Capacity of the electrode.
+  !
+  !------------------------------------------------------------------------------------------------------------
+  Start block Capacity At Zero DoD Coefficients
+    FeS2_A(S) = 1.0
+  End block Capacity at Zero DoD Coefficients
+
+  !------------------------------------------------------------------------------------------------------------
+  !
+  !  BLOCK: Bath Species Molalities
+  !
+  !     Standard molality block. Each species in the phase has a line entry where you can
+  !     specify the molalitiy, except for the solvent. The default is to set the molality to 0.0.
+  !
+  !  (antithetical to mole fraction block)
+  !
+  !------------------------------------------------------------------------------------------------------------
+  ! Start block Bath Species Molalities
+  !   Al++ = 1.0
+  !   Cl-  = 2.0
+  ! End block Bath Species Molalities
+  !------------------------------------------------------------------------------------------------------------
   !------------------------------------------------------------------------------------------------------------
 !--------------------------------------------------------------------------------------------------------------
 End block Bath Specification for Phase  FeS2_A(S)

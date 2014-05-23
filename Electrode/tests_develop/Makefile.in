@@ -13,8 +13,8 @@ test:
 #	cd LiSi_1_Newman ;                                          @MAKE@ -s test
 
 clean:
-	cd LiSi_1_Newman ;                                          @MAKE@ clean
-	cd LiCoO2_Radial_devel_cV;				    @MAKE@ clean
+	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
+	cd LiCoO2_Radial_devel_cV;				    /bin/rm -f .depends; @MAKE@ clean
 
 depends:
 	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ depends
