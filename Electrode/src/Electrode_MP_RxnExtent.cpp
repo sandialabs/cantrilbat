@@ -323,7 +323,7 @@ Electrode_MP_RxnExtent& Electrode_MP_RxnExtent::operator=(const Electrode_MP_Rxn
     phaseIndexSolidPhases_         = right.phaseIndexSolidPhases_;
     numSpecInSolidPhases_          = right.numSpecInSolidPhases_;
 
-    SAFE_DELETE(Li_liq_);
+    delete Li_liq_;
     Li_liq_ = right.Li_liq_->duplMyselfAsThermoPhase();
     Hf_B_base_                     = right.Hf_B_base_;
     Hf_B_current_                  = right.Hf_B_current_;
@@ -3545,12 +3545,13 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
             eState_final_->copyElectrode_intoState(this);
             xmlStateData_final_ = eState_final_->writeStateToXML();
         }
-        SAFE_DELETE(xmlStateData_init_init_);
+        delete xmlStateData_init_init_;
         xmlStateData_init_init_ =   xmlStateData_final_;
-        SAFE_DELETE(xmlStateData_init_);
+        delete xmlStateData_init_;
         xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
         xmlStateData_final_ = 0;
-        SAFE_DELETE(xmlStateData_final_final_);
+        delete xmlStateData_final_final_;
+        xmlStateData_final_final_ = 0;
     }
 
 }
@@ -4061,12 +4062,12 @@ double Electrode_MP_RxnExtent::calculateRadiusInner(double relativeExtentRxn_fin
     return  radius_inner;
 }
 //====================================================================================================================
-double Electrode_MP_RxnExtent::openCircuitVoltage(int isk)
+double Electrode_MP_RxnExtent::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 {
-    return openCircuitVoltageRxn(isk, -1);
+    return openCircuitVoltageRxn(isk, -1, comparedToReferenceElectrode);
 }
 //======================================================================================================================
-double Electrode_MP_RxnExtent::openCircuitVoltageRxn(int isk, int iReaction) const
+double Electrode_MP_RxnExtent::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToReferenceElectrode) const
 {
     if (isk != indexOfReactingSurface_) {
         return 0.0;
@@ -4081,7 +4082,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageRxn(int isk, int iReaction) con
     return volts;
 }
 //====================================================================================================================
-double Electrode_MP_RxnExtent::openCircuitVoltage_Region(double relativeExtentRxn, int xRegion) const
+double Electrode_MP_RxnExtent::openCircuitVoltage_Region(double relativeExtentRxn, int xRegion, bool comparedToReferenceElectrode) const
 {
     double voltsSS = openCircuitVoltageSS_Region(relativeExtentRxn, xRegion);
     double deltaGSS = - voltsSS * Faraday;
@@ -4089,11 +4090,16 @@ double Electrode_MP_RxnExtent::openCircuitVoltage_Region(double relativeExtentRx
     ThermoPhase* tSalt = &(thermo(solnPhase_));
     //  We assume that the ion in the salt is called Li+
     int ilt_Lip = tSalt->speciesIndex("Li+");
-    tSalt->getChemPotentials(mu);
-    double muLip = mu[ilt_Lip];
-    tSalt->getPureGibbs(mu);
-    double muLipSS = mu[ilt_Lip];
-    double deltaG = deltaGSS - muLip + muLipSS;
+    double deltaG;
+    if (comparedToReferenceElectrode) {
+        deltaG = deltaGSS; 
+    } else {
+        tSalt->getChemPotentials(mu);
+        double muLip = mu[ilt_Lip];
+        tSalt->getPureGibbs(mu);
+        double muLipSS = mu[ilt_Lip];
+        deltaG = deltaGSS - muLip + muLipSS;
+    }
     double volts = - deltaG / Faraday;
     return volts;
 }

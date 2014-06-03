@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Thu May  1 10:37:28 2014
+      Mon Jun  2 17:13:21 2014
     </string>
     <globalTimeStep index="1">
       <deltaTime_init_next> 3.37500000000000E-03 </deltaTime_init_next>

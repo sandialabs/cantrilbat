@@ -99,7 +99,11 @@ public:
      */
     const std::vector<double>& calcSurfaceDestructionRateDensities();
 
-    void updateKc();
+    //!  Update the standard state chemical potentials and species equilibrium constant entries
+    /*!
+     *  Virtual because it is overwritten when dealing with experimental open circuit voltage overrides
+     */
+    virtual void updateMu0();
 
     //! Get the net current for the set of reactions on this surface
     /*!
@@ -179,6 +183,18 @@ public:
 
     //! Calculate the effective chemical potential of the replaced species
     void deriveEffectiveChemPot();
+
+    void getDeltaGibbs(doublereal* deltaG);
+
+    //! This gets the deltaG for each reaction in the mechanism, but using the standard state
+    //! chemical potential for the electrolyte.
+    /*!
+     *          @param  deltaG_special  DeltaG for each reaction using standard state chemical
+     *                                  potentials for the electrolyte. 
+     *                     length = nReactions(), J/kmol
+     */
+    void getDeltaGibbs_electrolyteSS(doublereal* deltaG_special);
+
 
 public:
     //! Declare a printing routine as a friend to this class
@@ -281,6 +297,12 @@ public:
      *  If there isn't an override, this is set to zero.
      */
     RSD_OCVmodel* OCVmodel_;
+
+    //!  Chemical potentials of the species, in kinetic species order
+    /*!
+     *  If there is an OCV override, the correct replaced chemical potential is storred here.
+     */
+    std::vector<doublereal> m_mu;
 
     //!  Kinetic species index for species
     int kReplacedSpeciesRS_;

@@ -728,7 +728,9 @@ public:
      *
      * @param isk  Reacting surface domain id
      */
-    virtual double openCircuitVoltage(int isk);
+    virtual double openCircuitVoltage(int isk, bool comparedToReferenceElectrode = false);
+
+    virtual double openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
 
 #ifdef DEBUG_THERMAL
     double netElectrons();

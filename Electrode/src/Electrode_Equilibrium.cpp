@@ -14,9 +14,9 @@ using namespace std;
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
 #endif
-#ifndef MAX
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
+//#ifndef MAX
+//#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
+//#endif
 
 namespace Cantera {
 
@@ -28,7 +28,7 @@ Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
                 printLvl_(0)
 {
     if (ee_) {
-        printLvl_ = MAX(0, printLvl_ - 3);
+        printLvl_ = std::max(0, printLvl_ - 3);
     }
 }
 //====================================================================================================================
@@ -113,7 +113,7 @@ int Electrode_Equilibrium::setupEquilibriumProblem()
         delete LiFixed_;
     }
 
-    printLvl_ = MAX(0, printLvl_ - 3);
+    printLvl_ = std::max(0, printLvl_ - 3);
     return 0;
 }
 

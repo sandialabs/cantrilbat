@@ -1795,6 +1795,22 @@ void Electrode::setPhaseMoleNumbers(int iph, const double* const moleNum)
     setInitStateFromFinal(true);
     setFinalFinalStateFromFinal();
 }
+//==================================================================================================================
+//! Set the current state of the electrode object based on a relative extent of reaction
+/*!
+ *   The relative extent of reaction is a dimensionless number on the order of one
+ *   that represents the state of the electrode. A value of zero represents the
+ *   fully charged state, while a value of one (or equivalent) represents a fully
+ *   discharged state. 
+ *
+ *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
+ */
+void Electrode::setState_relativeExtentRxn(double relativeExtentRxn)
+{
+
+}
+//==================================================================================================================
+
 
 // -----------------------------------------------------------------------------------------------------------------
 // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
@@ -3015,7 +3031,7 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
  *  closest to equilibrium given the cell voltage since this one
  *  is the one for which open circuit is most relevant.
  */
-double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
+double Electrode::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToReferenceElectrode) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
@@ -3026,7 +3042,11 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
         rxnIndex = iReaction;
     }
 
-    rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    if (comparedToReferenceElectrode) {
+	rsd->getDeltaGibbs_electrolyteSS(DATA_PTR(deltaG_));
+    } else {
+	rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    }
 
     int nR = rsd->nReactions();
     double ERxn = 0.0; // store open circuit voltage here
@@ -3042,6 +3062,12 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
         if (nStoichElectrons != 0.0) {
             ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
         }
+        double deltaGC =  deltaG_[rxnIndex] - GasConstant *  temperature_ * std::log(0.08);
+        double ERxn_SS = deltaGC / Faraday / nStoichElectrons;
+#ifdef DEBUG_NEW
+        printf(" ERxn_SS = %g\n",  ERxn_SS);
+#endif
+  
         if (iReaction >= 0) {
             return ERxn;
         }
@@ -3073,7 +3099,7 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction) const
  *  When there is more than a single reaction,
  *  there may be many open circuit voltages, one for each for reaction.
  */
-void Electrode::getOpenCircuitVoltages(int isk, double* Erxn) const
+void Electrode::getOpenCircuitVoltages(int isk, double* Erxn, bool comparedToReferenceElectrode) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
@@ -3083,7 +3109,12 @@ void Electrode::getOpenCircuitVoltages(int isk, double* Erxn) const
     /*
      *  get the reaction Gibbs free energy for all reactions defined on the reacting surface 
      */
-    rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    if (comparedToReferenceElectrode) {
+	rsd->getDeltaGibbs_electrolyteSS(DATA_PTR(deltaG_));
+    } else {
+	rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    }
+
 
     //find number of reactions
     size_t nr = rsd->rmcVector.size();
@@ -3114,13 +3145,18 @@ void Electrode::getOpenCircuitVoltages(int isk, double* Erxn) const
     return;
 }
 //======================================================================================================
+double Electrode::openCircuitVoltage_MixtureAveraged(int isk,  bool comparedToReferenceElectrode)
+{
+    return Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
+}
+//======================================================================================================
 // A calculation of the open circuit voltage of a surface
 /*!
  *  This routine uses a root finder to find the voltage at which there
  *  is zero net electron production.  It leaves the object unchanged. However, it
  *  does change the voltage of the phases during the calculation, so this is a nonconst function.
  */
-double Electrode::openCircuitVoltage(int isk)
+double Electrode::openCircuitVoltage(int isk,  bool comparedToReferenceElectrode)
 {
     int printDebug = 30;
     static int oIts = 0;
@@ -3136,20 +3172,25 @@ double Electrode::openCircuitVoltage(int isk)
     /*
      *  Get the current value of deltaG_[] for reactions defined on the current reacting surface
      */
-    rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    if (comparedToReferenceElectrode) {
+	rsd->getDeltaGibbs_electrolyteSS(DATA_PTR(deltaG_));
+    } else {
+	rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    }
     if (printDebug < 0) {
         printf("we are here, oIts = %d\n", oIts);
     }
     RxnMolChange* rmc = 0;
     int nR = rsd->nReactions();
+    // If we don't have any reactions we can't do the calculation
     if (nR == 0) {
         return 0.0;
     }
     int nP = rsd->nPhases();
     double ERxn = 0.0; // store open circuit voltage here
 
-    vector<int> phaseExistsInit(nP, 1);
-    vector<int> phaseStabInit(nP, 1);
+    std::vector<int> phaseExistsInit(nP, 1);
+    std::vector<int> phaseStabInit(nP, 1);
 
     for (int iph = 0; iph < nP; iph++) {
         phaseExistsInit[iph] = rsd->phaseStability(iph);
@@ -3161,6 +3202,7 @@ double Electrode::openCircuitVoltage(int isk)
         }
     }
 
+    // If we don't have a metal phase, we don't know how to do the calculation (lazy I think)
     int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
     if (metalPhaseRS < 0) {
         return 0.0;
@@ -5309,6 +5351,7 @@ void Electrode::writeCSVData(int itype)
     static FILE* fpI = 0;
     static int runNumber = -1;
     bool ignoreErrors = false;
+    int isk = 0;  // reacting surface assumption
     if (itype < 0) {
         ignoreErrors = true;
     }
@@ -5327,9 +5370,13 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpI, "         Tinit ,        Tfinal ,");
 
         fprintf(fpI, "      Volts_Soln ,  Volts_Electrode ,");
+        fprintf(fpI, " OpenCircVolt ,      OCV_avg ,");
+        fprintf(fpI, " OCV_RefElec  , OCV_avg_refE ,");
 
         fprintf(fpI, "      Current ,");
 
+        fprintf(fpI, " RelExtent    ,");
+        fprintf(fpI, " DoD_Frac     ,");
         fprintf(fpI, "  CapDischarged ,");
         fprintf(fpI, "  CapacityLeft ,");
         fprintf(fpI, "  Capacity ,");
@@ -5367,9 +5414,13 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpG, "         Tinit ,        Tfinal ,");
 
         fprintf(fpG, "      Volts_Soln ,  Volts_Electrode ,");
+        fprintf(fpG, " OpenCircVolt ,      OCV_avg ,");
+        fprintf(fpG, " OCV_RefElec  , OCV_avg_refE ,");
 
         fprintf(fpG, "      Current ,");
 
+        fprintf(fpG, " RelExtent    ,");
+        fprintf(fpG, " DoD_Frac     ,");
         fprintf(fpG, "  CapDischarged ,");
         fprintf(fpG, "  CapacityLeft ,");
         fprintf(fpG, "  Capacity ,");
@@ -5407,6 +5458,14 @@ void Electrode::writeCSVData(int itype)
         double phiM = phaseVoltages_[metalPhase_];
         fprintf(fpI, "    %12.5E ,     %12.5E ,", phiS, phiM);
 
+        double ocv_avg = openCircuitVoltage_MixtureAveraged(isk, false);
+        double ocv = openCircuitVoltage(isk, false);
+        fprintf(fpI, " %12.5E , %12.5E , ", ocv, ocv_avg);
+
+        double ocv_avg_refE = openCircuitVoltage_MixtureAveraged(isk, true);
+        double ocv_refE = openCircuitVoltage(isk, true);
+        fprintf(fpI, " %12.5E , %12.5E , ", ocv_refE, ocv_avg_refE);
+
         kstart = m_PhaseSpeciesStartIndex[metalPhase_];
         double deltaT = tfinal_ - tinit_;
         double amps = 0.0;
@@ -5414,6 +5473,12 @@ void Electrode::writeCSVData(int itype)
             amps = spMoleIntegratedSourceTermLast_[kstart] / deltaT * Faraday;
         }
         fprintf(fpI, " %12.5E ,", amps);
+
+        double relE = calcRelativeExtentRxn_final();
+        fprintf(fpI, " %12.5E ,", relE);
+
+        double dodF = depthOfDischargeFraction(-1);
+        fprintf(fpI, " %12.5E ,", dodF);
 
         double cap = capacityDischarged();
         fprintf(fpI, "   %12.5E ,", cap);
@@ -5459,6 +5524,14 @@ void Electrode::writeCSVData(int itype)
         double phiM = phaseVoltages_[metalPhase_];
         fprintf(fpG, "    %12.5E ,     %12.5E ,", phiS, phiM);
 
+        double ocv_avg = openCircuitVoltage_MixtureAveraged(isk);
+        double ocv = openCircuitVoltage(isk);
+        fprintf(fpG, " %12.5E , %12.5E , ", ocv, ocv_avg);
+
+        double ocv_avg_refE = openCircuitVoltage_MixtureAveraged(isk, true);
+        double ocv_refE = openCircuitVoltage(isk, true);
+        fprintf(fpG, " %12.5E , %12.5E , ", ocv_refE, ocv_avg_refE);
+
         kstart = m_PhaseSpeciesStartIndex[metalPhase_];
         double deltaT = t_final_final_ - t_init_init_;
         double amps = 0.0;
@@ -5466,6 +5539,12 @@ void Electrode::writeCSVData(int itype)
             amps = spMoleIntegratedSourceTerm_[kstart] / deltaT * Faraday;
         }
         fprintf(fpG, " %12.5E ,", amps);
+
+        double relE = calcRelativeExtentRxn_final();
+        fprintf(fpG, " %12.5E ,", relE);
+
+        double dodF = depthOfDischargeFraction(-1);
+        fprintf(fpG, " %12.5E ,", dodF);
 
         double cap = capacityDischarged();
         fprintf(fpG, "   %12.5E ,", cap);

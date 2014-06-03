@@ -11,6 +11,7 @@
 #include "cantera/numerics/NonlinearSolver.h"
 #include "cantera/equilibrium.h"
 #include "Electrode_Factory.h"
+#include "importPL.h"
 #include "BE_BlockEntry.h"
 #include <iomanip>
 
@@ -145,7 +146,6 @@ int main(int argc, char **argv)
     double Tinitial = 0.0;
     double Tfinal = 0.0;
 
-    electrodeC->setVoltages(3.4, 0.0);
     double molNum[10];
 
     electrodeC->setPhaseExistenceForReactingSurfaces(true);

@@ -45,7 +45,6 @@
 using namespace std;
 using namespace Cantera;
 
-#define MIN(x,y)     (( (x) < (y) ) ? (x) : (y))
 
 static void erase_vd(std::vector<doublereal>& m_vec, int index)
 {

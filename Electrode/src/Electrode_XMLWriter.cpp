@@ -51,7 +51,7 @@ void Electrode::specifySolutionFileLevel(int level, const char* baseName)
 void Electrode::makeXML_TI_intermediate(bool addInitState)
 {
     std::string fmt = "%22.14E";
-    SAFE_DELETE(xmlTimeIncrementIntermediateData_);
+    delete xmlTimeIncrementIntermediateData_;
     xmlTimeIncrementIntermediateData_ = new XML_Node("timeIncrement");
     xmlTimeIncrementIntermediateData_->addAttribute("type", "intermediate");
     if (addInitState) {
@@ -100,7 +100,7 @@ void Electrode::startXML_TI_final(bool addInitState)
 {
     std::string fmt = "%22.14E";
     static int firstTime = 0;
-    SAFE_DELETE(xmlTimeIncrementData_);
+    delete xmlTimeIncrementData_;
     xmlTimeIncrementData_ = new XML_Node("timeIncrement");
     xmlTimeIncrementData_->addAttribute("type", "global");
     if (firstTime > 0 && printXMLLvl_ <= 1) {

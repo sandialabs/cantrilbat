@@ -21,35 +21,13 @@
 //   Cantera includes
 
 #include "importPL.h"
+#include "PhaseList.h"
 
 #include "importAllCTML.h"
-#include "cantera/thermo/mix_defs.h"
-
-#include "cantera/kinetics.h"
-
-
-#include "cantera/thermo/speciesThermoTypes.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "cantera/thermo/ThermoFactory.h"
-
-#include "cantera/transport.h"
-
-#include "PhaseList.h"
-#include "cantera/thermo/IdealSolidSolnPhase.h"
-#include "cantera/thermo/IdealMolalSoln.h"
-#include "cantera/thermo/DebyeHuckel.h"
-#include "cantera/thermo/StoichSubstanceSSTP.h"
-#include "cantera/thermo/HMWSoln.h"
-
-#include "cantera/base/xml.h"
-#include "cantera/base/ctml.h"
-#include "cantera/kinetics/InterfaceKinetics.h"
-
 
 #include <vector>
-#include "stdio.h"
+#include "cstdio"
 
-using namespace ctml;
 using namespace std;
 
 namespace Cantera
@@ -149,8 +127,6 @@ int importAllCTMLIntoPhaseList(PhaseList* pl, std::string canteraFile)
     int nphases = pl->nPhases();
     return nphases;
 }
-
-
 
 /*************************************************************************/
 }

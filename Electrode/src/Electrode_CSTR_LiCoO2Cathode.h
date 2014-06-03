@@ -93,7 +93,7 @@ public:
      *
      *  @param relExtentRxn  input of the relative extent of reaction
      */
-    virtual void setStateFinal_fromRelativeExtentRxn(double relExtentRxn);
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
 
     int Global_LiCoO2_Model_;

@@ -81,14 +81,13 @@ public:
      *
      *  It is virtual because there is no way to do this except by knowing about the system
      *
-     *  It must be the case that  calcRelativeExtentRxn_final() and etStateFinal_fromRelativeExtentRxn()
+     *  It must be the case that  calcRelativeExtentRxn_final() and setState_relativeExtentRxn()
      *  are inverses of one another. Note, this means that if the state of the system has more than one rank,
      *  then the other ranks are unperturbed by the round trip.
      *
      *  @param relExtentRxn  input of the relative extent of reaction
      */
-    virtual void setStateFinal_fromRelativeExtentRxn(double relExtentRxn);
-
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
 private:
     int ig_SolidLi_;

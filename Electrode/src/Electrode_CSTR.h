@@ -206,10 +206,9 @@ public:
      *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
      *                           this is at the DoD = 1.0 condition
      */
-    double openCircuitVoltageSS_final_Region(int xRegion) ;
+    double openCircuitVoltageSS_Region(int xRegion) const;
 
-    //! Value of the open circuit voltage for region xRegion
-    //! at the final_ conditions.
+    //! Value of the open circuit voltage for region xRegion at the final_ conditions.
     /*!
      *  This is the open circuit potential at the current _final_ conditions.
      *  The value is dependent on the region input. The region input, currently is identified
@@ -223,7 +222,7 @@ public:
      *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
      *                           this is at the DoD = 1.0 condition
      */
-    double openCircuitVoltage_final_Region(int xRegion);
+    double openCircuitVoltage_Region(int xRegion, bool comparetoReferenceElectrode = false) const;
 
     //! Returns the total capacity of the electrode in Amp seconds
     /*!
@@ -360,13 +359,13 @@ public:
      *
      *  It is virtual because there is no way to do this except by knowing about the system
      *
-     *  It must be the case that  calcRelativeExtentRxn_final() and etStateFinal_fromRelativeExtentRxn()
+     *  It must be the case that  calcRelativeExtentRxn_final() and setState_relativeExtentRxn()
      *  are inverses of one another. Note, this means that if the state of the system has more than one rank,
      *  then the other ranks are unperturbed by the round trip.
      *
      *  @param relExtentRxn  input of the relative extent of reaction
      */
-    virtual void setStateFinal_fromRelativeExtentRxn(double relExtentRxn);
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
     //! Predict the solution
     /*!

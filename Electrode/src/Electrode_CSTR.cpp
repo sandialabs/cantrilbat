@@ -620,7 +620,7 @@ bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
  *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
  *                           this is at the DoD = 1.0 condition
  */
-double Electrode_CSTR::openCircuitVoltageSS_final_Region(int xRegion)
+double Electrode_CSTR::openCircuitVoltageSS_Region(int xRegion) const
 {
     int doRegion = xRegion;
     double vOffset = 0.0;
@@ -667,7 +667,7 @@ double Electrode_CSTR::openCircuitVoltageSS_final_Region(int xRegion)
  *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
  *                           this is at the DoD = 1.0 condition
  */
-double Electrode_CSTR::openCircuitVoltage_final_Region(int xRegion)
+double Electrode_CSTR::openCircuitVoltage_Region(int xRegion,  bool comparedToReferenceElectrode) const
 {
     int doRegion = xRegion;
     double vOffset = 0.0;
@@ -695,7 +695,7 @@ double Electrode_CSTR::openCircuitVoltage_final_Region(int xRegion)
      *  go get deltaG_ss and openCircuit for the current surface
      */
     int isk = doRegion;
-    double ocss = openCircuitVoltageRxn(isk);
+    double ocss = openCircuitVoltageRxn(isk, comparedToReferenceElectrode);
     return (vOffset + ocss);
 }
 //====================================================================================================================
@@ -815,7 +815,7 @@ void Electrode_CSTR::setRelativeCapacityDischargedPerMole(double relDischargedPe
     double relExtentRxn =  RelativeExtentRxn_RegionBoundaries_[0] + relDischargedPerMole;
 
     if (platNum == 0 || platNum == -1) {
-        setStateFinal_fromRelativeExtentRxn(relExtentRxn);
+        setState_relativeExtentRxn(relExtentRxn);
     } else {
         throw CanteraError("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
                            " wrong platNum");
@@ -968,9 +968,9 @@ double Electrode_CSTR::calcRelativeExtentRxn_final() const
     return -1.0;
 }
 //====================================================================================================================
-void Electrode_CSTR::setStateFinal_fromRelativeExtentRxn(double relExtentRxn)
+void Electrode_CSTR::setState_relativeExtentRxn(double relExtentRxn)
 {
-    throw CanteraError("Electrode_CSTR::setStateFinal_fromRelativeExtentRxn()",
+    throw CanteraError("Electrode_CSTR::setState_relativeExtentRxn()",
                        "Base class called");
 }
 //====================================================================================================================
@@ -1037,8 +1037,8 @@ int  Electrode_CSTR::predictSoln()
           // FIXME: this if block that sets vleft, vright, vtop, vbot will always have them overwritten
           // by the following block on lines 1026-1034. Should those lines be in an else clause?
             if (onRegionBoundary_init_ == 0) {
-                vleft =  openCircuitVoltage_final_Region(-1);
-                vright = openCircuitVoltage_final_Region(0);
+                vleft =  openCircuitVoltage_Region(-1);
+                vright = openCircuitVoltage_Region(0);
                 if (electrodeType_ == ELECTRODETYPE_CATHODE) {
                     vtop = vleft;
                     vbot = vright;
@@ -1047,8 +1047,8 @@ int  Electrode_CSTR::predictSoln()
                     vbot = vleft;
                 }
             }
-            vleft  = openCircuitVoltage_final_Region(onRegionBoundary_init_ - 1);
-            vright = openCircuitVoltage_final_Region(onRegionBoundary_init_);
+            vleft  = openCircuitVoltage_Region(onRegionBoundary_init_ - 1);
+            vright = openCircuitVoltage_Region(onRegionBoundary_init_);
             if (electrodeType_ == ELECTRODETYPE_CATHODE) {
                 vtop = vleft;
                 vbot = vright;
@@ -2443,7 +2443,7 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
                                " RelativeExtentRxn_final_ not on boundary and onRegionBoundary_final_ is");
         } else {
             RelativeExtentRxn_final_  = RelativeExtentRxn_RegionBoundaries_[onRegionBoundary_final_];
-            setStateFinal_fromRelativeExtentRxn(RelativeExtentRxn_final_);
+            setState_relativeExtentRxn(RelativeExtentRxn_final_);
         }
     }
 

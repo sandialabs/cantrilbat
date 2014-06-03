@@ -81,6 +81,8 @@ public:
      */
     void addVolPhase(ThermoPhase* const vp, XML_Node* vNode, std::string canteraFile = "");
 
+    //! Add a volumetric phase
+    void addVolPhase(std::string canteraFile);
 
     //! Add a surface phase to the list
     /*!
@@ -90,6 +92,8 @@ public:
      */
     void addSurPhase(ThermoPhase* const vp, XML_Node* sNode, std::string canteraFile = "");
 
+    //! Add a surface phase
+    void addSurPhase(std::string canteraFile);
     /*
      * getVolPhaseIndex
      *     This routine returns the phase index of a phase. This
@@ -291,6 +295,8 @@ public:
      *  @return returns the species name
      */
     std::string speciesName(int iGlobSpeciesIndex) const;
+
+    void setState_TP(doublereal temperature, doublereal pressure);
 
 
     /***********************************************************************/

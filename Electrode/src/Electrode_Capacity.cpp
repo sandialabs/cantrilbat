@@ -51,7 +51,6 @@ double Electrode::capacity(int platNum) const
         for (int k = 0; k < nspPhase; k++) {
             double ll = spMoles_final_[kStart + k];
             capZeroDoD += ll * capacityZeroDoDSpeciesCoeff_[kStart + k];
-
         }
     }
     double tmp = capZeroDoD * Faraday;
@@ -288,6 +287,11 @@ double Electrode::capacityDischarged(int platNum) const
 double Electrode::depthOfDischargeStarting(int platNum) const
 {
     return depthOfDischargeStarting_;
+}
+//======================================================================================================================
+double Electrode::calcRelativeExtentRxn_final() const
+{
+    return depthOfDischargeFraction(-1);
 }
 //======================================================================================================================
 // Reset the counters that keep track of the amount of discharge to date
@@ -881,9 +885,11 @@ void Electrode::setCapacityCoeff_MCMB() const
             }
 
             if (!found) {
-                throw CanteraError(":setCapacityCoeff_MCMB()", "unknown species: " + sss + " in phase " + pname);
+                printf(":setCapacityCoeff_MCMB(): unknown species: %s  in phase  %s Setting Capacity to zero\n",
+                       sss.c_str(), pname.c_str());
+                capacityLeftSpeciesCoeff_[iGlobSpeciesIndex]    = 0.0;
+                capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = 0.0;
             }
-
         }
     }
 }

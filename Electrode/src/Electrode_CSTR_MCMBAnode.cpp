@@ -182,7 +182,7 @@ double Electrode_CSTR_MCMBAnode::calcRelativeExtentRxn_final() const
  *  @param relExtentRxn  input of the relative extent of reaction.
  *                       Dimensionless -> equal to lithium vacancy mole fraction.
  */
-void Electrode_CSTR_MCMBAnode::setStateFinal_fromRelativeExtentRxn(double relExtentRxn)
+void Electrode_CSTR_MCMBAnode::setState_relativeExtentRxn(double relExtentRxn)
 {
     double li_mf =  1.0 - relExtentRxn;
     double sum =  spMoles_final_[ig_SolidV_] +  spMoles_final_[ig_SolidLi_];

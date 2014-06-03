@@ -583,7 +583,7 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     setInitStateFromFinal(true);
 
     if (eState_final_) {
-        SAFE_DELETE(xmlStateData_final_);
+        delete xmlStateData_final_;
         xmlStateData_final_ = eState_final_->writeStateToXML();	 
     }
 
@@ -598,7 +598,7 @@ Electrode_SimpleDiff::electrode_stateSave_create()
     if (rr >= 0) {
         rr = 0;
     }
-    SAFE_DELETE(xmlStateData_final_);
+    delete xmlStateData_final_;
     xmlStateData_final_ = eState_final_->writeStateToXML();
     return rr;
 }
@@ -4205,7 +4205,7 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
  *
  * @param isk  Reacting surface domain id
  */
- double  Electrode_SimpleDiff::openCircuitVoltage(int isk)
+ double  Electrode_SimpleDiff::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
  {
      /*
       *  Load the conditions of the last cell into the ThermoPhase object
@@ -4219,8 +4219,30 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
 	int nsp = tp->nSpecies();
 	kspCell += nsp;
      }
-     
-     double val = Electrode::openCircuitVoltage(isk);
+     double val = Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
+     return val;
+ }
+//====================================================================================================================
+// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
+/*
+ *  This routine uses a root finder to find the voltage at which there
+ *  is zero net electron production.  It leaves the object unchanged. However, it
+ *  does change the voltage of the phases during the calculation, so this is a non const function.
+ *
+ * @param isk  Reacting surface domain id
+ */
+ double  Electrode_SimpleDiff::openCircuitVoltage_MixtureAveraged(int isk, bool compareToReferenceElectrode)
+ {
+     /*
+      *  Load the conditions of the Averaged values into the ThermoPhase object
+      */
+     for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
+        int iPh = phaseIndeciseKRsolidPhases_[jRPh]; 
+        ThermoPhase* tp =  thermoSPhase_List_[jRPh];
+        double* spMf_ptr = &spMf_final_[m_PhaseSpeciesStartIndex[iPh]]; 
+        tp->setState_TPX(temperature_, pressure_, spMf_ptr);
+     }
+     double val = Electrode::openCircuitVoltage(isk, compareToReferenceElectrode);
      return val;
  }
 //====================================================================================================================

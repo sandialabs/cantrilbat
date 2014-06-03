@@ -11,6 +11,7 @@
 
 #include "PhaseList.h"
 #include "Electrode_Exception.h"
+#include "cantera/thermo.h"
 
 #include <new>
 
@@ -224,6 +225,25 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     return *this;
 }
+//================================================================================================
+void PhaseList::
+addVolPhase(std::string canteraFile)
+{
+    XML_Node* xroot = get_XML_File(canteraFile);
+    XML_Node* vPhase = findXMLPhase(xroot, "");
+    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, "");
+    addVolPhase(tp, vPhase, canteraFile);
+}
+//================================================================================================
+void PhaseList::
+addSurPhase(std::string canteraFile)
+{
+    XML_Node* xroot = get_XML_File(canteraFile);
+    XML_Node* vPhase = findXMLPhase(xroot, "");
+    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, "");
+    addSurPhase(tp, vPhase, canteraFile);
+}
+
 //================================================================================================
 /*
  *  addVolPhase:
@@ -723,6 +743,18 @@ std::string PhaseList::speciesName(int iGlobSpeciesIndex) const
     int kLocal = iGlobSpeciesIndex - kStart;
     ThermoPhase& tp = thermo(iPhase);
     return tp.speciesName(kLocal);
+}
+//======================================================================================================================
+void PhaseList::setState_TP(doublereal temperature, doublereal pressure)
+{
+    for (int i = 0; i <  NumVolPhases_; i++) {
+        ThermoPhase *tp = VolPhaseList[i];
+        tp->setState_TP(temperature, pressure);
+    } 
+    for (int i = 0; i < m_NumSurPhases; i++) {
+        ThermoPhase *tp = SurPhaseList[i];
+        tp->setState_TP(temperature, pressure);
+    }
 }
 //======================================================================================================================
 }

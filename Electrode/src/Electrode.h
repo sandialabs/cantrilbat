@@ -39,9 +39,6 @@ namespace BEInput
 namespace Cantera
 {
 
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(a) if (a) { delete (a); a = 0; }
-#endif
 
 
 //!  Enum Type identifying the models for the Electrodes
@@ -665,7 +662,17 @@ public:
      *                     size = number of species in the electrolyte phase
      */
     virtual void setPhaseMoleNumbers(int iph, const double* const moleNum);
-
+    
+    //! Set the current state of the electrode object based on a relative extent of reaction
+    /*!
+     *   The relative extent of reaction is a dimensionless number on the order of one
+     *   that represents the state of the electrode. A value of zero represents the
+     *   fully charged state, while a value of one (or equivalent) represents a fully
+     *   discharged state. 
+     *
+     *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
+     */
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
 protected:
     //! Update all state information for a single phase from the mole numbers in the spMoles_final_[] vector
@@ -699,7 +706,6 @@ protected:
      * @param iph     Phase id.
      */
     void updateState_Phase(int iph);
-
 
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -1660,7 +1666,7 @@ public:
      *   @param iReaction   Explicit index of the reaction. If -1, then it attempts
      *                      to pick the reaction that best represents the open circuit potential.
      */
-    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1) const;
+    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
     /*!
@@ -1669,14 +1675,23 @@ public:
      *  does change the voltage of the phases during the calculation, so this is a non const function.
      *
      * @param isk  Reacting surface domain id
+     * @param comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
+     *                        the current conditions (false) or compared to the voltage wrt the reference electrode (true).
+     *                        The later is akin to using the standard state thermo functions for the electrolyte species.
      */
-    virtual double openCircuitVoltage(int isk);
+    virtual double openCircuitVoltage(int isk, bool comparedToReferenceElectrode = false);
+
+    //! Get the open circuit potential
+    /*!
+     *
+     */
+    virtual double  openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
 
     //! Returns the vector of OCV's for the selected ReactingSurfaceDomain and current conditions.
     /*
      * @param isk  Reacting surface domain id
      */
-    void  getOpenCircuitVoltages(int isk, double* ocv) const;
+    void  getOpenCircuitVoltages(int isk, double* ocv, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the exchange current density for a given surface reaction in A/m^2
     /*!
@@ -1725,7 +1740,7 @@ public:
      *  The overpotential is the current voltage minus the open circuit voltage.
      *  This routine calculates the open circuit voltage for the surface via a rootfinder.
      *
-     *   @param isk   reacting surface number
+     *   @param isk  Reacting surface number
      */
     double overpotential(int isk);
 
@@ -1910,6 +1925,21 @@ public:
      */
     virtual void fixCapacityBalances_final();
 
+    //! Calculate the relative extent of reaction from the current state of the object
+    /*!
+     *  Calculate the relative extent of reaction from the final state, spmoles_final.
+ 
+     *  The relative extent of reaction is a dimensionless number that varies. It doesn't
+     *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
+     *  that can't be filled with Li....
+     *
+     *  The way we do this for the base case is to use DoDFraction() to calculate the dimensionless number.
+     *  However there is frequently a better way to do this. Also, for intercalating electrodes, we want this
+     *  number to refer to the mole fraction of one of the species.
+     *
+     *  @return returns the relative extent of reaction (dimensionless).
+     */
+    virtual double  calcRelativeExtentRxn_final() const;
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------  CAPACITY CALCULATION SETUP ---- -----------------------------------------------------

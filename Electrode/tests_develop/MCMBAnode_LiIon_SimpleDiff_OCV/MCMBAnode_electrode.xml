@@ -28,10 +28,8 @@
      </phaseArray>
   </phase>
 
-
- <!-- species definitions     -->
+  <!-- species definitions     -->
   <speciesData id="species_Li_electrode">
-
 
    <!-- species li_site   -->
     <species name="li_site">

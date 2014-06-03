@@ -12,8 +12,8 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
+//#include "cantera/equil/vcs_prob.h"
+//#include "cantera/equil/vcs_solve.h"
 #include "cantera/equil/vcs_VolPhase.h"
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
@@ -146,8 +146,6 @@ int main(int argc, char **argv)
     }
 
 
-
-
     retn = electrodeA->setInitialConditions(electrodeA_input);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -158,33 +156,30 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
-    double deltaT = 0.1;
     double Tinitial = 0.0;
     double Tfinal = 0.0;
 
-    electrodeA->setVoltages(0.0, -0.2);
     double molNum[10];
 
     double vvolts = electrodeA->openCircuitVoltageRxn(0, 0);
     printf(" volts = %g\n", vvolts);
-    exit (0);
+    //exit (0);
 
     electrodeA->setPhaseExistenceForReactingSurfaces(true);
-    electrodeA->setVoltages(0.0, -0.2);
+    //electrodeA->setVoltages(0.0, -0.1);
+    electrodeA->setVoltages(0.0, -0.045);
     double oc = electrodeA->openCircuitVoltageSSRxn(0);
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
     int nT = 30;
-    deltaT = 1.0E-3;
+    double deltaT = 1.0E-2;
     electrodeA->printCSVLvl_ = 3;
-
 
     double pmv[10];
 
     ThermoPhase *th = electrodeA->getPhase("MCMB_Interstitials_anode");
     th->getPartialMolarVolumes(pmv);
     
-
     electrodeA->setDeltaTSubcycle(2.5E-4);
     electrodeA->printElectrode();
 
@@ -197,7 +192,6 @@ int main(int argc, char **argv)
     nT = 50; 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal; 
-        
       electrodeA->resetStartingCondition(Tinitial);
       int numSubIntegrations = electrodeA->integrate(deltaT);
       Tfinal = electrodeA->timeFinalFinal();

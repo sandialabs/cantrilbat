@@ -699,7 +699,7 @@ public:
     virtual double openCircuitVoltageSSRxn(int isk, int iReaction = -1) const;
     
 
-    //! Calculate the open circuit voltage at the final state
+    //! Calculate the standard state open circuit voltage at the final state
     double openCircuitVoltageSS_final() const;
 
     //! Calculate the inner radius at the final state
@@ -725,9 +725,9 @@ public:
      *
      * @return Returns the voltage
      */
-    virtual double openCircuitVoltage(int isk);
+    virtual double openCircuitVoltage(int isk,  bool comparedToReferenceElectrode = false);
 
-    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1) const;
+    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the equilibrium  open circuit voltage for the current conditions 
     /*!
@@ -755,7 +755,7 @@ public:
      *
      *   @return returns the standard state voltage.
      */
-    double openCircuitVoltage_Region(double relativeExtentRxn, int xRegion) const;
+    double openCircuitVoltage_Region(double relativeExtentRxn, int xRegion, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the equilibrium standard state open circuit voltage for the current conditions 
     /*!
@@ -860,8 +860,10 @@ public:
 
     //!   Set the current capacity discharged in amp seconds
     /*!
-     * This is roughly equal to the total number of electrons that has been discharged
-     * from a fully charged state.
+     *   The relative extent of reaction is a dimensionless number on the order of one
+     *   that represents the state of the electrode. A value of zero represents the
+     *   fully charged state, while a value of one (or equivalent) represents a fully
+     *   discharged state. 
      *
      *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
      */

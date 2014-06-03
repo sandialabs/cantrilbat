@@ -124,21 +124,20 @@ depends:
 rebaseline:
 	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ rebaseline
 	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@ rebaseline
-	cd FeS2_5_MultiPlat_cV_restart; 			@MAKE@ rebaseline
 	cd FeS2_4_MPNewman_cc ; 				@MAKE@ rebaseline
-	cd FeS2_4_cMPNewman_cc ; @MAKE@ rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_cV; @MAKE@ rebaseline
+	cd FeS2_4_cMPNewman_cc ;                                @MAKE@ rebaseline
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@ rebaseline
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			@MAKE@ rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	@MAKE@ rebaseline
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;   	@MAKE@ rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_3_cV; 			@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@ rebasleine
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@ rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_cc;                    @MAKE@ rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_3_cV; @MAKE@ rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_cc;                       @MAKE@ rebaseline
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ rebaseline
 	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ rebaseline
-	cd LiCoO2_LiIonCathode_CSTR_3_cc; @MAKE@ rebaseline
-	cd LiSi_5_Anode_Integrate ; @MAKE@ rebaseline
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@ rebaseline
+	cd LiSi_5_Anode_Integrate ;                             @MAKE@ rebaseline
 
 
 

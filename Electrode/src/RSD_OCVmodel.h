@@ -53,6 +53,27 @@ extern void createOCVmodel_map(std::map<int, std::string>& smap);
  *   The determination of the relative extent of reaction must be specified by this interface. However, the relative extent of
  *   reaction can't be changed by this interface.
  *
+ *   What is the definition of the open circuit voltage for this class? This is not necessarily straightforward.
+ *   It involves the combination of standard state gibbs free energies and chemical potentials for the species.
+ *   We use the stndard state G for the solution phase species always, but leave the electrode phases as regular G values.
+ *   There is no other way to define this, as the concentration of the solution affects the open circuit voltage, but can't
+ *   be a part of the calculation. This is the same definition and is equivalent to one where we assume that the other electrode
+ *   is the Lithium reference electrode. 
+ *   (so we could substitute Li metal thermophase for this treatment. We may in the future).
+ *
+ *   Take for example an anode reaction.
+ *
+ *      Li-Theta -> Theta + Li+ + e-
+ *
+ *   DeltaG0 = u0_Theta + u0_Lip + u0_em  - u0_Li-Theta
+ *   DeltaG  = u_Theta + u_Lip + u_em  - u_Li-Theta
+ *
+ *   The open circuit voltage is defined as the following statement.
+ *
+ *      (1) (F) (OCV) = u_Theta + + u0_Lip + u0_em - u_Li-Theta
+ *
+ *   
+ *
  *   Relative Extent of reaction variable
  *   -------------------------------------
  *      This denotes the relative extent of reaction of the solid phase.  The model will not be restricted

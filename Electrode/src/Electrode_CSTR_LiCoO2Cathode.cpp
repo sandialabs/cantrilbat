@@ -241,13 +241,13 @@ double Electrode_CSTR_LiCoO2Cathode::calcRelativeExtentRxn_final() const
  *
  *  It is virtual because there is no way to do this except by knowing about the system
  *
- *  It must be the case that  calcRelativeExtentRxn_final() and etStateFinal_fromRelativeExtentRxn()
+ *  It must be the case that  calcRelativeExtentRxn_final() and setStateFinal_relativeExtentRxn()
  *  are inverses of one another. Note, this means that if the state of the system has more than one rank,
  *  then the other ranks are unperturbed by the round trip.
  *
  *  @param relExtentRxn  input of the relative extent of reaction
  */
-void Electrode_CSTR_LiCoO2Cathode::setStateFinal_fromRelativeExtentRxn(double relExtentRxn)
+void Electrode_CSTR_LiCoO2Cathode::setState_relativeExtentRxn(double relExtentRxn)
 {
     double li_mf =  relExtentRxn;
     double sum =  spMoles_final_[ig_SolidV_] +  spMoles_final_[ig_SolidLi_];

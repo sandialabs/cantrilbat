@@ -51,7 +51,8 @@ ReactingSurDomain::ReactingSurDomain() :
     kElectronRS_(-1),
     solnPhaseRS_(-1),
     ocv_ptr_(0),
-    OCVmodel_(0)
+    OCVmodel_(0),
+    kReplacedSpeciesRS_(-1)
 {
 }
 //====================================================================================================================
@@ -80,8 +81,8 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     kElectronRS_(-1),
     solnPhaseRS_(-1),
     ocv_ptr_(0),
-    OCVmodel_(0)
-
+    OCVmodel_(0),
+    kReplacedSpeciesRS_(-1)
 {
     /*
      * Call the assignment operator
@@ -159,6 +160,8 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
         //
         OCVmodel_ = new RSD_OCVmodel(*right.OCVmodel_);
     }
+
+    kReplacedSpeciesRS_ = right.kReplacedSpeciesRS_;
 
 
     return *this;
@@ -243,6 +246,9 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensitie
     getDestructionRates(&speciesDestructionRates_[0]);
     return speciesDestructionRates_;
 }
+
+
+
 //====================================================================================================================
 double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn) 
 {
@@ -600,6 +606,8 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
         speciesProductionRates_.resize(m_kk, 0.0);
         speciesCreationRates_.resize(m_kk, 0.0);
         speciesDestructionRates_.resize(m_kk, 0.0);
+	m_mu.resize(m_kk, 0.0);
+	m_mu0.resize(m_kk, 0.0);
 
         /*
          * Resize the arrays based on the number of reactions
@@ -633,40 +641,62 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     // Save the pointer for the input information  (Question, should I make a deep copy?)
     //
     ocv_ptr_ = ocv_ptr;
-
+    //
+    //  Go get the model from the factory routine
     //
     OCVmodel_ =  newRSD_OCVmodel(ocv_ptr_->OCVModel);
-
-   
-    //OCVmodel_->assignShallowPointers(ThermoPhase* solidPhase);
-
     //
     // Now setup the internal structures within the model to calculate the relative extent
-  
+    // Find the phase id and phase name of the replaced global species. We will assume that it is also
+    // the solid phase where we will get the relative extent. 
     int phase_id = m_pl->getPhaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
     string phaseName = m_pl->phaseName(phase_id);
-    
     //
     //  Since the pointers must all be the same, we look up the ThermoPhase pointer in the phase list
     //  and send that to the RSD_OCVmodel object
     //
-    ThermoPhase* tp = & thermo(phase_id);
-    int kspec = ocv_ptr_->replacedLocalSpeciesID;
+    ThermoPhase* tp = &(m_pl->thermo(phase_id));
+    //
+    //  We also find the species which we will use as the relative extent variable. Typically it is 
+    //  not the same as the species we used as the replaced species, at least for anodes
+    //
+    int kspec = ocv_ptr_->MF_DoD_LocalSpeciesID;
+    //
+    //  Set up the relative extent capability within the OCVmodel. Note we may have to expand this
+    //  model more in the future 
+    //
+    OCVmodel_->setup_RelExtent(tp, kspec);
 
-    OCVmodel_-> setup_RelExtent(tp, kspec);
-    
-
+    kReplacedSpeciesRS_  = PLtoKinSpeciesIndex_[ocv_ptr_->replacedGlobalSpeciesID];
+ 
 }
 //====================================================================================================================
 void  ReactingSurDomain::deriveEffectiveChemPot()
 {
+    //  Wastefull, but for now get a complete SSG and G vector.
+    for (size_t n = 0; n < nPhases(); n++) {
+	size_t nsp = 	thermo(n).nSpecies();
+	thermo(n).getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
+	thermo(n).getStandardChemPotentials(DATA_PTR(m_mu0) + m_start[n]);
+	for (size_t k = 0; k < nsp; k++) {
+	    m_grt[m_start[n] + k] = m_mu[m_start[n] + k];
+	}
+	if (n == (size_t) solnPhaseRS_) {
+	    thermo(n).getStandardChemPotentials(DATA_PTR(m_grt) + m_start[n]);
+	} else {
+	    thermo(n).getChemPotentials(DATA_PTR(m_grt) + m_start[n]);
+	}
+    }
     //
     //  Calculate the delta G and the open circuit voltage normally
     //
     //
     //
-    getDeltaSSGibbs(DATA_PTR(deltaGRxn_));
-  
+    //
+    //  Get the reaction delta based on the mixed G and G_SS values accummulated above
+    //
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
+
     double phiRxnOrig = 0.0;
 
     //
@@ -720,70 +750,116 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     double deltaG_Exp = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
     //
     //
-    //
-    double fstoich =  reactantStoichCoeff(kReplacedSpeciesRS_, ocv_ptr_->rxnID);
+    //   
+    double fstoich =  reactantStoichCoeff( kReplacedSpeciesRS_,  ocv_ptr_->rxnID);
     double rstoich =  productStoichCoeff(kReplacedSpeciesRS_, ocv_ptr_->rxnID);
-    double nstoich = fstoich -  rstoich;
- 
+    double nstoich = rstoich - fstoich;
     double deltaChemPot = deltaG_Exp / nstoich;
-  
     
     //
-    // calculate 
-    double mu0 =  m_mu0[kReplacedSpeciesRS_];
+    // calculate new G value for replaced species that will yield the experimental open circuit voltage
+    //
+    m_grt[kReplacedSpeciesRS_] += deltaChemPot;
+    m_mu[kReplacedSpeciesRS_] = m_grt[kReplacedSpeciesRS_];
+    m_mu0[kReplacedSpeciesRS_] += deltaChemPot;
 
-    double mu0Exp = mu0 + deltaChemPot;
-
-    m_mu0[kReplacedSpeciesRS_] =  mu0Exp;
-    
+    //
+    // Now recalc deltaG and calc OCV   HKM This calculation has checked out for the MCMB model
+    //   We should now be at the exp OCV
+#ifdef DEBUG_NEW
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
+    phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
+    printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
+#endif
 }
-
-//=====================================================================================================================
-
-
-void ReactingSurDomain::updateKc()
+//============================================================================================================================
+void ReactingSurDomain::updateMu0()
 {
-    fill(m_rkcn.begin(), m_rkcn.end(), 0.0);
+    /*
+     * Get the vector of standard state electrochemical potentials for species in the Interfacial
+     * kinetics object and store it in m_mu0[] and in m_mu0_Kc[]
+     */
+    size_t nsp, ik = 0;
+    doublereal rt = GasConstant * thermo(0).temperature();
+    size_t np = nPhases();
+    for (size_t n = 0; n < np; n++) {
+        thermo(n).getStandardChemPotentials(DATA_PTR(m_mu0) + m_start[n]);
+    }
+    //
+    // This overwrite m_mu0 for the selected species so that we get the experimental OCV
+    //
+    if (ocv_ptr_) {
+       deriveEffectiveChemPot();
+    }
 
-    //static vector_fp mu(nTotalSpecies());
-    if (m_nrev > 0) {
-        /*
-         * Get the vector of standard state electrochemical potentials for species in the Interfacial
-         * kinetics object and store it in m_mu0[]
-         */
-        size_t nsp, ik = 0;
-        doublereal rt = GasConstant*thermo(0).temperature();
-        doublereal rrt = 1.0 / rt;
-        size_t np = nPhases();
-        for (size_t n = 0; n < np; n++) {
-            thermo(n).getStandardChemPotentials(DATA_PTR(m_mu0) + m_start[n]);
-            nsp = thermo(n).nSpecies();
-            for (size_t k = 0; k < nsp; k++) {
-                m_mu0[ik] -= rt * thermo(n).logStandardConc(k);
-                m_mu0[ik] += Faraday * m_phi[n] * thermo(n).charge(k);
-                ik++;
-            }
-        }
-
-
-
-        // compute Delta mu^0 for all reversible reactions
-        m_rxnstoich.getRevReactionDelta(m_ii, DATA_PTR(m_mu0), DATA_PTR(m_rkcn));
-
-        for (size_t i = 0; i < m_nrev; i++) {
-            size_t irxn = m_revindex[i];
-            if (irxn == npos || irxn >= nReactions()) {
-                throw CanteraError("InterfaceKinetics",
-                                   "illegal value: irxn = "+int2str(irxn));
-            }
-            // WARNING this may overflow HKM
-            m_rkcn[irxn] = exp(m_rkcn[irxn]*rrt);
-        }
-        for (size_t i = 0; i != m_nirrev; ++i) {
-            m_rkcn[ m_irrev[i] ] = 0.0;
+    for (size_t n = 0; n < np; n++) {
+        nsp = thermo(n).nSpecies();
+        for (size_t k = 0; k < nsp; k++) {
+            m_mu0_Kc[ik] = m_mu0[ik] + Faraday * m_phi[n] * thermo(n).charge(k);
+            m_mu0_Kc[ik] -= rt * thermo(n).logStandardConc(k);
+            ik++;
         }
     }
 }
+
+//=======================================================================================================================
+// Modification for OCV override when called for.
+//  works for MCMB 
+//  This is used when called by
+void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
+{
+     /*
+      * Get the chemical potentials of the species in the all of the phases used in the 
+      * kinetics mechanism
+      */
+     for (size_t n = 0; n < nPhases(); n++) {
+    //     thermo(n).getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
+         m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
+     }
+
+     //  If  have an open circuit potential override situation, do extra work
+     if (ocv_ptr_) {
+	 deriveEffectiveChemPot();
+     }
+
+     /*
+      * Use the stoichiometric manager to find deltaG for each
+      * reaction.
+      */
+     m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), deltaG);
+}
+//=======================================================================================================================
+// This gets the deltaG for each reaction in the mechanism, but using the standard state
+// chemical potential for the electrolyte.
+/*
+ *          @param  deltaG_special  DeltaG for each reaction using standard state chemical
+ *                                  potentials for the electrolyte. 
+ *                     length = nReactions(), J/kmol
+ */
+void ReactingSurDomain::getDeltaGibbs_electrolyteSS(doublereal* deltaG_special)
+{
+     /*
+      * Use m_grt, because this vector we are creating is a mixed beast
+      */
+     for (size_t n = 0; n < nPhases(); n++) {
+	 ThermoPhase* tp = m_thermo[n];
+	 if ((int) n == solnPhaseRS_) {
+	     tp->getStandardChemPotentials(DATA_PTR(m_grt) + m_start[n]);
+	 } else {
+	     tp->getChemPotentials(DATA_PTR(m_grt) + m_start[n]);
+	 }
+     }
+
+     if (ocv_ptr_) {
+	 deriveEffectiveChemPot();
+     }
+     /*
+      * Use the stoichiometric manager to find deltaG for each
+      * reaction.
+      */
+     m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), deltaG_special);
+}
+//=======================================================================================================================
 
 
 
