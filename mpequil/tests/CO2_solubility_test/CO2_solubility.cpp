@@ -15,6 +15,7 @@
 #include "cantera/base/logger.h"
 #include "cantera/thermo/HMWSoln.h"
 
+#include <cstdio>
 
 using namespace Cantera;
 using namespace std;
@@ -121,6 +122,9 @@ int main(int argc, char **argv) {
     for (int it = 0; it < 10; it++) {
       mmm.addSpeciesMoles(iCO2g, 1.0);
       mmm.addSpeciesMoles(iH2OL, -1.0);
+      if (it == 8) {
+          printf("we are here\n");
+      }
       vcs_equilibrate(mmm, "TP", estimateEquil, printLvl, solver);
       cout << mmm << endl;
     }

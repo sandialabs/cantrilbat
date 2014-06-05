@@ -1,5 +1,30 @@
 
 
+This problem calculate the carbonate equilibrium of a brine above a gas. 
+
+We continuously solve the system taking water out of the system and putting CO2 into the system until the
+water phase is no longer stable. In this case gas plus solid salt is left.
+
+This is a test of the phase stability algorithms. 
+
+I don't think that I've done any analysis of the carbonate thermodynamics yet. A comparison to published results on the
+CO2 aqueous system would be a nice addition. The CO2 - water combined system is usually studied at higher pressure
+where there more uptake of the water into a liquid CO2 phase. 
+
+Since the mole fraction of CO2 is roughly 1.0 throughout this simulation the CO2(aq) concentration doesn't change
+in the aqueous phase. Therefore, the carboxylic acid doesn't change either.
+
+
+
+
+
+
+
+
+
+=================================================================================================================
+
+
 This is the classic problem of the solubility of NaCl in water.
 The result is a saturated solution of Na+ and Cl- in water in equilibrium
 with NaCl solid. This problem also has a gas phase consisting of N2, H2O,
