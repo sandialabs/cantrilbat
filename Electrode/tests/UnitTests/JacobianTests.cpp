@@ -191,7 +191,7 @@ TEST_F(FDJacobianTest, ComputeJacobianMultipleEntries)
   EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(current_voltage_pair), 1.e-9);
 }
 
-//! Thest computing jacobian entries wrt species dofs
+//! Test computing jacobian entries wrt species dofs
 TEST_F(FDJacobianTest, SpeciesJacobians)
 {
   fd_jacobian->add_entries_to_compute(species_source_pairs);
