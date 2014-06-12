@@ -183,9 +183,11 @@ int main(int argc, char **argv)
     electrodeC->printElectrode();
     electrodeC->setPrintLevel(1);
     electrodeC->setDeltaTSubcycle(0.01);
-    electrodeC->detailedResidPrintFlag_ = 2;
+    //electrodeC->detailedResidPrintFlag_ = 2;
+    electrodeC->detailedResidPrintFlag_ = 0;
     electrodeC->enableExtraPrinting_ = 0;
-    electrodeC->printCSVLvl_ = 9;
+    electrodeC->printCSVLvl_ = 1;
+    //electrodeC->printCSVLvl_ = 9;
 
     deltaTgoal = 1.0;
     double coul = 0.0;
@@ -202,11 +204,17 @@ int main(int argc, char **argv)
 
       electrodeC->resetStartingCondition(Tinitial);
      
+      electrodeC->setPrintLevel(0);
+      electrodeC->printCSVLvl_ = 0;
       double deltaT = deltaTgoal; 
       double volts =  electrodeC->integrateConstantCurrent(amps, deltaT, 2.2, 1.3);
       Tfinal = Tinitial + deltaT;
 
+      electrodeC->printCSVLvl_ = 1;
+      electrodeC->setPrintLevel(1);
       electrodeC->integrate(deltaT);
+      electrodeC->setPrintLevel(0);
+      electrodeC->printCSVLvl_ = 0;
     
       electrodeC->getMoleNumSpecies(molNum);
       doublereal net[12];
@@ -218,7 +226,7 @@ int main(int argc, char **argv)
       electrodeC->printElectrode();
 
       SubIntegrationHistory sih1 = electrodeC->timeHistory();
-      sih1.print(3);
+      //sih1.print(3);
 
       // test new capability
       {
@@ -235,10 +243,10 @@ int main(int argc, char **argv)
 	  fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);
 
     
-	  electrodeC->printElectrode();
+	  //electrodeC->printElectrode();
 
 	  SubIntegrationHistory&sih2 = electrodeC->timeHistory();
-	  sih2.print(3);
+	  //sih2.print(3);
 	  if (sih1 != sih2) {
 	      printf("we have a prob\n");
 	  }
