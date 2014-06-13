@@ -10,16 +10,11 @@
 
 #include "cantera/equilibrium.h"
 
-//#include "cantera/equil/vcs_prob.h"
-//#include "cantera/equil/vcs_VolPhase.h"
-//#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_SimpleDiff.h"
 #include "Electrode_Factory.h"
-//#include "ExtraGlobalRxn.h"
-//#include "RxnMolChange.h"
 
 #include <sstream>
 #include <iomanip>
@@ -43,9 +38,7 @@ void printUsage() {
     cout << endl;
 }
 
-
 //=====================================================================================================
-
 
 int main(int argc, char **argv)
 {

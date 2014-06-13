@@ -1,11 +1,30 @@
 
 
+LiCoO2_Complex_LiIonCathode_SimpleDiff_cV 
+
+This directory is a test directory that is meant to understand how to get the Redlich Kister CoO2 model up and
+going. Right now the model doesn't work. 
+
+The file getActivityCoefficients gets called during the Electrode_SimpleDiff initialization phase. I 
+have assumed previously that the activity coefficient is always to be collected from the ThermoPhase object.
+This creates a dump in this case, because I have new Cantera code that creates a valid Throw in this case.
 
 
-The program LiCoO2_Thermo has shown that the computation of the log of the activity coefficient is stable, giving accurate values even though the activity coefficient is not machine representable.
+Procedure: GibbsExcessVPSSTP::getActivityCoefficients() 
+Error:     activity coefficient is overflowing 
+
+
+
+
+The program LiCoO2_Thermo has shown that the computation of the log 
+of the activity coefficient is stable, giving accurate values even 
+though the activity coefficient is not machine representable.
 
 
 At no point does the thermodynamics code calculate the activity coefficients directly.
+
+
+However, the kinetics code does use the concentration activity coefficient
 
 
 

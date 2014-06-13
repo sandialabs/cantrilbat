@@ -61,23 +61,6 @@
     </reaction>
 
 
-  <!--
-       Lumped reaction on the LiCoO2 electrode
-    -->
-    <reaction reversible="yes" type="surface" id="0001">
-      <equation> LiCoO2 [=] Li(S) + CoO2 </equation>
-      <rateCoeff type="SurfaceArrhenious" >
-        <Arrhenius_>
-           <A>0.0E14</A>
-           <b>0.0</b>
-           <E units="kJ/mol"> 80.000000 </E>
-        </Arrhenius_ExchangeCurrentDensity>
-      </rateCoeff>
-      <reactants> LiCoO2:1.0 </reactants>
-      <products> Li(S):1.0   CoO2:1.0 </products>
-    </reaction>
-
-
 
   </reactionData>
 

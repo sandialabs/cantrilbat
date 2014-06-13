@@ -46,7 +46,7 @@ temp_success="1"
 # Create a symbolic link to electrodeCell, if none exists already
 #
 
-PROG_EXE=./LiCoO2_LiIonCathode_SimpleDiff_cV
+PROG_EXE=./LiCoO2_Complex_Diff_cV
 if test ! -x ${PROG_EXE}  ; then
   echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
   exit -1
@@ -64,6 +64,7 @@ if test $retnStat != "0"
 then
   temp_success="0"
   echo "$PROG_EXE returned with bad status, $retnStat, check output"
+  /bin/rm -rf runInProgress.txt
   exit 0
 fi
 
