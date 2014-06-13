@@ -1,1 +1,11 @@
 
+
+
+
+The program LiCoO2_Thermo has shown that the computation of the log of the activity coefficient is stable, giving accurate values even though the activity coefficient is not machine representable.
+
+
+At no point does the thermodynamics code calculate the activity coefficients directly.
+
+
+
