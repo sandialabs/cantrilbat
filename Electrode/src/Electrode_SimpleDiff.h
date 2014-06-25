@@ -1,3 +1,6 @@
+/*!
+ *   @file Electrode_SimpleDiff.h
+ */
 /*
  * $Id: Electrode_SimpleDiff.h 571 2013-03-26 16:44:21Z hkmoffa $
  */
