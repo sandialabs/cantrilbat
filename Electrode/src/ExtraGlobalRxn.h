@@ -1,12 +1,7 @@
 /**
  * @file ReactingVolDomain.h
  *
- * $Author: hkmoffa $
- * $Revision: 571 $
- * $Date: 2013-03-26 10:44:21 -0600 (Tue, 26 Mar 2013) $
  */
-
-
 /*
  * Copywrite (2005) Sandia Corporation. Under the terms of
  * Contract DE-AC04-94AL85000 with Sandia Corporation, the
@@ -22,7 +17,6 @@
 
 namespace Cantera
 {
-
 
 //!  Class describing a global reaction, which is defined as
 //!  a linear combination of elementary reactions creating a global stoichiometric result
