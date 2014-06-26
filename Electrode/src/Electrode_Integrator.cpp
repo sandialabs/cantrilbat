@@ -1737,6 +1737,7 @@ void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
 {
     Electrode::setInitStateFromFinal(setInitInit);
     int neqNLS = nEquations();
+    if( solnDot_init_.empty() ) create_solvers();
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_init_[i] =  solnDot_final_[i];
 	yvalNLS_init_[i] =  yvalNLS_[i];
@@ -1754,6 +1755,7 @@ void Electrode_Integrator::setInitInitStateFromFinalFinal()
     Electrode::setInitInitStateFromFinalFinal();
 
     int neqNLS = nEquations();
+    if( solnDot_init_.empty() ) create_solvers();
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_init_init_[i] = solnDot_final_final_[i];
 	solnDot_init_[i]      = solnDot_final_final_[i];
@@ -1787,6 +1789,7 @@ void Electrode_Integrator::setFinalStateFromInit()
 {
     Electrode_Integrator::setFinalStateFromInit_Oin();
     int neqNLS = nEquations();
+    if( solnDot_init_.empty() ) create_solvers();
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_final_[i] = solnDot_init_[i];
 	yvalNLS_[i] = yvalNLS_init_[i];
@@ -1806,6 +1809,7 @@ void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
 {
     Electrode::setInitStateFromInitInit(setFinal);
     int neqNLS = nEquations();
+    if(solnDot_init_.empty() ) create_solvers();
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_init_[i] = solnDot_init_init_[i];
 	yvalNLS_init_[i] = yvalNLS_init_init_[i];
@@ -1816,6 +1820,7 @@ void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
  {
      Electrode::setFinalFinalStateFromFinal();
      int neqNLS = nEquations();
+    if( solnDot_init_.empty() ) create_solvers();
      for (int i = 0; i < neqNLS; i++) {
 	 solnDot_final_final_[i] = solnDot_final_[i];
 	 yvalNLS_final_final_[i] = yvalNLS_[i];
