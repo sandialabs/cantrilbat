@@ -2046,14 +2046,11 @@ double Electrode::updateElectrolytePseudoMoles()
 //====================================================================================================================
 void Electrode::turnOffFollowElectrolyteMoles()
 {
-    //if (followElectrolyteMoles_ == 1) {
-    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
-    //}
-
     followElectrolyteMoles_ = 0;
-    if (electrolytePseudoMoles_ <= 0.0) {
+    if (phaseMoles_final_[solnPhase_] <= 0.0) {
         throw CanteraError("Electrode::turnOffFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
     }
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     updateState_Phase(solnPhase_);
 }
 //====================================================================================================================
