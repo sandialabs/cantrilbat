@@ -24,7 +24,7 @@ namespace Cantera {
 //! Implementation of the Electrode_Jacobian interface that uses numerical finite differencing to calculate source term sensitivity values.
 class Electrode_FD_Jacobian : public Electrode_Jacobian {
 public:
-  Electrode_FD_Jacobian(Electrode* elect);
+    Electrode_FD_Jacobian(Electrode* elect, double baseDelta);
 
   virtual ~Electrode_FD_Jacobian();
 
@@ -38,6 +38,8 @@ protected:
   // difference with respect to.
   std::list<DOFS> dofs_to_fd;
   std::map<DOFS, int> num_sources_using_dof;
+
+  double base_delta;
 
 private:
   Electrode_FD_Jacobian(const Electrode_FD_Jacobian& right);

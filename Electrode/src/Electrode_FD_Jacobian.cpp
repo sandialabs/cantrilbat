@@ -10,8 +10,9 @@
 namespace Cantera {
 
 //====================================================================================================================
-Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode * elect)
-  : Electrode_Jacobian(elect)
+  Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode * elect, double baseDelta)
+    : Electrode_Jacobian(elect),
+      base_delta(baseDelta)
 {
 }
 //====================================================================================================================
@@ -32,8 +33,6 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
   int electronIndex = electrode->kSpecElectron();
 
   std::vector<double> perturbed_point = centerpoint;
-
-  const double base_delta = 1.e-5;
 
   // Iterate over the list of dofs that need to be finite differenced with respect to
   // For each dof store the source term values with the dof perturbed +- its centerpoint value.
