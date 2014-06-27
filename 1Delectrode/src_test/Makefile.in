@@ -68,12 +68,16 @@ PROGRAM = $(PROG_NAME)$(EXE_EXT)
 # Installed Program
 PROGRAM_REMOTE = @cta_bindir@/$(PROGRAM)
 
-all: $(PROGRAM) .depends 
+all: $(PROGRAM) m1d_extractLastSoln .depends 
 
 rebaseline:
 
 $(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
+                  $(CANTERA_TOTAL_LIBS) $(AMESOS_LIBS) $(IFPACK_LIBS) $(LCXX_END_LIBS)
+
+m1d_extractLastSoln: m1d_extractLastSoln.o tok_input_util.o SolnLayout.o SolnDomain.o $(CANTERA_CORE_LIBS_DEP)
+	$(CXX) -o m1d_extractLastSoln m1d_extractLastSoln.o tok_input_util.o SolnLayout.o SolnDomain.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
                   $(CANTERA_TOTAL_LIBS) $(AMESOS_LIBS) $(IFPACK_LIBS) $(LCXX_END_LIBS)
 
 $(PROGRAM_REMOTE): $(PROGRAM)
@@ -106,6 +110,7 @@ clean:
 install:
 	@INSTALL@ -d  @cta_bindir@
 	@INSTALL@ -c $(PROGRAM) @cta_bindir@
+	@INSTALL@ -c m1d_extractLastSoln   @cta_bindir@
 
 ifeq ($(wildcard .depends), .depends)
 include .depends

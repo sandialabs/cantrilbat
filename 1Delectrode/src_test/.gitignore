@@ -4,3 +4,7 @@ Makefile
 solution.xml
 .depends
 xmlSolnDiff
+m1d_extractLastSoln
+solution_initProb.xml
+sol.xml
+.nfs*
