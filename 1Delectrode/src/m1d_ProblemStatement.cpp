@@ -298,8 +298,9 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   cf->addLineEntry(s1);
 
   /* ------------------------------------------------------------------
-   * Line Input For the problem type
-   *
+   * Line Input For the problem type (required)
+   *                integer
+   *    currently unused in the base class
    */
   reqd = 1;
   LE_OneInt *i2 = new LE_OneInt("Problem Type", &(prob_type), reqd, "prob_type");

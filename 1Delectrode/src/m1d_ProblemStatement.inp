@@ -62,6 +62,8 @@ Cross Sectional Area = 1 cm2
 !
 !  Problem Type - int (required)
 !
+!  Currently Unused in the base class
+!
 !-------------------------------------------------------------------------
 Problem Type = 0
 !-------------------------------------------------------------------------
@@ -112,17 +114,19 @@ Restart File Name = solutionRestart.xml
 !--------------------------------------------------------------------------------------------------------
 Energy Equation Problem Type = None
 !--------------------------------------------------------------------------------------------------------
-! Start Time - double (required)
+! Start Time - double (not required)
+!               Default = 0.0
 !
-!  Simulation start time
+!            Simulation start time
 !
 !---------------------------------------------------------------------------------------
 Start Time = 0.0
 !---------------------------------------------------------------------------------------
 !
-! End Time - double (required)
+! End Time - double (not required)
+!            default = 3000.
 !
-!  Simulation end time
+!            Simulation end time
 !
 !---------------------------------------------------------------------------------------
 End Time = 100.0
