@@ -558,7 +558,10 @@ int  Electrode_Integrator::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 int
 Electrode_Integrator::create_solvers()
 {
-
+    //
+    //  Note: We must have a valid count of the number of unknowns in the nonlinear problem
+    //        when we call this. If we don't, then the solver arrays won't be malloced with the right amount
+    //        of space.
     int neqNLS = nEquations();
 
     if (pSolve_) {

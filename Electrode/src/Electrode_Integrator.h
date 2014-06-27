@@ -274,8 +274,6 @@ public:
     //! Create the electrode model
     int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
 
-
-
     //!  Set the electrode initial conditions from the input file.
     /*!
      *   (virtual from Electrode)
@@ -296,21 +294,22 @@ public:
      */
     virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
 
-
-
-    //! Create and malloc the solvers
+    //! Create and malloc the solvers used to solve the nonlinear problem
     /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *   As a prerequisite before calling, this function must have a valid count of the number of unknowns in the nonlinear problem
+     *   when we call this. If we don't, then the solver arrays won't be malloced with the right amount of space.
+     *   This means that nEquations() must return a good value.
+     *   This means that the function must be called after or at least at the end of electrode_model_create().
+     *
      * @return   returns 1 if ok
      */
     virtual int create_solvers();
 
-
-
-
     // ---------------------------------------------------------------------------------------------
     // ----------------------- SPECIFY AND OBTAIN PROBLEM PARAMETERS -------------------------------
     // ---------------------------------------------------------------------------------------------
-
 
     //! Setup the vectors for handling the error control on source terms
     /*!
@@ -325,11 +324,9 @@ public:
      */
     virtual int setupIntegratedSourceTermErrorControl();
 
-
     // -----------------------------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATION OF EQUATIONS-------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-
 
     //! The internal state of the electrode must be kept for the initial and
     //! final times of an integration step.
