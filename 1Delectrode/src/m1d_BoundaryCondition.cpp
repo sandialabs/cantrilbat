@@ -42,9 +42,9 @@ BoundaryCondition::BoundaryCondition() :
 {
 }
 //============================================================================================================
- BoundaryCondition::~BoundaryCondition()
- {
- }
+BoundaryCondition::~BoundaryCondition()
+{
+}
 //============================================================================================================
 BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
     title_(""),
@@ -73,8 +73,7 @@ BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
     return *this;
 }
 //============================================================================================================
-// return the dependent variable value given
-// the independent variable argument
+// Return the dependent variable value given the independent variable argument
 /*
  *   @param indVar  Independent variable
  *   @param interval If greater than zero, then checking is done on the interval specified
@@ -200,15 +199,15 @@ double BCconstant::nextStep()
     }
 }
 //============================================================================================================
-////////////////////////////////////////////////////////////
-// class BCsteptable
-////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////         class BCsteptable        ///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * This subclass is designed to handle a table of 
  * dependent variable boundary conditions that are 
  * constant until the indicated value of the 
- * independent varaible, at which piont there is a
+ * independent variable, at which point there is a
  * step change to a new value.  For example, if 
  * the (ind,dep) value pairs (0.5,0.0), (1.0,0.5)
  * and (2., 1.) are given, then value( 0.25 ) will 
@@ -216,7 +215,8 @@ double BCconstant::nextStep()
  * value( 1.25 ) will return 1.0.
  */
 //=====================================================================================================================
-// constructor taking vectors of floats
+// Constructor taking two vectors of floats representing the independent variable and the dependent 
+// variable
 BCsteptable::BCsteptable(vector_fp indValue, vector_fp depValue, vector_fp compareValue, std::string titleName,
                          std::string indepUnits, std::string depenUnits) :
         BoundaryCondition(),
@@ -277,16 +277,19 @@ void BCsteptable::useXML(XML_Node& bcNode)
 
     //get independentVar
     XML_Node& indVarNode = bcNode.child("independentVar");
-    getFloatArray(indVarNode, indepVals_, convert, indepUnits_);
+    ctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
+
 
     //get dependentVar
     XML_Node& depVarNode = bcNode.child("dependentVar");
-    getFloatArray(depVarNode, depenVals_, convert, depenUnits_);
+    ctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
+    //getNamedFloatArray(depVarNode, depenVals_, convert, depenUnits_);
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
         XML_Node& compVarNode = bcNode.child("compareVar");
-        getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
+        //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
+        ctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
 
     /*
@@ -389,38 +392,34 @@ void BCsteptable::writeProfile()
 
 }
 //=====================================================================================================================
-////////////////////////////////////////////////////////////
-// class BClineartable
-////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////               class BClineartable            /////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
- * This subclass is designed to handle a table of 
- * dependent variable boundary conditions that are 
- * to be linearly interpolated between the values
- * given.  For example, if the value pairs (0,0) 
- * and (1,1) are given, the value( 0.5 ) will 
- * return 0.5.
+ * This subclass is designed to handle a table of dependent variable boundary conditions that are 
+ * to be linearly interpolated between the values given.  For example, if the value pairs (0,0) 
+ * and (1,1) are given, the value( 0.5 ) will  return 0.5.
  */
 //=====================================================================================================================
 // constructor taking vectors of floats
 BClineartable::BClineartable(vector_fp indValue, vector_fp depValue, vector_fp compareValue, std::string titleName,
                              std::string indepUnits, std::string depenUnits) :
-        BoundaryCondition(),
-        indepVals_(indValue),
-        depenVals_(depValue),
-        compareVals_(compareValue)
+    BoundaryCondition(),
+    indepVals_(indValue),
+    depenVals_(depValue),
+    compareVals_(compareValue)
 {
     setTitle(titleName);
     setIndepUnits(indepUnits);
     setDepenUnits(depenUnits);
-
+    
     if (indepVals_.size() != depenVals_.size()) {
         throw CanteraError("BClineartable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
-
+	
     }
     stepMax_ = indepVals_.size();
     lowerLim_ = indepVals_[0];
     upperLim_ = indepVals_.back();
-
 }
 //=====================================================================================================================
 //! construct from filename
@@ -453,26 +452,29 @@ BClineartable::~BClineartable()
 void BClineartable::useXML(XML_Node& bcNode)
 {
 
-    if (!bcNode.hasChild("independentVar"))
+    if (!bcNode.hasChild("independentVar")) {
         throw CanteraError("BClineartable::useXML()", "no independentVar XML node.");
-
-    if (!bcNode.hasChild("dependentVar"))
+    }
+    if (!bcNode.hasChild("dependentVar")) {
         throw CanteraError("BClineartable::useXML()", "no dependentVar XML node.");
-
+    }
     bool convert = true;
 
     //get independentVar
     XML_Node& indVarNode = bcNode.child("independentVar");
-    getFloatArray(indVarNode, indepVals_, convert, indepUnits_);
+    //getFloatArray(indVarNode, indepVals_, convert, indepUnits_);
+    ctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
 
     //get dependentVar
     XML_Node& depVarNode = bcNode.child("dependentVar");
-    getFloatArray(depVarNode, depenVals_, convert, depenUnits_);
+    //getFloatArray(depVarNode, depenVals_, convert, depenUnits_);
+    ctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
         XML_Node& compVarNode = bcNode.child("compareVar");
-        getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
+        //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
+        ctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
 
     //err("BClineartable::useXML");
@@ -484,7 +486,6 @@ void BClineartable::useXML(XML_Node& bcNode)
     } else {
         throw CanteraError("BClineartable::useXML()", "independent and dependent variable dimension mismatch");
     }
-
 }
 //=====================================================================================================================
 // Return the dependent variable value given
@@ -571,7 +572,7 @@ int BClineartable::findStep(double indVar, int interval)
  * oscillitory component.
  */
 
-//! constructor taking vectors of floats
+// constructor taking vectors of floats
 BCsinusoidal::BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, std::string titleName,
                            std::string indepUnits, std::string depenUnits) :
         BoundaryCondition(),
@@ -601,7 +602,6 @@ BCsinusoidal::BCsinusoidal(std::string filename) :
     //parse this node into class data structures
     useXML(*bcNode);
     close_XML_File(filename);
-
 }
 //=====================================================================================================================
 BCsinusoidal::~BCsinusoidal()
@@ -615,7 +615,7 @@ BCsinusoidal::BCsinusoidal(XML_Node& baseNode) :
     useXML(baseNode);
 }
 //=====================================================================================================================
-// fill independent and dependent values from XML_Node
+// Fill independent and dependent values from XML_Node
 void BCsinusoidal::useXML(XML_Node& bcNode)
 {
 
@@ -627,8 +627,6 @@ void BCsinusoidal::useXML(XML_Node& bcNode)
 
     if (!bcNode.hasChild("frequency"))
         throw CanteraError("BCsinusoidal::useXML()", "no frequency XML node.");
-
-    //bool convert = true;
 
     //get base amplitude
     baseDepValue_ = getFloat(bcNode, "baseDependentValue");
@@ -658,9 +656,8 @@ double BCsinusoidal::value(double indVar, int interval)
     return baseDepValue_ + oscAmplitude_ * sin(indVar / (2 * Pi * frequency_));
 }
 //=====================================================================================================================
-// return the next value for the independent variable at
-// which the nature of the boundary condition changes.
-/**
+// Return the next value for the independent variable at which the nature of the boundary condition changes.
+/*
  * This is designed to guide grid generation and time stepping
  */
 double BCsinusoidal::nextStep()
@@ -668,7 +665,7 @@ double BCsinusoidal::nextStep()
     return deltaT_ * step_++;
 }
 //=====================================================================================================================
-// check to see which step we are at.
+// Check to see which step we are at.
 /*
  * Loop through the boundary condition independent variables.
  * The current step is the smallest value in indepVals_[ i ]

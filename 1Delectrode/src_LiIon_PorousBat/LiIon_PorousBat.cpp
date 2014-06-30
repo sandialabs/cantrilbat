@@ -1,4 +1,4 @@
-/**
+/*
  * @file LiIon_PorousBat.cpp
  *
  */

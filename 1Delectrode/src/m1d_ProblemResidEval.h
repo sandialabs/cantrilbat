@@ -637,7 +637,34 @@ public:
                   const double delta_t,
                   const double delta_t_np1 = 0.0);
 
-  //! Read the solution from a saved file.
+  //! Read the solution from a saved file using the record number to identify the solution 
+  /*!
+   *  We read only successful final steps.
+   *
+   * @param iNumber            Solution Record number to read from. Solutions are numbered consequetively from 
+   *                           zero to the number of global time steps. We will use the last
+   *                           time step if there aren't as many time steps in the solution file
+   *                           as requested.
+   *
+   * @param baseFileName       File name to be used. .xml is appended onto the filename.
+   *                           Processors other than 0 have the pid appended to the name as well.
+   *
+   * @param y_n_ghosted        Current value of the solution vector
+   * @param ydot_n_ghosted     Current value of the derivative of the solution vector
+   * @param t_read             time that is read in
+   * @param delta_t_read       delta time step for the last time step.
+   * @param delta_t_next_read  delta time step for the next time step if available
+   */
+  void
+  readSolutionRecordNumber (const int itype,
+	       std::string baseFileName,
+	       Epetra_Vector_Ghosted &y_n_ghosted,
+	       Epetra_Vector_Ghosted * const ydot_n_ghosted,
+	       double &t_read,
+	       double &delta_t_read,
+	       double &delta_t_next_read);
+
+  //! Read the solution from a saved file. (deprecated)
   /*!
    *  We read only successful final steps
    *
@@ -646,7 +673,7 @@ public:
    *                           time step if there aren't as many time steps in the solution file
    *                           as requested.
    *
-   * @param baseFileName       to be used. .xml is appended onto the filename
+   * @param baseFileName       File Name to be used. .xml is appended onto the filename
    *                           processors other than 0 have the pid appended to the name
    * @param y_n_ghosted        Current value of the solution vector
    * @param ydot_n_ghosted     Current value of the derivative of the solution vector
@@ -656,20 +683,46 @@ public:
    */
   void
   readSolution(const int itype,
-	       std::string baseFileName,
-	       Epetra_Vector_Ghosted &y_n_ghosted,
-	       Epetra_Vector_Ghosted * const ydot_n_ghosted,
-	       double &t_read,
-	       double &delta_t_read,
-	       double &delta_t_next_read);
+               std::string baseFileName,
+               Epetra_Vector_Ghosted &y_n_ghosted,
+               Epetra_Vector_Ghosted * const ydot_n_ghosted,
+               double &t_read,
+               double &delta_t_read,
+               double &delta_t_next_read);
+
+  //! Read the solution from a saved solution XML record.
+  /*!
+   * This is the underlying program that reads the record
+   *
+   * @param simulRecord        XML element to read from. Name must be a simulation XML_Node.
+   * @param y_n_ghosted        Current value of the solution vector
+   * @param ydot_n_ghosted     Current value of the derivative of the solution vector
+   * @param t_read             time that is read in
+   * @param delta_t_read       delta time step for the last time step.
+   * @param delta_t_next_read  delta time step for the next time step if available
+   */
+  void
+  readSolutionXML(Cantera::XML_Node* simulRecord, Epetra_Vector_Ghosted &y_n_ghosted,
+		  Epetra_Vector_Ghosted * const ydot_n_ghosted, double &t_read,
+		  double &delta_t_read, double &delta_t_next_read);
 
   //!  Select the global time step increment record by the consequuatively numbered record index number
   /*
    *    @param   xSoln               Solution file for the simulation object
    *    @param   globalTimeStepNum   Time step number to select
    *
+   *    @return Returns a pointer to the selected record.
    */
-  Cantera::XML_Node* selectGlobalTimeStep(Cantera::XML_Node* xSoln, int globalTimeStepNum);
+  Cantera::XML_Node* selectSolutionRecordNumber(Cantera::XML_Node* xSoln, int globalTimeStepNum);
+ 
+  //!  Select the global time step increment record by the consequuatively numbered record index number
+  /*
+   *    @param   xSoln               Solution file for the simulation object
+   *    @param   solnTimeStepID      string value of the time step ID to select
+   *
+   *    @return Returns a pointer to the selected record.
+   */
+  Cantera::XML_Node* selectSolutionTimeStepID(Cantera::XML_Node* xSoln, std::string solnTimeStepID);
 
   //! Write the solution to either the screen or to a log file
   /*!

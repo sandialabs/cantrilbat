@@ -58,12 +58,12 @@ Heat Source Tracking = 0
 !     1 - Specify a fixed discharge current through the battery
 !     2 - Time dependent voltage at the cathode
 !     3 - Time dependent current at the cathode
-!     4 - specify time dependent voltage BoundaryCondition BCconstant
-!     5 - specify time dependent current BoundaryCondition BCconstant
-!     6 - specify time dependent voltage BoundaryCondition BCsteptable
-!     7 - specify time dependent current BoundaryCondition BCsteptable
-!     8 - specify time dependent voltage BoundaryCondition BClineartable
-!     9 - specify time dependent current BoundaryCondition BClineartable
+!     4 - Specify time dependent voltage BoundaryCondition BCconstant
+!     5 - Specify time dependent current BoundaryCondition BCconstant
+!     6 - Specify time dependent voltage BoundaryCondition BCsteptable
+!     7 - Specify time dependent current BoundaryCondition BCsteptable
+!     8 - Specify time dependent voltage BoundaryCondition BClineartable
+!     9 - Specify time dependent current BoundaryCondition BClineartable
 !
 !---------------------------------------------------------------------------------------------------------
 Cathode BC Type = 0

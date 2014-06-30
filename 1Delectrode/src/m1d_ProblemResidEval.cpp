@@ -879,10 +879,12 @@ ProblemResidEval::calcDeltaSolnVariables(const double t, const double * const yS
 // Save the solution to the end of an XML file using
 // XML solution format
 /*
- *  We write out the solution to a file.
+ *  We write out the solution to a file. 
  *
- *    <ctml>
- *     <simulation id="0">
+ *  
+ *
+  <ctml>
+   <simulation id="0">
     <string title="timestamp">
       Mon Aug  8 10:43:58 2011
     </string>
@@ -915,10 +917,24 @@ ProblemResidEval::calcDeltaSolnVariables(const double t, const double * const yS
       <Conc_sp(Species0)> 0.000000000E+00 </Conc_sp(Species0)>
     </domain>
   </simulation>
-
+ </ctml>
  *
+ * NOTES ABOUT THE FORMAT
+ * -----------------------------------------
+ *   RecordNumber = position of the simulation within the xml file.
+ *   SimulationID = String name of the simulation xml node
  *
- *    </ctml>
+ *   Initially the RecordNumber and SimulationID are the same. the string name is a
+ *   defined as a string, while the RecordNumber is defined as an integer starting
+ *   with zero.   If the file is  manipulated this relation may not hold. There are
+ *   two ways to get a hold of the record.
+ *
+ *   The RecordNumber is kept as a static int in this file, as the name solNum. This
+ *   may change in the future. The basename of the file is also kept as the static string savedBase.
+ *
+ *   If the file is called with a different name, then a new RecordNumber saved in the
+ *   static var solNumAlt is used to keep track of the record number, with the static
+ *   string savedAltBase as its basename.
  *
  * @param ievent  Type of the event. The following form is used:
  *             0 Initial conditions
@@ -983,13 +999,15 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   Cantera::XML_Node& ct = root.addChild("ctml");
 
   Cantera::XML_Node& sim = ct.addChild("simulation");
-  std::string id = "0";
+  //
+  // Initially define the 
+  std::string simulationID = "0";
   if (fname == savedBase) {
-      id = Cantera::int2str(solNum);
+      simulationID = Cantera::int2str(solNum);
   } else if (fname == savedAltBase) {
-      id = Cantera::int2str(solNumAlt);
+      simulationID = Cantera::int2str(solNumAlt);
   }
-  sim.addAttribute("id", id);
+  sim.addAttribute("id", simulationID);
   ctml::addString(sim, "timestamp", asctime(newtime));
   // if (desc != "")
   //  addString(sim, "description", desc);
@@ -1076,7 +1094,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   }
 
   if (mypid == 0) {
-    Cantera::writelog("Solution saved to file " + fname + " as solution " + id + ".\n");
+    Cantera::writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
   }
   Epetra_Comm *c = LI_ptr_->Comm_ptr_;
   c->Barrier();
@@ -1087,6 +1105,64 @@ ProblemResidEval::saveSolutionEnd(const int itype,
   }
   delete y_n_owned_ptr;
   delete ydot_n_owned_ptr;
+}
+//=====================================================================================================================
+void
+ProblemResidEval::readSolutionRecordNumber(const int iNumber,
+					   std::string baseFileName,
+					   Epetra_Vector_Ghosted &y_n_ghosted,
+					   Epetra_Vector_Ghosted * const ydot_n_ghosted,
+					   double &t_read,
+					   double &delta_t_read,
+					   double &delta_t_next_read)
+{
+    //
+    // Flesh out the name of the file
+    //
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    if (mypid != 0) {
+	baseFileName += ("_" + Cantera::int2str(mypid));
+    }
+    std::string fname = baseFileName + ".xml";
+
+    //
+    //    Read in the XML file 
+    //
+    XML_Node* xSavedSoln = get_XML_File(fname);
+    if (!xSavedSoln) {
+	throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
+			"Error could not read the file " + fname);
+    }
+ 
+    XML_Node* simulRecord = selectSolutionRecordNumber(xSavedSoln, iNumber);
+    if (!simulRecord) {
+	throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
+			"Error could not find the requested record " +  int2str(iNumber));	
+    }
+    //
+    //  Now call the underlying routine that reads the record
+    //
+    readSolutionXML(simulRecord, y_n_ghosted,ydot_n_ghosted, t_read, delta_t_read, delta_t_next_read);
+
+    if (mypid == 0) {
+	Cantera::writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
+    }
+    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
+
+}
+//=====================================================================================================================
+void
+ProblemResidEval::readSolution(const int iNumber,
+			       std::string baseFileName,
+			       Epetra_Vector_Ghosted &y_n_ghosted,
+			       Epetra_Vector_Ghosted * const ydot_n_ghosted,
+			       double &t_read,
+			       double &delta_t_read,
+                               double &delta_t_next_read)
+{
+    readSolutionRecordNumber(iNumber, baseFileName, y_n_ghosted, ydot_n_ghosted,
+			     t_read, delta_t_read, delta_t_next_read);
 }
 //=====================================================================================================================
 // Read the solution from a saved file.
@@ -1105,38 +1181,10 @@ ProblemResidEval::saveSolutionEnd(const int itype,
  * @param delta_t_next_read delta time step for the next time step if available
  */
 void
-ProblemResidEval::readSolution(const int iNumber,
-			       std::string baseFileName,
-			       Epetra_Vector_Ghosted &y_n_ghosted,
-			       Epetra_Vector_Ghosted * const ydot_n_ghosted,
-			       double &t_read,
-			       double &delta_t_read,
-                               double &delta_t_next_read)
-{ 
-    //
-    // Flesh out the name of the file
-    //
-    int mypid = LI_ptr_->Comm_ptr_->MyPID();
-    if (mypid != 0) {
-	baseFileName += ("_" + Cantera::int2str(mypid));
-    }
-    std::string fname = baseFileName + ".xml";
-
-    //
-    //    Read in the XML file 
-    //
-    XML_Node* xSavedSoln = get_XML_File(fname);
-    if (!xSavedSoln) {
-	throw m1d_Error("ProblemResidEval::readSolution()",
-			"Error could not read the file " + fname);
-    }
- 
-    XML_Node* simulRecord = selectGlobalTimeStep(xSavedSoln, iNumber);
-    if (!simulRecord) {
-	throw m1d_Error("ProblemResidEval::readSolution()",
-			"Error could not find the requested record " +  int2str(iNumber));	
-    }
-    
+ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &y_n_ghosted,
+				  Epetra_Vector_Ghosted * const ydot_n_ghosted, double &t_read,
+				  double &delta_t_read, double &delta_t_next_read)
+{    
     // Get a local copy of the domain layout
     DomainLayout &DL = *DL_ptr_;
 
@@ -1185,32 +1233,55 @@ ProblemResidEval::readSolution(const int iNumber,
 	    }
 	}
     } while (d_ptr);
-
- 
-    if (mypid == 0) {
-	Cantera::writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
-    }
-    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
-    c->Barrier();
- 
 }
 //====================================================================================================================
 //  Select the global time step increment record by the consequuatively numbered record index number
 /*
  *    @param   xSoln               Solution file for the simulation object
- *    @param   globalTimeStepNum   Time step number to select
+ *    @param   globalRecordNumbe   Time step record number to select
  *
  */
- XML_Node* ProblemResidEval::selectGlobalTimeStep(XML_Node* xSoln, int globalTimeStepNum)
+ XML_Node* ProblemResidEval::selectSolutionRecordNumber(XML_Node* xmlTop, int globalRecordNumber)
  {   
      /*
       *  Search for a particular global step number
       */
-     string id_s = int2str(globalTimeStepNum);
-     XML_Node* eRecord = xSoln->findNameID("simulation", id_s);
+     XML_Node* xctml = xmlTop;
+     if (xctml->name() != "ctml") {
+	 xctml = xmlTop->findByName("ctml");
+	 if (!xctml) {
+	     throw CanteraError("selectSolutionRecordNumber()","Can't find the top ctml node");
+	 }
+     }
+     //
+     //  Get a vector of simulation children, and then pick the record number from that
+     //
+     std::vector<XML_Node*> ccc;
+     xctml->getChildren("simulation", ccc);
+     int sz = ccc.size();
+     if (globalRecordNumber < 0 || globalRecordNumber >= sz) {
+        throw CanteraError("selectSolutionRecordNumber()", 
+                           "Can't find the global record number " + int2str(globalRecordNumber));
+     }
+     XML_Node *xs = ccc[globalRecordNumber];
+
+     return xs;
+}
+//====================================================================================================================
+//  Select the global time step record by its string id.
+/*
+ *    @param   xSoln               Solution file for the simulation object
+ *    @param   timeStepID          Time step number to select
+ *
+ */
+ XML_Node* ProblemResidEval::selectSolutionTimeStepID(XML_Node* xSoln, std::string timeStepID)
+ {   
+     /*
+      *  Search for a particular global step number
+      */
+     XML_Node* eRecord = xSoln->findNameID("simulation", timeStepID);
      if (!eRecord) {
-	 throw m1d_Error("selectGlobalTimeStep()",
-			 "Record not found : " + id_s);
+	 throw m1d_Error("selectSolutionTimeStepID()", "Solution record for following id not found : " + timeStepID);
      }
      /*
       * Return a pointer to the record

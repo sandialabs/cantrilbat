@@ -83,41 +83,41 @@ public:
      */
     virtual double valueAtTime_full(double time, double *solnVecNode, int interval = -1);
 
-    //! return the next value for the independent variable at
+    //! Return the next value for the independent variable, i.e., time, at
     //! which the nature of the boundary condition changes.
-    /**
-     * This is designed to guide grid generation and time stepping
+    /*!
+     *     This is designed to guide grid generation and time stepping
      */
     virtual double nextStep();
 
-    //! reset the step counter to zero
+    //! Reset the step counter to zero
     void resetSteps();
 
     //! Write out the profile in tabular format.
     virtual void writeProfile();
 
-    //!lower limit of dependent variable for which BC applies
+    //! Lower limit of dependent variable for which BC applies
     double lowerLimit();
 
-    //!upper limit of dependent variable for which BC applies
+    //! Upper limit of dependent variable for which BC applies
     double upperLimit();
 
-    //! the string defining the independent variable units
+    //! The string defining the independent variable units
     std::string indepUnits();
 
-    //! the string defining the dependent variable units
+    //! The string defining the dependent variable units
     std::string depenUnits();
 
-    //! return the title or name of boundary condition
+    //! Return the title or name of boundary condition
     std::string title();
 
-    //! set title or name of boundary condition
+    //! Set title or name of boundary condition
     void setTitle(std::string name);
 
-    //!set lower limit of independent variable for which BC applies
+    //! Set lower limit of independent variable for which BC applies
     void setLowerLimit(double indVal);
 
-    //!set upper limit of independent variable for which BC applies
+    //! Set upper limit of independent variable for which BC applies
     void setUpperLimit(double indVal);
 
     //! set the string defining the independent variable units
