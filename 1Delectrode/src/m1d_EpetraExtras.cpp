@@ -300,6 +300,7 @@ Epetra_Vector* new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_Bloc
 void
 scatterToAllFrom0(Epetra_Vector& globalSoln, Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
 {
+  /*
   Epetra_Comm *comm_ptr = acomm_ptr;
   if (acomm_ptr == 0) {
     if (Comm_ptr) {
@@ -308,6 +309,7 @@ scatterToAllFrom0(Epetra_Vector& globalSoln, Epetra_Vector &distribV, Epetra_Com
       throw m1d_Error("scatterToAllFrom0", "no comm pointer");
     }
   }
+  */
   //int procID = comm_ptr->MyPID();
 
   // Elements are the number of block rows in the grid
