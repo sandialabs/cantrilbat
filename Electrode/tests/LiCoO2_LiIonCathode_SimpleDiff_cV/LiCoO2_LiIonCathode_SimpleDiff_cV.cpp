@@ -186,7 +186,6 @@ int main(int argc, char **argv)
     electrodeC->setDeltaTSubcycle(0.01);
     //electrodeC->detailedResidPrintFlag_ = 10;
     //electrodeC->enableExtraPrinting_ = 10;
-     double amps = -1.0E-1;
     //electrodeC->DO_NEW_METHOD_ = 1;
   
     for (int itimes = 0; itimes < nT; itimes++) {
