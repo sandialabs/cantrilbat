@@ -388,6 +388,10 @@ public:
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
      */
     virtual void unpackNonlinSolnVector(const double* const y);
+private:
+    void checkStillOnRegionBoundary();
+    void setOnRegionBoundary();
+public:
 
 
     //! Pack the nonlinear solver proplem

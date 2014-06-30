@@ -3059,9 +3059,9 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToR
         if (nStoichElectrons != 0.0) {
             ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
         }
+#ifdef DEBUG_NEW
         double deltaGC =  deltaG_[rxnIndex] - GasConstant *  temperature_ * std::log(0.08);
         double ERxn_SS = deltaGC / Faraday / nStoichElectrons;
-#ifdef DEBUG_NEW
         printf(" ERxn_SS = %g\n",  ERxn_SS);
 #endif
   

@@ -739,7 +739,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //    automatically within the OCVmodel object given that the ThermoPhase is current.
     //    We report the value here.
     //
-    double relExt =  OCVmodel_->RelExtent();
+    //double relExt =  OCVmodel_->RelExtent();
     //
     //    Now calculate the OCV value to be used from the fit presumably from a fit to experiment.
     //

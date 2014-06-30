@@ -1370,12 +1370,33 @@ void  Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
      * Calculate the relative extents of reaction
      */
     double tmp  = calcRelativeExtentRxn_final();
-    // if (fabs(tmp - RelativeExtentRxn_final_) > 1.0E-8) {
-    // printf("We are here - investigate \n");
-    //}
     RelativeExtentRxn_final_ = tmp;
 
-
+    checkStillOnRegionBoundary();
+}
+//====================================================================================================================
+void Electrode_CSTR::checkStillOnRegionBoundary()
+{
+  const double upperBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
+  const double lowerBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
+  if( lowerBound <= RelativeExtentRxn_final_ && RelativeExtentRxn_final_ <= upperBound ) {
+    onRegionBoundary_final_ = -1;
+  }
+}
+//====================================================================================================================
+void Electrode_CSTR::setOnRegionBoundary()
+{
+  const double upperBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
+  const double lowerBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
+  if(RelativeExtentRxn_final_ >= upperBound) {
+    onRegionBoundary_final_ = xRegion_init_ + 1;
+    setState_relativeExtentRxn(upperBound);
+  } else if(RelativeExtentRxn_final_ <= lowerBound) {
+    onRegionBoundary_final_ = xRegion_init_;
+    setState_relativeExtentRxn(lowerBound);
+  } else {
+    onRegionBoundary_final_ = -1;
+  }
 }
 //====================================================================================================================
 void  Electrode_CSTR::packNonlinSolnVector(double* const y) const
@@ -2410,7 +2431,8 @@ bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
         if (fabs(RelativeExtentRxn_final_  - RelativeExtentRxn_RegionBoundaries_[onRegionBoundary_final_]) > 1.0E-5) {
             throw CanteraError("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
                                ", integrationCounter " + int2str(counterNumberIntegrations_),
-                               " RelativeExtentRxn_final_ not on boundary and onRegionBoundary_final_ is");
+                               " RelativeExtentRxn_final_ not on boundary and onRegionBoundary_final_ is. RelativeExtentRxn_final_ = "
+                               + fp2str(RelativeExtentRxn_final_));
         }
     }
 
@@ -2674,6 +2696,7 @@ void Electrode_CSTR::check_final_state()
         printf("problems\n");
         exit(-1);
     }
+    setOnRegionBoundary();
 }
 //====================================================================================================================
 double Electrode_CSTR::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
