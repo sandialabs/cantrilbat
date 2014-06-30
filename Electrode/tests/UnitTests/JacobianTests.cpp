@@ -111,7 +111,7 @@ public:
     mock_electrode = new MockElectrode();
     std::vector<Electrode_Jacobian::DOF_SOURCE_PAIR> entries_to_compute;
     entries_to_compute.push_back(temp_energy_pair);
-    fd_jacobian = new Electrode_FD_Jacobian(mock_electrode);
+    fd_jacobian = new Electrode_FD_Jacobian(mock_electrode, 1.e-5);
     fd_jacobian->add_entries_to_compute(entries_to_compute);
 
     for(int idx=0; idx < 3; ++idx)
