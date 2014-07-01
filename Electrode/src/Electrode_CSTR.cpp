@@ -413,6 +413,18 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     xRegion_final_ = 0;
     xRegion_final_final_ = 0;
 
+    /*
+     *   We keep a record of the extent of reaction
+     */
+    RelativeExtentRxn_final_ = calcRelativeExtentRxn_final();
+    //
+    //  Calculate  onRegionBoundary_final_ 
+    // 
+    stateToPhaseFlagsReconciliation(false);
+
+
+    setInitStateFromFinal(true);
+
 
     return 0;
 }
@@ -954,20 +966,6 @@ void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
     }
 }
 //====================================================================================================================
-//
-/*
- *  We defer to child classes how to do this
- */
-double Electrode_CSTR::calcRelativeExtentRxn_final() const
-{
-    //  RelativeExtentRxn_final_ = RelativeExtentRxn_init_
-    //    + SrcDot_RxnExtent_final_ * deltaTsubcycleCalc_/ RelativeExtentRxn_NormalizationFactor_;
-
-    throw CanteraError("Electrode_CSTR::calcRelativeExtentRxn_final()",
-                       "Base class called");
-    return -1.0;
-}
-//====================================================================================================================
 void Electrode_CSTR::setState_relativeExtentRxn(double relExtentRxn)
 {
     throw CanteraError("Electrode_CSTR::setState_relativeExtentRxn()",
@@ -1326,9 +1324,9 @@ int  Electrode_CSTR::predictSoln()
     return 1;
 }
 //====================================================================================================================
-//! Unpack the soln vector
-/*!
- *  This function unpacks the solution vector into deltaTsubcycleCalc_  and   RelativeExtentRxn_final_
+// Unpack the soln vector
+/*
+ *  This function unpacks the solution vector into deltaTsubcycleCalc_ and RelativeExtentRxn_final_
  */
 void  Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
 {
@@ -1379,9 +1377,15 @@ void Electrode_CSTR::checkStillOnRegionBoundary()
 {
   const double upperBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
   const double lowerBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
-  if( lowerBound <= RelativeExtentRxn_final_ && RelativeExtentRxn_final_ <= upperBound ) {
-    onRegionBoundary_final_ = -1;
-  }
+  if (onRegionBoundary_final_ >= 0) {
+     if (lowerBound < RelativeExtentRxn_final_ && RelativeExtentRxn_final_ < upperBound) {
+        //printf("Caution: in valid region, even though onRegionBoundary_final_ = %d\n", onRegionBoundary_final_);
+     }
+
+  } 
+  //if (lowerBound <= RelativeExtentRxn_final_ && RelativeExtentRxn_final_ <= upperBound ) {
+    // onRegionBoundary_final_ = -1;
+  //}
 }
 //====================================================================================================================
 void Electrode_CSTR::setOnRegionBoundary()
@@ -2427,6 +2431,10 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
  */
 bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
 {
+    //
+    // If we have solved the alternate problem where we find the time for phase death, then we expect to be at the
+    // phase death condition. This is a valid throw I think.
+    //
     if (onRegionBoundary_final_ >= 0) {
         if (fabs(RelativeExtentRxn_final_  - RelativeExtentRxn_RegionBoundaries_[onRegionBoundary_final_]) > 1.0E-5) {
             throw CanteraError("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +

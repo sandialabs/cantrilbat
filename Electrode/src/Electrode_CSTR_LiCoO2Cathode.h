@@ -69,6 +69,8 @@ public:
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
+     *  (virtual from Electrode.h)
+     *
      *  Calculate the relative extent of reaction from the final state, spmoles_final.
      *  This is a virtual function because there is no way to do this except by knowing about
      *  the system.

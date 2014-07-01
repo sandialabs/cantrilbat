@@ -1928,10 +1928,11 @@ public:
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
      *  Calculate the relative extent of reaction from the final state, spmoles_final.
- 
+     * 
      *  The relative extent of reaction is a dimensionless number that varies. It doesn't
      *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
-     *  that can't be filled with Li....
+     *  that can't be filled with Li.... At 0, the battery is fully charged. At ~1, the battery
+     *  is fully discharged.
      *
      *  The way we do this for the base case is to use DoDFraction() to calculate the dimensionless number.
      *  However there is frequently a better way to do this. Also, for intercalating electrodes, we want this

@@ -339,19 +339,6 @@ public:
     //!
     virtual bool stateToPhaseFlagsReconciliation(bool flagErrors);
 
-    //! Calculate the relative extent of reaction from the current state of the object
-    /*!
-     *  Calculate the relative extent of reaction from the final state, spmoles_final.
-     *  This is a virtual function because there is no way to do this except by knowing about
-     *  the system.
-     *  The relative extent of reaction is a dimensionless number that varies. It doesn't
-     *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
-     *  that can't be filled with Li....
-     *
-     *  @return returns the relative extent of reaction (dimensionless).
-     */
-    virtual double calcRelativeExtentRxn_final() const;
-
     //! Set the final state of the electrode using the relExtentRxn
     /*!
      *  This sets the state of the system, i.e., spmoles_final_[] for the solid phase
