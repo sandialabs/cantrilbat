@@ -732,9 +732,30 @@ public:
     virtual int getInitialConditions(const doublereal t0, doublereal* const y,
                                      doublereal* const ydot);
 
+    //! Calculate the relative extent of reaction from the current state of the object
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *  Calculate the relative extent of reaction from the final state, spmoles_final.
+     * 
+     *  The relative extent of reaction is a dimensionless number that varies. It doesn't
+     *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
+     *  that can't be filled with Li.... At 0, the battery is fully charged. At ~1, the battery
+     *  is fully discharged.
+     *
+     *  Here we evaluate this number as the number of electrons produced by the electrode divided by
+     *  the normalization constant, which is the initial solid moles in the electrode of active material.
+     *
+     *  @return returns the relative extent of reaction (dimensionless).
+     */
+    virtual double  calcRelativeExtentRxn_final() const;
 
-
-
+    double capacityDot(int platNum = -1) const;
+    double capacityLeftDot(int platNum = -1, double voltsMax = 50.0, double voltsMin = - 50.0) const;
+    double RxnExtentDot(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+    double capacityLeftRaw(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+	
+    double capacityRaw(int platNum = -1) const; 
     // ----------------------------------------------------------------------------------------------------
 
     //        MEMBER DATA
@@ -788,7 +809,14 @@ public:
     /*!
      *  This is usually equal to the total moles of solid phase electrons possible to be created
      *  from the solid phase. We ignore here any issues having to do with boundaries and the
-     *  inaccessibility of electrons. .
+     *  inaccessibility of electrons. 
+     *
+     *  For anodes like zinc where the solid moles of the electrode decrease as a function of the
+     *  extent of reaction, we make the following definition. This value will be equal to the
+     *  number of initial moles of zinc, i.e., it will be closely associated with the
+     *  value of capacityInitial() / Faraday.
+     *
+     *  units = kmol
      */
     double RelativeExtentRxn_NormalizationFactor_;
 
@@ -869,6 +897,9 @@ protected:
     std::vector<double> DspMoles_final_;
 
     //! Source for the reaction extent
+    /*!
+     *  units are kmol s-1
+     */
     double SrcDot_RxnExtent_final_;
 
     std::vector<int> phaseIndexSolidPhases_;

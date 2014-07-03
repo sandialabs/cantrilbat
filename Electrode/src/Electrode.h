@@ -1806,7 +1806,7 @@ public:
      *  Therefore, the capacity will be a function of time.
      *  At all times the following relation holds:
      *
-     *  capacity() = capacityDischarged() + capacityLeft().
+     *  capacity() = capacityDischarged() + capacityLeft() + capacityLost()
      *
      *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
@@ -1940,7 +1940,7 @@ public:
      *
      *  @return returns the relative extent of reaction (dimensionless).
      */
-    virtual double  calcRelativeExtentRxn_final() const;
+    virtual double calcRelativeExtentRxn_final() const;
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------  CAPACITY CALCULATION SETUP ---- -----------------------------------------------------

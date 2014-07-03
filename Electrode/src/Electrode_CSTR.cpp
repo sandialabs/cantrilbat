@@ -425,7 +425,6 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     setInitStateFromFinal(true);
 
-
     return 0;
 }
 //====================================================================================================================
@@ -730,6 +729,8 @@ double Electrode_CSTR::capacity(int platNum) const
     if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
+    double capRaw = capacityRaw(platNum);
+    double fac = capRaw / (RelativeExtentRxn_NormalizationFactor_ * Faraday);
     double unFillable = 0.0;
     if (RelativeExtentRxn_RegionBoundaries_.size() >= 2) {
         if (RelativeExtentRxn_RegionBoundaries_[0] > 0.0) {
@@ -739,10 +740,19 @@ double Electrode_CSTR::capacity(int platNum) const
     }
     double unExtractable = 0.0;
     if (RelativeExtentRxn_RegionBoundaries_.size() >= 2) {
-        if (RelativeExtentRxn_RegionBoundaries_[1] < 1.0) {
-            unExtractable = 1 - RelativeExtentRxn_RegionBoundaries_[1];
+        if (RelativeExtentRxn_RegionBoundaries_[1] < fac) {
+            unExtractable = fac - RelativeExtentRxn_RegionBoundaries_[1];
             unExtractable  *= RelativeExtentRxn_NormalizationFactor_;
         }
+    }
+    double capZeroDoD = capRaw - Faraday * (unFillable + unExtractable);
+    return capZeroDoD;
+}
+//========================================================================================================
+double Electrode_CSTR::capacityRaw(int platNum) const
+{
+    if (electrodeChemistryModelType_ == 2) {
+        setCapacityCoeff_FeS2();
     }
     double capZeroDoD = 0.0;
     for (int iph = 0; iph < m_NumTotPhases; iph++) {
@@ -757,7 +767,6 @@ double Electrode_CSTR::capacity(int platNum) const
             capZeroDoD += ll * capacityZeroDoDSpeciesCoeff_[kStart + k];
         }
     }
-    capZeroDoD -= (unFillable + unExtractable);
     double tmp = capZeroDoD * Faraday;
     return tmp;
 }
@@ -771,27 +780,20 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
     if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
+    double capLeftRaw = capacityLeftRaw(platNum, voltsMax, voltsMin);
+
+    double capRaw = capacityRaw(platNum);
+    double fac = capRaw / (RelativeExtentRxn_NormalizationFactor_ * Faraday);
+
     int lastRegionBoundary = RelativeExtentRxn_RegionBoundaries_.size() - 1;
     double unExtractable = 0.0;
     if (RelativeExtentRxn_RegionBoundaries_.size() >= 2) {
-        if (RelativeExtentRxn_RegionBoundaries_[lastRegionBoundary] < 1.0) {
-            unExtractable = 1 - RelativeExtentRxn_RegionBoundaries_[1];
+        if (RelativeExtentRxn_RegionBoundaries_[lastRegionBoundary] < fac) {
+            unExtractable = fac - RelativeExtentRxn_RegionBoundaries_[1];
             unExtractable  *= RelativeExtentRxn_NormalizationFactor_;
         }
     }
-    double capLeft = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
-            continue;
-        }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
-            double ll = spMoles_final_[kStart + k];
-            capLeft += ll * capacityLeftSpeciesCoeff_[kStart + k];
-        }
-    }
+    double capLeft = capLeftRaw / Faraday;
     capLeft -= unExtractable;
     /*
      *  For print out purposes and for stability we switch to integer logic at the end of discharge.
@@ -807,6 +809,27 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
 
     if (capLeft < 0.0) {
         capLeft = 0.0;
+    }
+    return capLeft * Faraday;
+}
+//====================================================================================================================
+double Electrode_CSTR::capacityLeftRaw(int platNum, double voltsMax, double voltsMin) const
+{
+    if (electrodeChemistryModelType_ == 2) {
+        setCapacityCoeff_FeS2();
+    }
+    double capLeft = 0.0;
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
+            continue;
+        }
+        int kStart = m_PhaseSpeciesStartIndex[iph];
+        ThermoPhase& tp = thermo(iph);
+        int nspPhase = tp.nSpecies();
+        for (int k = 0; k < nspPhase; k++) {
+            double ll = spMoles_final_[kStart + k];
+            capLeft += ll * capacityLeftSpeciesCoeff_[kStart + k];
+        }
     }
     return capLeft * Faraday;
 }
@@ -921,7 +944,65 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     } else if (electrodeType_ ==  ELECTRODETYPE_CATHODE) {
         SrcDot_RxnExtent_final_  = - DspMoles_final_[kElectron_];
     }
+    double fac = capacityRaw() / (RelativeExtentRxn_NormalizationFactor_ * Faraday);
+    fac = 1.0;
+    double tmp = - capacityLeftDot() / Faraday / fac;
+    SrcDot_RxnExtent_final_ = tmp;
+   
+    if (fabs(tmp -  SrcDot_RxnExtent_final_) / RelativeExtentRxn_NormalizationFactor_ > 1.0E-6) {
+	printf("logic error %g %g\n", tmp ,  SrcDot_RxnExtent_final_);
+        //exit(-1);
+    }
+   
 }
+//================================================================================================================
+double Electrode_CSTR::capacityLeftDot(int platNum, double voltsMax, double voltsMin) const
+{
+    double capLeftDot = 0.0;
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
+            continue;
+        }
+        int kStart = m_PhaseSpeciesStartIndex[iph];
+        ThermoPhase& tp = thermo(iph);
+        int nspPhase = tp.nSpecies();
+        for (int k = 0; k < nspPhase; k++) {
+            double ll =  DspMoles_final_[kStart + k];
+            capLeftDot += ll * capacityLeftSpeciesCoeff_[kStart + k];
+        }
+    }
+    return capLeftDot * Faraday;
+}
+//================================================================================================================
+double Electrode_CSTR::capacityDot(int platNum) const
+{
+    double capDot = 0.0;
+    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
+            continue;
+        }
+        int kStart = m_PhaseSpeciesStartIndex[iph];
+        ThermoPhase& tp = thermo(iph);
+        int nspPhase = tp.nSpecies();
+        for (int k = 0; k < nspPhase; k++) {
+            double ll =  DspMoles_final_[kStart + k];
+            capDot += ll * capacityZeroDoDSpeciesCoeff_[kStart + k];
+
+        }
+    }
+    return capDot * Faraday;
+}
+//================================================================================================================
+double Electrode_CSTR::RxnExtentDot(int platNum, double voltsMax, double voltsMin) const
+{
+    double capLeft = capacityLeft(platNum, voltsMax, voltsMin);
+    double capZero = capacity(platNum);
+    double capLeftDot = capacityLeftDot(platNum, voltsMax, voltsMin);
+    double capDot = capacityDot(platNum);
+    double reDot = - capLeftDot / capZero + capLeft * capDot / ( capZero * capZero);
+    return reDot;
+}
+
 //================================================================================================================
 void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
 {     
@@ -1152,15 +1233,14 @@ int  Electrode_CSTR::predictSoln()
         //    First assume that no phase dies.
         minPH_ = -1;
         double minDT = 1.0E300;
-        double DT, DTmax, DTmin, tmp;
+        double DT, DTmin, tmp;
         int hasAPos, hasANeg;
         for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
             hasAPos = 0;
             hasANeg = 0;
             int iph = phaseIndexSolidPhases_[ph];
             justDiedPhase_[iph] = 0;
-            DTmax = 0.0;
-            DTmin = 1.0E-300;
+            DTmin = 1.0E+300;
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                 isp = getGlobalSpeciesIndex(iph,sp);
                 deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
@@ -1170,14 +1250,13 @@ int  Electrode_CSTR::predictSoln()
                         hasANeg = 1;
                         DT = - spMoles_init_[isp] / DspMoles_final_[isp];
                         DTmin = MIN(DT, DTmin);
-                        DTmax = MAX(DT, DTmax);
                     } else if (tmp > 0.0) {
                         hasAPos = 1;
                     }
                 }
             }
             if (hasANeg && (!hasAPos)) {
-                DT = 0.5 *(DTmin + DTmax);
+                DT = DTmin;
                 if (DT < minDT) {
                     minPH_ = iph;
                     minDT = DT;
@@ -1233,8 +1312,7 @@ int  Electrode_CSTR::predictSoln()
             for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
                 hasAPos = 0;
                 hasANeg = 0;
-                DTmax = 0.0;
-                DTmin = 1.0E-300;
+                DTmin = 1.0E+300;
                 int iph = phaseIndexSolidPhases_[ph];
                 for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                     isp = getGlobalSpeciesIndex(iph,sp);
@@ -1245,14 +1323,13 @@ int  Electrode_CSTR::predictSoln()
                             hasANeg = 1;
                             DT = - spMoles_init_[isp] / DspMoles_final_[isp];
                             DTmin = MIN(DT, DTmin);
-                            DTmax = MAX(DT, DTmax);
                         } else if (tmp > 0.0) {
                             hasAPos = 1;
                         }
                     }
                 }
                 if (hasANeg && (!hasAPos)) {
-                    DT = 0.5 *(DTmin + DTmax);
+                    DT = DTmin;
                     if (DT < minDT + 0.1 *minDT) {
                         justDiedPhase_[iph] = 1;
                     }
@@ -2845,6 +2922,15 @@ void Electrode_CSTR::setNLSGlobalSrcTermTolerances(double rtolResid)
     }
     rtol_IntegratedSrc_global_ = rtolResid;
 }
+//======================================================================================================================
+double Electrode_CSTR::calcRelativeExtentRxn_final() const
+{
+    double capInit = capacityRaw();
+    double capLeft = capacityLeftRaw();
+    double tmp = (capInit - capLeft) / (Faraday * RelativeExtentRxn_NormalizationFactor_);
+    return tmp;
+}
+
 
 //====================================================================================================================
 } // End of namespace Cantera
