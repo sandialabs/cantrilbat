@@ -908,7 +908,7 @@ protected:
     //! Change in the number of moles of species during the current step
     std::vector<double> deltaSpMoles_;
 
-    //! Phase which is predicted to die first
+    //! Phase which is predicted to die first during the current nonlinear problem
     int minPH_;
 
 
@@ -923,6 +923,11 @@ protected:
 
     std::vector<int> KineticsPhaseExistence_;
 
+    //!  Total value of the solid moles at the start of the nonlinear iteration
+    /*!
+     *  units are kmol
+     */
+    double solidMoles_init_;
 
 
 };

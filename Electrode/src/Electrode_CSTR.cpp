@@ -1083,9 +1083,8 @@ int  Electrode_CSTR::predictSoln()
     do {
         redoSteps++;
         /*
-         * Copy initial to final
+         * Copy the initial state to the final state
          */
-
         std::fill(justBornPhase_.begin(), justBornPhase_.end(), 0);
         RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
         copy(spMf_init_.begin(), spMf_init_.end(), spMf_final_.begin());
@@ -1093,8 +1092,10 @@ int  Electrode_CSTR::predictSoln()
         copy(phaseMoles_init_.begin(), phaseMoles_init_.end(), phaseMoles_final_.begin());
         copy(surfaceAreaRS_init_.begin(), surfaceAreaRS_init_.end(), surfaceAreaRS_final_.begin());
         deltaTsubcycleCalc_ = deltaTsubcycle_;
+	solidMoles_init_ = SolidTotalMoles();
+
         std::vector<double> deltaSpMoles(m_NumTotSpecies, 0.0);
-        onRegionBoundary_init_ =  onRegionBoundary_final_;
+        onRegionBoundary_final_ = onRegionBoundary_init_;
         /*
          * Get the top and bottom voltages
          */
@@ -1559,9 +1560,17 @@ void  Electrode_CSTR::initialPackSolver_nonlinFunction()
      *  Note, from experience we cannot follow within the equil solver the phases with mole number that
      *  are additively insignificant compared to the total number of moles. This is a basic
      *  limitation. However, they must be followed kinetically up to the level that they contribute
-     *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
+     *  electrons. So, we will set atolBaseResid_ to 1.0E-12 with possible additions later.
      */
+    //
+    // Pick a solidMoles value that is representative of the average number of moles in the nonlinear solution
+    // This number shouldn't ever go small, even if the moles in the electrode goes to zero
+    //
     double solidMoles = SolidTotalMoles();
+    solidMoles = std::max(solidMoles_init_, solidMoles);
+    solidMoles = std::max(solidMoles,RelativeExtentRxn_NormalizationFactor_); 
+    solidMoles = std::max(solidMoles, 1.0E-10);
+
     double atolVal = solidMoles * atolBaseResid_;
 
     /*
