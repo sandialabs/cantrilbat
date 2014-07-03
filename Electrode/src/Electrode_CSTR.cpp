@@ -1103,6 +1103,7 @@ int  Electrode_CSTR::predictSoln()
         onRegionBoundary_final_ = onRegionBoundary_init_;
 
 
+	for (int itsP = 0; itsP < 2; itsP++) {
         /* ---------------------------------------------------------------------------------------
          *                                Update the Internal State of ThermoPhase Objects
          * --------------------------------------------------------------------------------------- */
@@ -1112,7 +1113,7 @@ int  Electrode_CSTR::predictSoln()
          *                                 Handle the case where we start on a Region Boundary
          * --------------------------------------------------------------------------------------- */
         goNowhere_ = 0;
-        if (onRegionBoundary_final_ >= 0) {
+        if (onRegionBoundary_init_ >= 0) {
 
           // FIXME: this if block that sets vleft, vright, vtop, vbot will always have them overwritten
           // by the following block on lines 1026-1034. Should those lines be in an else clause?
@@ -1234,6 +1235,11 @@ int  Electrode_CSTR::predictSoln()
         //    First assume that no phase dies.
         minPH_ = -1;
         double minDT = 1.0E300;
+
+	//
+	//  Then we assign minPH_ as the phase that dies first
+	//  and minDT as the time at which that phase dies.
+	//
         double DT, DTmin, tmp;
         int hasAPos, hasANeg;
         for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
@@ -1244,10 +1250,10 @@ int  Electrode_CSTR::predictSoln()
             DTmin = 1.0E+300;
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                 isp = getGlobalSpeciesIndex(iph,sp);
-                deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
-                tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
+                deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycle_;
+                tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycle_;
                 if (spMoles_init_[isp] > 0.0) {
-                    if (tmp < 0.0) {
+                    if (tmp <= 0.0) {
                         hasANeg = 1;
                         DT = - spMoles_init_[isp] / DspMoles_final_[isp];
                         DTmin = MIN(DT, DTmin);
@@ -1277,9 +1283,9 @@ int  Electrode_CSTR::predictSoln()
             RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
         } else {
             RelativeExtentRxn_final_ = RelativeExtentRxn_init_
-                                       + SrcDot_RxnExtent_final_ * deltaTsubcycleCalc_/ RelativeExtentRxn_NormalizationFactor_;
+                                       + SrcDot_RxnExtent_final_ * deltaTsubcycle_ / RelativeExtentRxn_NormalizationFactor_;
 
-            deltax =  RelativeExtentRxn_final_ -  RelativeExtentRxn_init_;
+            deltax =  RelativeExtentRxn_final_ - RelativeExtentRxn_init_;
 
             double xBd = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
             /*
@@ -1307,9 +1313,12 @@ int  Electrode_CSTR::predictSoln()
         }
 
         /* ---------------------------------------------------------------------------------------
-         *                         Figure out what phases are going to die
+         *                         Figure out what phases are going to die, now that we have a deltaTsubcycleCalc_
          * --------------------------------------------------------------------------------------- */
-        if (minDT < 1.05 * deltaTsubcycleCalc_) {
+	//
+	//  Here we calculate justDiedPhase_[] vector
+	//
+        if (minDT < 1.15 * deltaTsubcycleCalc_) {
             for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
                 hasAPos = 0;
                 hasANeg = 0;
@@ -1320,7 +1329,7 @@ int  Electrode_CSTR::predictSoln()
                     deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     if (spMoles_init_[isp] > 0.0) {
-                        if (tmp < 0.0) {
+                        if (tmp <= 1.0E-40) {
                             hasANeg = 1;
                             DT = - spMoles_init_[isp] / DspMoles_final_[isp];
                             DTmin = MIN(DT, DTmin);
@@ -1336,6 +1345,9 @@ int  Electrode_CSTR::predictSoln()
                     }
                 }
             }
+	    //
+	    // We redo the calculation of deltaTsubcycleCalc_
+	    //
             if (minPH_ >= 0) {
                 deltaTsubcycleCalc_ = minDT;
                 //   If we had previously found that a collision with a region boundary occurs,
@@ -1364,6 +1376,7 @@ int  Electrode_CSTR::predictSoln()
                 for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                     isp = getGlobalSpeciesIndex(iph,sp);
                     spMf_final_[isp] = spMf_init_[isp];
+		    spMoles_final_[isp] = 0.0;
                 }
             } else {
                 double sum = 0.0;
@@ -1376,10 +1389,17 @@ int  Electrode_CSTR::predictSoln()
                     sum +=  spMoles_final_[isp];
                 }
                 phaseMoles_final_[iph]= sum;
-                for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                    isp = getGlobalSpeciesIndex(iph,sp);
-                    spMf_final_[isp] =  spMoles_final_[isp] /  phaseMoles_final_[iph];
-                }
+		if ( sum > 1.0E-300) {
+		    for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+			isp = getGlobalSpeciesIndex(iph,sp);
+			spMf_final_[isp] =  spMoles_final_[isp] /  phaseMoles_final_[iph];
+		    }
+		} else {
+		    for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+			isp = getGlobalSpeciesIndex(iph,sp);
+			spMf_final_[isp] = spMf_init_[isp];
+		    }
+		}
             }
         }
 
@@ -1389,7 +1409,7 @@ int  Electrode_CSTR::predictSoln()
 
         RelativeExtentRxn_final_ = RelativeExtentRxn_init_
                                    + SrcDot_RxnExtent_final_ * deltaTsubcycleCalc_ / RelativeExtentRxn_NormalizationFactor_;
-
+	}
 
 
     } while (reDo);
@@ -1511,6 +1531,8 @@ void  Electrode_CSTR::packNonlinSolnVector(double* const y) const
             }
         }
     }
+    y[index] = RelativeExtentRxn_final_;
+    y[index+1] = onRegionBoundary_final_;
 }
 
 //==================================================================================================================
@@ -2737,7 +2759,8 @@ void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval,
     double atolVal =  1.0E-8;
     double denom;
     double tmp;
-    int onRegionPredict = soln_predict_[2];
+    double RelativeExtentRxnPredict = soln_predict_[neq_];
+    int onRegionPredict = soln_predict_[neq_ + 1];
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E\n",
            counterNumberSubIntegrations_, tinit_, tfinal_);
@@ -2752,11 +2775,11 @@ void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval,
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
     printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
            deltaTsubcycle_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
-    denom = MAX(fabs(yval[1]), fabs(soln_predict_[1]));
+    denom = MAX(fabs(RelativeExtentRxn_final_), fabs(RelativeExtentRxnPredict));
     denom = MAX(denom, atolVal);
-    tmp = fabs((yval[1] - soln_predict_[1])/ denom);
-    printf("RelativeExtentRxn_final_ | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
-           RelativeExtentRxn_init_, soln_predict_[1],  yval[1], yval[1] - soln_predict_[1], atolVal, tmp);
+    tmp = fabs((RelativeExtentRxn_final_ - RelativeExtentRxnPredict)/ denom);
+    printf("RelativeExtentRxn        | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
+           RelativeExtentRxn_init_, RelativeExtentRxnPredict,  RelativeExtentRxn_final_, RelativeExtentRxn_final_ - RelativeExtentRxnPredict, atolVal, tmp);
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf("                                                                                                        %10.3E\n",
            pnormSoln);
