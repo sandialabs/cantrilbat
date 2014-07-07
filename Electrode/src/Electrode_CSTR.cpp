@@ -2862,6 +2862,29 @@ void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
     }
 }
 //====================================================================================================================
+// Set the internal initial intermediate from the internal initial global state
+/*
+ *  Set the intial state from the init init state. We also can set the final state from this
+ *  routine as well.
+ *
+ *  The final_final is not touched.
+ *
+ * @param setFinal   Boolean indicating whether you should set the final as well
+ */
+void Electrode_CSTR::setInitStateFromInitInit(bool setFinal)
+{  
+    Electrode_Integrator::setInitStateFromInitInit(setFinal);
+
+    RelativeExtentRxn_init_        = RelativeExtentRxn_init_init_;
+    onRegionBoundary_init_         = onRegionBoundary_init_init_;
+    xRegion_init_                  = xRegion_init_init_;
+    if (setFinal) {
+	RelativeExtentRxn_final_       = RelativeExtentRxn_init_init_;
+	onRegionBoundary_final_        = onRegionBoundary_init_init_;
+	xRegion_final_                 = xRegion_init_init_;
+    }
+}
+//====================================================================================================================
 void Electrode_CSTR::setInitInitStateFromFinalFinal()
 {
     Electrode_Integrator::setInitInitStateFromFinalFinal();

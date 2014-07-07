@@ -548,6 +548,17 @@ public:
      */
     virtual void setInitStateFromFinal(bool setInitInit = false);
 
+    //! Set the internal initial intermediate from the internal initial global state
+    /*!
+     *  Set the intial state from the init init state. We also can set the final state from this
+     *  routine as well.
+     *
+     *  The final_final is not touched.
+     *
+     * @param setFinal   Boolean indicating whether you should set the final as well
+     */
+    virtual void setInitStateFromInitInit(bool setFinal = false);
+
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
      *  (virtual function)
