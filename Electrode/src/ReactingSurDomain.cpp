@@ -289,7 +289,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
 
     RxnMolChange*   rmc = rmcVector[irxn];
     // could also get this from reactant and product stoichiometry
-    double nStoichElectrons = -  rmc->m_phaseChargeChange[metalPhaseRS_];
+    double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseRS_];
     *nStoich =  nStoichElectrons;
     *OCV = 0.0;
 
@@ -351,10 +351,10 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     return calcCurrentDensity(*overPotential, *nStoich, *io, *beta, m_temp);
 }
 //====================================================================================================================
-double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich,  double io, double beta, double temp) const
+double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const
 {
-     double exp1 = nu * Faraday * beta / (GasConstant * temp);
-     double exp2 = -nu * Faraday * (1.0 - beta) / (GasConstant * temp);
+     double exp1 = nu * nStoich * Faraday * beta / (GasConstant * temp);
+     double exp2 = -nu * nStoich * Faraday * (1.0 - beta) / (GasConstant * temp);
      double val = io * (exp(exp1) - exp(exp2));
      return val;
 }
