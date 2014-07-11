@@ -23,7 +23,7 @@ class RxnMolChange;
 namespace Cantera
 {
 class PhaseList;
-class OCV_Override_input;
+struct OCV_Override_input;
 
 class ReactingSurDomain : public Cantera::InterfaceKinetics
 {
