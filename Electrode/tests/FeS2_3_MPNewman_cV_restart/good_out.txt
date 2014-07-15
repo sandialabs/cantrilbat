@@ -1523,7 +1523,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                     -0.2606065   Volts
           beta                                                    0.5         beta
-          i_curr                                                  5.2213352E+05 coul/sec/m2
+          i_curr                                                 -5.2213352E+05 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1748,7 +1748,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1865,7 +1865,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1982,7 +1982,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2091,7 +2091,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2208,7 +2208,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2325,7 +2325,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2434,7 +2434,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2551,7 +2551,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2660,7 +2660,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2777,7 +2777,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -2886,7 +2886,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3003,7 +3003,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3112,7 +3112,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3229,7 +3229,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3338,7 +3338,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3455,7 +3455,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3564,7 +3564,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3681,7 +3681,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3790,7 +3790,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -3907,7 +3907,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4016,7 +4016,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4133,7 +4133,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4242,7 +4242,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4359,7 +4359,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4468,7 +4468,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4585,7 +4585,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4694,7 +4694,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4811,7 +4811,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -4920,7 +4920,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5037,7 +5037,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5146,7 +5146,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5263,7 +5263,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5372,7 +5372,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5489,7 +5489,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5598,7 +5598,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5715,7 +5715,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5824,7 +5824,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -5941,7 +5941,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6050,7 +6050,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6167,7 +6167,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6276,7 +6276,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6393,7 +6393,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6502,7 +6502,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6619,7 +6619,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6728,7 +6728,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6845,7 +6845,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -6954,7 +6954,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7071,7 +7071,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7180,7 +7180,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7297,7 +7297,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7406,7 +7406,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7523,7 +7523,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7632,7 +7632,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7749,7 +7749,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7858,7 +7858,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -7975,7 +7975,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8084,7 +8084,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8201,7 +8201,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8310,7 +8310,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8427,7 +8427,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8536,7 +8536,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8653,7 +8653,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8762,7 +8762,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8879,7 +8879,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -8988,7 +8988,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9105,7 +9105,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9214,7 +9214,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9331,7 +9331,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9440,7 +9440,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9557,7 +9557,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9666,7 +9666,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9783,7 +9783,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -9892,7 +9892,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10009,7 +10009,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10118,7 +10118,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10235,7 +10235,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10344,7 +10344,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10461,7 +10461,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10570,7 +10570,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10687,7 +10687,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10796,7 +10796,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -10913,7 +10913,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11022,7 +11022,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11139,7 +11139,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11248,7 +11248,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11365,7 +11365,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11474,7 +11474,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11591,7 +11591,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11700,7 +11700,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11817,7 +11817,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -11926,7 +11926,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12043,7 +12043,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12152,7 +12152,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12269,7 +12269,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12378,7 +12378,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12495,7 +12495,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12604,7 +12604,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12721,7 +12721,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12830,7 +12830,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -5.6512558E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -12947,7 +12947,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -13056,7 +13056,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -13173,7 +13173,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -13282,7 +13282,7 @@ oc[0] = 0
           nStoich                                                -1          
           nu                                                      1.110223e-15 Volts
           beta                                                    0.5         beta
-          i_curr                                                 -9.4187597E-09 coul/sec/m2
+          i_curr                                                  9.4187597E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
