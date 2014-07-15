@@ -246,9 +246,6 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensitie
     getDestructionRates(&speciesDestructionRates_[0]);
     return speciesDestructionRates_;
 }
-
-
-
 //====================================================================================================================
 double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn) 
 {
@@ -290,7 +287,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     RxnMolChange*   rmc = rmcVector[irxn];
     // could also get this from reactant and product stoichiometry
     double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseRS_];
-    *nStoich =  nStoichElectrons;
+    *nStoich = nStoichElectrons;
     *OCV = 0.0;
 
     int nr = nReactions();
