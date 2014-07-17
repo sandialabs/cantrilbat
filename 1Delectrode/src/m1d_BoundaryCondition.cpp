@@ -501,9 +501,13 @@ double BClineartable::value(double indVar, int interval)
     if (step_ >= stepMax_ - 1) {
         return depenVals_[step_];
     } else {
-        return depenVals_[step_]
+        //
+        // Do a linear interpolation within the step, step_ .  
+        //
+        double tmp = depenVals_[step_]
                 + (indVar - indepVals_[step_]) * (depenVals_[step_ + 1] - depenVals_[step_])
                         / (indepVals_[step_ + 1] - indepVals_[step_]);
+        return tmp;
     }
 }
 //=====================================================================================================================

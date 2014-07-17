@@ -259,15 +259,15 @@ public:
 
 protected:
 
-    //!vector of indepedent variable values at which
+    //! vector of independent variable values at which
     //! the dependent variable may change value
     vector_fp indepVals_;
 
-    //!vector of depedent variable values appropriate
+    //! vector of dependent variable values appropriate
     //! for time/space after the corresponding indepVals_
     vector_fp depenVals_;
 
-    //!vector of variable values for comparison purposes
+    //! vector of variable values for comparison purposes.
     //! For example, if current is input, these might be measured voltages
     vector_fp compareVals_;
 
@@ -331,15 +331,15 @@ public:
 
 protected:
 
-    //!vector of indepedent variable values at which
+    //! vector of indepedent variable values at which
     //! the dependent variable may change value
     vector_fp indepVals_;
 
-    //!vector of depedent variable values appropriate
+    //! vector of depedent variable values appropriate
     //! for time/space after the corresponding indepVals_
     vector_fp depenVals_;
 
-    //!vector of variable values for comparison purposes
+    //! vector of variable values for comparison purposes
     //! For example, if current is input, these might be measured voltages
     vector_fp compareVals_;
 

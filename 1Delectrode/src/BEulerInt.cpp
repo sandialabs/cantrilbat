@@ -1433,12 +1433,11 @@ double BEulerInt::integratePRE(double tout)
      */
     int istep = 0;
     int printStep = 0;
-    double print_time = m_t0;
+    double print_time = time_n;
     bool doPrintSoln = false;
-    time_current = m_t0;
-    time_n = m_t0;
-    time_nm1 = m_t0;
-    time_nm2 = m_t0;
+    time_current = time_n;
+    time_nm1 = time_n;
+    time_nm2 = time_n;
 
     /*
      *   Check for output time crossing a time region
