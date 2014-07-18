@@ -550,8 +550,8 @@ int BClineartable::findStep(double indVar, int interval)
             }
         }
     }
-    if (indVar == indepVals_[stepMax_]) {
-        step = stepMax_;
+    if (indVar >= indepVals_[stepMax_ - 1]) {
+        step = stepMax_ - 1;
     }
     if (step < 0) {
         throw CanteraError("BClineartable::findStep()",
