@@ -1416,6 +1416,7 @@ int BEulerInt::findTimeRegion(double val, bool start)
  */
 double BEulerInt::integratePRE(double tout)
 {
+    static int firstTime = 1;
     double time_current;
     bool weAreNotFinished = true;
     m_time_final = tout;
@@ -1438,6 +1439,10 @@ double BEulerInt::integratePRE(double tout)
     time_current = time_n;
     time_nm1 = time_n;
     time_nm2 = time_n;
+    int ievent = 1;
+    if (firstTime) {
+      ievent = 0;
+    }
 
     /*
      *   Check for output time crossing a time region
@@ -1460,7 +1465,7 @@ double BEulerInt::integratePRE(double tout)
     const Epetra_Vector_Owned & aabstol = m_func->atolVector();
     setTolerancesEpetra(m_reltol, aabstol);
 
-    m_func->evalTimeTrackingEqns(0, time_current, 0.0, *m_y_n, m_ydot_n);
+    m_func->evalTimeTrackingEqns(ievent, time_current, 0.0, *m_y_n, m_ydot_n);
 
     /*
      *
@@ -1473,7 +1478,7 @@ double BEulerInt::integratePRE(double tout)
      *       at t_nm1
      */
     if (m_print_flag > 0) {
-        m_func->writeSolution(0, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
+        m_func->writeSolution(ievent, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
 			      TimeDependentInitial, delta_t_np1);
     }
 
@@ -1487,7 +1492,7 @@ double BEulerInt::integratePRE(double tout)
      * Call a different user routine at the end of each step,
      * that will probably print to a file.
      */
-    m_func->user_out(0, time_current, 0.0, istep, *m_y_n, m_ydot_n);
+    m_func->user_out(ievent, time_current, 0.0, istep, *m_y_n, m_ydot_n);
 
 #ifdef DEBUG_MODE
     print_lvl3_Header();
@@ -1629,6 +1634,7 @@ double BEulerInt::integratePRE(double tout)
     if (flag != BE_SUCCESS) {
         throw BEulerErr(" BEuler error encountered.");
     }
+    firstTime = 0;
     return time_current;
 }
 //=====================================================================================================================
