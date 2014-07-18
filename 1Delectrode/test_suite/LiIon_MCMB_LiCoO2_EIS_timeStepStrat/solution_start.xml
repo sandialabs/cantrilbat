@@ -1,0 +1,1067 @@
+<ctml>
+  <simulation id="364">
+    <string title="timestamp"> Thu Jul 17 18:10:15 2014 </string>
+    <time type="time" units="s" vtype="float"> 0.000000000000000E+05 </time>
+    <delta_t type="time" units="s" vtype="float"> 5.181283615970169E+02 </delta_t>
+    <delta_t_np1 type="time" units="s" vtype="float"> 7.771925423955254E+02 </delta_t_np1>
+    <StepNumber type="time" vtype="integer"> 364 </StepNumber>
+    <domain id="SurDomain1D_0" numVariables="6" points="1" type="surface">
+      <X0 vtype="float"> 0.000000000000000E+00 </X0>
+      <X vtype="float"> 0.000000000000000E+00 </X>
+      <Xfraction vtype="float"> 0.000000000000000E+00 </Xfraction>
+      <Vel_axial(0) vtype="float"> 8.055603613753170E-12 </Vel_axial(0)>
+      <MF_sp(ECDMC) vtype="float"> 9.199999726423275E-01 </MF_sp(ECDMC)>
+      <MF_sp(Li+) vtype="float"> 4.000001367883625E-02 </MF_sp(Li+)>
+      <MF_sp(PF6-) vtype="float"> 4.000001367883625E-02 </MF_sp(PF6-)>
+      <Volt(Electrolyte) vtype="float"> 1.024912019669063E-02 </Volt(Electrolyte)>
+      <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
+      <Volts(AnodeCCVoltage) vtype="float"> 0.000000000000000E+00 </Volts(AnodeCCVoltage)>
+    </domain>
+    <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
+      <grid_data>
+        <X0 size="10" type="length" units="m" vtype="floatArray">
+          0.000000000000000E+00,   8.748888888888889E-05,   1.749777777777778E-04,
+          2.624666666666667E-04,   3.499555555555555E-04,   4.374444444444444E-04,
+          5.249333333333334E-04,   6.124222222222222E-04,   6.999111111111111E-04,
+          7.873999999999999E-04
+        </X0>
+        <Vel_axial(0) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          8.055603613753170E-12,   2.416680936831612E-11,   4.027801026914239E-11,
+          5.638920294052899E-11,   7.250038399961267E-11,   8.861155007243615E-11,
+          1.047226977798263E-10,   1.208338237405050E-10,   1.369449245774578E-10,
+          1.450004607453944E-10
+        </Vel_axial(0)>
+        <MF_sp(ECDMC) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          9.199999726423275E-01,   9.199999729554663E-01,   9.199999738948826E-01,
+          9.199999754605762E-01,   9.199999776525469E-01,   9.199999804707940E-01,
+          9.199999839153172E-01,   9.199999879861155E-01,   9.199999926831882E-01,
+          9.199999980065342E-01
+        </MF_sp(ECDMC)>
+        <MF_sp(Li+) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          4.000001367883625E-02,   4.000001352226686E-02,   4.000001305255870E-02,
+          4.000001226971188E-02,   4.000001117372656E-02,   4.000000976460297E-02,
+          4.000000804234141E-02,   4.000000600694224E-02,   4.000000365840591E-02,
+          4.000000099673289E-02
+        </MF_sp(Li+)>
+        <MF_sp(PF6-) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          4.000001367883625E-02,   4.000001352226686E-02,   4.000001305255870E-02,
+          4.000001226971188E-02,   4.000001117372656E-02,   4.000000976460297E-02,
+          4.000000804234141E-02,   4.000000600694224E-02,   4.000000365840591E-02,
+          4.000000099673289E-02
+        </MF_sp(PF6-)>
+        <Volt(Electrolyte) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          1.024912019669063E-02,   1.024912008737898E-02,   1.024911975944405E-02,
+          1.024911921288590E-02,   1.024911844770463E-02,   1.024911746390037E-02,
+          1.024911626147331E-02,   1.024911484042368E-02,   1.024911320075171E-02,
+          1.024911134245774E-02
+        </Volt(Electrolyte)>
+        <Volt(AnodeVoltage) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          0.000000000000000E+00,  -2.654433102087536E-11,  -4.996579063458680E-11,
+          -7.026437978194506E-11,  -8.744010005808102E-11,  -1.014929537138336E-10,
+          -1.124229436540234E-10,  -1.202300734384640E-10,  -1.249143472823695E-10,
+          -1.264757700555284E-10
+        </Volt(AnodeVoltage)>
+      </grid_data>
+      <timeState cellNumber="0" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   5.269106970904431E-07,   2.290916928236113E-08,
+            2.290916928236113E-08,   9.127600320482192E-06,   2.749708966554856E-06,
+            6.413747014999997E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            0.000000000000000E+00,   1.024912019669063E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 0 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 1.701299235296885E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 7.126385572222243E-08 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.096367011111114E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 2.137915671666666E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 1.187730928703705E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 8.806795879901913E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 1.145986182794128E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 2.653065948039382E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 2.291972365588257E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726413889835E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094185141665E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 3.610935824511241E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920515E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817870833959E+02,   3.858487958327077E+01,   1.280817657401486E+02,
+            3.858490092651804E+01,   1.280817532032157E+02,   3.858491346345094E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            5.704751247097170E-07,   1.718567057300946E-07,   6.013928540719591E-06,
+            1.811708603343271E-06,   2.543196655052884E-06,   7.661436574814915E-07
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="1" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821394540583E-06,   4.581833838487787E-08,
+            4.581833838487787E-08,   1.825520062602226E-05,   5.499417948051811E-06,
+            1.282749402999998E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -2.654433102087536E-11,   1.024912008737898E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 1 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593771E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444446E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222225E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333327E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407407E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359174538687E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588257E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306131910495701E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176514E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726419958959E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094191431855E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221871793191859E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920505E-06,   8.968502629920513E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817869785577E+02,   3.858487968810903E+01,   1.280817656353120E+02,
+            3.858490103135465E+01,   1.280817530983799E+02,   3.858491356828673E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950248485537E-06,   3.437134123940866E-07,   1.202785707159423E-05,
+            3.623417216531501E-06,   5.086393305942497E-06,   1.532287319126223E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="2" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821395619637E-06,   4.581833784534312E-08,
+            4.581833784534312E-08,   1.825520057662501E-05,   5.499417997449076E-06,
+            1.282749402999999E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -4.996579063458680E-11,   1.024911975944405E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 2 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593770E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444448E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222227E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333330E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407408E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359169772576E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588257E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306131958156816E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176514E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726440022886E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094212226657E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221872269802969E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920515E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817866319719E+02,   3.858488003469481E+01,   1.280817652887325E+02,
+            3.858490137793416E+01,   1.280817527517999E+02,   3.858491391486678E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950245398157E-06,   3.437134154814664E-07,   1.202785703904776E-05,
+            3.623417249077966E-06,   5.086393292179095E-06,   1.532287332889644E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="3" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821397418097E-06,   4.581833694612023E-08,
+            4.581833694612023E-08,   1.825520049277213E-05,   5.499418081301926E-06,
+            1.282749402999998E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -7.026437978194506E-11,   1.024911921288590E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 3 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593770E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444446E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222225E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333326E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407406E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359161682004E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588257E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306132039062522E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176514E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726474081835E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094247526259E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221873078860074E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920515E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817860436428E+02,   3.858488062302386E+01,   1.280817647004036E+02,
+            3.858490196626301E+01,   1.280817521634789E+02,   3.858491450318778E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950240157332E-06,   3.437134207222910E-07,   1.202785698379918E-05,
+            3.623417304326544E-06,   5.086393268815623E-06,   1.532287356253091E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="4" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821399935891E-06,   4.581833568720629E-08,
+            4.581833568720629E-08,   1.825520037446430E-05,   5.499418199609775E-06,
+            1.282749402999999E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -8.744010005808102E-11,   1.024911844770463E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 4 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593769E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444448E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222227E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333329E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407407E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359150267032E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588256E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306132153212245E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176512E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726522135524E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094297330402E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221874220357448E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920513E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817852135621E+02,   3.858488145310453E+01,   1.280817638703344E+02,
+            3.858490279633232E+01,   1.280817513334129E+02,   3.858491533325373E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950232762988E-06,   3.437134281166346E-07,   1.202785690584932E-05,
+            3.623417382276397E-06,   5.086393235851992E-06,   1.532287389216745E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="5" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821403173130E-06,   4.581833406860639E-08,
+            4.581833406860639E-08,   1.825520022170108E-05,   5.499418352373009E-06,
+            1.282749402999999E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -1.014929537138336E-10,   1.024911746390037E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 5 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593771E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444449E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222229E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333331E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407409E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359135527622E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588258E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306132300606364E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176516E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726584184140E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094361639256E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221875694298585E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920515E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666666E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817841417341E+02,   3.858488252493250E+01,   1.280817627985195E+02,
+            3.858490386814723E+01,   1.280817502616034E+02,   3.858491640506328E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950223215164E-06,   3.437134376644591E-07,   1.202785680519772E-05,
+            3.623417482928015E-06,   5.086393193288199E-06,   1.532287431780534E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="6" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821407129707E-06,   4.581833209031625E-08,
+            4.581833209031625E-08,   1.825520003448259E-05,   5.499418539591513E-06,
+            1.282749403000000E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -1.124229436540234E-10,   1.024911626147331E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 6 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593771E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444449E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222230E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333333E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407411E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359117463783E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588258E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306132481244772E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176516E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726660227618E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094440452773E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221877500682619E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920513E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666666E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817828281645E+02,   3.858488383850218E+01,   1.280817614849587E+02,
+            3.858490518170792E+01,   1.280817489480522E+02,   3.858491771861446E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950211513910E-06,   3.437134493657140E-07,   1.202785668184432E-05,
+            3.623417606281406E-06,   5.086393141124359E-06,   1.532287483944393E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="7" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821411805653E-06,   4.581832975233765E-08,
+            4.581832975233765E-08,   1.825519981280856E-05,   5.499418761265566E-06,
+            1.282749403000000E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -1.202300734384640E-10,   1.024911484042368E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 7 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593769E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444450E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222231E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000004E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333335E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407412E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359096075489E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588256E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306132695127724E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176512E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726750266073E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094533771066E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221879639512152E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000004E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920513E-06,   1.000000000000004E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817812728438E+02,   3.858488539382290E+01,   1.280817599296528E+02,
+            3.858490673701385E+01,   1.280817473927533E+02,   3.858491927391337E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950197659140E-06,   3.437134632204827E-07,   1.202785653578920E-05,
+            3.623417752336522E-06,   5.086393079360225E-06,   1.532287545708561E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="8" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   1.053821417200986E-06,   4.581832705467191E-08,
+            4.581832705467191E-08,   1.825519955667913E-05,   5.499419017394889E-06,
+            1.282749402999996E-09
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -1.249143472823695E-10,   1.024911320075171E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 8 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 3.402598470593769E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.425277114444444E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 2.192734022222221E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000002E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 4.275831343333322E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 2.375461857407402E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.761359071362755E+03 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 2.291972365588256E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.306132942254967E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 4.583944731176512E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726854299470E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094641594035E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221882110784685E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000002E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920513E-06,   1.000000000000002E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817794757713E+02,   3.858488719089537E+01,   1.280817581326025E+02,
+            3.858490853406415E+01,   1.280817455957109E+02,   3.858492107095572E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            1.140950181650851E-06,   3.437134792287720E-07,   1.202785636703243E-05,
+            3.623417921093285E-06,   5.086393007995846E-06,   1.532287617072833E-06
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="9" domain="0" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   5.269107116578348E-07,   2.290916199865899E-08,
+            2.290916199865899E-08,   9.127599633047101E-06,   2.749709653989928E-06,
+            6.413747014999988E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            -1.264757700555284E-10,   1.024911134245774E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 5 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 9 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 1.701299235296885E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 7.126385572222230E-08 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.096367011111112E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000003E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 2.137915671666663E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 1.187730928703703E-05 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 8.806795216627853E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 1.145986182794128E+03 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 2.653066611313426E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> 2.291972365588256E+02 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 2.233726972327816E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 2.315094763921808E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 3.610942457251722E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+          <numRCells vtype="integer"> 3 </numRCells>
+          <numKRSpecies vtype="integer"> 2 </numKRSpecies>
+          <numSPhases vtype="integer"> 1 </numSPhases>
+          <rnodePos size="3" units="m" vtype="floatArray">
+            0.000000000000000E+00,   7.937005259841008E-06,   1.000000000000003E-05
+          </rnodePos>
+          <cellBoundR size="3" units="m" vtype="floatArray">
+            3.968502629920506E-06,   8.968502629920513E-06,   1.000000000000003E-05
+          </cellBoundR>
+          <concTot_SPhase_Cell size="3" units="kmol/m3" vtype="floatArray">
+            1.666666666666667E+02,   1.666666666666667E+02,   1.666666666666667E+02
+          </concTot_SPhase_Cell>
+          <concKRSpecies_Cell size="6" units="kmol/m3" vtype="floatArray">
+            1.280817774369555E+02,   3.858488922971122E+01,   1.280817560938028E+02,
+            3.858491057286388E+01,   1.280817435569275E+02,   3.858492310973917E+01
+          </concKRSpecies_Cell>
+          <spMoles_KRsolid_Cell size="6" units="kmol" vtype="floatArray">
+            5.704750817445581E-07,   1.718567486952534E-07,   6.013928087786775E-06,
+            1.811709056276084E-06,   2.543196463515769E-06,   7.661438490185908E-07
+          </spMoles_KRsolid_Cell>
+        </electrodeState>
+      </timeState>
+    </domain>
+    <domain id="SurDomain1D_1" numVariables="6" points="1" type="surface">
+      <X0 vtype="float"> 7.873999999999999E-04 </X0>
+      <X vtype="float"> 7.873999999999999E-04 </X>
+      <Xfraction vtype="float"> 4.189189189189189E-01 </Xfraction>
+      <Vel_axial(0) vtype="float"> 1.450004607453944E-10 </Vel_axial(0)>
+      <MF_sp(ECDMC) vtype="float"> 9.199999980065342E-01 </MF_sp(ECDMC)>
+      <MF_sp(Li+) vtype="float"> 4.000000099673289E-02 </MF_sp(Li+)>
+      <MF_sp(PF6-) vtype="float"> 4.000000099673289E-02 </MF_sp(PF6-)>
+      <Volt(Electrolyte) vtype="float"> 1.024911134245774E-02 </Volt(Electrolyte)>
+      <Volt(AnodeVoltage) vtype="float"> -1.264757700555284E-10 </Volt(AnodeVoltage)>
+    </domain>
+    <domain id="BulkDomain1D_1" numVariables="5" points="10" type="bulk">
+      <grid_data>
+        <X0 size="10" type="length" units="m" vtype="floatArray">
+          7.873999999999999E-04,   8.410222222222221E-04,   8.946444444444443E-04,
+          9.482666666666667E-04,   1.001888888888889E-03,   1.055511111111111E-03,
+          1.109133333333333E-03,   1.162755555555555E-03,   1.216377777777778E-03,
+          1.270000000000000E-03
+        </X0>
+        <Vel_axial(0) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          1.450004607453944E-10,   1.450004607453944E-10,   1.450004607453944E-10,
+          1.450004607453944E-10,   1.450004607453944E-10,   1.450004607453944E-10,
+          1.450004607453944E-10,   1.450004607453944E-10,   1.450004607453944E-10,
+          1.369444846215747E-10
+        </Vel_axial(0)>
+        <MF_sp(ECDMC) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          9.199999980065342E-01,   9.199999989893897E-01,   9.199999999722450E-01,
+          9.200000009551005E-01,   9.200000019379558E-01,   9.200000029208113E-01,
+          9.200000039036667E-01,   9.200000048865220E-01,   9.200000058693775E-01,
+          9.200000068522328E-01
+        </MF_sp(ECDMC)>
+        <MF_sp(Li+) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          4.000000099673289E-02,   4.000000050530519E-02,   4.000000001387748E-02,
+          3.999999952244978E-02,   3.999999903102208E-02,   3.999999853959438E-02,
+          3.999999804816667E-02,   3.999999755673898E-02,   3.999999706531128E-02,
+          3.999999657388359E-02
+        </MF_sp(Li+)>
+        <MF_sp(PF6-) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          4.000000099673289E-02,   4.000000050530519E-02,   4.000000001387748E-02,
+          3.999999952244978E-02,   3.999999903102208E-02,   3.999999853959438E-02,
+          3.999999804816667E-02,   3.999999755673898E-02,   3.999999706531128E-02,
+          3.999999657388359E-02
+        </MF_sp(PF6-)>
+        <Volt(Electrolyte) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          1.024911134245774E-02,   1.024911099935880E-02,   1.024911065625986E-02,
+          1.024911031316091E-02,   1.024910997006196E-02,   1.024910962696301E-02,
+          1.024910928386405E-02,   1.024910894076509E-02,   1.024910859766612E-02,
+          1.024910825456715E-02
+        </Volt(Electrolyte)>
+      </grid_data>
+    </domain>
+    <domain id="SurDomain1D_2" numVariables="6" points="1" type="surface">
+      <X0 vtype="float"> 1.270000000000000E-03 </X0>
+      <X vtype="float"> 1.270000000000000E-03 </X>
+      <Xfraction vtype="float"> 6.756756756756757E-01 </Xfraction>
+      <Vel_axial(0) vtype="float"> 1.369444846215747E-10 </Vel_axial(0)>
+      <MF_sp(ECDMC) vtype="float"> 9.200000068522328E-01 </MF_sp(ECDMC)>
+      <MF_sp(Li+) vtype="float"> 3.999999657388359E-02 </MF_sp(Li+)>
+      <MF_sp(PF6-) vtype="float"> 3.999999657388359E-02 </MF_sp(PF6-)>
+      <Volt(Electrolyte) vtype="float"> 1.024910825456715E-02 </Volt(Electrolyte)>
+      <Volt(CathodeVoltage) vtype="float"> 3.900000979193587E+00 </Volt(CathodeVoltage)>
+    </domain>
+    <domain id="BulkDomain1D_2" numVariables="6" points="10" type="bulk">
+      <grid_data>
+        <X0 size="10" type="length" units="m" vtype="floatArray">
+          1.270000000000000E-03,   1.337733333333333E-03,   1.405466666666666E-03,
+          1.473200000000000E-03,   1.540933333333333E-03,   1.608666666666667E-03,
+          1.676400000000000E-03,   1.744133333333333E-03,   1.811866666666667E-03,
+          1.879600000000000E-03
+        </X0>
+        <Vel_axial(0) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          1.369444846215747E-10,   1.208325525588554E-10,   1.047207023652458E-10,
+          8.860899572560158E-11,   7.249749432594519E-11,   5.638625985396847E-11,
+          4.027535399953802E-11,   2.416483845519468E-11,   8.054774916660654E-12,
+          0.000000000000000E+00
+        </Vel_axial(0)>
+        <MF_sp(ECDMC) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          9.200000068522328E-01,   9.200000109735196E-01,   9.200000146099246E-01,
+          9.200000177614504E-01,   9.200000204281009E-01,   9.200000226098827E-01,
+          9.200000243068036E-01,   9.200000255188736E-01,   9.200000262461043E-01,
+          9.200000264885094E-01
+        </MF_sp(ECDMC)>
+        <MF_sp(Li+) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          3.999999657388359E-02,   3.999999451324020E-02,   3.999999269503769E-02,
+          3.999999111927485E-02,   3.999998978594953E-02,   3.999998869505864E-02,
+          3.999998784659817E-02,   3.999998724056320E-02,   3.999998687694784E-02,
+          3.999998675574529E-02
+        </MF_sp(Li+)>
+        <MF_sp(PF6-) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          3.999999657388359E-02,   3.999999451324020E-02,   3.999999269503769E-02,
+          3.999999111927485E-02,   3.999998978594953E-02,   3.999998869505864E-02,
+          3.999998784659817E-02,   3.999998724056320E-02,   3.999998687694784E-02,
+          3.999998675574529E-02
+        </MF_sp(PF6-)>
+        <Volt(Electrolyte) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          1.024910825456715E-02,   1.024910681589232E-02,   1.024910554648187E-02,
+          1.024910444633495E-02,   1.024910351545009E-02,   1.024910275382513E-02,
+          1.024910216145730E-02,   1.024910173834315E-02,   1.024910148447858E-02,
+          1.024910139985886E-02
+        </Volt(Electrolyte)>
+        <Volt(CathodeVoltage) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+          3.900000979193587E+00,   3.900000967104493E+00,   3.900000930837239E+00,
+          3.900000870391950E+00,   3.900000785768840E+00,   3.900000676968217E+00,
+          3.900000543990482E+00,   3.900000386836129E+00,   3.900000205505742E+00,
+          3.900000000000000E+00
+        </Volt(CathodeVoltage)>
+      </grid_data>
+      <timeState cellNumber="0" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   4.079308774747018E-07,   1.773612345173159E-08,
+            1.773612345173159E-08,   2.632306175978201E-06,   1.131132932707580E-06,
+            4.965481560000022E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000979193587E+00,   1.024910825456715E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 0 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 1.317134891842761E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 5.517201733333355E-08 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 8.488002666666699E-08 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 1.655160520000007E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 3.763439108685781E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 8.735074027399035E+01 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 3.631166886466466E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.426476829820176E+01 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.376985204413802E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327498609880675E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831837970665403E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 3.610893386665668E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="1" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617586144177E-07,   3.547224507096706E-08,
+            3.547224507096706E-08,   5.264612596778777E-06,   2.262265620592730E-06,
+            9.930963119999979E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000967104493E+00,   1.024910681589232E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 1 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685506E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666663E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333328E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321039999991E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371507E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.747014569262071E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932885E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085295602181754E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225817E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327498923712946E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831838804676196E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221789135508671E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="2" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617618482152E-07,   3.547224345406888E-08,
+            3.547224345406888E-08,   5.264613560945978E-06,   2.262264656425564E-06,
+            9.930963120000043E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000930837239E+00,   1.024910554648187E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 2 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685523E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666668E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333335E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321040000008E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371542E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.747013638982149E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932932E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085296532461694E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225815E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327500159656876E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831842089203232E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221798438308208E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="3" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617646508280E-07,   3.547224205276884E-08,
+            3.547224205276884E-08,   5.264615244463822E-06,   2.262262972907694E-06,
+            9.930963119999979E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000870391950E+00,   1.024910444633495E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 3 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685506E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666664E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333329E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321039999993E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371516E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.747012014634248E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932885E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085298156809576E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225817E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327502317720054E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831847824266806E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221814681786785E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="4" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617670222201E-07,   3.547224086706330E-08,
+            3.547224086706330E-08,   5.264617647342793E-06,   2.262260570028765E-06,
+            9.930963120000043E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000785768840E+00,   1.024910351545009E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 4 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685523E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666670E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333339E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321040000012E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371558E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.747009696208432E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932932E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085300475235411E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225815E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327505397915807E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831856009902160E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221837866045088E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="5" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617689624394E-07,   3.547223989695139E-08,
+            3.547223989695139E-08,   5.264620769597645E-06,   2.262257447773908E-06,
+            9.930963120000043E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000676968217E+00,   1.024910275382513E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 5 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685523E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666670E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333338E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321040000012E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371553E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.747006683690333E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932932E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085303487753510E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225815E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327509400263149E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831866646159904E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221867991226225E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="6" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617704715067E-07,   3.547223914243011E-08,
+            3.547223914243011E-08,   5.264624611247701E-06,   2.262253606123818E-06,
+            9.930963119999979E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000543990482E+00,   1.024910216145730E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 6 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685506E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666665E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333330E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000002E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321039999996E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371520E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.747002977061307E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932885E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085307194382518E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225817E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327514324786831E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831879733105860E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221905057516096E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="7" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617715493657E-07,   3.547223860349227E-08,
+            3.547223860349227E-08,   5.264629172316767E-06,   2.262249045054776E-06,
+            9.930963120000043E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000386836129E+00,   1.024910173834315E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 7 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685523E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666668E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333336E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321040000010E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371543E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.746998576298517E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932932E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085311595145326E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225815E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327520171517298E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831895270820781E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.221949065144553E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="8" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   8.158617721960697E-07,   3.547223828013449E-08,
+            3.547223828013449E-08,   5.264634452833005E-06,   2.262243764538514E-06,
+            9.930963119999979E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000205505742E+00,   1.024910148447858E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 8 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 2.634269783685506E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 1.103440346666665E-07 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 1.697600533333330E-07 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000002E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 3.310321039999996E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 7.526878217371520E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 1.746993481374614E+02 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 7.262333772932885E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 1.085316690069211E+02 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.159115191225817E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327526940490739E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831913259401070E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 7.222000014383195E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+      <timeState cellNumber="9" domain="2" type="t_final">
+        <time> 0.0 </time>
+        <electrodeState>
+          <spMoles size="7" units="kmol" vtype="floatArray">
+            0.000000000000000E+00,   4.079308862058196E-07,   1.773611908617556E-08,
+            1.773611908617556E-08,   2.632320226414574E-06,   1.131118882271197E-06,
+            4.965481560000022E-10
+          </spMoles>
+          <phaseVoltages size="4" units="volt" vtype="floatArray">
+            3.900000000000000E+00,   1.024910139985886E-02,   0.000000000000000E+00,
+            0.000000000000000E+00
+          </phaseVoltages>
+          <temperature units="Kelvin" vtype="float"> 2.981500000000000E+02 </temperature>
+          <pressure units="Pa" vtype="float"> 1.013250000000000E+05 </pressure>
+          <electrodeModelType vtype="integer"> 0 </electrodeModelType>
+          <electrodeDomainNumber vtype="integer"> 2 </electrodeDomainNumber>
+          <electrodeCellNumber vtype="integer"> 9 </electrodeCellNumber>
+          <particleNumberToFollow vtype="float"> 1.317134891842761E+07 </particleNumberToFollow>
+          <electrodeSolidVolume units="m3" vtype="float"> 5.517201733333341E-08 </electrodeSolidVolume>
+          <grossVolume units="m3" vtype="float"> 8.488002666666679E-08 </grossVolume>
+          <radiusExterior units="m3" vtype="float"> 1.000000000000001E-05 </radiusExterior>
+          <surfaceAreaRS size="1" units="m2" vtype="floatArray"> 1.655160520000005E-02 </surfaceAreaRS>
+          <electrodeMoles units="kmol" vtype="float"> 3.763439108685772E-06 </electrodeMoles>
+          <electrodeCapacityType vtype="integer"> 1 </electrodeCapacityType>
+          <capacityLeft units="coulomb" vtype="float"> 8.734938461290959E+01 </capacityLeft>
+          <capacityInitial units="coulomb" vtype="float"> 3.631166886466466E+02 </capacityInitial>
+          <depthOfDischarge units="coulomb" vtype="float"> 5.426612395928258E+01 </depthOfDischarge>
+          <depthOfDischargeStarting units="coulomb" vtype="float"> -3.376985204413802E+03 </depthOfDischargeStarting>
+          <relativeElectronsDischargedPerMole vtype="float"> 7.327534631749031E+07 </relativeElectronsDischargedPerMole>
+          <relativeDepthOfDischarge vtype="float"> 3.831933698957768E-01 </relativeDepthOfDischarge>
+          <capacityDischargedToDate units="coulomb" vtype="float"> 3.611028952773897E+01 </capacityDischargedToDate>
+          <deltaTsubcycle_init_next units="s" vtype="float"> 5.181283615970169E+02 </deltaTsubcycle_init_next>
+        </electrodeState>
+      </timeState>
+    </domain>
+    <domain id="SurDomain1D_3" numVariables="6" points="1" type="surface">
+      <X0 vtype="float"> 1.879600000000000E-03 </X0>
+      <X vtype="float"> 1.879600000000000E-03 </X>
+      <Xfraction vtype="float"> 1.000000000000000E+00 </Xfraction>
+      <Vel_axial(0) vtype="float"> 0.000000000000000E+00 </Vel_axial(0)>
+      <MF_sp(ECDMC) vtype="float"> 9.200000264885094E-01 </MF_sp(ECDMC)>
+      <MF_sp(Li+) vtype="float"> 3.999998675574529E-02 </MF_sp(Li+)>
+      <MF_sp(PF6-) vtype="float"> 3.999998675574529E-02 </MF_sp(PF6-)>
+      <Volt(Electrolyte) vtype="float"> 1.024910139985886E-02 </Volt(Electrolyte)>
+      <Volt(CathodeVoltage) vtype="float"> 3.900000000000000E+00 </Volt(CathodeVoltage)>
+      <Volts(CurrentCCVoltage) vtype="float"> 3.900000000000000E+00 </Volts(CurrentCCVoltage)>
+    </domain>
+  </simulation>
+</ctml>
