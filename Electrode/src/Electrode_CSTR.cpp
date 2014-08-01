@@ -2846,7 +2846,7 @@ double Electrode_CSTR::l0normM(const std::vector<double>& v1, const std::vector<
  */
 void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
 {
-    Electrode::setInitStateFromFinal(setInitInit);
+    Electrode_Integrator::setInitStateFromFinal(setInitInit);
 
     RelativeExtentRxn_init_        = RelativeExtentRxn_final_;
     RelativeExtentRxn_final_final_ = RelativeExtentRxn_final_;
