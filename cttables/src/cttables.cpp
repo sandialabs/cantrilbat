@@ -1629,6 +1629,14 @@ int main(int argc, char** argv) {
 
     for (int iphase = 0; iphase < rVolDomain->numPhases; iphase++) {
       gThermoMainPhase = rVolDomain->tpList[iphase];
+      //
+      // Change the default behavior of phases to print out INF's and not to change the numbers.
+      //
+      // Eventually we'll make a keyline command for this.
+      //
+      gThermoMainPhase->realNumberRangeBehavior_ = DONOTHING_CTRB;
+      //gThermoMainPhase->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
+      //gThermoMainPhase->realNumberRangeBehavior_ = THROWON_OVERFLOW_CTRB;
       int iph = pl->getGlobalPhaseIndex(gThermoMainPhase);
 
       int nSpecies = gThermoMainPhase->nSpecies();
