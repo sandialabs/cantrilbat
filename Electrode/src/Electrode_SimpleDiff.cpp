@@ -383,6 +383,10 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     /*
      *  Get the volume phases which are distributed across the radial region
      */
+    if (ei->rregions_.size() < 1) {
+       throw CanteraError("Electrode_SimpleDiff::electrode_model_create()",
+                          "The region size has been uninitialized or is zero");
+    }
     ELECTRODE_RadialRegion_KEY_INPUT& r0 = ei->rregions_[0];
     /*
      *  Copy the solid phases to this object.
