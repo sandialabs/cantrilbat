@@ -89,7 +89,7 @@ GPROF    = -G
 
 LIBTAR = @cta_libdir@/libctpadds.a
 
-all: .depends libctpadds.a 
+all: .depends libctpadds.a $(OBJS_UNUSED)
 
 .SUFFIXES: .src .prj .d
 
@@ -148,14 +148,17 @@ CTLIB_DEP  = $(CANTERA_LIBDIR)/libthermo.a \
 CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
 
 OBJ_CTPADDS =  importAllCTML.o  SolidKinetics.o  \
-               ElectrodeKinetics.o ElectrolyteKinetics.o \
+               ElectrolyteKinetics.o \
                ReactionDataElectrode.o
 
 HDR_CTPADDS =  importAllCTML.h  SolidKinetics.h  \
-               ElectrodeKinetics.h ElectrolyteKinetics.h \
+               ElectrolyteKinetics.h \
                ReactionDataElectrode.h
 
-
+#
+# Unused objects that we want to keep around for perhaps later implementation
+#
+OBJS_UNUSED = ElectrodeKinetics.o
 
 ###########################################################################
 # section to set up depends

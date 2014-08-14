@@ -323,18 +323,17 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     *beta = m_beta[irxn];
     double omb = 1.0 - b;
 
-    int m_nTotalSpecies = m_conc.size();
 
-    for (int k = 0; k < m_nTotalSpecies; k++) {
+    for (size_t k = 0; k < m_kk; k++) {
         doublereal reactCoeff = reactantStoichCoeff(k, irxn);
         doublereal prodCoeff =  productStoichCoeff(k, irxn);
 
         if (reactCoeff != 0.0) {
-            iO *= pow(m_conc[k], reactCoeff*omb);
+            iO *= pow(m_actConc[k], reactCoeff*omb);
             iO *= pow(m_StandardConc[k], reactCoeff*b);
         }
         if (prodCoeff != 0.0) {
-            iO *= pow(m_conc[k], prodCoeff*b);
+            iO *= pow(m_actConc[k], prodCoeff*b);
             iO /= pow(m_StandardConc[k], prodCoeff*omb);
         }
     }

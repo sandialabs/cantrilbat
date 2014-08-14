@@ -44,7 +44,7 @@
 #include "cantera/base/ctml.h"
 #include "cantera/kinetics/InterfaceKinetics.h"
 
-#include "ElectrodeKinetics.h"
+//#include "ElectrodeKinetics.h"
 #include "ElectrolyteKinetics.h"
 
 #include <vector>
@@ -254,9 +254,12 @@ namespace Cantera {
 	string kModel = kinNode.attrib("model");
 	if (kModel == "Electrode") {
 	  popError();
-	  ElectrodeKinetics *ek_ptr = new ElectrodeKinetics();
-	  ek_ptr->importKinetics(*xmlPhase, tpList);
-	  kin = ek_ptr;
+	  //ElectrodeKinetics *ek_ptr = new ElectrodeKinetics();
+          throw CanteraError(" processExpandedInterfaceKinetics", "Electrode model selected");
+	  //ek_ptr->importKinetics(*xmlPhase, tpList);
+	  //kin = ek_ptr;
+          kin = 0;
+	  popError();
 	} else if (kModel == "NONE") {
 	  kin = 0;
 	  popError();

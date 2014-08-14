@@ -102,7 +102,8 @@ namespace Cantera {
    * the activation energies are modified by the potential difference.
    * (see, for example, ...). This method applies this correction.
    */
-  void ElectrodeKinetics::applyButlerVolmerCorrection(doublereal* kf) {
+  void ElectrodeKinetics::applyVoltageKfwdCorrection(doublereal* const kf) {
+
     size_t i;
 
     int n, nsp, k, ik=0;

@@ -225,7 +225,16 @@ namespace Cantera {
     void installReagents(const ReactionData& r);
 
 
-    void applyButlerVolmerCorrection(doublereal* kf);
+    //! Apply modifications for the forward reaction rate for interfacial charge transfer reactions
+    /*!
+     * For reactions that transfer charge across a potential difference,
+     * the activation energies are modified by the potential difference.
+     * (see, for example, ...). This method applies this correction.
+     *
+     * @param kfwd  Vector of forward reaction rate constants on which to have
+     *              the voltage correction applied
+     */
+    void applyVoltageKfwdCorrection(doublereal* const kfwd);
 
   };
 }

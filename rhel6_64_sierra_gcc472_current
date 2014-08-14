@@ -1,25 +1,8 @@
 #!/bin/sh
 #
 #
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/CanteraSCON
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera-1.8_liquidTransportDevelop  
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera_trunk_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk
 CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2750_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2804_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2811_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_r2820_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_r2823_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_r2824_dbg
 
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2676_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2677_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2713_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2717_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_2720_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_dbg_2771
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc424/cantera-1.8_liquidTransportDevelop_541
 export CANTERA_INSTALL_DIR
 #
 #CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
