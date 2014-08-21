@@ -201,7 +201,7 @@ public:
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& vd);
 
     //! Vector of additional information about each reaction
-    std::vector<RxnMolChange*> rmcVector;
+    //std::vector<RxnMolChange*> rmcVector;
 
     //! Number of phases within the class
     int numPhases_;
@@ -302,7 +302,7 @@ public:
     /*!
      *  If there is an OCV override, the correct replaced chemical potential is storred here.
      */
-    std::vector<doublereal> m_mu;
+    //std::vector<doublereal> m_mu;
 
     //!  Kinetic species index for species
     int kReplacedSpeciesRS_;

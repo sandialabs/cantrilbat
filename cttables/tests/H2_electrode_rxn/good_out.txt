@@ -444,7 +444,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Pt_H2electrons"
 
         There are 3 reactants: H+ Pt_electron pt_site 
         There is one product: H*_site 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
         This reaction is charge transfer reaction, n = 1
@@ -542,7 +542,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "Pt_H2electrons"
 
         There are 3 reactants: pt_site pt_site H2 
         There are 2 products: H*_site H*_site 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -583,7 +583,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
 
         There are 2 reactants: pt_site H2 
         There are 3 products: H*_site H+ Pt_electron 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
         This reaction is charge transfer reaction, n = 1

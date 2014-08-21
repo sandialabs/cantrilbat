@@ -15,7 +15,7 @@
     <thermo model="Surface">
       <site_density units="mol/cm2">3e-09</site_density>
     </thermo>
-    <kinetics model="Electrode"/>
+    <kinetics model="Interface"/>
     <reactionArray datasrc="#reaction_data"/>
 
     <transport model="None"/>

@@ -104,7 +104,7 @@ INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
-OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.o \
+OBJ_CTAPPLBASE =  PhaseList.o  ReactingSurDomain.o  \
                   importPL.o Electrode.o Electrode_input.o ApplBase_print.o \
 	          Electrode_SimplePhaseChangeDiffusion.o Electrode_Exception.o  \
                   Electrode_InfCapacity.o Electrode_MP_RxnExtent.o Electrode_Factory.o \
@@ -115,7 +115,7 @@ OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.
                   Electrode_SuccessiveSubstitution.o Electrode_Equilibrium.o Electrode_Jacobian.o \
                   Electrode_MP_RxnExtent_FeS2.o Electrode_FD_Jacobian.o  RSD_OCVmodel.o
 
-HDR_CTAPPLBASE =  PhaseList.h RxnMolChange.h ReactingSurDomain.h ExtraGlobalRxn.h \
+HDR_CTAPPLBASE =  PhaseList.h  ReactingSurDomain.h  \
                   importPL.h Electrode.h Electrode_input.h ApplBase_print.h Electrode_defs.h \
 	          Electrode_SimplePhaseChangeDiffusion.h  Electrode_Exception.h \
                   Electrode_InfCapacity.h Electrode_MP_RxnExtent.h Electrode_Factory.h \

@@ -35,7 +35,7 @@
 #include "cantera/kinetics/InterfaceKinetics.h"
 #include "cantera/thermo/SurfPhase.h"
 #include "cantera/kinetics/KineticsFactory.h"
-#include "ExtraGlobalRxn.h"
+#include "cantera/kinetics/ExtraGlobalRxn.h"
 
 #include <iostream>
 #include <new>
@@ -459,7 +459,7 @@ void printKineticsTable(PhaseList *pl, int j,
 			DenseMatrix& EarevdivR_Table,
 			DenseMatrix& kfwdPrime_Table, 
 			DenseMatrix& krevPrime_Table,
-			RxnMolChange *rmc) {
+			Cantera::RxnMolChange *rmc) {
 
     /*
      *  Get the species data object from the Mixture object
@@ -671,7 +671,9 @@ void printKineticsTable(PhaseList *pl, int j,
       if (rmc->m_ChargeTransferInRxn != 0.0) {
 	printf(" |");
 	printf("  %12.5g", rmc->m_phaseChargeChange[iph]);
-	printf("      %12.5g", rmc->m_phasePotentials[iph]);
+        ThermoPhase& tpp = kin.thermo(iph);
+        double volts = tpp.electricPotential();
+	printf("      %12.5g", volts);
       }
       printf(" |\n");
     }
@@ -896,7 +898,7 @@ void doKineticsTablesHomog(PhaseList *pl, Cantera::Kinetics *gKinetics,
 /*************************************************************************/
 
 
-RxnMolChange::RxnMolChange(Kinetics *kinPtr, int irxn) :
+RxnMolChangeLocal::RxnMolChangeLocal(Kinetics *kinPtr, int irxn) :
   m_nPhases(0),
   m_kinBase(kinPtr),
   m_iRxn(irxn),
@@ -958,7 +960,7 @@ RxnMolChange::RxnMolChange(Kinetics *kinPtr, int irxn) :
 
 }
 
-RxnMolChange::RxnMolChange(Kinetics *kinPtr, ExtraGlobalRxn *egr) :
+RxnMolChangeLocal::RxnMolChangeLocal(Kinetics *kinPtr, ExtraGlobalRxn *egr) :
   m_nPhases(0),
   m_kinBase(kinPtr),
   m_iRxn(-1),
@@ -1019,7 +1021,7 @@ RxnMolChange::RxnMolChange(Kinetics *kinPtr, ExtraGlobalRxn *egr) :
 }
 
 
-RxnMolChange::~RxnMolChange() {
+RxnMolChangeLocal::~RxnMolChangeLocal() {
 
 }
 
@@ -1104,9 +1106,14 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
     }
   }
  
-  double phi0Metal = rmc->m_phasePotentials[iMetal];
-  double phi0Soln = rmc->m_phasePotentials[iSoln];
-  double V0 = rmc->m_phasePotentials[iMetal] - rmc->m_phasePotentials[iSoln];
+  tp = &(iK->thermo(iMetal));
+
+  double phi0Metal = (iK->thermo(iMetal)).electricPotential();   
+  //double phi0Metal = rmc->m_phasePotentials[iMetal];
+  double phi0Soln = (iK->thermo(iSoln)).electricPotential();
+  //double phi0Soln = rmc->m_phasePotentials[iSoln];
+  double V0 = phi0Metal - phi0Soln; 
+  //double V0 = rmc->m_phasePotentials[iMetal] - rmc->m_phasePotentials[iSoln];
   tpMetal = &(iK->thermo(iMetal));
   ThermoPhase *tpSoln =  &(iK->thermo(iSoln));
   int iSurf = iK->reactionPhaseIndex();
@@ -1217,7 +1224,8 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
 
   for (int iV = 0; iV < npts; iV++) {
     Voltage = (*VV_ptr)[iV];
-    phiMetal = Voltage + rmc->m_phasePotentials[iSoln];
+    phiMetal = Voltage +  (iK->thermo(iSoln)).electricPotential();
+    //phiMetal = Voltage + rmc->m_phasePotentials[iSoln];
     tpMetal->setElectricPotential(phiMetal);
 
     iK->getFwdRatesOfProgress(DATA_PTR(Rfwd));
@@ -1267,7 +1275,8 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
 
   for (int iV = 0; iV < npts; iV++) {
     Voltage = (*VV_ptr)[iV];
-    phiMetal = Voltage + rmc->m_phasePotentials[iSoln];
+    phiMetal = Voltage + (iK->thermo(iSoln)).electricPotential();
+    //phiMetal = Voltage + rmc->m_phasePotentials[iSoln];
     tpMetal->setElectricPotential(phiMetal);
     iK->advanceCoverages(100.0);
     iK->getFwdRatesOfProgress(DATA_PTR(Rfwd));
@@ -1653,7 +1662,9 @@ void printGERKineticsTable(PhaseList *pl, int iGER,
     if (rmc->m_ChargeTransferInRxn != 0.0) {
       printf(" |");
       printf("  %12.5g", rmc->m_phaseChargeChange[iph]);
-      printf("      %12.5g", rmc->m_phasePotentials[iph]);
+      ThermoPhase& tpp = (kin.thermo(iph));
+      double volts = tpp.electricPotential();
+      printf("      %12.5g", volts);
     }
     printf(" |\n");
   }
@@ -1815,12 +1826,14 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
       }
     }
   }
-  double nStoichElectrons = - rmc->m_phaseChargeChange[iMetal];
-  double phi0Metal = rmc->m_phasePotentials[iMetal];
-  double phi0Soln = rmc->m_phasePotentials[iSoln];
-  double V0 = rmc->m_phasePotentials[iMetal] - rmc->m_phasePotentials[iSoln];
   tpMetal = &(iK->thermo(iMetal));
   ThermoPhase *tpSoln =  &(iK->thermo(iSoln));
+  double nStoichElectrons = - rmc->m_phaseChargeChange[iMetal];
+  double phi0Metal = tpMetal->electricPotential();
+  //double phi0Metal = rmc->m_phasePotentials[iMetal];
+  double phi0Soln = tpSoln->electricPotential();
+  //double phi0Soln = rmc->m_phasePotentials[iSoln];
+  double V0 = phi0Metal -  phi0Soln;
   int iSurf = iK->reactionPhaseIndex();
   ThermoPhase *tps = &(iK->thermo(iSurf));
   SurfPhase *tpSurface = dynamic_cast<SurfPhase *>(tps);
@@ -1966,7 +1979,8 @@ void processGERCurrentVsPotTable(RxnMolChange *rmc,
   
   for (int iV = 0; iV < npts; iV++) {
     Voltage = (*VV_ptr)[iV];
-    phiMetal = (*VV_ptr)[iV] + rmc->m_phasePotentials[iSoln];
+    phiMetal = (*VV_ptr)[iV] + (iK->thermo(iSoln)).electricPotential();
+    //phiMetal = (*VV_ptr)[iV] + rmc->m_phasePotentials[iSoln];
     if (fabs(Voltage) < 1.0E-10) Voltage = 0.0;
     tpMetal->setElectricPotential(phiMetal);
     iK->advanceCoverages(1000.0);

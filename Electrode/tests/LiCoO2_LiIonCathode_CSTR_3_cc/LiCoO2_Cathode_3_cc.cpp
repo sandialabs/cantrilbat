@@ -24,8 +24,6 @@
 #include "Electrode_input.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
 #include "Electrode_Factory.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 
 #include <sstream>
 #include <iomanip>

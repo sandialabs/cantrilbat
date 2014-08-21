@@ -450,7 +450,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
 
         There is one reactant: Zn(S) 
         There are 3 products: Zn++ electronSHE electronSHE 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
         This reaction is charge transfer reaction, n = 2

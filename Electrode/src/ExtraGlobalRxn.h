@@ -19,7 +19,7 @@ namespace Cantera
 {
 
 //!  Class describing a global reaction, which is defined as
-//!  a linear combination of elementary reactions creating a global stoichiometric result
+//!  a linear combination of actuals reactions creating a global stoichiometric result
 /*!
  *   This is useful for defining thermodynamics of global processes that occur
  *   on a surface or in a homogeneous phase.

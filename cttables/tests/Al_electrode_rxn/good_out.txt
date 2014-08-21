@@ -406,7 +406,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
 
         There is one reactant: Al(S) 
         There are 4 products: Al+++ electronSHE electronSHE electronSHE 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
         This reaction is charge transfer reaction, n = 3

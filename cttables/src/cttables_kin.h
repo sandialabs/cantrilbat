@@ -17,14 +17,16 @@
 #include "cttables.h"
 #include "TemperatureTable.h"
 #include "PhaseList.h"
+#include "cantera/kinetics/RxnMolChange.h"
+#include "cantera/kinetics/ExtraGlobalRxn.h"
 namespace Cantera {
   class ExtraGlobalRxn;
 }
-class RxnMolChange {
+class RxnMolChangeLocal {
 public:
-  RxnMolChange(Cantera::Kinetics *kinPtr, int irxn);
-  virtual ~RxnMolChange();
-  RxnMolChange(Cantera::Kinetics *kinPtr, Cantera::ExtraGlobalRxn *egr);
+  RxnMolChangeLocal(Cantera::Kinetics *kinPtr, int irxn);
+  virtual ~RxnMolChangeLocal();
+  RxnMolChangeLocal(Cantera::Kinetics *kinPtr, Cantera::ExtraGlobalRxn *egr);
 
   std::vector<double> m_phaseMoleChange;
   std::vector<double> m_phaseMassChange;
@@ -87,7 +89,7 @@ void doKineticsTablesHetero(Cantera::PhaseList *pl,
 			    Cantera::InterfaceKinetics *gKinetics,   
 			    TemperatureTable &TT);
 
-void processCurrentVsPotTable(RxnMolChange *rmc,
+void processCurrentVsPotTable(Cantera::RxnMolChange *rmc,
 			      Cantera::PhaseList *pl, int irxn,
 			      TemperatureTable &TT,
 			      Cantera::Kinetics &kin, 
@@ -113,10 +115,10 @@ void printGERKineticsTable(Cantera::PhaseList *pl, int j,
 			   TemperatureTable& TT,
 			   Cantera::Kinetics &kin,
 			   Cantera::ExtraGlobalRxn &egr,
-			   RxnMolChange *rmc,
+			   Cantera::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts);
 
-void processGERCurrentVsPotTable(RxnMolChange *rmc,
+void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc,
 				 Cantera::PhaseList *pl, int irxn,
 				 TemperatureTable &TT,
 				 Cantera::Kinetics &kin,  

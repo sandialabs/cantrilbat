@@ -443,7 +443,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "gas"
 
         There are 2 reactants: Csoot-H H 
         There are 2 products: H2 Csoot-* 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -486,7 +486,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "gas"
 
         There are 2 reactants: H Csoot-* 
         There is one product: Csoot-H 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is not reversible
 
                ----------------------------------------------------
@@ -529,7 +529,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "gas"
 
         There are 2 reactants: Csoot-* C2H2 
         There are 4 products: Csoot-H H CB-CB3 CB-CB3 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is not reversible
 
                ----------------------------------------------------

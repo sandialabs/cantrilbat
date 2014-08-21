@@ -9,8 +9,8 @@
 #include "Electrode_input.h"
 #include "cantera/numerics/RootFind.h"
 #include "cantera/numerics/solveProb.h"
-#include "RxnMolChange.h"
 #include "ApplBase_print.h"
+#include "cantera/kinetics/ExtraGlobalRxn.h"
 
 using namespace Cantera;
 using namespace std;

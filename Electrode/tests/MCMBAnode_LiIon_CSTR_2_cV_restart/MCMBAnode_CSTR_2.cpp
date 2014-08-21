@@ -23,8 +23,6 @@
 
 #include "Electrode_input.h"
 #include "Electrode_CSTR_MCMBAnode.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 
 #include <sstream>
 #include <iomanip>

@@ -628,7 +628,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "gas"
 
         There are 2 reactants: H c6HH 
         There are 2 products: H2 c6H* 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -671,7 +671,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "gas"
 
         There are 2 reactants: c6H* H 
         There is one product: c6HH 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -714,7 +714,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "gas"
 
         There are 2 reactants: c6H* CH3 
         There is one product: c6HM 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -757,7 +757,7 @@ INFORMATION TABLE FOR Reaction "3" IN PHASE "gas"
 
         There are 2 reactants: H c6HM 
         There are 2 products: H2 c6*M 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -800,7 +800,7 @@ INFORMATION TABLE FOR Reaction "4" IN PHASE "gas"
 
         There are 2 reactants: H c6*M 
         There is one product: c6HM 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -843,7 +843,7 @@ INFORMATION TABLE FOR Reaction "5" IN PHASE "gas"
 
         There are 2 reactants: H c6HM 
         There are 2 products: H2 c6HM* 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -886,7 +886,7 @@ INFORMATION TABLE FOR Reaction "6" IN PHASE "gas"
 
         There are 2 reactants: c6HM* H 
         There is one product: c6HM 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -929,7 +929,7 @@ INFORMATION TABLE FOR Reaction "7" IN PHASE "gas"
 
         There is one reactant: c6HM* 
         There is one product: c6*M 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -972,7 +972,7 @@ INFORMATION TABLE FOR Reaction "8" IN PHASE "gas"
 
         There are 2 reactants: c6HM* H 
         There are 2 products: c6H* CH3 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1015,7 +1015,7 @@ INFORMATION TABLE FOR Reaction "9" IN PHASE "gas"
 
         There are 2 reactants: c6HM* H 
         There are 2 products: H2 c6B 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1058,7 +1058,7 @@ INFORMATION TABLE FOR Reaction "10" IN PHASE "gas"
 
         There are 2 reactants: H c6*M 
         There are 2 products: H2 c6B 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1101,7 +1101,7 @@ INFORMATION TABLE FOR Reaction "11" IN PHASE "gas"
 
         There are 2 reactants: H c6HH 
         There are 2 products: H2 c6*H 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1144,7 +1144,7 @@ INFORMATION TABLE FOR Reaction "12" IN PHASE "gas"
 
         There are 2 reactants: c6*H H 
         There is one product: c6HH 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1187,7 +1187,7 @@ INFORMATION TABLE FOR Reaction "13" IN PHASE "gas"
 
         There are 2 reactants: c6H* H 
         There are 2 products: H2 c6** 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1230,7 +1230,7 @@ INFORMATION TABLE FOR Reaction "14" IN PHASE "gas"
 
         There are 2 reactants: H c6** 
         There is one product: c6H* 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1273,7 +1273,7 @@ INFORMATION TABLE FOR Reaction "15" IN PHASE "gas"
 
         There are 2 reactants: c6*H H 
         There are 2 products: H2 c6** 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1316,7 +1316,7 @@ INFORMATION TABLE FOR Reaction "16" IN PHASE "gas"
 
         There are 2 reactants: H c6** 
         There is one product: c6*H 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1359,7 +1359,7 @@ INFORMATION TABLE FOR Reaction "17" IN PHASE "gas"
 
         There are 2 reactants: CH3 c6** 
         There is one product: c6*M 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1402,7 +1402,7 @@ INFORMATION TABLE FOR Reaction "18" IN PHASE "gas"
 
         There is one reactant: c6H* 
         There is one product: c6*H 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------
@@ -1445,7 +1445,7 @@ INFORMATION TABLE FOR Reaction "19" IN PHASE "gas"
 
         There is one reactant: c6B 
         There are 2 products: C(d) c6HH 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
                ----------------------------------------------------

@@ -11,7 +11,6 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
 #include "cantera/equil/vcs_solve.h"
 #include "cantera/equil/vcs_VolPhase.h"
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
@@ -21,8 +20,6 @@
 #include "Electrode_input.h"
 #include "Electrode_DiffTALE.h"
 #include "Electrode_RadialDiffRegions.h"  
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 
 #include <sstream>
 #include <iomanip>

@@ -19,7 +19,7 @@
 #include "ReactingSurDomain.h"
 
 #include "Electrode_defs.h"
-#include "ExtraGlobalRxn.h"
+//#include "ExtraGlobalRxn.h"
 #include "EState.h"
 
 #include "Electrode_Exception.h"

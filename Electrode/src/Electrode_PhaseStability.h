@@ -28,7 +28,7 @@
 #include "PhaseList.h"
 #include "ReactingSurDomain.h"
 
-#include "ExtraGlobalRxn.h"
+//#include "ExtraGlobalRxn.h"
 
 #include "BlockEntry.h"
 

@@ -12,7 +12,6 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
 #include "cantera/equil/vcs_solve.h"
 #include "cantera/equil/vcs_VolPhase.h"
 #include "cantera/equil/vcs_internal.h"
@@ -22,9 +21,6 @@
 #include "Electrode_input.h"
 #include "Electrode.h"
 #include "Electrode_SimplePhaseChangeDiffusion.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
-
 
 using namespace std;
 using namespace Cantera;

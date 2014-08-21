@@ -14,7 +14,7 @@
 
 #include "ReactingSurDomain.h"
 #include "PhaseList.h"
-#include "RxnMolChange.h"
+//#include "RxnMolChange.h"
 #include "cantera/kinetics.h"
 #include "Electrode_input.h"
 
@@ -136,16 +136,6 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     kElectronRS_ = right.kElectronRS_;
     solnPhaseRS_ = right.solnPhaseRS_;
 
-    for (int i = 0; i < (int)rmcVector.size(); i++) {
-        delete rmcVector[i];
-        rmcVector[i] = 0;
-    }
-    rmcVector.resize(m_ii,0);
-    for (size_t i = 0; i < m_ii; i++) {
-        if (right.rmcVector[i]) {
-            rmcVector[i] = new RxnMolChange(*(right.rmcVector[i]));
-        }
-    }
 
     if (right.ocv_ptr_) {
 	delete ocv_ptr_;
@@ -175,10 +165,6 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
  */
 ReactingSurDomain::~ReactingSurDomain()
 {
-    int nr = nReactions();
-    for (int i = 0; i < nr; i++) {
-        delete rmcVector[i];
-    }
 }
 //====================================================================================================================
 // Duplication routine for objects which inherit from
@@ -602,8 +588,8 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
         speciesProductionRates_.resize(m_kk, 0.0);
         speciesCreationRates_.resize(m_kk, 0.0);
         speciesDestructionRates_.resize(m_kk, 0.0);
-	m_mu.resize(m_kk, 0.0);
-	m_mu0.resize(m_kk, 0.0);
+	//m_mu.resize(m_kk, 0.0);
+	//m_mu0.resize(m_kk, 0.0);
 
         /*
          * Resize the arrays based on the number of reactions

@@ -24,8 +24,6 @@
 #include "Electrode_input.h"
 #include "Electrode.h"
 #include "Electrode_MP_RxnExtent.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 
 #include <sstream>
 #include <iomanip>

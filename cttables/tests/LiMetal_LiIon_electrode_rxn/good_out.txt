@@ -298,7 +298,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
 
         There is one reactant: Li(S) 
         There are 2 products: Li+ electron_Li_LiIon 
-        Reaction Type = Elementary Rxn
+        Reaction Type = Surface rxn
         Reaction is reversible
 
         This reaction is charge transfer reaction, n = 1
