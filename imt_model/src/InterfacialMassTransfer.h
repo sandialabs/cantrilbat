@@ -20,7 +20,6 @@
 
 #include "PhaseList.h"
 #include "ReactingSurDomain.h"
-#include "ExtraGlobalRxn.h"
 #include "ExternalField.h"
 
 #include "InterfacialMassTransfer_input.h"

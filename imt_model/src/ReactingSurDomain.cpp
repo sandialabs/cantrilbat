@@ -14,7 +14,7 @@
 
 #include "ReactingSurDomain.h"
 #include "PhaseList.h"
-#include "RxnMolChange.h"
+#include "cantera/kinetics/RxnMolChange.h"
 #include "cantera/kinetics.h"
 //#include "Cantera/kernel/importKinetics.h"
 
@@ -117,7 +117,7 @@ namespace Cantera {
 	rmcVector[i] = 0;
     }
     rmcVector.resize(m_ii,0);
-    for (int i = 0; i < m_ii; i++) {
+    for (size_t i = 0; i < m_ii; i++) {
       if (right.rmcVector[i]) {
 	rmcVector[i] = new RxnMolChange(*(right.rmcVector[i]));
       }

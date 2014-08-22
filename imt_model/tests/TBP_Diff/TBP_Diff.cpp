@@ -21,8 +21,6 @@
 #include "InterfacialMassTransfer.h"
 #include "InterfacialMassTransfer_1to1Distrib.h"
 #include "imtPSS_NoSurf_DiffBL.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 
 #include <sstream>
 #include <iomanip>

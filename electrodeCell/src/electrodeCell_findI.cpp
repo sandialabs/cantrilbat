@@ -13,8 +13,6 @@
 
 #include "electrodeCell_prep.h"
 #include "electrodeCell_kin.h"
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 
 #include <stdio.h>
 

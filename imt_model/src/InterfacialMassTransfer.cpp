@@ -30,8 +30,6 @@
 #include "InterfacialMassTransfer.h"
 #include "ReactingSurDomain.h"
 #include "importAllCTML.h"
-#include "RxnMolChange.h"
-#include "ExtraGlobalRxn.h"
 
 #include "InterfacialMassTransfer_input.h"
 

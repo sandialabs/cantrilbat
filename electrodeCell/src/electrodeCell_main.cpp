@@ -25,7 +25,7 @@
 #include "electrodeCell_kin.h"
 #include "cell_input.h"
 #include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
+#include "cantera/kinetics/RxnMolChange.h"
 
 //#include <cstdio>
 
@@ -228,7 +228,6 @@ int mpequil_equilibrate(Cantera::Electrode *electrode, int estimateInit, int pri
 int main(int argc, char **argv)
 {
   int i;
-  int ip1 = 0;
   FILE *inputFP = stdin;
   Cantera::Electrode *electrodeA = new Cantera::Electrode_SuccessiveSubstitution();
   Cantera::Electrode *electrodeC = new Cantera::Electrode_SuccessiveSubstitution();
@@ -240,8 +239,6 @@ int main(int argc, char **argv)
   string commandFileNet = "cell.inp";
   string commandFileA = "electrodeAnode.inp";
   string commandFileC = "electrodeCathode.inp";
-  bool printInputFormat = false; // print cmdfile.txt format
-  bool printedUsage = false; // bool indicated that we have already
   // printed usage
 
   VCSnonideal::vcs_timing_print_lvl = 0;
@@ -257,10 +254,8 @@ int main(int argc, char **argv)
 	int nopt = static_cast<int>(tok.size());
 	for (int n = 1; n < nopt; n++) {
 	  if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
-	    printInputFormat = true;
 	  } else if (tok[n] == 'h') {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  } else if (tok[n] == 'd') {
 	    int lvl = 2;
@@ -271,15 +266,12 @@ int main(int argc, char **argv)
 		n = nopt - 1;
 		j += 1;
 		if (lvl >= 0 && lvl <= 1000) {
-		  if (lvl == 0) ip1 = 0;
-		  else          ip1 = lvl; 
 		  mpequil_debug_print_lvl = lvl;
 		}
 	      }  
 	    }
 	  } else {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  }
 	}
@@ -287,7 +279,6 @@ int main(int argc, char **argv)
 	commandFileNet = tok;
       } else {
 	printUsage();
-	printedUsage = true;
 	exit(1);
       }
     }
@@ -468,7 +459,7 @@ int main(int argc, char **argv)
       electrodeA->m_egr.push_back(egr);
       electrodeA->m_rmcEGR.push_back(rmcEGR);
       */
-      RxnMolChange *rmcEGR = electrodeA->rxnMolChangesEGR(iextra); 
+      Cantera::RxnMolChange *rmcEGR = electrodeA->rxnMolChangesEGR(iextra); 
       Cantera::ExtraGlobalRxn *egr = electrodeA->extraGlobalRxnPathway(iextra);
       if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
 	//processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
@@ -538,7 +529,7 @@ int main(int argc, char **argv)
       electrodeC->m_rmcEGR.push_back(rmcEGR);
       */
       Cantera::ExtraGlobalRxn *egr = electrodeC->extraGlobalRxnPathway(iextra);
-      RxnMolChange *rmcEGR = electrodeC->rxnMolChangesEGR(iextra); 
+      Cantera::RxnMolChange *rmcEGR = electrodeC->rxnMolChangesEGR(iextra); 
 
       if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
 	//processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
@@ -559,7 +550,7 @@ int main(int argc, char **argv)
       double deltaV = AopenCircuitVoltageEst  + i * 0.02;
       //electrodeA->setDeltaVoltage(deltaV); 
       electrodeA->setVoltages(deltaV, 0.0);
-      RxnMolChange * rmcEGR = electrodeA->rxnMolChangesEGR(0);
+      Cantera::RxnMolChange * rmcEGR = electrodeA->rxnMolChangesEGR(0);
       Cantera::ExtraGlobalRxn * egr = electrodeA->extraGlobalRxnPathway(0);
       IcurrNet = processGERCurrent(rmcEGR, electrodeA, 0, *iKA, 
 				   *(egr));

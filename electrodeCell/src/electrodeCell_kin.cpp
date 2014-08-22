@@ -41,7 +41,6 @@
 #include "cantera/thermo/SurfPhase.h"
 //#include "SolidKinetics.h"
 #include "cantera/kinetics/KineticsFactory.h"
-#include "ExtraGlobalRxn.h"
 #include "ApplBase_print.h"
 
 #include "Electrode.h"
@@ -486,7 +485,7 @@ void printKineticsTable(Electrode *electrode, int j,
 			DenseMatrix& EarevdivR_Table,
 			DenseMatrix& kfwdPrime_Table, 
 			DenseMatrix& krevPrime_Table,
-			RxnMolChange *rmc) {
+			Cantera::RxnMolChange *rmc) {
 
     /*
      *  Get the species data object from the Mixture object
@@ -636,7 +635,7 @@ void printKineticsTable(Electrode *electrode, int j,
       int idim = tpRef.nDim();
       if (idim < ndim) ndim = idim;
     }
-    doublereal unitsROP[6] = { 1.0, -ndim, 0.0, 0.0, 0.0, -1.0 };
+    doublereal unitsROP[6] = { 1.0,(double) (-ndim), 0.0, 0.0, 0.0, -1.0 };
     doublereal unitskfwd[6];
     doublereal unitskrev[6] ;
     doublereal unitsSpecies[6];
@@ -798,11 +797,11 @@ void doKineticsTablesHetero(Electrode *electrode,
 		      Arev_Table, EarevdivR_Table,
 		      kfwdPrime_Table, krevPrime_Table);
 
-    vector<RxnMolChange *> rmcVector;
+    std::vector<Cantera::RxnMolChange *> rmcVector;
     rmcVector.resize(nReactions,0);
 
     for (int i = 0; i < nReactions; i++) {
-      rmcVector[i] = new RxnMolChange(gKinetics, i);
+      rmcVector[i] = new Cantera::RxnMolChange(gKinetics, i);
 
       printKineticsTable(electrode, i, TT,
 			 *gKinetics, kfwd_Table, krev_Table,
@@ -844,7 +843,7 @@ void doKineticsTablesHetero(Electrode *electrode,
       */
 
       ExtraGlobalRxn *egr = electrode->extraGlobalRxnPathway(iextra);
-      RxnMolChange *rmcEGR =  electrode->rxnMolChangesEGR(iextra);
+      Cantera::RxnMolChange *rmcEGR =  electrode->rxnMolChangesEGR(iextra);
       RxnTempTableStuff * rts = new RxnTempTableStuff(-1,0);
       getGERKineticsTables(TT, electrode, *gKinetics, *egr, *rts); 
       setAllBathSpeciesConditions(electrode);
@@ -891,10 +890,10 @@ void doKineticsTablesHomog(Electrode *electrode, Cantera::Kinetics *gKinetics,
 		    Afwd_Table, EafwddivR_Table, 
 		    Arev_Table, EarevdivR_Table,
 		    kfwdPrime_Table, krevPrime_Table);
-  vector<RxnMolChange *> rmcVector;
+  vector<Cantera::RxnMolChange *> rmcVector;
   rmcVector.resize(nReactions,0);
   for (int i = 0; i < nReactions; i++) {
-    rmcVector[i] = new RxnMolChange(gKinetics, i);
+    rmcVector[i] = new Cantera::RxnMolChange(gKinetics, i);
     printKineticsTable(electrode, i, TT,
 		       *gKinetics, kfwd_Table, krev_Table,
 		       deltaG_Table, deltaH_Table, deltaS_Table,
@@ -910,7 +909,7 @@ void doKineticsTablesHomog(Electrode *electrode, Cantera::Kinetics *gKinetics,
 
 
 /*************************************************************************/
-void processCurrentVsPotTable(RxnMolChange *rmc,
+void processCurrentVsPotTable(Cantera::RxnMolChange *rmc,
 			      Electrode *electrode, int irxn,
 			      TemperatureTable &TT,
 			      Kinetics &kin, 
@@ -1353,7 +1352,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
 			   TemperatureTable& TT,
 			   Cantera::Kinetics &kin,
 			   ExtraGlobalRxn &egr,
-			   RxnMolChange *rmc,
+			   Cantera::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts) {
   
   // vector<double> & kfwd_Table      = rts.kfwd_Table;
@@ -1482,7 +1481,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
     int idim = tpRef.nDim();
     if (idim < ndim) ndim = idim;
   }
-  doublereal unitsROP[6] = { 1.0, -ndim, 0.0, 0.0, 0.0, -1.0 };
+  doublereal unitsROP[6] = { 1.0, (double)(-ndim), 0.0, 0.0, 0.0, -1.0 };
   doublereal unitskfwd[6];
   doublereal unitskrev[6] ;
   doublereal unitsSpecies[6];
@@ -1618,7 +1617,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
 /*
  *
  */
-double processGERCurrent(RxnMolChange *rmc,
+double processGERCurrent(Cantera::RxnMolChange *rmc,
 			 Electrode *electrode, int iGERrxn,
 			 Kinetics &kin,
 			 ExtraGlobalRxn &egr)
@@ -1710,7 +1709,7 @@ double processGERCurrent(RxnMolChange *rmc,
    */
   double nF = - Faraday * rmc->m_phaseChargeChange[RSphMetal] * 1.0E-4;
 
-  bool iEdone = false;
+  //bool iEdone = false;
  
   double Voltage, phiMetal;
  
@@ -1760,7 +1759,6 @@ double processGERCurrent(RxnMolChange *rmc,
   }
   cout <<"|" << endl;
   dnt(2); print_char('-', twidth); printf("\n");
-  iEdone = false;
 
 
   std::vector<double> Rfwd;
@@ -1868,7 +1866,7 @@ double processGERCurrent(RxnMolChange *rmc,
 }
 
 /*************************************************************************/
-void processGERCurrentVsPotTable(RxnMolChange *rmc,
+void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc,
 				 Electrode *electrode, int iGERrxn,
 				 TemperatureTable &TT,
 				 Kinetics &kin,  

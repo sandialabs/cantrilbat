@@ -23,7 +23,6 @@
 
 
 
-#include "ExtraGlobalRxn.h"
 
 #include "mdp_allo.h"
 #include <string>

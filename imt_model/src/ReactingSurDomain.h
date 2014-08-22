@@ -20,11 +20,11 @@
 #include "cantera/thermo/IdealGasPhase.h"
 #include "cantera/kinetics/GasKinetics.h"
 #include "cantera/kinetics/InterfaceKinetics.h"
+#include "cantera/kinetics/RxnMolChange.h"
 #include "cantera/transport.h"
  
 #include <string>
 #include <iostream>
-class RxnMolChange;
  
 namespace Cantera {
  
@@ -119,7 +119,7 @@ namespace Cantera {
     Transport* m_transport;
 
     //! Vector of additional information about each reaction
-    std::vector<RxnMolChange *> rmcVector;
+    std::vector<Cantera::RxnMolChange *> rmcVector;
    
     //! Number of phases within the class
     int numPhases;

@@ -19,9 +19,7 @@
 
 
 #include "importAllCTML.h"
-#include "RxnMolChange.h"
 #include "ApplBase_print.h"
-#include "ExtraGlobalRxn.h"
 #include "InterfacialMassTransfer_input.h"
 #include "InterfacialMassTransfer.h"
 #include "InterfacialMassTransfer_Factory.h"

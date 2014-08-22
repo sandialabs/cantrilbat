@@ -103,7 +103,7 @@ namespace Cantera {
       processPhasePL(sc, pl, canteraFile);
     }                                              
     const vector<XML_Node*> &vsc = root->children();
-    for (int n = 0; n < root->nChildren(); n++) {
+    for (size_t n = 0; n < root->nChildren(); n++) {
       sc = vsc[n];
       if (sc->name() == "phase") {
 	processPhasePL(sc, pl, canteraFile);
