@@ -11,7 +11,7 @@
 #ifndef REACTINGSURDOMAIN_H
 #define REACTINGSURDOMAIN_H
 
-#include "cantera/kinetics/InterfaceKinetics.h"
+#include "cantera/kinetics/ElectrodeKinetics.h"
 
 #include "RSD_OCVmodel.h"
 
@@ -25,7 +25,7 @@ namespace Cantera
 class PhaseList;
 struct OCV_Override_input;
 
-class ReactingSurDomain : public Cantera::InterfaceKinetics
+class ReactingSurDomain : public Cantera::ElectrodeKinetics
 {
 public:
     //! Default constructor
@@ -282,13 +282,13 @@ public:
     Cantera::PhaseList* m_pl;
 
     //! index of the metal phase in the list of phases for this surface
-    int metalPhaseRS_;
+    //int metalPhaseRS_;
 
     //! Index of the electrons species in the list of species for this surface, if none set it to -1
-    int kElectronRS_;
+    //int kElectronRS_;
 
     //! Index of the solution phase in the list of phases for this surface
-    int solnPhaseRS_;
+    //int solnPhaseRS_;
 
     OCV_Override_input *ocv_ptr_;
 

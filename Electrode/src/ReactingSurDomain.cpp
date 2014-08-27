@@ -32,7 +32,7 @@ namespace Cantera
  * id = ?
  */
 ReactingSurDomain::ReactingSurDomain() :
-    InterfaceKinetics(),
+    ElectrodeKinetics(),
     numPhases_(0),
     xmlList(0),
     kinOrder(0),
@@ -47,9 +47,6 @@ ReactingSurDomain::ReactingSurDomain() :
     speciesDestructionRates_(0),
     deltaGRxn_(0),
     m_pl(0),
-    metalPhaseRS_(-1),
-    kElectronRS_(-1),
-    solnPhaseRS_(-1),
     ocv_ptr_(0),
     OCVmodel_(0),
     kReplacedSpeciesRS_(-1)
@@ -62,7 +59,7 @@ ReactingSurDomain::ReactingSurDomain() :
  * throw an exception.
  */
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
-    InterfaceKinetics(),
+    ElectrodeKinetics(),
     numPhases_(0),
     xmlList(0),
     kinOrder(0),
@@ -77,9 +74,6 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     speciesDestructionRates_(0),
     deltaGRxn_(0),
     m_pl(0),
-    metalPhaseRS_(-1),
-    kElectronRS_(-1),
-    solnPhaseRS_(-1),
     ocv_ptr_(0),
     OCVmodel_(0),
     kReplacedSpeciesRS_(-1)
@@ -106,11 +100,11 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
         return *this;
     }
     //
-    //  Beware: The copy operation within InterfaceKinetics leaves shallow pointers to the
+    //  Beware: The copy operation within ElectrodeKinetics leaves shallow pointers to the
     //          underlying ThermoPhase classes in place. They must be fixed up at the Electrode
     //          object level where we copy the ThermoPhase classes.
     //
-    InterfaceKinetics::operator=(right);
+    ElectrodeKinetics::operator=(right);
 
     numPhases_      = right.numPhases_;
     // Shallow copy of xmlList pointers -> beware
@@ -131,10 +125,6 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     // Beware -  Shallow copy of m_pl pointer
     //
     m_pl            = right.m_pl;
-
-    metalPhaseRS_ = right.metalPhaseRS_;
-    kElectronRS_ = right.kElectronRS_;
-    solnPhaseRS_ = right.solnPhaseRS_;
 
 
     if (right.ocv_ptr_) {
@@ -356,7 +346,7 @@ std::ostream& operator<<(std::ostream& s,
                          ReactingSurDomain& mix)
 {
     ThermoPhase* th;
-    InterfaceKinetics* iK = &mix;
+    ElectrodeKinetics* iK = &mix;
     for (int i = 0; i < mix.numPhases_; i++) {
         th = &(iK->thermo(i));
         std::string r = th->report(true);
@@ -367,6 +357,7 @@ std::ostream& operator<<(std::ostream& s,
 
 //====================================================================================================================
 //  Identify the metal phase and the electrons species
+//  This can be taken out, because it's been moved to Cantera
 void ReactingSurDomain::identifyMetalPhase()
 {
     metalPhaseRS_ = -1;
@@ -396,7 +387,7 @@ void ReactingSurDomain::identifyMetalPhase()
                 }
             }
         }
-        if (iph != metalPhaseRS_) {
+        if ((size_t) iph != metalPhaseRS_) {
             int jph = PLtoKinPhaseIndex_[iph];
             if (jph >= 0) {
                 for (int i = 0; i < nr; i++) {
@@ -825,7 +816,7 @@ void ReactingSurDomain::getDeltaGibbs_electrolyteSS(doublereal* deltaG_special)
       */
      for (size_t n = 0; n < nPhases(); n++) {
 	 ThermoPhase* tp = m_thermo[n];
-	 if ((int) n == solnPhaseRS_) {
+	 if (n == solnPhaseRS_) {
 	     tp->getStandardChemPotentials(DATA_PTR(m_grt) + m_start[n]);
 	 } else {
 	     tp->getChemPotentials(DATA_PTR(m_grt) + m_start[n]);
