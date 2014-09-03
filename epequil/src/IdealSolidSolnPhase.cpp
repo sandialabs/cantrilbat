@@ -39,6 +39,7 @@
 #include "cantera/thermo.h"
 #include "cantera/thermo/SpeciesThermo.h"
 #include "cantera/base/utilities.h"
+#include "cantera/base/ctml.h"
 #endif
 
 #include "IdealSolidSolnPhase.h"

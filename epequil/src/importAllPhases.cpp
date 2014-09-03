@@ -26,6 +26,7 @@
 #include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/ThermoFactory.h"
 #include "cantera/base/xml.h"
+#include "cantera/base/ctml.h"
 #endif
 
 #include "importAllPhases.h"

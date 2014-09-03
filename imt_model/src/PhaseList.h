@@ -15,6 +15,7 @@
 #define CT_PHASELIST_H
 
 #include "cantera/thermo/Elements.h"
+#include "cantera/base/ctml.h"
 
 namespace Cantera {
 

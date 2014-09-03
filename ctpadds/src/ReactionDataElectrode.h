@@ -15,6 +15,7 @@
 #define CT_REACTION_DATA_ELECTRODE_H
 
 #include "cantera/kinetics/ReactionData.h"
+#include "cantera/base/xml.h"
 
 
 namespace Cantera {

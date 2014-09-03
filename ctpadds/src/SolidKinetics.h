@@ -19,6 +19,7 @@
 
 #include "cantera/base/ct_defs.h"
 #include "cantera/base/Array.h"
+#include "cantera/base/xml.h"
 #include "cantera/kinetics/Kinetics.h"
 #include "cantera/kinetics/StoichManager.h"
 #include "cantera/kinetics/RateCoeffMgr.h"

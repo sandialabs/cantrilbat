@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include "cantera/thermo/mix_defs.h"
 #include "cantera/kinetics/Kinetics.h"
+#include "cantera/base/xml.h"
 
 #include "cantera/base/utilities.h"
 #include "cantera/kinetics/RateCoeffMgr.h"
