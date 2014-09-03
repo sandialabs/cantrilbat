@@ -298,12 +298,6 @@ public:
      */
     RSD_OCVmodel* OCVmodel_;
 
-    //!  Chemical potentials of the species, in kinetic species order
-    /*!
-     *  If there is an OCV override, the correct replaced chemical potential is storred here.
-     */
-    //std::vector<doublereal> m_mu;
-
     //!  Kinetic species index for species
     int kReplacedSpeciesRS_;
 

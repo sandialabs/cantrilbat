@@ -15,6 +15,7 @@
 //  adding this file here because most applications will use the object
 #include "BE_BlockEntry.h"
 
+#include "cantera/base/ctml.h"
 #include <string>
 #include <vector>
 /*

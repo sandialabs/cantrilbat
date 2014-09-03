@@ -15,6 +15,7 @@
 
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/ResidJacEval.h"
+#include "cantera/base/Array.h"
 
 #include "ReactingSurDomain.h"
 

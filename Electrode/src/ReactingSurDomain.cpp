@@ -21,6 +21,7 @@
 #include "Electrode_Factory.h"
 
 
+
 using namespace std;
 namespace Cantera
 {
@@ -777,8 +778,7 @@ void ReactingSurDomain::updateMu0()
 
 //=======================================================================================================================
 // Modification for OCV override when called for.
-//  works for MCMB 
-//  This is used when called by
+//         ( works for MCMB )
 void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
 {
      /*
@@ -786,7 +786,6 @@ void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
       * kinetics mechanism
       */
      for (size_t n = 0; n < nPhases(); n++) {
-    //     thermo(n).getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
          m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
      }
 
@@ -795,11 +794,16 @@ void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
 	 deriveEffectiveChemPot();
      }
 
-     /*
-      * Use the stoichiometric manager to find deltaG for each
-      * reaction.
-      */
-     m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), deltaG);
+    //
+    // Use the stoichiometric manager to find deltaG for each
+    // reaction.
+    //
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(m_deltaG));
+    if (deltaG != 0 && (DATA_PTR(m_deltaG) != deltaG)) {
+	for (size_t j = 0; j < m_ii; ++j) {
+	    deltaG[j] = m_deltaG[j];
+	}
+    }
 }
 //=======================================================================================================================
 // This gets the deltaG for each reaction in the mechanism, but using the standard state
