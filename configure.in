@@ -891,6 +891,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_Diff2_restart/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_EIS_timeStepStrat/Makefile \
           1Delectrode/test_suite/DualfoilComparison/Makefile \
+          1Delectrode/test_suite/DualfoilComparison/dualfoil_run/Makefile \
           1Delectrode/test_suite/CAEBAT_restart_cycle/Makefile \
           util_src/Makefile \
           util_src/src/Makefile \

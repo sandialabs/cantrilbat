@@ -1,0 +1,85 @@
+#!/bin/sh
+#
+#
+# $Id: Makefile.in,v 1.3 2011/01/01 02:24:53 hkmoffa Exp $
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = dualfoil
+TEST_NAME =  dualfoil_run
+
+DATA =  dualfoil5.in  li-ion-ebar.in
+
+
+BLESSED_FILES = \
+dualfoil5_blessed.out  halfcells_blessed.out  profiles_blessed.out  resistances_blessed.out
+
+INPUT_FILES = dualfoil5.in
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+PROGRAM_ORIGIN = $(PROGRAM)
+
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+all: 
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends:
+	touch .depends
+
+test:
+	@@MAKE@ -s
+	@echo -n 'Checking need to run test $(TEST_NAME): '
+	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
+
+runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TEST_NAME)
+	./runtest
+
+rebaseline:
+	./rebaseline
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+# Clean up files, but don't touch test suite results
+clean:
+	$(RM)  runInProgress.txt 
+
+# clean up all output from the test
+test_clean:
+	$(RM) dualfoil5.out  halfcells.out  profiles.out  resistances.out \
+	      runGood runBad runInProgress.txt  \
+	      diff* err* out.txt 
+
+# switch directory back to pristine condition
+dist_clean:
+	@MAKE@ test_clean
+
+

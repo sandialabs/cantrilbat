@@ -1,0 +1,4 @@
+cp  resistances.out  resistances_blessed.out 
+cp profiles.out      profiles_blessed.out 
+cp  halfcells.out   halfcells_blessed.out 
+cp dualfoil5.out  dualfoil5_blessed.out 

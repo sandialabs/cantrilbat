@@ -1,0 +1,150 @@
+#!/bin/sh
+#
+#
+#
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+fff='0'
+while getopts "fh" opt; do
+  case $opt in
+    f  ) fff='1' ;;
+    h  ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+    \? ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+  esac
+done
+shift $(($OPTIND - 1))
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+
+temp_success="1"
+/bin/rm  -f  out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt \
+             solution.xml diff_b0.txt diff_b2.txt diff_b2.txt diff_s0.txt diff_s3.txt diff_IV.txt
+#
+# Create a symbolic link to mpequil, if none exists already
+#
+if test ! -x dualfoil   ; then
+    echo 'ERROR: dualfoil executable can not be found'
+    echo "  Bad return code: " `date` > runBad
+    /bin/rm -f runInProgress.txt
+    exit -1
+fi
+#
+###########################################################################
+#
+# Specify the MPI environment
+#
+MP_MACHINEFILE=${MP_MACHINEFILE:=/ascldap/users/hkmoffa/arch/linux/lib/machinefile_ceerws0603}
+MPIRUN=mpirun
+MPIOPTS=""
+NP=1
+#
+###########################################################################
+#
+XMLSOLNDIFF=${XMLSOLNDIFF:=../../src_test/xmlSolnDiff}
+#
+#################################################################
+#
+#
+# Specify the program options
+#
+PROGRAM_INPUT="dualfoil5.in"
+#
+# Execute the command
+#
+echo 'executing dualfoil'
+dualfoil < ${PROGRAM_INPUT}
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "Multi1DDomain returned with bad status, $retnStat, check output"
+  echo "  Bad return code: " `date` > runBad
+  /bin/rm -f runInProgress.txt
+  exit 0
+fi
+
+
+diff  halfcells_blessed.out  halfcells.out > diff_hc.txt
+retnStat_hc=$?
+
+diff dualfoil5_blessed.out dualfoil5.out> diff_out.txt
+retnStat_txt=$?
+
+diff profiles_blessed.out profiles.out > diff_pr.txt
+retnStat_pr=$?
+
+diff resistances_blessed.out resistances.out > diff_re.txt
+retnStat_re=$?
+
+
+eCode=0
+if test $retnStat_txt = "0"
+then
+  eCode=0
+  echo "Successful test comparison on "`pwd`
+  if [ $retnStat_hc != "0" ]
+  then
+     echo "   But, halfcell output files have differences. See diff_hc.txt"
+     echo "  Bad textFile: " `date` > runBad
+  else 
+     echo "  Test Passed: " `date` > runGood
+  fi
+  if [ $retnStat_pr != "0" ]
+  then
+     echo " But, profiles output files have differences.  See diff_pr.txt"
+     echo "  Bad dataFile: " `date` > runBad
+  fi
+  if [ $retnStat_re != "0" ]
+  then
+     echo " But, resistances output files have differences.  See diff_re.txt"
+     echo "  Bad dataFile: " `date` > runBad
+  fi
+
+
+else
+  echo "Unsuccessful test comparison on "`pwd` " test"
+  echo "  Bad txtFile: " `date` > runBad
+  if test $retnStat_hc != "0"
+  then
+     echo "      halfcell filesare different - see diff_hc.txt"
+  fi
+  if test $retnStat_pr != "0"
+  then
+     echo "      And,  profiles output files have differences.  See diff_pr.txt"
+  fi
+  if [ $retnStat_re != "0" ]
+  then
+     echo "       And,  resistance output files have differences.  See diff_re.txt.txt"
+  fi
+fi
+#
+# return 0 for no errors, 1 for errors which break the test suite
+#
+#
+/bin/rm -f runInProgress.txt
+exit $eCode
+
