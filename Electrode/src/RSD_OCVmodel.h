@@ -33,6 +33,13 @@ class ThermoPhase;
 
 #define OCVAnode_MCMB2528                101
 
+// MCMB 2510 carbon (Bellcore)
+//           Telcordia and PolyStor materials.
+//    Modified May 2003 to match data from Joongpyo Shim
+//    for 0.01 < x < 0.99
+
+#define OCVAnode_MCMB2528_dualfoil       102
+
 
 #define OCVCathode_MCMB2528              301
 
