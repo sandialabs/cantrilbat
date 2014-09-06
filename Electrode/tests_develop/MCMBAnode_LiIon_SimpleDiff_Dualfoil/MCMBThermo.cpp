@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
      PhaseList*  pl = new PhaseList();
      pl->addVolPhase("metal_Li_LiIon_electrons.xml");
-     pl->addVolPhase ("MCMB_RedlichKister.xml");
+     pl->addVolPhase("MCMB_RedlichKister.xml");
      pl->addVolPhase("ECsoln_ion.xml");
      pl->addVolPhase("Li_Metal.xml");
      pl->addSurPhase("MCMBAnode_electrode.xml");
@@ -112,7 +112,6 @@ int main(int argc, char **argv)
      printf("dg[0] = %g\n", dg[0]);
      printf("dg[1] = %g\n", dg[1]);
 
-     
 
 
      double nstoic = 1.0;

@@ -21,7 +21,9 @@ namespace Cantera
  */
 
 //!  RedlichKisterVPSSTP is a derived class of GibbsExcessVPSSTP that employs
-/*
+//!  an overriden deltaG relationship
+/*!
+ *   HKM - DEAD END CURRENTLY
  *   This will turn into a templated class
  */
 class OCVMOD_RedlichKisterVPSSTP : public RedlichKisterVPSSTP
