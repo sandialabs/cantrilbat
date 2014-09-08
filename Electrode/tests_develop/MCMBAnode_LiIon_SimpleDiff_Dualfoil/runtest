@@ -22,6 +22,25 @@ fi
 ELECTRODE_TURN_OFF_PC_PRINTING=true
 export ELECTRODE_TURN_OFF_PC_PRINTING
 
+MCMBThermo > MCMBThermo.out 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0"
+then
+  temp_success="0"
+  echo "MCMBThermo returned with bad status, $retnStat, check output"
+fi
+
+diff MCMBThermo_blessed.out MCMBThermo.out > diff_tout.txt
+retnStat_ttxt=$?
+if test $retnStat_ttxt = "0"
+then
+    echo "Successful test comparison on MCMBThermo "`pwd`
+else
+    echo "Unsuccessful test comparison on MCMBThermo "`pwd`
+fi
+
+
+
 $PROG_EXE   > out.txt 2>err_out.txt
 retnStat=$?
 if test $retnStat != "0" 

@@ -2,16 +2,11 @@
 
 I've focussed on making sure that the relative extent of reaction and OCV_avg_refE values are consistent with the MCMB.out output.
 
-    at a relative extent of 0.44 the OCV_refE value is 0.11028 volts. This is what basically shows up in the csv file at the end of the run.
 
 I wanted to make sure that the input OCV-override capability was verified.  This example does that.
 
 
 
-
-
-There is an additional problem that was unearthed when doing this example. Running the electrode backwards ends up creating NaN's.
-I punted on figuring this out right away.
 
 
 

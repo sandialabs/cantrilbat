@@ -119,9 +119,9 @@ end block Radial Diffusion Region
 start block Bath Specification for Phase ECDMC_LiPF6
    Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
-       Li+   = 0.08
-       PF6-  = 0.08
-       ECDMC = 0.84
+       Li+   = 0.10
+       PF6-  = 0.10
+       ECDMC = 0.80
    End block Bath Species Mole Fraction
 end block Bath Specification for Phase ECDMC_LiPF6
 

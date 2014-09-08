@@ -16,6 +16,10 @@
 #include "Electrode_SimpleDiff.h"
 #include "Electrode_RadialDiffRegions.h"  
 #include "ReactingSurDomain.h"
+#include "Electrode_input.h"
+#include "RSD_OCVmodel.h"
+
+
 
 #include <sstream>
 #include <iomanip>
@@ -98,7 +102,7 @@ int main(int argc, char **argv)
      pl->addVolPhase("MCMB_RedlichKister.xml");
      pl->addVolPhase("ECsoln_ion.xml");
      pl->addVolPhase("Li_Metal.xml");
-     pl->addSurPhase("MCMBAnode_electrode.xml");
+     pl->addSurPhase("MCMBAnode_electrode_extra.xml");
 
      pl->setState_TP(300.0, OneAtm);
 
@@ -107,6 +111,67 @@ int main(int argc, char **argv)
 
      double dg[5];
      rsd->getDeltaGibbs(dg);
+
+     //
+     // Set up the override model
+     // //
+     // Check to see if we have entered an OCVoverride for this species. If we have then
+     // modify the reacting surface
+     //
+
+     // start block Open Circuit Potential Override for interface  anode_surface
+     // Open Circuit Voltage Model = MCMB2528_dualfoil
+     // Replaced Species = Li_C6-bulk
+     // Identify Reaction for OCV Model = 0
+     // Temperature Derivative =  MODEL
+     // Temperature for OCV = 298.15
+     // Open Circuit Voltage Temperature Derivative Model = MCMB2528
+     // end block Open Circuit Potential Override for interface anode_surface
+
+
+     OCV_Override_input* ocv_input_ptr = new  Cantera::OCV_Override_input();
+
+     ocv_input_ptr->OCVModel = "MCMB2528_dualfoil";
+     ocv_input_ptr->replacedSpeciesName = "Li_C6-bulk";
+     ocv_input_ptr->rxnID = 0;
+     ocv_input_ptr->temperatureDerivType = 0;
+     ocv_input_ptr->temperatureBase = 298.15;
+     ocv_input_ptr->OCVTempDerivModel = "Constant 0.0";
+     ocv_input_ptr->DoDSurrogateSpeciesName = "V_C6-bulk";
+     int iphS = 0;
+	 
+     ocv_input_ptr->numTimes = 1;
+     ocv_input_ptr->surfacePhaseID = iphS;
+     //
+     // Discover the replacedSpeciesID
+     //
+     int kg = ocv_input_ptr->replacedGlobalSpeciesID = pl->globalSpeciesIndex(ocv_input_ptr->replacedSpeciesName);
+     if (kg < 0) {
+	 throw Electrode_Error("Electrode_input::post_input_pass3", "Species not found in phaselist : "
+			       + ocv_input_ptr->replacedSpeciesName);
+     }
+     ocv_input_ptr->replacedGlobalSpeciesID = kg;
+     int phaseID;
+     int localSpeciesIndex;
+     pl->getLocalIndecisesFromGlobalSpeciesIndex(kg, phaseID, localSpeciesIndex);
+     //
+     // Store the phase index and local species index of the replaced species
+     // 
+     ocv_input_ptr->replacedSpeciesPhaseID = phaseID;
+     ocv_input_ptr->replacedLocalSpeciesID = localSpeciesIndex;
+     if (ocv_input_ptr->DoDSurrogateSpeciesName != "") {
+	 size_t k =  pl->thermo(phaseID).speciesIndex(ocv_input_ptr->DoDSurrogateSpeciesName);
+	 if (k != npos) {
+	     ocv_input_ptr->MF_DoD_LocalSpeciesID = k;
+	 } else {
+	     exit(-1);
+	 }
+     }
+    
+
+
+     rsd->addOCVoverride(ocv_input_ptr);
+
 
 
      printf("dg[0] = %g\n", dg[0]);
@@ -134,21 +199,39 @@ int main(int argc, char **argv)
 
      int kLiC = mcmb.speciesIndex("Li_C6-bulk");
      int KC = mcmb.speciesIndex("V_C6-bulk");
+
+     //
+     // Do a test calculation at relE = 0.4 to test the method.
+     // 
+     double xKC = 0.4;
+     xmol[KC] = xKC;
+     xmol[kLiC] = 1.0 - xmol[KC];
+     mcmb.setState_TPX(298.15, OneAtm, xmol);
+     rsd->getDeltaGibbs(dg);
+     ocv = dg[1] / Faraday / nstoic;
+     //dg[0] -= GasConstant * 300. * std::log(0.1);
+     double ocvE = dg[0] / Faraday / nstoic;
+     dg[0] -= GasConstant * 298.15 * std::log(0.1);
+
+     double ocvE_corr =  dg[0] / Faraday / nstoic;
+     printf(" %12.6f   %12.6f   %12.6f   %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
+
      int numP = 51;
      printf ("Fig 3 Karthikeyan Sikha and White\n");
-     printf("        xLi              xV           OCV \n") ;
+     printf("          xV                xLi             OCV       OCV(half_cell)   OCV-corrected\n") ;
      for (int i =0; i < numP; i++) {
-	 double xKC = 0.0 + (double) i / (numP - 1.0);
+	 xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[KC] = xKC;
          xmol[kLiC] = 1.0 - xmol[KC];
-         mcmb.setState_TPX(300., OneAtm, xmol);
+         mcmb.setState_TPX(298.15, OneAtm, xmol);
 
 	 rsd->getDeltaGibbs(dg);
-	 double ocv = dg[1] / Faraday / nstoic;
+	 ocv = dg[1] / Faraday / nstoic;
+	 ocvE = dg[0] / Faraday / nstoic;
          dg[0] -= GasConstant * 300. * std::log(0.1);
-	 double ocvE = dg[0] / Faraday / nstoic;
+	 ocvE_corr = dg[0] / Faraday / nstoic;
 
-	 printf(" %12.6f   %12.6f   %12.6f   %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE);
+	 printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
      }
      
 

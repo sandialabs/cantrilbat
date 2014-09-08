@@ -301,6 +301,10 @@ public:
     //!  Kinetic species index for species
     int kReplacedSpeciesRS_;
 
+    //size_t kElectronRS_;
+    //size_t metalPhaseRS_;
+    //size_t solnPhase_RS_;
+
 protected:
 
 };

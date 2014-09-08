@@ -165,7 +165,7 @@ int main(int argc, char **argv)
 
     electrodeA->setPhaseExistenceForReactingSurfaces(true);
     //electrodeA->setVoltages(0.0, -0.1);
-    electrodeA->setVoltages(0.0, -0.045);
+    electrodeA->setVoltages(0.0, -0.120);
     double oc = electrodeA->openCircuitVoltageSSRxn(0);
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);

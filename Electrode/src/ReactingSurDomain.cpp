@@ -143,7 +143,7 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     }
 
     kReplacedSpeciesRS_ = right.kReplacedSpeciesRS_;
-
+ 
 
     return *this;
 }
@@ -228,7 +228,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn)
 {
     double netCurrentDensity = 0.0;
     double ps, rs;
-    if (kElectronRS_< 0) {
+    if (kElectronIndex_< 0) {
 	return netCurrentDensity;
     }
     size_t nr = nReactions();
@@ -236,16 +236,16 @@ double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn)
     updateROP();
     if (currentDensityRxn) {
 	for (size_t irxn = 0; irxn < nr; irxn++) {
-	    rs = m_rrxn[kElectronRS_][irxn];
-	    ps = m_prxn[kElectronRS_][irxn];
+	    rs = m_rrxn[kElectronIndex_][irxn];
+	    ps = m_prxn[kElectronIndex_][irxn];
 	    double electronProd = (ps - rs) * m_ropnet[irxn];
 	    currentDensityRxn[irxn] = Faraday * electronProd;
 	    netCurrentDensity += currentDensityRxn[irxn];
 	}
     } else {
 	for (size_t irxn = 0; irxn < nr; irxn++) {
-	    rs = m_rrxn[kElectronRS_][irxn];
-	    ps = m_prxn[kElectronRS_][irxn];
+	    rs = m_rrxn[kElectronIndex_][irxn];
+	    ps = m_prxn[kElectronIndex_][irxn];
 	    double electronProd = (ps - rs) * m_ropnet[irxn];
 	    netCurrentDensity +=  Faraday * electronProd;
 	}
@@ -263,7 +263,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
 
     RxnMolChange*   rmc = rmcVector[irxn];
     // could also get this from reactant and product stoichiometry
-    double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseRS_];
+    double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
     *nStoich = nStoichElectrons;
     *OCV = 0.0;
 
@@ -316,8 +316,8 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
     }
     *io = iO;
 
-    double phiMetal = thermo(metalPhaseRS_).electricPotential();
-    double phiSoln = thermo(solnPhaseRS_).electricPotential();
+    double phiMetal = thermo(metalPhaseIndex_).electricPotential();
+    double phiSoln = thermo(solnPhaseIndex_).electricPotential();
     double E = phiMetal - phiSoln;
     *overPotential = E - *OCV;
 
@@ -359,10 +359,11 @@ std::ostream& operator<<(std::ostream& s,
 //====================================================================================================================
 //  Identify the metal phase and the electrons species
 //  This can be taken out, because it's been moved to Cantera
+//    -> Right now, change it into a double-check routine.
 void ReactingSurDomain::identifyMetalPhase()
 {
-    metalPhaseRS_ = -1;
-    kElectronRS_ = -1;
+    metalPhaseIndex_ = -1;
+    kElectronIndex_ = -1;
     int nr = nReactions();
     int np = nPhases();
     for (int iph = 0; iph < np; iph++) {
@@ -382,29 +383,28 @@ void ReactingSurDomain::identifyMetalPhase()
                         }
                     }
                     if (ifound == 1) {
-                        metalPhaseRS_ = iph;
-                        kElectronRS_ = m_start[iph] + k;
+                        metalPhaseIndex_ = iph;
+                        kElectronIndex_ = m_start[iph] + k;
                     }
                 }
             }
         }
-        if ((size_t) iph != metalPhaseRS_) {
-            int jph = PLtoKinPhaseIndex_[iph];
-            if (jph >= 0) {
-                for (int i = 0; i < nr; i++) {
-                    RxnMolChange* rmc = rmcVector[i];
-                    if (rmc->m_phaseChargeChange[jph] != 0) {
-                        if (rmc->m_phaseDims[jph] == 3) {
-                            solnPhaseRS_ = iph;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        if ((size_t) iph != metalPhaseIndex_) {
 
+	    for (int i = 0; i < nr; i++) {
+		RxnMolChange* rmc = rmcVector[i];
+		if (rmc->m_phaseChargeChange[iph] != 0) {
+		    if (rmc->m_phaseDims[iph] == 3) {
+			solnPhaseIndex_ = iph;
+			break;
+		    }
+		}
+	    }
+	}
     }
+
 }
+
 //====================================================================================================================
 /*
  *      @param iskin   If this is zero or positive, we will formulate a kinetics mechanism using an 
@@ -655,7 +655,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
 	for (size_t k = 0; k < nsp; k++) {
 	    m_grt[m_start[n] + k] = m_mu[m_start[n] + k];
 	}
-	if (n == (size_t) solnPhaseRS_) {
+	if (n == (size_t) solnPhaseIndex_) {
 	    thermo(n).getStandardChemPotentials(DATA_PTR(m_grt) + m_start[n]);
 	} else {
 	    thermo(n).getChemPotentials(DATA_PTR(m_grt) + m_start[n]);
@@ -676,7 +676,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //
     //  If we don't have an electrode reaction bail as being confused
     //
-    if (metalPhaseRS_ < 0) {
+    if (metalPhaseIndex_ < 0) {
 	throw CanteraError("", "shouldn't be here");
     }
     //
@@ -696,7 +696,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //
     //   Find the number of stoichiometric electrons in the reaction
     //
-    double nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS_];
+    double nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseIndex_];
     //
     //  If the number of stoichiometric electrons is zero, we are in kind of a bind, as we shouldn't
     //  be specifying an open circuit voltage in the first place!
@@ -741,9 +741,12 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     // Now recalc deltaG and calc OCV   HKM This calculation has checked out for the MCMB model
     //   We should now be at the exp OCV
 #ifdef DEBUG_NEW
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxn_));
+    phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
+    //printf(" phiRxnOrig_halfcell  =  %g\n",  phiRxnOrig );
     m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
     phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
-    printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
+    //printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
 #endif
 }
 //============================================================================================================================
@@ -820,7 +823,7 @@ void ReactingSurDomain::getDeltaGibbs_electrolyteSS(doublereal* deltaG_special)
       */
      for (size_t n = 0; n < nPhases(); n++) {
 	 ThermoPhase* tp = m_thermo[n];
-	 if (n == solnPhaseRS_) {
+	 if (n == solnPhaseIndex_) {
 	     tp->getStandardChemPotentials(DATA_PTR(m_grt) + m_start[n]);
 	 } else {
 	     tp->getChemPotentials(DATA_PTR(m_grt) + m_start[n]);
