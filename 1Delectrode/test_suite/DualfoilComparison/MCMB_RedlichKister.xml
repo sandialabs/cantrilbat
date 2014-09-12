@@ -4,7 +4,7 @@
   <validate reactions="yes" species="yes"/>
                    
  <elementData>
-    <element atomicNumber="0" name="C6-bulk" atomicWt="73.0"/>
+    <element atomicNumber="0" name="C6-bulk" atomicWt="72.066"/>
   </elementData>
 
 
@@ -92,7 +92,6 @@
       <standardState  model="constant_incompressible">
           <molarVolume units="m3/kmol"> 0.006 </molarVolume>
       </standardState>
-
 
       
     </species>

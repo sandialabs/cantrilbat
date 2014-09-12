@@ -7,23 +7,26 @@
 
 all:
 	cd LiSi_1_Newman ;                                          @MAKE@
-	cd LiCoO2_Radial_devel_cV;				    @MAKE@
+	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@
+	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@
 
 test:
-#	cd LiSi_1_Newman ;                                          @MAKE@ -s test
+#	cd LiSi_1_Newman ;     (not ready yet)                      @MAKE@ -s test
+	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@
 
 clean:
 	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
-	cd LiCoO2_Radial_devel_cV;				    /bin/rm -f .depends; @MAKE@ clean
+	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@ clean
+	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ clean
 
 depends:
 	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ depends
-	cd LiCoO2_Radial_devel_cV;				    @MAKE@ depends
+	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@ depends
+	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ depends
 
 
 rebaseline:
-	cd LiSi_1_Newman ;                                          @MAKE@ rebaseline
-	cd LiCoO2_Radial_devel_cV;				    @MAKE@ rebaseline
+	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ rebaseline
 
 
 install:

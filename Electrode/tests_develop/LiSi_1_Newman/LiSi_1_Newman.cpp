@@ -20,8 +20,6 @@
 #include "Electrode.h"
 #include "Electrode_MP_RxnExtent.h"
 #include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
-#include "BlockEntry.h"
 
 #include <stdio.h>
 
@@ -49,14 +47,11 @@ void printUsage() {
 
 int main(int argc, char **argv)
 {
-  int ip1 = 0;
   int retn = 0;
   //bool doCathode = false;
   string commandFileNet = "cell.inp";
   string commandFileA = "electrodeAnode.inp";
   string commandFileC = "electrodeCathode.inp";
-  bool printInputFormat = false; // print cmdfile.txt format
-  bool printedUsage = false; // bool indicated that we have already
   // printed usage
 
   Cantera::NonlinearSolver::s_TurnOffTiming = true;
@@ -73,10 +68,8 @@ int main(int argc, char **argv)
 	int nopt = static_cast<int>(tok.size());
 	for (int n = 1; n < nopt; n++) {
 	  if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
-	    printInputFormat = true;
 	  } else if (tok[n] == 'h') {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  } else if (tok[n] == 'd') {
 	    int lvl = 2;
@@ -87,15 +80,12 @@ int main(int argc, char **argv)
 		n = nopt - 1;
 		j += 1;
 		if (lvl >= 0 && lvl <= 1000) {
-		  if (lvl == 0) ip1 = 0;
-		  else          ip1 = lvl; 
 		  mpequil_debug_print_lvl = lvl;
 		}
 	      }  
 	    }
 	  } else {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  }
 	}
@@ -103,7 +93,6 @@ int main(int argc, char **argv)
 	commandFileNet = tok;
       } else {
 	printUsage();
-	printedUsage = true;
 	exit(1);
       }
     }
@@ -165,7 +154,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
-    retn = electrodeA->electrode_stateSave_create(electrodeA_input);
+    retn = electrodeA->electrode_stateSave_create();
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);

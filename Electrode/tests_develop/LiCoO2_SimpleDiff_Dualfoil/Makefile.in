@@ -68,7 +68,7 @@ GDEFINES =
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
 
-all: .depends $(PROGRAM)
+all: .depends $(PROGRAM) LiCoO2 LiCoO2Thermo
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -152,6 +152,20 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
+
+LiCoO2Thermo: LiCoO2Thermo.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2Thermo LiCoO2Thermo.o  \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+LiCoO2:	LiCoO2.o
+LiCoO2:	LiCoO2.o
+	 $(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2 LiCoO2.o \
+                  $(OBJ_CANTERA_ADDONS)  \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
 
 #############################################################################
 #          INSTALL RULES

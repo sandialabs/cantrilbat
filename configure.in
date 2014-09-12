@@ -821,7 +821,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
           Electrode/tests/UnitTests/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \
-          Electrode/tests_develop/LiCoO2_Radial_devel_cV/Makefile \
+          Electrode/tests_develop/LiCoO2_SimpleDiff_Dualfoil/Makefile \
           Electrode/tests_develop/LiMn2O4_OCP/Makefile \
           Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_OCV/Makefile \
           Electrode/tests_develop/LiCoO2_Complex_LiIonCathode_SimpleDiff_cV/Makefile \

@@ -2,3 +2,9 @@ dualfoil
 diff_hc.txt
 diff_pr.txt
 diff_re.txt
+profiles.out
+halfcells.out
+dualfoil5.out
+resistances.out
+solidprof.out
+

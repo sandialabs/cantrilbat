@@ -40,7 +40,7 @@
 372.d0    ! cot1,  coulombic capacity of negative material (mAh/g) 
 274.d0    ! cot3,  coulombic capacity of positive material (mAh/g)
 1324.0    ! re,    density of electrolyte (kg/m3)
-1800.0    ! rs1,   density of negative insertion material (kg/m3)
+2260.0    ! rs1,   density of negative insertion material (kg/m3)
 5010.0    ! rs3,   density of positive insertion material (kg/m3)
 1800.0    ! rf,    density of inert filler (kg/m3)
 1780.0    ! rpl,   (not used here) density of polymer material (kg/m3)

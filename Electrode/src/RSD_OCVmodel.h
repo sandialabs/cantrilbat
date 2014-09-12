@@ -40,8 +40,16 @@ class ThermoPhase;
 
 #define OCVAnode_MCMB2528_dualfoil       102
 
+//   CoO2 (Cobalt dioxide)
+//     Measured by Oscar Garcia 2001 using Quallion electrodes for
+//     0.5 < y < 0.99.  Fit revised by Karen Thomas in May 2003 to
+//     match Doyle's fit for y < 0.4 and Garcia's data at larger y.
+//     Valid for 0 < y < 0.99. Note that capacity fade is found to
+//     occur experimentally if y goes below 0.5; this is not included in the model.
+//
+#define OCVCathode_CoO2_dualfoil         201
 
-#define OCVCathode_MCMB2528              301
+
 
 //!  create a map
 /*!

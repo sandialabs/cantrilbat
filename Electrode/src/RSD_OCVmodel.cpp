@@ -125,6 +125,7 @@ double RSD_OCVmodel::OCV_value() const
     calcRelExtent();
     double volts ;
     double xLi = 1.0 - relExtent_;
+    double xV;
     if (modelID_ == OCVAnode_CONSTANT) {
        volts = dvec_[0];
 
@@ -161,7 +162,8 @@ double RSD_OCVmodel::OCV_value() const
 	 *
 	 *   (note this agrees exactly with dualfoil)
 	 */
-	
+
+        xV = 1.0 - relExtent_;
 	volts = ( 0.194 + 1.5 * exp(-120.0 * xLi)
 		  + 0.0351 * tanh( (xLi - 0.286)   / 0.083)
 		  - 0.0045 * tanh( (xLi - 0.849)   /0.119)
@@ -171,6 +173,28 @@ double RSD_OCVmodel::OCV_value() const
 		  - 0.022 *  tanh( (xLi - 0.9)     /0.0164)
 		  - 0.011 *  tanh( (xLi - 0.124)   /0.0226)
 		  + 0.0155 * tanh( (xLi - 0.105)   /0.029)) ;
+
+   } else if (modelID_ == OCVCathode_CoO2_dualfoil) {
+
+        /*
+         *   Line 4580 of dualfoil 5.1
+	 * 
+	 *	  Measured by Oscar Garcia 2001 using Quallion electrodes for
+	 *  c     0.5 < y < 0.99.  Fit revised by Karen Thomas in May 2003 to
+         *  c     match Doyle's fit for y < 0.4 and Garcia's data at larger y.
+	 *  c     Valid for 0 < y < 0.99. Note that capacity fade is found to
+	 *  c     occur experimentally if y goes below 0.5; this is not included
+	 *  c     in the model
+	 */
+
+        volts = ( 2.16216 + 0.07645 * tanh(30.834 - 54.4806 * xV)
+		  + 2.1581  * tanh( 52.294  - 50.294  * xV)
+		  - 0.14169 * tanh( 11.0923 - 19.8543 * xV)
+		  + 0.2051 *  tanh( 1.4684  - 5.4888  * xV)
+		  + 0.2531 *  tanh( (-xV + 0.56478) / 0.1316)
+		  - 0.02167 * tanh( ( xV - 0.525)   / 0.006)      );
+
+
 
     } else {
         printf("model not found\n");
