@@ -1,4 +1,7 @@
 /*
+ * $Id: MCMBAnode_SimpleDiff.cpp 496 2013-01-07 21:15:37Z hkmoffa $
+ */
+/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
  * work by or on behalf of the U.S. Government. Export of this program
@@ -9,8 +12,10 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_solve.h"
+//#include "cantera/equil/vcs_prob.h"
+//#include "cantera/equil/vcs_solve.h"
 #include "cantera/equil/vcs_VolPhase.h"
+#include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/NonlinearSolver.h"
 
@@ -27,6 +32,7 @@ using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
+int VCS_Debug_Print_Lvl = 3;
 
 void printUsage() {
     cout << "usage: MCMBAnode_SimpleDiff [-h] [-help_cmdfile] [-d #] [anode.inp]"
@@ -98,6 +104,12 @@ int main(int argc, char **argv)
   }
 
   try {
+
+    /*
+     *  Use this opportunity to set environment to get consistent printing for test cases
+     *  Note, this has moved to electrode_model_create routine, generally.
+     */ 
+    Electrode::readEnvironmentalVariables();
   
     Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
 
@@ -109,6 +121,8 @@ int main(int argc, char **argv)
 
     BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
 
+
+    
  
     // Go get the problem description from the input file
 
@@ -128,6 +142,8 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
+
+
     retn = electrodeA->setInitialConditions(electrodeA_input);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -138,39 +154,43 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
-    double deltaT = 1.0E-2;
     double Tinitial = 0.0;
     double Tfinal = 0.0;
 
-    electrodeA->setVoltages(0.0, -0.2);
+    double molNum[10];
+
+    double vvolts = electrodeA->openCircuitVoltageRxn(0, 0);
+    printf(" volts = %g\n", vvolts);
+    //exit (0);
 
     electrodeA->setPhaseExistenceForReactingSurfaces(true);
-    electrodeA->setVoltages(0.0, -0.2);
+    //electrodeA->setVoltages(0.0, -0.1);
+    electrodeA->setVoltages(0.0, -0.220);
     double oc = electrodeA->openCircuitVoltageSSRxn(0);
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
-    int nT = 100;
-    electrodeA->printCSVLvl_ = 1;
+    int nT = 30;
+    double deltaT = 1.0E-6;
+    double deltaTgoal = deltaT;
+    double ampsGoal = 1.0;
+    electrodeA->printCSVLvl_ = 3;
 
+    double pmv[10];
+
+    ThermoPhase *th = electrodeA->getPhase("MCMB_Interstitials_anode");
+    th->getPartialMolarVolumes(pmv);
+    
+    electrodeA->setDeltaTSubcycle(2.5E-4);
     electrodeA->printElectrode();
-    electrodeA->setDeltaTSubcycle(0.001);
 
     remove("soln.xml");
-
-    // Extra printing for debugging
-    electrodeA->enableExtraPrinting_ = true;
-    electrodeA->detailedResidPrintFlag_ = 12;
-    // Normal printing for testing
-    electrodeA->enableExtraPrinting_ = false; 
-    electrodeA->detailedResidPrintFlag_ = 0;
-    electrodeA->printLvl_ = 4;
-
-    electrodeA->fixCapacityBalances_final();
-
     double net[50];
-    double ampsGoal = 5.0;
-    double deltaTgoal = deltaT;
     double coul = 0.0;
+
+
+    // electrodeA->enableExtraPrinting_ = true;
+    electrodeA->detailedResidPrintFlag_ = 4;
+    // electrodeA->setMaxNumberSubCycles(40);
 
     FILE * fp = fopen("outputTable.csv","w");
     fprintf(fp, "Constant Current Curves \n");
@@ -179,22 +199,30 @@ int main(int argc, char **argv)
     fprintf(fp, "\n");
     fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts \n");
 
-  
+    nT = 1; 
     for (int itimes = 0; itimes < nT; itimes++) {
-      Tinitial = Tfinal;
-
+      Tinitial = Tfinal; 
       electrodeA->resetStartingCondition(Tinitial);
+      //int numSubIntegrations = electrodeA->integrate(deltaT);
+
       double amps = ampsGoal;
       deltaT = deltaTgoal;
 
-      double volts =  electrodeA->integrateConstantCurrent(amps, deltaT, 1.0, -1.0);
+      double volts = electrodeA->integrateConstantCurrent(amps, deltaT, 1.0, -1.0);
       Tfinal = Tinitial + deltaT;
 
       amps = electrodeA->getIntegratedProductionRatesCurrent(net);
       coul  += amps * deltaT;
- 
+
       fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);
 
+      int numSubIntegrations = electrodeA->integrate(deltaT);
+      Tfinal = electrodeA->timeFinalFinal();
+      electrodeA->getMoleNumSpecies(molNum);
+      doublereal net[12];
+      amps = electrodeA->getIntegratedProductionRatesCurrent(net);
+ 
+      cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;
       electrodeA->printElectrode();
       electrodeA->writeSolutionTimeIncrement();
     }

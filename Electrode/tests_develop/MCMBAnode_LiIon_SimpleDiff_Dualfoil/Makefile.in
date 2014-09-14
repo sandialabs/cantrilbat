@@ -61,7 +61,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM) MCMBThermo MCMB
+all: .depends $(PROGRAM) MCMBThermo MCMB MCMBAnode_SimpleDiff_3_cc
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -97,6 +97,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 #
 .c.o:
 	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
@@ -150,6 +151,13 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBThermo MCMBThermo.o \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+MCMBAnode_SimpleDiff_3_cc: $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP) MCMBAnode_SimpleDiff_3_cc.o
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBAnode_SimpleDiff_3_cc MCMBAnode_SimpleDiff_3_cc.o \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
