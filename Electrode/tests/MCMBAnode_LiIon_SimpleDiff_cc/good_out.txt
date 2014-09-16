@@ -280,8 +280,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.023098
 
@@ -1323,8 +1323,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230886
 
@@ -1549,8 +1549,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230804
 
@@ -1775,8 +1775,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230724
 
@@ -2001,8 +2001,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230646
 
@@ -2227,8 +2227,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230567
 
@@ -2453,8 +2453,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230489
 
@@ -2679,8 +2679,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.023041
 
@@ -2905,8 +2905,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230332
 
@@ -3131,8 +3131,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230253
 
@@ -3357,8 +3357,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230175
 
@@ -3583,8 +3583,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230096
 
@@ -3809,8 +3809,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0230018
 
@@ -4035,8 +4035,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022994
 
@@ -4261,8 +4261,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229861
 
@@ -4487,8 +4487,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229783
 
@@ -4713,8 +4713,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229704
 
@@ -4939,8 +4939,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229626
 
@@ -5165,8 +5165,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229548
 
@@ -5391,8 +5391,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022947
 
@@ -5617,8 +5617,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229391
 
@@ -5843,8 +5843,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229313
 
@@ -6069,8 +6069,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229235
 
@@ -6295,8 +6295,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229156
 
@@ -6521,8 +6521,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229078
 
@@ -6747,8 +6747,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0229
 
@@ -6973,8 +6973,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228922
 
@@ -7199,8 +7199,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228844
 
@@ -7425,8 +7425,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228766
 
@@ -7651,8 +7651,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228687
 
@@ -7877,8 +7877,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228609
 
@@ -8103,8 +8103,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228531
 
@@ -8329,8 +8329,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228453
 
@@ -8555,8 +8555,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228375
 
@@ -8781,8 +8781,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228297
 
@@ -9007,8 +9007,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228219
 
@@ -9233,8 +9233,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228141
 
@@ -9459,8 +9459,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0228063
 
@@ -9685,8 +9685,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227985
 
@@ -9911,8 +9911,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227907
 
@@ -10137,8 +10137,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227829
 
@@ -10363,8 +10363,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227751
 
@@ -10589,8 +10589,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227673
 
@@ -10815,8 +10815,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227595
 
@@ -11041,8 +11041,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227517
 
@@ -11243,8 +11243,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227439
 
@@ -11445,8 +11445,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227361
 
@@ -11647,8 +11647,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227284
 
@@ -11849,8 +11849,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227206
 
@@ -12051,8 +12051,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0227128
 
@@ -12253,8 +12253,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022705
 
@@ -12455,8 +12455,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226972
 
@@ -12657,8 +12657,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226894
 
@@ -12859,8 +12859,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226817
 
@@ -13061,8 +13061,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226739
 
@@ -13263,8 +13263,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226661
 
@@ -13465,8 +13465,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226583
 
@@ -13667,8 +13667,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226506
 
@@ -13869,8 +13869,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226428
 
@@ -14071,8 +14071,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022635
 
@@ -14273,8 +14273,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226273
 
@@ -14475,8 +14475,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226195
 
@@ -14677,8 +14677,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226117
 
@@ -14879,8 +14879,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022604
 
@@ -15081,8 +15081,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225962
 
@@ -15283,8 +15283,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225885
 
@@ -15485,8 +15485,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225807
 
@@ -15687,8 +15687,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225729
 
@@ -15889,8 +15889,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225652
 
@@ -16091,8 +16091,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225574
 
@@ -16293,8 +16293,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225497
 
@@ -16495,8 +16495,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225419
 
@@ -16697,8 +16697,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225342
 
@@ -16899,8 +16899,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225264
 
@@ -17101,8 +17101,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225187
 
@@ -17303,8 +17303,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022511
 
@@ -17505,8 +17505,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0225032
 
@@ -17707,8 +17707,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224955
 
@@ -17909,8 +17909,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224877
 
@@ -18111,8 +18111,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.02248
 
@@ -18313,8 +18313,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224723
 
@@ -18515,8 +18515,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224645
 
@@ -18717,8 +18717,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224568
 
@@ -18919,8 +18919,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224491
 
@@ -19121,8 +19121,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224413
 
@@ -19323,8 +19323,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224336
 
@@ -19525,8 +19525,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224259
 
@@ -19727,8 +19727,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224182
 
@@ -19929,8 +19929,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224104
 
@@ -20131,8 +20131,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224027
 
@@ -20333,8 +20333,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022395
 
@@ -20535,8 +20535,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223873
 
@@ -20737,8 +20737,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223796
 
@@ -20939,8 +20939,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223718
 
@@ -21141,8 +21141,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223641
 
@@ -21343,8 +21343,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223564
 
@@ -21545,8 +21545,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223487
 
@@ -21747,8 +21747,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022341
 
@@ -21949,8 +21949,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223333
 
@@ -22151,8 +22151,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223256
 
@@ -22353,8 +22353,8 @@ RootFind success: convergence achieved
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0223179
 

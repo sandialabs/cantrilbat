@@ -287,8 +287,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.023098
 
@@ -404,8 +404,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0226498
 
@@ -520,8 +520,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0224634
 
@@ -638,8 +638,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0859496 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0222357
 
@@ -756,8 +756,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.121782 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.022041
 
@@ -874,8 +874,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0771704 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0217894
 
@@ -992,8 +992,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0939699 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0214537
 
@@ -1110,8 +1110,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0954431 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0209883
 
@@ -1228,8 +1228,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.147371 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0205426
 
@@ -1346,8 +1346,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.11014 beat
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0201092
 
@@ -1464,8 +1464,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0812853 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0194773
 
@@ -1582,8 +1582,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.11816 beat
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0188622
 
@@ -1700,8 +1700,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0751105 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0179689
 
@@ -1818,8 +1818,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.088387 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0166874
 
@@ -1937,8 +1937,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0737278 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.014883
 
@@ -2056,8 +2056,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0798869 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0124118
 
@@ -2175,8 +2175,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153694 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.010182
 
@@ -2294,8 +2294,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.13485 beat
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.00874142
 
@@ -2404,8 +2404,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0665524 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.00874142
 
@@ -2522,8 +2522,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0665524 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.00686147
 
@@ -2641,8 +2641,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.125346 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.0051574
 
@@ -2760,8 +2760,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.11764 beat
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.00361096
 
@@ -2879,8 +2879,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.109857 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.00220628
 
@@ -2998,8 +2998,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.102845 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.000929397
 
@@ -3116,8 +3116,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0967815 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.000684486
 
@@ -3226,8 +3226,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00432519 b
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.000684486
 
@@ -3344,8 +3344,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.00432519 b
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.000982122
 
@@ -3463,8 +3463,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.191132 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00242979
 
@@ -3582,8 +3582,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.184233 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00368784
 
@@ -3700,8 +3700,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.1769 beat 
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00421999
 
@@ -3810,8 +3810,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0419442 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00421999
 
@@ -3928,8 +3928,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0419442 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00524366
 
@@ -4047,8 +4047,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.164385 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00613264
 
@@ -4166,8 +4166,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163583 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00690428
 
@@ -4284,8 +4284,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163012 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00722977
 
@@ -4394,8 +4394,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0396105 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00722977
 
@@ -4512,8 +4512,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0396105 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00785592
 
@@ -4631,8 +4631,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.159635 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00839821
 
@@ -4750,8 +4750,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.161585 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00886764
 
@@ -4868,8 +4868,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.163029 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.009065
 
@@ -4978,8 +4978,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0391141 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.009065
 
@@ -5096,8 +5096,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0391141 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00944481
 
@@ -5215,8 +5215,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.161455 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.00977339
 
@@ -5334,8 +5334,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.160944 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0100581
 
@@ -5452,8 +5452,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.158827 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.010178
 
@@ -5562,8 +5562,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0370026 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.010178
 
@@ -5679,8 +5679,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0370026 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0104101
 
@@ -5797,8 +5797,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.150593 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0106132
 
@@ -5915,8 +5915,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.142781 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0107924
 
@@ -6033,8 +6033,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.132318 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0108694
 
@@ -6143,8 +6143,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284789 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0108694
 
@@ -6260,8 +6260,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0284789 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0110216
 
@@ -6378,8 +6378,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.111167 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0111601
 
@@ -6496,8 +6496,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0941425 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0113449
 
@@ -6606,8 +6606,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.193172 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0113449
 
@@ -6723,8 +6723,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.193172 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0115143
 
@@ -6841,8 +6841,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.370899 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0115955
 
@@ -6959,8 +6959,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.139933 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0116745
 
@@ -7077,8 +7077,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146183 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0117307
 
@@ -7187,8 +7187,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0818585 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0117307
 
@@ -7304,8 +7304,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0818585 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0118067
 
@@ -7422,8 +7422,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.146088 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0118814
 
@@ -7540,8 +7540,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.141811 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.011955
 
@@ -7658,8 +7658,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.133515 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0120279
 
@@ -7776,8 +7776,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.122044 bea
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0120803
 
@@ -7886,8 +7886,8 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0606106 be
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 0.0120803
 

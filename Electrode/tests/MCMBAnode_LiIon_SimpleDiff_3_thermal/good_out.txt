@@ -280,8 +280,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.023098
 
@@ -390,8 +390,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53845e-09
-                surface area (final) = 0.251282
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51282E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.016845
 
@@ -492,8 +492,8 @@ oc[0] = -0.023098
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53845e-09
-                surface area (final) = 0.251282
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51282E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = -0.016845
 

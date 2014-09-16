@@ -1304,8 +1304,8 @@ oc[0] = 3.98922
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98922
 
@@ -1445,8 +1445,8 @@ oc[0] = 3.98922
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98922
 
@@ -1536,8 +1536,8 @@ oc[0] = 3.98922
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98922
 
@@ -1691,8 +1691,8 @@ current2 = -0.106531 amps
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98921
 
@@ -1782,8 +1782,8 @@ current2 = -0.106531 amps
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98921
 

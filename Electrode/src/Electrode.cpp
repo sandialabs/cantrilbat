@@ -5191,17 +5191,17 @@ void Electrode::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
         isurf = iph - NumVolPhases_;
         radius = sqrt(surfaceAreaRS_final_[isurf] / (4.0 * Pi * particleNumberToFollow_));
         radius *= 1.0E6;
-        printf("                surface area (final) = %13.5E m**2      Radius(final) = %13.5E um\n",
+        printf("                surface area (final) = %11.5E m**2      Radius(final) = %11.5E um\n",
                surfaceAreaRS_final_[isurf], radius);
         if (subTimeStep) {
             radius = sqrt(surfaceAreaRS_init_[isurf] / (4.0 * Pi * particleNumberToFollow_));
             radius *= 1.0E6;
-            printf("                surface area (init)  = %13.5E m**2      Radius(init)  = %13.5E um\n",
+            printf("                surface area (init)  = %11.5E m**2      Radius(init)  = %11.5E um\n",
                    surfaceAreaRS_init_[isurf], radius);
         } else {
             radius = sqrt(surfaceAreaRS_init_init_[isurf] / (4.0 * Pi * particleNumberToFollow_));
             radius *= 1.0E6;
-            printf("                surface area (init)  = %13.5E m**2      Radius(init)  = %13.5E um\n",
+            printf("                surface area (init)  = %11.5E m**2      Radius(init)  = %11.5E um\n",
                    surfaceAreaRS_init_init_[isurf], radius);
         }
         int ttt = isExternalSurface_[isurf];

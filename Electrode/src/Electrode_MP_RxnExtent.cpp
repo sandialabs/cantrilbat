@@ -4675,15 +4675,15 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
 
         radius = sqrt(surfaceAreaRS_final_[isurfA] / (4.0 * Pi * particleNumberToFollow_));
         radius *= 1.0E6;
-        printf("                surface area (final) = %13.5E m**2      Radius(final) = %13.5E um\n",  surfaceAreaRS_final_[isurfA], radius);
+        printf("                surface area (final) = %11.5E m**2      Radius(final) = %11.5E um\n",  surfaceAreaRS_final_[isurfA], radius);
         if (subTimeStep) {
             radius = sqrt(surfaceAreaRS_init_[isurfA] / (4.0 * Pi * particleNumberToFollow_));
             radius *= 1.0E6;
-            printf("                surface area (init)  = %13.5E m**2      Radius(init)  = %13.5E um\n",  surfaceAreaRS_init_[isurfA], radius);
+            printf("                surface area (init)  = %11.5E m**2      Radius(init)  = %11.5E um\n",  surfaceAreaRS_init_[isurfA], radius);
         } else {
             radius = sqrt(surfaceAreaRS_init_init_[isurfA] / (4.0 * Pi * particleNumberToFollow_));
             radius *= 1.0E6;
-            printf("                surface area (init)  = %13.5E m**2      Radius(init)  = %13.5E um\n",  surfaceAreaRS_init_init_[isurfA], radius);
+            printf("                surface area (init)  = %11.5E m**2      Radius(init)  = %11.5E um\n",  surfaceAreaRS_init_init_[isurfA], radius);
         }
 
         int ttt = isExternalSurface_[isurfA];

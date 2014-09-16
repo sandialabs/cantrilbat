@@ -2016,8 +2016,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98922
 
@@ -2118,8 +2118,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98917
 
@@ -2220,8 +2220,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98912
 
@@ -2322,8 +2322,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98908
 
@@ -2424,8 +2424,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98904
 
@@ -2526,8 +2526,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.989
 
@@ -2628,8 +2628,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98896
 
@@ -2730,8 +2730,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98892
 
@@ -2832,8 +2832,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98888
 
@@ -2934,8 +2934,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98884
 
@@ -3036,8 +3036,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.9888
 
@@ -3138,8 +3138,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98875
 
@@ -3240,8 +3240,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98871
 
@@ -3342,8 +3342,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98867
 
@@ -3444,8 +3444,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98863
 
@@ -3546,8 +3546,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98859
 
@@ -3648,8 +3648,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98855
 
@@ -3750,8 +3750,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98851
 
@@ -3852,8 +3852,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98847
 
@@ -3954,8 +3954,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98843
 
@@ -4056,8 +4056,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98839
 
@@ -4158,8 +4158,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98835
 
@@ -4260,8 +4260,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98831
 
@@ -4362,8 +4362,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98827
 
@@ -4464,8 +4464,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98823
 
@@ -4566,8 +4566,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98819
 
@@ -4668,8 +4668,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98815
 
@@ -4770,8 +4770,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98811
 
@@ -4872,8 +4872,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98807
 
@@ -4974,8 +4974,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98803
 
@@ -5076,8 +5076,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98799
 
@@ -5178,8 +5178,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98795
 
@@ -5280,8 +5280,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98791
 
@@ -5382,8 +5382,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98787
 
@@ -5484,8 +5484,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98783
 
@@ -5586,8 +5586,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98779
 
@@ -5688,8 +5688,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98775
 
@@ -5790,8 +5790,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98771
 
@@ -5892,8 +5892,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98767
 
@@ -5994,8 +5994,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98763
 
@@ -6096,8 +6096,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98759
 
@@ -6198,8 +6198,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98755
 
@@ -6300,8 +6300,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98751
 
@@ -6402,8 +6402,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98747
 
@@ -6504,8 +6504,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98743
 
@@ -6606,8 +6606,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98739
 
@@ -6708,8 +6708,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98735
 
@@ -6810,8 +6810,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98731
 
@@ -6912,8 +6912,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98727
 
@@ -7014,8 +7014,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98723
 
@@ -7116,8 +7116,8 @@ oc[0] = 3.98922
      ===============================================================
           Phase 3 cathode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                 Open Circuit Voltage = 3.98719
 

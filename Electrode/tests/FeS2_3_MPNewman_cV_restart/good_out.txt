@@ -1577,8 +1577,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.86061 Volts
 
@@ -1685,8 +1685,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -1802,8 +1802,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -1919,8 +1919,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2036,8 +2036,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2145,8 +2145,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2262,8 +2262,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2379,8 +2379,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2488,8 +2488,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2605,8 +2605,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2714,8 +2714,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2831,8 +2831,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -2940,8 +2940,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3057,8 +3057,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3166,8 +3166,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3283,8 +3283,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3392,8 +3392,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3509,8 +3509,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3618,8 +3618,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3735,8 +3735,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3844,8 +3844,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -3961,8 +3961,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4070,8 +4070,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4187,8 +4187,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4296,8 +4296,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4413,8 +4413,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4522,8 +4522,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4639,8 +4639,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4748,8 +4748,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4865,8 +4865,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -4974,8 +4974,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5091,8 +5091,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5200,8 +5200,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5317,8 +5317,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5426,8 +5426,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5543,8 +5543,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5652,8 +5652,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5769,8 +5769,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5878,8 +5878,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -5995,8 +5995,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6104,8 +6104,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6221,8 +6221,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6330,8 +6330,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6447,8 +6447,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6556,8 +6556,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6673,8 +6673,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6782,8 +6782,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -6899,8 +6899,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7008,8 +7008,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7125,8 +7125,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7234,8 +7234,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7351,8 +7351,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7460,8 +7460,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7577,8 +7577,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7686,8 +7686,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7803,8 +7803,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -7912,8 +7912,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8029,8 +8029,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8138,8 +8138,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8255,8 +8255,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8364,8 +8364,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8481,8 +8481,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8590,8 +8590,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8707,8 +8707,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8816,8 +8816,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -8933,8 +8933,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9042,8 +9042,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9159,8 +9159,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9268,8 +9268,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9385,8 +9385,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9494,8 +9494,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9611,8 +9611,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9720,8 +9720,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9837,8 +9837,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -9946,8 +9946,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10063,8 +10063,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10172,8 +10172,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10289,8 +10289,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10398,8 +10398,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10515,8 +10515,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10624,8 +10624,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10741,8 +10741,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10850,8 +10850,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -10967,8 +10967,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11076,8 +11076,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11193,8 +11193,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11302,8 +11302,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11419,8 +11419,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11528,8 +11528,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11645,8 +11645,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11754,8 +11754,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11871,8 +11871,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -11980,8 +11980,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12097,8 +12097,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12206,8 +12206,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12323,8 +12323,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12432,8 +12432,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12549,8 +12549,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12658,8 +12658,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12775,8 +12775,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -12884,8 +12884,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -13001,8 +13001,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -13110,8 +13110,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -13227,8 +13227,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 
@@ -13336,8 +13336,8 @@ oc[0] = 0
                 Molar Volume = 0.00000E+00 cm3 gmol-1
                 Molar Area   = 3.33333E+08 cm2 gmol-1
                 FOR PURPOSES OF RXN, Using these constant surface areas:
-                surface area (final) =   2.51327E-01 m**2      Radius(final) =   1.00000E+01 um
-                surface area (init)  =   2.51327E-01 m**2      Radius(init)  =   1.00000E+01 um
+                surface area (final) = 2.51327E-01 m**2      Radius(final) = 1.00000E+01 um
+                surface area (init)  = 2.51327E-01 m**2      Radius(init)  = 1.00000E+01 um
                 IsExternalSurface = 1
                  Open Circuit Voltage = 1.6 Volts
 

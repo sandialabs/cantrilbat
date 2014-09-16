@@ -1304,8 +1304,8 @@ oc[0] = 3.98922
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98922
 
@@ -1608,8 +1608,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98881
      ============================================================================================
@@ -1800,8 +1800,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.9884
      ============================================================================================
@@ -1981,8 +1981,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98798
      ============================================================================================
@@ -2162,8 +2162,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98757
      ============================================================================================
@@ -2343,8 +2343,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98715
      ============================================================================================
@@ -2524,8 +2524,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98674
      ============================================================================================
@@ -2705,8 +2705,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98633
      ============================================================================================
@@ -2886,8 +2886,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98591
      ============================================================================================
@@ -3067,8 +3067,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.9855
      ============================================================================================
@@ -3248,8 +3248,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98508
      ============================================================================================
@@ -3429,8 +3429,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98467
      ============================================================================================
@@ -3610,8 +3610,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98425
      ============================================================================================
@@ -3791,8 +3791,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98384
      ============================================================================================
@@ -3972,8 +3972,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98343
      ============================================================================================
@@ -4153,8 +4153,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98301
      ============================================================================================
@@ -4334,8 +4334,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.9826
      ============================================================================================
@@ -4515,8 +4515,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98218
      ============================================================================================
@@ -4696,8 +4696,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98177
      ============================================================================================
@@ -4877,8 +4877,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98135
      ============================================================================================
@@ -5058,8 +5058,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98094
      ============================================================================================
@@ -5239,8 +5239,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98052
      ============================================================================================
@@ -5420,8 +5420,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.98011
      ============================================================================================
@@ -5601,8 +5601,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97969
      ============================================================================================
@@ -5782,8 +5782,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97928
      ============================================================================================
@@ -5963,8 +5963,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97887
      ============================================================================================
@@ -6144,8 +6144,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97845
      ============================================================================================
@@ -6325,8 +6325,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97804
      ============================================================================================
@@ -6506,8 +6506,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97762
      ============================================================================================
@@ -6687,8 +6687,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97721
      ============================================================================================
@@ -6868,8 +6868,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97679
      ============================================================================================
@@ -7049,8 +7049,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97638
      ============================================================================================
@@ -7230,8 +7230,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97596
      ============================================================================================
@@ -7411,8 +7411,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97555
      ============================================================================================
@@ -7592,8 +7592,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97513
      ============================================================================================
@@ -7773,8 +7773,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97472
      ============================================================================================
@@ -7954,8 +7954,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.9743
      ============================================================================================
@@ -8135,8 +8135,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97389
      ============================================================================================
@@ -8316,8 +8316,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97347
      ============================================================================================
@@ -8497,8 +8497,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97305
      ============================================================================================
@@ -8678,8 +8678,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97264
      ============================================================================================
@@ -8859,8 +8859,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97222
      ============================================================================================
@@ -9040,8 +9040,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97181
      ============================================================================================
@@ -9221,8 +9221,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97139
      ============================================================================================
@@ -9402,8 +9402,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97098
      ============================================================================================
@@ -9583,8 +9583,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97056
      ============================================================================================
@@ -9764,8 +9764,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.97015
      ============================================================================================
@@ -9945,8 +9945,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.96973
      ============================================================================================
@@ -10126,8 +10126,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.96932
      ============================================================================================
@@ -10307,8 +10307,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.9689
      ============================================================================================
@@ -10488,8 +10488,8 @@ RootFind success: convergence achieved
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
                 Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
                  Open Circuit Voltage = 3.96848
      ============================================================================================

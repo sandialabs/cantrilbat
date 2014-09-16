@@ -1775,8 +1775,8 @@ void Electrode_RadialRegion::printElectrodePhase(int iph, int pSrc, bool subTime
     }
     if (iph >= NumVolPhases_) {
         isph = iph - NumVolPhases_;
-        printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
-        printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
+        printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
+        printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
         int ddd =  isExternalSurface_[isph];
         printf("                IsExternalSurface = %d\n", ddd);
         double oc = openCircuitVoltage(isph);
