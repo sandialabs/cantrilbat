@@ -98,7 +98,7 @@ INSTALL = $(CHEMKIN_HOME)/bin/bsdinstall.sh
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
-OBJ_CTAPPLBASE =  PhaseList.o RxnMolChange.o ReactingSurDomain.o ExtraGlobalRxn.o \
+OBJ_CTAPPLBASE =  PhaseList.o  ReactingSurDomain.o  \
                   importPL.o InterfacialMassTransfer.o InterfacialMassTransfer_input.o ApplBase_print.o \
                   InterfacialMassTransfer_Factory.o  InterfacialMassTransfer_1to1Distrib.o \
                   InterfacialMassTransfer_PseudoSS.o imtPSS_NoSurf.o \

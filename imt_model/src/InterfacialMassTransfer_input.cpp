@@ -919,7 +919,7 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
    *   Query the input file for some more information
    */
 
-  bool molesSpecified = false;
+  //bool molesSpecified = false;
 
 
   /*
@@ -932,7 +932,7 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
   BlockEntry *be = cf->searchBlockEntry("Species Initial KMoles");
   ei->specifiedBlockKmolSpecies = be->get_NumTimesProcessed();
   if (ei->specifiedBlockKmolSpecies > 0) {
-    molesSpecified = true;
+    //molesSpecified = true;
   }
 
   ElectrodeBath *BG = ei->m_BG;
@@ -1008,14 +1008,14 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
     phaseBath += phaseNm; 
 
     
-    bool molVecSpecified = false;
+    //bool molVecSpecified = false;
     BEInput::BlockEntry *pblock = cf->searchBlockEntry(phaseBath.c_str());
     if (pblock) {
       BEInput::BlockEntry *pbsmf =
 	pblock->searchBlockEntry("Bath Species Mole Fraction");
       if (pbsmf) {
 	if (pbsmf->get_NumTimesProcessed() > 0) {
-	  molVecSpecified = true;
+	  //molVecSpecified = true;
 	}
       }
     }
@@ -1110,14 +1110,14 @@ int imt_model_print(Cantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INPUT
      */
 
     
-    bool molVecSpecified = false;
+    //bool molVecSpecified = false;
     BEInput::BlockEntry *pblock = cf->searchBlockEntry(phaseBath.c_str());
     if (pblock) {
       BEInput::BlockEntry *pbsmf =
 	pblock->searchBlockEntry("Bath Species Mole Fraction");
       if (pbsmf) {
 	if (pbsmf->get_NumTimesProcessed() > 0) {
-	  molVecSpecified = true;
+	  //molVecSpecified = true;
 	}
       }
     }
