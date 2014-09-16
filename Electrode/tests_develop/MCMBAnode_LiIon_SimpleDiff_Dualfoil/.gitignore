@@ -32,3 +32,7 @@ MCMBThermo
 MCMB.out
 MCMBThermo.out
 diff_tout.txt
+MCMBAnode_SimpleDiff_3_cc
+ccout.txt
+outputTable.csv
+

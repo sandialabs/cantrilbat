@@ -70,7 +70,7 @@ Particle Diameter = 25 microns
 Particle Number to Follow =  8.556170E5
 !-------------------------------------------------------------------------
 !
-Electrode Porosity = 0.35
+Electrode Porosity = 0.30
 !-------------------------------------------------------------------------
 !
 ! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]
@@ -119,9 +119,9 @@ end block Radial Diffusion Region
 start block Bath Specification for Phase ECDMC_LiPF6
    Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
-       Li+   = 0.10
-       PF6-  = 0.10
-       ECDMC = 0.80
+       Li+   = 0.05571293
+       PF6-  = 0.05571293
+       ECDMC = 0.88857414
    End block Bath Species Mole Fraction
 end block Bath Specification for Phase ECDMC_LiPF6
 
