@@ -60,7 +60,7 @@ Pressure = 1.0 atm
 !
 ! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
-Particle Diameter = 20 microns
+Particle Diameter = 25.0 microns
 !-------------------------------------------------------------------------
 !
 ! Particle Number to Follow - double [unitless] (default 1) (optional)

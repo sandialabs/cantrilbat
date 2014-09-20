@@ -316,6 +316,9 @@ RSD_OCVmodel* Electrode_Factory::newRSD_OCVmodel(std::string smodel)
     case         OCVAnode_MCMB2528_dualfoil :
         ei = new  RSD_OCVmodel(OCVAnode_MCMB2528_dualfoil);
         break;
+    case         OCVCathode_CoO2_dualfoil :
+        ei = new  RSD_OCVmodel(OCVCathode_CoO2_dualfoil);
+        break;
     default:
 	throw CanteraError("Electrode_Factory::newRSD_OCVmodel()",
                            "Unknown OCVoverride model: " + smodel);

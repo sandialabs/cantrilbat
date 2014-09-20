@@ -28,6 +28,8 @@ void createOCVmodel_map(std::map<int, std::string>& smap)
 {
    smap[OCVAnode_MCMB2528]          = "MCMB2528";
    smap[OCVAnode_MCMB2528_dualfoil] = "MCMB2528_dualfoil";
+
+   smap[OCVCathode_CoO2_dualfoil]   = "CoO2_dualfoil";
 }
 //==============================================================================================================================
 //==============================================================================================================================
@@ -179,22 +181,20 @@ double RSD_OCVmodel::OCV_value() const
         /*
          *   Line 4580 of dualfoil 5.1
 	 * 
-	 *	  Measured by Oscar Garcia 2001 using Quallion electrodes for
-	 *  c     0.5 < y < 0.99.  Fit revised by Karen Thomas in May 2003 to
-         *  c     match Doyle's fit for y < 0.4 and Garcia's data at larger y.
-	 *  c     Valid for 0 < y < 0.99. Note that capacity fade is found to
-	 *  c     occur experimentally if y goes below 0.5; this is not included
-	 *  c     in the model
+	 *       Measured by Oscar Garcia 2001 using Quallion electrodes for
+	 *       0.5 < y < 0.99.  Fit revised by Karen Thomas in May 2003 to
+         *       match Doyle's fit for y < 0.4 and Garcia's data at larger y.
+	 *       Valid for 0 < y < 0.99. Note that capacity fade is found to
+	 *       occur experimentally if y goes below 0.5; this is not included
+	 *       in the model
 	 */
-
+       xV = relExtent_;
         volts = ( 2.16216 + 0.07645 * tanh(30.834 - 54.4806 * xV)
 		  + 2.1581  * tanh( 52.294  - 50.294  * xV)
 		  - 0.14169 * tanh( 11.0923 - 19.8543 * xV)
 		  + 0.2051 *  tanh( 1.4684  - 5.4888  * xV)
 		  + 0.2531 *  tanh( (-xV + 0.56478) / 0.1316)
 		  - 0.02167 * tanh( ( xV - 0.525)   / 0.006)      );
-
-
 
     } else {
         printf("model not found\n");
