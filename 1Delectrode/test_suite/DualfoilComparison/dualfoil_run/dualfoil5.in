@@ -18,7 +18,7 @@
 30.0d0    ! tmmax, maximum time step size (s)
 3.9d-14   ! dfs1,  (ignored in Foil mode) diffusion coef. in negative solid (m2/s) 0.58d-14,
 1.0d-13   ! dfs3,  diffusion coef. in positive solid (m2/s) 0.8d-14, 3.d-14
-10.0d-6   ! Rad1,  radius of negative particles (m) (ignored in Foil mode) 0.0000042, 0.0000078
+12.5d-6   ! Rad1,  radius of negative particles (m) (ignored in Foil mode) 0.0000042, 0.0000078
 10.0d-6   ! Rad3,  radius of positive particles (m) 0.000002, 17
 0.35      ! ep1,   volume fraction of electrolyte in negative electrode
 0.0d0     ! epp1,  volume fraction of polymer in negative electrode
