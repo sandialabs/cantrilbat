@@ -28,6 +28,7 @@
 
     <!-- ECDMC 
        This is made up thermodynamics
+       From Nyman, the molar volume of EC-EMC is 87.0E-3 m3/kmol
     -->
     <species name="ECDMC">
 
@@ -41,7 +42,10 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume units="m3/kmol"> 0.0182 </molarVolume>
+        <!-- ECDMC 
+          From Nyman, the molar volume of EC-EMC is 87.0E-3 m3/kmol
+         -->
+         <molarVolume units="m3/kmol"> 0.0870 </molarVolume>
       </standardState>
     </species>
 
@@ -69,6 +73,8 @@
        The thermodynamics and volume information for this species is
        given by the heat of solution of LiPF6. However, I don't know
        that information, so it is made up.
+       From Nyman, the molar volume of LiPF6 is 59E-3 m3/kmol. This must be spread
+       into the the Li+ and PF6- values.
     -->
     <species name="PF6-">
       <atomArray> P:1 F:6 </atomArray>
@@ -82,9 +88,8 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume units="m3/kmol"> 0.0182 </molarVolume>
+         <molarVolume units="m3/kmol"> 0.049 </molarVolume>
       </standardState>
     </species>
-
 
   </speciesData>
