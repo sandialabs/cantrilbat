@@ -40,7 +40,6 @@ else
 fi
 
 
-
 $PROG_EXE   > out.txt 2>err_out.txt
 retnStat=$?
 if test $retnStat != "0" 

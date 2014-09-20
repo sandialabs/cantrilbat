@@ -99,8 +99,9 @@ int main(int argc, char **argv)
 
      PhaseList*  pl = new PhaseList();
      pl->addVolPhase("metal_Li_LiIon_electrons.xml");
-     pl->addvolPhase(" ECsoln_ion.xml");
      pl->addVolPhase("LiCoO2_RedlichKister.xml");
+     pl->addVolPhase("ECsoln_ion.xml");
+     pl->addVolPhase("Li_Metal.xml");
      pl->addSurPhase("LiCoO2Cathode_electrode.xml");
 
      pl->setState_TP(298.15, OneAtm);
@@ -126,7 +127,6 @@ int main(int argc, char **argv)
      // Temperature for OCV = 298.15
      // Open Circuit Voltage Temperature Derivative Model = MCMB2528
      // end block Open Circuit Potential Override for interface anode_surface
-
 
      OCV_Override_input* ocv_input_ptr = new  Cantera::OCV_Override_input();
 
@@ -166,12 +166,8 @@ int main(int argc, char **argv)
 	     exit(-1);
 	 }
      }
-    
-
 
      rsd->addOCVoverride(ocv_input_ptr);
-
-
 
      printf("dg[0] = %g\n", dg[0]);
      printf("dg[1] = %g\n", dg[1]);

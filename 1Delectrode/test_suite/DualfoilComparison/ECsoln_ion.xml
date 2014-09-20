@@ -48,7 +48,10 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume> 0.067 </molarVolume>
+          <!-- ECDMC 
+             From Nyman, the molar volume of EC-EMC is 87.0E-3 m3/kmol
+          -->
+         <molarVolume units="m3/kmol"> 0.0870 </molarVolume>
       </standardState>
       <transport>
          <viscosity model="Constant" units="centipoise"> 1.0E0  </viscosity>
@@ -73,7 +76,7 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume> 0.0 </molarVolume>
+         <molarVolume units="m3/kmol"> 0.01 </molarVolume>
       </standardState>
       <transport>
          <viscosity model="Constant" units="centipoise"> 1.0E0  </viscosity>
@@ -100,7 +103,11 @@
         </const_cp>
       </thermo>
       <standardState model="constant_incompressible">
-         <molarVolume> 0.134 </molarVolume>
+         <!--
+            From Nyman, the molar volume of LiPF6 is 59E-3 m3/kmol. This must be spread
+            into the the Li+ and PF6- values.
+         -->
+         <molarVolume> 0.049 </molarVolume>
       </standardState>
       <transport>
          <viscosity model="Constant" units="centipoise"> 1.0E0  </viscosity>
@@ -108,8 +115,6 @@
          <speciesDiffusivity model="Constant"> 1.0E-5 </speciesDiffusivity>
       </transport>
     </species>
-
-
 
 
   </speciesData>

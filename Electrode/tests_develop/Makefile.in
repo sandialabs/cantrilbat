@@ -8,16 +8,16 @@
 all:
 	cd LiSi_1_Newman ;                                          @MAKE@
 	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@
-	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@
+	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@
 
 test:
 #	cd LiSi_1_Newman ;     (not ready yet)                      @MAKE@ -s test
-	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@
+	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ -s test
 
 clean:
 	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
 	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@ clean
-	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ clean
 
 depends:
 	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ depends
