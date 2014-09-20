@@ -55,11 +55,11 @@
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-          <!--  The answer for this is that it should be 1.0E-5 at 298K. And the
+          <!--  The answer for this is that it should be 28.279 at 298K. And the
                 activation energy is E/R = 4000 K. dualfoil almost always uses 4000 K as the
                 default activation energy.
             -->
-           <A>6.752368E11</A>
+           <A>1.89665E7</A>
            <b>0.0</b>
            <E units="kJ/mol"> 33.25788 </E>
         </Arrhenius_ExchangeCurrentDensity>

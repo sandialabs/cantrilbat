@@ -170,9 +170,12 @@ int main(int argc, char **argv)
     oc = electrodeA->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
     int nT = 30;
-    double deltaT = 1.0E-6;
+    double deltaT = 1.0E-2;
     double deltaTgoal = deltaT;
-    double ampsGoal = 1.0;
+    //
+    // We seek 20 amps / m2 for a total cross sectional area of 1 cm2
+    //
+    double ampsGoal = 20.0E-4;
     electrodeA->printCSVLvl_ = 3;
 
     double pmv[10];
@@ -199,11 +202,15 @@ int main(int argc, char **argv)
     fprintf(fp, "\n");
     fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts \n");
 
-    nT = 1; 
+    nT = 65; 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal; 
       electrodeA->resetStartingCondition(Tinitial);
       //int numSubIntegrations = electrodeA->integrate(deltaT);
+
+      if (itimes % 10 == 0 && itimes / 10 > 0) {
+        deltaTgoal *= 5.0;
+      }
 
       double amps = ampsGoal;
       deltaT = deltaTgoal;

@@ -119,8 +119,8 @@ start block Bath Specification for Phase MCMB_Interstitials_anode
    Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
 !          This parameter is given by x (initial stoichiometric parameger for neg. )
-       Li_C6-bulk = 0.67
-       V_C6-bulk =  0.33
+       Li_C6-bulk = 0.6
+       V_C6-bulk =  0.4
    End block Bath Species Mole Fraction
 end block Bath Specification for Phase MCMB_Interstitials_anode
 
