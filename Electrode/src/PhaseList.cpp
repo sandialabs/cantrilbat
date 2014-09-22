@@ -346,6 +346,9 @@ addVolPhase(Cantera::ThermoPhase* const vp, XML_Node* vPhase, std::string canter
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
     }
 
+    vp->realNumberRangeBehavior_ = DONOTHING_CTRB;
+    vp->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
+
 }
 //==================================================================================================================
 /*

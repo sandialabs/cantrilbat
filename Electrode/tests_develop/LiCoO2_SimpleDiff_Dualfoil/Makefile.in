@@ -159,7 +159,7 @@ LiCoO2Thermo: LiCoO2Thermo.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
-LiCoO2:	LiCoO2.o
+
 LiCoO2:	LiCoO2.o
 	 $(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2 LiCoO2.o \
                   $(OBJ_CANTERA_ADDONS)  \

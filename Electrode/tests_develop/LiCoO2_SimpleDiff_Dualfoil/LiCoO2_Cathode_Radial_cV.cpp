@@ -1,5 +1,4 @@
 /*
- * $Id: MCMBAnode_SimpleDiff.cpp 496 2013-01-07 21:15:37Z hkmoffa $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -35,12 +34,12 @@ int mpequil_debug_print_lvl = 1;
 int VCS_Debug_Print_Lvl = 3;
 
 void printUsage() {
-    cout << "usage: MCMBAnode_SimpleDiff [-h] [-help_cmdfile] [-d #] [anode.inp]"
+    cout << "usage: LiCoO2_Cathode_Radial_cV [-h] [-help_cmdfile] [-d #] [anode.inp]"
          <<  endl;
     cout << "    -h               : Prints this help" << endl;
-    cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add anode.inp for more information" << endl;
+    cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add cathode.inp for more information" << endl;
     cout << "   -d #              : Level of debug printing" << endl;
-    cout << "   anode.inp         : Command file (if missing, assume anode.inp)" << endl;
+    cout << "   cathode.inp         : Command file (if missing, assume cathode.inp)" << endl;
     cout << endl;
 }
 
@@ -51,8 +50,8 @@ int main(int argc, char **argv)
 {
   int retn = 0;
   //bool doCathode = false;
-  std::string commandFileNet = "anode.inp";
-  std::string commandFileA = "anode.inp";
+  std::string commandFileNet = "cathode.inp";
+  std::string commandFileC = "cathode.inp";
 
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
@@ -111,11 +110,11 @@ int main(int argc, char **argv)
      */ 
     Electrode::readEnvironmentalVariables();
   
-    Cantera::Electrode_SimpleDiff *electrodeA  = new Cantera::Electrode_SimpleDiff();
+    Cantera::Electrode_SimpleDiff *electrodeC  = new Cantera::Electrode_SimpleDiff();
 
-    ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
+    ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeC_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     
-    std::string commandFileA = commandFileNet;
+    std::string commandFileC = commandFileNet;
 	
     // Initialize a block input structure for the command file
 
@@ -126,7 +125,7 @@ int main(int argc, char **argv)
  
     // Go get the problem description from the input file
 
-    retn = electrodeA_input->electrode_input_child(commandFileA, cfC);
+    retn = electrodeC_input->electrode_input_child(commandFileC, cfC);
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
@@ -137,73 +136,71 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
-    retn = electrodeA->electrode_model_create(electrodeA_input);
+    retn = electrodeC->electrode_model_create(electrodeC_input);
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
     }
 
+    retn = electrodeC->setInitialConditions(electrodeC_input);
+    if (retn == -1) {
+      printf("exiting with error\n");
+      exit(-1);
+    }
 
-    retn = electrodeA->setInitialConditions(electrodeA_input);
+    retn = electrodeC->electrode_stateSave_create();
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
     }
-    retn = electrodeA->electrode_stateSave_create();
-    if (retn == -1) {
-      printf("exiting with error\n");
-      exit(-1);
-    }
+
     double Tinitial = 0.0;
     double Tfinal = 0.0;
-
     double molNum[10];
-
-    double vvolts = electrodeA->openCircuitVoltageRxn(0, 0);
+    double vvolts = electrodeC->openCircuitVoltageRxn(0, 0);
     printf(" volts = %g\n", vvolts);
-    //exit (0);
 
-    electrodeA->setPhaseExistenceForReactingSurfaces(true);
-    //electrodeA->setVoltages(0.0, -0.1);
-    electrodeA->setVoltages(0.0, -0.120);
-    double oc = electrodeA->openCircuitVoltageSSRxn(0);
-    oc = electrodeA->openCircuitVoltage(0);
+    electrodeC->setPhaseExistenceForReactingSurfaces(true);
+    electrodeC->setVoltages(4.1, 0.0);
+    double oc = electrodeC->openCircuitVoltageSSRxn(0);
+    oc = electrodeC->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
     int nT = 30;
     double deltaT = 1.0E-2;
-    electrodeA->printCSVLvl_ = 3;
+    electrodeC->printCSVLvl_ = 3;
 
     double pmv[10];
 
-    ThermoPhase *th = electrodeA->getPhase("MCMB_Interstitials_anode");
+    ThermoPhase *th = electrodeC->getPhase("LiCoO2_Interstitials_cathode");
     th->getPartialMolarVolumes(pmv);
     
-    electrodeA->setDeltaTSubcycle(2.5E-4);
-    electrodeA->printElectrode();
+    electrodeC->setDeltaTSubcycle(2.5E-4);
+    electrodeC->printElectrode();
 
     remove("soln.xml");
 
- //   electrodeA->enableExtraPrinting_ = true;
-    electrodeA->detailedResidPrintFlag_ = 4;
-    //electrodeA->setMaxNumberSubCycles(40);
+    electrodeC->setPrintLevel(1);
+    //electrodeC->enableExtraPrinting_ = 10;
+    //electrodeC->detailedResidPrintFlag_ = 10;
+    //electrodeC->setMaxNumberSubCycles(40);
+
 
     nT = 50; 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal; 
-      electrodeA->resetStartingCondition(Tinitial);
-      int numSubIntegrations = electrodeA->integrate(deltaT);
-      Tfinal = electrodeA->timeFinalFinal();
-      electrodeA->getMoleNumSpecies(molNum);
+      electrodeC->resetStartingCondition(Tinitial);
+      int numSubIntegrations = electrodeC->integrate(deltaT);
+      Tfinal = electrodeC->timeFinalFinal();
+      electrodeC->getMoleNumSpecies(molNum);
       doublereal net[12];
-      double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
- 
+      double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
       cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;
-      electrodeA->printElectrode();
-      electrodeA->writeSolutionTimeIncrement();
+      electrodeC->printElectrode();
+      electrodeC->writeSolutionTimeIncrement();
     }
     delete cfC;
-    delete electrodeA_input;
-    delete electrodeA;
+    delete electrodeC_input;
+    delete electrodeC;
     Cantera::appdelete();
 
     return 0;

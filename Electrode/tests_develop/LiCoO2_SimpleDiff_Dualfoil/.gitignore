@@ -2,5 +2,13 @@ LiCoO2_Cathode_Radial_cV
 LiCoO2
 LiCoO2.out
 LiCoO2Thermo
-
-
+LiCoO2Thermo.out
+LiCoO2_globalResults_0_0.csv
+LiCoO2_intResults_0_0.csv
+diff_csv.txt
+diff_out.txt
+diff_tout.txt
+err_out.txt
+out.txt
+soln_0_0.xml
+.nfs*

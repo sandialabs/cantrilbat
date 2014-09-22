@@ -2,7 +2,6 @@
 <?xml version="1.0"?>
 <ctml>
   <validate reactions="yes" species="yes"/>
-                   
 
   <phase dim="3" id="LiCoO2_Interstitials_cathode">
     <elementArray datasrc="elements.xml">
@@ -46,11 +45,14 @@
          LiCoO2:0.676  CoO2:0.324 
        </moleFractions>
     </state>
+    <realNumberRangeBehavior>
+        DONOTHING
+    </realNumberRangeBehavior>
+
   </phase>
 
   <!-- species definitions     -->
   <speciesData id="species_LiCoO2">
-
 
     <species name="LiCoO2">
       <atomArray> Li:1 Co:1 O:2 </atomArray>
@@ -65,6 +67,9 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.003431714 </molarVolume>
+      </standardState>
     </species>
 
     <species name="CoO2">
@@ -77,8 +82,10 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.003431714 </molarVolume>
+      </standardState>
     </species>
-
 
   </speciesData>
 

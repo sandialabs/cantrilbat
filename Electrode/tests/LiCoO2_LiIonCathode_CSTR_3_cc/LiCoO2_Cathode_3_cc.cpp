@@ -124,7 +124,6 @@ int main(int argc, char **argv)
     
     std::string commandFileC = "cathode.inp";
 
-
 	
     // Initialize a block input structure for the command file
 

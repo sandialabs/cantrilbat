@@ -3,12 +3,13 @@
 #
 temp_success="1"
 /bin/rm  -f  out.txt err_out.txt \
-             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv
+             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv diff_icsv.txt diff_gcsv.txt \
+	     LiCoO2_intResults_0_0.csv  LiCoO2_globalResults_0_0.csv 
 #
 # Create a symbolic link to electrodeCell, if none exists already
 #
 
-PROG_EXE=./LiCoO2_Cathode_1  
+PROG_EXE=./LiCoO2_Cathode_Radial_cV
 if test ! -x ${PROG_EXE}  ; then
   echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
   exit -1
@@ -18,6 +19,27 @@ fi
 #
 #################################################################
 
+ELECTRODE_TURN_OFF_PC_PRINTING=true
+export ELECTRODE_TURN_OFF_PC_PRINTING
+
+LiCoO2Thermo > LiCoO2Thermo.out 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0"
+then
+  temp_success="0"
+  echo "LiCoO2Thermo returned with bad status, $retnStat, check output"
+fi
+
+diff LiCoO2Thermo_blessed.out LiCoO2Thermo.out > diff_tout.txt
+retnStat_ttxt=$?
+if test $retnStat_ttxt = "0"
+then
+    echo "Successful test comparison on LiCoO2Thermo "`pwd`
+else
+    echo "Unsuccessful test comparison on LiCoO2Thermo "`pwd`
+fi
+
+
 $PROG_EXE   > out.txt 2>err_out.txt
 retnStat=$?
 if test $retnStat != "0" 
@@ -26,16 +48,33 @@ then
   echo "$PROG_EXE returned with bad status, $retnStat, check output"
 fi
 
+csvdiff  LiCoO2_intResults_blessed_0_0.csv  LiCoO2_intResults_0_0.csv  > diff_csv.txt
+retnStat_icsv=$?
+
 
 diff good_out.txt out.txt > diff_out.txt
 retnStat_txt=$?
 
-
-if test $retnStat_txt = "0"
+retnStat_csv=0
+if test $retnStat_icsv != 0
 then
-  echo "Successful test comparison on "`pwd`
+  retnStat_csv=$retnStat_icsv
+fi
+
+if test $retnStat_csv = "0"
+then
+  if test $retnStat_txt = "0"
+  then
+    echo "Successful test comparison on "`pwd`
+  else
+    echo "Partial Successful test comparison on "`pwd` " but text files differ. See diff_out.txt"
+  fi
 else
-  echo "Unsuccessful test comparison on "`pwd` " test"
+  echo "Unsuccessful test comparison on "`pwd` " test. See diff_csv.txt "
+  if  test $retnStat_txt != "0"
+  then
+     echo "            Text files differ also. See diff_out.txt"
+  fi
 fi
 
 #
