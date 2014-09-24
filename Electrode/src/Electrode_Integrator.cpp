@@ -1896,8 +1896,10 @@ void Electrode_Integrator::calc_solnDot_final()
 //  for the current time step
 /*
  *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+ *   ALl norms returned from this routine should be compared to the nomial value of 1 to test satisfaction.
+ *   Therefore, they are scaled by rtolNLS_.
  *
- *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+ *  @return    Returns the norm of the difference. Normally this is the L0 norm of the difference
  */
 double Electrode_Integrator::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS)
 {
@@ -2412,21 +2414,20 @@ double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::v
 {
     double max0 = 0.0;
     double denom, diff, ee;
-
-    for (int k = 0; k < num; k++) {
-
+    for (size_t k = 0; k <(size_t) num; k++) {
         diff = fabs(v1[k] - v2[k]);
         denom = rtol * MAX(fabs(v1[k]), fabs(v2[k]));
         denom = MAX(denom, atolVec[k]);
         ee = diff / denom;
+        // Put in the if statement here so that we can grab the answer in the debugger
         if (ee > max0) {
             max0 = ee;
         }
+        // Unnormalize the error so that the real level of error is reflected in the storred quantity
         errorLocalNLS_[k] = ee * rtol;
     }
     return max0;
 }
-
 //====================================================================================================================
 int Electrode_Integrator::setTimeHistoryBaseFromCurrent()
 {

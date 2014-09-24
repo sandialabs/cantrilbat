@@ -969,6 +969,10 @@ public:
      */
     double reportStateVariableIntegrationError(int& numSV, double* const errorVector) const;
 
+
+    
+    double reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError);
+
     //------------------------------------------------------------------------------------------------------------------
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------

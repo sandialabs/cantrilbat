@@ -727,6 +727,24 @@ public:
      */
     virtual void check_final_state();
 
+    //! Create the L0 relative norm for the vector against a vector or predicted values
+    /*!
+     * This creates a relative norm that is scaled by the current value of rtol, and that can always be compared to 1
+     * for satisfaction of the error criteria.
+     *
+     *                L0_i    =     || Actual_i - Pred_i || / ( rtol * MAX(||Actual_i||, || Pred_i ||)
+     *
+     *           or if ||Abstol_i|| > rtol * MAX(||Actual_i||, || Pred_i || 
+     * 
+     *                L0_i    =     || Actual_i - Pred_i || / ( MAX(||Abstol_i|| )
+     *
+     *  Also stores:
+     *                errorLocal_i = L0_i * rtol
+     *
+     *  so that errorLocal has the magnitude of the normalized error associated with it.
+     * 
+     *   @return  returns the maximum value of Lo_i for all i.
+     */
     double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
                    const std::vector<double>& atolVec, const double rtol);
 

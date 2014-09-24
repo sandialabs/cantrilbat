@@ -3802,6 +3802,12 @@ double Electrode::reportStateVariableIntegrationError(int& numSV, double* const 
     return 0.0;
 }
 //====================================================================================================================
+double Electrode::reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError)
+{
+    throw CanteraError("Electrode::reportTimeLimit()", "Base Class Called");
+    return 0.0;
+}
+//====================================================================================================================
 Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
                 ResidJacEval(),
                 ee_(ee)
