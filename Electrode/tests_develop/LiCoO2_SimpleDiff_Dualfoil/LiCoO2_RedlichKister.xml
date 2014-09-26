@@ -67,8 +67,14 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <!-- molar volumes
+        Molar volumes are from dualfoil and other sources, which put 5010 kg / m3 as the
+        density. (Others put it as 5.06 gm cm-3.
+        Then using 97 kg / kmol gets you to the Vbar value.
+        unit cell is = 3/2 a**2 sqrt(3) c , which contains 3 formula units of LiCoO2.
+      -->
       <standardState  model="constant_incompressible">
-          <molarVolume units="m3/kmol"> 0.003431714 </molarVolume>
+          <molarVolume units="m3/kmol"> 0.01936 </molarVolume>
       </standardState>
     </species>
 
@@ -83,7 +89,7 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-          <molarVolume units="m3/kmol"> 0.003431714 </molarVolume>
+          <molarVolume units="m3/kmol"> 0.01936 </molarVolume>
       </standardState>
     </species>
 

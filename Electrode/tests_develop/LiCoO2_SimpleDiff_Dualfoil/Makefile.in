@@ -68,7 +68,7 @@ GDEFINES =
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
 
-all: .depends $(PROGRAM) LiCoO2 LiCoO2Thermo
+all: .depends $(PROGRAM) LiCoO2 LiCoO2Thermo LiCoO2_Cathode_Radial_cc
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -136,10 +136,13 @@ depends:
 test: 
 	@MAKE@
 	./runtest
+	./runtest_cc
 
 rebaseline:
-	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
 	cp out.txt good_out.txt
+	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed_0_0.csv
+	cp  LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
+	cp  LiCoO2Thermo.out   LiCoO2Thermo_blessed.out 
 
 ##############################################################################
 
@@ -152,6 +155,15 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
+
+LiCoO2_Cathode_Radial_cc: LiCoO2_Cathode_Radial_cc.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2_Cathode_Radial_cc LiCoO2_Cathode_Radial_cc.o \
+                  $(OBJ_CANTERA_ADDONS)  \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+
 
 LiCoO2Thermo: LiCoO2Thermo.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)

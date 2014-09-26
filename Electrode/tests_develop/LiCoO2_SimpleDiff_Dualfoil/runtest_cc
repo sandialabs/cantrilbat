@@ -1,0 +1,69 @@
+#!/bin/sh
+#
+#
+temp_success="1"
+/bin/rm  -f  out.txt err_out.txt \
+             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv diff_icsv.txt diff_gcsv.txt \
+      LiCoO2_CC_intResults_0_0.csv  LiCoO2_CC_globalResults_0_0.csv 
+#
+# Create a symbolic link to electrodeCell, if none exists already
+#
+
+PROG_EXE=./LiCoO2_Cathode_Radial_cc
+if test ! -x ${PROG_EXE}  ; then
+  echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
+  exit -1
+fi
+
+#################################################################
+#
+#################################################################
+
+ELECTRODE_TURN_OFF_PC_PRINTING=true
+export ELECTRODE_TURN_OFF_PC_PRINTING
+
+
+
+
+$PROG_EXE cathodeCC.inp  > ccout.txt 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "$PROG_EXE returned with bad status, $retnStat, check output"
+fi
+
+csvdiff  LiCoO2_CC_intResults_blessed_0_0.csv  LiCoO2_CC_intResults_0_0.csv  > diff_csv.txt
+retnStat_icsv=$?
+
+
+diff good_ccout.txt ccout.txt > diff_out.txt
+retnStat_txt=$?
+
+retnStat_csv=0
+if test $retnStat_icsv != 0
+then
+  retnStat_csv=$retnStat_icsv
+fi
+
+if test $retnStat_csv = "0"
+then
+  if test $retnStat_txt = "0"
+  then
+    echo "Successful test comparison on "`pwd`
+  else
+    echo "Partial Successful test comparison on "`pwd` " but text files differ. See diff_out.txt"
+  fi
+else
+  echo "Unsuccessful test comparison on "`pwd` " test. See diff_csv.txt "
+  if  test $retnStat_txt != "0"
+  then
+     echo "            Text files differ also. See diff_out.txt"
+  fi
+fi
+
+#
+# return 0 for no errors, 1 for errors
+#
+exit 0
+

@@ -50,8 +50,8 @@ int main(int argc, char **argv)
 {
   int retn = 0;
   //bool doCathode = false;
-  std::string commandFileNet = "cathode.inp";
-  std::string commandFileC = "cathode.inp";
+  std::string commandFileNet = "cathodeCC.inp";
+  std::string commandFileC = "cathodeCC.inp";
 
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 	    exit(1);
 	  }
 	}
-      } else if (commandFileNet == "anode.inp") {
+      } else if (commandFileNet == "cathodeCC.inp") {
 	commandFileNet = tok;
       } else {
 	printUsage();
@@ -167,6 +167,8 @@ int main(int argc, char **argv)
     printf("oc[0] = %g\n", oc);
     int nT = 30;
     double deltaT = 1.0E-1;
+    double deltaTgoal = deltaT;
+
     electrodeC->printCSVLvl_ = 3;
 
     double pmv[10];
@@ -179,22 +181,49 @@ int main(int argc, char **argv)
 
     remove("soln.xml");
 
+   //
+    // We seek 20 amps / m2 for a total cross sectional area of 1 cm2
+    //
+    double ampsGoal = -20.0E-4;
+
+
     electrodeC->setPrintLevel(1);
     //electrodeC->enableExtraPrinting_ = 10;
     //electrodeC->detailedResidPrintFlag_ = 10;
     //electrodeC->setMaxNumberSubCycles(40);
+  FILE * fp = fopen("outputTable.csv","w");
+    fprintf(fp, "Constant Current Curves \n");
+    fprintf(fp, "amps = %g  \n", ampsGoal);
+    fprintf(fp, "deltaT = %g  \n", deltaT);
+    fprintf(fp, "\n");
+    fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts \n");
 
-
+    double coul = 0.0;
+ 
+    doublereal net[12];
     nT = 50; 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal; 
       electrodeC->resetStartingCondition(Tinitial);
+      double amps = ampsGoal;
+      deltaT = deltaTgoal;
+
+      //int numSubIntegrations = electrodeC->integrate(deltaT);
+      double volts = electrodeC->integrateConstantCurrent(amps, deltaT, 5.0, 2.0);
+      Tfinal = Tinitial + deltaT;
+
+      amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+      coul  += amps * deltaT;
+
+      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);
+
       int numSubIntegrations = electrodeC->integrate(deltaT);
       Tfinal = electrodeC->timeFinalFinal();
       electrodeC->getMoleNumSpecies(molNum);
-      doublereal net[12];
-      double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+      amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+
       cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;
+
       electrodeC->printElectrode();
       electrodeC->writeSolutionTimeIncrement();
     }
