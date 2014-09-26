@@ -1811,7 +1811,7 @@ public:
      *  Therefore, the capacity will be a function of time.
      *  At all times the following relation holds:
      *
-     *  capacity() = capacityDischarged() + capacityLeft() + capacityLost()
+     *  capacity() = depthOfDischarge() + capacityLeft()
      *
      *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
@@ -1826,7 +1826,7 @@ public:
      *
      *  At all times the following relation holds:
      *
-     *  capacity() = capacityDischarged() + capacityLeft().
+     *  capacityInitial() = capacity() + capacityLost().
      *
      *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
@@ -1859,17 +1859,19 @@ public:
      *
      *        At all times the following relation holds:
      *
-     *  capacity() = capacityDischarged() + capacityLeft() + capacityStarting().
+     *  capacity() = capacityDischarged() + capacityLeft() + depthOfDischargeStarting().
+     *
+     *    If there is capacity lost, this loss is reflected both in the capacityLeft() and depthOfDischargeStarting()
+     *    quantities so that the above relation holds.
      *
      *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
      */
     virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 
-
     //! Initial starting depth of discharge in coulombs
     /*!
-     * 
+     *   When there is capacity lost, this number may be modified.
      *
      *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
@@ -1878,13 +1880,15 @@ public:
 
     //! Report the current depth of discharge in Amp seconds
     /*!
-     * Report the current depth of discharge. This is roughly equal to the total
-     * number of electrons that has been theoretically discharged from a fully charged state.
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state.
      *  For multiple cycles, this becomes the true electron counter for the electrode.
      *
-     * Usually this is reported as a function of the discharge rate and there is a
-     * cutoff voltage at which the electron counting is turned off. Neither of these
-     * concepts is employed here.
+     *  Usually this is reported as a function of the discharge rate and there is a
+     *  cutoff voltage at which the electron counting is turned off. Neither of these
+     *  concepts is employed here.
+     *
+     *  The depth of discharge may be modified when there is capacity lost.
      *
      *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
