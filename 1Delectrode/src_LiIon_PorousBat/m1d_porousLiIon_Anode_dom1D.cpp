@@ -3140,6 +3140,32 @@ double porousLiIon_Anode_dom1D::capacityLeftPA(int platNum, double voltsMax, dou
     return totalCapacity;
 }
 //=====================================================================================================================
+// Initial starting depth of discharge in coulombs per cross sectional area
+/*
+ *   When there is capacity lost, this number may be modified.
+ *
+ *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+ *                   If positive or zero, each plateau is treated as a separate entity.
+ */
+double porousLiIon_Anode_dom1D::depthOfDischargeStartingPA(int platNum) const
+{
+    double dodStarting = 0.0;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+	dodStarting += ee->depthOfDischargeStarting(platNum);
+    }
+    dodStarting /= crossSectionalArea_;
+    return dodStarting;
+}
+//=====================================================================================================================
+void porousLiIon_Anode_dom1D::resetCapacityDischargedToDate()
+{
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        ee->resetCapacityDischargedToDate();
+    }
+}
+//=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
 

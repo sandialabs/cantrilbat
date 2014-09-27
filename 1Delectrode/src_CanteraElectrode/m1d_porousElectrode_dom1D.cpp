@@ -130,6 +130,16 @@ double porousElectrode_dom1D::capacityLeftPA(int platNum, double voltsMax, doubl
     return 0.0;
 }
 //=====================================================================================================================
+double porousElectrode_dom1D::depthOfDischargeStartingPA(int platNum) const
+{
+    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
+    return 0.0;
+}
+//=====================================================================================================================
+void porousElectrode_dom1D::resetCapacityDischargedToDate() 
+{
+}
+//=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
 

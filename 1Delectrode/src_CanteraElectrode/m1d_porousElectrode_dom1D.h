@@ -133,9 +133,10 @@ public:
                       const double t, const double t_old);
 
 
-    //! Returns the total capacity of the electrode in Amp seconds
+    //! Returns the total capacity of the electrode in Amp seconds per cross-sectional area
     /*!
-     *  Returns the capacity of the electrode in Amps seconds.
+     *  Returns the capacity of the electrode in Amps seconds m-2.
+     *  The PA stands for "per cross-sectional area".
      *  This is the same as the number of coulombs that can be delivered at any voltage.
      *  Note, this number differs from the capacity of electrodes that is usually quoted for
      *  a battery. That number depends on the rate of discharge and also depends on the
@@ -152,16 +153,62 @@ public:
      *
      *  capacity() = capacityDischarged() + capacityLeft().
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                   If positive or zero, each plateau is treated as a separate entity.
+     *  The algorithm that is used is to sum up the individual cell electrode capacity() calculations.
+     *  Then, divide by the cross sectional area.
      *
-     *  @return returns the theoretical capacity of the electrode in Amp seconds = coulombs.
+     *  @param platNum   Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity and
+     *                   the capacity is stated for that plateau.
+     *
+     *  @return returns the theoretical capacity of the electrode in Amp seconds m-2 = coulombs m-2
      */
     virtual double capacityPA(int platNum = -1) const;
 
+    //! Amount of charge that the electrode has discharged up to this point (coulombs) per cross-sectional area
+    /*!
+     *   We report the number in terms of Amp seconds = coulombs.
+     *   Note the capacity discharged for cathodes will be defined as the negative of the electron
+     *   source term, as this refers to the forward discharge of a cathode.
+     *   This definition is necessary for the following to be true.
+     *
+     *         capacity() = capacityDischarged() + capacityLeft()
+     *
+     *   Note, the current is defined as the amount
+     *   of positive charge that goes from the solid into the electrolyte.
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
     virtual double capacityDischargedPA(int platNum = -1) const;
  
+    //! Amount of charge that the electrode that has available to be discharged per cross-sectional area
+    /*!
+     *  We report the number in terms of Amp seconds = coulombs. This accounts for loss mechanisms.
+     *
+     *        At all times the following relation holds:
+     *
+     *  capacity() = capacityDischarged() + capacityLeft() + depthOfDischargeStarting().
+     *
+     *    If there is capacity lost, this loss is reflected both in the capacityLeft() and depthOfDischargeStarting()
+     *    quantities so that the above relation holds.
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
     virtual double capacityLeftPA(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+
+    //! Initial starting depth of discharge in coulombs per cross sectional area
+    /*!
+     *   When there is capacity lost, this number may be modified.
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
+    virtual double depthOfDischargeStartingPA(int platNum = -1) const;
+
+    //! Reset the counters that keep track of the amount of discharge to date
+    virtual void resetCapacityDischargedToDate();
+
 
 protected:
 
