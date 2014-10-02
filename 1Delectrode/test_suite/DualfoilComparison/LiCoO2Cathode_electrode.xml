@@ -52,7 +52,7 @@
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-           <A>5.0E7</A>
+           <A>5.0E8</A>
            <b>0.0</b>
            <!--   Setting all activation energies to 4000 Kelvin to conform to dualfoil -->
            <E units="kJ/mol"> 33.25780 </E>

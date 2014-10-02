@@ -52,7 +52,7 @@
        <temperature> 298.15 </temperature>
        <pressure units="atm"> 1.0 </pressure>
        <moleFractions> 
-          Li_C6-bulk:0.676  V_C6-bulk:0.324 
+          Li_C6-bulk:0.6  V_C6-bulk:0.4
        </moleFractions>
     </state>
   </phase>
@@ -73,9 +73,8 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-          <molarVolume units="m3/kmol"> 0.006 </molarVolume>
+          <molarVolume units="m3/kmol"> 0.03431714 </molarVolume>
       </standardState>
-
 
     </species>
 
@@ -90,7 +89,7 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-          <molarVolume units="m3/kmol"> 0.006 </molarVolume>
+          <molarVolume units="m3/kmol"> 0.03431714 </molarVolume>
       </standardState>
 
       

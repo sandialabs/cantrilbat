@@ -20,7 +20,7 @@
 1.0d-13   ! dfs3,  diffusion coef. in positive solid (m2/s) 0.8d-14, 3.d-14
 12.5d-6   ! Rad1,  radius of negative particles (m) (ignored in Foil mode) 0.0000042, 0.0000078
 10.0d-6   ! Rad3,  radius of positive particles (m) 0.000002, 17
-0.35      ! ep1,   volume fraction of electrolyte in negative electrode
+0.30      ! ep1,   volume fraction of electrolyte in negative electrode
 0.0d0     ! epp1,  volume fraction of polymer in negative electrode
 0.0       ! epf1,  volume fraction of inert filler in negative electrode
 0.0d0     ! epg1,  volume fraction of gas in negative
@@ -40,7 +40,7 @@
 372.d0    ! cot1,  coulombic capacity of negative material (mAh/g) 
 274.d0    ! cot3,  coulombic capacity of positive material (mAh/g)
 1324.0    ! re,    density of electrolyte (kg/m3)
-2260.0    ! rs1,   density of negative insertion material (kg/m3)
+2100.0    ! rs1,   density of negative insertion material (kg/m3)
 5010.0    ! rs3,   density of positive insertion material (kg/m3)
 1800.0    ! rf,    density of inert filler (kg/m3)
 1780.0    ! rpl,   (not used here) density of polymer material (kg/m3)
@@ -49,7 +49,7 @@
 2707.0    ! rcp,   density of positive current collector (kg/m3) [aluminum foil]
 0.0d0     ! htc,   heat-transfer coefficient at ends of cell stack (W/m2K) 0.36
 2000.0d0  ! Cp,    heat capacity of system (J/kg-K) 1200
-298.d0    ! Tam,   ambient air temperature (K)
+298.15d0  ! Tam,   ambient air temperature (K)
 1         ! ncell, number of cells in a cell stack    
 2         ! lht,   0 uses htc,  1 calcs htc,  2 isothermal
 1         ! il1,   1 for long print-out  0 for short print-out

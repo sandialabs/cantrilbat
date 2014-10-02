@@ -53,8 +53,8 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-          <!--  Based on a density of 6 gm cm-3 for CoO2 -->
-          <molarVolume units="m3/kmol"> 0.01466 </molarVolume>
+          <!--  Based on a density of 5.01 gm cm-3 for CoO2 -->
+          <molarVolume units="m3/kmol"> 0.019447544 </molarVolume>
       </standardState>
     </species>
 
@@ -69,8 +69,8 @@
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
-          <!--  Based on a density of 6 gm cm-3 for CoO2 -->
-          <molarVolume units="m3/kmol"> 0.01466 </molarVolume>
+          <!--  Based on a density of 5.01 gm cm-3 for CoO2 -->
+          <molarVolume units="m3/kmol"> 0.01947544 </molarVolume>
       </standardState>
     </species>
 

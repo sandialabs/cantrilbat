@@ -31,7 +31,7 @@ Cantera File Name = MgO.xml
 !
 !-------------------------------------------------------------------------
 Coordinate System = rectilinear
-Cross Sectional Area =  2.5063e-3 m2
+Cross Sectional Area =  1.0E-4 m2
 !---------------------------------------------------------------------------------------------------------
 !
 !     Heat Source Tracking - int (optional) (default = 0)
@@ -54,9 +54,9 @@ Electrolyte Phase = ECDMC_LiPF6
 ! Specify electrolyte phase mole fractions 
 !-------------------------------------------------------------------------
 START BLOCK Electrolyte Mole Fractions
-     ECDMC = 0.92
-     Li+   = 0.04
-     PF6-  = 0.04
+       Li+   = 0.0780266
+       PF6-  = 0.0780266
+       ECDMC = 0.8439468
 END BLOCK   Electrolyte Mole Fractions
 !-------------------------------------------------------------------------
 !
@@ -81,7 +81,7 @@ Separator Thickness = 25.0E-6
 !
 ! Specify the area of the Separator [m^2]
 !-------------------------------------------------------------------------
-Separator Area = 25.47 cm2
+Separator Area = 1.0 cm2
 !-------------------------------------------------------------------------
 !BLOCK FORMAT FOR SEPARATOR
 !START BLOCK Separator
@@ -188,7 +188,6 @@ Cathode Voltage = 3.8 V
 !
 !--------------------------------------------------------------------------------------------------------
 Electrical Conductivity of the Anode Electrode = 100.0
-!Electrical Conductivity of the Anode Electrode = 10.0
 !--------------------------------------------------------------------------------------------------------
 !
 !      Electrical Conductivity of the Cathode Electrode
@@ -233,7 +232,6 @@ Relative Tolerance = 1e-3
 !  Simulation maximum time step
 !
 !---------------------------------------------------------------------------------------
-!~Maximum Time Step = 100.0
 Maximum Time Step = 25.0
 !-------------------------------------------------------------------------
 !Maximum Number of Time Steps = 5

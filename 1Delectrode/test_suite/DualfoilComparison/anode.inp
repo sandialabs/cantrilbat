@@ -73,7 +73,7 @@ Electrode Porosity = 0.30
 !
 ! Electrode Gross Area - [m^2]
 !
-Electrode Gross Area = 2.5063e-3 m2
+Electrode Gross Area = 1.0E-4 m2
 !
 !-------------------------------------------------------------------------
 !
