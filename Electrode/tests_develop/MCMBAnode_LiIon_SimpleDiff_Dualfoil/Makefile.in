@@ -130,6 +130,7 @@ depends:
 test: 
 	@MAKE@
 	./runtest
+	./runtest_cc
 
 rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv

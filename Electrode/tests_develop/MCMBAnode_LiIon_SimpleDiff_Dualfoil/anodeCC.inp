@@ -113,7 +113,7 @@ end block Open Circuit Potential Override for interface anode_surface
 start block Radial Diffusion Region = simple_whole
   Number of Cells in Region = 3
   Phase Names within distributed region = MCMB_Interstitials_anode
-  Default Diffusion Coefficient = 1.0E-9
+  Default Diffusion Coefficient = 3.9E-14
 end block Radial Diffusion Region 
 
 start block Bath Specification for Phase ECDMC_LiPF6

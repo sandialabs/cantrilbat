@@ -189,10 +189,11 @@ int main(int argc, char **argv)
      ThermoPhase& mcmb = pl->thermo(1);
 
      ThermoPhase& ecsoln = pl->thermo(2);
-     xmol[1] = 0.1;
+     double xLi = 0.0780266;
+     xmol[1] = xLi;
      xmol[2] = xmol[1];
      xmol[0] = 1.0 - 2.0 * xmol[1]; 
-     ecsoln.setState_TPX(300., OneAtm, xmol);
+     ecsoln.setState_TPX(298.15, OneAtm, xmol);
      double aa[10];
      ecsoln.getActivities(aa);
      printf("activity Li+ = %g\n", aa[1]);
@@ -211,7 +212,7 @@ int main(int argc, char **argv)
      ocv = dg[1] / Faraday / nstoic;
      //dg[0] -= GasConstant * 300. * std::log(0.1);
      double ocvE = dg[0] / Faraday / nstoic;
-     dg[0] -= GasConstant * 298.15 * std::log(0.1);
+     dg[0] -= GasConstant * 298.15 * std::log(xLi);
 
      double ocvE_corr =  dg[0] / Faraday / nstoic;
      printf(" %12.6f   %12.6f   %12.6f   %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
@@ -228,13 +229,11 @@ int main(int argc, char **argv)
 	 rsd->getDeltaGibbs(dg);
 	 ocv = dg[1] / Faraday / nstoic;
 	 ocvE = dg[0] / Faraday / nstoic;
-         dg[0] -= GasConstant * 300. * std::log(0.1);
+         dg[0] -= GasConstant * 298.15 * std::log(xLi);
 	 ocvE_corr = dg[0] / Faraday / nstoic;
 
 	 printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
      }
-     
-
 
     Cantera::appdelete();
 
