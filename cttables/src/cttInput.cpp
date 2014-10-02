@@ -67,7 +67,7 @@ void setup_input_pass1(BlockEntry *cf, Kinetics *g_kin_ptr, ThermoPhase *g_ptr)
 {
   int numSpecies;
   char **CList = 0;
-  BaseEntry::set_SkipUnknownEntries(true);
+  BaseEntry::set_SkipUnknownEntries(3);
   /*
    * Create a list of species to be used in the input file.
    */
@@ -116,7 +116,7 @@ void setup_input_pass1(BlockEntry *cf, Kinetics *g_kin_ptr, ThermoPhase *g_ptr)
 void setup_input_pass2(BlockEntry *cf, Kinetics *g_kin_ptr, 
 		       ThermoPhase *g_ptr) {
 
-  BaseEntry::set_SkipUnknownEntries(true);
+  BaseEntry::set_SkipUnknownEntries(3);
   /*
    *  Get the input deck for
    *  Cantera description of the model.
@@ -149,7 +149,7 @@ void setup_input_pass3(BlockEntry *cf,
 {
 
   int iph;
-  BaseEntry::set_SkipUnknownEntries(false);
+  BaseEntry::set_SkipUnknownEntries(0);
     
   /* --------------------------------------------------------------
    * Output Units = ["Kcal_cgs", "KJoule"]

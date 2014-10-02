@@ -114,7 +114,7 @@ ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
   LE_OneInt *s1 = new LE_OneInt("Number of Cantera Files", &(NumberCanteraFiles), 0, "NumCanteraFiles");
   s1->set_default(0);
   cf->addLineEntry(s1);
-  BaseEntry::set_SkipUnknownEntries(true);
+  BaseEntry::set_SkipUnknownEntries(3);
 
   /* -------------------------------------------------------------------------
    *  
@@ -477,7 +477,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   s6->set_default("results.out");
   cf->addLineEntry(s6);
 
-  BaseEntry::set_SkipUnknownEntries(false);
+  BaseEntry::set_SkipUnknownEntries(0);
 }
 //=====================================================================================================================
 /**

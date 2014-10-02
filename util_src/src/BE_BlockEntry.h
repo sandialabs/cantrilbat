@@ -540,6 +540,24 @@ namespace BEInput {
     std::set<const BlockEntry*> collectBlockEntries(const char *cnameBN, bool includedMatch = false, 
 						    int contribIndex = -1, const TK_TOKEN * const blockArgName = 0) const;
 
+    //! Set the int  indicating  whether an error is thrown if an unknown
+    //! block or line entry is encountered in the input.
+    /*!
+     * @param bv value to be set
+     *    0 = throw an error if unknown entries are encountered, always
+     *    1 = throw an error if unknown entries are encountered unless a block is declared as lenient 
+     *    2 = Continue, but print a warning statement.
+     *    3 = Continue and don't print anything.
+     */
+    void set_SkipUnknownEntries(int bv, bool recursive = true);
+
+    //! Get the int  indicating  whether an error is thrown if an unknown
+    //! block or line entry is encountered in the input.
+    /*!
+     *  @return returns the current int
+     */
+    int get_SkipUnknownEntries() const;
+
   protected:
    
     //! Pointer to the parent block
@@ -552,7 +570,6 @@ namespace BEInput {
     //! that define the valid phrases that this block understands
     LineEntry **BlockLineInput;
 
-    //! Number of line entry cards.
     /*!
      * This is equal to the number of nonnull items in BlockLineInput
      */
@@ -567,6 +584,17 @@ namespace BEInput {
      * This is equal to the number of nonnull items in SubBlocks
      */
     int numSubBlocks;
+
+    //! Skip unknown entries
+    /*!
+     *     0  NEVER
+     *     1  Sometimes -> (Do the default in s_SkipUnknownEntries
+     *     2  Yes, but print
+     *     3  Yes, without printing
+     *
+     *  Default is set to 1 (it defaults to the global default)
+     */
+    int m_SkipUnknownEntries;
 
     //! Adjustment to the address originally input to memory assignments
     //! used by line elements in this block. Note, this number is the

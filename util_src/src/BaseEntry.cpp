@@ -41,7 +41,7 @@ namespace BEInput {
    *
    * BaseEntry static variables
    */
-  bool BaseEntry::s_SkipUnknownEntries = false;
+  int BaseEntry::s_SkipUnknownEntries = 1;
 
   /*
    * LineEntry static variables
@@ -309,10 +309,10 @@ namespace BEInput {
     s_PrintProcessedLine = bv;
   }
 
-  bool BaseEntry::get_SkipUnknownEntries() {
+  int BaseEntry::get_SkipUnknownEntries() {
     return s_SkipUnknownEntries;
   }
-  void BaseEntry::set_SkipUnknownEntries(bool bv) {
+  void BaseEntry::set_SkipUnknownEntries(int bv) {
     s_SkipUnknownEntries = bv;
   }
 }

@@ -123,7 +123,7 @@ static void setup_input_pass1(BlockEntry *cf)
 				  "NumCanteraFiles");
     s1->set_default(1);
     cf->addLineEntry(s1);
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 
 /****************************************************************************
@@ -158,7 +158,7 @@ static void setup_input_pass2(BlockEntry *cf)
     
 
     cf->addLineEntry(s1);
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
                    
 /****************************************************************************
@@ -225,10 +225,8 @@ static void setup_input_pass3(BlockEntry *cf, EPEQUIL_INPUT *pi)
 		      "MoleNumber");
     cf->addSubBlock(BESIM);
 
-    BaseEntry::set_SkipUnknownEntries(false);
+    BaseEntry::set_SkipUnknownEntries(0);
 }
-
-
 /******************************************************************************
  *  Read the input file
  *

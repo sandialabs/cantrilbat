@@ -221,16 +221,20 @@ public:
    */
   static void set_printProcessedLine(bool bv);
 
-  //! get the Boolean indicating  whether an error is thrown if an unknown
+  //!  Get the int indicating  whether an error is thrown if an unknown
   //!  block or line entry is encountered in the input.
-  static bool get_SkipUnknownEntries();
+  static int get_SkipUnknownEntries();
 
-  //! Set the Boolean indicating  whether an error is thrown if an unknown
+  //! Set the int  indicating  whether an error is thrown if an unknown
   //! block or line entry is encountered in the input.
   /*!
    * @param bv value to be set
+   *    0 = throw an error if unknown entries are encountered, always
+   *    1 = throw an error if unknown entries are encountered unless a block is declared as lenient 
+   *    2 = Continue, but print a warning statement.
+   *    3 = Continue and don't print anything.
    */
-  static void set_SkipUnknownEntries(bool bv);
+  static void set_SkipUnknownEntries(int bv);
 
 protected:
   //!  Number of times this object is required to be found in the
@@ -296,13 +300,16 @@ protected:
    */
   static bool s_PrintProcessedLine;
 
-  //! Boolean indicating  whether an error is thrown if an unknown
-  //! block or line entry is encountered in the input.
+  //! Int indicating  whether an error is thrown if an unknown
+  //! block or line entry is encountered in the input deck
   /*!
-   * The default is false. -> throw an error if unknown entries
-   * are encountered.
+   *    0 = throw an error if unknown entries are encountered, always
+   *    1 = throw an error if unknown entries are encountered unless
+   *        a block is declared as lenient 
+   *    2 = Continue, but print a warning statement.
+   *    3 = Continue and don't print anything.
    */
-  static bool s_SkipUnknownEntries;
+  static int s_SkipUnknownEntries;
 
 };
 }

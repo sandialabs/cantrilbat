@@ -52,6 +52,7 @@ namespace BEInput {
     numLineInput(0),
     SubBlocks(0),
     numSubBlocks(0),
+    m_SkipUnknownEntries(1),
     m_adjustAddress(0)
   {
     /*
@@ -78,6 +79,7 @@ namespace BEInput {
     numLineInput(b.numLineInput),
     SubBlocks(0),
     numSubBlocks(b.numSubBlocks),
+    m_SkipUnknownEntries(b.m_SkipUnknownEntries),
     m_adjustAddress(b.m_adjustAddress),
     m_ArgTok(b.m_ArgTok)
   {
@@ -128,6 +130,7 @@ namespace BEInput {
       ParentBlock = b.ParentBlock;
       numLineInput = b.numLineInput;
       numSubBlocks = b.numSubBlocks;
+      m_SkipUnknownEntries = b.m_SkipUnknownEntries;    
       m_adjustAddress = b.m_adjustAddress;
       m_ArgTok = b.m_ArgTok;
 
@@ -298,6 +301,16 @@ namespace BEInput {
     Initialization(input_file, startArgPtr);
   
     /*
+     *  Figure out whether to skip entries.
+     */
+    int skipUnknownEntries = m_SkipUnknownEntries;
+    if (m_SkipUnknownEntries == 1) {
+        skipUnknownEntries = BaseEntry::s_SkipUnknownEntries;
+    }
+    if (BaseEntry::s_SkipUnknownEntries == 0) {
+        skipUnknownEntries = 0;
+    }
+    /*
      *   Read the next line from the stream that isn't totally made
      *   up of comments. Store everything before the equals sign
      *   in keyLineTok, and everything after the equals sign in keyArgTok
@@ -323,13 +336,17 @@ namespace BEInput {
 	  strip_item_from_token(0, &keyLineTok);
 	  BlockEntry *subBlockPtr = match_block(&keyLineTok);
 	  if (!subBlockPtr) { 
-	    if (BaseEntry::s_SkipUnknownEntries) {
-	      skip_block(input_file, &keyLineTok, this); 
-	    } else {
-              printf("read_block ERROR: Unknown block name:\n");
-              printf("                  Listing of permissible block names follows:\n");
+	    if (skipUnknownEntries >= 2) {
+                if (skipUnknownEntries == 2) {
+                    printf("read_block WARNING: Unknown block name:\n");
+                    printf("   Enclosing block name = %s, ", EntryName.orig_str);
+                    printf("   Unknown block name = %s\n", keyLineTok.orig_str);
+                }
+	        skip_block(input_file, &keyLineTok, this); 
+            } else {
               print_usage(2);
-	      throw BI_UnknownSubBlock("read_block", keyLineTok.orig_str);
+	      throw BI_UnknownSubBlock("read_block ("+ string(EntryName.orig_str) + ")", 
+                                       "ERROR Unrecognized block: " + string(keyLineTok.orig_str));
 	    }
 	  } else {
 	
@@ -384,15 +401,20 @@ namespace BEInput {
 	if (!curLE) {
 	  /*
 	   * If we can't find a match, we query the static variable
-	   * SKipUnknownEntries in order to determine what to do
-	   * about it. We either skip it, or throw an error condition.
+	   * s_SKipUnknownEntries in order to determine what to do
+	   * about it. We either skip it, or throw an error condition, or
+           * write a warning.
 	   */
-	  if (BaseEntry::s_SkipUnknownEntries) {
+	  if (skipUnknownEntries >= 2) {
+            if (skipUnknownEntries == 2)  {
+                printf("read_block WARNING: Unknown line entry:\n");
+                printf("   Enclosing block name = %s, ", EntryName.orig_str);
+                printf("   Unknown line entry name = %s\n", keyLineTok.orig_str);
+            }
 	    skip_lineEntry(input_file, &keyLineTok, &keyArgTok);
-	  } else {
-	    throw BI_UnknownKeyLine("BlockEntry::read_block",
-				    "ERROR Unrecognized keyline: " +
-				    string(keyLineTok.orig_str));
+	  } else  {
+	      throw BI_UnknownKeyLine("BlockEntry::read_block (" + string(EntryName.orig_str) + ")",
+	                              "ERROR Unrecognized keyline: " + string(keyLineTok.orig_str));
 	  }
 	} else {
 	  /*
@@ -1388,6 +1410,7 @@ BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool inc
     return cc; 
   }
   //=================================================================================================================
+
 // This does a recursive search for a Block Entry name 
 // and under all subblocks of the current block.
 /*
@@ -1455,6 +1478,22 @@ std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN * con
 	 }
      }
      return (cc);
+}
+//=================================================================================================================
+void BlockEntry::set_SkipUnknownEntries(int bv, bool recursive)
+{
+    m_SkipUnknownEntries = bv;
+    if (recursive) {
+        for (int i = 0; i < numSubBlocks; i++) {
+            BlockEntry *sbi = SubBlocks[i];
+            sbi->set_SkipUnknownEntries(bv, recursive);
+        }
+    }
+}
+//=================================================================================================================
+int  BlockEntry::get_SkipUnknownEntries() const
+{
+    return m_SkipUnknownEntries;
 }
 //=================================================================================================================
 }
