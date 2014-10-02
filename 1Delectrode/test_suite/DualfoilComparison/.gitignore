@@ -29,4 +29,6 @@ LiKCl_PorousBat.TVD.v3breakpoints
 LiIon_PorousBat
 accumulatedHeatSource.txt
 stepwiseHeatSource.txt
+Capacity_Starting.dat
+timeDep_IV.txt
 
