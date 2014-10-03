@@ -93,7 +93,7 @@ OCV_Override_input::OCV_Override_input() :
     replacedLocalSpeciesID(-1),
     replacedSpeciesPhaseID(-1),
     DoDSurrogateSpeciesName(""),
-    MF_DoD_LocalSpeciesID(-1),
+    MF_DoD_LocalSpeciesID(npos),
     rxnID(0),
     temperatureDerivType(0),
     temperatureBase(298.15),
@@ -698,7 +698,7 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
     cf->addLineEntry(b5);
 
 
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 //========================================================================================================================
 void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
@@ -725,7 +725,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
     (void) sle1->ansDepCheckOneInt(numF);
     s1->set_NumTimesRequired(numF);
     cf->addLineEntry(s1);
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 //========================================================================================================================
 /*
@@ -1004,7 +1004,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
                                        nSpecies, 0, "CapZeroDoDCoeff");
         pczc->generateDefLE();
         bbathphase->addSubBlock(pczc);
-
 
 
         /* --------------------------------------------------------------
@@ -1290,7 +1289,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     sbERS->addLineEntry(iRxnMult);
 
 
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 //======================================================================================================================
 /******************************************************************************
@@ -1781,32 +1780,38 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
 	    //  Find a species in the replacing phase whose mole fraction can be used as a simple DoD indicator.
 	    //    (Confirmed to work for at least one case (MCMB -as an anode).
 	    //
-	    int ik = -1;
-	    for (int k = 0; k < nsp; k++) {
+	    size_t ik = -1;
+            bool foundNonzeroCapacity = false;
+	    for (size_t k = 0; k < (size_t) nsp; k++) {
 		if (CapZeroDoDCoeff[k] == 1.0) {
+                    foundNonzeroCapacity = true;
 		    if (CapLeftCoef[k] == 0.0) {
-			if (ik != -1) {
-			    // We don't have a simple model to employ
-			    ik = -1;
+			if (ik != npos) {
+			    // We don't have a simple model to employ be prepared to throw an error
+			    ik = npos;
 			    break;
 			}
 			ik = k;
 		    }
 		}
 	    }
+            if (!foundNonzeroCapacity) {
+               throw Electrode_Error("post_input_pass3()",
+                                     "CapZeroDodCoeff block is zero. Need to add the block to the input file");
+            }
 	    if (ocv_input_ptr->DoDSurrogateSpeciesName != "") {
 		size_t k =  m_pl->thermo(phaseID).speciesIndex(ocv_input_ptr->DoDSurrogateSpeciesName);
 		if (k != npos) {
 		    ocv_input_ptr->MF_DoD_LocalSpeciesID = k;
 		}
 	    }
-	    if (ocv_input_ptr->MF_DoD_LocalSpeciesID < 0) {
-		if (ik >= 0) {
+	    if (ocv_input_ptr->MF_DoD_LocalSpeciesID == npos) {
+		if (ik != npos) {
 		    ocv_input_ptr->MF_DoD_LocalSpeciesID = ik;
 		} else {
 		    //  Probably an error: but leaving this unused for the moment
-		    //  throw Electrode_Error("post_input_pass3()",
-		    //			  "Couldn't determine easily the DoD variable");
+		    throw Electrode_Error("post_input_pass3()",
+		    			  "Couldn't determine easily the DoD variable. Specify it explicitly");
 		}
 	    }
 

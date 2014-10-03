@@ -2,7 +2,7 @@
 #
 #
 temp_success="1"
-/bin/rm  -f  out.txt err_out.txt \
+/bin/rm  -f  err_out.txt \
              diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv diff_icsv.txt diff_gcsv.txt \
       LiCoO2_CC_intResults_0_0.csv  LiCoO2_CC_globalResults_0_0.csv 
 #

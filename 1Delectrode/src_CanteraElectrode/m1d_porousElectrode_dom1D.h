@@ -197,6 +197,24 @@ public:
      */
     virtual double capacityLeftPA(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 
+    //! Report the current depth of discharge in Amp seconds per cross-sectional area
+    /*!
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state.
+     *  For multiple cycles, this becomes the true electron counter for the electrode.
+     *
+     *  Usually this is reported as a function of the discharge rate and there is a
+     *  cutoff voltage at which the electron counting is turned off. Neither of these
+     *  concepts is employed here.
+     *
+     *  The depth of discharge may be modified when there is capacity lost.
+     *
+     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *
+     *  @return  returns the depth of discharge in Amp seconds m-2
+     */
+    virtual double depthOfDischargePA(int platNum = -1) const;
+
     //! Initial starting depth of discharge in coulombs per cross sectional area
     /*!
      *   When there is capacity lost, this number may be modified.
@@ -208,6 +226,15 @@ public:
 
     //! Reset the counters that keep track of the amount of discharge to date
     virtual void resetCapacityDischargedToDate();
+
+    //! Return a value for the open circuit potential without doing a formally correct calculation
+    /*!
+     *  Currently this is defined as the open circuit potential on the outside electrode.
+     *
+     *   @return return the open circuit potential 
+     */ 
+    virtual double openCircuitPotentialQuick() const;
+
 
 
 protected:

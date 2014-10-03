@@ -37,8 +37,8 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 # Source tree base for cantera_apps
 #
 CT_ROOT = @ct_prefix@
-UTILSRC_INC = $(CT_ROOT)/include/util_src
-UTILSRC_DIR = $(CT_ROOT)/lib/util_src
+UTILSRC_DIR = ../../../util_dir/src
+UTILSRC_INC = $(UTILSRC_DIR)
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 
@@ -143,6 +143,9 @@ rebaseline:
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed_0_0.csv
 	cp  LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
 	cp  LiCoO2Thermo.out   LiCoO2Thermo_blessed.out 
+	cp ccout.txt good_ccout.txt
+	cp  LiCoO2_CC_globalResults_0_0.csv  LiCoO2_CC_globalResults_blessed_0_0.csv 
+	cp LiCoO2_CC_intResults_0_0.csv LiCoO2_CC_intResults_blessed_0_0.csv
 
 ##############################################################################
 

@@ -143,8 +143,10 @@ Solution saved to file solution.xml as solution 0.
                            Delta_t_p1 1.000E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         8.434E-04     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -680,8 +682,10 @@ Solution saved to file solution.xml as solution 1.
                            Delta_t_p1 1.000E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.818E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -1062,8 +1066,10 @@ Solution saved to file solution.xml as solution 2.
                            Delta_t_p1 1.000E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -1444,8 +1450,10 @@ Solution saved to file solution.xml as solution 3.
                            Delta_t_p1 1.000E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -1825,8 +1833,10 @@ Solution saved to file solution.xml as solution 4.
                            Delta_t_p1 1.500E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -2206,8 +2216,10 @@ Solution saved to file solution.xml as solution 5.
                            Delta_t_p1 2.250E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -2587,8 +2599,10 @@ Solution saved to file solution.xml as solution 6.
                            Delta_t_p1 3.375E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -2968,8 +2982,10 @@ Solution saved to file solution.xml as solution 7.
                            Delta_t_p1 5.063E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -3349,8 +3365,10 @@ Solution saved to file solution.xml as solution 8.
                            Delta_t_p1 7.594E-08   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -3730,8 +3748,10 @@ Solution saved to file solution.xml as solution 9.
                            Delta_t_p1 1.139E-07   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -4111,8 +4131,10 @@ Solution saved to file solution.xml as solution 10.
                            Delta_t_p1 1.709E-07   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -4492,8 +4514,10 @@ Solution saved to file solution.xml as solution 11.
                            Delta_t_p1 2.563E-07   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -4873,8 +4897,10 @@ Solution saved to file solution.xml as solution 12.
                            Delta_t_p1 3.844E-07   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -5254,8 +5280,10 @@ Solution saved to file solution.xml as solution 13.
                            Delta_t_p1 5.767E-07   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -5635,8 +5663,10 @@ Solution saved to file solution.xml as solution 14.
                            Delta_t_p1 8.650E-07   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -6016,8 +6046,10 @@ Solution saved to file solution.xml as solution 15.
                            Delta_t_p1 1.297E-06   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -6397,8 +6429,10 @@ Solution saved to file solution.xml as solution 16.
                            Delta_t_p1 1.946E-06   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -6778,8 +6812,10 @@ Solution saved to file solution.xml as solution 17.
                            Delta_t_p1 2.919E-06   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -7159,8 +7195,10 @@ Solution saved to file solution.xml as solution 18.
                            Delta_t_p1 4.379E-06   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -7540,8 +7578,10 @@ Solution saved to file solution.xml as solution 19.
                            Delta_t_p1 6.568E-06   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -7921,8 +7961,10 @@ Solution saved to file solution.xml as solution 20.
                            Delta_t_p1 9.853E-06   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -8302,8 +8344,10 @@ Solution saved to file solution.xml as solution 21.
                            Delta_t_p1 1.478E-05   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -8683,8 +8727,10 @@ Solution saved to file solution.xml as solution 22.
                            Delta_t_p1 2.217E-05   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -9064,8 +9110,10 @@ Solution saved to file solution.xml as solution 23.
                            Delta_t_p1 3.325E-05   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -9445,8 +9493,10 @@ Solution saved to file solution.xml as solution 24.
                            Delta_t_p1 4.988E-05   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -9826,8 +9876,10 @@ Solution saved to file solution.xml as solution 25.
                            Delta_t_p1 7.482E-05   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -10207,8 +10259,10 @@ Solution saved to file solution.xml as solution 26.
                            Delta_t_p1 1.122E-04   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -10588,8 +10642,10 @@ Solution saved to file solution.xml as solution 27.
                            Delta_t_p1 1.683E-04   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -10969,8 +11025,10 @@ Solution saved to file solution.xml as solution 28.
                            Delta_t_p1 2.525E-04   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -11350,8 +11408,10 @@ Solution saved to file solution.xml as solution 29.
                            Delta_t_p1 3.788E-04   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -11731,8 +11791,10 @@ Solution saved to file solution.xml as solution 30.
                            Delta_t_p1 5.682E-04   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -12112,8 +12174,10 @@ Solution saved to file solution.xml as solution 31.
                            Delta_t_p1 8.522E-04   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -12493,8 +12557,10 @@ Solution saved to file solution.xml as solution 32.
                            Delta_t_p1 1.278E-03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -12874,8 +12940,10 @@ Solution saved to file solution.xml as solution 33.
                            Delta_t_p1 1.918E-03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -13255,8 +13323,10 @@ Solution saved to file solution.xml as solution 34.
                            Delta_t_p1 2.876E-03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -13636,8 +13706,10 @@ Solution saved to file solution.xml as solution 35.
                            Delta_t_p1 4.314E-03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -14017,8 +14089,10 @@ Solution saved to file solution.xml as solution 36.
                            Delta_t_p1 6.472E-03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -14398,8 +14472,10 @@ Solution saved to file solution.xml as solution 37.
                            Delta_t_p1 9.707E-03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -14779,8 +14855,10 @@ Solution saved to file solution.xml as solution 38.
                            Delta_t_p1 1.456E-02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -15160,8 +15238,10 @@ Solution saved to file solution.xml as solution 39.
                            Delta_t_p1 2.184E-02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -15541,8 +15621,10 @@ Solution saved to file solution.xml as solution 40.
                            Delta_t_p1 3.276E-02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -15922,8 +16004,10 @@ Solution saved to file solution.xml as solution 41.
                            Delta_t_p1 4.914E-02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -16303,8 +16387,10 @@ Solution saved to file solution.xml as solution 42.
                            Delta_t_p1 7.372E-02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -16684,8 +16770,10 @@ Solution saved to file solution.xml as solution 43.
                            Delta_t_p1 1.106E-01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -17065,8 +17153,10 @@ Solution saved to file solution.xml as solution 44.
                            Delta_t_p1 1.659E-01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -17446,8 +17536,10 @@ Solution saved to file solution.xml as solution 45.
                            Delta_t_p1 2.488E-01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.622E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -17827,8 +17919,10 @@ Solution saved to file solution.xml as solution 46.
                            Delta_t_p1 3.732E-01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.623E+01     Amp hr / m2
                            Crate_current         1.064E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -18208,8 +18302,10 @@ Solution saved to file solution.xml as solution 47.
                            Delta_t_p1 5.598E-01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.623E+01     Amp hr / m2
                            Crate_current         1.063E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -18589,8 +18685,10 @@ Solution saved to file solution.xml as solution 48.
                            Delta_t_p1 8.397E-01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.623E+01     Amp hr / m2
                            Crate_current         1.063E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -18970,8 +19068,10 @@ Solution saved to file solution.xml as solution 49.
                            Delta_t_p1 1.259E+00   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.286E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.624E+01     Amp hr / m2
                            Crate_current         1.063E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -19351,8 +19451,10 @@ Solution saved to file solution.xml as solution 50.
                            Delta_t_p1 1.889E+00   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.287E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.625E+01     Amp hr / m2
                            Crate_current         1.063E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -19732,8 +19834,10 @@ Solution saved to file solution.xml as solution 51.
                            Delta_t_p1 2.834E+00   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.287E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.463E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.627E+01     Amp hr / m2
                            Crate_current         1.062E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -20113,8 +20217,10 @@ Solution saved to file solution.xml as solution 52.
                            Delta_t_p1 4.251E+00   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.287E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.462E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.629E+01     Amp hr / m2
                            Crate_current         1.062E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -20494,8 +20600,10 @@ Solution saved to file solution.xml as solution 53.
                            Delta_t_p1 6.376E+00   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.287E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.462E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.633E+01     Amp hr / m2
                            Crate_current         1.061E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -20875,8 +20983,10 @@ Solution saved to file solution.xml as solution 54.
                            Delta_t_p1 9.564E+00   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.288E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.461E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.638E+01     Amp hr / m2
                            Crate_current         1.059E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -21256,8 +21366,10 @@ Solution saved to file solution.xml as solution 55.
                            Delta_t_p1 1.435E+01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.692E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.289E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.461E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.646E+01     Amp hr / m2
                            Crate_current         1.057E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -21637,8 +21749,10 @@ Solution saved to file solution.xml as solution 56.
                            Delta_t_p1 2.152E+01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.691E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.290E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.459E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.658E+01     Amp hr / m2
                            Crate_current         1.053E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -22018,8 +22132,10 @@ Solution saved to file solution.xml as solution 57.
                            Delta_t_p1 3.228E+01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.691E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.292E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.458E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.675E+01     Amp hr / m2
                            Crate_current         1.048E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -22399,8 +22515,10 @@ Solution saved to file solution.xml as solution 58.
                            Delta_t_p1 4.842E+01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.691E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.294E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.455E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.702E+01     Amp hr / m2
                            Crate_current         1.040E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -22780,8 +22898,10 @@ Solution saved to file solution.xml as solution 59.
                            Delta_t_p1 7.263E+01   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.691E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.298E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.451E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.741E+01     Amp hr / m2
                            Crate_current         1.028E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -23161,8 +23281,10 @@ Solution saved to file solution.xml as solution 60.
                            Delta_t_p1 1.089E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.690E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.304E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.445E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.799E+01     Amp hr / m2
                            Crate_current         1.012E-01     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -23542,8 +23664,10 @@ Solution saved to file solution.xml as solution 61.
                            Delta_t_p1 1.634E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.689E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.312E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.437E+02     Amp hr / m2
+                           DepthDischarge_Cathode3.883E+01     Amp hr / m2
                            Crate_current         9.875E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -23923,8 +24047,10 @@ Solution saved to file solution.xml as solution 62.
                            Delta_t_p1 2.451E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.688E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.325E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.425E+02     Amp hr / m2
+                           DepthDischarge_Cathode4.005E+01     Amp hr / m2
                            Crate_current         9.534E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -24304,8 +24430,10 @@ Solution saved to file solution.xml as solution 63.
                            Delta_t_p1 3.052E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.686E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.342E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.407E+02     Amp hr / m2
+                           DepthDischarge_Cathode4.180E+01     Amp hr / m2
                            Crate_current         9.067E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -24685,8 +24813,10 @@ Solution saved to file solution.xml as solution 64.
                            Delta_t_p1 4.577E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.684E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.362E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.387E+02     Amp hr / m2
+                           DepthDischarge_Cathode4.383E+01     Amp hr / m2
                            Crate_current         8.499E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -25066,8 +25196,10 @@ Solution saved to file solution.xml as solution 65.
                            Delta_t_p1 2.409E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.681E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.390E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.359E+02     Amp hr / m2
+                           DepthDischarge_Cathode4.664E+01     Amp hr / m2
                            Crate_current         7.823E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -25447,8 +25579,10 @@ Solution saved to file solution.xml as solution 66.
                            Delta_t_p1 2.841E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.680E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.404E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.345E+02     Amp hr / m2
+                           DepthDischarge_Cathode4.804E+01     Amp hr / m2
                            Crate_current         7.394E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -25828,8 +25962,10 @@ Solution saved to file solution.xml as solution 67.
                            Delta_t_p1 1.947E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.678E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.420E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.329E+02     Amp hr / m2
+                           DepthDischarge_Cathode4.962E+01     Amp hr / m2
                            Crate_current         7.087E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -26209,8 +26345,10 @@ Solution saved to file solution.xml as solution 68.
                            Delta_t_p1 2.064E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.677E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.431E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.319E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.066E+01     Amp hr / m2
                            Crate_current         6.822E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -26590,8 +26728,10 @@ Solution saved to file solution.xml as solution 69.
                            Delta_t_p1 1.944E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.676E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.441E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.308E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.173E+01     Amp hr / m2
                            Crate_current         6.613E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -26971,8 +27111,10 @@ Solution saved to file solution.xml as solution 70.
                            Delta_t_p1 2.916E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.675E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.451E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.298E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.271E+01     Amp hr / m2
                            Crate_current         6.407E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -27352,8 +27494,10 @@ Solution saved to file solution.xml as solution 71.
                            Delta_t_p1 1.687E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.674E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.465E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.284E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.413E+01     Amp hr / m2
                            Crate_current         6.194E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -27733,8 +27877,10 @@ Solution saved to file solution.xml as solution 72.
                            Delta_t_p1 1.737E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.673E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.473E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.276E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.492E+01     Amp hr / m2
                            Crate_current         5.989E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -28114,8 +28260,10 @@ Solution saved to file solution.xml as solution 73.
                            Delta_t_p1 1.912E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.672E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.481E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.268E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.572E+01     Amp hr / m2
                            Crate_current         5.850E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -28495,8 +28643,10 @@ Solution saved to file solution.xml as solution 74.
                            Delta_t_p1 2.868E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.671E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.490E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.259E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.657E+01     Amp hr / m2
                            Crate_current         5.696E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -28876,8 +29026,10 @@ Solution saved to file solution.xml as solution 75.
                            Delta_t_p1 1.939E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.670E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.502E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.247E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.782E+01     Amp hr / m2
                            Crate_current         5.530E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -29257,8 +29409,10 @@ Solution saved to file solution.xml as solution 76.
                            Delta_t_p1 1.827E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.669E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.510E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.239E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.863E+01     Amp hr / m2
                            Crate_current         5.351E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -29638,8 +29792,10 @@ Solution saved to file solution.xml as solution 77.
                            Delta_t_p1 2.207E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.669E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.518E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.231E+02     Amp hr / m2
+                           DepthDischarge_Cathode5.938E+01     Amp hr / m2
                            Crate_current         5.231E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -30019,8 +30175,10 @@ Solution saved to file solution.xml as solution 78.
                            Delta_t_p1 2.308E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.668E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.527E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.223E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.027E+01     Amp hr / m2
                            Crate_current         5.113E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -30400,8 +30558,10 @@ Solution saved to file solution.xml as solution 79.
                            Delta_t_p1 2.086E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.667E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.536E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.214E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.117E+01     Amp hr / m2
                            Crate_current         4.957E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -30781,8 +30941,10 @@ Solution saved to file solution.xml as solution 80.
                            Delta_t_p1 2.534E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.666E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.544E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.206E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.196E+01     Amp hr / m2
                            Crate_current         4.841E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -31162,8 +31324,10 @@ Solution saved to file solution.xml as solution 81.
                            Delta_t_p1 2.591E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.665E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.553E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.196E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.290E+01     Amp hr / m2
                            Crate_current         4.725E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -31543,8 +31707,10 @@ Solution saved to file solution.xml as solution 82.
                            Delta_t_p1 2.327E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.664E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.562E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.187E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.383E+01     Amp hr / m2
                            Crate_current         4.576E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -31924,8 +32090,10 @@ Solution saved to file solution.xml as solution 83.
                            Delta_t_p1 2.809E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.663E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.570E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.179E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.464E+01     Amp hr / m2
                            Crate_current         4.466E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -32305,8 +32473,10 @@ Solution saved to file solution.xml as solution 84.
                            Delta_t_p1 2.927E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.662E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.580E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.169E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.560E+01     Amp hr / m2
                            Crate_current         4.357E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -32686,8 +32856,10 @@ Solution saved to file solution.xml as solution 85.
                            Delta_t_p1 2.712E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.661E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.590E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.159E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.657E+01     Amp hr / m2
                            Crate_current         4.216E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -33067,8 +33239,10 @@ Solution saved to file solution.xml as solution 86.
                            Delta_t_p1 3.166E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.661E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.598E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.151E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.745E+01     Amp hr / m2
                            Crate_current         4.108E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -33448,8 +33622,10 @@ Solution saved to file solution.xml as solution 87.
                            Delta_t_p1 3.490E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.660E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.608E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.141E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.844E+01     Amp hr / m2
                            Crate_current         4.003E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -33829,8 +34005,10 @@ Solution saved to file solution.xml as solution 88.
                            Delta_t_p1 3.590E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.659E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.619E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.130E+02     Amp hr / m2
+                           DepthDischarge_Cathode6.950E+01     Amp hr / m2
                            Crate_current         3.865E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -34210,8 +34388,10 @@ Solution saved to file solution.xml as solution 89.
                            Delta_t_p1 3.556E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.657E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.630E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.120E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.056E+01     Amp hr / m2
                            Crate_current         3.750E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -34591,8 +34771,10 @@ Solution saved to file solution.xml as solution 90.
                            Delta_t_p1 5.334E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.656E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.640E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.109E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.157E+01     Amp hr / m2
                            Crate_current         3.636E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -34972,8 +35154,10 @@ Solution saved to file solution.xml as solution 91.
                            Delta_t_p1 3.750E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.655E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.654E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.095E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.304E+01     Amp hr / m2
                            Crate_current         3.515E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -35353,8 +35537,10 @@ Solution saved to file solution.xml as solution 92.
                            Delta_t_p1 3.700E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.654E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.664E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.085E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.404E+01     Amp hr / m2
                            Crate_current         3.381E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -35734,8 +35920,10 @@ Solution saved to file solution.xml as solution 93.
                            Delta_t_p1 4.227E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.653E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.674E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.075E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.499E+01     Amp hr / m2
                            Crate_current         3.288E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -36115,8 +36303,10 @@ Solution saved to file solution.xml as solution 94.
                            Delta_t_p1 5.022E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.652E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.685E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.065E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.605E+01     Amp hr / m2
                            Crate_current         3.198E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -36496,8 +36686,10 @@ Solution saved to file solution.xml as solution 95.
                            Delta_t_p1 6.008E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.651E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.697E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.053E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.727E+01     Amp hr / m2
                            Crate_current         3.077E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -36877,8 +37069,10 @@ Solution saved to file solution.xml as solution 96.
                            Delta_t_p1 4.635E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.649E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.711E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.039E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.867E+01     Amp hr / m2
                            Crate_current         2.970E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -37258,8 +37452,10 @@ Solution saved to file solution.xml as solution 97.
                            Delta_t_p1 5.948E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.648E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.721E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.028E+02     Amp hr / m2
+                           DepthDischarge_Cathode7.971E+01     Amp hr / m2
                            Crate_current         2.865E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -37639,8 +37835,10 @@ Solution saved to file solution.xml as solution 98.
                            Delta_t_p1 4.212E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.647E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.734E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.015E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.100E+01     Amp hr / m2
                            Crate_current         2.777E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -38020,8 +38218,10 @@ Solution saved to file solution.xml as solution 99.
                            Delta_t_p1 5.519E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.646E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.743E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 2.006E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.189E+01     Amp hr / m2
                            Crate_current         2.689E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -38401,8 +38601,10 @@ Solution saved to file solution.xml as solution 100.
                            Delta_t_p1 4.251E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.645E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.754E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.995E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.303E+01     Amp hr / m2
                            Crate_current         2.617E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -38782,8 +38984,10 @@ Solution saved to file solution.xml as solution 101.
                            Delta_t_p1 5.348E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.644E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.763E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.986E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.387E+01     Amp hr / m2
                            Crate_current         2.539E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -39163,8 +39367,10 @@ Solution saved to file solution.xml as solution 102.
                            Delta_t_p1 4.356E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.643E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.773E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.976E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.491E+01     Amp hr / m2
                            Crate_current         2.476E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -39544,8 +39750,10 @@ Solution saved to file solution.xml as solution 103.
                            Delta_t_p1 5.793E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.642E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.781E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.968E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.574E+01     Amp hr / m2
                            Crate_current         2.406E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -39925,8 +40133,10 @@ Solution saved to file solution.xml as solution 104.
                            Delta_t_p1 4.696E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.641E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.792E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.957E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.680E+01     Amp hr / m2
                            Crate_current         2.347E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -40306,8 +40516,10 @@ Solution saved to file solution.xml as solution 105.
                            Delta_t_p1 5.909E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.640E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.800E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.949E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.764E+01     Amp hr / m2
                            Crate_current         2.277E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -40687,8 +40899,10 @@ Solution saved to file solution.xml as solution 106.
                            Delta_t_p1 4.946E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.639E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.811E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.938E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.867E+01     Amp hr / m2
                            Crate_current         2.222E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -41068,8 +41282,10 @@ Solution saved to file solution.xml as solution 107.
                            Delta_t_p1 6.738E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.639E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.819E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.930E+02     Amp hr / m2
+                           DepthDischarge_Cathode8.951E+01     Amp hr / m2
                            Crate_current         2.158E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -41449,8 +41665,10 @@ Solution saved to file solution.xml as solution 108.
                            Delta_t_p1 5.599E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.637E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.830E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.919E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.062E+01     Amp hr / m2
                            Crate_current         2.103E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -41830,8 +42048,10 @@ Solution saved to file solution.xml as solution 109.
                            Delta_t_p1 6.926E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.636E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.839E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.910E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.152E+01     Amp hr / m2
                            Crate_current         2.037E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -42211,8 +42431,10 @@ Solution saved to file solution.xml as solution 110.
                            Delta_t_p1 5.965E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.635E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.850E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.899E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.260E+01     Amp hr / m2
                            Crate_current         1.985E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -42592,8 +42814,10 @@ Solution saved to file solution.xml as solution 111.
                            Delta_t_p1 8.421E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.635E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.859E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.890E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.350E+01     Amp hr / m2
                            Crate_current         1.925E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -42973,8 +43197,10 @@ Solution saved to file solution.xml as solution 112.
                            Delta_t_p1 7.011E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.633E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.871E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.878E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.473E+01     Amp hr / m2
                            Crate_current         1.871E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -43354,8 +43580,10 @@ Solution saved to file solution.xml as solution 113.
                            Delta_t_p1 8.524E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.632E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.881E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.868E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.573E+01     Amp hr / m2
                            Crate_current         1.806E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -43735,8 +43963,10 @@ Solution saved to file solution.xml as solution 114.
                            Delta_t_p1 7.368E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.631E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.893E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.856E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.690E+01     Amp hr / m2
                            Crate_current         1.754E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -44116,8 +44346,10 @@ Solution saved to file solution.xml as solution 115.
                            Delta_t_p1 1.105E+03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.630E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.903E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.846E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.788E+01     Amp hr / m2
                            Crate_current         1.697E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -44497,8 +44729,10 @@ Solution saved to file solution.xml as solution 116.
                            Delta_t_p1 9.023E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.629E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.917E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.832E+02     Amp hr / m2
+                           DepthDischarge_Cathode9.931E+01     Amp hr / m2
                            Crate_current         1.644E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -44878,8 +45112,10 @@ Solution saved to file solution.xml as solution 117.
                            Delta_t_p1 1.090E+03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.628E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.928E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.821E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.004E+02     Amp hr / m2
                            Crate_current         1.578E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -45259,8 +45495,10 @@ Solution saved to file solution.xml as solution 118.
                            Delta_t_p1 9.384E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.626E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.941E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.808E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.017E+02     Amp hr / m2
                            Crate_current         1.528E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -45640,8 +45878,10 @@ Solution saved to file solution.xml as solution 119.
                            Delta_t_p1 1.408E+03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.625E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.952E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.797E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.028E+02     Amp hr / m2
                            Crate_current         1.473E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -46021,8 +46261,10 @@ Solution saved to file solution.xml as solution 120.
                            Delta_t_p1 1.173E+03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.624E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.968E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.781E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.044E+02     Amp hr / m2
                            Crate_current         1.423E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -46402,8 +46644,10 @@ Solution saved to file solution.xml as solution 121.
                            Delta_t_p1 1.444E+03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.622E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.980E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.769E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.056E+02     Amp hr / m2
                            Crate_current         1.359E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -46783,8 +47027,10 @@ Solution saved to file solution.xml as solution 122.
                            Delta_t_p1 1.226E+03   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.621E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.995E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.754E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.071E+02     Amp hr / m2
                            Crate_current         1.311E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -47164,8 +47410,10 @@ Solution saved to file solution.xml as solution 123.
                            Delta_t_p1 2.736E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.621E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.997E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.752E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.073E+02     Amp hr / m2
                            Crate_current         1.295E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -47520,8 +47768,10 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
                            Delta_t_p1 2.736E+02   
                            Capacity_Anode        1.920E+03     Amp hr / m2
                            Capacity_Anode_Left   1.621E+03     Amp hr / m2
+                           DepthDischarge_Anode  2.997E+02     Amp hr / m2
                            Capacity_Cathode      2.825E+02     Amp hr / m2
                            Capacity_Cathode_Left 1.752E+02     Amp hr / m2
+                           DepthDischarge_Cathode1.073E+02     Amp hr / m2
                            Crate_current         1.295E-02     
     ----------------------------------------------------------------------------------------------------
       --------------------------------------------------------------------------------

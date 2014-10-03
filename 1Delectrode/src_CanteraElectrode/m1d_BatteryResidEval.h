@@ -363,6 +363,8 @@ public:
     double capacityDischargedAnodePA_;
     double capacityDischargedCathodePA_;
 
+    double dodAnodePA_;
+    double dodCathodePA_;
 
     double  capacityPAEff_;
 

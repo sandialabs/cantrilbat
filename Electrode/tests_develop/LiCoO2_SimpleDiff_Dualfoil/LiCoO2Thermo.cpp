@@ -230,13 +230,11 @@ int main(int argc, char **argv)
          xmol[klicoo2] = xKC;
          xmol[kcoo2] = 1.0 - xmol[klicoo2];
          tplicoo2.setState_TPX(298.15, OneAtm, xmol);
-
 	 rsd->getDeltaGibbs(dg);
 	 ocv = dg[1] / Faraday / nstoic;
 	 ocvE = dg[0] / Faraday / nstoic;
          dg[0] -= GasConstant * 298.15 * std::log(xmol_Lip);
 	 ocvE_corr = dg[0] / Faraday / nstoic;
-
 	 printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
      }
      

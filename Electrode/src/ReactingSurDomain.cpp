@@ -634,7 +634,8 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     //  We also find the species which we will use as the relative extent variable. Typically it is 
     //  not the same as the species we used as the replaced species, at least for anodes
     //
-    int kspec = ocv_ptr_->MF_DoD_LocalSpeciesID;
+    size_t kspec = ocv_ptr_->MF_DoD_LocalSpeciesID;
+    AssertThrow(kspec != npos, "ReactingSurDomain::addOCVoverride(): MF_DoD_LocalSpeciesID is not set");
     //
     //  Set up the relative extent capability within the OCVmodel. Note we may have to expand this
     //  model more in the future 

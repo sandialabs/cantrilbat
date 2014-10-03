@@ -106,7 +106,6 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
     LE_OneInt* sdm = new LE_OneInt("Solid Diffusion Model", &(solidDiffusionModel_), 0, "solidDiffusionModel");
     sdm->set_default(0);
     cf->addLineEntry(sdm);
-    BaseEntry::set_SkipUnknownEntries(true);
 
     /*
      * NAME OF THE THERMOPHASE PHASE ASSOCIATED WITH THE REGION
@@ -118,7 +117,7 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
 
     cf->addLineEntry(pnames);
 
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 
 }
 //====================================================================================================================
@@ -148,7 +147,7 @@ void ELECTRODE_RadialRegion_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* c
     cf->addLineEntry(iR);
 
   
-    BaseEntry::set_SkipUnknownEntries(false);
+    BaseEntry::set_SkipUnknownEntries(0);
 }
 
 //======================================================================================================================

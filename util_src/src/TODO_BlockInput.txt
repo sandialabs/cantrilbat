@@ -52,3 +52,7 @@ complete set of processing.
 
 
 Figure out how to do multiblocks better.
+
+
+SkipUnknownEntries
+      Need to make this a block parameter, so that I can check within blocks

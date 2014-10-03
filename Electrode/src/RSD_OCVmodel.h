@@ -190,10 +190,11 @@ protected:
 public:
     //! underlying ThermoPhase model
     ThermoPhase* solidPhaseModel_;
+
 protected:
     //! Particular species within the ThermoPhase which indicates the relative depth of discharge
     /*!
-     *    The usual setup will be to specify the mole fraction of aa particular species as being the relative
+     *    The usual setup will be to specify the mole fraction of a particular species as being the relative
      *    depth of discharge
      */
     size_t kSpecies_DoD_;

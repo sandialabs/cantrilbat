@@ -117,6 +117,7 @@ void RSD_OCVmodel::setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec, 
 //=============================================================================================================================== 
 void RSD_OCVmodel::calcRelExtent() const
 {
+    AssertThrow(kSpecies_DoD_ != npos, "RSD_OCVmodel: kSpecies_DoD_ is not assigned");
     // We do slightly more than is necessary so that models may have the full mole fraction vector
     solidPhaseModel_->getMoleFractions(&xMF_[0]);
     relExtent_ = xMF_[kSpecies_DoD_];

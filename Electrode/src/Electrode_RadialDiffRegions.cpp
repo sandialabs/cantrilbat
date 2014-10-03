@@ -91,7 +91,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEnt
     LE_OneInt* s1 = new LE_OneInt("Number of Regions", &(numRegions_), 1, "numRegions");
     s1->set_default(1);
     cf->addLineEntry(s1);
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 
     /*  -------------------------------------------------------------------------------------------------------
      * Obtain the diffusion model
@@ -100,7 +100,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEnt
     LE_OneInt* sdm = new LE_OneInt("Solid Diffusion Model", &(solidDiffusionModel_), 0, "solidDiffusionModel");
     sdm->set_default(0);
     cf->addLineEntry(sdm);
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 
     /*  -------------------------------------------------------------------------------------------------------
      *   Diffusive flux model
@@ -111,12 +111,11 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child1(BEInput::BlockEnt
     cf->addLineEntry(dfm);
 
     // Not finished yet
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 //====================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
 {
-
     /*
      * Obtain the number of regions
      */
@@ -179,7 +178,7 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
     rr1->set_limits(1.0E30, 1.0E-30);
     be_rdr->addLineEntry(rr1);
 
-    BaseEntry::set_SkipUnknownEntries(false);
+    BaseEntry::set_SkipUnknownEntries(0);
 }
 //====================================================================================================================
 void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child3(BEInput::BlockEntry* cf)

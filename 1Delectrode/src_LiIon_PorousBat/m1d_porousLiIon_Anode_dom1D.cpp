@@ -33,17 +33,19 @@ namespace m1d
 //=====================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     porousElectrode_dom1D(bdd),
-    ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    ionicLiquid_(0), 
+    trans_(0),
+    nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0),
     surfaceArea_Cell_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Electrode_Cell_(0),
-    capacityDischarged_Cell_(0),
-    depthOfDischarge_Cell_(0),
-    capacityLeft_Cell_(0),
-    capacityZeroDoD_Cell_(0),
+    capacityDischargedPA_Cell_(0),
+    depthOfDischargePA_Cell_(0),
+    capacityLeftPA_Cell_(0),
+    capacityPA_Cell_(0),
     cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
     Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
     t_final_(0.0),
@@ -58,7 +60,9 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     electrodeSpeciesMoleDelta_Cell_(0),
     icurrInterface_Cell_(0), phaseMoleTransfer_(0),
     solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0), icurrElectrolyte_CBL_(0),
-    icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),
+    icurrElectrolyte_CBR_(0), deltaV_Cell_(0), 
+    Ess_Surf_Cell_(0), 
+    overpotential_Surf_Cell_(0), icurrRxn_Cell_(0),
     LiFlux_Cell_(0),
     iECDMC_(-1),
     iLip_(-1),
@@ -104,16 +108,18 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
 //=====================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& r) :
     porousElectrode_dom1D(r.BDD_),
-    ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    ionicLiquid_(0), 
+    trans_(0),
+    nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0),
     surfaceArea_Cell_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Electrode_Cell_(0),
-    capacityDischarged_Cell_(0),
-    depthOfDischarge_Cell_(0),
-    capacityLeft_Cell_(0),
-    capacityZeroDoD_Cell_(0),
+    capacityDischargedPA_Cell_(0),
+    depthOfDischargePA_Cell_(0),
+    capacityLeftPA_Cell_(0),
+    capacityPA_Cell_(0),
     cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
     Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
     t_final_(0.0),  t_init_(0.0),
@@ -125,7 +131,10 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     nSpeciesElectrode_(0), nSurfsElectrode_(0),
     electrodeSpeciesMoleDelta_Cell_(0),  icurrInterface_Cell_(0), phaseMoleTransfer_(0),
     solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0), icurrElectrolyte_CBL_(0),
-    icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0),
+    icurrElectrolyte_CBR_(0), deltaV_Cell_(0), 
+    Ess_Surf_Cell_(0), 
+    overpotential_Surf_Cell_(0), 
+    icurrRxn_Cell_(0),  LiFlux_Cell_(0),
     iECDMC_(-1), iLip_(-1),  iPF6m_(-1),
     solnTemp(0),
     ivb_(VB_MOLEAVG)
@@ -171,10 +180,10 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
         //    Electrode_Cell_[iCell] = duplFromElectrode(*(r.Electrode_Cell_[iCell]));
     }
 
-    capacityDischarged_Cell_ = r.capacityDischarged_Cell_;
-    depthOfDischarge_Cell_ = r.depthOfDischarge_Cell_;
-    capacityLeft_Cell_ = r.capacityLeft_Cell_;
-    capacityZeroDoD_Cell_ = r.capacityZeroDoD_Cell_;
+    capacityDischargedPA_Cell_ = r.capacityDischargedPA_Cell_;
+    depthOfDischargePA_Cell_ = r.depthOfDischargePA_Cell_;
+    capacityLeftPA_Cell_ = r.capacityLeftPA_Cell_;
+    capacityPA_Cell_ = r.capacityPA_Cell_;
     cIndex_cc_ = r.cIndex_cc_;
     Fleft_cc_ = r.Fleft_cc_;
     Fright_cc_ = r.Fright_cc_;
@@ -215,8 +224,8 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     icurrElectrolyte_CBL_ = icurrElectrolyte_CBL_;
     icurrElectrolyte_CBR_ = r.icurrElectrolyte_CBR_;
     deltaV_Cell_ = r.deltaV_Cell_;
-    Ess_Cell_ = r.Ess_Cell_;
-    overpotential_Cell_ = r.overpotential_Cell_;
+    Ess_Surf_Cell_ = r.Ess_Surf_Cell_;
+    overpotential_Surf_Cell_ = r.overpotential_Surf_Cell_;
     icurrRxn_Cell_ = r.icurrRxn_Cell_;
     LiFlux_Cell_ = r.LiFlux_Cell_;
     iECDMC_ = r.iECDMC_;
@@ -272,10 +281,10 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
-    capacityDischarged_Cell_.resize(NumLcCells, 0.0);
-    depthOfDischarge_Cell_.resize(NumLcCells, 0.0);
-    capacityLeft_Cell_.resize(NumLcCells, 0.0);
-    capacityZeroDoD_Cell_.resize(NumLcCells, 0.0);
+    capacityDischargedPA_Cell_.resize(NumLcCells, 0.0);
+    depthOfDischargePA_Cell_.resize(NumLcCells, 0.0);
+    capacityLeftPA_Cell_.resize(NumLcCells, 0.0);
+    capacityPA_Cell_.resize(NumLcCells, 0.0);
 
     icurrInterface_Cell_.resize(NumLcCells, 0.0);
     solnMoleFluxInterface_Cell_.resize(NumLcCells, 0.0);
@@ -308,8 +317,8 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     icurrElectrolyte_CBR_.resize(NumLcCells, 0.0);
 
     deltaV_Cell_ .resize(NumLcCells, 0.0);
-    Ess_Cell_.resize(nSurfsElectrode_ * NumLcCells, 0.0);
-    overpotential_Cell_.resize(nSurfsElectrode_ * NumLcCells, 0.0);
+    Ess_Surf_Cell_.resize(nSurfsElectrode_ * NumLcCells, 0.0);
+    overpotential_Surf_Cell_.resize(nSurfsElectrode_ * NumLcCells, 0.0);
     icurrRxn_Cell_.resize(NumLcCells, 0.0);
     LiFlux_Cell_.resize(NumLcCells, 0.0);
     Electrode_Cell_.resize(NumLcCells, 0);
@@ -1137,8 +1146,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         if (residType == Base_ShowSolution) {
             deltaV_Cell_[iCell] = Electrode_ptr->potentialDrop();
             for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++) {
-                Ess_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->openCircuitVoltage(jSurf);
-                overpotential_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->overpotential(jSurf);
+                Ess_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->openCircuitVoltage(jSurf);
+                overpotential_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->overpotential(jSurf);
             }
             icurrRxn_Cell_[iCell] = icurrInterface_Cell_[iCell];
 
@@ -1599,10 +1608,10 @@ porousLiIon_Anode_dom1D::calcElectrode()
 
 
     if (residType_Curr_ == Base_ShowSolution) {
-        capacityDischarged_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / crossSectionalArea_;
-        depthOfDischarge_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / crossSectionalArea_;
-        capacityLeft_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / crossSectionalArea_;
-        capacityZeroDoD_Cell_[cIndex_cc_]= Electrode_ptr->capacity() / crossSectionalArea_;
+        capacityDischargedPA_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / crossSectionalArea_;
+        depthOfDischargePA_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / crossSectionalArea_;
+        capacityLeftPA_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / crossSectionalArea_;
+        capacityPA_Cell_[cIndex_cc_]= Electrode_ptr->capacity() / crossSectionalArea_;
     }
 
     return numSubcycles;
@@ -2235,8 +2244,8 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
             // surface reaction data
             fprintf(ofp, "%g \t", deltaV_Cell_[iCell]);
             for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++) {
-                fprintf(ofp, "%g \t", Ess_Cell_[nSurfsElectrode_ * iCell + jSurf]);
-                fprintf(ofp, "%g \t", overpotential_Cell_[nSurfsElectrode_ * iCell + jSurf]);
+                fprintf(ofp, "%g \t", Ess_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf]);
+                fprintf(ofp, "%g \t", overpotential_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf]);
             }
             fprintf(ofp, "%g \t", icurrRxn_Cell_[iCell]);
             fprintf(ofp, "%g \t", LiFlux_Cell_[iCell]);
@@ -2247,10 +2256,10 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
             fprintf(ofp, "\n");
 
             // capacity of individual control volumes
-            fprintf(ofp, "%g \t", capacityDischarged_Cell_[iCell] * crossSectionalArea_);
-            fprintf(ofp, "%g \t", depthOfDischarge_Cell_[iCell]);
-            fprintf(ofp, "%g \t", capacityLeft_Cell_[iCell] * crossSectionalArea_);
-            fprintf(ofp, "%g \t", capacityZeroDoD_Cell_[iCell] * crossSectionalArea_);
+            fprintf(ofp, "%g \t", capacityDischargedPA_Cell_[iCell] * crossSectionalArea_);
+            fprintf(ofp, "%g \t", depthOfDischargePA_Cell_[iCell]);
+            fprintf(ofp, "%g \t", capacityLeftPA_Cell_[iCell] * crossSectionalArea_);
+            fprintf(ofp, "%g \t", capacityPA_Cell_[iCell] * crossSectionalArea_);
 
             // print porosity, specific surface area, thickness for each control volume
             fprintf(ofp, "%g \t", porosity_Cell_[iCell]);
@@ -2526,8 +2535,8 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             x = nv->xNodePos();
             ss.print0("%s    %-10.4E ", ind, x);
             ss.print0("%11.4E ", deltaV_Cell_[iCell]);
-            ss.print0("%11.4E ", Ess_Cell_[nSurfsElectrode_ * iCell]);
-            ss.print0("%11.4E ", overpotential_Cell_[nSurfsElectrode_ * iCell]);
+            ss.print0("%11.4E ", Ess_Surf_Cell_[nSurfsElectrode_ * iCell]);
+            ss.print0("%11.4E ", overpotential_Surf_Cell_[nSurfsElectrode_ * iCell]);
             ss.print0("%11.4E ", icurrRxn_Cell_[iCell]);
             ss.print0("\n");
         }
@@ -2609,10 +2618,10 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             x = nv->xNodePos();
 
             ss.print0("%s    %-10.4E ", ind, x);
-            ss.print0("%11.4E ", capacityDischarged_Cell_[iCell]);
-            ss.print0("%11.4E ", depthOfDischarge_Cell_[iCell]);
-            ss.print0("%11.4E ", capacityLeft_Cell_[iCell]);
-            ss.print0("%11.4E ", capacityZeroDoD_Cell_[iCell]);
+            ss.print0("%11.4E ", capacityDischargedPA_Cell_[iCell]);
+            ss.print0("%11.4E ", depthOfDischargePA_Cell_[iCell]);
+            ss.print0("%11.4E ", capacityLeftPA_Cell_[iCell]);
+            ss.print0("%11.4E ", capacityPA_Cell_[iCell]);
 
             ss.print0("\n");
         }
@@ -3110,9 +3119,10 @@ porousLiIon_Anode_dom1D::err(const char* msg)
 double porousLiIon_Anode_dom1D::capacityPA(int platNum) const
 {
     double totalCapacity = 0.0;
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
         Electrode* ee = Electrode_Cell_[iCell];
 	totalCapacity += ee->capacity(platNum);
+        capacityPA_Cell_[iCell] = ee->capacity() / crossSectionalArea_;
     }
     totalCapacity /= crossSectionalArea_;
     return totalCapacity;
@@ -3121,9 +3131,10 @@ double porousLiIon_Anode_dom1D::capacityPA(int platNum) const
 double porousLiIon_Anode_dom1D::capacityDischargedPA(int platNum) const
 {
     double totalCapacity = 0.0;
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
         Electrode* ee = Electrode_Cell_[iCell];
 	totalCapacity += ee->capacityDischarged(platNum);
+        capacityDischargedPA_Cell_[iCell] = ee->capacityDischarged() / crossSectionalArea_;
     }
     totalCapacity /= crossSectionalArea_;
     return totalCapacity;
@@ -3132,12 +3143,25 @@ double porousLiIon_Anode_dom1D::capacityDischargedPA(int platNum) const
 double porousLiIon_Anode_dom1D::capacityLeftPA(int platNum, double voltsMax, double voltsMin) const
 {
     double totalCapacity = 0.0;
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
         Electrode* ee = Electrode_Cell_[iCell];
 	totalCapacity += ee->capacityLeft(platNum, voltsMax, voltsMin);
+        capacityLeftPA_Cell_[iCell] = ee->capacityLeft() / crossSectionalArea_;
     }
     totalCapacity /= crossSectionalArea_;
     return totalCapacity;
+}
+//=====================================================================================================================
+double porousLiIon_Anode_dom1D::depthOfDischargePA(int platNum) const
+{
+    double dod = 0.0;
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        dod += ee->depthOfDischarge(platNum);
+        depthOfDischargePA_Cell_[iCell] = ee->depthOfDischarge() / crossSectionalArea_;
+    }
+    dod /= crossSectionalArea_;
+    return dod;
 }
 //=====================================================================================================================
 // Initial starting depth of discharge in coulombs per cross sectional area
@@ -3160,10 +3184,23 @@ double porousLiIon_Anode_dom1D::depthOfDischargeStartingPA(int platNum) const
 //=====================================================================================================================
 void porousLiIon_Anode_dom1D::resetCapacityDischargedToDate()
 {
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
         Electrode* ee = Electrode_Cell_[iCell];
         ee->resetCapacityDischargedToDate();
     }
+}
+//=====================================================================================================================
+// Return a value for the open circuit potential without doing a formally correct calculation
+/*
+ *  Currently this is defined as the open circuit potential on the outside electrode.
+ *
+ *   @return return the open circuit potential 
+ */
+double porousLiIon_Anode_dom1D::openCircuitPotentialQuick() const
+{
+    Electrode* ee = Electrode_Cell_[0];
+    double ocv = ee->openCircuitVoltage(nSurfsElectrode_ - 1);
+    return ocv;
 }
 //=====================================================================================================================
 } //namespace m1d

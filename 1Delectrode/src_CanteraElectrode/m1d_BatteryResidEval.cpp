@@ -57,6 +57,8 @@ namespace m1d
     capacityLeftCathodePA_(0.0),
     capacityDischargedAnodePA_(0.0),
     capacityDischargedCathodePA_(0.0),
+    dodAnodePA_(0.0),
+    dodCathodePA_(0.0),
     capacityPAEff_(0.0),
     capacityLeftPAEff_(0.0),
     timeLeft_(0.0),
@@ -115,6 +117,8 @@ namespace m1d
     capacityLeftCathodePA_               = r.capacityLeftCathodePA_;
     capacityDischargedAnodePA_           = r.capacityDischargedAnodePA_;
     capacityDischargedCathodePA_         = r.capacityDischargedCathodePA_;
+    dodAnodePA_                          = r.dodAnodePA_;
+    dodCathodePA_                        = r.dodCathodePA_;
     capacityPAEff_                       = r.capacityPAEff_;
     capacityLeftPAEff_                   = r.capacityLeftPAEff_;
     timeLeft_                            = r.timeLeft_;
@@ -523,9 +527,13 @@ BatteryResidEval::showProblemSolution(const int ievent,
     Cantera::writelog(buf);
     sprintf(buf, "%s                       Capacity_Anode_Left   %-12.3E  Amp hr / m2\n", ind, capacityLeftAnodePA_ / 3600.);
     Cantera::writelog(buf);
+    sprintf(buf, "%s                       DepthDischarge_Anode  %-12.3E  Amp hr / m2\n", ind, dodAnodePA_ / 3600.);
+    Cantera::writelog(buf);
     sprintf(buf, "%s                       Capacity_Cathode      %-12.3E  Amp hr / m2\n", ind, capacityCathodePA_ / 3600.);
     Cantera::writelog(buf);
     sprintf(buf, "%s                       Capacity_Cathode_Left %-12.3E  Amp hr / m2\n", ind, capacityLeftCathodePA_ / 3600.);
+    Cantera::writelog(buf);
+    sprintf(buf, "%s                       DepthDischarge_Cathode%-12.3E  Amp hr / m2\n", ind, dodCathodePA_ / 3600.);
     Cantera::writelog(buf);
     sprintf(buf, "%s                       Crate_current         %-12.3E  \n", ind, Crate_current_);
     Cantera::writelog(buf);
@@ -624,45 +632,97 @@ BatteryResidEval::showProblemSolution(const int ievent,
     double c_icurr = c_ptr->icurrCollector_;
     double phiCath = c_ptr->phiCathode_;
 
+    //
+    // The first domain is the surface anode collector
+    //  get the current -> its a member data
+    //
     SurDomain1D *ad_ptr = DL.SurDomain1D_List[0];
     SurDomain_AnodeCollector *ac_ptr = dynamic_cast<SurDomain_AnodeCollector *>(ad_ptr);
-
     double a_icurr = ac_ptr->icurrCollector_;
-    //double phiAnode = ac_ptr->phiAnode_;
 
     int procID = Comm_ptr->MyPID();
 
     if (!procID) {
-    //looking for cathode capacity and depth of discharge
-    BulkDomain1D *cd_ptr = DL.BulkDomain1D_List.back();
-    //porousLiKCl_FeS2Cathode_dom1D *cc_ptr = dynamic_cast<porousLiKCl_FeS2Cathode_dom1D *>(cd_ptr);
+    //
+    //  looking for cathode capacity and depth of discharge
+    //
+    //BulkDomain1D *cd_ptr = DL.BulkDomain1D_List.back();
+
+    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
+    porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+    d_ptr = DL.BulkDomain1D_List.back();
+    porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+
     double capacityZeroDoD, spec_capacityZeroDoD;
     double dischargedCapacity, spec_dischargedCapacity;
-    cd_ptr->getSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
-    cd_ptr->getSolutionParam( "DepthOfDischarge", &dischargedCapacity );
-    cd_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
-    cd_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
+    d_cathode_ptr->getSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
+    d_cathode_ptr->getSolutionParam( "DepthOfDischarge", &dischargedCapacity );
+    d_cathode_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
+    d_cathode_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
+
+    double ocvAnode = d_anode_ptr->openCircuitPotentialQuick();
+    double ocvCathode = d_cathode_ptr->openCircuitPotentialQuick();
+    double ocvQuick = ocvCathode - ocvAnode;   
 
     FILE *fp = 0;
-    if (ievent == 0) {
-      fp = fopen("timeDep_IV.dat", "w");
-      fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
-      fprintf(fp, "VARIABLES = \" T [s]\"\n");
-      fprintf(fp, "\"Voltage [volts] \"\n");
-      fprintf(fp, "\"CathodeCurrent [mA/cm2]\"\n");
-      fprintf(fp, "\"Initial Specific Cathode Capacity [mA-hr/g] \"\n");
-      fprintf(fp, "\"Discharged Specific Cathode Capacity [mA-hr/g] \"\n");
-      fprintf(fp, "\"Initial Cathode Capacity [A-s/m2] \"\n");
-      fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
-      fprintf(fp, "\"AnodeCurrent [mA/cm2]\"\n");
+    bool doOldFormat = false;
+    if (doOldFormat) {
+	if (ievent == 0) {
+	    fp = fopen("timeDep_IV.dat", "w");
+	    fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
+	    fprintf(fp, "VARIABLES = \" T [s]\"\n");
+	    fprintf(fp, "\"Voltage [volts] \"\n");
+	    fprintf(fp, "\"CathodeCurrent [mA/cm2]\"\n");
+	    fprintf(fp, "\"Initial Specific Cathode Capacity [mA-hr/g] \"\n");
+	    fprintf(fp, "\"Discharged Specific Cathode Capacity [mA-hr/g] \"\n");
+	    fprintf(fp, "\"Initial Cathode Capacity [A-s/m2] \"\n");
+	    fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
+	    fprintf(fp, "\"AnodeCurrent [mA/cm2]\"\n");
+	} else {
+	    fp = fopen("timeDep_IV.dat", "a");
+	}
+	fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E \n", 
+		time_current, phiCath, 0.1 * c_icurr, spec_capacityZeroDoD/3.6, spec_dischargedCapacity/3.6, 
+		capacityZeroDoD,  dischargedCapacity, 0.1 * a_icurr);
     } else {
-      fp = fopen("timeDep_IV.dat", "a");
+      if (ievent == 0) {
+            fp = fopen("timeDep_IV.dat", "w");
+            fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
+            fprintf(fp, "VARIABLES = \" T [s]\"\n");
+            fprintf(fp, "\"Voltage [volts] \"\n");
+            fprintf(fp, "\"CathodeCurrent [A/m2]\"\n");
+            fprintf(fp, "\"Cathode Capacity [A-s/m2] \"\n");
+            fprintf(fp, "\"Cathode DepthOfDischarge [A-s/m2] \"\n");
+            fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
+            fprintf(fp, "\"Cathode Capacity Left [A-s/m2] \"\n");
+            fprintf(fp, "\"AnodeCurrent [A/m2]\"\n");
+            fprintf(fp, "\"Anode Capacity [A-s/m2] \"\n");
+            fprintf(fp, "\"Anode DepthOfDischarge [A-s/m2] \"\n");
+            fprintf(fp, "\"Discharged Anode Capacity [A-s/m2] \"\n");
+            fprintf(fp, "\"Anode Capacity Left [A-s/m2] \"\n");
+            fprintf(fp, "\"OCV_Quick [volts] \"\n");
+
+        } else {
+            fp = fopen("timeDep_IV.dat", "a");
+        }
+	fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E ,  %15.5E ,"
+                "  %15.5E,  %15.5E, %15.5E ,  %15.5E\n", 
+		time_current, phiCath, c_icurr, capacityCathodePA_, dodCathodePA_,
+	        capacityDischargedCathodePA_, capacityLeftCathodePA_, a_icurr,
+                capacityAnodePA_, dodAnodePA_, capacityDischargedAnodePA_, capacityLeftAnodePA_, ocvQuick);
     }
-    fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E \n", 
-	    time_current, phiCath, 0.1 * c_icurr, spec_capacityZeroDoD/3.6, spec_dischargedCapacity/3.6, 
-	    capacityZeroDoD, dischargedCapacity, 0.1 * a_icurr );
-    fflush(fp);
     fclose(fp);
+    //
+    if (ievent == 0) { 
+      fp = fopen("Capacity_Starting.dat", "w"); 
+      fprintf(fp, " starting time = %g\n", time_current);
+      fprintf(fp, "  Quantity             Units           Anode                Separator           Cathode\n");
+      fprintf(fp, "  InitialCapacity      [A-s/m2]    %20.10E %20.10E %20.10E\n", capacityAnodePA_, 0.0, capacityCathodePA_);
+      fprintf(fp, "  InitialDepthDischar  [A-s/m2]    %20.10E %20.10E %20.10E\n", dodAnodePA_,      0.0, dodCathodePA_);
+
+      fclose(fp);
+      
+    }
     }
     Comm_ptr->Barrier();
   }
@@ -981,6 +1041,9 @@ void BatteryResidEval::gatherCapacityStatistics()
 
     capacityDischargedAnodePA_   =   d_anode_ptr->capacityDischargedPA();
     capacityDischargedCathodePA_ = d_cathode_ptr->capacityDischargedPA();
+
+    dodAnodePA_   = d_anode_ptr->depthOfDischargePA();
+    dodCathodePA_ = d_cathode_ptr->depthOfDischargePA();
 
     capacityPAEff_ = std::min(capacityAnodePA_, capacityCathodePA_);
     capacityLeftPAEff_ = std::min(capacityLeftAnodePA_, capacityLeftCathodePA_);

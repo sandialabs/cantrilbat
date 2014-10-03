@@ -516,6 +516,24 @@ public:
      */
     virtual double capacityLeftPA(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 
+    //! Report the current depth of discharge in Amp seconds per cross-sectional area
+    /*!
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state.
+     *  For multiple cycles, this becomes the true electron counter for the electrode.
+     *
+     *  Usually this is reported as a function of the discharge rate and there is a
+     *  cutoff voltage at which the electron counting is turned off. Neither of these
+     *  concepts is employed here.
+     *
+     *  The depth of discharge may be modified when there is capacity lost.
+     *
+     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *
+     *  @return  returns the depth of discharge in Amp seconds m-2
+     */
+    virtual double depthOfDischargePA(int platNum = -1) const;
+
     //! Initial starting depth of discharge in coulombs per cross sectional area
     /*!
      *   When there is capacity lost, this number may be modified.
@@ -527,6 +545,14 @@ public:
 
     //! Reset the counters that keep track of the amount of discharge to date
     virtual void resetCapacityDischargedToDate();
+
+    //! Return a value for the open circuit potential without doing a formally correct calculation
+    /*!
+     *  Currently this is defined as the open circuit potential on the outside electrode.
+     *
+     *   @return return the open circuit potential 
+     */
+    virtual double openCircuitPotentialQuick() const;
 
 
     // -----------------------------------------------------------------------------------------------
@@ -620,42 +646,42 @@ protected:
      */
     std::vector<Cantera::Electrode*> Electrode_Cell_;
 
-    //!  Capacity discharged by the particular electrode cell
+    //!  Capacity discharged by the particular electrode cell per cross sectional area
     /*!
      *   Units:  amps * sec / m2  = coulumbs / m2
      *
      *   We calculate this quantity by taking the capacityDischarged() from the electrode object
      *   and dividing by the cross sectional area of the extrinsic electrode object
      */
-    std::vector<double> capacityDischarged_Cell_;
+    mutable std::vector<double> capacityDischargedPA_Cell_;
 
-    //!  Depth of Discharge of this particular electrode cell
+    //!  Depth of Discharge of this particular electrode cell per cross-sectional area
     /*!
      *   Units:  amps * sec / m2  = coulumbs / m2
      *
      *   We calculate this quantity by taking the depthOfDischarge() from the electrode object
      *   and dividing by the cross sectional area of the extrinsic electrode object
      */
-    std::vector<double> depthOfDischarge_Cell_;
+    mutable std::vector<double> depthOfDischargePA_Cell_;
 
-    //!  Capacity left in this particular electrode cell
+    //!  Capacity left in this particular electrode cell per cross-sectional area
     /*!
      *   Units:  amps * sec / m2  = coulumbs / m2
      *
      *   We calculate this quantity by taking the capacityLeft() from the electrode object
      *   and dividing by the cross sectional area of the extrinsic electrode object
      */
-    std::vector<double> capacityLeft_Cell_;
+    mutable std::vector<double> capacityLeftPA_Cell_;
 
     //!  Capacity of this particular electrode cell if it were at zero depth of discharge
+    //!  per cross-sectional area
     /*!
      *   Units:  amps * sec / m2  = coulumbs / m2
      *
-     *   We calculate this quantity by taking the capacityZeroDoD() from the electrode object
+     *   We calculate this quantity by taking the capacity() from the electrode object
      *   and dividing by the cross sectional area of the extrinsic electrode object
      */
-    std::vector<double> capacityZeroDoD_Cell_;
-
+    mutable std::vector<double> capacityPA_Cell_;
 
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
@@ -842,10 +868,19 @@ protected:
 
     //! Electrostatic potential difference between electrolyte and metal phases
     std::vector<double> deltaV_Cell_;
-    //! open circuit potential for each surface (plateau)
-    std::vector<double> Ess_Cell_;
-    //!overpotential for each surface (plateau)
-    std::vector<double> overpotential_Cell_;
+
+    //! Open circuit potential for each reacting surface on each Electrode object
+    /*!
+     *  size is nSurfsElectrode_ * NumLcCells
+     */
+    std::vector<double> Ess_Surf_Cell_;
+
+    //! Overpotential for each reacting surface on each Electrode object
+    /*!
+     *  size is nSurfsElectrode_ * NumLcCells
+     */
+    std::vector<double> overpotential_Surf_Cell_;
+
     /*!
      *   Units are amps / m2 and the area is the cross-sectional area of the battery
      */

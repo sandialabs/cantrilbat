@@ -130,6 +130,12 @@ double porousElectrode_dom1D::capacityLeftPA(int platNum, double voltsMax, doubl
     return 0.0;
 }
 //=====================================================================================================================
+double porousElectrode_dom1D::depthOfDischargePA(int platNum) const
+{
+    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
+    return 0.0;
+}
+//=====================================================================================================================
 double porousElectrode_dom1D::depthOfDischargeStartingPA(int platNum) const
 {
     //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
@@ -138,6 +144,17 @@ double porousElectrode_dom1D::depthOfDischargeStartingPA(int platNum) const
 //=====================================================================================================================
 void porousElectrode_dom1D::resetCapacityDischargedToDate() 
 {
+}
+//=====================================================================================================================
+// Return a value for the open circuit potential without doing a formally correct calculation
+/*
+ *  Currently this is defined as the open circuit potential on the outside electrode.
+ *
+ *   @return return the open circuit potential 
+ */
+double porousElectrode_dom1D::openCircuitPotentialQuick() const
+{
+    return 0.0;
 }
 //=====================================================================================================================
 } //namespace m1d

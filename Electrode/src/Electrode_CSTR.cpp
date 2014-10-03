@@ -49,14 +49,12 @@ void ELECTRODE_CSTR_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* cf)
     LE_OneDbl* d1 = new LE_OneDbl("Boundary Resistance", &(boundaryResistance_), 0, "boundaryResistance");
     d1->set_default(0.0);
     cf->addLineEntry(d1);
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 //====================================================================================================================
 void ELECTRODE_CSTR_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
 {
-
-
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 }
 //======================================================================================================================
 //======================================================================================================================

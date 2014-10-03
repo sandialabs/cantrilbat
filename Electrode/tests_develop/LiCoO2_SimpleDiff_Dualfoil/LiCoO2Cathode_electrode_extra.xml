@@ -52,9 +52,9 @@
       <rateCoeff>
         <electrochem beta="0.5"/>
         <Arrhenius>
-           <A>1.0E-30</A>
+           <A> 116.67 </A>
            <b>0.0</b>
-           <E units="kJ/mol"> 20.000000 </E>
+           <E units="kJ/mol"> 33.25788 </E>
         </Arrhenius>
       </rateCoeff>
       <reactants> LiCoO2:1.0 </reactants>
@@ -65,7 +65,7 @@
        non-charge  LiCoO2 electrode
     -->
     <reaction reversible="yes" type="ButlerVolmer_NoActivityCoeffs" id="0001">
-      <equation> LiCoO2 [=] Li+  + electron_Li_LiIon + CoO2 </equation>
+      <equation> LiCoO2 [=] Li(S) + CoO2 </equation>
       <rateCoeff type="ExchangeCurrentDensity" >
          <electrochem beta="0.5"/>
          <Arrhenius_ExchangeCurrentDensity>
@@ -73,13 +73,13 @@
                 activation energy is E/R = 4000 K. dualfoil almost always uses 4000 K as the
                 default activation energy.
             -->
-           <A>116.67</A>
+           <A>0.0</A>
            <b>0.0</b>
            <E units="kJ/mol"> 33.25788 </E>
          </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
       <reactants> LiCoO2:1.0 </reactants>
-      <products> Li+:1.0  electron_Li_LiIon:1.0 CoO2:1.0 </products>
+      <products> Li(S):1.0  CoO2:1.0 </products>
     </reaction>
 
   </reactionData>
