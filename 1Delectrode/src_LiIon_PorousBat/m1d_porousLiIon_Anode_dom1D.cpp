@@ -326,7 +326,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     mfElectrolyte_Soln_Cell_old_.resize(3, NumLcCells, 0.0);
 
     /*
-     *  Set the velocity basis of the transport object. We are using
+     *  Set the velocity basis of the transport object. Initially, we are using
      *  mole-averaged velocities as the basis.
      */
     trans_->setVelocityBasis(ivb_);

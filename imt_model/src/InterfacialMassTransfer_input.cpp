@@ -308,7 +308,7 @@ static void setup_input_pass1(BlockEntry *cf, IMT_KEY_INPUT *ei)
 				"NumCanteraFiles");
   s1->set_default(1);
   cf->addLineEntry(s1);
-  BaseEntry::set_SkipUnknownEntries(true);
+  BaseEntry::set_SkipUnknownEntries(3);
 
   /* ---------------------------------------------------------------
    *
@@ -382,7 +382,7 @@ static void setup_input_pass2(BlockEntry *cf, IMT_KEY_INPUT *ei)
  
     
   cf->addLineEntry(s1);
-  BaseEntry::set_SkipUnknownEntries(true);
+  BaseEntry::set_SkipUnknownEntries(3);
 }
 
 
@@ -692,7 +692,7 @@ static void setup_input_pass3(BlockEntry *cf,
    */ 
 
   
-  BaseEntry::set_SkipUnknownEntries(false);
+  BaseEntry::set_SkipUnknownEntries(0);
 }
 //======================================================================================================================
 /******************************************************************************
