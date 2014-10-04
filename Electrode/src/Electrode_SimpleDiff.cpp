@@ -209,7 +209,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     /*
      * Call the assignment operator.
      */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
 // Assignment operator
