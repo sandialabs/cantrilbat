@@ -175,7 +175,7 @@ void
 ProblemStatement::setup_input_pass1(BlockEntry *cf)
 {
   
-    BaseEntry::set_SkipUnknownEntries(true);
+    BaseEntry::set_SkipUnknownEntries(3);
 
     /* --------------------------------------------------------------
      * Coordinate System type
@@ -493,7 +493,7 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   I_LinearSolverBlock = EpetraJac::setupMDinput_pass1(cf);
 
 
-  BaseEntry::set_SkipUnknownEntries(false);
+  BaseEntry::set_SkipUnknownEntries(0);
 }
 //======================================================================================================================
 /*
