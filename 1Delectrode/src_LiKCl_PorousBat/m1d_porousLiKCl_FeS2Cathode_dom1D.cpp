@@ -56,10 +56,10 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
   concTot_Cell_(0), concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(0),
   Electrode_Cell_(0),
-  capacityDischarged_Cell_(0),
-  depthOfDischarge_Cell_(0),
-  capacityLeft_Cell_(0),
-  capacityZeroDoD_Cell_(0),     
+  capacityDischargedPA_Cell_(0),
+  depthOfDischargePA_Cell_(0),
+  capacityLeftPA_Cell_(0),
+  capacityPA_Cell_(0),     
   depthOfDischarge_Electrode_(0.0),
   capacityZeroDoD_Electrode_(0.0),
   cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
@@ -114,10 +114,10 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(0),
   Electrode_Cell_(0),
-  capacityDischarged_Cell_(0),
-  depthOfDischarge_Cell_(0),
-  capacityLeft_Cell_(0),
-  capacityZeroDoD_Cell_(0),
+  capacityDischargedPA_Cell_(0),
+  depthOfDischargePA_Cell_(0),
+  capacityLeftPA_Cell_(0),
+  capacityPA_Cell_(0),
   depthOfDischarge_Electrode_(0.0),
   capacityZeroDoD_Electrode_(0.0),
   cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
@@ -182,10 +182,10 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
     //    Electrode_Cell_[iCell] = duplFromElectrode(*(r.Electrode_Cell_[iCell]));
   }
 
-  capacityDischarged_Cell_ = r.capacityDischarged_Cell_;
-  depthOfDischarge_Cell_ = r.depthOfDischarge_Cell_;
-  capacityLeft_Cell_ = r.capacityLeft_Cell_;
-  capacityZeroDoD_Cell_ = r.capacityZeroDoD_Cell_;
+  capacityDischargedPA_Cell_ = r.capacityDischargedPA_Cell_;
+  depthOfDischargePA_Cell_ = r.depthOfDischargePA_Cell_;
+  capacityLeftPA_Cell_ = r.capacityLeftPA_Cell_;
+  capacityPA_Cell_ = r.capacityPA_Cell_;
   depthOfDischarge_Electrode_ = r.depthOfDischarge_Electrode_;
   capacityZeroDoD_Electrode_ = r.capacityZeroDoD_Electrode_;
   cIndex_cc_ = r.cIndex_cc_;
@@ -288,10 +288,10 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   xdelCell_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_old_.resize(NumLcCells, 0.0);
-  capacityDischarged_Cell_.resize(NumLcCells, 0.0);
-  depthOfDischarge_Cell_.resize(NumLcCells, 0.0);
-  capacityLeft_Cell_.resize(NumLcCells, 0.0);
-  capacityZeroDoD_Cell_.resize(NumLcCells, 0.0);
+  capacityDischargedPA_Cell_.resize(NumLcCells, 0.0);
+  depthOfDischargePA_Cell_.resize(NumLcCells, 0.0);
+  capacityLeftPA_Cell_.resize(NumLcCells, 0.0);
+  capacityPA_Cell_.resize(NumLcCells, 0.0);
   icurrInterface_Cell_.resize(NumLcCells, 0.0);
   solnMoleFluxInterface_Cell_.resize(NumLcCells, 0.0);
   Xleft_cc_.resize(3, 0.0);
@@ -1560,10 +1560,10 @@ porousLiKCl_FeS2Cathode_dom1D::calcElectrode()
   //  porosity_Cell_[cIndex_cc_] = 0.64007;
 
   if (residType_Curr_ == Base_ShowSolution) {
-    capacityDischarged_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / electrodeCrossSectionalArea_;
-    depthOfDischarge_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / electrodeCrossSectionalArea_;
-    capacityLeft_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / electrodeCrossSectionalArea_;
-    capacityZeroDoD_Cell_[cIndex_cc_]= Electrode_ptr->capacity() / electrodeCrossSectionalArea_;
+    capacityDischargedPA_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / electrodeCrossSectionalArea_;
+    depthOfDischargePA_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / electrodeCrossSectionalArea_;
+    capacityLeftPA_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / electrodeCrossSectionalArea_;
+    capacityPA_Cell_[cIndex_cc_]= Electrode_ptr->capacity() / electrodeCrossSectionalArea_;
   }
   return numSubcycles;
 }
@@ -2039,10 +2039,10 @@ porousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_Gl
 
       // capacity of individual control volumes
       // note that the variables like capacityDischarged_Cell_[iCell] are stored in units of A*s/area
-      fprintf(ofp, "%g \t", capacityDischarged_Cell_[iCell] * electrodeCrossSectionalArea_ / mass_FeS2_CV / ampSecTomAmpHr );
-      fprintf(ofp, "%g \t", depthOfDischarge_Cell_[iCell]);
-      fprintf(ofp, "%g \t", capacityLeft_Cell_[iCell] * electrodeCrossSectionalArea_ / mass_FeS2_CV / ampSecTomAmpHr );
-      fprintf(ofp, "%g \t", capacityZeroDoD_Cell_[iCell] * electrodeCrossSectionalArea_ / mass_FeS2_CV / ampSecTomAmpHr );
+      fprintf(ofp, "%g \t", capacityDischargedPA_Cell_[iCell] * electrodeCrossSectionalArea_ / mass_FeS2_CV / ampSecTomAmpHr );
+      fprintf(ofp, "%g \t", depthOfDischargePA_Cell_[iCell]);
+      fprintf(ofp, "%g \t", capacityLeftPA_Cell_[iCell] * electrodeCrossSectionalArea_ / mass_FeS2_CV / ampSecTomAmpHr );
+      fprintf(ofp, "%g \t", capacityPA_Cell_[iCell] * electrodeCrossSectionalArea_ / mass_FeS2_CV / ampSecTomAmpHr );
 
       // print porosity, surface area, current source per surface area, thickness for each control volume
       fprintf(ofp, "%g \t", porosity_Cell_[iCell]);
@@ -2177,8 +2177,8 @@ porousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     capacityZeroDoD_Electrode_  = 0.0;
     for (int iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
       int iCell = iGbNode - BDD_.FirstGbNode;
-      depthOfDischarge_Electrode_ += depthOfDischarge_Cell_[iCell];
-      capacityZeroDoD_Electrode_ += capacityZeroDoD_Cell_[iCell];
+      depthOfDischarge_Electrode_ += depthOfDischargePA_Cell_[iCell];
+      capacityZeroDoD_Electrode_ += capacityPA_Cell_[iCell];
     }
   }
   /*
@@ -2370,10 +2370,10 @@ porousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
       x = nv->xNodePos();
       ss.print0("%s    %-10.4E ", ind, x);
-      ss.print0("%11.4E ", capacityDischarged_Cell_[iCell]);
-      ss.print0("%11.4E ", depthOfDischarge_Cell_[iCell]);
-      ss.print0("%11.4E ", capacityLeft_Cell_[iCell]);
-      ss.print0("%11.4E ", capacityZeroDoD_Cell_[iCell]);
+      ss.print0("%11.4E ", capacityDischargedPA_Cell_[iCell]);
+      ss.print0("%11.4E ", depthOfDischargePA_Cell_[iCell]);
+      ss.print0("%11.4E ", capacityLeftPA_Cell_[iCell]);
+      ss.print0("%11.4E ", capacityPA_Cell_[iCell]);
   
       ss.print0("\n");
     }
@@ -3028,8 +3028,8 @@ porousLiKCl_FeS2Cathode_dom1D::getCapacity( double *initialCap, double *discharg
   capacityZeroDoD_Electrode_  = 0.0;
   for (int iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
     int iCell = iGbNode - BDD_.FirstGbNode;
-    depthOfDischarge_Electrode_ += depthOfDischarge_Cell_[iCell];
-    capacityZeroDoD_Electrode_ += capacityZeroDoD_Cell_[iCell];
+    depthOfDischarge_Electrode_ += depthOfDischargePA_Cell_[iCell];
+    capacityZeroDoD_Electrode_ += capacityPA_Cell_[iCell];
   }
   *initialCap = capacityZeroDoD_Electrode_;
   *dischargedCap = depthOfDischarge_Electrode_;
@@ -3092,6 +3092,87 @@ porousLiKCl_FeS2Cathode_dom1D::err(const char *msg)
   exit(-1);
 }
 //=====================================================================================================================
+//=====================================================================================================================
+double porousLiKCl_FeS2Cathode_dom1D::capacityPA(int platNum) const
+{
+    double totalCapacity = 0.0;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        totalCapacity += ee->capacity(platNum);
+        capacityPA_Cell_[iCell]= ee->capacity() / crossSectionalArea_;
+    }
+    totalCapacity /= crossSectionalArea_;
+    return totalCapacity;
+}
+//=====================================================================================================================
+double porousLiKCl_FeS2Cathode_dom1D::capacityDischargedPA(int platNum) const
+{
+    double totalCapacity = 0.0;
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        totalCapacity += ee->capacityDischarged(platNum);
+        capacityDischargedPA_Cell_[iCell] = ee->capacityDischarged() / crossSectionalArea_;
+    }
+    totalCapacity /= crossSectionalArea_;
+    return totalCapacity;
+}
+//=====================================================================================================================
+double porousLiKCl_FeS2Cathode_dom1D::capacityLeftPA(int platNum, double voltsMax, double voltsMin) const
+{
+    double totalCapacity = 0.0;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        totalCapacity += ee->capacityLeft(platNum, voltsMax, voltsMin);
+        capacityLeftPA_Cell_[iCell] = ee->capacityLeft() / crossSectionalArea_;
+    }
+    totalCapacity /= crossSectionalArea_;
+    return totalCapacity;
+}
+//=====================================================================================================================
+double porousLiKCl_FeS2Cathode_dom1D::depthOfDischargePA(int platNum) const
+{
+    double dod = 0.0;
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        dod += ee->depthOfDischarge(platNum);
+        depthOfDischargePA_Cell_[iCell] = ee->depthOfDischarge() / crossSectionalArea_;
+    }
+    dod /= crossSectionalArea_;
+    return dod;
+}
+//=====================================================================================================================
+double porousLiKCl_FeS2Cathode_dom1D::depthOfDischargeStartingPA(int platNum) const
+{
+    double dodStarting = 0.0;
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
+        dodStarting += Electrode_Cell_[iCell]->depthOfDischargeStarting(platNum);
+    }
+    return dodStarting / crossSectionalArea_;
+}
+//=====================================================================================================================
+// Reset the counters that keep track of the amount of discharge to date
+void porousLiKCl_FeS2Cathode_dom1D::resetCapacityDischargedToDate()
+{
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        Electrode* ee = Electrode_Cell_[iCell];
+        ee->resetCapacityDischargedToDate();
+    }
+}
+//=====================================================================================================================
+//! Return a value for the open circuit potential without doing a formally correct calculation
+/*!
+ *  Currently this is defined as the open circuit potential on the outside electrode.
+ *
+ *   @return return the open circuit potential 
+ */
+double porousLiKCl_FeS2Cathode_dom1D::openCircuitPotentialQuick() const
+{
+    Electrode* ee = Electrode_Cell_[NumLcCells-1];
+    double ocv = ee->openCircuitVoltage(nSurfsElectrode_ - 1);
+    return ocv;
+}
+//=====================================================================================================================
+
 } //namespace m1d
 //=====================================================================================================================
 

@@ -409,6 +409,110 @@ public:
   //! Get parameters specified by text strings
   virtual int getSolutionParam(std::string paramName, double * const paramVal);
 
+  //! Returns the total capacity of the electrode in Amp seconds per cross-sectional area
+  /*!
+   *  Returns the capacity of the electrode in Amps seconds m-2.
+   *  The PA stands for "per cross-sectional area".
+   *  This is the same as the number of coulombs that can be delivered at any voltage.
+   *  Note, this number differs from the capacity of electrodes that is usually quoted for
+   *  a battery. That number depends on the rate of discharge and also depends on the
+   *  specification of a cutoff voltage. Here, we dispense with both of these specifications.
+   *  So, it should be considered a theoretical capacity at zero current and minimal cutoff voltage
+   *  considering the current state of the battery. The initial theoretical capacity given
+   *  ideal conditions is given by capacityInitial().
+   *
+   *  It will also include all plateaus that are defined by the electrode object.
+   *
+   *  This capacity may change as degradation mechanisms cause the electrode to lose capability.
+   *  Therefore, the capacity will be a function of time.
+   *  At all times the following relation holds:
+   *
+   *  capacity() = capacityDischarged() + capacityLeft().
+   *
+   *  The algorithm that is used is to sum up the individual cell electrode capacity() calculations.
+   *  Then, divide by the cross sectional area.
+   *
+   *  @param platNum   Plateau number. Default is -1 which treats all plateaus as a single entity.
+   *                   If positive or zero, each plateau is treated as a separate entity and
+   *                   the capacity is stated for that plateau.
+   *
+   *  @return returns the theoretical capacity of the electrode in Amp seconds m-2 = coulombs m-2
+   */
+  virtual double capacityPA(int platNum = -1) const;
+
+    //! Amount of charge that the electrode has discharged up to this point (coulombs) per cross-sectional area
+    /*!
+     *   We report the number in terms of Amp seconds = coulombs.
+     *   Note the capacity discharged for cathodes will be defined as the negative of the electron
+     *   source term, as this refers to the forward discharge of a cathode.
+     *   This definition is necessary for the following to be true.
+     *
+     *         capacity() = capacityDischarged() + capacityLeft()
+     *
+     *   Note, the current is defined as the amount
+     *   of positive charge that goes from the solid into the electrolyte.
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
+    virtual double capacityDischargedPA(int platNum = -1) const;
+
+    //! Amount of charge that the electrode that has available to be discharged per cross-sectional area
+    /*!
+     *  We report the number in terms of Amp seconds = coulombs. This accounts for loss mechanisms.
+     *
+     *        At all times the following relation holds:
+     *
+     *  capacity() = capacityDischarged() + capacityLeft() + depthOfDischargeStarting().
+     *
+     *    If there is capacity lost, this loss is reflected both in the capacityLeft() and depthOfDischargeStarting()
+     *    quantities so that the above relation holds.
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
+    virtual double capacityLeftPA(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+
+ //! Report the current depth of discharge in Amp seconds per cross-sectional area
+    /*!
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state.
+     *  For multiple cycles, this becomes the true electron counter for the electrode.
+     *
+     *  Usually this is reported as a function of the discharge rate and there is a
+     *  cutoff voltage at which the electron counting is turned off. Neither of these
+     *  concepts is employed here.
+     *
+     *  The depth of discharge may be modified when there is capacity lost.
+     *
+     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *
+     *  @return  returns the depth of discharge in Amp seconds m-2
+     */
+    virtual double depthOfDischargePA(int platNum = -1) const;
+
+    //! Initial starting depth of discharge in coulombs per cross sectional area
+    /*!
+     *   When there is capacity lost, this number may be modified.
+     *
+     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                   If positive or zero, each plateau is treated as a separate entity.
+     */
+    virtual double depthOfDischargeStartingPA(int platNum = -1) const;
+
+    //! Reset the counters that keep track of the amount of discharge to date
+    virtual void resetCapacityDischargedToDate();
+
+    //! Return a value for the open circuit potential without doing a formally correct calculation
+    /*!
+     *  Currently this is defined as the open circuit potential on the outside electrode.
+     *
+     *   @return return the open circuit potential 
+     */
+    virtual double openCircuitPotentialQuick() const;
+
+
+
 protected:
 
   //! Pointer to the thermo object for the molten salt
@@ -516,32 +620,32 @@ protected:
    */
   std::vector<Cantera::Electrode *> Electrode_Cell_;
 
-  //!  Capacity discharged by the particular electrode cell
+  //!  Capacity discharged by the particular electrode cell per cross-sectional area
   /*!
    *   Units:  amps * sec / m2  = coulumbs / m2
    *
    *   We calculate this quantity by taking the capacityDischarged() from the electrode object
    *   and dividing by the cross sectional area of the extrinsic electrode object
    */
-  std::vector<double> capacityDischarged_Cell_;
+  mutable std::vector<double> capacityDischargedPA_Cell_;
 
-  //!  Depth of Discharge of this particular electrode cell
+  //!  Depth of Discharge of this particular electrode cell per cross-sectional area
   /*!
    *   Units:  amps * sec / m2  = coulumbs / m2
    *
    *   We calculate this quantity by taking the depthOfDischarge() from the electrode object
    *   and dividing by the cross sectional area of the extrinsic electrode object
    */
-  std::vector<double> depthOfDischarge_Cell_;
+  mutable std::vector<double> depthOfDischargePA_Cell_;
 
-  //!  Capacity left in this particular electrode cell
+  //!  Capacity left in this particular electrode cell per cross-sectional area
   /*!
    *   Units:  amps * sec / m2  = coulumbs / m2
    *
    *   We calculate this quantity by taking the capacityLeft() from the electrode object
    *   and dividing by the cross sectional area of the extrinsic electrode object
    */
-  std::vector<double> capacityLeft_Cell_;
+  mutable std::vector<double> capacityLeftPA_Cell_;
 
   //!  Capacity of this particular electrode cell if it were at zero depth of discharge
   /*!
@@ -550,7 +654,7 @@ protected:
    *   We calculate this quantity by taking the capacityZeroDoD() from the electrode object
    *   and dividing by the cross sectional area of the extrinsic electrode object
    */
-  std::vector<double> capacityZeroDoD_Cell_;
+  mutable std::vector<double> capacityPA_Cell_;
 
   //! Depth of discharge for the complete electrode (sum over all cells)
   /*!
