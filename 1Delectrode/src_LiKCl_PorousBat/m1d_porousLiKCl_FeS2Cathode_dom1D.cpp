@@ -51,7 +51,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
   porousElectrode_dom1D(bdd), 
   ionicLiquid_(0), trans_(0), nph_(0), nsp_(0),
   concTot_cent_(0.0),
-  concTot_cent_old_(0.0), surfaceArea_Cell_(0),
+  concTot_cent_old_(0.0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(0),
@@ -82,7 +82,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
   icurrInterface_Cell_(0),
   phaseMoleFlux_(0), solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
   icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
-  icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0), ivb_(VB_MOLEAVG)
+  icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0)
 {
   BDT_porCathode_LiKCl *fa = dynamic_cast<BDT_porCathode_LiKCl *> (&bdd);
   if (!fa) {
@@ -108,7 +108,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   porousElectrode_dom1D(r.BDD_), 
   ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), 
   concTot_cent_(0.0),
-  concTot_cent_old_(0.0), surfaceArea_Cell_(0), 
+  concTot_cent_old_(0.0),  
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), 
   concTot_Cell_old_(0),
@@ -140,7 +140,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   icurrInterface_Cell_(0),
   phaseMoleFlux_(0), solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
   icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
-  icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0), ivb_(VB_MOLEAVG)
+  icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0)
 {
   porousLiKCl_FeS2Cathode_dom1D::operator=(r);
 }
@@ -170,7 +170,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   nsp_ = r.nsp_;
   concTot_cent_ = r.concTot_cent_;
   concTot_cent_old_ = r.concTot_cent_old_;
-  surfaceArea_Cell_ = r.surfaceArea_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
   xdelCell_Cell_ = r.xdelCell_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
@@ -237,7 +236,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   icurrRxn_Cell_ = r.icurrRxn_Cell_;
   LiFlux_Cell_ = r.LiFlux_Cell_;
   solnTemp = r.solnTemp;
-  ivb_ = r.ivb_;
 
   Electrode_Cell_ = r.Electrode_Cell_;
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -283,7 +281,7 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
    */
   //porosity_Cell_.resize(NumLcCells, 0.5);
   //porosity_Cell_old_.resize(NumLcCells, 0.5);
-  surfaceArea_Cell_.resize(NumLcCells, 1.0E5);
+  //surfaceArea_Cell_.resize(NumLcCells, 1.0E5);
   icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
   xdelCell_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_.resize(NumLcCells, 0.0);

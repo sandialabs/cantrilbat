@@ -236,13 +236,19 @@ public:
     virtual double openCircuitPotentialQuick() const;
 
 
-
 protected:
 
     //! Maximum number of normal electrode subgrid integration steps taken in the last base residual
     //!  (birth and deaths of phases aren't counted)
     int maxElectrodeSubIntegrationSteps_;
 
+    //! Surface area of the electrolyte - electrode interface within the cell
+    /*!
+     *  This is only used for printing output from showSolution.
+     *  Length is number of cells on the processor.
+     *  units = m2 / m2. surface area per cross sectional area in each cell
+     */
+    std::vector<double> surfaceArea_Cell_;
 
 };
 //======================================================================================================================

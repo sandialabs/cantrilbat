@@ -215,7 +215,9 @@ protected:
    *   Length = total number of cells.
    */
   std::vector<double> nEnthalpy_Old_Cell_;
- 
+
+  //! Velocity basis of the transport equations
+  Cantera::VelocityBasis ivb_;
 
 };
 //======================================================================================================================

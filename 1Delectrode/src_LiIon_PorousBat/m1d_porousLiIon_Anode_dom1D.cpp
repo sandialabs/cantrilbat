@@ -37,7 +37,6 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     trans_(0),
     nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0),
-    surfaceArea_Cell_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
@@ -67,8 +66,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     iECDMC_(-1),
     iLip_(-1),
     iPF6m_(-1),
-    solnTemp(0),
-    ivb_(VB_MOLEAVG)
+    solnTemp(0)
 {
     BDT_porAnode_LiIon* fa = dynamic_cast<BDT_porAnode_LiIon*>(&bdd);
     if (!fa) {
@@ -112,7 +110,6 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     trans_(0),
     nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0),
-    surfaceArea_Cell_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Electrode_Cell_(0),
@@ -136,8 +133,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     overpotential_Surf_Cell_(0), 
     icurrRxn_Cell_(0),  LiFlux_Cell_(0),
     iECDMC_(-1), iLip_(-1),  iPF6m_(-1),
-    solnTemp(0),
-    ivb_(VB_MOLEAVG)
+    solnTemp(0)
 {
     porousLiIon_Anode_dom1D::operator=(r);
     conductivityElectrode_ = PSinput.conductivityAnode_;
@@ -168,7 +164,6 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     nsp_ = r.nsp_;
     concTot_cent_ = r.concTot_cent_;
     concTot_cent_old_ = r.concTot_cent_old_;
-    surfaceArea_Cell_ = r.surfaceArea_Cell_;
     icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
     xdelCell_Cell_ = r.xdelCell_Cell_;
     concTot_Cell_ = r.concTot_Cell_;
@@ -232,7 +227,6 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     iLip_  = r.iLip_;
     iPF6m_ = r.iPF6m_;
     solnTemp = r.solnTemp;
-    ivb_ = r.ivb_;
 
     throw CanteraError("", "not implemented");
 
@@ -276,7 +270,6 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     /*
      * Porous electrode domain prep
      */
-    surfaceArea_Cell_.resize(NumLcCells, 0.0);
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);

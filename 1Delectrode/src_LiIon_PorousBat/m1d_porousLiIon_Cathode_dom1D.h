@@ -585,7 +585,7 @@ protected:
      *  Length is number of cells on the processor.
      *  units = m2 / m2. (surface area per cross-sectional area)
      */
-    std::vector<double> surfaceArea_Cell_;
+    //std::vector<double> surfaceArea_Cell_;
 
     //! Electrode Current per surface area of the electrode
     /*!
@@ -862,9 +862,6 @@ protected:
     int iPF6m_;
 
     std::vector<double> solnTemp;
-
-    //! Velocity basis of the transport equations
-    Cantera::VelocityBasis ivb_;
 
 private:
     void

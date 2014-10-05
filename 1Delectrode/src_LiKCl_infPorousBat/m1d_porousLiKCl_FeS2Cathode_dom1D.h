@@ -566,9 +566,6 @@ protected:
 
   std::vector<double> solnTemp;
 
-  //! Velocity basis of the transport equations
-  Cantera::VelocityBasis ivb_;
-
 private:
   void
   err(const char *msg);

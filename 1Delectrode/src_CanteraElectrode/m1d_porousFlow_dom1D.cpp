@@ -31,7 +31,8 @@ namespace m1d
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
-    porosity_Curr_(0.0)
+    porosity_Curr_(0.0),
+    ivb_(VB_MOLEAVG)
   {
   }
   //=====================================================================================================================
@@ -44,7 +45,8 @@ namespace m1d
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
-    porosity_Curr_(0.0)
+    porosity_Curr_(0.0),
+    ivb_(VB_MOLEAVG)
   {
     porousFlow_dom1D::operator=(r);
   }
@@ -76,6 +78,7 @@ namespace m1d
     jouleHeat_solid_Cell_curr_ = r.jouleHeat_solid_Cell_curr_;
     nEnthalpy_New_Cell_        = r.nEnthalpy_New_Cell_;
     nEnthalpy_Old_Cell_        = r.nEnthalpy_Old_Cell_;
+    ivb_                       = r.ivb_;
 
     return *this;
   }

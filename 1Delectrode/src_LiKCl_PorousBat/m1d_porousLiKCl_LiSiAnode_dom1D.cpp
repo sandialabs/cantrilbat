@@ -48,7 +48,6 @@ namespace m1d
     porousElectrode_dom1D(bdd),
     ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0), 
-    surfaceArea_Cell_(0), 
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     electrodeCrossSectionalArea_(1.0),
@@ -77,8 +76,8 @@ namespace m1d
     electrodeSpeciesMoleDelta_Cell_(0), 
     icurrInterface_Cell_(0), phaseMoleFlux_(0),
     solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0), icurrElectrolyte_CBL_(0),
-    icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), solnTemp(0),
-    ivb_(VB_MOLEAVG)
+    icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
+    solnTemp(0)
 {
   BDT_porAnode_LiKCl *fa = dynamic_cast<BDT_porAnode_LiKCl *> (&bdd);
   if (!fa) {
@@ -104,7 +103,6 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiA
   porousElectrode_dom1D(r.BDD_), 
   ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), 
-  surfaceArea_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(1.0),
@@ -132,8 +130,8 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiA
   nSpeciesElectrode_(0), nSurfsElectrode_(0),
   electrodeSpeciesMoleDelta_Cell_(0),  icurrInterface_Cell_(0), phaseMoleFlux_(0),
   solnMoleFluxInterface_Cell_(0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0), icurrElectrolyte_CBL_(0),
-  icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), solnTemp(0),
-  ivb_(VB_MOLEAVG)
+  icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
+  solnTemp(0)
 {
   porousLiKCl_LiSiAnode_dom1D::operator=(r);
 }
@@ -163,7 +161,6 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
   nsp_ = r.nsp_;
   concTot_cent_ = r.concTot_cent_;
   concTot_cent_old_ = r.concTot_cent_old_;
-  surfaceArea_Cell_ = r.surfaceArea_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
   xdelCell_Cell_ = r.xdelCell_Cell_;
   concTot_Cell_ = r.concTot_Cell_;
@@ -231,8 +228,6 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
   icurrRxn_Cell_ = r.icurrRxn_Cell_;
   LiFlux_Cell_ = r.LiFlux_Cell_;
   solnTemp = r.solnTemp;
-  ivb_ = r.ivb_;
-
  
   throw CanteraError("", "not implemented");
 
@@ -273,7 +268,6 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
      */
     //porosity_Cell_.resize(NumLcCells, 0.5);
     //porosity_Cell_old_.resize(NumLcCells, 0.5);
-    surfaceArea_Cell_.resize(NumLcCells, 1.0E5); 
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
@@ -321,9 +315,6 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
     icurrRxn_Cell_.resize(NumLcCells, 0.0);
     LiFlux_Cell_.resize(NumLcCells, 0.0);
     Electrode_Cell_.resize(NumLcCells, 0);
-
- 
-
     /*
      *  Set the velocity basis of the transport object. We are using
      *  mole-averaged velocities as the basis.

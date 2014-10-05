@@ -39,7 +39,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& 
     iECDMC_(-1),
     iLip_(-1),
     iPF6m_(-1),
-    solnTemp(0), ivb_(VB_MOLEAVG)
+    solnTemp(0)
 {
 
     BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&bdd);
@@ -81,8 +81,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
     iECDMC_(-1),
     iLip_(-1),
     iPF6m_(-1),
-    solnTemp(0),
-    ivb_(VB_MOLEAVG)
+    solnTemp(0)
 {
     porousLiIon_Separator_dom1D::operator=(r);
 }
@@ -138,7 +137,6 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     iLip_                                 = r.iLip_;
     iPF6m_                                = r.iPF6m_;
     solnTemp                              = r.solnTemp;
-    ivb_                                  = r.ivb_;
 
     return *this;
 }

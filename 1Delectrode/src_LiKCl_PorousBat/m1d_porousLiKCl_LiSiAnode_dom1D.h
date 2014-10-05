@@ -573,7 +573,7 @@ protected:
    *  Length is number of cells on the processor.
    *  units = m2 / m2. 
    */
-  std::vector<double> surfaceArea_Cell_;
+  //std::vector<double> surfaceArea_Cell_;
 
   //! Electrode Current per surface area of the electrode
   /*!
@@ -871,9 +871,6 @@ protected:
    *  This is used to interpolate the solution vector in between nodes
    */
   std::vector<double> solnTemp;
-
-  //! Velocity basis of the transport equations
-  Cantera::VelocityBasis ivb_;
 
 private:
   void

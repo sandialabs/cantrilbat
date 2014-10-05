@@ -568,7 +568,7 @@ protected:
    *  Length is number of cells on the processor.
    *  units = m2 / m2. The default is 1.0E5. 
    */
-  std::vector<double> surfaceArea_Cell_;
+  //std::vector<double> surfaceArea_Cell_;
 
   //! Electrode Current source term per surface area of the electrode for each cell
   /*!
@@ -861,9 +861,6 @@ protected:
   // --------------------------------------------------------------------------
 
   std::vector<double> solnTemp;
-
-  //! Velocity basis of the transport equations
-  Cantera::VelocityBasis ivb_;
 
 private:
   void

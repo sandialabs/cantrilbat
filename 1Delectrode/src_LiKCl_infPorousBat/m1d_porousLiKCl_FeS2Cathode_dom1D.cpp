@@ -61,7 +61,8 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
   jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0), electrodeSpeciesProdRates_(0), icurrInterface_Curr_(0.0),
   phaseMoleFlux_(0), solnMoleFluxInterface_Curr_(0.0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
   icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
-  icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0), ivb_(VB_MOLEAVG)
+  icurrRxn_Cell_(0), LiFlux_Cell_(0), 
+  solnTemp(0)
 {
   BDT_porCathode_LiKCl *fa = dynamic_cast<BDT_porCathode_LiKCl *> (&bdd);
   if (!fa) {
@@ -103,7 +104,8 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0), electrodeSpeciesProdRates_(0), icurrInterface_Curr_(0.0),
   phaseMoleFlux_(0), solnMoleFluxInterface_Curr_(0.0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
   icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
-  icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0), ivb_(VB_MOLEAVG)
+  icurrRxn_Cell_(0), LiFlux_Cell_(0), 
+  solnTemp(0)
 {
   porousLiKCl_FeS2Cathode_dom1D::operator=(r);
 }
@@ -183,7 +185,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   icurrRxn_Cell_ = r.icurrRxn_Cell_;
   LiFlux_Cell_ = r.LiFlux_Cell_;
   solnTemp = r.solnTemp;
-  ivb_ = r.ivb_;
 
   return *this;
 }
@@ -730,7 +731,6 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
     /*
      *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
      */
-
     SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
 
     /*

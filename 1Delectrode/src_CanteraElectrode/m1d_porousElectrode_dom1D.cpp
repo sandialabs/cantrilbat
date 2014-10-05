@@ -17,7 +17,8 @@ namespace m1d
   //=====================================================================================================================
   porousElectrode_dom1D::porousElectrode_dom1D(BulkDomainDescription & bdd) :
       porousFlow_dom1D(bdd),
-      maxElectrodeSubIntegrationSteps_(0)
+      maxElectrodeSubIntegrationSteps_(0),
+      surfaceArea_Cell_(0)
   {
 
   }
@@ -43,6 +44,7 @@ namespace m1d
     porousFlow_dom1D::operator=(r);
 
     maxElectrodeSubIntegrationSteps_ = r.maxElectrodeSubIntegrationSteps_;
+    surfaceArea_Cell_                = r.surfaceArea_Cell_;
 
     return *this;
   }
@@ -67,6 +69,7 @@ namespace m1d
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
+    surfaceArea_Cell_.resize(NumLcCells, 0.0);
   }
   //====================================================================================================================
   //  An electrode object must be created and initialized for every cell in the domain
