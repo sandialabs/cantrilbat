@@ -987,9 +987,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             SetupTranShop(xdelR, 1);
 
             /*
-             * Calculate the flux at the right boundary for each equation
+             * Calculate the molar flux at the right boundary for each equation
              * This is equal to
-             *       Conc * Vaxial * phi
+             *       Conc * VMolaraxial * phi
              */
             fluxFright = Fright_cc_ * concTot_Curr_;
 
@@ -1004,7 +1004,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                 // fluxVRight += fluxXright[k] * spCharge_[k];
                 icurrElectrolyte_CBR_[iCell] += fluxXright[k] * spCharge_[k];
                 if (Fright_cc_ > 0.0) {
-
                     fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
                 } else {
                     fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
@@ -1243,14 +1242,14 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                     res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset  + k] += tmp;
                 }
             }
-
             /*
-             *   Add in the time term for the total continuity equation
+             *   Add in the time term for the total electrolyte mole conservation equation
              *         note: the current problem will have this term equalling zero always.
              *               However, we put it in here for the next problem.
+             *   Also we add in the source term for that equation here too.
              */
-            //  res[indexCent_EqnStart_BD + EQ_TCont_offset_BD] += (newStuffTC - oldStuffTC) * rdelta_t;
-
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t
+                                  -solnMoleFluxInterface_Cell_[iCell];
         }
 
     }

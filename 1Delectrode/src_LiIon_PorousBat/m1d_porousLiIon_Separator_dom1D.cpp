@@ -273,7 +273,6 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
         mfElectrolyte_Soln_old[0] = mfElectrolyte_Soln_Curr_[0];
         mfElectrolyte_Soln_old[1] = mfElectrolyte_Soln_Curr_[1];
         mfElectrolyte_Soln_old[2] = mfElectrolyte_Soln_Curr_[2];
-
     }
 }
 //=====================================================================================================================
@@ -493,7 +492,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              *   a boundary condition in the adjoining surface domain
              */
             Fleft_cc_ = 0.0;
-
             for (int k = 0; k < nsp_; k++) {
                 Xleft_cc_[k] = Xcent_cc_[k];
             }
@@ -665,7 +663,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *                              fluxes coming and going from the cell.
          *                    R =   d rho d t + del dot (rho V) = 0
          */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
+        if (ivb_ == VB_MOLEAVG) {
+           res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
+        } else {
+           exit(-1); 
+        }
 
         /*
          * Species continuity Equation
@@ -694,9 +696,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *  Add in the source terms at the current cell center
          * --------------------------------------------------------------------------
          */
-
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-
 
         /*
          *  Total continuity equation -
@@ -788,9 +788,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              *   Add in the time term for the total continuity equation
              *         note: the current problem will have this term equally zero always.
-             *               However, we put it in here for the next problem.
+             *               However, we put it in here for the next problem and for consistency of the time terms
              */
-            //  res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
+
             /*
              *   .................... Go back to setting up shop at the current time
              */
@@ -1144,7 +1145,7 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
     for (int k = 0; k < nsp_; k++) {
         Vdiff_trCurr_[k] *= tort.tortuosityFactor(porosity_Curr_);
     }
-    //Convert from diffusion velocity to diffusion flux
+    //  Convert from diffusion velocity to diffusion flux
     for (int k = 0; k < nsp_; k++) {
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
     }

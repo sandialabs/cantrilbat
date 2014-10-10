@@ -1192,7 +1192,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              *         note: the current problem will have this term equally zero always.
              *               However, we put it in here for the next problem.
              */
-            //	res[indexCent_EqnStart + EQ_TCont_offset_BD nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
+            res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
 
         }
 
