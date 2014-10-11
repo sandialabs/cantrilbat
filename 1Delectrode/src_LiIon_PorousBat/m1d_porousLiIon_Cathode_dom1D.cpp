@@ -1539,6 +1539,13 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 	// HKM fix up - technically correct
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
 
+	if (iCell == 0) {
+            potentialAnodic_ = Vcent_cc_;
+        }
+        if (iCell == NumLcCells-1) {
+            potentialCathodic_ = VElectrodeCent_cc_;
+        }
+
         /*
          *  ------------------- Get the index for the left node -----------------------------
          *    There may not be a left node if we are on the left boundary. In that case
@@ -3187,6 +3194,27 @@ double porousLiIon_Cathode_dom1D::openCircuitPotentialQuick() const
     double ocv = ee->openCircuitVoltage(nSurfsElectrode_ - 1);
     return ocv;
 }
+//=====================================================================================================================
+//  WARNING -> will fail for multiprocessors, becauase the accumulation of information within eval_PostProc will fail.
+double porousLiIon_Cathode_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic,
+						     double &voltOCV, double &current)
+{
+    static double resistance = 0.0;
+    potAnodic = potentialAnodic_;
+    potCathodic = potentialCathodic_;
+    current = icurrElectrode_CBR_[NumLcCells-1];
+    voltOCV = openCircuitPotentialQuick();
+    //
+    //  Calculate the effective resistance of the separator layer by taking the potential drop across the domain
+    //  and dividing it by the current.
+    //
+    resistance = 0.0;
+    if (fabs(current) > 1.0E-200) {
+        resistance = (voltOCV - (potCathodic - potAnodic)) / current;
+    }
+    return resistance;
+}
+
 //=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================

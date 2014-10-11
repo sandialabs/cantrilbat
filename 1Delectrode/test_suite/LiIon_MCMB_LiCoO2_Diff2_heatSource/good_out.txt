@@ -12,6 +12,7 @@
  => Cross Sectional Area = 2.5063e-3 m2
  ====> crossSectionalArea = 0.0025063
  => Heat Source Tracking ====> doHeatSourceTracking = 1
+ => Resistance Tracking ====> doResistanceTracking = 1
  => Write Start and End File ====> writeStartEndFile = 1
  => Reference Temperature = 298.15
  ====> TemperatureRef = 298.15
@@ -33,6 +34,7 @@
  => Cross Sectional Area = 2.5063e-3 m2
  ====> crossSectionalArea = 0.0025063
  => Heat Source Tracking ====> doHeatSourceTracking = 1
+ => Resistance Tracking ====> doResistanceTracking = 1
  => Write Start and End File ====> writeStartEndFile = 1
  => Reference Temperature = 298.15
  ====> TemperatureRef = 298.15
@@ -60,6 +62,7 @@ Species name 3 is MgO(S)
  => Cross Sectional Area = 2.5063e-3 m2
  ====> crossSectionalArea = 0.0025063
  => Heat Source Tracking ====> doHeatSourceTracking = 1
+ => Resistance Tracking ====> doResistanceTracking = 1
  => Write Start and End File ====> writeStartEndFile = 1
  => Electrolyte Phase = ECDMC_LiPF6
  ====> electrolytePhase = ECDMC_LiPF6

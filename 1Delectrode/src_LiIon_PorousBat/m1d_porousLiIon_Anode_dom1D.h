@@ -554,6 +554,22 @@ public:
      */
     virtual double openCircuitPotentialQuick() const;
 
+    //! Calculates and returns an estimate of the effective resistance of the layer
+    /*!
+     *  (virtual from porousFlow_dom1D)
+     *  
+     *   resistance = ((potCathodic - potAnodic) - voltOCV) / current
+     *
+     *  @param potAnodic potential in the anodic direction. If the anode, this returns the potential of the
+     *                   solid in the anode next to the anode current collector.
+     *  @param potCathodic potential in the cathode direction. If the anode, this returns the potential of the
+     *                   electrolyte in the anode next to the separator.
+     *  @param voltOCV  OCV calculated in a quick manner. 
+     *  @param current  current 
+     *  
+     *  @return returns the effective resistance of the layer
+     */
+    virtual double effResistanceLayer(double &potAnodic, double  &potCathodic, double &voltOCV, double &current);
 
     // -----------------------------------------------------------------------------------------------
     //                                 DATA

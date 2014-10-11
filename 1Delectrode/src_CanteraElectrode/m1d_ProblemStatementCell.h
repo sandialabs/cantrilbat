@@ -277,7 +277,11 @@ public:
   //! Initial number of cells in the cathode
   int initDefaultNumCVsSeparator_;
 
+  //! Turn on or off Heat Source Tracking
   int doHeatSourceTracking_;
+
+  //! Turn on or off Resistance Tracking
+  int doResistanceTracking_;
 
 };
 //=====================================================================================================================
@@ -285,4 +289,6 @@ public:
 //=====================================================================================================================
 #endif //_M1D_PROBLEMSTATEMENTCELL_H
 //=====================================================================================================================
+
+  
 

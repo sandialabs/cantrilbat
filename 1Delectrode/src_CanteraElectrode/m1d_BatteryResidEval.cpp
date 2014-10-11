@@ -44,6 +44,7 @@ namespace m1d
   BatteryResidEval::BatteryResidEval(double atol) :
     ProblemResidEval(atol),
     doHeatSourceTracking_(0),
+    doResistanceTracking_(0),
     doEnthalpyEquation_(0),
     maxSubGridTimeSteps_(0),
     QdotPerArea_n_(0.0),
@@ -62,10 +63,12 @@ namespace m1d
     capacityPAEff_(0.0),
     capacityLeftPAEff_(0.0),
     timeLeft_(0.0),
-    Crate_current_(0.0)
-
+    Crate_current_(0.0),
+    ocvAnode_(0.0),
+    ocvCathode_(0.0)
   {
      doHeatSourceTracking_ = PSCinput_ptr->doHeatSourceTracking_;
+     doResistanceTracking_ = PSCinput_ptr->doResistanceTracking_;
      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
   }
   //=====================================================================================================================
@@ -104,6 +107,7 @@ namespace m1d
     ProblemResidEval::operator=(r);
 
     doHeatSourceTracking_              = r.doHeatSourceTracking_;
+    doResistanceTracking_              = r.doResistanceTracking_;
     maxSubGridTimeSteps_               = r.maxSubGridTimeSteps_;
     QdotPerArea_n_                     = r.QdotPerArea_n_;
     QdotPerArea_nm1_                   = r.QdotPerArea_nm1_;
@@ -123,6 +127,8 @@ namespace m1d
     capacityLeftPAEff_                   = r.capacityLeftPAEff_;
     timeLeft_                            = r.timeLeft_;
     Crate_current_                       = r.Crate_current_;
+    ocvAnode_                            = r.ocvAnode_;
+    ocvCathode_                          = r.ocvCathode_;
 
     return *this;
   }
@@ -660,9 +666,9 @@ BatteryResidEval::showProblemSolution(const int ievent,
     d_cathode_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
     d_cathode_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
 
-    double ocvAnode = d_anode_ptr->openCircuitPotentialQuick();
-    double ocvCathode = d_cathode_ptr->openCircuitPotentialQuick();
-    double ocvQuick = ocvCathode - ocvAnode;   
+    ocvAnode_ = d_anode_ptr->openCircuitPotentialQuick();
+    ocvCathode_ = d_cathode_ptr->openCircuitPotentialQuick();
+    double ocvQuick = ocvCathode_ - ocvAnode_;   
 
     FILE *fp = 0;
     bool doOldFormat = false;
@@ -755,17 +761,48 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
                                        const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
     static FILE *fstep = 0;
+    static FILE *fstepE = 0;
     FILE *facc = 0;
+    FILE *faccE = 0;
     static double tinit_calculation = 0.0;
     const Epetra_Vector_Ghosted *soln_ptr = &y;
+    DomainLayout &DL = *DL_ptr_;
+    bool doTimeDependentResid = true;
+    double rdelta_t = 1.0E-8;
+    if (deltaT > 0.0) {
+	rdelta_t = 1.0 / deltaT;
+    }
+    /*
+     * We calculate solnOld_ptr_ here
+     */
+    if (doTimeDependentResid) {
+        calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
+    }
+
+    bool need_Post =true;
+    if (doHeatSourceTracking_ || doResistanceTracking_) {
+	need_Post = true;
+    }
+    if (need_Post) {
+
+	//
+	//   Loop over the Volume Domains
+	//
+	for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
+	}
+	//
+	//    Loop over the Surface Domains
+	//
+	for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
+	}
+    }
+
     if (doHeatSourceTracking_) {
 
-        double rdelta_t = 1.0E8;
-        if (deltaT > 0.0) {
-	    rdelta_t = 1.0 / deltaT;
-        }
-
-        bool doTimeDependentResid = true;
         /*
          * We calculate solnOld_ptr_ here
          */
@@ -786,25 +823,7 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
             fflush(facc);
 	    fclose(facc);
 	    tinit_calculation = t;
-        
         }
-
- 
-	DomainLayout &DL = *DL_ptr_;
-	//
-	//   Loop over the Volume Domains
-	//
-	for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
-	}
-	//
-	//    Loop over the Surface Domains
-	//
-	for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-	    d_ptr->eval_PostSoln(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t);
-	}
 
         if (ifunc == 1)  {
             double qtot = 0.0;
@@ -820,12 +839,11 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
             fprintf(fstep, " ,  % 20.7E\n", qtot); 
             fflush(fstep);
 	}
-
         
         //	
-        // 
+        //
         if (ifunc == 2) {
-            double q = heatSourceAccumulated();          
+            double q = heatSourceAccumulated();         
             // MP issues
             facc = fopen("accumulatedHeatSource.txt", "a");
 	    fprintf(facc, "% 13.5E , % 13.5E ", tinit_calculation,  t);
@@ -840,7 +858,95 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
         }
 
     }
+        
+    if (doResistanceTracking_) {
 
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
+	porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+	d_ptr = DL.BulkDomain1D_List.back();
+	porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+	ocvAnode_ = d_anode_ptr->openCircuitPotentialQuick();
+	ocvCathode_ = d_cathode_ptr->openCircuitPotentialQuick();
+	d_ptr = DL.BulkDomain1D_List[1];
+	porousFlow_dom1D* d_separator_ptr= dynamic_cast<porousFlow_dom1D*>(d_ptr);
+
+	double tinit = t - deltaT;
+        if (ifunc == 0) {
+            fstepE = fopen("stepwiseElectricalOutput.txt", "w");
+          
+            fprintf(fstepE, "       tinit  ,       tfinal  ,  Volts_Anode ,    Volts_Sep , Volts_Cathode,"
+		    "  Volts_Total ,    Volts_OCV ,   OCV_Anode  ,  OCV_Cathode , "
+                   "     Current , Resist_anode ,  Resist_sep  , Resist_cathod,  Resist_Total\n");
+            fflush(fstepE);
+            fclose(fstepE);
+        
+	    faccE = fopen("accumulatedElectricalOutput.txt", "w");
+            fprintf(faccE, "       tinit  ,       tfinal  ,  Volts_Anode ,    Volts_Sep , Volts_Cathode,"
+		    "  Volts_Total ,    Volts_OCV ,   OCV_Anode  ,  OCV_Cathode , "
+		    "     Current , Resist_anode ,  Resist_sep  , Resist_cathod,  Resist_Total\n");
+	    fclose(faccE);
+	}
+
+        if (ifunc == 1) {
+	    double pot1, pot2, current;
+	    double  volts_OCV_Anode,  volts_OCV_Cathode;
+            double resistAnode = d_anode_ptr->effResistanceLayer(pot1, pot2, volts_OCV_Anode, current);
+	    double pot_AnodeColl = pot1;
+	    double volts_Anode = pot1 - pot2;
+	    double resistCathode = d_cathode_ptr->effResistanceLayer(pot1, pot2, volts_OCV_Cathode, current);
+	    double volts_Cathode = pot2 - pot1;
+	    double pot_CathodeColl = pot2;
+	    double volts_OCV_Separator;
+            double volts_Total = pot_CathodeColl - pot_AnodeColl;
+	    double resistSeparator = d_separator_ptr->effResistanceLayer(pot1, pot2, volts_OCV_Separator, current);
+	    double volts_Separator = pot1 - pot2;
+
+	    double volts_OCV = volts_OCV_Cathode - volts_OCV_Anode;
+	    double resistTotal = 0.0;
+	    if (fabs(current) > 1.0E-100) {
+		resistTotal = (volts_OCV - (pot_CathodeColl - pot_AnodeColl)) / current;
+	    } 
+
+            fstepE = fopen("stepwiseElectricalOutput.txt", "a");
+	    fprintf(fstepE, "% 13.5E , % 13.5E ,", tinit,  t);
+
+	    fprintf(fstepE, "% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,",
+		    volts_Anode, volts_Separator, volts_Cathode, volts_Total, volts_OCV,  volts_OCV_Anode,  volts_OCV_Cathode);
+	    fprintf(fstepE, "% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E\n",
+		    current, resistAnode, resistSeparator,  resistCathode, resistTotal);
+
+            fclose(fstepE);
+        }
+
+	if (ifunc == 2) {   
+            // MP issues
+            faccE = fopen("accumulatedElectricalOutput.txt", "a");
+	    fprintf(faccE, "% 13.5E , % 13.5E ,", tinit_calculation,  t);
+            double pot1, pot2, current;
+	    double  volts_OCV_Anode,  volts_OCV_Cathode;
+            double resistAnode = d_anode_ptr->effResistanceLayer(pot1, pot2, volts_OCV_Anode, current);
+	    double pot_AnodeColl = pot1;
+	    double volts_Anode = pot1 - pot2;
+	    double resistCathode = d_cathode_ptr->effResistanceLayer(pot1, pot2, volts_OCV_Cathode, current);
+	    double volts_Cathode = pot2 - pot1;
+	    double pot_CathodeColl = pot2;
+	    double volts_OCV_Separator;
+            double volts_Total = pot_CathodeColl - pot_AnodeColl;
+	    double resistSeparator = d_separator_ptr->effResistanceLayer(pot1, pot2, volts_OCV_Separator, current);
+	    double volts_Separator = pot1 - pot2;
+
+	    double volts_OCV = volts_OCV_Cathode - volts_OCV_Anode;
+	    double resistTotal = 0.0;
+	    if (fabs(current) > 1.0E-100) {
+		resistTotal = (volts_OCV - (pot_CathodeColl - pot_AnodeColl)) / current;
+	    } 
+	    fprintf(faccE, "% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,",
+		    volts_Anode, volts_Separator, volts_Cathode, volts_Total, volts_OCV,  volts_OCV_Anode,  volts_OCV_Cathode);
+	    fprintf(faccE, "% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E ,% 13.5E\n",
+		    current, resistAnode, resistSeparator,  resistCathode, resistTotal);
+            fclose(faccE);
+        }
+    }
 }
 //================================================================================================================
 double

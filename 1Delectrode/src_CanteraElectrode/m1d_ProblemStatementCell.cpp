@@ -32,14 +32,6 @@ namespace m1d
 ProblemStatementCell* PSCinput_ptr = 0;
 
 //=====================================================================================================================
-/**************************************************************************
- *
- *  MPEQUIL_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
-
 ProblemStatementCell::ProblemStatementCell() :
   ProblemStatement(), 
   NumberCanteraFiles(0), CanteraFileNames(0),
@@ -69,7 +61,8 @@ ProblemStatementCell::ProblemStatementCell() :
   initDefaultNumCVsAnode_(10),
   initDefaultNumCVsCathode_(10),
   initDefaultNumCVsSeparator_(10),
-  doHeatSourceTracking_(0)
+  doHeatSourceTracking_(0),
+  doResistanceTracking_(0)
 {
   PhaseList_ = new Cantera::PhaseList();
 }
@@ -139,6 +132,18 @@ ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
   i2->set_default(0);
   i2->set_limits(9, 0);
   cf->addLineEntry(i2);
+
+  /* -------------------------------------------------------------------------
+   *
+   *     Resistance Tracking
+   *
+   *   0 = Do not do any resistance tracking
+   *   1 = calculate resistances for layers, print them out, and have them available for external communication
+   */
+  LE_OneInt *ir = new LE_OneInt("Resistance Tracking", &(doResistanceTracking_), reqd, "doResistanceTracking");
+  ir->set_default(0);
+  ir->set_limits(1, 0);
+  cf->addLineEntry(ir);
 
 }
 //=====================================================================================================================

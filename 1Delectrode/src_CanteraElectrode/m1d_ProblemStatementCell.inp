@@ -49,8 +49,14 @@ Root Finder for Constant Current = 1
 Heat Source Tracking = 0
 !---------------------------------------------------------------------------------------------------------
 !
+!     Resistance Tracking - int (optional) (default = 0)
 !
-! -------------------------------------------------------------------------
+!   0 = Do not do any resistance tracking
+!   1 = calculate resistances for each domain, print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Resistance Tracking = 0
+!---------------------------------------------------------------------------------------------------------
 !
 ! Cathode BC Type - int (required)
 !

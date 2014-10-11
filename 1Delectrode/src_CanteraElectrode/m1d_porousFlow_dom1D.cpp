@@ -348,5 +348,11 @@ porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
 
 }
 //=====================================================================================================================
+double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, double &voltOCV, double &current)
+{
+    voltOCV=0.0;
+    return 0.0;
+}
+//=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================

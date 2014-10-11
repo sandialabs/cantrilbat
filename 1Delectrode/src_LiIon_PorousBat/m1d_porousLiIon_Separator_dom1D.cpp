@@ -857,6 +857,12 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
             Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+	if (iCell == 0) {
+	    potentialAnodic_ = Vcent_cc_;
+	}
+	if (iCell == NumLcCells-1) {
+	    potentialCathodic_ = Vcent_cc_;
+	}
 
         /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -918,6 +924,9 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 		icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 	    }
 	    icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+            if (nodeRight == 0) {
+                 icurrElectrolyte_CBR_[iCell] = icurrElectrolyte_CBL_[iCell];
+            }
 
 	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
 	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
@@ -948,6 +957,9 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
                 icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
             }
             icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+            if (nodeLeft == 0) {
+                 icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell];
+            }
 
 	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
 	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
@@ -1874,7 +1886,26 @@ porousLiIon_Separator_dom1D::checkPrecipitation()
     return -1;
 
 }
-
+//=====================================================================================================================
+//  WARNING -> will fail for multiprocessors, becauase the accumulation of information within eval_PostProc will fail.
+double porousLiIon_Separator_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, 
+                                                       double &voltOCV, double &current)
+{
+    static double resistance = 0.0;
+    potAnodic = potentialAnodic_;
+    potCathodic = potentialCathodic_;
+    current = 0.5 * (icurrElectrolyte_CBL_[0] + icurrElectrolyte_CBR_[0]);
+    voltOCV = 0.0;
+    //
+    //  Calculate the effective resistance of the separator layer by taking the potential drop across the domain
+    //  and dividing it by the current.
+    //
+    resistance = 0.0;
+    if (fabs(current) > 1.0E-200) {
+	resistance = (potAnodic - potCathodic) / current;
+    }
+    return resistance;
+}
 //=====================================================================================================================
 }
 //=====================================================================================================================

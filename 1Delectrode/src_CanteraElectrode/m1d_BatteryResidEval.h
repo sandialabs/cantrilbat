@@ -326,8 +326,11 @@ public:
      */
     void gatherCapacityStatistics();
 
-    //! Boolean indicating whether to calculate Heat Source Time tracking terms
+    //! Boolean indicating whether to calculate Heat Source Time tracking terms and output file
     int doHeatSourceTracking_;
+
+    //! Boolean indicating whether to calculate the Electrical resistance tracking terms and output file
+    int doResistanceTracking_;
 
     //! Boolean indicating whether to Calculate Enthalpy Equation
     int doEnthalpyEquation_;
@@ -390,6 +393,12 @@ public:
 
     double timeLeft_;
     double Crate_current_;
+
+    //! Quick determination of the open circuit voltage of the anode
+    double ocvAnode_; 
+
+    //! Quick determination of the open circuit voltage of the cathode
+    double ocvCathode_;
 
 };
 

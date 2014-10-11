@@ -111,9 +111,26 @@ public:
   //! Set up tmps for quick calculation of residuals
   void residSetupTmps();
 
+  //! Calculates and returns an estimate of the effective areal resistance of the layer
+  /*!
+   *   (virtual in porous_flow_dom1D)
+   *
+   *   resistance = ((potCathodic - potAnodic) - voltOCV) / current
+   *
+   *  @param potAnodic potential in the anodic direction. If the anode, this returns the potential of the
+   *                   solid in the anode next to the anode current collector.
+   *  @param potCathodic potential in the cathode direction. If the anode, this returns the potential of the
+   *                   electrolyte in the anode next to the separator.
+   *  @param voltOCV  OCV calculated in a quick manner. 
+   *  @param current   Returns the total current going through the domain ( amps m-2)
+   *  
+   *  @return returns the effective resistance of the layer (ohm m2)
+   */
+  virtual double effResistanceLayer(double &potAnodic, double  &potCathodic, double &voltOCV, double &current);
+
 
   // -------------------------------------------------------------------------------------------------------------------
-  // --- DATA 
+  // -----------------------------------------   DATA   ----------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
 
   // ------------------  Options for Processing ------------------------------------------------------------------------
@@ -137,7 +154,7 @@ public:
    */
   std::vector<doublereal> EnthPM_lyte_Cell_;
 
-
+  //
   // ------------------- Porosity of the Domain -----------------------------------------------------------------------
 
 protected:
@@ -155,7 +172,6 @@ protected:
   std::vector<double> porosity_Cell_old_;
 
   //
-
   // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
   //                         ( these are intermediate values and all have the suffix _Curr_ )
   //                         ( these all refer to the new time value)
@@ -182,7 +198,11 @@ protected:
    */
   std::vector<cellTmps> cellTmpsVect_Cell_;
 
+  //
+  // ---------------------------
+  //
 
+  //!
   mutable std::vector<double> qSource_Cell_curr_;
 
   mutable std::vector<double> qSource_Cell_accumul_;
@@ -193,6 +213,24 @@ protected:
   std::vector<double> electrodeHeat_Cell_curr_; 
   std::vector<double> overPotentialHeat_Cell_curr_;
   std::vector<double> deltaSHeat_Cell_curr_;
+
+  //!  Anodic electric potential of the domain
+  /*!
+   *  This is the potential that is closest to the anode side of the domain.
+   *  If we are in the anode, this is the potential of the elctrode near the anode
+   *  current collector.
+   *
+   *  Quantity is evaluated in post processor
+   */
+  double potentialAnodic_;
+
+  //!  Cathodic electric potential of the domain
+  /*!
+   *  This is the potential that is closest to the cathode side of the domain.
+   *
+   *  Quantity is evaluated in post processor
+   */
+  double potentialCathodic_;
 
   //!  Total enthalpy within each cell at the current conditions (Joules/m2)
   /*!

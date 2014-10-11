@@ -272,8 +272,7 @@ public:
                         Epetra_Vector_Ghosted& atolDeltaDamping,
                         const Epetra_Vector_Ghosted* const atolV = 0);
 
-
-//! Evaluates the atol vector used in the delta damping process for the DAE problem
+    //! Evaluates the atol vector used in the delta damping process for the DAE problem
     /*!
      *   @param relcoeff     Relative constant to multiply all terms by
      *   @param soln         current solution vector.
@@ -344,6 +343,23 @@ public:
      */
     int checkPrecipitation();
 
+    //! Calculates and returns an estimate of the effective resistance of the layer
+    /*!
+     *  (virtual from porousFlow_dom1D)
+     *  
+     *   resistance = ((potCathodic - potAnodic) - voltOCV) / current
+     *
+     *  @param potAnodic potential in the anodic direction. If the anode, this returns the potential of the
+     *                   solid in the anode next to the anode current collector.
+     *  @param potCathodic potential in the cathode direction. If the anode, this returns the potential of the
+     *                   electrolyte in the anode next to the separator.
+     *  @param voltOCV  OCV calculated in a quick manner. 
+     *  @param current  current 
+     *  
+     *  @return returns the effective resistance of the layer
+     */
+    virtual double effResistanceLayer(double &potAnodic, double  &potCathodic, double &voltOCV, double &current);
+
     // -----------------------------------------------------------------------------------------------
     //                                 DATA
     // -----------------------------------------------------------------------------------------------
@@ -370,8 +386,6 @@ protected:
 
     //! number of species solved
     int nsp_;
-
-
 
     //! Total concentration of the electolyte
     /*!
@@ -411,8 +425,6 @@ protected:
      *  Length is number of cells on the processor.
      */
     std::vector<double> concTot_Cell_old_;
-
-    
 
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
@@ -458,7 +470,6 @@ protected:
      * Length = number of electrolyte species = 3
      */
     std::vector<double> spCharge_;
-
 
     // -----------------------------------------------------------------------
     //!  Current Thermo value of quantities at the current point
@@ -517,12 +528,9 @@ protected:
 
     std::vector<double> solnTemp;
 
-
 private:
     void
     err(const char* msg);
-
-public:
 
 };
 

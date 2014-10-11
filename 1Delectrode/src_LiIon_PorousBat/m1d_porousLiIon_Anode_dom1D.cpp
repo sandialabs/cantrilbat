@@ -1359,6 +1359,12 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
         // HKM fix up - technically correct
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
 
+        if (iCell == 0) {
+            potentialAnodic_ = VElectrodeCent_cc_;
+        }
+        if (iCell == NumLcCells-1) {
+            potentialCathodic_ = Vcent_cc_;
+        }
 
         /*
          *  ------------------- Get the index for the left node -----------------------------
@@ -1840,7 +1846,7 @@ porousLiIon_Anode_dom1D::SetupTranShop(const double xdel, const int type)
     for (int k = 0; k < nsp_; k++) {
         Vdiff_trCurr_[k] *= tort.tortuosityFactor(porosity_Curr_);
     }
-    //Convert from diffusion velocity to diffusion flux
+    // Convert from diffusion velocity to diffusion flux
     for (int k = 0; k < nsp_; k++) {
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
     }
@@ -3194,6 +3200,26 @@ double porousLiIon_Anode_dom1D::openCircuitPotentialQuick() const
     Electrode* ee = Electrode_Cell_[0];
     double ocv = ee->openCircuitVoltage(nSurfsElectrode_ - 1);
     return ocv;
+}
+//=====================================================================================================================
+//  WARNING -> will fail for multiprocessors, becauase the accumulation of information within eval_PostProc will fail.
+double porousLiIon_Anode_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic,
+			                           double &voltOCV, double &current)
+{
+    static double resistance = 0.0;
+    potAnodic = potentialAnodic_;
+    potCathodic = potentialCathodic_;
+    current = icurrElectrode_CBL_[0];
+    voltOCV = openCircuitPotentialQuick();
+    //
+    //  Calculate the effective resistance of the separator layer by taking the potential drop across the domain
+    //  and dividing it by the current.
+    //
+    resistance = 0.0;
+    if (fabs(current) > 1.0E-200) {
+        resistance = ((potAnodic - potCathodic) - voltOCV) / current;
+    }
+    return resistance;
 }
 //=====================================================================================================================
 } //namespace m1d
