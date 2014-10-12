@@ -1332,7 +1332,10 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
 
-    double deltaT = 1.0 / rdelta_t;
+    double deltaT = 0.0;
+    if (rdelta_t > 0.0) {
+        deltaT = 1.0 / rdelta_t;
+    }
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;

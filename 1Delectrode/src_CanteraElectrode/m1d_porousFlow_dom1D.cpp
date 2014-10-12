@@ -134,7 +134,7 @@ double porousFlow_dom1D::heatSourceAccumulated() const
 {
     double q = 0.0;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
-	q +=  qSource_Cell_accumul_[iCell];
+	q += qSource_Cell_accumul_[iCell];
     }
     return q;
 }

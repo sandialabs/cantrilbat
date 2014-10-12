@@ -768,7 +768,7 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
     const Epetra_Vector_Ghosted *soln_ptr = &y;
     DomainLayout &DL = *DL_ptr_;
     bool doTimeDependentResid = true;
-    double rdelta_t = 1.0E-8;
+    double rdelta_t = 0.0;
     if (deltaT > 0.0) {
 	rdelta_t = 1.0 / deltaT;
     }
@@ -802,14 +802,6 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
     }
 
     if (doHeatSourceTracking_) {
-
-        /*
-         * We calculate solnOld_ptr_ here
-         */
-        if (doTimeDependentResid) {
-            calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
-        }
-
         if (ifunc == 0) {
             fstep = fopen("stepwiseHeatSource.txt", "w");
             fprintf(fstep, "      tinit  ,     tfinal  ,         anode        ,        separator     ,  "
@@ -824,7 +816,6 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
 	    fclose(facc);
 	    tinit_calculation = t;
         }
-
         if (ifunc == 1)  {
             double qtot = 0.0;
 	    double tinit = t - deltaT;
@@ -839,9 +830,6 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
             fprintf(fstep, " ,  % 20.7E\n", qtot); 
             fflush(fstep);
 	}
-        
-        //	
-        //
         if (ifunc == 2) {
             double q = heatSourceAccumulated();         
             // MP issues
@@ -856,7 +844,6 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
             fprintf(facc, " , % 20.7E\n", q);
             fclose(facc);
         }
-
     }
         
     if (doResistanceTracking_) {

@@ -1508,8 +1508,10 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
 
-    double deltaT = 1.0 / rdelta_t;
-    //double term;
+    double deltaT = 0.0;
+    if (rdelta_t > 0.0) {
+        deltaT = 1.0 / rdelta_t;
+    }
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
@@ -1656,8 +1658,9 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 	    qSource_Cell_curr_[iCell        ]  += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
 	    jouleHeat_solid_Cell_curr_[iCell ] += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
 	}
-
+        //
 	// Add in the electrode contribution
+        //
 #ifdef DELTASHEAT_ZERO
 	deltaSHeat_Cell_curr_[iCell]= 0.0;
 	overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
@@ -1667,7 +1670,6 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
         overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ crossSectionalArea_;
 #endif
-
 	qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
