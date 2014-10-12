@@ -47,6 +47,14 @@ solutionStartEnd1.xml
 solutionStartEnd2.xml
 solutionStartEnd3.xml
 .nfs*
-
-
+accumulatedElectricalOutput.txt
+diff_bd0.txt
+diff_bd1.txt
+diff_bd2.txt
+diff_su0.txt
+diff_su1.txt
+diff_su2.txt
+diff_su3.txt
+diff_td.txt
+stepwiseElectricalOutput.txt
 
