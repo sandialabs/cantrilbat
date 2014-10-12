@@ -42,7 +42,9 @@ trap cleanup INT TERM TSTP QUIT
 
 temp_success="1"
 /bin/rm  -f  out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt runGood runBad \
-             solution.xml diff_b0.txt diff_b2.txt diff_b2.txt diff_s0.txt diff_s3.txt diff_IV.txt 
+             solution.xml diff_b0.txt diff_b2.txt diff_b2.txt diff_s0.txt diff_s3.txt diff_IV.txt \
+             diff_bd0.txt  diff_bd1.txt diff_bd2.txt
+
 /bin/rm -f             accumulatedHeatSource1.txt    accumulatedHeatSource2.txt    accumulatedHeatSource3.txt   \
              solutionStartEnd1.xml   solutionStartEnd2.xml   solutionStartEnd3.xml \
              SurDomain1D_1.dat  SurDomain1D_2.dat  SurDomain1D_3.dat  SurDomain1D_0.dat \
@@ -101,7 +103,7 @@ retnState_xml3=$?
 
 retnState_xml=$retnState_xml1
 
-if test $retnState_xml = "0"
+if test "$retnState_xml" = "0"
 then
     if test "$retnState_xml2" != "0"
     then
@@ -113,7 +115,67 @@ then
        fi
     fi
 fi
-#echo 'retnState_xml = ' $retnState_xml
+
+retnState_other=0
+
+diff  BulkDomain1D_0_blessed.dat  BulkDomain1D_0_blessed.dat > diff_bd0.txt
+retnState_bd0=$?
+if test "$retnState_bd0" != "0"
+then
+   retnState_other=1
+fi
+
+diff  BulkDomain1D_1_blessed.dat  BulkDomain1D_1_blessed.dat > diff_bd1.txt
+retnState_bd1=$?
+if test "$retnState_bd1" != "0"
+then
+   retnState_other=1 
+fi
+
+diff  BulkDomain1D_2_blessed.dat  BulkDomain1D_2_blessed.dat > diff_bd2.txt
+retnState_bd2=$?
+if test "$retnState_bd2" != "0"
+then
+   retnState_other=1
+fi
+
+diff  timeDep_IV_blessed.dat  timeDep_IV_blessed.dat > diff_td.txt
+retnState_td=$?
+if test "$retnState_td" != "0"
+then
+   retnState_other=1
+fi
+
+diff  SurDomain1D_0_blessed.dat  SurDomain1D_0_blessed.dat > diff_su0.txt
+retnState_su0=$?
+if test "$retnState_su0" != "0"
+then
+   retnState_other=1
+fi
+
+diff  SurDomain1D_1_blessed.dat  SurDomain1D_1_blessed.dat > diff_su1.txt
+retnState_su1=$?
+if test "$retnState_su1" != "0"
+then
+   retnState_other=1
+fi
+
+diff  SurDomain1D_2_blessed.dat  SurDomain1D_2_blessed.dat > diff_su2.txt
+retnState_su2=$?
+if test "$retnState_su2" != "0"
+then
+   retnState_other=1
+fi
+
+diff  SurDomain1D_3_blessed.dat  SurDomain1D_3_blessed.dat > diff_su3.txt
+retnState_su3=$?
+if test "$retnState_su3" != "0"
+then
+   retnState_other=1
+fi
+
+
+
 
 diff accumulatedHeatSource1_blessed.txt accumulatedHeatSource1.txt > diff_a1.txt
 retnState_a1=$?
@@ -136,9 +198,13 @@ fi
 if test $retnState_xml = "0" -a $retnState_a = "0"
 then
   echo "Successful test comparison on "`pwd`
+  if test "$retnState_other" = "0"
+  then
+      echo "  but other comparisons failed: " `date` > runBad
+  fi
   echo "  Test Passed: " `date` > runGood
 else
-  echo "UnSuccessful test comparison on "`pwd`
+  echo "Unsuccessful test comparison on "`pwd`
   echo "  Test failed: " `date` > runBad
 fi
 

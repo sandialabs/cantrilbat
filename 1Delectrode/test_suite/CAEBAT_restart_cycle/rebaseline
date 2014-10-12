@@ -18,5 +18,11 @@ cp accumulatedHeatSource1.txt accumulatedHeatSource1_blessed.txt
 cp accumulatedHeatSource2.txt accumulatedHeatSource2_blessed.txt
 cp accumulatedHeatSource3.txt accumulatedHeatSource3_blessed.txt
 
+cp stepwiseHeatSource.txt stepwiseHeatSource_blessed.txt 
+
+cp stepwiseElectricalOutput.txt stepwiseElectricalOutput_blessed.txt
+
+
+
 
 
