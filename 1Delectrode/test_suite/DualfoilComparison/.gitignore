@@ -33,4 +33,5 @@ Capacity_Starting.dat
 timeDep_IV.txt
 accumulatedElectricalOutput.txt
 stepwiseElectricalOutput.txt
-
+diff_seo.txt
+diff_shs.txt
