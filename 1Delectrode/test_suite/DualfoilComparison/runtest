@@ -119,9 +119,21 @@ retnStat_s0=$?
 diff SurDomain1D_3_blessed.dat  SurDomain1D_3.dat> diff_s3.txt
 retnStat_s3=$?
 
+diff stepwiseHeatSource_blessed.txt stepwiseHeatSource.txt > diff_shs.txt
+retnState_shs=$?
+
+diff stepwiseElectricalOutput_blessed.txt stepwiseElectricalOutput.txt > diff_seo.txt
+retnState_seo=$?
+
+retnState_s=1
+if test "$retnState_shs" = "0" -a "$retnState_seo" = "0" 
+then
+  retnState_s=0
+fi
+
 
 eCode=0
-if test $retnStat_xml = "0"
+if test "$retnStat_xml" = "0" -a "$retnState_s" = "0"
 then
   eCode=0
   echo "Successful test comparison on "`pwd`
@@ -170,6 +182,10 @@ else
   if test $retnStat_xml != "0"
   then
      echo "      xml files are different - see diff_xml.txt"
+  fi
+  if test "$retnState_s" != "0"
+  then
+     echo "      stepwise files are different - see diff_shs.txt and diff_seo.txt"
   fi
   if test $retnStat_txt != "0"
   then

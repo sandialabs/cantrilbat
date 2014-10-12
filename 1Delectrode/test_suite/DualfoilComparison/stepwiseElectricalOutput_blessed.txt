@@ -1,0 +1,1 @@
+       tinit  ,       tfinal  ,  Volts_Anode ,    Volts_Sep , Volts_Cathode,  Volts_Total ,    Volts_OCV ,   OCV_Anode  ,  OCV_Cathode ,      Current , Resist_anode ,  Resist_sep  , Resist_cathod,  Resist_Total

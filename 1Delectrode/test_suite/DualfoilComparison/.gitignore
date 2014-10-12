@@ -31,4 +31,6 @@ accumulatedHeatSource.txt
 stepwiseHeatSource.txt
 Capacity_Starting.dat
 timeDep_IV.txt
+accumulatedElectricalOutput.txt
+stepwiseElectricalOutput.txt
 
