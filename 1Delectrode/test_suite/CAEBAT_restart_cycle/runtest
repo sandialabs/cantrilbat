@@ -146,7 +146,7 @@ then
    retnState_other=1
 fi
 
-diff  SurDomain1D_0_blessed.dat  SurDomain1D_0_blessed.dat > diff_su0.txt
+diff SurDomain1D_0_blessed.dat  SurDomain1D_0_blessed.dat > diff_su0.txt
 retnState_su0=$?
 if test "$retnState_su0" != "0"
 then
@@ -176,7 +176,6 @@ fi
 
 
 
-
 diff accumulatedHeatSource1_blessed.txt accumulatedHeatSource1.txt > diff_a1.txt
 retnState_a1=$?
 
@@ -186,6 +185,15 @@ retnState_a2=$?
 diff accumulatedHeatSource3_blessed.txt accumulatedHeatSource3.txt > diff_a3.txt
 retnState_a3=$?
 
+diff accumulatedElectricalOutput1_blessed.txt accumulatedElectricalOutput1.txt > diff_e1.txt
+retnState_e1=$?
+
+diff accumulatedElectricalOutput2_blessed.txt accumulatedElectricalOutput2.txt > diff_e2.txt
+retnState_e2=$?
+
+diff accumulatedElectricalOutput3_blessed.txt accumulatedElectricalOutput3.txt > diff_e3.txt
+retnState_e3=$?
+
 retnState_a="1"
 if test $retnState_a1 = "0" -a $retnState_a2 = "0" -a $retnState_a3 = "0" 
 then
@@ -193,9 +201,16 @@ then
 fi
 #echo 'retnState_a = ' $retnState_a
 
+retnState_e="1"
+if test $retnState_e1 = "0" -a $retnState_e2 = "0" -a $retnState_e3 = "0" 
+then
+   retnState_e="0"
+fi
+#echo 'retnState_e = ' $retnState_e
 
 
-if test $retnState_xml = "0" -a $retnState_a = "0"
+
+if test $retnState_xml = "0" -a $retnState_a = "0" -a  $retnState_e = "0"
 then
   echo "Successful test comparison on "`pwd`
   if test "$retnState_other" = "0"

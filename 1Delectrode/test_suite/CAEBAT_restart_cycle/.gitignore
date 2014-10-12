@@ -57,4 +57,11 @@ diff_su2.txt
 diff_su3.txt
 diff_td.txt
 stepwiseElectricalOutput.txt
+accumulatedElectricalOutput1.txt
+accumulatedElectricalOutput2.txt
+accumulatedElectricalOutput3.txt
+diff_e1.txt
+diff_e2.txt
+diff_e3.txt
+
 

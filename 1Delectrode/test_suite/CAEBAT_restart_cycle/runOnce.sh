@@ -63,7 +63,7 @@ cat LiIon_PorousBat.inp.tmpl | sed s/XXXENDTIMEXXX/$endTime/ > LiIon_PorousBat.i
 
 cp accumulatedHeatSource.txt ../accumulatedHeatSource${sss}.txt  
 cp solutionStartEnd.xml  ../solutionStartEnd${sss}.xml 
-
+cp accumulatedElectricalOutput.txt ../accumulatedElectricalOutput${sss}.txt  
 
 cd ..
 
