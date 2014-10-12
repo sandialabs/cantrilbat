@@ -30,4 +30,11 @@ LiIon_PorousBat
 accumulatedHeatSource.txt
 solutionStartEnd.xml
 stepwiseHeatSource.txt
+accumulatedElectricalOutput.txt
+diff_aeo.txt
+diff_ahs.txt
+diff_seo.txt
+diff_shs.txt
+stepwiseElectricalOutput.txt
+
 
