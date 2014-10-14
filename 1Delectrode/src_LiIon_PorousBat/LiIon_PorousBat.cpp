@@ -428,6 +428,7 @@ main(int argc, char** argv)
             fprintf(stderr, "BOUNDARY CONDITION time step until %f\n", *step);
 
             TFinal = *step;
+            if (TFinal == 0.0) continue;
 
             // For step-change BC, the predictor corrector requires
             // values at both ends of the interval.  One of these
