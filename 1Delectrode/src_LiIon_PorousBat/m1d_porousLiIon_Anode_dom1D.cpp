@@ -572,6 +572,9 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
         Electrode* ee = Electrode_Cell_[iCell];
         ee->resetStartingCondition(t);
 
+        ee->updateState();
+
+        ee->setInitStateFromFinal(true);
     }
 }
 
@@ -1507,6 +1510,11 @@ porousLiIon_Anode_dom1D::calcElectrode()
         doInstanteous = true;
     }
     Electrode_ptr->updateState();
+    //
+    // The above statement set the final state. Here we set the init and init_init state
+    // to be equal to the final state
+    //
+    // Electrode_ptr->setInitStateFromFinal(true);
 
     if (doInstanteous) {
         //
@@ -1736,6 +1744,8 @@ porousLiIon_Anode_dom1D::updateElectrolyte(const NodalVars* const nv, const doub
 
 }
 //=====================================================================================================================
+//
+//
 void
 porousLiIon_Anode_dom1D::updateElectrode()
 {
@@ -1750,7 +1760,7 @@ porousLiIon_Anode_dom1D::updateElectrode()
     Electrode_ptr->setElectrolyteMoleNumbers(&(mfElectrolyte_Thermo_Curr_[0]), false);
 
     /*
-     * Set the internal objects within the electrode
+     * Set the internal objects within the electrode for the final state
      */
     Electrode_ptr->updateState();
 }

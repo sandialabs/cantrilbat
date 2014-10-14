@@ -560,7 +560,14 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
        */
       Electrode * ee = Electrode_Cell_[iCell];
       ee->resetStartingCondition(t);
-
+      //
+      //  this is needed for a proper startup 
+      //
+      ee->updateState();
+      //
+      //  this is needed for a proper startup - sync initinit with final
+      //
+      ee->setInitStateFromFinal(true);
     }
   }
 //=====================================================================================================================

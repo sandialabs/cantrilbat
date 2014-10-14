@@ -588,6 +588,14 @@ porousLiIon_Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, 
          */
         Electrode* ee = Electrode_Cell_[iCell];
         ee->resetStartingCondition(t);
+        //
+        //  this is needed for a proper startup 
+        //
+        ee->updateState();
+        //
+        //  this is needed for a proper startup - sync initinit with final
+        //
+        ee->setInitStateFromFinal(true);
     }
 }
 //=====================================================================================================================
@@ -1382,6 +1390,10 @@ porousLiIon_Cathode_dom1D::calcElectrode()
 	doInstanteous = true;
     }
     Electrode_ptr->updateState();
+    //
+    //  Set the init state and the init_init state
+    //
+    // Electrode_ptr->setInitStateFromFinal(true);
 
     if (doInstanteous) {
         //
