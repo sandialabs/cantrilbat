@@ -933,7 +933,6 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 
 	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
 	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
-
 	}
 
 	if (nodeRight != 0) {

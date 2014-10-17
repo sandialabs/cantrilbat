@@ -202,16 +202,85 @@ protected:
   // ---------------------------
   //
 
-  //!
+  //! Source of heat during the current time step
+  /*!
+   *  qSource is the heat generated in each cell per time for the current time step.
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   mutable std::vector<double> qSource_Cell_curr_;
 
+  //! Source of heat during the global interval
+  /*!
+   *  qSource is the heat generated in each cell per time and accumulated over 
+   *  the time steps that make up the current interval.
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   mutable std::vector<double> qSource_Cell_accumul_;
 
+  //! Source of joule heating in the electrolyte during the current time interval for the current cell
+  /*!
+   *  This is the heat generated due to joule heating in the electrolyte in each cell per time for the current time step
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   std::vector<double> jouleHeat_lyte_Cell_curr_;
+
+  //! Source of joule heating in the solid during the current time interval for the current cell
+  /*!
+   *  This is the heat generated due to joule heating in the electrolyte in each cell per time for the current time step
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   std::vector<double> jouleHeat_solid_Cell_curr_;
 
+  //! Source of heat release in the electrode during the current time interval for the current cell
+  /*!
+   *  This is the heat generated due to diffusion and reaction in the electrode
+   *  in each cell per time for the current time step
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   std::vector<double> electrodeHeat_Cell_curr_; 
+
+  //! Source of overpotential heat release in the electrode during the current time interval for the current cell
+  /*!
+   *  This is the heat generated due to irreversible reaction and diffusion processes in the electrode
+   *  in each cell per time for the current time step
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   std::vector<double> overPotentialHeat_Cell_curr_;
+
+  //! Source of reversible entropic heat release in the electrode during the current time interval for the current cell
+  /*!
+   *  This is the heat generated due to reversible reaction and diffusion processes in the electrode
+   *  in each cell per time for the current time step
+   *  Therefore, the source term is integrated in the axial direction and it is
+   *  integrated wrt to the time interval.
+   *
+   *  Length = number of local cells
+   *  units = Joules / m2
+   */
   std::vector<double> deltaSHeat_Cell_curr_;
 
   //!  Anodic electric potential of the domain
