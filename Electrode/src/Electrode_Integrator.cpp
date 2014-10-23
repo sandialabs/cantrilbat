@@ -668,7 +668,7 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         resetToInitInit = true;
-        return;
+        //return;
     }
 
     Electrode::resetStartingCondition(Tinitial, doResetAlways);
