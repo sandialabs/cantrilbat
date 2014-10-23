@@ -3863,10 +3863,14 @@ int Electrode::integrateResid(const doublereal tfinal, const doublereal deltaTsu
 // final times of an integration step.
 /*
  *  This function advances the initial state to the final state that was calculated
- *  in the last integration step. If the initial time is input, then the code doesn't advance
- *  or change anything.
+ *  in the last integration step. 
  *
- *  We also assume that the final state is equal to the final_final state
+ *  If the initial time is input, then the code doesn't advance
+ *  or change anything. It reverts the code to the t_init_init condition wiping clean variables that are filled
+ *  with the integration.
+ *
+ *  We also assume that the final state is equal to the final_final state. If this is not the case
+ *  then this is an error.
  *
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
@@ -3874,6 +3878,8 @@ int Electrode::integrateResid(const doublereal tfinal, const doublereal deltaTsu
 void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     int i;
+    bool resetToInitInit = false;
+    // bool setInitInitToFinal = true;
 
     /*
      *  If we haven't done a time step then we don't have anything to update.
@@ -3884,6 +3890,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 #endif
         return;
     }
+    
 
     /*
      * If this routine is called with Tinitial = t_init_init_, then we should return without doing anything
@@ -3891,17 +3898,21 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
+        resetToInitInit = true;
+	//setInitInitToFinal = false;
         return;
     }
 
     /*
-     *  The final_final time must be equal to the new Tinitial time
+     *  The final_final time must be equal to the new Tinitial time if we are not resetting to the initial condition
      */ 
     tbase = std::max(Tinitial, tbase);
     tbase = std::max(tbase, t_final_final_);
-    if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-        throw CanteraError("Electrode::resetStartingCondition()",
-                           "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
+    if (!resetToInitInit) {
+	if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
+	    throw CanteraError("Electrode::resetStartingCondition()",
+			       "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
+	}
     }
 
     /*
@@ -3916,8 +3927,23 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     /*
      * Set the new time to the new value, Tinitial, which is also equal to tfinal_ and t_final_final_
      */
-    t_init_init_ = Tinitial;
-    tinit_ = t_init_init_;
+    if (resetToInitInit) {
+	tinit_ = t_init_init_;
+    } else {
+	t_init_init_ = Tinitial;
+	tinit_ = t_init_init_;
+    }
+    /*
+     *  Here is where we store the electrons discharged
+     */
+    if (!resetToInitInit) {
+	if (pendingIntegratedStep_ == 1) {
+	    electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
+	}
+    }
+    pendingIntegratedStep_ = 0;
+
+
 
     /*
      *  Below is close to a  redo of Electrode::setInitInitStateFromFinalFinal()
@@ -3943,12 +3969,13 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 	chempotMolar_init_[k] = chempotMolar_final_[k];
 	chempotMolar_init_init_[k] = chempotMolar_final_[k];
     }
-
-    /*
-     *  Here is where we store the electrons discharged
-     */
-    if (pendingIntegratedStep_ == 1) {
-        electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
+    //
+    // Major change: do a full state change function here
+    //
+    if (resetToInitInit) {
+    } else {
+	Electrode::setInitStateFromFinal(true);
+	//setInitStateFromFinal(true);
     }
 
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
@@ -3975,12 +4002,13 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
      *  because we want jacobian calculations to mainly use the same time step history, so that the answers are
      *  comparible irrespective of the time step truncation error.
      */;
-    if (deltaTsubcycle_init_next_ < 1.0E299) {
-        deltaTsubcycle_init_init_ = deltaTsubcycle_init_next_;
+    if (!resetToInitInit) {
+	if (deltaTsubcycle_init_next_ < 1.0E299) {
+	    deltaTsubcycle_init_init_ = deltaTsubcycle_init_next_;
+	}
+	deltaTsubcycle_init_next_ = 1.0E300;
     }
-    deltaTsubcycle_init_next_ = 1.0E300;
-
-    pendingIntegratedStep_ = 0;
+   
 }
 //====================================================================================================================
 // Returns the initial global time
@@ -4050,9 +4078,11 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
 
     // Reset the particle size
     if (setInitInit) {
+        if (fabs(tfinal_ - t_init_init_) > 1.0E-40) {
         if (pendingIntegratedStep_) {
             throw CanteraError("Electrode::setInitStateFromFinal(true)",
                                "Function called to overwrite init_init during a pending step");
+        }
         }
         Radius_exterior_init_init_ = Radius_exterior_final_;
     }
