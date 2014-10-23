@@ -121,7 +121,7 @@
            <!-- Janz, JPCRD, 17, supplement 2, 1988 -->
            <A>5.727E-5</A>
            <b>0.0</b>
-           <E units="J/kmol">26273e3.</E>
+           <E units="J/kmol">26273.e3</E>
         </viscosity>
         <thermalConductivity model="coeffs">
            <floatArray size="2">  0.5, -5.0e-5 </floatArray>
