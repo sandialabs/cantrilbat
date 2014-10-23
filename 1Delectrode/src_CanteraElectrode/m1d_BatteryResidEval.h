@@ -64,6 +64,29 @@ public:
     BatteryResidEval &
     operator=(const BatteryResidEval&r);
 
+    //! Set the underlying state of the system from the solution vector
+    /*!
+     *   Note this is an important routine for the speed of the solution.
+     *   It would be great if we could supply just exactly what is changing here.
+     *   This routine is always called at the beginning of the residual evaluation process.
+     *
+     *   This is a natural place to put any precalculations of nodal quantities that
+     *   may be needed by the residual before its calculation.
+     *
+     *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
+     *   the initial conditions must be propagated.
+     *
+     * @param doTimeDependentResid
+     * @param soln
+     * @param solnDot
+     * @param t
+     * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+     */
+    virtual void
+    setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
+                         const double t, const double rdelta_t);
+
+
     //! Calculate the initial conditions
     /*!
      *   This calls the parent class initialConditions method to loop over the volume and surface domains.
@@ -300,9 +323,19 @@ public:
     changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep = 0, TimeDepFunctionPtr TimeDep = 0);
 
     //! Report the cathode voltage
+    /*!
+     *  Note the anode voltage is set to zero. So this function will return the voltage of the battery.
+     *
+     *  @return    Returns the cathode voltage (volts)
+     */
     double reportCathodeVoltage() const;
 
-  
+    //! Report the cathode current
+    /*!
+     *  Note the anode current should be exactly equal to the cathode current
+     *
+     *  @return    Returns the cathode current (amp)
+     */
     double reportCathodeCurrent() const;
 
     //! Get the max value of the sub grid time step number from the last residual calculation
@@ -374,24 +407,90 @@ public:
      */
     double QdotCathodePerArea_n_;
 
-
+    //! Initial Capacity of the anode per Area
+    /*!
+     *    units Amps sec m-2
+     */
     double capacityAnodePA_;
+
+    //! Initial Capacity of the cathode per Area
+    /*!
+     *    units Amps sec m-2
+     */
     double capacityCathodePA_;
 
+    //! Remaining Capacity of the anode per Area
+    /*!
+     *    units Amps sec m-2
+     */
     double capacityLeftAnodePA_;
+
+    //! Remaining Capacity of the cathode per Area
+    /*!
+     *    units Amps sec m-2
+     */
     double capacityLeftCathodePA_;
     
+    //! Total Capacity discharged from the anode per Area
+    /*!
+     *    units Amps sec m-2
+     */
     double capacityDischargedAnodePA_;
+
+    //! Total Capacity discharged from the cathode per Area
+    /*!
+     *    units Amps sec m-2
+     */
     double capacityDischargedCathodePA_;
 
+    //! Current depth of discharge in Amp seconds per cross-sectional area for the anode
+    /*!
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state.
+     *  For multiple cycles, this becomes the true electron counter for the electrode.
+     */
     double dodAnodePA_;
+
+    //! Current depth of discharge in Amp seconds per cross-sectional area for the cathode
+    /*!
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state.
+     *  For multiple cycles, this becomes the true electron counter for the electrode.
+     */
     double dodCathodePA_;
 
-    double  capacityPAEff_;
+    //! Total effective capacity of the battery
+    /*!
+     *   This is the minimum of the anode and cathode capacities.
+     *    units Amps sec m-2
+     */
+    double capacityPAEff_;
 
+    //! Total effective capacity left of the battery
+    /*!
+     *   This is the minimum of the anode and cathode capacities left.
+     *    units Amps sec m-2
+     */
     double capacityLeftPAEff_;
 
+    //! Time left to discharge the battery fully.
+    /*!
+     *   timeLeft = capacityLeft / current
+     *
+     *   units = seconds
+     */
     double timeLeft_;
+
+    //!  Current value of the Crate.
+    /*!
+     *  A Crate would mean that the battery would discharge from initial
+     *  capacity to empty capacity in 1 hour. If the current I_1 were
+     *  defined as the current with a crate of 1, then
+     * 
+     *      Crate = current / I_1
+     *
+     *  units = unitless
+     */
     double Crate_current_;
 
     //! Quick determination of the open circuit voltage of the anode
@@ -399,7 +498,6 @@ public:
 
     //! Quick determination of the open circuit voltage of the cathode
     double ocvCathode_;
-
 };
 
 // *****************************************************************
@@ -408,4 +506,3 @@ public:
 // ******************************************************************
 
 #endif
-

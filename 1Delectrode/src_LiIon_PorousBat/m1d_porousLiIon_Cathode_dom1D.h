@@ -29,8 +29,7 @@ namespace m1d
 class LocalNodeIndices;
 
 //=====================================================================================================================
-//! This is derived class provides the function
-//! evaluation for a porous electrolyte cathode .
+//! This is derived class provides the function evaluation for a porous electrolyte cathode .
 /*!
  * The porous electrolyte domain is characterized by a
  * current conservation equation and several species

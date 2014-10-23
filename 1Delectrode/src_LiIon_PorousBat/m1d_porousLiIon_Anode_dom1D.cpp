@@ -2860,6 +2860,10 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
         soln[indexCent_EqnStart + iVar_Voltage_ED] = 0.0;
 
+        //
+        // Need to update the Electrode objects with the state of the solution
+        //
+
         Electrode* ee = Electrode_Cell_[iCell];
         double solidVolCell = ee->SolidVol();
         double porosity = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
@@ -2871,6 +2875,8 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         }
         // update porosity as computed from electrode input
         porosity_Cell_[iCell] = porosity;
+
+        
     }
 }
 //=====================================================================================================================

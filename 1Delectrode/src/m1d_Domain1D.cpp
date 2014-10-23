@@ -398,6 +398,32 @@ Domain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   {
     err("showSolutionIntVector()");
   }
+//==========================================================================================================
+// Set the underlying state of the system from the solution vector
+/*
+ *   Note this is an important routine for the speed of the solution.
+ *   It would be great if we could supply just exactly what is changing here.
+ *   This routine is always called at the beginning of the residual evaluation process.
+ *
+ *   This is a natural place to put any precalculations of nodal quantities that
+ *   may be needed by the residual before its calculation.
+ *
+ *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
+ *   the initial conditions must be propagated.
+ *
+ * @param doTimeDependentResid
+ * @param soln
+ * @param solnDot
+ * @param t
+ * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+ */
+void
+Domain1D::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, 
+			       const Epetra_Vector_Ghosted *solnDot,
+			       const double t, const double rdelta_t)
+{
+
+}
 //====================================================================================================================
 // Generate the initial conditions
 /*

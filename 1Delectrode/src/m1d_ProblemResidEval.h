@@ -299,7 +299,7 @@ public:
    * @param soln
    * @param solnDot
    * @param t
-   * @param rdelta_t
+   * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
    */
   virtual void
   setStateFromSolution(const bool doTimeDependentResid,

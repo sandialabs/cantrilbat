@@ -132,7 +132,53 @@ namespace m1d
 
     return *this;
   }
-  //=====================================================================================================================
+//==========================================================================================================
+// Set the underlying state of the system from the solution vector
+/*
+ *   Note this is an important routine for the speed of the solution.
+ *   It would be great if we could supply just exactly what is changing here.
+ *   This routine is always called at the beginning of the residual evaluation process.
+ *
+ *   This is a natural place to put any precalculations of nodal quantities that
+ *   may be needed by the residual before its calculation.
+ *
+ *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
+ *   the initial conditions must be propagated.
+ *
+ * @param doTimeDependentResid
+ * @param soln
+ * @param solnDot
+ * @param t
+ * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+ */
+void
+BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, 
+				       const Epetra_Vector_Ghosted *solnDot,
+				       const double t, const double rdelta_t)
+{
+    //
+    // Call the base class
+    //
+    ProblemResidEval::setStateFromSolution(doTimeDependentResid, soln, solnDot, t, rdelta_t);
+
+
+    //Domain Layout ptr DL_ptr_
+    //Domain layout has the information on the global nodes and the x-positions
+    DomainLayout &DL = *DL_ptr_;
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	d_ptr->setStateFromSolution(doTimeDependentResid, soln, solnDot, t, rdelta_t);
+    }
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	d_ptr->setStateFromSolution(doTimeDependentResid, soln, solnDot, t, rdelta_t);
+    }
+
+}
+//=====================================================================================================================
 
   //! Calculate the initial conditions
   /*!
