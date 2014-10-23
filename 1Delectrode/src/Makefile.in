@@ -202,7 +202,6 @@ ifeq ($(os_is_win), 1)
 else
 	@MAKE@ $(PROGRAM)
 endif
-	./runtest
 
 clean:
 	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain libm1d.a tddiff
