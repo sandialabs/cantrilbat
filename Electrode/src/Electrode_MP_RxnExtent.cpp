@@ -3440,16 +3440,15 @@ double Electrode_MP_RxnExtent::predictorCorrectorGlobalSrcTermErrorNorm()
  */
 void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
-    int i;
     bool resetToInitInit = false;
 
 
-    if (pendingIntegratedStep_ != 1) {
+    //if (pendingIntegratedStep_ != 1) {
 #ifdef DEBUG_ELECTRODE
         // printf(" Electrode_MP_RxnExtent::resetStartingCondition WARNING: resetStartingCondition called with no pending integration step\n");
 #endif
-        return;
-    }
+    //    return;
+    //}
 
     /*
      * If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
@@ -3462,14 +3461,17 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
         return;
     }
 
-    Electrode_Integrator::resetStartingCondition(Tinitial);
 
     tbase = std::max(Tinitial, tbase);
     tbase = std::max(tbase, t_final_final_);
+    if (! resetToInitInit) {
     if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-        throw CanteraError("Electrode_Integrator::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
+        throw CanteraError("Electrode_MP_RxnExtent::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
                            + fp2str(t_final_final_));
     }
+    }
+
+    Electrode_Integrator::resetStartingCondition(Tinitial);
 
     /*
      *  Here is where we store the electrons discharged
@@ -3478,29 +3480,9 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
     //    electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
     // }
 
-    t_init_init_ = Tinitial;
+    //t_init_init_ = Tinitial;
 
-    // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
-        surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
-    }
-
-
-    // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
-        spMoles_init_[k] = spMoles_final_[k];
-        spMoles_init_init_[k] = spMoles_final_[k];
-    }
-
-    // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
-        phaseMoles_init_[i] = phaseMoles_final_[i];
-        phaseMoles_init_init_[i] = phaseMoles_final_[i];
-    }
-
-    // Reset the particle size
-    Radius_exterior_init_init_ = Radius_exterior_final_final_;
-    Radius_exterior_init_      = Radius_exterior_final_final_;
+    if (!resetToInitInit) {
 
     Radius_internal_init_init_ =  Radius_internal_final_final_;
     Radius_internal_init_      =  Radius_internal_final_final_;
@@ -3509,7 +3491,6 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
     // Copy The final Extent of reaction to the beginning extent
     RelativeExtentRxn_init_init_ =   RelativeExtentRxn_final_final_;
     RelativeExtentRxn_init_      =   RelativeExtentRxn_final_final_;
-
 
     xRegion_init_init_ = xRegion_final_final_;
     xRegion_init_      = xRegion_final_final_;
@@ -3555,6 +3536,7 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
         xmlStateData_final_ = 0;
         delete xmlStateData_final_final_;
         xmlStateData_final_final_ = 0;
+    }
     }
 
 }
