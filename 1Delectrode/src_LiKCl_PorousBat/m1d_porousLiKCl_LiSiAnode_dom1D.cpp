@@ -1756,7 +1756,8 @@ porousLiKCl_LiSiAnode_dom1D::SetupTranShop(const double xdel, const int type)
     jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
   }
 
-  icurrElectrode_trCurr_ = -conductivityElectrode_ * gradVElectrode_trCurr_;
+  double volFSolid = 1.0 - porosity_Curr_;
+  icurrElectrode_trCurr_ = -conductivityElectrode_ * pow(volFSolid, 1.5) * gradVElectrode_trCurr_;
 }
 //=====================================================================================================================
 // saving the solution on the domain in an xml node.
