@@ -661,11 +661,13 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
  */
 void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doResetAlways)
 {
+    bool resetToInitInit = false;
     /*
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
+        resetToInitInit = true;
         return;
     }
 
@@ -677,6 +679,7 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
     std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.0);
     int neqNLS = nEquations();
 
+    if (!resetToInitInit) {
     for (int i = 0; i < neqNLS; i++) {
         solnDot_init_init_[i] = solnDot_final_final_[i];
         solnDot_init_[i]      = solnDot_final_final_[i];
@@ -684,6 +687,7 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
         yvalNLS_init_init_[i] = yvalNLS_final_final_[i];
         yvalNLS_init_[i]      = yvalNLS_final_final_[i];
         yvalNLS_[i]           = yvalNLS_final_final_[i];
+    }
     }
 }
 //====================================================================================================================
