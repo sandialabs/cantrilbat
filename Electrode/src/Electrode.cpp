@@ -3879,19 +3879,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     int i;
     bool resetToInitInit = false;
-    // bool setInitInitToFinal = true;
-
-    /*
-     *  If we haven't done a time step then we don't have anything to update.
-     */
-    if (pendingIntegratedStep_ != 1) {
-#ifdef DEBUG_ELECTRODE
-        // printf(" Electrode::resetStartingCondition WARNING: resetStartingCondition called with no pending integration step\n");
-#endif
-        return;
-    }
-    
-
+ 
     /*
      * If this routine is called with Tinitial = t_init_init_, then we should return without doing anything
      * We have already advanced the time step to the new time.
@@ -3899,8 +3887,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
         resetToInitInit = true;
-	//setInitInitToFinal = false;
-        return;
     }
 
     /*
@@ -3931,7 +3917,9 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 	tinit_ = t_init_init_;
     } else {
 	t_init_init_ = Tinitial;
-	tinit_ = t_init_init_;
+	tinit_ = Tinitial;
+        tfinal_ = Tinitial;
+        t_final_final_ = Tinitial;
     }
     /*
      *  Here is where we store the electrons discharged
@@ -3943,39 +3931,18 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     }
     pendingIntegratedStep_ = 0;
 
-
-
     /*
      *  Below is close to a  redo of Electrode::setInitInitStateFromFinalFinal()
      *  Not sure if I should combine the two treatments.
      */
 
-    // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
-        surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
-        surfaceAreaRS_init_init_[i] = surfaceAreaRS_final_[i];
-    }
-
-    // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
-        spMoles_init_[k] = spMoles_final_[k];
-        spMoles_init_init_[k] = spMoles_final_[k];
-        spMf_init_[k] = spMf_final_[k];
-        spMf_init_init_[k] = spMf_final_[k];
-        enthalpyMolar_init_[k] = enthalpyMolar_final_[k];
-        enthalpyMolar_init_init_[k] = enthalpyMolar_final_[k];
-	entropyMolar_init_[k] = entropyMolar_final_[k];
-	entropyMolar_init_init_[k] = entropyMolar_final_[k];
-	chempotMolar_init_[k] = chempotMolar_final_[k];
-	chempotMolar_init_init_[k] = chempotMolar_final_[k];
-    }
+   
     //
-    // Major change: do a full state change function here
+    // Major change: do a full state change function here eventually
     //
     if (resetToInitInit) {
     } else {
 	Electrode::setInitStateFromFinal(true);
-	//setInitStateFromFinal(true);
     }
 
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
@@ -3987,15 +3954,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 
-    // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
-        phaseMoles_init_[i]      = phaseMoles_final_[i];
-        phaseMoles_init_init_[i] = phaseMoles_final_[i];
-    }
-
-    // Reset the particle size
-    Radius_exterior_init_init_ = Radius_exterior_final_final_;
-    Radius_exterior_init_      = Radius_exterior_final_final_;
+   
 
     /*
      *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps

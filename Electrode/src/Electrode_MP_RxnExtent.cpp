@@ -3442,103 +3442,85 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 {
     bool resetToInitInit = false;
 
-
-    //if (pendingIntegratedStep_ != 1) {
-#ifdef DEBUG_ELECTRODE
-        // printf(" Electrode_MP_RxnExtent::resetStartingCondition WARNING: resetStartingCondition called with no pending integration step\n");
-#endif
-    //    return;
-    //}
-
     /*
      * If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
      * Then, we don't advance the time step.
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
-        //      printf("WARNING: resetStartingCondition called out of order\n");
         resetToInitInit = true;
-        return;
     }
 
 
     tbase = std::max(Tinitial, tbase);
     tbase = std::max(tbase, t_final_final_);
-    if (! resetToInitInit) {
-    if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-        throw CanteraError("Electrode_MP_RxnExtent::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
-                           + fp2str(t_final_final_));
-    }
+    if (!resetToInitInit) {
+	if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
+	    throw CanteraError("Electrode_MP_RxnExtent::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
+			       + fp2str(t_final_final_));
+	}
     }
 
     Electrode_Integrator::resetStartingCondition(Tinitial);
 
-    /*
-     *  Here is where we store the electrons discharged
-     */
-    //if (pendingIntegratedStep_ == 1) {
-    //    electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
-    // }
-
-    //t_init_init_ = Tinitial;
+   
 
     if (!resetToInitInit) {
 
-    Radius_internal_init_init_ =  Radius_internal_final_final_;
-    Radius_internal_init_      =  Radius_internal_final_final_;
-    Radius_internal_final_     =  Radius_internal_final_final_;
-
-    // Copy The final Extent of reaction to the beginning extent
-    RelativeExtentRxn_init_init_ =   RelativeExtentRxn_final_final_;
-    RelativeExtentRxn_init_      =   RelativeExtentRxn_final_final_;
-
-    xRegion_init_init_ = xRegion_final_final_;
-    xRegion_init_      = xRegion_final_final_;
-
-    molarVolume_init_init_ = molarVolume_final_final_;
-    molarVolume_init_      = molarVolume_final_final_;
-    molarVolume_final_     = molarVolume_final_final_;
-
-    /*
-     *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
-     *  because we want jacobian calculations to mainly use the same time step history, so that the answers are
-     *  comparible irrespective of the time step truncation error.
-     */;
-    if (deltaTsubcycle_init_next_ < 1.0E299) {
-        deltaTsubcycle_init_init_ = deltaTsubcycle_init_next_;
+	Radius_internal_init_init_ =  Radius_internal_final_final_;
+	Radius_internal_init_      =  Radius_internal_final_final_;
+	Radius_internal_final_     =  Radius_internal_final_final_;
+	
+	// Copy The final Extent of reaction to the beginning extent
+	RelativeExtentRxn_init_init_ =   RelativeExtentRxn_final_final_;
+	RelativeExtentRxn_init_      =   RelativeExtentRxn_final_final_;
+	
+	xRegion_init_init_ = xRegion_final_final_;
+	xRegion_init_      = xRegion_final_final_;
+	
+	molarVolume_init_init_ = molarVolume_final_final_;
+	molarVolume_init_      = molarVolume_final_final_;
+	molarVolume_final_     = molarVolume_final_final_;
+	
+	/*
+	 *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
+	 *  because we want jacobian calculations to mainly use the same time step history, so that the answers are
+	 *  comparible irrespective of the time step truncation error.
+	 */;
+	if (deltaTsubcycle_init_next_ < 1.0E299) {
+	    deltaTsubcycle_init_init_ = deltaTsubcycle_init_next_;
+	}
+	deltaTsubcycle_init_next_ = 1.0E300;
+	
+	pendingIntegratedStep_ = 0;
+	int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
+	int is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
+	int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
+	int is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
+	spMoles_final_[is_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
+	spMoles_init_[is_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
+	spMoles_init_init_[is_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
+	phaseMoles_final_[ip_FeS2_A] =  spMoles_FeS2_Normalization_ / 2.0;
+	
+	spMoles_final_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
+	spMoles_init_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
+	spMoles_init_init_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
+	phaseMoles_final_[ip_FeS2_B] =  spMoles_FeS2_Normalization_ / 2.0;
+	
+	if (eState_final_) {
+	    if (!xmlStateData_final_) {
+		eState_final_->copyElectrode_intoState(this);
+		xmlStateData_final_ = eState_final_->writeStateToXML();
+	    }
+	    delete xmlStateData_init_init_;
+	    xmlStateData_init_init_ =   xmlStateData_final_;
+	    delete xmlStateData_init_;
+	    xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
+	    xmlStateData_final_ = 0;
+	    delete xmlStateData_final_final_;
+	    xmlStateData_final_final_ = 0;
+	}
     }
-    deltaTsubcycle_init_next_ = 1.0E300;
-
-    pendingIntegratedStep_ = 0;
-    int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
-    int is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
-    int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
-    int is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
-    spMoles_final_[is_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
-    spMoles_init_[is_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
-    spMoles_init_init_[is_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
-    phaseMoles_final_[ip_FeS2_A] =  spMoles_FeS2_Normalization_ / 2.0;
-
-    spMoles_final_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
-    spMoles_init_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
-    spMoles_init_init_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
-    phaseMoles_final_[ip_FeS2_B] =  spMoles_FeS2_Normalization_ / 2.0;
-
-    if (eState_final_) {
-        if (!xmlStateData_final_) {
-            eState_final_->copyElectrode_intoState(this);
-            xmlStateData_final_ = eState_final_->writeStateToXML();
-        }
-        delete xmlStateData_init_init_;
-        xmlStateData_init_init_ =   xmlStateData_final_;
-        delete xmlStateData_init_;
-        xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
-        xmlStateData_final_ = 0;
-        delete xmlStateData_final_final_;
-        xmlStateData_final_final_ = 0;
-    }
-    }
-
 }
 //====================================================================================================================
 // Set the internal initial intermediate and initial global state from the internal final state
