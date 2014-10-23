@@ -3441,6 +3441,8 @@ double Electrode_MP_RxnExtent::predictorCorrectorGlobalSrcTermErrorNorm()
 void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     int i;
+    bool resetToInitInit = false;
+
 
     if (pendingIntegratedStep_ != 1) {
 #ifdef DEBUG_ELECTRODE
@@ -3455,7 +3457,8 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
-//      printf("WARNING: resetStartingCondition called out of order\n");
+        //      printf("WARNING: resetStartingCondition called out of order\n");
+        resetToInitInit = true;
         return;
     }
 
@@ -3471,9 +3474,9 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
     /*
      *  Here is where we store the electrons discharged
      */
-    if (pendingIntegratedStep_ == 1) {
-        electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
-    }
+    //if (pendingIntegratedStep_ == 1) {
+    //    electronKmolDischargedToDate_ += spMoleIntegratedSourceTerm_[kElectron_];
+    // }
 
     t_init_init_ = Tinitial;
 
