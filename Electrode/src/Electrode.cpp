@@ -3877,7 +3877,6 @@ int Electrode::integrateResid(const doublereal tfinal, const doublereal deltaTsu
  */
 void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
-    int i;
     bool resetToInitInit = false;
  
     /*
@@ -4169,9 +4168,12 @@ void Electrode::revertToInitialTime(bool revertToInitInit)
 {
     if (revertToInitInit) {
        setInitStateFromInitInit(true);
+       // need this to reset t_final_final_
+       setFinalFinalStateFromFinal();
        pendingIntegratedStep_ = 0;
     } else {
        setFinalStateFromInit();
+       setFinalFinalStateFromFinal();
     }
 }
 //====================================================================================================================
