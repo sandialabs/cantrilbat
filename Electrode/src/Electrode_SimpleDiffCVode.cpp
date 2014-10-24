@@ -338,16 +338,18 @@ void Electrode_SimpleDiff::check_final_OuterVol()
  */
 void  Electrode_SimpleDiff::resetStartingCondition(double Tinitial)
 {
+   bool resetToInitInit = false;
     /*
     * If the initial time is input, then the code doesn't advance
     */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase)) {
-        return;
+        resetToInitInit = true;
     }
+
     Electrode::resetStartingCondition(Tinitial);
 
-
+    if (!resetToInitInit = true) {
     mf_internal_init_ =  mf_internal_final_;
     mf_external_init_ =  mf_external_final_;
 
@@ -365,6 +367,7 @@ void  Electrode_SimpleDiff::resetStartingCondition(double Tinitial)
     C_internal_init_init_ = C_internal_final_;
 
     CAP_init_ = CAP_final_;
+    }
 }
 
 //================================================================================================

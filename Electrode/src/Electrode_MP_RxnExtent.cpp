@@ -3441,7 +3441,6 @@ double Electrode_MP_RxnExtent::predictorCorrectorGlobalSrcTermErrorNorm()
 void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     bool resetToInitInit = false;
-
     /*
      * If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
      * Then, we don't advance the time step.
@@ -3463,7 +3462,6 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 
     Electrode_Integrator::resetStartingCondition(Tinitial);
 
-   
 
     if (!resetToInitInit) {
 

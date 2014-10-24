@@ -274,12 +274,13 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
  */
 void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
+   //bool resetToInitInit = false; 
     /*
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
-        return;
+        //resetToInitInit = true;
     }
     Electrode::resetStartingCondition(Tinitial);
 }

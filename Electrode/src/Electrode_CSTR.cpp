@@ -2489,12 +2489,7 @@ int Electrode_CSTR::getInitialConditions(const doublereal t0, doublereal* const 
  */
 void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
-    if (pendingIntegratedStep_ != 1) {
-#ifdef DEBUG_ELECTRODE
-        // printf(" Electrode::resetStartingCondition WARNING: resetStartingCondition called with no pending integration step\n");
-#endif
-        return;
-    }
+    bool resetToInitInit = false;
 
     /*
      * If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
@@ -2502,7 +2497,7 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
      */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
-        return;
+        resetToInitInit = true;
     }
     /*
      *  Call the base class resetStarting condition
@@ -2510,6 +2505,7 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
     Electrode_Integrator::resetStartingCondition(Tinitial);
 
     // Copy The final Extent of reaction to the beginning extent
+    if (!resetToInitInit) {
     RelativeExtentRxn_init_init_ =   RelativeExtentRxn_final_final_;
     RelativeExtentRxn_init_      =   RelativeExtentRxn_final_final_;
 
@@ -2526,6 +2522,7 @@ void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways
         xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
         xmlStateData_final_ = 0;
         SAFE_DELETE(xmlStateData_final_final_);
+    }
     }
 }
 //====================================================================================================================

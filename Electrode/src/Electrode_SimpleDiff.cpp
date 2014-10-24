@@ -1183,11 +1183,13 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
  */
 void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
+   bool resetToInitInit = false;
     /*
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
+        resetToInitInit = true;
         return;
     }
 
@@ -1195,6 +1197,7 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
 
     int iCell, i;
     int ntotal = numRCells_ * numKRSpecies_;
+    if (!resetToInitInit) {
     for (i = 0; i < ntotal; ++i) {
         spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
 	spMoles_KRsolid_Cell_init_[i]      = spMoles_KRsolid_Cell_final_final_[i];
@@ -1225,7 +1228,7 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
     onRegionBoundary_init_      =  onRegionBoundary_final_final_;
 
-   bool fff = checkCapacityBalances_final();
+    bool fff = checkCapacityBalances_final();
     if (fff) {
 	fixCapacityBalances_final();
 	fff = checkCapacityBalances_final();
@@ -1236,6 +1239,7 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
 	 * reset all of the other states
 	 */
 	setInitStateFromFinal(true);
+    }
     }
 }
 //========================================================================================================================

@@ -220,7 +220,6 @@ void  Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doReset
     */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
-        return;
     }
     Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
 
