@@ -35,3 +35,10 @@ accumulatedElectricalOutput.txt
 stepwiseElectricalOutput.txt
 diff_seo.txt
 diff_shs.txt
+LiCoO2Cathode_electrode.xml.txt
+LiIon_PorousBat.inp.txt
+MCMBAnode_electrode.xml.txt
+MCMBAnode_electrode_old.xml
+anode.inp.txt
+cathode.inp.txt
+dualfoil_run/dualfoil5.in.txt
