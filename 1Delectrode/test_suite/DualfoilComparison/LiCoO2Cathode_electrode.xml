@@ -19,7 +19,7 @@
     <reactionArray datasrc="#data_LiElectrode"/>
 
     <transport model="None"/>
-    <phaseArray> metal_Li_LiIon_electrons ECDMC_LiPF6 LiCoO2_Margules_1 </phaseArray>
+    <phaseArray> metal_Li_LiIon_electrons ECDMC_LiPF6 LiCoO2_Interstitials_cathode </phaseArray>
   </phase>
 
 
@@ -47,16 +47,19 @@
   <!--
        Lumped reaction on the LiCoO2 electrode
     -->
-    <reaction reversible="yes" type="surface" id="0001">
+    <reaction reversible="yes" type="ButlerVolmer_NoActivityCoeffs" id="0001">
       <equation> LiCoO2 [=] Li+  + electron_Li_LiIon + CoO2 </equation>
       <rateCoeff type="ExchangeCurrentDensity" >
-        <electrochem beta="0.5"/>
-        <Arrhenius_ExchangeCurrentDensity>
-           <A>5.0E8</A>
+         <electrochem beta="0.5"/>
+         <Arrhenius_ExchangeCurrentDensity>
+            <!--  The answer for this is that it should be 1.7395E-4 amps m-2 at 298.15K. And the
+                activation energy is E/R = 4000 K. dualfoil almost always uses 4000 K as the
+                default activation energy.
+            -->
+           <A>116.67 </A>
            <b>0.0</b>
-           <!--   Setting all activation energies to 4000 Kelvin to conform to dualfoil -->
-           <E units="kJ/mol"> 33.25780 </E>
-        </Arrhenius_ExchangeCurrentDensity>
+           <E units="kJ/mol"> 33.25788 </E>
+         </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
       <reactants> LiCoO2:1.0 </reactants>
       <products> Li+:1.0  electron_Li_LiIon:1.0 CoO2:1.0 </products>

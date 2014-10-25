@@ -28,10 +28,8 @@
      </phaseArray>
   </phase>
 
-
- <!-- species definitions     -->
+  <!-- species definitions     -->
   <speciesData id="species_Li_electrode">
-
 
    <!-- species li_site   -->
     <species name="li_site">
@@ -49,28 +47,26 @@
   </speciesData>
 
  <reactionData id="data_AnodeElectrode">
-
-   <!--
-       Lumped reaction on the Lithium liquid electrode
+    <!--
+       Lumped reaction on the  negative electrode.
     -->
-    <reaction reversible="yes" type="surface" id="0001">
+    <reaction reversible="yes" type="ButlerVolmer_NoActivityCoeffs" id="0001">
       <equation> Li_C6-bulk [=]  V_C6-bulk + Li+  + electron_Li_LiIon </equation>
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-            <!-- <A>3.078268E3</A> -->
-           <!--<A>3.078268E20</A> -->
-           <A>2.8E21</A> 
+          <!--  The answer for this is that it should be 28.279 at 298K. And the
+                activation energy is E/R = 4000 K. dualfoil almost always uses 4000 K as the
+                default activation energy.
+            -->
+           <A>1.89665E7</A>
            <b>0.0</b>
-           <!--<E units="kJ/mol"> 20.000000 </E> -->
-           <!--  Setting all activation energies to 4000 Kelvin to conform with li-ion-ebar.in from dualfoil -->
-           <E units="kJ/mol"> 33.25800 </E>
+           <E units="kJ/mol"> 33.25788 </E>
         </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
       <reactants> Li_C6-bulk:1.0 </reactants>
       <products> V_C6-bulk:1.0 Li+:1.0  electron_Li_LiIon:1.0  </products>
     </reaction>
-
 
   </reactionData>
 

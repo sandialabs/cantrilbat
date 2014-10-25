@@ -4,7 +4,7 @@
 #   Master input file describing all of the options in the file
 ##################################################################
 !-------------------------------------------------------------------------
-! Electrode Name
+! Title
 !
 !
 !-------------------------------------------------------------------------
@@ -13,11 +13,17 @@ Electrode Name = LiCoO2
 !
 !-------------------------------------------------------------------------
 Electrode Type = cathode
-!-------------------------------------------------------------------------
-!   Electrode Model Name
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
 !
 !--------------------------------------------------------------------------
-!  Electrode Model Name = CSTR_LiCoO2Cathode
 Electrode Model Name = SimpleDiff
 !-------------------------------------------------------------------------
 ! Number of Cantera Files = int
@@ -37,7 +43,7 @@ Number of Cantera Files = 4
 !
 Cantera File Name = metal_Li_LiIon_electrons.xml
 Cantera File Name = ECsoln_ion.xml
-Cantera File Name = LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2_RedlichKister.xml
 Cantera File Name = LiCoO2Cathode_electrode.xml
 !
 !-------------------------------------------------------------------------
@@ -54,40 +60,36 @@ Pressure = 1.0 atm
 !
 ! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
-!   This is Rad3 input in dualfoil.in input deck
-!
 Particle Diameter = 20 microns
 !-------------------------------------------------------------------------
 !
 ! Particle Number to Follow - double [unitless] (default 1) (optional)
 !
-! Particle Number to Follow = 2.0E8 
+! Particle Number to Follow = 1.671126E6
 !-------------------------------------------------------------------------
-!
-!  This is ep3 volume fraction of electrolyte in positive electrode
 !
 Electrode Porosity = 0.30
+!
 !-------------------------------------------------------------------------
-! 
+!
 ! Electrode Gross Area - [m^2]
 !
 Electrode Gross Area = 1.0E-4  m2
 !
 !-------------------------------------------------------------------------
-! 
+!
 ! Electrode Gross Diameter - [m]
-! 
+!
 ! Electrode Gross Diameter = 0.05652 m
 !
 !-------------------------------------------------------------------------
-! 
+!
 ! Electrode Gross Thickness - [m]
 !
 !   This is h3 in the Dualfoil5 input deck
 !
 Electrode Gross Thickness = 100.0E-6 m
-!
-!-------------------------------------------------------------------------
+!--------------------------------------------------------------------------------------------------------------
 !
 !      BLOCK:  Open Circuit voltage Override for interface   [optional] [unique block]
 !
@@ -98,7 +100,7 @@ Electrode Gross Thickness = 100.0E-6 m
 !
 !         In the common case of an intercalated solid, the thermo of one of the intercalated species
 !         is replaced with the thermo dictated by the OCV. This means that the particular species to be
-!         replaced must be identified, as well as the particular reaction, whose OCV expression
+!         replaced must be identified, as well as the particular reaction, whose OCV expression 
 !         (deltaG) is to be specified, must be identified.
 !
 !         Note, in most cases there will only be one reaction on these surfaces, due to the incomplete
@@ -112,9 +114,15 @@ start block Open Circuit Potential Override for interface  cathode_surface
    Temperature for OCV = 298.15
    Open Circuit Voltage Temperature Derivative Model = Constant 0.0
 end block Open Circuit Potential Override for interface cathode_surface
-!
-!--------------------------------------------------------------------------------------------------------------
-!
+
+
+start block Radial Diffusion Region = simple_whole
+  Number of Cells in Region = 3
+  Phase Names within distributed region = LiCoO2_Interstitials_cathode
+  Default Diffusion Coefficient = 1.0E-13
+end block Radial Diffusion Region
+
+
 start block Bath Specification for Phase ECDMC_LiPF6
    Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
@@ -124,43 +132,21 @@ start block Bath Specification for Phase ECDMC_LiPF6
    End block Bath Species Mole Fraction
 end block Bath Specification for Phase ECDMC_LiPF6
 
-
-Number of Regions = 1
-
-start block Radial Diffusion Region = simple_whole
-  Index of the Region = 0
-  Number of Cells in Region = 3
-  Phase Names within distributed region = LiCoO2_Margules_1
-!  dfs3 in dualfoil input deck
-  Default Diffusion Coefficient = 1.0E-13
-end block Radial Diffusion Region
-
-
-start block Bath Specification for Phase LiCoO2_Margules_1
+start block Bath Specification for Phase LiCoO2_Interstitials_cathode
    Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
-       CoO2   = 0.5
-       LiCoO2 = 0.5
+       CoO2 = 0.5
+       LiCoO2 =  0.5
    End block Bath Species Mole Fraction
-
    Start block Capacity Left Coefficients
-       CoO2   = 1.0
+       CoO2 = 1.0
        LiCoO2 = 0.0
    End block Capacity Left Coefficients
-
    Start block Capacity At Zero DoD Coefficients
-       CoO2   = 1.0
-       LiCoO2 = 1.0
+       CoO2 = 1.0
+       LiCoO2 =  1.0
    End block Capacity At Zero DoD Coefficients
-end block Bath Specification for Phase LiCoO2_Margules_1
+end block Bath Specification for Phase LiCoO2_Interstitials_cathode 
 
-!-------------------------------------------------------------------------
-diffusive Flux Model = 1
-!-------------------------------------------------------------------------
-
-
-
-# Capacity Discharged Per Initial Mole = 0.0
-
-
+Number of Regions = 1
 
