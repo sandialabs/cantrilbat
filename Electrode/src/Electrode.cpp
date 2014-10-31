@@ -3914,6 +3914,8 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
      */
     if (resetToInitInit) {
 	tinit_ = t_init_init_;
+        tfinal_ = t_init_init_;
+        t_final_final_ = t_init_init_;
     } else {
 	t_init_init_ = Tinitial;
 	tinit_ = Tinitial;
@@ -3940,6 +3942,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     // Major change: do a full state change function here eventually
     //
     if (resetToInitInit) {
+        //setInitStateFromInitInit();
     } else {
 	Electrode::setInitStateFromFinal(true);
     }
