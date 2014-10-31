@@ -1626,11 +1626,14 @@ double BEulerInt::integratePRE(double tout)
      * that will probably print to a file.
      */
     if (flag == BE_SUCCESS) {
-        m_func->writeSolution(2, false, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
+        m_func->writeSolution(2, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
 			      TimeDependentAccurate_Solve, delta_t_np1);
+
         m_func->evalTimeTrackingEqns(2, time_current, delta_t_n, *m_y_n, m_ydot_n);
+
         m_func->user_out(2, time_current, delta_t_n, istep, *m_y_n, m_ydot_n);
     }
+    m_func->advanceTimeBaseline(true, m_y_n, m_ydot_n, m_y_nm1, time_current, time_nm1);
     if (flag != BE_SUCCESS) {
         throw BEulerErr(" BEuler error encountered.");
     }

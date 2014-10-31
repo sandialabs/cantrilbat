@@ -295,18 +295,21 @@ public:
    *   This is a natural place to put any precalculations of nodal quantities that
    *   may be needed by the residual before its calculation.
    *
-   * @param doTimeDependentResid
+   * @param doTimeDependentResid   If true then we are doing a time step. If false then we are not
+   *                               doing a time step. 
    * @param soln
    * @param solnDot
-   * @param t
-   * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+   * @param t         Time to apply the changes. Time can be between t+t_old and t_old
+   * @param delta_t  delta t equals 0.
+   * param  t_old     Old time step value
    */
   virtual void
   setStateFromSolution(const bool doTimeDependentResid,
                        const Epetra_Vector_Ghosted *soln,
                        const Epetra_Vector_Ghosted *solnDot,
                        const double t,
-                       const double rdelta_t);
+                       const double delta_t,
+                       const double t_old);
 
   //! Calculate the initial conditions
   /*!

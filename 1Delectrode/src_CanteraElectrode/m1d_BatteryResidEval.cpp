@@ -133,6 +133,26 @@ namespace m1d
     return *this;
   }
 //==========================================================================================================
+void
+BatteryResidEval::residSetupTmps()
+{
+    //
+    //  This routine needs a lot more sophistication 
+    //    Need to run it whenever the tmp info needs to be recalculated.
+    //
+    DomainLayout &DL = *DL_ptr_;
+    /*
+     *   Loop over the Volume Domains
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	porousFlow_dom1D* pd_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
+	if (pd_ptr != 0) {
+	    pd_ptr->residSetupTmps();
+	}
+    }
+}
+//==========================================================================================================
 // Set the underlying state of the system from the solution vector
 /*
  *   Note this is an important routine for the speed of the solution.
@@ -149,17 +169,27 @@ namespace m1d
  * @param soln
  * @param solnDot
  * @param t
- * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+ * @param delta_t
+ * @param t_old
  */
 void
 BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, 
 				       const Epetra_Vector_Ghosted *solnDot,
-				       const double t, const double rdelta_t)
+				       const double t, const double delta_t, const double t_old)
 {
+
+    if (doTimeDependentResid) {
+       if (delta_t > 0.0) {
+         if (fabs(t - (t_old + delta_t)) > 0.001 * delta_t) {
+            throw CanteraError("BatteryResidEval::setStateFromSolution",
+	                       "case of t != (t_old + delta_t) not handled yet");
+         }
+       }
+    }
     //
     // Call the base class
     //
-    ProblemResidEval::setStateFromSolution(doTimeDependentResid, soln, solnDot, t, rdelta_t);
+    ProblemResidEval::setStateFromSolution(doTimeDependentResid, soln, solnDot, t, delta_t, t_old);
 
 
     //Domain Layout ptr DL_ptr_
@@ -167,14 +197,14 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
     DomainLayout &DL = *DL_ptr_;
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	d_ptr->setStateFromSolution(doTimeDependentResid, soln, solnDot, t, rdelta_t);
+	d_ptr->setStateFromSolution(doTimeDependentResid, soln, solnDot, t, delta_t, t_old);
     }
     /*
      *    Loop over the Surface Domains
      */
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
 	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-	d_ptr->setStateFromSolution(doTimeDependentResid, soln, solnDot, t, rdelta_t);
+	d_ptr->setStateFromSolution(doTimeDependentResid, soln, solnDot, t, delta_t, t_old);
     }
 
 }
@@ -391,6 +421,12 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     /*
      * We calculate solnOld_ptr_ here
      */
+    double delta_t = 0.0;
+    double t_old = t;
+    if (rdelta_t != 0.0) {
+        delta_t = 1.0 / rdelta_t;
+        t_old = t - delta_t;
+    }
     if (doTimeDependentResid) {
 	calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
     }
@@ -399,7 +435,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
      *   It is necessary to do this for mesh unknowns.
      *   Also do a loop over the nodes to carry out any precalculations that are necessary
      */
-    setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, rdelta_t);
+    setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
     /*
      *   Loop over the Volume Domains
      */

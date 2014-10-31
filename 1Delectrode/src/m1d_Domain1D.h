@@ -380,18 +380,25 @@ public:
    *   This is a natural place to put any precalculations of nodal quantities that
    *   may be needed by the residual before its calculation.
    *
-   *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
+   *   Also, this routine is called with delta_t = 0. This implies that a step isn't being taken. However, the
    *   the initial conditions must be propagated.
+   *
+   *   Note, in general t may not be equal to t_old + delta_t. If this is the case, then the solution is
+   *   interpolated across the time interval and then the solution applied.
+   *
+   *   If doTimeDependentResid then delta_t > 0. 
+   *   If !doTimeDependentResid then usually delta_t = 0 but not necessarily
    *
    * @param doTimeDependentResid
    * @param soln
    * @param solnDot
    * @param t
-   * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+   * @param delta_t delta t. If zero then delta_t equals 0.
+   * @param t_old
    */
   virtual void
   setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
-                       const double t, const double rdelta_t);
+                       const double t, const double delta_t, const double t_old);
 
   //! Generate the initial conditions
   /*!

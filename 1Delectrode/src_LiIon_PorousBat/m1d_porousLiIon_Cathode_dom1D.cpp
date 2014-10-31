@@ -2788,6 +2788,104 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     }
 }
 //=====================================================================================================================
+// Set the underlying state of the system from the solution vector
+/*
+ *   Note this is an important routine for the speed of the solution.
+ *   It would be great if we could supply just exactly what is changing here.
+ *   This routine is always called at the beginning of the residual evaluation process.
+ *
+ *   This is a natural place to put any precalculations of nodal quantities that
+ *   may be needed by the residual before its calculation.
+ *
+ *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
+ *   the initial conditions must be propagated.
+ *
+ * @param doTimeDependentResid
+ * @param soln
+ * @param solnDot
+ * @param t
+ * @param delta_t delta t. If zero then delta_t equals 0.
+ * @param t_old
+ */
+void
+porousLiIon_Cathode_dom1D::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln_ptr, 
+						const Epetra_Vector_Ghosted *solnDot,
+						const double t, const double delta_t, const double t_old)
+{
+    bool doAll = true;
+    //bool doInit = false;
+    //bool doFinal = true; // This is always true as you can only set the final Electrode object
+    size_t  indexCent_EqnStart;
+    if (doTimeDependentResid) {
+	if (delta_t > 0.0) {
+            doAll = false;
+	    if (t <= t_old) {
+		//doInit = true;
+	    }
+	}
+    }
+    const Epetra_Vector_Ghosted& soln = *soln_ptr;
+
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	/*
+         *  ---------------- Get the index for the center node ---------------------------------
+         *   Get the pointer to the NodalVars object for the center node
+         *   Index of the first equation in the bulk domain of center node
+         */
+        NodalVars* nodeCent = cTmps.nvCent_;
+        indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+       
+	const double *solnCentStart = &(soln[indexCent_EqnStart]);
+    
+	/*
+	 * Get the temperature: Check to see if the temperature is in the solution vector.
+	 *   If it is not, then use the reference temperature
+	 */
+	temp_Curr_ = getPointTemperature(nodeCent, solnCentStart);
+	/*
+	 * Get the pressure
+	 */
+	pres_Curr_ = getPointPressure(nodeCent, solnCentStart);
+	//
+	//  fill in mfElectrolyte_Soln_Curr[]  mfElectrolyte_Thermo_Curr_[]
+	//
+	getMFElectrolyte_soln(nodeCent, solnCentStart);
+	//
+	//  Fill in phiElectroyte_Curr_ and phiElectrode_Curr_
+	//
+	getVoltages(nodeCent, solnCentStart);
+	//
+        // Electrode object will be updated and we will compute the porosity
+	//
+        Electrode* ee = Electrode_Cell_[iCell];
+	//
+	//  Set the temperature and pressure and voltages in the final_ state
+	//
+	ee->setState_TP(temp_Curr_, pres_Curr_);
+        ee->setVoltages(phiElectrode_Curr_, phiElectrolyte_Curr_);
+	//
+	//  Set the electrolyte mole fractions
+	//
+	ee->setElectrolyteMoleNumbers(&(mfElectrolyte_Thermo_Curr_[0]), false);
+	//
+	// update the internals
+	//
+	ee->updateState();
+	//
+	// 
+	//
+	if (doAll) {
+	    ee->setInitStateFromFinal(true);
+	    ee->setFinalFinalStateFromFinal();
+	}
+
+    }
+
+}
+//=====================================================================================================================
 // Generate the initial conditions
 /*
  *   The basic algorithm is to loop over the volume domains.
@@ -2827,12 +2925,18 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
-        int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
-        int iVar_Voltage_ED = iVar_Voltage + 1;
+	size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+        size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+	size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        size_t iVar_Voltage_ED = iVar_Voltage + 1;
 
         soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
+
+        // set the temperature if it is part of the solution vector
+        if (iVar_Temperature != npos) {
+            soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
+        }
 
         /*
          * Get initial mole fractions from PSinput
@@ -2860,14 +2964,17 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
         //double icurr = PSinput.icurrDischargeSpecified_;
         double volt = PSinput.CathodeVoltageSpecified_;
         soln[indexCent_EqnStart + iVar_Voltage_ED] = volt;
-
+	//
         // Electrode object will beupdated and we will compute the porosity
+	//
         Electrode* ee = Electrode_Cell_[iCell];
 
         double porosity = 1.0 - ee->SolidVol() / (xdelCell_Cell_[iCell] * crossSectionalArea_);
         // update porosity as computed from electrode input
         porosity_Cell_[iCell] = porosity;
         //    porosity_Cell_[iCell] = 0.64007;
+
+
 
     }
 }

@@ -427,6 +427,12 @@ ProblemResidEval::residEval(Epetra_Vector_Owned* const & res,
   if (!resInternal_ptr_) {
     resInternal_ptr_ = new Epetra_Vector(*res);
   }
+  double delta_t = 0.0;
+  double t_old = t;
+  if (rdelta_t > 0.0) {
+    delta_t = 1.0/rdelta_t;
+    t_old = t - delta_t;
+  }
 
   if (residType == Base_ResidEval) {
     counterResBaseCalcs_++;
@@ -456,7 +462,8 @@ ProblemResidEval::residEval(Epetra_Vector_Owned* const & res,
    *   It is necessary to do this for mesh unknowns.
    *   Also do a loop over the nodes to carry out any precalculations that are necessary
    */
-  setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, rdelta_t);
+  setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+
   /*
    *   Loop over the Volume Domains
    */
@@ -515,8 +522,10 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
   DomainLayout &DL = *DL_ptr_;
 
   double rdelta_t = 1.0E200;
+  double delta_t = 0.0;
   if (t > t_old) {
-    rdelta_t = 1.0 / (t - t_old);
+    delta_t = t - t_old;
+    rdelta_t = 1.0 / delta_t;
   }
 
   /*
@@ -530,7 +539,7 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
    *   It is necessary to do this for mesh unknowns.
    *   Also do a loop over nodes, calculating quantities.
    */
-  setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, rdelta_t);
+  setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
   /*
    *   Loop over the Volume Domains
    */
@@ -589,14 +598,15 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
  * @param soln
  * @param solnDot
  * @param t
- * @param rdelta_t
+ * @param delta_t
+ * @param t_old
  */
 void
 ProblemResidEval::setStateFromSolution(const bool doTimeDependentResid,
                                        const Epetra_Vector *soln,
                                        const Epetra_Vector *solnDot,
                                        const double t,
-                                       const double rdelta_t)
+                                       const double rdelta_t, const double t_old)
 {
   // Get a local copy of the domain layout
   // DomainLayout &DL = *DL_ptr_;

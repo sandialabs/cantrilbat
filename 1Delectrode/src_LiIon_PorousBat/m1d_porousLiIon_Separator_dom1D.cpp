@@ -1623,12 +1623,21 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
-	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
-
+	size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+	size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+	//
+	// Set Vaxial to zero
+	//
+	AssertThrow( iVAR_Vaxial != npos, "iVar_Vaxial isn't found");
         soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
-
+	//
+	// Set the temperature if it is part of the solution vector
+	//
+        if (iVar_Temperature != npos) {
+            soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
+        }
         /*
          * Get initial mole fractions from PSinput
          */

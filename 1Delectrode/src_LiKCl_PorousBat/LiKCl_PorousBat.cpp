@@ -273,6 +273,7 @@ int main(int argc, char **argv)
         double t_init = 0.0;
         double delta_t = 1.0E-8;
         double delta_t_np1;
+        ps->residSetupTmps();
         ps->initialConditions(false, soln, 0, t_init, delta_t, delta_t_np1);
         ps->residEval(res, false, soln, 0, 0.0, 0.0);
         //    We need to get rid of state information about time step in the electrode objects, because

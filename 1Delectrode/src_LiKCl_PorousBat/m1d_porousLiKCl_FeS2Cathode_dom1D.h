@@ -315,6 +315,35 @@ public:
                int indentSpaces,
                bool duplicateOnAllProcs = false);
 
+  //! Set the underlying state of the system from the solution vector
+  /*!
+   *   Note this is an important routine for the speed of the solution.
+   *   It would be great if we could supply just exactly what is changing here.
+   *   This routine is always called at the beginning of the residual evaluation process.
+   *
+   *   This is a natural place to put any precalculations of nodal quantities that
+   *   may be needed by the residual before its calculation.
+   *
+   *   Also, this routine is called with delta_t = 0. This implies that a step isn't being taken. However, the
+   *   the initial conditions must be propagated.
+   *
+   *   Note, in general t may not be equal to t_old + delta_t. If this is the case, then the solution is
+   *   interpolated across the time interval and then the solution applied.
+   *
+   *   If doTimeDependentResid then delta_t > 0. 
+   *   If !doTimeDependentResid then usually delta_t = 0 but not necessarily
+   *
+   * @param doTimeDependentResid
+   * @param soln
+   * @param solnDot
+   * @param t
+   * @param delta_t delta t. If zero then delta_t equals 0.
+   * @param t_old
+   */
+  virtual void
+  setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
+                       const double t, const double delta_t, const double t_old);
+
   //! Generate the initial conditions
   /*!
    *   The basic algorithm is to loop over the volume domains.

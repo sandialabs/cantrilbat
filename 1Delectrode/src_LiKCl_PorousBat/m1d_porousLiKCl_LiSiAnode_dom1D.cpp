@@ -2543,7 +2543,114 @@ porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   }
 
 }
-  //=====================================================================================================================
+//=======================================================================================================================
+// Set the underlying state of the system from the solution vector
+/*
+ *   Note this is an important routine for the speed of the solution.
+ *   It would be great if we could supply just exactly what is changing here.
+ *   This routine is always called at the beginning of the residual evaluation process.
+ *
+ *   This is a natural place to put any precalculations of nodal quantities that
+ *   may be needed by the residual before its calculation.
+ *
+ *   Also, this routine is called with delta_t = 0. This implies that a step isn't being taken. However, the
+ *   the initial conditions must be propagated.
+ *
+ *   Note, in general t may not be equal to t_old + delta_t. If this is the case, then the solution is
+ *   interpolated across the time interval and then the solution applied.
+ *
+ *   If doTimeDependentResid then delta_t > 0. 
+ *   If !doTimeDependentResid then usually delta_t = 0 but not necessarily
+ *
+ * @param doTimeDependentResid
+ * @param soln
+ * @param solnDot
+ * @param t
+ * @param delta_t delta t. If zero then delta_t equals 0.
+ * @param t_old
+ */
+void
+porousLiKCl_LiSiAnode_dom1D::setStateFromSolution(const bool doTimeDependentResid, 
+						  const Epetra_Vector_Ghosted *soln_ptr, 
+						  const Epetra_Vector_Ghosted *solnDot_ptr,
+						  const double t, const double delta_t, const double t_old)
+{
+    int indexCent_EqnStart_BD;
+    bool doAll = true;
+    //bool doInit = false;
+    //bool doFinal = true; // This is always true as you can only set the final Electrode object
+    //size_t  indexCent_EqnStart;
+    if (doTimeDependentResid) {
+	if (delta_t > 0.0) {
+            doAll = false;
+	    if (t <= t_old) {
+		//doInit = true;
+	    }
+	}
+    }
+    const Epetra_Vector_Ghosted& soln = *soln_ptr;
+    const Epetra_Vector_Ghosted& solnDot = *solnDot_ptr;
+
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
+	//cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+
+
+	// Find the index of the center node
+	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+	// pointer to the NodalVars object for the center node
+	NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+	// Index of the first equation in the bulk domain of center node
+	indexCent_EqnStart_BD = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode]
+				+ nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
+
+	/*
+         *  ---------------- Get the index for the center node ---------------------------------
+         *   Get the pointer to the NodalVars object for the center node
+         *   Index of the first equation in the bulk domain of center node
+         */
+	const double *solnCentStart = &(soln[indexCent_EqnStart_BD]);
+    
+	
+        //
+        // update the electrolyte quantities 
+        //   calculates       temp_Curr_
+	//                    pres_Curr_
+        //                    mfElectrolyte_Thermo_Curr_[]
+	//                    phiElectrolyte_Curr_
+        //
+        updateElectrolyte(solnCentStart, &(solnDot[indexCent_EqnStart_BD]));
+	//
+	//                    phiElectrode_Curr_
+	//
+        getVoltages(solnCentStart);
+	//
+        // Electrode object will be updated and we will compute the porosity
+	//
+        Electrode* ee = Electrode_Cell_[iCell];
+	//
+	//  Set the temperature and pressure and voltages in the final_ state
+	//
+	ee->setState_TP(temp_Curr_, pres_Curr_);
+        ee->setVoltages(phiElectrode_Curr_, phiElectrolyte_Curr_);
+	//
+	//  Set the electrolyte mole fractions
+	//
+	ee->setElectrolyteMoleNumbers(&(mfElectrolyte_Thermo_Curr_[0]), false);
+	//
+	// update the internals
+	//
+	ee->updateState();
+	//
+	// 
+	//
+	if (doAll) {
+	    ee->setInitStateFromFinal(true);
+	    ee->setFinalFinalStateFromFinal();
+	}
+    }
+}
+ //=====================================================================================================================
   // Generate the initial conditions
   /*
    *   The basic algorithm is to loop over the volume domains.
@@ -2640,6 +2747,8 @@ porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ee->setVoltages( soln[indexCent_EqnStart_BD + iVar_Voltage_ED], soln[indexCent_EqnStart_BD + iVar_Voltage_BD] );
     ee->setElectrolyteMoleNumbers( &(soln[indexCent_EqnStart_BD + iVar_Species_BD ]), true );
     ee->updateState();
+    ee->setInitStateFromFinal(true);
+    ee->setFinalFinalStateFromFinal();
     
     //better estimate for initial voltage from the open circuit voltage
     soln[indexCent_EqnStart_BD + iVar_Voltage_ED] = 0.0;

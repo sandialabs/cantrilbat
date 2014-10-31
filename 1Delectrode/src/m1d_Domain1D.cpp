@@ -415,12 +415,13 @@ Domain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
  * @param soln
  * @param solnDot
  * @param t
- * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+ * @param delta_t 
+ @ @param t_old
  */
 void
 Domain1D::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, 
 			       const Epetra_Vector_Ghosted *solnDot,
-			       const double t, const double rdelta_t)
+			       const double t, const double delta_t, const double t_old)
 {
 
 }

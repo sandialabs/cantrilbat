@@ -64,6 +64,8 @@ public:
     BatteryResidEval &
     operator=(const BatteryResidEval&r);
 
+    void residSetupTmps();
+
     //! Set the underlying state of the system from the solution vector
     /*!
      *   Note this is an important routine for the speed of the solution.
@@ -79,12 +81,13 @@ public:
      * @param doTimeDependentResid
      * @param soln
      * @param solnDot
-     * @param t
-     * @param rdelta_t inverse of the delta t. If zero then delta_t equals 0.
+     * @param t                    This is not necessarily equal to t_old + delta_t, but can be anywhere between the two values
+     *                   
+     * @param delta_t If zero then delta_t equals 0.
      */
     virtual void
     setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
-                         const double t, const double rdelta_t);
+                         const double t, const double delta_t, const double t_old);
 
 
     //! Calculate the initial conditions
