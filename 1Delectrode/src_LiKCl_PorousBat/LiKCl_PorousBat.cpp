@@ -326,6 +326,7 @@ int main(int argc, char **argv)
 #endif
 
         t1.determineInitialConditions(PSinput.startTime_, delta_t);
+        ps->revertToInitialGlobalTime();
 
         Epetra_Vector_Ghosted &solnInt = t1.solnVector();
         Epetra_Vector_Ghosted &solnDot = t1.solnDotVector();
