@@ -1497,7 +1497,6 @@ porousLiIon_Anode_dom1D::calcElectrode()
     bool doInstanteous = false;
     double deltaT = t_final_ - t_init_;
     if (deltaT == 0.0) {
-        deltaT = 1.0E-8;
         doInstanteous = true;
     }
     Electrode_ptr->updateState();

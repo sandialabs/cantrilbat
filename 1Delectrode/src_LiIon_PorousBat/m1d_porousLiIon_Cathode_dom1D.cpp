@@ -1368,7 +1368,6 @@ porousLiIon_Cathode_dom1D::calcElectrode()
     int numSubcycles = 0;
     double deltaT = t_final_ - t_init_;
     if (deltaT == 0.0) {
-        deltaT = 1.0E-8;
 	doInstanteous = true;
     }
     Electrode_ptr->updateState();
