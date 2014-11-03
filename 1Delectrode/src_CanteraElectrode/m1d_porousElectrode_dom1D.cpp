@@ -8,6 +8,8 @@
 
 #include "m1d_porousElectrode_dom1D.h"
 
+#include "Electrode.h"
+
 using namespace std;
 using namespace Cantera;
 
@@ -17,6 +19,7 @@ namespace m1d
   //=====================================================================================================================
   porousElectrode_dom1D::porousElectrode_dom1D(BulkDomainDescription & bdd) :
       porousFlow_dom1D(bdd),
+      Electrode_Cell_(0),
       maxElectrodeSubIntegrationSteps_(0),
       surfaceArea_Cell_(0)
   {
@@ -24,14 +27,20 @@ namespace m1d
   }
   //=====================================================================================================================
   porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
-    porousFlow_dom1D(r.BDD_)
+      porousFlow_dom1D(r.BDD_),
+      Electrode_Cell_(0),
+      maxElectrodeSubIntegrationSteps_(0),
+      surfaceArea_Cell_(0)
   {
-    porousElectrode_dom1D::operator=(r);
+      operator=(r);
   }
   //=====================================================================================================================
   porousElectrode_dom1D::~porousElectrode_dom1D()
   {
-
+      for (size_t iCell = 0; iCell < Electrode_Cell_.size(); iCell++) {
+          delete Electrode_Cell_[iCell];
+          Electrode_Cell_[iCell] = 0;
+      }
   }
   //=====================================================================================================================
   porousElectrode_dom1D &
@@ -42,6 +51,13 @@ namespace m1d
     }
     // Call the parent assignment operator
     porousFlow_dom1D::operator=(r);
+
+    // first do a shallow pointer copy
+    Electrode_Cell_ = r.Electrode_Cell_;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        // Dupl routine  is not implemented totally
+        Electrode_Cell_[iCell] = (r.Electrode_Cell_[iCell])->duplMyselfAsElectrode();
+    }
 
     maxElectrodeSubIntegrationSteps_ = r.maxElectrodeSubIntegrationSteps_;
     surfaceArea_Cell_                = r.surfaceArea_Cell_;
@@ -69,6 +85,7 @@ namespace m1d
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
+    Electrode_Cell_.resize(NumLcCells, 0);
     surfaceArea_Cell_.resize(NumLcCells, 0.0);
   }
   //====================================================================================================================

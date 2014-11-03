@@ -483,8 +483,6 @@ protected:
   //!  Total concentration
   double concTot_Curr_;
 
-
-
   //! Current porosity
   double porosity_Curr_;
 

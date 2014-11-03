@@ -647,7 +647,7 @@ protected:
    *   it has a volume associated with it.  The volume is equal to the control volume thickness
    *   multiplied by the cross-sectional area.
    */
-  std::vector<Cantera::Electrode *> Electrode_Cell_;
+  //std::vector<Cantera::Electrode *> Electrode_Cell_;
 
   //!  Capacity discharged by the particular electrode cell per cross-sectional area
   /*!

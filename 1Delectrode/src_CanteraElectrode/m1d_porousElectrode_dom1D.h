@@ -238,6 +238,16 @@ public:
 
 protected:
 
+    //! Electrode Cell data for the anode/cathode cells
+    /*!
+     *  Length is the number of owned Cells on the processor
+     *   -> not sure what owned here means. This will have to be figured out in the future.
+     *   Note, in contrast to the other quantities in the calculation, the electrode object is extrinsic
+     *   it has a volume associated with it.  The volume is equal to the control volume thickness
+     *   multiplied by the cross-sectional area.
+     */
+    std::vector<Cantera::Electrode*> Electrode_Cell_;
+
     //! Maximum number of normal electrode subgrid integration steps taken in the last base residual
     //!  (birth and deaths of phases aren't counted)
     int maxElectrodeSubIntegrationSteps_;

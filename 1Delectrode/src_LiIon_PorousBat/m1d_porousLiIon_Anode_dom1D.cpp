@@ -40,7 +40,6 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BulkDomainDescription& bdd) :
     icurrInterfacePerSurfaceArea_Cell_(0),
     xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
-    Electrode_Cell_(0),
     capacityDischargedPA_Cell_(0),
     depthOfDischargePA_Cell_(0),
     capacityLeftPA_Cell_(0),
@@ -112,7 +111,6 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     concTot_cent_old_(0.0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
-    Electrode_Cell_(0),
     capacityDischargedPA_Cell_(0),
     depthOfDischargePA_Cell_(0),
     capacityLeftPA_Cell_(0),
@@ -168,12 +166,6 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     xdelCell_Cell_ = r.xdelCell_Cell_;
     concTot_Cell_ = r.concTot_Cell_;
     concTot_Cell_old_ = r.concTot_Cell_old_;
-
-    Electrode_Cell_ = r.Electrode_Cell_;
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
-        // need a routine like this, which is not implemented -> therefore throw an error
-        //    Electrode_Cell_[iCell] = duplFromElectrode(*(r.Electrode_Cell_[iCell]));
-    }
 
     capacityDischargedPA_Cell_ = r.capacityDischargedPA_Cell_;
     depthOfDischargePA_Cell_ = r.depthOfDischargePA_Cell_;
@@ -314,7 +306,6 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     overpotential_Surf_Cell_.resize(nSurfsElectrode_ * NumLcCells, 0.0);
     icurrRxn_Cell_.resize(NumLcCells, 0.0);
     LiFlux_Cell_.resize(NumLcCells, 0.0);
-    Electrode_Cell_.resize(NumLcCells, 0);
 
     mfElectrolyte_Soln_Cell_old_.resize(3, NumLcCells, 0.0);
 

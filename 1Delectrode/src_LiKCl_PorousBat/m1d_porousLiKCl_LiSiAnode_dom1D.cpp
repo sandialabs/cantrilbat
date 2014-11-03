@@ -51,7 +51,6 @@ namespace m1d
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     electrodeCrossSectionalArea_(1.0),
-    Electrode_Cell_(0),
     capacityDischargedPA_Cell_(0),
     depthOfDischargePA_Cell_(0),
     capacityLeftPA_Cell_(0),
@@ -106,7 +105,6 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiA
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(1.0),
-  Electrode_Cell_(0),
   capacityDischargedPA_Cell_(0),
   depthOfDischargePA_Cell_(0),
   capacityLeftPA_Cell_(0),
@@ -138,10 +136,6 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiA
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::~porousLiKCl_LiSiAnode_dom1D()
 {
-  for (int iCell = 0; iCell <NumLcCells; iCell++) {
-    delete Electrode_Cell_[iCell];
-    Electrode_Cell_[iCell] = 0;
-  }
 }
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D &
@@ -166,12 +160,6 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
   concTot_Cell_ = r.concTot_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
   electrodeCrossSectionalArea_ = r.electrodeCrossSectionalArea_;
-
-  Electrode_Cell_ = r.Electrode_Cell_;
-  for (int iCell = 0; iCell < NumLcCells; iCell++) {
-    // need a routine like this, which is not implemented -> therefore throw an error
-    //    Electrode_Cell_[iCell] = duplFromElectrode(*(r.Electrode_Cell_[iCell]));
-  }
 
   capacityDischargedPA_Cell_ = r.capacityDischargedPA_Cell_;
   depthOfDischargePA_Cell_ = r.depthOfDischargePA_Cell_;
@@ -1645,10 +1633,12 @@ porousLiKCl_LiSiAnode_dom1D::SetupThermoShop2(const doublereal * const solnElect
 
     // Calculate the time derivative of the concentration of the electrolyte
     concTotDot_Curr_ = 0.0;
+    if (solnDotElectrolyte_Curr) {
     for (int k = 0; k < 3; k++) {
       concTotDot_Curr_ += pmVolElectrolyte_Curr_[k] * mfElectrolyte_SolnDot_Curr_[k];
     }
     concTotDot_Curr_ *= (- concTot_Curr_ * concTot_Curr_);
+    }
   }
 //=====================================================================================================================
 void
@@ -1703,9 +1693,9 @@ porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_soln(const double * const solnElec
     mfElectrolyte_SolnDot_Curr_[1] = solnDotElectrolyte_Curr[indexMF + 1];
     mfElectrolyte_SolnDot_Curr_[2] = solnDotElectrolyte_Curr[indexMF + 2];
   }  else {
-    mfElectrolyte_SolnDot_Curr_[0] = 1.0E300;
-    mfElectrolyte_SolnDot_Curr_[1] = 1.0E300;
-    mfElectrolyte_SolnDot_Curr_[2] = 1.0E300;
+    mfElectrolyte_SolnDot_Curr_[0] = 0.0;
+    mfElectrolyte_SolnDot_Curr_[1] = 0.0;
+    mfElectrolyte_SolnDot_Curr_[2] = 0.0;
   }
 }
 //=====================================================================================================================
@@ -2581,7 +2571,7 @@ porousLiKCl_LiSiAnode_dom1D::setStateFromSolution(const bool doTimeDependentResi
     //bool doFinal = true; // This is always true as you can only set the final Electrode object
     //size_t  indexCent_EqnStart;
     if (doTimeDependentResid) {
-	if (delta_t > 0.0) {
+	if (delta_t >= 0.0) {
             doAll = false;
 	    if (t <= t_old) {
 		//doInit = true;
@@ -2589,7 +2579,6 @@ porousLiKCl_LiSiAnode_dom1D::setStateFromSolution(const bool doTimeDependentResi
 	}
     }
     const Epetra_Vector_Ghosted& soln = *soln_ptr;
-    const Epetra_Vector_Ghosted& solnDot = *solnDot_ptr;
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
@@ -2619,7 +2608,12 @@ porousLiKCl_LiSiAnode_dom1D::setStateFromSolution(const bool doTimeDependentResi
         //                    mfElectrolyte_Thermo_Curr_[]
 	//                    phiElectrolyte_Curr_
         //
+        if (solnDot_ptr) {
+        const Epetra_Vector_Ghosted& solnDot = *solnDot_ptr;
         updateElectrolyte(solnCentStart, &(solnDot[indexCent_EqnStart_BD]));
+        } else {
+        updateElectrolyte(solnCentStart, 0);
+        }
 	//
 	//                    phiElectrode_Curr_
 	//
