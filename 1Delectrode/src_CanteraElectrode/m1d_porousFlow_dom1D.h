@@ -128,6 +128,23 @@ public:
    */
   virtual double effResistanceLayer(double &potAnodic, double  &potCathodic, double &voltOCV, double &current);
 
+  //! Generate the initial conditions
+  /*!
+   *   The basic algorithm is to loop over the volume domains.
+   *   Then, we loop over the surface domains
+   *
+   * @param doTimeDependentResid    Boolean indicating whether we should
+   *                                formulate the time dependent residual
+   * @param soln                    Solution vector. This is the input to
+   *                                the residual calculation.
+   * @param solnDot                 Solution vector. This is the input to
+   *                                the residual calculation.
+   * @param t                       Time
+   * @param delta_t                 delta_t for the initial time step
+   */
+  virtual void
+  initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln, Epetra_Vector* solnDot,
+                    const double t, const double delta_t);
 
   // -------------------------------------------------------------------------------------------------------------------
   // -----------------------------------------   DATA   ----------------------------------------------------------------

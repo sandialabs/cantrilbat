@@ -1626,7 +1626,12 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 	size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
         size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
 	size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+	//
+	// Find the start of the solution at the current node
+	//
+	//const double *solnCentStart = &(soln[indexCent_EqnStart]);
 	//
 	// Set Vaxial to zero
 	//
@@ -1634,9 +1639,17 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
 	//
 	// Set the temperature if it is part of the solution vector
-	//
+	//	
+	temp_Curr_ = PSinput.TemperatureReference_;
         if (iVar_Temperature != npos) {
             soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
+        }
+	//
+	// Set the pressure if it is part of the solution vector
+	//
+	pres_Curr_ = PSinput.PressureReference_;
+        if (iVar_Pressure != npos) {
+            soln[indexCent_EqnStart + iVar_Pressure] = PSinput.PressureReference_;
         }
         /*
          * Get initial mole fractions from PSinput
@@ -1659,6 +1672,8 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         soln[indexCent_EqnStart + iVar_Species + iPF6m_]  = PSinput.electrolyteMoleFracs_[igPF6m];
 
         soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
+
+
     }
 }
 //=====================================================================================================================

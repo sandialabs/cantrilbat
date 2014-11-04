@@ -290,8 +290,10 @@ main(int argc, char** argv)
 
         ps->residSetupTmps();
 
+        //
+        // Apply the initial conditions to the solution vector
+        //
         ps->initialConditions(false, soln, solnDot, t_init,  delta_t, delta_t_np1);
-
 
 #ifdef DEBUG_MATRIX_STRUCTURE
         std::string snn  = "Initial Solution";

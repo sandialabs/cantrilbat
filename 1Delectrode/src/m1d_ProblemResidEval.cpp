@@ -685,6 +685,7 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
 
   // Find the restart record number. If this is greater than zero, then the user has
   // signaled that a restart file should be used
+  //
   int rrn = psInput_ptr_->restartRecordNumber_; 
   double t_read;
   double delta_t_read = delta_t;
@@ -699,6 +700,10 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
       t = t_read;
       delta_t = delta_t_read;
       delta_t_np1 = delta_t_next_read;
+      double t_nm1 = t - delta_t;
+
+      setStateFromSolution(doTimeDependentResid, soln, solnDot, t, delta_t, t_nm1);
+
   } 
 
   /*

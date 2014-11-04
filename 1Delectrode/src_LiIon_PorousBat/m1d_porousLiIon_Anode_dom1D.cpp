@@ -2831,7 +2831,9 @@ porousLiIon_Anode_dom1D::setStateFromSolution(const bool doTimeDependentResid, c
          */
         NodalVars* nodeCent = cTmps.nvCent_;
         indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-       
+	//
+	// Find the start of the solution at the current node
+	//
 	const double *solnCentStart = &(soln[indexCent_EqnStart]);
     
 	/*
@@ -2919,15 +2921,28 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
         size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
 	size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
         size_t iVar_Voltage_ED = iVar_Voltage + 1;
+	//
+	// Find the start of the solution at the current node
+	//
+	const double *solnCentStart = &(soln[indexCent_EqnStart]);
 
 
         soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
 	//
 	// Set the temperature if it is part of the solution vector
-	//
+	//	
+	temp_Curr_ = PSinput.TemperatureReference_;
         if (iVar_Temperature != npos) {
             soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
+        }
+	//
+	// Set the pressure if it is part of the solution vector
+	//
+	pres_Curr_ = PSinput.PressureReference_;
+        if (iVar_Pressure != npos) {
+            soln[indexCent_EqnStart + iVar_Pressure] = PSinput.PressureReference_;
         }
 
         /*
@@ -2952,24 +2967,51 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
 
         soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
         soln[indexCent_EqnStart + iVar_Voltage_ED] = 0.0;
+	//
+        //  Fill in phiElectroyte_Curr_ and phiElectrode_Curr_
+        //
+        getVoltages(nodeCent, solnCentStart);
+	//
+        //  fill in mfElectrolyte_Soln_Curr[]  mfElectrolyte_Thermo_Curr_[]
+        //
+        getMFElectrolyte_soln(nodeCent, solnCentStart);
+
 
         //
         // Need to update the Electrode objects with the state of the solution
         //
-
         Electrode* ee = Electrode_Cell_[iCell];
-        double solidVolCell = ee->SolidVol();
+	//
+        //  Set the temperature and pressure and voltages in the final_ state
+        //
+        ee->setState_TP(temp_Curr_, pres_Curr_);
+        ee->setVoltages(phiElectrode_Curr_, phiElectrolyte_Curr_);
+        //
+        //  Set the electrolyte mole fractions
+        //
+        ee->setElectrolyteMoleNumbers(&(mfElectrolyte_Thermo_Curr_[0]), false);
+        //
+        // update the internals
+        //
+        ee->updateState();
+        //
+        // For cases where we aren't in time dependent mode set all states
+        //
+	ee->setInitStateFromFinal(true);
+	ee->setFinalFinalStateFromFinal();  
+
+	double solidVolCell = ee->SolidVol();
         double porosity = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
 
         if (porosity <= 0.0) {
             throw m1d_Error("porousLiIon_Anode_dom1D::initialConditions() ERROR",
                             "Calculated porosity, " + fp2str(porosity) + ", is less than zero\n"
                             "           There is an error in the setup of the anode");
-        }
+        }    
+	//
         // update porosity as computed from electrode input
-        porosity_Cell_[iCell] = porosity;
-
-        
+	//
+        porosity_Cell_[iCell] = porosity;  
     }
 }
 //=====================================================================================================================

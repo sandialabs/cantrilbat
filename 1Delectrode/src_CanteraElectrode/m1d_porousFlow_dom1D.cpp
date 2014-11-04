@@ -16,6 +16,14 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_ProblemStatementCell.h"
 
+//! Global Problem input structure
+/*!
+ *   This contains the input data for the problem.
+ *   We've made it a global structure, as there is one and only one instance of the structure
+ */
+extern m1d::ProblemStatementCell PSinput;
+
+
 using namespace std;
 
 namespace m1d
@@ -321,6 +329,127 @@ porousFlow_dom1D::residSetupTmps()
 
     }
 }
+//=====================================================================================================================
+// Generate the initial conditions
+/*
+ *   The basic algorithm is to loop over the volume domains.
+ *   Then, we loop over the surface domains
+ *
+ * @param doTimeDependentResid    Boolean indicating whether we should
+ *                                formulate the time dependent residual
+ * @param soln                    Solution vector. This is the input to
+ *                                the residual calculation.
+ * @param solnDot                 Solution vector. This is the input to
+ *                                the residual calculation.
+ * @param t                       Time
+ * @param delta_t                 delta_t for the initial time step
+ *
+ */
+void
+porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
+				    Epetra_Vector* soln_ptr,
+				    Epetra_Vector* solnDot,
+				    const double t,
+				    const double delta_t)
+{
+    Epetra_Vector& soln = *soln_ptr;
+
+    int index_CentLcNode;
+    NodalVars* nodeCent = 0;
+    int indexCent_EqnStart;
+    PhaseList* pl_ptr = PSCinput_ptr->PhaseList_;
+
+    int iph = pl_ptr->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
+    if (iph < 0) {
+	throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
+			   "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
+    }
+    ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+    int nSp = tmpPhase->nSpecies();
+
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    
+        index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+        // pointer to the NodalVars object for the center node
+        nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+        // Index of the first equation in the bulk domain of center node
+        indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+
+        /*
+         * Offsets for the variable unknowns in the solution vector for the electrolyte domain
+         */
+        size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+        size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+        size_t iVar_Voltage_ED = iVar_Voltage + 1;
+        //
+        // Find the start of the solution at the current node
+        //
+        const double *solnCentStart = &(soln[indexCent_EqnStart]);
+
+        soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
+        //
+        // Set the temperature if it is part of the solution vector
+        //      
+        temp_Curr_ = PSinput.TemperatureReference_;
+        if (iVar_Temperature != npos) {
+            soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
+        }
+  //
+        // Set the pressure if it is part of the solution vector
+        //
+        pres_Curr_ = PSinput.PressureReference_;
+        if (iVar_Pressure != npos) {
+            soln[indexCent_EqnStart + iVar_Pressure] = PSinput.PressureReference_;
+        }
+
+        /*
+         * Get initial mole fractions from PSinput
+         */
+        int igECDMC  = PSinput.PhaseList_->globalSpeciesIndex("ECDMC");
+        if (igECDMC < 0) {
+            throw CanteraError("confused", "confused");
+        }
+        int igLip = PSinput.PhaseList_->globalSpeciesIndex("Li+");
+        if (igLip < 0) {
+            throw CanteraError("confused", "confused");
+        }
+        int igPF6m = PSinput.PhaseList_->globalSpeciesIndex("PF6-");
+        if (igPF6m < 0) {
+            throw CanteraError("confused", "confused");
+        }
+
+
+	//for (size_t i = 0; i < KRSpecies) 
+
+	// soln[indexCent_EqnStart + iVar_Species + iECDMC_] = PSinput.electrolyteMoleFracs_[igECDMC];
+	// soln[indexCent_EqnStart + iVar_Species + iLip_  ] = PSinput.electrolyteMoleFracs_[igLip];
+        //soln[indexCent_EqnStart + iVar_Species + iPF6m_ ] = PSinput.electrolyteMoleFracs_[igPF6m];
+        soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
+
+        //double icurr = PSinput.icurrDischargeSpecified_;
+        double volt = PSinput.CathodeVoltageSpecified_;
+        soln[indexCent_EqnStart + iVar_Voltage_ED] = volt;
+        //
+        //  Fill in phiElectroyte_Curr_ and phiElectrode_Curr_
+        //
+	// getVoltages(nodeCent, solnCentStart);
+        //
+        //  fill in mfElectrolyte_Soln_Curr[]  mfElectrolyte_Thermo_Curr_[]
+        //
+	//   getMFElectrolyte_soln(nodeCent, solnCentStart);
+        //
+       //
+        // update porosity as computed from electrode input
+        //
+	//  porosity_Cell_[iCell] = porosity;
+
+    }
+}
+
+    
 //====================================================================================================================
 // Function that gets called at end the start of every time step
 /*

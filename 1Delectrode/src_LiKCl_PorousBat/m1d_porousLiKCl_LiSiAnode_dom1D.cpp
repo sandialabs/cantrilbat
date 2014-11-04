@@ -447,7 +447,7 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
       printf("Anode porosity is %f with %g m^3 solid volume and %g m^3 electrode volume.\n",
 	     porosity, ee->SolidVol(), totalElectrodeVolume );
       if (porosity <= 0.0) {
-	throw CanteraError("porousLiKCl_LiSiAnode_dom1D::initialConditions()",
+	throw CanteraError("porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()",
 			   "Computed porosity is not positive.");
       }	
       /*
@@ -461,7 +461,7 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
        */
       porosity = PSinput.anode_input_->porosity;
       if ( porosity <= 0.0 ) {
-	throw CanteraError("porousLiKCl_LiSiAnode_dom1D::initialConditions()",
+	throw CanteraError("porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()",
 			   "Input porosity is not positive.");
       }
       if (electrodeArea <= 0.0) {
