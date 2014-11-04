@@ -13,14 +13,16 @@
 
 # the name of the executable program to be created
 PROG_NAME = LiKCl_PorousBat
+LIB_LIKCL = lib_moltenSaltBat_LiKCl.a
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
-OBJS = LiKCl_PorousBat.o  m1d_DomainLayout_LiKCl_PorousBat.o \
-        m1d_porousLiKCl_FeS2Cathode_dom1D.o \
-        m1d_porousLiKCl_LiSiAnode_dom1D.o m1d_BDT_porAnode_LiKCl.o  m1d_BDT_porCathode_LiKCl.o 
+OBJS_LIB = m1d_DomainLayout_LiKCl_PorousBat.o m1d_porousLiKCl_FeS2Cathode_dom1D.o \
+           m1d_porousLiKCl_LiSiAnode_dom1D.o m1d_BDT_porAnode_LiKCl.o  m1d_BDT_porCathode_LiKCl.o
 
-TOBJS =  $(OBJS) 
+OBJS = LiKCl_PorousBat.o  
+
+TOBJS =  $(OBJS) $(OBJS_LIB)
 
 #############################################################################
 # These links are to Cantera's install space
@@ -134,16 +136,16 @@ DEPENDS=$(TOBJS:.o=.d)
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
-all:  .depends $(PROGRAM)
+all:  .depends $(PROGRAM) $(LIB_LIKCL)
 
 $(TOBJS) $(DEPENDS): Makefile
 
 rebaseline:
 
-$(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
-            $(APPL_BASE_DEP) $(M1D_BASE_DEP)
+$(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
+            $(APPL_BASE_DEP) $(M1D_BASE_DEP) $(LIB_LIKCL)
 	$(CXX) -o $(PROGRAM) \
-		  $(OBJS) \
+		  $(OBJS) $(LIB_LIKCL) \
                   $(LCXX_FLAGS) $(LINK_OPTIONS) \
 		  $(M1D_BASE_LIB) \
 		  $(APPL_BASE_LIB) \
@@ -152,9 +154,13 @@ $(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
 		  $(TRILINOS_LIB_LINE) \
 		  $(LMPICXX_END_LIBS)
 
+$(LIB_LIKCL): $(OBJS_LIB)
+	ar rv $(LIB_LIKCL) $(OBJS_LIB)
+
 install:
 	@INSTALL@ -d @cta_bindir@
 	@INSTALL@ -c $(PROGRAM) @cta_bindir@
+	@INSTALL@ -c $(LIB_LIKCL) @cta_libdir@
 
 # depends target -> forces recalculation of dependencies
 depends:
@@ -167,7 +173,7 @@ depends:
 test:
 
 clean:
-	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends  *~
+	$(RM) $(OBJS) $(OBJS_LIB) $(LIB_LIKCL) $(LIB_LIKCL) *.o $(PROGRAM) $(DEPENDS) .depends  *~
 	(if test -d SunWS_cache ; then \
            $(RM) -rf SunWS_cache ; \
          fi )
