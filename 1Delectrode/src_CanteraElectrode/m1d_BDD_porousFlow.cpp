@@ -3,16 +3,14 @@
  */
 
 /*
- *  $Id: m1d_BDD_porousElectrode.cpp 552 2013-03-01 21:25:03Z hkmoffa $
+ *  $Id: m1d_BDD_porousFlow.cpp 552 2013-03-01 21:25:03Z hkmoffa $
  */
+
 #include "m1d_defs.h"
-#include "m1d_BDD_porousElectrode.h"
-#include "m1d_porousElectrode_dom1D.h"
+#include "m1d_BDD_porousFlow.h"
+#include "m1d_porousFlow_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h" 
-#include "Electrode_Factory.h"
-
-#include "m1d_exception.h"
 
 using namespace std;
 
@@ -20,12 +18,11 @@ namespace m1d
 {
 
 //====================================================================================================================
-BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr,
-					 std::string domainName, ELECTRODE_KEY_INPUT* &Einput, int type) :
+BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr,
+			       std::string domainName) :
   BulkDomainDescription(dl_ptr, domainName),
   ionicLiquid_(0),
-  trans_(0), 
-  Electrode_(0)
+  trans_(0)
 {
   int eqnIndex = 0;
   IsAlgebraic_NE.resize(7,0);
@@ -35,7 +32,7 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr,
    */
   int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
   if (iph < 0) {
-    throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
+    throw CanteraError("BDD_porousFlow::BDD_porousFlow()",
                        "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
   }
   ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
@@ -44,55 +41,9 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr,
   /*
    *  Create and Store a pointer to the Transport Manager
    */
-  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
+  trans_ = Cantera::newTransportMgr("simple", ionicLiquid_, 1);
 
-
-
-  /*
-   *  Use the ElectrodeModelName value as input to the electrode factory to create the electrode
-   */
-  Electrode_  = newElectrodeObject(Einput->electrodeModelName);
-  if (!Electrode_) {
-    throw  m1d_Error("BDD_porousElectrode::instantiateElectrodeCells()",
-		     "Electrode factory method failed");
-  }
-
-
-  ELECTRODE_KEY_INPUT* Einput_new = newElectrodeKeyInputObject(Einput->electrodeModelName);
-  string commandFile = Einput->commandFile_;
-  BEInput::BlockEntry* cfC = new BEInput::BlockEntry("command_file");
-  /*
-   *  Parse the complete child input file
-   */
-  int retn = Einput_new->electrode_input_child(commandFile, cfC);
-  if (retn == -1) {
-      throw  m1d_Error("BDT_porCathode_LiKCl::BDT_porCathode_LiKCl()",
-		       "Electrode input child method failed");
-  }
-  /*
-   * Switch the pointers around so that the child input file is returned.
-   * Delete the original pointer.
-   */
-  delete Einput;
-  Einput = Einput_new;
-  
-  /*
-   *   Initialize the electrode model using the input from the ELECTRODE_KEY_INPUT object
-     */
-    retn = Electrode_->electrode_model_create(Einput);
-    if (retn == -1) {
-        throw CanteraError("BDT_porCathode_LiIon::BDT_porCathode_LiIon()",
-                           "Error initializing the cathode electrode object");
-    }
-
-
-  retn = Electrode_->setInitialConditions(Einput);
-  if (retn == -1) {
-    throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
-		       "Electrode::setInitialConditions() failed");
-  }
-
-  delete cfC;
+ 
 
   /*
    *  Create a vector of Equation Names
@@ -171,24 +122,24 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr,
   // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
 }
 //=====================================================================================================================
-BDD_porousElectrode::BDD_porousElectrode(const BDD_porousElectrode &r) :
-  BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0), Electrode_(0)
+BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
+  BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0)
 {
   *this = r;
 }
 //=====================================================================================================================
-BDD_porousElectrode::~BDD_porousElectrode()
+BDD_porousFlow::~BDD_porousFlow()
 {
   /*
    * Delete objects that we own
    */
   safeDelete(ionicLiquid_);
   safeDelete(trans_);
-  safeDelete(Electrode_);
+ 
 }
 //=====================================================================================================================
-BDD_porousElectrode &
-BDD_porousElectrode::operator=(const BDD_porousElectrode &r)
+BDD_porousFlow &
+BDD_porousFlow::operator=(const BDD_porousFlow &r)
 {
   if (this == &r) {
     return *this;
@@ -201,9 +152,6 @@ BDD_porousElectrode::operator=(const BDD_porousElectrode &r)
   delete trans_;
   trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
 
-  delete Electrode_;
-  // ok this is wrong and needs to be changed
-  Electrode_ = r.Electrode_->duplMyselfAsElectrode();
 
   exit(-1);
 
@@ -216,9 +164,9 @@ BDD_porousElectrode::operator=(const BDD_porousElectrode &r)
  * @return  Returns a pointer to the object that will calculate the residual efficiently
  */
 BulkDomain1D *
-BDD_porousElectrode::mallocDomain1D()
+BDD_porousFlow::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousElectrode_dom1D(*this);
+  BulkDomainPtr_ = new porousFlow_dom1D(*this);
   return BulkDomainPtr_;
 }
 

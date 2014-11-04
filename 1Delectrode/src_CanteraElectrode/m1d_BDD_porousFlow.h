@@ -1,19 +1,12 @@
 /**
- * @file m1d_BDD_porousElectrode.h
+ * @file m1d_BDD_porousFlow.h
  */
 
-/*
- *   $Id: m1d_BDD_porousElectrode.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
-#ifndef M1D_BDD_POROUSELECTRODE_H_
-#define M1D_BDD_POROUSELECTRODE_H_
+#ifndef M1D_BDD_POROUSFLOW_H_
+#define M1D_BDD_POROUSFLOW_H_
 
 #include "m1d_BulkDomainDescription.h"
-#include "m1d_porousElectrode_dom1D.h"
-#include "m1d_CanteraElectrodeGlobals.h"
-#include "Electrode.h"
-#include "Electrode_input.h"
 
 namespace Cantera {
   class Electrode;
@@ -28,7 +21,7 @@ namespace m1d
 /*!
  * 
  */
-class BDD_porousElectrode : public BulkDomainDescription
+class BDD_porousFlow : public BulkDomainDescription
 {
 public:
 
@@ -41,25 +34,25 @@ public:
    *
    * @param dl_ptr   Pointer to the domain layout object
    */
-  BDD_porousElectrode(DomainLayout *dl_ptr, std::string domainName , ELECTRODE_KEY_INPUT* & Einput  , int type = 0);
+  BDD_porousFlow(DomainLayout *dl_ptr, std::string domainName = "");
 
   //! Destructor
   virtual
-  ~BDD_porousElectrode(); 
+  ~BDD_porousFlow(); 
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  BDD_porousElectrode(const BDD_porousElectrode &r);
+  BDD_porousFlow(const BDD_porousFlow &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  BDD_porousElectrode &
-  operator=(const BDD_porousElectrode &r);
+  BDD_porousFlow &
+  operator=(const BDD_porousFlow &r);
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
@@ -84,11 +77,6 @@ public:
    */
   Cantera::Transport* trans_;
 
-  //! Pointer to the electrode object
-  /*!
-   * We own the electrode object.
-   */
-  Cantera::Electrode *Electrode_;
 };
 //=====================================================================================================================
 }
