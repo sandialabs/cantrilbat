@@ -101,6 +101,10 @@ depends:
 .depends: $(DEPENDS)
 	cat $(DEPENDS) > .depends
 
+$(DEPENDS): Makefile
+
+$(OBJ_EPEQUIL): Makefile
+
 ##############################################################################
 BUILD_WITH_CTF2C=@build_with_f2c@
 ifeq ($(BUILD_WITH_CTF2C), 1)
