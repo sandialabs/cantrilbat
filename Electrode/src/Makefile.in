@@ -151,6 +151,7 @@ ctmlDiff: ctmlDiff.o $(UTILSRC_DEP) \
 ############################################################################
 
 $(OBJ_CTAPPLBASE): Makefile 
+$(DEPENDS): Makefile
 
 libElectrode.a: $(OBJ_CTAPPLBASE)
 	$(AR) rv libElectrode.a $(OBJ_CTAPPLBASE)
