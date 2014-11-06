@@ -122,6 +122,8 @@ DEPENDS = $(OBJ_CTAPPLBASE:.o=.d)
 
 $(OBJ_CTAPPLBASE): Makefile
 
+$(DEPENDS): Makefile
+
 libimt_model.a: $(OBJ_CTAPPLBASE)
 	$(AR) rv libimt_model.a $(OBJ_CTAPPLBASE)
 
