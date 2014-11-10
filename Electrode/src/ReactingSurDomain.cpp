@@ -670,7 +670,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //
     //  Get the reaction delta based on the mixed G and G_SS values accummulated above
     //
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
+    getReactionDelta(DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
 
     double phiRxnOrig = 0.0;
 
@@ -802,7 +802,7 @@ void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
     // Use the stoichiometric manager to find deltaG for each
     // reaction.
     //
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(m_deltaG));
+    getReactionDelta(DATA_PTR(m_mu), DATA_PTR(m_deltaG));
     if (deltaG != 0 && (DATA_PTR(m_deltaG) != deltaG)) {
 	for (size_t j = 0; j < m_ii; ++j) {
 	    deltaG[j] = m_deltaG[j];
@@ -838,7 +838,7 @@ void ReactingSurDomain::getDeltaGibbs_electrolyteSS(doublereal* deltaG_special)
       * Use the stoichiometric manager to find deltaG for each
       * reaction.
       */
-     m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), deltaG_special);
+     getReactionDelta(DATA_PTR(m_grt), deltaG_special);
 }
 //=======================================================================================================================
 
