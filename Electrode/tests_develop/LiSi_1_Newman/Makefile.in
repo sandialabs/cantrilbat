@@ -38,10 +38,10 @@ CT_INCROOT =  @ct_incroot@
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
 
-UTILSRC_DIR = @ct_prefix@/lib/util_src/
+UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-UTILSRC_INC = @ct_prefix@/include/util_src
+UTILSRC_INC = $(UTILSRC_DIR)
 
 #
 # Set up the Cantera addition library
