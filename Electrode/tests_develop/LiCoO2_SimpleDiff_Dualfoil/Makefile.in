@@ -37,7 +37,7 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 # Source tree base for cantera_apps
 #
 CT_ROOT = @ct_prefix@
-UTILSRC_DIR = ../../../util_dir/src
+UTILSRC_DIR = ../../../util_src/src
 UTILSRC_INC = $(UTILSRC_DIR)
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
@@ -45,10 +45,10 @@ UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 #
 # Set up the Cantera addition library
 #
-CTPADDS_DIR =  @cta_prefix@
-CTPADDS_INC = $(CTPADDS_DIR)/include
-CTPADDS_DEP = $(CTPADDS_DIR)/lib/libctpadds.a
-CTPADDS_LIB = -L$(CTPADDS_DIR)/lib -lctpadds
+CTPADDS_DIR =  ../../../ctpadds/src
+CTPADDS_INC = $(CTPADDS_DIR)
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
 #
 # Set up the Cantera Application Base directory
 #
