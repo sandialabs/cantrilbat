@@ -12,7 +12,14 @@ all:
 
 test:
 #	cd LiSi_1_Newman ;     (not ready yet)                      @MAKE@ -s test
+	cd LiCoO2_SimpleDiff_Dualfoil ;                             @MAKE@ -s test
 	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ -s test
+
+dist_clean:
+	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
+	cd LiCoO2_SimpleDiff_Dualfoil;                              @MAKE@ clean
+	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil;                     @MAKE@ clean
+
 
 clean:
 	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
@@ -26,6 +33,7 @@ depends:
 
 
 rebaseline:
+	cd LiCoO2_SimpleDiff_Dualfoil ;                             @MAKE@ rebaseline
 	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ rebaseline
 
 
