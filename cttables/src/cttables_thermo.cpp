@@ -80,16 +80,18 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
     dnt(1); printf("NASA Polynomial format: 2 zones\n");
     dnt(2); printf("Low  temperature polynomials: %g < T < %g: \n",
 		   minTemp, c[0]);
+    //dnt(2); printf("%12.5g %12.5g %12.5g %12.5g\n",
+    //		   c[1], c[2],  c[3],  c[4]);
     dnt(2); printf("%12.5g %12.5g %12.5g %12.5g\n",
-		   c[1], c[2],  c[3],  c[4]);
+    		   c[3], c[4],  c[5],  c[6]);
     dnt(2); printf("%12.5g %12.5g %12.5g\n",
-		   c[5], c[6], c[7] );
+		   c[7], c[1], c[2] );
     dnt(2); printf("High temperature polynomials: %g < T < %g: \n",
 		   c[0], maxTemp);
     dnt(2); printf("%16.10g %16.10g %16.10g %16.10g\n",
-		   c[8], c[9], c[10],  c[11]);
+		   c[10], c[11], c[12],  c[13]);
     dnt(2); printf("%16.10g %16.10g %16.10g\n",
-		   c[12], c[13], c[14] );
+		   c[14], c[8], c[9] );
     break;
 
   case SHOMATE2:
