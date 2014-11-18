@@ -20,6 +20,7 @@
 #include "cantera/base/ct_defs.h"
 #include "cantera/base/Array.h"
 #include "cantera/base/xml.h"
+#include "cantera/kinetics/BulkKinetics.h"
 #include "cantera/kinetics/Kinetics.h"
 #include "cantera/kinetics/StoichManager.h"
 #include "cantera/kinetics/RateCoeffMgr.h"
@@ -116,14 +117,14 @@ namespace Cantera {
     vector_fp m_logC0_vector;
   };
 
-
+//=========================================================================================================
   /**
    * Kinetics manager for elementary solid-phase chemistry. This
    * kinetics manager implements standard mass-action reaction rate
    * expressions for condensed phases. It assumes that all
    * stoichiometric coefficients are integers.
    */
-  class SolidKinetics : public Kinetics {
+  class SolidKinetics : public BulkKinetics {
 
   public:
 
@@ -134,8 +135,15 @@ namespace Cantera {
     /// Constructor.
     SolidKinetics(thermo_t* thermo);
 
+   SolidKinetics(const SolidKinetics& right);
+
+
+   SolidKinetics& operator=(const SolidKinetics& right);
+
     /// Destructor.
     virtual ~SolidKinetics();
+
+    Kinetics* duplMyselfAsKinetics(const std::vector<thermo_t*> & tpVector) const;
 
     /**
      * Return the ID number for this class
@@ -385,12 +393,7 @@ namespace Cantera {
      */
     virtual bool ready() const;
 
-    /**
-     * Update temperature-dependent portions of reaction rate
-     * coefficients.
-     */
-    virtual void update_T();
-
+ 
     /**
      * Update concentration portion of reaction rate coefficients
      */
@@ -463,6 +466,75 @@ namespace Cantera {
      * only involves the calculation of the generalized concentrations
      */         
     void _update_rates_C();
+
+  /**
+     * Save the reaction and product groups, which are
+     * part of the ReactionData class, in this class.
+     * They aren't used for anything but reaction path
+     * analysis, as far as I can figure out.
+     */
+    void installGroups(size_t irxn, const std::vector<grouplist_t>& r,
+		       const std::vector<grouplist_t>& p);
+	
+    /*
+     * Update the inverse of the equilibrium constants in molar units. 
+     * This is
+     * carried out whenever _update_T() is called as the
+     * reverse rate constants are evaluated from the equilibrium
+     * constants.
+     * The inverse of the equilibrium constant is located 
+     * internally in m_rkcn[].
+     */
+    void updateKc();
+
+    /**
+     * Creates an information map about the ith reaction.
+     * For the ith reaction,
+     * the reaction type and the iloc location in the m_rate array
+     * are saved as a pair object in the internal variable m_index.
+     */
+    void registerReaction(size_t rxnNumber, int type, int loc);
+
+ private:
+
+    /**
+     * Returns the total number of reactions in the mechanism
+     */
+    size_t reactionNumber(){ return m_ii;}
+
+    /**
+     * Add a simple Arrhenious reaction to the reaction mechanism
+     * This routine installs an entry for the reaction in the rate coefficient
+     * calculator object, m_rates.
+     * It initializes and resizes m_rfn, initializes m_fwrdOrder, and
+     * adds an entry in the information map, m_index. 
+     */
+    void addElementaryReaction(const ReactionData& r);
+        
+    /**
+     * Add the species reactants and products to the various
+     * arrays.
+     * The following arrays are initialized for the current
+     * reaction:
+     *  m_rrxn - Stoichiometric coefficients for reactants
+     *  m_prxn - Stoichiometric coefficients for products.
+     *  m_reactants - List of reactants (Kinetics Class)
+     *  m_products  - List of products  (Kinetics Class)
+     *  m_reactantStoich - Stoichiometric manager for reactants
+     *  m_revProductStoich - Stoichiometric manager for products
+     *                       of reversible reactions.
+     *  m_irrevProductStoich Stoichiometric manager for products
+     *                       of irreversible reactions.
+     *  m_dn - Vector containing the net change in moles of the
+     *         ith reaction
+     *  m_revindex - Vector containing a listing of the indecices
+     *               of all the reversible reactions.
+     *  m_irrevindex -Vector containing a listing of the indecices
+     *               of all the irreversible reactions. 
+     */
+    void installReagents(const ReactionData& r); 
+  
+  
 
   protected:
 
@@ -651,76 +723,21 @@ namespace Cantera {
 
   private:
 
-    /**
-     * Returns the total number of reactions in the mechanism
-     */
-    size_t reactionNumber(){ return m_ii;}
-
-    /**
-     * Add a simple Arrhenious reaction to the reaction mechanism
-     * This routine installs an entry for the reaction in the rate coefficient
-     * calculator object, m_rates.
-     * It initializes and resizes m_rfn, initializes m_fwrdOrder, and
-     * adds an entry in the information map, m_index. 
-     */
-    void addElementaryReaction(const ReactionData& r);
-        
-    /**
-     * Add the species reactants and products to the various
-     * arrays.
-     * The following arrays are initialized for the current
-     * reaction:
-     *  m_rrxn - Stoichiometric coefficients for reactants
-     *  m_prxn - Stoichiometric coefficients for products.
-     *  m_reactants - List of reactants (Kinetics Class)
-     *  m_products  - List of products  (Kinetics Class)
-     *  m_reactantStoich - Stoichiometric manager for reactants
-     *  m_revProductStoich - Stoichiometric manager for products
-     *                       of reversible reactions.
-     *  m_irrevProductStoich Stoichiometric manager for products
-     *                       of irreversible reactions.
-     *  m_dn - Vector containing the net change in moles of the
-     *         ith reaction
-     *  m_revindex - Vector containing a listing of the indecices
-     *               of all the reversible reactions.
-     *  m_irrevindex -Vector containing a listing of the indecices
-     *               of all the irreversible reactions. 
-     */
-    void installReagents(const ReactionData& r); 
   
-    /**
-     * Save the reaction and product groups, which are
-     * part of the ReactionData class, in this class.
-     * They aren't used for anything but reaction path
-     * analysis, as far as I can figure out.
-     */
-    void installGroups(size_t irxn, const std::vector<grouplist_t>& r,
-		       const std::vector<grouplist_t>& p);
-	
-    /*
-     * Update the inverse of the equilibrium constants in molar units. 
-     * This is
-     * carried out whenever _update_T() is called as the
-     * reverse rate constants are evaluated from the equilibrium
-     * constants.
-     * The inverse of the equilibrium constant is located 
-     * internally in m_rkcn[].
-     */
-    void updateKc();
-
-    /**
-     * Creates an information map about the ith reaction.
-     * For the ith reaction,
-     * the reaction type and the iloc location in the m_rate array
-     * are saved as a pair object in the internal variable m_index.
-     */
-    void registerReaction(size_t rxnNumber, int type, int loc);
+  
 
     /**
      * boolean indicating that the class is ready for processing of 
      * reaction rates.
      */
     bool m_finalized;
+
+    /**
+     * When the standard concentrations are constants and equal
+     * for all species, this entry will contain the log of the
+     * common standard concentration.
+     */
+    doublereal m_logC0_scalar;
   };
 }
 

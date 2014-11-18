@@ -26,6 +26,8 @@ using namespace std;
 
 namespace Cantera {
 
+
+
     /**************************************************************************
      *
      * SolidKinetics():
@@ -38,13 +40,14 @@ namespace Cantera {
      */    
     SolidKinetics::
     SolidKinetics(thermo_t* thermo_ptr) :
-        Kinetics(),
+        BulkKinetics(),
         m_kk(0),
         m_nirrev(0),
         m_nrev(0),
 	logC0AllTheSameConstant(false),
 	logC0ProdVariable(true),
-	m_finalized(false)
+	m_finalized(false),
+        m_logC0_scalar(0.0)
     {
         m_kdata = new SolidKineticsData;
 
@@ -74,16 +77,81 @@ namespace Cantera {
 	}
     }
 
-    /*************************************************************************
-     *
-     * ~SolidKinetics()
-     *
-     * Destructor for the SolidKinetics class
+
+SolidKinetics::SolidKinetics(const SolidKinetics& right) :
+        BulkKinetics(),
+        m_kk(0),
+        m_nirrev(0),
+        m_nrev(0),
+	logC0AllTheSameConstant(false),
+	logC0ProdVariable(true),
+	m_finalized(false),
+        m_logC0_scalar(0.0)
+{
+    /*
+     * Call the assignment operator
      */
-    SolidKinetics::~SolidKinetics(){
-	delete m_kdata;
+    operator=(right);
+}
+
+
+SolidKinetics& SolidKinetics::operator=(const SolidKinetics& right) 
+{
+     /*
+     * Check for self assignment.
+     */
+    if (this == &right) {
+        return *this;
     }
 
+    BulkKinetics::operator=(right);
+    
+
+    m_kk = right.m_kk;
+    m_rates = right.m_rates;
+    m_index = right.m_index;
+    m_reactantStoich = right.m_reactantStoich;
+    m_revProductStoich = right.m_revProductStoich;
+    m_irrevProductStoich = right.m_irrevProductStoich;
+    m_nirrev = right.m_nirrev;
+    m_nrev = right. m_nrev;
+    m_rgroups = right. m_rgroups;
+    m_rrxn = right.m_rrxn;
+    m_prxn = right.m_prxn;
+    m_dn = right.m_dn;
+    m_revindex = right.m_revindex;
+    m_irrevindex = m_irrevindex;
+    m_rstoich = right.m_rstoich;
+    m_pstoich = right.m_pstoich;
+    m_rxneqn = right.m_rxneqn;
+    m_kdata = right.m_kdata;
+    m_actConc = right.m_actConc;
+    m_grt = right.m_grt;
+    logC0AllTheSameConstant= right.logC0AllTheSameConstant;
+    logC0ProdVariable	 = right.logC0ProdVariable;
+    m_finalized = right.m_finalized;
+    m_logC0_scalar   = right.m_logC0_scalar;
+
+    return *this;
+}
+
+
+/*************************************************************************
+ *
+ * ~SolidKinetics()
+ *
+ * Destructor for the SolidKinetics class
+ */
+SolidKinetics::~SolidKinetics() {
+    delete m_kdata;
+}
+
+Kinetics* SolidKinetics::duplMyselfAsKinetics(const std::vector<thermo_t*> & tpVector) const
+{
+    SolidKinetics* gK = new SolidKinetics(*this);
+    gK->assignShallowPointers(tpVector);
+    return gK;
+}
     /**************************************************************************
      *
      * getFwdRatesOfProgress()
@@ -95,10 +163,12 @@ namespace Cantera {
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-    void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) { 
-	updateROP(); 
-	copy(m_kdata->m_ropf.begin(), m_kdata->m_ropf.end(), fwdROP);
-    }
+void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) { 
+    updateROP(); 
+    copy(m_kdata->m_ropf.begin(), m_kdata->m_ropf.end(), fwdROP);
+}
+
+
 
     /*************************************************************************
      *
@@ -141,25 +211,25 @@ namespace Cantera {
      * net, which must be dimensioned at least as large as the
      * total number of species.
      */
-    void SolidKinetics::
-    getNetProductionRates(doublereal* net) {
+void SolidKinetics::
+getNetProductionRates(doublereal* net) {
 	/*
 	 * We do the work here. We calculate reactions rates of progress and
 	 * store them in the vector m_kdata->m_ropnet
 	 */
-	updateROP();
+    updateROP();
 	/*
 	 * Zero out the return vector
 	 */
-	fill(net, net + m_kk, 0.0);
+    fill(net, net + m_kk, 0.0);
 	/*
 	 * Go call the stoichiometry managers to obtain the production
 	 * rates of the species.
 	 */
-	m_revProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
-	m_irrevProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
-	m_reactantStoich.decrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
-    }
+    m_revProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
+    m_irrevProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
+    m_reactantStoich.decrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
+}
 
     /**************************************************************************
      *
@@ -201,17 +271,6 @@ namespace Cantera {
 	m_reactantStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropf), ddot);
     }
 
-    /************************************************************************
-     *
-     * update_T():
-     *
-     * Update temperature-dependent portions of reaction rates and
-     * falloff functions.
-     */
-    void SolidKinetics::
-    update_T() {
-	_update_rates_T();
-    }
 
     /************************************************************************
      *
@@ -239,46 +298,47 @@ namespace Cantera {
 	    < m_revindex.end()) return true;
 	else return false;
     }
-
-    /**********************************************************************
-     *
-     * _update_rates_T():
-     *
-     * Update the temperature dependent portions of the rate constants
-     * Objects which are updated:
-     *  m_rates - the rate constants. 
-     *  m_kdata->m_rkc[] Inverse of the equilibrium constants
+//===============================================================================================
+/**********************************************************************
+ *
+ * _update_rates_T():
+ *
+ * Update the temperature dependent portions of the rate constants
+ * Objects which are updated:
+ *  m_rates - the rate constants. 
+ *  m_kdata->m_rkc[] Inverse of the equilibrium constants
+ */
+void SolidKinetics::
+_update_rates_T() {
+    doublereal T = thermo().temperature();
+    /*
+     * Calculate logC0 if all the same.
      */
-    void SolidKinetics::
-    _update_rates_T() {
-        doublereal T = thermo().temperature();
-	/*
-	 * Calculate logC0 if all the same.
-	 */
-	if (logC0AllTheSameConstant) {
-	  m_kdata->m_logC0_scalar = log(thermo().standardConcentration(0));
-	}
-
-	doublereal logT = log(T);
-	/**
-	 * Update the forward rate constants. We only update those
-	 * rate constants which have a temperature dependence in 
-	 * this step.
-	 */
-	m_rates.update(T, logT, DATA_PTR(m_kdata->m_rfn));
-	/**
-	 * Store the temperature at which the rate constants were
-	 * last evaluated.
-	 */
-	m_kdata->m_temp = T;
-	/*
-	 * Update the equilibrium constants for reversible reactions
-	 * only
-	 */
-	updateKc();
-	m_kdata->m_ROP_ok = false;
-    };
-
+    if (logC0AllTheSameConstant) {
+	m_logC0_scalar = log(thermo().standardConcentration(0));
+    }
+    
+    doublereal logT = log(T);
+    /**
+     * Update the forward rate constants. We only update those
+     * rate constants which have a temperature dependence in 
+     * this step.
+     */
+    // m_rates.update(T, logT, DATA_PTR(m_kdata->m_rfn));
+    m_rates.update(T, logT, &m_rfn[0]);
+    /*
+     * Store the temperature at which the rate constants were
+     * last evaluated.
+     */
+    m_temp = T;
+    /*
+     * Update the equilibrium constants for reversible reactions only
+     */
+    updateKc();
+    
+    m_ROP_ok = false;
+};
+//================================================================================
     /***********************************************************************
      *
      * _update_rates_C():
