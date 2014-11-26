@@ -128,12 +128,13 @@ namespace Cantera {
 
   public:
 
+   SolidKinetics();
     /**
      * @name Constructors and General Information about Mechanism
      */
     //@{
     /// Constructor.
-    SolidKinetics(thermo_t* thermo);
+   SolidKinetics(thermo_t* thermo);
 
    SolidKinetics(const SolidKinetics& right);
 
@@ -298,25 +299,27 @@ namespace Cantera {
      *  Return the reactant stoichiometric coefficient for the
      *  kth species in the ith reaction
      */
-    virtual doublereal reactantStoichCoeff(size_t k, size_t i) const {
-      return m_rrxn[k][i];
-    }
+    //virtual doublereal reactantStoichCoeff(size_t k, size_t i) const {
+     // return getValue(m_rrxn[k], i, 0.0);
+
+      //return Kinetics::m_rrxn[k][i];
+   // }
 
     /**
      *  Return the product stoichiometric coefficient for the
      *  kth species in the ith reaction
      */
-    virtual doublereal productStoichCoeff(size_t k, size_t i) const {
-      return m_prxn[k][i];
-    }
+   // virtual doublereal productStoichCoeff(size_t k, size_t i) const {
+   //   return m_prxn[k][i];
+   // }
 
     /**
      *  Return the net stoichiometric coefficient for the
      *  kth species in the ith reaction
      */
-    virtual doublereal netStoichCoeff(size_t k, size_t i) const {
-      return (m_prxn[k][i] - m_rrxn[k][i]);
-    }
+    //virtual doublereal netStoichCoeff(size_t k, size_t i) const {
+     // return (m_prxn[k][i] - m_rrxn[k][i]);
+    //}
 
     /**
      * Return the forward rate constants
@@ -598,7 +601,7 @@ namespace Cantera {
      * Map containing reaction path information for
      * each reaction's reactants
      */
-    std::map<size_t, std::vector<grouplist_t> >      m_rgroups;
+    std::map<size_t, std::vector<grouplist_t> > m_rgroups;
 
     /**
      * Map containing reaction path information for
@@ -621,7 +624,7 @@ namespace Cantera {
      *  species k in reaction i has a reactant stoichiometric
      *  coefficient of ns.
      */
-    mutable std::vector<std::map<size_t, doublereal> >     m_rrxn;
+    //mutable std::vector<std::map<size_t, doublereal> > m_rrxn;
 
     /**
      * This vector of maps contains the stoichiometric
@@ -638,7 +641,7 @@ namespace Cantera {
      *  species k in reaction i has a product stoichiometric
      *  coefficient of ns.
      */
-    mutable std::vector<std::map<size_t, doublereal> >     m_prxn;
+    //mutable std::vector<std::map<size_t, doublereal> >     m_prxn;
 
     /*
      * Vector of length m_ii, containing the net change in
