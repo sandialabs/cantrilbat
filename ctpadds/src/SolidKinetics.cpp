@@ -25,57 +25,69 @@
 using namespace std;
 
 namespace Cantera {
+//===========================================================================================================
+SolidKinetics::SolidKinetics() :
+    BulkKinetics(),
+    m_kk(0),
+    m_nirrev(0),
+    m_nrev(0),
+    m_kdata(0),
+    logC0AllTheSameConstant(false),
+    logC0ProdVariable(true),
+    m_finalized(false),
+    m_logC0_scalar(0.0)
+{
+    m_kdata = new SolidKineticsData;  
+}
+//=========================================================================================================
+/*
+ *
+ * SolidKinetics():
+ *
+ * Constructor for SolidKinetics, starts with an empty reaction mechanism.
+ * However, the thermo parameter is required. It makes no sense to 
+ * construct
+ * a reaction mechanism for a phase that doesn't have a ThermoPhase object
+ * associated with it.
+ */    
+SolidKinetics::
+SolidKinetics(thermo_t* thermo_ptr) :
+    BulkKinetics(),
+    m_kk(0),
+    m_nirrev(0),
+    m_nrev(0),
+    logC0AllTheSameConstant(false),
+    logC0ProdVariable(true),
+    m_finalized(false),
+    m_logC0_scalar(0.0)
+{
+    m_kdata = new SolidKineticsData;
 
-
-
-    /**************************************************************************
-     *
-     * SolidKinetics():
-     *
-     * Constructor for SolidKinetics, starts with an empty reaction mechanism.
-     * However, the thermo parameter is required. It makes no sense to 
-     * construct
-     * a reaction mechanism for a phase that doesn't have a ThermoPhase object
-     * associated with it.
-     */    
-    SolidKinetics::
-    SolidKinetics(thermo_t* thermo_ptr) :
-        BulkKinetics(),
-        m_kk(0),
-        m_nirrev(0),
-        m_nrev(0),
-	logC0AllTheSameConstant(false),
-	logC0ProdVariable(true),
-	m_finalized(false),
-        m_logC0_scalar(0.0)
-    {
-        m_kdata = new SolidKineticsData;
-
-	if (!thermo_ptr) {
-	  throw CanteraError("SolidKinetics Constructor",
-			     "Must supply a valid ThermoPhase object");
-	}
-	/*
-	 * Add the phase to the phase list kept in the Kinetics object.
-	 */
-	addPhase(*thermo_ptr);
-	/**
-	 * query ThermoPhase object for the equation of state type.
-	 * Fill in the flags logC0ProdVariable and   logC0AllTheSameConstant 
-	 * based on its value.
-	 */
-	int eosFlag = thermo().eosType();
-	switch (eosFlag) {
-	case cIdealSolidSolnPhase0:
-	    logC0ProdVariable = false;
-	    break;
-	case cIdealSolidSolnPhase1:
-	case cIdealSolidSolnPhase2:
-	    logC0ProdVariable = false;
-	    logC0AllTheSameConstant = true;
-	    break;
-	}
+    if (!thermo_ptr) {
+	throw CanteraError("SolidKinetics Constructor",
+			   "Must supply a valid ThermoPhase object");
     }
+    /*
+     * Add the phase to the phase list kept in the Kinetics object.
+     */
+    addPhase(*thermo_ptr);
+    /**
+     * query ThermoPhase object for the equation of state type.
+     * Fill in the flags logC0ProdVariable and   logC0AllTheSameConstant 
+     * based on its value.
+     */
+    int eosFlag = thermo().eosType();
+    switch (eosFlag) {
+    case cIdealSolidSolnPhase0:
+	logC0ProdVariable = false;
+	break;
+    case cIdealSolidSolnPhase1:
+    case cIdealSolidSolnPhase2:
+	logC0ProdVariable = false;
+	logC0AllTheSameConstant = true;
+	break;
+    }
+}
 
 
 SolidKinetics::SolidKinetics(const SolidKinetics& right) :
@@ -116,7 +128,7 @@ SolidKinetics& SolidKinetics::operator=(const SolidKinetics& right)
     m_nirrev = right.m_nirrev;
     m_nrev = right. m_nrev;
     m_rgroups = right. m_rgroups;
-    m_rrxn = right.m_rrxn;
+    //m_rrxn = right.m_rrxn;
     m_prxn = right.m_prxn;
     m_dn = right.m_dn;
     m_revindex = right.m_revindex;
@@ -841,53 +853,61 @@ _update_rates_T() {
      * Calls to this routine must be made after the call to init()
      * and before the call to finalize.
      */
-    void SolidKinetics::
-    addReaction(ReactionData& r) {
-	/*
-	 * Check m_finalized
-	 */
-	if (m_finalized) {
-	  throw CanteraError("addReaction():", 
-			     "Mechanism already finalized");
-	}
-	
-	/*
-	 * Check to see that the elements are balanced in the reaction
-	 */
-	checkRxnElementBalance(*this, r);
+//============================================================================================
+void SolidKinetics::
+addReaction(ReactionData& r) {
 
-	/*
-	 * Install the rate coefficient for the current reaction
-	 * in the appropriate data structure.
-	 */
-        if (r.reactionType == ELEMENTARY_RXN) {
-	  addElementaryReaction(r);
-        } else {
-	  throw CanteraError("addReaction", "Unknown reaction type");
-	}
-	/*
-	 * Add the reactants and products for  m_ropnet;the current reaction
-	 * to the various stoichiometric coefficient arrays.
-	 */
-        installReagents(r);
-	/* 
-	 * Save the reaction and product groups, which are
-	 * part of the ReactionData class, in this class.
-	 * They aren't used for anything but reaction path
-	 * analysis.
-	 */
-        installGroups(reactionNumber(), r.rgroups, r.pgroups);
-	/*
-	 * Increase the internal number of reactions, m_ii, by one.
-	 * increase the size of m_perturb by one as well.
-	 */
-        incrementRxnCount();
-	/*
-	 * Store the string expression for the current reaction in
-	 * the vector of strings.
-	 */
-        m_rxneqn.push_back(r.equation);
+    if (r.reactionType == ELEMENTARY_RXN) {
+        addElementaryReaction(r);
     }
+
+    BulkKinetics::addReaction(r);
+
+    /*
+     * Check m_finalized
+     */
+    if (m_finalized) {
+	throw CanteraError("addReaction():", 
+			   "Mechanism already finalized");
+    }
+	
+    /*
+     * Check to see that the elements are balanced in the reaction
+     */
+    checkRxnElementBalance(*this, r);
+
+    /*
+     * Install the rate coefficient for the current reaction
+     * in the appropriate data structure.
+     */
+    if (r.reactionType == ELEMENTARY_RXN) {
+	addElementaryReaction(r);
+    } else {
+	throw CanteraError("addReaction", "Unknown reaction type");
+    }
+    /*
+     * Add the reactants and products for  m_ropnet;the current reaction
+     * to the various stoichiometric coefficient arrays.
+     */
+    installReagents(r);
+    /* 
+     * Save the reaction and product groups, which are
+     * part of the ReactionData class, in this class.
+     * They aren't used for anything but reaction path
+     * analysis.
+     */
+    installGroups(reactionNumber(), r.rgroups, r.pgroups);
+    /*
+     * Increase the internal number of reactions, m_ii, by one.
+     * increase the size of m_perturb by one as well.
+     */
+    incrementRxnCount();
+    /*
+     * Store the string expression for the current reaction in
+     * the vector of strings.
+     */
+    m_rxneqn.push_back(r.equation);
+}
 
     /***********************************************************************
      *
@@ -1130,13 +1150,14 @@ _update_rates_T() {
      * of species in the phase.
      */
     void SolidKinetics::init() { 
+        BulkKinetics::init();
         m_kk = thermo().nSpecies();
 	if (m_kk <= 0) {
 	  throw CanteraError("SolidKinetics::init",
 			     "m_kk is zero or less");
 	}
-        m_rrxn.resize(m_kk);
-        m_prxn.resize(m_kk);
+        //m_rrxn.resize(m_kk);
+        //m_prxn.resize(m_kk);
         m_actConc.resize(m_kk);
         m_grt.resize(m_kk);
 	m_kdata->m_logC0_vector.resize(m_kk);
