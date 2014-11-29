@@ -28,7 +28,6 @@ namespace Cantera {
 //===========================================================================================================
 SolidKinetics::SolidKinetics() :
     BulkKinetics(),
-    m_kk(0),
     m_nirrev(0),
     m_nrev(0),
     m_kdata(0),
@@ -53,7 +52,6 @@ SolidKinetics::SolidKinetics() :
 SolidKinetics::
 SolidKinetics(thermo_t* thermo_ptr) :
     BulkKinetics(),
-    m_kk(0),
     m_nirrev(0),
     m_nrev(0),
     logC0AllTheSameConstant(false),
@@ -79,9 +77,13 @@ SolidKinetics(thermo_t* thermo_ptr) :
     int eosFlag = thermo().eosType();
     switch (eosFlag) {
     case cIdealSolidSolnPhase0:
+	logC0AllTheSameConstant = true;
 	logC0ProdVariable = false;
 	break;
     case cIdealSolidSolnPhase1:
+	logC0ProdVariable = true;
+	logC0AllTheSameConstant = false;
+	break;
     case cIdealSolidSolnPhase2:
 	logC0ProdVariable = false;
 	logC0AllTheSameConstant = true;
@@ -89,10 +91,9 @@ SolidKinetics(thermo_t* thermo_ptr) :
     }
 }
 
-
+//====================================================================================================
 SolidKinetics::SolidKinetics(const SolidKinetics& right) :
         BulkKinetics(),
-        m_kk(0),
         m_nirrev(0),
         m_nrev(0),
 	logC0AllTheSameConstant(false),
@@ -119,20 +120,20 @@ SolidKinetics& SolidKinetics::operator=(const SolidKinetics& right)
     BulkKinetics::operator=(right);
     
 
-    m_kk = right.m_kk;
-    m_rates = right.m_rates;
-    m_index = right.m_index;
-    m_reactantStoich = right.m_reactantStoich;
-    m_revProductStoich = right.m_revProductStoich;
-    m_irrevProductStoich = right.m_irrevProductStoich;
+    //m_kk = right.m_kk;
+    //  m_rates = right.m_rates;
+    //m_index = right.m_index;
+    // m_reactantStoich = right.m_reactantStoich;
+    // m_revProductStoich = right.m_revProductStoich;
+    // m_irrevProductStoich = right.m_irrevProductStoich;
     m_nirrev = right.m_nirrev;
     m_nrev = right. m_nrev;
-    m_rgroups = right. m_rgroups;
+    // m_rgroups = right. m_rgroups;
     //m_rrxn = right.m_rrxn;
     m_prxn = right.m_prxn;
     m_dn = right.m_dn;
-    m_revindex = right.m_revindex;
-    m_irrevindex = m_irrevindex;
+    // m_revindex = right.m_revindex;
+    // m_irrevindex = m_irrevindex;
     m_rstoich = right.m_rstoich;
     m_pstoich = right.m_pstoich;
     m_rxneqn = right.m_rxneqn;
@@ -141,6 +142,8 @@ SolidKinetics& SolidKinetics::operator=(const SolidKinetics& right)
     m_grt = right.m_grt;
     logC0AllTheSameConstant= right.logC0AllTheSameConstant;
     logC0ProdVariable	 = right.logC0ProdVariable;
+    m_logProdC0        = right.m_logProdC0;
+    m_logC0_vector = right.m_logC0_vector;
     m_finalized = right.m_finalized;
     m_logC0_scalar   = right.m_logC0_scalar;
 
@@ -177,7 +180,7 @@ Kinetics* SolidKinetics::duplMyselfAsKinetics(const std::vector<thermo_t*> & tpV
      */
 void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) { 
     updateROP(); 
-    copy(m_kdata->m_ropf.begin(), m_kdata->m_ropf.end(), fwdROP);
+    copy(m_ropf.begin(), m_ropf.end(), fwdROP);
 }
 
 
@@ -193,10 +196,10 @@ void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) {
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-    void SolidKinetics::getRevRatesOfProgress(doublereal* revROP) { 
-	updateROP(); 
-	copy(m_kdata->m_ropr.begin(), m_kdata->m_ropr.end(), revROP);
-    }
+void SolidKinetics::getRevRatesOfProgress(doublereal* revROP) { 
+    updateROP(); 
+    copy(m_ropr.begin(), m_ropr.end(), revROP);
+}
 
    /***************************************************************************
      *
@@ -209,10 +212,10 @@ void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) {
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-    void SolidKinetics::getNetRatesOfProgress(doublereal* netROP) { 
-	updateROP(); 
-	copy(m_kdata->m_ropnet.begin(), m_kdata->m_ropnet.end(), netROP);
-    }
+void SolidKinetics::getNetRatesOfProgress(doublereal* netROP) { 
+    updateROP(); 
+    copy(m_ropnet.begin(), m_ropnet.end(), netROP);
+}
 
     /***************************************************************************
      *
@@ -238,9 +241,9 @@ getNetProductionRates(doublereal* net) {
 	 * Go call the stoichiometry managers to obtain the production
 	 * rates of the species.
 	 */
-    m_revProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
-    m_irrevProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
-    m_reactantStoich.decrementSpecies(DATA_PTR(m_kdata->m_ropnet), net);
+    m_revProductStoich.incrementSpecies(DATA_PTR(m_ropnet), net);
+    m_irrevProductStoich.incrementSpecies(DATA_PTR(m_ropnet), net);
+    m_reactantStoich.decrementSpecies(DATA_PTR(m_ropnet), net);
 }
 
     /**************************************************************************
@@ -258,8 +261,8 @@ getNetProductionRates(doublereal* net) {
 	 */
 	updateROP();
 	fill(cdot, cdot + m_kk, 0.0);
-	m_revProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropf), cdot);
-	m_irrevProductStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropf), cdot);
+	m_revProductStoich.incrementSpecies(DATA_PTR(m_ropf), cdot);
+	m_irrevProductStoich.incrementSpecies(DATA_PTR(m_ropf), cdot);
     }
 
     /*************************************************************************
@@ -280,7 +283,7 @@ getNetProductionRates(doublereal* net) {
 	 * zero the matrix
 	 */
 	fill(ddot, ddot + m_kk, 0.0);
-	m_reactantStoich.incrementSpecies(DATA_PTR(m_kdata->m_ropf), ddot);
+	m_reactantStoich.incrementSpecies(DATA_PTR(m_ropf), ddot);
     }
 
 
@@ -361,7 +364,7 @@ _update_rates_T() {
     void SolidKinetics::
     _update_rates_C() {
         thermo().getActivityConcentrations(DATA_PTR(m_actConc));
-        m_kdata->m_ROP_ok = false;
+        m_ROP_ok = false;
     }
 
     /*********************************************************************
@@ -391,20 +394,20 @@ _update_rates_T() {
 	 * First, zero out m_rkc[]. Then fill it in for each reaction
 	 * whether reversible or not.
 	 */
-	vector_fp& m_rkc = m_kdata->m_rkcn;
+	vector_fp& m_rkc = m_rkcn;
 	fill(m_rkc.begin(), m_rkc.end(), 0.0);
-        m_reactantStoich.decrementReactions(DATA_PTR(m_grt), DATA_PTR(m_rkc)); 
+        m_reactantStoich.decrementReactions(DATA_PTR(m_grt), DATA_PTR(m_rkc));
         m_revProductStoich.incrementReactions(DATA_PTR(m_grt),DATA_PTR(m_rkc));
 	
 	/*
 	 * If required, recalculate the log of the products of the
 	 * standard concentrations.
 	 */
-	vector_fp& logProdC0 = m_kdata->m_logProdC0;
+	vector_fp& logProdC0 = m_logProdC0;
 	if (logC0ProdVariable) {
-	  vector_fp& logC0_vector = m_kdata->m_logC0_vector;
+	    vector_fp& logC0_vector = m_logC0_vector;
 	  for (size_t i = 0; i < m_kk; ++i) {
-	    logC0_vector[i] = thermo().logStandardConc(i);
+	    m_logC0_vector[i] = thermo().logStandardConc(i);
 	  }
 	  fill(logProdC0.begin(), logProdC0.end(), 0.0);
 	  m_reactantStoich.decrementReactions(DATA_PTR(logC0_vector), 
@@ -419,7 +422,7 @@ _update_rates_T() {
 	 * constant for all species or not.
 	 */
 	if (logC0AllTheSameConstant) {
-	  doublereal logc0 = m_kdata->m_logC0_scalar;
+	  doublereal logc0 = m_logC0_scalar;
 	  for (i = 0; i < m_nrev; i++) {
             irxn = m_revindex[i];
             m_rkc[irxn] = exp(m_rkc[irxn]*rrt - m_dn[irxn]*logc0);
@@ -435,7 +438,7 @@ _update_rates_T() {
 	 * Zero out the equilibrium constant for irreversible reactions.
 	 */
         for(i = 0; i != m_nirrev; ++i) {
-            m_rkc[ m_irrevindex[i] ] = 0.0;
+            m_rkc[ m_irrev[i] ] = 0.0;
         }
     }
 
@@ -468,7 +471,7 @@ _update_rates_T() {
 	 * First, zero out m_rkc[]. Then fill it in for each reaction
 	 * whether reversible or not.
 	 */
-	vector_fp& rkc = m_kdata->m_rkcn;
+	vector_fp& rkc = m_rkcn;
         fill(rkc.begin(), rkc.end(), 0.0);
         m_reactantStoich.decrementReactions(DATA_PTR(m_grt), DATA_PTR(rkc)); 
         m_revProductStoich.incrementReactions(DATA_PTR(m_grt),DATA_PTR(rkc));
@@ -478,9 +481,9 @@ _update_rates_T() {
 	 * If required, recalculate the log of the products of the
 	 * standard concentrations.
 	 */
-	vector_fp& logProdC0 = m_kdata->m_logProdC0;
+	vector_fp& logProdC0 = m_logProdC0;
 	if (logC0ProdVariable) {
-	  vector_fp& logC0_vector = m_kdata->m_logC0_vector;
+	  vector_fp& logC0_vector = m_logC0_vector;
 	  for (size_t i = 0; i < m_kk; ++i) {
 	    logC0_vector[i] = thermo().logStandardConc(i);
 	  }
@@ -499,7 +502,7 @@ _update_rates_T() {
 	 */
 	doublereal rrt = 1.0/(GasConstant * thermo().temperature());
 	if (logC0AllTheSameConstant) {
-	  doublereal logC0 = m_kdata->m_logC0_scalar;
+	  const doublereal logC0 = m_logC0_scalar;
 	  for (size_t i = 0; i < m_ii; i++) {
             kc[i] = exp(- rkc[i]*rrt + m_dn[i]*logC0);
 	  }
@@ -724,7 +727,7 @@ _update_rates_T() {
      * This key routine makes sure that the rate of progress vectors
      * located in the solid kinetics data class are up to date.
      */
-    void SolidKinetics::updateROP() {
+void SolidKinetics::updateROP() {
 
         _update_rates_T();
         _update_rates_C();
@@ -735,14 +738,14 @@ _update_rates_T() {
 	 * check to see if the temperature and concentrations have
 	 * changed. 
 	 */
-        if (m_kdata->m_ROP_ok) return;
+        if (m_ROP_ok) return;
 
         /*
 	 * copy the forward rate coefficients, m_rfn, into forward
 	 * rate of progress vector, ropf, to start the process.
 	 */
-	const vector_fp& rf = m_kdata->m_rfn;
-	vector_fp& ropf = m_kdata->m_ropf;
+	const vector_fp& rf = m_rfn;
+	vector_fp& ropf = m_ropf;
         copy(rf.begin(), rf.end(), ropf.begin());
 
 	/*
@@ -755,13 +758,13 @@ _update_rates_T() {
 	 * Copy the forward rate coefficients to the reverse rate of
 	 * progress vector, ropr
 	 */ 
-	vector_fp& ropr = m_kdata->m_ropr;
+	vector_fp& ropr = m_ropr;
         copy(ropf.begin(), ropf.end(), ropr.begin());
         
         // for reverse rates computed from thermochemistry, multiply
         // the forward rates copied into m_ropr by the reciprocals of
         // the equilibrium constants
-	const vector_fp& m_rkc = m_kdata->m_rkcn;
+	const vector_fp& m_rkc = m_rkcn;
         multiply_each(ropr.begin(), ropr.end(), m_rkc.begin());
 
         /*
@@ -778,7 +781,7 @@ _update_rates_T() {
 	 * Calculate the net rate of progress for a reaction from the
 	 * difference of the forward and the reverse.
 	 */
-	vector_fp& ropnet = m_kdata->m_ropnet;
+	vector_fp& ropnet = m_ropnet;
 	//printf("Size of ropnet = %d\n", ropnet.size());
 	//printf("Size of ropf = %d\n", ropf.size());
 	//printf("Size of ropr = %d\n", ropr.size());
@@ -791,7 +794,7 @@ _update_rates_T() {
 	/*
 	 * signal that the ROP's are up to date
 	 */
-        m_kdata->m_ROP_ok = true;
+        m_ROP_ok = true;
     }
 
     /*********************************************************************
@@ -806,7 +809,7 @@ _update_rates_T() {
     getFwdRateConstants(doublereal *kfwd) {
         _update_rates_T();
 	_update_rates_C();
-	const vector_fp& rf = m_kdata->m_rfn;
+	const vector_fp& rf = m_rfn;
 	for (size_t i = 0; i < m_ii; i++) {
 	  kfwd[i] = rf[i] * m_perturb[i];
 	}
@@ -827,9 +830,9 @@ _update_rates_T() {
     getRevRateConstants(doublereal *krev, bool doIrreversible) {
 	_update_rates_T();
 	_update_rates_C();
-	const vector_fp& rf = m_kdata->m_rfn;
+	const vector_fp& rf = m_rfn;
 	if (doIrreversible) {
-	  doublereal *tmpKc = DATA_PTR(m_kdata->m_ropnet);
+	  doublereal *tmpKc = DATA_PTR(m_ropnet);
 	  getEquilibriumConstants(tmpKc);
 	  for (size_t i = 0; i < m_ii; i++) {
 	    krev[i] = rf[i] * m_perturb[i] / tmpKc[i];
@@ -838,7 +841,7 @@ _update_rates_T() {
 	  /*
 	   * m_rkc[] is zero for irreversibly reactions
 	   */
-	  const vector_fp& m_rkc = m_kdata->m_rkcn;
+	  const vector_fp& m_rkc = m_rkcn;
 	  for (size_t i = 0; i < m_ii; i++) {
 	    krev[i] = rf[i] * m_perturb[i] * m_rkc[i];
 	  }
@@ -856,9 +859,12 @@ _update_rates_T() {
 //============================================================================================
 void SolidKinetics::
 addReaction(ReactionData& r) {
-
+    //int n, m;
+    // double ns;
     if (r.reactionType == ELEMENTARY_RXN) {
         addElementaryReaction(r);
+    } else {
+	throw CanteraError("addReaction", "Unknown reaction type");
     }
 
     BulkKinetics::addReaction(r);
@@ -876,37 +882,142 @@ addReaction(ReactionData& r) {
      */
     checkRxnElementBalance(*this, r);
 
-    /*
-     * Install the rate coefficient for the current reaction
-     * in the appropriate data structure.
-     */
-    if (r.reactionType == ELEMENTARY_RXN) {
-	addElementaryReaction(r);
-    } else {
-	throw CanteraError("addReaction", "Unknown reaction type");
-    }
+  
     /*
      * Add the reactants and products for  m_ropnet;the current reaction
      * to the various stoichiometric coefficient arrays.
      */
-    installReagents(r);
+    // installReagents(r);
+    m_kdata->m_ropf.push_back(0.0);
+    m_kdata->m_ropr.push_back(0.0);
+    m_kdata->m_ropnet.push_back(0.0);
+    m_kdata->m_rkcn.push_back(0.0);
+
+    m_logProdC0.push_back(0.0);
+    /*
+     * Go get the total number of reactions in the mechanism
+     * added to date (m_ii)
+     */
+    //int rnum = nReactions();
+
+    /*
+     * FIRST, WE WILL TAKE CARE OF STORAGE FOR THE REACTANTS
+     */
+    /*
+     * rk will be used as input to the stoichiometric
+     * manager
+     */
+    vector<size_t> rk;
+    /*
+     * look up the number of reactants in the reaction, nr.
+     * and then loop over them
+     */
+    // int nr = r.reactants.size();
+    //  for (n = 0; n < nr; n++) {
+	/*
+	 * Look up the stoichiometric coefficient for the
+	 * species in the current reaction
+	 */
+//	ns = r.rstoich[n];
+	/*
+	 * Add the current species to the stoichiometric
+	 * coefficient reactants. (Q: m_rrxn the right size?)
+	 */
+//	if (ns != 0.0) m_rrxn[r.reactants[n]][rnum] += ns;
+	/*
+	 * Create a number integer vector entries equal to the
+	 * stoichiometric coefficient for the current reactant
+	 */
+//	for (m = 0; m < ns; m++) {
+    //rk.push_back(r.reactants[n]);
+    //}
+    //}
+    /*
+     * Add an entry for m_reactants, which is a member
+     * of the Kinetics class.
+     */
+    // m_reactants.push_back(rk);
+    /*
+     * Add an entry for the reactants into the stoichiometric
+     * manager.
+     */
+    // m_reactantStoich.add((size_t) nReactions(), rk);
+    
+    /*
+     * NEXT, WE WILL TAKE CARE OF STORAGE FOR THE PRODUCTS
+     */
+    // std::vector<size_t> pk;
+    /*
+     * look up the number of products in the reaction, np.
+     * and then loop over them
+     */	
+    // int np = r.products.size();
+    // for (n = 0; n < np; n++) {
+	/*
+	 * Look up the stoichiometric coefficient for the
+	 * current species product in the current reaction
+	 */
+//	ns = r.pstoich[n];
+	/*
+	 * Add the current species to the stoichiometric
+	 * coefficient products. (Q: m_prxn the right size?)
+	 */
+//	if (ns != 0) m_prxn[r.products[n]][rnum] += ns;
+	/*
+	 * Create a number of integer vector entries equal to the
+	 * stoichiometric coefficient for the current product
+	 */
+//	for (m = 0; m < ns; m++) {
+    // pk.push_back(r.products[n]);
+//	}
+    // }
+    /*
+     * Add an entry for m_reactants, which is a member
+     * of the Kinetics class.
+     */
+    //  m_products.push_back(pk);
+    
+    /*
+     * m_dn - fill in the entry for the net change of moles
+     *        due to this reaction. 
+     */
+    // m_dn.push_back(pk.size() - rk.size());
+    
+    /*
+     * Branch on whether this reaction is reversible
+     * -> fill in entries in the stoichiometric manager
+     *    and in the listing of reversable and irreversible
+     *    reactions.
+     */
+    
+    if (r.reversible) {
+//	m_revProductStoich.add(m_ii, pk);
+//	m_revindex.push_back(m_ii);
+	m_nrev++;
+    }
+    else {
+//	m_irrevProductStoich.add(m_ii, pk);          
+//	m_irrevindex.push_back(m_ii );
+	m_nirrev++;
+    }        
+    
     /* 
      * Save the reaction and product groups, which are
      * part of the ReactionData class, in this class.
      * They aren't used for anything but reaction path
      * analysis.
      */
-    installGroups(reactionNumber(), r.rgroups, r.pgroups);
+    //installGroups(m_ii, r.rgroups, r.pgroups);
     /*
      * Increase the internal number of reactions, m_ii, by one.
      * increase the size of m_perturb by one as well.
      */
-    incrementRxnCount();
+    // incrementRxnCount();
     /*
      * Store the string expression for the current reaction in
      * the vector of strings.
      */
-    m_rxneqn.push_back(r.equation);
+    //  m_rxneqn.push_back(r.equation);
 }
 
     /***********************************************************************
@@ -919,50 +1030,50 @@ addReaction(ReactionData& r) {
      * It initializes and resizes m_rfn, and
      * adds an entry in the information map, m_index. 
      */
-    void SolidKinetics::
-    addElementaryReaction(const ReactionData& r) {
+//void SolidKinetics::
+//addElementaryReaction(const ReactionData& r) {
 
-         size_t iloc = m_rates.install(reactionNumber(), r);
+//   m_rates.install(m_ii, r);
 
-        // install rate coeff calculator
-       // iloc = m_rates.install(reactionNumber(),
-	//		       r.rateCoeffType, r.rateCoeffParameters.size(), 
-	//		       DATA_PTR(r.rateCoeffParameters) );
+    // install rate coeff calculator
+    // iloc = m_rates.install(reactionNumber(),
+    //		       r.rateCoeffType, r.rateCoeffParameters.size(), 
+    //		       DATA_PTR(r.rateCoeffParameters) );
 
-        /*
-	 * add constant term to rate coeff value vector.
-	 * Note, for constant reaction rates coefficients, this is the
-	 * one and only place where the rate coefficient is installed
-	 * into the rate coefficient array.
-	 */
+    /*
+     * add constant term to rate coeff value vector.
+     * Note, for constant reaction rates coefficients, this is the
+     * one and only place where the rate coefficient is installed
+     * into the rate coefficient array.
+     */
     //    m_kdata->m_rfn.push_back(r.rateCoeffParameters[0]);                
 
-	/*
-	 * Fill in the m_index entry for this reaction. This is an
-	 * information map, keyed on the reaction number,
-	 * describing the reaction type (always ELEMENTARY_RXN for this
-	 * class) and the index of the Reaction Rate Coefficient Calculator. 
-	 */
-   //     registerReaction(reactionNumber(), ELEMENTARY_RXN, iloc);
+    /*
+     * Fill in the m_index entry for this reaction. This is an
+     * information map, keyed on the reaction number,
+     * describing the reaction type (always ELEMENTARY_RXN for this
+     * class) and the index of the Reaction Rate Coefficient Calculator. 
+     */
+    //     registerReaction(reactionNumber(), ELEMENTARY_RXN, iloc);
 
 
-     // install rate coeff calculator
-    vector_fp rp = r.rateCoeffParameters;
+    // install rate coeff calculator
+//  vector_fp rp = r.rateCoeffParameters;
     // store activation energy
     //m_E.push_back(r.rateCoeffParameters[2]);
 
-    if (r.beta > 0.0) {
+//  if (r.beta > 0.0) {
         //m_has_electrochem_rxns = true;
         //m_beta.push_back(r.beta);
         //m_ctrxn.push_back(reactionNumber());
-    //        m_ctrxn_ecdf.push_back(0);
-    }
+	//        m_ctrxn_ecdf.push_back(0);
+//  }
 
     // add constant term to rate coeff value vector
-    m_kdata->m_rfn.push_back(r.rateCoeffParameters[0]);
-    registerReaction(reactionNumber(), ELEMENTARY_RXN, iloc);
+//   m_kdata->m_rfn.push_back(r.rateCoeffParameters[0]);
+    //registerReaction(reactionNumber(), ELEMENTARY_RXN, iloc);
 
-    }
+//}
    
     /***********************************************************************
      *
@@ -988,125 +1099,7 @@ addReaction(ReactionData& r) {
      *  m_irrevindex -Vector containing a listing of the indecices
      *               of all the irreversible reactions. 
      */
-    void SolidKinetics::installReagents(const ReactionData& r) {
-	int n, m;
-	double ns;
-	/*
-	 * Extend the rates of progress vectors by one, as we are
-	 * adding a new reaction. The rops exist in the
-	 * SolidKineticsData class.
-	 */
-        m_kdata->m_ropf.push_back(0.0);
-        m_kdata->m_ropr.push_back(0.0);
-        m_kdata->m_ropnet.push_back(0.0);
-	m_kdata->m_rkcn.push_back(0.0);
-	m_kdata->m_logProdC0.push_back(0.0);
-	/*
-	 * Go get the total number of reactions in the mechanism
-	 * added to date (m_ii)
-	 */
-        int rnum = reactionNumber();
 
-	/*
-	 * FIRST, WE WILL TAKE CARE OF STORAGE FOR THE REACTANTS
-	 */
-	/*
-	 * rk will be used as input to the stoichiometric
-	 * manager
-	 */
-        vector<size_t> rk;
-	/*
-	 * look up the number of reactants in the reaction, nr.
-	 * and then loop over them
-	 */
-        int nr = r.reactants.size();
-        for (n = 0; n < nr; n++) {
-	  /*
-	   * Look up the stoichiometric coefficient for the
-	   * species in the current reaction
-	   */
-	  ns = r.rstoich[n];
-	  /*
-	   * Add the current species to the stoichiometric
-	   * coefficient reactants. (Q: m_rrxn the right size?)
-	   */
-	  if (ns != 0.0) m_rrxn[r.reactants[n]][rnum] += ns;
-	  /*
-	   * Create a number integer vector entries equal to the
-	   * stoichiometric coefficient for the current reactant
-	   */
-	  for (m = 0; m < ns; m++) {
-	    rk.push_back(r.reactants[n]);
-	  }
-        }
-	/*
-	 * Add an entry for m_reactants, which is a member
-	 * of the Kinetics class.
-	 */
-        m_reactants.push_back(rk);
-	/*
-	 * Add an entry for the reactants into the stoichiometric
-	 * manager.
-	 */
-	m_reactantStoich.add((size_t) reactionNumber(), rk);
-
-	/*
-	 * NEXT, WE WILL TAKE CARE OF STORAGE FOR THE PRODUCTS
-	 */
-        std::vector<size_t> pk;
-	/*
-	 * look up the number of products in the reaction, np.
-	 * and then loop over them
-	 */	
-        int np = r.products.size();
-        for (n = 0; n < np; n++) {
-	  /*
-	   * Look up the stoichiometric coefficient for the
-	   * current species product in the current reaction
-	   */
-	  ns = r.pstoich[n];
-	  /*
-	   * Add the current species to the stoichiometric
-	   * coefficient products. (Q: m_prxn the right size?)
-	   */
-	  if (ns != 0) m_prxn[r.products[n]][rnum] += ns;
-	  /*
-	   * Create a number of integer vector entries equal to the
-	   * stoichiometric coefficient for the current product
-	   */
-	  for (m = 0; m < ns; m++) {
-	    pk.push_back(r.products[n]);
-	  }
-        }
-	/*
-	 * Add an entry for m_reactants, which is a member
-	 * of the Kinetics class.
-	 */
-        m_products.push_back(pk);
-
-	/*
-	 * m_dn - fill in the entry for the net change of moles
-	 *        due to this reaction. 
-	 */
-        m_dn.push_back(pk.size() - rk.size());
-
-	/*
-	 * Branch on whether this reaction is reversible
-	 * -> fill in entries in the stoichiometric manager
-	 *    and in the listing of reversable and irreversible
-	 *    reactions.
-	 */
-        if (r.reversible) {
-            m_revProductStoich.add(reactionNumber(), pk);
-            m_revindex.push_back(reactionNumber());
-            m_nrev++;
-        }
-        else {
-            m_irrevProductStoich.add(reactionNumber(), pk);          
-            m_irrevindex.push_back( reactionNumber() );
-            m_nirrev++;
-        }        
-    }
 
     /*********************************************************************
      *
@@ -1117,13 +1110,13 @@ addReaction(ReactionData& r) {
      * They aren't used for anything but reaction path
      * analysis, as far as I can figure out.
      */
-    void SolidKinetics::installGroups(size_t irxn, 
-        const vector<grouplist_t>& r, const vector<grouplist_t>& p) {
-        if (!r.empty()) {
-            m_rgroups[reactionNumber()] = r;
-            m_pgroups[reactionNumber()] = p;
-        }
-    }
+//void SolidKinetics::installGroups(size_t irxn, 
+//				  const vector<grouplist_t>& r, const vector<grouplist_t>& p) {
+//    if (!r.empty()) {
+//	m_rgroups[m_ii] = r;
+//	m_pgroups[m_ii] = p;
+//    }
+//}
     
     /*********************************************************************
      *
@@ -1134,9 +1127,9 @@ addReaction(ReactionData& r) {
      * the reaction type and the iloc location in the m_rate array
      * are saved as a pair object in the internal variable m_index.
      */
-    void SolidKinetics::registerReaction(size_t rxnNumber, int type, int loc) {
-	m_index[rxnNumber] = pair<int, int>(type, loc);
-    }
+    //void SolidKinetics::registerReaction(size_t rxnNumber, int type, int loc) {
+//	m_index[rxnNumber] = pair<int, int>(type, loc);
+//  }
 
     /*********************************************************************
      *
@@ -1160,7 +1153,10 @@ addReaction(ReactionData& r) {
         //m_prxn.resize(m_kk);
         m_actConc.resize(m_kk);
         m_grt.resize(m_kk);
-	m_kdata->m_logC0_vector.resize(m_kk);
+	//m_kdata->m_logC0_vector.resize(m_kk);
+
+	m_logC0_vector.resize(m_kk);
+
     }
 
 
@@ -1347,60 +1343,65 @@ addReaction(ReactionData& r) {
      *  m_kdata->m_logC0_scalar
      *  m_kdata->m_logProdC0
      */
-    void SolidKinetics::finalize() {
-        if (!m_finalized) {
-          size_t i, j, nr, np;
- 
-	  for (i = 0; i < m_ii; i++) {
-	    nr = m_reactants[i].size();
-	    for (j = 0; j < nr; j++) {
-	      m_rstoich[i][m_reactants[i][j]]++;
+void SolidKinetics::finalize() {
+    doublereal rstoiV, pstoiV;
+    if (!m_finalized) {
+	size_t i;
+        
+	for (i = 0; i < m_ii; i++) {
+	    std::map<size_t, doublereal>& rstoichIrxn = m_rstoich[i];
+	    std::map<size_t, doublereal>& pstoichIrxn = m_pstoich[i];
+	    for (size_t k = 0; k < m_kk; k++) {
+                rstoiV = reactantStoichCoeff(k, i);
+                if (rstoiV != 0.0) {
+		    rstoichIrxn[k] = rstoiV;
+                }
+                pstoiV = productStoichCoeff(k, i);
+                if (pstoiV != 0.0) {
+		    pstoichIrxn[k] = pstoiV;
+                }
 	    }
-	    np = m_products[i].size();
-	    for (j = 0; j < np; j++) {
-	      m_pstoich[i][m_products[i][j]]++;
-	    }
-	  }
-
-	  /*
-	   * Provide initial values for m_logC0_vector, the vector
-	   * of standard concentrations for the species. This may
-	   * or may not be overwritten as the conditions change
-	   * depending upon the formulation of the ThermoPhase
-	   * object.
-	   */
-	  vector_fp& logC0_vector = m_kdata->m_logC0_vector;
-	  for (size_t i = 0; i < m_kk; ++i) {
+	}
+	
+	/*
+	 * Provide initial values for m_logC0_vector, the vector
+	 * of standard concentrations for the species. This may
+	 * or may not be overwritten as the conditions change
+	 * depending upon the formulation of the ThermoPhase
+	 * object.
+	 */
+	vector_fp& logC0_vector = m_logC0_vector;
+	for (size_t i = 0; i < m_kk; ++i) {
 	    logC0_vector[i] = thermo().logStandardConc(i);
-	  }
-	  m_kdata->m_logC0_scalar =  logC0_vector[0];
-
-	  /*
-	   * Provide initial values for m_logProdC0, the vector 
-	   * (over reactions) of the log of the products of 
-	   * powers of the standard concentrations
-	   * wrt the stoichiometric coefficients in the reaction.
-	   * This may or may not be recalculated as conditions 
-	   * change. However, an initial calculation is done here.
-	   */
-	  vector_fp& logProdC0 = m_kdata->m_logProdC0;
-	  fill(logProdC0.begin(), logProdC0.end(), 0.0);
-	  m_reactantStoich.decrementReactions(DATA_PTR(logC0_vector), 
-					      DATA_PTR(logProdC0)); 
-	  m_revProductStoich.incrementReactions(DATA_PTR(logC0_vector), 
-						DATA_PTR(logProdC0));
-	  m_finalized = true;
-        }
+	}
+	m_logC0_scalar =  logC0_vector[0];
+	
+	/*
+	 * Provide initial values for m_logProdC0, the vector 
+	 * (over reactions) of the log of the products of 
+	 * powers of the standard concentrations
+	 * wrt the stoichiometric coefficients in the reaction.
+	 * This may or may not be recalculated as conditions 
+	 * change. However, an initial calculation is done here.
+	 */
+	vector_fp& logProdC0 = m_logProdC0;
+	fill(logProdC0.begin(), logProdC0.end(), 0.0);
+	m_reactantStoich.decrementReactions(DATA_PTR(logC0_vector), 
+					    DATA_PTR(logProdC0)); 
+	m_revProductStoich.incrementReactions(DATA_PTR(logC0_vector), 
+					      DATA_PTR(logProdC0));
+	m_finalized = true;
     }
+}
     /********************************************************************
      *
      * ready():
      *
      *  Indicate whether the reaction mechanism is ready for use.
      */
-    bool SolidKinetics::ready() const {
-        return (m_finalized);
-    }
+bool SolidKinetics::ready() const {
+    return (m_finalized);
+}
 
     /*********************************************************************/
 }
