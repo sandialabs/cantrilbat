@@ -412,17 +412,17 @@ namespace Cantera {
     /**
      * Return the reaction type of the ith reaction
      */
-    virtual int reactionType(size_t i) const {
-      return m_index[(size_t) i].first;
-    }
+    // virtual int reactionType(size_t i) const {
+    //  return m_index[(size_t) i].first;
+    // }
 
     /**
      * Return the index number in the Rate coefficient
      * calculator for the ith reaction
      */
-    virtual size_t reactionCalculatorIndex(size_t i) const {
-      return m_index[i].second;
-    }
+    // virtual size_t reactionCalculatorIndex(size_t i) const {
+    //  return m_index[i].second;
+    // }
 
     /** 
      * Function returns a string containing the expression for
@@ -438,15 +438,15 @@ namespace Cantera {
      * Return the reaction path groups for the ith reaction's
      * reactants
      */
-    const std::vector<grouplist_t>& reactantGroups(size_t i)
-    { return m_rgroups[i]; }
+    //  const std::vector<grouplist_t>& reactantGroups(size_t i)
+    // { return m_rgroups[i]; }
 
     /**
      * Return the reaction path groups for the ith reaction's
      * products
      */
-    const std::vector<grouplist_t>& productGroups(size_t i)
-    { return m_pgroups[i]; }
+    // const std::vector<grouplist_t>& productGroups(size_t i)
+    //{ return m_pgroups[i]; }
 
     /**
      * This functions returns a boolean indicating whether a particle
@@ -476,8 +476,8 @@ namespace Cantera {
      * They aren't used for anything but reaction path
      * analysis, as far as I can figure out.
      */
-    void installGroups(size_t irxn, const std::vector<grouplist_t>& r,
-		       const std::vector<grouplist_t>& p);
+    //   void installGroups(size_t irxn, const std::vector<grouplist_t>& r,
+//		       const std::vector<grouplist_t>& p);
 	
     /*
      * Update the inverse of the equilibrium constants in molar units. 
@@ -496,14 +496,14 @@ namespace Cantera {
      * the reaction type and the iloc location in the m_rate array
      * are saved as a pair object in the internal variable m_index.
      */
-    void registerReaction(size_t rxnNumber, int type, int loc);
+    //  void registerReaction(size_t rxnNumber, int type, int loc);
 
  private:
 
     /**
      * Returns the total number of reactions in the mechanism
      */
-    size_t reactionNumber(){ return m_ii;}
+    //  size_t reactionNumber(){ return m_ii;}
 
     /**
      * Add a simple Arrhenious reaction to the reaction mechanism
@@ -512,7 +512,7 @@ namespace Cantera {
      * It initializes and resizes m_rfn, initializes m_fwrdOrder, and
      * adds an entry in the information map, m_index. 
      */
-    void addElementaryReaction(const ReactionData& r);
+    // void addElementaryReaction(const ReactionData& r);
         
     /**
      * Add the species reactants and products to the various
@@ -535,7 +535,7 @@ namespace Cantera {
      *  m_irrevindex -Vector containing a listing of the indecices
      *               of all the irreversible reactions. 
      */
-    void installReagents(const ReactionData& r); 
+    // void installReagents(const ReactionData& r); 
   
   
 
@@ -544,7 +544,7 @@ namespace Cantera {
     /**
      * Number of species in the phase.
      */
-    size_t                                 m_kk;
+    // size_t                                 m_kk;
 
     /**
      * This objects contains all of the rate constants for all of the
@@ -553,14 +553,14 @@ namespace Cantera {
      * class uses as a template parameter is located in
      * RxnRate.h.
      */
-    Rate1<Arrhenius>                    m_rates;        
+    // Rate1<Arrhenius>                    m_rates;        
         
     /**
      * Information map about the ith reaction. For the ith reaction,
      * the reaction type and the iloc location in the m_rate array
      * are saved as a pair object.
      */
-    mutable std::map<size_t, std::pair<int, size_t> >   m_index;
+    // mutable std::map<size_t, std::pair<int, size_t> >   m_index;
 
     /**
      * Stoichiometric Coefficent Manager for the reactants.
@@ -568,7 +568,7 @@ namespace Cantera {
      * is used to convert from reaction rates of progress to 
      * species production rates.
      */
-    StoichManagerN                      m_reactantStoich;
+    // StoichManagerN                      m_reactantStoich;
     /**
      * Stoichiometric Coefficent Manager for the products from
      * reversible reactions
@@ -577,7 +577,7 @@ namespace Cantera {
      * is used to convert from reaction rates of progress to 
      * species production rates.
      */
-    StoichManagerN                      m_revProductStoich;
+    // StoichManagerN                      m_revProductStoich;
     /**
      * Stoichiometric Coefficent Manager for the products from
      * irreversible reactions.
@@ -586,7 +586,7 @@ namespace Cantera {
      * is used to convert from reaction rates of progress to 
      * species production rates.
      */
-    StoichManagerN                      m_irrevProductStoich;
+    // StoichManagerN                      m_irrevProductStoich;
 
     /**
      * Number of irreversible reactions in the mechanism
@@ -601,13 +601,13 @@ namespace Cantera {
      * Map containing reaction path information for
      * each reaction's reactants
      */
-    std::map<size_t, std::vector<grouplist_t> > m_rgroups;
+    //  std::map<size_t, std::vector<grouplist_t> > m_rgroups;
 
     /**
      * Map containing reaction path information for
      * each reaction's productss
      */
-    std::map<size_t, std::vector<grouplist_t> >      m_pgroups;
+    //std::map<size_t, std::vector<grouplist_t> >      m_pgroups;
 
     /**
      * This vector of maps contains the stoichiometric
@@ -652,20 +652,21 @@ namespace Cantera {
      * Vector of length mrev, containing a listing of the
      * reactions which are reversible
      */
-    vector_int m_revindex;
+    //vector_int m_revindex;
     /*
      * Vector of length mirrev, containing a listing of the
      * reactions which are irreversible
      */  
-    std::vector<int> m_irrevindex;
+    //  std::vector<int> m_irrevindex;
 
     /**
      * Stoichiometric matrix in a reaction-first format.
      *
      *  m_rstoich[i][k] is the reactant stoichiometric
      *  coefficient for species k in reaction i.
+     *
      */
-    std::map<int, std::map<int, doublereal> >  m_rstoich;
+    std::map<size_t, std::map<size_t, doublereal> >  m_rstoich;
 
     /**
      * Stoichiometric matrix in a product-first format.
@@ -673,7 +674,7 @@ namespace Cantera {
      *  m_pstoich[i][k] is the product stoichiometric
      *  coefficient for species k in reaction i.
      */
-    std::map<int, std::map<int, doublereal> >  m_pstoich;
+    std::map<size_t, std::map<size_t, doublereal> >  m_pstoich;
 
     /**
      * Vector of strings of length m_ii, the number of 
@@ -727,8 +728,8 @@ namespace Cantera {
   private:
 
   
-  
-
+    std::vector<double> m_logProdC0;
+    std::vector<double> m_logC0_vector;
     /**
      * boolean indicating that the class is ready for processing of 
      * reaction rates.

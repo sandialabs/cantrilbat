@@ -1,0 +1,185 @@
+#!/bin/sh
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+# $Id: Makefile.in,v 1.1 2011/12/01 21:40:53 hkmoffa Exp $
+#
+#
+#  Build mpequil through the CANTERA_INSTALL directories.
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = solidKineticsTest
+
+BLESSED_FILES = good_out.txt good_outb.txt
+
+DATA = anode.inp elements.xml  HMW_ZnKOH.xml  metalSHEelectrons.xml   Zn.xml\
+       Zn_Zincate_electrode.xml  
+
+OBJ = $(PROGRAM).o
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+UTILSRC_DIR = ../../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+UTILSRC_INC = -I$(UTILSRC_DIR)
+
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../../src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+CTPADDS_INC = -I$(CTPADDS_DIR)
+#
+# Set up the Cantera Application Base directory
+#
+#
+ELECTRODE_DIR = ../../../Electrode/src 
+ELECTRODE_INC = -I$(ELECTRODE_DIR)
+ELECTRODE_LIB =  -L$(ELECTRODE_DIR)/lib -lElectrode
+ELECTRODE_DEP =  $(ELECTRODE_DIR)/libElectrode.a
+
+
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+LDEFINES = -DDEBUG 
+GDEFINES =
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)  $(UTILSRC_INC)  $(CTPADDS_INC)
+
+all: .depends $(PROGRAM)
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+
+OBJ_ANODE =  $(OBJ)
+
+OBJ_CANTERA_ADDONS =  
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+.f:
+	$(F77) $(FFLAGS) -c $<
+	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
+
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_ANODE:.o=.d) 
+
+.f.d:
+	echo "$*.o: $*.f" > $*.d
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(PROGRAM) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(PROGRAM)
+	./runtest
+
+rebaseline:
+	cp out.txt good_out.txt
+
+##############################################################################
+
+$(OBJ_MPEQUIL): Makefile
+$(DEPENDS): Makefile
+
+$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP)  \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) 
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
+	          $(OBJ_CANTERA_ADDONS)   \
+                  $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
+	$(RM) ${PROG} runInProgress.txt runBad runGood
+
+dist_clean:
+	@MAKE@ clean
+	$(RM) Makefile out.txt
+
+
+
+
+
+
