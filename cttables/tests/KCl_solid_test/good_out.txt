@@ -5,8 +5,6 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
 #
-# cttables silane.inp
-# This is comment line
 #
 #
 Number of Cantera Files = 2
@@ -47,8 +45,6 @@ end block Bath specification for Phase KCl(S)_nist
 
 # the above were empty lines
 #
-# cttables silane.inp
-# This is comment line
 #
 #
 Number of Cantera Files = 2
@@ -157,8 +153,8 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
                          21.7568                 0                 0          0.322168
                    -448.90791688      127.95170357 4.9406564584e-324
                High temperature polynomials: 41.3798 < T < 1043: 
-               1.5810100667e-322 2.2767256415e-317 6.9531436083e-310 1.9091520341e-314
-               6.9533345234e-310 2.2763313771e-317 1.9091519313e-314
+               1.5810100667e-322 2.2767256415e-317 6.9531436083e-310 7.7808500561e-315
+               6.9532214167e-310 2.2763313771e-317 7.7808490284e-315
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------

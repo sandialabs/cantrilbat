@@ -205,7 +205,7 @@
                                       <a4 units="cal K/gmol/bar"> -28470 </a4>
                                       <c1 units="cal K/gmol/bar"> -4.4 </c1>
                                       <c2 units="cal K/gmol/bar"> -57140 </c2>
-                                      <omega_Pr_Tr units="cal K/gmol/bar"> 145600.O </omega_Pr_Tr>
+                                      <omega_Pr_Tr units="cal K/gmol/bar"> 145600.0 </omega_Pr_Tr>
                                    </standardState>
                                    <source>
                                        ref:G9

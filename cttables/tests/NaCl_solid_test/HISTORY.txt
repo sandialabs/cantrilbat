@@ -1,0 +1,14 @@
+
+Important changes to the blessed file
+-----------------------------------------------------------------------------
+
+File 
+
+good_out_1.txt           Blessed file from 2013 until 11/2014  
+                    (changes between 3226 to 3779)
+
+                      Reason -> unknown at this time
+                        (One point is that cttables doesn't have a MEQ
+                         specific header information. 
+
+good_out.txt           New blessed file

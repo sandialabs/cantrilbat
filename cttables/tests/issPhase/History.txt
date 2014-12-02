@@ -1,0 +1,13 @@
+
+
+12/1/2014
+
+
+    good_out_1.txt  Previous blessed file.
+                    The reverse reaction rate is different
+
+    good_out.txt    New blessed file.
+                    The reverse reaction rate is different
+                    Note, it appears by all accounts that the new result is
+                    correct.  I'm not sure why the old result was wrong.
+                    And, it is not worth the time trying to figure this out.
