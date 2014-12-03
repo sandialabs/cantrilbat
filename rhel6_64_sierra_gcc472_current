@@ -1,12 +1,13 @@
 #!/bin/sh
 #
 #
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_dbg
+# CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_dbg
+CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_3226_dbg
 
 export CANTERA_INSTALL_DIR
 #
 #CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
-CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk
+CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_3226
 export CANTERA_ROOT
 #
 CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_dbg"
