@@ -17,4 +17,8 @@ LiCoO2_CC_intResults_0_0.csv
 LiCoO2_Cathode_Radial_cc
 ccout.txt
 outputTable.csv
+LiCoO2Cathode_electrode_mod.xml
+LiCoO2Cathode_electrode_orig.xml
+LiCoO2Thermo_Cantera.cpp
+
 
