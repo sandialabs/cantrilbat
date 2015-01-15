@@ -95,7 +95,7 @@ CXX_DEPENDS='/sierra/sntools/SDK/mpi/openmpi/1.6.4-gcc-4.7.2-RHEL6/bin/mpiCC -MM
 echo CXX_DEPENDS = $CXX_DEPENDS
 export CXX_DEPENDS 
 
-TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
+#TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
 TRILINOS_INSTALL_DIR="/home/cbluchi/install/Trilinos-11.12.1-dbg"
 #TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_10_10_2_dbg"
 # TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc444/trilinos_9.0.1_linux_64_dbg"
