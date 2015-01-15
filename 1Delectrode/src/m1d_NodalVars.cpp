@@ -19,6 +19,8 @@
 
 #include <list> 
 
+using namespace std;
+
 namespace m1d
 {
 

@@ -415,7 +415,7 @@ public:
   SolverType solverType_;
 
   //! Name of the direct solver to use if using a direct solver
-  string directSolverName_;
+  std::string directSolverName_;
 
   //! Number of global block rows defined in the problem
   /*!

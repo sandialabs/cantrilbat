@@ -11,6 +11,7 @@
 #include "m1d_ProblemResidEval.h"
 #include "m1d_Comm.h"
 
+using namespace std;
 
 namespace m1d
 {
@@ -401,7 +402,7 @@ LocalRowNodeVBRIndices::calcInvRowSumScales(Epetra_Vector &rowScales) const
 	int iNodeEqnNum;
 	EqnType var;
 	EQ_TYPE_SUBNUM vtsub;
-	string ename = Func_ptr_->equationID(i, iLcNode, iGbNode, iNodeEqnNum, var, vtsub);
+	std::string ename = Func_ptr_->equationID(i, iLcNode, iGbNode, iNodeEqnNum, var, vtsub);
 	 
         throw m1d_Error("LocalRowNodeVBRIndices::calcRowSumScale", 
                          "row is nearly zero:" + Cantera::int2str(i) + ", value =  " + 

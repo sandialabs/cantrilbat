@@ -458,7 +458,7 @@ void BClineartable::useXML(XML_Node& bcNode)
     if (!bcNode.hasChild("dependentVar")) {
         throw CanteraError("BClineartable::useXML()", "no dependentVar XML node.");
     }
-    bool convert = true;
+    //bool convert = true;
 
     //get independentVar
     XML_Node& indVarNode = bcNode.child("independentVar");

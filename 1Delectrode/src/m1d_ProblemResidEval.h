@@ -763,7 +763,7 @@ public:
    *   @param solnVector     Vector of information to be printed
    */
   virtual void
-  showSolutionVector(string& solnVecName,
+  showSolutionVector(std::string& solnVecName,
                      const double t,
                      const double delta_t,
                      const Epetra_Vector_Owned &solnVector,
@@ -777,7 +777,7 @@ public:
    *   @param solnVector     Integer Vector of information to be printed
    */
   virtual void
-  showSolutionIntVector(string& solnVecName,
+  showSolutionIntVector(std::string& solnVecName,
                      const double t,
                      const double delta_t,
                      const Epetra_IntVector &solnVector,

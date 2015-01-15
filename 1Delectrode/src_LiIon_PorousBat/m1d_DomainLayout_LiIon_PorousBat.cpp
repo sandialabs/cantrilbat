@@ -20,6 +20,10 @@
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_ProblemStatementCell.h"
 
+#include <iostream>
+
+using namespace std;
+
 namespace m1d
 {
 //=====================================================================================================================
@@ -50,7 +54,7 @@ DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(int probNum, ProblemS
          */
         InitializeDomainPicture();
     } else {
-        cerr << "DomainLayout constructor: Unknown problem # " << probNum << endl;
+        std::cerr << "DomainLayout constructor: Unknown problem # " << probNum << endl;
         exit(-1);
     }
 }
