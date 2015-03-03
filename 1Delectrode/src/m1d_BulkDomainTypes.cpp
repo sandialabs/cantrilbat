@@ -37,7 +37,6 @@ BDT_SimpleDiff::BDT_SimpleDiff(const BDT_SimpleDiff &r) :
 BDT_SimpleDiff::~BDT_SimpleDiff()
 {
 }
-
 //===========================================================================
 BDT_SimpleDiff &
 BDT_SimpleDiff::operator=(const BDT_SimpleDiff &r)

@@ -131,11 +131,13 @@ BulkDomainDescription::InitializeXposNodes(GlobalIndices *gi_ptr)
 //=====================================================================================================================
 // Set the equation description
 /*
+ *  This routine assumes that the following are already set
+ *    - EquationNameList[]
+ *    - VariableNameList[]
  *  This routine is responsible for setting the variables:
  *    - NumEquationsPerNode
- *    - VariableNameList
- *    - EquationNameList
  *    - EquationIndexStart_EqName
+ *    - IsArithmeticScaled_NE
  */
 void
 BulkDomainDescription::SetEquationDescription()

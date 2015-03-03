@@ -1032,8 +1032,8 @@ public:
     */
    double cylinderLength_;
 
-   //!  Boolean indicating the energy equation treation
-   int doEnthalpyEquation_;
+   //!  Int indicating the energy equation treation
+   int energyEquationProbType_;
 
 };
 

@@ -70,7 +70,7 @@ ProblemResidEval::ProblemResidEval(double atol) :
   SolutionBehavior_printLvl_(0),
   Residual_printLvl_(0),
   coordinateSystemType_(Rectilinear_Coordinates),
-  doEnthalpyEquation_(0)
+  energyEquationProbType_(0)
 {
   /*
    *  Read an environmental variable to set the static variable s_printFlagEnv
@@ -90,10 +90,17 @@ ProblemResidEval::ProblemResidEval(double atol) :
      }
     }
   }
+  if (PSinput_ptr == 0) {
+     printf("ProblemResidEval constructor: Error expect the input file to have been read and processed\n");
+     exit(-1);
+  }
   m_writeStartEndFile = PSinput_ptr->writeStartEndFile_;
 
   if (PSinput_ptr->Energy_equation_prob_type_ == 3) {
-       doEnthalpyEquation_ = true;
+       energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
+  } else if (PSinput_ptr->Energy_equation_prob_type_ != 0) {
+       printf("unimplemetned\n");
+       exit(-1);
   }
 
 }
@@ -136,7 +143,7 @@ ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
   counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
   counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
   coordinateSystemType_(r.coordinateSystemType_),
-  doEnthalpyEquation_(r.doEnthalpyEquation_)
+  energyEquationProbType_(r.energyEquationProbType_)
 {
   *this = r;
 }
