@@ -32,7 +32,7 @@ namespace m1d
   //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(BulkDomainDescription & bdd) :
     BulkDomain1D(bdd),
-    doEnthalpyEquation_(0),
+    energyEquationProbType_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     temp_Curr_(TemperatureReference_),
@@ -46,7 +46,7 @@ namespace m1d
   //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     BulkDomain1D(r.BDD_),
-    doEnthalpyEquation_(0),
+    energyEquationProbType_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     temp_Curr_(TemperatureReference_),
@@ -72,7 +72,7 @@ namespace m1d
     // Call the parent assignment operator
     BulkDomain1D::operator=(r);
 
-    doEnthalpyEquation_ = r.doEnthalpyEquation_;
+    energyEquationProbType_ = r.energyEquationProbType_;
     porosity_Cell_ = r.porosity_Cell_;
     porosity_Cell_old_ = r.porosity_Cell_old_;
     temp_Curr_ = r.temp_Curr_;
