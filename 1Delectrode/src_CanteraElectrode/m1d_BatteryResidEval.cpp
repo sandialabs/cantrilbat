@@ -45,7 +45,6 @@ namespace m1d
     ProblemResidEval(atol),
     doHeatSourceTracking_(0),
     doResistanceTracking_(0),
-    doEnthalpyEquation_(0),
     maxSubGridTimeSteps_(0),
     QdotPerArea_n_(0.0),
     QdotPerArea_nm1_(0.0),

@@ -368,10 +368,6 @@ public:
     //! Boolean indicating whether to calculate the Electrical resistance tracking terms and output file
     int doResistanceTracking_;
 
-    //! Boolean indicating whether to Calculate Enthalpy Equation
-    int doEnthalpyEquation_;
-
-
  protected:
     int maxSubGridTimeSteps_;
 
