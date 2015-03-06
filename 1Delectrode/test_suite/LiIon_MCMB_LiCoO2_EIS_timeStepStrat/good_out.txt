@@ -483,15 +483,6 @@ END BLOCK Radial Diffusion Region
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
-    => timesProcessed = 0 multiContribIndex = 1 
-    Index of the Region = (integer) with default -2147483647
-    Number of Cells in Region = (integer) with default -2147483647
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-    Default Diffusion Coefficient = (double) with default 1e-12
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
 START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
     => timesProcessed = 1 multiContribIndex = 0 
     Index of the Region = (integer) with default 0
@@ -501,6 +492,15 @@ START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
          ====> phaseNames =  MCMB_Interstitials_anode
     Default Diffusion Coefficient = (double) with default 1e-12
          ====> defaultDiffusionCoefficient = 1e-12
+    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+END BLOCK Radial Diffusion Region
+START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
+    => timesProcessed = 0 multiContribIndex = 1 
+    Index of the Region = (integer) with default -2147483647
+    Number of Cells in Region = (integer) with default -2147483647
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+    Default Diffusion Coefficient = (double) with default 1e-12
     Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
     Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
 END BLOCK Radial Diffusion Region
