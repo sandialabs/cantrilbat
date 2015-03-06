@@ -1,0 +1,27 @@
+
+Run 1
+---------------------------------------------------------------------
+
+This was taken with a A cathode reaction of 5.0E7.  this produced 3.77 ocv and 3.66 volts at the end of 3600. seconds.
+
+The dualfoil base calculation was 3.73 and 3.65.
+
+Most of the overpotential was in the positive cathode 0.07 vs. 0.035 volts.
+
+
+Run 2
+----------------------------------------------------------
+
+In run2 I increased the A cathode reaction to 5.0E8. The idea was to 
+fit the calculations to the dualfoil result.
+
+The end result was better. However, I noticed a large problem with the anode
+capacity. I changed   MCMBAnode_electrode.xml  molar volume and ran it again.
+
+Run 3
+----------------------------------------------------------
+
+
+
+
+
