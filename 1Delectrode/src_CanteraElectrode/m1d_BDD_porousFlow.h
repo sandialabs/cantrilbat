@@ -27,7 +27,7 @@ public:
 
   //! Constructor
   /*!
-   * This constructor constructs the bulk domain from a MultiPhase object.
+   * This constructor constructs the bulk domain description from a DomainLayout object.
    *
    * In the constructor, we have typically been laying out what the unknowns are
    * and what the equations are, that are solved within the domain.
@@ -53,6 +53,16 @@ public:
    */
   BDD_porousFlow &
   operator=(const BDD_porousFlow &r);
+
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
+
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!

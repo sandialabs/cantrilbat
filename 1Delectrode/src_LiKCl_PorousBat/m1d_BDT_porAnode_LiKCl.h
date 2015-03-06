@@ -37,8 +37,10 @@ public:
    * In the constructor, we have typically been laying out what the unknowns are
    * and what the equations are, that are solved within the domain.
    *
+   * @param dl_ptr     Pointer to the domain layout object
+   * @param domainName Name of the domain
    */
-  BDT_porAnode_LiKCl (DomainLayout *dl_ptr);
+    BDT_porAnode_LiKCl (DomainLayout *dl_ptr, std::string domainName = "");
 
   //! Destructor
   virtual

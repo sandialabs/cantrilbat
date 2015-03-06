@@ -86,14 +86,26 @@ SurfDomainDescription::setGbNode(const int locGbNode)
 {
   LocGbNode = locGbNode;
 }
+//===================================================================================================================================
+// Determine the list of Equations and Variables
+/*
+ *  This routine is responsible for setting the variables:
+ *    - VariableNameList
+ *    - EquationNameList
+ */
+void
+SurfDomainDescription::SetEquationsVariablesList()
+{
+    EquationNameList.clear();
+    VariableNameList.clear();
+}
 //=====================================================================================================================
 // Set the equation description
 /*
  *  This routine is responsible for setting the variables:
  *    - NumEquationsPerNode
- *    - VariableNameList
- *    - EquationNameList
- *    - EquationIndexStart_EqName
+ *    - EquationIndexStart_EqName 
+ *    - VariableIndexStart_VarName
  *
  *    For surfaces, there very well may be no extra equations assigned on
  *    the surface domain.

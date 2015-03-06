@@ -51,6 +51,16 @@ BDT_SimpleDiff::operator=(const BDT_SimpleDiff &r)
 
   return *this;
 }
+//=============================================================================================================
+void BDT_SimpleDiff::SetEquationsVariablesList()
+{
+  EquationNameList.clear();
+  VariableNameList.clear();
+  const EqnType eqnT(Species_Conservation, 0, "Species0");
+  EquationNameList.push_back(eqnT);
+  VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
+  VariableNameList.push_back(VarType(Concentration_Species, subT, eqnT.EquationSubTypeName));
+}
 //===========================================================================
 // Malloc and Return the object that will calculate the residual efficiently
 /*
@@ -101,7 +111,7 @@ BDT_SimpleTDDiff::operator=(const BDT_SimpleTDDiff &r)
   EquationID = r.EquationID;
   return *this;
 }
-//===========================================================================
+//==============================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently
 /*
  *
@@ -114,7 +124,17 @@ BDT_SimpleTDDiff::mallocDomain1D()
    BulkDomainPtr_ = new SimpleTDDiff_dom1D(*this);
    return BulkDomainPtr_;
 }
-//===========================================================================
+//==============================================================================================================================
+void BDT_SimpleTDDiff::SetEquationsVariablesList()
+{
+  EquationNameList.clear();
+  VariableNameList.clear();
+  const EqnType eqnT(Species_Conservation, 0, "Species0");
+  EquationNameList.push_back(eqnT);
+  VAR_TYPE_SUBNUM subT = eqnT.EquationSubType;
+  VariableNameList.push_back(VarType(Concentration_Species, subT, eqnT.EquationSubTypeName));
+}
+//=============================================================================================================================
 } /* End of Namespace */
 //===========================================================================
 

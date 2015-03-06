@@ -50,6 +50,14 @@ public:
   BDT_SimpleDiff &
   operator=(const BDT_SimpleDiff &r);
 
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
@@ -105,6 +113,14 @@ public:
   BDT_SimpleTDDiff &
   operator=(const BDT_SimpleTDDiff &r);
 
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!

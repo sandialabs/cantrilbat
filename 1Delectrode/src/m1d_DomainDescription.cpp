@@ -73,13 +73,22 @@ DomainDescription::operator=(const DomainDescription &r)
 
   return *this;
 }
-//===========================================================================
+//===================================================================================================================================
+// Determine the list of Equations and Variables
+/*
+ *  This routine is responsible for setting the variables:
+ *    - VariableNameList
+ *    - EquationNameList
+ */
+void
+DomainDescription::SetEquationsVariablesList() {
+    throw m1d_Error("DomainDescription::SetEquationVariablesList()", "Base class implementation called");
+}
+//===================================================================================================================================
 // Set the equation description
 /*
  *  This routine is responsible for setting the variables:
  *    - NumEquationsPerNode
- *    - VariableNameList
- *    - EquationNameList
  *    - EquationIndexStart_EqName
  */
 void
@@ -87,7 +96,6 @@ DomainDescription::SetEquationDescription()
 {
   throw m1d_Error("DomainDescription::SetEquationDescription()", "Base class implementation called");
 }
-
 //===========================================================================
 } /* End of Namespace */
 //===========================================================================

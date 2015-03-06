@@ -1033,6 +1033,15 @@ public:
    double cylinderLength_;
 
    //!  Int indicating the energy equation treation
+   /*!
+    *  0 -> isothermal               Don't solve an energy equation (default)
+    *  1 -> Fixed                    Don't solve an energy equation
+    *  2 -> Dirichlet Equation       Solve a Dirichlet equation for temperature. 
+    *                                This is a way to do the fixed system while keeping the
+    *                                matrix structure the same.
+    *  3 -> Enthalpy Equation        Solve a full enthalpy equation for the temperature
+    *  4 -> Temperature Equation     Solve a Cp dT/dt formulation for the temperature
+    */
    int energyEquationProbType_;
 
 };

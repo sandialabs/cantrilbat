@@ -13,6 +13,7 @@
 #define M1D_BDT_PORCATHODE_LIION_H_
 
 #include "m1d_BulkDomainDescription.h"
+#include "m1d_BDD_porousElectrode.h"
 
 namespace Cantera
 {
@@ -29,7 +30,7 @@ namespace m1d
 /*!
  *
  */
-class BDT_porCathode_LiIon : public BulkDomainDescription
+class BDT_porCathode_LiIon : public BDD_porousElectrode
 {
 public:
 
@@ -42,7 +43,7 @@ public:
      *
      * @param dl_ptr   Pointer to the domain layout object
      */
-    BDT_porCathode_LiIon(DomainLayout* dl_ptr);
+    BDT_porCathode_LiIon(DomainLayout* dl_ptr, std::string domainName = "");
 
     //! Destructor
     virtual

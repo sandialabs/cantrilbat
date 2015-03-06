@@ -20,14 +20,14 @@ namespace m1d
 {
 
 //====================================================================================================================
-BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr,
-					 std::string domainName, ELECTRODE_KEY_INPUT* &Einput, int type) :
-  BulkDomainDescription(dl_ptr, domainName),
+BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType,
+					 std::string domainName) :
+  BDD_porousFlow(dl_ptr, domainName),
   ionicLiquid_(0),
   trans_(0), 
-  Electrode_(0)
+  Electrode_(0),
+  electrodeType_(electrodeType)
 {
-  int eqnIndex = 0;
   IsAlgebraic_NE.resize(7,0);
   IsArithmeticScaled_NE.resize(7,0);
   /*
@@ -47,132 +47,10 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr,
   trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
 
 
-
-  /*
-   *  Use the ElectrodeModelName value as input to the electrode factory to create the electrode
-   */
-  Electrode_  = newElectrodeObject(Einput->electrodeModelName);
-  if (!Electrode_) {
-    throw  m1d_Error("BDD_porousElectrode::instantiateElectrodeCells()",
-		     "Electrode factory method failed");
-  }
-
-
-  ELECTRODE_KEY_INPUT* Einput_new = newElectrodeKeyInputObject(Einput->electrodeModelName);
-  string commandFile = Einput->commandFile_;
-  BEInput::BlockEntry* cfC = new BEInput::BlockEntry("command_file");
-  /*
-   *  Parse the complete child input file
-   */
-  int retn = Einput_new->electrode_input_child(commandFile, cfC);
-  if (retn == -1) {
-      throw  m1d_Error("BDT_porCathode_LiKCl::BDT_porCathode_LiKCl()",
-		       "Electrode input child method failed");
-  }
-  /*
-   * Switch the pointers around so that the child input file is returned.
-   * Delete the original pointer.
-   */
-  delete Einput;
-  Einput = Einput_new;
-  
-  /*
-   *   Initialize the electrode model using the input from the ELECTRODE_KEY_INPUT object
-     */
-    retn = Electrode_->electrode_model_create(Einput);
-    if (retn == -1) {
-        throw CanteraError("BDT_porCathode_LiIon::BDT_porCathode_LiIon()",
-                           "Error initializing the cathode electrode object");
-    }
-
-
-  retn = Electrode_->setInitialConditions(Einput);
-  if (retn == -1) {
-    throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
-		       "Electrode::setInitialConditions() failed");
-  }
-
-  delete cfC;
-
-  /*
-   *  Create a vector of Equation Names
-   *  This is the main place to specify the ordering of the equations within the code
-   */
-  EquationNameList.clear();
-  VariableNameList.clear();
-
-  // Continuity is used to solve for bulk velocity
-  // Note that this is a single phase continuity so phase change will result in a source term
-  //         Equation 0: = Continuity         variable 0 = Axial Velocity
-
-  EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Bulk Velocity"));
-  VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
-  IsAlgebraic_NE[eqnIndex] = 1;
-  IsArithmeticScaled_NE[eqnIndex] = 1;
-  eqnIndex++;
-
-  // List of species in the electrolyte
-  const std::vector<std::string> & namesSp = ionicLiquid_->speciesNames();
-  int nsp = ionicLiquid_->nSpecies();
-
-  /*
-   *  Loop over the species in the electrolyte phase. Each gets its own equation.
-   *  Here, we hard code the mole fraction sum equation to the solvent, ECDMC, and we
-   *  hardcode the charge conservation equation to PF6m. All other species are assigned
-   *  the species conservation equation.
-   */
-  int iMFS = -1;
-  int iCN = -1;
-  for (int k = 0; k < nsp; k++) {
-     if (namesSp[k] == "ECDMC") {
-       iMFS = k;
-       VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[k]).c_str()));
-       EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
-       IsAlgebraic_NE[1 + k] = 2;
-     } else if (namesSp[k] == "PF6-") {
-       iCN = k;
-       VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[k]).c_str()));
-       EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
-       IsAlgebraic_NE[1 + k] = 2;
-     } else {
-       VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[k]).c_str()));
-       EquationNameList.push_back(EqnType(Species_Conservation, 0, (namesSp[k]).c_str()));
-       IsAlgebraic_NE[1 + k] = 0;
-     }
-     eqnIndex++;
-  }
-  if (iMFS < 0) {
-    throw CanteraError("sep", "no ECDMC");
-  }
-  if (iCN < 0) {
-    throw CanteraError("sep", "no PF6-");
-  }
-
-
-
-  //   Current conservation is used to solve for electrostatic potential
-  //           Equation 4: Current Conservation - Electrolyte   Variable 4: Volts_Electrolyte
-  EquationNameList.push_back(EqnType(Current_Conservation, 0, "Current Conservation"));
-  VariableNameList.push_back(VarType(Voltage, 0, "Electrolyte"));
-  IsAlgebraic_NE[eqnIndex] = 1;
-  IsArithmeticScaled_NE[eqnIndex] = 1;
-  eqnIndex++;
-
-  // Current conservation is used to solve for electrostatic potential
-  //  Equation 5: Current Conservation - Cathode   Variable 5: Volts_cathode
-
-  EquationNameList.push_back(EqnType(Current_Conservation, 1, "Anode Current Conservation"));
-  VariableNameList.push_back(VarType(Voltage, 1, "AnodeVoltage"));
-  IsAlgebraic_NE[eqnIndex] = 1;
-  IsArithmeticScaled_NE[eqnIndex] = 1;
-  eqnIndex++;
-
-  // Enthalpy conservation is used to solve for the temperature
-  // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
 }
 //=====================================================================================================================
 BDD_porousElectrode::BDD_porousElectrode(const BDD_porousElectrode &r) :
-  BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0), Electrode_(0)
+  BDD_porousFlow(r.DL_ptr_), ionicLiquid_(0), trans_(0), Electrode_(0)
 {
   *this = r;
 }
@@ -205,9 +83,109 @@ BDD_porousElectrode::operator=(const BDD_porousElectrode &r)
   // ok this is wrong and needs to be changed
   Electrode_ = r.Electrode_->duplMyselfAsElectrode();
 
+  electrodeType_ = r.electrodeType_;
+
   exit(-1);
 
   return *this;
+}
+//=====================================================================================================================
+//  Make list of the equations and variables
+/*
+ *  We also set the ordering here.
+ */
+void
+BDD_porousElectrode::SetEquationsVariablesList()
+{
+    int eqnIndex = 0;
+  /*
+   *  Create a vector of Equation Names
+   *  This is the main place to specify the ordering of the equations within the code
+   */
+  EquationNameList.clear();
+  VariableNameList.clear();
+
+  // Continuity is used to solve for bulk velocity
+  // Note that this is a single phase continuity so phase change will result in a source term
+  //         Equation 0: = Continuity         variable 0 = Axial Velocity
+
+  EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Bulk Velocity"));
+  VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
+  IsAlgebraic_NE[eqnIndex] = 1;
+  IsArithmeticScaled_NE[eqnIndex] = 1;
+  eqnIndex++;
+
+  // List of species in the electrolyte
+  const std::vector<std::string> & namesSp = ionicLiquid_->speciesNames();
+  int nsp = ionicLiquid_->nSpecies();
+
+  /*
+   *  Loop over the species in the electrolyte phase. Each gets its own equation.
+   *  Here, we hard code the mole fraction sum equation to the solvent, ECDMC, and we
+   *  hardcode the charge conservation equation to PF6m. All other species are assigned
+   *  the species conservation equation.
+   */
+  int iMFS = -1;
+  int iCN = -1;
+  for (int k = 0; k < nsp; k++) {
+     if (namesSp[k] == "ECDMC") {
+       iMFS = k;
+       VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
+       EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
+       IsAlgebraic_NE[1 + k] = 2;
+     } else if (namesSp[k] == "PF6-") {
+       iCN = k;
+       VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
+       EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
+       IsAlgebraic_NE[1 + k] = 2;
+     } else {
+       VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
+       EquationNameList.push_back(EqnType(Species_Conservation, k, (namesSp[k]).c_str()));
+       IsAlgebraic_NE[1 + k] = 0;
+     }
+     eqnIndex++;
+  }
+  if (iMFS < 0) {
+    throw CanteraError("sep", "no ECDMC");
+  }
+  if (iCN < 0) {
+    throw CanteraError("sep", "no PF6-");
+  }
+
+
+
+  //   Current conservation is used to solve for electrostatic potential
+  //           Equation 4: Current Conservation - Electrolyte   Variable 4: Volts_Electrolyte
+  EquationNameList.push_back(EqnType(Current_Conservation, 0, "Current Conservation"));
+  VariableNameList.push_back(VarType(Voltage, 0, "Electrolyte"));
+  IsAlgebraic_NE[eqnIndex] = 1;
+  IsArithmeticScaled_NE[eqnIndex] = 1;
+  eqnIndex++;
+
+  if (electrodeType_ == 0) {
+  // Current conservation is used to solve for electrostatic potential
+  //  Equation 5: Current Conservation - Cathode   Variable 5: Volts_cathode
+  EquationNameList.push_back(EqnType(Current_Conservation, 1, "Anode Current Conservation"));
+  VariableNameList.push_back(VarType(Voltage, 1, "AnodeVoltage"));
+  IsAlgebraic_NE[eqnIndex] = 1;
+  IsArithmeticScaled_NE[eqnIndex] = 1;
+  eqnIndex++;
+
+  } else if (electrodeType_ == 1) {
+  // Current conservation is used to solve for electrostatic potential
+  //  Equation 5: Current Conservation - Cathode   Variable 5: Volts_cathode
+  EquationNameList.push_back(EqnType(Current_Conservation, 2, "Catudne Current Conservation"));
+  VariableNameList.push_back(VarType(Voltage, 2, "CathodeVoltage"));
+  IsAlgebraic_NE[eqnIndex] = 1;
+  IsArithmeticScaled_NE[eqnIndex] = 1;
+  eqnIndex++;
+  } else {
+    exit(-1);
+  }
+
+
+  // Enthalpy conservation is used to solve for the temperature
+  // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

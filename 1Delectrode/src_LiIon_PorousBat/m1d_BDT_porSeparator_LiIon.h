@@ -13,6 +13,7 @@
 #define M1D_BDT_PORSEPARATOR_LIION_H_
 
 #include "m1d_BulkDomainDescription.h"
+#include "m1d_BDD_porousFlow.h"
 
 namespace Cantera
 {
@@ -28,7 +29,7 @@ namespace m1d
 /*!
  *  This class is used to test the implementation
  */
-class BDT_porSeparator_LiIon : public BulkDomainDescription
+class BDT_porSeparator_LiIon : public BDD_porousFlow
 {
 public:
 

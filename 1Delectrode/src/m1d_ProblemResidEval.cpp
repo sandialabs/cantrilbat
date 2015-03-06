@@ -223,6 +223,13 @@ ProblemResidEval::specifyProblem(int problemType, ProblemStatement *ps_ptr)
   } else {
     throw m1d_Error("specifyProblem", "Unknown problem type");
   }
+  DL_ptr_->setProblemResid(this);
+  //
+  // Specify the type of the coordinate system
+  //
+  coordinateSystemType_ = psInput_ptr_->coordinateSystemType_;
+
+  SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
 }
 //=====================================================================================================================
 /*
@@ -236,12 +243,12 @@ ProblemResidEval::specifyProblem(DomainLayout *dl, ProblemStatement *ps_ptr)
 {
     psInput_ptr_ = ps_ptr;
     DL_ptr_ = dl;
+    DL_ptr_->setProblemResid(this);
 
     //
-    // Specify the type of the coordinate syste
+    // Specify the type of the coordinate system
     //
     coordinateSystemType_ = psInput_ptr_->coordinateSystemType_;
-
     SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
 }
 //=====================================================================================================================

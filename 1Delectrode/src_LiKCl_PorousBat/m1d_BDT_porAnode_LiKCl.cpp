@@ -27,8 +27,9 @@ namespace m1d
 {
 
 //====================================================================================================================
-BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr) :
-  BulkDomainDescription(dl_ptr), ionicLiquid_(0), trans_(0), m_position(0), Electrode_(0)
+BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr, std::string domainName) :
+  BulkDomainDescription(dl_ptr, domainName),
+     ionicLiquid_(0), trans_(0), m_position(0), Electrode_(0)
 {
   IsAlgebraic_NE.resize(6,0);
   IsArithmeticScaled_NE.resize(6, 0);

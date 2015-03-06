@@ -29,8 +29,13 @@ namespace m1d
 {
 
 //=====================================================================================================================
-BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout* dl_ptr) :
-    BulkDomainDescription(dl_ptr), ionicLiquid_(0), trans_(0), m_position(1), Electrode_(0)
+BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout *dl_ptr,
+                                         std::string domainName) :
+    BDD_porousElectrode(dl_ptr, 1, domainName),
+    ionicLiquid_(0), 
+    trans_(0),
+    m_position(1),
+    Electrode_(0)
 {
     int eqnIndex = 0;
     IsAlgebraic_NE.resize(7,0);
@@ -207,7 +212,11 @@ BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout* dl_ptr) :
 }
 //=====================================================================================================================
 BDT_porCathode_LiIon::BDT_porCathode_LiIon(const BDT_porCathode_LiIon& r) :
-    BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0), m_position(1), Electrode_(0)
+    BDD_porousElectrode(r), 
+    ionicLiquid_(0),
+    trans_(0),
+    m_position(1),
+    Electrode_(0)
 {
     *this = r;
 }
@@ -229,7 +238,7 @@ BDT_porCathode_LiIon::operator=(const BDT_porCathode_LiIon& r)
         return *this;
     }
 
-    BulkDomainDescription::operator=(r);
+    BDD_porousElectrode::operator=(r);
 
     delete ionicLiquid_;
     ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();

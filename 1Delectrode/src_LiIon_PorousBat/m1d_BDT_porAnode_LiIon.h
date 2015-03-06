@@ -13,6 +13,7 @@
 #define M1D_BDT_PORANODE_LIION_H_
 
 #include "m1d_BulkDomainDescription.h"
+#include "m1d_BDD_porousElectrode.h"
 
 namespace Cantera
 {
@@ -28,7 +29,7 @@ namespace m1d
 /*!
  *
  */
-class BDT_porAnode_LiIon : public BulkDomainDescription
+class BDT_porAnode_LiIon : public BDD_porousElectrode
 {
 public:
 
@@ -40,8 +41,9 @@ public:
      * and what the equations are, that are solved within the domain.
      *
      * @param dl_ptr   Pointer to the domain layout object
+     * @param domainName Name of the domain
      */
-    BDT_porAnode_LiIon(DomainLayout* dl_ptr);
+    BDT_porAnode_LiIon(DomainLayout* dl_ptr, std::string domainName = "");
 
     //! Destructor
     virtual

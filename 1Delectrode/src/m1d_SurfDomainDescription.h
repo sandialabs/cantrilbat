@@ -86,6 +86,17 @@ public:
   void
   setGbNode(const int locGbNode);
 
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   *  Here we clear these variables and assume that there are no equations and/or variables 
+   *  assigned on the surface.
+   */
+  virtual void
+  SetEquationsVariablesList();
+
   //! Set the equation description
   /*!
    *  This routine is responsible for setting the variables:

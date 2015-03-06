@@ -133,6 +133,11 @@ DomainLayout::InitializeDomainPicture()
   updateXposInDomainDescriptions();
 
   /*
+   * Discover what equations and variablesare defined on which domains
+   */
+  SetEquationsVariablesList();
+
+  /*
    *  Discover what equations are defined on which domains.
    *  - determine how tie conditions are handled between bulk domains
    *    and surface domains.
@@ -408,6 +413,20 @@ DomainLayout::InitializeXposNodes(GlobalIndices *gi_ptr)
 }
 //======================================================================================================================
 void
+DomainLayout::SetEquationsVariablesList()
+{
+  for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
+    BulkDomainDescription *bdd = BulkDomainDesc_global[ibd];
+    bdd->SetEquationsVariablesList();
+  }
+
+  for (int isd = 0; isd < NumSurfDomains; isd++) {
+    SurfDomainDescription *sdd = SurfDomainDesc_global[isd];
+    sdd->SetEquationsVariablesList();
+  }
+}
+//======================================================================================================================
+void
 DomainLayout::SetEqnDescriptions()
 {
   for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
@@ -421,6 +440,15 @@ DomainLayout::SetEqnDescriptions()
   }
 }
 //======================================================================================================================
+void
+DomainLayout::setProblemResid(ProblemResidEval *problemResid_ptr)
+{
+  problemResid_ = problemResid_ptr;
+}
+//======================================================================================================================
+/*
+ *  Here we make the detailed BulkDomains and SurfDomains and keep everything in a list.
+ */
 void
 DomainLayout::generateDomain1D(ProblemResidEval *problemResid_ptr)
 {
@@ -508,8 +536,8 @@ SimpleDiffusionLayout::malloc_domains()
   int numNodes = nn;
   double startZ = 0.0;
   double endZ = 1.0;
-  BulkDomainDescription *bdd = new BDT_SimpleDiff(this, 0);
 
+  BulkDomainDescription *bdd = new BDT_SimpleDiff(this, 0);
   addBulkDomainToRightEnd(bdd, numNodes, startZ, endZ);
 
   SurfDomainDescription *sddL = new SDT_Dirichlet(this, 1.0);
@@ -517,7 +545,6 @@ SimpleDiffusionLayout::malloc_domains()
 
   SurfDomainDescription *sddR = new SDT_Dirichlet(this, 0.0);
   addSurfDomainToRightEnd(sddR, bdd);
-
 }
 //=====================================================================================================================
 //=====================================================================================================================

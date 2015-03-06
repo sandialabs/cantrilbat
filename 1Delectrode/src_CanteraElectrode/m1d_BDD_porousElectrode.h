@@ -12,6 +12,7 @@
 #include "m1d_BulkDomainDescription.h"
 #include "m1d_porousElectrode_dom1D.h"
 #include "m1d_CanteraElectrodeGlobals.h"
+#include "m1d_BDD_porousFlow.h"
 #include "Electrode.h"
 #include "Electrode_input.h"
 
@@ -28,7 +29,7 @@ namespace m1d
 /*!
  * 
  */
-class BDD_porousElectrode : public BulkDomainDescription
+class BDD_porousElectrode : public BDD_porousFlow
 {
 public:
 
@@ -41,7 +42,7 @@ public:
    *
    * @param dl_ptr   Pointer to the domain layout object
    */
-  BDD_porousElectrode(DomainLayout *dl_ptr, std::string domainName , ELECTRODE_KEY_INPUT* & Einput  , int type = 0);
+  BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType, std::string domainName = "");
 
   //! Destructor
   virtual
@@ -60,6 +61,15 @@ public:
    */
   BDD_porousElectrode &
   operator=(const BDD_porousElectrode &r);
+
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
@@ -89,6 +99,14 @@ public:
    * We own the electrode object.
    */
   Cantera::Electrode *Electrode_;
+
+  //! Type of the electrode
+  /*!
+   *     0 anode
+   *     1 cathode
+   *     2 reference electrode 
+   */
+  int electrodeType_;
 };
 //=====================================================================================================================
 }

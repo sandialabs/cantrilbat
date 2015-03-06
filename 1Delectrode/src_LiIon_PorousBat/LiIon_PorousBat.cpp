@@ -193,8 +193,10 @@ main(int argc, char** argv)
         boundaryMap["CathodeCollectorPlate"] = 1;
 
         /*
-         *  In this step we assign all of the domains in the problem.
-         *  We assign the number of nodes per domain.
+         *  In this step we assign all of the domain layout for the problem.
+         *  Right now it is fixed. There is an anode, a separator, and a cathode,
+         *  surrounded by 
+         *  We assign the intial number of nodes per domain.
          *  In setting up the domains, we assign the number of unknowns
          *  per node within the domain.
          */
@@ -205,6 +207,14 @@ main(int argc, char** argv)
          *  object.
          */
         ps->specifyProblem(dl, &PSinput);
+
+        /*
+         *  In this step we assign all of the domain descriptions in the problem.
+         *  We assign the intial number of nodes per domain.
+         *  In setting up the domains, we assign the number of unknowns
+         *  per node within the domain.
+         */
+        dl->InitializeDomainPicture();
 
         /*
          *  Because we know the number of nodes and the number of

@@ -166,9 +166,16 @@ public:
   void
   updateXposInDomainDescriptions();
 
+  //! Set the equation and variables lists
+  void
+  SetEquationsVariablesList();
+
   //! Set the equation descriptions for the domain layout
   void
   SetEqnDescriptions();
+
+  void 
+  setProblemResid(ProblemResidEval *problemResid_ptr);
 
   virtual void
   generateDomain1D(ProblemResidEval *problemResid_ptr);

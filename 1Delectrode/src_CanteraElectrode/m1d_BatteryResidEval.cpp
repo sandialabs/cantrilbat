@@ -518,7 +518,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
  */
 void
 BatteryResidEval::user_out(const int ievent,
-			     const double time_current,
+		           const double time_current,
 			   const double delta_t_n,
 			   const int istep,
 			   const Epetra_Vector_Ghosted &y_n,

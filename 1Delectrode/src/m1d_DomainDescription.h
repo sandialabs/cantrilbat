@@ -51,13 +51,21 @@ public:
   DomainDescription &
   operator=(const DomainDescription &r);
 
-  //! Set the equation description
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
+
+  //! Set the equation descriptions. Determine connectivity with surroundings.
   /*!
    *  This routine is responsible for setting the variables:
    *    - NumEquationsPerNode
-   *    - VariableNameList
-   *    - EquationNameList
    *    - EquationIndexStart_EqName
+   *    - VariableIndexStart_VarName
    */
   virtual void
   SetEquationDescription();
@@ -167,7 +175,6 @@ public:
 };
 
 // ==================================================================================
-
 
 
 }

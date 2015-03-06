@@ -19,6 +19,7 @@
 #include "m1d_SDT_AnodeCollector.h"
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_BDD_porousElectrode.h"
 
 #include <iostream>
 
@@ -30,14 +31,15 @@ namespace m1d
 //=====================================================================================================================
 //=====================================================================================================================
 DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(ProblemStatement* psInput_ptr) :
-    DomainLayout(psInput_ptr), ProbNum_(0)
+    DomainLayout(psInput_ptr), 
+    ProbNum_(0)
 {
     pscInput_ptr_ = dynamic_cast<ProblemStatementCell*>(psInput_ptr);
     if (!pscInput_ptr_) {
         Cantera::CanteraError("DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat()",
                               "Bad dynamic cast");
     }
-    InitializeDomainPicture();
+    //InitializeDomainPicture();
 }
 //===========================================================================
 DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(int probNum, ProblemStatement* psInput_ptr) :
@@ -108,6 +110,13 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     double cathodeSize = PSinput.cathode_input_->electrodeGrossThickness;
 
     double endZ = startZ + anodeSize;
+
+
+    ProblemStatementCell* psc_ptr = &PSinput;
+    //ELECTRODE_KEY_INPUT* ai = psc_ptr->anode_input_;
+    //ELECTRODE_KEY_INPUT* ci = psc_ptr->cathode_input_;
+
+
     BulkDomainDescription* bdd = new BDT_porAnode_LiIon(this);
     // We refine the grid in the anode to get rid of stair step profiles
     //addBulkDomainToRightEnd(bdd, numNodesEach, startZ, endZ);

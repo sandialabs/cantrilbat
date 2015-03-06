@@ -22,7 +22,7 @@ namespace m1d
 //======================================================================================================================
 
 BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr) :
-    BulkDomainDescription(dl_ptr),
+    BDD_porousFlow(dl_ptr),
     ionicLiquid_(0),
     trans_(0)
 {
@@ -143,15 +143,15 @@ BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr) :
     }
 
 }
-//==================================================================
+//======================================================================================================================================
 BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(const BDT_porSeparator_LiIon& r) :
-    BulkDomainDescription(r.DL_ptr_),
+    BDD_porousFlow(r.DL_ptr_),
     ionicLiquid_(0),
     trans_(0)
 {
     *this = r;
 }
-//==================================================================
+//======================================================================================================================================
 BDT_porSeparator_LiIon::~BDT_porSeparator_LiIon()
 {
     /*
@@ -160,7 +160,7 @@ BDT_porSeparator_LiIon::~BDT_porSeparator_LiIon()
     delete ionicLiquid_;
     delete trans_;
 }
-//======================================================================================================================
+//======================================================================================================================================
 BDT_porSeparator_LiIon&
 BDT_porSeparator_LiIon::operator=(const BDT_porSeparator_LiIon& r)
 {
@@ -168,7 +168,7 @@ BDT_porSeparator_LiIon::operator=(const BDT_porSeparator_LiIon& r)
         return *this;
     }
 
-    BulkDomainDescription::operator=(r);
+    BDD_porousFlow::operator=(r);
 
     //EquationID = r.EquationID;
 
@@ -181,7 +181,7 @@ BDT_porSeparator_LiIon::operator=(const BDT_porSeparator_LiIon& r)
 
     return *this;
 }
-//==================================================================
+//======================================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently
 /*
  *
@@ -194,7 +194,7 @@ BDT_porSeparator_LiIon::mallocDomain1D()
     BulkDomainPtr_ = new porousLiIon_Separator_dom1D(*this);
     return BulkDomainPtr_;
 }
-//==================================================================
+//======================================================================================================================================
 } /* End of Namespace */
 //==================================================================
 
