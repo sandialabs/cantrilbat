@@ -61,6 +61,24 @@ BDT_Cu2S::operator=(const BDT_Cu2S &r)
 
   return *this;
 }
+//=====================================================================================================================
+void
+BDT_Cu2S::SetEquationsVariablesList()
+{
+    int eqnIndex = 0;
+    EquationNameList.clear();
+    VariableNameList.clear();
+  
+    IsAlgebraic_NE.resize(7,0);
+    IsArithmeticScaled_NE.resize(7,0);
+  
+    EquationNameList.push_back(EqnType(MeshDisplacement_Axial, 0, "MeshDisplacement"));
+    VariableNameList.push_back(VarType(Displacement_Axial));
+    IsArithmeticScaled_NE[eqnIndex] = 1;
+    
+    EquationNameList.push_back(EqnType(Species_Conservation, 0, "Species0")); 
+    VariableNameList.push_back(VarType(Concentration_Species, 0, "Species0"));
+}
 //===========================================================================
 // Malloc and Return the object that will calculate the residual efficiently
 /*

@@ -45,6 +45,9 @@ public:
   BDT_Cu2S &
   operator=(const BDT_Cu2S &r);
 
+  virtual void SetEquationsVariablesList();
+
+
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
    * @return  Returns a pointer to the object that will calculate the residual
