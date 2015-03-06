@@ -24,7 +24,11 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
-  SDT_Mixed(dl_ptr), m_position(pos), ElectrodeC_(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0)
+    SDT_Mixed(dl_ptr), 
+    m_position(pos),
+    ElectrodeC_(0), 
+    voltageVarBCType_(0), 
+    icurrCathodeSpecified_(0.0)
 {
   ElectrodeC_ = new Cantera::Electrode_SuccessiveSubstitution();
 
@@ -63,17 +67,7 @@ SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
   icurrCathodeSpecified_ = - PSinput.icurrDischargeSpecified_ * 1.0E4;
 
 
-  /*
-   *  Add an equation for this surface domain
-   *    For the cathode we will install a boundary condition on it of either
-   *    a constant voltage or a constant current.
-   */
-  if (voltageVarBCType_ == 0) {
-    EquationNameList.push_back(EqnType(Voltage_Specification, 2, "Cathode Voltage Specification"));
-  } else {
-    EquationNameList.push_back(EqnType(Current_Specification, 2, "Cathode Current Conservation"));
-  }
-  VariableNameList.push_back(VarType(Voltage, 2, "CathodeVoltage"));
+ 
 
   safeDelete(cfC);
   safeDelete(electrodeC_input);
@@ -102,12 +96,37 @@ SDT_FlatCathode::operator=(const SDT_FlatCathode &r)
   m_position = r.m_position;
 
   delete ElectrodeC_;
-  ElectrodeC_ = new Cantera::Electrode_SuccessiveSubstitution((const Cantera::Electrode_SuccessiveSubstitution&)*r.ElectrodeC_);
+  ElectrodeC_ =
+      new Cantera::Electrode_SuccessiveSubstitution((const Cantera::Electrode_SuccessiveSubstitution&)*r.ElectrodeC_);
 
   voltageVarBCType_ = r.voltageVarBCType_;
   icurrCathodeSpecified_ = r.icurrCathodeSpecified_;
 
   return *this;
+}
+//======================================================================================================================
+// Determine the list of Equations and Variables
+/*
+ *  This routine is responsible for setting the variables:
+ *    - VariableNameList
+ *    - EquationNameList
+ */
+void
+SDT_FlatCathode::SetEquationsVariablesList() {
+
+    EquationNameList.clear();
+    VariableNameList.clear();  
+    /*
+     *  Add an equation for this surface domain
+     *    For the cathode we will install a boundary condition on it of either
+     *    a constant voltage or a constant current.
+     */
+    if (voltageVarBCType_ == 0) {
+	EquationNameList.push_back(EqnType(Voltage_Specification, 2, "Cathode Voltage Specification"));
+    } else {
+	EquationNameList.push_back(EqnType(Current_Specification, 2, "Cathode Current Conservation"));
+    }
+    VariableNameList.push_back(VarType(Voltage, 2, "CathodeVoltage"));
 }
 //=====================================================================================================================
 // Set the equation description
@@ -121,6 +140,7 @@ SDT_FlatCathode::operator=(const SDT_FlatCathode &r)
 void
 SDT_FlatCathode::SetEquationDescription()
 {
+
   /*
    * Set the policy for connecting bulk domains
    * This really isn't set yet.

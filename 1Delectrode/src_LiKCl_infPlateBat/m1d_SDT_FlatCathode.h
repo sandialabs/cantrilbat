@@ -58,16 +58,22 @@ public:
   SDT_FlatCathode &
   operator=(const SDT_FlatCathode &r);
 
+
+  //! Set the equation and variables list
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void SetEquationsVariablesList();
+
   //! Set the equation description
   /*!
    *  This routine is responsible for setting the variables:
    *    - NumEquationsPerNode
-   *    - VariableNameList
-   *    - EquationNameList
    *    - EquationIndexStart_EqName
    */
-  virtual void
-  SetEquationDescription();
+  virtual void SetEquationDescription();
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!

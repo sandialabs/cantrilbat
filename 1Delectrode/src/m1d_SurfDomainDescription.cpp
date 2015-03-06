@@ -86,18 +86,17 @@ SurfDomainDescription::setGbNode(const int locGbNode)
 {
   LocGbNode = locGbNode;
 }
-//===================================================================================================================================
+//====================================================================================================================
 // Determine the list of Equations and Variables
 /*
  *  This routine is responsible for setting the variables:
  *    - VariableNameList
  *    - EquationNameList
+ *  We do nothing here, so that the base class is overriden, but nothing is done
  */
 void
 SurfDomainDescription::SetEquationsVariablesList()
 {
-    EquationNameList.clear();
-    VariableNameList.clear();
 }
 //=====================================================================================================================
 // Set the equation description

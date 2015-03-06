@@ -22,7 +22,9 @@ namespace m1d
 //====================================================================
 //====================================================================
 BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
-  BulkDomainDescription(dl_ptr), ionicLiquid_(0), trans_(0)
+  BulkDomainDescription(dl_ptr), 
+  ionicLiquid_(0), 
+  trans_(0)
 {
   int eqnIndex = 0;
   IsAlgebraic_NE.resize(7,0);
@@ -98,7 +100,63 @@ BDT_porousLiKCl::~BDT_porousLiKCl()
   delete ionicLiquid_; 
   delete trans_;
 }
+//=====================================================================================================================
+//  Make list of the equations and variables
+/*
+ *  We also set the ordering here.
+ */
+void
+BDT_porousLiKCl::SetEquationsVariablesList()
+{
+    int eqnIndex = 0;
+    EquationNameList.clear();
+    VariableNameList.clear();
 
+    // Continuity is used to solve for bulk velocity
+    // Note that this is a single phase continuity 
+    // so phase change will result in a source term
+    EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Bulk Velocity"));
+    
+    VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
+    //list of species equations
+    std::vector<std::string> namesSp;
+    //  namesSp.resize(mp->nSpecies());
+    //for (int i = 0 ; i < namesSp.size(); i++) { 
+    // namesSp.push_back(mp->speciesName(i));
+    //}
+    /*
+     *  Hard Code Names for the moment.
+     */
+    namesSp.push_back("Li+");
+    namesSp.push_back("K+");
+    namesSp.push_back("Cl-");
+    
+    VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[0]).c_str()));
+    VariableNameList.push_back(VarType(MoleFraction_Species, 1, (namesSp[1]).c_str()));
+    VariableNameList.push_back(VarType(MoleFraction_Species, 2, (namesSp[2]).c_str()));
+    
+    // Species conservation is used to solve for mole fractions
+    
+    
+    EquationNameList.push_back(EqnType(Species_Conservation, 0, (namesSp[0]).c_str()));
+    eqnIndex++;
+    
+    EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
+    eqnIndex++;
+    
+    EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
+    eqnIndex++;
+    
+    //Current conservation is used to solve for electrostatic potential
+    EquationNameList.push_back(EqnType(Current_Conservation, 0, "Current Conservation"));
+    VariableNameList.push_back(VarType(Voltage, 0, "Electrolyte"));
+    IsAlgebraic_NE[eqnIndex] = 1;
+    IsArithmeticScaled_NE[eqnIndex] = 1;
+    eqnIndex++;
+    
+    //Enthalpy conservation is used to solve for the temperature
+    // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
+}
 //==================================================================
 BDT_porousLiKCl &
 BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
@@ -119,6 +177,7 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
 
   return *this;
 }
+
 //==================================================================
 // Malloc and Return the object that will calculate the residual efficiently
 /*

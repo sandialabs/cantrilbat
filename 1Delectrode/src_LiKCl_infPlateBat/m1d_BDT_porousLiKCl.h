@@ -59,6 +59,8 @@ public:
   BDT_porousLiKCl &
   operator=(const BDT_porousLiKCl &r);
 
+  virtual void SetEquationsVariablesList();
+
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
    * @return  Returns a pointer to the object that will calculate the residual

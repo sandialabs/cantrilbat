@@ -95,9 +95,24 @@ SDT_FlatAnode::operator=(const SDT_FlatAnode &r)
 
 
   delete ElectrodeA_;
-  ElectrodeA_ = new Cantera::Electrode_SuccessiveSubstitution((const Cantera::Electrode_SuccessiveSubstitution &)*(r.ElectrodeA_));
+  ElectrodeA_ = 
+      new Cantera::Electrode_SuccessiveSubstitution((const Cantera::Electrode_SuccessiveSubstitution &)*(r.ElectrodeA_));
 
   return *this;
+}
+//=====================================================================================================================
+void
+SDT_FlatAnode::SetEquationsVariablesList()
+{
+    EquationNameList.clear();
+    VariableNameList.clear();
+    /*
+     *  Add an equation for this surface domain
+     *    For the anode we will install a boundary condition on it of a constant voltage
+     *    This is the voltage datum for the system.
+     */
+    EquationNameList.push_back(EqnType(Current_Conservation, 1, "Anode Current Conservation"));
+    VariableNameList.push_back(VarType(Voltage, 1, "AnodeVoltage"));
 }
 //=====================================================================================================================
 // Set the equation description
