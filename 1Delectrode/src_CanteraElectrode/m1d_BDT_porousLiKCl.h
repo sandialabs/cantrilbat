@@ -59,6 +59,15 @@ public:
   BDT_porousLiKCl &
   operator=(const BDT_porousLiKCl &r);
 
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
+
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
    * @return  Returns a pointer to the object that will calculate the residual
@@ -66,6 +75,7 @@ public:
    */
   virtual BulkDomain1D *
   mallocDomain1D();
+
 
   // --------------------------------------------------------------------------------------------
 

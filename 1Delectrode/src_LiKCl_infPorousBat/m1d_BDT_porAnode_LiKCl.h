@@ -58,6 +58,15 @@ public:
   BDT_porAnode_LiKCl &
   operator=(const BDT_porAnode_LiKCl  &r);
 
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
+
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
    * @return  Returns a pointer to the object that will calculate the residual

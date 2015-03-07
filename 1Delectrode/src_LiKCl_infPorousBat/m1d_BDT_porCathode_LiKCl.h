@@ -57,13 +57,21 @@ public:
   BDT_porCathode_LiKCl &
   operator=(const BDT_porCathode_LiKCl &r);
 
+  //! Determine the list of Equations and Variables
+  /*!
+   *  This routine is responsible for setting the variables:
+   *    - VariableNameList
+   *    - EquationNameList
+   */
+  virtual void
+  SetEquationsVariablesList();
+
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
    * @return  Returns a pointer to the object that will calculate the residual
    *          efficiently
    */
-  virtual BulkDomain1D *
-  mallocDomain1D();
+  virtual BulkDomain1D *mallocDomain1D();
 
   // --------------------------------------------------------------------------------------------
 
