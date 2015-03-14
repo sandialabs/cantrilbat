@@ -82,18 +82,6 @@ public:
   //            DATA
   // --------------------------------------------------------------------------------------------
 
-  //! Pointer to the thermo object for the electrolyte
-  /*!
-   *   We own this object
-   */
-  Cantera::ThermoPhase *ionicLiquid_;
-
-  //! Pointer to the transport object for the electrolyte
-  /*!
-   * We own this object
-   */
-  Cantera::Transport* trans_;
-
   //! Pointer to the electrode object
   /*!
    * We own the electrode object.

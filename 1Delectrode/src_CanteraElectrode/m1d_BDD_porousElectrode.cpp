@@ -1,7 +1,6 @@
 /**
  * @file m1d_BDT_porAnode_LiKCl.cpp
  */
-
 /*
  *  $Id: m1d_BDD_porousElectrode.cpp 552 2013-03-01 21:25:03Z hkmoffa $
  */
@@ -18,13 +17,10 @@ using namespace std;
 
 namespace m1d
 {
-
 //====================================================================================================================
 BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType,
 					 std::string domainName) :
   BDD_porousFlow(dl_ptr, domainName),
-  ionicLiquid_(0),
-  trans_(0), 
   Electrode_(0),
   electrodeType_(electrodeType)
 {
@@ -33,24 +29,12 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType
   /*
    * Store a copy of the electrolyte ThermoPhase object
    */
-  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
-  if (iph < 0) {
-    throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
-                       "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
-  }
-  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
-  ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
-
-  /*
-   *  Create and Store a pointer to the Transport Manager
-   */
-  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
-
 
 }
 //=====================================================================================================================
 BDD_porousElectrode::BDD_porousElectrode(const BDD_porousElectrode &r) :
-  BDD_porousFlow(r.DL_ptr_), ionicLiquid_(0), trans_(0), Electrode_(0)
+    BDD_porousFlow(r), 
+    Electrode_(0)
 {
   *this = r;
 }
@@ -60,8 +44,6 @@ BDD_porousElectrode::~BDD_porousElectrode()
   /*
    * Delete objects that we own
    */
-  safeDelete(ionicLiquid_);
-  safeDelete(trans_);
   safeDelete(Electrode_);
 }
 //=====================================================================================================================
@@ -71,13 +53,8 @@ BDD_porousElectrode::operator=(const BDD_porousElectrode &r)
   if (this == &r) {
     return *this;
   }
-  BulkDomainDescription::operator=(r);
+  BDD_porousFlow::operator=(r);
 
-  delete ionicLiquid_;
-  ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();
-
-  delete trans_;
-  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
 
   delete Electrode_;
   // ok this is wrong and needs to be changed
@@ -183,7 +160,6 @@ BDD_porousElectrode::SetEquationsVariablesList()
     exit(-1);
   }
 
-
   // Enthalpy conservation is used to solve for the temperature
   // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
 }
@@ -196,11 +172,9 @@ BDD_porousElectrode::SetEquationsVariablesList()
 BulkDomain1D *
 BDD_porousElectrode::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousElectrode_dom1D(*this);
-  return BulkDomainPtr_;
+    BulkDomainPtr_ = new porousElectrode_dom1D(*this);
+    return BulkDomainPtr_;
 }
-
-
 //=====================================================================================================================
 } /* End of Namespace */
 //=====================================================================================================================
