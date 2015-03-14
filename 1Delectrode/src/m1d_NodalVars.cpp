@@ -24,9 +24,11 @@ using namespace std;
 namespace m1d
 {
 
-//===========================================================================
+//================================================================================================================================================
 NodalVars::NodalVars(DomainLayout *dl_ptr) :
-      GbNode(-1), NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1),
+      GbNode(-1),
+      LcNode(-1),
+      NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1),
       XNodePos(M1D_DOUBLE_NOTSET), 
       X0NodePos(M1D_DOUBLE_NOTSET), 
       XFracNodePos(M1D_DOUBLE_NOTSET), DL_ptr_(dl_ptr)
@@ -34,9 +36,9 @@ NodalVars::NodalVars(DomainLayout *dl_ptr) :
 }
 //===========================================================================
 NodalVars::NodalVars(const int gbnode, DomainLayout *dl_ptr) :
-  GbNode(gbnode), NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1),
+      GbNode(gbnode), 
+      LcNode(-1), NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1),
       XNodePos(M1D_DOUBLE_NOTSET), X0NodePos(M1D_DOUBLE_NOTSET), XFracNodePos(M1D_DOUBLE_NOTSET), DL_ptr_(dl_ptr)
-
 {
 }
 //===========================================================================
@@ -58,6 +60,7 @@ NodalVars::operator=(const NodalVars &r)
     return *this;
 
   GbNode                                  = r.GbNode;
+  LcNode                                  = r.LcNode;
   NumEquations                            = r.NumEquations;
   NumBulkDomains                          = r.NumBulkDomains;
   NumSurfDomains                          = r.NumSurfDomains;

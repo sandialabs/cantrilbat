@@ -221,7 +221,8 @@ public:
   /*!
    * NodalVars object contains a complete description of the variables at
    * a global node. 
-   * length = number of global nodes.
+   *
+   * length = number of global nodes. Note this is repeated for all processors.
    */
   std::vector<NodalVars *> NodalVars_GbNode;
 

@@ -19,6 +19,7 @@ namespace m1d
 {
 
 class DomainLayout;
+class LocalNodeIndices;
 
 //! Class that describes the environment at one node in the domain
 /*!
@@ -160,6 +161,12 @@ public:
 
   //! What Global Node am I
   int GbNode;
+
+  //! What local node am I? 
+  /*!
+   *  If I am not a local node on this processor, set this variable to -1.
+   */
+  int LcNode;
 
   //! Number of equations located at this node
   int NumEquations;

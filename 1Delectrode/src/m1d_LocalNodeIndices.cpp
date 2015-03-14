@@ -28,11 +28,11 @@ namespace m1d
 
 #define safeDelete(ptr)  if (ptr) { delete ptr; ptr = 0; }
 
-//===========================================================================
+//==========================================================================================================================================
 // Establish global storage for the global pointer
 //LocalNodeIndices *LI_ptr = 0;
 
-//===========================================================================
+//==========================================================================================================================================
 LocalNodeIndices::LocalNodeIndices(Epetra_Comm *comm_ptr, GlobalIndices *gi_ptr) :
   Comm_ptr_(comm_ptr), MyProcID(0), NumLcNodes(0), NumOwnedLcNodes(0), NumExtNodes(0), NumLcRowNodes(0), NumLcEqns(0),
       NumLcOwnedEqns(0), GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1), 
@@ -43,12 +43,10 @@ LocalNodeIndices::LocalNodeIndices(Epetra_Comm *comm_ptr, GlobalIndices *gi_ptr)
       EqnColorMap(0), EqnColors(0), Xpos_LcNode_p(0), Xpos_LcOwnedNode_p(0), GI_ptr_(gi_ptr)
 {
 }
-//===========================================================================
-LocalNodeIndices::~LocalNodeIndices() {
+//===========================================================================================================================================
+LocalNodeIndices::~LocalNodeIndices() 
+{
 
-  //  for (int iLcNode = 0; iLcNode < NumOwnedLcNodes; iLcNode++) {
-  // safeDelete(NodalVars_LcNode[iLcNode]);
-  //}
   safeDelete(NodeColorMap);
   safeDelete(GbNodetoLcNodeColMap);
   safeDelete(GbNodetoOwnedLcNodeMap);
@@ -73,7 +71,7 @@ LocalNodeIndices::LocalNodeIndices(const LocalNodeIndices &r) :
 {
   *this = r;
 }
-//===========================================================================
+//===========================================================================================================================================
 // assignment operator
 /*
  *  Do a deep copy of all Maps within the operator
@@ -145,6 +143,9 @@ LocalNodeIndices::operator=(const LocalNodeIndices &r)
     EqnColors = new Epetra_IntVector(*(r.EqnColors));
   }
 
+  //
+  // Do a shallow copy, because these are just pointers into the Global structure
+  //
   NodalVars_LcNode = r.NodalVars_LcNode;
 
   safeDelete(Xpos_LcNode_p);
@@ -160,7 +161,17 @@ LocalNodeIndices::operator=(const LocalNodeIndices &r)
 
   return *this;
 }
-//===========================================================================
+//=====================================================================================================================================
+/*
+ *  Calculated here:
+ *       IndexGbNode_LcNode[]
+ *       NumEqns_LcNode[]
+ *       IsExternal_LcNode[]
+ *       IDRightLcNode_LcNode[]
+ *       IDLeftLcNode_LcNode[] 
+ *       IDRightGbNode_LcNode[]
+ *       IDLeftGbNode_LcNode[]
+ */
 void
 LocalNodeIndices::determineLcNodeMaps(DomainLayout *dl_ptr)
 {
@@ -194,17 +205,16 @@ LocalNodeIndices::determineLcNodeMaps(DomainLayout *dl_ptr)
   IDRightGbNode_LcNode.resize(NumLcNodes, -1);
   X0pos_LcNode.resize(NumLcNodes, -1.0);
 
+  //
+  // Resize the pointer list of nodal variables
+  // 
   NodalVars_LcNode.resize(NumLcNodes);
-  for (int iLcNode = 0; iLcNode < NumOwnedLcNodes; iLcNode++) {
-    // get the global node number
-    int gn = IndexGbNode_LcNode[iLcNode];
-    NodalVars_LcNode[iLcNode] = GI_ptr_->NodalVars_GbNode[gn];
-  }
-
+  //
   int *MyGlobalElements = (GI_ptr_->GbNodetoOwnedLcNodeMap)->MyGlobalElements();
   for (int iLcNode = 0; iLcNode < NumOwnedLcNodes; iLcNode++) {
     IndexGbNode_LcNode[iLcNode] = MyGlobalElements[iLcNode];
-    int numEqn = (GI_ptr_->NumEqns_GbNode)[IndexGbNode_LcNode[iLcNode]];
+    int gn = IndexGbNode_LcNode[iLcNode];
+    int numEqn = (GI_ptr_->NumEqns_GbNode)[gn];
     NumEqns_LcNode[iLcNode] = numEqn;
     IsExternal_LcNode[iLcNode] = false;
     if (iLcNode > 0) {
@@ -224,11 +234,11 @@ LocalNodeIndices::determineLcNodeMaps(DomainLayout *dl_ptr)
   RightLcNode = NumOwnedLcNodes - 1;
   /*
    *  If there is a right ghost node, reassign it to that
+   *  There will be a right ghost node if the processor number is less than the last proc number.
    */
   if (GI_ptr_->MyProcID < (GI_ptr_->NumProc - 1)) {
     /*
-     * Get the global ID of the node to the right of the current nodes
-     * on the processor
+     * Get the global ID of the node to the right of the current nodes on the processor
      */
     int rightGlob = GI_ptr_->IndexStartGbNode_Proc[GI_ptr_->MyProcID + 1];
     RightLcNode = index;
@@ -284,7 +294,7 @@ LocalNodeIndices::determineLcNodeMaps(DomainLayout *dl_ptr)
   AssertThrow(index == NumLcNodes, "LocalNodeIndices::initSize()");
 
   int igb;
-  for (int iLcNode = 0; iLcNode < NumOwnedLcNodes; iLcNode++) {
+  for (int iLcNode = 0; iLcNode < NumLcNodes; iLcNode++) {
     int index = IDLeftLcNode_LcNode[iLcNode];
     if (index >= 0) {
       igb = IndexGbNode_LcNode[index];
@@ -310,7 +320,7 @@ LocalNodeIndices::determineLcNodeMaps(DomainLayout *dl_ptr)
   safeDelete(Xpos_LcOwnedNode_p);
   Xpos_LcOwnedNode_p = new Epetra_Vector(eee, *(GI_ptr_->GbNodetoOwnedLcNodeMap), V);
 }
-//===========================================================================
+//============================================================================================================================
 void
 LocalNodeIndices::determineLcEqnMaps()
 {
@@ -318,7 +328,7 @@ LocalNodeIndices::determineLcEqnMaps()
 
   makeImporters();
 }
-//===========================================================================
+//============================================================================================================================
 void
 LocalNodeIndices::initLcNodeMaps()
 {
@@ -338,7 +348,7 @@ LocalNodeIndices::initLcNodeMaps()
    GbNodetoOwnedLcNodeMap = new Epetra_Map(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode), 0, *Comm_ptr_);
 
 }
-//===========================================================================
+//=============================================================================================================================
 void
 LocalNodeIndices::initLcBlockNodeMaps()
 {
@@ -608,14 +618,15 @@ LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
 //=====================================================================================================================
 // Generate the nodal variables structure
 /*
- *   This routine will update the pointer to the NodalVars structure
+ *   This routine will update the pointers to the NodalVars structure
  */
 void
 LocalNodeIndices::GenerateNodalVars()
 {
   for (int iNode = 0; iNode < NumLcNodes; iNode++) {
-    int gbnode = IndexGbNode_LcNode[iNode];
-    NodalVars_LcNode[iNode] = GI_ptr_->NodalVars_GbNode[gbnode];
+      int gbnode = IndexGbNode_LcNode[iNode];
+      NodalVars_LcNode[iNode] = GI_ptr_->NodalVars_GbNode[gbnode];
+      NodalVars_LcNode[iNode]->LcNode = iNode;
   }
   /*
    * Update the positions information in the NodalVars structure
