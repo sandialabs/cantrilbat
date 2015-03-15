@@ -74,6 +74,11 @@ DomainDescription::operator=(const DomainDescription &r)
   return *this;
 }
 //===================================================================================================================================
+void
+DomainDescription::ReadModelDescriptions()
+{
+}
+//===================================================================================================================================
 // Determine the list of Equations and Variables
 /*
  *  This routine is responsible for setting the variables:
@@ -95,6 +100,11 @@ void
 DomainDescription::SetEquationDescription()
 {
   throw m1d_Error("DomainDescription::SetEquationDescription()", "Base class implementation called");
+}
+//===================================================================================================================================
+void
+DomainDescription::DetermineConstitutiveModels()
+{
 }
 //===========================================================================
 } /* End of Namespace */

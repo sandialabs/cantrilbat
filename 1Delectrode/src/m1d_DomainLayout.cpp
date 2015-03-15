@@ -133,6 +133,15 @@ DomainLayout::InitializeDomainPicture()
   updateXposInDomainDescriptions();
 
   /*
+   *  Read in the possible models for each domain
+   *
+   *  This procedure is done before the Equations anv variable list are set up.
+   *  Needed information about what is possible is input here.
+   *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+   */
+  ReadModelDescriptions();
+
+  /*
    * Discover what equations and variablesare defined on which domains
    */
   SetEquationsVariablesList();
@@ -143,6 +152,13 @@ DomainLayout::InitializeDomainPicture()
    *    and surface domains.
    */
   SetEqnDescriptions();
+
+  /*
+   *  This is done after the equations are set up.
+   *  We do more work with constitutive models.
+   */
+  DetermineConstitutiveModels();
+
 }
 //===========================================================================
 // Allocate the domain structure
@@ -413,13 +429,25 @@ DomainLayout::InitializeXposNodes(GlobalIndices *gi_ptr)
 }
 //======================================================================================================================
 void
+DomainLayout::ReadModelDescriptions()
+{
+  for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
+    BulkDomainDescription *bdd = BulkDomainDesc_global[ibd];
+    bdd->ReadModelDescriptions();
+  }
+  for (int isd = 0; isd < NumSurfDomains; isd++) {
+    SurfDomainDescription *sdd = SurfDomainDesc_global[isd];
+    sdd->ReadModelDescriptions();
+  }
+}
+//======================================================================================================================
+void
 DomainLayout::SetEquationsVariablesList()
 {
   for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
     BulkDomainDescription *bdd = BulkDomainDesc_global[ibd];
     bdd->SetEquationsVariablesList();
   }
-
   for (int isd = 0; isd < NumSurfDomains; isd++) {
     SurfDomainDescription *sdd = SurfDomainDesc_global[isd];
     sdd->SetEquationsVariablesList();
@@ -433,10 +461,22 @@ DomainLayout::SetEqnDescriptions()
     BulkDomainDescription *bdd = BulkDomainDesc_global[ibd];
     bdd->SetEquationDescription();
   }
-
   for (int isd = 0; isd < NumSurfDomains; isd++) {
     SurfDomainDescription *sdd = SurfDomainDesc_global[isd];
     sdd->SetEquationDescription();
+  }
+}
+//======================================================================================================================
+void
+DomainLayout::DetermineConstitutiveModels()
+{
+  for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
+    BulkDomainDescription *bdd = BulkDomainDesc_global[ibd];
+    bdd->DetermineConstitutiveModels();
+  }
+  for (int isd = 0; isd < NumSurfDomains; isd++) {
+    SurfDomainDescription *sdd = SurfDomainDesc_global[isd];
+    sdd->DetermineConstitutiveModels();
   }
 }
 //======================================================================================================================
