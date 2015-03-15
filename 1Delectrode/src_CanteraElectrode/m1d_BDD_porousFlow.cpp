@@ -29,22 +29,6 @@ BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr,
 {
   IsAlgebraic_NE.resize(7,0);
   IsArithmeticScaled_NE.resize(7,0);
-  /*
-   * Store a copy of the electrolyte ThermoPhase object
-   */
-  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
-  if (iph < 0) {
-    throw CanteraError("BDD_porousFlow::BDD_porousFlow()",
-                       "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
-  }
-  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
-  ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
-
-  /*
-   *  Create and Store a pointer to the Transport Manager
-   */
-  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
-
 }
 //=====================================================================================================================
 BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
@@ -59,7 +43,6 @@ BDD_porousFlow::~BDD_porousFlow()
    * Delete objects that we own
    */
   safeDelete(ionicLiquid_);
-  safeDelete(trans_);
  
 }
 //=====================================================================================================================
@@ -74,13 +57,37 @@ BDD_porousFlow::operator=(const BDD_porousFlow &r)
   delete ionicLiquid_;
   ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();
 
-  delete trans_;
-  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
-
-
   exit(-1);
 
   return *this;
+}
+//=====================================================================================================================
+void
+BDD_porousFlow::ReadModelDescriptions()
+{
+    /*
+     * Store a copy of the electrolyte ThermoPhase object
+     */
+    int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
+    if (iph < 0) {
+      throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
+                         "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
+    }
+    ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+    ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
+
+    
+    iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
+    if (iph < 0) {
+      throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
+                         "Can't find the phase in the phase list: " + PSCinput_ptr->separatorPhase_);
+    }
+    tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+    if (!tmpPhase) {
+        throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
+                           "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
+    }
+    skeletonPhase_ = tmpPhase->duplMyselfAsThermoPhase();
 }
 //=====================================================================================================================
 //  Make list of the equations and variables
@@ -167,7 +174,7 @@ BDD_porousFlow::SetEquationsVariablesList()
 	 * For equation type 3 push an enthalpy conservation equation to the rear.
 	 */
 	EquationNameList.push_back(EqnType(Enthalpy_Conservation, 0, "Enthalpy Conservation"));
-	VariableNameList.push_back(VarType(Temperature, 1, "Temperature"));
+	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
 	
     } else  if (pb-> energyEquationProbType_ != 0) {
 	printf("not implemented \n");
@@ -187,6 +194,19 @@ BDD_porousFlow::mallocDomain1D()
   return BulkDomainPtr_;
 }
 
+
+//=====================================================================================================================
+void
+BDD_porousFlow::DetermineConstitutiveModels()
+{
+  if (!trans_) {
+     delete trans_;
+  }
+  /*
+   *  Create and Store a pointer to the Transport Manager
+   */
+  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
+}
 
 //=====================================================================================================================
 } /* End of Namespace */
