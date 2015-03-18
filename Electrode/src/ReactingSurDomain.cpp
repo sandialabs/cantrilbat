@@ -586,10 +586,10 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
         /*
          * Resize the arrays based on the number of reactions
          */ 
-        rmcVector.resize(m_ii, 0);
-        for (size_t i = 0; i < m_ii; i++) {
-            rmcVector[i] = new RxnMolChange(this, i);
-        }
+        //rmcVector.resize(m_ii, 0);
+        //for (size_t i = 0; i < m_ii; i++) {
+        //    rmcVector[i] = new RxnMolChange(this, i);
+        //}
         deltaGRxn_.resize(m_ii, 0.0);
 
         //
