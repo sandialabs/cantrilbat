@@ -31,11 +31,43 @@ namespace m1d
 BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr, std::string domainName) :
     BDD_porousElectrode(dl_ptr, 0, domainName),
     ionicLiquidIFN_(0), 
-    m_position(0), 
-    Electrode_(0)
+    m_position(0)
 {
     IsAlgebraic_NE.resize(6,0);
     IsArithmeticScaled_NE.resize(6, 0);
+
+}
+//=====================================================================================================================
+BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(const BDT_porAnode_LiKCl &r) :
+    BDD_porousElectrode(r),
+    ionicLiquidIFN_(0),
+    m_position(0)
+{
+  *this = r;
+}
+//=====================================================================================================================
+BDT_porAnode_LiKCl::~BDT_porAnode_LiKCl()
+{
+}
+//=====================================================================================================================
+BDT_porAnode_LiKCl &
+BDT_porAnode_LiKCl::operator=(const BDT_porAnode_LiKCl &r)
+{
+  if (this == &r) {
+    return *this;
+  }
+
+  BDD_porousElectrode::operator=(r);
+ 
+  m_position = r.m_position;
+ 
+
+  return *this;
+}
+//=====================================================================================================================
+void
+BDT_porAnode_LiKCl::ReadModelDescriptions()
+{
 
     int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
     if (iph < 0) {
@@ -69,56 +101,20 @@ BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr, std::string domainN
     delete ai;
     PSCinput_ptr->anode_input_ = ai_new;
   
-  retn = Electrode_->electrode_model_create(PSCinput_ptr->anode_input_);
-  if (retn == -1) {
-    throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
-                     "Electrode model create method failed");
-  }
-  retn = Electrode_->setInitialConditions(PSCinput_ptr->anode_input_);
-  if (retn == -1) {
-    throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
-                     "setInitialConditions method failed");
-  }
+    retn = Electrode_->electrode_model_create(PSCinput_ptr->anode_input_);
+    if (retn == -1) {
+	throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
+			 "Electrode model create method failed");
+    }
+    retn = Electrode_->setInitialConditions(PSCinput_ptr->anode_input_);
+    if (retn == -1) {
+	throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
+			 "setInitialConditions method failed");
+    }
+    
+    delete cfA;
+   
 
-  delete cfA;
-
-}
-//=====================================================================================================================
-BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(const BDT_porAnode_LiKCl &r) :
-    BDD_porousElectrode(r),
-    ionicLiquidIFN_(0),
-    m_position(0),
-    Electrode_(0)
-{
-  *this = r;
-}
-//=====================================================================================================================
-BDT_porAnode_LiKCl::~BDT_porAnode_LiKCl()
-{
-  /*
-   * Delete objects that we own
-   */
-  safeDelete(ionicLiquidIFN_);
-  safeDelete(Electrode_);
-}
-//=====================================================================================================================
-BDT_porAnode_LiKCl &
-BDT_porAnode_LiKCl::operator=(const BDT_porAnode_LiKCl &r)
-{
-  if (this == &r) {
-    return *this;
-  }
-
-  BDD_porousElectrode::operator=(r);
-
-  delete ionicLiquidIFN_;
-  ionicLiquidIFN_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
-
-  m_position = r.m_position;
-  delete Electrode_;
-  Electrode_ = r.Electrode_->duplMyselfAsElectrode();
-
-  return *this;
 }
 //=====================================================================================================================
 //  Make list of the equations and variables
@@ -151,7 +147,7 @@ BDT_porAnode_LiKCl::SetEquationsVariablesList()
 
     // List of species in the electrolyte
     const std::vector<std::string> & namesSp = ionicLiquidIFN_->speciesNames();
-    int nsp = ionicLiquidIFN_->nSpecies();
+    //int nsp = ionicLiquidIFN_->nSpecies();
 
     if (namesSp[0] != "Li+") {
 	exit(-1);
@@ -209,8 +205,14 @@ BDT_porAnode_LiKCl::SetEquationsVariablesList()
 BulkDomain1D *
 BDT_porAnode_LiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_LiSiAnode_dom1D(*this);
-  return BulkDomainPtr_;
+    BulkDomainPtr_ = new porousLiKCl_LiSiAnode_dom1D(*this);
+    return BulkDomainPtr_;
+}
+//=====================================================================================================================
+void
+BDT_porAnode_LiKCl::DetermineConstitutiveModels()
+{
+    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //=====================================================================================================================
 } /* End of Namespace */

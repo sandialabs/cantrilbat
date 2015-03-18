@@ -61,6 +61,17 @@ public:
   BDT_porAnode_LiKCl &
   operator=(const BDT_porAnode_LiKCl  &r);
 
+  //! Read in the possible models for each domain
+  /*!
+   *  This procedure is done before the Equations anv variable list are set up.
+   *  Needed information about what is possible is input here.
+   *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+   *
+   *   We loop over volume and then surface domains.
+   */
+  virtual void
+  ReadModelDescriptions();
+
   //! Make list of the equations and variables
   /*!
    *   
@@ -74,6 +85,13 @@ public:
    */
   virtual BulkDomain1D *
   mallocDomain1D();
+
+  //! This is done after the equations are set up
+  /*!
+   *  We loop over volume and then surface domains here.
+   */
+  virtual void
+  DetermineConstitutiveModels();
 
   // --------------------------------------------------------------------------------------------
 
@@ -103,7 +121,7 @@ public:
   /*!
    * We own the electrode object.
    */
-  Cantera::Electrode *Electrode_;
+  //Cantera::Electrode *Electrode_;
 
 
 };
