@@ -2,7 +2,7 @@
 #
 # Installation from the CAB_3279 trunk
 #
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_3279_dbg
+CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cab_3279_dbg
 export CANTERA_INSTALL_DIR
 #
 #CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
