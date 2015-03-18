@@ -22,9 +22,8 @@ namespace m1d
 //====================================================================
 //====================================================================
 BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
-  BulkDomainDescription(dl_ptr), 
-  ionicLiquid_(0), 
-  trans_(0)
+    BDD_porousFlow(dl_ptr), 
+    ionicLiquidIFN_(0)
 {
   int eqnIndex = 0;
   IsAlgebraic_NE.resize(7,0);
@@ -33,9 +32,12 @@ BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
   //  ionicLiquid_ = new Cantera::IonsFromNeutralVPSSTP("LiKCl_recipmoltenSalt_trans.xml");
   int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
   ThermoPhase* tmpPhase = &(PSinput.PhaseList_)->thermo(iph);
-  ionicLiquid_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
-
-  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
+  ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
+  
+  if (trans_) {
+    delete trans_;
+  }
+  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 
   EquationNameList.clear();
 
@@ -87,7 +89,8 @@ BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
 }
 //==================================================================
 BDT_porousLiKCl::BDT_porousLiKCl(const BDT_porousLiKCl &r) :
-  BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0)
+    BDD_porousFlow(r),
+    ionicLiquidIFN_(0)
 {
   *this = r;
 }
@@ -97,8 +100,7 @@ BDT_porousLiKCl::~BDT_porousLiKCl()
   /*
    * Delete objects that we own
    */
-  delete ionicLiquid_; 
-  delete trans_;
+  delete ionicLiquidIFN_; 
 }
 //=====================================================================================================================
 //  Make list of the equations and variables
@@ -169,15 +171,25 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
 
   EquationID = r.EquationID;
   
-  delete ionicLiquid_;
-  ionicLiquid_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquid_));
+  delete ionicLiquidIFN_;
+  ionicLiquidIFN_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
 
   delete trans_;
-  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
+  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 
   return *this;
 }
-
+//=====================================================================================================================
+//  Make list of the equations and variables
+/*
+ *  We also set the ordering here.
+ */
+void
+BDT_porousLiKCl::setupTransport()
+{
+    delete trans_;
+    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+}
 //==================================================================
 // Malloc and Return the object that will calculate the residual efficiently
 /*

@@ -24,6 +24,7 @@
 #include "m1d_BulkDomain1D.h"
 #include "m1d_porousElectrode_dom1D.h"
 #include "Electrode.h"
+#include "m1d_BDT_porCathode_LiKCl.h"
 
 //=====================================================================================================================
 namespace Cantera
@@ -48,11 +49,11 @@ class porousLiKCl_FeS2Cathode_dom1D : public porousElectrode_dom1D
 
 public:
 
-  //! Constructor
-  /*!
-   * @param bdd   Contains the bulk domain description.
-   */
-  porousLiKCl_FeS2Cathode_dom1D(m1d::BulkDomainDescription &bdd);
+    //! Constructor
+    /*!
+     * @param bdd   Contains the bulk domain description.
+     */
+    porousLiKCl_FeS2Cathode_dom1D(m1d::BDT_porCathode_LiKCl &bdd);
 
   //! Copy constructor
   /*!

@@ -40,7 +40,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BulkDomainDescription & bdd) :
+porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl & bdd) :
       porousElectrode_dom1D(bdd), 
       ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0),
@@ -63,7 +63,7 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BulkDomainDescription &
   /*
    * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
    */
-  ionicLiquid_ = fa->ionicLiquid_;
+  ionicLiquid_ = fa->ionicLiquidIFN_;
   /* 
    *  This is a shallow pointer copy. The BDT object owns the transport object
    */
@@ -78,9 +78,9 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BulkDomainDescription &
 }
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
-  porousElectrode_dom1D(r.BDD_), ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
-  concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0), 
-  xdelCell_Cell_(0),
+    porousElectrode_dom1D((BDD_porousElectrode&) r.BDD_), ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0), 
+    xdelCell_Cell_(0),
       concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
       Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
       Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),

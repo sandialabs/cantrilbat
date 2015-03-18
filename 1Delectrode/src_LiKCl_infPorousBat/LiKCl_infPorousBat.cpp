@@ -167,7 +167,7 @@ main(int argc, char **argv)
             }
           }
         } else if (commandFile == "" || commandFile == "LiKCl_infPorousBat.inp") {
-          //commandFile = tok;
+          commandFile = tok;
         } else {
           printUsage();
           exit(1);

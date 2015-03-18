@@ -27,7 +27,10 @@ namespace m1d
 
 //=====================================================================================================================
 BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(DomainLayout *dl_ptr) :
-  BulkDomainDescription(dl_ptr), ionicLiquid_(0), trans_(0), m_position(1), Electrode_(0)
+    BDD_porousElectrode(dl_ptr, 1, ""), 
+    ionicLiquidIFN_(0), 
+    m_position(1),
+    Electrode_(0)
 {
   IsAlgebraic_NE.resize(7,0);
   IsArithmeticScaled_NE.resize(6, 0);
@@ -41,9 +44,7 @@ BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(DomainLayout *dl_ptr) :
                        "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
   }
   ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-  ionicLiquid_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
-
-  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
+  ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
 
   /*
    *   Initialize the electrode model
@@ -151,9 +152,12 @@ BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(DomainLayout *dl_ptr) :
 }
 //=====================================================================================================================
 BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(const BDT_porCathode_LiKCl &r) :
-  BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0), m_position(1), Electrode_(0)
+    BDD_porousElectrode(r), 
+    ionicLiquidIFN_(0),
+    m_position(1),
+    Electrode_(0)
 {
-  *this = r;
+    *this = r;
 }
 //=====================================================================================================================
 BDT_porCathode_LiKCl::~BDT_porCathode_LiKCl()
@@ -161,32 +165,108 @@ BDT_porCathode_LiKCl::~BDT_porCathode_LiKCl()
   /*
    * Delete objects that we own
    */
-  safeDelete(ionicLiquid_);
-  safeDelete(trans_);
+  safeDelete(ionicLiquidIFN_);
   safeDelete(Electrode_);
 }
 //=====================================================================================================================
 BDT_porCathode_LiKCl &
 BDT_porCathode_LiKCl::operator=(const BDT_porCathode_LiKCl &r)
 {
-  if (this == &r) {
+    if (this == &r) {
+	return *this;
+    }
+    
+    BDD_porousElectrode::operator=(r);
+    
+    delete ionicLiquidIFN_;
+    ionicLiquidIFN_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
+    
+    m_position = r.m_position;
+    
+    delete Electrode_;
+    Electrode_ = r.Electrode_->duplMyselfAsElectrode();
+    
     return *this;
-  }
+}
+//=====================================================================================================================
+//  Make list of the equations and variables
+/*
+ *  We also set the ordering here.
+ */
+void
+BDT_porCathode_LiKCl::SetEquationsVariablesList()
+{
+    int eqnIndex = 0;
 
-  BulkDomainDescription::operator=(r);
+    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 
-  delete ionicLiquid_;
-  ionicLiquid_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquid_));
+    /*
+     *  Create a vector of Equation Names
+     *  This is the main place to specify the ordering of the equations within the code
+     */
+    EquationNameList.clear();
+    VariableNameList.clear();
 
-  delete trans_;
-  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
+    // Continuity is used to solve for bulk velocity
+    // Note that this is a single phase continuity so phase change will result in a source term
+    //         Equation 0: = Continuity         variable 0 = Axial Velocity
 
-  m_position = r.m_position;
+    EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Bulk Velocity"));
+    VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
+    IsAlgebraic_NE[eqnIndex] = 1;
+    IsArithmeticScaled_NE[eqnIndex] = 1;
+    eqnIndex++;
 
-  delete Electrode_;
-  Electrode_ = r.Electrode_->duplMyselfAsElectrode();
+    // List of species in the electrolyte
+    const std::vector<std::string> & namesSp = ionicLiquidIFN_->speciesNames();
+    //int nsp = ionicLiquidIFN_->nSpecies();
 
-  return *this;
+    if (namesSp[0] != "Li+") {
+        exit(-1);
+    }
+    if (namesSp[1] != "K+") {
+        exit(-1);
+    }
+    if (namesSp[2] != "Cl-") {
+        exit(-1);
+    }
+    VariableNameList.push_back(VarType(MoleFraction_Species, 0, (namesSp[0]).c_str()));
+    VariableNameList.push_back(VarType(MoleFraction_Species, 1, (namesSp[1]).c_str()));
+    VariableNameList.push_back(VarType(MoleFraction_Species, 2, (namesSp[2]).c_str()));
+
+    // Species conservation is used to solve for mole fractions
+    // Equation 1: Species Conservation Li+        Variable 1: Li+ Mole Fraction
+    // Equation 2: Species Conservation K+         Variable 2: K+  Mole Fraction
+    // Equation 3: Species Conservation Cl-        Variable 3: Cl- Mole Fraction
+
+    EquationNameList.push_back(EqnType(Species_Conservation, 0, (namesSp[0]).c_str()));
+    EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
+    IsAlgebraic_NE[2] = 2;
+    EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
+    IsAlgebraic_NE[3] = 2;
+    eqnIndex++;
+    eqnIndex++;
+    eqnIndex++;
+
+    //   Current conservation is used to solve for electrostatic potential
+    //           Equation 4: Current Conservation - Electrolyte   Variable 4: Volts_Electrolyte
+    EquationNameList.push_back(EqnType(Current_Conservation, 0, "Current Conservation"));
+    VariableNameList.push_back(VarType(Voltage, 0, "Electrolyte"));
+    IsAlgebraic_NE[eqnIndex] = 1;
+    IsArithmeticScaled_NE[eqnIndex] = 1;
+    eqnIndex++;
+
+    // Current conservation is used to solve for electrostatic potential
+    //  Equation 5: Current Conservation - Cathode   Variable 5: Volts_cathode
+    EquationNameList.push_back(EqnType(Current_Conservation, 2, "Cathode Current Conservation"));
+    VariableNameList.push_back(VarType(Voltage, 2, "CathodeVoltage"));
+    IsAlgebraic_NE[eqnIndex] = 1;
+    IsArithmeticScaled_NE[eqnIndex] = 1;
+    eqnIndex++;
+
+    // Enthalpy conservation is used to solve for the temperature
+    // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
+
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently
@@ -198,8 +278,8 @@ BDT_porCathode_LiKCl::operator=(const BDT_porCathode_LiKCl &r)
 BulkDomain1D *
 BDT_porCathode_LiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_FeS2Cathode_dom1D(*this);
-  return BulkDomainPtr_;
+    BulkDomainPtr_ = new porousLiKCl_FeS2Cathode_dom1D(*this);
+    return BulkDomainPtr_;
 }
 //=====================================================================================================================
 } /* End of Namespace */

@@ -34,8 +34,8 @@ namespace m1d
 //=====================================================================================================================
 //=====================================================================================================================
 DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat( ProblemStatement *psInput_ptr) :
-  DomainLayout(psInput_ptr), ProbNum_(0),
-  pscInput_ptr_(0)
+    DomainLayout(psInput_ptr), ProbNum_(0),
+    pscInput_ptr_(0)
 {
   pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
   if (!pscInput_ptr_) {
@@ -44,9 +44,10 @@ DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat( ProblemStateme
   }
   InitializeDomainPicture();
 }
-//===========================================================================
-  DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat(int probNum,  ProblemStatement *psInput_ptr) :
-    DomainLayout(psInput_ptr), ProbNum_(probNum),
+//=====================================================================================================================
+DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat(int probNum,  ProblemStatement *psInput_ptr) :
+    DomainLayout(psInput_ptr), 
+    ProbNum_(probNum),
     pscInput_ptr_(0)
 {
   pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
@@ -63,7 +64,6 @@ DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat( ProblemStateme
     cerr << "DomainLayout constructor: Unknown problem # " << probNum << endl;
     exit(-1);
   }
-
 
 }
 //====================================================================================================================
@@ -92,9 +92,9 @@ DomainLayout_LiKCl_infPorousBat::operator=(const DomainLayout_LiKCl_infPorousBat
 }
 //====================================================================================================================
 // Allocate the domain structure
-  void
-  DomainLayout_LiKCl_infPorousBat::malloc_domains()
-  {
+void
+DomainLayout_LiKCl_infPorousBat::malloc_domains()
+{
     /*
      *  Here we lay out the number of nodes in the domain
      */
@@ -123,7 +123,7 @@ DomainLayout_LiKCl_infPorousBat::operator=(const DomainLayout_LiKCl_infPorousBat
     double cathodeSize = PSinput.cathode_input_->electrodeGrossThickness;
 
     double endZ = startZ + anodeSize;
-    BulkDomainDescription *bdd = new BDT_porAnode_LiKCl(this);
+    BDD_porousFlow *bdd = new BDT_porAnode_LiKCl(this);
     int numNodesA = pscInput_ptr_->initDefaultNumCVsAnode_;
     addBulkDomainToRightEnd(bdd, numNodesA, startZ, endZ);
 
@@ -155,6 +155,6 @@ DomainLayout_LiKCl_infPorousBat::operator=(const DomainLayout_LiKCl_infPorousBat
     SDT_CathodeCollector * cc = new SDT_CathodeCollector(this, 1);
     SurfDomainDescription *sddR3 = cc;
     addSurfDomainToRightEnd(sddR3, bdd);
-  }
+}
 //===========================================================================
 }

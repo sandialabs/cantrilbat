@@ -23,6 +23,7 @@
 #include "m1d_DomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_porousFlow_dom1D.h"
+#include "m1d_BDT_porousLiKCl.h"
 
 namespace m1d
 {
@@ -45,7 +46,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_infPlate_dom1D(m1d::BulkDomainDescription &bdd);
+  porousLiKCl_infPlate_dom1D(m1d::BDT_porousLiKCl  &bdd);
 
   //! Copy constructor
   /*!

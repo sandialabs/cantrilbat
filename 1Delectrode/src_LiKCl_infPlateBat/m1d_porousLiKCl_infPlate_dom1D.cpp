@@ -33,7 +33,7 @@ namespace m1d
 {
 
 //==============================================================================
-porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BulkDomainDescription & bdd) :
+porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BDT_porousLiKCl& bdd) :
   porousFlow_dom1D(bdd), 
   temp_Curr_(TemperatureReference_), 
   ivb_(VB_MOLEAVG)
@@ -43,7 +43,7 @@ porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BulkDomainDescription & b
   if (!fa) {
     throw m1d_Error("confused", "confused");
   }
-  ionicLiquid_ = fa->ionicLiquid_;
+  ionicLiquid_ = fa->ionicLiquidIFN_;
   trans_ = fa->trans_;
   nsp_ = 3;
   nph_ = 1;
@@ -51,7 +51,7 @@ porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BulkDomainDescription & b
 }
 //==============================================================================
 porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(const porousLiKCl_infPlate_dom1D &r) :
-  porousFlow_dom1D(r.BDD_), 
+  porousFlow_dom1D((BDT_porousLiKCl&) r.BDD_), 
   temp_Curr_(TemperatureReference_), 
   ivb_(VB_MOLEAVG)
 {

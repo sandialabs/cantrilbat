@@ -8,7 +8,7 @@
 #ifndef M1D_BDT_POROUSLIKCL_H_
 #define M1D_BDT_POROUSLIKCL_H_
 
-#include "m1d_BulkDomainTypes.h"
+#include "m1d_BDD_porousFlow.h"
 
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
@@ -26,7 +26,7 @@ namespace m1d
 /*!
  *  This class is used to test the implementation
  */
-class BDT_porousLiKCl : public BulkDomainDescription
+class BDT_porousLiKCl : public BDD_porousFlow
 {
 public:
 
@@ -38,7 +38,6 @@ public:
    * and what the equations are, that are solved within the domain.
    *
    */
-
   BDT_porousLiKCl(DomainLayout *dl_ptr);
 
   //! Destructor
@@ -69,6 +68,8 @@ public:
   virtual BulkDomain1D *
   mallocDomain1D();
 
+  virtual void setupTransport();
+
   // --------------------------------------------------------------------------------------------
 
   //! Equation type and var type to apply them
@@ -78,13 +79,13 @@ public:
   /*!
    *   We own this object
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We own this object
    */
-  Cantera::Transport* trans_;
+  //Cantera::Transport* trans_;
 
 };
 

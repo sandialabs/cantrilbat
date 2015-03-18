@@ -23,6 +23,7 @@
 #include "m1d_DomainDescription.h"
 #include "Electrode.h"
 #include "m1d_porousElectrode_dom1D.h"
+#include "m1d_BDT_porCathode_LiKCl.h"
 
 //=====================================================================================================================
 namespace Cantera
@@ -51,7 +52,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_FeS2Cathode_dom1D(m1d::BulkDomainDescription &bdd);
+  porousLiKCl_FeS2Cathode_dom1D(m1d::BDT_porCathode_LiKCl &bdd);
 
   //! Copy constructor
   /*!

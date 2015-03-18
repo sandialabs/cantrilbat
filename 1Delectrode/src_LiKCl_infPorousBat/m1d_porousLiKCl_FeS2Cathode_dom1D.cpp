@@ -42,7 +42,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescription & bdd) :
+porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKCl& bdd) :
   porousElectrode_dom1D(bdd), 
   ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), 
@@ -71,7 +71,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
   /*
    * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
    */
-  ionicLiquid_ = fa->ionicLiquid_;
+  ionicLiquid_ = fa->ionicLiquidIFN_;
   /* 
    *  This is a shallow pointer copy. The BDT object owns the transport object
    */
@@ -86,7 +86,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BulkDomainDescripti
 }
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
-  porousElectrode_dom1D(r.BDD_), 
+    porousElectrode_dom1D((BDT_porCathode_LiKCl&) r.BDD_), 
   ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),

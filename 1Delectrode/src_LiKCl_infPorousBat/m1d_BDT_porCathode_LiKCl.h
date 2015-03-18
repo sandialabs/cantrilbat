@@ -9,6 +9,7 @@
 #define M1D_BDT_PORCATHODE_LIKCL_H_
 
 #include "m1d_BulkDomainTypes.h"
+#include "m1d_BDD_porousElectrode.h"
 
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
@@ -25,7 +26,7 @@ namespace m1d
 /*!
  * 
  */
-class BDT_porCathode_LiKCl : public BulkDomainDescription
+class BDT_porCathode_LiKCl : public BDD_porousElectrode
 {
 public:
 
@@ -57,6 +58,17 @@ public:
   BDT_porCathode_LiKCl &
   operator=(const BDT_porCathode_LiKCl &r);
 
+  //! Read in the possible models for each domain
+  /*!
+   *  This procedure is done before the Equations anv variable list are set up.
+   *  Needed information about what is possible is input here.
+   *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+   *
+   *   We loop over volume and then surface domains.
+   */
+  virtual void
+  ReadModelDescriptions();
+
   //! Determine the list of Equations and Variables
   /*!
    *  This routine is responsible for setting the variables:
@@ -73,19 +85,26 @@ public:
    */
   virtual BulkDomain1D *mallocDomain1D();
 
+  //! This is done after the equations are set up
+  /*!
+   *  We loop over volume and then surface domains here.
+   */
+  virtual void
+  DetermineConstitutiveModels();
+
   // --------------------------------------------------------------------------------------------
 
   //! Pointer to the thermo object for the molten salt
   /*!
    *   We own this object
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We own this object
    */
-  Cantera::Transport* trans_;
+  //Cantera::Transport* trans_;
 
   //! top or bottom of the domain
   /*!
@@ -98,7 +117,7 @@ public:
   /*!
    * We own the electrode object.
    */
-  Cantera::Electrode *Electrode_;
+  //Cantera::Electrode *Electrode_;
 
 };
 

@@ -9,6 +9,7 @@
 #define M1D_BDT_PORANODE_LIKCL_H_
 
 #include "m1d_BulkDomainTypes.h"
+#include "m1d_BDD_porousElectrode.h"
 
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
@@ -26,7 +27,7 @@ namespace m1d
 /*!
  * 
  */
-class BDT_porAnode_LiKCl : public BulkDomainDescription
+class BDT_porAnode_LiKCl : public BDD_porousElectrode
 {
 public:
 
@@ -60,6 +61,12 @@ public:
   BDT_porAnode_LiKCl &
   operator=(const BDT_porAnode_LiKCl  &r);
 
+  //! Make list of the equations and variables
+  /*!
+   *   
+   */
+  virtual void SetEquationsVariablesList();
+
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
    * @return  Returns a pointer to the object that will calculate the residual
@@ -74,13 +81,13 @@ public:
   /*!
    *   We own this object
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We own this object
    */
-  Cantera::Transport* trans_;
+  //Cantera::Transport* trans_;
 
 
 

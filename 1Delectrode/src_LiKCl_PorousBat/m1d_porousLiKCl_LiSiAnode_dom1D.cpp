@@ -44,7 +44,7 @@ namespace m1d
 {
  
 //=====================================================================================================================
-  porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BulkDomainDescription & bdd) :
+  porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdd) :
     porousElectrode_dom1D(bdd),
     ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0), 
@@ -85,7 +85,7 @@ namespace m1d
   /*
    * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
    */
-  ionicLiquid_ = fa->ionicLiquid_;
+  ionicLiquid_ = fa->ionicLiquidIFN_;
   /* 
    *  This is a shallow pointer copy. The BDT object owns the transport object
    */
@@ -99,7 +99,7 @@ namespace m1d
 }
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
-  porousElectrode_dom1D(r.BDD_), 
+    porousElectrode_dom1D((BDT_porAnode_LiKCl &) r.BDD_), 
   ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
