@@ -46,6 +46,17 @@ enum Electrode_Capacity_Type_Enum {
     CAPACITY_CATHODE_ECT
 };
 
+enum Electrode_Function_Type_Enum {
+    //! Anode
+    ELECTRODE_ANODE_EFT = 0,
+    //! Cathode
+    ELECTRODE_CATHODE_EFT,
+    //! Reference electrode
+    ELECTRODE_REFERENCE_EFT
+    
+};
+
+
 };
 
 #endif
