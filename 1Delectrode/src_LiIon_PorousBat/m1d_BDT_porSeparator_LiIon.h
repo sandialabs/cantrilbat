@@ -74,17 +74,6 @@ public:
     //                          DATA
     // --------------------------------------------------------------------------------------------
 
-    //! Pointer to the thermo object for the molten salt
-    /*!
-     *   We own this object
-     */
-    Cantera::ThermoPhase* ionicLiquid_;
-
-    //! Pointer to the transport object for the molten salt
-    /*!
-     * We own this object
-     */
-    Cantera::Transport* trans_;
 };
 //=====================================================================================================================
 }

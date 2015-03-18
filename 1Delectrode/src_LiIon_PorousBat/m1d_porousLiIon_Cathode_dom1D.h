@@ -17,6 +17,7 @@
 
 #include "m1d_porousElectrode_dom1D.h"
 #include "m1d_cellTmps_PorousFlow.h"
+#include "m1d_BDT_porCathode_LiIon.h"
 
 namespace Cantera
 {
@@ -51,7 +52,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Cathode_dom1D(m1d::BulkDomainDescription& bdd);
+    porousLiIon_Cathode_dom1D(m1d::BDT_porCathode_LiIon& bdd);
 
     //! Copy constructor
     /*!
@@ -196,10 +197,10 @@ public:
     /*!
      *  All member data with the suffix, _Curr_, are updated by this function.
      *
-     * @param solnElectrolyte_Curr  Current value of the solution vector
+     * @param soln_Curr  Current value of the solution vector
      */
     void
-    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
     //!  Setup shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects

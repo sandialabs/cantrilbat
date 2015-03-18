@@ -25,14 +25,18 @@ BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr,
 			       std::string domainName) :
   BulkDomainDescription(dl_ptr, domainName),
   ionicLiquid_(0),
-  trans_(0)
+  trans_(0),
+  solidSkeleton_(0)
 {
   IsAlgebraic_NE.resize(7,0);
   IsArithmeticScaled_NE.resize(7,0);
 }
 //=====================================================================================================================
 BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
-  BulkDomainDescription(r.DL_ptr_), ionicLiquid_(0), trans_(0)
+  BulkDomainDescription(r.DL_ptr_), 
+  ionicLiquid_(0), 
+  trans_(0),
+  solidSkeleton_(0)
 {
   *this = r;
 }
@@ -43,6 +47,10 @@ BDD_porousFlow::~BDD_porousFlow()
    * Delete objects that we own
    */
   safeDelete(ionicLiquid_);
+
+  safeDelete(trans_);
+
+  safeDelete(solidSkeleton_);
  
 }
 //=====================================================================================================================
@@ -54,11 +62,18 @@ BDD_porousFlow::operator=(const BDD_porousFlow &r)
   }
   BulkDomainDescription::operator=(r);
 
-  delete ionicLiquid_;
-  ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();
-
-  exit(-1);
-
+  safeDelete(ionicLiquid_);
+  if (r.ionicLiquid_) {
+      ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();
+  }
+  safeDelete(trans_);
+  if (r.trans_) {
+       trans_ = (r.trans_)->duplMyselfAsTransport();
+  }
+  safeDelete(solidSkeleton_);
+  if (r.solidSkeleton_) {
+       solidSkeleton_ = (r.solidSkeleton_)->duplMyselfAsThermoPhase();
+  }
   return *this;
 }
 //=====================================================================================================================
@@ -87,7 +102,7 @@ BDD_porousFlow::ReadModelDescriptions()
         throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
                            "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
     }
-    skeletonPhase_ = tmpPhase->duplMyselfAsThermoPhase();
+    solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
 }
 //=====================================================================================================================
 //  Make list of the equations and variables
@@ -169,13 +184,26 @@ BDD_porousFlow::SetEquationsVariablesList()
     
     
     // Enthalpy conservation is used to solve for the temperature
-    if (pb-> energyEquationProbType_ == 3) {
+    if (pb->energyEquationProbType_ == 3) {
 	/*
 	 * For equation type 3 push an enthalpy conservation equation to the rear.
 	 */
 	EquationNameList.push_back(EqnType(Enthalpy_Conservation, 0, "Enthalpy Conservation"));
 	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
-	
+	IsAlgebraic_NE[eqnIndex] = 0;
+	IsArithmeticScaled_NE[eqnIndex] = 0;
+	eqnIndex++;
+
+    } else if (pb->energyEquationProbType_ == 4) {
+        /*
+         * For equation type 4 push an enthalpy conservation equation to the rear.
+         */
+        EquationNameList.push_back(EqnType(Thermal_Conservation, 0, "Thermal Conservation"));
+        VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+        IsAlgebraic_NE[eqnIndex] = 0;
+        IsArithmeticScaled_NE[eqnIndex] = 0;
+        eqnIndex++;
+
     } else  if (pb-> energyEquationProbType_ != 0) {
 	printf("not implemented \n");
 	exit(-1);

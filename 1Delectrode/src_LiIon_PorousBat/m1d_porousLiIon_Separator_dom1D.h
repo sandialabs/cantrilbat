@@ -16,6 +16,7 @@
 
 #include "m1d_porousFlow_dom1D.h"
 #include "m1d_cellTmps_PorousFlow.h"
+#include "m1d_BDT_porSeparator_LiIon.h"
 
 namespace Cantera
 {
@@ -26,6 +27,7 @@ class Transport;
 namespace m1d
 {
 class LocalNodeIndices;
+
 
 // --------------------------------------------------------------------------------------------------
 
@@ -51,7 +53,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Separator_dom1D(m1d::BulkDomainDescription& bdd);
+    porousLiIon_Separator_dom1D(m1d::BDT_porSeparator_LiIon& bdd);
 
     //! Copy constructor
     /*!

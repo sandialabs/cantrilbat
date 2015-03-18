@@ -101,13 +101,15 @@ public:
 
   //! Pointer to the transport object for the electrolyte
   /*!
-   * We own this object
+   * we own this object
    */
   Cantera::Transport* trans_;
 
   //! Pointer to the thermo object for the porous solid comprising the solid skeleton phase
-  Cantera::ThermoPhase* skeletonPhase_;  
-
+  /*!
+   * We own this object
+   */
+  Cantera::ThermoPhase* solidSkeleton_;  
 };
 //=====================================================================================================================
 }

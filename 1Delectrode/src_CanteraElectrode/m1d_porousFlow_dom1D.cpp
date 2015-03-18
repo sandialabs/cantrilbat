@@ -29,8 +29,8 @@ using namespace std;
 namespace m1d
 {
  
-  //=====================================================================================================================
-  porousFlow_dom1D::porousFlow_dom1D(BulkDomainDescription & bdd) :
+//=====================================================================================================================
+porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     BulkDomain1D(bdd),
     energyEquationProbType_(0),
     porosity_Cell_(0),
@@ -41,8 +41,11 @@ namespace m1d
     phiElectrolyte_Curr_(0.0),
     porosity_Curr_(0.0),
     ivb_(VB_MOLEAVG)
-  {
-  }
+{
+    ionicLiquid_ = bdd.ionicLiquid_;
+    trans_ = bdd.trans_;
+    solidSkeleton_ = bdd.solidSkeleton_;
+}
   //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     BulkDomain1D(r.BDD_),
@@ -72,18 +75,27 @@ namespace m1d
     // Call the parent assignment operator
     BulkDomain1D::operator=(r);
 
-    energyEquationProbType_ = r.energyEquationProbType_;
-    porosity_Cell_ = r.porosity_Cell_;
-    porosity_Cell_old_ = r.porosity_Cell_old_;
-    temp_Curr_ = r.temp_Curr_;
-    concTot_Curr_ = r.concTot_Curr_;
-    pres_Curr_ = r.pres_Curr_;
-    phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
-    porosity_Curr_ = r.porosity_Curr_;
-    qSource_Cell_curr_ = r.qSource_Cell_curr_;
-    qSource_Cell_accumul_ = r.qSource_Cell_accumul_;
+    energyEquationProbType_   = r.energyEquationProbType_;
+    CpPM_lyte_Cell_           = r.CpPM_lyte_Cell_;
+    EnthPM_lyte_Cell_         = r.EnthPM_lyte_Cell_;
+    porosity_Cell_            = r.porosity_Cell_;
+    porosity_Cell_old_        = r.porosity_Cell_old_;
+    temp_Curr_                = r.temp_Curr_;
+    pres_Curr_                = r.pres_Curr_;
+    concTot_Curr_             = r.concTot_Curr_;
+    phiElectrolyte_Curr_      = r.phiElectrolyte_Curr_;
+    porosity_Curr_            = r.porosity_Curr_;
+    cellTmpsVect_Cell_        = r.cellTmpsVect_Cell_;
+
+    qSource_Cell_curr_        = r.qSource_Cell_curr_;
+    qSource_Cell_accumul_     = r.qSource_Cell_accumul_;
     jouleHeat_lyte_Cell_curr_ = r.jouleHeat_lyte_Cell_curr_;
     jouleHeat_solid_Cell_curr_ = r.jouleHeat_solid_Cell_curr_;
+    electrodeHeat_Cell_curr_ = r.electrodeHeat_Cell_curr_; 
+    overPotentialHeat_Cell_curr_ = r.overPotentialHeat_Cell_curr_;
+    deltaSHeat_Cell_curr_      = r.deltaSHeat_Cell_curr_;
+    potentialAnodic_           = r.potentialAnodic_;
+    potentialCathodic_         = r.potentialCathodic_;
     nEnthalpy_New_Cell_        = r.nEnthalpy_New_Cell_;
     nEnthalpy_Old_Cell_        = r.nEnthalpy_Old_Cell_;
     ivb_                       = r.ivb_;
@@ -116,6 +128,8 @@ namespace m1d
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
 
+    cellTmpsVect_Cell_.resize(NumLcCells);
+
     qSource_Cell_curr_.resize(NumLcCells, 0.0);
     qSource_Cell_accumul_.resize(NumLcCells, 0.0);
     jouleHeat_lyte_Cell_curr_.resize(NumLcCells, 0.0);
@@ -126,7 +140,11 @@ namespace m1d
     nEnthalpy_New_Cell_.resize(NumLcCells, 0.0);
     nEnthalpy_Old_Cell_.resize(NumLcCells, 0.0);
 
-    cellTmpsVect_Cell_.resize(NumLcCells);
+ 
+    if  (doEnthalpyEquation_) {
+	CpPM_lyte_Cell_.resize(NumLcCells, 0.0);
+	EnthPM_lyte_Cell_.resize(NumLcCells, 0.0);
+    }
   }
 //=====================================================================================================================
 double porousFlow_dom1D::heatSourceLastStep() const
@@ -448,8 +466,6 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 
     }
 }
-
-    
 //====================================================================================================================
 // Function that gets called at end the start of every time step
 /*
@@ -475,6 +491,21 @@ porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
                                       const double t, const double t_old)
 {
 
+}
+//=====================================================================================================================
+//!  Setup shop at a particular point in the domain, calculating intermediate quantites
+//!  and updating Cantera's objects
+/*!
+ *  This routine will set up shop at a point intermediate to a left and a right point
+ *  All member data with the suffix, _Curr_, are updated by this function.
+ *
+ * @param soln_Curr  Current value of the solution vector at the current node
+ */
+void
+porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr)
+{
+    //porosity_Curr_ = porosity_Cell_[cIndex_cc_];
+    //updateElectrolyte(nv, soln_Curr);
 }
 //=====================================================================================================================
 double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, double &voltOCV, double &current)

@@ -16,90 +16,90 @@ using namespace Cantera;
 namespace m1d
 {
  
-  //=====================================================================================================================
-  porousElectrode_dom1D::porousElectrode_dom1D(BulkDomainDescription & bdd) :
-      porousFlow_dom1D(bdd),
-      Electrode_Cell_(0),
-      maxElectrodeSubIntegrationSteps_(0),
-      surfaceArea_Cell_(0)
-  {
-
-  }
-  //=====================================================================================================================
-  porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
-      porousFlow_dom1D(r.BDD_),
-      Electrode_Cell_(0),
-      maxElectrodeSubIntegrationSteps_(0),
-      surfaceArea_Cell_(0)
-  {
-      operator=(r);
-  }
-  //=====================================================================================================================
-  porousElectrode_dom1D::~porousElectrode_dom1D()
-  {
-      for (size_t iCell = 0; iCell < Electrode_Cell_.size(); iCell++) {
-          delete Electrode_Cell_[iCell];
-          Electrode_Cell_[iCell] = 0;
-      }
-  }
-  //=====================================================================================================================
-  porousElectrode_dom1D &
-  porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
-  {
+//=====================================================================================================================
+porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
+    porousFlow_dom1D(bdd),
+    Electrode_Cell_(0),
+    maxElectrodeSubIntegrationSteps_(0),
+    surfaceArea_Cell_(0)
+{
+    
+}
+//=====================================================================================================================
+porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
+    porousFlow_dom1D((BDD_porousElectrode&)r.BDD_),
+    Electrode_Cell_(0),
+    maxElectrodeSubIntegrationSteps_(0),
+    surfaceArea_Cell_(0)
+{
+    operator=(r);
+}
+//=====================================================================================================================
+porousElectrode_dom1D::~porousElectrode_dom1D()
+{
+    for (size_t iCell = 0; iCell < Electrode_Cell_.size(); iCell++) {
+	delete Electrode_Cell_[iCell];
+	Electrode_Cell_[iCell] = 0;
+    }
+}
+//=====================================================================================================================
+porousElectrode_dom1D &
+porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
+{
     if (this == &r) {
-      return *this;
+	return *this;
     }
     // Call the parent assignment operator
     porousFlow_dom1D::operator=(r);
-
+    
     // first do a shallow pointer copy
     Electrode_Cell_ = r.Electrode_Cell_;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         // Dupl routine  is not implemented totally
         Electrode_Cell_[iCell] = (r.Electrode_Cell_[iCell])->duplMyselfAsElectrode();
     }
-
+    
     maxElectrodeSubIntegrationSteps_ = r.maxElectrodeSubIntegrationSteps_;
     surfaceArea_Cell_                = r.surfaceArea_Cell_;
-
+    
     return *this;
-  }
-  //=====================================================================================================================
-  // Prepare all of the indices for fast calculation of the residual
-  /*
-   *  Ok, at this point, we will have figured out the number of equations
-   *  to be calculated at each node point. The object NodalVars will have
-   *  been fully formed.
-   *
-   *  We use this to figure out what local node numbers/ cell numbers are
-   *  needed and to set up indices for their efficient calling.
-   *
-   *  Child objects of this one will normally call this routine in a
-   *  recursive fashion.
-   */
-  void
-  porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
-  {
+}
+//=====================================================================================================================
+// Prepare all of the indices for fast calculation of the residual
+/*
+ *  Ok, at this point, we will have figured out the number of equations
+ *  to be calculated at each node point. The object NodalVars will have
+ *  been fully formed.
+ *
+ *  We use this to figure out what local node numbers/ cell numbers are
+ *  needed and to set up indices for their efficient calling.
+ *
+ *  Child objects of this one will normally call this routine in a
+ *  recursive fashion.
+ */
+void
+porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
+{
     /*
      * First call the parent domain prep to get the node information
      */
     porousFlow_dom1D::domain_prep(li_ptr);
-
+    
     Electrode_Cell_.resize(NumLcCells, 0);
     surfaceArea_Cell_.resize(NumLcCells, 0.0);
-  }
-  //====================================================================================================================
-  //  An electrode object must be created and initialized for every cell in the domain
-  /*
-   * Create electrode objects for every cell.  
-   * Correct the volume and number of moles of 
-   * active material within each of these electrode 
-   * objects to correspond to the discretized volume.
-   */
-  void
-  porousElectrode_dom1D::instantiateElectrodeCells() 
-  {
-  }
+}
+//====================================================================================================================
+//  An electrode object must be created and initialized for every cell in the domain
+/*
+ * Create electrode objects for every cell.  
+ * Correct the volume and number of moles of 
+ * active material within each of these electrode 
+ * objects to correspond to the discretized volume.
+ */
+void
+porousElectrode_dom1D::instantiateElectrodeCells() 
+{
+}
 //====================================================================================================================
 // Function that gets called at end the start of every time step
 /*

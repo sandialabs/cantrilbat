@@ -24,7 +24,7 @@ using namespace std;
 namespace m1d
 {
 //=====================================================================================================================
-porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& bdd) :
+porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon& bdd) :
     porousFlow_dom1D(bdd),
     ionicLiquid_(0), 
     solidSkeleton_(0),
@@ -68,7 +68,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BulkDomainDescription& 
 }
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
-    porousFlow_dom1D(r.BDD_),
+    porousFlow_dom1D((BDD_porousFlow&) r.BDD_),
     ionicLiquid_(0),
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),

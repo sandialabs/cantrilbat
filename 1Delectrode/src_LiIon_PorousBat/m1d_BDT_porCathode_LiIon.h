@@ -63,28 +63,33 @@ public:
     BDT_porCathode_LiIon&
     operator=(const BDT_porCathode_LiIon& r);
 
+    //! Read in the possible models for each domain
+    /*!
+     *  This procedure is done before the Equations anv variable list are set up.
+     *  Needed information about what is possible is input here.
+     *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+     *
+     *   We loop over volume and then surface domains.
+     */
+    virtual void
+    ReadModelDescriptions();
+
     //! Malloc and return the object that will calculate the residual efficiently
     /*!
      * @return  Returns a pointer to the object that will calculate the residual efficiently
      */
-    virtual BulkDomain1D*   mallocDomain1D();
+    virtual BulkDomain1D* mallocDomain1D();
 
+    //! This is done after the equations are set up
+    /*!
+     *  We loop over volume and then surface domains here.
+     */
+    virtual void
+    DetermineConstitutiveModels();
 
     // --------------------------------------------------------------------------------------------
     //            DATA
     // --------------------------------------------------------------------------------------------
-
-    //! Pointer to the thermo object for the molten salt
-    /*!
-     *   We own this object
-     */
-    Cantera::ThermoPhase* ionicLiquid_;
-
-    //! Pointer to the transport object for the molten salt
-    /*!
-     * We own this object
-     */
-    Cantera::Transport* trans_;
 
     //! top or bottom of the domain
     /*!
@@ -93,11 +98,15 @@ public:
      */
     int m_position;
 
-    //! Pointer to the electrode object
+    //! Starting Capacity
     /*!
-     * We own the electrode object.
+     *   Capacity of the electrode in amp sec = coulombs
      */
-    Cantera::Electrode* Electrode_;
+    double Capacity_initial_;
+
+    double CapacityDischarged_initial_;
+
+    double CapacityLeft_initial_;
 };
 //=====================================================================================================================
 }

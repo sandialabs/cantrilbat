@@ -37,18 +37,18 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
-  porousFlow_dom1D(bdd),
-  ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
+porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl& bdd) :
+      porousFlow_dom1D(bdd),
+      ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
       concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
       Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
       spCharge_(0), 
-  mfElectrolyte_Soln_Curr_(0), 
-  mfElectrolyte_Thermo_Curr_(0), 
-  mfElectrolyte_Soln_Cell_old_(0,0),
-  mfElectrolyte_SolnDot_Curr_(0),
-  pmVolElectrolyte_Curr_(0),
-  concTotDot_Curr_(0.0),
+      mfElectrolyte_Soln_Curr_(0), 
+      mfElectrolyte_Thermo_Curr_(0), 
+      mfElectrolyte_Soln_Cell_old_(0,0),
+      mfElectrolyte_SolnDot_Curr_(0),
+      pmVolElectrolyte_Curr_(0),
+      concTotDot_Curr_(0.0),
       gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
       icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), solnTemp(0), ivb_(VB_MOLEAVG)
 {
@@ -57,7 +57,7 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
   if (!fa) {
     throw m1d_Error("confused", "confused");
   }
-  ionicLiquid_ = fa->ionicLiquid_;
+  ionicLiquid_ = fa->ionicLiquidIFN_;
   trans_ = fa->trans_;
   nsp_ = 3;
   nph_ = 1;
@@ -65,8 +65,8 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BulkDomainDescription & bdd) :
 }
 //=====================================================================================================================
 porousLiKCl_dom1D::porousLiKCl_dom1D(const porousLiKCl_dom1D &r) :
-  porousFlow_dom1D(r.BDD_),
-  ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
+      porousFlow_dom1D((BDT_porousLiKCl&)r.BDD_),
+      ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
       concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
       Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
       spCharge_(0),

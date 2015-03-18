@@ -18,6 +18,7 @@
  */
 
 #include "m1d_porousFlow_dom1D.h"
+#include "m1d_BDT_porousLiKCl.h"
 
 namespace Cantera
 {
@@ -45,7 +46,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_dom1D(m1d::BulkDomainDescription &bdd);
+    porousLiKCl_dom1D(m1d::BDT_porousLiKCl &bdd);
 
   //! Copy constructor
   /*!
@@ -121,7 +122,7 @@ public:
    *                              0 - at the left cell boundary
    *                              1 - at the right cell boundary
    */
-  void
+  virtual void
   SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, const doublereal * const solnDotElectrolyte_Curr, 
 		   int type);
 

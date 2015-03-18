@@ -14,6 +14,7 @@
 
 #include "m1d_porousElectrode_dom1D.h"
 #include "m1d_cellTmps_PorousFlow.h"
+#include "m1d_BDT_porAnode_LiIon.h"
 
 namespace Cantera
 {
@@ -48,7 +49,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Anode_dom1D(m1d::BulkDomainDescription& bdd);
+    porousLiIon_Anode_dom1D(m1d::BDT_porAnode_LiIon& bdd);
 
     //! Copy constructor
     /*!

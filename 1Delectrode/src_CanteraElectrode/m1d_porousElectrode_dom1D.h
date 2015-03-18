@@ -10,6 +10,7 @@
 #define M1D_POROUSELECTRODE_DOM1D_H_
 
 #include "m1d_porousFlow_dom1D.h"
+#include "m1d_BDD_porousElectrode.h"
 
 //#include <cantera/transport.h>    
 
@@ -21,6 +22,7 @@ namespace Cantera
 namespace m1d
 {
 class LocalNodeIndices;
+class BDD_porousElectrode;
 
 //======================================================================================================================
 //! This is derived class  provides the function
@@ -42,12 +44,12 @@ class porousElectrode_dom1D : public porousFlow_dom1D
 
 public:
 
-  //! Constructor
-  /*!
-   * @param bdd   Contains the bulk domain description.
-   */
-  porousElectrode_dom1D(m1d::BulkDomainDescription &bdd);
-
+    //! Constructor
+    /*!
+     * @param bdd   Contains the bulk domain description.
+     */
+    porousElectrode_dom1D(BDD_porousElectrode &bdd);
+    
   //! Copy constructor
   /*!
    * @param r      Object to be copied into the current object

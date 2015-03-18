@@ -112,7 +112,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     double endZ = startZ + anodeSize;
 
 
-    ProblemStatementCell* psc_ptr = &PSinput;
+    //ProblemStatementCell* psc_ptr = &PSinput;
     //ELECTRODE_KEY_INPUT* ai = psc_ptr->anode_input_;
     //ELECTRODE_KEY_INPUT* ci = psc_ptr->cathode_input_;
 

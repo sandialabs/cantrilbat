@@ -33,7 +33,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BulkDomainDescription& bdd) :
+porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) :
     porousElectrode_dom1D(bdd),
     ionicLiquid_(0), 
     trans_(0), nph_(0), nsp_(0),
@@ -104,7 +104,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BulkDomainDescription& bdd)
 }
 //=====================================================================================================================
 porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_dom1D& r) :
-    porousElectrode_dom1D(r.BDD_),
+    porousElectrode_dom1D((m1d::BDD_porousElectrode&)   r.BDD_),
     ionicLiquid_(0), 
     trans_(0), nph_(0), nsp_(0),
     concTot_cent_(0.0),

@@ -9,6 +9,7 @@
 #define M1D_BDT_POROUSLIKCL_H_
 
 #include "m1d_BulkDomainTypes.h"
+#include "m1d_BDD_porousFlow.h"
 
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
@@ -26,7 +27,7 @@ namespace m1d
 /*!
  *  This class is used to test the implementation
  */
-class BDT_porousLiKCl : public BulkDomainDescription
+class BDT_porousLiKCl : public BDD_porousFlow
 {
 public:
 
@@ -38,8 +39,7 @@ public:
    * and what the equations are, that are solved within the domain.
    *
    */
-
-  BDT_porousLiKCl(DomainLayout *dl_ptr);
+  BDT_porousLiKCl(DomainLayout *dl_ptr, std::string domainName = ""); 
 
   //! Destructor
   virtual
@@ -59,6 +59,17 @@ public:
   BDT_porousLiKCl &
   operator=(const BDT_porousLiKCl &r);
 
+  //! Read in the possible models for each domain
+  /*!
+   *  This procedure is done before the Equations anv variable list are set up.
+   *  Needed information about what is possible is input here.
+   *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
+   *
+   *   We loop over volume and then surface domains.
+   */
+  virtual void
+  ReadModelDescriptions();
+
   //! Determine the list of Equations and Variables
   /*!
    *  This routine is responsible for setting the variables:
@@ -76,6 +87,12 @@ public:
   virtual BulkDomain1D *
   mallocDomain1D();
 
+  //! This is done after the equations are set up
+  /*!
+   *  We loop over volume and then surface domains here.
+   */
+  virtual void
+  DetermineConstitutiveModels();
 
   // --------------------------------------------------------------------------------------------
 
@@ -84,15 +101,9 @@ public:
 
   //! Pointer to the thermo object for the molten salt
   /*!
-   *   We own this object
+   *   This is a shallow pointer
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
-
-  //! Pointer to the transport object for the molten salt
-  /*!
-   * We own this object
-   */
-  Cantera::Transport* trans_;
+  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
 };
 

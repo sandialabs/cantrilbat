@@ -10,10 +10,14 @@
 #define M1D_POROUSFLOW_DOM1D_H_
 
 #include "m1d_BulkDomain1D.h"
+#include "m1d_BDD_porousFlow.h"
 
 #include <cantera/transport.h>    
 
-
+namespace Cantera
+{
+    class Transport;
+}
 
 namespace m1d
 {
@@ -44,7 +48,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousFlow_dom1D(m1d::BulkDomainDescription &bdd);
+  porousFlow_dom1D(m1d::BDD_porousFlow &bdd);
 
   //! Copy constructor
   /*!
@@ -100,6 +104,18 @@ public:
   advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
                       const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                       const double t, const double t_old);
+
+
+  //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
+  //!  and updating Cantera's objects
+  /*!
+   *  All member data with the suffix, _Curr_, are updated by this function.
+   *
+   * @param nv         NodalVars structure for the current node
+   * @param soln_Curr  Current value of the solution vector
+   */
+  virtual void SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
+
 
 
   virtual double heatSourceLastStep() const;
@@ -341,8 +357,24 @@ protected:
    */
   std::vector<double> nEnthalpy_Old_Cell_;
 
+  //! Vector of average thermal conductivities of the matrix comprising each cell
+  std::vector<double> thermalCond_Cell_;
+
   //! Velocity basis of the transport equations
   Cantera::VelocityBasis ivb_;
+
+    //! Pointer to the thermo object for the electrolyte
+    /*!
+     *   We do not own this object
+     */
+    Cantera::ThermoPhase* ionicLiquid_;
+
+    //! Pointer to the transport object for the electrolyte
+    Cantera::Transport* trans_;
+
+    //! Pointer to the solid skeleton
+    Cantera::ThermoPhase* solidSkeleton_;
+
 
 };
 //======================================================================================================================
