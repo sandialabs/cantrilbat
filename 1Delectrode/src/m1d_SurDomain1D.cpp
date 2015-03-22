@@ -1245,6 +1245,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
         VarType vtDir = sdt->VariableID[i];
         VAR_TYPE vtmDir = vtDir.VariableType;
         VAR_TYPE_SUBNUM stDir = vtDir.VariableSubType;
+        bool ifound = false;
         // If the subtype is -1, then we apply to all equations of the
         // variable main type
         /*
@@ -1265,6 +1266,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
                     BC_Type_NE[j] = sdt->BC_Type_[i];
                     IsAlgebraic_Node[j] = 1;
                     NumBCs++;
+                    ifound = true;
                 }
             }
         } else {
@@ -1281,9 +1283,15 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
                     BC_TimeDep_NE[j] = sdt->BC_TimeDep_[i];
                     BC_Type_NE[j] = sdt->BC_Type_[i];
                     IsAlgebraic_Node[j] = 1;
-                    NumBCs++;
+                    NumBCs++ ;
+                    ifound = true;
                 }
             }
+        }
+        if (!ifound ) {
+            string ss = vtDir.VariableName(24);
+            printf("SurBC_Dirichlet::domain_prep: didn't find equation for variable %s\n", ss.c_str()  );
+             
         }
     }
 
