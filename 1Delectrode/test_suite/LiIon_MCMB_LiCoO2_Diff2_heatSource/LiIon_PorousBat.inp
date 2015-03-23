@@ -279,3 +279,4 @@ Nonlinear Solver Log Level = 3
 !
 ! Maximum Number of Time Steps = 1
 
+Anode TemperatureBC Type = 0

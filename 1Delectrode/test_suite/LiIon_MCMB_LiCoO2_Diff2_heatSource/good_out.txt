@@ -40,6 +40,7 @@
  ====> TemperatureRef = 298.15
  => Reference Pressure = 1.0 atm
  ====> PO.PressureRef = 101325
+ => Anode TemperatureBC Type ====> anodeTemp_bc_type = 0
 =========================================================
  FINISHED PROCESSING COMMAND FILE LiIon_PorousBat.inp, PASS # 2
 =========================================================
@@ -115,6 +116,7 @@ Species name 3 is MgO(S)
  => Solution Behavior Print Level ====> SolutionBehavior_printLvl_ = 5
  => Time Stepper Print Level ====> TimeStepper_printLvl_ = 6
  => Nonlinear Solver Log Level ====> NonlinSolver_printLvl = 3
+ => Anode TemperatureBC Type ====> anodeTemp_bc_type = 0
 =========================================================
  FINISHED PROCESSING COMMAND FILE LiIon_PorousBat.inp, PASS # 3
 =========================================================
@@ -530,6 +532,7 @@ END BLOCK Radial Diffusion Region
      5 Volt(CathodeVoltage)  Current_conservation |                                                 |     5 Volt(CathodeVoltage)  Current_conservation |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
+SurBC_Dirichlet::domain_prep: didn't find equation for variable Temperature(temperature)
 Solution saved to file solution.xml as solution 0.
 Solution saved to file solutionStartEnd.xml as solution 0.
     ----------------------------------------------------------------------------------------------------
