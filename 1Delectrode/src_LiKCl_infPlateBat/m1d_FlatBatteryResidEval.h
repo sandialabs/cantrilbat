@@ -23,6 +23,8 @@
 #include "m1d_ProblemResidEval.h"
 #include "m1d_BoundaryCondition.h"
 #include "m1d_SurDomain1D.h"
+#include "m1d_BatteryResidEval.h"  
+
 
 namespace m1d {
 
@@ -30,7 +32,7 @@ namespace m1d {
 /**
  * 
  */
-class FlatBatteryResidEval: public ProblemResidEval
+class FlatBatteryResidEval: public BatteryResidEval
 {
 
 public:

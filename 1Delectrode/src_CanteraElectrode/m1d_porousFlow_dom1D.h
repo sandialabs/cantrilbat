@@ -12,6 +12,8 @@
 #include "m1d_BulkDomain1D.h"
 #include "m1d_BDD_porousFlow.h"
 
+#include "m1d_valCellTmps_porousFlow.h"
+
 #include <cantera/transport.h>    
 
 namespace Cantera
@@ -105,6 +107,15 @@ public:
                       const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                       const double t, const double t_old);
 
+  virtual void 
+  residEval_PreCalc(const bool doTimeDependentResid,
+                                             const Epetra_Vector* soln_ptr,
+                                             const Epetra_Vector* solnDot_ptr,
+                                             const Epetra_Vector* solnOld_ptr,
+                                             const double t,
+                                             const double rdelta_t,
+                                             const ResidEval_Type_Enum residType,
+                                             const Solve_Type_Enum solveType);
 
   //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
   //!  and updating Cantera's objects
@@ -162,6 +173,10 @@ public:
   initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln, Epetra_Vector* solnDot,
                     const double t, const double delta_t);
 
+  //! Calculate the thermal conductivity of the porous matrix at the current cell.
+  virtual double
+  thermalCondCalc_PorMatrix();
+
   // -------------------------------------------------------------------------------------------------------------------
   // -----------------------------------------   DATA   ----------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
@@ -206,6 +221,15 @@ protected:
   std::vector<double> porosity_Cell_old_;
 
   //
+  // --------------------- Cell Storage -------------------------------------------------------------------------------
+  //
+  //!  Cell storage -> storage of cell related quantities at the current cell, cIndex_cc_
+
+  //! Cell index number
+  int cIndex_cc_;
+
+
+  //
   // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
   //                         ( these are intermediate values and all have the suffix _Curr_ )
   //                         ( these all refer to the new time value)
@@ -225,6 +249,7 @@ protected:
 
   //! Current porosity
   double porosity_Curr_;
+
 
   //! Vector of temporary indexing quantities for each cell
   /*!
@@ -359,6 +384,10 @@ protected:
 
   //! Vector of average thermal conductivities of the matrix comprising each cell
   std::vector<double> thermalCond_Cell_;
+
+  //! Vector of temporary solution variables
+  std::vector<valCellTmps> valCellTmpsVect_Cell_;
+
 
   //! Velocity basis of the transport equations
   Cantera::VelocityBasis ivb_;

@@ -61,7 +61,7 @@ double BC_anodeCC::valueAtTime(double time, double voltsAnode, int interval)
     double resistance = resistivity_copper(298.);
     double denom = resistance * thickness_;
     denom = std::max(denom, 1.0E-11);
-    double val = (anodeCC_volts_ - voltsAnode) / denom;
+    double val = (voltsAnode - anodeCC_volts_) / denom;
     return val; 
 }
 //=====================================================================================================================
@@ -112,7 +112,47 @@ double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval)
     double val = (voltsCathode - cathodeCC_volts_) / denom;
     return val;
 }
+//=====================================================================================================================
+//=====================================================================================================================
+BC_heatTransfer::BC_heatTransfer(double tranCoeff, double tempRef, double electrodeCrossSectionalArea) :
+    BoundaryCondition(),
+    tempRef_(tempRef),
+    tranCoeff_(tranCoeff),
+    electrodeCrossSectionalArea_(electrodeCrossSectionalArea)
+{
+}
+//=====================================================================================================================
+BC_heatTransfer::~BC_heatTransfer()
+{
+}
+//=====================================================================================================================
+BC_heatTransfer::BC_heatTransfer(const BC_heatTransfer& right) :
+   BoundaryCondition(right),
+   tempRef_(right.tempRef_),
+   tranCoeff_(right.tranCoeff_),
+   electrodeCrossSectionalArea_(right.electrodeCrossSectionalArea_)
+{
+}
+//=====================================================================================================================
+BC_heatTransfer& BC_heatTransfer::operator=(const BC_heatTransfer& right)
+{
+   if (&right == this) {
+     return *this;
+   }
+   BoundaryCondition::operator=(right);
+   tranCoeff_ = right.tranCoeff_;
+   tempRef_   = right.tempRef_;
+   electrodeCrossSectionalArea_ = right.electrodeCrossSectionalArea_;
 
+   return *this;
+}
+//=====================================================================================================================
+double BC_heatTransfer::valueAtTime(double time, double tempCollector, int interval)
+{ 
+    // This represents the net flux of heat out of the domain.
+    double val = tranCoeff_ * electrodeCrossSectionalArea_ * (tempCollector - tempRef_);
+    return val;
+}
 //=====================================================================================================================
 }//namespace m1d
 //=====================================================================================================================

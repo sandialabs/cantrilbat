@@ -34,6 +34,13 @@ namespace m1d {
  *
  * This is an abstract base class.  Subclasses provide specific
  * relationships between the dependent variable and independent variable.
+ *
+ * Boundary conditions representing fluxes are always added into the residual equations.
+ * The residual equations always have their time derivative terms representing the accretion of 
+ * the conserved quantity as positive. What this works out to is that the boundary conditions
+ * representing the flux out of the domain is added to this residual.
+ * This is true no matter if we are on the X = 0 side of the domain or the X = +TOP side of the domain.
+ * 
  */
 class BoundaryCondition
 {

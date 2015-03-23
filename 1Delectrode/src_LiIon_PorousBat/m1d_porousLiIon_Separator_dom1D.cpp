@@ -29,7 +29,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     ionicLiquid_(0), 
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
-    concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
+    concTot_Cell_(0), concTot_Cell_old_(0), 
+    Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
     t_final_(0.0), t_init_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
@@ -72,7 +73,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
     ionicLiquid_(0),
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
-    concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
+    concTot_Cell_(0), concTot_Cell_old_(0),
+    Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
     t_final_(0.0), t_init_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0), mfElectrolyte_Soln_Curr_(0), mfElectrolyte_Thermo_Curr_(0), 
@@ -111,7 +113,6 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     concTot_Cell_                         = r.concTot_Cell_;
     concTot_Cell_old_                     = r.concTot_Cell_old_;
 
-    cIndex_cc_                            = r.cIndex_cc_;
     Fleft_cc_                             = r.Fleft_cc_;
     Fright_cc_                            = r.Fright_cc_;
     Vleft_cc_                             = r.Vleft_cc_;
@@ -332,6 +333,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
     double fluxFright = 0.;
     double fluxFleft;
+    //  Thermal fluxes
+    double fluxTright = 0.0;
+    double fluxTleft = 0.0;
 
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
@@ -385,7 +389,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
 
-	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
+        valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
@@ -691,6 +697,13 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
 
+	/*
+	 *  Energy Equation
+	 */
+	if (PS_ptr->energyEquationProbType_ == 3) {
+              AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
+              res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
+	}
         /*
          * --------------------------------------------------------------------------
          *  Add in the source terms at the current cell center
@@ -1131,14 +1144,20 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
 
     //set gradients
     gradT_trCurr_ = 0.0;
+    valCellTmps& valTmps = valCellTmpsVect_Cell_[cIndex_cc_];
+
+
 
     if (type == 0) {
         // Left boundary
         gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdel;
+        
+        gradT_trCurr_ = (valTmps.Temperature.center - valTmps.Temperature.left) / xdel;
 
     } else {
         // Right boundary
         gradV_trCurr_ = (Vright_cc_ - Vcent_cc_) / xdel;
+        gradT_trCurr_ = (valTmps.Temperature.right - valTmps.Temperature.center) / xdel;
     }
 
     if (type == 0) {

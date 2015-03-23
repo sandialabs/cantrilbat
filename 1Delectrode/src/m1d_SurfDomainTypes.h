@@ -216,7 +216,7 @@ public:
      * @param  variableID  VariableID to apply the flux condition to
      * @param  value  Value to apply
      */
-    void addFluxCondition(EqnType equationID, VarType VariableID, double value);
+    void addFluxCondition(const EqnType& equationID, const VarType& VariableID, double value);
 
     //! Add a flux Condition using time dependent continuous function
     /*!
@@ -225,7 +225,7 @@ public:
      * @param  variableID  VariableID to apply the flux condition to
      * @param  value  Value to apply
      */
-    void addFluxCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double));
+    void addFluxCondition(const EqnType& equationID, const VarType& variableID, double value, double (*timeDep)(double));
 
     //! Add a flux Condition using Boundary Condition class
     /*!
@@ -235,7 +235,7 @@ public:
      * @param  value  Value to apply
      */
     void
-    addFluxCondition(EqnType equationID, VarType variableID, int BC_Type, BoundaryCondition *BC_timeDep);
+    addFluxCondition(const EqnType& equationID, const VarType& variableID, int BC_Type, BoundaryCondition *BC_timeDep);
 
     //! Add a Robin Mixed boundary Condition
     /*!

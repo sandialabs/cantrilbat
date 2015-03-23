@@ -40,7 +40,7 @@ namespace m1d
 porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl& bdd) :
       porousFlow_dom1D(bdd),
       ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
-      concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
+      concTot_Cell_(0), concTot_Cell_old_(0),  Fleft_cc_(0.0),
       Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
       spCharge_(0), 
       mfElectrolyte_Soln_Curr_(0), 
@@ -67,7 +67,7 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl& bdd) :
 porousLiKCl_dom1D::porousLiKCl_dom1D(const porousLiKCl_dom1D &r) :
       porousFlow_dom1D((BDT_porousLiKCl&)r.BDD_),
       ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
-      concTot_Cell_(0), concTot_Cell_old_(0), cIndex_cc_(0), Fleft_cc_(0.0),
+      concTot_Cell_(0), concTot_Cell_old_(0), Fleft_cc_(0.0),
       Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
       spCharge_(0),
   mfElectrolyte_Soln_Curr_(0), 
@@ -103,7 +103,6 @@ porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
   concTot_cent_old_ = r.concTot_cent_old_;
   concTot_Cell_ = r.concTot_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
-  cIndex_cc_ = r.cIndex_cc_;
   Fleft_cc_ = r.Fleft_cc_;
   Fright_cc_ = r.Fright_cc_;
   Vleft_cc_ = r.Vleft_cc_;
@@ -1421,7 +1420,6 @@ porousLiKCl_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoe
 {
 
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
-
     cIndex_cc_ = iCell;
 
     /*

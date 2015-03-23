@@ -20,7 +20,8 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
-    SDT_Mixed(dl_ptr,domainName), m_position(pos)
+    SDT_Mixed(dl_ptr,domainName),
+    m_position(pos)
 {
     /*
      * For this implementation, we are not adding a separate equation for this surface domain.
@@ -30,15 +31,18 @@ SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char
      * This object will set an anode voltage of zero on that equation.
      */
     voltageVarBCType_ = PSCinput_ptr->anodeBCType_;
-
+    anodeTempBCType_ = PSCinput_ptr->anodeTempBCType_;
+    anodeTempCollector_ = PSCinput_ptr->anodeTempRef_;
+    anodeHeatTranCoeff_ =  PSCinput_ptr->anodeHeatTranCoeff_;
     anodeCCThickness_ = PSCinput_ptr->anodeCCThickness_;
 
 }
 //=====================================================================================================================
 SDT_AnodeCollector::SDT_AnodeCollector(const SDT_AnodeCollector &r) :
-  SDT_Mixed(r.DL_ptr_), m_position(0)
+    SDT_Mixed(r.DL_ptr_),
+    m_position(0)
 {
-  *this = r;
+    SDT_AnodeCollector::operator=(r);
 }
 //=====================================================================================================================
 SDT_AnodeCollector::~SDT_AnodeCollector()
@@ -48,13 +52,18 @@ SDT_AnodeCollector::~SDT_AnodeCollector()
 SDT_AnodeCollector &
 SDT_AnodeCollector::operator=(const SDT_AnodeCollector &r)
 {
-  if (this == &r) {
-    return *this;
-  }
-  SDT_Mixed::operator=(r);
-  m_position = r.m_position;
+    if (this == &r) {
+	return *this;
+    }
+    SDT_Mixed::operator=(r);
+    m_position = r.m_position;
+    voltageVarBCType_   = r.voltageVarBCType_;
+    anodeTempBCType_    = r.anodeTempBCType_;
+    anodeTempCollector_ = r.anodeTempCollector_;
+    anodeHeatTranCoeff_ = r.anodeHeatTranCoeff_;
+    anodeCCThickness_   = r.anodeCCThickness_;
 
-  return *this;
+    return *this;
 }
 //=====================================================================================================================
 // Set the equation description
@@ -99,6 +108,7 @@ SDT_AnodeCollector::SetEquationDescription()
        }
    }
 
+
    /*
     *  All of the other boundary conditions default to zero flux at the interface
     *      This includes:
@@ -126,6 +136,26 @@ SDT_AnodeCollector::SetEquationDescription()
    EqnType e2(Continuity, 0, "Continuity: Bulk Velocity");
    VarType v2(Velocity_Axial, 0, "Axial velocity");
    addFluxCondition(e2, v2, 0.0);
+
+   /*
+    *  Temperature boundary condition
+    */
+   EqnType et(Enthalpy_Conservation, 0, "");
+   VarType vt(Temperature, 0, "temperature");
+   if (anodeTempBCType_ != -1) {
+       if (anodeTempBCType_ == 0) {
+	   double tref =  PSCinput_ptr->anodeTempRef_;
+	   addDirichletCondition(et, vt, tref);
+       }
+       if (anodeTempBCType_ == 10) {
+           double ht = PSCinput_ptr->anodeHeatTranCoeff_;
+	   double tref =  PSCinput_ptr->anodeTempRef_;
+           double area = PSCinput_ptr->crossSectionalArea_;
+	   BoundaryCondition* BC_timeDep = new BC_heatTransfer(ht, tref, area);
+	   addRobinCondition(et, vt, BC_timeDep);
+       }
+   }
+
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

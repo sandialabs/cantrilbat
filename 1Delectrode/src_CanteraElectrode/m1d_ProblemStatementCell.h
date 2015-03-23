@@ -283,6 +283,24 @@ public:
   //! Turn on or off Resistance Tracking
   int doResistanceTracking_;
 
+  //! Anode Temperature boundary condition type
+  int anodeTempBCType_;
+
+  //! Anode Collector temperature
+  double anodeTempRef_;
+
+  //! Anode heat transfer coeff
+  double anodeHeatTranCoeff_;
+
+  //! Cathode Temperature boundary condition type
+  int cathodeTempBCType_;
+
+  //! Cathode Collector Temperature
+  double cathodeTempRef_;
+
+  //! Cathode heat transfer coeff
+  double cathodeHeatTranCoeff_;
+
 };
 //=====================================================================================================================
 }

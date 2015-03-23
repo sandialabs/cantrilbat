@@ -216,7 +216,7 @@ SDT_Mixed::operator=(const SDT_Mixed &r)
  * @param  value  Value to apply
  */
 void
-SDT_Mixed::addFluxCondition(EqnType equationID, VarType variableID, double value)
+SDT_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, double value)
 {
   NumConditions++;
   EquationID.push_back(equationID);
@@ -235,7 +235,7 @@ SDT_Mixed::addFluxCondition(EqnType equationID, VarType variableID, double value
  * @param  value  Value to apply
  */
 void
-SDT_Mixed::addFluxCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double))
+SDT_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, double value, double (*timeDep)(double))
 {
   NumConditions++;
   EquationID.push_back(equationID);
@@ -254,7 +254,7 @@ SDT_Mixed::addFluxCondition(EqnType equationID, VarType variableID, double value
  * @param  value  Value to apply
  */
 void
-SDT_Mixed::addFluxCondition(EqnType equationID, VarType variableID, int BC_Type, BoundaryCondition *BC_timeDep)
+SDT_Mixed::addFluxCondition(const EqnType & equationID, const VarType& variableID, int BC_Type, BoundaryCondition *BC_timeDep)
 {
   NumConditions++;
   EquationID.push_back(equationID);

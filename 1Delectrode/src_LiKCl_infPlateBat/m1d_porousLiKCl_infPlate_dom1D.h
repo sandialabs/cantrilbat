@@ -286,7 +286,7 @@ protected:
   //!  Cell storage -> storage of cell related quantities
 
   //! Cell index number
-  int cIndex_cc_;
+  // int cIndex_cc_;
 
   //! Axial velocity - left cell boundary
   double Fleft_cc_;

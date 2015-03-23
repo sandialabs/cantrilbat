@@ -61,7 +61,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
   capacityPA_Cell_(0),     
   depthOfDischarge_Electrode_(0.0),
   capacityZeroDoD_Electrode_(0.0),
-  cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
+  Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
   t_final_(0.0),
   t_init_(0.0),
@@ -118,7 +118,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   capacityPA_Cell_(0),
   depthOfDischarge_Electrode_(0.0),
   capacityZeroDoD_Electrode_(0.0),
-  cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
+  Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
   t_final_(0.0),
   t_init_(0.0),
@@ -175,7 +175,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   capacityPA_Cell_ = r.capacityPA_Cell_;
   depthOfDischarge_Electrode_ = r.depthOfDischarge_Electrode_;
   capacityZeroDoD_Electrode_ = r.capacityZeroDoD_Electrode_;
-  cIndex_cc_ = r.cIndex_cc_;
   Fleft_cc_ = r.Fleft_cc_;
   Fright_cc_ = r.Fright_cc_;
   Vleft_cc_ = r.Vleft_cc_;

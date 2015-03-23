@@ -20,13 +20,13 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
-  SDT_Mixed(dl_ptr,domainName), 
-  m_position(pos), 
-  voltageVarBCType_(0), 
-  icurrCathodeSpecified_(0.0), 
-  voltageCathodeSpecified_(1.9),
-  cathodeCCThickness_(0.0),
-  extraResistanceCathode_(0.0) 
+    SDT_Mixed(dl_ptr,domainName), 
+    m_position(pos), 
+    voltageVarBCType_(0), 
+    icurrCathodeSpecified_(0.0), 
+    voltageCathodeSpecified_(1.9),
+    cathodeCCThickness_(0.0),
+    extraResistanceCathode_(0.0) 
 {
 
   voltageVarBCType_ = PSCinput_ptr->cathodeBCType_;
@@ -35,7 +35,7 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
 
   cathodeCCThickness_ = PSCinput_ptr->cathodeCCThickness_;
   extraResistanceCathode_ = PSCinput_ptr->extraCathodeResistance_;
-
+  cathodeTempBCType_ = PSCinput_ptr->cathodeTempBCType_;
 
   /*
    *  Add an equation for this surface domain
@@ -84,80 +84,100 @@ SDT_CathodeCollector::operator=(const SDT_CathodeCollector &r)
 void
 SDT_CathodeCollector::SetEquationDescription()
 {
-  /*
-   * Set the policy for connecting bulk domains
-   * This really isn't set yet.
-   */
-  setRLMapping(0);
-  /*
-   * Fill in the rest of the information
-   */
-  SurfDomainDescription::SetEquationDescription();
-
-  /*
-   *  If we are just fixing the voltage at the cathode, we can set the plain Dirichlet condition here.
-   *  If we are setting the current, we will add in a residual equation by hand in residEval().
-   */
-  voltageCathodeSpecified_ = PSCinput_ptr->CathodeVoltageSpecified_;
-  double (*timeDepFunction)(double) = PSCinput_ptr->TimeDepFunction_;
-  BoundaryCondition* BC_timeDep = PSCinput_ptr->BC_TimeDep_;
-  EqnType e1(Current_Conservation, 2, "Cathode Current Conservation");
-  VarType v1(Voltage, 2, "CathodeVoltage");
-  double area = PSCinput_ptr->cathode_input_->electrodeGrossArea;
-  if (voltageVarBCType_ == 10) { 
-       delete BC_timeDep;
-  BC_timeDep = new BC_cathodeCC(cathodeCCThickness_, extraResistanceCathode_,
-                                                       area, voltageCathodeSpecified_);
- }
-
-  switch (voltageVarBCType_)
+    /*
+     * Set the policy for connecting bulk domains
+     * This really isn't set yet.
+     */
+    setRLMapping(0);
+    /*
+     * Fill in the rest of the information
+     */
+    SurfDomainDescription::SetEquationDescription();
+    
+    /*
+     *  If we are just fixing the voltage at the cathode, we can set the plain Dirichlet condition here.
+     *  If we are setting the current, we will add in a residual equation by hand in residEval().
+     */
+    voltageCathodeSpecified_ = PSCinput_ptr->CathodeVoltageSpecified_;
+    double (*timeDepFunction)(double) = PSCinput_ptr->TimeDepFunction_;
+    BoundaryCondition* BC_timeDep = PSCinput_ptr->BC_TimeDep_;
+    EqnType e1(Current_Conservation, 2, "Cathode Current Conservation");
+    VarType v1(Voltage, 2, "CathodeVoltage");
+    double area = PSCinput_ptr->cathode_input_->electrodeGrossArea;
+    if (voltageVarBCType_ == 10) { 
+	delete BC_timeDep;
+	BC_timeDep = new BC_cathodeCC(cathodeCCThickness_, extraResistanceCathode_,
+				      area, voltageCathodeSpecified_);
+    }
+    
+    switch (voltageVarBCType_)
     {
     case 0:
-      addDirichletCondition(e1, v1, voltageCathodeSpecified_);
-      break;
+	addDirichletCondition(e1, v1, voltageCathodeSpecified_);
+	break;
     case 1:
-      addFluxCondition(e1, v1, icurrCathodeSpecified_);
-      break;
+	addFluxCondition(e1, v1, icurrCathodeSpecified_);
+	break;
     case 2:
-      addDirichletCondition(e1, v1, voltageCathodeSpecified_, timeDepFunction);
-      break;
+	addDirichletCondition(e1, v1, voltageCathodeSpecified_, timeDepFunction);
+	break;
     case 3:
-      addFluxCondition(e1, v1, icurrCathodeSpecified_, timeDepFunction);
-      break;
+	addFluxCondition(e1, v1, icurrCathodeSpecified_, timeDepFunction);
+	break;
     case 4:
     case 6:
     case 8:
-      addDirichletCondition(e1, v1, voltageVarBCType_, BC_timeDep );
-      break;
+	addDirichletCondition(e1, v1, voltageVarBCType_, BC_timeDep );
+	break;
     case 5:
     case 7:
     case 9:
-      addFluxCondition(e1, v1, voltageVarBCType_, BC_timeDep);
-      break;
+	addFluxCondition(e1, v1, voltageVarBCType_, BC_timeDep);
+	break;
     case 10:
-         addRobinCondition(e1, v1, BC_timeDep);
-         break;
+	addRobinCondition(e1, v1, BC_timeDep);
+	break;
     default:
-      throw m1d_Error("SDT_CathodeCollector::SetEquationDescription", 
-		      "voltageVarBCType not 0, 1, 2 for Dirichlet, Neumann, or Diriclet with sin oscillation" );
+	throw m1d_Error("SDT_CathodeCollector::SetEquationDescription", 
+			"voltageVarBCType not 0, 1, 2 for Dirichlet, Neumann, or Diriclet with sin oscillation" );
+    }
+    
+    /*
+     *  All of the other boundary conditions default to zero flux at the interface
+     *      This includes:
+     *
+     *           flux of Li+
+     *           flux of K+
+     *           flux of Cl-
+     *           flux of current
+     *
+     *  Because of the staggered grid, a dirichlet condition must be set on the axial velocity. Or else the
+     *  last axial velocity unknown is not represented in the solution vector, leading to a singular matrix.
+     *
+     */
+    EqnType e2(Continuity, 0, "Continuity: Bulk Velocity");
+    VarType v2(Velocity_Axial, 0, "Axial_Velocity");
+    addDirichletCondition(e2, v2, 0.0);
+
+    /*
+     * Temperature boundary condition
+     */
+    EqnType et(Enthalpy_Conservation, 0, "");
+    VarType vt(Temperature, 0, "");
+    if (cathodeTempBCType_ != -1) {
+	if (cathodeTempBCType_ == 0) {
+	    double tref =  PSCinput_ptr->cathodeTempRef_;
+	    addDirichletCondition(et, vt, tref);
+	}
+	if (cathodeTempBCType_ == 10) {
+	    double ht = PSCinput_ptr->cathodeHeatTranCoeff_;
+	    double tref =  PSCinput_ptr->cathodeTempRef_;
+	    double area = PSCinput_ptr->crossSectionalArea_;
+	    BoundaryCondition* BC_timeDep = new BC_heatTransfer(ht, tref, area);
+	    addRobinCondition(et, vt, BC_timeDep);
+	}
     }
 
-  /*
-   *  All of the other boundary conditions default to zero flux at the interface
-   *      This includes:
-   *
-   *           flux of Li+
-   *           flux of K+
-   *           flux of Cl-
-   *           flux of current
-   *
-   *  Because of the staggered grid, a dirichlet condition must be set on the axial velocity. Or else the
-   *  last axial velocity unknown is not represented in the solution vector, leading to a singular matrix.
-   *
-   */
-  EqnType e2(Continuity, 0, "Continuity: Bulk Velocity");
-  VarType v2(Velocity_Axial, 0, "Axial_Velocity");
-  addDirichletCondition(e2, v2, 0.0);
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

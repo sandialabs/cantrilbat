@@ -220,7 +220,7 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector &res,
 	  /*
 	   *  For flux boundary conditions with oscillation, replace the equation
 	   */
-	  res[ieqn] -= val * TimeDep_NE[i](t);
+	  res[ieqn] += val * TimeDep_NE[i](t);
 	  break;
 	case 4: // voltage BCconstant
 	case 6: // voltage BCsteptable
@@ -236,11 +236,33 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector &res,
 	  /*
 	   *  For time dependent flux boundary condition using BoundaryCondition class 
 	   */
-	  res[ieqn] -= BC_TimeDep_NE[i]->value(t);
+	  res[ieqn] += BC_TimeDep_NE[i]->value(t);
 	  break;
  
         case 10: // Anode collector plate at constant voltage
-	  res[ieqn] -= BC_TimeDep_NE[i]->valueAtTime(t, solnVal);
+           /*
+           *     current_dens dot n = (V_cathode - V_cathCC) / Resistance_CC
+           * 
+           *     A note about signs
+           *     This is the residual equation for enthalpy. The temperature time derivative is always positive
+           *     in all residuals. We only include the heat conduction term with an expression for flux in the equation
+           *            flux = - lambda del T.
+           * 
+           *      (1)    Normal temp residual = dH/dtDelV  + flux_Right - flux_left = 0.0
+           *
+           *     The boundary condition for the cathode side, which is on the +x right side is
+           * 
+           *       (2)  flux_Right = - h (T_ref - T_N) = h ( T_N - T_ref ) = RobinBoundaryCondition
+           *
+           *     Therefore, we substitute (2) into (1) to get the signs correct, which is a + for cathode.
+	   *
+	   *     On the Anode side 
+           *       (3) - flux_Left = - h (T_ref - T_0) = h ( T_0 - T_ref ) = RobinBoundaryCondition
+	   * 
+           *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
+	   * 
+           */
+	  res[ieqn] += BC_TimeDep_NE[i]->valueAtTime(t, solnVal);
           break;
 
 	default:

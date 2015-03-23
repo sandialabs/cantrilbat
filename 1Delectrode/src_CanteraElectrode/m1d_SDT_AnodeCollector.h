@@ -75,6 +75,10 @@ public:
   virtual SurDomain1D *
   mallocDomain1D();
 
+  // --------------------------------------------------------------------------------------------------------------
+  //                                   DATA
+  // --------------------------------------------------------------------------------------------------------------
+
   //! top or bottom of the domain
   /*!
    *   0 - top, right
@@ -90,6 +94,17 @@ public:
    *    10  Set a Robin boundary condition ---   current = R_anodeCC (v_acc - vanode)
    */
   int voltageVarBCType_;
+
+  //!  Type of the temperature boundary condition
+  /*!
+   *  There are three possibilities
+   *     0 set the cathode temperature to a constant
+   *     1 set the flux to a constant
+   *    10 Set a Robin boundary condition - heatflux = h ( T - T_cath) 
+   */
+  int anodeTempBCType_;
+  double anodeTempCollector_;
+  double anodeHeatTranCoeff_;
 
   //!  Thickness of the anode current collector
   double anodeCCThickness_;

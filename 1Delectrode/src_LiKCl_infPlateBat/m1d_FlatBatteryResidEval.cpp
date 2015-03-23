@@ -50,7 +50,7 @@ namespace m1d
    * @param atol   Absolute tolerance for calculation
    */
   FlatBatteryResidEval::FlatBatteryResidEval(double atol) :
-    ProblemResidEval(atol)
+      BatteryResidEval(atol)
   {
   }
   //=====================================================================================================================
@@ -67,7 +67,7 @@ namespace m1d
    * @param r  Object to be copied
    */
   FlatBatteryResidEval::FlatBatteryResidEval(const FlatBatteryResidEval &r) :
-    ProblemResidEval(r.m_atol)
+      BatteryResidEval(r.m_atol)
   {
     *this = r;
   }
@@ -85,7 +85,7 @@ namespace m1d
       return *this;
     }
 
-    ProblemResidEval::operator=(r);
+    BatteryResidEval::operator=(r);
 
     return *this;
   }
@@ -123,7 +123,7 @@ namespace m1d
 			     const Epetra_Vector_Ghosted &y_n,
 			     const Epetra_Vector_Ghosted * const ydot_n_ptr)
   {
-    ProblemResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
+    BatteryResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
   }
 
   //=====================================================================================================================

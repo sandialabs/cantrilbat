@@ -267,6 +267,7 @@ int main(int argc, char **argv)
         ssprint0(w0);
         print0_sync_end(true, w0, Comm);
 #endif
+
         /*
          *  Set the initial conditions in the solution vector by calling the ProblemResidEval object
          */

@@ -64,6 +64,25 @@ protected:
     double electrodeCrossSectionalArea_;
 };
 
+//!  Boundary condition to apply  a heat transfer flux formulation
+class BC_heatTransfer: public BoundaryCondition
+{
+public:
+
+    BC_heatTransfer(double tranCoeff, double TempRef, double electrodeCrossSectionalArea);
+    BC_heatTransfer(const BC_heatTransfer &r);
+    virtual ~BC_heatTransfer();
+    BC_heatTransfer& operator=(const BC_heatTransfer& r);
+
+    virtual double valueAtTime(double time, double tempCollector, int interval);
+
+protected:
+
+    double tempRef_;
+    double tranCoeff_;
+    double electrodeCrossSectionalArea_;
+};
+
 
 } //namespace m1d
 

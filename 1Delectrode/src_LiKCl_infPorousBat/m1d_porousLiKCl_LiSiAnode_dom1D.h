@@ -372,14 +372,14 @@ protected:
    *  This is now a constant.
    *  Length is number of cells on the processor.
    */
-  std::vector<double> porosity_Cell_;
+  // std::vector<double> porosity_Cell_;
 
   //! Volume Fraction of the electrolyte within the cell at the previous time step
   /*!
    *  This is now a constant.
    *  Length is number of cells on the processor.
    */
-  std::vector<double> porosity_Cell_old_;
+  //std::vector<double> porosity_Cell_old_;
 
   //! Surface Area of the electrolyte - electrode interface within the cell
   /*!
@@ -429,7 +429,7 @@ protected:
   //!  Cell storage -> storage of cell related quantities
 
   //! Cell index number
-  int cIndex_cc_;
+  // int cIndex_cc_;
 
   //! Axial velocity - left cell boundary
   double Fleft_cc_;

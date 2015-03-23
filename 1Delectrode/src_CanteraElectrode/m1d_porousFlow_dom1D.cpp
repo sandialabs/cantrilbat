@@ -35,6 +35,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     energyEquationProbType_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
+    cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
@@ -52,6 +53,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     energyEquationProbType_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
+    cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
@@ -80,6 +82,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     EnthPM_lyte_Cell_         = r.EnthPM_lyte_Cell_;
     porosity_Cell_            = r.porosity_Cell_;
     porosity_Cell_old_        = r.porosity_Cell_old_;
+    cIndex_cc_                = r.cIndex_cc_;
     temp_Curr_                = r.temp_Curr_;
     pres_Curr_                = r.pres_Curr_;
     concTot_Curr_             = r.concTot_Curr_;
@@ -140,6 +143,10 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     nEnthalpy_New_Cell_.resize(NumLcCells, 0.0);
     nEnthalpy_Old_Cell_.resize(NumLcCells, 0.0);
 
+    valCellTmpsVect_Cell_.resize(NumLcCells);
+
+    thermalCond_Cell_.resize(NumLcCells);
+
  
     if  (doEnthalpyEquation_) {
 	CpPM_lyte_Cell_.resize(NumLcCells, 0.0);
@@ -191,6 +198,7 @@ porousFlow_dom1D::residSetupTmps()
 
     cellTmpsVect_Cell_.resize(NumLcCells);
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
 
         cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
         NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
@@ -382,10 +390,11 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	throw CanteraError("BDD_porousElectrode::BDD_porousElectrode()",
 			   "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
     }
-    ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
-    int nSp = tmpPhase->nSpecies();
+    //ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+    //int nSp = tmpPhase->nSpecies();
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
     
         index_CentLcNode = Index_DiagLcNode_LCO[iCell];
         // pointer to the NodalVars object for the center node
@@ -397,7 +406,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
         size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+        //size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
         size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
         size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
@@ -405,7 +414,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         //
         // Find the start of the solution at the current node
         //
-        const double *solnCentStart = &(soln[indexCent_EqnStart]);
+        //const double *solnCentStart = &(soln[indexCent_EqnStart]);
 
         soln[indexCent_EqnStart + iVAR_Vaxial] = 0.0;
         //
@@ -492,6 +501,77 @@ porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
 {
 
 }
+//========================================================================================================================
+void
+porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
+                                             const Epetra_Vector* soln_ptr,
+                                             const Epetra_Vector* solnDot_ptr,
+                                             const Epetra_Vector* solnOld_ptr,
+                                             const double t,
+                                             const double rdelta_t,
+                                             const ResidEval_Type_Enum residType,
+                                             const Solve_Type_Enum solveType)
+
+{
+
+    // iCell == 0 special left section
+
+    const Epetra_Vector& soln = *soln_ptr;
+ 
+    // Special Section to determine where to get temperature and pressure
+    cellTmps& cTmps          = cellTmpsVect_Cell_[0];
+    NodalVars* nodeCent = cTmps.nvCent_;
+    bool haveTemp = true;
+    size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+    if (iVar_Temperature == npos) {
+	haveTemp = false;
+    }
+    bool havePres = true;
+    size_t iVar_Pressure_Axial = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+    if (iVar_Pressure_Axial == npos) {
+	havePres = false;
+    }
+    
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
+
+        cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+
+	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+
+        NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+        NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+	nodeCent = cTmps.nvCent_;
+
+	// This is the right and left control volume boundary
+	valTmps.AxialVeloc.left   = soln[nodeTmpsLeft.index_EqnStart   +  nodeTmpsLeft.Offset_Velocity_Axial];
+	valTmps.AxialVeloc.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+
+	if (haveTemp) {
+	    AssertTrace( nodeTmpsLeft.Offset_Temperature != npos);
+	    valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
+	    valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
+	    valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+	} else {
+	    AssertTrace( nodeTmpsLeft.Offset_Temperature == npos);
+	    valTmps.Temperature.left =  TemperatureReference_;
+	    valTmps.Temperature.center =  TemperatureReference_;
+	    valTmps.Temperature.right =  TemperatureReference_;
+	}
+
+
+        // Calculate the thermal conductivity of the porous matrix if we are calculating the energy equation
+
+	thermalCond_Cell_[iCell] = thermalCondCalc_PorMatrix();
+         
+   
+    }
+
+
+}
+
 //=====================================================================================================================
 //!  Setup shop at a particular point in the domain, calculating intermediate quantites
 //!  and updating Cantera's objects
@@ -513,6 +593,16 @@ double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathod
     voltOCV=0.0;
     return 0.0;
 }
+//=====================================================================================================================
+// Calculate the thermal conductivity of the porous matrix at the current cell.
+
+ double
+ porousFlow_dom1D::thermalCondCalc_PorMatrix()
+ {
+
+     // temp value
+     return 1.0;
+ }
 //=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================

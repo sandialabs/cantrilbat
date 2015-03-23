@@ -201,6 +201,10 @@ public:
    */
   double extraCathodeResistance_;
 
+  double heatTransferCoeff;
+
+  double TempCollector;
+
 };
 
 //==================================================================================

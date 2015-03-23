@@ -296,5 +296,48 @@ Maximum Number of Subcycle Steps per Global Steps = 100
 !---------------------------------------------------------------------------------------------------------
 ! Dakota Results File Name = results.out
 !---------------------------------------------------------------------------------------------------------
-
-
+!
+!   Anode Temp BC Type - int (not required)
+!       -1 - not set -> same as an adiabatic boundary condition
+!        0 - Specify a fixed temperature at the anode
+!        1 - Specify a fixed heat flux through the battery
+!        2 - Time dependent temp at the anode
+!       10 - Specify heat transfer coeff temperature bc.
+!---------------------------------------------------------------------------------------------------------
+!  Anode TemperatureBC Type = 10
+!---------------------------------------------------------------------------------------------------------
+!
+!    Anode Collector Temperature - double (not required)
+!               (default = 298.15
+!---------------------------------------------------------------------------------------------------------
+!  Anode Collector Temperature = 298.15
+!---------------------------------------------------------------------------------------------------------
+!
+!  Anode Heat Transfer Coefficient - double (not required)
+!                ( default = 1000 )
+!---------------------------------------------------------------------------------------------------------
+!  Anode Heat Transfer Coefficient = 1000
+!---------------------------------------------------------------------------------------------------------
+!
+!   Cathode Temp BC Type - int (not required)
+!       -1 - not set -> same as an adiabatic boundary condition
+!        0 - Specify a fixed temperature at the anode
+!        1 - Specify a fixed heat flux through the battery
+!        2 - Time dependent temp at the anode
+!       10 - Specify heat transfer coeff temperature bc.
+!---------------------------------------------------------------------------------------------------------
+! Cathode TemperatureBC Type = 10
+!---------------------------------------------------------------------------------------------------------
+!
+!   Cathode Collector Temperature - double (not required)
+!               (default = 298.15
+!---------------------------------------------------------------------------------------------------------
+!  Cathode Collector Temperature = 298.15
+!---------------------------------------------------------------------------------------------------------
+!
+! Cathode Heat Transfer Coefficient - double (not required)
+!                ( default = 1000 )
+!---------------------------------------------------------------------------------------------------------
+!  Cathode Heat Transfer Coefficient = 1000
+!---------------------------------------------------------------------------------------------------------
+!

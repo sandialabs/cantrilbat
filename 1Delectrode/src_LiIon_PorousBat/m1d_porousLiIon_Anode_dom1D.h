@@ -734,7 +734,7 @@ protected:
     //!  Cell storage -> storage of cell related quantities
 
     //! Cell index number
-    int cIndex_cc_;
+    //int cIndex_cc_;
 
     //! Axial velocity - left cell boundary
     double Fleft_cc_;
@@ -806,9 +806,6 @@ protected:
 
     //!  Total concentration
     double concTot_Curr_;
-
-    //! Current porosity
-    // double porosity_Curr_;
 
     //! Electrical conductivity of the electrode
     /*!

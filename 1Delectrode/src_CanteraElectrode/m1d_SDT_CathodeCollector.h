@@ -78,7 +78,9 @@ public:
   virtual SurDomain1D *
   mallocDomain1D();
 
-  // ****************************************************************************************************
+  // --------------------------------------------------------------------------------------------------------------
+  //                                   DATA
+  // --------------------------------------------------------------------------------------------------------------
 
   //! top or bottom of the domain
   /*!
@@ -117,6 +119,18 @@ public:
    *    units ohms
    */
   double extraResistanceCathode_;
+
+  //!  Type of the temperature boundary condition
+  /*!
+   *  There are three possibilities
+   *     0 set the cathode temperature to a constant
+   *     1 set the flux to a constant
+   *    10 Set a Robin boundary condition - heatflux = h ( T - T_cath)
+   */
+  int cathodeTempBCType_;
+  double cathodeTempCollector_;
+  double cathodeHeatTranCoeff_;
+
 
   //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
   friend class SurDomain_CathodeCollector;

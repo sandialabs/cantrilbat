@@ -62,7 +62,14 @@ ProblemStatementCell::ProblemStatementCell() :
   initDefaultNumCVsCathode_(10),
   initDefaultNumCVsSeparator_(10),
   doHeatSourceTracking_(0),
-  doResistanceTracking_(0)
+  doResistanceTracking_(0),
+  anodeTempBCType_(-1),
+  anodeTempRef_(298.15),
+  anodeHeatTranCoeff_(1000.),
+  cathodeTempBCType_(-1),
+  cathodeTempRef_(298.15),
+  cathodeHeatTranCoeff_(1000.)
+
 {
   PhaseList_ = new Cantera::PhaseList();
 }
@@ -189,6 +196,69 @@ ProblemStatementCell::setup_input_pass2(BlockEntry *cf)
   iRoot->set_default(0);
   iRoot->set_limits(2, 0);
   cf->addLineEntry(iRoot);
+
+  /* -------------------------------------------------------------------------
+   *
+   * Anode Temp BC Type - int (not required)
+   *    -1 - not set
+   *     0 - Specify a fixed temperature at the anode
+   *     1 - Specify a fixed heat flux through the battery
+   *     2 - Time dependent temp at the anode
+   *    10 - Specify heat transfer coeff temperature bc.
+   */
+  reqd = 0;
+  LE_OneInt *at = new LE_OneInt("Anode TemperatureBC Type", &(anodeTempBCType_), reqd, "anodeTemp_bc_type");
+  at->set_default(-1);
+  at->set_limits(10, 0);
+  cf->addLineEntry(at);
+
+  /* -------------------------------------------------------------------------
+   *  Anode Collector Temperature
+   */
+  reqd = 0;
+  LE_OneDbl *datemp = new LE_OneDbl("Anode Collector Temperature", &(anodeTempRef_), reqd, "anodeTempCollector");
+  datemp->set_default(298.15);
+  cf->addLineEntry(datemp);
+
+  /* -------------------------------------------------------------------------
+   *  Anode Heat Transfer Coeff
+   */
+  reqd = 0;
+  LE_OneDbl *dacoeff = new LE_OneDbl("Anode Heat Transfer Coefficient", &(anodeHeatTranCoeff_), reqd, "anodeHeatTranCoeff");
+  dacoeff->set_default(1000.);
+  cf->addLineEntry(dacoeff);
+
+  /* -------------------------------------------------------------------------
+   *
+   * Cathode Temp BC Type - int (not required)
+   *    -1 - not set
+   *     0 - Specify a fixed temperature at the anode
+   *     1 - Specify a fixed heat flux through the battery
+   *     2 - Time dependent temp at the cathode
+   *    10 - Specify heat transfer coeff temperature bc.
+   */
+  reqd = 0;
+  LE_OneInt *ct = new LE_OneInt("Cathode TemperatureBC Type", &(cathodeTempBCType_), reqd, "cathodeTemp_bc_type");
+  ct->set_default(-1);
+  ct->set_limits(10, 0);
+  cf->addLineEntry(ct);
+
+  /* -------------------------------------------------------------------------
+   *  Cathode Collector Temperature
+   */
+  reqd = 0;
+  LE_OneDbl *dctemp = new LE_OneDbl("Cathode Collector Temperature", &(cathodeTempRef_), reqd, "cathodeTempCollector");
+  dctemp->set_default(298.15);
+  cf->addLineEntry(dctemp);
+
+  /* -------------------------------------------------------------------------
+   *  Cathode Heat Transfer Coeff
+   */
+  reqd = 0;
+  LE_OneDbl *dccoeff = new LE_OneDbl("Cathode Heat Transfer Coefficient", &(cathodeHeatTranCoeff_), reqd, "cathodeHeatTranCoeff_");
+  dccoeff->set_default(1000.);
+  cf->addLineEntry(dccoeff);
+
 }
 //=====================================================================================================================
 void

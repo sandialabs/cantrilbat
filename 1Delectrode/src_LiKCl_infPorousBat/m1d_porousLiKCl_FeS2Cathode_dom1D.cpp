@@ -45,14 +45,14 @@ namespace m1d
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKCl& bdd) :
   porousElectrode_dom1D(bdd), 
   ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
-  concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), 
+  concTot_cent_old_(0.0),  surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   capacityDischarged_Cell_(0),
   depthOfDischarge_Cell_(0),
   capacityLeft_Cell_(0),
   capacityZeroDoD_Cell_(0),
-  cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
+  Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
   Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
   mfElectrolyte_Thermo_Curr_(0), temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
@@ -87,15 +87,16 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
     porousElectrode_dom1D((BDT_porCathode_LiKCl&) r.BDD_), 
-  ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
-  concTot_cent_old_(0.0), porosity_Cell_(0), porosity_Cell_old_(0), surfaceAreaDensity_Cell_(0), 
+    ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    concTot_cent_old_(0.0), 
+    surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   capacityDischarged_Cell_(0),
   depthOfDischarge_Cell_(0),
   capacityLeft_Cell_(0),
   capacityZeroDoD_Cell_(0),
-  cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
+  Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
   Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
   mfElectrolyte_Thermo_Curr_(0), temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
@@ -131,8 +132,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   nsp_ = r.nsp_;
   concTot_cent_ = r.concTot_cent_;
   concTot_cent_old_ = r.concTot_cent_old_;
-  porosity_Cell_ = r.porosity_Cell_;
-  porosity_Cell_old_ = r.porosity_Cell_old_;
   surfaceAreaDensity_Cell_ = r.surfaceAreaDensity_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
   xdelCell_Cell_ = r.xdelCell_Cell_;
@@ -142,7 +141,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   depthOfDischarge_Cell_ = r.depthOfDischarge_Cell_;
   capacityLeft_Cell_ = r.capacityLeft_Cell_;
   capacityZeroDoD_Cell_ = r.capacityZeroDoD_Cell_;
-  cIndex_cc_ = r.cIndex_cc_;
   Fleft_cc_ = r.Fleft_cc_;
   Fright_cc_ = r.Fright_cc_;
   Vleft_cc_ = r.Vleft_cc_;
@@ -204,16 +202,17 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
 void
 porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
-  /*
-   * First call the parent domain prep to get the node information
-   */
-  BulkDomain1D::domain_prep(li_ptr);
+    /*
+     * First call the parent domain prep to get the node information
+     */
+    porousElectrode_dom1D::domain_prep(li_ptr);
+
 
   /*
    * Porous electrode domain prep
    */
-  porosity_Cell_.resize(NumLcCells, 0.5);
-  porosity_Cell_old_.resize(NumLcCells, 0.5);
+  //porosity_Cell_.resize(NumLcCells, 0.5);
+  //porosity_Cell_old_.resize(NumLcCells, 0.5);
   surfaceAreaDensity_Cell_.resize(NumLcCells, 1.0E5); 
   icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
   xdelCell_Cell_.resize(NumLcCells, 0.0);

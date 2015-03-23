@@ -304,6 +304,8 @@ main(int argc, char **argv)
     ssprint0(w0);
     print0_sync_end(true, w0, Comm);
 #endif
+    ps->residSetupTmps();
+
     double t_init = 0.0;
     double delta_t = 1.0E-8;
     double delta_t_np1;

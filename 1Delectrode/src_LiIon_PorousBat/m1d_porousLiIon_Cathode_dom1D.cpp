@@ -45,7 +45,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) 
     depthOfDischargePA_Cell_(0),
     capacityLeftPA_Cell_(0),
     capacityPA_Cell_(0),
-    cIndex_cc_(0), Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
+    Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
     Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
     t_final_(0.0),
     t_init_(0.0),
@@ -116,7 +116,6 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_d
     depthOfDischargePA_Cell_(0),
     capacityLeftPA_Cell_(0),
     capacityPA_Cell_(0),
-    cIndex_cc_(0), 
     Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
     Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
     t_final_(0.0),
@@ -173,7 +172,6 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
     depthOfDischargePA_Cell_ = r.depthOfDischargePA_Cell_;
     capacityLeftPA_Cell_ = r.capacityLeftPA_Cell_;
     capacityPA_Cell_ = r.capacityPA_Cell_;
-    cIndex_cc_ = r.cIndex_cc_;
     Fleft_cc_ = r.Fleft_cc_;
     Fright_cc_ = r.Fright_cc_;
     Vleft_cc_ = r.Vleft_cc_;
@@ -1289,6 +1287,9 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	residSetupTmps();
 	tmpsSetup = 1;
     }
+ 
+    porousFlow_dom1D::residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr,
+                      solnOld_ptr, t, rdelta_t, residType, solveType);
 
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
@@ -1348,7 +1349,7 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
 
         /*
-         * Setup the thermo
+         * Setup the thermo at the cell center.
          */
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 

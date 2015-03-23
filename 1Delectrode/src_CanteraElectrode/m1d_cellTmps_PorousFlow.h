@@ -52,10 +52,14 @@ public:
 
     //!  Offset of Residual for the current conservation equation
     size_t RO_Current_Conservation;
+
+    //!  Offset of Residual for the electrolyte total mass/mole continuity equation
     size_t RO_Electrolyte_Continuity;
     size_t RO_Species_Eqn_Offset;
     size_t RO_MFSum_offset;
     size_t RO_ChargeBal_offset;
+
+    //!  Offset of Residual for the Enthalpy Conservation equation
     size_t RO_Enthalpy_Conservation;
 
 };
