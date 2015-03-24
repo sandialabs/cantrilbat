@@ -1060,7 +1060,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     } else {
         tmp = 1.0 / thermalCond_Cell_[cIndex_cc_ + 1] + 1.0 / thermalCond_Cell_[cIndex_cc_];
     }
-    //thermalCond_Curr_ = 2.0 / tmp;
+    thermalCond_Curr_ = 2.0 / tmp;
 }
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte given the solution vector

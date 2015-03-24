@@ -41,6 +41,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
     porosity_Curr_(0.0),
+    thermalCond_Curr_(0.0),
     ivb_(VB_MOLEAVG)
 {
     ionicLiquid_ = bdd.ionicLiquid_;
@@ -59,6 +60,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
     porosity_Curr_(0.0),
+    thermalCond_Curr_(0.0),
     ivb_(VB_MOLEAVG)
   {
     porousFlow_dom1D::operator=(r);
@@ -88,6 +90,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     concTot_Curr_             = r.concTot_Curr_;
     phiElectrolyte_Curr_      = r.phiElectrolyte_Curr_;
     porosity_Curr_            = r.porosity_Curr_;
+    thermalCond_Curr_         = r.thermalCond_Curr_;
     cellTmpsVect_Cell_        = r.cellTmpsVect_Cell_;
 
     qSource_Cell_curr_        = r.qSource_Cell_curr_;

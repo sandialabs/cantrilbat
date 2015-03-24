@@ -233,7 +233,8 @@ protected:
   // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
   //                         ( these are intermediate values and all have the suffix _Curr_ )
   //                         ( these all refer to the new time value)
-  //                         ( these are all calculated by the routine SetupShopThermo1()
+  //                         ( these are all calculated by the routine SetupShopThermo1() or SetupShopThermo2()
+  //                         ( these are either node quantities or boundary quantities )
 
   //! Temperature at the current point (Kelvin)
   double temp_Curr_;
@@ -249,6 +250,8 @@ protected:
 
   //! Current porosity
   double porosity_Curr_;
+
+  double thermalCond_Curr_;
 
 
   //! Vector of temporary indexing quantities for each cell
