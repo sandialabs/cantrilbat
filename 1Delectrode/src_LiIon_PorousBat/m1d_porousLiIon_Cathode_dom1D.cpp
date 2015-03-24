@@ -658,6 +658,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double fluxFright = 0.;
     //  Electrolyte total molar fluxe on Left side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
     double fluxFleft;
+    double fluxTleft = 0.0;
+    double fluxTright = 0.0;
 
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
@@ -912,6 +914,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                  * Calculate the flux at the left boundary for each equation
                  */
                 fluxFleft = Fleft_cc_ * concTot_Curr_;
+		fluxTleft = heatFlux_Curr_;
 
                 /*
                  * Calculate the flux of species and the flux of charge
@@ -980,7 +983,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              *       Conc * VMolaraxial * phi
              */
             fluxFright = Fright_cc_ * concTot_Curr_;
-
+	    fluxTright = heatFlux_Curr_;
+  
             /*
              * Calculate the flux of species and the flux of charge
              *   - the flux of charge must agree with the flux of species
@@ -1060,6 +1064,14 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          *   Current conservation equation - electrode
          */
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1] += (icurrElectrode_CBR_[iCell] - icurrElectrode_CBL_[iCell]);
+
+	/*
+         *  Energy Equation
+         */
+        if (PS_ptr->energyEquationProbType_ == 3) {
+              AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
+              res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
+        }
 
         /*
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
@@ -1731,6 +1743,16 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
     // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
     //
     concTot_Curr_ = ionicLiquid_->molarDensity();
+
+  //
+    // Calculate the matrix thermal conductivity from a series resistance on the two sides
+    //
+    if (type == 0) {
+        tmp = 1.0 / thermalCond_Cell_[cIndex_cc_ - 1] + 1.0 / thermalCond_Cell_[cIndex_cc_];
+    } else {
+        tmp = 1.0 / thermalCond_Cell_[cIndex_cc_ + 1] + 1.0 / thermalCond_Cell_[cIndex_cc_];
+    }
+    thermalCond_Curr_ = 2.0 / tmp;
 }
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte
@@ -1850,16 +1872,20 @@ porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
 
     //set gradients
     gradT_trCurr_ = 0.0;
+    valCellTmps& valTmps = valCellTmpsVect_Cell_[cIndex_cc_];
 
     if (type == 0) {
         // Left boundary
         gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdel;
         gradVElectrode_trCurr_ = (VElectrodeCent_cc_ - VElectrodeLeft_cc_) / xdel;
+	gradT_trCurr_ = (valTmps.Temperature.center - valTmps.Temperature.left) / xdel;
 
     } else {
         // Right boundary
         gradV_trCurr_ = (Vright_cc_ - Vcent_cc_) / xdel;
         gradVElectrode_trCurr_ = (VElectrodeRight_cc_ - VElectrodeCent_cc_) / xdel;
+	gradT_trCurr_ = (valTmps.Temperature.right - valTmps.Temperature.center) / xdel;
+
     }
 
     if (type == 0) {
@@ -1884,6 +1910,12 @@ porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
     for (int k = 0; k < nsp_; k++) {
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
     }
+
+    //
+    // Calculate the heat flux
+    //
+    heatFlux_Curr_ = - thermalCond_Curr_ * gradT_trCurr_;
+
 
     double volFSolid = (1.0 - porosity_Curr_);
     icurrElectrode_trCurr_ = -conductivityElectrode_ * pow(volFSolid, 1.5) * gradVElectrode_trCurr_;

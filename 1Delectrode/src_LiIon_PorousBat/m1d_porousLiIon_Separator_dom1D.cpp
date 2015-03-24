@@ -553,6 +553,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                  */
                 fluxFleft = Fleft_cc_ * concTot_Curr_;
 
+                fluxTleft = heatFlux_Curr_;
+
                 /*
                  * Calculate the flux of species and the flux of charge
                  *   - the flux of charge must agree with the flux of species
@@ -616,6 +618,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              *       Conc * Vaxial * phi
              */
             fluxFright = Fright_cc_ * concTot_Curr_;
+
+            /*
+             * Calculate the heat flux
+             */
+            fluxTright = heatFlux_Curr_;
 
             /*
              * Calculate the flux of species and the flux of charge
@@ -1197,8 +1204,7 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
     //
     // Calculate the heat flux
     //
-    //lambda = lambdaCalc();
-    //Flux_HeatCurr_ = - lambda *  gradT_trCurr_;
+    heatFlux_Curr_ = - thermalCond_Curr_ * gradT_trCurr_;
 }
 //=====================================================================================================================
 static void

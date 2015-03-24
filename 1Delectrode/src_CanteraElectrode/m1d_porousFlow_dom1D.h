@@ -251,8 +251,17 @@ protected:
   //! Current porosity
   double porosity_Curr_;
 
+  //! Thermal Conductivity at the current point
+  /*!
+   *  units = Watts / (m K) = Joule / (s m K) = Volt Amp / (m K)
+   */
   double thermalCond_Curr_;
 
+  //! Heat flux at the current point
+  /*!
+   *  Units = Watts / m2
+   */
+  double heatFlux_Curr_;
 
   //! Vector of temporary indexing quantities for each cell
   /*!
