@@ -805,7 +805,7 @@ protected:
     double phiElectrode_Curr_;
 
     //!  Total concentration
-    double concTot_Curr_;
+    //double concTot_Curr_;
 
     //! Electrical conductivity of the electrode
     /*!

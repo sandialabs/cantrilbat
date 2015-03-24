@@ -1051,8 +1051,17 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
     //
     concTot_Curr_ = ionicLiquid_->molarDensity();
-}
 
+    //
+    // Calculate the matrix thermal conductivity from a series resistance on the two sides
+    //
+    if (type == 0) {
+        tmp = 1.0 / thermalCond_Cell_[cIndex_cc_ - 1] + 1.0 / thermalCond_Cell_[cIndex_cc_];
+    } else {
+        tmp = 1.0 / thermalCond_Cell_[cIndex_cc_ + 1] + 1.0 / thermalCond_Cell_[cIndex_cc_];
+    }
+    //thermalCond_Curr_ = 2.0 / tmp;
+}
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte given the solution vector
 void
@@ -1147,7 +1156,9 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
     valCellTmps& valTmps = valCellTmpsVect_Cell_[cIndex_cc_];
 
 
-
+    //
+    // Calculate the Temperature derivative
+    //
     if (type == 0) {
         // Left boundary
         gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdel;
@@ -1182,6 +1193,12 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
     for (int k = 0; k < nsp_; k++) {
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
     }
+
+    //
+    // Calculate the heat flux
+    //
+    //lambda = lambdaCalc();
+    //Flux_HeatCurr_ = - lambda *  gradT_trCurr_;
 }
 //=====================================================================================================================
 static void

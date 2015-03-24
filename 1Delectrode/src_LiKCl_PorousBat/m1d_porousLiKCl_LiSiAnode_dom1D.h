@@ -191,9 +191,13 @@ public:
    * @param type                  Type of call
    *                              0 - at the current cell center
    */
+  //void
+  //SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr,
+//		   const doublereal * const solnDotElectrolyte_Curr, int type);
+
   void
-  SetupThermoShop1(const doublereal * const solnElectrolyte_Curr,
-		   const doublereal * const solnDotElectrolyte_Curr, int type);
+  SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
+
 
   //!  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
   //!  and updating Cantera's objects
@@ -233,6 +237,9 @@ public:
   void
   updateElectrolyte(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
 
+  void
+  updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+
   //! Functions updates the Electrode object from the current values that are stored within the object
   void
   updateElectrode();
@@ -244,6 +251,9 @@ public:
   void
   getVoltages(const double * const solnElectrolyte);
 
+  void
+  getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
+
   //! Fetch the Mole fractions of the electrolyte at the current cell position and store them in convenient vector
   /*!
    *  @param solnElectrolyte      Vector of the solution at the current cell and bulk domain
@@ -251,6 +261,13 @@ public:
    */
   void
   getMFElectrolyte_soln(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
+
+
+  void
+  getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
+
+  void
+  getElectrolyte_SolnDot(const NodalVars* const nv,	const double * const solnDotElectrolyte);
 
   //! Base class for saving the solution on the domain in an xml node.
   /*!

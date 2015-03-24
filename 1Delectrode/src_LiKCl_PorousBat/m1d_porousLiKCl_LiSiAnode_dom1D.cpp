@@ -506,7 +506,7 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
 						   const double t, const double t_old) 
   {
     const Epetra_Vector &soln = *soln_ptr;
-    const doublereal *solnDot_Cellptr = 0;
+    //const doublereal *solnDot_Cellptr = 0;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
       cIndex_cc_ = iCell;
       /*
@@ -525,12 +525,13 @@ porousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
       /*
        * Calculate all of the current thermo quantities at the current cell position
        */
-      if (solnDot_ptr) {
-	solnDot_Cellptr =  &((*solnDot_ptr)[indexCent_EqnStart_BD]);
-      } else {
-	solnDot_Cellptr = 0;
-      }
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      //if (solnDot_ptr) {
+      //	solnDot_Cellptr =  &((*solnDot_ptr)[indexCent_EqnStart_BD]);
+      //} else {
+      //	solnDot_Cellptr = 0;
+      //}
+      //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      SetupThermoShop1( nodeCent, &(soln[indexCent_EqnStart_BD]));
 
       concTot_Cell_old_[iCell] = concTot_Curr_;
       porosity_Cell_old_[iCell] = porosity_Curr_;
@@ -845,7 +846,8 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
       } else {
 	solnDot_Cellptr = 0;
       }
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      SetupThermoShop1( nodeCent, &(soln[indexCent_EqnStart_BD]));
 
       /*
        *  Calculate the electrode reactions.  Also update porosity.
@@ -986,7 +988,8 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
 	} else {
 	  solnDot_Cellptr = 0;
 	}
-	SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+	//SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 	fluxFright = Fright_cc_ * concTot_Curr_;
 	icurrElectrolyte_CBR_[iCell] = 0.0;
 	fluxVElectrodeRight = 0.0;
@@ -1087,7 +1090,9 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
       } else {
 	solnDot_Cellptr = 0;
       }
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
+      getElectrolyte_SolnDot(nodeCent, solnDot_Cellptr);
 
       /*
        * Species 0 Conservation equation
@@ -1294,7 +1299,7 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 {
   residType_Curr_ = residType;
   const Epetra_Vector &soln = *soln_ptr;
-  const doublereal * solnDot_Cellptr = 0;
+  //const doublereal * solnDot_Cellptr = 0;
 
   int index_RightLcNode;
   int index_LeftLcNode;
@@ -1413,12 +1418,13 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
       /*
        * Setup the thermo
        */
-      if (solnDot_ptr) {
-	solnDot_Cellptr =  &((*solnDot_ptr)[indexCent_EqnStart_BD]);
-      } else {
-	solnDot_Cellptr = 0;
-      }
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      //if (solnDot_ptr) {
+//	solnDot_Cellptr =  &((*solnDot_ptr)[indexCent_EqnStart_BD]);
+ //     } else {
+//	solnDot_Cellptr = 0;
+ //     }
+      //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
+      SetupThermoShop1( nodeCent, &(soln[indexCent_EqnStart_BD]));
    
       /*
        *  Calculate the electrode reactions.  Also update porosity.
@@ -1543,15 +1549,23 @@ porousLiKCl_LiSiAnode_dom1D::calcElectrode()
  * @param type                  Type of call
  *                              0 - at the current cell center
  */
+//void
+//porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr,
+//					      const doublereal * const solnDotElectrolyte_Curr, int type)
+//{
+ // if (type == 0) {
+//    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
+//  }
+//  updateElectrolyte(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
+//  updateElectrode();
+//}
+//=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const doublereal * const solnElectrolyte_Curr,
-					      const doublereal * const solnDotElectrolyte_Curr, int type)
+porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
-  if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-  }
-  updateElectrolyte(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
-  updateElectrode();
+    updateElectrolyte(nv, solnElectrolyte_Curr);
+    updateElectrode();
 }
 //=====================================================================================================================
   //  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
@@ -1640,6 +1654,40 @@ porousLiKCl_LiSiAnode_dom1D::SetupThermoShop2(const doublereal * const solnElect
     }
   }
 //=====================================================================================================================
+// Function updates the ThermoPhase object for the electrolyte
+// given the solution vector
+/*
+ *   Routine will update the molten salt ThermoPhase object with the current state of the electrolyte
+ *
+ * @param solnElectrolyte
+ */
+void
+porousLiKCl_LiSiAnode_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+{
+    /*
+     * Get the temperature: Check to see if the temperature is in the solution vector.
+     *   If it is not, then use the reference temperature
+     */
+    temp_Curr_ = getPointTemperature(nv, solnElectrolyte_Curr);
+    /*
+     * Get the pressure
+     */
+    pres_Curr_ = PressureReference_;
+
+    getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
+    getVoltages(nv, solnElectrolyte_Curr);
+
+    ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
+    ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+    /*
+     * Get the partial molar volumes
+     */
+    ionicLiquid_->getPartialMolarVolumes(DATA_PTR(pmVolElectrolyte_Curr_));
+
+    // Calculate the total concentration of the electrolyte kmol m-3.
+    concTot_Curr_ = ionicLiquid_->molarDensity();
+}
+//=====================================================================================================================
 void
 porousLiKCl_LiSiAnode_dom1D::updateElectrode()
 {
@@ -1671,6 +1719,18 @@ porousLiKCl_LiSiAnode_dom1D::getVoltages(const double * const solnElectrolyte)
   phiElectrode_Curr_ = solnElectrolyte[indexVS + 1];
 }
 //=====================================================================================================================
+// Retrieves the voltages from the solution vector and puts them into local storage
+/*
+ * @param solnElectrolyte start of the solution vector at the current node
+ */
+void
+porousLiKCl_LiSiAnode_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+{
+    size_t indexVS = nv->indexBulkDomainVar0(Voltage);
+    phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
+    phiElectrode_Curr_ = solnElectrolyte_Curr[indexVS + 1];
+}
+//=====================================================================================================================
 void
 porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_soln(const double * const solnElectrolyte_Curr, 
 						   const double * const solnDotElectrolyte_Curr)
@@ -1696,6 +1756,49 @@ porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_soln(const double * const solnElec
     mfElectrolyte_SolnDot_Curr_[1] = 0.0;
     mfElectrolyte_SolnDot_Curr_[2] = 0.0;
   }
+}
+//=====================================================================================================================
+void
+porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+{
+    size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
+
+    mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
+    mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
+    mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
+    double mf0  = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1 = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double tmp = mf0 + mf1;
+ 
+    mfElectrolyte_Thermo_Curr_[0] = (mf0) * 0.5 / tmp;
+    mfElectrolyte_Thermo_Curr_[1] = (mf1) * 0.5 / tmp;
+    mfElectrolyte_Thermo_Curr_[2] = 0.5;
+}
+//=====================================================================================================================
+void
+porousLiKCl_LiSiAnode_dom1D::getElectrolyte_SolnDot(const NodalVars* const nv,
+			        		      const double * const solnDotElectrolyte_Curr)
+{
+    size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
+    if (solnDotElectrolyte_Curr) {
+	mfElectrolyte_SolnDot_Curr_[0] = solnDotElectrolyte_Curr[indexMF];
+	mfElectrolyte_SolnDot_Curr_[1] = solnDotElectrolyte_Curr[indexMF + 1];
+	mfElectrolyte_SolnDot_Curr_[2] = solnDotElectrolyte_Curr[indexMF + 2];
+    } else {
+	mfElectrolyte_SolnDot_Curr_[0] = 0.0;
+	mfElectrolyte_SolnDot_Curr_[1] = 0.0;
+	mfElectrolyte_SolnDot_Curr_[2] = 0.0;
+    }
+ 
+    
+    // Calculate the time derivative of the concentration of the electrolyte
+    concTotDot_Curr_ = 0.0;
+    if (solnDotElectrolyte_Curr) {
+	for (int k = 0; k < 3; k++) {
+	    concTotDot_Curr_ += pmVolElectrolyte_Curr_[k] * mfElectrolyte_SolnDot_Curr_[k];
+	}
+	concTotDot_Curr_ *= (- concTot_Curr_ * concTot_Curr_);
+    }
 }
 //=====================================================================================================================
 void
@@ -2723,7 +2826,8 @@ porousLiKCl_LiSiAnode_dom1D::setStateFromSolution(const bool doTimeDependentResi
       //We only need to do this for one control volume    
       if (iCell == 0 ) {
 	//Fill thermodynamic state
-	SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0, 0);
+	//SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0, 0);
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 	//This computes conductivity based on unit potential gradient and no species gradients
 	electrolyteConduct_ = trans_->getElectricConduct();
 	fprintf(stderr, "The anode conductivity is %g S/m before porosity\n",electrolyteConduct_ );
