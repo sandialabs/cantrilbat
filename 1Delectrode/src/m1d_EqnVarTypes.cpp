@@ -139,7 +139,7 @@ VarType::VarType() :
   VariableMainName[0] = '\0';
   VariableSubTypeName[0] = '\0';
 }
-//===========================================================================
+//=====================================================================================================================
 VarType::VarType(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType, const char *subName) :
   VariableType(variableType), VariableSubType(variableSubType)
 {
@@ -217,11 +217,15 @@ VarType::VariableName(const int len) const
     int left = len - (ll);
     if (strlen(VariableSubTypeName) > 0) {
       snprintf(buf + ll, left, "(%s", VariableSubTypeName);
+      int ll = strlen(buf);
+      sprintf(buf + ll, ")");
     } else {
-      snprintf(buf + ll, left, "(%d", (int) VariableSubType);
-    }
-    int ll = strlen(buf);
-    sprintf(buf + ll, ")");
+      if ((int) VariableSubType > 0) {
+        snprintf(buf + ll, left, "(%d", (int) VariableSubType);
+        int ll = strlen(buf);
+        sprintf(buf + ll, ")");
+      }
+    } 
   }
   return std::string(buf);
 }
@@ -311,14 +315,17 @@ EqnType::EquationName(const int len) const
     int left = len - (ll);
     if (strlen(EquationSubTypeName) > 0) {
       snprintf(buf + ll, left, "(%s", EquationSubTypeName);
+      ll = strlen(buf);
+      sprintf(buf + ll, ")");
     } else {
-      snprintf(buf + ll, left, "(%d", (int) EquationSubType);
+      if ((int) EquationSubType > 0) {
+        snprintf(buf + ll, left, "(%d", (int) EquationSubType);
+        int ll = strlen(buf);
+        sprintf(buf + ll, ")");
+      }
     }
-    int ll = strlen(buf);
-    sprintf(buf + ll, ")");
   }
-
-  return std::string(buf);
+  return std::string();
 }
 //=====================================================================================================================
 bool
