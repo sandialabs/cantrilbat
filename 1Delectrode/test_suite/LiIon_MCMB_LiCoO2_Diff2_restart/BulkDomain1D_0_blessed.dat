@@ -1,6 +1,6 @@
 TITLE = "Solution on Domain BulkDomain1D_0"
 VARIABLES = "x [m]"  
-"Vel_axial(0)" 	"MF_sp(ECDMC)" 	"MF_sp(Li+)" 	"MF_sp(PF6-)" 	"Volt(Electroly)" 	"Volt(AnodeVolt)" 	
+"Vel_axial" 	"MF_sp(ECDMC)" 	"MF_sp(Li+)" 	"MF_sp(PF6-)" 	"Volt(Electroly)" 	"Volt(AnodeVolt)" 	
 "Potential Drop Electrode-Electrolyte [V]" 	"Surf_0 Equilibrium Potential Drop Electrode-Electrolyte [V]" 	"Overpotential_0 [V]" 	"Current Source [A/m^2]" 	"Li+ flux [kmol/m^2/s]" 	"Electrolyte Current [A/m^2]" 	"Electrode Current [A/m^2]" 	
 "Capacity discharged [A-s]" 	"Depth of discharge [-]" 	"Capacity remaining [A-s]" 	"Initial capacity [A-s]" 	"Porosity []" 	"Surface Area [m2/m2] (area per area)" 	"Specific current (per particle area) [A/m^2]" 	"Control volume thickness [m]" 	
 "Moles Li_C6-bulk [mol/m^2] (per electrode area)" 	"Moles V_C6-bulk [mol/m^2] (per electrode area)" 	"qHeat_accum [J/m3]" 	"qHeat_step [W/m3]" 	"Joule_Lyte [W/m3]" 	"Joule_Solid [W/m3]" 	"electrodHeat [W/m3]" 	"OverpotHeat [W/m3]" 	"deltaSHeat [W/m3]" 	

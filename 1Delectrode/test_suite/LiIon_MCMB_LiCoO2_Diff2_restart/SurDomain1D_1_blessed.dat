@@ -1,7 +1,7 @@
 TITLE = "Solution on Domain SurDomain1D_1"
 VARIABLES = "t [s]"  
 "x [m]"  
-"Vel_axial(0)" 	"MF_sp(ECDMC)" 	"MF_sp(Li+)" 	"MF_sp(PF6-)" 	"Volt(Electroly)" 	"Volt(AnodeVolt)" 	
+"Vel_axial" 	"MF_sp(ECDMC)" 	"MF_sp(Li+)" 	"MF_sp(PF6-)" 	"Volt(Electroly)" 	"Volt(AnodeVolt)" 	
 4e-08 	0.0007874 	2.0881e-08 	0.92 	0.04 	0.04 	0.029156 	-1.18389e-08 	
 5.5e-08 	0.0007874 	2.08816e-08 	0.92 	0.04 	0.04 	0.0291559 	-2.25914e-08 	
 7.42658e-08 	0.0007874 	2.08815e-08 	0.92 	0.04 	0.04 	0.0291559 	-2.25914e-08 	

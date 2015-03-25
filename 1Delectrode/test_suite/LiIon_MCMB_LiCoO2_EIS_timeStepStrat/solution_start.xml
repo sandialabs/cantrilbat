@@ -9,7 +9,7 @@
       <X0 vtype="float"> 0.000000000000000E+00 </X0>
       <X vtype="float"> 0.000000000000000E+00 </X>
       <Xfraction vtype="float"> 0.000000000000000E+00 </Xfraction>
-      <Vel_axial(0) vtype="float"> 8.055603613753170E-12 </Vel_axial(0)>
+      <Vel_axial vtype="float"> 8.055603613753170E-12 </Vel_axial>
       <MF_sp(ECDMC) vtype="float"> 9.199999726423275E-01 </MF_sp(ECDMC)>
       <MF_sp(Li+) vtype="float"> 4.000001367883625E-02 </MF_sp(Li+)>
       <MF_sp(PF6-) vtype="float"> 4.000001367883625E-02 </MF_sp(PF6-)>
@@ -25,12 +25,12 @@
           5.249333333333334E-04,   6.124222222222222E-04,   6.999111111111111E-04,
           7.873999999999999E-04
         </X0>
-        <Vel_axial(0) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+        <Vel_axial size="10" type="concentration" units="kmol/m3" vtype="floatArray">
           8.055603613753170E-12,   2.416680936831612E-11,   4.027801026914239E-11,
           5.638920294052899E-11,   7.250038399961267E-11,   8.861155007243615E-11,
           1.047226977798263E-10,   1.208338237405050E-10,   1.369449245774578E-10,
           1.450004607453944E-10
-        </Vel_axial(0)>
+        </Vel_axial>
         <MF_sp(ECDMC) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
           9.199999726423275E-01,   9.199999729554663E-01,   9.199999738948826E-01,
           9.199999754605762E-01,   9.199999776525469E-01,   9.199999804707940E-01,
@@ -607,7 +607,7 @@
       <X0 vtype="float"> 7.873999999999999E-04 </X0>
       <X vtype="float"> 7.873999999999999E-04 </X>
       <Xfraction vtype="float"> 4.189189189189189E-01 </Xfraction>
-      <Vel_axial(0) vtype="float"> 1.450004607453944E-10 </Vel_axial(0)>
+      <Vel_axial vtype="float"> 1.450004607453944E-10 </Vel_axial>
       <MF_sp(ECDMC) vtype="float"> 9.199999980065342E-01 </MF_sp(ECDMC)>
       <MF_sp(Li+) vtype="float"> 4.000000099673289E-02 </MF_sp(Li+)>
       <MF_sp(PF6-) vtype="float"> 4.000000099673289E-02 </MF_sp(PF6-)>
@@ -622,12 +622,12 @@
           1.109133333333333E-03,   1.162755555555555E-03,   1.216377777777778E-03,
           1.270000000000000E-03
         </X0>
-        <Vel_axial(0) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+        <Vel_axial size="10" type="concentration" units="kmol/m3" vtype="floatArray">
           1.450004607453944E-10,   1.450004607453944E-10,   1.450004607453944E-10,
           1.450004607453944E-10,   1.450004607453944E-10,   1.450004607453944E-10,
           1.450004607453944E-10,   1.450004607453944E-10,   1.450004607453944E-10,
           1.369444846215747E-10
-        </Vel_axial(0)>
+        </Vel_axial>
         <MF_sp(ECDMC) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
           9.199999980065342E-01,   9.199999989893897E-01,   9.199999999722450E-01,
           9.200000009551005E-01,   9.200000019379558E-01,   9.200000029208113E-01,
@@ -658,7 +658,7 @@
       <X0 vtype="float"> 1.270000000000000E-03 </X0>
       <X vtype="float"> 1.270000000000000E-03 </X>
       <Xfraction vtype="float"> 6.756756756756757E-01 </Xfraction>
-      <Vel_axial(0) vtype="float"> 1.369444846215747E-10 </Vel_axial(0)>
+      <Vel_axial vtype="float"> 1.369444846215747E-10 </Vel_axial>
       <MF_sp(ECDMC) vtype="float"> 9.200000068522328E-01 </MF_sp(ECDMC)>
       <MF_sp(Li+) vtype="float"> 3.999999657388359E-02 </MF_sp(Li+)>
       <MF_sp(PF6-) vtype="float"> 3.999999657388359E-02 </MF_sp(PF6-)>
@@ -673,12 +673,12 @@
           1.676400000000000E-03,   1.744133333333333E-03,   1.811866666666667E-03,
           1.879600000000000E-03
         </X0>
-        <Vel_axial(0) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
+        <Vel_axial size="10" type="concentration" units="kmol/m3" vtype="floatArray">
           1.369444846215747E-10,   1.208325525588554E-10,   1.047207023652458E-10,
           8.860899572560158E-11,   7.249749432594519E-11,   5.638625985396847E-11,
           4.027535399953802E-11,   2.416483845519468E-11,   8.054774916660654E-12,
           0.000000000000000E+00
-        </Vel_axial(0)>
+        </Vel_axial>
         <MF_sp(ECDMC) size="10" type="concentration" units="kmol/m3" vtype="floatArray">
           9.200000068522328E-01,   9.200000109735196E-01,   9.200000146099246E-01,
           9.200000177614504E-01,   9.200000204281009E-01,   9.200000226098827E-01,
@@ -1055,7 +1055,7 @@
       <X0 vtype="float"> 1.879600000000000E-03 </X0>
       <X vtype="float"> 1.879600000000000E-03 </X>
       <Xfraction vtype="float"> 1.000000000000000E+00 </Xfraction>
-      <Vel_axial(0) vtype="float"> 0.000000000000000E+00 </Vel_axial(0)>
+      <Vel_axial vtype="float"> 0.000000000000000E+00 </Vel_axial>
       <MF_sp(ECDMC) vtype="float"> 9.200000264885094E-01 </MF_sp(ECDMC)>
       <MF_sp(Li+) vtype="float"> 3.999998675574529E-02 </MF_sp(Li+)>
       <MF_sp(PF6-) vtype="float"> 3.999998675574529E-02 </MF_sp(PF6-)>
