@@ -112,7 +112,7 @@ public:
   setupInitialNodePosition(double x0NodePos, double xFracNodePos);
 
 
-  //!  Find the index of a particular variable into the nodal solution vector
+  //!  Return the starting index of a particular variable from the start of the nodal solution vector
   /*!
    *  These functions are important as they are used frequently to index into the
    *  solution vector. 
@@ -133,7 +133,7 @@ public:
    *
    *    @param variableType   VAR_TYPEsize_t value to look up the index for
    *
-   *    @return  Returns npos=size_t(-1) if there isn't a variable of that type 
+   *    @return  Returns npos=size_t(-1) if there isn't a variable of that type. 
    *             Returns the index into the solution vector from the start of
    *             variables of that VAR_TYPE at that node.
    */
@@ -144,6 +144,9 @@ public:
 
   inline size_t indexBulkDomainEqn0(size_t equationTypeS) const;
 
+  inline size_t numberBulkDomainVar0(size_t variableTypeS) const;
+
+  inline size_t numberBulkDomainEqn0(size_t equationTypeS) const;
 
   //! Returns the node position
   double
@@ -276,7 +279,9 @@ public:
 
   //! Map between the variable type and the number of variables of that VAR_TYPE in the unknowns for the node
   /*!
-   *       Offset_VarType[MoleFraction_Species] is the number of mole fraction variables.
+   *   Example:
+   *      Number_VarType[MoleFraction_Species] is the number of mole fraction variables. Each will of course
+   *      have different subtypes.
    */
   std::map<VAR_TYPE, size_t> Number_VarType;
   std::map<EQ_TYPE, size_t> Number_EqnType;
@@ -284,7 +289,7 @@ public:
   //! Vector between the variable type redefined as a size_t and the number of variables of that
   //! VAR_TYPE in the unknowns for the node
   /*!
-   *       Offset_VarType[MoleFraction_Species] is the number of mole fraction variables.
+   *       Number_VarType[MoleFraction_Species] is the number of mole fraction variables.
    */
   std::vector<size_t> Number_VarTypeVector;
   std::vector<size_t> Number_EqnTypeVector;
@@ -320,6 +325,16 @@ inline size_t NodalVars::indexBulkDomainVar0(size_t variableTypeS) const
 inline size_t NodalVars::indexBulkDomainEqn0(size_t equationTypeS) const
 {
     return Offset_EqnTypeVector[equationTypeS];
+}
+//====================================================================================================
+inline size_t NodalVars::numberBulkDomainVar0(size_t variableTypeS) const
+{
+    return Number_VarTypeVector[variableTypeS];
+}
+//====================================================================================================
+inline size_t NodalVars::numberBulkDomainEqn0(size_t equationTypeS) const
+{
+    return Number_EqnTypeVector[equationTypeS];
 }
 //====================================================================================================
 }

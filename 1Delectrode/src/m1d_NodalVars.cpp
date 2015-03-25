@@ -589,7 +589,7 @@ NodalVars::GenerateEqnOrder()
   //
   size_t ss = Max_Var_Name;
   Offset_VarTypeVector.resize(ss, npos);
-  Number_VarTypeVector.resize(ss, npos);
+  Number_VarTypeVector.resize(ss, 0);
   for (VAR_TYPE iv = Displacement_Axial; iv < Max_Var_Name; ++iv) {
     size_t siv = (size_t) iv;
     if (Offset_VarType[iv] >= 0) {
@@ -600,7 +600,7 @@ NodalVars::GenerateEqnOrder()
     if (Number_VarType[iv] >= 0) {
          Number_VarTypeVector[siv] = (size_t) Number_VarType[iv];
     } else {
-         Number_VarTypeVector[siv] = npos;
+         Number_VarTypeVector[siv] = 0;
     }
   }
 
@@ -620,7 +620,7 @@ NodalVars::GenerateEqnOrder()
     if (Number_EqnType[iv] >= 0) {
          Number_EqnTypeVector[siv] = (size_t) Number_EqnType[iv];
     } else {
-         Number_EqnTypeVector[siv] = npos;
+         Number_EqnTypeVector[siv] = 0;
     }
   }
 
