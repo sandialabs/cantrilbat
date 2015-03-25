@@ -189,7 +189,7 @@ BDD_porousFlow::SetEquationsVariablesList()
 	 * For equation type 3 push an enthalpy conservation equation to the rear.
 	 */
 	EquationNameList.push_back(EqnType(Enthalpy_Conservation, 0, "Enthalpy Conservation"));
-	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+	VariableNameList.push_back(VarType(Temperature, 0, 0));
 	IsAlgebraic_NE[eqnIndex] = 0;
 	IsArithmeticScaled_NE[eqnIndex] = 0;
 	eqnIndex++;
@@ -199,7 +199,7 @@ BDD_porousFlow::SetEquationsVariablesList()
          * For equation type 4 push an enthalpy conservation equation to the rear.
          */
         EquationNameList.push_back(EqnType(Thermal_Conservation, 0, "Thermal Conservation"));
-        VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+        VariableNameList.push_back(VarType(Temperature, 0, 0));
         IsAlgebraic_NE[eqnIndex] = 0;
         IsArithmeticScaled_NE[eqnIndex] = 0;
         eqnIndex++;

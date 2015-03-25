@@ -248,7 +248,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
     if (PSCinput_ptr->Energy_equation_prob_type_ == 3) {
 	EqnType ht = EqnType(Enthalpy_Conservation, 0, "Enthalpy Conservation");
 	EquationNameList.push_back(ht);
-	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+	VariableNameList.push_back(VarType(Temperature, 0, 0));
 	IsAlgebraic_NE[eqnIndex] = 0;
 	IsArithmeticScaled_NE[eqnIndex] = 0;
 	eqnIndex++;
@@ -259,7 +259,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
     if (PSCinput_ptr->Energy_equation_prob_type_ == 4) {
 	EqnType ht = EqnType(Thermal_Conservation, 0, "Thermal_Conservation");
 	EquationNameList.push_back(ht);
-	VariableNameList.push_back(VarType(Temperature, 0, "Temperature"));
+	VariableNameList.push_back(VarType(Temperature, 0, 0));
 	IsAlgebraic_NE[eqnIndex] = 0;
 	IsArithmeticScaled_NE[eqnIndex] = 0;
 	eqnIndex++;

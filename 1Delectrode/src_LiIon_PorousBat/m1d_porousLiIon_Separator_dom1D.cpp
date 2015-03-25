@@ -526,13 +526,20 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          * ------------------- CALCULATE FLUXES AT THE LEFT BOUNDARY -------------------------------
          *
          */
+	// We've turned this off, because it is not necessary
         if (doLeftFluxCalc) {
             if (nodeLeft == 0) {
+		AssertTrace(iCell == 0);
                 /*
                  *  We are here if we are at the left node boundary and we
                  *  need a flux condition. The default now is to
-                 *  set the flux to zero. We could put in a more
-                 *  sophisticated treatment
+                 *  set the flux to zero. This is good if we expect the negate/equalize the fluxes at a domain boundary,
+		 *  since both sides are set to zero. We could put in a more
+                 *  sophisticated treatment.
+		 *
+		 *  The other case is when we are specifying a flux boundary condition. In that case,
+		 *  we set the flux here to zero. Then, in the surface domain we add the specification of
+		 *  the flux to the residual of the node at the boundary.
                  */
                 fluxFleft = 0.0;
                 icurrElectrolyte_CBL_[iCell] = 0.0;
@@ -573,9 +580,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             }
         } else {
             /*
-             * Copy the fluxes from the stored right side
+             * Copy the fluxes from the stored right side of the previous cell to the left side of the current cell
              */
             fluxFleft = fluxFright;
+	    fluxTleft = fluxTright;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             for (int k = 0; k < nsp_; k++) {
                 fluxXleft[k] = fluxXright[k];
@@ -585,20 +593,21 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          * ------------------- CALCULATE FLUXES AT THE RIGHT BOUNDARY -------------------------------
          *
          */
-
-        /*
-         * Calculate the flux distance
-         */
         if (nodeRight == 0) {
+	    AssertTrace(iCell == NumLcCells-1);
+	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
             /*
              *  We are here if we are at the right node boundary and we need a flux
-             *  condition. The default now is to set the flux to zero. We could
-             *  put in a more sophisticated treatment
+             *  condition. The default now is to set the flux to zero. 
+	     *  This is good if we expect the negate/equalize the fluxes at a domain boundary,
+	     *  since both sides are set to zero.
+	     *
+	     *  The other case is when we are specifying a flux boundary condition. In that case,
+	     *  we set the flux here to zero. Then, in the surface domain we add the specification of
+	     *  the flux to the residual of the node at the boundary.
              */
-            AssertTrace(iCell == NumLcCells-1);
-            // fluxFright = 0.0;
-            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
             Fright_cc_ = 0.0;
+            fluxTright = 0.0;
             fluxFright = Fright_cc_ * concTot_Curr_;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             for (int k = 0; k < nsp_; k++) {
@@ -606,7 +615,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             }
         } else {
             /*
-             *  Establish the environment at the right cell boundary
+             *  Establish the environment at a normal right cell boundary
              */
             SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
 
@@ -615,15 +624,13 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              * Calculate the flux at the right boundary for each equation
              * This is equal to
-             *       Conc * Vaxial * phi
+             *     fluxFright =  Conc * Vaxial * phi
              */
             fluxFright = Fright_cc_ * concTot_Curr_;
-
             /*
              * Calculate the heat flux
              */
             fluxTright = heatFlux_Curr_;
-
             /*
              * Calculate the flux of species and the flux of charge
              *   - the flux of charge must agree with the flux of species
@@ -655,7 +662,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 #endif
 
         /*
-         * Add the flux terms into the residual
+	 * -------------------- ADD THE FLUX TERMS INTO THE RESIDUAL EQUATIONS --------------------------------------------------------
          */
 
 #ifdef DEBUG_RESID
@@ -834,7 +841,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     }
 
 }
-//====================================================================================================================
+//=============================================================================================================================
 void
 porousLiIon_Separator_dom1D::eval_PostSoln(
     const bool doTimeDependentResid,
@@ -1746,9 +1753,9 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
-	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+	size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
@@ -1771,6 +1778,13 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
          *         1 kcal gmol-1 = 0.05 volts
          */
         atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
+        /*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
+        }
     }
 }
 //=====================================================================================================================
@@ -1831,6 +1845,13 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
          *         1 kcal gmol-1 = 0.05 volts
          */
         atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
+        /*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
+        }
     }
 }
 //======================================================================================================================
@@ -1857,9 +1878,9 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relc
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
-	int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+	size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         /*
          * Set the atol value for the axial velocity
          *   arithmetically scaled -> so this is a characteristic value
@@ -1881,6 +1902,13 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relc
          *         1 kcal gmol-1 = 0.05 volts
          */
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
+        /*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+        }
     }
 }
 //======================================================================================================================
@@ -1932,6 +1960,13 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, dou
          *         1 kcal gmol-1 = 0.05 volts
          */
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
+        /*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+        }
     }
 }
 //=====================================================================================================================

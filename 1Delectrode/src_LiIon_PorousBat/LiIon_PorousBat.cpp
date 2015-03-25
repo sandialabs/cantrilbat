@@ -310,8 +310,15 @@ main(int argc, char** argv)
         ps->showSolutionVector(snn, 0.0, 0.0, *soln);
 #endif
 
+        /*
+         *  Initial residual calculation. This is useful to debug
+         */
         ps->residEval(res, false, soln, 0, 0.0, 0.0);
+
 #ifdef DEBUG_MATRIX_STRUCTURE
+        /*
+         *  Section to print out the initial solution when in debug mode
+         */
         snn  = "Residual";
         ps->showSolutionVector(snn, 0.0, 0.0, *res);
 
@@ -320,9 +327,13 @@ main(int argc, char** argv)
 #endif
         BEulerInt_Battery t1;
 
+        
 #ifdef DO_INIT_CALC
         /*
          * Section to turn on DAEINIT capability - experimental
+         *          If the environmental variable Bat_DODAEINIT is turned on then the
+         *          the sovler will calculate an initial DAE problem that calculates consistent
+         *          initial time derivatives and algebraic constraints.
          */
         char* resp_str = getenv("Bat_DODAEINIT");
         t1.m_doSpecialStartCalc = 1;
@@ -332,8 +343,10 @@ main(int argc, char** argv)
             }
         }
 #else
+        /*
+         *  lasy way to turn on the DAE initial problem!
+         */
         //t1.m_doSpecialStartCalc = 1;
-
 #endif
 
         t1.initializePRE(*ps);

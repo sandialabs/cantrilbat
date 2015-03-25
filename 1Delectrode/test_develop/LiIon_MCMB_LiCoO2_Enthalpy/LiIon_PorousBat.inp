@@ -271,7 +271,7 @@ Solution Behavior Print Level = 5
 !   9 -> Info on a per iterate of the linear solve is printed out.
 !
 !-------------------------------------------------------------------------
-Time Stepper Print Level = 6
+Time Stepper Print Level = 10
 !-------------------------------------------------------------------------
 !
 !    Nonlinear Solver Log Level - int (optional)
@@ -289,6 +289,8 @@ Time Stepper Print Level = 6
 !   8 -> Info on a per iterate of the linear solve is printed out.
 !
 !-------------------------------------------------------------------------
+Nonlinear Solver Log Level = 8
+!-------------------------------------------------------------------------
 !
 !   Anode Temp BC Type - int (not required)
 !       -1 - not set -> same as an adiabatic boundary condition
@@ -297,7 +299,7 @@ Time Stepper Print Level = 6
 !        2 - Time dependent temp at the anode
 !       10 - Specify heat transfer coeff temperature bc.
 !---------------------------------------------------------------------------------------------------------
-Anode TemperatureBC Type = 10
+Anode TemperatureBC Type = 0
 !---------------------------------------------------------------------------------------------------------
 !
 !    Anode Collector Temperature - double (not required)
@@ -319,7 +321,7 @@ Anode Heat Transfer Coefficient = 1000
 !        2 - Time dependent temp at the anode
 !       10 - Specify heat transfer coeff temperature bc.
 !---------------------------------------------------------------------------------------------------------
-Cathode TemperatureBC Type = 10
+Cathode TemperatureBC Type = 0
 !---------------------------------------------------------------------------------------------------------
 !
 !   Cathode Collector Temperature - double (not required)

@@ -658,6 +658,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double fluxFright = 0.;
     //  Electrolyte total molar fluxe on Left side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
     double fluxFleft;
+    // Left and right thermal heat fluxes
     double fluxTleft = 0.0;
     double fluxTright = 0.0;
 
@@ -887,6 +888,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          * ------------------- CALCULATE FLUXES AT THE LEFT BOUNDARY -------------------------------
          *
          */
+	// We've turned this off except for the first node, because it is not necessary
         if (doLeftFluxCalc) {
             if (nodeLeft == 0) {
                 /*
@@ -938,6 +940,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              * Copy the fluxes from the stored right side
              */
             fluxFleft = fluxFright;
+	    fluxTleft = fluxTright;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             icurrElectrode_CBL_[iCell] = icurrElectrode_CBR_[iCell - 1];
             for (int k = 0; k < nsp_; k++) {
@@ -962,7 +965,19 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             // fluxFright = 0.0;
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
             fluxFright = Fright_cc_ * concTot_Curr_;
-            // fluxVRight = 0.0;
+	    /*
+             *  We are here if we are at the right node boundary and we need a flux
+             *  condition. The default treatment is to set the flux to zero. The basic idea is that
+	     *  if the right flux in this domain and the left flux in the next domain are zero,
+	     *  then we have cancelled out the fluxes in the middle of a control volume that straddles
+	     *  the two domains. We could put in a more sophisticated treatment later, but we would
+	     *  have to ensure that treatment cancels fluxes in the middle.
+	     *
+	     *  The other case is when we are specifying a flux boundary condition. In that case,
+	     *  we set the flux here to zero. Then, in the surface domain we add the specification of
+	     *  the flux to the residual of the node at the boundary.
+             */
+	    fluxTright = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             //  fluxVElectrodeRight = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;
@@ -3099,6 +3114,14 @@ void porousLiIon_Cathode_dom1D::setAtolVector(double atolDefault, const Epetra_V
          */
         atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
         atolVector[indexCent_EqnStart + iVar_Voltage_ED] = 0.05;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
+        }
+
     }
 }
 //=====================================================================================================================
@@ -3131,10 +3154,10 @@ void porousLiIon_Cathode_dom1D::setAtolVector_DAEInit(double atolDefault, const 
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
-	int iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
-        int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
-        int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
-        int iVar_Voltage_ED = iVar_Voltage + 1;
+	size_t iVAR_Vaxial  = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
+        size_t iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+        size_t iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
+        size_t iVar_Voltage_ED = iVar_Voltage + 1;
 
         /*
          * Set the atol value for the axial velocity
@@ -3161,6 +3184,14 @@ void porousLiIon_Cathode_dom1D::setAtolVector_DAEInit(double atolDefault, const 
          */
         atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
         atolVector[indexCent_EqnStart + iVar_Voltage_ED] = 0.05;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
+        }
+
     }
 }
 //======================================================================================================================
@@ -3193,6 +3224,7 @@ porousLiIon_Cathode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoe
         int iVar_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
         int iVar_Voltage = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         int iVar_Voltage_ED = iVar_Voltage + 1;
+        int iVar_Temp    =  nodeCent->indexBulkDomainVar0((size_t) Temperature);
 
         /*
          * Set the atol value for the axial velocity
@@ -3201,6 +3233,9 @@ porousLiIon_Cathode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoe
         //double vax = soln[indexCent_EqnStart + iVAR_Vaxial];
         atolDeltaDamping[indexCent_EqnStart + iVAR_Vaxial] = 1.0E-4 * relcoeff;
 
+        if (iVar_Temp >= 0) {
+           atolDeltaDamping[indexCent_EqnStart + iVar_Temp] = 1.0;
+        }
         /*
          * Set atol values for the species mole fractions
          */
@@ -3219,6 +3254,14 @@ porousLiIon_Cathode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoe
          */
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage_ED] = 0.05 * relcoeff;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+        }
+
     }
 }
 //======================================================================================================================
@@ -3278,6 +3321,14 @@ porousLiIon_Cathode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, doubl
          */
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage_ED] = 0.05 * relcoeff;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+        }
+
     }
 }
 //=====================================================================================================================

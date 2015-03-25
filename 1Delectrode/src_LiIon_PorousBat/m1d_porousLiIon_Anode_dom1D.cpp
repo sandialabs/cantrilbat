@@ -880,15 +880,20 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          * ------------------- CALCULATE FLUXES AT THE LEFT BOUNDARY -------------------------------
          *
          */
+	// We've turned this off as it is not necessary, if we are doing everything correctly
         if (doLeftFluxCalc) {
             if (nodeLeft == 0) {
                 /*
-                 *  We are here if we are at the left node boundary and we
-                 *  need a flux condition. The default now is to
-                 *  set the flux to zero. We could put in a more
-                 *  sophisticated treatment
+                 *  We are here if we are at the left node boundary and we need a flux condition. The default now is to
+                 *  set the flux to zero. This is good if we expect the negate/equalize the fluxes at a domain boundary,
+		 *  since both sides are set to zero.
+		 *
+		 *  The other case is when we are specifying a flux boundary condition. In that case,
+		 *  we set the flux here to zero. Then, in the surface domain we add the specification of
+		 *  the flux to the residual of the node at the boundary.
                  */
                 fluxFleft = 0.0;
+		fluxTleft = 0.0;
                 icurrElectrolyte_CBL_[iCell] = 0.0;
                 fluxVElectrodeLeft = 0.0;
                 icurrElectrode_CBL_[iCell] = 0.0;
@@ -933,6 +938,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              * Copy the fluxes from the stored right side
              */
             fluxFleft = fluxFright;
+	    fluxTleft = fluxTright;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             fluxVElectrodeLeft = fluxVElectrodeRight;
             icurrElectrode_CBL_[iCell] = icurrElectrode_CBR_[iCell - 1];
@@ -945,16 +951,20 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *
          */
         if (nodeRight == 0) {
-            /*
-             *  We are here if we are at the right node boundary and we need a flux
-             *  condition. The default now is to set the flux to zero. We could
-             *  put in a more sophisticated treatment
-             */
+           
             AssertTrace(iCell == NumLcCells-1);
             Fright_cc_ = 0.0;
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-            //fluxFright = Fright_cc_ * concTot_Curr_;
+	    /*
+             *  We are here if we are at the right node boundary and we need a flux
+             *  condition. The default treatment is to set the flux to zero. The basic idea is that
+	     *  if the right flux in this domain and the left flux in the next domain are zero,
+	     *  then we have cancelled out the fluxes in the middle of a control volume that straddles
+	     *  the two domains. We could put in a more sophisticated treatment later, but we would
+	     *  have to ensure that treatment cancels fluxes in the middle.
+             */
             fluxFright = 0.0;
+	    fluxTright = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             fluxVElectrodeRight = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;
@@ -1203,7 +1213,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
         }
 
-	if  (doEnthalpyEquation_) {
+	if  ( 0 && doEnthalpyEquation_) {
 	    //  Need to count up the enthalpy over the electrode and the electrolyte
 	    //
 	    // Get the Solid enthalpy in Joules / m2
@@ -3107,6 +3117,14 @@ void porousLiIon_Anode_dom1D::setAtolVector(double atolDefault, const Epetra_Vec
          */
         atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
         atolVector[indexCent_EqnStart + iVar_Voltage_ED] = 0.05;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
+        }
+
     }
 }
 //=====================================================================================================================
@@ -3169,6 +3187,13 @@ void porousLiIon_Anode_dom1D::setAtolVector_DAEInit(double atolDefault, const Ep
          */
         atolVector[indexCent_EqnStart + iVar_Voltage] = 0.05;
         atolVector[indexCent_EqnStart + iVar_Voltage_ED] = 0.05;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
+        }
     }
 }
 //======================================================================================================================
@@ -3224,6 +3249,14 @@ porousLiIon_Anode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff
          */
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage_ED] = 0.05 * relcoeff;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+        }
+
     }
 }
 //======================================================================================================================
@@ -3283,6 +3316,13 @@ porousLiIon_Anode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double 
          */
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage] = 0.05 * relcoeff;
         atolDeltaDamping[indexCent_EqnStart + iVar_Voltage_ED] = 0.05 * relcoeff;
+	/*
+         * Set the tolerance on the temperature
+         */
+        size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+        if (iVar_Temperature != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+        }
     }
 }
 //=====================================================================================================================
