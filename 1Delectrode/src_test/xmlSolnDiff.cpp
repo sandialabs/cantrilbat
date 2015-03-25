@@ -371,8 +371,33 @@ bool compareBulkDomains(m1d::SolnDomainBulk *b1, m1d::SolnDomainBulk *b2)
     std::vector<double> & comp1 = b1->DataArray[j];
     std::vector<double> & comp2 = b2->DataArray[j];
     if (b1->VarNames[j] != b2->VarNames[j]) {
-      printf("ERROR variable names differs 1: %s   2: %s \n", b1->VarNames[j].c_str(), b2->VarNames[j].c_str());
-      exit(-1);
+      bool sbad = true;
+      std::string n1 = b1->VarNames[j];
+      std::string n2 = b2->VarNames[j];
+      int len1 = n1.size();
+      int len2 = n2.size();
+      if (len1 > len2 && len1 > 3) {  
+        std::string t1 = n1.substr(len1 - 3, 3);
+        if (n1.substr(len1 - 3, 3) == "(0)" && (len1 = len2 + 3) ) {
+          t1 = n1.substr(0, len1 - 3);
+          if (t1 == n2) {
+            sbad = false;
+          }
+        }
+      }
+      if(len2 > len1 && len2 > 3) {
+        std::string t2 = n2.substr(len2 - 3, 3);
+        if (n2.substr(len1 - 3, 3) == "(0)" && (len2 = len1 + 3) ) {
+          t2 = n2.substr(0, len2 - 3);
+          if (t2 == n1) {
+            sbad = false;
+          }
+        }
+      }
+      if (sbad) {
+        printf("ERROR variable names differ 1: %s   2: %s \n", b1->VarNames[j].c_str(), b2->VarNames[j].c_str());
+        exit(-1);
+      }
     }
     itest = compareFieldVectorFlts(comp1, comp2, *nodePos, b1->VarNames[j]);	 
     iTotal = iTotal && itest;		     
