@@ -119,7 +119,10 @@ public:
    *                              0 - at the current cell center
    */
   void
-  SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, int type);
+  SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type);
+
+  void
+  SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte);
 
   //!  Setup shop at a particular point in the domain, calculating intermediate quantites
   //!  and updating Cantera's objects
@@ -151,7 +154,11 @@ public:
   updateElectrolyte(const doublereal * const solnElectrolyte);
 
   void
-  getVoltages(const double * const solnElectrolyte, const double * const solnSolid);
+  getVoltagesOld(const double * const solnElectrolyte, const double * const solnSolid);
+
+  void
+  getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
+
 
   void
   getMFElectrolyte_soln(const double * const solnElectrolyte);

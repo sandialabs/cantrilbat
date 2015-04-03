@@ -523,7 +523,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
        */
       AssertTrace(iCell == NumLcCells-1);
       // fluxFright = 0.0;
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+      SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0);
       fluxFright = Fright_cc_ * concTot_Curr_ * porosity_Curr_;
       fluxVright = 0.0;
       for (int k = 0; k < nsp_; k++) {
@@ -616,7 +616,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
      * --------------------------------------------------------------------------
      */
 
-    SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+    SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0);
     /*
      *  Total continuity equation -
      */
@@ -658,7 +658,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
       /*
        * Setup shop with the old time step
        */
-      SetupThermoShop1(&(solnOld[indexCent_EqnStart_BD]), 0);
+      SetupThermoShop1Old(&(solnOld[indexCent_EqnStart_BD]), 0);
 
       double oldStuff = mfElectrolyte_Soln_Curr_[0] * concTot_Curr_ * porosity_Curr_ * xdelCell;
       double tmp = surfArea * (newStuff - oldStuff) * rdelta_t;
@@ -671,7 +671,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
 #endif
       res[indexCent_EqnStart_BD + EQ_Species_offset_BD + 0] += tmp;
 
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+      SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0);
     }
 
   }
@@ -690,12 +690,28 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
 }
 //=====================================================================================================================
 void
-porousLiKCl_infPlate_dom1D::SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, int type)
+porousLiKCl_infPlate_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type)
 {
   updateElectrolyte(solnElectrolyte_Curr);
   if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
   }
+}
+//=====================================================================================================================
+//  Setup shop at a particular point in the domain, calculating intermediate quantites
+//  and updating Cantera's objects
+/*
+ *  All member data with the suffix, _Curr_, are updated by this function.
+ *
+ * @param solnElectrolyte_Curr  Current value of the solution vector
+ * @param type                  Type of call
+ *                              0 - at the current cell center
+ */
+void
+porousLiKCl_infPlate_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+{
+    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
+    //updateElectrolyteNew(nv, solnElectrolyte_Curr);
 }
 //=====================================================================================================================
 void
@@ -739,7 +755,7 @@ porousLiKCl_infPlate_dom1D::updateElectrolyte(const doublereal * const solnElect
   pres_Curr_ = PressureReference_;
 
   getMFElectrolyte_soln(solnElectrolyte_Curr);
-  getVoltages(solnElectrolyte_Curr, 0);
+  getVoltagesOld(solnElectrolyte_Curr, 0);
 
   ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
 
@@ -751,13 +767,25 @@ porousLiKCl_infPlate_dom1D::updateElectrolyte(const doublereal * const solnElect
 }
 //=====================================================================================================================
 void
-porousLiKCl_infPlate_dom1D::getVoltages(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
+porousLiKCl_infPlate_dom1D::getVoltagesOld(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
 {
   int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
 
   //int indexVE = SDD_.VariableIndexStart_VarName[Voltage];
   //phiAnode_ = solnSolid[indexVE];
+}
+//=====================================================================================================================
+// Retrieves the voltages from the solution vector and puts them into local storage
+/*
+ * @param solnElectrolyte start of the solution vector at the current node
+ */
+void
+porousLiKCl_infPlate_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte)
+{  
+    size_t indexVS = nv->indexBulkDomainVar0(Voltage);
+    phiElectrolyte_Curr_ = solnElectrolyte[indexVS];
+    // phiElectrode_Curr_ = solnElectrolyte[indexVS + 1];
 }
 //=====================================================================================================================
 void
