@@ -201,7 +201,7 @@ public:
    *   Vector of partial molar enthalpy  (KRSpecies, iCell)
    *   Units of Joules/(kmol)
    */
-  std::vector<doublereal> EnthPM_lyte_Cell_;
+  std::vector<doublereal> EnthalpyPM_lyte_Cell_;
 
   //
   // ------------------- Porosity of the Domain -----------------------------------------------------------------------

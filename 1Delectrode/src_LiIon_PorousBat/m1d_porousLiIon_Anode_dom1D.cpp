@@ -1214,13 +1214,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         }
 
 	if  ( 0 && doEnthalpyEquation_) {
-	    //  Need to count up the enthalpy over the electrode and the electrolyte
+            //
+	    //  Need to count up the enthalpy over the electrode and the electrolyte on a per cross-sectional area basis
 	    //
 	    // Get the Solid enthalpy in Joules / m2
 	    //
 	    double solidEnthalpyNew = Electrode_ptr->SolidEnthalpy() / crossSectionalArea_;
-
-            double lyteEnthalpyNew = EnthPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * xdelCell;
+            //
+            // Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
+            // 
+            double lyteEnthalpyNew = EnthalpyPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * xdelCell;
             //
             // Calculate and store the total enthalpy in the cell at the current conditions
             //

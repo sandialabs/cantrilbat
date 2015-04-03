@@ -83,7 +83,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 
     energyEquationProbType_   = r.energyEquationProbType_;
     CpPM_lyte_Cell_           = r.CpPM_lyte_Cell_;
-    EnthPM_lyte_Cell_         = r.EnthPM_lyte_Cell_;
+    EnthalpyPM_lyte_Cell_     = r.EnthalpyPM_lyte_Cell_;
     porosity_Cell_            = r.porosity_Cell_;
     porosity_Cell_old_        = r.porosity_Cell_old_;
     cIndex_cc_                = r.cIndex_cc_;
@@ -156,7 +156,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
  
     if  (doEnthalpyEquation_) {
 	CpPM_lyte_Cell_.resize(NumLcCells, 0.0);
-	EnthPM_lyte_Cell_.resize(NumLcCells, 0.0);
+	EnthalpyPM_lyte_Cell_.resize(NumLcCells, 0.0);
     }
   }
 //=====================================================================================================================
