@@ -301,6 +301,21 @@ public:
   //! Cathode heat transfer coeff
   double cathodeHeatTranCoeff_;
 
+  //! Artificial compressibility number in inverse atmospheres
+  /*!
+   *   compressibility = beta = - 1 / V dVdP
+   * 
+   *    OneAtm = 1.01E5 Pascal 
+   * 
+   *    Typical values for compressibility for water are 5E-10 Pa-1.
+   *    This would make that value 5.0E-5 in inverse atm units.
+   *       artificialCompressibilityInvAtm_ = 5.0E-5 atm-1
+   *    However, to make the problem easier to solve, we may use values like:
+   *     artificialCompressibilityInvAtm_ = 0.69 atm-1
+   *    This will make the liquid squishy, and the time constants non-stiff. 
+   */
+  double artificialCompressibilityInvAtm_;
+
 };
 //=====================================================================================================================
 }

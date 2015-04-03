@@ -341,3 +341,11 @@ Maximum Number of Subcycle Steps per Global Steps = 100
 !  Cathode Heat Transfer Coefficient = 1000
 !---------------------------------------------------------------------------------------------------------
 !
+!   Artificial Compressibility 
+!               (default = 0.0)
+!             units are atm-1 (yes, have to put in units conversion)
+!             A value of 0.69 doubles the volume for a 1 atm increase
+!---------------------------------------------------------------------------------------------------------
+!  Artificial Compressibility = 0.69
+!---------------------------------------------------------------------------------------------------------
+

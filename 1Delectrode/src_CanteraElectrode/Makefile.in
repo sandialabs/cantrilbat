@@ -89,7 +89,11 @@ INCLUDE_DIRS = -I../src \
                -I$(UTILSRC_DIR) -I../..
 
 # C++ compile flags
-CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL
+LDEFINES= -DDEBUG_DARCY
+#
+#  -DDEBUG_DARCY   Add in debug options for Darcy flow, turn on artificial compressibility
+# 
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES)
 
 # Ending C++ linking libraries
 LCXX_END_LIBS = @LCXX_END_LIBS@

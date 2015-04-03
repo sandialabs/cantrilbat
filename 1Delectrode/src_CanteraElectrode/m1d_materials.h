@@ -1,6 +1,11 @@
 #ifndef _M1D_MATERIALS_H
 #define _M1D_MATERIALS_H
 
+#include  "m1d_ProblemStatementCell.h"
+
+#include "m1d_CanteraElectrodeGlobals.h"
+
+
 
 namespace m1d
 {
@@ -23,6 +28,13 @@ namespace m1d
      *    @return  resistivity (Ohm m)
      */
     double resistivity_copper(double T = 293.15);
+
+    //!  returns the artificial compressibility of a liquid electrolyte in Pascals-1.
+    /*!
+     *
+     *   @return artificial compressibility of material in pa-1.
+     */
+    double artificialCompressibility();
     
 }
 #endif

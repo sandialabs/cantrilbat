@@ -7,8 +7,10 @@
 
 #include "m1d_materials.h"
 
+
 namespace m1d
 {
+extern ProblemStatementCell *PSCinput_ptr;
 //====================================================================================================
 double resistivity_aluminum(double T)
 {
@@ -20,10 +22,15 @@ double resistivity_copper(double T)
     return 1.68E-8 * (1.0 + 0.003862 * (T - 293.15));
 }
 //====================================================================================================
+double artificialCompressibility()
+{
+#ifdef DEBUG_DARCY
+   double beta = 0.69 / 1.01E5;
+#else
+   double beta = PSCinput_ptr->artificialCompressibilityInvAtm_ / OneAtm;
+#endif
+   return beta;
 
-
-
-
-
+}
 }
 //====================================================================================================

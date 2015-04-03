@@ -68,8 +68,8 @@ ProblemStatementCell::ProblemStatementCell() :
   anodeHeatTranCoeff_(1000.),
   cathodeTempBCType_(-1),
   cathodeTempRef_(298.15),
-  cathodeHeatTranCoeff_(1000.)
-
+  cathodeHeatTranCoeff_(1000.),
+  artificialCompressibilityInvAtm_(0.0)
 {
   PhaseList_ = new Cantera::PhaseList();
 }
@@ -519,6 +519,17 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   iMAX_SG->set_default(100);
   iMAX_SG->set_limits(10000, 1);
   cf->addLineEntry(iMAX_SG);
+
+
+  /* ------------------------------------------------------------------------------------------------------------------
+   *  Artificial Compressibility
+   */
+  reqd = 0;
+  LE_OneDbl *dac = new LE_OneDbl("Artificial Compressibility", &(artificialCompressibilityInvAtm_), reqd,
+                                            "artficialCompressibility");
+  dac->set_default(0.0);
+  cf->addLineEntry(dac);
+
 
 
   /************************************ DAKOTA INTERFACE ********************************************/
