@@ -1,6 +1,6 @@
 TITLE = "Solution on Domain BulkDomain1D_1"
 VARIABLES = "x [m]"  
-"Vel_axial(0)" 	"MF_sp(ECDMC)" 	"MF_sp(Li+)" 	"MF_sp(PF6-)" 	"Volt(Electroly)" 	"qHeat_accum [J/m3]" 	"qHeat_step [W/m3]" 	"Joule_Lyte [W/m3]" 	"Joule_Solid [W/m3]" 	
+"Vel_axial" 	"MF_sp(ECDMC)" 	"MF_sp(Li+)" 	"MF_sp(PF6-)" 	"Volt(Electroly)" 	"qHeat_accum [J/m3]" 	"qHeat_step [W/m3]" 	"Joule_Lyte [W/m3]" 	"Joule_Solid [W/m3]" 	
 ZONE T = "t = 0 [s]" I = 10 SOLUTIONTIME = 0.0000000000000E+00
 0.0001 	0 	0.843947 	0.0780266 	0.0780266 	-0.07 	
 0 	0.0 	 0.0 	 0.0 	 
