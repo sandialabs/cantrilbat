@@ -6,7 +6,7 @@ that successful combinations are to be recorded when they occur.
 
 Default configuration of scons:
 
-prefix = '/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_dbg'
+prefix = '/home/hkmoffa/arch/linux64_gcc472/cab_3279_dbg'
 python_package = 'full'
 python_array_home =
 '/usr/netpub/numpy/numpy-1.6.2/lib/python2.7/site-packages/numpy'
@@ -25,14 +25,18 @@ install_gtest = True
 single_library = False
 
 
-
 =================================================================================
-Date of Analysis = 04/02/15
+Date of Analysis = 04/05/15
    Debug versions of all codes
 
-cantera version (svn number)       = 
-cantrilbat version (git date)      =  d162569728be289e9 04/03/15
-cantrilbat_test version (git date) =  
+cantera branch                     = cab_3279
+cantera version (svn number)       = 3349
+cantrilbat version (git date)      = 203f785f17cc55ee 04/05/15
+                                     TestTag_040515
+cantrilbat branch                  = cantera_3279
+cantrilbat_test branch             =  cantera_3279
+cantrilbat_test version (git date) =  554f0ba928e4bf2 04/05/15
+                                     TestTag_040515
 
 
 =================================================================================
