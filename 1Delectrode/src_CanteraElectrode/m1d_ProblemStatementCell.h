@@ -301,6 +301,17 @@ public:
   //! Cathode heat transfer coeff
   double cathodeHeatTranCoeff_;
 
+  //!
+  //! Integer representing the pressure formulation problem type
+  /*!
+   *  0 -> none                     Don't have a pressure equation (default)
+   *  1 -> Darcy Flow       
+   *  2 -> Darcy Flow with Gas Reservoir
+   *  3 -> Partial Saturation
+   */
+  int Pressure_formulation_prob_type_;
+
+
   //! Artificial compressibility number in inverse atmospheres
   /*!
    *   compressibility = beta = - 1 / V dVdP

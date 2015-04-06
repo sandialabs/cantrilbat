@@ -69,6 +69,7 @@ ProblemStatementCell::ProblemStatementCell() :
   cathodeTempBCType_(-1),
   cathodeTempRef_(298.15),
   cathodeHeatTranCoeff_(1000.),
+  Pressure_formulation_prob_type_(0),
   artificialCompressibilityInvAtm_(0.0)
 {
   PhaseList_ = new Cantera::PhaseList();
@@ -151,6 +152,21 @@ ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
   ir->set_default(0);
   ir->set_limits(1, 0);
   cf->addLineEntry(ir);
+
+  /* --------------------------------------------------------------------
+   * 
+   * Pressure Formulation Problem Type
+   *
+   *   0  = None (default)
+   *   1  = Darcy Flow
+   *   2  = Darcy Flow with Gas Reservoir
+   *   3  = Partial Saturation
+   */
+  const char *pressureFormList[4] = {"None", "Darcy Flow", "Darcy Flow with Gas Reservoir", "Partial Saturation"};
+  LE_PickList *lepkp = new LE_PickList("Pressure Formulation Problem Type", &Pressure_formulation_prob_type_,
+				       pressureFormList, 4, 0, "Pressure_formulation_prob_type_");
+  lepkp->set_default(0);
+  cf->addLineEntry(lepkp);
 
 }
 //=====================================================================================================================

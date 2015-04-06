@@ -341,6 +341,34 @@ Maximum Number of Subcycle Steps per Global Steps = 100
 !  Cathode Heat Transfer Coefficient = 1000
 !---------------------------------------------------------------------------------------------------------
 !
+!   Pressure Formulation Problem Type
+!
+!    List of available options
+!            = None  (default)
+!            = Darcy Flow
+!            = Darcy Flow With Gas Reservoir
+!            = Partial Saturated Flow
+!
+!  If the problem type is None, then there is no pressure. The axial velocity is associated with the
+!  continuity equation.
+!
+!  If the problem type is Darcy Flow, then there is a pressure unknown at each cell. The pressure
+!  is associated with the total continuity equation. The axial velocity is associated with
+!  the Darcy equation.
+!
+!  If the problem type is Darcy Flow With Gas Reservoir, then the Darcy flow conditions are
+!  followed. Also, there is a gas resevoir representing the battery cell containiner that
+!  is connected to each control volume of the simulation. The liquid electrolyte in each
+!  control volume is connected to the gas reservoir  via equations, exchanging heat and
+!  species. 
+!
+!  If the problem type is Partial Saturated Flow, the case is the same as Darcy Flow With Gas Reservoir.
+!  Additionally, each control volume can have a gas phase associated with it.
+!
+!--------------------------------------------------------------------------------------------------------
+Pressure Formulation Problem Type = None
+!---------------------------------------------------------------------------------------------------------
+!
 !   Artificial Compressibility 
 !               (default = 0.0)
 !             units are atm-1 (yes, have to put in units conversion)
