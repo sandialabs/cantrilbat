@@ -162,6 +162,8 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
+    // BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+
     /*
      * Figure out what the mass of the separator is
      * and then figure out its volume fraction to
@@ -314,7 +316,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	tmpsSetup = 1;
     }
     residType_Curr_ = residType;
-
+    BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
     t_final_ = t;
     if (rdelta_t < 1.0E-200) {
         t_init_ = t;
@@ -390,7 +392,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         cIndex_cc_ = iCell;
 
 	cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
-        valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+        ///valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
@@ -693,7 +695,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          * Species continuity Equation
          */
         for (int k = 0; k < nsp_; k++) {
-            if ((k != iECDMC_) && (k != iPF6m_)) {
+            if ((k != (int) fa->iMFS_index_) && (k != iPF6m_)) {
                 res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
             }
         }
@@ -1654,6 +1656,9 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
                                                const double delta_t)
 {
     Epetra_Vector& soln = *soln_ptr;
+    BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+
+
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
 
@@ -1714,6 +1719,10 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         int igPF6m = PSinput.PhaseList_->globalSpeciesIndex("PF6-");
         if (igPF6m < 0) {
             throw CanteraError("confused", "confused");
+        }
+
+        for (size_t k = 0; k < fa->nSpeciesElectrolyte_; k++) {
+            soln[indexCent_EqnStart + iVar_Species + k] = PSinput.electrolyteMoleFracs_[k];
         }
 
         soln[indexCent_EqnStart + iVar_Species + iECDMC_] = PSinput.electrolyteMoleFracs_[igECDMC];

@@ -176,7 +176,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
 
     // List of species in the electrolyte
     const std::vector<std::string> & namesSp = ionicLiquid_->speciesNames();
-    int nsp = ionicLiquid_->nSpecies();
+    nSpeciesElectrolyte_ = ionicLiquid_->nSpecies();
 
     /*
      *  Loop over the species in the electrolyte phase. Each gets its own equation.
@@ -184,16 +184,14 @@ BDD_porousElectrode::SetEquationsVariablesList()
      *  hardcode the charge conservation equation to PF6m. All other species are assigned
      *  the species conservation equation.
      */
-    int iMFS = -1;
-    int iCN = -1;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k <  nSpeciesElectrolyte_; k++) {
 	if (namesSp[k] == "ECDMC") {
-	    iMFS = k;
+	    iMFS_index_ = k;
 	    VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
 	    EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
 	    IsAlgebraic_NE[1 + k] = 2;
 	} else if (namesSp[k] == "PF6-") {
-	    iCN = k;
+	    iCN_index_ = k;
 	    VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
 	    EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
 	    IsAlgebraic_NE[1 + k] = 2;
@@ -204,14 +202,25 @@ BDD_porousElectrode::SetEquationsVariablesList()
 	}
 	eqnIndex++;
     }
-    if (iMFS < 0) {
-	throw CanteraError("sep", "no ECDMC");
+ 
+    if (iMFS_index_ == npos) {
+	iMFS_index_ = 0;
     }
-    if (iCN < 0) {
-	throw CanteraError("sep", "no PF6-");
+    if (iCN_index_ == npos) {
+	for (size_t k = 0; k <  nSpeciesElectrolyte_; k++) {
+	    if (k != iMFS_index_) {
+		double chg = ionicLiquid_->charge(k);
+		if (chg < 0.0) {
+		    iCN_index_ = k;
+		    break;
+		}
+	    }
+	}
+	if (iCN_index_ == npos) {
+	    throw CanteraError("sep", "no negative charge species");
+	}
     }
-
-
+  
 
     //   Current conservation is used to solve for electrostatic potential
     //           Equation 4: Current Conservation - Electrolyte   Variable 4: Volts_Electrolyte
