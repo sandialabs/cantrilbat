@@ -110,6 +110,15 @@ public:
    * We own this object
    */
   Cantera::ThermoPhase* solidSkeleton_;  
+
+  //!  Total number of species in the electrolyte
+  size_t nSpeciesElectrolyte_;
+
+  //!  Identity of the species to be used for Mole Fraction summation equation
+  size_t iMFS_index_;
+
+  //!  Identity of the species index to be used for charge neutrality summation equation
+  size_t iCN_index_;
 };
 //=====================================================================================================================
 }

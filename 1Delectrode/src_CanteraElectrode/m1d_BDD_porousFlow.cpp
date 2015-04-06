@@ -23,22 +23,28 @@ namespace m1d
 //====================================================================================================================
 BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr,
 			       std::string domainName) :
-  BulkDomainDescription(dl_ptr, domainName),
-  ionicLiquid_(0),
-  trans_(0),
-  solidSkeleton_(0)
+    BulkDomainDescription(dl_ptr, domainName),
+    ionicLiquid_(0),
+    trans_(0),
+    solidSkeleton_(0),
+    nSpeciesElectrolyte_(npos),
+    iMFS_index_(npos),
+    iCN_index_(npos)
 {
-  IsAlgebraic_NE.resize(7,0);
-  IsArithmeticScaled_NE.resize(7,0);
+    IsAlgebraic_NE.resize(7,0);
+    IsArithmeticScaled_NE.resize(7,0);
 }
 //=====================================================================================================================
 BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
-  BulkDomainDescription(r.DL_ptr_), 
-  ionicLiquid_(0), 
-  trans_(0),
-  solidSkeleton_(0)
+    BulkDomainDescription(r.DL_ptr_), 
+    ionicLiquid_(0), 
+    trans_(0),
+    solidSkeleton_(0),
+    nSpeciesElectrolyte_(npos),
+    iMFS_index_(npos),
+    iCN_index_(npos)
 {
-  *this = r;
+    *this = r;
 }
 //=====================================================================================================================
 BDD_porousFlow::~BDD_porousFlow()
@@ -74,6 +80,11 @@ BDD_porousFlow::operator=(const BDD_porousFlow &r)
   if (r.solidSkeleton_) {
        solidSkeleton_ = (r.solidSkeleton_)->duplMyselfAsThermoPhase();
   }
+
+  nSpeciesElectrolyte_  = r.nSpeciesElectrolyte_;
+  iMFS_index_           = r.iMFS_index_;
+  iCN_index_            = r.iCN_index_;
+
   return *this;
 }
 //=====================================================================================================================
@@ -90,7 +101,7 @@ BDD_porousFlow::ReadModelDescriptions()
     }
     ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
     ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
-
+    nSpeciesElectrolyte_ =  ionicLiquid_->nSpecies();
     
     iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
     if (iph < 0) {
@@ -139,24 +150,22 @@ BDD_porousFlow::SetEquationsVariablesList()
     
     // List of species in the electrolyte
     const std::vector<std::string> & namesSp = ionicLiquid_->speciesNames();
-    int nsp = ionicLiquid_->nSpecies();
-    
+    nSpeciesElectrolyte_ =  ionicLiquid_->nSpecies();
+
     /*
      *  Loop over the species in the electrolyte phase. Each gets its own equation.
      *  Here, we hard code the mole fraction sum equation to the solvent, ECDMC, and we
      *  hardcode the charge conservation equation to PF6m. All other species are assigned
      *  the species conservation equation.
      */
-    int iMFS = -1;
-    int iCN = -1;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k <  nSpeciesElectrolyte_; k++) {
 	if (namesSp[k] == "ECDMC") {
-	    iMFS = k;
+	    iMFS_index_ = k;
 	    VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
 	    EquationNameList.push_back(EqnType(MoleFraction_Summation, 0));
 	    IsAlgebraic_NE[1 + k] = 2;
 	} else if (namesSp[k] == "PF6-") {
-	    iCN = k;
+	    iCN_index_ = k;
 	    VariableNameList.push_back(VarType(MoleFraction_Species, k, (namesSp[k]).c_str()));
 	    EquationNameList.push_back(EqnType(ChargeNeutrality_Summation, 0));
 	    IsAlgebraic_NE[1 + k] = 2;
@@ -167,11 +176,23 @@ BDD_porousFlow::SetEquationsVariablesList()
 	}
 	eqnIndex++;
     }
-    if (iMFS < 0) {
-	throw CanteraError("sep", "no ECDMC");
+
+    if (iMFS_index_ == npos) {
+	iMFS_index_ = 0;
     }
-    if (iCN < 0) {
-	throw CanteraError("sep", "no PF6-");
+    if (iCN_index_ == npos) {
+	for (size_t k = 0; k <  nSpeciesElectrolyte_; k++) {
+	    if (k != iMFS_index_) {
+		double chg = ionicLiquid_->charge(k);
+		if (chg < 0.0) {
+		    iCN_index_ = k;
+		    break;
+		}
+	    }
+	}
+	if (iCN_index_ == npos) {
+	    throw CanteraError("sep", "no negative charge species");
+	}
     }
     
     //   Current conservation is used to solve for electrostatic potential
@@ -221,8 +242,6 @@ BDD_porousFlow::mallocDomain1D()
   BulkDomainPtr_ = new porousFlow_dom1D(*this);
   return BulkDomainPtr_;
 }
-
-
 //=====================================================================================================================
 void
 BDD_porousFlow::DetermineConstitutiveModels()
@@ -235,7 +254,6 @@ BDD_porousFlow::DetermineConstitutiveModels()
    */
   trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
 }
-
 //=====================================================================================================================
 } /* End of Namespace */
 //=====================================================================================================================
