@@ -137,9 +137,9 @@ public:
    *                              1 - at the right cell boundary
    */
   void
-  SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                   const doublereal * const solnElectrolyte_CurrR,
-                   int type);
+  SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
+		   const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+		   int type);
 
   void
   SetupTranShop(const double xdel, const int type);
@@ -150,18 +150,31 @@ public:
    *
    * @param solnElectrolyte
    */
-  void
-  updateElectrolyte(const doublereal * const solnElectrolyte);
+  //void
+  //updateElectrolyteOld(const doublereal * const solnElectrolyte);
 
-  void
-  getVoltagesOld(const double * const solnElectrolyte, const double * const solnSolid);
+  //! Function updates the ThermoPhase object for the electrolyte given the solution vector
+  /*!
+   *  This function calculates the values at the cell center
+   *
+   * @param nv Nodal Values for the current node
+   * @param solnElectrolyte
+     */
+  virtual void
+  updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
+
+  //void
+  //getVoltagesOld(const double * const solnElectrolyte, const double * const solnSolid);
 
   void
   getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
 
-  void
-  getMFElectrolyte_soln(const double * const solnElectrolyte);
+  // void
+  //getMFElectrolyte_solnOld(const double * const solnElectrolyte);
+
+  virtual void
+  getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
   //! Generate the initial conditions
   /*!
