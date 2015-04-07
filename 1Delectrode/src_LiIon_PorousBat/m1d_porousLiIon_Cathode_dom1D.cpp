@@ -35,8 +35,8 @@ namespace m1d
 //=====================================================================================================================
 porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) :
     porousElectrode_dom1D(bdd),
-    ionicLiquid_(0), 
-    trans_(0), nph_(0), nsp_(0),
+    BDT_ptr_(0), 
+    nph_(0), nsp_(0),
     concTot_cent_(0.0),
     concTot_cent_old_(0.0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
@@ -67,22 +67,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) 
     iPF6m_(-1),
     solnTemp(0)
 {
-    BDT_porCathode_LiIon* fa = dynamic_cast<BDT_porCathode_LiIon*>(&bdd);
-    if (!fa) {
-        throw m1d_Error("confused", "confused");
-    }
-    /*
-     * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
-     */
-    ionicLiquid_ = fa->ionicLiquid_;
-    /*
-     *  This is a shallow pointer copy. The BDT object owns the transport object
-     */
-    trans_ = fa->trans_;
-    /*
-     *  This is a shallow pointer copy. The BDT object owns the Electrode object
-     */
-    // Electrode_ = fa->Electrode_;
+    BDT_ptr_ = static_cast<BDT_porCathode_LiIon*>(&bdd);
     nsp_ = 3;
     nph_ = 1;
 
@@ -105,8 +90,8 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) 
 //=====================================================================================================================
 porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_dom1D& r) :
     porousElectrode_dom1D((m1d::BDD_porousElectrode&)   r.BDD_),
-    ionicLiquid_(0), 
-    trans_(0), nph_(0), nsp_(0),
+    BDT_ptr_(0), 
+    nph_(0), nsp_(0),
     concTot_cent_(0.0),
     concTot_cent_old_(0.0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
@@ -156,10 +141,7 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
     // Call the parent assignment operator
     porousElectrode_dom1D::operator=(r);
 
-    ionicLiquid_ = r.ionicLiquid_;
-    trans_ = r.trans_;
-    //Electrode_ = r.Electrode_;
-
+    BDT_ptr_ = r.BDT_ptr_;
     nph_ = r.nph_;
     nsp_ = r.nsp_;
     concTot_cent_ = r.concTot_cent_;

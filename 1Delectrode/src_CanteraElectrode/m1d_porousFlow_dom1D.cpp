@@ -46,29 +46,31 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     heatFlux_Curr_(0.0),
     ivb_(VB_MOLEAVG)
 {
+    BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
     ionicLiquid_ = bdd.ionicLiquid_;
     trans_ = bdd.trans_;
     solidSkeleton_ = bdd.solidSkeleton_;
 }
-  //=====================================================================================================================
+//=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
-    BulkDomain1D(r.BDD_),
-    energyEquationProbType_(0),
-    porosity_Cell_(0),
-    porosity_Cell_old_(0),
-    cIndex_cc_(-1),
-    temp_Curr_(TemperatureReference_),
-    pres_Curr_(PressureReference_),
-    concTot_Curr_(0.0),
-    phiElectrolyte_Curr_(0.0),
-    porosity_Curr_(0.0),
-    thermalCond_Curr_(0.0),
-    heatFlux_Curr_(0.0),
-    ivb_(VB_MOLEAVG)
+      BulkDomain1D(r.BDD_),
+      energyEquationProbType_(0),
+      porosity_Cell_(0),
+      porosity_Cell_old_(0),
+      cIndex_cc_(-1),
+      temp_Curr_(TemperatureReference_),
+      pres_Curr_(PressureReference_),
+      concTot_Curr_(0.0),
+      phiElectrolyte_Curr_(0.0),
+      porosity_Curr_(0.0),
+      thermalCond_Curr_(0.0),
+      heatFlux_Curr_(0.0),
+      ivb_(VB_MOLEAVG)
   {
-    porousFlow_dom1D::operator=(r);
+      BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
+      porousFlow_dom1D::operator=(r);
   }
-  //=====================================================================================================================
+//=====================================================================================================================
   porousFlow_dom1D::~porousFlow_dom1D()
   {
   }
@@ -82,6 +84,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     // Call the parent assignment operator
     BulkDomain1D::operator=(r);
 
+    BDT_ptr_                  = r.BDT_ptr_;
     energyEquationProbType_   = r.energyEquationProbType_;
     CpPM_lyte_Cell_           = r.CpPM_lyte_Cell_;
     EnthalpyPM_lyte_Cell_     = r.EnthalpyPM_lyte_Cell_;
@@ -109,6 +112,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     nEnthalpy_New_Cell_        = r.nEnthalpy_New_Cell_;
     nEnthalpy_Old_Cell_        = r.nEnthalpy_Old_Cell_;
     ivb_                       = r.ivb_;
+    mfElectrolyte_Soln_Curr_   = r.mfElectrolyte_Soln_Curr_;
+    mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
 
     return *this;
   }
@@ -154,9 +159,11 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 
     thermalCond_Cell_.resize(NumLcCells);
 
+    size_t nsp = ionicLiquid_->nSpecies();
+
    
-    //mfElectrolyte_Soln_Curr_.resize(nsp_, 0.0);
-    //mfElectrolyte_Thermo_Curr_.resize(nsp_, 0.0);
+    mfElectrolyte_Soln_Curr_.resize(nsp, 0.0);
+    mfElectrolyte_Thermo_Curr_.resize(nsp, 0.0);
 
  
     if  (doEnthalpyEquation_) {

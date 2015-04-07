@@ -608,17 +608,8 @@ public:
 
 protected:
 
-    //! Pointer to the thermo object for the molten salt
-    /*!
-     *   We do not own this object
-     */
-    Cantera::ThermoPhase* ionicLiquid_;
-
-    //! Pointer to the transport object for the molten salt
-    /*!
-     * We do not own this object
-     */
-    Cantera::Transport* trans_;
+    //! Pointer to the BDD object that is most derived
+    BDT_porAnode_LiIon* BDT_ptr_;
 
     //! Number of phases solved
     int nph_;

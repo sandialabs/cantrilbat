@@ -307,11 +307,9 @@ public:
   int checkPrecipitation();
 
 protected:
-
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
-
-
-  Cantera::Transport* trans_;
+ 
+    //! Pointer to the BDD object that is most derived
+    BDD_porousFlow* BDT_ptr_;
 
   //! Number of phases solved
   int nph_;

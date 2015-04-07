@@ -196,6 +196,7 @@ public:
     // -----------------------------------------   DATA   ----------------------------------------------------------------
     // -------------------------------------------------------------------------------------------------------------------
 
+    //! Pointer to the BDD object that is most derived
     BDD_porousFlow* BDT_ptr_;
    
     // ------------------  Options for Processing ------------------------------------------------------------------------
@@ -440,7 +441,6 @@ protected:
 
     //! number of species in the electolytephase
     //size_t nsp_;
-
 
     //! Pointer to the solid skeleton
     Cantera::ThermoPhase* solidSkeleton_;

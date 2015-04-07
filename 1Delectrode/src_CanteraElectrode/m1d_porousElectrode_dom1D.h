@@ -237,9 +237,14 @@ public:
      */ 
     virtual double openCircuitPotentialQuick() const;
 
-
+    // -------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------   DATA   ----------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------
 protected:
 
+    //! Pointer to the Most Derived Domain Description
+    BDD_porousElectrode* BDT_ptr_;
+    
     //! Electrode Cell data for the anode/cathode cells
     /*!
      *  Length is the number of owned Cells on the processor

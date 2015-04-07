@@ -19,15 +19,17 @@ namespace m1d
 //=====================================================================================================================
 porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     porousFlow_dom1D(bdd),
+    BDT_ptr_(0),
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0)
 {
-    
+    BDT_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
 }
 //=====================================================================================================================
 porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     porousFlow_dom1D((BDD_porousElectrode&)r.BDD_),
+    BDT_ptr_(0),
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0)
@@ -52,6 +54,7 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     // Call the parent assignment operator
     porousFlow_dom1D::operator=(r);
     
+    BDT_ptr_ = r.BDT_ptr_;
     // first do a shallow pointer copy
     Electrode_Cell_ = r.Electrode_Cell_;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
