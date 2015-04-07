@@ -139,14 +139,13 @@ public:
               const ResidEval_Type_Enum residType = Base_ResidEval,
               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
-  virtual void
-  eval_PostSoln(
-            const bool doTimeDependentResid,
-            const Epetra_Vector *soln_ptr,
-            const Epetra_Vector *solnDot_ptr,
-            const Epetra_Vector *solnOld_ptr,
-            const double t,
-            const double rdelta_t);
+    virtual void
+    eval_PostSoln(const bool doTimeDependentResid,
+		  const Epetra_Vector *soln_ptr,
+		  const Epetra_Vector *solnDot_ptr,
+		  const Epetra_Vector *solnOld_ptr,
+		  const double t,
+		  const double rdelta_t);
 
 
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
@@ -179,19 +178,22 @@ public:
     void
     SetupTranShop(const double xdel, const int type);
 
-    //! Function updates the ThermoPhase object for the electrolyte
-    //! given the solution vector
+    //! Function updates the ThermoPhase object for the electrolyte given the solution vector
     /*!
+     *  This function calculates the values at the cell center
      *
-     * @param solnElectrolyte
+     * (virtual from porousFlow_dom1D)
+     *
+     *   @param nv                 Nodal Values for the current node
+     *   @param solnElectrolyte    
      */
-    void
+    virtual void
     updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
 
-    void
+    virtual void
     getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
-    void
+    virtual void
     getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
     double
@@ -367,6 +369,13 @@ public:
     // -----------------------------------------------------------------------------------------------
 
 protected:
+
+    //! Pointer to the appropriate DomainDescription with the fullest extent
+    /*!
+     *  Note, we use the hidden variable strategy here. BDT_ptr_ name is used for all derived classes of
+     *  DomainDescription
+     */
+    BDT_porSeparator_LiIon* BDT_ptr_;
 
     //! Pointer to the thermo object for the molten salt
     /*!

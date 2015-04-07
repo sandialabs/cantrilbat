@@ -26,6 +26,7 @@ namespace m1d
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon& bdd) :
     porousFlow_dom1D(bdd),
+    BDT_ptr_(0),
     ionicLiquid_(0), 
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
@@ -43,13 +44,13 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     solnTemp(0)
 {
 
-    BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&bdd);
-    if (!fa) {
+    BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+    if (!BDT_ptr_) {
         throw m1d_Error("porousLiIon_Separator_dom1D", "confused");
     }
-    ionicLiquid_ = fa->ionicLiquid_;
-    trans_ = fa->trans_;
-    nsp_ = 3;
+    ionicLiquid_ = BDT_ptr_->ionicLiquid_;
+    trans_ = BDT_ptr_->trans_;
+    nsp_ = ionicLiquid_->nSpecies();
     nph_ = 1;
 
 
@@ -70,6 +71,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
     porousFlow_dom1D((BDD_porousFlow&) r.BDD_),
+    BDT_ptr_(0),
     ionicLiquid_(0),
     solidSkeleton_(0),
     trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
@@ -102,6 +104,7 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     // Call the parent assignment operator
     porousFlow_dom1D::operator=(r);
 
+    BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
     ionicLiquid_                          = r.ionicLiquid_;
     solidSkeleton_                        = r.solidSkeleton_;
     trans_                                = r.trans_;
@@ -316,6 +319,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	tmpsSetup = 1;
     }
     residType_Curr_ = residType;
+    // convert to static_cast!!
     BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
     t_final_ = t;
     if (rdelta_t < 1.0E-200) {

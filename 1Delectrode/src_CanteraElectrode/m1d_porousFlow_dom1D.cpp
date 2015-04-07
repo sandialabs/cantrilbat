@@ -32,6 +32,7 @@ namespace m1d
 //=====================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     BulkDomain1D(bdd),
+    BDT_ptr_(0),
     energyEquationProbType_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
@@ -152,6 +153,10 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     valCellTmpsVect_Cell_.resize(NumLcCells);
 
     thermalCond_Cell_.resize(NumLcCells);
+
+   
+    //mfElectrolyte_Soln_Curr_.resize(nsp_, 0.0);
+    //mfElectrolyte_Thermo_Curr_.resize(nsp_, 0.0);
 
  
     if  (doEnthalpyEquation_) {
@@ -479,6 +484,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         //
 	//  porosity_Cell_[iCell] = porosity;
 
+
     }
 }
 //====================================================================================================================
@@ -505,7 +511,6 @@ porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
                                       const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                                       const double t, const double t_old)
 {
-
 }
 //========================================================================================================================
 void
@@ -571,18 +576,16 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         // Calculate the thermal conductivity of the porous matrix if we are calculating the energy equation
 
 	thermalCond_Cell_[iCell] = thermalCondCalc_PorMatrix();
-         
    
     }
-
 
 }
 
 //=====================================================================================================================
-//!  Setup shop at a particular point in the domain, calculating intermediate quantites
-//!  and updating Cantera's objects
-/*!
- *  This routine will set up shop at a point intermediate to a left and a right point
+//  Setup shop at a particular point in the domain, calculating intermediate quantites
+//  and updating Cantera's objects
+/*
+ *  
  *  All member data with the suffix, _Curr_, are updated by this function.
  *
  * @param soln_Curr  Current value of the solution vector at the current node
@@ -590,8 +593,70 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 void
 porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr)
 {
-    //porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-    //updateElectrolyte(nv, soln_Curr);
+    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
+    updateElectrolyte(nv, soln_Curr);
+}
+//=====================================================================================================================
+void
+porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+{
+    /*
+     * Get the temperature: Check to see if the temperature is in the solution vector.
+     *   If it is not, then use the reference temperature
+     */
+    temp_Curr_ = getPointTemperature(nv, solnElectrolyte_Curr);  
+    /*
+     * Get the pressure
+     */
+    pres_Curr_ = PressureReference_;
+    /*
+     *  Assemble electrolyte mole fractions into mfElectrolyte_Thermo_Curr_[]
+     */
+    getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
+    /*
+     *  assemble electrolyte potential into phiElectrolyte_Curr_
+     */
+    getVoltages(nv, solnElectrolyte_Curr);
+    /*
+     *  Set the ThermoPhase states
+     */
+    ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
+    ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+    //
+    // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
+    //
+    concTot_Curr_ = ionicLiquid_->molarDensity();
+}
+//=====================================================================================================================
+void
+porousFlow_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+{
+    size_t indexVS = nv->indexBulkDomainVar0(Voltage);
+    phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
+}
+//=====================================================================================================================
+void
+porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+{
+    // We are assuming that mf species start with subindex 0 here
+    size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
+    mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
+    mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
+    mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
+    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1b = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double mf2b = std::max(mfElectrolyte_Soln_Curr_[2], 0.0);
+    double mf1 = mf1b;
+    double mf2 = mf2b;
+    if (mf1b != mf2b) {
+        mf1 = 0.5 * (mf1b + mf2b);
+        mf2 = 0.5 * (mf1b + mf2b);
+    }
+    double tmp = mf0 + mf1 + mf2;
+
+    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
+    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
+    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
 }
 //=====================================================================================================================
 double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, double &voltOCV, double &current)
