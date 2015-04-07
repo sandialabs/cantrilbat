@@ -119,9 +119,6 @@ public:
    *                              0 - at the current cell center
    */
   void
-  SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type);
-
-  void
   SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte);
 
   //!  Setup shop at a particular point in the domain, calculating intermediate quantites
@@ -144,14 +141,6 @@ public:
   void
   SetupTranShop(const double xdel, const int type);
 
-  //! Function updates the ThermoPhase object for the electrolyte
-  //! given the solution vector
-  /*!
-   *
-   * @param solnElectrolyte
-   */
-  //void
-  //updateElectrolyteOld(const doublereal * const solnElectrolyte);
 
   //! Function updates the ThermoPhase object for the electrolyte given the solution vector
   /*!
