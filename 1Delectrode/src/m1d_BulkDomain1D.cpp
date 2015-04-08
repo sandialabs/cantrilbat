@@ -516,18 +516,14 @@ BulkDomain1D::fillIsArithmeticScaled(Epetra_IntVector  & isArithmeticScaled)
       printf("we have a prob\n");
       exit(-1);
     }
-    int indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    
-
-    int numVar = BDD_.NumEquationsPerNode;
-
-    for (int k = 0; k < numVar; k++) {
+    size_t indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
+    size_t numVar = BDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
       int isA = BDD_.IsArithmeticScaled_NE[k];
       isArithmeticScaled[indexCent_EqnStart + indexBulkDomainOffset + k] = isA;
     }
    
   }
-
 }
 //====================================================================================================================
 //  Fill the vector atolVector with the values from the DomainDescription for abs tol
@@ -555,9 +551,9 @@ void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted
       printf("we have a prob\n");
       exit(-1);
     }
-    int indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    int numVar = BDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
+    size_t numVar = BDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
       atolVector[indexCent_EqnStart + indexBulkDomainOffset + k] = atolDefault;
     } 
   } 
@@ -585,9 +581,9 @@ BulkDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff,  const Ep
       printf("we have a prob\n");
       exit(-1);
     }
-    int indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    int numVar = BDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
+    size_t numVar = BDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
       atolDeltaDamping[indexCent_EqnStart + indexBulkDomainOffset + k] = atolDefault * relcoeff;
     }  
   }

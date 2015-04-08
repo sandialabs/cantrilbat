@@ -926,7 +926,7 @@ porousLiKCl_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal
     /*
      * Get the pressure
      */
-    pres_Curr_ = PressureReference_;
+    pres_Curr_ = getPointPressure(nv, solnElectrolyte_Curr);
 
     getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
     getVoltages(nv, solnElectrolyte_Curr);

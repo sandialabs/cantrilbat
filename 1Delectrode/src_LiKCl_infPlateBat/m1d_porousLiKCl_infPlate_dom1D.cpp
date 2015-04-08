@@ -719,7 +719,9 @@ porousLiKCl_infPlate_dom1D::SetupThermoShop2(const NodalVars* const nvL, const d
     /*
      * Get the pressure
      */
-    pres_Curr_ = PressureReference_;
+    tempL = getPointPressure(nvL, solnElectrolyte_CurrL);
+    tempR = getPointPressure(nvR, solnElectrolyte_CurrR);
+    pres_Curr_ = 0.5 * (tempL + tempR);
 
     size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
     size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);

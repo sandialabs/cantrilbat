@@ -626,7 +626,7 @@ porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal*
     /*
      * Get the pressure
      */
-    pres_Curr_ = PressureReference_;
+    pres_Curr_ = getPointPressure(nv, solnElectrolyte_Curr);
     /*
      *  Assemble electrolyte mole fractions into mfElectrolyte_Thermo_Curr_[]
      */
