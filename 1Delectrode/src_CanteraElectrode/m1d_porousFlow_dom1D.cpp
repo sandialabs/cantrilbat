@@ -22,6 +22,7 @@
  *   We've made it a global structure, as there is one and only one instance of the structure
  */
 extern m1d::ProblemStatementCell PSinput;
+#include "m1d_exception.h"
 
 
 using namespace std;
@@ -658,6 +659,68 @@ porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double*
 {
     // We are assuming that mf species start with subindex 0 here
     size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
+
+    /*
+     *  This complicated logic assures us that  mfElectrolyte_Thermo_Curr_[] is
+     *    * charge neutral
+     *    * no negative mole fractions
+     *    * sums to 1
+     */
+    double posSum = 0.0;
+    double negSum = 0.0;
+    double sum;
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
+	mfElectrolyte_Soln_Curr_[k] = solnElectrolyte_Curr[indexMF + k];
+	double mf0 = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
+	double z = ionicLiquid_->charge(k);
+	if (z > 0.0) {
+	    posSum += mf0 * z;
+	} else if (z < 0.0) {
+	    negSum -= mf0 * z;
+	}
+    }
+    if (posSum > 0.0 || negSum > 0.0) {
+	if (negSum <= 0.0 || posSum <= 0.0) {
+	    throw m1d_Error(":getMFElectrolyte_soln", "Charge neutrality can't be made");
+	}
+	if (posSum != negSum) {
+	    sum = 0.5 * (posSum + negSum);
+	    double pratio = sum / posSum;
+	    double nratio = sum / negSum;
+	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
+		double mf0 = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
+		double z = ionicLiquid_->charge(k);
+		if (z > 0.0) {
+		    mfElectrolyte_Thermo_Curr_[k] = mf0 * pratio;
+		} else if (z < 0.0) {
+		    mfElectrolyte_Thermo_Curr_[k] = mf0 * nratio;
+		} else {
+		    mfElectrolyte_Thermo_Curr_[k] = mf0;
+		}
+	    }
+	} else {
+	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
+		mfElectrolyte_Thermo_Curr_[k] = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
+	    }
+	}
+    } else {
+	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
+	    mfElectrolyte_Thermo_Curr_[k] = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
+	}
+    }
+
+
+    sum = 0.0;
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
+	sum += mfElectrolyte_Thermo_Curr_[k];
+    }
+    if (sum != 1.0) {
+	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
+	    mfElectrolyte_Thermo_Curr_[k] /= sum;
+	}
+    }
+
+    /*
     mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
     mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
     mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
@@ -675,6 +738,7 @@ porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double*
     mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
     mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
     mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+    */
 }
 //=====================================================================================================================
 double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, double &voltOCV, double &current)
