@@ -75,9 +75,9 @@ BDT_porCathode_LiKCl::ReadModelDescriptions()
 	throw CanteraError("BDT_porCathode_LiKCl::BDT_porAnode_LiKCl",
 			   "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
     }
-    ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
-    ionicLiquid_ =  ionicLiquidIFN_;
+    ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
+    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
 
     ELECTRODE_KEY_INPUT *ci = PSCinput_ptr->cathode_input_;
     Electrode_ = newElectrodeObject(ci->electrodeModelName);

@@ -74,8 +74,9 @@ BDT_porAnode_LiKCl::ReadModelDescriptions()
 	throw CanteraError("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl",
 			   "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
     }
-    ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
+    ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
+    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
 
     ELECTRODE_KEY_INPUT *ai = PSCinput_ptr->anode_input_;
     Electrode_ = newElectrodeObject(ai->electrodeModelName);
@@ -125,8 +126,6 @@ void
 BDT_porAnode_LiKCl::SetEquationsVariablesList()
 {
     int eqnIndex = 0;
-
-    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 
     /*
      *  Create a vector of Equation Names
@@ -212,6 +211,7 @@ BDT_porAnode_LiKCl::mallocDomain1D()
 void
 BDT_porAnode_LiKCl::DetermineConstitutiveModels()
 {
+    safeDelete(trans_);
     trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //=====================================================================================================================

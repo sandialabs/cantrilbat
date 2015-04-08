@@ -46,7 +46,8 @@ namespace m1d
 //=====================================================================================================================
   porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdd) :
     porousElectrode_dom1D(bdd),
-    ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    BDT_ptr_(0),
+    nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0), 
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
@@ -78,29 +79,16 @@ namespace m1d
     icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
     solnTemp(0)
 {
-  BDT_porAnode_LiKCl *fa = dynamic_cast<BDT_porAnode_LiKCl *> (&bdd);
-  if (!fa) {
-    throw m1d_Error("confused", "confused");
-  }
-  /*
-   * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
-   */
-  ionicLiquid_ = fa->ionicLiquidIFN_;
-  /* 
-   *  This is a shallow pointer copy. The BDT object owns the transport object
-   */
-  trans_ = fa->trans_;
-  /*
-   *  This is a shallow pointer copy. The BDT object owns the Electrode object
-   */
-  // Electrode_ = fa->Electrode_;
+  BDT_ptr_ = static_cast<BDT_porAnode_LiKCl *> (&bdd);
+
   nsp_ = 3;
   nph_ = 1;
 }
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
     porousElectrode_dom1D((BDT_porAnode_LiKCl &) r.BDD_), 
-  ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    BDT_ptr_(0),
+  nph_(0), nsp_(0), concTot_cent_(0.0),
   concTot_cent_old_(0.0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
@@ -145,12 +133,9 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
     return *this;
   }
   // Call the parent assignment operator
-  BulkDomain1D::operator=(r);
+  porousElectrode_dom1D::operator=(r);
 
-  ionicLiquid_ = r.ionicLiquid_;
-  trans_ = r.trans_;
-
-
+  BDT_ptr_ =  r.BDT_ptr_;
   nph_ = r.nph_;
   nsp_ = r.nsp_;
   concTot_cent_ = r.concTot_cent_;
@@ -241,7 +226,7 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
      */
     porousElectrode_dom1D::domain_prep(li_ptr);
 
-    BDT_porAnode_LiKCl * BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl *>(&(BDD_));
+    BDT_porAnode_LiKCl* BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl *>(&(BDD_));
     if (!BDD_LiSi_Anode) {
       throw CanteraError(" porousLiKCl_LiSiAnode_dom1D::domain_prep()", "bad dynamic cast ");
     }

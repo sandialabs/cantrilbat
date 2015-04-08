@@ -49,7 +49,8 @@ namespace m1d
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKCl & bdd) :
     porousElectrode_dom1D(bdd), 
-  ionicLiquid_(0), trans_(0), nph_(0), nsp_(0),
+    BDT_ptr_(0),
+    nph_(0), nsp_(0),
   concTot_cent_(0.0),
   concTot_cent_old_(0.0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
@@ -83,30 +84,17 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
   icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
   icurrRxn_Cell_(0), LiFlux_Cell_(0), solnTemp(0)
 {
-  BDT_porCathode_LiKCl *fa = dynamic_cast<BDT_porCathode_LiKCl *> (&bdd);
-  if (!fa) {
-    throw m1d_Error("confused", "confused");
-  }
-  /*
-   * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
-   */
-  ionicLiquid_ = fa->ionicLiquidIFN_;
-  /* 
-   *  This is a shallow pointer copy. The BDT object owns the transport object
-   */
-  trans_ = fa->trans_;
-  /*
-   *  This is a shallow pointer copy. The BDT object owns the Electrode object
-   */
-  // Electrode_ = fa->Electrode_;
+  BDT_ptr_ =  dynamic_cast<BDT_porCathode_LiKCl *> (&bdd);
+
   nsp_ = 3;
   nph_ = 1;
 }
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
     porousElectrode_dom1D((BDT_porCathode_LiKCl &) r.BDD_), 
-  ionicLiquid_(0), trans_(0), nph_(0), nsp_(0), 
-  concTot_cent_(0.0),
+    BDT_ptr_(0),
+    nph_(0), nsp_(0), 
+    concTot_cent_(0.0),
   concTot_cent_old_(0.0),  
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), 
@@ -154,12 +142,9 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
     return *this;
   }
   // Call the parent assignment operator
-  BulkDomain1D::operator=(r);
+  porousElectrode_dom1D::operator=(r);
 
-  ionicLiquid_ = r.ionicLiquid_;
-  trans_ = r.trans_;
-  //Electrode_ = r.Electrode_;
-
+  BDT_ptr_ = r.BDT_ptr_;
   nph_ = r.nph_;
   nsp_ = r.nsp_;
   concTot_cent_ = r.concTot_cent_;
@@ -249,7 +234,7 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
    */
   porousElectrode_dom1D::domain_prep(li_ptr);
   
-  BDT_porCathode_LiKCl * BDD_FeS2_Cathode = dynamic_cast<BDT_porCathode_LiKCl *>(&(BDD_));
+  BDT_porCathode_LiKCl* BDD_FeS2_Cathode = dynamic_cast<BDT_porCathode_LiKCl *>(&(BDD_));
   if (!BDD_FeS2_Cathode) {
     throw CanteraError(" porousLiKCl_FeS2Cathode_dom1D::domain_prep()", "bad dynamic cast ");
   }
@@ -3372,5 +3357,3 @@ double porousLiKCl_FeS2Cathode_dom1D::openCircuitPotentialQuick() const
 
 } //namespace m1d
 //=====================================================================================================================
-
-

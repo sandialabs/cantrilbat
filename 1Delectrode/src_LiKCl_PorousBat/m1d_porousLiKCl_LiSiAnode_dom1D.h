@@ -562,17 +562,12 @@ public:
 
 protected:
 
-  //! Pointer to the thermo object for the molten salt
-  /*!
-   *   We do not own this object
-   */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+    // -------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------   DATA   ----------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------
 
-  //! Pointer to the transport object for the molten salt
-  /*!
-   * We do not own this object
-   */
-  Cantera::Transport* trans_;
+    //! Pointer to the BDT object that is most derived
+    BDT_porAnode_LiKCl* BDT_ptr_;
 
   //! Number of phases solved
   int nph_;
@@ -584,12 +579,6 @@ protected:
   double concTot_cent_;
   double concTot_cent_old_;
 
-  //! Volume of the cell
-  /*!
-   *  This is now a constant.
-   *  Length is number of cells on the processor.
-   */
-  //  std::vector<double> volume_Cell_;
 
   //Need to define a void fraction variable here.
   //The void fraction does not change with time
@@ -599,28 +588,6 @@ protected:
 
   // ------------------------------------------------------------------------
   //! Storage of Cell related quantities 
-
-  //! Volume Fraction of the electrolyte within the cell
-  /*!
-   *  This is now a constant.
-   *  Length is number of cells on the processor.
-   */
-  //std::vector<double> porosity_Cell_;
-
-  //! Volume Fraction of the electrolyte within the cell at the previous time step
-  /*!
-   *  This is now a constant.
-   *  Length is number of cells on the processor.
-   */
-  //std::vector<double> porosity_Cell_old_;
-
-  //! Surface Area of the electrolyte - electrode interface within the cell
-  /*!
-   *  This is only used for printing output from showSolution.
-   *  Length is number of cells on the processor.
-   *  units = m2 / m2. 
-   */
-  //std::vector<double> surfaceArea_Cell_;
 
   //! Electrode Current per surface area of the electrode
   /*!
@@ -656,16 +623,6 @@ protected:
    *  Therefore, we need to 
    */
   double electrodeCrossSectionalArea_;
-
-  //! Electrode Cell data for the anode cells
-  /*!
-   *  Length is the number of owned Cells on the processor
-   *   -> not sure what owned here means. This will have to be figured out in the future.
-   *   Note, in contrast to the other quantities in the calculation, the electrode object is extrinsic
-   *   it has a volume associated with it.  The volume is equal to the control volume thickness
-   *   multiplied by the cross-sectional area.
-   */
-  //std::vector<Cantera::Electrode *> Electrode_Cell_;
 
   //!  Capacity discharged by the particular electrode cell per cross-sectional area
   /*!

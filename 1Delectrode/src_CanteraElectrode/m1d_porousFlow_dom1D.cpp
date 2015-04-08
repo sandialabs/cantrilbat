@@ -47,13 +47,14 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     ivb_(VB_MOLEAVG)
 {
     BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
-    ionicLiquid_ = bdd.ionicLiquid_;
-    trans_ = bdd.trans_;
-    solidSkeleton_ = bdd.solidSkeleton_;
+    ionicLiquid_ = BDT_ptr_->ionicLiquid_;
+    trans_ = BDT_ptr_->trans_;
+    solidSkeleton_ = BDT_ptr_->solidSkeleton_;
 }
 //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
       BulkDomain1D(r.BDD_),
+      BDT_ptr_(0),
       energyEquationProbType_(0),
       porosity_Cell_(0),
       porosity_Cell_old_(0),
@@ -99,6 +100,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     thermalCond_Curr_         = r.thermalCond_Curr_;
     heatFlux_Curr_            = r.heatFlux_Curr_;
     cellTmpsVect_Cell_        = r.cellTmpsVect_Cell_;
+    mfElectrolyte_Soln_Curr_   = r.mfElectrolyte_Soln_Curr_;
+    mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
 
     qSource_Cell_curr_        = r.qSource_Cell_curr_;
     qSource_Cell_accumul_     = r.qSource_Cell_accumul_;
@@ -111,9 +114,14 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     potentialCathodic_         = r.potentialCathodic_;
     nEnthalpy_New_Cell_        = r.nEnthalpy_New_Cell_;
     nEnthalpy_Old_Cell_        = r.nEnthalpy_Old_Cell_;
+
+    thermalCond_Cell_          = r.thermalCond_Cell_;
+    valCellTmpsVect_Cell_      = r.valCellTmpsVect_Cell_;
     ivb_                       = r.ivb_;
-    mfElectrolyte_Soln_Curr_   = r.mfElectrolyte_Soln_Curr_;
-    mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
+  
+    ionicLiquid_               = r.ionicLiquid_;
+    trans_                     = r.trans_;
+    solidSkeleton_             = r.solidSkeleton_;
 
     return *this;
   }
@@ -544,11 +552,14 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     if (iVar_Temperature == npos) {
 	haveTemp = false;
     }
+  
+    // size_t iVar_Pressure_Axial = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+    /*
     bool havePres = true;
-    size_t iVar_Pressure_Axial = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
     if (iVar_Pressure_Axial == npos) {
 	havePres = false;
     }
+    */
     
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
