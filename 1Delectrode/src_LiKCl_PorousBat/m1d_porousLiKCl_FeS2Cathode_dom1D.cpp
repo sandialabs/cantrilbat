@@ -1553,7 +1553,7 @@ porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2(const doublereal * const solnEle
   } else {
     porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
   }
-  updateElectrolyte(&solnTemp[0], 0);
+  updateElectrolyteOld(&solnTemp[0], 0);
   updateElectrode();
 }
 //=====================================================================================================================
@@ -1600,7 +1600,7 @@ porousLiKCl_FeS2Cathode_dom1D::updateElectrolyte(const NodalVars* const nv, cons
    *  @param solnDotElectrolyte   Vector of the solution dot at the current cell and bulk domain
    */
 void
-porousLiKCl_FeS2Cathode_dom1D::updateElectrolyte(const doublereal * const solnElectrolyte_Curr,
+porousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const doublereal * const solnElectrolyte_Curr,
 						 const doublereal * const solnDotElectrolyte_Curr)
 {
   /*
@@ -1619,11 +1619,11 @@ porousLiKCl_FeS2Cathode_dom1D::updateElectrolyte(const doublereal * const solnEl
   /*
    * Fill up _Curr_ mf vectors for the electrolyte
    */
-  getMFElectrolyte_soln(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
+  getMFElectrolyte_solnOld(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
   /*
    * Fill up _Curr_ Voltage values for the electrolyte
    */
-  getVoltages(solnElectrolyte_Curr);
+  getVoltagesOld(solnElectrolyte_Curr);
   /*
    *  Set the ThermoPhase object with the current solution values
    */
@@ -1675,7 +1675,7 @@ porousLiKCl_FeS2Cathode_dom1D::updateElectrode()
  * @param solnElectrolyte start of the solution vector at the current node
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::getVoltages(const double * const solnElectrolyte_Curr)
+porousLiKCl_FeS2Cathode_dom1D::getVoltagesOld(const double * const solnElectrolyte_Curr)
 {
   int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
@@ -1695,7 +1695,7 @@ porousLiKCl_FeS2Cathode_dom1D::getVoltages(const NodalVars* const nv, const doub
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::getMFElectrolyte_soln(const double * const solnElectrolyte_Curr,
+porousLiKCl_FeS2Cathode_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr,
 						     const double * const solnDotElectrolyte_Curr)
 {
   int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
@@ -2679,7 +2679,7 @@ porousLiKCl_FeS2Cathode_dom1D::setStateFromSolution(const bool doTimeDependentRe
 	//
 	//                    phiElectrode_Curr_
 	//
-        getVoltages(solnCentStart);
+        getVoltages(nodeCent, solnCentStart);
 	//
         // Electrode object will be updated and we will compute the porosity
 	//

@@ -232,7 +232,7 @@ public:
    *  @param solnDotElectrolyte   Vector of the solution dot at the current cell and bulk domain
    */
   void
-  updateElectrolyte(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
+  updateElectrolyteOld(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
 
   void
   updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
@@ -246,7 +246,7 @@ public:
    * @param solnElectrolyte start of the solution vector at the current node
    */
   void
-  getVoltages(const double * const solnElectrolyte);
+  getVoltagesOld(const double * const solnElectrolyte);
 
   void
   getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
@@ -257,7 +257,7 @@ public:
    *  @param solnDotElectrolyte   Vector of the solution Dot at the current cell and bulk domain
    */
   void
-  getMFElectrolyte_soln(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
+  getMFElectrolyte_solnOld(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
 
   void
   getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
