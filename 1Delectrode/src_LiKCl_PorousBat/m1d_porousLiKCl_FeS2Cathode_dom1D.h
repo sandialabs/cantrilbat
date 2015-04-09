@@ -191,10 +191,6 @@ public:
    * @param type                  Type of call
    *                              0 - at the current cell center
    */
-  // void
-  //SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, const doublereal * const solnDotElectrolyte_Curr, 
-  // 		   int type);
-
   void
   SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
@@ -212,8 +208,8 @@ public:
    *                              1 - at the right cell boundary
    */
   void
-  SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                   const doublereal * const solnElectrolyte_CurrR,
+  SetupThermoShop2(const NodalVars* const nvL, const doublereal * const solnElectrolyte_CurrL,
+                   const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
                    int type);
 
   //! Calculate gradients and fluxes at the current point

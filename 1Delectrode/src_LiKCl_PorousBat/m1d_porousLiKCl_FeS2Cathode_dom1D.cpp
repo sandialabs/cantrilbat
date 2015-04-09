@@ -511,7 +511,6 @@ porousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()
       } else {
 	  //solnDot_Cellptr = 0;
       }      
-      //SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
       SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
 
       concTot_Cell_old_[iCell] = concTot_Curr_;
@@ -889,12 +888,13 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
         }
       } else {
 
-        /*
-         *  Establish the environment at the left cell boundary
-         */
-        SetupThermoShop2(&(soln[indexLeft_EqnStart_BD]), &(soln[indexCent_EqnStart_BD]), 0);
+	  /*
+	   *  Establish the environment at the left cell boundary
+	   */
+	  SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart_BD]), 
+			   nodeRight, &(soln[indexCent_EqnStart_BD]), 0);
 
-        SetupTranShop(xdelL, 0);
+	  SetupTranShop(xdelL, 0);
 
         /*
          * Calculate the flux at the left boundary for each equation
@@ -960,12 +960,13 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
         fluxXright[k] = 0.0;
       }
     } else {
-      /*
-       *  Establish the environment at the right cell boundary
-       */
-      SetupThermoShop2(&(soln[indexCent_EqnStart_BD]), &(soln[indexRight_EqnStart_BD]), 1);
+	/*
+	 *  Establish the environment at the right cell boundary
+	 */
+	SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart_BD]), 
+			 nodeRight, &(soln[indexRight_EqnStart_BD]), 1);
 
-      SetupTranShop(xdelR, 1);
+	SetupTranShop(xdelR, 1);
 
       /*
        * Calculate the flux at the right boundary for each equation
@@ -1541,8 +1542,10 @@ porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1(const NodalVars* const nv, const
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                                                const doublereal * const solnElectrolyte_CurrR,
+porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, 
+						const doublereal * const solnElectrolyte_CurrL,
+                                                const NodalVars* const nvR,
+						const doublereal * const solnElectrolyte_CurrR,
                                                 int type)
 {
   for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {

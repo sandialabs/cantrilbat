@@ -24,8 +24,6 @@
 #include "cantera/base/ctml.h"
 #include "cantera/transport/Tortuosity.h"
 
-//#include "cantera/base/mdp_allo.h"
-
 //next two lines added for salt precipitation
 //#include "cantera/thermo.h"
 #include "cantera/thermo/MargulesVPSSTP.h"
@@ -902,10 +900,11 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
 	  }
 	} else {
 
-	  /*
-	   *  Establish the environment at the left cell boundary
-	   */
-	  SetupThermoShop2(&(soln[indexLeft_EqnStart_BD]), &(soln[indexCent_EqnStart_BD]), 0);
+	    /*
+	     *  Establish the environment at the left cell boundary
+	     */
+	    SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart_BD]), 
+			     nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
 	  /*
 	   *  Calculate the transport properties at the left cell boundary
 	   */
@@ -971,19 +970,20 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
 	  fluxXright[k] = 0.0;
 	}
       } else {
-	/*
-	 *  Establish the environment at the right cell boundary
-	 */
-	SetupThermoShop2(&(soln[indexCent_EqnStart_BD]), &(soln[indexRight_EqnStart_BD]), 1);
+	  /*
+	   *  Establish the environment at the right cell boundary
+	   */
+	  SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart_BD]),
+			   nodeRight, &(soln[indexRight_EqnStart_BD]), 1);
 
-	SetupTranShop(xdelR, 1);
+	  SetupTranShop(xdelR, 1);
 
-	/*
-	 * Calculate the flux at the right boundary for each equation
-	 * This is equal to
-	 *       Conc * Vaxial * phi
-	 */
-	fluxFright = Fright_cc_ * concTot_Curr_;
+	  /*
+	   * Calculate the flux at the right boundary for each equation
+	   * This is equal to
+	   *       Conc * Vaxial * phi
+	   */
+	  fluxFright = Fright_cc_ * concTot_Curr_;
 
 	/*
 	 * Calculate the flux of species and the flux of charge
@@ -1532,8 +1532,8 @@ porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv, const d
    *                              1 - at the right cell boundary
    */
 void
-porousLiKCl_LiSiAnode_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                                              const doublereal * const solnElectrolyte_CurrR,
+porousLiKCl_LiSiAnode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal * const solnElectrolyte_CurrL,
+                                              const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
                                               int type)
 {
   for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {

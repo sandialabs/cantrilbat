@@ -502,7 +502,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
         /*
          *  Establish the environment at the left cell boundary
          */
-        SetupThermoShop2(&(soln[indexLeft_EqnStart_BD]), &(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart_BD]), nodeCent, &(soln[indexCent_EqnStart_BD]), 0);
 
         SetupTranShop(xdelL, 0);
 
@@ -558,7 +558,6 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
       } else {
 	solnDot_Cellptr = 0;
       }
-      //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
       SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
       Fright_cc_ = 0.0;
       fluxFright = Fright_cc_ * concTot_Curr_;
@@ -570,7 +569,8 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
       /*
        *  Establish the environment at the right cell boundary
        */
-      SetupThermoShop2(&(soln[indexCent_EqnStart_BD]), &(soln[indexRight_EqnStart_BD]), 1);
+      SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart_BD]), 
+                       nodeRight, &(soln[indexRight_EqnStart_BD]), 1);
 
       SetupTranShop(xdelR, 1);
 
@@ -652,7 +652,6 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
     } else {
       solnDot_Cellptr = 0;
     }
-    //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
     SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
     getElectrolyte_SolnDot(nodeCent, solnDot_Cellptr);
 
@@ -742,7 +741,6 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
       /*
        * Setup shop with the old time step
        */
-      //SetupThermoShop1Old(&(solnOld[indexCent_EqnStart_BD]), 0,  0);
       SetupThermoShop1(nodeCent, &(solnOld[indexCent_EqnStart_BD]));
 
       double oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
@@ -792,7 +790,6 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
       } else {
 	solnDot_Cellptr = 0;
       }
-      //SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), solnDot_Cellptr, 0);
       SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart_BD]));
     }
 
@@ -811,16 +808,6 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
 
 }
 //=====================================================================================================================
-//void
-//porousLiKCl_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, 
-//				    const doublereal * const solnDotElectrolyte_Curr, int type)
-//{
-//  updateElectrolyte(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
-//  if (type == 0) {
-//    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-//  }
-//}
-//=====================================================================================================================
 void
 porousLiKCl_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
@@ -829,8 +816,8 @@ porousLiKCl_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal*
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                                    const doublereal * const solnElectrolyte_CurrR,
+porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal * const solnElectrolyte_CurrL,
+                                    const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
                                     int type)
 {
   for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
@@ -841,7 +828,7 @@ porousLiKCl_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_Cur
   } else {
     porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ + 1] + porosity_Cell_[cIndex_cc_]);
   }
-  updateElectrolyte(&solnTemp[0], 0);
+  updateElectrolyteOld(&solnTemp[0], 0);
 }
   //=====================================================================================================================
   // Function updates the ThermoPhase object for the electrolyte given the solution vector and solution dot vector
@@ -853,7 +840,7 @@ porousLiKCl_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_Cur
    *  @param solnDotElectrolyte   Vector of the solution dot at the current cell and bulk domain
    */
   void
-  porousLiKCl_dom1D::updateElectrolyte(const doublereal * const solnElectrolyte_Curr, 
+  porousLiKCl_dom1D::updateElectrolyteOld(const doublereal * const solnElectrolyte_Curr, 
 				       const doublereal * const solnDotElectrolyte_Curr)
   {
     /*
@@ -872,11 +859,11 @@ porousLiKCl_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_Cur
     /*
      * Fill up _Curr_ mf vectors for the electrolyte
      */
-    getMFElectrolyte_soln(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
+    getMFElectrolyte_solnOld(solnElectrolyte_Curr, solnDotElectrolyte_Curr);
     /*
      * Fill up _Curr_ Voltage values for the electrolyte
      */
-    getVoltages(solnElectrolyte_Curr, 0);
+    getVoltagesOld(solnElectrolyte_Curr, 0);
     /*
      *  Set the ThermoPhase object with the current solution values
      */
@@ -935,7 +922,7 @@ porousLiKCl_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::getVoltages(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
+porousLiKCl_dom1D::getVoltagesOld(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
 {
   int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
@@ -953,8 +940,8 @@ porousLiKCl_dom1D::getVoltages(const NodalVars* const nv, const double* const so
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::getMFElectrolyte_soln(const double * const solnElectrolyte_Curr, 
-					 const double * const solnDotElectrolyte_Curr)
+porousLiKCl_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr, 
+					    const double * const solnDotElectrolyte_Curr)
 {
   int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];

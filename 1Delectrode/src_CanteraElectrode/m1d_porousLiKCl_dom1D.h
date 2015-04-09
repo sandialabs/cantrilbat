@@ -142,8 +142,8 @@ public:
    *                              1 - at the right cell boundary
    */
   void
-  SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                   const doublereal * const solnElectrolyte_CurrR,
+  SetupThermoShop2(const NodalVars* const nvL, const doublereal * const solnElectrolyte_CurrL,
+                   const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
                    int type);
 
   //! Calculate gradients and fluxes at the current point
@@ -162,7 +162,7 @@ public:
    *  @param solnDotElectrolyte   Vector of the solution dot at the current cell and bulk domain
    */
   void
-  updateElectrolyte(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
+  updateElectrolyteOld(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
 
   void
   updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
@@ -172,7 +172,7 @@ public:
    * @param solnElectrolyte start of the solution vector at the current node
    */
   void
-  getVoltages(const double * const solnElectrolyte, const double * const solnSolid);
+  getVoltagesOld(const double * const solnElectrolyte, const double * const solnSolid);
 
   void
   getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
@@ -183,7 +183,7 @@ public:
    *  @param solnDotElectrolyte   Vector of the solution Dot at the current cell and bulk domain
    */
   void
-  getMFElectrolyte_soln(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
+  getMFElectrolyte_solnOld(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
 
   void
   getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
