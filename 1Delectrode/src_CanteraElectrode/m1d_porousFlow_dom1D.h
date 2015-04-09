@@ -288,11 +288,16 @@ protected:
      */
     std::vector<cellTmps> cellTmpsVect_Cell_;
 
-
+    //! Current value of the Electrolyte mole fraction vector - noncropped
     std::vector<double> mfElectrolyte_Soln_Curr_;
 
+    //! Current value of the Electrolyte mole fraction vector - cropped to always be positive
+    /*!
+     *  We also ensure that the charge neutrality constraint is satisfied.
+     *  We ensure that the mole fractions sum to one.
+     *  Thermo is not defined if any of the three are violated.
+     */
     std::vector<double> mfElectrolyte_Thermo_Curr_;
-
 
     //
     // ---------------------------  CURRENT VARIABLES ------------------------------------------------------------

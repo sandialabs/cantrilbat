@@ -62,8 +62,7 @@ namespace m1d
     Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
     t_final_(0.0),
     t_init_(0.0),
-    Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-    mfElectrolyte_Thermo_Curr_(0),
+    Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), 
     mfElectrolyte_Soln_Cell_old_(0,0),
     mfElectrolyte_SolnDot_Curr_(0),
     pmVolElectrolyte_Curr_(0),
@@ -103,8 +102,6 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiA
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
   t_final_(0.0),  t_init_(0.0),
   Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0),
-  mfElectrolyte_Soln_Curr_(0),
-  mfElectrolyte_Thermo_Curr_(0),
   mfElectrolyte_Soln_Cell_old_(0,0),
   mfElectrolyte_SolnDot_Curr_(0),
   pmVolElectrolyte_Curr_(0),
@@ -260,8 +257,6 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
     spCharge_[1] = 1.0;
     spCharge_[2] = -1.0;
 
-    mfElectrolyte_Soln_Curr_.resize(3, 0.0);
-    mfElectrolyte_Thermo_Curr_.resize(3, 0.0);   
     mfElectrolyte_Soln_Cell_old_.resize(3, NumLcCells, 0.0);
     mfElectrolyte_SolnDot_Curr_.resize(3, 0.0); 
     pmVolElectrolyte_Curr_.resize(3, 0.0);

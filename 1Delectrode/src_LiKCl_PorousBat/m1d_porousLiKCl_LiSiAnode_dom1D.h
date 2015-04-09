@@ -734,12 +734,6 @@ protected:
   //!  Current Thermo value of quantities at the current point
 
 
-  //! Current value of the Electrolyte mole fraction vector
-  std::vector<double> mfElectrolyte_Soln_Curr_;
-
-  //! Current value of the Electrolyte mole fraction vector - cropped to always be positive
-  std::vector<double> mfElectrolyte_Thermo_Curr_;
-
   //! Old value of the electrolyte mole fraction vector
   Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
 

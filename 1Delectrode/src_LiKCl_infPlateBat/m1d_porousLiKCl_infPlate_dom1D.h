@@ -320,11 +320,6 @@ protected:
   // -----------------------------------------------------------------------
   //!  Current Thermo value of quantities at the current point
 
-
-  std::vector<double> mfElectrolyte_Soln_Curr_;
-
-  std::vector<double> mfElectrolyte_Thermo_Curr_;
-
   //! Local value of the temperature
   double temp_Curr_;
 
