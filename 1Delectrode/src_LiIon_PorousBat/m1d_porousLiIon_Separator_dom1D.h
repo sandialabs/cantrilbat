@@ -193,9 +193,6 @@ public:
     virtual void
     getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
-    virtual void
-    getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
-
     double
     getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte);
 
@@ -485,10 +482,6 @@ protected:
     // -----------------------------------------------------------------------
     //!  Current Thermo value of quantities at the current point
 
-
-    std::vector<double> mfElectrolyte_Soln_Curr_;
-
-    std::vector<double> mfElectrolyte_Thermo_Curr_;
 
     Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
 
