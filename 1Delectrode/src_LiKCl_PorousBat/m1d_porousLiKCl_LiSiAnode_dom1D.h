@@ -569,16 +569,11 @@ protected:
     //! Pointer to the BDT object that is most derived
     BDT_porAnode_LiKCl* BDT_ptr_;
 
-  //! Number of phases solved
-  int nph_;
-
-  //! number of species solved
-  int nsp_;
-  //total concentration
-
-  double concTot_cent_;
-  double concTot_cent_old_;
-
+    //! Number of phases solved
+    int nph_;
+    
+    //! number of species solved
+    int nsp_; 
 
   //Need to define a void fraction variable here.
   //The void fraction does not change with time

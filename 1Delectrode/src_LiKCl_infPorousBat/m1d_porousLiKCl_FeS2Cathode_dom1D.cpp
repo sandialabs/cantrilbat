@@ -44,8 +44,8 @@ namespace m1d
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKCl& bdd) :
   porousElectrode_dom1D(bdd), 
-  ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
-  concTot_cent_old_(0.0),  surfaceAreaDensity_Cell_(0), 
+  ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), 
+  surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   capacityDischarged_Cell_(0),
@@ -87,8 +87,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
     porousElectrode_dom1D((BDT_porCathode_LiKCl&) r.BDD_), 
-    ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
-    concTot_cent_old_(0.0), 
+    ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0),
     surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
@@ -130,8 +129,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
 
   nph_ = r.nph_;
   nsp_ = r.nsp_;
-  concTot_cent_ = r.concTot_cent_;
-  concTot_cent_old_ = r.concTot_cent_old_;
   surfaceAreaDensity_Cell_ = r.surfaceAreaDensity_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
   xdelCell_Cell_ = r.xdelCell_Cell_;
