@@ -35,8 +35,7 @@ namespace m1d
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon& bdd) :
     porousElectrode_dom1D(bdd),
     BDT_ptr_(0),
-    nph_(0), nsp_(0), concTot_cent_(0.0),
-    concTot_cent_old_(0.0),
+    nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
@@ -107,8 +106,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon& bdd) :
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& r) :
     porousElectrode_dom1D((BDD_porousElectrode&) r.BDD_),
     BDT_ptr_(0),
-    nph_(0), nsp_(0), concTot_cent_(0.0),
-    concTot_cent_old_(0.0),
+    nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     capacityDischargedPA_Cell_(0),
@@ -157,8 +155,6 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     BDT_ptr_ = r.BDT_ptr_;
     nph_ = r.nph_;
     nsp_ = r.nsp_;
-    concTot_cent_ = r.concTot_cent_;
-    concTot_cent_old_ = r.concTot_cent_old_;
     icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
     xdelCell_Cell_ = r.xdelCell_Cell_;
     concTot_Cell_ = r.concTot_Cell_;

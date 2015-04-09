@@ -29,7 +29,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     BDT_ptr_(0),
     ionicLiquid_(0), 
     solidSkeleton_(0),
-    trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
+    trans_(0), nph_(0), nsp_(0),
     concTot_Cell_(0), concTot_Cell_old_(0), 
     Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
@@ -74,7 +74,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
     BDT_ptr_(0),
     ionicLiquid_(0),
     solidSkeleton_(0),
-    trans_(0), nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
+    trans_(0), nph_(0), nsp_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
@@ -110,8 +110,6 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     trans_                                = r.trans_;
     nph_                                  = r.nph_;
     nsp_                                  = r.nsp_;
-    concTot_cent_                         = r.concTot_cent_;
-    concTot_cent_old_                     = r.concTot_cent_old_;
     xdelCell_Cell_                        = r.xdelCell_Cell_;
     concTot_Cell_                         = r.concTot_Cell_;
     concTot_Cell_old_                     = r.concTot_Cell_old_;
@@ -1337,7 +1335,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
   }
 
 }
-
+//=====================================================================================================================
 // Method for writing the solution on the surface domain to a tecplot file.
 /*
  *

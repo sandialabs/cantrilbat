@@ -395,17 +395,11 @@ protected:
     //! number of species solved
     int nsp_;
 
-    //! Total concentration of the electolyte
-    /*!
-     *  Units = kg / m3
-     */
-    double concTot_cent_;
-
     //! Total concentration of the electolyte at the previous time step
     /*!
      *  Units = kg / m3
      */
-    double concTot_cent_old_;
+    //double concTot_cent_old_;
 
     //Need to define a void fraction variable here.
     //The void fraction does not change with time

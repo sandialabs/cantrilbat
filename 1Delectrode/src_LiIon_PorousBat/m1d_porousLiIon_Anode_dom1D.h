@@ -617,19 +617,6 @@ protected:
     //! number of species solved
     int nsp_;
 
-    //! Total concentration of the electolyte
-    /*!
-     *  Units = kmol / m3
-     */
-    double concTot_cent_;
-
-    //! Total concentration of the electolyte at the previous time step
-    /*!
-     *  Units = kmol / m3
-     */
-    double concTot_cent_old_;
-
-
     //Need to define a void fraction variable here.
     //The void fraction does not change with time
     //for the electrolyte, but it will for the electrode.
@@ -639,13 +626,6 @@ protected:
     // ------------------------------------------------------------------------
     //! Storage of Cell related quantities
 
-    //! Surface area of the electrolyte - electrode interface within the cell
-    /*!
-     *  This is only used for printing output from showSolution.
-     *  Length is number of cells on the processor.
-     *  units = m2 / m2. surface area per cross sectional area in each cell
-     */
-    //std::vector<double> surfaceArea_Cell_;
 
     //! Interfacial Electrode Current per surface area of the electrode
     /*!
