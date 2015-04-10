@@ -144,6 +144,20 @@ public:
     virtual void
     getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
+    //! Calculate a thermodynamically acceptable mole fraction vector from the current raw mole
+    //! fraction vector
+    /*!
+     *  The following conditions are enforced:
+     *
+     *     charge neutral solution
+     *     no negative mole fractions
+     *     sums to 1
+     *
+     *  Note, this routine is really meant for phases with charged species in them. It works
+     *  for neutral phases, but is inefficient.
+     */
+    void calcMFElectrolyte_Thermo(const double* const mf, double* const mf_Thermo) const;
+
     virtual double heatSourceLastStep() const;
 
     virtual double heatSourceAccumulated() const;

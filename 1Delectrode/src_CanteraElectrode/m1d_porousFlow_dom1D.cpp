@@ -659,86 +659,70 @@ porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double*
 {
     // We are assuming that mf species start with subindex 0 here
     size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
-
-    /*
-     *  This complicated logic assures us that  mfElectrolyte_Thermo_Curr_[] is
-     *    * charge neutral
-     *    * no negative mole fractions
-     *    * sums to 1
-     */
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	mfElectrolyte_Soln_Curr_[k] = solnElectrolyte_Curr[indexMF + k];
+    }
+    calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]);
+}
+//=====================================================================================================================
+/*
+ *  This complicated logic assures us that  mf_Thermo_Curr[] is
+ *    * charge neutral
+ *    * no negative mole fractions
+ *    * sums to 1
+ */
+void porousFlow_dom1D::calcMFElectrolyte_Thermo(const double* const mf, double* const mf_Thermo) const
+{
+    double sum, z;  
     double posSum = 0.0;
     double negSum = 0.0;
-    double sum;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
-	mfElectrolyte_Soln_Curr_[k] = solnElectrolyte_Curr[indexMF + k];
-	double mf0 = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
-	double z = ionicLiquid_->charge(k);
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	mf_Thermo[k] = std::max(mf[k], 0.0);
+        z = ionicLiquid_->charge(k);
 	if (z > 0.0) {
-	    posSum += mf0 * z;
+	    posSum += mf_Thermo[k] * z;
 	} else if (z < 0.0) {
-	    negSum -= mf0 * z;
+	    negSum -= mf_Thermo[k] * z;
 	}
     }
-    if (posSum > 0.0 || negSum > 0.0) {
-	if (negSum <= 0.0 || posSum <= 0.0) {
-	    throw m1d_Error(":getMFElectrolyte_soln", "Charge neutrality can't be made");
-	}
-	if (posSum != negSum) {
-	    sum = 0.5 * (posSum + negSum);
-	    double pratio = sum / posSum;
-	    double nratio = sum / negSum;
-	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
-		double mf0 = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
-		double z = ionicLiquid_->charge(k);
+    if (posSum > 0.0 || negSum > 0.0) {	
+	if (negSum <= 0.0) {
+	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
 		if (z > 0.0) {
-		    mfElectrolyte_Thermo_Curr_[k] = mf0 * pratio;
-		} else if (z < 0.0) {
-		    mfElectrolyte_Thermo_Curr_[k] = mf0 * nratio;
-		} else {
-		    mfElectrolyte_Thermo_Curr_[k] = mf0;
+		    mf_Thermo[k] = 0.0;
+		}
+	    }
+	} else if (posSum <= 0.0) {
+	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+		if (z < 0.0) {
+		    mf_Thermo[k] = 0.0;
 		}
 	    }
 	} else {
-	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
-		mfElectrolyte_Thermo_Curr_[k] = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
-	    }
-	}
-    } else {
-	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
-	    mfElectrolyte_Thermo_Curr_[k] = std::max(mfElectrolyte_Soln_Curr_[k], 0.0);
+	    if (posSum != negSum) {
+		sum = 0.5 * (posSum + negSum);
+		double pratio = sum / posSum;
+		double nratio = sum / negSum;
+		for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+		    z = ionicLiquid_->charge(k);
+		    if (z > 0.0) {
+			mf_Thermo[k] *= pratio;
+		    } else if (z < 0.0) {
+			mf_Thermo[k] *= nratio;
+		    }
+		}
+	    } 
 	}
     }
-
-
     sum = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
-	sum += mfElectrolyte_Thermo_Curr_[k];
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	sum += mf_Thermo[k];
     }
     if (sum != 1.0) {
-	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; k++) {
-	    mfElectrolyte_Thermo_Curr_[k] /= sum;
+	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	    mf_Thermo[k] /= sum;
 	}
     }
-
-    /*
-    mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
-    mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
-    mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
-    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
-    double mf1b = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
-    double mf2b = std::max(mfElectrolyte_Soln_Curr_[2], 0.0);
-    double mf1 = mf1b;
-    double mf2 = mf2b;
-    if (mf1b != mf2b) {
-        mf1 = 0.5 * (mf1b + mf2b);
-        mf2 = 0.5 * (mf1b + mf2b);
-    }
-    double tmp = mf0 + mf1 + mf2;
-
-    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
-    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
-    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
-    */
 }
 //=====================================================================================================================
 double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, double &voltOCV, double &current)
