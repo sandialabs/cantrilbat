@@ -267,6 +267,28 @@ protected:
      */
     std::vector<double> surfaceArea_Cell_;
 
+    //
+    // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
+    //
+    //                         ( these are intermediate values and all have the suffix _Curr_ )
+    //                         ( these all refer to the new time value)
+    //                         ( these are all calculated by the routine SetupShopThermo1() or SetupShopThermo2()
+    //                         ( these are either node quantities or boundary quantities )
+
+
+    //! Heat flux of the Enhanced Enthalpy through the solid at the current point
+    /*!
+     *  Units = Watts / m2
+     */
+    double jFlux_EnthalpyPhi_metal_Curr_;
+
+    //!  Partial molar Enthalpy of the metal electron species at the Curr point with Phi enhancement
+    /*!
+     *   Vector of partial molar enthalpy  (KRSpecies)
+     *   Units of Joules/(kmol)
+     */
+    std::vector<doublereal> EnthalpyPhiPM_metal_Curr_;
+
 };
 //======================================================================================================================
 }

@@ -239,7 +239,7 @@ public:
 
     //
     // ------------------- Porosity of the Domain -----------------------------------------------------------------------
-
+    //
 protected:
     //! Volume Fraction of the electrolyte within each control volume
     /*!
@@ -265,6 +265,7 @@ protected:
 
     //
     // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
+    //
     //                         ( these are intermediate values and all have the suffix _Curr_ )
     //                         ( these all refer to the new time value)
     //                         ( these are all calculated by the routine SetupShopThermo1() or SetupShopThermo2()
@@ -328,10 +329,7 @@ protected:
     std::vector<doublereal> EnthalpyPM_lyte_Curr_;
     std::vector<doublereal> EnthalpyPhiPM_lyte_Curr_;
 
-    //
-    // ---------------------------  CURRENT VARIABLES ------------------------------------------------------------
-    //
-
+ 
     //! Source of heat during the current time step
     /*!
      *  qSource is the heat generated in each cell per time for the current time step.

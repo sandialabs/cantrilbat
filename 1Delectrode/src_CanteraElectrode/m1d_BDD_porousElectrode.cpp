@@ -22,6 +22,7 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType
 					 std::string domainName) :
   BDD_porousFlow(dl_ptr, domainName),
   Electrode_(0),
+  metalPhase_(0),
   electrodeType_(electrodeType)
 {
   IsAlgebraic_NE.resize(7,0);
@@ -34,7 +35,8 @@ BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType
 //=====================================================================================================================
 BDD_porousElectrode::BDD_porousElectrode(const BDD_porousElectrode &r) :
     BDD_porousFlow(r), 
-    Electrode_(0)
+    Electrode_(0),
+    metalPhase_(0)
 {
   *this = r;
 }
@@ -45,6 +47,7 @@ BDD_porousElectrode::~BDD_porousElectrode()
    * Delete objects that we own
    */
   safeDelete(Electrode_);
+  safeDelete(metalPhase_);
 }
 //=====================================================================================================================
 BDD_porousElectrode &
@@ -61,6 +64,8 @@ BDD_porousElectrode::operator=(const BDD_porousElectrode &r)
 
   electrodeType_ = r.electrodeType_;
 
+  safeDelete(metalPhase_);
+  metalPhase_ = r.metalPhase_->duplMyselfAsThermoPhase();
 
   return *this;
 }
@@ -144,6 +149,12 @@ BDD_porousElectrode::ReadModelDescriptions()
 			       "Electrode::setInitialConditions() for cathode failed");
 	}
     }
+
+    int metalIndex = Electrode_->metalPhaseIndex();
+    ThermoPhase*mP = & Electrode_->thermo(metalIndex);
+    metalPhase_ = mP->duplMyselfAsThermoPhase();
+    string ss = metalPhase_->id();
+    //printf("name of metal phase = %s\n", ss.c_str());
 
     delete cfA;
 }

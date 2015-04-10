@@ -107,6 +107,12 @@ public:
    */
   Cantera::Electrode *Electrode_;
 
+  //! Pointer to the metal phase that does conduction within the solid
+  /*!
+   *  We own this object
+   */
+  Cantera::ThermoPhase* metalPhase_;
+
   //! Type of the electrode
   /*!
    *     0 anode

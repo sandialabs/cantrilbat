@@ -22,7 +22,9 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     BDT_ptr_(0),
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
-    surfaceArea_Cell_(0)
+    surfaceArea_Cell_(0),
+    jFlux_EnthalpyPhi_metal_Curr_(0.0),
+    EnthalpyPhiPM_metal_Curr_(0)
 {
     BDT_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
 }
@@ -32,7 +34,9 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     BDT_ptr_(0),
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
-    surfaceArea_Cell_(0)
+    surfaceArea_Cell_(0),
+    jFlux_EnthalpyPhi_metal_Curr_(0.0),
+    EnthalpyPhiPM_metal_Curr_(0)
 {
     operator=(r);
 }
@@ -64,6 +68,8 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     
     maxElectrodeSubIntegrationSteps_ = r.maxElectrodeSubIntegrationSteps_;
     surfaceArea_Cell_                = r.surfaceArea_Cell_;
+    jFlux_EnthalpyPhi_metal_Curr_    = r.jFlux_EnthalpyPhi_metal_Curr_;
+    EnthalpyPhiPM_metal_Curr_        = r.EnthalpyPhiPM_metal_Curr_;
     
     return *this;
 }
@@ -90,6 +96,7 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     
     Electrode_Cell_.resize(NumLcCells, 0);
     surfaceArea_Cell_.resize(NumLcCells, 0.0);
+    EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
 }
 //====================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
