@@ -627,16 +627,20 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double fluxFright = 0.;
     //  Electrolyte total molar fluxe on Left side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
     double fluxFleft;
+
     // Left and right thermal heat fluxes
     double fluxTleft = 0.0;
     double fluxTright = 0.0;
+    double fluxL_JHPhi = 0.0;
+    double fluxR_JHPhi = 0.0;
 
-    //mole fraction fluxes
+    // mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
 
     double fluxL = 0.0;
     double fluxR = 0.0;
+  
 
     const Epetra_Vector& soln = *soln_ptr;
     //  const Epetra_Vector &solnOld = *solnOld_ptr;
@@ -673,8 +677,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
   
-  
-
+ 
     Fright_cc_ = 0.0;
 
     /*
@@ -867,6 +870,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                  *  sophisticated treatment
                  */
                 fluxFleft = 0.0;
+		fluxTleft = 0.0;
+		fluxL_JHPhi = 0.0;
                 icurrElectrolyte_CBL_[iCell] = 0.0;
                 icurrElectrode_CBL_[iCell] = 0.0;
                 for (int k = 0; k < nsp_; k++) {
@@ -886,6 +891,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                  */
                 fluxFleft = Fleft_cc_ * concTot_Curr_;
 		fluxTleft = heatFlux_Curr_;
+		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
 
                 /*
                  * Calculate the flux of species and the flux of charge
@@ -910,6 +916,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
             fluxFleft = fluxFright;
 	    fluxTleft = fluxTright;
+	    fluxL_JHPhi = fluxR_JHPhi;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             icurrElectrode_CBL_[iCell] = icurrElectrode_CBR_[iCell - 1];
             for (int k = 0; k < nsp_; k++) {
@@ -933,7 +940,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             AssertTrace(iCell == NumLcCells-1);
             // fluxFright = 0.0;
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-            fluxFright = Fright_cc_ * concTot_Curr_;
+     
 	    /*
              *  We are here if we are at the right node boundary and we need a flux
              *  condition. The default treatment is to set the flux to zero. The basic idea is that
@@ -946,9 +953,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	     *  we set the flux here to zero. Then, in the surface domain we add the specification of
 	     *  the flux to the residual of the node at the boundary.
              */
-	    fluxTright = 0.0;
+	    fluxTright = 0.0;  
+	    fluxR_JHPhi = 0.0;  
+	    Fright_cc_ = 0.0;
+	    fluxFright = Fright_cc_ * concTot_Curr_;
             icurrElectrolyte_CBR_[iCell] = 0.0;
-            //  fluxVElectrodeRight = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;
             for (int k = 0; k < nsp_; k++) {
                 fluxXright[k] = 0.0;
@@ -967,8 +976,12 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              *       Conc * VMolaraxial * phi
              */
             fluxFright = Fright_cc_ * concTot_Curr_;
+	    /*
+             * Calculate the heat flux - all of the types
+             */
 	    fluxTright = heatFlux_Curr_;
-  
+	    fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+
             /*
              * Calculate the flux of species and the flux of charge
              *   - the flux of charge must agree with the flux of species
@@ -1055,6 +1068,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         if (PS_ptr->energyEquationProbType_ == 3) {
               AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
               res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
+	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
         }
 
         /*
@@ -1689,23 +1703,11 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
     size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
     size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
 
-    mfElectrolyte_Soln_Curr_[0] = 0.5 * (solnElectrolyte_CurrL[indexMFL] +solnElectrolyte_CurrR[indexMFR]);
-    mfElectrolyte_Soln_Curr_[1] = 0.5 * (solnElectrolyte_CurrL[indexMFL+1] +solnElectrolyte_CurrR[indexMFR+1]);
-    mfElectrolyte_Soln_Curr_[2] = 0.5 * (solnElectrolyte_CurrL[indexMFL+2] +solnElectrolyte_CurrR[indexMFR+2]);
-    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
-    double mf1b = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
-    double mf2b = std::max(mfElectrolyte_Soln_Curr_[2], 0.0);
-    double mf1 = mf1b;
-    double mf2 = mf2b;
-    if (mf1b != mf2b) {
-        mf1 = 0.5 * (mf1b + mf2b);
-        mf2 = 0.5 * (mf1b + mf2b);
+  
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+        mfElectrolyte_Soln_Curr_[k] = 0.5 * (solnElectrolyte_CurrL[indexMFL+k] +solnElectrolyte_CurrR[indexMFR+k]);
     }
-    double tmp = mf0 + mf1 + mf2;
-
-    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
-    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
-    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+    calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]); 
 
     size_t indexVS = nvL->indexBulkDomainVar0(Voltage);
     double phiElectrolyteL = solnElectrolyte_CurrL[indexVS];
@@ -1728,9 +1730,16 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
     //
     concTot_Curr_ = ionicLiquid_->molarDensity();
 
-  //
+    ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+        double z = ionicLiquid_->charge(k);
+        EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
+    }
+
+    //
     // Calculate the matrix thermal conductivity from a series resistance on the two sides
     //
+    double tmp;
     if (type == 0) {
         tmp = 1.0 / thermalCond_Cell_[cIndex_cc_ - 1] + 1.0 / thermalCond_Cell_[cIndex_cc_];
     } else {

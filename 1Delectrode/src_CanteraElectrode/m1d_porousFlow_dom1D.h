@@ -128,6 +128,7 @@ public:
     virtual void SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
 
+
     //! Function updates the ThermoPhase object for the electrolyte given the solution vector
     /*!
      *  This function calculates the values at the cell center
@@ -296,6 +297,12 @@ protected:
      */
     double heatFlux_Curr_;
 
+    //! Heat flux of the Enhanced Enthalpy at the current point
+    /*!
+     *  Units = Watts / m2
+     */
+    double jFlux_EnthalpyPhi_Curr_;
+
     //! Vector of temporary indexing quantities for each cell
     /*!
      * These are calculated once at the start of the program
@@ -312,6 +319,14 @@ protected:
      *  Thermo is not defined if any of the three are violated.
      */
     std::vector<double> mfElectrolyte_Thermo_Curr_;
+
+    //!  Partial molar Enthalpy of the electrolyte species at the Curr point with Phi enhancement
+    /*!
+     *   Vector of partial molar enthalpy  (KRSpecies)
+     *   Units of Joules/(kmol)
+     */
+    std::vector<doublereal> EnthalpyPM_lyte_Curr_;
+    std::vector<doublereal> EnthalpyPhiPM_lyte_Curr_;
 
     //
     // ---------------------------  CURRENT VARIABLES ------------------------------------------------------------

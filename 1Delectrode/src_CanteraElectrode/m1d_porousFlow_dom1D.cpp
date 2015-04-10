@@ -44,7 +44,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     phiElectrolyte_Curr_(0.0),
     porosity_Curr_(0.0),
     thermalCond_Curr_(0.0),
-    heatFlux_Curr_(0.0),
+    heatFlux_Curr_(0.0), 
+    jFlux_EnthalpyPhi_Curr_(0.0),
     ivb_(VB_MOLEAVG)
 {
     BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
@@ -67,6 +68,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
       porosity_Curr_(0.0),
       thermalCond_Curr_(0.0),
       heatFlux_Curr_(0.0),
+      jFlux_EnthalpyPhi_Curr_(0.0),
       ivb_(VB_MOLEAVG)
   {
       BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
@@ -100,9 +102,13 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     porosity_Curr_            = r.porosity_Curr_;
     thermalCond_Curr_         = r.thermalCond_Curr_;
     heatFlux_Curr_            = r.heatFlux_Curr_;
+    jFlux_EnthalpyPhi_Curr_   = r.jFlux_EnthalpyPhi_Curr_;
+
     cellTmpsVect_Cell_        = r.cellTmpsVect_Cell_;
     mfElectrolyte_Soln_Curr_   = r.mfElectrolyte_Soln_Curr_;
     mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
+    EnthalpyPM_lyte_Curr_      = r.EnthalpyPM_lyte_Curr_;
+    EnthalpyPhiPM_lyte_Curr_   = r.EnthalpyPhiPM_lyte_Curr_;
 
     qSource_Cell_curr_        = r.qSource_Cell_curr_;
     qSource_Cell_accumul_     = r.qSource_Cell_accumul_;
@@ -173,7 +179,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
    
     mfElectrolyte_Soln_Curr_.resize(nsp, 0.0);
     mfElectrolyte_Thermo_Curr_.resize(nsp, 0.0);
-
+    EnthalpyPM_lyte_Curr_.resize(nsp, 0.0);
+    EnthalpyPhiPM_lyte_Curr_.resize(nsp, 0.0);
  
     if  (doEnthalpyEquation_) {
 	CpPM_lyte_Cell_.resize(NumLcCells, 0.0);
@@ -205,7 +212,6 @@ void porousFlow_dom1D::heatSourceZeroAccumulated() const
 	qSource_Cell_accumul_[iCell] = 0.0;
     }
 }
-
 //=====================================================================================================================
 void
 porousFlow_dom1D::residSetupTmps()
@@ -657,7 +663,6 @@ porousFlow_dom1D::getVoltages(const NodalVars* const nv, const double* const sol
 void
 porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
-    // We are assuming that mf species start with subindex 0 here
     size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
     for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
 	mfElectrolyte_Soln_Curr_[k] = solnElectrolyte_Curr[indexMF + k];
