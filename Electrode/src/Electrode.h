@@ -1770,9 +1770,9 @@ public:
     //!  Return the global species index of the electron in the Electrode object
     int kSpecElectron() const;
 
-    //! Return the index of the phase corresponding to the currently active metal
+    //! Return the global index of the phase corresponding to the currently active metal
     /*!
-     *  Note this may change during the simulation
+     *   The phase may then be retrived by a thermo(index) call.
      */
     int metalPhaseIndex() const;
 
