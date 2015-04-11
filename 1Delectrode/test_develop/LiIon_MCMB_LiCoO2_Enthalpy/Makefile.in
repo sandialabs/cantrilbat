@@ -58,7 +58,7 @@ test:
 
 runGood: $(PROGRAM_ORIGIN) $(DATA) $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
-	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ./runtest)
+	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../../test_suite/runtest)
 
 rebaseline:
 	./rebaseline

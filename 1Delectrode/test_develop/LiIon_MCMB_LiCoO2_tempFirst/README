@@ -5,4 +5,6 @@ Simple test problem designed with Dirichelet boundary conditions between 302 and
 A temperature ramp is the expected solution.
 
 
-this is a first problem.
+this is a first problem that uses the temperature equation.
+
+Currently, this is unimplemented and will give an error.
