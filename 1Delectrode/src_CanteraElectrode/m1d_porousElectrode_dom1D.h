@@ -280,7 +280,7 @@ protected:
     /*!
      *  Units = Watts / m2
      */
-    double jFlux_EnthalpyPhi_metal_Curr_;
+    double jFlux_EnthalpyPhi_metal_trCurr_;
 
     //!  Partial molar Enthalpy of the metal electron species at the Curr point with Phi enhancement
     /*!
@@ -288,6 +288,12 @@ protected:
      *   Units of Joules/(kmol)
      */
     std::vector<doublereal> EnthalpyPhiPM_metal_Curr_;
+
+    //! Pointer to the metal phase that does electrical conduction within the solid
+    /*!
+     *  We do not own this object
+     */
+    Cantera::ThermoPhase* metalPhase_;
 
 };
 //======================================================================================================================

@@ -23,10 +23,12 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0),
-    jFlux_EnthalpyPhi_metal_Curr_(0.0),
+    jFlux_EnthalpyPhi_metal_trCurr_(0.0),
     EnthalpyPhiPM_metal_Curr_(0)
 {
     BDT_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
+
+    metalPhase_ = BDT_ptr_->metalPhase_;
 }
 //=====================================================================================================================
 porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
@@ -35,7 +37,7 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0),
-    jFlux_EnthalpyPhi_metal_Curr_(0.0),
+    jFlux_EnthalpyPhi_metal_trCurr_(0.0),
     EnthalpyPhiPM_metal_Curr_(0)
 {
     operator=(r);
@@ -68,7 +70,7 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     
     maxElectrodeSubIntegrationSteps_ = r.maxElectrodeSubIntegrationSteps_;
     surfaceArea_Cell_                = r.surfaceArea_Cell_;
-    jFlux_EnthalpyPhi_metal_Curr_    = r.jFlux_EnthalpyPhi_metal_Curr_;
+    jFlux_EnthalpyPhi_metal_trCurr_    = r.jFlux_EnthalpyPhi_metal_trCurr_;
     EnthalpyPhiPM_metal_Curr_        = r.EnthalpyPhiPM_metal_Curr_;
     
     return *this;

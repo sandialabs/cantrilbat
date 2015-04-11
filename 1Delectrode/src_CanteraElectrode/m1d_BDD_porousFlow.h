@@ -109,7 +109,7 @@ public:
   /*!
    * We own this object
    */
-  Cantera::ThermoPhase* solidSkeleton_;  
+  Cantera::ThermoPhase* solidSkeleton_;
 
   //!  Total number of species in the electrolyte
   size_t nSpeciesElectrolyte_;

@@ -648,6 +648,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double fluxL_JHPhi = 0.0;
     double fluxR_JHPhi = 0.0;
 
+    double fluxL_JHelec = 0.0;
+    double fluxR_JHelec = 0.0;
+
     // Flux of current in the electrode phase at the right and left cell boundaries
     double fluxVElectrodeRight = 0.0;
     double fluxVElectrodeLeft = 0.0;
@@ -873,6 +876,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *
          */
 	// We've turned this off as it is not necessary, if we are doing everything correctly
+	// This is turned on for iCell = 0
         if (doLeftFluxCalc) {
             if (nodeLeft == 0) {
                 /*
@@ -887,9 +891,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                 fluxFleft = 0.0;
 		fluxTleft = 0.0;
 		fluxL_JHPhi = 0.0;
+		fluxL_JHelec = 0.0;                 // Note this is non-zero, but we set the term elsewhere
                 icurrElectrolyte_CBL_[iCell] = 0.0;
                 fluxVElectrodeLeft = 0.0;
-                icurrElectrode_CBL_[iCell] = 0.0;
+                icurrElectrode_CBL_[iCell] = 0.0;   // Note this is non-zero, but we set the term elsewhere
                 for (int k = 0; k < nsp_; k++) {
                     fluxXleft[k] = 0.0;
                 }
@@ -909,7 +914,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                 fluxFleft = Fleft_cc_ * concTot_Curr_;
 		fluxTleft = heatFlux_Curr_; 
 		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
-                
+		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
 		/*
                  * Calculate the flux of species and the flux of charge
                  *   - the flux of charge must agree with the flux of species
@@ -935,6 +940,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             fluxFleft = fluxFright;
 	    fluxTleft = fluxTright;
 	    fluxL_JHPhi = fluxR_JHPhi;
+	    fluxL_JHelec = fluxR_JHelec;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             fluxVElectrodeLeft = fluxVElectrodeRight;
             icurrElectrode_CBL_[iCell] = icurrElectrode_CBR_[iCell - 1];
@@ -961,10 +967,11 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              */
             fluxFright = 0.0;
 	    fluxTright = 0.0;
-	    fluxR_JHPhi = 0.0;
+	    fluxR_JHPhi = 0.0;  
+	    fluxR_JHelec = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             fluxVElectrodeRight = 0.0;
-            icurrElectrode_CBR_[iCell] = 0.0;
+            icurrElectrode_CBR_[iCell] = 0.0;   // Note this is nonzero. We set it elsewhere.
             for (int k = 0; k < nsp_; k++) {
                 fluxXright[k] = 0.0;
             }
@@ -987,6 +994,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              */
 	    fluxTright = heatFlux_Curr_;
 	    fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+	    fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
 
             /*
              * Calculate the flux of species and the flux of charge
@@ -1067,6 +1075,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
               AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
               res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
 	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
+	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHelec - fluxL_JHelec);
         }
 
         /*
@@ -1132,8 +1141,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          */
         if (IOwnLeft && iCell == 0) {
             if (residType == Base_ResidEval) {
-                DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation] = res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation];
-                DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] = res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1];
+                DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation] = 
+		  res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation];
+                DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] =
+		  res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1];
+		if (PS_ptr->energyEquationProbType_ == 3) {
+		    DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = 
+		      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation + 1];
+		}
             }
             if (residType == Base_ShowSolution || residType == Base_ResidEval) {
                 icurrElectrode_CBL_[iCell] += icurrInterface_Cell_[iCell] + icurrElectrode_CBR_[iCell];
@@ -1146,11 +1161,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          */
         if (IOwnRight && iCell == (NumLcCells - 1)) {
             if (residType == Base_ResidEval) {
-                DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation] = res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation];
-                DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] = res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1];
+                DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation] = 
+		  res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation];
+                DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] =
+		  res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1];
+		if (PS_ptr->energyEquationProbType_ == 3) {
+		    DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = 
+		      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation + 1];
+		}
             }
             if (residType == Base_ShowSolution || residType == Base_ResidEval) {
-
                 icurrElectrolyte_CBR_[iCell] =  icurrInterface_Cell_[iCell]  + icurrElectrolyte_CBL_[iCell];
             }
         }
@@ -1172,7 +1192,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 #ifdef DEBUG_HKM_NOT
             if (residType == Base_ResidEval) {
-                printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[iLip_], fluxXleft[iLip_]);
+                printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", 
+		       iCell, fluxXright[iLip_], fluxXleft[iLip_]);
             }
 #endif
             double newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
@@ -1698,9 +1719,13 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
 
     size_t indexVS = nvL->indexBulkDomainVar0(Voltage);
     double phiElectrolyteL = solnElectrolyte_CurrL[indexVS];
+    double phiElectrodeL = solnElectrolyte_CurrL[indexVS+1];
     indexVS = nvR->indexBulkDomainVar0(Voltage);
     double phiElectrolyteR = solnElectrolyte_CurrR[indexVS];
+    double phiElectrodeR = solnElectrolyte_CurrR[indexVS+1];
     phiElectrolyte_Curr_ = 0.5 * (phiElectrolyteL + phiElectrolyteR);
+    phiElectrode_Curr_ = 0.5 * (phiElectrodeL + phiElectrodeR);
+
 
     if (type == 0) {
         porosity_Curr_ = 0.5 * (porosity_Cell_[cIndex_cc_ - 1] + porosity_Cell_[cIndex_cc_]);
@@ -1712,6 +1737,12 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
      */
     ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
     ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+    metalPhase_->setState_TP(temp_Curr_, pres_Curr_);
+    metalPhase_->setElectricPotential(phiElectrode_Curr_);
+
+    metalPhase_->getPartialMolarEnthalpies(&EnthalpyPhiPM_metal_Curr_[0]);
+    EnthalpyPhiPM_metal_Curr_[0] -= Faraday * phiElectrode_Curr_;
+
     //
     // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
     //
@@ -1875,6 +1906,14 @@ porousLiIon_Anode_dom1D::SetupTranShop(const double xdel, const int type)
 
     double volFSolid = (1.0 - porosity_Curr_);
     icurrElectrode_trCurr_ = - conductivityElectrode_ * pow(volFSolid, 1.5) * gradVElectrode_trCurr_;
+
+    //
+    //  Calculate =  j_electron * hphi_electron
+    //
+    jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_trCurr_ / Faraday;
+    jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
+   
+
 }
 //=====================================================================================================================
 // saving the solution on the domain in an xml node.

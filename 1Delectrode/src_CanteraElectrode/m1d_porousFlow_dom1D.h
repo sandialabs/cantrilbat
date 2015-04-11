@@ -236,6 +236,12 @@ public:
      */
     std::vector<doublereal> EnthalpyPM_lyte_Cell_;
 
+    //!  Molar Enthalpy of the electrolyte phase located in all of the cells
+    /*!
+     *   Vector of molar enthalpy  (iCell)
+     *   Units of Joules/(kmol)
+     */
+    std::vector<doublereal> EnthalpyMolar_lyte_Cell_;
 
     //
     // ------------------- Porosity of the Domain -----------------------------------------------------------------------

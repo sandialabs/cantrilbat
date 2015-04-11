@@ -285,7 +285,6 @@ BDD_porousElectrode::SetEquationsVariablesList()
 	eqnIndex++;
     }
 
-
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

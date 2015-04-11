@@ -149,6 +149,7 @@ public:
               const ResidEval_Type_Enum residType = Base_ResidEval,
               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
+     //!  Evalulate quantities after the solution has been found at the current time step
   virtual void
   eval_PostSoln(
             const bool doTimeDependentResid,
@@ -250,6 +251,9 @@ public:
     getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
     double getCellHeatCapacity(const m1d::NodalVars*, const double*);
+
+    double getCellEnthalpy(const m1d::NodalVars*, const double*);
+
 
     //! Base Class for reading the solution from the saved file
     /*!

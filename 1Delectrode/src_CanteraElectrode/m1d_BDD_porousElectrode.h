@@ -107,7 +107,7 @@ public:
    */
   Cantera::Electrode *Electrode_;
 
-  //! Pointer to the metal phase that does conduction within the solid
+  //! Pointer to the metal phase that does electrical conduction within the solid
   /*!
    *  We own this object
    */
