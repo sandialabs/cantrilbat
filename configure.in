@@ -883,6 +883,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_Enthalpy/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_tempFirst/Makefile \
           1Delectrode/test_suite/Makefile \
+          1Delectrode/test_suite/runtest \
           1Delectrode/test_suite/LiKCl_PorousBat_SPCD_MPNewman/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2/Makefile \
           1Delectrode/test_suite/LiIon_MCMB_LiCoO2_2/Makefile \
@@ -903,6 +904,7 @@ AC_OUTPUT(Makefile \
           )
 #
 chmod +x  epequil/tests/ionizedGasEquil/runtest
+chmod +x  1Delectrode/test_suite/runtest
 #
 # -----------------------------------------------------------------------------
 #          END

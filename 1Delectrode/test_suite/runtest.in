@@ -1,0 +1,328 @@
+#!/bin/sh
+#
+#   1DElectrode Test Harness Runner
+#
+################################################################################################################################
+#
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+#
+DIFF_REQUIRED="True"
+#
+################################################################################################################################
+#  chop_head: Remove the 1st element of a string
+#
+chop_head() {
+    shift
+    echo "$@"
+}
+#
+################################################################################################################################
+# first_el: Echo the 1st element of a string
+#
+first_el() {
+    echo "$1"
+}
+#
+################################################################################################################################
+#
+#   arg 1 = blessed file
+#   arg 2 = 
+#
+diff_compare_file() {
+
+   bb=$1
+   gg=$2
+   
+   difname=''
+   filename=''
+   diff_comparison_file="diff_summary.txt"
+
+   if test $# -ge 3
+   then
+      difname=$3
+   else
+      filename="${gg%.*}"
+      difname=diff_"$filename".txt
+   fi
+   diffCode='0'
+
+   diff $bb $gg >> $difname
+   retnStat=$?
+   if test $retnStat = "0" 
+   then
+        echo "     * PASSED: diff comparison ($bb vs. $gg)"
+        echo "     * PASSED: diff comparison ($bb vs. $gg)" >> $diff_comparison_file
+    else
+        echo "     * FAILED: diff comparison ($bb vs. $gg)"
+        echo "     * FAILED: diff comparison ($bb vs. $gg)" >> $diff_comparison_file
+        diffCode='FAILED'
+        if test $DIFF_REQUIRED = "True"
+        then
+          echo "  Bad dataFile: " `date` > runBad
+          /bin/rm -f runGood
+          retnStat_cum=$retnStat
+        else 
+	    echo "     *       : However not required for test success"
+	    echo "     *       : However not required for test success" >> $diff_comparison_file
+            retnStat="0"
+        fi
+    fi
+    unset bb
+    unset gg
+    unset difname
+    unset filename
+
+    return $retnStat
+
+}
+#
+################################################################################################################################
+############################################# MAIN PROGRAM #####################################################################
+################################################################################################################################
+#
+#   Handle program options and arguments
+#
+fff='0'
+while getopts "fh" opt; do
+  case $opt in
+    f  ) fff='1' ;;
+    h  ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+    \? ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+  esac
+done
+shift $(($OPTIND - 1))
+#
+#
+. ./problem_setup.sh
+#
+if test $# -ge 1
+then
+   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
+   PROGRAM=$1
+   shift
+fi
+#
+#
+#
+PROGRAM_INPUT=
+if test $# -ge 1
+then
+   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
+   PROGRAM_INPUT=$1
+   shift
+fi
+#
+PROGRAM_OPTS=
+if test $# -ge 1
+then
+   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
+   PROGRAM_OPTS=$@
+   shift
+fi
+#
+#############################################################################################################################
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#############################################################################################################################
+#
+#  Remove temporary files
+#
+Files=" out_raw.txt out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt \
+            solution.xml diff_b*.txt diff_s*.txt diff_s3.txt diff_IV.txt \
+            runGood runBad diff_summary.txt"
+readCleanFiles=$EXTRA_WHACKED_FILES
+Files+=`echo "$readCleanFiles"`
+#  echo 'Files to be whacked: ' $Files
+/bin/rm  -f  $Files
+#
+#############################################################################################################################
+#
+# Specify the MPI environment
+#
+#  Specify the machinefile name. This is a list of machine names where MPI jobs will be run on.
+#  If it is defined in the environment, we use the environment. Autoconf will create a default
+#  value for this variable.  
+#  
+MP_MACHINEFILE=${MP_MACHINEFILE:=@mpi_machinefile@}
+MPIRUN=mpirun
+MPIOPTS=""
+NP=${NUMBER_PROCESSORS:=1}
+#
+#############################################################################################################################
+#
+#  This is where we bring in the CANTERA_APPS_INSTALL_DIR location.
+#  If it is defined in the environment, we use the environment. Autoconf will create a default
+#  value for this variable.
+#
+CANTERA_APPS_INSTALL_DIR=${CANTERA_APPS_INSTALL_DIR:=@cta_prefix@}
+CANTERA_APPS_INSTALL_BINDIR=${CANTERA_APPS_INSTALL_DIR}/bin
+#
+#############################################################################################################################
+#
+#   Check directories and files for existence
+#
+if test ! -d ${CANTERA_APPS_INSTALL_DIR}
+then
+   echo 'Fatal error. Dir , ' ${CANTERA_APPS_INSTALL_DIR} ', doesn't exist or isn't a directory'
+   /bin/rm -f runInProgress.txt
+   exit -1
+fi
+
+if test ! -d ${CANTERA_APPS_INSTALL_BINDIR}
+then
+   echo 'Fatal error. Dir , ' ${CANTERA_APPS_INSTALL_BINDIR} ', doesn't exist or isn't a directory'
+   /bin/rm -f runInProgress.txt
+   exit -1
+fi
+#
+#  Find and resolve the soln differencer
+# 
+XMLSOLNDIFF=${CANTERA_APPS_INSTALL_BINDIR}/xmlSolnDiff
+if test ! -x ${XMLSOLNDIFF} 
+then
+   echo 'Fatal error. file xmlSolnDiff, ' ${XMLSOLNDIFF} ', doesn't exist or isn't executable'
+   /bin/rm -f runInProgress.txt
+   exit -1
+fi
+# 
+############################################################################################################################
+#
+# Create a symbolic link to the executable, if none exists already
+#
+if test ! -x $PROGRAM   ; then
+  if test -x ${CANTERA_APPS_INSTALL_BINDIR}/${PROGRAM} ; then
+    ln -s ${CANTERA_APPS_INSTALL_BINDIR}/${PROGRAM} .
+  else
+    echo 'ERROR:  ' $PROGRAM ' executable can not be found'
+    /bin/rm -f runInProgress.txt
+    exit -1
+  fi 
+fi
+# 
+############################################################################################################################
+#
+# Actually run the calculation
+#
+MULTI1DDOMAIN_EXE=$PROGRAM
+#
+# Specify the program options
+#
+export M1D_PRINT_DEBUGTABLES="false"
+export M1D_PRINT_TIMINGINFORMATION="false"
+#
+# Execute the command
+#
+echo "$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt"
+      $MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "${PROGRAM} returned with bad status, $retnStat, check output"
+  /bin/rm -f runInProgress.txt
+  exit 0
+fi
+# 
+############################################################################################################################
+#
+# Run the XML diff program to see if the calculation has passed 
+#
+$XMLSOLNDIFF -a 1.0E-13 solution_blessed.xml solution.xml > diff_xml.txt
+retnStat_xml=$?
+if test $retnStat_xml = "0"
+then
+  echo "     * PASSED: XML  comparison (solution_blessed.xml vs. solution.xml)"
+  echo "     * PASSED: XML  comparison (solution_blessed.xml vs. solution.xml)" >> diff_summary.txt
+else
+  echo "     * FAILED: XML  comparison (solution_blessed.xml vs. solution.xml)" >> diff_summary.txt
+fi
+# 
+############################################################################################################################
+#
+# Run the ascii diff programs to see if the calculation passes
+#
+retnStat_cum="0"
+
+cat out_raw.txt | sed s/-00/+00/ | cat > outa.txt
+cat outa.txt | sed /^CMA:/d > out.txt
+
+for b in $BLESSED_DATA_FILES
+do
+    g=`first_el $DATA_FILES`
+    n=`first_el $DIFF_NAMES`
+    r=`first_el $DIFF_REQ`
+    DIFF_REQUIRED="True"
+    if [ $r = "True" ]
+    then
+       DIFF_REQUIRED="True"
+    elif  [ $r = "False" ]
+    then
+        DIFF_REQUIRED="False"
+    else
+        echo "Unknown DIFF_REQ field: must be True or False:" '"'$r'"'
+	/bin/rm runInProgress.txt
+        exit -1
+    fi
+    diff_compare_file $b $g $n
+
+    DATA_FILES=`chop_head $DATA_FILES`
+    DIFF_NAMES=`chop_head $DIFF_NAMES`
+    DIFF_REQ=`chop_head $DIFF_REQ`
+done
+
+# 
+############################################################################################################################
+#
+# Determine the overall success of the run
+#
+eCode=$retnStat_xml
+if test $retnStat_xml = "0"
+then
+   eCode=$retnStat_cum
+fi
+
+if [ $eCode == "0" ]
+then
+  echo "Successful   test comparison on "`pwd`
+  echo "  Test Passed: " `date` > runGood
+  /bin/rm -f runBad
+else
+  echo "Unsuccessful test comparison on "`pwd`
+  echo "  Test Failed: " `date` > runBad
+  /bin/rm -f runGood
+fi
+#
+#  Release the semiphore
+#
+/bin/rm runInProgress.txt
+#
+# return 0 for no errors, 1 for errors which break the test suite
+#
+exit 0
+
