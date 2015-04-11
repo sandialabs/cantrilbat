@@ -31,3 +31,5 @@ accumulatedHeatSource.txt
 runBad
 stepwiseHeatSource.txt
 LiIon_PorousBat
+Capacity_Starting.dat
+out_raw.txt

@@ -221,7 +221,6 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                  *  For flux boundary conditions, subtract from equation indicating a flux out
                  */
                 res[ieqn] += val;
-                //CAL: WARNING m1d_SurDomain1D.cpp has -= val
                 break;
 
             case 2:
@@ -235,7 +234,6 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                 /*
                  *  For flux boundary conditions with oscillation, replace the equation
                  */
-                //CAL: WARNING m1d_SurDomain1D.cpp has -= val
                 res[ieqn] += val * TimeDep_NE[i](t);
                 break;
 
@@ -261,7 +259,6 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 		 *  For flux boundary conditions we must supply the value of  = icurr dot n_out
 		 *  icurr is the current density (coul / (sec m2)) dotted into the outward facing normal
                  */
-                //CAL: WARNING m1d_SurDomain1D.cpp has -= val
                 res[ieqn] += BC_TimeDep_NE[i]->value(t, timeRegion);
                 break;
 
@@ -303,19 +300,25 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
         }
     }
 #endif
-
+    //
+    //  Retrieve the values of phiElectrolyte_ and phiCathode_ from the current solution vector
+    //
     getVoltages(& (soln[index_EqnStart]));
     /*
-     * get the consistent currents
+     * Get the consistent currents
      */
     SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
     BulkDomain1D* bd = bedd_->BulkDomainPtr_;
+    //
+    //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
+    //  We will use this as the official current coming out of the cathode.
+    //
     icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
 
     double resistivity = resistivity_aluminum(298.);
     double denom = resistivity * SDD_cathode_ptr->cathodeCCThickness_ +
                    SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_;
-    double  phiCathodeCCcalc = phiCathode_ - icurrCollector_ * denom;
+    double phiCathodeCCcalc = phiCathode_ - icurrCollector_ * denom;
 
     if ((SDD_cathode_ptr->voltageVarBCType_ != 1) && (SDD_cathode_ptr->voltageVarBCType_ != 10)) {
         phiCathodeCC_  = phiCathodeCCcalc;
@@ -491,27 +494,33 @@ void SurDomain_CathodeCollector::initialConditions(const bool doTimeDependentRes
 
     // Store either the cathode voltage or current as specified by the BC
     //
-    // the cathode voltage variable index is 1 greater than the electrolyte voltage index
+    //  The cathode voltage variable index is 1 greater than the electrolyte voltage index
     int indexCathVoltage = bedd_->VariableIndexStart_VarName[Voltage] + 1;
     ieqn = index_EqnStart + indexCathVoltage;
 
-    //if we are setting the voltage, then use the value computed above for phiCathode_
+    //  if we are setting the voltage, then use the value computed above for phiCathode_
     if (BC_Type_NE[indexCathVoltage] == 0 || BC_Type_NE[indexCathVoltage] == 2 || BC_Type_NE[indexCathVoltage] == 4
             || BC_Type_NE[indexCathVoltage] == 6 || BC_Type_NE[indexCathVoltage] == 8) {
         phiCathode_ = soln[ieqn];
     }
     phiCathodeCC_ = phiCathode_;
 
-    //For Neumann BC it is convenient to store the current
-    //fixed current specified by "Discharge Current" keyword
+    //  For Neumann BC it is convenient to store the current fixed current specified by "Discharge Current" keyword
+    //  within this object in icurrCollector_. It's also equal to  Value_NE[indexCathVoltage], which is fixed.
+    //
     if (BC_Type_NE[indexCathVoltage] == 1) {
         icurrCollector_ = Value_NE[indexCathVoltage];
     }
-    //time dependent function
+    //  Time dependent function to specify the current.
+    //  Store the initial value of icurrCollector_ within the variable icurrCollector_.
+    //
     else if (BC_Type_NE[indexCathVoltage] == 3) {
         icurrCollector_ = Value_NE[indexCathVoltage] * TimeDep_NE[indexCathVoltage](t);
     }
-    //Boundary condition class (constant, linear or step changes)
+    //
+    //  Boundary condition class (constant, linear or step changes) : specification of current directly
+    //  Calculate the initial current and store it in icurrCollector_
+    //
     else if (BC_Type_NE[indexCathVoltage] == 5 || BC_Type_NE[indexCathVoltage] == 7 || BC_Type_NE[indexCathVoltage] == 9) {
         icurrCollector_ = BC_TimeDep_NE[indexCathVoltage]->value(t, timeRegion);
     }
