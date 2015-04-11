@@ -628,10 +628,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double xdelR; // Distance from the center node to the right node
     double xdelCell; // cell width - right boundary minus the left boundary.
 
-    //  Electrolyte total molar fluxe on Right side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
-    double fluxFright = 0.;
-    //  Electrolyte total molar fluxe on Left side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
-    double fluxFleft;
+    //  Electrolyte total molar flux on Right and Left side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
+    double fluxFright = 0.0;
+    double fluxFleft = 0.0;
 
     // Thermal Fluxes
     double fluxTleft = 0.0;
@@ -643,6 +642,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double fluxL_JHelec = 0.0;
     double fluxR_JHelec = 0.0;
 
+    // Calculated current at the current collector that is conservative
+    double icurrElectrode_RBcons = 0.0;
+
     // mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
@@ -652,8 +654,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
   
 
     const Epetra_Vector& soln = *soln_ptr;
-    //  const Epetra_Vector &solnOld = *solnOld_ptr;
-
+ 
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
      */
@@ -974,7 +975,16 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             icurrElectrode_CBR_[iCell] = 0.0;
             for (int k = 0; k < nsp_; k++) {
                 fluxXright[k] = 0.0;
-            }
+            } 
+	    //
+	    // Calculate the current at the boundary that is conservative.
+	    //   This is really  icurrElectrolyte_CBR_[iCell]. However, we leave that 0 because of the
+	    //   need to impose boundary conditions.
+	    //
+	    icurrElectrode_RBcons = -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
+	    jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_RBcons / Faraday;
+	    jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
+	    fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
         } else {
             /*
              *  Establish the environment at the right cell boundary
@@ -1084,7 +1094,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
               res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
 	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
 	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHelec - fluxL_JHelec);
-        }
+        } else if (PS_ptr->energyEquationProbType_ == 4) {
+
+	}
 
         /*
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
@@ -1161,15 +1173,23 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          * These are the correct currents that work for the global balances
          */
         if (IOwnRight && iCell == (NumLcCells - 1)) {
-
+	    double icurrElectrode_CBR_CC = -icurrInterface_Cell_[iCell] + icurrElectrode_CBL_[iCell];
             if (residType == Base_ShowSolution || residType == Base_ResidEval) {
-                icurrElectrode_CBR_[iCell] += -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
+                icurrElectrode_CBR_[iCell] = -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
             }
             if (residType == Base_ShowSolution || residType == Base_ResidEval) {
                 DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation] = icurrElectrolyte_CBR_[iCell];
-                DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] = icurrElectrode_CBR_[iCell];
-            }
+                DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] =  icurrElectrode_CBR_CC;
+		  -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
+            
+		if (PS_ptr->energyEquationProbType_ == 3) {
+		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = fluxR_JHelec;
+		}
+	    }
         }
+	//
+	//  Calculate extra quantities if we are doing this residual to show the solution
+	//
         if (residType == Base_ShowSolution) {
             deltaV_Cell_[iCell] = Electrode_ptr->potentialDrop();
             for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++) {
@@ -1245,8 +1265,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                 }
             }
 #endif
-
-
             /*
              *  Add in the time term for species 0
              */
@@ -1264,14 +1282,13 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t
                                   -solnMoleFluxInterface_Cell_[iCell];
         }
-
     }
 
     /*
      * Special section to do the right boundary
      */
     /*
-     * Special section if we own the left node of the domain. If we do
+     * Special section if we own the rigt node of the domain. If we do
      * it will be last cell
      */
     if (IOwnRight) {
@@ -1700,6 +1717,11 @@ porousLiIon_Cathode_dom1D::SetupThermoShop1(const NodalVars* const nv, const dou
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
     updateElectrode();
+
+    metalPhase_->setState_TP(temp_Curr_, pres_Curr_);
+    metalPhase_->setElectricPotential(phiElectrode_Curr_);
+    metalPhase_->getPartialMolarEnthalpies(&EnthalpyPhiPM_metal_Curr_[0]);
+    EnthalpyPhiPM_metal_Curr_[0] -= Faraday * phiElectrode_Curr_;
 }
 //=====================================================================================================================
 void
@@ -1740,9 +1762,9 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
      */
     ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
     ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
+
     metalPhase_->setState_TP(temp_Curr_, pres_Curr_);
     metalPhase_->setElectricPotential(phiElectrode_Curr_);
-
     metalPhase_->getPartialMolarEnthalpies(&EnthalpyPhiPM_metal_Curr_[0]);
     EnthalpyPhiPM_metal_Curr_[0] -= Faraday * phiElectrode_Curr_;
 
@@ -1788,7 +1810,7 @@ porousLiIon_Cathode_dom1D::updateElectrolyte(const NodalVars* const nv, const do
     /*
      * Get the pressure
      */
-    pres_Curr_ = PressureReference_;
+    pres_Curr_ = getPointPressure(nv, solnElectrolyte_Curr);
 
     getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
     getVoltages(nv, solnElectrolyte_Curr);
@@ -1852,6 +1874,7 @@ porousLiIon_Cathode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const 
     double cpSolid =  cpSolidTotal / crossSectionalArea_;  
     return (cpSolid + cpLyte);
 }
+//=====================================================================================================================
 double
 porousLiIon_Cathode_dom1D::getCellEnthalpy(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
