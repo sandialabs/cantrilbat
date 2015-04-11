@@ -71,7 +71,7 @@ Electrolyte Phase = ECDMC_LiPF6
 !  inferior to the enthalpy formulation in this respect
 !
 !--------------------------------------------------------------------------------------------------------
-Energy Equation Problem Type = Enthalpy Equation
+Energy Equation Problem Type = Temperature Equation
 !--------------------------------------------------------------------------------------------------------
 !
 !     Heat Source Tracking - int (optional) (default = 0)
