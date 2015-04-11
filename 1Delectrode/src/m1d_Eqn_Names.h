@@ -48,6 +48,7 @@ enum EQ_Name_Enum
   MeshDisplacement_Axial,
   Enthalpy_Conservation,
   Thermal_Conservation,
+  Thermal_Dirichilet,
   Continuity,                // 5
   Continuity_Global,
   Species_Conservation,        // 7

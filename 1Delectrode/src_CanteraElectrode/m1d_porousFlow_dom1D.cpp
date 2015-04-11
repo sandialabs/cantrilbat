@@ -52,6 +52,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     ionicLiquid_ = BDT_ptr_->ionicLiquid_;
     trans_ = BDT_ptr_->trans_;
     solidSkeleton_ = BDT_ptr_->solidSkeleton_;
+
+    energyEquationProbType_ = PSinput.Energy_equation_prob_type_;
 }
 //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :

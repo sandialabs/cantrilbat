@@ -127,7 +127,7 @@ public:
         //! Integer representing the energy equation problem type
 	/*!
          *  0 -> isothermal               Don't solve an energy equation (default)
-         *  1 -> Fixed                    Don't solve an energy equation
+         *  1 -> Fixed Temperature Profile Don't solve an energy equation
          *  2 -> Dirichlet Equation       Solve a Dirichlet equation for temperature. 
          *                                This is a way to do the fixed system while keeping the
          *                                matrix structure the same.

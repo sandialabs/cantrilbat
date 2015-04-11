@@ -203,7 +203,6 @@ BDD_porousFlow::SetEquationsVariablesList()
     IsArithmeticScaled_NE[eqnIndex] = 1;
     eqnIndex++;
     
-    
     // Enthalpy conservation is used to solve for the temperature
     if (pb->energyEquationProbType_ == 3) {
 	/*
@@ -225,9 +224,16 @@ BDD_porousFlow::SetEquationsVariablesList()
         IsArithmeticScaled_NE[eqnIndex] = 0;
         eqnIndex++;
 
-    } else  if (pb-> energyEquationProbType_ != 0) {
-	printf("not implemented \n");
-	exit(-1);
+    } else if (pb->energyEquationProbType_ == 2) {
+        /*
+         * For equation type 2 push a dirichilet equation to the rear
+         */
+        EquationNameList.push_back(EqnType(Thermal_Dirichilet, 0, "Thermal Dirichilet"));
+        VariableNameList.push_back(VarType(Temperature, 0, 0));
+        IsAlgebraic_NE[eqnIndex] = 0;
+        IsArithmeticScaled_NE[eqnIndex] = 0;
+        eqnIndex++;
+
     }    
 }
 //=====================================================================================================================

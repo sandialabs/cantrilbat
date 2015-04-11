@@ -261,7 +261,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
     } else {
 	exit(-1);
     }
-
+    //
     //  Enthalpy conservation is used to solve for the temperature
     //           EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
     //           This is not an algebraic equation. It has a time derivative.
@@ -273,7 +273,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
 	IsArithmeticScaled_NE[eqnIndex] = 0;
 	eqnIndex++;
     }
-
+    //
     //  Thermal conservation is used to solve for the temperature
     //           
     if (PSCinput_ptr->Energy_equation_prob_type_ == 4) {
@@ -283,6 +283,19 @@ BDD_porousElectrode::SetEquationsVariablesList()
 	IsAlgebraic_NE[eqnIndex] = 0;
 	IsArithmeticScaled_NE[eqnIndex] = 0;
 	eqnIndex++;
+    }
+    //
+    //  Thermal dirichilet is used to solve for the temperature
+    //       
+    if (PSCinput_ptr->Energy_equation_prob_type_ == 2) {
+        /*
+         * For equation type 2 push a dirichilet equation to the rear
+         */
+        EquationNameList.push_back(EqnType(Thermal_Dirichilet, 0, "Thermal Dirichilet"));
+        VariableNameList.push_back(VarType(Temperature, 0, 0));
+        IsAlgebraic_NE[eqnIndex] = 0;
+        IsArithmeticScaled_NE[eqnIndex] = 0;
+        eqnIndex++;
     }
 
 }

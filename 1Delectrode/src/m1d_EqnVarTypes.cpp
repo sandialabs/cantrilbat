@@ -89,6 +89,12 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
     case Enthalpy_Conservation:
       return std::string("Enthalpy_conservation");
       break;
+    case Thermal_Conservation:
+      return std::string("Thermal_conservation");
+      break;
+    case Thermal_Dirichilet:
+      return std::string("Thermal_Dirichilet");
+      break;
     case Continuity:
       return std::string("Continuity");
       break;
@@ -401,6 +407,10 @@ EqnToVarEnum(EQ_TYPE eqType)
   } else if (eqType == MeshDisplacement_Axial) {
     return Displacement_Axial;
   } else if (eqType == Enthalpy_Conservation) {
+    return Temperature;
+  } else if (eqType == Thermal_Conservation) {
+    return Temperature;
+  } else if (eqType == Thermal_Dirichilet) {
     return Temperature;
   } else if (eqType == Continuity) {
     return Pressure_Axial;

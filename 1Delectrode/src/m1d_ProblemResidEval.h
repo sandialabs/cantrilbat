@@ -1032,7 +1032,7 @@ public:
     */
    double cylinderLength_;
 
-   //!  Int indicating the energy equation treation
+   //!  Int indicating the energy equation treatment
    /*!
     *  0 -> isothermal               Don't solve an energy equation (default)
     *  1 -> Fixed                    Don't solve an energy equation
