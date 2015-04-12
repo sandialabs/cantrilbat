@@ -254,9 +254,24 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
         porosity_Cell_old_[iCell] = porosity_Curr_;
 
         double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
-        mfElectrolyte_Soln_old[0] = mfElectrolyte_Soln_Curr_[0];
-        mfElectrolyte_Soln_old[1] = mfElectrolyte_Soln_Curr_[1];
-        mfElectrolyte_Soln_old[2] = mfElectrolyte_Soln_Curr_[2];
+        for (size_t k = 0; k < (size_t) nsp_; ++k) {
+            mfElectrolyte_Soln_old[k] = mfElectrolyte_Soln_Curr_[k];
+        }
+
+        if (energyEquationProbType_ == 3) { 
+            double volCell = xdelCell_Cell_[iCell]; 
+
+            double solidEnthalpyNew = solidSkeleton_->enthalpy_mole() / crossSectionalArea_;
+            //
+            // Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
+            // 
+            double lyteEnthalpyNew = EnthalpyPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * volCell;
+            // 
+            //
+            // Calculate and store the total enthalpy in the cell at the current conditions
+            //
+            nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+        }
     }
 }
 //=====================================================================================================================
@@ -813,6 +828,46 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              */
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
 
+
+	    if  (energyEquationProbType_ == 3) {
+		//
+		// Do old time enthalpy calculation -> will be replaced
+		//   (volcell might have changed -> this will work if it hasn't)
+		double volCellOld = xdelCell;
+                double solidMolarEnthalpyOld = solidSkeleton_->enthalpy_mole();
+		double solidConcOld =  1.0 / solidSkeleton_->molarVolume();
+		double volSolidOld = (1.0 - porosity_Curr_) * volCellOld;
+		double solidEnthalpyOld = solidMolarEnthalpyOld * solidConcOld *  volSolidOld;
+
+	        double lyteMolarEnthalpyOld = ionicLiquid_->enthalpy_mole();
+		double volLyteOld = porosity_Curr_ * volCellOld;
+		double lyteEnthalpyOld =  lyteMolarEnthalpyOld * concTot_Curr_ * volLyteOld;
+	
+		double nEnthalpy_Old =  solidEnthalpyOld + lyteEnthalpyOld;
+
+
+		if (! checkDblAgree( nEnthalpy_Old, nEnthalpy_Old_Cell_[iCell] ) ) {
+		    throw m1d_Error("", "Disagreement on old enthalpy calc");
+		}
+
+		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+		double volCellNew = xdelCell;
+                double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
+		double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
+		double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
+		double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
+
+	        double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+		double volLyteNew = porosity_Curr_ * volCellNew;
+		double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+	
+		nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+
+		double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+		res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
+	    }
+
             /*
              *   .................... Go back to setting up shop at the current time
              */
@@ -997,6 +1052,8 @@ porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const d
 {
     updateElectrolyte(nv, solnElectrolyte_Curr);
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
+
+    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
 }
 //=====================================================================================================================
 void

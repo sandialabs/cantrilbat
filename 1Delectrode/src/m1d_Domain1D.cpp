@@ -30,19 +30,21 @@ Domain1D::Domain1D() :
     coordinateSystemType_(Rectilinear_Coordinates),
     crossSectionalArea_(1.0), 
     cylinderLength_(1.0),
-    TemperatureReference_(298.15), PressureReference_(1.01325e5),
-    doEnthalpyEquation_(0),
-      residType_Curr_(Base_ResidEval), counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
-      counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0)
+    TemperatureReference_(298.15), 
+    PressureReference_(1.01325e5),
+    energyEquationProbType_(0),
+    residType_Curr_(Base_ResidEval), 
+    counterResBaseCalcs_(0), 
+    counterJacBaseCalcs_(0),
+    counterJacDeltaCalcs_(0), 
+    counterResShowSolutionCalcs_(0)
 {
     coordinateSystemType_ = PSinput_ptr->coordinateSystemType_;
     crossSectionalArea_ = PSinput_ptr->crossSectionalArea_;
     cylinderLength_ = PSinput_ptr->cylinderLength_;
     TemperatureReference_ = PSinput_ptr->TemperatureReference_;
     PressureReference_ = PSinput_ptr->PressureReference_;
-    if (PSinput_ptr->Energy_equation_prob_type_ == 3) {
-         doEnthalpyEquation_ = 3;
-    }
+    energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
 }
 //=====================================================================================================================
 Domain1D::Domain1D(const Domain1D &r) :
@@ -52,7 +54,7 @@ Domain1D::Domain1D(const Domain1D &r) :
     cylinderLength_(1.0),
     TemperatureReference_(298.15), 
     PressureReference_(1.01325e5),
-    doEnthalpyEquation_(0),
+    energyEquationProbType_(0),
     residType_Curr_(Base_ResidEval), 
     counterResBaseCalcs_(0), 
     counterJacBaseCalcs_(0),
@@ -84,7 +86,7 @@ Domain1D::operator=(const Domain1D &r)
   counterResShowSolutionCalcs_ = r.counterResShowSolutionCalcs_;
   TemperatureReference_ = r.TemperatureReference_;
   PressureReference_ = r.PressureReference_;
-  doEnthalpyEquation_ = r.doEnthalpyEquation_;
+  energyEquationProbType_ = r.energyEquationProbType_;
 
   return *this;
 }

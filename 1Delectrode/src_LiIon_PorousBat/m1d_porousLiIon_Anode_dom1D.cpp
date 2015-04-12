@@ -1257,7 +1257,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
         }
 
-	if  ( 0 && doEnthalpyEquation_) {
+	if  (energyEquationProbType_ == 3) {
             //
 	    //  Need to count up the enthalpy over the electrode and the electrolyte on a per cross-sectional area basis
 	    //
@@ -1281,10 +1281,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
 
-
-            
-
-	    //res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
 	}
     }
 }
@@ -1808,7 +1804,7 @@ porousLiIon_Anode_dom1D::updateElectrolyte(const NodalVars* const nv, const doub
     /*
      * Get the pressure
      */
-    pres_Curr_ = PressureReference_;
+    pres_Curr_ = getPointPressure(nv, solnElectrolyte_Curr);
 
     getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
     getVoltages(nv, solnElectrolyte_Curr);

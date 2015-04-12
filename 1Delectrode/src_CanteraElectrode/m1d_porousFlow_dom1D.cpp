@@ -184,7 +184,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     EnthalpyPM_lyte_Curr_.resize(nsp, 0.0);
     EnthalpyPhiPM_lyte_Curr_.resize(nsp, 0.0);
  
-    if  (doEnthalpyEquation_) {
+    if  (energyEquationProbType_) {
 	CpPM_lyte_Cell_.resize(NumLcCells * nsp, 0.0);
 	EnthalpyPM_lyte_Cell_.resize(NumLcCells * nsp, 0.0);
 	EnthalpyMolar_lyte_Cell_.resize(NumLcCells, 0.0);

@@ -528,7 +528,7 @@ public:
    */
   double PressureReference_;
 
-  int doEnthalpyEquation_;
+  int energyEquationProbType_;
 
 protected:
 
