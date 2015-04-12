@@ -36,6 +36,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     BDT_ptr_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
+    Temp_Cell_old_(0),
     cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
     pres_Curr_(PressureReference_),
@@ -60,6 +61,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
       BDT_ptr_(0),
       porosity_Cell_(0),
       porosity_Cell_old_(0),
+      Temp_Cell_old_(0),
       cIndex_cc_(-1),
       temp_Curr_(TemperatureReference_),
       pres_Curr_(PressureReference_),
@@ -95,6 +97,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     EnthalpyPM_lyte_Cell_     = r.EnthalpyPM_lyte_Cell_;
     porosity_Cell_            = r.porosity_Cell_;
     porosity_Cell_old_        = r.porosity_Cell_old_;
+    Temp_Cell_old_            = r.Temp_Cell_old_;
     cIndex_cc_                = r.cIndex_cc_;
     temp_Curr_                = r.temp_Curr_;
     pres_Curr_                = r.pres_Curr_;
@@ -158,6 +161,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
+    Temp_Cell_old_.resize(NumLcCells, TemperatureReference_);
 
     cellTmpsVect_Cell_.resize(NumLcCells);
 

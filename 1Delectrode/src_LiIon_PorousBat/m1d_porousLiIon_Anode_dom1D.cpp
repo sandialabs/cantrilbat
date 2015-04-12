@@ -534,6 +534,7 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
+	Temp_Cell_old_[iCell] = temp_Curr_;
 
         double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
 	for (size_t k = 0; k < (size_t) nsp_; ++k) {
@@ -1307,6 +1308,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    //
 	    //  Need to count up the heat capacity over the electrode and the electrolyte on a per cross-sectional area basis
 	    //
+	    double cp =  CpMolar_total_Cell_[iCell];
+	    double tempOld = Temp_Cell_old_[iCell];
+	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += cp * (temp_Curr_ - tempOld) * rdelta_t;
 
 	}
     }
@@ -3053,6 +3057,8 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         if (iVar_Temperature != npos) {
             soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
         }
+	Temp_Cell_old_[iCell] = temp_Curr_;
+
 	//
 	// Set the pressure if it is part of the solution vector
 	//

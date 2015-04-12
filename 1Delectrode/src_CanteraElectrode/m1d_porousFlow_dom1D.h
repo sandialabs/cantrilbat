@@ -263,6 +263,12 @@ protected:
      */
     std::vector<double> porosity_Cell_old_;
 
+    //! Temperature within each cell at the previous time step
+    /*!
+     *  Length is number of cells on the processor.
+     */
+    std::vector<double> Temp_Cell_old_;
+
     //
     // --------------------- Cell Storage -------------------------------------------------------------------------------
     //

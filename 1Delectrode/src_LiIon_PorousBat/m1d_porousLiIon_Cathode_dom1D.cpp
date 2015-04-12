@@ -524,11 +524,12 @@ porousLiIon_Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, 
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
+	Temp_Cell_old_[iCell] = temp_Curr_;
 
         double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
-        mfElectrolyte_Soln_old[0] = mfElectrolyte_Soln_Curr_[0];
-        mfElectrolyte_Soln_old[1] = mfElectrolyte_Soln_Curr_[1];
-        mfElectrolyte_Soln_old[2] = mfElectrolyte_Soln_Curr_[2];
+	for (size_t k = 0; k < (size_t) nsp_; ++k) {
+            mfElectrolyte_Soln_old[k] = mfElectrolyte_Soln_Curr_[k];
+        }
         /*
          * Tell the electrode object to accept the current step and prep for the next step.
          *
@@ -3046,6 +3047,8 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
         if (iVar_Temperature != npos) {
             soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
         }
+	Temp_Cell_old_[iCell] = temp_Curr_;
+
 	//
 	// Set the pressure if it is part of the solution vector
 	//
