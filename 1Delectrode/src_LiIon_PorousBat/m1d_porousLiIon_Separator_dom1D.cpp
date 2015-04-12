@@ -28,7 +28,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     porousFlow_dom1D(bdd),
     BDT_ptr_(0),
     nph_(0), nsp_(0),
-    concTot_Cell_(0), concTot_Cell_old_(0), 
+    concTot_Cell_(0), 
+    concTot_Cell_old_(0), 
     Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
     t_final_(0.0), t_init_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
@@ -895,6 +896,79 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     }
 
 }
+//=================================================================================================================
+void
+porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
+					       const Epetra_Vector* soln_ptr,
+					       const Epetra_Vector* solnDot_ptr,
+					       const Epetra_Vector* solnOld_ptr,
+					       const double t,
+					       const double rdelta_t,
+					       const ResidEval_Type_Enum residType,
+					       const Solve_Type_Enum solveType)
+{
+    static int tmpsSetup = 0;
+    if (!tmpsSetup) {
+        residSetupTmps();
+        tmpsSetup = 1;
+    }
+
+    
+    residType_Curr_ = residType;
+    const Epetra_Vector& soln = *soln_ptr;
+
+    t_final_ = t;
+    if (rdelta_t < 1.0E-200) {
+        t_init_ = t;
+    } else {
+        // We want an infinitly small time step 
+        if (solveType == TimeDependentInitial) {
+           t_init_ = t;
+        } else {
+           t_init_ = t - 1.0/rdelta_t;
+        }
+    }
+
+    /*
+     *  ------------------------------ LOOP OVER CELL -------------------------------------------------
+     *  Loop over the number of Cells in this domain on this processor
+     *  This loop is done from left to right.
+     */
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
+
+        cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+        NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+        NodalVars* nodeCent = cTmps.nvCent_;
+
+	/*
+         *   Get the pointer to the NodalVars object for the center node
+         */
+        int indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+        /*
+         * Calculate the cell width
+         */
+	xdelCell_Cell_[iCell] = cTmps.xCellBoundaryR_ - cTmps.xCellBoundaryL_;
+
+        for (int k = 0; k < nsp_; k++) {
+            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+        }
+        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+      
+        /*
+         * Setup the thermo
+         */
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+       
+	//
+	//  Get the total lyte, total solid and total cell heat capacity of the current cell
+	//  Store them in vectors for later use.
+	//
+	if (energyEquationProbType_) {
+	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
+	}
+    }
+}
 //=============================================================================================================================
 void
 porousLiIon_Separator_dom1D::eval_PostSoln(
@@ -1174,14 +1248,16 @@ porousLiIon_Separator_dom1D::getVoltages(const NodalVars* const nv, const double
 double
 porousLiIon_Separator_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
-    double cpMolar = ionicLiquid_->cp_mole();
+    double CpMolar = ionicLiquid_->cp_mole();
     double lyteVol = porosity_Curr_ * xdelCell_Cell_[cIndex_cc_];
+    CpMolar_lyte_Cell_[cIndex_cc_] = lyteVol * concTot_Curr_ * CpMolar;
+
     double solidVol = (1.0 - porosity_Curr_) * xdelCell_Cell_[cIndex_cc_];
-    double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
     double cpMolarSolid = solidSkeleton_->cp_mole();
-    double concSolid = 1.0 / solidSkeleton_->molarDensity();
-    double cpSolid =  solidVol * concSolid * cpMolarSolid;  
-    return cpSolid + cpLyte;
+    double concSolid = solidSkeleton_->molarDensity();
+    CpMolar_solid_Cell_[cIndex_cc_] = solidVol * concSolid * cpMolarSolid;
+    double cptotal = CpMolar_lyte_Cell_[cIndex_cc_] + CpMolar_solid_Cell_[cIndex_cc_];
+    return cptotal;
 }
 //=====================================================================================================================
 void

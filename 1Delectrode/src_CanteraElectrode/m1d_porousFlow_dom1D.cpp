@@ -34,7 +34,6 @@ namespace m1d
 porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     BulkDomain1D(bdd),
     BDT_ptr_(0),
-    energyEquationProbType_(0),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     cIndex_cc_(-1),
@@ -59,7 +58,6 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
       BulkDomain1D(r.BDD_),
       BDT_ptr_(0),
-      energyEquationProbType_(0),
       porosity_Cell_(0),
       porosity_Cell_old_(0),
       cIndex_cc_(-1),
@@ -91,8 +89,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     BulkDomain1D::operator=(r);
 
     BDT_ptr_                  = r.BDT_ptr_;
-    energyEquationProbType_   = r.energyEquationProbType_;
-    CpPM_lyte_Cell_           = r.CpPM_lyte_Cell_;
+    CpMolar_lyte_Cell_        = r.CpMolar_lyte_Cell_;
+    CpMolar_solid_Cell_       = r.CpMolar_solid_Cell_;
+    CpMolar_total_Cell_       = r.CpMolar_total_Cell_;
     EnthalpyPM_lyte_Cell_     = r.EnthalpyPM_lyte_Cell_;
     porosity_Cell_            = r.porosity_Cell_;
     porosity_Cell_old_        = r.porosity_Cell_old_;
@@ -185,7 +184,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     EnthalpyPhiPM_lyte_Curr_.resize(nsp, 0.0);
  
     if  (energyEquationProbType_) {
-	CpPM_lyte_Cell_.resize(NumLcCells * nsp, 0.0);
+	CpMolar_lyte_Cell_.resize(NumLcCells, 0.0);
+	CpMolar_solid_Cell_.resize(NumLcCells, 0.0);
+	CpMolar_total_Cell_.resize(NumLcCells, 0.0);
 	EnthalpyPM_lyte_Cell_.resize(NumLcCells * nsp, 0.0);
 	EnthalpyMolar_lyte_Cell_.resize(NumLcCells, 0.0);
     }

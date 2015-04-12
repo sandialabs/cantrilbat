@@ -217,17 +217,20 @@ public:
     // ------------------  Options for Processing ------------------------------------------------------------------------
 
     //! Boolean indicating whether we are solving the enthalpy conservation equation on the domain
-    int energyEquationProbType_;
+    // int energyEquationProbType_;
 
 
     // ------------------- Thermodynamics quantities on the domain -------------------------------------------------------
 
-    //!  Partial molar Heat Capacity  of the electrolyte species located in all of the cells
+    //! Molar Heat Capacity of the electrolyte phase located in all of the cells
     /*!
-     *   Vector of partial molar heat capacity const press (KRSpecies, iCell)
+     *   Vector of Molar heat capacity const press (iCell)
      *   Units of Joules/(kmol K)
      */
-    std::vector<doublereal> CpPM_lyte_Cell_;
+    std::vector<doublereal> CpMolar_lyte_Cell_;
+
+    std::vector<doublereal> CpMolar_solid_Cell_;
+    std::vector<doublereal> CpMolar_total_Cell_;
 
     //!  Partial molar Enthalpy  of the electrolyte species located in all of the cells
     /*!

@@ -1303,6 +1303,11 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
 
+	} else if (energyEquationProbType_ == 4) {
+	    //
+	    //  Need to count up the heat capacity over the electrode and the electrolyte on a per cross-sectional area basis
+	    //
+
 	}
     }
 }
@@ -1396,9 +1401,19 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          */
         int numSubcycles = calcElectrode();
         maxElectrodeSubIntegrationSteps_ = std::max(maxElectrodeSubIntegrationSteps_, numSubcycles);
+	//
+	//  Get the total lyte, total solid and total cell heat capacity of the current cell
+	//  Store them in vectors for later use.
+	//
+	if (energyEquationProbType_) {
+	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
+	}
     }
 }
 //====================================================================================================================
+//
+//  Calculate Various quantities after the solution has been obtained
+//
 void
 porousLiIon_Anode_dom1D::eval_PostSoln(
     const bool doTimeDependentResid,
@@ -1877,10 +1892,9 @@ porousLiIon_Anode_dom1D::getVoltages(const NodalVars* const nv, const double* co
 }
 //=====================================================================================================================
 /*
- *  We assume that setupthermoshop1 has been called.
- *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
+ *  We assume that SetupThermoShop1 has been called.
+ *  This calculates the Heat Capacity per cross-sectional area (Joules/K m2)
  *
- *   crossSectionalArea_
  */
 double
 porousLiIon_Anode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
@@ -1888,10 +1902,11 @@ porousLiIon_Anode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const do
     Electrode* Electrode_ptr = Electrode_Cell_[cIndex_cc_];
     double cpMolar = ionicLiquid_->cp_mole();
     double lyteVol = porosity_Curr_ * xdelCell_Cell_[cIndex_cc_];
-    double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
-    double cpSolidTotal = Electrode_ptr->SolidHeatCapacityCV() ;
-    double cpSolid =  cpSolidTotal / crossSectionalArea_;
-    return (cpSolid + cpLyte);
+    CpMolar_lyte_Cell_[cIndex_cc_]  =  lyteVol * concTot_Curr_ * cpMolar;
+    double cpSolidTotal = Electrode_ptr->SolidHeatCapacityCV();
+    CpMolar_solid_Cell_[cIndex_cc_] =  cpSolidTotal / crossSectionalArea_;
+    double cptotal = CpMolar_lyte_Cell_[cIndex_cc_] + CpMolar_solid_Cell_[cIndex_cc_];
+    return cptotal;
 }
 //=====================================================================================================================
 void

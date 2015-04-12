@@ -147,6 +147,33 @@ public:
 		  const double t,
 		  const double rdelta_t);
 
+    //! Utility function to calculate quantities before the main residual routine.
+    /*!
+     *  This is used for a loop over nodes. All calculated quantities must be internally storred.
+     *
+     *  Currently this is called during the residual evalultion of the problem.
+     *
+     * @param res  Output vector containing the residual
+     * @param doTimeDependentResid  boolean indicating whether the time
+     *                         dependent residual is requested
+     * @param soln_ptr     solution vector at which the residual should be
+     *                     evaluated
+     * @param solnDot_ptr  solution dot vector at which the residual should
+     *                     be evaluated.
+     * @param solnOld_ptr  Pointer to the solution vector at the old time step
+     *  @param t           time
+     *  @param rdelta_t    inverse of delta_t
+     */
+    virtual void
+    residEval_PreCalc(const bool doTimeDependentResid,
+                      const Epetra_Vector* soln_ptr,
+                      const Epetra_Vector* solnDot_ptr,
+                      const Epetra_Vector* solnOld_ptr,
+                      const double t,
+                      const double rdelta_t,
+                      const ResidEval_Type_Enum residType,
+                      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+
 
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects

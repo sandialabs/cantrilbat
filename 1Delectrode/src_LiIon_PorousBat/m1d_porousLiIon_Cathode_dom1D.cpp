@@ -1197,8 +1197,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             if (residType == Base_ShowSolution || residType == Base_ResidEval) {
                 DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation] = icurrElectrolyte_CBR_[iCell];
                 DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Current_Conservation + 1] =  icurrElectrode_CBR_CC;
-		  -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
-            
+       
 		if (PS_ptr->energyEquationProbType_ == 3) {
 		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = fluxR_JHelec;
 		}
@@ -1445,6 +1444,13 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          */
         int numSubcycles = calcElectrode();
         maxElectrodeSubIntegrationSteps_ = std::max(maxElectrodeSubIntegrationSteps_, numSubcycles);
+	//
+	//  Get the total lyte, total solid and total cell heat capacity of the current cell
+	//  Store them in vectors for later use.
+	//
+	if (energyEquationProbType_) {
+	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
+	}
     }
 }
 //=====================================================================================================================
@@ -1903,10 +1909,9 @@ porousLiIon_Cathode_dom1D::getVoltages(const NodalVars* const nv, const double* 
 }
 //=====================================================================================================================
 /*
- *  We assume that setupthermoshop1 has been called.
- *  This calculates the Heat capacity per cross-sectional area (Joules/K m2)
- *
- *   crossSectionalArea_
+ *  We assume that SetupThermoShop1() has been called.
+ *  This calculates the Heat Capacity per cross-sectional area (Joules/K m2)
+ *  
  */
 double
 porousLiIon_Cathode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
@@ -1914,12 +1919,18 @@ porousLiIon_Cathode_dom1D::getCellHeatCapacity(const NodalVars* const nv, const 
     Electrode* Electrode_ptr = Electrode_Cell_[cIndex_cc_];
     double cpMolar = ionicLiquid_->cp_mole();
     double lyteVol = porosity_Curr_ * xdelCell_Cell_[cIndex_cc_];
-    double cpLyte =  lyteVol * concTot_Curr_ * cpMolar;
-    double cpSolidTotal = Electrode_ptr->SolidHeatCapacityCV() ;
-    double cpSolid =  cpSolidTotal / crossSectionalArea_;  
-    return (cpSolid + cpLyte);
+    CpMolar_lyte_Cell_[cIndex_cc_]  =  lyteVol * concTot_Curr_ * cpMolar;
+    double cpSolidTotal = Electrode_ptr->SolidHeatCapacityCV();
+    CpMolar_solid_Cell_[cIndex_cc_] =  cpSolidTotal / crossSectionalArea_;
+    double cptotal = CpMolar_lyte_Cell_[cIndex_cc_] + CpMolar_solid_Cell_[cIndex_cc_];
+    return cptotal;
 }
 //=====================================================================================================================
+/*
+ *  We assume that SetupThermoShop1() has been called.
+ *  This calculates the total Enthalpy per cross-sectional area (Joules/K m2)
+ *  
+ */
 double
 porousLiIon_Cathode_dom1D::getCellEnthalpy(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
@@ -1931,8 +1942,6 @@ porousLiIon_Cathode_dom1D::getCellEnthalpy(const NodalVars* const nv, const doub
     double cpSolid =  cpSolidTotal / crossSectionalArea_;  
     return (cpSolid + cpLyte);
 }
-
-
 //=====================================================================================================================
 void
 porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
