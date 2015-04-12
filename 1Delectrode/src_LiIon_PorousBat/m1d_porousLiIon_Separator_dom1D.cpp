@@ -27,9 +27,7 @@ namespace m1d
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon& bdd) :
     porousFlow_dom1D(bdd),
     BDT_ptr_(0),
-    ionicLiquid_(0), 
-    solidSkeleton_(0),
-    trans_(0), nph_(0), nsp_(0),
+    nph_(0), nsp_(0),
     concTot_Cell_(0), concTot_Cell_old_(0), 
     Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
@@ -48,8 +46,6 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     if (!BDT_ptr_) {
         throw m1d_Error("porousLiIon_Separator_dom1D", "confused");
     }
-    ionicLiquid_ = BDT_ptr_->ionicLiquid_;
-    trans_ = BDT_ptr_->trans_;
     nsp_ = ionicLiquid_->nSpecies();
     nph_ = 1;
 
@@ -72,9 +68,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
     porousFlow_dom1D((BDD_porousFlow&) r.BDD_),
     BDT_ptr_(0),
-    ionicLiquid_(0),
-    solidSkeleton_(0),
-    trans_(0), nph_(0), nsp_(0),
+    nph_(0), nsp_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Fleft_cc_(0.0),
     Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
@@ -92,7 +86,6 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
 //=====================================================================================================================
 porousLiIon_Separator_dom1D::~porousLiIon_Separator_dom1D()
 {
-    delete solidSkeleton_;
 }
 //=====================================================================================================================
 porousLiIon_Separator_dom1D&
@@ -106,8 +99,6 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
 
     BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
     ionicLiquid_                          = r.ionicLiquid_;
-    solidSkeleton_                        = r.solidSkeleton_;
-    trans_                                = r.trans_;
     nph_                                  = r.nph_;
     nsp_                                  = r.nsp_;
     xdelCell_Cell_                        = r.xdelCell_Cell_;
@@ -170,15 +161,10 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      *
      */
 
-    int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.separatorPhase_);
-    ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-    solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
-
     //need to convert inputs from cgs to SI
     double volumeSeparator =
         PSinput.separatorArea_ * PSinput.separatorThickness_;
-    double volumeInert =
-        PSinput.separatorMass_ / solidSkeleton_->density() ;
+    double volumeInert = PSinput.separatorMass_ / solidSkeleton_->density() ;
     double porosity = 1.0 - volumeInert / volumeSeparator;
 
     std::cout << "Separator volume is " << volumeSeparator << " m^3 with "

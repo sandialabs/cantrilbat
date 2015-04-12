@@ -654,16 +654,6 @@ protected:
      */
     std::vector<double> concTot_Cell_old_;
 
-    //! Electrode Cell data for the anode cells
-    /*!
-     *  Length is the number of owned Cells on the processor
-     *   -> not sure what owned here means. This will have to be figured out in the future.
-     *   Note, in contrast to the other quantities in the calculation, the electrode object is extrinsic
-     *   it has a volume associated with it.  The volume is equal to the control volume thickness
-     *   multiplied by the cross-sectional area.
-     */
-    //std::vector<Cantera::Electrode*> Electrode_Cell_;
-
     //!  Capacity discharged by the particular electrode cell per cross sectional area
     /*!
      *   Units:  amps * sec / m2  = coulumbs / m2
@@ -703,9 +693,6 @@ protected:
 
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
-
-    //! Cell index number
-    //int cIndex_cc_;
 
     //! Axial velocity - left cell boundary
     double Fleft_cc_;
@@ -758,20 +745,8 @@ protected:
 
     Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
 
-    //! Local value of the temperature
-    //double temp_Curr_;
-
-    //! Local value of the pressure
-    //double pres_Curr_;
-
-    //!  Current value of the electrolyte voltage
-    // double phiElectrolyte_Curr_;
-
     //!  Current value of the voltage in the anode
     double phiElectrode_Curr_;
-
-    //!  Total concentration
-    //double concTot_Curr_;
 
     //! Electrical conductivity of the electrode
     /*!
@@ -911,7 +886,6 @@ protected:
      *   This will get the charge balance equation applied to it
      */
     int iPF6m_;
-
 
     // --------------------------------------------------------------------------
 

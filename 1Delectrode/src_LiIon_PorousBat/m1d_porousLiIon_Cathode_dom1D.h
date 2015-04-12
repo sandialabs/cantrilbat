@@ -598,14 +598,6 @@ protected:
 
     // ------------------------------------------------------------------------
 
-    //! Surface Area of the electrolyte - electrode interface within the cell
-    /*!
-     *  This is now a constant.
-     *  Length is number of cells on the processor.
-     *  units = m2 / m2. (surface area per cross-sectional area)
-     */
-    //std::vector<double> surfaceArea_Cell_;
-
     //! Electrode Current per surface area of the electrode
     /*!
      *  The surface area is specifically defined as the external surface of the electrode
@@ -632,16 +624,6 @@ protected:
      *  Length is number of cells on the processor.
      */
     std::vector<double> concTot_Cell_old_;
-
-    //! Electrode Cell data for the anode cells
-    /*!
-     *  Length is the number of owned Cells on the processor
-     *   -> not sure what owned here means. This will have to be figured out in the future.
-     *   Note, in contrast to the other quantities in the calculation, the electrode object is extrinsic
-     *   it has a volume associated with it.  The volume is equal to the control volume thickness
-     *   multiplied by the cross-sectional area.
-     */
-    //std::vector<Cantera::Electrode*> Electrode_Cell_;
 
     //!  Capacity discharged by the particular electrode cell per cross-sectional area
     /*!
@@ -682,9 +664,6 @@ protected:
 
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
-
-    //! Cell index number
-    // int cIndex_cc_;
 
     //! Axial velocity - left cell boundary
     double Fleft_cc_;

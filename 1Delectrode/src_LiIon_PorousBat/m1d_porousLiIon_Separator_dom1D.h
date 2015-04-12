@@ -374,32 +374,11 @@ protected:
      */
     BDT_porSeparator_LiIon* BDT_ptr_;
 
-    //! Pointer to the thermo object for the molten salt
-    /*!
-     *   We do not own this object
-     */
-    Cantera::ThermoPhase* ionicLiquid_;
-
-
-    Cantera::ThermoPhase* solidSkeleton_;
-
-    //! Pointer to the transport object for the molten salt
-    /*!
-     * We do not own this object
-     */
-    Cantera::Transport* trans_;
-
     //! Number of phases solved
     int nph_;
 
     //! number of species solved
     int nsp_;
-
-    //! Total concentration of the electolyte at the previous time step
-    /*!
-     *  Units = kg / m3
-     */
-    //double concTot_cent_old_;
 
     //Need to define a void fraction variable here.
     //The void fraction does not change with time
@@ -431,8 +410,6 @@ protected:
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
 
-    //! Cell index number
-    // int cIndex_cc_;
 
     //! Axial velocity - left cell boundary
     double Fleft_cc_;
