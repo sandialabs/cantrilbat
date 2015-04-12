@@ -259,18 +259,23 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
         }
 
         if (energyEquationProbType_ == 3) { 
-            double volCell = xdelCell_Cell_[iCell]; 
+	        double volCellNew = xdelCell_Cell_[iCell];
+                double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
+                double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
+                double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
+                double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
 
-            double solidEnthalpyNew = solidSkeleton_->enthalpy_mole() / crossSectionalArea_;
-            //
-            // Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
-            // 
-            double lyteEnthalpyNew = EnthalpyPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * volCell;
-            // 
-            //
-            // Calculate and store the total enthalpy in the cell at the current conditions
-            //
-            nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+                double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+                double volLyteNew = porosity_Curr_ * volCellNew;
+                double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+
+                double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
+
+		if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
+                    throw m1d_Error("", "Disagreement on new enthalpy calc");
+                }
+		
+		nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
         }
     }
 }
@@ -1755,6 +1760,39 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 
         soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
 
+        cIndex_cc_ = iCell;
+       
+      
+
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+        concTot_Cell_old_[iCell] = concTot_Curr_;
+        porosity_Cell_old_[iCell] = porosity_Curr_;
+
+        double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
+        for (size_t k = 0; k < (size_t) nsp_; ++k) {
+            mfElectrolyte_Soln_old[k] = mfElectrolyte_Soln_Curr_[k];
+        }
+
+        if (energyEquationProbType_ == 3) { 
+	    double volCellNew = xdelCell_Cell_[iCell];
+	    double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
+	    double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
+	    double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
+	    double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
+	    
+	    double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+	    double volLyteNew = porosity_Curr_ * volCellNew;
+	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+
+	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
+	    
+	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
+                    throw m1d_Error("", "Disagreement on new enthalpy calc");
+	    }
+	    
+	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
+        }
 
     }
 }
