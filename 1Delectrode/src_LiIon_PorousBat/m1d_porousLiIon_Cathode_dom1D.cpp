@@ -545,11 +545,28 @@ porousLiIon_Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, 
         //  this is needed for a proper startup - sync initinit with final
         //
         ee->setInitStateFromFinal(true);
-        // 
-        //   Retain the old enthalpy
-        //
-        nEnthalpy_Old_Cell_[iCell] =  nEnthalpy_New_Cell_[iCell];
-         
+
+	if (energyEquationProbType_ == 3) { 
+	    double volCellNew = xdelCell_Cell_[iCell];
+	    // double volElectrodeCell = solidVolCell / crossSectionalArea_;
+	    double solidEnthalpy = ee->SolidEnthalpy() / crossSectionalArea_;
+	    double solidEnthalpyNew = solidEnthalpy;
+	  
+	    double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+	    double volLyteNew = porosity_Curr_ * volCellNew;
+	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+
+	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
+	    
+	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
+		throw m1d_Error("", "Disagreement on new enthalpy calc");
+	    }
+	    
+	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New_Cell_[iCell];
+	    nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
+	}
+
+      
     }
 }
 //=====================================================================================================================
@@ -1281,6 +1298,34 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t
                                   -solnMoleFluxInterface_Cell_[iCell];
+
+
+	    if  (energyEquationProbType_ == 3) {
+		//
+		//  Need to count up the enthalpy over the electrode and the electrolyte on a per cross-sectional area basis
+		//
+		// Get the Solid enthalpy in Joules / m2
+		//
+		double solidEnthalpyNew = Electrode_ptr->SolidEnthalpy() / crossSectionalArea_;
+		//
+		// Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
+		// 
+		double lyteEnthalpyNew = EnthalpyPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * xdelCell;
+		//
+		// Calculate and store the total enthalpy in the cell at the current conditions
+		//
+		nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+		/*
+		 *   .................... Calculate quantities needed at the previous time step
+		 *         These are already storred in nEnthalpy_Old_Cell_
+		 *
+		 *  Do the energy time derivative
+		 */
+		double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+		res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
+		
+	    }
+
         }
     }
 
@@ -3070,6 +3115,31 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
         // update porosity as computed from electrode input
         //
         porosity_Cell_[iCell] = porosity;
+
+	if (energyEquationProbType_ == 3) { 
+	    double volCellNew = xdelCell_Cell_[iCell];
+	    // double volElectrodeCell = solidVolCell / crossSectionalArea_;
+	    double solidEnthalpy = ee->SolidEnthalpy() / crossSectionalArea_;
+	    double solidEnthalpyNew = solidEnthalpy;
+	  
+	    double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+	    double volLyteNew = porosity_Curr_ * volCellNew;
+	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+
+	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
+	    
+	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
+                    throw m1d_Error("", "Disagreement on new enthalpy calc");
+	    }
+	    
+	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
+	    nEnthalpy_New_Cell_[iCell] = nEnthalpy_New;
+
+	    nEnthalpy_Electrode_New_Cell_[iCell] = solidEnthalpy;
+	    nEnthalpy_Electrode_Old_Cell_[iCell] = solidEnthalpy;
+
+        }  
+
     }
 }
 //=====================================================================================================================
