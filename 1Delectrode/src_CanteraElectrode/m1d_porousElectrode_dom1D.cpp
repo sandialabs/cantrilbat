@@ -23,6 +23,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0),
+    nEnthalpy_Electrode_New_Cell_(0),
+    nEnthalpy_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
     EnthalpyPhiPM_metal_Curr_(0)
 {
@@ -37,6 +39,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0),
+    nEnthalpy_Electrode_New_Cell_(0),
+    nEnthalpy_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
     EnthalpyPhiPM_metal_Curr_(0)
 {
@@ -70,7 +74,9 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     
     maxElectrodeSubIntegrationSteps_ = r.maxElectrodeSubIntegrationSteps_;
     surfaceArea_Cell_                = r.surfaceArea_Cell_;
-    jFlux_EnthalpyPhi_metal_trCurr_    = r.jFlux_EnthalpyPhi_metal_trCurr_;
+    nEnthalpy_Electrode_New_Cell_    = r.nEnthalpy_Electrode_New_Cell_;
+    nEnthalpy_Electrode_Old_Cell_    = r.nEnthalpy_Electrode_Old_Cell_;
+    jFlux_EnthalpyPhi_metal_trCurr_  = r.jFlux_EnthalpyPhi_metal_trCurr_;
     EnthalpyPhiPM_metal_Curr_        = r.EnthalpyPhiPM_metal_Curr_;
     
     return *this;
@@ -98,6 +104,8 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     
     Electrode_Cell_.resize(NumLcCells, 0);
     surfaceArea_Cell_.resize(NumLcCells, 0.0);
+    nEnthalpy_Electrode_New_Cell_.resize(NumLcCells, 0.0);
+    nEnthalpy_Electrode_Old_Cell_.resize(NumLcCells, 0.0);
     EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
 }
 //====================================================================================================================
@@ -136,7 +144,6 @@ porousElectrode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, cons
                                              const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                                              const double t, const double t_old)
 {
-
 }
 //====================================================================================================================
 int porousElectrode_dom1D::getMaxSubGridTimeSteps() const
@@ -146,31 +153,26 @@ int porousElectrode_dom1D::getMaxSubGridTimeSteps() const
 //=====================================================================================================================
 double porousElectrode_dom1D::capacityPA(int platNum) const
 {
-    //   throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
     return 0.0;
 }
 //=====================================================================================================================
 double porousElectrode_dom1D::capacityDischargedPA(int platNum) const
 {
-    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacityDischarged", "unimplemented"); 
     return 0.0;
 }
 //=====================================================================================================================
 double porousElectrode_dom1D::capacityLeftPA(int platNum, double voltsMax, double voltsMin) const
 {
-    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
     return 0.0;
 }
 //=====================================================================================================================
 double porousElectrode_dom1D::depthOfDischargePA(int platNum) const
 {
-    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
     return 0.0;
 }
 //=====================================================================================================================
 double porousElectrode_dom1D::depthOfDischargeStartingPA(int platNum) const
 {
-    //throw m1d_Error("porousLiIon_Cathode_dom1D::capacity", "unimplemented"); 
     return 0.0;
 }
 //=====================================================================================================================

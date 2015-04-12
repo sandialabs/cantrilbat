@@ -267,6 +267,26 @@ protected:
      */
     std::vector<double> surfaceArea_Cell_;
 
+    //!  Total enthalpy within each electrode in each cell at the current conditions (Joules/m2)
+    /*!
+     *   This only depends on the current conditions of temperatue, pressure, mole numbers of species, and volume
+     *   fractions. It is an extensive quantity.
+     *
+     *   Length = total number of cells.
+     */
+    std::vector<double> nEnthalpy_Electrode_New_Cell_;
+
+    //!  Total enthalpy within each electrode in each cell at the previous time step (Joules/m2)
+    /*!
+     *   This only depends on the previous time step conditions of temperatue, pressure, mole numbers of species, and volume
+     *   fractions. It is an extensive quantity.
+     *
+     *   Length = total number of cells.
+     */
+    std::vector<double> nEnthalpy_Electrode_Old_Cell_;
+
+
+
     //
     // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
     //
