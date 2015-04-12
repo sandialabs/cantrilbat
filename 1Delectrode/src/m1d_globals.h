@@ -104,6 +104,9 @@ popError();
  */
 std::string intToString(const int p);
 
+//! Check error between two doubles
+bool checkDblAgree(double d1, double d2, double rtol = 1.0E-4, double atol = 1.0E-13);
+
 }
 
 #endif

@@ -12,6 +12,7 @@
 #include "m1d_app.h"
 
 #include <cstdlib>
+#include <cmath>
 
 namespace m1d
 {
@@ -79,4 +80,14 @@ intToString(const int p)
   return std::string(buf);
 }
 //==============================================================================
+ bool checkDblAgree(double d1, double d2, double rtol, double atol)
+{
+    double dfabs = fabs(d1 - d2);
+    double denom = 0.5 * (fabs(d1) + fabs(d2)) * rtol;
+    denom = std::max(denom, atol);
+    if (dfabs < denom) return true;
+    return false;
+}
+//==============================================================================
+
 }
