@@ -32,6 +32,24 @@ namespace m1d
 
 class LocalNodeIndices;
 
+class globalHeatBalVals
+{
+  public:
+     globalHeatBalVals() :
+       totalHeatCapacity(0.0)
+     {
+     }
+
+     virtual ~globalHeatBalVals()
+     {
+
+     }
+
+     double totalHeatCapacity;
+
+};
+
+
 //! Base class for solving residuals for bulk and surface domains
 /*!
  *
@@ -137,6 +155,16 @@ public:
             const Epetra_Vector *solnOld_ptr,
             const double t,
             const double rdelta_t);
+
+    //!Evalulate quantities to determine the global heat balance
+    virtual void 
+    eval_HeatBalance(const bool doTimeDependentResid,
+		     const Epetra_Vector *soln_ptr,
+		     const Epetra_Vector *solnDot_ptr,
+		     const Epetra_Vector *solnOld_ptr,
+		     const double t,
+		     const double rdelta_t,
+		     globalHeatBalVals& dVals);
 
 
 
