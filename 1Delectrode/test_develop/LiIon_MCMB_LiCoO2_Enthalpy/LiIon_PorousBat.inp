@@ -311,7 +311,7 @@ Anode Collector Temperature = 309.
 !  Anode Heat Transfer Coefficient - double (not required)
 !                ( default = 1000 )
 !---------------------------------------------------------------------------------------------------------
-Anode Heat Transfer Coefficient = 1000000.
+Anode Heat Transfer Coefficient = 10000.
 !---------------------------------------------------------------------------------------------------------
 !!
 !   Cathode Temp BC Type - int (not required)
@@ -333,6 +333,7 @@ Cathode Collector Temperature = 298.
 ! Cathode Heat Transfer Coefficient - double (not required)
 !                ( default = 1000 )
 !---------------------------------------------------------------------------------------------------------
-Cathode Heat Transfer Coefficient = 1000000.
+Cathode Heat Transfer Coefficient = 10000.
 !---------------------------------------------------------------------------------------------------------
 !
+Maximum Number of Time Steps = 200
