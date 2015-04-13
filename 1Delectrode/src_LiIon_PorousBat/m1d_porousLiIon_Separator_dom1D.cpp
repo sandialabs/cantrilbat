@@ -274,7 +274,8 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
                 double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
 
 		if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
-                    throw m1d_Error("", "Disagreement on new enthalpy calc");
+                    throw m1d_Error("porousLiIon_Separator_dom1D::advanceTimeBaseline", 
+                                    "Disagreement on new enthalpy calc");
                 }
 		
 		nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
@@ -1863,13 +1864,9 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 	    double volLyteNew = porosity_Curr_ * volCellNew;
 	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
 
-	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
-	    
-	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
-                    throw m1d_Error("", "Disagreement on new enthalpy calc");
-	    }
-	    
+	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;	    
 	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
+	    nEnthalpy_New_Cell_[iCell] = nEnthalpy_New; 
         }
 
     }

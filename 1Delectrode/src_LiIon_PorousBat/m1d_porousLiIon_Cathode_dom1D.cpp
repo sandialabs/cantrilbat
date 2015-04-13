@@ -1308,9 +1308,10 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 		//
 		double solidEnthalpyNew = Electrode_ptr->SolidEnthalpy() / crossSectionalArea_;
 		//
-		// Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
-		// 
-		double lyteEnthalpyNew = EnthalpyPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * xdelCell;
+		// Get the liquid enthalpy in Joules /m2
+		double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+		double volLyteNew = porosity_Curr_ * xdelCell;
+		double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
 		//
 		// Calculate and store the total enthalpy in the cell at the current conditions
 		//
@@ -3139,11 +3140,7 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
 	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
 
 	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
-	    
-	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
-                    throw m1d_Error("", "Disagreement on new enthalpy calc");
-	    }
-	    
+
 	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
 	    nEnthalpy_New_Cell_[iCell] = nEnthalpy_New;
 

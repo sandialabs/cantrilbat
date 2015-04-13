@@ -567,8 +567,10 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
 	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
 	    
 	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
-		throw m1d_Error("", "Disagreement on new enthalpy calc");
+                    throw m1d_Error("porousLiIon_Anode_dom1D::advanceTimeBaseline",
+				    "Disagreement on new enthalpy calc");
 	    }
+	    
 	    
 	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New_Cell_[iCell];
 	    nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
@@ -836,8 +838,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          */
 
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-
-      
 
         if (nodeLeft != 0) {
             /*
@@ -1290,7 +1290,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             //
             // Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
             // 
-            double lyteEnthalpyNew = EnthalpyPM_lyte_Cell_[iCell] * porosity_Cell_[iCell] * concTot_Cell_[iCell] * xdelCell;
+	    double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+	    double volLyteNew = porosity_Curr_ * xdelCell;
+	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+
             //
             // Calculate and store the total enthalpy in the cell at the current conditions
             //
@@ -1411,6 +1414,9 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	//
 	if (energyEquationProbType_) {
 	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
+
+	    EnthalpyMolar_lyte_Cell_[iCell] = ionicLiquid_->enthalpy_mole();
+
 	}
     }
 }
@@ -3150,11 +3156,7 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
 	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
 
 	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
-	    
-	    if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
-                    throw m1d_Error("", "Disagreement on new enthalpy calc");
-	    }
-	    
+
 	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
 	    nEnthalpy_New_Cell_[iCell] = nEnthalpy_New;
 

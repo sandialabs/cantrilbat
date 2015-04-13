@@ -457,8 +457,8 @@ protected:
 
     //!  Total enthalpy within each cell at the previous time step (Joules/m2)
     /*!
-     *   This only depends on the previous time step conditions of temperatue, pressure, mole numbers of species, and volume
-     *   fractions. It is an extensive quantity.
+     *   This only depends on the previous time step conditions of temperatue, pressure, mole numbers of species, and 
+     *   volume fractions. It is an extensive quantity.
      *
      *   This quantity is malloced always. But it is only calculated when doEnthalpyEquation_ is true.
      *
@@ -484,10 +484,6 @@ protected:
 
     //! Pointer to the transport object for the electrolyte
     Cantera::Transport* trans_;
-
-
-    //! number of species in the electolytephase
-    //size_t nsp_;
 
     //! Pointer to the solid skeleton
     Cantera::ThermoPhase* solidSkeleton_;
