@@ -192,7 +192,7 @@ BulkDomainDescription::SetEquationDescription()
       VarType varN(Temperature);
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = iEqn;
-      IsArithmeticScaled_NE[iEqn] = 1;
+      //IsArithmeticScaled_NE[iEqn] = 1;
     } else if (eqnT.EquationType == Continuity) {
       VarType varN(Velocity_Axial);
       AssertTrace(varT == varN);
