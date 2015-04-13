@@ -225,7 +225,7 @@ public:
     //! Molar Heat Capacity of the electrolyte phase located in all of the cells
     /*!
      *   Vector of Molar heat capacity const press (iCell)
-     *   Units of Joules/(kmol K)
+     *   Units of Joules/(K)
      */
     std::vector<doublereal> CpMolar_lyte_Cell_;
 

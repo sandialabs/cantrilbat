@@ -527,6 +527,9 @@ BatteryResidEval::user_out(const int ievent,
     ProblemResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     
     
+    if (energyEquationProbType_ == 3 && doHeatSourceTracking_) {
+	doHeatAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
+    }
 }
 //=====================================================================================================================
 static void
@@ -667,6 +670,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
   Epetra_Comm *c = LI_ptr_->Comm_ptr_;
   c->Barrier();
 
+ 
 }
 
   //=====================================================================================================================
@@ -1015,6 +1019,39 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
             fclose(faccE);
         }
     }
+}
+//=====================================================================================================================
+
+void
+BatteryResidEval::doHeatAnalysis(const int ifunc,
+				 const double t,
+				 const double deltaT,
+				 const Epetra_Vector_Ghosted &y,
+				 const Epetra_Vector_Ghosted * const solnDot_ptr)
+{
+    class globalHeatBalValsBat dVals;
+    DomainLayout &DL = *DL_ptr_;
+    //
+    //   Loop over the Volume Domains
+    //
+    double totalHeatCapacity = 0.0;
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
+
+	totalHeatCapacity += dVals.totalHeatCapacity;
+
+    }
+    //
+    //    Loop over the Surface Domains
+    //
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
+    }
+
+    printf(" Total Heat Capacity = %g\n", 	totalHeatCapacity);
+    
 }
 //================================================================================================================
 double

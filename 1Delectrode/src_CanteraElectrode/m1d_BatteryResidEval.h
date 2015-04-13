@@ -26,6 +26,28 @@
 
 namespace m1d {
 
+class globalHeatBalValsBat : public globalHeatBalVals
+{
+public:
+    globalHeatBalValsBat() :
+        globalHeatBalVals(),
+	  totalEnthalpyInit(0.0),
+	  totalEnthalpyFinal(0.0)
+    {
+
+    }
+
+    ~globalHeatBalValsBat()
+    {
+    }
+
+
+    double  totalEnthalpyInit;
+    double  totalEnthalpyFinal;
+
+
+};
+
 //!  Residual for 1D cell  battery evaluations
 /**
  * 
@@ -168,6 +190,7 @@ public:
 			const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
 			const double delta_t_np1 = 0.0);
     
+  
 
     //! Write out to a file or to standard output the current solution
     /*!
@@ -276,6 +299,13 @@ public:
 			 const double deltaT,
 			 const Epetra_Vector_Ghosted & y,
 			 const Epetra_Vector_Ghosted * const ydot);
+
+    void
+      doHeatAnalysis(const int ifunc,
+		     const double t,
+		     const double deltaT,
+		     const Epetra_Vector_Ghosted & y,
+		     const Epetra_Vector_Ghosted * const solnDot_ptr);
     
     //! Set a solution parameter 
     /*!

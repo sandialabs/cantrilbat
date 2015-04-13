@@ -164,14 +164,13 @@ Domain1D::eval_PostSoln(
 }
 //=====================================================================================================================
 void
-Domain1D::eval_HeatBalance(
-                    const bool doTimeDependentResid,
-                    const Epetra_Vector *soln_ptr,
-                    const Epetra_Vector *solnDot_ptr,
-                    const Epetra_Vector *solnOld_ptr,
-                    const double t,
-                    const double rdelta_t,
-		    globalHeatBalVals& dVals)
+Domain1D::eval_HeatBalance(const int ifunc,
+			  const double t,
+			  const double deltaT,
+			  const Epetra_Vector *soln_ptr,
+			  const Epetra_Vector *solnDot_ptr,
+			  const Epetra_Vector *solnOld_ptr,
+			  struct globalHeatBalVals& dVals)
 {
 }
 //=====================================================================================================================

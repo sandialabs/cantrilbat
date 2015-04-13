@@ -156,16 +156,13 @@ public:
             const double t,
             const double rdelta_t);
 
-    //!Evalulate quantities to determine the global heat balance
-    virtual void 
-    eval_HeatBalance(const bool doTimeDependentResid,
-		     const Epetra_Vector *soln_ptr,
-		     const Epetra_Vector *solnDot_ptr,
-		     const Epetra_Vector *solnOld_ptr,
-		     const double t,
-		     const double rdelta_t,
-		     globalHeatBalVals& dVals);
-
+   virtual void eval_HeatBalance(const int ifunc,
+				  const double t,
+				  const double deltaT,
+				  const Epetra_Vector *soln_ptr,
+				  const Epetra_Vector *solnDot_ptr,
+				  const Epetra_Vector *solnOld_ptr,
+				  struct globalHeatBalVals& dVals);
 
 
   //! Utility function to calculate quantities before the main residual routine.
