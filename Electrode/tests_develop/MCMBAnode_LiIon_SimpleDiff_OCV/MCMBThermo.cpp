@@ -93,12 +93,13 @@ int main(int argc, char **argv)
 
   try {
 
+     double xmol[10];
      PhaseList*  pl = new PhaseList();
      pl->addVolPhase("metal_Li_LiIon_electrons.xml");
      pl->addVolPhase ("MCMB_RedlichKister.xml");
      pl->addVolPhase("ECsoln_ion.xml");
      pl->addVolPhase("Li_Metal.xml");
-     pl->addSurPhase("MCMBAnode_electrode.xml");
+     pl->addSurPhase("MCMBAnode_electrode_extra.xml");
 
      pl->setState_TP(300.0, OneAtm);
 
@@ -108,9 +109,13 @@ int main(int argc, char **argv)
      double dg[5];
      rsd->getDeltaGibbs(dg);
 
+     ThermoPhase& mcmb = pl->thermo(1);
 
-     printf("dg[0] = %g\n", dg[0]);
-     printf("dg[1] = %g\n", dg[1]);
+     mcmb.getMoleFractions(xmol);
+
+
+     printf("dg[0] = %g for xLi = %g\n", dg[0], xmol[0]);
+     printf("dg[1] = %g for xLi = %g\n", dg[1], xmol[0]);
 
      
 
@@ -120,9 +125,7 @@ int main(int argc, char **argv)
 
      printf("ocv = %g\n", ocv);
 
-     double xmol[10];
 
-     ThermoPhase& mcmb = pl->thermo(1);
 
      ThermoPhase& ecsoln = pl->thermo(2);
      xmol[1] = 0.1;
@@ -137,7 +140,7 @@ int main(int argc, char **argv)
      int KC = mcmb.speciesIndex("V_C6-bulk");
      int numP = 51;
      printf ("Fig 3 Karthikeyan Sikha and White\n");
-     printf("        xLi              xV           OCV \n") ;
+     printf("        xV              xLi          OCV \n") ;
      for (int i =0; i < numP; i++) {
 	 double xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[KC] = xKC;

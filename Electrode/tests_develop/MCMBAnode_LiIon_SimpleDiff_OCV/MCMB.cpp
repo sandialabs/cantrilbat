@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <cmath>
 
- double calcV( double relExtent)
+double calcV( double relExtent)
 {
    double volts;
    double xLi = 1.0 - relExtent;
@@ -17,7 +17,7 @@
                     - 0.011  * tanh( (xLi - 0.124) / 0.0226)
                     + 0.0155 * tanh( (xLi - 0.105) / 0.029));
 
-return volts;
+    return volts;
 } 
 
 int main()
