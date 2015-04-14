@@ -11,8 +11,6 @@
 #ifndef _ELECTRODE_H
 #define _ELECTRODE_H
 
-#include "PhaseList.h"
-
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/ResidJacEval.h"
 #include "cantera/base/Array.h"

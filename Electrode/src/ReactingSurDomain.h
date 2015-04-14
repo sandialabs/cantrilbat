@@ -14,6 +14,7 @@
 #include "cantera/kinetics/ElectrodeKinetics.h"
 
 #include "RSD_OCVmodel.h"
+#include "PhaseList.h"
 
 #include <string>
 #include <vector>
@@ -22,7 +23,6 @@ class RxnMolChange;
 
 namespace Cantera
 {
-class PhaseList;
 struct OCV_Override_input;
 
 class ReactingSurDomain : public Cantera::ElectrodeKinetics

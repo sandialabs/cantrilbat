@@ -25,7 +25,6 @@
 
 #include "tok_input_util.h"
 
-#include "PhaseList.h"
 #include "ReactingSurDomain.h"
 
 //#include "ExtraGlobalRxn.h"
