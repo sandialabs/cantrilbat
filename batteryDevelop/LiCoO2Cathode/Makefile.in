@@ -1,26 +1,20 @@
 #/bin/sh
 
 all:
-	cd MCMBAnode;                       	@MAKE@
-	cd LiCoO2Cathode; 			@MAKE@
+	cd LiCoO2_Enth; 			@MAKE@
 
 test:
-	cd MCMBAnode;                       	@MAKE@ test
-	cd LiCoO2Cathode; 			@MAKE@ test
+	cd LiCoO2_Enth; 			@MAKE@ test
 
 testd:
-	cd MCMBAnode;                       	@MAKE@ test
-	cd LiCoO2Cathode; 			@MAKE@ test
+	cd LiCoO2_Enth; 			@MAKE@ test
 
 clean:
-	cd MCMBAnode;                       	@MAKE@ clean
-	cd LiCoO2Cathode; 			@MAKE@ clean
+	cd LiCoO2_Enth; 			@MAKE@ clean
 
 depends:
-	cd MCMBAnode;                       	@MAKE@ depends
-	cd LiCoO2Cathode; 			@MAKE@ depends
+	cd LiCoO2_Enth; 			@MAKE@ depends
 
 install:
-	cd MCMBAnode;                       	@MAKE@ install
-	cd LiCoO2Cathode; 			@MAKE@ install
+	cd LiCoO2_Enth; 			@MAKE@ install
 

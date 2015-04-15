@@ -16,7 +16,7 @@
 
 .SUFFIXES: .d
 
-PROGRAM = MCMBAnode_SimpleDiff_3
+PROGRAM = MCMBThermo
 
 OBJ = $(PROGRAM).o
 
@@ -72,7 +72,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
-OBJ_ANODE =  $(OBJ)
+OBJ_TOTAL = MCMB.o MCMBThermo.o
 
 OBJ_CANTERA_ADDONS =  
 
@@ -83,6 +83,7 @@ OBJ_CANTERA_ADDONS =
 # the C++ compiler
 #
 CXX = @CXX@
+
 CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
@@ -110,7 +111,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 ############################################################################
 # section to set up depends
 ###########################################################################
-DEPENDS = $(OBJ_ANODE:.o=.d) 
+DEPENDS = $(OBJ_TOTAL:.o=.d) 
 
 .f.d:
 	echo "$*.o: $*.f" > $*.d
@@ -142,15 +143,15 @@ rebaseline:
 $(OBJ_MPEQUIL): Makefile
 $(DEPENDS): Makefile
 
-$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+$(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-MCMBThermo: MCMBThermo.o
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBThermo MCMBThermo.o \
+MCMB: MCMB.o
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMB MCMB.o \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
