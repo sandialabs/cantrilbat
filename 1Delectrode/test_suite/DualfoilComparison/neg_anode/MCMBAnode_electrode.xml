@@ -57,14 +57,14 @@
       <equation> Li_C6-bulk [=]  V_C6-bulk + Li+  + electron_Li_LiIon </equation>
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
-        <Arrhenius_ExchangeCurrentDensity>
+        <Arrhenius>
             <!-- <A>3.078268E3</A> -->
            <!--<A>3.078268E20</A> -->
            <A>1.8E20</A> 
            <b>0.0</b>
            <!--<E units="kJ/mol"> 20.000000 </E> -->
            <E units="kJ/mol"> 10.000000 </E>
-        </Arrhenius_ExchangeCurrentDensity>
+        </Arrhenius>
       </rateCoeff>
       <reactants> Li_C6-bulk:1.0 </reactants>
       <products> V_C6-bulk:1.0 Li+:1.0  electron_Li_LiIon:1.0  </products>

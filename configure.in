@@ -788,7 +788,9 @@ dnl      some reason. I have yet to find out why.
 dnl
 
 AC_OUTPUT(Makefile \
+          batteryDevelop/Makefile \
           batteryDevelop/MCMBAnode/MCMB_Mao/Makefile
+          batteryDevelop/LiCoO2Cathode/LiCoO2_Enth/Makefile
           ctpadds/Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \
