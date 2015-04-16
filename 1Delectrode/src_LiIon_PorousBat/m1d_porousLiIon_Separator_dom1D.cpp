@@ -914,6 +914,16 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         residSetupTmps();
         tmpsSetup = 1;
     }
+    // Special Section to determine where to get temperature and pressure
+    cellTmps& cTmps          = cellTmpsVect_Cell_[0];
+    NodalVars* nodeCent = cTmps.nvCent_;
+    bool haveTemp = true;
+    size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
+    if (iVar_Temperature == npos) {
+        haveTemp = false;
+    }
+
+
     
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
@@ -939,8 +949,25 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         cIndex_cc_ = iCell;
 
         cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-        NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-        NodalVars* nodeCent = cTmps.nvCent_;
+	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+        NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+        NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+	NodalVars* nodeCent = cTmps.nvCent_;
+
+	if (haveTemp) {
+            AssertTrace( nodeTmpsLeft.Offset_Temperature != npos);
+            valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
+            valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
+            valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+        } else {
+            AssertTrace( nodeTmpsLeft.Offset_Temperature == npos);
+            valTmps.Temperature.left =  TemperatureReference_;
+            valTmps.Temperature.center =  TemperatureReference_;
+            valTmps.Temperature.right =  TemperatureReference_;
+        }
 
 	/*
          *   Get the pointer to the NodalVars object for the center node
@@ -967,6 +994,10 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	//
 	if (energyEquationProbType_) {
 	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
+	    //
+	    // Calculate the thermal conductivity of the porous matrix if we are calculating the energy equation
+	    //
+	    thermalCond_Cell_[iCell] = thermalCondCalc_PorMatrix();
 	}
     }
 }
