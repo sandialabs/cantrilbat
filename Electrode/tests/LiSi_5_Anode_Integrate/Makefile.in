@@ -22,6 +22,11 @@
 
 PURIFY=@PURIFY@
 
+PROGRAM = anode_5_intSurf
+TEST_NAME = LiSi_Anode_5_Integrate
+PROGRAM_ORIGIN=$(PROGRAM)
+
+
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
 
@@ -29,6 +34,8 @@ CT_INCROOT =  @ct_incroot@
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
+
+TOPDIR = @abs_top_builddir@
 
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
@@ -122,9 +129,15 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
-test: 
-	@MAKE@
-	./runtest
+test:
+	@@MAKE@ -s
+	@echo -n 'Checking need to run test $(TEST_NAME): '
+	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
+
+runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TEST_NAME)
+	( $(TOPDIR)/bin/runtestExec )
+
 
 rebaseline:
 	cp out.txt good_out.txt
@@ -148,7 +161,6 @@ anode_5_intSurf: $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
 
 
 clean:
