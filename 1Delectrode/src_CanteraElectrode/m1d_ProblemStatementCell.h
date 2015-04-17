@@ -290,15 +290,24 @@ public:
   double anodeTempRef_;
 
   //! Anode heat transfer coeff
+  /*!
+   *        Units = Watts m-2 K-1
+   */
   double anodeHeatTranCoeff_;
 
   //! Cathode Temperature boundary condition type
   int cathodeTempBCType_;
 
   //! Cathode Collector Temperature
+  /*!
+   *  Units = Kelvin
+   */
   double cathodeTempRef_;
 
   //! Cathode heat transfer coeff
+  /*!
+   *        Units = Watts m-2 K-1
+   */
   double cathodeHeatTranCoeff_;
 
   //!

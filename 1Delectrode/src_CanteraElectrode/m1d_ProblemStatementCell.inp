@@ -314,6 +314,7 @@ Maximum Number of Subcycle Steps per Global Steps = 100
 !---------------------------------------------------------------------------------------------------------
 !
 !  Anode Heat Transfer Coefficient - double (not required)
+!        Units = Watts m-2 K-1
 !                ( default = 1000 )
 !---------------------------------------------------------------------------------------------------------
 !  Anode Heat Transfer Coefficient = 1000
@@ -336,6 +337,7 @@ Maximum Number of Subcycle Steps per Global Steps = 100
 !---------------------------------------------------------------------------------------------------------
 !
 ! Cathode Heat Transfer Coefficient - double (not required)
+!        Units = Watts m-2 K-1 
 !                ( default = 1000 )
 !---------------------------------------------------------------------------------------------------------
 !  Cathode Heat Transfer Coefficient = 1000
