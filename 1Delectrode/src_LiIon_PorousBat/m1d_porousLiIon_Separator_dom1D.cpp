@@ -1165,17 +1165,20 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 					      const Epetra_Vector *soln_ptr,
 					      const Epetra_Vector *solnDot_ptr,
 					      const Epetra_Vector *solnOld_ptr,
-					      struct globalHeatBalVals& dVals)
+					      class globalHeatBalVals& dVals)
 {
     NodalVars* nodeCent = 0;
     NodalVars* nodeLeft = 0;
     NodalVars* nodeRight = 0;
+    globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
     int indexCent_EqnStart, indexLeft_EqnStart, indexRight_EqnStart;
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
+    double jouleHeat_lyte_total = 0.0;
+    int doPrint = 1;
 
-
+    printf("  Cell       NewnEnth OldnEnth  deltanEnth \n");
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
 
@@ -1272,6 +1275,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 
 	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
 	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
+	    jouleHeat_lyte_total +=  - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
 	}
 
 	if (nodeRight != 0) {
@@ -1304,11 +1308,17 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 
 	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
 	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-  
+	    jouleHeat_lyte_total += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
+
+	    if (doPrint) {
+		double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
+		printf("  %12.6E  %12.6E  %12.6E\n", nEnthalpy_New_Cell_[iCell], nEnthalpy_Old_Cell_[iCell], deltanEnth);
+	    }
+
 	}
-	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
 
 
+	dValsB_ptr->jouleHeat_lyte = jouleHeat_lyte_total;
 	dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
 	//
 	//  Count up the total old and new cell enthalpies

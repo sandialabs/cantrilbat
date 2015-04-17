@@ -1106,11 +1106,25 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 
     // extend this to surfaces when they start to have enthalpy
 
+    printf("\n");
+    printf("   Region      OldTotalEnthalpy  NewTotalEnthalpy     DeltaTotalEnth\n");
+    printf("  -----------------------------------------------------------------------------------------------------------------------------\n");
     for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
-        printf(" % E12.5    % E12.5       % E12.5\n" , nEnthNewB[iDom], nEnthOldB[iDom],   nEnthNewB[iDom] - nEnthOldB[iDom]);
+        if (iDom == 0) printf("  Anode        ");
+        if (iDom == 1) printf("  Separator    ");
+        if (iDom == 0) printf("  Cathode      ");
+        printf(" % 12.6E    % 12.6E       % 12.6E\n" , nEnthNewB[iDom], nEnthOldB[iDom],   nEnthNewB[iDom] - nEnthOldB[iDom]);
     }
-    printf(" % E12.5    % E12.5       % E12.5\n" , nEnthNewTotal, nEnthOldTotal,   nEnthNewTotal - nEnthOldTotal);
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+    printf("  Total     ");
+    printf(" % 12.6E    % 12.6E       % 12.6E\n" , nEnthNewTotal, nEnthOldTotal,   nEnthNewTotal - nEnthOldTotal);
     
+
+    printf("\n\n");
+    printf(" Focus on the separator\n");
+
+    printf(" Loss mechanisms:\n");
+
 
     
 }
