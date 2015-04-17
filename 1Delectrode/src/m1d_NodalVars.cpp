@@ -160,6 +160,16 @@ static int lookupPosition(int val, std::vector<int>& yy) {
     }
     return -1;
 }
+
+static size_t lookupPosition(size_t val, std::vector<size_t>& yy) {
+    for (size_t i = 0; i < yy.size(); i++) {
+        if (val == yy[i]) {
+            return i;
+        }
+    }
+    return npos;
+}
+
 static void print_line(const char *str, int n)
 {
     for (int i = 0; i < n; i++) {
@@ -245,12 +255,12 @@ NodalVars::GenerateEqnOrder()
       }
     }
 
-    for (int isd = 0; isd < NumSurfDomains; isd++) {
+    for (size_t isd = 0; isd < (size_t) NumSurfDomains; isd++) {
       int isdd = SurfDomainIndex_SDN[isd];
       SurfDomainDescription *sdd = DL.SurfDomainDesc_global[isdd];
       int numEqnsSurf = sdd->NumEquationsPerNode;
       OffsetIndex_SurfDomainEqnStart_SDN[isd] = iOffset;
-      for (int iEqn = 0; iEqn < numEqnsSurf; iEqn++) {
+      for (size_t iEqn = 0; iEqn < (size_t) numEqnsSurf; iEqn++) {
         VariableNameList_EqnNum.push_back(sdd->VariableNameList[iEqn]);
         EquationNameList_EqnNum.push_back(sdd->EquationNameList[iEqn]);
         VariableSubType_EqnNum.push_back(VariableNameList_EqnNum[iOffset].VariableSubType);
