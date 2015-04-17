@@ -12,24 +12,19 @@
 #include "m1d_NodalVars.h"
 #include "m1d_SurfDomainTypes.h"
 
-#include "m1d_exception.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_BulkDomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 
 #include "m1d_SDT_CathodeCollector.h"
 
-#include "m1d_DomainLayout.h"
+#include "m1d_DomainLayout.h" 
 #include "m1d_Comm.h"
 #include "m1d_materials.h"
 
-//#include "Epetra_Comm.h"
-//#include "Epetra_Vector.h"
-
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h"
-
-
+#include "m1d_BatteryResidEval.h"
 using namespace std;
 
 //==================================================================================================================================
@@ -404,6 +399,15 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
     std::vector<VarType>& variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
     string sss = id();
+    //
+    //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
+    //  We will use this as the official current coming out of the cathode.
+    //
+    BulkDomain1D* bd = bedd_->BulkDomainPtr_;
+    int offsetBD = NodalVarPtr->OffsetIndex_BulkDomainEqnStart_BDN[0];
+    int EQ_Current_offset_BD = offsetBD + bedd_->EquationIndexStart_EqName[Current_Conservation];
+    int EQ_Current_offset_ED = EQ_Current_offset_BD + 1;
+    icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
 
     stream0 ss;
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
@@ -423,7 +427,11 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
             ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
             if (SpecFlag_NE[k] != 0) {
-                ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
+		if (BC_Type_NE[k] == 0) {
+		    ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
+		} else {
+		    ss.print0(" (BC %d Type %d val = %-10.4E)", jDir, BC_Type_NE[k], Value_NE[jDir]);
+		}
                 jDir++;
             }
             ss.print0("\n");
@@ -434,6 +442,8 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
                 }
             }
         }
+	drawline0(ss, indentSpaces + 2, 60);
+	ss.print0("%s   %-20s   %-10.4E \n", ind, "Current", icurrCollector_);
 
 
         drawline0(ss, indentSpaces + 2, 60);
@@ -452,6 +462,7 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
                                              struct globalHeatBalVals& dVals)
  {
 
+     globalHeatBalValsBat* dValsBat_ptr = dynamic_cast< globalHeatBalValsBat *>(& dVals);
      // 
      // We may add heat capacity later. However, not yet implemented.
      //
@@ -463,97 +474,122 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
      DomainLayout* dl = SDD_.DL_ptr_;
      ProblemResidEval* pb = dl->problemResid_;
      int timeRegion = pb->m_currentTimeRegion;
+     //
      // get the offset of the temperature
      //
      size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
+
+     /*
+      * get the offsets for the BulkDomain and the surface domain.
+      */
+     size_t offsetBD = NodalVarPtr->OffsetIndex_BulkDomainEqnStart_BDN[0];
+     size_t EQ_Current_offset_BD = offsetBD + bedd_->EquationIndexStart_EqName[Current_Conservation];
+     size_t EQ_Current_offset_ED = EQ_Current_offset_BD + 1;
+
+
+     getVoltages(& (soln[index_EqnStart]));
 
      if (! SpecFlag_NE[ieqnTemp]) {
 	 dVals.HeatFluxRight = 0.0;
      } else {
    
-    
+   
 	 size_t ieqn = index_EqnStart + ieqnTemp;
 	 double solnValTemp = soln[ieqn];
 	 double val = Value_NE[ieqnTemp];
 	     
-	     switch (BC_Type_NE[ieqnTemp]) {
-	     case 0:
-		 resTempContrib = val - solnValTemp;
-		 break;	 
-            case 1:
-		resTempContrib= val;
-		dVals.HeatFluxRight = resTempContrib;
-                break;
-            case 2:
+	 switch (BC_Type_NE[ieqnTemp]) {
+	 case 0:
+	     resTempContrib = val - solnValTemp;
+	     break;	 
+	 case 1:
+	     resTempContrib= val;
+	     dVals.HeatFluxRight = resTempContrib;
+	     break;
+	 case 2:
 
-                resTempContrib = val * TimeDep_NE[ieqnTemp](t) - solnValTemp;
-		dVals.HeatFluxRight = resTempContrib;
-                break;
-            case 3:
+	     resTempContrib = val * TimeDep_NE[ieqnTemp](t) - solnValTemp;
+	     dVals.HeatFluxRight = resTempContrib;
+	     break;
+	 case 3:
  
-                resTempContrib = val * TimeDep_NE[ieqnTemp](t);
-		dVals.HeatFluxRight = resTempContrib;
-                break;
+	     resTempContrib = val * TimeDep_NE[ieqnTemp](t);
+	     dVals.HeatFluxRight = resTempContrib;
+	     break;
 
-            case 4: // voltage BCconstant
-            case 6: // voltage BCsteptable
-            case 8: // voltage BClineartable
-                /*
-                 *  For time dependent Dirichlet boundary condition using BoundaryCondition class
-		 *
-		 *  Replace the equation for current at the boundary with a Dirichlet condition
-		 * for the electrode
-		 *  voltage involving a function
-                 */
-                resTempContrib = BC_TimeDep_NE[ieqnTemp]->value(t, timeRegion) - solnValTemp;
-                break;
+	 case 4: // voltage BCconstant
+	 case 6: // voltage BCsteptable
+	 case 8: // voltage BClineartable
+	     /*
+	      *  For time dependent Dirichlet boundary condition using BoundaryCondition class
+	      *
+	      *  Replace the equation for current at the boundary with a Dirichlet condition
+	      * for the electrode
+	      *  voltage involving a function
+	      */
+	     resTempContrib = BC_TimeDep_NE[ieqnTemp]->value(t, timeRegion) - solnValTemp;
+	     break;
 
-            case 5: // current BCconstant
-            case 7: // current BCsteptable
-            case 9: // current BClineartable
-                /*
-                 *  For time dependent flux boundary condition using BoundaryCondition class
-		 *
-		 *  For flux boundary conditions we must supply the value of  = icurr dot n_out
-		 *  icurr is the current density (coul / (sec m2)) dotted into the outward facing normal
-                 */
-                resTempContrib = BC_TimeDep_NE[ieqnTemp]->value(t, timeRegion);
-		dVals.HeatFluxRight = resTempContrib;
-                break;
+	 case 5: // current BCconstant
+	 case 7: // current BCsteptable
+	 case 9: // current BClineartable
+	     /*
+	      *  For time dependent flux boundary condition using BoundaryCondition class
+	      *
+	      *  For flux boundary conditions we must supply the value of  = icurr dot n_out
+	      *  icurr is the current density (coul / (sec m2)) dotted into the outward facing normal
+	      */
+	     resTempContrib = BC_TimeDep_NE[ieqnTemp]->value(t, timeRegion);
+	     dVals.HeatFluxRight = resTempContrib;
+	     break;
 
-            case 10:  // Collector constant current with collector plat resistance
-                /*
-                 *     current_dens dot n = (V_cathode - V_cathCC) / Resistance_CC
-                 *
-                 *     A note about signs
-                 *     This is the residual equation for enthalpy. The temperature time derivative is always positive
-                 *     in all residuals. We only include the heat conduction term with an expression for flux in the equation
-                 *            flux = - lambda del T.
-                 *
-                 *      (1)    Normal temp residual = dH/dtDelV  + flux_Right - flux_left = 0.0
-                 *
-                 *     The boundary condition for the cathode side, which is on the +x right side is
-                 *
-                 *       (2)  flux_Right = - h (T_ref - T_N) = h ( T_N - T_ref ) = RobinBoundaryCondition
-                 *
-                 *     Therefore, we substitute (2) into (1) to get the signs correct, which is a + for cathode.
-		 *
-                 *     On the Anode side
-                       *       (3) - flux_Left = - h (T_ref - T_0) = h ( T_0 - T_ref ) = RobinBoundaryCondition
-                 *
-                       *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
-                 *
-                       */
-		resTempContrib = BC_TimeDep_NE[ieqnTemp]->valueAtTime(t, solnValTemp, timeRegion);
-		dVals.HeatFluxRight = resTempContrib;
-                break;
+	 case 10:  // Collector constant current with collector plat resistance
+	     /*
+	      *     current_dens dot n = (V_cathode - V_cathCC) / Resistance_CC
+	      *
+	      *     A note about signs
+	      *     This is the residual equation for enthalpy. The temperature time derivative is always positive
+	      *     in all residuals. We only include the heat conduction term with an expression for flux in the equation
+	      *            flux = - lambda del T.
+	      *
+	      *      (1)    Normal temp residual = dH/dtDelV  + flux_Right - flux_left = 0.0
+	      *
+	      *     The boundary condition for the cathode side, which is on the +x right side is
+	      *
+	      *       (2)  flux_Right = - h (T_ref - T_N) = h ( T_N - T_ref ) = RobinBoundaryCondition
+	      *
+	      *     Therefore, we substitute (2) into (1) to get the signs correct, which is a + for cathode.
+	      *
+	      *     On the Anode side
+	      *       (3) - flux_Left = - h (T_ref - T_0) = h ( T_0 - T_ref ) = RobinBoundaryCondition
+	      *
+	      *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
+	      *
+	      */
+	     resTempContrib = BC_TimeDep_NE[ieqnTemp]->valueAtTime(t, solnValTemp, timeRegion);
+	     dVals.HeatFluxRight = resTempContrib;
+	     break;
 
-            default:
-                throw m1d_Error("SurDomain_CathodeCollector::residEval",
-                                "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
-            }
-        }
-    
+	 default:
+	     throw m1d_Error("SurDomain_CathodeCollector::residEval",
+			     "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
+	 }
+     }
+     /*
+     * Get the consistent currents
+     */
+     //SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+ 
+    //
+    //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
+    //  We will use this as the official current coming out of the cathode.
+    // 
+    BulkDomain1D* bd = bedd_->BulkDomainPtr_;
+    icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
+    double jfluxR = bd->DiffFluxRightBound_LastResid_NE[ ieqnTemp ];
+    dValsBat_ptr->currentRight = icurrCollector_;
+    dValsBat_ptr->JHelecRight =   jfluxR;
+    dValsBat_ptr->phiSolid = phiCathode_;
 
  }
 //==================================================================================================================================
@@ -690,7 +726,6 @@ void SurDomain_CathodeCollector::saveDomain(Cantera::XML_Node& oNode, const Epet
     ctml::addFloat(inlt, nm, phiCathodeCC_, "", "", Cantera::Undef, Cantera::Undef);
 
 }
-
 //=====================================================================================================================
 } /* End of Namespace */
 //=====================================================================================================================

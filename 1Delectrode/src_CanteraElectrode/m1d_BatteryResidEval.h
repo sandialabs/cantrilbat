@@ -30,20 +30,48 @@ class globalHeatBalValsBat : public globalHeatBalVals
 {
 public:
     globalHeatBalValsBat() :
-        globalHeatBalVals(),
-	  totalEnthalpyInit(0.0),
-	  totalEnthalpyFinal(0.0)
-    {
-
-    }
-
+    globalHeatBalVals(),
+      totalEnthalpyInit(0.0),
+      totalEnthalpyFinal(0.0),
+      currentRight(0.0),
+      currentLeft(0.0),
+      JHelecRight(0.0),
+      JHelecLeft(0.0),
+      phiSolid(0.0),
+      phiLyte(0.0)
+      {
+	  
+      }
+    
     ~globalHeatBalValsBat()
     {
     }
 
 
-    double  totalEnthalpyInit;
-    double  totalEnthalpyFinal;
+    virtual void zero()
+    {
+	globalHeatBalVals::zero();
+	totalEnthalpyInit = 0.0;
+	totalEnthalpyFinal = 0.0;
+	currentRight = 0.0;
+	currentLeft = 0.0;
+	JHelecRight = 0.0;
+	JHelecLeft = 0.0;
+	phiSolid = 0.0;
+	phiLyte = 0.0;
+    }
+
+    double totalEnthalpyInit;
+    double totalEnthalpyFinal;
+
+    double currentRight;
+    double currentLeft;
+
+    double JHelecRight;
+    double JHelecLeft;
+
+    double phiSolid;
+    double phiLyte;
 
 
 };

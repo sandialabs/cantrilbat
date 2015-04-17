@@ -130,6 +130,14 @@ public:
                  int indentSpaces,
                  bool duplicateOnAllProcs = false);
 
+    virtual void 
+    eval_HeatBalance(const int ifunc,
+		     const double t,
+		     const double deltaT,
+		     const Epetra_Vector *soln_ptr,
+		     const Epetra_Vector *solnDot_ptr,
+		     const Epetra_Vector *solnOld_ptr,
+		     struct globalHeatBalVals& dVals);
 
     //! Generate the initial conditions
     /*!
