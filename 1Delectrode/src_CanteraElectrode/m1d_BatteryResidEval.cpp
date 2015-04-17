@@ -1031,6 +1031,7 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 {
     class globalHeatBalValsBat dVals;
     DomainLayout &DL = *DL_ptr_;
+    double HeatFluxRight = 0.0;
     //
     //   Loop over the Volume Domains
     //
@@ -1048,9 +1049,14 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
 	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
 	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
+        if (iDom == 3) {
+         HeatFluxRight = dVals.HeatFluxRight;
+        }
     }
 
     printf(" Total Heat Capacity = %g\n", 	totalHeatCapacity);
+
+    printf(" Heat flux Cathode = %g\n", HeatFluxRight);
     
 }
 //================================================================================================================

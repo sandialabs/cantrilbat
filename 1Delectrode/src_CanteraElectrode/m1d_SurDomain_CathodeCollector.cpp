@@ -32,10 +32,10 @@
 
 using namespace std;
 
-//=====================================================================================================================
+//==================================================================================================================================
 namespace m1d
 {
-//=====================================================================================================================
+//==================================================================================================================================
 static void drawline0(stream0& ss, int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
@@ -47,7 +47,7 @@ static void drawline0(stream0& ss, int sp, int ll)
     ss.print0("\n");
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 SurDomain_CathodeCollector::SurDomain_CathodeCollector(SurfDomainDescription& sdd, int problemType) :
     SurBC_Dirichlet(sdd),
     bedd_(0),
@@ -70,7 +70,7 @@ SurDomain_CathodeCollector::SurDomain_CathodeCollector(SurfDomainDescription& sd
                         "Can't find adjoining bulk electrolyte domain");
     }
 }
-//=====================================================================================================================
+//=================================================================================================================================
 SurDomain_CathodeCollector::SurDomain_CathodeCollector(const SurDomain_CathodeCollector& r) :
     SurBC_Dirichlet(r.SDD_),
     bedd_(0),
@@ -145,7 +145,7 @@ void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices* li_ptr)
     // being an odd integer indicates current specification) and
     // if so set SpecFlag_NE(voltageEqn) = 0 so that we know it is a Neumann condition
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
  *  We calculate the additions and/or replacement of the
@@ -176,6 +176,8 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
         return;
     }
 
+
+
     /*
      * Find the current time region
      */
@@ -189,7 +191,16 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+
+    //
+    //  Store the entrance residual for later processing in balancing applications
+    //
+    if (residType == Base_ResidEval || residType == Base_ShowSolution) {
+	for (size_t i = 0; i < (size_t) NumNodeEqns; i++) {
+	    Resid_BeforeSurDomain_NE[i] = res[ index_EqnStart + i];
+	}
+    }
 
     /*
      * get the offsets for the BulkDomain and the surface domain.
@@ -345,14 +356,14 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 #undef DAKOTAOUT
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void SurDomain_CathodeCollector::getVoltages(const double* const solnElectrolyte)
 {
     int indexVS = bedd_->VariableIndexStart_VarName[Voltage];
     phiElectrolyte_ = solnElectrolyte[indexVS];
     phiCathode_ = solnElectrolyte[indexVS + 1];
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Base class for writing the solution on the domain to a logfile.
 /*
  *
@@ -430,7 +441,122 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
     }
     print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
 }
-//=====================================================================================================================
+//==================================================================================================================================
+void
+SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
+                                             const double t,
+                                             const double deltaT,
+                                             const Epetra_Vector *soln_ptr,
+                                             const Epetra_Vector *solnDot_ptr,
+                                             const Epetra_Vector *solnOld_ptr,
+                                             struct globalHeatBalVals& dVals)
+ {
+
+     // 
+     // We may add heat capacity later. However, not yet implemented.
+     //
+     dVals.totalHeatCapacity = 0.0;
+     double resTempContrib = 0.0;
+     const Epetra_Vector& soln = *soln_ptr;
+   
+     size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+     DomainLayout* dl = SDD_.DL_ptr_;
+     ProblemResidEval* pb = dl->problemResid_;
+     int timeRegion = pb->m_currentTimeRegion;
+     // get the offset of the temperature
+     //
+     size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
+
+     if (! SpecFlag_NE[ieqnTemp]) {
+	 dVals.HeatFluxRight = 0.0;
+     } else {
+   
+    
+	 size_t ieqn = index_EqnStart + ieqnTemp;
+	 double solnValTemp = soln[ieqn];
+	 double val = Value_NE[ieqnTemp];
+	     
+	     switch (BC_Type_NE[ieqnTemp]) {
+	     case 0:
+		 resTempContrib = val - solnValTemp;
+		 break;	 
+            case 1:
+		resTempContrib= val;
+		dVals.HeatFluxRight = resTempContrib;
+                break;
+            case 2:
+
+                resTempContrib = val * TimeDep_NE[ieqnTemp](t) - solnValTemp;
+		dVals.HeatFluxRight = resTempContrib;
+                break;
+            case 3:
+ 
+                resTempContrib = val * TimeDep_NE[ieqnTemp](t);
+		dVals.HeatFluxRight = resTempContrib;
+                break;
+
+            case 4: // voltage BCconstant
+            case 6: // voltage BCsteptable
+            case 8: // voltage BClineartable
+                /*
+                 *  For time dependent Dirichlet boundary condition using BoundaryCondition class
+		 *
+		 *  Replace the equation for current at the boundary with a Dirichlet condition
+		 * for the electrode
+		 *  voltage involving a function
+                 */
+                resTempContrib = BC_TimeDep_NE[ieqnTemp]->value(t, timeRegion) - solnValTemp;
+                break;
+
+            case 5: // current BCconstant
+            case 7: // current BCsteptable
+            case 9: // current BClineartable
+                /*
+                 *  For time dependent flux boundary condition using BoundaryCondition class
+		 *
+		 *  For flux boundary conditions we must supply the value of  = icurr dot n_out
+		 *  icurr is the current density (coul / (sec m2)) dotted into the outward facing normal
+                 */
+                resTempContrib = BC_TimeDep_NE[ieqnTemp]->value(t, timeRegion);
+		dVals.HeatFluxRight = resTempContrib;
+                break;
+
+            case 10:  // Collector constant current with collector plat resistance
+                /*
+                 *     current_dens dot n = (V_cathode - V_cathCC) / Resistance_CC
+                 *
+                 *     A note about signs
+                 *     This is the residual equation for enthalpy. The temperature time derivative is always positive
+                 *     in all residuals. We only include the heat conduction term with an expression for flux in the equation
+                 *            flux = - lambda del T.
+                 *
+                 *      (1)    Normal temp residual = dH/dtDelV  + flux_Right - flux_left = 0.0
+                 *
+                 *     The boundary condition for the cathode side, which is on the +x right side is
+                 *
+                 *       (2)  flux_Right = - h (T_ref - T_N) = h ( T_N - T_ref ) = RobinBoundaryCondition
+                 *
+                 *     Therefore, we substitute (2) into (1) to get the signs correct, which is a + for cathode.
+		 *
+                 *     On the Anode side
+                       *       (3) - flux_Left = - h (T_ref - T_0) = h ( T_0 - T_ref ) = RobinBoundaryCondition
+                 *
+                       *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
+                 *
+                       */
+		resTempContrib = BC_TimeDep_NE[ieqnTemp]->valueAtTime(t, solnValTemp, timeRegion);
+		dVals.HeatFluxRight = resTempContrib;
+                break;
+
+            default:
+                throw m1d_Error("SurDomain_CathodeCollector::residEval",
+                                "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
+            }
+        }
+    
+
+ }
+//==================================================================================================================================
 // Generate the initial conditions
 /*
  *   For surface Dirichlet conditions, we impose the t = 0- condition.
