@@ -46,6 +46,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     thermalCond_Curr_(0.0),
     heatFlux_Curr_(0.0), 
     jFlux_EnthalpyPhi_Curr_(0.0),
+    EnthalpyMolar_lyte_Curr_(0.0),
     ivb_(VB_MOLEAVG)
 {
     BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
@@ -71,6 +72,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
       thermalCond_Curr_(0.0),
       heatFlux_Curr_(0.0),
       jFlux_EnthalpyPhi_Curr_(0.0),
+      EnthalpyMolar_lyte_Curr_(0.0),
       ivb_(VB_MOLEAVG)
   {
       BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
@@ -113,6 +115,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
     EnthalpyPM_lyte_Curr_      = r.EnthalpyPM_lyte_Curr_;
     EnthalpyPhiPM_lyte_Curr_   = r.EnthalpyPhiPM_lyte_Curr_;
+    EnthalpyMolar_lyte_Curr_   = r.EnthalpyMolar_lyte_Curr_;
 
     qSource_Cell_curr_        = r.qSource_Cell_curr_;
     qSource_Cell_accumul_     = r.qSource_Cell_accumul_;

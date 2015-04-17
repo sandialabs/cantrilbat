@@ -313,7 +313,7 @@ protected:
      */
     double heatFlux_Curr_;
 
-    //! Heat flux of the Enhanced Enthalpy at the current point
+    //! Heat flux of the Enhanced EnthalpyPhi at the current point
     /*!
      *  Units = Watts / m2
      */
@@ -344,6 +344,11 @@ protected:
     std::vector<doublereal> EnthalpyPM_lyte_Curr_;
     std::vector<doublereal> EnthalpyPhiPM_lyte_Curr_;
 
+    //! Value of the molar Enthalpy of the electrolyte at the current location
+    /*!
+     *  Units are Joules/kmol
+     */
+    double EnthalpyMolar_lyte_Curr_;
  
     //! Source of heat during the current time step
     /*!
