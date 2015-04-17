@@ -50,7 +50,11 @@ public:
     BC_cathodeCC(const BC_cathodeCC& right);
     virtual ~BC_cathodeCC();
     BC_cathodeCC& operator=(const BC_cathodeCC& right);
-
+    
+    //! Returns the current on a cross-sectional basis
+    /*!
+     *  @return  units = amps / m2
+     */
     virtual double valueAtTime(double time, double voltsCathode, int interval);
 
 protected:
@@ -61,6 +65,10 @@ protected:
 
     double extraResistance_;
 
+    //! Cross sectional area of domain
+    /*!
+     *  Not needed
+     */
     double electrodeCrossSectionalArea_;
 };
 
@@ -74,12 +82,27 @@ public:
     virtual ~BC_heatTransfer();
     BC_heatTransfer& operator=(const BC_heatTransfer& r);
 
+    //! Returns the heat transfered out of the domain
+    /*!
+     *   Units = Watts / m2 / K
+     */
     virtual double valueAtTime(double time, double tempCollector, int interval);
 
 protected:
 
+    //! temperature of heat bath (Kelvin)
     double tempRef_;
+
+    //! Heat transfer coefficient
+    /*!
+     *     Units = Watts / m2 / K
+     */
     double tranCoeff_;
+
+    //! cross sectional area
+    /*!
+     *  units = m2  Note -> this is not needed
+     */
     double electrodeCrossSectionalArea_;
 };
 

@@ -110,6 +110,8 @@ double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval)
     double denom = resistivity * thickness_ + extraResistance_ * electrodeCrossSectionalArea_;
     denom = std::max(denom, 1.0E-11);
     double val = (voltsCathode - cathodeCC_volts_) / denom;
+    //  returns the current on a cross-sectional basis
+    //  units = amps / m2
     return val;
 }
 //=====================================================================================================================
@@ -150,7 +152,8 @@ BC_heatTransfer& BC_heatTransfer::operator=(const BC_heatTransfer& right)
 double BC_heatTransfer::valueAtTime(double time, double tempCollector, int interval)
 { 
     // This represents the net flux of heat out of the domain.
-    double val = tranCoeff_ * electrodeCrossSectionalArea_ * (tempCollector - tempRef_);
+    //  Units are Watts / m2 / K
+    double val = tranCoeff_  * (tempCollector - tempRef_);
     return val;
 }
 //=====================================================================================================================
