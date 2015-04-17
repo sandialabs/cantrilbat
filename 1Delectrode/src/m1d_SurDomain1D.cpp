@@ -223,6 +223,10 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
          * Set the IsArithmeticScaled flag for the node list to "I don't know"
          */
         IsArithmeticScaled_Node.resize(NumNodeEqns, -1);
+	//
+	//  Resize based on number of equations
+	//
+	Resid_BeforeSurDomain_NE.resize(NumNodeEqns, 0.0);
 
     }
 

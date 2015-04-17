@@ -558,6 +558,14 @@ public:
    */
   std::vector<double> VarVectorRightBulkDomain_LastResid_NE;
 
+  //! Residual fed into the surface domain before application of BCs
+  /*!
+   *   This may be used to close balances for cases where Dirichlet conditions
+   *   are applied at this surface.
+   *
+   *   Length = Number of equations defined at this surface node
+   */
+  std::vector<double> Resid_BeforeSurDomain_NE;
 
 private:
 
@@ -815,6 +823,8 @@ public:
    *   Vector has length equal to the number of equations defined at the node
    */
   std::vector<int> BC_Type_NE;
+
+
 
 };
 

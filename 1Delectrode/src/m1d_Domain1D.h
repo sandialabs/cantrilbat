@@ -36,7 +36,9 @@ class globalHeatBalVals
 {
   public:
      globalHeatBalVals() :
-       totalHeatCapacity(0.0)
+       totalHeatCapacity(0.0),
+       HeatFluxRight(0.0),
+       HeatFluxLeft(0.0)
      {
      }
 
@@ -45,7 +47,16 @@ class globalHeatBalVals
 
      }
 
+     virtual void zero() 
+     {
+          totalHeatCapacity = 0.0;
+          HeatFluxRight = 0.0;
+          HeatFluxLeft = 0.0;
+     }
+
      double totalHeatCapacity;
+     double HeatFluxRight;
+     double HeatFluxLeft;
 
 };
 
