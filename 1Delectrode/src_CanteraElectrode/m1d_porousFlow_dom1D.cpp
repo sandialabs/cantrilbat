@@ -749,9 +749,21 @@ double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathod
  double
  porousFlow_dom1D::thermalCondCalc_PorMatrix()
  {
-
+     // Brief research
+     //   Thermal conductivity of polycrystalline graphite = 80 Watts m-1 K-1
+     //   Thermal conductivity of water = 0.58 Watts m-1 K-1
+     //   Thermal conductivity of paper = 0.05 Watts m-1 K-1
+     //   Thermal conductivity of ethylene glycol = 0.25 Watts m-1 K-1
+     //   Thermal conductivity of glass = 1.05 Watts m-1 K-1
+     //   Thermal conductivity of copper = 400. Watts m-1 K-1
+     //   Thermal conductivity of aluminum = 200. Watts m-1 K-1
+     //                        of olive oil = 0.16 Watts m-1 K-1
+     //                        of gravel = 0.7  .7  .7  .7  .7  .7  .7  Watts m-1 K-1
      // temp value
-     return 1.0;
+     //  Judging from above, we are not more that a factor of 2-3 off here. This may not be necessary to go into much
+     //  more detail.
+     //
+     return 0.5;
  }
 //=====================================================================================================================
 } //namespace m1d
