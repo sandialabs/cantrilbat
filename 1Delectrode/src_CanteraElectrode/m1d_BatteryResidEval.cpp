@@ -1039,22 +1039,32 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     double JHelecLeft = 0.0;
     double currLeft = 0.0;
     double phiAnode = 0.0;
+    double nEnthOldB[10];
+    double nEnthNewB[10];
+    double nEnthOldS[10];
+    double nEnthNewS[10];
+    double nEnthOldTotal = 0.0;
+    double nEnthNewTotal = 0.0;
 
     //
     //   Loop over the Volume Domains
     //
     double totalHeatCapacity = 0.0;
-    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+    for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
+        dVals.zero();
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
-
 	totalHeatCapacity += dVals.totalHeatCapacity;
-
+        nEnthNewB[iDom] = dVals.newNEnthalpy;
+        nEnthOldB[iDom] = dVals.oldNEnthalpy;
+        nEnthNewTotal +=  dVals.newNEnthalpy;
+        nEnthOldTotal +=  dVals.oldNEnthalpy;
     }
     //
     //    Loop over the Surface Domains
     //
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        dVals.zero();
 	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
 	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
         if (iDom == 1) {
@@ -1070,6 +1080,10 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
          currRight = dVals.currentRight;
          phiCath = dVals.phiSolid;
         }
+        nEnthNewS[iDom] = dVals.newNEnthalpy;
+        nEnthOldS[iDom] = dVals.oldNEnthalpy;
+        nEnthNewTotal +=  dVals.newNEnthalpy;
+        nEnthOldTotal +=  dVals.oldNEnthalpy;
     }
 
     printf(" Total Heat Capacity = %g\n", 	totalHeatCapacity);
@@ -1086,6 +1100,17 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 
     printf(" current Volts anode = %g\n", currLeft * phiAnode);
 
+    printf(" Old Enthalpy = %g \n", nEnthOldTotal); 
+
+    printf(" New Enthalpy = %g \n", nEnthNewTotal);
+
+    // extend this to surfaces when they start to have enthalpy
+
+    for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
+        printf(" % E12.5    % E12.5       % E12.5\n" , nEnthNewB[iDom], nEnthOldB[iDom],   nEnthNewB[iDom] - nEnthOldB[iDom]);
+    }
+    printf(" % E12.5    % E12.5       % E12.5\n" , nEnthNewTotal, nEnthOldTotal,   nEnthNewTotal - nEnthOldTotal);
+    
 
     
 }

@@ -38,7 +38,9 @@ class globalHeatBalVals
      globalHeatBalVals() :
        totalHeatCapacity(0.0),
        HeatFluxRight(0.0),
-       HeatFluxLeft(0.0)
+       HeatFluxLeft(0.0),
+       oldNEnthalpy(0.0), 
+       newNEnthalpy(0.0)
      {
      }
 
@@ -52,12 +54,15 @@ class globalHeatBalVals
           totalHeatCapacity = 0.0;
           HeatFluxRight = 0.0;
           HeatFluxLeft = 0.0;
+          oldNEnthalpy = 0.0;
+          newNEnthalpy = 0.0;
      }
 
      double totalHeatCapacity;
      double HeatFluxRight;
      double HeatFluxLeft;
-
+     double oldNEnthalpy;
+     double newNEnthalpy;
 };
 
 

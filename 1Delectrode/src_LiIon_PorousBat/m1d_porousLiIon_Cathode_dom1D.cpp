@@ -1756,14 +1756,15 @@ porousLiIon_Cathode_dom1D::eval_PostSoln(
 	electrodeHeat_Cell_curr_[iCell] = overPotentialHeat_Cell_curr_[iCell];
 #else
         electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() /  crossSectionalArea_;
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] =
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ crossSectionalArea_;
 #endif
 	qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
-//==============================================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 					    const double t,
@@ -1772,7 +1773,6 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 					    const Epetra_Vector *solnDot_ptr,
 					    const Epetra_Vector *solnOld_ptr,
                                             struct globalHeatBalVals& dVals)
-   
 {
     NodalVars* nodeCent = 0;
     NodalVars* nodeLeft = 0;
@@ -1783,6 +1783,8 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
     double xdelR; // Distance from the center node to the right node
 
     dVals.totalHeatCapacity = 0.0;
+    dVals.oldNEnthalpy = 0.0;
+    dVals.newNEnthalpy = 0.0;
 
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -1932,12 +1934,18 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 	}
 
 	dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
+	//
+	//  Count up the total old and new cell enthalpies
+	//
+	dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
+	dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
         //
 	// Add in the electrode contribution
         //
 #ifdef DELTASHEAT_ZERO
 	deltaSHeat_Cell_curr_[iCell]= 0.0;
-	overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+	overPotentialHeat_Cell_curr_[iCell] = 
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
 	electrodeHeat_Cell_curr_[iCell] = overPotentialHeat_Cell_curr_[iCell];
 #else
         electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() /  crossSectionalArea_;

@@ -147,6 +147,15 @@ public:
 		  const double t,
 		  const double rdelta_t);
 
+    void
+      eval_HeatBalance(const int ifunc,
+		       const double t,
+		       const double deltaT,
+		       const Epetra_Vector *soln_ptr,
+		       const Epetra_Vector *solnDot_ptr,
+		       const Epetra_Vector *solnOld_ptr,
+		       struct globalHeatBalVals& dVals);
+
     //! Utility function to calculate quantities before the main residual routine.
     /*!
      *  This is used for a loop over nodes. All calculated quantities must be internally storred.
