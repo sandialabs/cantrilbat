@@ -328,7 +328,7 @@ void SurDomain_AnodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     int offsetBD = NodalVarPtr->OffsetIndex_BulkDomainEqnStart_BDN[0];
     int EQ_Current_offset_BD = offsetBD + bedd_->EquationIndexStart_EqName[Current_Conservation];
     int EQ_Current_offset_ED = EQ_Current_offset_BD + 1;
-    icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
+    icurrCollector_ = bd->DiffFluxLeftBound_LastResid_NE[EQ_Current_offset_ED];
 
     stream0 ss;
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
