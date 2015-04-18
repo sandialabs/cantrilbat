@@ -486,15 +486,6 @@ END BLOCK Radial Diffusion Region
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
-    => timesProcessed = 0 multiContribIndex = 1 
-    Index of the Region = (integer) with default -2147483647
-    Number of Cells in Region = (integer) with default -2147483647
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-    Default Diffusion Coefficient = (double) with default 1e-12
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
 START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
     => timesProcessed = 1 multiContribIndex = 0 
     Index of the Region = (integer) with default 0
@@ -507,27 +498,36 @@ START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
     Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
     Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
 END BLOCK Radial Diffusion Region
+START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
+    => timesProcessed = 0 multiContribIndex = 1 
+    Index of the Region = (integer) with default -2147483647
+    Number of Cells in Region = (integer) with default -2147483647
+    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+    Default Diffusion Coefficient = (double) with default 1e-12
+    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
+    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
+END BLOCK Radial Diffusion Region
 --------------------------------------------------------------------------------------------------------------------------------------------------------
     Equation Order for Global Node 9          numbulkdomains = 2          numsurfdomains = 1
                  EQUATION                         |                 LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |
      eqnNum             Var                 Eqn   |    eqnNum          Var                    Eqn   |     eqnNum           Var               Eqn       |
-     0         Vel_axial(0)  Continuity(Continui) |    0         Vel_axial(0)  Continuity(Continui) |     0         Vel_axial(0)  Continuity(Continui) |
-     1         MF_sp(ECDMC)       MF_summation(0) |    1         MF_sp(ECDMC)       MF_summation(0) |     1         MF_sp(ECDMC)       MF_summation(0) |
-     2           MF_sp(Li+)  Species_conservation |    2           MF_sp(Li+)  Species_conservation |     2           MF_sp(Li+)  Species_conservation |
-     3          MF_sp(PF6-)  ChargeNeutrality_sum |    3          MF_sp(PF6-)  ChargeNeutrality_sum |     3          MF_sp(PF6-)  ChargeNeutrality_sum |
-     4    Volt(Electrolyte)  Current_conservation |    4    Volt(Electrolyte)  Current_conservation |     4    Volt(Electrolyte)  Current_conservation |
-     5   Volt(AnodeVoltage)  Current_conservation |    5   Volt(AnodeVoltage)  Current_conservation |                                                  |
+     0            Vel_axial                       |    0            Vel_axial                       |     0            Vel_axial                       |
+     1         MF_sp(ECDMC)                       |    1         MF_sp(ECDMC)                       |     1         MF_sp(ECDMC)                       |
+     2           MF_sp(Li+)                       |    2           MF_sp(Li+)                       |     2           MF_sp(Li+)                       |
+     3          MF_sp(PF6-)                       |    3          MF_sp(PF6-)                       |     3          MF_sp(PF6-)                       |
+     4    Volt(Electrolyte)                       |    4    Volt(Electrolyte)                       |     4    Volt(Electrolyte)                       |
+     5   Volt(AnodeVoltage)                       |    5   Volt(AnodeVoltage)                       |                                                  |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------------------------------
     Equation Order for Global Node 18          numbulkdomains = 2          numsurfdomains = 1
                  EQUATION                         |                 LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |
      eqnNum             Var                 Eqn   |    eqnNum          Var                    Eqn   |     eqnNum           Var               Eqn       |
-     0         Vel_axial(0)  Continuity(Continui) |    0         Vel_axial(0)  Continuity(Continui) |     0         Vel_axial(0)  Continuity(Continui) |
-     1         MF_sp(ECDMC)       MF_summation(0) |    1         MF_sp(ECDMC)       MF_summation(0) |     1         MF_sp(ECDMC)       MF_summation(0) |
-     2           MF_sp(Li+)  Species_conservation |    2           MF_sp(Li+)  Species_conservation |     2           MF_sp(Li+)  Species_conservation |
-     3          MF_sp(PF6-)  ChargeNeutrality_sum |    3          MF_sp(PF6-)  ChargeNeutrality_sum |     3          MF_sp(PF6-)  ChargeNeutrality_sum |
-     4    Volt(Electrolyte)  Current_conservation |    4    Volt(Electrolyte)  Current_conservation |     4    Volt(Electrolyte)  Current_conservation |
-     5 Volt(CathodeVoltage)  Current_conservation |                                                 |     5 Volt(CathodeVoltage)  Current_conservation |
+     0            Vel_axial                       |    0            Vel_axial                       |     0            Vel_axial                       |
+     1         MF_sp(ECDMC)                       |    1         MF_sp(ECDMC)                       |     1         MF_sp(ECDMC)                       |
+     2           MF_sp(Li+)                       |    2           MF_sp(Li+)                       |     2           MF_sp(Li+)                       |
+     3          MF_sp(PF6-)                       |    3          MF_sp(PF6-)                       |     3          MF_sp(PF6-)                       |
+     4    Volt(Electrolyte)                       |    4    Volt(Electrolyte)                       |     4    Volt(Electrolyte)                       |
+     5 Volt(CathodeVoltage)                       |                                                 |     5 Volt(CathodeVoltage)                       |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
 Solution saved to file solution.xml as solution 0.
@@ -552,12 +552,14 @@ Solution saved to file solutionStartEnd.xml as solution 0.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      -7.0000E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0930E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -566,7 +568,7 @@ Solution saved to file solutionStartEnd.xml as solution 0.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  -7.0000E-02 
@@ -700,7 +702,7 @@ Solution saved to file solutionStartEnd.xml as solution 0.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00 
+         Vel_axial              0.0000E+00 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -714,7 +716,7 @@ Solution saved to file solutionStartEnd.xml as solution 0.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  -7.0000E-02 
@@ -761,7 +763,7 @@ Solution saved to file solutionStartEnd.xml as solution 0.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00 
+         Vel_axial              0.0000E+00 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -775,7 +777,7 @@ Solution saved to file solutionStartEnd.xml as solution 0.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  -7.00000E-02 
@@ -907,12 +909,14 @@ Solution saved to file solutionStartEnd.xml as solution 0.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      -7.0000E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                2.3826E-01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -930,7 +934,7 @@ initial Atol vector
       ----------------------------------------------------------------------------------------------------
            VariableName   GblEqnInd      Value  
         ------------------------------------------------------------
-         Vel_axial(0)           0   1.0000E-04 
+         Vel_axial              0   1.0000E-04 
          MF_sp(ECDMC)           1   1.0000E-10 
          MF_sp(Li+)             2   1.0000E-10 
          MF_sp(PF6-)            3   1.0000E-10 
@@ -944,7 +948,7 @@ initial Atol vector
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       ----------------------------------------------------------------------------------------------------
-             z    GblEqnIndx Vel_axial(0)   MF_sp(ECDMC)   MF_sp(Li+)     MF_sp(PF6-)    Volt(Electroly)
+             z    GblEqnIndx Vel_axial      MF_sp(ECDMC)   MF_sp(Li+)     MF_sp(PF6-)    Volt(Electroly)
       ----------------------------------------------------------------------------------------------------
 
         0.0000E+00       0   1.0000E-04     1.0000E-10     1.0000E-10     1.0000E-10     5.0000E-02  
@@ -978,7 +982,7 @@ initial Atol vector
       ----------------------------------------------------------------------------------------------------
            VariableName   GblEqnInd      Value  
         ------------------------------------------------------------
-         Vel_axial(0)          54   1.0000E-04 
+         Vel_axial             54   1.0000E-04 
          MF_sp(ECDMC)          55   1.0000E-10 
          MF_sp(Li+)            56   1.0000E-10 
          MF_sp(PF6-)           57   1.0000E-10 
@@ -992,7 +996,7 @@ initial Atol vector
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       ----------------------------------------------------------------------------------------------------
-             z    GblEqnIndx Vel_axial(0)   MF_sp(ECDMC)   MF_sp(Li+)     MF_sp(PF6-)    Volt(Electroly)
+             z    GblEqnIndx Vel_axial      MF_sp(ECDMC)   MF_sp(Li+)     MF_sp(PF6-)    Volt(Electroly)
       ----------------------------------------------------------------------------------------------------
 
         7.8740E-04      54   1.0000E-04     1.0000E-10     1.0000E-10     1.0000E-10     5.0000E-02  
@@ -1012,7 +1016,7 @@ initial Atol vector
       ----------------------------------------------------------------------------------------------------
            VariableName   GblEqnInd      Value  
         ------------------------------------------------------------
-         Vel_axial(0)         100   1.0000E-04 
+         Vel_axial            100   1.0000E-04 
          MF_sp(ECDMC)         101   1.0000E-10 
          MF_sp(Li+)           102   1.0000E-10 
          MF_sp(PF6-)          103   1.0000E-10 
@@ -1026,7 +1030,7 @@ initial Atol vector
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       ----------------------------------------------------------------------------------------------------
-             z    GblEqnIndx Vel_axial(0)   MF_sp(ECDMC)   MF_sp(Li+)     MF_sp(PF6-)    Volt(Electroly)
+             z    GblEqnIndx Vel_axial      MF_sp(ECDMC)   MF_sp(Li+)     MF_sp(PF6-)    Volt(Electroly)
       ----------------------------------------------------------------------------------------------------
 
         1.2700E-03     100   1.0000E-04     1.0000E-10     1.0000E-10     1.0000E-10     5.0000E-02  
@@ -1060,7 +1064,7 @@ initial Atol vector
       ----------------------------------------------------------------------------------------------------
            VariableName   GblEqnInd      Value  
         ------------------------------------------------------------
-         Vel_axial(0)         154   1.0000E-04 
+         Vel_axial            154   1.0000E-04 
          MF_sp(ECDMC)         155   1.0000E-10 
          MF_sp(Li+)           156   1.0000E-10 
          MF_sp(PF6-)          157   1.0000E-10 
@@ -1081,11 +1085,11 @@ Start of Time Step:     1       Time_n =     1e-08 Time_nm1 =         0
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.143E-03   Y   |    1   2.255E-13 | 4.122E+02  | 1.000E+00|  7.035E-04  |   1.00E+00  0 |   4.122E+02   7.035E-04 
-	   2   7.035E-04   Y   |    1   8.854E-14 | 3.221E+02  | 1.000E+00|  1.015E-03  |   1.00E+00  0 |   3.221E+02   1.015E-03 
-	   3   1.015E-03   Y   |    1   5.951E-14 | 9.391E+01  | 1.000E+00|  1.497E-04  |   1.00E+00  0 |   9.391E+01   1.497E-04 
-	   4   1.497E-04   Y   |    1   6.395E-16 | 1.552E+00  | 1.000E+00|  5.201E-07  |   1.00E+00  0 |   1.552E+00   5.201E-07 
-	                       |                  |(5.391E-03) |          |             | converged = 3 |              (5.391E-03) 
+	   1   5.141E-02   Y   |    1   1.938E-13 | 4.122E+02  | 1.000E+00|  1.738E-02  |   1.00E+00  0 |   4.122E+02   1.738E-02 
+	   2   1.738E-02   Y   |    1   1.291E-13 | 3.221E+02  | 1.000E+00|  3.903E-03  |   1.00E+00  0 |   3.221E+02   3.903E-03 
+	   3   3.903E-03   Y   |    1   5.078E-14 | 9.391E+01  | 1.000E+00|  1.860E-04  |   1.00E+00  0 |   9.391E+01   1.860E-04 
+	   4   1.860E-04   Y   |    1   9.740E-16 | 1.552E+00  | 1.000E+00|  5.780E-07  |   1.00E+00  0 |   1.552E+00   5.780E-07 
+	                       |                  |(4.825E-03) |          |             | converged = 3 |              (4.825E-03) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 4 iterations
 	Time step truncation error = 829.682
@@ -1133,12 +1137,14 @@ Solution saved to file solution.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -1147,7 +1153,7 @@ Solution saved to file solution.xml as solution 1.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -1281,7 +1287,7 @@ Solution saved to file solution.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0859E-08 
+         Vel_axial              2.0859E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -1295,7 +1301,7 @@ Solution saved to file solution.xml as solution 1.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0859E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -1342,7 +1348,7 @@ Solution saved to file solution.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8543E-08 
+         Vel_axial              1.8543E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -1356,14 +1362,14 @@ Solution saved to file solution.xml as solution 1.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85428E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
           1.3377E-03  1.39117E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91654E-02 
           1.4055E-03  9.28005E-09  9.20000E-01  4.00000E-02  4.00000E-02  2.91653E-02 
           1.4732E-03  4.64745E-09  9.20000E-01  4.00000E-02  4.00000E-02  2.91651E-02 
-          1.5409E-03  1.34985E-11  9.20000E-01  4.00000E-02  4.00000E-02  2.91650E-02 
+          1.5409E-03  1.34986E-11  9.20000E-01  4.00000E-02  4.00000E-02  2.91650E-02 
           1.6087E-03  -4.62219E-09  9.20000E-01  4.00000E-02  4.00000E-02  2.91649E-02 
           1.6764E-03  -9.26001E-09  9.20000E-01  4.00000E-02  4.00000E-02  2.91648E-02 
           1.7441E-03  -1.39004E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91647E-02 
@@ -1488,12 +1494,14 @@ Solution saved to file solution.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -1509,29 +1517,29 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.135E-07   Y   |    1   1.582E-20 | 2.824E-05  | 1.000E+00|  5.353E-07  |   1.00E+00  0 |   2.824E-05   5.353E-07 
-	   2   5.353E-07   Y   |    1   2.128E-21 | 2.544E-06  | 1.000E+00|  6.556E-13  |   1.00E+00  0 |   2.544E-06   6.556E-13 
-	                       |                  |(3.115E-12) |          |             | converged = 3 |              (3.115E-12) 
+	   1   7.188E-07   Y   |    1   1.412E-20 | 2.825E-05  | 1.000E+00|  5.768E-07  |   1.00E+00  0 |   2.825E-05   5.768E-07 
+	   2   5.768E-07   Y   |    1   1.615E-21 | 2.544E-06  | 1.000E+00|  6.556E-13  |   1.00E+00  0 |   2.544E-06   6.556E-13 
+	                       |                  |(2.892E-12) |          |             | converged = 3 |              (2.892E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.80739e-05
+	Time step truncation error = 2.80777e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		     4         Volt(Electrolyt)-0       4.4473e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8127e-01
-		    10         Volt(Electrolyt)-1       4.4472e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8126e-01
-		    16         Volt(Electrolyt)-2       4.4467e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8123e-01
-		    22         Volt(Electrolyt)-3       4.4459e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8118e-01
-		    28         Volt(Electrolyt)-4       4.4448e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8111e-01
-		    34         Volt(Electrolyt)-5       4.4434e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8103e-01
-		    40         Volt(Electrolyt)-6       4.4417e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8092e-01
-		    46         Volt(Electrolyt)-7       4.4396e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8079e-01
+		     4         Volt(Electrolyt)-0       4.4482e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8133e-01
+		    10         Volt(Electrolyt)-1       4.4481e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8132e-01
+		    16         Volt(Electrolyt)-2       4.4476e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8129e-01
+		    22         Volt(Electrolyt)-3       4.4468e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8124e-01
+		    28         Volt(Electrolyt)-4       4.4457e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8117e-01
+		    34         Volt(Electrolyt)-5       4.4443e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8108e-01
+		    40         Volt(Electrolyt)-6       4.4425e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8097e-01
+		    46         Volt(Electrolyt)-7       4.4405e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg   2.8084e-01
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	  Time step error controlled ignored on 2 step until step 3
 	Time Step Number     2 was a success: time =      2e-08
 		Estimated Error
-		--------------------   =   2.80739e-05
+		--------------------   =   2.80777e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -1559,12 +1567,14 @@ Solution saved to file solution.xml as solution 2.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -1573,7 +1583,7 @@ Solution saved to file solution.xml as solution 2.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -1707,7 +1717,7 @@ Solution saved to file solution.xml as solution 2.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -1721,7 +1731,7 @@ Solution saved to file solution.xml as solution 2.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -1768,7 +1778,7 @@ Solution saved to file solution.xml as solution 2.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -1782,7 +1792,7 @@ Solution saved to file solution.xml as solution 2.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85467E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -1914,12 +1924,14 @@ Solution saved to file solution.xml as solution 2.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -1935,29 +1947,29 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.188E-06   Y   |    1   1.339E-20 | 2.563E-05  | 1.000E+00|  4.643E-13  |   1.00E+00  0 |   2.563E-05   4.643E-13 
-	   2   4.643E-13   Y   |    1   8.232E-22 | 2.647E-06  | 1.000E+00|  5.399E-13  |   1.00E+00  0 |   2.647E-06   5.399E-13 
-	                       |                  |(2.647E-07) |          |             | converged = 3 |              (2.647E-07) 
+	   1   1.346E-06   Y   |    1   1.488E-20 | 2.563E-05  | 1.000E+00|  2.019E-07  |   1.00E+00  0 |   2.563E-05   2.019E-07 
+	   2   2.019E-07   Y   |    1   1.049E-21 | 2.647E-06  | 1.000E+00|  1.430E-07  |   1.00E+00  0 |   2.647E-06   1.430E-07 
+	                       |                  |(1.875E-06) |          |             | converged = 3 |              (1.875E-06) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.64434e-05
+	Time step truncation error = 2.64475e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		     4         Volt(Electrolyt)-0      -4.4477e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1088e-05
-		    10         Volt(Electrolyt)-1      -4.4475e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1088e-05
-		    16         Volt(Electrolyt)-2      -4.4470e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1088e-05
-		    22         Volt(Electrolyt)-3      -4.4463e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1088e-05
-		    28         Volt(Electrolyt)-4      -4.4451e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
-		    34         Volt(Electrolyt)-5      -4.4437e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
-		    40         Volt(Electrolyt)-6      -4.4420e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1086e-05
-		    46         Volt(Electrolyt)-7      -4.4399e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1086e-05
+		     4         Volt(Electrolyt)-0      -4.4485e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
+		    10         Volt(Electrolyt)-1      -4.4484e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
+		    16         Volt(Electrolyt)-2      -4.4479e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
+		    22         Volt(Electrolyt)-3      -4.4471e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
+		    28         Volt(Electrolyt)-4      -4.4460e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1087e-05
+		    34         Volt(Electrolyt)-5      -4.4446e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1086e-05
+		    40         Volt(Electrolyt)-6      -4.4429e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1086e-05
+		    46         Volt(Electrolyt)-7      -4.4408e-06 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -2.1085e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	  Time step error controlled ignored on 3 step until step 3
 	Time Step Number     3 was a success: time =      3e-08
 		Estimated Error
-		--------------------   =   2.64434e-05
+		--------------------   =   2.64475e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -1985,12 +1997,14 @@ Solution saved to file solution.xml as solution 3.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -1999,7 +2013,7 @@ Solution saved to file solution.xml as solution 3.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -2133,7 +2147,7 @@ Solution saved to file solution.xml as solution 3.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0864E-08 
+         Vel_axial              2.0864E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -2147,7 +2161,7 @@ Solution saved to file solution.xml as solution 3.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0864E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -2194,7 +2208,7 @@ Solution saved to file solution.xml as solution 3.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8549E-08 
+         Vel_axial              1.8549E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -2208,7 +2222,7 @@ Solution saved to file solution.xml as solution 3.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85487E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -2340,12 +2354,14 @@ Solution saved to file solution.xml as solution 3.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -2361,23 +2377,23 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.494E-06   Y   |    1   1.048E-20 | 1.788E-05  | 1.000E+00|  7.146E-08  |   1.00E+00  0 |   1.788E-05   7.146E-08 
-	   2   7.146E-08   Y   |    1   9.671E-22 | 2.511E-06  | 1.000E+00|  7.146E-08  |   1.00E+00  0 |   2.511E-06   7.146E-08 
-	                       |                  |(2.511E-06) |          |             | converged = 3 |              (2.511E-06) 
+	   1   1.917E-06   Y   |    1   8.629E-21 | 1.788E-05  | 1.000E+00|  6.116E-07  |   1.00E+00  0 |   1.788E-05   6.116E-07 
+	   2   6.116E-07   Y   |    1   1.503E-21 | 2.511E-06  | 1.000E+00|  7.146E-08  |   1.00E+00  0 |   2.511E-06   7.146E-08 
+	                       |                  |(2.934E-07) |          |             | converged = 3 |              (2.934E-07) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 2.00573e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   136             Vel_axial(0)-24     -7.7528e-06 |  -9.2592e-09  -9.2494e-09   1.0000e-07 alg  -5.9929e-04
-		   142             Vel_axial(0)-25     -7.1785e-06 |  -1.3900e-08  -1.3890e-08   1.0000e-07 alg  -5.6297e-04
-		   148             Vel_axial(0)-26     -6.6042e-06 |  -1.8542e-08  -1.8534e-08   1.0000e-07 alg  -4.9033e-04
-		   130             Vel_axial(0)-23     -6.3171e-06 |  -4.6209e-09  -4.6130e-09   1.0000e-07 alg  -5.2665e-04
-		   124             Vel_axial(0)-22     -6.3171e-06 |   1.4772e-11   2.2762e-11   1.0000e-07 alg  -5.2665e-04
-		   118             Vel_axial(0)-21     -5.7428e-06 |   4.6495e-09   4.6567e-09   1.0000e-07 alg  -4.5401e-04
-		   106             Vel_axial(0)-19     -4.5943e-06 |   1.3914e-08   1.3920e-08   1.0000e-07 alg  -3.8137e-04
-		   100             Vel_axial(0)-18     -4.5943e-06 |   1.8545e-08   1.8551e-08   1.0000e-07 alg  -3.8137e-04
+		   136                Vel_axial-24     -7.7528e-06 |  -9.2592e-09  -9.2494e-09   1.0000e-07 alg  -5.9929e-04
+		   142                Vel_axial-25     -7.1785e-06 |  -1.3900e-08  -1.3890e-08   1.0000e-07 alg  -5.6297e-04
+		   148                Vel_axial-26     -6.6042e-06 |  -1.8542e-08  -1.8534e-08   1.0000e-07 alg  -4.9033e-04
+		   130                Vel_axial-23     -6.3171e-06 |  -4.6209e-09  -4.6130e-09   1.0000e-07 alg  -5.2665e-04
+		   124                Vel_axial-22     -6.3171e-06 |   1.4772e-11   2.2762e-11   1.0000e-07 alg  -5.2665e-04
+		   118                Vel_axial-21     -5.7428e-06 |   4.6495e-09   4.6567e-09   1.0000e-07 alg  -4.5401e-04
+		   106                Vel_axial-19     -4.5943e-06 |   1.3914e-08   1.3920e-08   1.0000e-07 alg  -3.8137e-04
+		   100                Vel_axial-18     -4.5943e-06 |   1.8545e-08   1.8551e-08   1.0000e-07 alg  -3.8137e-04
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     4 was a success: time =      4e-08
@@ -2410,12 +2426,14 @@ Solution saved to file solution.xml as solution 4.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1592E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1592E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -2424,7 +2442,7 @@ Solution saved to file solution.xml as solution 4.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -2558,7 +2576,7 @@ Solution saved to file solution.xml as solution 4.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0861E-08 
+         Vel_axial              2.0861E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -2572,7 +2590,7 @@ Solution saved to file solution.xml as solution 4.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0861E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -2619,7 +2637,7 @@ Solution saved to file solution.xml as solution 4.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8545E-08 
+         Vel_axial              1.8545E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -2633,7 +2651,7 @@ Solution saved to file solution.xml as solution 4.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85449E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -2765,12 +2783,14 @@ Solution saved to file solution.xml as solution 4.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -2786,23 +2806,23 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.747E-06   Y   |    1   2.577E-20 | 3.938E-05  | 1.000E+00|  2.138E-07  |   1.00E+00  0 |   3.938E-05   2.138E-07 
-	   2   2.138E-07   Y   |    1   6.625E-22 | 1.132E-06  | 1.000E+00|  4.127E-13  |   1.00E+00  0 |   1.132E-06   4.127E-13 
-	                       |                  |(2.186E-12) |          |             | converged = 3 |              (2.186E-12) 
+	   1   2.621E-06   Y   |    1   2.476E-20 | 3.938E-05  | 1.000E+00|  2.527E-07  |   1.00E+00  0 |   3.938E-05   2.527E-07 
+	   2   2.527E-07   Y   |    1   3.143E-22 | 1.132E-06  | 1.000E+00|  4.127E-13  |   1.00E+00  0 |   1.132E-06   4.127E-13 
+	                       |                  |(1.849E-12) |          |             | converged = 3 |              (1.849E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 4.01289e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   136             Vel_axial(0)-24      1.3089e-05 |  -9.2516e-09  -9.2682e-09   1.0000e-07 alg   5.0446e-04
-		   142             Vel_axial(0)-25      1.2850e-05 |  -1.3892e-08  -1.3908e-08   1.0000e-07 alg   5.2060e-04
-		   148             Vel_axial(0)-26      1.1892e-05 |  -1.8535e-08  -1.8550e-08   1.0000e-07 alg   5.1253e-04
-		   124             Vel_axial(0)-22      1.1557e-05 |   2.1491e-11   6.8718e-12   1.0000e-07 alg   4.4796e-04
-		   130             Vel_axial(0)-23      1.1557e-05 |  -4.6142e-09  -4.6288e-09   1.0000e-07 alg   4.4796e-04
-		   118             Vel_axial(0)-21      9.5474e-06 |   4.6547e-09   4.6427e-09   1.0000e-07 alg   3.5110e-04
-		   106             Vel_axial(0)-19      8.6860e-06 |   1.3919e-08   1.3908e-08   1.0000e-07 alg   3.5110e-04
-		   100             Vel_axial(0)-18      8.4946e-06 |   1.8550e-08   1.8539e-08   1.0000e-07 alg   3.3496e-04
+		   136                Vel_axial-24      1.3089e-05 |  -9.2516e-09  -9.2682e-09   1.0000e-07 alg   5.0446e-04
+		   142                Vel_axial-25      1.2850e-05 |  -1.3892e-08  -1.3908e-08   1.0000e-07 alg   5.2060e-04
+		   148                Vel_axial-26      1.1892e-05 |  -1.8535e-08  -1.8550e-08   1.0000e-07 alg   5.1253e-04
+		   124                Vel_axial-22      1.1557e-05 |   2.1491e-11   6.8718e-12   1.0000e-07 alg   4.4796e-04
+		   130                Vel_axial-23      1.1557e-05 |  -4.6142e-09  -4.6288e-09   1.0000e-07 alg   4.4796e-04
+		   118                Vel_axial-21      9.5474e-06 |   4.6547e-09   4.6427e-09   1.0000e-07 alg   3.5110e-04
+		   106                Vel_axial-19      8.6860e-06 |   1.3919e-08   1.3908e-08   1.0000e-07 alg   3.5110e-04
+		   100                Vel_axial-18      8.4946e-06 |   1.8550e-08   1.8539e-08   1.0000e-07 alg   3.3496e-04
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     5 was a success: time =    5.5e-08
@@ -2835,12 +2855,14 @@ Solution saved to file solution.xml as solution 5.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -2849,7 +2871,7 @@ Solution saved to file solution.xml as solution 5.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -2983,7 +3005,7 @@ Solution saved to file solution.xml as solution 5.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0865E-08 
+         Vel_axial              2.0865E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -2997,7 +3019,7 @@ Solution saved to file solution.xml as solution 5.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0865E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -3044,7 +3066,7 @@ Solution saved to file solution.xml as solution 5.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8550E-08 
+         Vel_axial              1.8550E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -3058,7 +3080,7 @@ Solution saved to file solution.xml as solution 5.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85499E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -3190,12 +3212,14 @@ Solution saved to file solution.xml as solution 5.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -3211,23 +3235,23 @@ Start of Time Step:     6       Time_n =  7.75e-08 Time_nm1 =   5.5e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.572E-06   Y   |    1   2.329E-20 | 4.773E-05  | 1.000E+00|  6.375E-08  |   1.00E+00  0 |   4.773E-05   6.375E-08 
-	   2   6.375E-08   Y   |    1   2.899E-22 | 6.990E-07  | 1.000E+00|  3.150E-13  |   1.00E+00  0 |   6.990E-07   3.150E-13 
-	                       |                  |(3.454E-12) |          |             | converged = 3 |              (3.454E-12) 
+	   1   2.803E-06   Y   |    1   2.457E-20 | 4.773E-05  | 1.000E+00|  9.013E-08  |   1.00E+00  0 |   4.773E-05   9.013E-08 
+	   2   9.013E-08   Y   |    1   2.841E-22 | 6.990E-07  | 1.000E+00|  3.150E-13  |   1.00E+00  0 |   6.990E-07   3.150E-13 
+	                       |                  |(2.443E-12) |          |             | converged = 3 |              (2.443E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 4.8393e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   148             Vel_axial(0)-26     -1.4285e-05 |  -1.8541e-08  -1.8523e-08   1.0000e-07 alg  -2.9057e-04
-		   142             Vel_axial(0)-25     -1.4237e-05 |  -1.3898e-08  -1.3880e-08   1.0000e-07 alg  -2.7980e-04
-		   136             Vel_axial(0)-24     -1.3759e-05 |  -9.2576e-09  -9.2402e-09   1.0000e-07 alg  -2.6904e-04
-		   124             Vel_axial(0)-22     -1.2499e-05 |   1.5760e-11   3.1570e-11   1.0000e-07 alg  -2.5469e-04
-		   130             Vel_axial(0)-23     -1.2371e-05 |  -4.6198e-09  -4.6041e-09   1.0000e-07 alg  -2.4752e-04
-		   106             Vel_axial(0)-19     -9.9462e-06 |   1.3914e-08   1.3927e-08   1.0000e-07 alg  -2.0806e-04
-		   118             Vel_axial(0)-21     -9.9462e-06 |   4.6501e-09   4.6626e-09   1.0000e-07 alg  -2.0806e-04
-		    48             Vel_axial(0)-8      -9.6272e-06 |   1.9702e-08   1.9714e-08   1.0000e-07 alg  -2.2241e-04
+		   148                Vel_axial-26     -1.4285e-05 |  -1.8541e-08  -1.8523e-08   1.0000e-07 alg  -2.9057e-04
+		   142                Vel_axial-25     -1.4237e-05 |  -1.3898e-08  -1.3880e-08   1.0000e-07 alg  -2.7980e-04
+		   136                Vel_axial-24     -1.3759e-05 |  -9.2576e-09  -9.2402e-09   1.0000e-07 alg  -2.6904e-04
+		   124                Vel_axial-22     -1.2499e-05 |   1.5760e-11   3.1570e-11   1.0000e-07 alg  -2.5469e-04
+		   130                Vel_axial-23     -1.2371e-05 |  -4.6198e-09  -4.6041e-09   1.0000e-07 alg  -2.4752e-04
+		   106                Vel_axial-19     -9.9462e-06 |   1.3914e-08   1.3927e-08   1.0000e-07 alg  -2.0806e-04
+		   118                Vel_axial-21     -9.9462e-06 |   4.6501e-09   4.6626e-09   1.0000e-07 alg  -2.0806e-04
+		    48                Vel_axial-8      -9.6272e-06 |   1.9702e-08   1.9714e-08   1.0000e-07 alg  -2.2241e-04
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     6 was a success: time =   7.75e-08
@@ -3260,12 +3284,14 @@ Solution saved to file solution.xml as solution 6.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1589E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1589E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -3274,7 +3300,7 @@ Solution saved to file solution.xml as solution 6.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -3408,7 +3434,7 @@ Solution saved to file solution.xml as solution 6.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0861E-08 
+         Vel_axial              2.0861E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -3422,7 +3448,7 @@ Solution saved to file solution.xml as solution 6.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0861E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -3469,7 +3495,7 @@ Solution saved to file solution.xml as solution 6.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8546E-08 
+         Vel_axial              1.8546E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -3483,7 +3509,7 @@ Solution saved to file solution.xml as solution 6.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85456E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -3615,12 +3641,14 @@ Solution saved to file solution.xml as solution 6.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -3636,23 +3664,23 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.045E-06   Y   |    1   1.645E-20 | 3.521E-05  | 1.000E+00|  2.050E-07  |   1.00E+00  0 |   3.521E-05   2.050E-07 
-	   2   2.050E-07   Y   |    1   1.220E-21 | 2.237E-06  | 1.000E+00|  4.956E-13  |   1.00E+00  0 |   2.237E-06   4.956E-13 
-	                       |                  |(5.407E-12) |          |             | converged = 3 |              (5.407E-12) 
+	   1   1.756E-06   Y   |    1   2.825E-20 | 3.521E-05  | 1.000E+00|  3.010E-07  |   1.00E+00  0 |   3.521E-05   3.010E-07 
+	   2   3.010E-07   Y   |    1   2.805E-21 | 2.237E-06  | 1.000E+00|  1.275E-07  |   1.00E+00  0 |   2.237E-06   1.275E-07 
+	                       |                  |(9.477E-07) |          |             | converged = 3 |              (9.477E-07) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 3.31324e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   148             Vel_axial(0)-26      8.6887e-06 |  -1.8540e-08  -1.8551e-08   1.0000e-07 alg   3.5075e-05
-		   142             Vel_axial(0)-25      8.4015e-06 |  -1.3897e-08  -1.3907e-08   1.0000e-07 alg   3.5075e-05
-		   136             Vel_axial(0)-24      8.1995e-06 |  -9.2564e-09  -9.2667e-09   1.0000e-07 alg   3.8264e-05
-		   124             Vel_axial(0)-22      8.1144e-06 |   1.7428e-11   7.1644e-12   1.0000e-07 alg   4.9424e-05
-		   130             Vel_axial(0)-23      7.7103e-06 |  -4.6184e-09  -4.6282e-09   1.0000e-07 alg   4.1453e-05
-		    48             Vel_axial(0)-8       7.2742e-06 |   1.9703e-08   1.9694e-08   1.0000e-07 alg   5.0221e-05
-		    60             Vel_axial(0)-10      6.8701e-06 |   2.0863e-08   2.0854e-08   1.0000e-07 alg   5.6599e-05
-		    65             Vel_axial(0)-11      6.8701e-06 |   2.0863e-08   2.0854e-08   1.0000e-07 alg   5.6599e-05
+		   148                Vel_axial-26      8.6887e-06 |  -1.8540e-08  -1.8551e-08   1.0000e-07 alg   3.5075e-05
+		   142                Vel_axial-25      8.4015e-06 |  -1.3897e-08  -1.3907e-08   1.0000e-07 alg   3.5075e-05
+		   136                Vel_axial-24      8.1995e-06 |  -9.2564e-09  -9.2667e-09   1.0000e-07 alg   3.8264e-05
+		   124                Vel_axial-22      8.1144e-06 |   1.7428e-11   7.1644e-12   1.0000e-07 alg   4.9424e-05
+		   130                Vel_axial-23      7.7103e-06 |  -4.6184e-09  -4.6282e-09   1.0000e-07 alg   4.1453e-05
+		    48                Vel_axial-8       7.2742e-06 |   1.9703e-08   1.9694e-08   1.0000e-07 alg   5.0221e-05
+		    60                Vel_axial-10      6.8701e-06 |   2.0863e-08   2.0854e-08   1.0000e-07 alg   5.6599e-05
+		    65                Vel_axial-11      6.8701e-06 |   2.0863e-08   2.0854e-08   1.0000e-07 alg   5.6599e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     7 was a success: time = 1.1125e-07
@@ -3685,12 +3713,14 @@ Solution saved to file solution.xml as solution 7.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1591E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1591E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -3699,7 +3729,7 @@ Solution saved to file solution.xml as solution 7.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -3833,7 +3863,7 @@ Solution saved to file solution.xml as solution 7.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -3847,7 +3877,7 @@ Solution saved to file solution.xml as solution 7.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -3894,7 +3924,7 @@ Solution saved to file solution.xml as solution 7.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -3908,7 +3938,7 @@ Solution saved to file solution.xml as solution 7.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -4040,12 +4070,14 @@ Solution saved to file solution.xml as solution 7.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -4061,23 +4093,23 @@ Start of Time Step:     8       Time_n = 1.6188e-07 Time_nm1 = 1.1125e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.916E-07   Y   |    1   2.246E-21 | 4.824E-06  | 1.000E+00|  1.059E-07  |   1.00E+00  0 |   4.824E-06   1.059E-07 
-	   2   1.059E-07   Y   |    1   8.310E-22 | 8.317E-07  | 1.000E+00|  4.560E-13  |   1.00E+00  0 |   8.317E-07   4.560E-13 
-	                       |                  |(3.581E-12) |          |             | converged = 3 |              (3.581E-12) 
+	   1   1.069E-06   Y   |    1   3.007E-21 | 4.824E-06  | 1.000E+00|  1.096E-07  |   1.00E+00  0 |   4.824E-06   1.096E-07 
+	   2   1.096E-07   Y   |    1   4.660E-22 | 8.317E-07  | 1.000E+00|  4.560E-13  |   1.00E+00  0 |   8.317E-07   4.560E-13 
+	                       |                  |(3.460E-12) |          |             | converged = 3 |              (3.460E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 4.55493e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    60             Vel_axial(0)-10     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    65             Vel_axial(0)-11     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    70             Vel_axial(0)-12     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    75             Vel_axial(0)-13     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    80             Vel_axial(0)-14     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    85             Vel_axial(0)-15     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    90             Vel_axial(0)-16     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
-		    54             Vel_axial(0)-9      -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    60                Vel_axial-10     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    65                Vel_axial-11     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    70                Vel_axial-12     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    75                Vel_axial-13     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    80                Vel_axial-14     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    85                Vel_axial-15     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    90                Vel_axial-16     -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
+		    54                Vel_axial-9      -1.3435e-06 |   2.0864e-08   2.0866e-08   1.0000e-07 alg   2.3029e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     8 was a success: time = 1.61875e-07
@@ -4110,12 +4142,14 @@ Solution saved to file solution.xml as solution 8.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -4124,7 +4158,7 @@ Solution saved to file solution.xml as solution 8.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -4258,7 +4292,7 @@ Solution saved to file solution.xml as solution 8.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0864E-08 
+         Vel_axial              2.0864E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -4272,7 +4306,7 @@ Solution saved to file solution.xml as solution 8.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0864E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -4319,7 +4353,7 @@ Solution saved to file solution.xml as solution 8.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8549E-08 
+         Vel_axial              1.8549E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -4333,7 +4367,7 @@ Solution saved to file solution.xml as solution 8.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85486E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -4465,12 +4499,14 @@ Solution saved to file solution.xml as solution 8.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -4486,8 +4522,8 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.706E-07   Y   |    1   1.060E-20 | 1.425E-05  | 1.000E+00|  9.439E-08  |   1.00E+00  0 |   1.425E-05   9.439E-08 
-	   2   9.439E-08   Y   |    1   2.989E-22 | 3.424E-07  | 1.000E+00|  3.781E-08  |   1.00E+00  0 |   3.424E-07   3.781E-08 
+	   1   1.003E-06   Y   |    1   1.131E-20 | 1.425E-05  | 1.000E+00|  9.439E-08  |   1.00E+00  0 |   1.425E-05   9.439E-08 
+	   2   9.439E-08   Y   |    1   3.652E-22 | 3.424E-07  | 1.000E+00|  3.781E-08  |   1.00E+00  0 |   3.424E-07   3.781E-08 
 	                       |                  |(1.372E-07) |          |             | converged = 3 |              (1.372E-07) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -4495,14 +4531,14 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   142             Vel_axial(0)-25     -4.2114e-06 |  -1.3896e-08  -1.3891e-08   1.0000e-07 alg  -2.2675e-05
-		   136             Vel_axial(0)-24     -4.1216e-06 |  -9.2558e-09  -9.2506e-09   1.0000e-07 alg  -2.3305e-05
-		   148             Vel_axial(0)-26     -4.0318e-06 |  -1.8539e-08  -1.8534e-08   1.0000e-07 alg  -2.1100e-05
-		   130             Vel_axial(0)-23     -3.6726e-06 |  -4.6179e-09  -4.6133e-09   1.0000e-07 alg  -2.0785e-05
-		   118             Vel_axial(0)-21     -3.6348e-06 |   4.6518e-09   4.6564e-09   1.0000e-07 alg  -2.0155e-05
-		   124             Vel_axial(0)-22     -3.4693e-06 |   1.7883e-11   2.2271e-11   1.0000e-07 alg  -1.9526e-05
-		    36             Vel_axial(0)-6      -3.0085e-06 |   1.5067e-08   1.5071e-08   1.0000e-07 alg  -1.5746e-05
-		    95             Vel_axial(0)-17     -2.9612e-06 |   2.0863e-08   2.0866e-08   1.0000e-07 alg  -1.9211e-05
+		   142                Vel_axial-25     -4.2114e-06 |  -1.3896e-08  -1.3891e-08   1.0000e-07 alg  -2.2675e-05
+		   136                Vel_axial-24     -4.1216e-06 |  -9.2558e-09  -9.2506e-09   1.0000e-07 alg  -2.3305e-05
+		   148                Vel_axial-26     -4.0318e-06 |  -1.8539e-08  -1.8534e-08   1.0000e-07 alg  -2.1100e-05
+		   130                Vel_axial-23     -3.6726e-06 |  -4.6179e-09  -4.6133e-09   1.0000e-07 alg  -2.0785e-05
+		   118                Vel_axial-21     -3.6348e-06 |   4.6518e-09   4.6564e-09   1.0000e-07 alg  -2.0155e-05
+		   124                Vel_axial-22     -3.4693e-06 |   1.7883e-11   2.2271e-11   1.0000e-07 alg  -1.9526e-05
+		    36                Vel_axial-6      -3.0085e-06 |   1.5067e-08   1.5071e-08   1.0000e-07 alg  -1.5746e-05
+		    95                Vel_axial-17     -2.9612e-06 |   2.0863e-08   2.0866e-08   1.0000e-07 alg  -1.9211e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     9 was a success: time = 2.37813e-07
@@ -4535,12 +4571,14 @@ Solution saved to file solution.xml as solution 9.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -4549,7 +4587,7 @@ Solution saved to file solution.xml as solution 9.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -4683,7 +4721,7 @@ Solution saved to file solution.xml as solution 9.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -4697,7 +4735,7 @@ Solution saved to file solution.xml as solution 9.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -4744,7 +4782,7 @@ Solution saved to file solution.xml as solution 9.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -4758,7 +4796,7 @@ Solution saved to file solution.xml as solution 9.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85471E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -4890,12 +4928,14 @@ Solution saved to file solution.xml as solution 9.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -4911,23 +4951,23 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.684E-07   Y   |    1   5.678E-21 | 7.755E-06  | 1.000E+00|  3.780E-08  |   1.00E+00  0 |   7.755E-06   3.780E-08 
-	   2   3.780E-08   Y   |    1   1.195E-22 | 2.083E-07  | 1.000E+00|  4.376E-13  |   1.00E+00  0 |   2.083E-07   4.376E-13 
-	                       |                  |(2.410E-12) |          |             | converged = 3 |              (2.410E-12) 
+	   1   5.066E-07   Y   |    1   5.199E-21 | 7.755E-06  | 1.000E+00|  6.073E-08  |   1.00E+00  0 |   7.755E-06   6.073E-08 
+	   2   6.073E-08   Y   |    1   1.760E-22 | 2.083E-07  | 1.000E+00|  4.376E-13  |   1.00E+00  0 |   2.083E-07   4.376E-13 
+	                       |                  |(1.501E-12) |          |             | converged = 3 |              (1.501E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 7.66069e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   136             Vel_axial(0)-24      2.1049e-06 |  -9.2558e-09  -9.2585e-09   1.0000e-07 alg   6.9994e-08
-		   142             Vel_axial(0)-25      2.0104e-06 |  -1.3896e-08  -1.3899e-08   1.0000e-07 alg  -3.4991e-07
-		   130             Vel_axial(0)-23      1.8402e-06 |  -4.6180e-09  -4.6203e-09   1.0000e-07 alg  -3.4992e-07
-		   100             Vel_axial(0)-18      1.8339e-06 |   1.8547e-08   1.8545e-08   1.0000e-07 alg   2.0993e-07
-		   148             Vel_axial(0)-26      1.8308e-06 |  -1.8540e-08  -1.8542e-08   1.0000e-07 alg  -7.6981e-07
-		   118             Vel_axial(0)-21      1.7457e-06 |   4.6517e-09   4.6495e-09   1.0000e-07 alg  -7.6983e-07
-		    95             Vel_axial(0)-17      1.7299e-06 |   2.0863e-08   2.0860e-08   1.0000e-07 alg  -2.6255e-11
-		    48             Vel_axial(0)-8       1.6606e-06 |   1.9704e-08   1.9702e-08   1.0000e-07 alg   1.1197e-06
+		   136                Vel_axial-24      2.1049e-06 |  -9.2558e-09  -9.2585e-09   1.0000e-07 alg   6.9994e-08
+		   142                Vel_axial-25      2.0104e-06 |  -1.3896e-08  -1.3899e-08   1.0000e-07 alg  -3.4991e-07
+		   130                Vel_axial-23      1.8402e-06 |  -4.6180e-09  -4.6203e-09   1.0000e-07 alg  -3.4992e-07
+		   100                Vel_axial-18      1.8339e-06 |   1.8547e-08   1.8545e-08   1.0000e-07 alg   2.0993e-07
+		   148                Vel_axial-26      1.8308e-06 |  -1.8540e-08  -1.8542e-08   1.0000e-07 alg  -7.6981e-07
+		   118                Vel_axial-21      1.7457e-06 |   4.6517e-09   4.6495e-09   1.0000e-07 alg  -7.6983e-07
+		    95                Vel_axial-17      1.7299e-06 |   2.0863e-08   2.0860e-08   1.0000e-07 alg  -2.6256e-11
+		    48                Vel_axial-8       1.6606e-06 |   1.9704e-08   1.9702e-08   1.0000e-07 alg   1.1197e-06
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    10 was a success: time = 3.51719e-07
@@ -4960,12 +5000,14 @@ Solution saved to file solution.xml as solution 10.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -4974,7 +5016,7 @@ Solution saved to file solution.xml as solution 10.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -5108,7 +5150,7 @@ Solution saved to file solution.xml as solution 10.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -5122,7 +5164,7 @@ Solution saved to file solution.xml as solution 10.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -5169,7 +5211,7 @@ Solution saved to file solution.xml as solution 10.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -5183,7 +5225,7 @@ Solution saved to file solution.xml as solution 10.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85471E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -5315,12 +5357,14 @@ Solution saved to file solution.xml as solution 10.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -5336,23 +5380,23 @@ Start of Time Step:    11       Time_n = 5.2258e-07 Time_nm1 = 3.5172e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.997E-07   Y   |    1   9.695E-22 | 1.330E-06  | 1.000E+00|  4.135E-08  |   1.00E+00  0 |   1.330E-06   4.135E-08 
-	   2   4.135E-08   Y   |    1   1.478E-22 | 2.372E-07  | 1.000E+00|  1.680E-08  |   1.00E+00  0 |   2.372E-07   1.680E-08 
-	                       |                  |(9.640E-08) |          |             | converged = 3 |              (9.640E-08) 
+	   1   2.226E-07   Y   |    1   9.105E-22 | 1.330E-06  | 1.000E+00|  4.404E-08  |   1.00E+00  0 |   1.330E-06   4.404E-08 
+	   2   4.404E-08   Y   |    1   2.005E-22 | 2.372E-07  | 1.000E+00|  1.680E-08  |   1.00E+00  0 |   2.372E-07   1.680E-08 
+	                       |                  |(9.052E-08) |          |             | converged = 3 |              (9.052E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 1.24712e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   124             Vel_axial(0)-22      4.2119e-07 |   1.7997e-11   1.7464e-11   1.0000e-07 alg   1.6485e-06
-		   112             Vel_axial(0)-20      3.8128e-07 |   9.2846e-09   9.2841e-09   1.0000e-07 alg   1.7729e-06
-		   106             Vel_axial(0)-19      3.4137e-07 |   1.3916e-08   1.3916e-08   1.0000e-07 alg   1.8973e-06
-		    90             Vel_axial(0)-16      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
-		    60             Vel_axial(0)-10      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
-		    65             Vel_axial(0)-11      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
-		    70             Vel_axial(0)-12      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
-		    75             Vel_axial(0)-13      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
+		   124                Vel_axial-22      4.2119e-07 |   1.7997e-11   1.7464e-11   1.0000e-07 alg   1.6485e-06
+		   112                Vel_axial-20      3.8128e-07 |   9.2846e-09   9.2841e-09   1.0000e-07 alg   1.7729e-06
+		   106                Vel_axial-19      3.4137e-07 |   1.3916e-08   1.3916e-08   1.0000e-07 alg   1.8973e-06
+		    90                Vel_axial-16      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
+		    60                Vel_axial-10      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
+		    65                Vel_axial-11      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
+		    70                Vel_axial-12      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
+		    75                Vel_axial-13      3.0670e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   1.4308e-06
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    11 was a success: time = 5.22578e-07
@@ -5385,12 +5429,14 @@ Solution saved to file solution.xml as solution 11.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -5399,7 +5445,7 @@ Solution saved to file solution.xml as solution 11.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -5533,7 +5579,7 @@ Solution saved to file solution.xml as solution 11.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -5547,7 +5593,7 @@ Solution saved to file solution.xml as solution 11.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -5594,7 +5640,7 @@ Solution saved to file solution.xml as solution 11.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -5608,7 +5654,7 @@ Solution saved to file solution.xml as solution 11.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85475E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -5740,12 +5786,14 @@ Solution saved to file solution.xml as solution 11.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -5761,23 +5809,23 @@ Start of Time Step:    12       Time_n = 7.7887e-07 Time_nm1 = 5.2258e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.131E-07   Y   |    1   1.266E-21 | 2.243E-06  | 1.000E+00|  2.566E-08  |   1.00E+00  0 |   2.243E-06   2.566E-08 
-	   2   2.566E-08   Y   |    1   8.396E-23 | 1.856E-07  | 1.000E+00|  1.415E-13  |   1.00E+00  0 |   1.856E-07   1.415E-13 
-	                       |                  |(1.024E-12) |          |             | converged = 3 |              (1.024E-12) 
+	   1   1.849E-07   Y   |    1   1.899E-21 | 2.243E-06  | 1.000E+00|  3.277E-08  |   1.00E+00  0 |   2.243E-06   3.277E-08 
+	   2   3.277E-08   Y   |    1   1.267E-22 | 1.856E-07  | 1.000E+00|  1.417E-13  |   1.00E+00  0 |   1.856E-07   1.417E-13 
+	                       |                  |(8.026E-13) |          |             | converged = 3 |              (8.026E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 2.36258e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   100             Vel_axial(0)-18     -7.1774e-07 |   1.8547e-08   1.8548e-08   1.0000e-07 alg  -1.3963e-06
-		   106             Vel_axial(0)-19     -6.2251e-07 |   1.3916e-08   1.3917e-08   1.0000e-07 alg  -1.1751e-06
-		    95             Vel_axial(0)-17     -6.0921e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.3271e-06
-		   112             Vel_axial(0)-20     -5.8050e-07 |   9.2843e-09   9.2851e-09   1.0000e-07 alg  -1.0921e-06
-		   124             Vel_axial(0)-22     -5.3848e-07 |   1.7738e-11   1.8419e-11   1.0000e-07 alg  -1.0092e-06
-		    60             Vel_axial(0)-10     -5.2518e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.1612e-06
-		    65             Vel_axial(0)-11     -5.2518e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.1612e-06
-		    90             Vel_axial(0)-16     -5.2518e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.1612e-06
+		   100                Vel_axial-18     -7.1774e-07 |   1.8547e-08   1.8548e-08   1.0000e-07 alg  -1.3963e-06
+		   106                Vel_axial-19     -6.2251e-07 |   1.3916e-08   1.3917e-08   1.0000e-07 alg  -1.1751e-06
+		    95                Vel_axial-17     -6.0921e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.3271e-06
+		   112                Vel_axial-20     -5.8050e-07 |   9.2843e-09   9.2851e-09   1.0000e-07 alg  -1.0921e-06
+		   124                Vel_axial-22     -5.3848e-07 |   1.7738e-11   1.8419e-11   1.0000e-07 alg  -1.0092e-06
+		    60                Vel_axial-10     -5.2518e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.1612e-06
+		    65                Vel_axial-11     -5.2518e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.1612e-06
+		    90                Vel_axial-16     -5.2518e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.1612e-06
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    12 was a success: time = 7.78867e-07
@@ -5810,12 +5858,14 @@ Solution saved to file solution.xml as solution 12.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -5824,7 +5874,7 @@ Solution saved to file solution.xml as solution 12.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -5958,7 +6008,7 @@ Solution saved to file solution.xml as solution 12.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -5972,7 +6022,7 @@ Solution saved to file solution.xml as solution 12.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -6019,7 +6069,7 @@ Solution saved to file solution.xml as solution 12.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -6033,7 +6083,7 @@ Solution saved to file solution.xml as solution 12.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85471E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -6165,12 +6215,14 @@ Solution saved to file solution.xml as solution 12.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -6186,23 +6238,23 @@ Start of Time Step:    13       Time_n = 1.1633e-06 Time_nm1 = 7.7887e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.711E-08   Y   |    1   1.447E-21 | 2.234E-06  | 1.000E+00|  1.584E-08  |   1.00E+00  0 |   2.234E-06   1.584E-08 
-	   2   1.584E-08   Y   |    1   7.031E-23 | 1.430E-07  | 1.000E+00|  7.469E-09  |   1.00E+00  0 |   1.430E-07   7.469E-09 
-	                       |                  |(6.744E-08) |          |             | converged = 3 |              (6.744E-08) 
+	   1   1.498E-07   Y   |    1   1.618E-21 | 2.234E-06  | 1.000E+00|  1.791E-08  |   1.00E+00  0 |   2.234E-06   1.791E-08 
+	   2   1.791E-08   Y   |    1   7.423E-23 | 1.430E-07  | 1.000E+00|  8.350E-09  |   1.00E+00  0 |   1.430E-07   8.350E-09 
+	                       |                  |(6.670E-08) |          |             | converged = 3 |              (6.670E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 2.36728e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		   100             Vel_axial(0)-18      5.6813e-07 |   1.8547e-08   1.8547e-08   1.0000e-07 alg   4.7306e-07
-		    95             Vel_axial(0)-17      5.6579e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.3450e-07
-		    65             Vel_axial(0)-11      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
-		    60             Vel_axial(0)-10      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
-		    70             Vel_axial(0)-12      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
-		    75             Vel_axial(0)-13      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
-		    80             Vel_axial(0)-14      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
-		    85             Vel_axial(0)-15      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
+		   100                Vel_axial-18      5.6813e-07 |   1.8547e-08   1.8547e-08   1.0000e-07 alg   4.7306e-07
+		    95                Vel_axial-17      5.6579e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.3450e-07
+		    65                Vel_axial-11      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
+		    60                Vel_axial-10      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
+		    70                Vel_axial-12      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
+		    75                Vel_axial-13      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
+		    80                Vel_axial-14      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
+		    85                Vel_axial-15      5.3031e-07 |   2.0863e-08   2.0862e-08   1.0000e-07 alg   5.8366e-07
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    13 was a success: time = 1.1633e-06
@@ -6235,12 +6287,14 @@ Solution saved to file solution.xml as solution 13.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -6249,7 +6303,7 @@ Solution saved to file solution.xml as solution 13.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -6383,7 +6437,7 @@ Solution saved to file solution.xml as solution 13.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -6397,7 +6451,7 @@ Solution saved to file solution.xml as solution 13.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -6444,7 +6498,7 @@ Solution saved to file solution.xml as solution 13.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -6458,7 +6512,7 @@ Solution saved to file solution.xml as solution 13.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85473E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -6590,12 +6644,14 @@ Solution saved to file solution.xml as solution 13.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -6611,23 +6667,23 @@ Start of Time Step:    14       Time_n =  1.74e-06 Time_nm1 = 1.1633e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.877E-08   Y   |    1   9.392E-22 | 1.584E-06  | 1.000E+00|  7.151E-09  |   1.00E+00  0 |   1.584E-06   7.151E-09 
-	   2   7.151E-09   Y   |    1   4.509E-23 | 7.782E-08  | 1.000E+00|  3.021E-13  |   1.00E+00  0 |   7.782E-08   3.021E-13 
-	                       |                  |(3.287E-12) |          |             | converged = 3 |              (3.287E-12) 
+	   1   1.181E-07   Y   |    1   1.674E-21 | 1.584E-06  | 1.000E+00|  1.226E-08  |   1.00E+00  0 |   1.584E-06   1.226E-08 
+	   2   1.226E-08   Y   |    1   7.702E-23 | 7.782E-08  | 1.000E+00|  3.021E-13  |   1.00E+00  0 |   7.782E-08   3.021E-13 
+	                       |                  |(1.918E-12) |          |             | converged = 3 |              (1.918E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 1.50999e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    36             Vel_axial(0)-6      -3.8093e-07 |   1.5067e-08   1.5068e-08   1.0000e-07 alg  -1.9663e-07
-		    42             Vel_axial(0)-7      -3.8093e-07 |   1.7385e-08   1.7386e-08   1.0000e-07 alg  -1.9663e-07
-		   136             Vel_axial(0)-24     -3.5199e-07 |  -9.2557e-09  -9.2553e-09   1.0000e-07 alg  -1.6383e-07
-		   130             Vel_axial(0)-23     -3.5199e-07 |  -4.6179e-09  -4.6174e-09   1.0000e-07 alg  -1.6384e-07
-		   148             Vel_axial(0)-26     -3.3518e-07 |  -1.8539e-08  -1.8539e-08   1.0000e-07 alg  -1.6382e-07
-		    65             Vel_axial(0)-11     -3.3331e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.4748e-07
-		    90             Vel_axial(0)-16     -3.3331e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.4748e-07
-		    70             Vel_axial(0)-12     -3.3331e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.4748e-07
+		    36                Vel_axial-6      -3.8093e-07 |   1.5067e-08   1.5068e-08   1.0000e-07 alg  -1.9663e-07
+		    42                Vel_axial-7      -3.8093e-07 |   1.7385e-08   1.7386e-08   1.0000e-07 alg  -1.9663e-07
+		   136                Vel_axial-24     -3.5199e-07 |  -9.2557e-09  -9.2553e-09   1.0000e-07 alg  -1.6383e-07
+		   130                Vel_axial-23     -3.5199e-07 |  -4.6179e-09  -4.6174e-09   1.0000e-07 alg  -1.6384e-07
+		   148                Vel_axial-26     -3.3518e-07 |  -1.8539e-08  -1.8539e-08   1.0000e-07 alg  -1.6382e-07
+		    65                Vel_axial-11     -3.3331e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.4748e-07
+		    70                Vel_axial-12     -3.3331e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.4748e-07
+		    75                Vel_axial-13     -3.3331e-07 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.4748e-07
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    14 was a success: time = 1.73995e-06
@@ -6660,12 +6716,14 @@ Solution saved to file solution.xml as solution 14.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -6674,7 +6732,7 @@ Solution saved to file solution.xml as solution 14.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -6808,7 +6866,7 @@ Solution saved to file solution.xml as solution 14.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -6822,7 +6880,7 @@ Solution saved to file solution.xml as solution 14.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -6869,7 +6927,7 @@ Solution saved to file solution.xml as solution 14.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -6883,7 +6941,7 @@ Solution saved to file solution.xml as solution 14.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -7015,12 +7073,14 @@ Solution saved to file solution.xml as solution 14.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -7036,23 +7096,23 @@ Start of Time Step:    15       Time_n = 2.6049e-06 Time_nm1 =  1.74e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.720E-08   Y   |    1   2.970E-22 | 3.901E-07  | 1.000E+00|  5.248E-09  |   1.00E+00  0 |   3.901E-07   5.248E-09 
-	   2   5.248E-09   Y   |    1   1.140E-23 | 1.992E-08  | 1.000E+00|  6.639E-09  |   1.00E+00  0 |   1.992E-08   6.639E-09 
-	                       |                  |(2.520E-08) |          |             | converged = 3 |              (2.520E-08) 
+	   1   6.558E-08   Y   |    1   3.283E-22 | 3.901E-07  | 1.000E+00|  5.505E-09  |   1.00E+00  0 |   3.901E-07   5.505E-09 
+	   2   5.505E-09   Y   |    1   1.996E-23 | 1.992E-08  | 1.000E+00|  7.423E-09  |   1.00E+00  0 |   1.992E-08   7.423E-09 
+	                       |                  |(2.686E-08) |          |             | converged = 3 |              (2.686E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 3.90123e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    42             Vel_axial(0)-7       1.1536e-07 |   1.7385e-08   1.7385e-08   1.0000e-07 alg  -2.7936e-08
-		    36             Vel_axial(0)-6       1.1536e-07 |   1.5067e-08   1.5067e-08   1.0000e-07 alg  -2.7933e-08
-		   130             Vel_axial(0)-23      9.9589e-08 |  -4.6179e-09  -4.6180e-09   1.0000e-07 alg  -1.8201e-08
-		   136             Vel_axial(0)-24      9.9589e-08 |  -9.2557e-09  -9.2559e-09   1.0000e-07 alg  -1.8195e-08
-		    54             Vel_axial(0)-9       9.3365e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.0949e-08
-		    60             Vel_axial(0)-10      9.3365e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.0949e-08
-		   148             Vel_axial(0)-26      9.2950e-08 |  -1.8539e-08  -1.8540e-08   1.0000e-07 alg  -2.7893e-08
-		    65             Vel_axial(0)-11      8.6726e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -2.0658e-08
+		    42                Vel_axial-7       1.1536e-07 |   1.7385e-08   1.7385e-08   1.0000e-07 alg  -2.7936e-08
+		    36                Vel_axial-6       1.1536e-07 |   1.5067e-08   1.5067e-08   1.0000e-07 alg  -2.7933e-08
+		   130                Vel_axial-23      9.9589e-08 |  -4.6179e-09  -4.6180e-09   1.0000e-07 alg  -1.8201e-08
+		   136                Vel_axial-24      9.9589e-08 |  -9.2557e-09  -9.2559e-09   1.0000e-07 alg  -1.8195e-08
+		    60                Vel_axial-10      9.3365e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.0949e-08
+		    54                Vel_axial-9       9.3365e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.0949e-08
+		   148                Vel_axial-26      9.2950e-08 |  -1.8539e-08  -1.8540e-08   1.0000e-07 alg  -2.7893e-08
+		    90                Vel_axial-16      8.6726e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -2.0658e-08
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    15 was a success: time = 2.60493e-06
@@ -7085,12 +7145,14 @@ Solution saved to file solution.xml as solution 15.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -7099,7 +7161,7 @@ Solution saved to file solution.xml as solution 15.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -7233,7 +7295,7 @@ Solution saved to file solution.xml as solution 15.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -7247,7 +7309,7 @@ Solution saved to file solution.xml as solution 15.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -7294,7 +7356,7 @@ Solution saved to file solution.xml as solution 15.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -7308,7 +7370,7 @@ Solution saved to file solution.xml as solution 15.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -7440,12 +7502,14 @@ Solution saved to file solution.xml as solution 15.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -7461,23 +7525,23 @@ Start of Time Step:    16       Time_n = 3.9024e-06 Time_nm1 = 2.6049e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.661E-08   Y   |    1   1.509E-22 | 2.482E-07  | 1.000E+00|  6.161E-09  |   1.00E+00  0 |   2.482E-07   6.161E-09 
-	   2   6.161E-09   Y   |    1   1.162E-23 | 2.514E-08  | 1.000E+00|  5.163E-13  |   1.00E+00  0 |   2.514E-08   5.163E-13 
-	                       |                  |(2.107E-12) |          |             | converged = 3 |              (2.107E-12) 
+	   1   4.991E-08   Y   |    1   1.714E-22 | 2.482E-07  | 1.000E+00|  7.666E-09  |   1.00E+00  0 |   2.482E-07   7.666E-09 
+	   2   7.666E-09   Y   |    1   1.936E-23 | 2.514E-08  | 1.000E+00|  5.164E-13  |   1.00E+00  0 |   2.514E-08   5.164E-13 
+	                       |                  |(1.693E-12) |          |             | converged = 3 |              (1.693E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 2.60384e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    18             Vel_axial(0)-3       9.0599e-08 |   8.1130e-09   8.1129e-09   1.0000e-07 alg   3.1274e-08
-		    30             Vel_axial(0)-5       7.5660e-08 |   1.2749e-08   1.2749e-08   1.0000e-07 alg   3.1268e-08
-		    48             Vel_axial(0)-8       7.3447e-08 |   1.9704e-08   1.9703e-08   1.0000e-07 alg   2.9102e-08
-		    12             Vel_axial(0)-2       6.6531e-08 |   5.7950e-09   5.7949e-09   1.0000e-07 alg   2.4805e-08
-		    42             Vel_axial(0)-7       6.0722e-08 |   1.7385e-08   1.7385e-08   1.0000e-07 alg   3.1262e-08
-		    36             Vel_axial(0)-6       6.0722e-08 |   1.5067e-08   1.5067e-08   1.0000e-07 alg   3.1265e-08
-		   106             Vel_axial(0)-19      6.0722e-08 |   1.3916e-08   1.3916e-08   1.0000e-07 alg   2.1557e-08
-		   142             Vel_axial(0)-25      5.9339e-08 |  -1.3896e-08  -1.3896e-08   1.0000e-07 alg   2.2669e-08
+		    18                Vel_axial-3       9.0599e-08 |   8.1130e-09   8.1129e-09   1.0000e-07 alg   3.1274e-08
+		    30                Vel_axial-5       7.5660e-08 |   1.2749e-08   1.2749e-08   1.0000e-07 alg   3.1268e-08
+		    48                Vel_axial-8       7.3447e-08 |   1.9704e-08   1.9703e-08   1.0000e-07 alg   2.9102e-08
+		    12                Vel_axial-2       6.6531e-08 |   5.7950e-09   5.7949e-09   1.0000e-07 alg   2.4805e-08
+		    42                Vel_axial-7       6.0722e-08 |   1.7385e-08   1.7385e-08   1.0000e-07 alg   3.1262e-08
+		    36                Vel_axial-6       6.0722e-08 |   1.5067e-08   1.5067e-08   1.0000e-07 alg   3.1265e-08
+		   106                Vel_axial-19      6.0722e-08 |   1.3916e-08   1.3916e-08   1.0000e-07 alg   2.1557e-08
+		   142                Vel_axial-25      5.9339e-08 |  -1.3896e-08  -1.3896e-08   1.0000e-07 alg   2.2669e-08
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    16 was a success: time = 3.90239e-06
@@ -7510,12 +7574,14 @@ Solution saved to file solution.xml as solution 16.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -7524,7 +7590,7 @@ Solution saved to file solution.xml as solution 16.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -7658,7 +7724,7 @@ Solution saved to file solution.xml as solution 16.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -7672,7 +7738,7 @@ Solution saved to file solution.xml as solution 16.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -7719,7 +7785,7 @@ Solution saved to file solution.xml as solution 16.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -7733,7 +7799,7 @@ Solution saved to file solution.xml as solution 16.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -7865,12 +7931,14 @@ Solution saved to file solution.xml as solution 16.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -7886,23 +7954,23 @@ Start of Time Step:    17       Time_n = 5.8486e-06 Time_nm1 = 3.9024e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.055E-08   Y   |    1   1.122E-22 | 1.837E-07  | 1.000E+00|  3.538E-09  |   1.00E+00  0 |   1.837E-07   3.538E-09 
-	   2   3.538E-09   Y   |    1   3.890E-23 | 6.176E-08  | 1.000E+00|  1.475E-09  |   1.00E+00  0 |   6.176E-08   1.475E-09 
-	                       |                  |(2.576E-08) |          |             | converged = 3 |              (2.576E-08) 
+	   1   3.436E-08   Y   |    1   1.479E-22 | 1.837E-07  | 1.000E+00|  4.237E-09  |   1.00E+00  0 |   1.837E-07   4.237E-09 
+	   2   4.237E-09   Y   |    1   5.371E-23 | 6.176E-08  | 1.000E+00|  2.760E-09  |   1.00E+00  0 |   6.176E-08   2.760E-09 
+	                       |                  |(4.022E-08) |          |             | converged = 3 |              (4.022E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 2.18488e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    36             Vel_axial(0)-6      -6.2520e-08 |   1.5067e-08   1.5067e-08   1.0000e-07 alg  -9.3688e-09
-		    30             Vel_axial(0)-5      -6.1044e-08 |   1.2749e-08   1.2749e-08   1.0000e-07 alg  -8.4069e-09
-		    42             Vel_axial(0)-7      -6.1044e-08 |   1.7385e-08   1.7385e-08   1.0000e-07 alg  -8.4128e-09
-		    65             Vel_axial(0)-11     -5.8186e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.2492e-08
-		    18             Vel_axial(0)-3      -5.6618e-08 |   8.1130e-09   8.1131e-09   1.0000e-07 alg  -5.5242e-09
-		    48             Vel_axial(0)-8      -5.4036e-08 |   1.9704e-08   1.9704e-08   1.0000e-07 alg  -6.0185e-09
-		    12             Vel_axial(0)-2      -4.6659e-08 |   5.7950e-09   5.7951e-09   1.0000e-07 alg  -5.5212e-09
-		   106             Vel_axial(0)-19     -4.4631e-08 |   1.3916e-08   1.3916e-08   1.0000e-07 alg  -7.4504e-09
+		    36                Vel_axial-6      -6.2520e-08 |   1.5067e-08   1.5067e-08   1.0000e-07 alg  -9.3688e-09
+		    30                Vel_axial-5      -6.1044e-08 |   1.2749e-08   1.2749e-08   1.0000e-07 alg  -8.4069e-09
+		    42                Vel_axial-7      -6.1044e-08 |   1.7385e-08   1.7385e-08   1.0000e-07 alg  -8.4128e-09
+		    65                Vel_axial-11     -5.8186e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg  -1.2492e-08
+		    18                Vel_axial-3      -5.6618e-08 |   8.1130e-09   8.1131e-09   1.0000e-07 alg  -5.5242e-09
+		    48                Vel_axial-8      -5.4036e-08 |   1.9704e-08   1.9704e-08   1.0000e-07 alg  -6.0185e-09
+		    12                Vel_axial-2      -4.6659e-08 |   5.7950e-09   5.7951e-09   1.0000e-07 alg  -5.5212e-09
+		   106                Vel_axial-19     -4.4631e-08 |   1.3916e-08   1.3916e-08   1.0000e-07 alg  -7.4504e-09
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    17 was a success: time = 5.84859e-06
@@ -7935,12 +8003,14 @@ Solution saved to file solution.xml as solution 17.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -7949,7 +8019,7 @@ Solution saved to file solution.xml as solution 17.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -8083,7 +8153,7 @@ Solution saved to file solution.xml as solution 17.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -8097,7 +8167,7 @@ Solution saved to file solution.xml as solution 17.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -8144,7 +8214,7 @@ Solution saved to file solution.xml as solution 17.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -8158,7 +8228,7 @@ Solution saved to file solution.xml as solution 17.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -8290,12 +8360,14 @@ Solution saved to file solution.xml as solution 17.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -8311,23 +8383,23 @@ Start of Time Step:    18       Time_n = 8.7679e-06 Time_nm1 = 5.8486e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.595E-08   Y   |    1   9.152E-23 | 1.477E-07  | 1.000E+00|  2.920E-09  |   1.00E+00  0 |   1.477E-07   2.920E-09 
-	   2   2.920E-09   Y   |    1   9.377E-24 | 1.214E-08  | 1.000E+00|  5.657E-13  |   1.00E+00  0 |   1.214E-08   5.657E-13 
-	                       |                  |(2.351E-12) |          |             | converged = 3 |              (2.351E-12) 
+	   1   2.041E-08   Y   |    1   1.438E-22 | 1.477E-07  | 1.000E+00|  3.271E-09  |   1.00E+00  0 |   1.477E-07   3.271E-09 
+	   2   3.271E-09   Y   |    1   8.163E-24 | 1.214E-08  | 1.000E+00|  5.657E-13  |   1.00E+00  0 |   1.214E-08   5.657E-13 
+	                       |                  |(2.099E-12) |          |             | converged = 3 |              (2.099E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 1.46999e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		    65             Vel_axial(0)-11      4.9426e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   8.9240e-09
-		    60             Vel_axial(0)-10      4.2787e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   8.9240e-09
-		   100             Vel_axial(0)-18      3.7315e-08 |   1.8547e-08   1.8547e-08   1.0000e-07 alg   7.7537e-09
-		    75             Vel_axial(0)-13      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
-		    80             Vel_axial(0)-14      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
-		    85             Vel_axial(0)-15      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
-		    70             Vel_axial(0)-12      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
-		    36             Vel_axial(0)-6       3.5348e-08 |   1.5067e-08   1.5067e-08   1.0000e-07 alg   5.9474e-09
+		    65                Vel_axial-11      4.9426e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   8.9240e-09
+		    60                Vel_axial-10      4.2787e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   8.9240e-09
+		   100                Vel_axial-18      3.7315e-08 |   1.8547e-08   1.8547e-08   1.0000e-07 alg   7.7537e-09
+		    75                Vel_axial-13      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
+		    80                Vel_axial-14      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
+		    85                Vel_axial-15      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
+		    70                Vel_axial-12      3.5410e-08 |   2.0863e-08   2.0863e-08   1.0000e-07 alg   7.6454e-09
+		    36                Vel_axial-6       3.5348e-08 |   1.5067e-08   1.5067e-08   1.0000e-07 alg   5.9474e-09
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    18 was a success: time = 8.76788e-06
@@ -8360,12 +8432,14 @@ Solution saved to file solution.xml as solution 18.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -8374,7 +8448,7 @@ Solution saved to file solution.xml as solution 18.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -8508,7 +8582,7 @@ Solution saved to file solution.xml as solution 18.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -8522,7 +8596,7 @@ Solution saved to file solution.xml as solution 18.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -8569,7 +8643,7 @@ Solution saved to file solution.xml as solution 18.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -8583,7 +8657,7 @@ Solution saved to file solution.xml as solution 18.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -8715,12 +8789,14 @@ Solution saved to file solution.xml as solution 18.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -8736,9 +8812,9 @@ Start of Time Step:    19       Time_n =     1e-05 Time_nm1 = 8.7679e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   8.905E-09   Y   |    1   1.106E-22 | 1.788E-07  | 1.000E+00|  5.941E-09  |   1.00E+00  0 |   1.788E-07   5.941E-09 
-	   2   5.941E-09   Y   |    1   6.903E-24 | 1.593E-08  | 1.000E+00|  3.115E-13  |   1.00E+00  0 |   1.593E-08   3.115E-13 
-	                       |                  |(8.354E-13) |          |             | converged = 3 |              (8.354E-13) 
+	   1   1.188E-08   Y   |    1   9.639E-23 | 1.788E-07  | 1.000E+00|  6.893E-09  |   1.00E+00  0 |   1.788E-07   6.893E-09 
+	   2   6.893E-09   Y   |    1   1.187E-23 | 1.593E-08  | 1.000E+00|  1.165E-09  |   1.00E+00  0 |   1.593E-08   1.165E-09 
+	                       |                  |(2.693E-09) |          |             | converged = 3 |              (2.693E-09) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 3.13857e-08
@@ -8785,12 +8861,14 @@ Solution saved to file solution.xml as solution 19.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -8799,7 +8877,7 @@ Solution saved to file solution.xml as solution 19.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -8933,7 +9011,7 @@ Solution saved to file solution.xml as solution 19.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -8947,7 +9025,7 @@ Solution saved to file solution.xml as solution 19.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -8994,7 +9072,7 @@ Solution saved to file solution.xml as solution 19.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -9008,7 +9086,7 @@ Solution saved to file solution.xml as solution 19.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -9140,12 +9218,14 @@ Solution saved to file solution.xml as solution 19.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -9186,12 +9266,14 @@ Solution saved to file solutionStartEnd.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.1590E-09  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.1590E-09  (BC 0 Type 1 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9167E-02 
          Volt(AnodeVoltage)     0.0000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
       --------------------------------------------------------------------------------
@@ -9200,7 +9282,7 @@ Solution saved to file solutionStartEnd.xml as solution 1.
                                                : Beginning pos 0
                                                : Ending    pos 0.0007874
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           0.0000E+00  0.0000E+00  9.2000E-01  4.0000E-02  4.0000E-02  2.9167E-02 
@@ -9334,7 +9416,7 @@ Solution saved to file solutionStartEnd.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           2.0863E-08 
+         Vel_axial              2.0863E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -9348,7 +9430,7 @@ Solution saved to file solutionStartEnd.xml as solution 1.
                                                : Beginning pos 0.0007874
                                                : Ending    pos 0.00127
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           7.8740E-04  2.0863E-08  9.2000E-01  4.0000E-02  4.0000E-02  2.9166E-02 
@@ -9395,7 +9477,7 @@ Solution saved to file solutionStartEnd.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           1.8547E-08 
+         Vel_axial              1.8547E-08 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
@@ -9409,7 +9491,7 @@ Solution saved to file solutionStartEnd.xml as solution 1.
                                                : Beginning pos 0.00127
                                                : Ending    pos 0.0018796
       --------------------------------------------------------------------------------
-              z       Vel_axial(0)    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
+              z          Vel_axial    MF_sp(ECDMC)      MF_sp(Li+)     MF_sp(PF6-) Volt(Electroly)
       --------------------------------------------------------------------------------
 
           1.2700E-03  1.85472E-08  9.20000E-01  4.00000E-02  4.00000E-02  2.91657E-02 
@@ -9541,12 +9623,14 @@ Solution saved to file solutionStartEnd.xml as solution 1.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial(0)           0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      2.9165E-02 
          Volt(CathodeVoltage)   3.8000E+00  (Dir 1 val = 0.0000E+00)
+        ------------------------------------------------------------
+         Current                3.0044E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
