@@ -446,10 +446,9 @@ protected:
     // ------------------------------------------------------------------------
     //!  Cell storage -> storage of cell related quantities
 
-
-    //! Axial velocity - left cell boundary
+    //! Axial velocity - left cell boundary (m/s)
     double Fleft_cc_;
-    //! Axial Velocity - right cell boundary
+    //! Axial Velocity - right cell boundary (m/s)
     double Fright_cc_;
 
     //! Electrostatic potential - Left cell
@@ -474,7 +473,7 @@ protected:
      */
     std::vector<double> Xcent_cc_;
 
-    //! Mole fraction of electrolyte species in the right cell
+    //! Mole fraction of electrolyte species in the right cell to the current cell
     /*!
      * Length = number of electrolyte species = 3
      */

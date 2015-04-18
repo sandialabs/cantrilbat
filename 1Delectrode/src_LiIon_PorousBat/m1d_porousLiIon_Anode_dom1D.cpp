@@ -668,12 +668,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     // Thermal Fluxes
     double fluxTright = 0.0;
     double fluxTleft = 0.0;
-
     double fluxL_JHPhi = 0.0;
     double fluxR_JHPhi = 0.0;
-
     double fluxL_JHelec = 0.0;
     double fluxR_JHelec = 0.0;
+    double enthConvRight = 0.0;
+    double enthConvLeft = 0.0;
     
     // Calculated current at the current collector that is conservative
     double icurrElectrode_LBcons = 0.0;
@@ -913,6 +913,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 		fluxTleft = 0.0;
 		fluxL_JHPhi = 0.0;
 		fluxL_JHelec = 0.0;                 // Note this is non-zero, but we set the term elsewhere
+		enthConvLeft = 0.0;
 		// we will calculate this here
                 icurrElectrolyte_CBL_[iCell] = 0.0;
                 fluxVElectrodeLeft = 0.0;
@@ -946,6 +947,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 		fluxTleft = heatFlux_Curr_; 
 		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
 		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+		enthConvLeft = fluxFleft * EnthalpyMolar_lyte_Curr_;
 		/*
                  * Calculate the flux of species and the flux of charge
                  *   - the flux of charge must agree with the flux of species
@@ -972,6 +974,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    fluxTleft = fluxTright;
 	    fluxL_JHPhi = fluxR_JHPhi;
 	    fluxL_JHelec = fluxR_JHelec;
+	    enthConvLeft = enthConvRight;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             fluxVElectrodeLeft = fluxVElectrodeRight;
             icurrElectrode_CBL_[iCell] = icurrElectrode_CBR_[iCell - 1];
@@ -1000,6 +1003,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    fluxTright = 0.0;
 	    fluxR_JHPhi = 0.0;  
 	    fluxR_JHelec = 0.0;
+	    enthConvRight = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             fluxVElectrodeRight = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;   // Note this is nonzero. We set it elsewhere.
@@ -1026,6 +1030,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    fluxTright = heatFlux_Curr_;
 	    fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
 	    fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+	    enthConvRight = fluxFright * EnthalpyMolar_lyte_Curr_;
 
             /*
              * Calculate the flux of species and the flux of charge
@@ -1120,6 +1125,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
 	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
 	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHelec - fluxL_JHelec);
+	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (enthConvRight - enthConvLeft);
+
         }
 
         /*
@@ -2003,9 +2010,11 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
     concTot_Curr_ = ionicLiquid_->molarDensity();
 
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
+    EnthalpyMolar_lyte_Curr_ = 0.0;
     for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
+	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
     }
 
     //

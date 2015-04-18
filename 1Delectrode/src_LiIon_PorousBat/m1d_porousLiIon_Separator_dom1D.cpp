@@ -338,13 +338,15 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     double xdelCell; // cell width - right boundary minus the left boundary.
 
     //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
-    double fluxFright = 0.;
-    double fluxFleft;
+    double moleFluxRight = 0.0;
+    double moleFluxLeft = 0.0;
     //  Thermal fluxes
     double fluxTright = 0.0;
     double fluxTleft = 0.0;
     double fluxL_JHPhi = 0.0;
     double fluxR_JHPhi = 0.0;
+    double enthConvRight = 0.0;
+    double enthConvLeft = 0.0;
 
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
@@ -550,9 +552,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 		 *  we set the flux here to zero. Then, in the surface domain we add the specification of
 		 *  the flux to the residual of the node at the boundary.
                  */
-                fluxFleft = 0.0;
+                moleFluxLeft = 0.0;
                 fluxTleft = 0.0;
                 fluxL_JHPhi = 0.0;
+		enthConvLeft = 0.0;
                 icurrElectrolyte_CBL_[iCell] = 0.0;
                 for (int k = 0; k < nsp_; k++) {
                     fluxXleft[k] = 0.0;
@@ -569,9 +572,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                 /*
                  * Calculate the flux at the left boundary for each equation
                  */
-                fluxFleft = Fleft_cc_ * concTot_Curr_;
+                moleFluxLeft = Fleft_cc_ * concTot_Curr_;
                 fluxTleft = heatFlux_Curr_;
                 fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
 
                 /*
                  * Calculate the flux of species and the flux of charge
@@ -593,9 +597,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             /*
              * Copy the fluxes from the stored right side of the previous cell to the left side of the current cell
              */
-            fluxFleft = fluxFright;
+            moleFluxLeft = moleFluxRight;
 	    fluxTleft = fluxTright;
             fluxL_JHPhi = fluxR_JHPhi;
+	    enthConvLeft = enthConvRight;
             icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
             for (int k = 0; k < nsp_; k++) {
                 fluxXleft[k] = fluxXright[k];
@@ -621,7 +626,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             Fright_cc_ = 0.0;
             fluxTright = 0.0;
             fluxR_JHPhi = 0.0;
-            fluxFright = Fright_cc_ * concTot_Curr_;
+	    enthConvRight = 0.0;
+            moleFluxRight = Fright_cc_ * concTot_Curr_;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             for (int k = 0; k < nsp_; k++) {
                 fluxXright[k] = 0.0;
@@ -639,12 +645,13 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              * This is equal to
              *     fluxFright =  Conc * Vaxial * phi
              */
-            fluxFright = Fright_cc_ * concTot_Curr_;
+            moleFluxRight = Fright_cc_ * concTot_Curr_;
             /*
              * Calculate the heat flux - all of the types
              */
             fluxTright = heatFlux_Curr_;
             fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+	    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
            
             /*
              * Calculate the flux of species and the flux of charge
@@ -700,7 +707,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          *                    R =   d rho d t + del dot (rho V) = 0
          */
         if (ivb_ == VB_MOLEAVG) {
-           res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
+           res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
         } else {
            exit(-1); 
         }
@@ -734,6 +741,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
               AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
               res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
               res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
+	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (enthConvRight - enthConvLeft);
 	}
         /*
          * --------------------------------------------------------------------------
@@ -1176,9 +1184,11 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double jouleHeat_lyte_total = 0.0;
-    int doPrint = 1;
+    int doPrint = 0;
 
-    printf("  Cell       NewnEnth OldnEnth  deltanEnth \n");
+    if (doPrint) {
+	printf("  Cell       NewnEnth OldnEnth  deltanEnth \n");
+    }
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
 
@@ -1384,11 +1394,14 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
     //
     concTot_Curr_ = ionicLiquid_->molarDensity();
-
+    //
+    // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
+    EnthalpyMolar_lyte_Curr_ = 0.0;
     for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
+	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
     }
 
     //
