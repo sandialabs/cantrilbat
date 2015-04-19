@@ -352,8 +352,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
 
-    double fluxL = 0.0;
-    double fluxR = 0.0;
+    double res_Cont_0 = 0.0;
  
     const Epetra_Vector& soln = *soln_ptr;
     const Epetra_Vector& solnOld = *solnOld_ptr;
@@ -377,15 +376,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      *  -------------------- Special section to do the left boundary -------------------------------
      */
 
-    /*
-     * Special section if we own the left node of the domain. If we do
-     * it will be cell 0
-     */
-    if (IOwnLeft) {
-	cellTmps& cTmps          = cellTmpsVect_Cell_[0];
-	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-        DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = fluxL;
-    }
+  
     /*
      *  Boolean flag that specifies whether the left flux should be recalculated.
      *  Usually you don't need to calculate the left flux because it can be copied from the right flux
@@ -414,19 +405,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
             }
         }
 #endif
-        /*
-         *  Placeholder for debugging
-         */
-        if (IOwnLeft && iCell == 0) {
-            if (residType == Base_ShowSolution) {
-                cIndex_cc_ = iCell;
-            }
-        }
-        if (IOwnLeft && iCell == 9) {
-            if (residType == Base_ShowSolution) {
-                cIndex_cc_ = iCell;
-            }
-        }
+    
 
         /*
          *  ---------------- Get the index for the center node ---------------------------------
@@ -580,6 +559,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                 /*
                  * Calculate the flux of species and the flux of charge
                  *   - the flux of charge must agree with the flux of species
+		 *   - At the left boundary, we've set Fleft_cc_ to zero. This is necessary if the domain isn't the left-most one.
+		 *     In that case the cell is shared between half-cells on either side of the domain. So, we will want to 
+		 *     not add any convection term here.
                  */
                 icurrElectrolyte_CBL_[iCell] = 0.0;
                 for (int k = 0; k < nsp_; k++) {
@@ -622,6 +604,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	     *  The other case is when we are specifying a flux boundary condition. In that case,
 	     *  we set the flux here to zero. Then, in the surface domain we add the specification of
 	     *  the flux to the residual of the node at the boundary.
+	     *
+	     *  Fright_cc_ is set to zero, because we are at an internal boundary. Convection terms are set to zero at these 
+	     *  types of internal boundaries.
              */
             Fright_cc_ = 0.0;
             fluxTright = 0.0;
@@ -708,6 +693,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
          */
         if (ivb_ == VB_MOLEAVG) {
            res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
+
+	   
         } else {
            exit(-1); 
         }
@@ -844,6 +831,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              */
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
 
+            if (iCell == 0) {
+		res_Cont_0 =  (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight - moleFluxLeft);
+	    }
+
+
 
 	    if  (energyEquationProbType_ == 3) {
 		//
@@ -888,21 +880,32 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
              *   .................... Go back to setting up shop at the current time
              */
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+	    //
+	    //  Section to find the Axial velocity at the left domain boundary
+	    //
+	    if (residType == Base_ShowSolution) {
+		if (IOwnLeft) {
+		    if (iCell == 0) {
+			res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight );
+			moleFluxLeft = res_Cont_0;
+			Fleft_cc_ = moleFluxLeft / concTot_Curr_;
+			DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fleft_cc_;
+		    }
+		}
+		//
+		//  Section to find the Axial velocity at the right domain boundary
+		//
+		if (IOwnRight) {
+		    if (iCell == NumLcCells - 1) {
+			res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft );
+			moleFluxRight = - res_Cont_0;
+			Fright_cc_ = moleFluxRight / concTot_Curr_;
+			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
+		    }
+		}
+	    }
         }
 
-    }
-
-    /*
-     * Special section to do the right boundary
-     */
-    /*
-     * Special section if we own the right node of the domain. If we do
-     * it will be last cell
-     */
-    if (IOwnRight) {
-	cellTmps& cTmps          = cellTmpsVect_Cell_[NumLcCells-1];
-	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-        DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = fluxR;
     }
 
 }
@@ -1869,6 +1872,9 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     // Number of points in each vector
     string sss = id();
     stream0 ss;
+    double oldVaxial = 0.0;
+    double newVaxial = 0.0;
+
 
     if (do0Write) {
         drawline(indentSpaces, 80);
@@ -1903,6 +1909,29 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 			throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
 		    }
                     v = (*soln_GlAll_ptr)[istart + offset];
+		    /*
+                     *  Special case the axial velocity because it's not located at the nodes.
+                     */
+                    if (vt.VariableType == Velocity_Axial) {
+                        newVaxial = v;
+                        if (iGbNode == BDD_.FirstGbNode) {
+ 	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            // we've applied a boundary condition here!
+                            v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+                        } else if (iGbNode == BDD_.LastGbNode) {
+			    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            // we've applied a boundary condition here!
+                            v = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+			    newVaxial = v;
+			} else {
+                            v = 0.5 * (oldVaxial + newVaxial);
+                        }
+                        oldVaxial = newVaxial;
+                    }
+
+
                     ss.print0(" %-10.4E ", v);
                 }
             }
