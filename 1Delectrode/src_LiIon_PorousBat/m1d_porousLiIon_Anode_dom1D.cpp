@@ -659,11 +659,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double xdelCell; // cell width - right boundary minus the left boundary.
-
+    double newStuffTC;
+    double oldStuffTC;
 
     //  Electrolyte mole fluxes - this is c V dot n at the boundaries of the cells
-    double fluxFright = 0.0;
-    double fluxFleft;
+    double moleFluxRight = 0.0;
+    double moleFluxLeft = 0.0;
 
     // Thermal Fluxes
     double fluxTright = 0.0;
@@ -909,7 +910,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 		 *  we set the flux here to zero. Then, in the surface domain we add the specification of
 		 *  the flux to the residual of the node at the boundary.
                  */
-                fluxFleft = 0.0;
+		Fleft_cc_ = 0.0;
+                moleFluxLeft = 0.0;
 		fluxTleft = 0.0;
 		fluxL_JHPhi = 0.0;
 		fluxL_JHelec = 0.0;                 // Note this is non-zero, but we set the term elsewhere
@@ -943,11 +945,11 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                 /*
                  * Calculate the flux at the left boundary for each equation
                  */
-                fluxFleft = Fleft_cc_ * concTot_Curr_;
+                moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 		fluxTleft = heatFlux_Curr_; 
 		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
 		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
-		enthConvLeft = fluxFleft * EnthalpyMolar_lyte_Curr_;
+		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
 		/*
                  * Calculate the flux of species and the flux of charge
                  *   - the flux of charge must agree with the flux of species
@@ -970,7 +972,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             /*
              * Copy the fluxes from the stored right side
              */
-            fluxFleft = fluxFright;
+            moleFluxLeft = moleFluxRight;
 	    fluxTleft = fluxTright;
 	    fluxL_JHPhi = fluxR_JHPhi;
 	    fluxL_JHelec = fluxR_JHelec;
@@ -989,7 +991,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         if (nodeRight == 0) {
            
             AssertTrace(iCell == NumLcCells-1);
-            Fright_cc_ = 0.0;
+           
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 	    /*
              *  We are here if we are at the right node boundary and we need a flux
@@ -999,7 +1001,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	     *  the two domains. We could put in a more sophisticated treatment later, but we would
 	     *  have to ensure that treatment cancels fluxes in the middle.
              */
-            fluxFright = 0.0;
+	    Fright_cc_ = 0.0;
+            moleFluxRight = 0.0;
 	    fluxTright = 0.0;
 	    fluxR_JHPhi = 0.0;  
 	    fluxR_JHelec = 0.0;
@@ -1023,14 +1026,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              * This is equal to
              *       Conc * Vaxial * phi
              */
-            fluxFright = Fright_cc_ * concTot_Curr_;
+            moleFluxRight = Fright_cc_ * concTot_Curr_;
 	    /*
              * Calculate the heat flux - all of the types
              */
 	    fluxTright = heatFlux_Curr_;
 	    fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
 	    fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
-	    enthConvRight = fluxFright * EnthalpyMolar_lyte_Curr_;
+	    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
 
             /*
              * Calculate the flux of species and the flux of charge
@@ -1084,7 +1087,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *                              fluxes coming and going from the cell.
          *                    R =   d rho d t + del dot (rho V) = 0
          */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
 
         /*
          * Species continuity equation
@@ -1235,7 +1238,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             icurrRxn_Cell_[iCell] = icurrInterface_Cell_[iCell];
 
             LiFlux_Cell_[iCell] = jFlux_trCurr_[iLip_];
-        }
+	}
+      
+
 
         /*
          *   ------------------ ADD IN THE TIME DEPENDENT TERMS ----------------------------------------------------
@@ -1248,7 +1253,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 		       iCell, fluxXright[iLip_], fluxXleft[iLip_]);
             }
 #endif
-            double newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
+            newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
             double newStuffSpecies0 = Xcent_cc_[iLip_] * newStuffTC;
 
             /*
@@ -1257,7 +1262,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
             double* mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
 
-            double oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
+            oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
             double oldStuffSpecies0 = mf_old[iLip_] * oldStuffTC;
             double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
 
@@ -1280,52 +1285,67 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
             /*
              *   Add in the time term for the total continuity equation
-             *         note: the current problem will have this term equally zero always.
+             *         note: The current problem will have this term equally zero always.
              *               However, we put it in here for the next problem.
              */
             res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
 
-        }
+        
 
-	if  (energyEquationProbType_ == 3) {
-            //
-	    //  Need to count up the enthalpy over the electrode and the electrolyte on a per cross-sectional area basis
-	    //
-	    // Get the Solid enthalpy in Joules / m2
-	    //
-	    double solidEnthalpyNew = Electrode_ptr->SolidEnthalpy() / crossSectionalArea_;
-            //
-            // Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
-            // 
-	    double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
-	    double volLyteNew = porosity_Curr_ * xdelCell;
-	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+	    if  (energyEquationProbType_ == 3) {
+		//
+		//  Need to count up the enthalpy over the electrode and the electrolyte on a per cross-sectional area basis
+		//
+		// Get the Solid enthalpy in Joules / m2
+		//
+		double solidEnthalpyNew = Electrode_ptr->SolidEnthalpy() / crossSectionalArea_;
+		//
+		// Calculate the enthalpy in the electrolyte Joules / kmol  (kmol/m3) (m) = Joules / m2
+		// 
+		double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+		double volLyteNew = porosity_Curr_ * xdelCell;
+		double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
 
-            //
-            // Calculate and store the total enthalpy in the cell at the current conditions
-            //
-            nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
-            /*
-             *   .................... Calculate quantities needed at the previous time step
-             *         These are already storred in nEnthalpy_Old_Cell_
-             *
-             *  Do the energy time derivative
-             */
-            double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-            res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
+		//
+		// Calculate and store the total enthalpy in the cell at the current conditions
+		//
+		nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+		/*
+		 *   .................... Calculate quantities needed at the previous time step
+		 *         These are already storred in nEnthalpy_Old_Cell_
+		 *
+		 *  Do the energy time derivative
+		 */
+		double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+		res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
 
-	} else if (energyEquationProbType_ == 4) {
-	    //
-	    //  Need to count up the heat capacity over the electrode and the electrolyte on a per cross-sectional area basis
-	    //
-	    double cp =  CpMolar_total_Cell_[iCell];
-	    double tempOld = Temp_Cell_old_[iCell];
-	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += cp * (temp_Curr_ - tempOld) * rdelta_t;
+	    } else if (energyEquationProbType_ == 4) {
+		//
+		//  Need to count up the heat capacity over the electrode and the electrolyte on a per cross-sectional area basis
+		//
+		double cp =  CpMolar_total_Cell_[iCell];
+		double tempOld = Temp_Cell_old_[iCell];
+		res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += cp * (temp_Curr_ - tempOld) * rdelta_t;
 
+	    }
+	}
+	//
+	//  Section to find the Axial velocity at the right domain boundary
+	//
+	if (residType == Base_ShowSolution) {
+	    if (IOwnRight) {
+		if (iCell == NumLcCells - 1) {
+		    double res_Cont = ((newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft )
+				       - solnMoleFluxInterface_Cell_[NumLcCells - 1]);
+		    moleFluxRight = - res_Cont;
+		    Fright_cc_ = moleFluxRight / concTot_Curr_;
+		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
+		}
+	    }
 	}
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Utility function to calculate quantities before the main residual routine.
 /*
  *  This is used for a loop over nodes. All calculated quantities must be internally storred.
@@ -1427,7 +1447,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	}
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //
 //  Calculate Various quantities after the solution has been obtained
 //
@@ -2771,9 +2791,15 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                      */
                     if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-                        if (iGbNode == 0) {
+                        if (iGbNode == BDD_.FirstGbNode) {
                             // we've applied a boundary condition here!
                             v = 0.0;
+			} else if (iGbNode == BDD_.LastGbNode) {
+			    cellTmps& cTmps = cellTmpsVect_Cell_[NumLcCells-1];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            // we've applied a boundary condition here!
+                            v = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+			    newVaxial = v;
                         } else {
                             v = 0.5 * (oldVaxial + newVaxial);
                         }
@@ -2804,7 +2830,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
-                ss.print0("%s    %-10.4E ", ind, x);
+                ss.print0("%s    % -10.4E ", ind, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
@@ -2814,22 +2840,27 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                         throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
                     }
 		    v = (*soln_GlAll_ptr)[istart + offset];
-
-                    /*
+		    /*
                      *  Special case the axial velocity because it's not located at the nodes.
                      */
-                    if (vt.VariableType == Velocity_Axial) {
+		    if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-                        if (iGbNode == 0) {
+                        if (iGbNode == BDD_.FirstGbNode) {
                             // we've applied a boundary condition here!
                             v = 0.0;
+			} else if (iGbNode == BDD_.LastGbNode) {
+			    cellTmps& cTmps = cellTmpsVect_Cell_[NumLcCells-1];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            // we've applied a boundary condition here!
+                            v = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+			    newVaxial = v;
                         } else {
                             v = 0.5 * (oldVaxial + newVaxial);
                         }
                         oldVaxial = newVaxial;
                     }
 
-                    ss.print0(" %-10.4E ", v);
+                    ss.print0(" % -10.4E ", v);
                 }
                 ss.print0("\n");
             }

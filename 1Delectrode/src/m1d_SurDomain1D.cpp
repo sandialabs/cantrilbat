@@ -934,6 +934,21 @@ void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra
     string sss = id();
     stream0 ss;
 
+    BulkDomain1D* bd = 0;
+    BulkDomainDescription* bedd = SDD_.LeftBulk;
+    double *diffFlux = 0;
+    if (!bedd) {
+	bedd = SDD_.RightBulk;
+	if (bedd) {
+	    bd = bedd->BulkDomainPtr_;
+	    diffFlux = &(bd->DiffFluxLeftBound_LastResid_NE[0]);
+	}
+    } else {
+	bd = bedd->BulkDomainPtr_;
+	diffFlux = &(bd->DiffFluxRightBound_LastResid_NE[0]);
+    }
+    
+
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
     if (doWrite) {
         drawline0(ss, indentSpaces, 80);
@@ -948,7 +963,13 @@ void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra
             VarType &vt = variableNameListNode[k];
             string name = vt.VariableName(15);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
-            ss.print0("%s   %-15s   %-10.4E ", ind, name.c_str(), sval);
+	    if (vt.VariableType == Velocity_Axial) {
+		size_t offset = NodalVarPtr->Offset_VarTypeVector[(size_t) Velocity_Axial];
+		sval = diffFlux[offset];
+		ss.print0("%s   %-15s * % -10.4E ", ind, name.c_str(), sval);
+	    } else {
+		ss.print0("%s   %-15s   % -10.4E ", ind, name.c_str(), sval);
+	    }
             ss.print0("\n");
         }
         drawline0(ss, indentSpaces + 2, 60);
@@ -1621,6 +1642,20 @@ void SurBC_Dirichlet::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Ep
     int numVar = nv->NumEquations;
     string sss = id();
 
+    BulkDomain1D* bd = 0;
+    BulkDomainDescription* bedd = SDD_.LeftBulk;
+    double *diffFlux = 0;
+    if (!bedd) {
+	bedd = SDD_.RightBulk;
+	if (bedd) {
+	    bd = bedd->BulkDomainPtr_;
+	    diffFlux = &(bd->DiffFluxLeftBound_LastResid_NE[0]);
+	}
+    } else {
+	bd = bedd->BulkDomainPtr_;
+	diffFlux = &(bd->DiffFluxRightBound_LastResid_NE[0]);
+    }
+
     stream0 ss;
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
     if (doWrite) {
@@ -1637,7 +1672,13 @@ void SurBC_Dirichlet::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Ep
             VarType &vt = variableNameListNode[k];
             string name = vt.VariableName(20);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
-            ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
+	    if (vt.VariableType == Velocity_Axial) {
+		size_t offset = NodalVarPtr->Offset_VarTypeVector[(size_t) Velocity_Axial];
+		sval = diffFlux[offset];
+		ss.print0("%s   %-20s * % -10.4E ", ind, name.c_str(), sval);
+	    } else {
+		ss.print0("%s   %-20s   % -10.4E ", ind, name.c_str(), sval);
+	    }
             if (SpecFlag_NE[k] != 0) {
                 ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
                 jDir++;

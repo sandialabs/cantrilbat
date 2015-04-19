@@ -1038,7 +1038,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
             //     if (residType == Base_ResidEval) {
             //      printf(" Cell = %d, Totalflux_K+ = %10.3e,  Totalflux_Cl- = %10.3e \n", iCell, fluxXright[1], fluxXright[2]);
-            //	  printf("           Old porosity = %10.3e,  New porosity = %10.3e \n", porosity_Cell_old_[iCell], porosity_Cell_[iCell] );
+            //	  printf("           Old porosity = %10.3e,  New porosity = %10.3e \n",
+	    //           porosity_Cell_old_[iCell], porosity_Cell_[iCell] );
             //       printf("           Vmolal = %10.3e, jd_Li+ = %10.3e  jd_K+ = %10.3e jd_Cl- = %10.3e\n", Fright_cc_,
             //             jFlux_trCurr_[0], jFlux_trCurr_[1], jFlux_trCurr_[2]);
             //      printf("           Vmolal = %10.3e, vd_Li+ = %10.3e  vd_K+ = %10.3e vd_Cl- = %10.3e\n", Fright_cc_,
@@ -1087,12 +1088,14 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          *   Current conservation equation - electrolyte
          */
         // res[indexCent_EqnStart + EQ_Current_offset_BD] += (fluxVRight - fluxVLeft);
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += 
+	  (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
 
         /*
          *   Current conservation equation - electrode
          */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1] += (icurrElectrode_CBR_[iCell] - icurrElectrode_CBL_[iCell]);
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1] += 
+	  (icurrElectrode_CBR_[iCell] - icurrElectrode_CBL_[iCell]);
 
 	/*
          *  Energy Equation
@@ -1220,7 +1223,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
 #ifdef DEBUG_HKM_NOT
             if (residType == Base_ResidEval) {
-                printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[iLip_], fluxXleft[iLip_]);
+                printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ",
+		       iCell, fluxXright[iLip_], fluxXleft[iLip_]);
             }
 #endif
 #ifdef DEBUG_HKM_LI
@@ -2751,6 +2755,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     // Number of points in each vector
     string sss = id();
     stream0 ss;
+    double newVaxial, oldVaxial;
 
     if (do0Write) {
         drawline(indentSpaces, 80);
@@ -2785,6 +2790,23 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                         throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
                     }
 		    v = (*soln_GlAll_ptr)[istart + offset];
+		    /*
+                     *  Special case the axial velocity because it's not located at the nodes.
+                     */
+                    if (vt.VariableType == Velocity_Axial) {
+                        newVaxial = v;
+			if (iGbNode == BDD_.FirstGbNode) {
+ 	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+			} else if (iGbNode == BDD_.LastGbNode) {
+			    // we've applied a boundary condition here!
+			    v = 0.0;
+                        } else {
+                            v = 0.5 * (oldVaxial + newVaxial);
+                        }
+                        oldVaxial = newVaxial;
+                    }
 
                     ss.print0(" %-11.5E ", v);
                 }
@@ -2820,15 +2842,24 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                         throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
                     }
 		    v = (*soln_GlAll_ptr)[istart + offset];
+		    /*
+                     *  Special case the axial velocity because it's not located at the nodes.
+                     */
                     if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-                        if (iGbNode ==  BDD_.LastGbNode) {
-                            v = newVaxial;
+			if (iGbNode == BDD_.FirstGbNode) {
+ 	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+			} else if (iGbNode == BDD_.LastGbNode) {
+			    // we've applied a boundary condition here!
+			    v = 0.0;
                         } else {
                             v = 0.5 * (oldVaxial + newVaxial);
                         }
                         oldVaxial = newVaxial;
                     }
+
                     ss.print0(" %-11.5E ", v);
                 }
                 ss.print0("\n");

@@ -1899,7 +1899,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
-                ss.print0("\n%s    %-10.4E ", ind, x);
+                ss.print0("\n%s    % -10.4E ", ind, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
@@ -1920,7 +1920,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                             // we've applied a boundary condition here!
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
                         } else if (iGbNode == BDD_.LastGbNode) {
-			    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+			    cellTmps& cTmps = cellTmpsVect_Cell_[NumLcCells-1];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             // we've applied a boundary condition here!
                             v = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
@@ -1932,7 +1932,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                     }
 
 
-                    ss.print0(" %-10.4E ", v);
+                    ss.print0(" % -10.4E ", v);
                 }
             }
             ss.print0("\n");
@@ -1966,6 +1966,24 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 			throw m1d_Error("porousLiIon_Separator_dom1D::showSolution()", "cant find a variable");
 		    }
                     v = (*soln_GlAll_ptr)[istart + offset];
+		    if (vt.VariableType == Velocity_Axial) {
+                        newVaxial = v;
+                        if (iGbNode == BDD_.FirstGbNode) {
+ 	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            // we've applied a boundary condition here!
+                            v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+                        } else if (iGbNode == BDD_.LastGbNode) {
+			    cellTmps& cTmps = cellTmpsVect_Cell_[0];
+	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+                            // we've applied a boundary condition here!
+                            v = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+			    newVaxial = v;
+			} else {
+                            v = 0.5 * (oldVaxial + newVaxial);
+                        }
+                        oldVaxial = newVaxial;
+                    }
                     ss.print0(" %-10.4E ", v);
                 }
                 ss.print0("\n");
