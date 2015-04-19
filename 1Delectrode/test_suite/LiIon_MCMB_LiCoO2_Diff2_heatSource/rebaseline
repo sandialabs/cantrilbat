@@ -11,6 +11,7 @@ cp BulkDomain1D_1.dat BulkDomain1D_1_blessed.dat
 cp BulkDomain1D_2.dat BulkDomain1D_2_blessed.dat
 
 cp  stepwiseHeatSource.txt stepwiseHeatSource_blessed.txt
-
 cp  stepwiseElectricalOutput.txt stepwiseElectricalOutput_blessed.txt 
 
+cp accumulatedElectricalOutput.txt   accumulatedElectricalOutput_blessed.txt  
+cp accumulatedHeatSource.txt    accumulatedHeatSource_blessed.txt

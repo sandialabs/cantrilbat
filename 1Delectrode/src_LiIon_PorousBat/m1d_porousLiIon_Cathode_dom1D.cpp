@@ -28,11 +28,11 @@ using namespace std;
 //  Necessary expediency until we model dUdT correctly and fully, matching to experiment
 //
 #define DELTASHEAT_ZERO 1
-//=====================================================================================================================
+//==================================================================================================================================
 namespace m1d
 {
 
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) :
     porousElectrode_dom1D(bdd),
     BDT_ptr_(0), 
@@ -647,8 +647,10 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double xdelCell; // cell width - right boundary minus the left boundary.
 
     //  Electrolyte total molar flux on Right and Left side of cell - this is c V dot n at the boundaries of the cells - kmol s-1 m-2
-    double fluxFright = 0.0;
-    double fluxFleft = 0.0;
+    double moleFluxRight = 0.0;
+    double moleFluxLeft = 0.0;
+
+    double res_Cont_0 = 0.0;
 
     // Thermal Fluxes
     double fluxTleft = 0.0;
@@ -669,9 +671,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
 
-    double fluxL = 0.0;
-    double fluxR = 0.0;
-  
 
     const Epetra_Vector& soln = *soln_ptr;
  
@@ -713,23 +712,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     /*
      *  -------------------- Special section to do the left boundary -------------------------------
      */
-
-    /*
-     * Special section if we own the left node of the domain. If we do
-     * it will be cell 0
-     */
-    if (IOwnLeft) {
-	cellTmps& cTmps          = cellTmpsVect_Cell_[0];
-        NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-        DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = fluxL;
-
-        //DiffFluxLeftBound_LastResid_NE[EQ_TCont_offset] = fluxL;
-        indexCent_EqnStart =
-            LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode] + nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[0];
-        for (int k = 0; k < nsp_; k++) {
-            DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset  + k] = 0.0;
-        }
-    }
 
     /*
      *  Boolean flag that specifies whether the left flux should be recalculated.
@@ -855,7 +837,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
             /*
              *   We set the left flux to zero in this case. It may or may not be overridden by
-             *   a boundary condition in the adjoining surface domain
+             *   a boundary condition in the adjoining surface domain. For internal boundaries, 
+	     *   we set this to zero to not create terms in the middle of control volumes.
              */
             Fleft_cc_ = 0.0;
 
@@ -899,7 +882,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                  *  set the flux to zero. We could put in a more
                  *  sophisticated treatment
                  */
-                fluxFleft = 0.0;
+                moleFluxLeft = 0.0;
 		fluxTleft = 0.0;
 		fluxL_JHPhi = 0.0;
 		fluxL_JHelec = 0.0;
@@ -921,11 +904,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
                 /*
                  * Calculate the flux at the left boundary for each equation
                  */
-                fluxFleft = Fleft_cc_ * concTot_Curr_;
+                moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 		fluxTleft = heatFlux_Curr_;
 		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
 		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
-		enthConvRight = fluxFleft * EnthalpyMolar_lyte_Curr_;
+		enthConvRight = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
 
                 /*
                  * Calculate the flux of species and the flux of charge
@@ -948,7 +931,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             /*
              * Copy the fluxes from the stored right side
              */
-            fluxFleft = fluxFright;
+            moleFluxLeft = moleFluxRight;
 	    fluxTleft = fluxTright;
 	    fluxL_JHPhi = fluxR_JHPhi;
 	    fluxL_JHelec = fluxR_JHelec;
@@ -993,7 +976,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    fluxR_JHPhi = 0.0;
 	    fluxR_JHelec = 0.0;
 	    Fright_cc_ = 0.0;
-	    fluxFright = Fright_cc_ * concTot_Curr_;
+	    moleFluxRight = Fright_cc_ * concTot_Curr_;
 	    enthConvRight = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;
@@ -1022,14 +1005,14 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              * This is equal to
              *       Conc * VMolaraxial * phi
              */
-            fluxFright = Fright_cc_ * concTot_Curr_;
+            moleFluxRight = Fright_cc_ * concTot_Curr_;
 	    /*
              * Calculate the heat flux - all of the types
              */
 	    fluxTright = heatFlux_Curr_;
 	    fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
 	    fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;  
-	    enthConvRight = fluxFright * EnthalpyMolar_lyte_Curr_;
+	    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
 
             /*
              * Calculate the flux of species and the flux of charge
@@ -1085,7 +1068,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
          *                              fluxes coming and going from the cell.
          *                    R =   d rho d t + del dot (rho V) = 0
          */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (fluxFright - fluxFleft);
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
 
         /*
          * Species continuity Equation
@@ -1160,7 +1143,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         /*
          *  Total continuity equation for moles in the electrolyte phase of the cell
          *     Add in the molar flux from the electrode into the electrolyte phase
-         *     We are assuming for the current problem that the volumes stay constant
+         *     We take care of changing volumes of electrolytes by changing the porosity and the cell size.
          */
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] -= solnMoleFluxInterface_Cell_[iCell];
 
@@ -1228,6 +1211,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
         /*
          *   ------------------ ADD IN THE TIME DEPENDENT TERMS ----------------------------------------------------
          */
+	double newStuffTC = 0.0;
+	double oldStuffTC = 0.0;
         if (doTimeDependentResid) {
 
             /*
@@ -1250,7 +1235,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             }
 #endif
 
-            double newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
+            newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
             double newStuffSpecies0 = Xcent_cc_[iLip_] * newStuffTC;
 
             /*
@@ -1258,7 +1243,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
 
             double* mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
-            double oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
+            oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
             double oldStuffSpecies0 = mf_old[iLip_] * oldStuffTC;
 
             double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
@@ -1304,8 +1289,10 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              *               However, we put it in here for the next problem.
              *   Also we add in the source term for that equation here too.
              */
-            res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t
-                                  -solnMoleFluxInterface_Cell_[iCell];
+            //res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t
+            //                      -solnMoleFluxInterface_Cell_[iCell];
+	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
+                      
 
 
 	    if  (energyEquationProbType_ == 3) {
@@ -1336,18 +1323,23 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 
         }
+	//
+	//  Section to find the Axial velocity at the left domain boundary for use in printouts and balances
+	//        (the basic idea is to do a balance on just this domain.
+	//
+	if (residType == Base_ShowSolution) {
+	    if (IOwnLeft) {
+		if (iCell == 0) {
+		    res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + ( moleFluxRight) - solnMoleFluxInterface_Cell_[0];
+		    moleFluxLeft = res_Cont_0;
+		    Fleft_cc_ = moleFluxLeft / concTot_Curr_;
+		    DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fleft_cc_;
+		}
+	    }
+	}
     }
 
-    /*
-     * Special section to do the right boundary
-     */
-    /*
-     * Special section if we own the rigt node of the domain. If we do
-     * it will be last cell
-     */
-    if (IOwnRight) {
-        DiffFluxRightBound_LastResid_NE[0] = fluxR;
-    }
+ 
 
 }
 //====================================================================================================================

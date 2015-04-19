@@ -1320,7 +1320,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    //
 	    double cp =  CpMolar_total_Cell_[iCell];
 	    double tempOld = Temp_Cell_old_[iCell];
-	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += cp * (temp_Curr_ - tempOld) * rdelta_t;
+	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += cp * (temp_Curr_ - tempOld) * rdelta_t;
 
 	}
     }
