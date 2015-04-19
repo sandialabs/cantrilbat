@@ -512,10 +512,23 @@ public:
    */
   std::vector<double> TotalFluxRightBound_LastResid_NE;
 
+  //! Value of the variable as seen from the left side of domain from the last residual calculation
+  /*!
+   *  This is a temporary variable that holds the  left side variable value
+   *  at the left boundary during the last residual calculation
+   *
+   *  Length = number of equations defined on this domain
+   */
   std::vector<double> VarVectorLeftBound_LastResid_NE;
+
+  //! Value of the variable as seen from the right side of domain from the last residual calculation
+  /*!
+   *  This is a temporary variable that holds the right side variable value
+   *  at the right boundary during the last residual calculation
+   *
+   *  Length = number of equations defined on this domain
+   */
   std::vector<double> VarVectorRightBound_LastResid_NE;
-
-
 
   //! Pointer to the local node indices for this processor
   LocalNodeIndices *LI_ptr_;

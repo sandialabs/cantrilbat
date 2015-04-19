@@ -76,6 +76,8 @@ BulkDomain1D::operator=(const BulkDomain1D &r)
   DiffFluxRightBound_LastResid_NE = r.DiffFluxRightBound_LastResid_NE;
   TotalFluxLeftBound_LastResid_NE = r.TotalFluxLeftBound_LastResid_NE;
   TotalFluxRightBound_LastResid_NE = r.TotalFluxRightBound_LastResid_NE;
+  VarVectorLeftBound_LastResid_NE = r.VarVectorLeftBound_LastResid_NE;
+  VarVectorRightBound_LastResid_NE = r.VarVectorRightBound_LastResid_NE;
 
   LI_ptr_ = r.LI_ptr_;
 
