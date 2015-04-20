@@ -1047,7 +1047,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
                 icurrElectrolyte_CBR_[iCell] += fluxXright[k] * spCharge_[k];
                 if (Fright_cc_ > 0.0) {
-
                     fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
                 } else {
                     fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;

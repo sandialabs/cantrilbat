@@ -347,10 +347,15 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     double fluxR_JHPhi = 0.0;
     double enthConvRight = 0.0;
     double enthConvLeft = 0.0;
+    double oldStuffTC = 0.0;
+    double newStuffTC = 0.0;
+    double* mf_old = 0;
 
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
+ 
+    std::vector<double> resLocal_Species(nsp_, 0.0);
 
     double res_Cont_0 = 0.0;
  
@@ -791,25 +796,28 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                 printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[0], fluxXleft[0]);
             }
 #endif
-            double newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
+            newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
             double newStuffSpecies0 = Xcent_cc_[iLip_] * newStuffTC;
-
+	    /*
+             *   .................... Calculate quantities needed at the previous time step
+             */
             /*
              * Setup shop with the old time step
              */
             SetupThermoShop1(nodeCent, &(solnOld[indexCent_EqnStart]));
 
-            double oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
-            oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
+	    mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
+            oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
+
+	    // oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
             double oldStuffSpecies0 = mfElectrolyte_Soln_Curr_[iLip_] * oldStuffTC;
-            double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
-            // double delta_concTot_CurrNew = concTot_CurrNew - concTot_Curr_;
-            //  double delta_mf = mfNew - mfElectrolyte_Soln_Curr_[0];
-#ifdef DEBUG_HKM_NOT
-            if (residType == Base_ResidEval) {
-                printf(" deltaT term = %10.3e BulkSum = %10.3e\n", tmp, tmp + (fluxXright[0] - fluxXleft[0]));
-            }
-#endif
+
+	    //AssertTrace(mf_old[iLip_] ==  mfElectrolyte_Soln_Curr_[iLip_]);  (HKM Note, this uncovered a print error in time stepper reentry
+	    //if (mf_old[iLip_] !=  mfElectrolyte_Soln_Curr_[iLip_]) {
+	    //printf("We are here\n");
+	    // }
+	    // double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+    
 
             /*
              *   .................... Add these terms in the residual
@@ -820,6 +828,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
             for (int k = 0; k < nsp_; k++) {
                 if (k != iECDMC_ && k != iPF6m_) {
+		    double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
                     res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += tmp;
                 }
             }
@@ -876,36 +885,66 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 		res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
 	    }
 
+	    // ----------------------  Calculations that are based on having a complete local residual -----------------------------
+
             /*
              *   .................... Go back to setting up shop at the current time
              */
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-	    //
-	    //  Section to find the Axial velocity at the left domain boundary
-	    //
-	    if (residType == Base_ShowSolution) {
-		if (IOwnLeft) {
-		    if (iCell == 0) {
-			res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight );
-			moleFluxLeft = res_Cont_0;
-			Fleft_cc_ = moleFluxLeft / concTot_Curr_;
-			DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fleft_cc_;
-		    }
-		}
-		//
-		//  Section to find the Axial velocity at the right domain boundary
-		//
-		if (IOwnRight) {
-		    if (iCell == NumLcCells - 1) {
-			res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft );
-			moleFluxRight = - res_Cont_0;
-			Fright_cc_ = moleFluxRight / concTot_Curr_;
-			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
+	}
+	//
+	//  Section to find the Axial velocity at the left domain boundary
+	//
+	if (residType == Base_ShowSolution) {
+	    if (IOwnLeft) {
+		if (iCell == 0) {
+		    res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight );
+		    moleFluxLeft = res_Cont_0;
+		    Fleft_cc_ = moleFluxLeft / concTot_Curr_;
+		    DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fleft_cc_;
+		    //
+		    //  Section to find the Diffusive flux of species
+		    //        fluxXleft[k] is set to zero. Also some species are replaced by constraints.
+		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations.
+		    for (size_t k = 0; k < (size_t) nsp_; k++) {
+			resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
+			double newStuffSpecies0 = Xcent_cc_[k] * newStuffTC;
+			double oldStuffSpecies0 = mf_old[k] * oldStuffTC;
+			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+			TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
+			DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
+			  TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
+			  -  Fleft_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
 		    }
 		}
 	    }
-        }
-
+	    //
+	    //  Section to find the Axial velocity at the right domain boundary
+	    //
+	    if (IOwnRight) {
+		if (iCell == NumLcCells - 1) {
+		    res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft );
+		    moleFluxRight = - res_Cont_0;
+		    Fright_cc_ = moleFluxRight / concTot_Curr_;
+		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
+		    //
+		    //  Section to find the Diffusive flux of species
+		    //        fluxXright[k] is set to zero. Also some species are replaced by constraints.
+		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations.
+		    for (size_t k = 0; k < (size_t) nsp_; k++) {
+			resLocal_Species[k]  = (fluxXright[k] - fluxXleft[k]);
+			double newStuffSpecies0 =  Xcent_cc_[k] * newStuffTC;
+			double oldStuffSpecies0 =  mf_old[k] * oldStuffTC;
+			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+			TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
+			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
+			  TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
+			  -  Fright_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
+		    }
+		}
+	    }
+	       
+	}
     }
 
 }
@@ -1192,6 +1231,8 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
   
     double phiIcurrL = 0.0;
     double phiIcurrR = 0.0;
+    double moleFluxLeft = 0.0;
+    double moleFluxRight = 0.0;
 
     
     for (int itimes = 0; itimes < doTimes; itimes++) {
@@ -1292,7 +1333,8 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdelL;
 		fluxTleft = heatFlux_Curr_;
 		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
-		Fleft_cc_ = soln[indexCent_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
+
+		Fleft_cc_ =soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
 		double moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
 
@@ -1319,6 +1361,24 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
 		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+
+		Fleft_cc_ = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+
+		for (int k = 0; k < nsp_; k++) {
+		    jFlux_trCurr_[k] = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+		}
+		jFlux_EnthalpyPhi_Curr_ = 0.0;
+		for (size_t k = 0; k < (size_t) nsp_; ++k) {
+		    jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
+		}
+		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+
+
+		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
+		
 
 	    }
 
@@ -1366,6 +1426,20 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 
 		phiIcurrR = icurrElectrolyte_CBR_[iCell] * phiElectrolyte_Curr_;
 
+		Fright_cc_ = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
+
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+		for (int k = 0; k < nsp_; k++) {
+		    jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+		}
+		jFlux_EnthalpyPhi_Curr_ = 0.0;
+		for (size_t k = 0; k < (size_t) nsp_; ++k) {
+		    jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
+		}
+		fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+
 
 	    }
 
@@ -1411,6 +1485,25 @@ porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const d
 
     solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
 }
+//=====================================================================================================================
+void
+porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
+						   const doublereal* const solnElectrolyte_Curr)
+{
+    //
+    // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
+    //
+    ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
+    EnthalpyMolar_lyte_Curr_ = 0.0;
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+        double z = ionicLiquid_->charge(k);
+        EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
+	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
+    }
+ 
+}
+
+
 //=====================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,

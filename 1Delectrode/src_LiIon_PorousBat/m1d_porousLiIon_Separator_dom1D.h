@@ -194,6 +194,16 @@ public:
     void
     SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
+    //! Do extra stuff at a single node that is normally not needed.
+    /*!
+     *  This is usually called for end points of a domain.
+     *
+     * @param solnElectrolyte_Curr  Current value of the solution vector
+     */
+    void
+    SetupThermoShop1Extra(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+
+
     //!  Setup shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
     /*!
