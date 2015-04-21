@@ -25,6 +25,7 @@
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_BatteryResidEval.h"
+
 using namespace std;
 
 //==================================================================================================================================
@@ -286,11 +287,11 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                  *     Therefore, we substitute (2) into (1) to get the signs correct, which is a + for cathode.
 		 *
                  *     On the Anode side
-                       *       (3) - flux_Left = - h (T_ref - T_0) = h ( T_0 - T_ref ) = RobinBoundaryCondition
+		 *       (3) - flux_Left = - h (T_ref - T_0) = h ( T_0 - T_ref ) = RobinBoundaryCondition
                  *
-                       *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
+		 *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
                  *
-                       */
+		 */
                 res[ieqn] += BC_TimeDep_NE[i]->valueAtTime(t, solnVal, timeRegion);
                 break;
 
@@ -576,20 +577,20 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
 	 }
      }
      /*
-     * Get the consistent currents
-     */
+      * Get the consistent currents
+      */
      //SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
  
-    //
-    //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
-    //  We will use this as the official current coming out of the cathode.
-    // 
-    BulkDomain1D* bd = bedd_->BulkDomainPtr_;
-    icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
-    double jfluxR = bd->DiffFluxRightBound_LastResid_NE[ ieqnTemp ];
-    dValsBat_ptr->currentRight = icurrCollector_;
-    dValsBat_ptr->JHelecRight =   jfluxR;
-    dValsBat_ptr->phiSolid = phiCathode_;
+     //
+     //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
+     //  We will use this as the official current coming out of the cathode.
+     // 
+     BulkDomain1D* bd = bedd_->BulkDomainPtr_;
+     icurrCollector_ = bd->DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED];
+     double jfluxR = bd->DiffFluxRightBound_LastResid_NE[ ieqnTemp ];
+     dValsBat_ptr->currentRight = icurrCollector_;
+     dValsBat_ptr->JHelecRight =   jfluxR;
+     dValsBat_ptr->phiSolid = phiCathode_;
 
  }
 //==================================================================================================================================

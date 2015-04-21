@@ -211,6 +211,10 @@ public:
     void
     SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
+    void
+    SetupThermoShop1Extra(const NodalVars* const nv, const doublereal* const soln_Curr);
+
+
     //!  Setup shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
     /*!

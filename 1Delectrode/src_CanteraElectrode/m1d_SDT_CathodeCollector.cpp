@@ -14,6 +14,8 @@
 #include "m1d_BC_Battery.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
+#include "m1d_BDD_porousElectrode.h"
+
 
 //=====================================================================================================================
 namespace m1d
@@ -93,6 +95,13 @@ SDT_CathodeCollector::SetEquationDescription()
      * Fill in the rest of the information
      */
     SurfDomainDescription::SetEquationDescription();
+
+    // BDD_porousElectrode* bddPE = dynamic_cast< BDD_porousElectrode*>(LeftBulk);
+    //ThermoPhase* ionicLiquid = bddPE->ionicLiquid_;
+    //size_t nSpeciesElectrolyte = ionicLiquid->nSpecies();
+    //size_t iMFS_index_ = bddPE->iMFS_index_;
+    //size_t iCN_index_ = bddPE->iCN_index_;
+
     
     /*
      *  If we are just fixing the voltage at the cathode, we can set the plain Dirichlet condition here.
@@ -155,9 +164,11 @@ SDT_CathodeCollector::SetEquationDescription()
      *  last axial velocity unknown is not represented in the solution vector, leading to a singular matrix.
      *
      */
+#ifdef DEBUG_OLD_CC_FLOW_CONDITION
     EqnType e2(Continuity, 0, "Continuity: Bulk Velocity");
     VarType v2(Velocity_Axial, 0, "Axial_Velocity");
     addDirichletCondition(e2, v2, 0.0);
+#endif
 
     /*
      * Temperature boundary condition

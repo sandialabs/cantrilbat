@@ -975,14 +975,27 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    fluxTright = 0.0;  
 	    fluxR_JHPhi = 0.0;
 	    fluxR_JHelec = 0.0;
-	    Fright_cc_ = 0.0;
-	    moleFluxRight = Fright_cc_ * concTot_Curr_;
-	    enthConvRight = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;
+            //
+            // Add flow out the right boundary to account for conservation of electrolyte volume
+            //
+            SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+            Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+	    moleFluxRight = Fright_cc_ * concTot_Curr_;
+            for (int k = 0; k < nsp_; k++) {
+                fluxXright[k] = Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
+            }
+	    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+#ifdef DEBUG_OLD_CC_FLOW_CONDITION
+	    Fright_cc_ = 0.0;
+	    moleFluxRight = Fright_cc_ * concTot_Curr_;
             for (int k = 0; k < nsp_; k++) {
                 fluxXright[k] = 0.0;
             } 
+	    enthConvRight = 0.0;
+#endif
+
 	    //
 	    // Calculate the current at the boundary that is conservative.
 	    //   This is really  icurrElectrolyte_CBR_[iCell]. However, we leave that 0 because of the
@@ -1280,7 +1293,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             }
 #endif
             /*
-             *  Add in the time term for species 0
+             *  Add in the time term for all species not covered by algebraic constraints
              */
             for (int k = 0; k < nsp_; k++) {
                 if (k != iECDMC_ && k != iPF6m_) {
@@ -1296,7 +1309,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
             //res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t
             //                      -solnMoleFluxInterface_Cell_[iCell];
 	    res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
-                      
 
 
 	    if  (energyEquationProbType_ == 3) {
@@ -1975,6 +1987,22 @@ porousLiIon_Cathode_dom1D::SetupThermoShop1(const NodalVars* const nv, const dou
     metalPhase_->setElectricPotential(phiElectrode_Curr_);
     metalPhase_->getPartialMolarEnthalpies(&EnthalpyPhiPM_metal_Curr_[0]);
     EnthalpyPhiPM_metal_Curr_[0] -= Faraday * phiElectrode_Curr_;
+}
+//=====================================================================================================================
+void
+porousLiIon_Cathode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
+						   const doublereal* const solnElectrolyte_Curr)
+{
+    //
+    // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
+    //
+    ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
+    EnthalpyMolar_lyte_Curr_ = 0.0;
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+        double z = ionicLiquid_->charge(k);
+        EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
+	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
+    }
 }
 //=====================================================================================================================
 void
@@ -2802,8 +2830,11 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 			} else if (iGbNode == BDD_.LastGbNode) {
+                            // vaxial is equal to the solution in the last node 
+#ifdef DEBUG_OLD_CC_FLOW_CONDITION
 			    // we've applied a boundary condition here!
-			    v = 0.0;
+			    v = 0.0 ;
+#endif
                         } else {
                             v = 0.5 * (oldVaxial + newVaxial);
                         }
@@ -2854,8 +2885,11 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 			} else if (iGbNode == BDD_.LastGbNode) {
+                            // vaxial is equal to the solution in the last node 
+#ifdef DEBUG_OLD_CC_FLOW_CONDITION
 			    // we've applied a boundary condition here!
-			    v = 0.0;
+			    v = 0.0 ;
+#endif
                         } else {
                             v = 0.5 * (oldVaxial + newVaxial);
                         }
