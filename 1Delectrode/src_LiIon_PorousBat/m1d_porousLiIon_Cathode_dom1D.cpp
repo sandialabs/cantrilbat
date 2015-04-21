@@ -651,7 +651,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double moleFluxLeft = 0.0;
 
     double res_Cont_0 = 0.0;
-
+  
     // Thermal Fluxes
     double fluxTleft = 0.0;
     double fluxTright = 0.0;
@@ -1781,6 +1781,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
     NodalVars* nodeCent = 0;
     NodalVars* nodeLeft = 0;
     NodalVars* nodeRight = 0;
+    globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
     int indexCent_EqnStart, indexLeft_EqnStart, indexRight_EqnStart;
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
@@ -1789,7 +1790,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
     dVals.totalHeatCapacity = 0.0;
     dVals.oldNEnthalpy = 0.0;
     dVals.newNEnthalpy = 0.0;
-
+    double jouleHeat_lyte_total = 0.0;
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
@@ -1938,6 +1939,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 	}
 
 	dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
+	dValsB_ptr->jouleHeat_lyte = jouleHeat_lyte_total;
 	//
 	//  Count up the total old and new cell enthalpies
 	//
