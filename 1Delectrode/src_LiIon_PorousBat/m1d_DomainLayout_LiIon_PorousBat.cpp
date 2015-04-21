@@ -20,6 +20,7 @@
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BDD_porousElectrode.h"
+#include "m1d_SDT_ElectrodeSepInterface.h"
 
 #include <iostream>
 
@@ -39,7 +40,6 @@ DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(ProblemStatement* psI
         Cantera::CanteraError("DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat()",
                               "Bad dynamic cast");
     }
-    //InitializeDomainPicture();
 }
 //===========================================================================
 DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(int probNum, ProblemStatement* psInput_ptr) :
@@ -128,7 +128,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     addSurfDomainToLeftEnd(sddL, bdd);
 
 
-    SDT_Mixed* anodeSepInterface = new SDT_Mixed(this);
+    SDT_ElectrodeSepInterface* anodeSepInterface = new SDT_ElectrodeSepInterface(this);
     SurfDomainDescription* sddR = anodeSepInterface;
     addSurfDomainToRightEnd(sddR, bdd);
 
@@ -138,7 +138,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     int numNodesS = pscInput_ptr_->initDefaultNumCVsSeparator_;
     addBulkDomainToRightEnd(bdd, numNodesS, startZ, endZ);
 
-    SDT_Mixed* cathodeSepInterface = new SDT_Mixed(this);
+    SDT_ElectrodeSepInterface* cathodeSepInterface = new SDT_ElectrodeSepInterface(this);
     SurfDomainDescription* sddR2 = cathodeSepInterface;
     addSurfDomainToRightEnd(sddR2, bdd);
 

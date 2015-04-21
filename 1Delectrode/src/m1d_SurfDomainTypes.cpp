@@ -15,7 +15,7 @@ namespace m1d
 
 //=====================================================================================================================
   SDT_Dirichlet::SDT_Dirichlet(DomainLayout *dl_ptr, std::string domainName) :
-    SurfDomainDescription(dl_ptr,domainName), NumConditions(0), EquationID(0), Value(0), TimeDep(0), 
+    SurfDomainDescription(dl_ptr, domainName), NumConditions(0), EquationID(0), Value(0), TimeDep(0), 
     BC_TimeDep_(0), BC_Type_(0)
 {
 }
@@ -182,7 +182,8 @@ SDT_Dirichlet::mallocDomain1D()
 //=====================================================================================================================
 //=====================================================================================================================
 SDT_Mixed::SDT_Mixed(DomainLayout *dl_ptr, std::string domainName) :
-  SDT_Dirichlet(dl_ptr,domainName), SBC_Type_(0)
+    SDT_Dirichlet(dl_ptr, domainName), 
+    SBC_Type_(0)
 {
 }
 //=====================================================================================================================
