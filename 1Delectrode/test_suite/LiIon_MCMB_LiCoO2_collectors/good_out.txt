@@ -860,17 +860,17 @@ Solution saved to file solution.xml as solution 0.
             9-Rgt    1.8796E-03  0.0000E+00  2.3826E-01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              0.0000E+00 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      -7.0000E-02 
-         Volt(CathodeVoltage)   3.8000E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8000E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                2.3826E-01 
@@ -1016,7 +1016,7 @@ initial Atol vector
       ----------------------------------------------------------------------------------------------------
       ----------------------------------------------------------------------------------------------------
         initial Atol vector Vector on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       ----------------------------------------------------------------------------------------------------
            VariableName   GblEqnInd      Value  
@@ -1042,11 +1042,11 @@ Start of Time Step:     1       Time_n =     1e-08 Time_nm1 =         0
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.141E-02   Y   |    1   2.134E-13 | 4.245E+02  | 1.000E+00|  1.746E-02  |   1.00E+00  0 |   4.245E+02   1.746E-02 
-	   2   1.746E-02   Y   |    1   1.941E-13 | 3.434E+02  | 1.000E+00|  4.045E-03  |   1.00E+00  0 |   3.434E+02   4.045E-03 
-	   3   4.045E-03   Y   |    1   5.725E-14 | 1.304E+02  | 1.000E+00|  1.641E-04  |   1.00E+00  0 |   1.304E+02   1.641E-04 
-	   4   1.641E-04   Y   |    1   4.678E-15 | 5.683E+00  | 1.000E+00|  1.181E-06  |   1.00E+00  0 |   5.683E+00   1.181E-06 
-	                       |                  |(4.090E-02) |          |             | converged = 3 |              (4.090E-02) 
+	   1   5.141E-02   Y   |    1   2.208E-13 | 4.245E+02  | 1.000E+00|  1.746E-02  |   1.00E+00  0 |   4.245E+02   1.746E-02 
+	   2   1.746E-02   Y   |    1   2.088E-13 | 3.434E+02  | 1.000E+00|  4.045E-03  |   1.00E+00  0 |   3.434E+02   4.045E-03 
+	   3   4.045E-03   Y   |    1   8.852E-14 | 1.304E+02  | 1.000E+00|  1.641E-04  |   1.00E+00  0 |   1.304E+02   1.641E-04 
+	   4   1.641E-04   Y   |    1   3.780E-15 | 5.683E+00  | 1.000E+00|  1.183E-06  |   1.00E+00  0 |   5.683E+00   1.183E-06 
+	                       |                  |(4.097E-02) |          |             | converged = 3 |              (4.097E-02) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 4 iterations
 	Time step truncation error = 903.245
@@ -1304,7 +1304,7 @@ Solution saved to file solution.xml as solution 1.
           1.6764E-03  3.45847E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50278E-02 
           1.7441E-03  2.30479E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50277E-02 
           1.8119E-03  1.15077E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50277E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50277E-02 
+          1.8796E-03  -3.63208E-12  9.20000E-01  4.00000E-02  4.00000E-02  3.50277E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -1405,17 +1405,17 @@ Solution saved to file solution.xml as solution 1.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -3.6321E-12 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -1434,12 +1434,12 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.987E-07   Y   |    1   1.906E-18 | 3.808E-03  | 1.000E+00|  9.810E-07  |   1.00E+00  0 |   3.808E-03   9.810E-07 
-	   2   9.810E-07   Y   |    1   1.521E-20 | 1.625E-05  | 1.000E+00|  7.970E-07  |   1.00E+00  0 |   1.625E-05   7.970E-07 
-	                       |                  |(1.320E-05) |          |             | converged = 3 |              (1.320E-05) 
+	   1   7.022E-07   Y   |    1   1.616E-18 | 3.808E-03  | 1.000E+00|  9.837E-07  |   1.00E+00  0 |   3.808E-03   9.837E-07 
+	   2   9.837E-07   Y   |    1   1.615E-20 | 1.719E-05  | 1.000E+00|  7.970E-07  |   1.00E+00  0 |   1.719E-05   7.970E-07 
+	                       |                  |(1.393E-05) |          |             | converged = 3 |              (1.393E-05) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 0.00380771
+	Time step truncation error = 0.00380772
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -1449,14 +1449,14 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 		    22         Volt(Electrolyt)-3       6.6021e-04 |   3.5029e-02   3.5029e-02   5.0000e-05 alg   4.1755e+01
 		    28         Volt(Electrolyt)-4       6.6021e-04 |   3.5029e-02   3.5029e-02   5.0000e-05 alg   4.1755e+01
 		    34         Volt(Electrolyt)-5       6.6021e-04 |   3.5029e-02   3.5029e-02   5.0000e-05 alg   4.1755e+01
-		    40         Volt(Electrolyt)-6       6.6020e-04 |   3.5029e-02   3.5029e-02   5.0000e-05 alg   4.1755e+01
+		    40         Volt(Electrolyt)-6       6.6021e-04 |   3.5029e-02   3.5029e-02   5.0000e-05 alg   4.1755e+01
 		    46         Volt(Electrolyt)-7       6.6020e-04 |   3.5029e-02   3.5029e-02   5.0000e-05 alg   4.1755e+01
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	  Time step error controlled ignored on 2 step until step 3
 	Time Step Number     2 was a success: time =      2e-08
 		Estimated Error
-		--------------------   =   3.80771e-03
+		--------------------   =   3.80772e-03
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -1694,7 +1694,7 @@ Solution saved to file solution.xml as solution 2.
           1.6764E-03  3.45486E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30081E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.14697E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  -7.08255E-12  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -1795,17 +1795,17 @@ Solution saved to file solution.xml as solution 2.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -7.0826E-12 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -1824,29 +1824,29 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.221E-06   Y   |    1   1.927E-18 | 3.808E-03  | 1.000E+00|  3.202E-07  |   1.00E+00  0 |   3.808E-03   3.202E-07 
-	   2   3.202E-07   Y   |    1   2.159E-21 | 3.863E-06  | 1.000E+00|  1.428E-07  |   1.00E+00  0 |   3.863E-06   1.428E-07 
-	                       |                  |(1.723E-06) |          |             | converged = 3 |              (1.723E-06) 
+	   1   2.226E-06   Y   |    1   2.117E-18 | 3.808E-03  | 1.000E+00|  3.202E-07  |   1.00E+00  0 |   3.808E-03   3.202E-07 
+	   2   3.202E-07   Y   |    1   2.331E-21 | 3.958E-06  | 1.000E+00|  1.428E-07  |   1.00E+00  0 |   3.958E-06   1.428E-07 
+	                       |                  |(1.765E-06) |          |             | converged = 3 |              (1.765E-06) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 0.00380778
+	Time step truncation error = 0.00380781
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		     4         Volt(Electrolyt)-0      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    10         Volt(Electrolyt)-1      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    16         Volt(Electrolyt)-2      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    22         Volt(Electrolyt)-3      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    28         Volt(Electrolyt)-4      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    34         Volt(Electrolyt)-5      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    40         Volt(Electrolyt)-6      -6.6020e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
-		    46         Volt(Electrolyt)-7      -6.6020e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9295e-05
+		     4         Volt(Electrolyt)-0      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    10         Volt(Electrolyt)-1      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    16         Volt(Electrolyt)-2      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    22         Volt(Electrolyt)-3      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    28         Volt(Electrolyt)-4      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    34         Volt(Electrolyt)-5      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    40         Volt(Electrolyt)-6      -6.6021e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
+		    46         Volt(Electrolyt)-7      -6.6020e-04 |   3.5029e-02   3.5030e-02   5.0000e-05 alg  -1.9280e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	  Time step error controlled ignored on 3 step until step 3
 	Time Step Number     3 was a success: time =      3e-08
 		Estimated Error
-		--------------------   =   3.80778e-03
+		--------------------   =   3.80781e-03
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1e-08
@@ -2084,7 +2084,7 @@ Solution saved to file solution.xml as solution 3.
           1.6764E-03  3.46140E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30862E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15532E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  1.63443E-12  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -2185,17 +2185,17 @@ Solution saved to file solution.xml as solution 3.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              1.6344E-12 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -2214,28 +2214,28 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.646E-06   Y   |    1   1.095E-20 | 1.721E-05  | 1.000E+00|  2.573E-07  |   1.00E+00  0 |   1.721E-05   2.573E-07 
-	   2   2.573E-07   Y   |    1   1.317E-21 | 1.729E-06  | 1.000E+00|  1.425E-07  |   1.00E+00  0 |   1.729E-06   1.425E-07 
-	                       |                  |(9.577E-07) |          |             | converged = 3 |              (9.577E-07) 
+	   1   2.655E-06   Y   |    1   1.061E-20 | 1.965E-05  | 1.000E+00|  2.573E-07  |   1.00E+00  0 |   1.965E-05   2.573E-07 
+	   2   2.573E-07   Y   |    1   9.904E-22 | 1.872E-06  | 1.000E+00|  1.425E-07  |   1.00E+00  0 |   1.872E-06   1.425E-07 
+	                       |                  |(1.037E-06) |          |             | converged = 3 |              (1.037E-06) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.86752e-05
+	Time step truncation error = 2.12761e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
+		   154                Vel_axial-27     -1.0194e-05 |  -2.5425e-12   1.0351e-11   1.0000e-07 alg  -4.1769e-04
 		   148                Vel_axial-26     -9.7628e-06 |   5.7458e-10   5.8693e-10   1.0000e-07 alg  -3.9953e-04
 		   142                Vel_axial-25     -9.4757e-06 |   1.7284e-09   1.7404e-09   1.0000e-07 alg  -3.6321e-04
 		   136                Vel_axial-24     -7.7528e-06 |   2.8826e-09   2.8924e-09   1.0000e-07 alg  -2.5425e-04
 		   130                Vel_axial-23     -5.7428e-06 |   4.0362e-09   4.0434e-09   1.0000e-07 alg  -1.4528e-04
-		   124                Vel_axial-22     -4.0200e-06 |   5.1902e-09   5.1952e-09   1.0000e-07 alg  -2.9342e-12
+		   124                Vel_axial-22     -4.0200e-06 |   5.1902e-09   5.1952e-09   1.0000e-07 alg  -2.9331e-12
 		    24                Vel_axial-4      -3.7328e-06 |   5.1882e-09   5.1929e-09   1.0000e-07 alg  -1.2712e-04
 		    30                Vel_axial-5      -3.4457e-06 |   6.3415e-09   6.3458e-09   1.0000e-07 alg  -9.0802e-05
-		   118                Vel_axial-21     -3.1586e-06 |   6.3428e-09   6.3468e-09   1.0000e-07 alg   3.6321e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     4 was a success: time =      4e-08
 		Estimated Error
-		--------------------   =   1.86752e-05
+		--------------------   =   2.12761e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.5e-08
@@ -2473,7 +2473,7 @@ Solution saved to file solution.xml as solution 4.
           1.6764E-03  3.45940E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30553E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15151E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  -2.54245E-12  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -2574,17 +2574,17 @@ Solution saved to file solution.xml as solution 4.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -2.5425E-12 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -2603,15 +2603,16 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.993E-06   Y   |    1   1.201E-20 | 1.637E-05  | 1.000E+00|  4.607E-13  |   1.00E+00  0 |   1.637E-05   4.607E-13 
-	   2   4.607E-13   Y   |    1   9.575E-28 | 9.852E-13  | 1.000E+00|  2.659E-13  |   1.00E+00  0 |   9.852E-13   2.659E-13 
-	                       |                  |(9.852E-14) |          |             | converged = 3 |              (9.852E-14) 
+	   1   2.995E-06   Y   |    1   8.315E-21 | 1.867E-05  | 1.000E+00|  4.933E-13  |   1.00E+00  0 |   1.867E-05   4.933E-13 
+	   2   4.933E-13   Y   |    1   8.237E-28 | 6.903E-13  | 1.000E+00|  3.027E-13  |   1.00E+00  0 |   6.903E-13   3.027E-13 
+	                       |                  |(6.903E-14) |          |             | converged = 3 |              (6.903E-14) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.63727e-05
+	Time step truncation error = 1.86704e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
+		   154                Vel_axial-27      8.9732e-06 |   2.5425e-12  -8.8078e-12   1.0000e-07 alg   3.3899e-04
 		   148                Vel_axial-26      8.7578e-06 |   5.7967e-10   5.6859e-10   1.0000e-07 alg   3.3899e-04
 		   142                Vel_axial-25      8.3271e-06 |   1.7335e-09   1.7230e-09   1.0000e-07 alg   3.3899e-04
 		   136                Vel_axial-24      6.0778e-06 |   2.8865e-09   2.8788e-09   1.0000e-07 alg   2.5828e-04
@@ -2619,12 +2620,11 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 		    48                Vel_axial-8      -3.6610e-06 |   9.8001e-09   9.8047e-09   1.0000e-07 alg  -7.2642e-05
 		    42                Vel_axial-7      -3.2303e-06 |   8.6471e-09   8.6512e-09   1.0000e-07 alg  -7.2642e-05
 		   100                Vel_axial-18     -2.2014e-06 |   9.8013e-09   9.8041e-09   1.0000e-07 alg   3.2285e-05
-		    54                Vel_axial-9      -1.8425e-06 |   1.0377e-08   1.0379e-08   1.0000e-07 alg   8.0713e-06
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     5 was a success: time =    5.5e-08
 		Estimated Error
-		--------------------   =   1.63727e-05
+		--------------------   =   1.86704e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.25e-08
@@ -2862,7 +2862,7 @@ Solution saved to file solution.xml as solution 5.
           1.6764E-03  3.46297E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.31001E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15659E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  2.54245E-12  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -2963,17 +2963,17 @@ Solution saved to file solution.xml as solution 5.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              2.5425E-12 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -2992,28 +2992,28 @@ Start of Time Step:     6       Time_n =  7.75e-08 Time_nm1 =   5.5e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.986E-06   Y   |    1   1.897E-20 | 2.055E-05  | 1.000E+00|  4.089E-07  |   1.00E+00  0 |   2.055E-05   4.089E-07 
-	   2   4.089E-07   Y   |    1   1.310E-21 | 1.647E-06  | 1.000E+00|  4.113E-13  |   1.00E+00  0 |   1.647E-06   4.113E-13 
-	                       |                  |(1.656E-12) |          |             | converged = 3 |              (1.656E-12) 
+	   1   1.986E-06   Y   |    1   2.130E-20 | 2.278E-05  | 1.000E+00|  4.089E-07  |   1.00E+00  0 |   2.278E-05   4.089E-07 
+	   2   4.089E-07   Y   |    1   1.056E-21 | 1.706E-06  | 1.000E+00|  3.614E-13  |   1.00E+00  0 |   1.706E-06   3.614E-13 
+	                       |                  |(1.508E-12) |          |             | converged = 3 |              (1.508E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.94067e-05
+	Time step truncation error = 2.15547e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
 		   142                Vel_axial-25     -9.3799e-06 |   1.7293e-09   1.7411e-09   1.0000e-07 alg  -1.8833e-04
 		   148                Vel_axial-26     -9.3799e-06 |   5.7543e-10   5.8730e-10   1.0000e-07 alg  -1.8833e-04
+		   154                Vel_axial-27     -9.3799e-06 |  -1.6950e-12   1.0170e-11   1.0000e-07 alg  -1.8833e-04
 		   136                Vel_axial-24     -7.5614e-06 |   2.8828e-09   2.8923e-09   1.0000e-07 alg  -1.6681e-04
 		   130                Vel_axial-23     -6.6521e-06 |   4.0359e-09   4.0443e-09   1.0000e-07 alg  -1.5604e-04
 		   124                Vel_axial-22     -4.5304e-06 |   5.1887e-09   5.1944e-09   1.0000e-07 alg  -1.4170e-04
 		   118                Vel_axial-21     -4.4028e-06 |   6.3415e-09   6.3471e-09   1.0000e-07 alg  -1.3452e-04
 		   112                Vel_axial-20     -4.1476e-06 |   7.4944e-09   7.4996e-09   1.0000e-07 alg  -1.2017e-04
-		   106                Vel_axial-19     -3.3659e-06 |   8.6466e-09   8.6509e-09   1.0000e-07 alg  -1.1659e-04
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     6 was a success: time =   7.75e-08
 		Estimated Error
-		--------------------   =   1.94067e-05
+		--------------------   =   2.15547e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 3.375e-08
@@ -3251,7 +3251,7 @@ Solution saved to file solution.xml as solution 6.
           1.6764E-03  3.45934E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30602E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15235E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  -1.69497E-12  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -3352,17 +3352,17 @@ Solution saved to file solution.xml as solution 6.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -1.6950E-12 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -3381,15 +3381,16 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.343E-06   Y   |    1   1.082E-20 | 2.066E-05  | 1.000E+00|  1.659E-07  |   1.00E+00  0 |   2.066E-05   1.659E-07 
-	   2   1.659E-07   Y   |    1   7.895E-22 | 1.469E-06  | 1.000E+00|  3.110E-13  |   1.00E+00  0 |   1.469E-06   3.110E-13 
-	                       |                  |(2.754E-12) |          |             | converged = 3 |              (2.754E-12) 
+	   1   1.343E-06   Y   |    1   1.282E-20 | 2.165E-05  | 1.000E+00|  1.712E-07  |   1.00E+00  0 |   2.165E-05   1.712E-07 
+	   2   1.712E-07   Y   |    1   1.155E-21 | 1.542E-06  | 1.000E+00|  3.110E-13  |   1.00E+00  0 |   1.542E-06   3.110E-13 
+	                       |                  |(2.800E-12) |          |             | converged = 3 |              (2.800E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.2062e-05
+	Time step truncation error = 2.31212e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
+		   154                Vel_axial-27      6.9180e-06 |   6.9951e-13  -8.0511e-12   1.0000e-07 alg   7.0948e-05
 		   148                Vel_axial-26      6.8754e-06 |   5.7777e-10   5.6908e-10   1.0000e-07 alg   6.9353e-05
 		   142                Vel_axial-25      6.8754e-06 |   1.7316e-09   1.7229e-09   1.0000e-07 alg   6.9353e-05
 		   136                Vel_axial-24      6.4713e-06 |   2.8853e-09   2.8771e-09   1.0000e-07 alg   7.5731e-05
@@ -3397,12 +3398,11 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 		   124                Vel_axial-22      6.0140e-06 |   5.1915e-09   5.1839e-09   1.0000e-07 alg   8.3702e-05
 		   118                Vel_axial-21      5.6099e-06 |   6.3441e-09   6.3370e-09   1.0000e-07 alg   7.5731e-05
 		   106                Vel_axial-19      5.0888e-06 |   8.6491e-09   8.6427e-09   1.0000e-07 alg   7.4136e-05
-		   112                Vel_axial-20      4.8016e-06 |   7.4964e-09   7.4903e-09   1.0000e-07 alg   5.9787e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     7 was a success: time = 1.1125e-07
 		Estimated Error
-		--------------------   =   2.20620e-05
+		--------------------   =   2.31212e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 5.0625e-08
@@ -3640,7 +3640,7 @@ Solution saved to file solution.xml as solution 7.
           1.6764E-03  3.46190E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30846E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15469E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  6.99511E-13  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -3741,17 +3741,17 @@ Solution saved to file solution.xml as solution 7.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              6.9951E-13 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -3770,28 +3770,28 @@ Start of Time Step:     8       Time_n = 1.6188e-07 Time_nm1 = 1.1125e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.281E-06   Y   |    1   1.578E-20 | 1.735E-05  | 1.000E+00|  1.022E-07  |   1.00E+00  0 |   1.735E-05   1.022E-07 
-	   2   1.022E-07   Y   |    1   4.310E-22 | 6.467E-07  | 1.000E+00|  2.834E-08  |   1.00E+00  0 |   6.467E-07   2.834E-08 
-	                       |                  |(1.793E-07) |          |             | converged = 3 |              (1.793E-07) 
+	   1   1.282E-06   Y   |    1   7.642E-21 | 1.777E-05  | 1.000E+00|  1.022E-07  |   1.00E+00  0 |   1.777E-05   1.022E-07 
+	   2   1.022E-07   Y   |    1   4.361E-22 | 6.492E-07  | 1.000E+00|  2.834E-08  |   1.00E+00  0 |   6.492E-07   2.834E-08 
+	                       |                  |(1.800E-07) |          |             | converged = 3 |              (1.800E-07) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.79149e-05
+	Time step truncation error = 1.83351e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
 		   124                Vel_axial-22     -4.7112e-06 |   5.1898e-09   5.1957e-09   1.0000e-07 alg  -3.4012e-05
 		   106                Vel_axial-19     -4.4418e-06 |   8.6472e-09   8.6528e-09   1.0000e-07 alg  -3.6847e-05
-		   130                Vel_axial-23     -4.3071e-06 |   4.0369e-09   4.0423e-09   1.0000e-07 alg  -3.1887e-05
 		   118                Vel_axial-21     -4.3071e-06 |   6.3425e-09   6.3479e-09   1.0000e-07 alg  -3.1887e-05
+		   130                Vel_axial-23     -4.3071e-06 |   4.0369e-09   4.0423e-09   1.0000e-07 alg  -3.1887e-05
 		   136                Vel_axial-24     -4.3071e-06 |   2.8837e-09   2.8891e-09   1.0000e-07 alg  -3.1887e-05
 		   100                Vel_axial-18     -3.9810e-06 |   9.7996e-09   9.8047e-09   1.0000e-07 alg  -3.3304e-05
+		   154                Vel_axial-27     -3.9030e-06 |  -6.4570e-13   4.2912e-12   1.0000e-07 alg  -2.6572e-05
 		   148                Vel_axial-26     -3.7683e-06 |   5.7652e-10   5.8128e-10   1.0000e-07 alg  -2.4801e-05
-		   142                Vel_axial-25     -3.7683e-06 |   1.7304e-09   1.7351e-09   1.0000e-07 alg  -2.4801e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     8 was a success: time = 1.61875e-07
 		Estimated Error
-		--------------------   =   1.79149e-05
+		--------------------   =   1.83351e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 7.59375e-08
@@ -4029,7 +4029,7 @@ Solution saved to file solution.xml as solution 8.
           1.6764E-03  3.46028E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30703E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15344E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  -6.45703E-13  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -4130,17 +4130,17 @@ Solution saved to file solution.xml as solution 8.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -6.4570E-13 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -4159,12 +4159,12 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   9.146E-07   Y   |    1   1.281E-20 | 1.343E-05  | 1.000E+00|  6.335E-08  |   1.00E+00  0 |   1.343E-05   6.335E-08 
-	   2   6.335E-08   Y   |    1   1.932E-22 | 3.715E-07  | 1.000E+00|  4.164E-13  |   1.00E+00  0 |   3.715E-07   4.164E-13 
-	                       |                  |(2.442E-12) |          |             | converged = 3 |              (2.442E-12) 
+	   1   9.165E-07   Y   |    1   9.358E-21 | 1.368E-05  | 1.000E+00|  6.335E-08  |   1.00E+00  0 |   1.368E-05   6.335E-08 
+	   2   6.335E-08   Y   |    1   2.006E-22 | 3.943E-07  | 1.000E+00|  4.163E-13  |   1.00E+00  0 |   3.943E-07   4.163E-13 
+	                       |                  |(2.592E-12) |          |             | converged = 3 |              (2.592E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.35471e-05
+	Time step truncation error = 1.38307e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -4175,12 +4175,12 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 		   130                Vel_axial-23      3.2472e-06 |   4.0386e-09   4.0344e-09   1.0000e-07 alg   2.2202e-05
 		   136                Vel_axial-24      3.2094e-06 |   2.8853e-09   2.8813e-09   1.0000e-07 alg   2.1573e-05
 		   112                Vel_axial-20      2.8123e-06 |   7.4966e-09   7.4931e-09   1.0000e-07 alg   2.0628e-05
-		    42                Vel_axial-7       2.6918e-06 |   8.6477e-09   8.6443e-09   1.0000e-07 alg   1.6849e-05
+		   154                Vel_axial-27      2.7863e-06 |   8.6094e-13  -2.6635e-12   1.0000e-07 alg   1.9841e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number     9 was a success: time = 2.37813e-07
 		Estimated Error
-		--------------------   =   1.35471e-05
+		--------------------   =   1.38307e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.13906e-07
@@ -4418,7 +4418,7 @@ Solution saved to file solution.xml as solution 9.
           1.6764E-03  3.46194E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30857E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15491E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  8.60937E-13  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -4519,17 +4519,17 @@ Solution saved to file solution.xml as solution 9.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              8.6094E-13 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -4548,12 +4548,12 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.818E-07   Y   |    1   9.364E-21 | 1.161E-05  | 1.000E+00|  4.225E-08  |   1.00E+00  0 |   1.161E-05   4.225E-08 
-	   2   4.225E-08   Y   |    1   8.838E-23 | 1.502E-07  | 1.000E+00|  2.079E-13  |   1.00E+00  0 |   1.502E-07   2.079E-13 
-	                       |                  |(7.391E-13) |          |             | converged = 3 |              (7.391E-13) 
+	   1   5.818E-07   Y   |    1   9.159E-21 | 1.191E-05  | 1.000E+00|  4.225E-08  |   1.00E+00  0 |   1.191E-05   4.225E-08 
+	   2   4.225E-08   Y   |    1   1.341E-22 | 1.549E-07  | 1.000E+00|  2.079E-13  |   1.00E+00  0 |   1.549E-07   2.079E-13 
+	                       |                  |(7.621E-13) |          |             | converged = 3 |              (7.621E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.15241e-05
+	Time step truncation error = 1.18122e-05
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -4569,7 +4569,7 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    10 was a success: time = 3.51719e-07
 		Estimated Error
-		--------------------   =   1.15241e-05
+		--------------------   =   1.18122e-05
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.70859e-07
@@ -4807,7 +4807,7 @@ Solution saved to file solution.xml as solution 10.
           1.6764E-03  3.46084E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30753E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15387E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  -1.59433E-13  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -4908,17 +4908,17 @@ Solution saved to file solution.xml as solution 10.
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -1.5943E-13 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
@@ -5171,7 +5171,7 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
           1.6764E-03  3.46084E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.7441E-03  2.30753E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50282E-02 
           1.8119E-03  1.15387E-09  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
-          1.8796E-03  0.00000E+00  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
+          1.8796E-03  -1.59433E-13  9.20000E-01  4.00000E-02  4.00000E-02  3.50281E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -5272,17 +5272,17 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
             9-Rgt    1.8796E-03  0.0000E+00  1.4943E+01 
       --------------------------------------------------------------------------------
         Solution on Surface Domain SurDomain1D_3 : Number of variables = 6
-                                                 : Number of boundary conditions = 2
+                                                 : Number of boundary conditions = 1
                                                  : Node 27 at pos 0.0018796
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00  (Dir 0 val = 0.0000E+00)
+         Vel_axial              -1.5943E-13 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             4.0000E-02 
          MF_sp(PF6-)            4.0000E-02 
          Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 1 Type 10 val = 0.0000E+00)
+         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
          Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
         ------------------------------------------------------------
          Current                1.4943E+01 
