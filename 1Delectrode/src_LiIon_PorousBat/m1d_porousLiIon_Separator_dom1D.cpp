@@ -951,22 +951,24 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 			  -  Fright_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
 		    }
 
-		    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
-	
-		    for (size_t k = 0; k < (size_t) nsp_; k++) {
-			jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+		    if  (energyEquationProbType_ == 3) {
+			enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+			
+			for (size_t k = 0; k < (size_t) nsp_; k++) {
+			    jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+			}
+			jFlux_EnthalpyPhi_Curr_ = 0.0;
+			for (size_t k = 0; k < (size_t) nsp_; ++k) {
+			    jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
+			}
+			fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+			double res_Enth = (fluxTright - fluxTleft);
+			res_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+			res_Enth += (enthConvRight - enthConvLeft);
+			res_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+			fluxTright = - res_Enth;
+			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = fluxTright;
 		    }
-		    jFlux_EnthalpyPhi_Curr_ = 0.0;
-		    for (size_t k = 0; k < (size_t) nsp_; ++k) {
-			jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
-		    }
-		    fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
-		    double res_Enth = (fluxTright - fluxTleft);
-		    res_Enth += (fluxR_JHPhi - fluxL_JHPhi);
-		    res_Enth += (enthConvRight - enthConvLeft);
-		    res_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-		    fluxTright = - res_Enth;
-		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = fluxTright;
 		}
 	    }
 	       
