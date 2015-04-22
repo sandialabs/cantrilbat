@@ -29,6 +29,7 @@ test:
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
 	cd DualfoilComparison ;				@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test
 
 clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ clean
@@ -42,6 +43,7 @@ clean:
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ clean
 	cd DualfoilComparison ;				@MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ clean
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ clean
 
 test_clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ test_clean
@@ -55,6 +57,7 @@ test_clean:
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test_clean
 	cd DualfoilComparison ;				@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ test_clean
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test_clean
 
 dist_clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;         @MAKE@ dist_clean
@@ -68,6 +71,7 @@ dist_clean:
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ dist_clean
 	cd DualfoilComparison ;				@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ dist_clean
 
 test_bat:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ test
@@ -81,6 +85,7 @@ test_bat:
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
 	cd DualfoilComparison ;				@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test
 
 rebaseline:
 	cd LiKCl_PorousBat_SPCD_MPNewman;         ./rebaseline
@@ -94,6 +99,7 @@ rebaseline:
 	cd LiIon_MCMB_LiCoO2_collectors;		./rebaseline
 	cd DualfoilComparison ;				./rebaseline
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         ./rebaseline
+	cd LiIon_MCMB_LiCoO2_Enthalpy;		        ./rebaseline
 
 #
 

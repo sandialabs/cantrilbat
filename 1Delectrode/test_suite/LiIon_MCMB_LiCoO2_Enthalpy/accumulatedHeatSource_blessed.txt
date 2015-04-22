@@ -1,0 +1,1 @@
+      tinit  ,     tfinal  ,         anode        ,        separator     ,        cathode       ,         total
