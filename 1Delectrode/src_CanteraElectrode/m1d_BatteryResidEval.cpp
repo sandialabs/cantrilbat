@@ -1045,6 +1045,9 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     double nEnthNewS[10];
     double nEnthOldTotal = 0.0;
     double nEnthNewTotal = 0.0;
+    double enthalpyIVfluxRight  = 0.0;
+    double enthalpyIVfluxLeft  = 0.0;
+    double enthalpyFlowOut = 0.0;
 
     //
     //   Loop over the Volume Domains
@@ -1059,6 +1062,11 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
         nEnthOldB[iDom] = dVals.oldNEnthalpy;
         nEnthNewTotal +=  dVals.newNEnthalpy;
         nEnthOldTotal +=  dVals.oldNEnthalpy;
+	if (iDom == 2) {
+	    enthalpyIVfluxRight = dVals.enthalpyIVfluxRight;
+	    HeatFluxRight = dVals.HeatFluxRight;
+	    enthalpyFlowOut = dVals.enthFluxOut;
+	}
     }
     //
     //    Loop over the Surface Domains
@@ -1067,7 +1075,14 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
         dVals.zero();
 	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
 	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
-        if (iDom == 1) {
+
+        totalHeatCapacity += dVals.totalHeatCapacity;
+        nEnthOldS[iDom] = dVals.oldNEnthalpy;
+        nEnthNewS[iDom] = dVals.newNEnthalpy;
+        nEnthNewTotal +=  dVals.newNEnthalpy;
+        nEnthOldTotal +=  dVals.oldNEnthalpy;
+
+        if (iDom == 0) {
             HeatFluxLeft = dVals.HeatFluxLeft;
             JHelecLeft = dVals.JHelecLeft;
             currLeft = dVals.currentLeft;
@@ -1080,10 +1095,6 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
          currRight = dVals.currentRight;
          phiCath = dVals.phiSolid;
         }
-        nEnthNewS[iDom] = dVals.newNEnthalpy;
-        nEnthOldS[iDom] = dVals.oldNEnthalpy;
-        nEnthNewTotal +=  dVals.newNEnthalpy;
-        nEnthOldTotal +=  dVals.oldNEnthalpy;
     }
 
     printf(" Total Heat Capacity = %g\n", 	totalHeatCapacity);
@@ -1107,18 +1118,40 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     // extend this to surfaces when they start to have enthalpy
 
     printf("\n");
-    printf("   Region      OldTotalEnthalpy  NewTotalEnthalpy     DeltaTotalEnth\n");
-    printf("  -----------------------------------------------------------------------------------------------------------------------------\n");
+    printf("   Region      NewTotalEnthalpy  OldTotalEnthalpy  DeltaTotalEnth    IVWork_Out*delT  Heat_Out*delT       enthFlowOut*delT\n");
+    printf("  ---------------------------------------------------------------------------------"
+	   "--------------------------------------------\n");
     for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
         if (iDom == 0) printf("  Anode        ");
         if (iDom == 1) printf("  Separator    ");
-        if (iDom == 0) printf("  Cathode      ");
-        printf(" % 12.6E    % 12.6E       % 12.6E\n" , nEnthNewB[iDom], nEnthOldB[iDom],   nEnthNewB[iDom] - nEnthOldB[iDom]);
+        if (iDom == 2) printf("  Cathode      ");
+        printf(" % 12.6E    % 12.6E       % 12.6E" , nEnthNewB[iDom], nEnthOldB[iDom],   nEnthNewB[iDom] - nEnthOldB[iDom]);
+	if (iDom == 0) {
+	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxLeft, deltaT * HeatFluxLeft, 0.0);
+	}
+	if (iDom == 1) {
+	    printf(" % 12.6E    % 12.6E       % 12.6E" , 0.0, 0.0, 0.0);
+	}
+	if (iDom == 2) {
+	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
+	}
+	printf("\n");
     }
-    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------"
+	   "--------------------------------------\n");
+    double IVWorkdT =  deltaT * (enthalpyIVfluxRight +  enthalpyIVfluxLeft);
+    double HeatFluxdT =  deltaT * (HeatFluxRight +  HeatFluxLeft);
+    double enthFlowdT = deltaT *  enthalpyFlowOut;
+    double enthLossdT =  IVWorkdT + HeatFluxdT + enthFlowdT;
+    double delEnthtotal =  nEnthNewTotal - nEnthOldTotal;
+
+    double delHtotal = delEnthtotal + enthLossdT;
+      
     printf("  Total     ");
-    printf(" % 12.6E    % 12.6E       % 12.6E\n" , nEnthNewTotal, nEnthOldTotal,   nEnthNewTotal - nEnthOldTotal);
-    
+    printf("    % 12.6E    % 12.6E       % 12.6E" , nEnthNewTotal, nEnthOldTotal,   nEnthNewTotal - nEnthOldTotal);
+    printf(" % 12.6E    % 12.6E       % 12.6E" ,    IVWorkdT ,  HeatFluxdT,  enthFlowdT);
+    printf("\n");
+    printf("                                      % 12.6E \n",  delHtotal);
 
     printf("\n\n");
     printf(" Focus on the separator\n");

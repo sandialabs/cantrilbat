@@ -211,6 +211,10 @@ public:
     void
     SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
+    //! Setup shop at a nodal point doing all of the extra work needed for special cases
+    /*!
+     *  this is usually carried out at the end nodes of the domain
+     */
     void
     SetupThermoShop1Extra(const NodalVars* const nv, const doublereal* const soln_Curr);
 

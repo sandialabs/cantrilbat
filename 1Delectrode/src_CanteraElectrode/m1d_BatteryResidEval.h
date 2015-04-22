@@ -39,7 +39,9 @@ public:
       JHelecLeft(0.0),
       phiSolid(0.0),
       phiLyte(0.0),
-      jouleHeat_lyte(0.0)
+      jouleHeat_lyte(0.0),
+      enthalpyIVfluxRight(0.0),
+      enthalpyIVfluxLeft(0.0)
       {
 	  
       }
@@ -61,6 +63,8 @@ public:
 	phiSolid = 0.0;
 	phiLyte = 0.0;
         jouleHeat_lyte = 0.0;
+        enthalpyIVfluxRight = 0.0;
+        enthalpyIVfluxLeft = 0.0;
     }
 
     double totalEnthalpyInit;
@@ -76,6 +80,8 @@ public:
     double phiLyte;
 
     double jouleHeat_lyte;
+    double enthalpyIVfluxRight;
+    double enthalpyIVfluxLeft;
 };
 
 //!  Residual for 1D cell  battery evaluations

@@ -1798,11 +1798,14 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
+    double moleFluxRight = 0.0, enthConvRight = 0.0;
 
     dVals.totalHeatCapacity = 0.0;
     dVals.oldNEnthalpy = 0.0;
     dVals.newNEnthalpy = 0.0;
     double jouleHeat_lyte_total = 0.0;
+    std::vector<double> fluxXright(nsp_, 0.0);
+    dValsB_ptr->speciesMoleFluxOut.resize(nsp_, 0.0);
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
@@ -1812,11 +1815,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
         NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
         NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
-	qSource_Cell_curr_[iCell] = 0.0;
-	jouleHeat_lyte_Cell_curr_[iCell] = 0.0;
-	jouleHeat_solid_Cell_curr_[iCell] = 0.0;
-
-	Electrode* Electrode_ptr = Electrode_Cell_[iCell];
+	//Electrode* Electrode_ptr = Electrode_Cell_[iCell];
 	/*
          *  ---------------- Get the index for the center node ---------------------------------
          *   Get the pointer to the NodalVars object for the center node
@@ -1902,16 +1901,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 	    }
 	    icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
-	    /*
-	     *  Joule heating term in electrolyte
-	     */
-	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
-            jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
-	    /*
-	     *  Joule heating term in electrode
-	     */
-	    qSource_Cell_curr_[iCell]        += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
-	    jouleHeat_solid_Cell_curr_[iCell]+= - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
+	
 	}
 
 	if (nodeRight != 0) {
@@ -1938,16 +1928,19 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
                 icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
             }
             icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
-	    /*
-	     *  Joule heating term in electrolyte
-	     */
-	    qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-	    jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-	    /*
-	     *  Joule heating term in electrode
-	     */
-	    qSource_Cell_curr_[iCell        ]  += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
-	    jouleHeat_solid_Cell_curr_[iCell ] += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
+	 
+	} else {
+
+	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+	    SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+
+            Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+	    moleFluxRight = Fright_cc_ * concTot_Curr_;
+            for (int k = 0; k < nsp_; k++) {
+                fluxXright[k] = Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
+            }
+	    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+
 	}
 
 	dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
@@ -1957,21 +1950,20 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 	//
 	dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
 	dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
-        //
-	// Add in the electrode contribution
-        //
-#ifdef DELTASHEAT_ZERO
-	deltaSHeat_Cell_curr_[iCell]= 0.0;
-	overPotentialHeat_Cell_curr_[iCell] = 
-	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
-	electrodeHeat_Cell_curr_[iCell] = overPotentialHeat_Cell_curr_[iCell];
-#else
-        electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() /  crossSectionalArea_;
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
-        deltaSHeat_Cell_curr_[iCell]= Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy()/ crossSectionalArea_;
-#endif
-	qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
-	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
+
+
+	if (iCell == NumLcCells - 1) {
+	    dValsB_ptr->moleFluxOut = moleFluxRight;
+	    for (int k = 0; k < nsp_; k++) {
+		dValsB_ptr->speciesMoleFluxOut[k] = fluxXright[k];
+            }
+
+	    dValsB_ptr->currentRight = icurrElectrode_CBR_[iCell];
+	    dValsB_ptr->enthFluxOut = enthConvRight;
+            dValsB_ptr->phiSolid  = phiElectrode_Curr_;
+	    dValsB_ptr->enthalpyIVfluxRight = icurrElectrode_CBR_[iCell] *  phiElectrode_Curr_;
+	    //dValsB_ptr->HeatFluxRight = ??
+	}
     }
     
 }

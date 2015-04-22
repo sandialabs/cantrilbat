@@ -40,7 +40,9 @@ class globalHeatBalVals
        HeatFluxRight(0.0),
        HeatFluxLeft(0.0),
        oldNEnthalpy(0.0), 
-       newNEnthalpy(0.0)
+       newNEnthalpy(0.0),
+       moleFluxOut(0.0),
+       enthFluxOut(0.0)
      {
      }
 
@@ -63,6 +65,9 @@ class globalHeatBalVals
      double HeatFluxLeft;
      double oldNEnthalpy;
      double newNEnthalpy;
+     double moleFluxOut;
+     std::vector<double>speciesMoleFluxOut;
+     double enthFluxOut;
 };
 
 
