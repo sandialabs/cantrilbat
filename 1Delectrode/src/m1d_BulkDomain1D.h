@@ -530,6 +530,25 @@ public:
    */
   std::vector<double> VarVectorRightBound_LastResid_NE;
 
+  //! Value of Residual contributions at the left side of the domain from this domain only
+  /*!
+   *  this is the contributions to the residual from this domain.
+   *  This is only calculated for show Solution cases.
+   *
+   *  Length = number of equations defined at the left boundary node
+   */
+  std::vector<double> DomainResidVectorLeftBound_LastResid_NE;
+
+  //! Value of Residual contributions at the right side of the domain from this domain only
+  /*!
+   *  this is the contributions to the residual from this domain.
+   *  This is only calculated for show Solution cases.
+   *
+   *  Length = number of equations defined at the left boundary node
+   */
+  std::vector<double> DomainResidVectorRightBound_LastResid_NE;
+
+
   //! Pointer to the local node indices for this processor
   LocalNodeIndices *LI_ptr_;
 

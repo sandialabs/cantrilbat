@@ -238,6 +238,20 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
   TotalFluxRightBound_LastResid_NE.resize(NumDomainEqns, 0.0);
   VarVectorLeftBound_LastResid_NE.resize(NumDomainEqns, 0.0);
   VarVectorRightBound_LastResid_NE.resize(NumDomainEqns, 0.0);
+  
+  // Find the number of equations at the first node
+  GlobalIndices *gi = LI_ptr_->GI_ptr_;
+
+  int iGbNode = BDD_.FirstGbNode;
+  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+  size_t numEqFirst = nv->NumEquations;
+  iGbNode = BDD_.LastGbNode;
+  nv = gi->NodalVars_GbNode[iGbNode];
+  size_t numEqLast = nv->NumEquations;
+
+  DomainResidVectorLeftBound_LastResid_NE.resize(numEqFirst, 0.0);
+  DomainResidVectorRightBound_LastResid_NE.resize(numEqLast, 0.0);
+
 
 }
 //=====================================================================================================================
@@ -537,7 +551,7 @@ void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted
 				 const Epetra_Vector_Ghosted * const atolV)
 {
   int myBDD_ID = BDD_.ID();
-  for (int iCell = 0; iCell < NumLcCells; iCell++) {
+  for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
     int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
@@ -742,7 +756,7 @@ BulkDomain1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr, const Ep
 	//other variables
 	int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
 	int istart = nv->EqnStart_GbEqnIndex;
-	fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + ibulk + iVar]);	
+	fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + ibulk + iVar]);
       }
       fprintf(ofp, "\n");
     }
