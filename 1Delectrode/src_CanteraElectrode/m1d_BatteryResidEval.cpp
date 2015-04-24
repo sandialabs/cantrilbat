@@ -528,6 +528,9 @@ BatteryResidEval::user_out(const int ievent,
     
     
     if (energyEquationProbType_ == 3 && doHeatSourceTracking_) {
+
+        doSpeciesAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
+
 	doHeatAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
     }
 }
@@ -1159,6 +1162,40 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     printf(" Loss mechanisms:\n");
 
 
+    
+}
+//==================================================================================================================================
+void
+BatteryResidEval::doSpeciesAnalysis(const int ifunc,
+				    const double t,
+				    const double deltaT,
+				    const Epetra_Vector_Ghosted &y,
+				    const Epetra_Vector_Ghosted * const solnDot_ptr)
+{
+    class globalHeatBalValsBat dVals;
+    DomainLayout &DL = *DL_ptr_;
+  
+
+    //
+    //   Loop over the Volume Domains
+    //
+    for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
+        dVals.zero();
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	d_ptr->eval_SpeciesElemBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
+
+    }
+    //
+    //    Loop over the Surface Domains
+    //
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        dVals.zero();
+	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	d_ptr->eval_SpeciesElemBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
+
+    }
+
+   
     
 }
 //================================================================================================================

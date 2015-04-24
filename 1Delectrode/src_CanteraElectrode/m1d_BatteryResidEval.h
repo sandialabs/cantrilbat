@@ -342,6 +342,13 @@ public:
 		     const double deltaT,
 		     const Epetra_Vector_Ghosted & y,
 		     const Epetra_Vector_Ghosted * const solnDot_ptr);
+
+    void
+    doSpeciesAnalysis(const int ifunc,
+		      const double t,
+		      const double deltaT,
+		      const Epetra_Vector_Ghosted & y,
+		      const Epetra_Vector_Ghosted * const solnDot_ptr);
     
     //! Set a solution parameter 
     /*!
