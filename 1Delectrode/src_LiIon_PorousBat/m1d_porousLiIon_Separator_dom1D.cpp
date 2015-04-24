@@ -16,6 +16,7 @@
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_SurfDomainDescription.h"
 
 #include "cantera/transport/Tortuosity.h"
 
@@ -23,7 +24,7 @@ using namespace std;
 
 namespace m1d
 {
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon& bdd) :
     porousFlow_dom1D(bdd),
     BDT_ptr_(0),
@@ -913,6 +914,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 			double newStuffSpecies0 = Xcent_cc_[k] * newStuffTC;
 			double oldStuffSpecies0 = mf_old[k] * oldStuffTC;
 			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+			//
+			// Save the local domain residual to a vector for later validation studies
+			//
+			DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
+
 			TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
 			DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
 			  TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
@@ -944,6 +950,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 			double newStuffSpecies0 =  Xcent_cc_[k] * newStuffTC;
 			double oldStuffSpecies0 =  mf_old[k] * oldStuffTC;
 			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+			//
+			// Save the local domain residual to a vector for later validation studies
+			//
+			DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
+
 			TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
 			fluxXright[k] = - resLocal_Species[k];
 			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
@@ -1532,9 +1543,20 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     // Initially, we'll limit it to Li transport, PF6- bal, and solvent balance
     int doTimes = 1;
   
-   
+    //
+    // Find the pointer for the left Anode
+    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    BulkDomainDescription *leftDD = leftS->LeftBulk;
+    BulkDomain1D *leftD_anode = leftDD->BulkDomainPtr_;
+    //
+    // Find the pointer for the left Cathode
+    SurfDomainDescription *rightS = BDD_.RightSurf;
+    BulkDomainDescription *rightDD = rightS->RightBulk;
+    BulkDomain1D *rightD_cathode = rightDD->BulkDomainPtr_;
+
     double moleFluxLeft = 0.0;
     double moleFluxRight = 0.0;
+    double residAdd = 0.0;
     std::vector<double> elemLi_Lyte_New_Cell(NumLcCells, 0.0);
     std::vector<double> elemLi_Lyte_Old_Cell(NumLcCells, 0.0);
 
@@ -1568,7 +1590,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		printf("Cell  Spec |     NewnBal       OldnBal       deltanSpecies | ");
 		printf("    fluxLeft     FluxRight | ");
 		printf("  convLeft convRight | ");
-		printf("   Residual ");
+		printf("  Residual-additions  Residual   Current_CBL  Current CBR ");
 		printf("\n");
 	    }
 	  
@@ -1654,12 +1676,12 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		Fleft_cc_ = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 		for (size_t k = 0; k <  (size_t) nsp_; k++) {
-		    convLeft[k] = moleFluxLeft * mfElectrolyte_Soln_Curr_[k];
+		    convLeft[k] = 0.0;
 		}
 		for (int k = 0; k < nsp_; k++) {
 		    jFlux_trCurr_[k] = - DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
-		    jFluxLeft[k] = jFlux_trCurr_[k];
-		    icurrCBL += jFluxLeft[k] *spCharge_[k] * Faraday;
+		    jFluxLeft[k] = 0.0;
+		    icurrCBL += jFlux_trCurr_[k] *spCharge_[k] * Faraday;
 		}
 	    }
 
@@ -1687,12 +1709,12 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		Fright_cc_ = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 		moleFluxRight = Fright_cc_ * concTot_Curr_;
 		for (size_t k = 0; k <  (size_t) nsp_; k++) {
-		    convRight[k] = moleFluxRight * mfElectrolyte_Soln_Curr_[k];
+		    convRight[k] = 0.0;
 		}
 		for (size_t k = 0; k <  (size_t) nsp_; k++) {
 		    jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
-		    jFluxRight[k] = jFlux_trCurr_[k];
-		    icurrCBR += jFluxRight[k] *spCharge_[k] * Faraday;
+		    jFluxRight[k] = 0.0;
+		    icurrCBR += jFlux_trCurr_[k] * spCharge_[k] * Faraday;
 		}
 	    }
 
@@ -1739,11 +1761,22 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 			resid = deltanSp;
 			resid += deltaT * ( convSpRight - convSpLeft );
 			resid += deltaT * ( jFluxSpRight - jFluxSpLeft );
+
+			residAdd = 0.0;
+			if (iCell == 0) {
+			    residAdd = deltaT * 
+			      leftD_anode->DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+			}
+			if (iCell == NumLcCells - 1) {
+			    residAdd = deltaT *
+			      rightD_cathode->DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+			}
+			resid += residAdd;
 			printf("%3d, %3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, (int) k, 	species_Lyte_New_Total[k],
 			       species_Lyte_Old_Total[k], deltanSp);
 			printf("   % 12.5E  % 12.5E |",  - deltaT * jFluxSpLeft,  deltaT * jFluxSpRight);
 			printf("   % 12.5E  % 12.5E |",  - deltaT * convSpLeft,  deltaT * convSpRight);
-			printf("   %12.5E", resid);
+			printf("   %12.5E  %12.5E", residAdd,  resid);
 			printf("   % 12.5E  % 12.5E |", icurrCBL, icurrCBR);
 			printf("  \n");
 		    }

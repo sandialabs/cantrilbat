@@ -683,15 +683,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double fluxVElectrodeRight = 0.0;
     double fluxVElectrodeLeft = 0.0;
 
+  
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
-
+    std::vector<double> resLocal_Species(nsp_, 0.0);
     double fluxL = 0.0;
     //double fluxR = 0.0;
 
     const Epetra_Vector& soln = *soln_ptr;
-
+    double* mf_old;
 
     /*
      * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
@@ -1259,7 +1260,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
              *   .................... Calculate quantities needed at the previous time step
              */
 
-            double* mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
+            mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
 
             oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
             double oldStuffSpecies0 = mf_old[iLip_] * oldStuffTC;
@@ -1334,11 +1335,35 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	if (residType == Base_ShowSolution) {
 	    if (IOwnRight) {
 		if (iCell == NumLcCells - 1) {
+		    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+		    SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+
 		    double res_Cont = ((newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft )
 				       - solnMoleFluxInterface_Cell_[NumLcCells - 1]);
 		    moleFluxRight = - res_Cont;
 		    Fright_cc_ = moleFluxRight / concTot_Curr_;
 		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
+
+		    for (size_t k = 0; k < (size_t) nsp_; k++) {
+			resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
+			double newStuffSpecies0 =  Xcent_cc_[k] * newStuffTC;
+			double oldStuffSpecies0 =  mf_old[k] * oldStuffTC;
+			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+			//
+			resLocal_Species[k] -= 
+			  electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + k] * rdelta_t /
+			  crossSectionalArea_;
+			//
+			// Save the local domain residual to a vector for later validation studies
+			//
+			DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
+
+			TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
+			fluxXright[k] = - resLocal_Species[k];
+			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
+			  TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
+			  -  Fright_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
+		    }
 		}
 	    }
 	}
@@ -1962,6 +1987,22 @@ porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doubl
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
     updateElectrode();
+}
+//=====================================================================================================================
+void
+porousLiIon_Anode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
+					       const doublereal* const solnElectrolyte_Curr)
+{
+    //
+    // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
+    //
+    ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
+    EnthalpyMolar_lyte_Curr_ = 0.0;
+    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+        double z = ionicLiquid_->charge(k);
+        EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
+	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
+    }
 }
 //=====================================================================================================================
 //  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites

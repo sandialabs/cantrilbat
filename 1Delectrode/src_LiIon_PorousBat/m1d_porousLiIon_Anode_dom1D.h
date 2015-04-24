@@ -211,6 +211,14 @@ public:
     void
     SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
+    //! Setup shop at a single node, doing the extra stuff needed at domain boundaries.
+    /*!
+     *  @param nv  NodalVars pointer
+     *  @param solnElectrolyte_Curr
+     */
+    void
+    SetupThermoShop1Extra(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+
     //!  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
     /*!
