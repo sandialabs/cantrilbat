@@ -25,6 +25,30 @@ using namespace std;
 namespace m1d
 {
 //==================================================================================================================================
+static void
+drawline(int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        Cantera::writelog(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        Cantera::writelog("-");
+    }
+    Cantera::writelog("\n");
+}
+//==================================================================================================================================
+static void
+drawline0(int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        sprint0(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        sprint0("-");
+    }
+    sprint0("\n");
+}
+//==================================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon& bdd) :
     porousFlow_dom1D(bdd),
     BDT_ptr_(0),
@@ -1246,7 +1270,7 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 	qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
-//=============================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 					      const double t,
@@ -1292,7 +1316,8 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		printf("\n");
 	    }
 	}
-	double fluxTright = 0.0, fluxTleft = 0.0, fluxR_JHPhi = 0.0, fluxL_JHPhi = 0.0, enthConvRight = 0.0, enthConvLeft = 0.0, resid;
+	double fluxTright = 0.0, fluxTleft = 0.0, fluxR_JHPhi = 0.0, fluxL_JHPhi = 0.0, enthConvRight = 0.0,
+	  enthConvLeft = 0.0, resid;
 	double jouleHeat_lyte_total = 0.0;
 	dVals.oldNEnthalpy = 0.0;
 	dVals.newNEnthalpy = 0.0;
@@ -1444,7 +1469,6 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		double moleFluxRight = Fright_cc_ * concTot_Curr_;
 		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
 
-
 		/*
 		 * Calculate the flux of species and the flux of charge
 		 *   - the flux of charge must agree with the flux of species
@@ -1492,7 +1516,8 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
 		resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
 		resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
-		printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], nEnthalpy_Old_Cell_[iCell], deltanEnth);
+		printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
+		       nEnthalpy_Old_Cell_[iCell], deltanEnth);
 		printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,  deltaT *fluxTright);
 		printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
 		printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft,  deltaT *enthConvRight);
@@ -1500,11 +1525,11 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		printf("  \n");
 		}
 		if (itimes == 1) {
-		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
+		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 
+			   (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
 
 		    printf(" % 12.6E  ", (phiIcurrL - phiIcurrR) * deltaT);
 		    printf("\n");
-
 		}
 	    }
 
@@ -1542,6 +1567,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 
     // Initially, we'll limit it to Li transport, PF6- bal, and solvent balance
     int doTimes = 1;
+    int nColsTable = 175;
   
     //
     // Find the pointer for the left Anode
@@ -1557,8 +1583,10 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     double moleFluxLeft = 0.0;
     double moleFluxRight = 0.0;
     double residAdd = 0.0;
-    std::vector<double> elemLi_Lyte_New_Cell(NumLcCells, 0.0);
-    std::vector<double> elemLi_Lyte_Old_Cell(NumLcCells, 0.0);
+
+    Cantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Cantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+
     std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_New_Cell;
     std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Old_Cell;
 
@@ -1570,11 +1598,11 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     std::vector<double> convLeft(nsp_, 0.0);
     std::vector<double> jFluxRight(nsp_, 0.0);
     std::vector<double> jFluxLeft(nsp_, 0.0);
-  
-    std::vector<double>& species_Lyte_New_Total = dValsB_ptr->species_Lyte_New_Total;
-    std::vector<double>& species_Lyte_Old_Total = dValsB_ptr->species_Lyte_Old_Total;
     std::vector<double> species_Lyte_New_Curr(nsp_, 0.0);
     std::vector<double> species_Lyte_Old_Curr(nsp_, 0.0);
+
+    std::vector<double>& species_Lyte_New_Total = dValsB_ptr->species_Lyte_New_Total;
+    std::vector<double>& species_Lyte_Old_Total = dValsB_ptr->species_Lyte_Old_Total;   
     std::vector<double> species_convRight  = dValsB_ptr->species_convRight;
     std::vector<double> species_convLeft   = dValsB_ptr->species_convLeft;
     std::vector<double> species_jFluxRight = dValsB_ptr->species_jFluxRight;
@@ -1588,17 +1616,18 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     for (int itimes = 0; itimes < doTimes; itimes++) {
 	if (doPrint) {
 	    if (itimes == 0) {
-		printf(" \n\n       Li balance \n");
+		drawline(1, nColsTable);
+		printf(" \n\n            SEPARATOR::          Species Cell balances \n");
 		printf("Cell Spec|     NewnBal       OldnBal     deltanSpecies | ");
 		printf("    fluxLeft       FluxRight | ");
 		printf("    convLeft    convRight | ");
 		printf("  Residual-additions  Residual  |  Current_CBL  Current CBR ");
 		printf("\n");
+		drawline(1, nColsTable);
 	    }
 	  
 	}
-	double  resid;
-
+	double resid;
 
 	for (int iCell = 0; iCell < NumLcCells; iCell++) {
 	    cIndex_cc_ = iCell;
@@ -1622,7 +1651,6 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    } 
 	    Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
 	  
-
 	    /*
 	     *  ------------------- Get the index for the left node -----------------------------
 	     *    There may not be a left node if we are on the left boundary. In that case
@@ -1724,15 +1752,20 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    // Return to the center node
 	    //
 	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-	    elemLi_Lyte_New_Cell[iCell] = porosity_Curr_ * concTot_Curr_ * xdelCell * mfElectrolyte_Soln_Curr_[iLip_];
-	    elemLi_Lyte_Old_Cell[iCell] = porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * mfElectrolyte_Soln_old[iLip_];
-	    elemLi_Lyte_New[0] += elemLi_Lyte_New_Cell[iCell];
-	    elemLi_Lyte_Old[0] += elemLi_Lyte_Old_Cell[iCell];
-   
+	    for (size_t k = 0; k < (size_t) nsp_; k++) {
+		elem_Lyte_New_Cell(k, iCell) = porosity_Curr_ * concTot_Curr_ * xdelCell * mfElectrolyte_Soln_Curr_[k];
+		elem_Lyte_Old_Cell(k, iCell) = (porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell] *
+						xdelCell  * mfElectrolyte_Soln_old[k]);
+	    
+		elemLi_Lyte_New[k] += elem_Lyte_New_Cell(k, iCell);
+		elemLi_Lyte_Old[k] += elem_Lyte_Old_Cell(k, iCell);
+	    }
+
 
 	    for (size_t k = 0; k < (size_t) nsp_; k++) {
 		species_Lyte_New_Curr[k] = porosity_Curr_ * concTot_Curr_* xdelCell  * mfElectrolyte_Soln_Curr_[k];
-		species_Lyte_Old_Curr[k] = porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * mfElectrolyte_Soln_old[k];
+		species_Lyte_Old_Curr[k] = (porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * 
+					    mfElectrolyte_Soln_old[k]);
 		species_Lyte_New_Total[k] += species_Lyte_New_Curr[k];
 		species_Lyte_Old_Total[k] += species_Lyte_Old_Curr[k];
 		if (iCell == 0) {
@@ -1777,6 +1810,8 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 			printf("  \n");
 		    }
 		}
+		drawline(1, nColsTable);
+		printf("\n");
 	    }
 	}
     }
@@ -1790,7 +1825,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const d
 
     solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
 }
-//=================================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
 						   const doublereal* const solnElectrolyte_Curr)
@@ -1805,11 +1840,8 @@ porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
     }
- 
 }
-
-
-//=====================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
                                               const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
@@ -1998,30 +2030,8 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
     //
     heatFlux_Curr_ = - thermalCond_Curr_ * gradT_trCurr_;
 }
-//=====================================================================================================================
-static void
-drawline(int sp, int ll)
-{
-    for (int i = 0; i < sp; i++) {
-        Cantera::writelog(" ");
-    }
-    for (int i = 0; i < ll; i++) {
-        Cantera::writelog("-");
-    }
-    Cantera::writelog("\n");
-}
-//=====================================================================================================================
-static void
-drawline0(int sp, int ll)
-{
-    for (int i = 0; i < sp; i++) {
-        sprint0(" ");
-    }
-    for (int i = 0; i < ll; i++) {
-        sprint0("-");
-    }
-    sprint0("\n");
-}
+
+//==================================================================================================================================
 // saving the solution on the domain in an xml node.
 /*
  *
@@ -2146,7 +2156,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
   }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Method for writing the solution on the surface domain to a tecplot file.
 /*
  *

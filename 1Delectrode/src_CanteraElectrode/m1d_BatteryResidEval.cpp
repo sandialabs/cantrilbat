@@ -1175,6 +1175,10 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
     class globalHeatBalValsBat dVals;
     DomainLayout &DL = *DL_ptr_;
     dVals.sizeLyte(3); 
+    std::vector<double> elem_New_Total(10, 0.0);
+    std::vector<double>  elem_Old_Total(10, 0.0);
+    std::vector<double>& elemLi_Lyte_New = dVals.elem_New_Cell;
+    std::vector<double>& elemLi_Lyte_Old = dVals.elem_Old_Cell;
 
     //
     //   Loop over the Volume Domains
@@ -1183,7 +1187,13 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
         dVals.zero();
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	d_ptr->eval_SpeciesElemBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
-
+	elem_New_Total[0] += elemLi_Lyte_New[0];
+	elem_Old_Total[0] += elemLi_Lyte_Old[0];
+	elem_New_Total[1] += elemLi_Lyte_New[1];
+	elem_Old_Total[1] += elemLi_Lyte_Old[1];
+	elem_New_Total[2] += elemLi_Lyte_New[2];
+	elem_Old_Total[2] += elemLi_Lyte_Old[2];
+       
     }
     //
     //    Loop over the Surface Domains
@@ -1195,6 +1205,12 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
 
     }
 
+    double delta =  elem_New_Total[0] - elem_Old_Total[0];
+    printf("  Solvent Balance           % 12.5E     %12.5E   % 12.5E  \n", elem_New_Total[0],	elem_Old_Total[0], delta);
+    delta =  elem_New_Total[1] - elem_Old_Total[1];
+    printf("  Li Balance         % 12.5E     %12.5E  % 12.5E \n", elem_New_Total[1],	elem_Old_Total[1], delta);
+    delta =  elem_New_Total[2] - elem_Old_Total[2];
+    printf("  PF6- Balance       % 12.5E     %12.5E  % 12.5E \n", elem_New_Total[2],	elem_Old_Total[2], delta);
    
     
 }
