@@ -231,13 +231,6 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
   // Download the number of equations in this domain
   NumDomainEqns = BDD_.NumEquationsPerNode;
 
-  //  Size the flux vectors at the ends of the domains
-  DiffFluxLeftBound_LastResid_NE.resize(NumDomainEqns, 0.0);
-  DiffFluxRightBound_LastResid_NE.resize(NumDomainEqns, 0.0);
-  TotalFluxLeftBound_LastResid_NE.resize(NumDomainEqns, 0.0);
-  TotalFluxRightBound_LastResid_NE.resize(NumDomainEqns, 0.0);
-  VarVectorLeftBound_LastResid_NE.resize(NumDomainEqns, 0.0);
-  VarVectorRightBound_LastResid_NE.resize(NumDomainEqns, 0.0);
   
   // Find the number of equations at the first node
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
@@ -251,6 +244,15 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
 
   DomainResidVectorLeftBound_LastResid_NE.resize(numEqFirst, 0.0);
   DomainResidVectorRightBound_LastResid_NE.resize(numEqLast, 0.0);
+ 
+  //  Size the flux vectors at the ends of the domains
+  DiffFluxLeftBound_LastResid_NE.resize( numEqFirst, 0.0);
+  TotalFluxLeftBound_LastResid_NE.resize(numEqFirst, 0.0);
+  VarVectorLeftBound_LastResid_NE.resize(numEqFirst, 0.0);
+  DiffFluxRightBound_LastResid_NE.resize(numEqLast, 0.0);
+  TotalFluxRightBound_LastResid_NE.resize(numEqLast, 0.0);
+  VarVectorRightBound_LastResid_NE.resize(numEqLast, 0.0);
+
 
 
 }

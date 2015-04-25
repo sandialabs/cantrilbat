@@ -1174,7 +1174,7 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
 {
     class globalHeatBalValsBat dVals;
     DomainLayout &DL = *DL_ptr_;
-  
+    dVals.sizeLyte(3); 
 
     //
     //   Loop over the Volume Domains

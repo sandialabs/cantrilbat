@@ -1518,7 +1518,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	}
     }
 }
-//=============================================================================================================================
+//==================================================================================================================================
 // Evaluate species and element balances
 void
 porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
@@ -1532,7 +1532,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     NodalVars* nodeCent = 0;
     NodalVars* nodeLeft = 0;
     NodalVars* nodeRight = 0;
-    //globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
+    globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
     int indexCent_EqnStart, indexLeft_EqnStart, indexRight_EqnStart;
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
@@ -1559,6 +1559,8 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     double residAdd = 0.0;
     std::vector<double> elemLi_Lyte_New_Cell(NumLcCells, 0.0);
     std::vector<double> elemLi_Lyte_Old_Cell(NumLcCells, 0.0);
+    std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_New_Cell;
+    std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Old_Cell;
 
     std::vector<double> icurrCBL_Cell(NumLcCells, 0.0);
     std::vector<double> icurrCBR_Cell(NumLcCells, 0.0);
@@ -1569,28 +1571,28 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     std::vector<double> jFluxRight(nsp_, 0.0);
     std::vector<double> jFluxLeft(nsp_, 0.0);
   
-    std::vector<double> species_Lyte_New_Total(nsp_, 0.0);
-    std::vector<double> species_Lyte_Old_Total(nsp_, 0.0);
-    std::vector<double> species_convRight(nsp_, 0.0);
-    std::vector<double> species_convLeft(nsp_, 0.0);
-    std::vector<double> species_jFluxRight(nsp_, 0.0);
-    std::vector<double> species_jFluxLeft(nsp_, 0.0);
+    std::vector<double>& species_Lyte_New_Total = dValsB_ptr->species_Lyte_New_Total;
+    std::vector<double>& species_Lyte_Old_Total = dValsB_ptr->species_Lyte_Old_Total;
+    std::vector<double> species_Lyte_New_Curr(nsp_, 0.0);
+    std::vector<double> species_Lyte_Old_Curr(nsp_, 0.0);
+    std::vector<double> species_convRight  = dValsB_ptr->species_convRight;
+    std::vector<double> species_convLeft   = dValsB_ptr->species_convLeft;
+    std::vector<double> species_jFluxRight = dValsB_ptr->species_jFluxRight;
+    std::vector<double> species_jFluxLeft  = dValsB_ptr->species_jFluxLeft;
 
+   
     Cantera::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
     Cantera::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
     Cantera::Array2D res_Species(nsp_,NumLcCells, 0.0);
-
-    //vec = Electrode->getMoleNumberSpecies();
-
-    
+  
     for (int itimes = 0; itimes < doTimes; itimes++) {
 	if (doPrint) {
 	    if (itimes == 0) {
 		printf(" \n\n       Li balance \n");
-		printf("Cell  Spec |     NewnBal       OldnBal       deltanSpecies | ");
-		printf("    fluxLeft     FluxRight | ");
-		printf("  convLeft convRight | ");
-		printf("  Residual-additions  Residual   Current_CBL  Current CBR ");
+		printf("Cell Spec|     NewnBal       OldnBal     deltanSpecies | ");
+		printf("    fluxLeft       FluxRight | ");
+		printf("    convLeft    convRight | ");
+		printf("  Residual-additions  Residual  |  Current_CBL  Current CBR ");
 		printf("\n");
 	    }
 	  
@@ -1660,7 +1662,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		SetupTranShop(xdelL, 0);
 	
 		Fleft_cc_ =soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
-		double moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 		for (size_t k = 0; k < (size_t) nsp_; k++) {
 		    convLeft[k] =  moleFluxLeft *  mfElectrolyte_Soln_Curr_[k];
 		    jFluxLeft[k] = jFlux_trCurr_[k];
@@ -1678,7 +1680,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		for (size_t k = 0; k <  (size_t) nsp_; k++) {
 		    convLeft[k] = 0.0;
 		}
-		for (int k = 0; k < nsp_; k++) {
+		for (size_t k = 0; k < (size_t) nsp_; k++) {
 		    jFlux_trCurr_[k] = - DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
 		    jFluxLeft[k] = 0.0;
 		    icurrCBL += jFlux_trCurr_[k] *spCharge_[k] * Faraday;
@@ -1693,7 +1695,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		SetupTranShop(xdelR, 1);
 
 		Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
-		double moleFluxRight = Fright_cc_ * concTot_Curr_;
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
 		for (size_t k = 0; k <  (size_t) nsp_; k++) {
 		    convRight[k] = moleFluxRight * mfElectrolyte_Soln_Curr_[k];
 		    jFluxRight[k] = jFlux_trCurr_[k];
@@ -1724,24 +1726,18 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 	    elemLi_Lyte_New_Cell[iCell] = porosity_Curr_ * concTot_Curr_ * xdelCell * mfElectrolyte_Soln_Curr_[iLip_];
 	    elemLi_Lyte_Old_Cell[iCell] = porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * mfElectrolyte_Soln_old[iLip_];
+	    elemLi_Lyte_New[0] += elemLi_Lyte_New_Cell[iCell];
+	    elemLi_Lyte_Old[0] += elemLi_Lyte_Old_Cell[iCell];
+   
 
 	    for (size_t k = 0; k < (size_t) nsp_; k++) {
-		species_Lyte_New_Total[k] = porosity_Curr_ * concTot_Curr_* xdelCell  * mfElectrolyte_Soln_Curr_[k];
-		species_Lyte_Old_Total[k] = porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * mfElectrolyte_Soln_old[k];
+		species_Lyte_New_Curr[k] = porosity_Curr_ * concTot_Curr_* xdelCell  * mfElectrolyte_Soln_Curr_[k];
+		species_Lyte_Old_Curr[k] = porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * mfElectrolyte_Soln_old[k];
+		species_Lyte_New_Total[k] += species_Lyte_New_Curr[k];
+		species_Lyte_Old_Total[k] += species_Lyte_Old_Curr[k];
 		if (iCell == 0) {
 		    species_convLeft[k] = convLeft[k];
-		    species_jFluxLeft[k] =  jFluxLeft[k];
-
-		    double diffp = porosity_Curr_ -  porosity_Cell_old_[iCell];
-		    double val = 2.0 * diffp / ( porosity_Curr_ + porosity_Cell_old_[iCell]);
-		    if (k == 0) printf("        iCell = 0 rel diff in por = %g\n", val);
-		    double diffc = concTot_Curr_ - concTot_Cell_old_[iCell];
-		    val = 2.0 * diffc / (  concTot_Curr_ + concTot_Cell_old_[iCell]);
-		    if (k == 0) printf("        iCell = 0 rel diff in conc = %g\n", val);
-		    double diffx = mfElectrolyte_Soln_Curr_[k] - mfElectrolyte_Soln_old[k];
-		    val = 2.0 * diffx / (  mfElectrolyte_Soln_Curr_[k] + mfElectrolyte_Soln_old[k]);
-		    printf("        iCell = 0 rel diff in xmol %lu = %g\n", k, val);
-
+		    species_jFluxLeft[k] =  jFluxLeft[k];	 
 		}
 		if (iCell == NumLcCells-1) {
 		    species_convRight[k]  = convRight[k];
@@ -1753,7 +1749,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		if (itimes == 0) {
 		    resid = 0.0;
 		    for (size_t k = 0 ; k <  (size_t) nsp_; k++) {
-			double deltanSp = species_Lyte_New_Total[k] - 	species_Lyte_Old_Total[k];
+			double deltanSp = species_Lyte_New_Curr[k] - species_Lyte_Old_Curr[k];
 			double convSpRight = convRight[k];
 			double convSpLeft = convLeft[k];
 			double jFluxSpRight =  jFluxRight[k];
@@ -1769,30 +1765,22 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 			}
 			if (iCell == NumLcCells - 1) {
 			    residAdd = deltaT *
-			      rightD_cathode->DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+			      rightD_cathode->DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
 			}
 			resid += residAdd;
-			printf("%3d, %3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, (int) k, 	species_Lyte_New_Total[k],
-			       species_Lyte_Old_Total[k], deltanSp);
-			printf("   % 12.5E  % 12.5E |",  - deltaT * jFluxSpLeft,  deltaT * jFluxSpRight);
-			printf("   % 12.5E  % 12.5E |",  - deltaT * convSpLeft,  deltaT * convSpRight);
-			printf("   %12.5E  %12.5E", residAdd,  resid);
-			printf("   % 12.5E  % 12.5E |", icurrCBL, icurrCBR);
+			printf("%3d, %3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, (int) k, 
+			       species_Lyte_New_Total[k], species_Lyte_Old_Total[k], deltanSp);
+			printf("  % 12.5E  % 12.5E |",  - deltaT * jFluxSpLeft,  deltaT * jFluxSpRight);
+			printf("  % 12.5E  % 12.5E |",  - deltaT * convSpLeft,  deltaT * convSpRight);
+			printf("  % 12.5E  % 12.5E |", residAdd,  resid);
+			printf("  % 12.5E  % 12.5E |", icurrCBL, icurrCBR);
 			printf("  \n");
 		    }
 		}
-	
 	    }
-
-	    dVals.oldNEnthalpy = 0;
-	    dVals.newNEnthalpy = 0;
 	}
     }
 }
-
-
-
-
 //==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
@@ -1802,7 +1790,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const d
 
     solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
 }
-//=====================================================================================================================
+//=================================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
 						   const doublereal* const solnElectrolyte_Curr)

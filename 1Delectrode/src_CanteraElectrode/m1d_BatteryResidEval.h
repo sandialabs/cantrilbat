@@ -24,6 +24,10 @@
 #include "m1d_BoundaryCondition.h"
 #include "m1d_SurDomain1D.h"
 
+#include "cantera/base/Array.h"
+#include <vector>
+
+
 namespace m1d {
 
 class globalHeatBalValsBat : public globalHeatBalVals
@@ -65,6 +69,37 @@ public:
         jouleHeat_lyte = 0.0;
         enthalpyIVfluxRight = 0.0;
         enthalpyIVfluxLeft = 0.0;
+	size_t nsp =  species_Lyte_New_Total.size();
+	for (size_t k = 0; k < nsp; k++) {
+	    species_Lyte_New_Total[k] = 0.0;
+	    species_Lyte_Old_Total[k] = 0.0;
+	    species_Lyte_Src_Total[k] = 0.0;
+	    species_convRight[k] = 0.0;
+	    species_convLeft[k] = 0.0;
+	    species_jFluxRight[k] = 0.0;
+	    species_jFluxLeft[k] = 0.0;
+	}
+	elem_New_Cell.resize(10, 0.0);
+	elem_Old_Cell.resize(10, 0.0);
+	for (size_t k = 0; k < 10; k++) {
+	    elem_New_Cell[k] = 0.0;
+	    elem_Old_Cell[k] = 0.0;
+	}
+
+    }
+
+    virtual void sizeLyte(size_t nsp)
+    {
+	species_Lyte_New_Total.resize(nsp, 0.0);
+	species_Lyte_Old_Total.resize(nsp, 0.0);
+	species_Lyte_Src_Total.resize(nsp, 0.0);
+	species_convRight.resize(nsp, 0.0);
+	species_convLeft.resize(nsp, 0.0);
+	species_jFluxRight.resize(nsp, 0.0);
+	species_jFluxLeft.resize(nsp, 0.0);
+
+	elem_New_Cell.resize(10, 0.0);
+	elem_Old_Cell.resize(10, 0.0);
     }
 
     double totalEnthalpyInit;
@@ -82,6 +117,19 @@ public:
     double jouleHeat_lyte;
     double enthalpyIVfluxRight;
     double enthalpyIVfluxLeft;
+
+    std::vector<double> elem_New_Cell;
+    std::vector<double> elem_Old_Cell;
+
+    std::vector<double> species_Lyte_New_Total;
+    std::vector<double> species_Lyte_Old_Total;
+    std::vector<double> species_Lyte_Src_Total;
+    std::vector<double> species_convRight;
+    std::vector<double> species_convLeft;
+    std::vector<double> species_jFluxRight;
+    std::vector<double> species_jFluxLeft;
+
+
 };
 
 //!  Residual for 1D cell  battery evaluations
