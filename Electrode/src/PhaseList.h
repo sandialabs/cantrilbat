@@ -229,6 +229,8 @@ public:
      */
     std::string elementName(int e) const;
 
+    size_t elementIndex(const std::string& elementName) const;
+
     //! Return the file name of the file containing the first surface phase
     //! encountered when initializing this object
     std::string firstSurfaceFile() const;

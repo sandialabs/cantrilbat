@@ -167,6 +167,14 @@ public:
 				  const Epetra_Vector *solnOld_ptr,
 				  struct globalHeatBalVals& dVals);
 
+    virtual void eval_SpeciesElemBalance(const int ifunc,
+					 const double t,
+					 const double deltaT,
+					 const Epetra_Vector *soln_ptr,
+					 const Epetra_Vector *solnDot_ptr,
+					 const Epetra_Vector *solnOld_ptr,
+					 class globalHeatBalVals& dVals);
+
     //! Utility function to calculate quantities before the main residual routine.
     /*!
      *  This is used for a loop over nodes. All calculated quantities must be internally storred.

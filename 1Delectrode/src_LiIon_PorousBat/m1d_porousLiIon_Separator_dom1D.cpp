@@ -932,7 +932,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 		    //
 		    //  Section to find the Diffusive flux of species
 		    //        fluxXleft[k] is set to zero. Also some species are replaced by constraints.
-		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations.
+		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations
 		    for (size_t k = 0; k < (size_t) nsp_; k++) {
 			resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
 			double newStuffSpecies0 = Xcent_cc_[k] * newStuffTC;
@@ -967,7 +967,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 		    //
 		    //  Section to find the Diffusive flux of species
 		    //        fluxXright[k] is set to zero. Also some species are replaced by constraints.
-		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations.
+		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations
 		    //
 		    for (size_t k = 0; k < (size_t) nsp_; k++) {
 			resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
@@ -1011,7 +1011,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     }
 
 }
-//=================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 					       const Epetra_Vector* soln_ptr,
@@ -1587,12 +1587,11 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     Cantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
     Cantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
 
-    std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_New_Cell;
-    std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Old_Cell;
+    std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_Lyte_New;
+    std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
 
     std::vector<double> icurrCBL_Cell(NumLcCells, 0.0);
     std::vector<double> icurrCBR_Cell(NumLcCells, 0.0);
-
 
     std::vector<double> convRight(nsp_, 0.0);
     std::vector<double> convLeft(nsp_, 0.0);
@@ -1619,6 +1618,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 		drawline(1, nColsTable);
 		printf(" \n\n            SEPARATOR::          Species Cell balances \n");
 		printf("Cell Spec|     NewnBal       OldnBal     deltanSpecies | ");
+		printf("  - SrcTerm   | ");
 		printf("    fluxLeft       FluxRight | ");
 		printf("    convLeft    convRight | ");
 		printf("  Residual-additions  Residual  |  Current_CBL  Current CBR ");

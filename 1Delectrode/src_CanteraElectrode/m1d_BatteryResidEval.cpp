@@ -1044,8 +1044,8 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     double phiAnode = 0.0;
     double nEnthOldB[10];
     double nEnthNewB[10];
-    double nEnthOldS[10];
-    double nEnthNewS[10];
+    //double nEnthOldS[10];
+    //double nEnthNewS[10];
     double nEnthOldTotal = 0.0;
     double nEnthNewTotal = 0.0;
     double enthalpyIVfluxRight  = 0.0;
@@ -1080,8 +1080,8 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 	d_ptr->eval_HeatBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
 
         totalHeatCapacity += dVals.totalHeatCapacity;
-        nEnthOldS[iDom] = dVals.oldNEnthalpy;
-        nEnthNewS[iDom] = dVals.newNEnthalpy;
+        //nEnthOldS[iDom] = dVals.oldNEnthalpy;
+        //nEnthNewS[iDom] = dVals.newNEnthalpy;
         nEnthNewTotal +=  dVals.newNEnthalpy;
         nEnthOldTotal +=  dVals.oldNEnthalpy;
 
@@ -1172,13 +1172,17 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
 				    const Epetra_Vector_Ghosted &y,
 				    const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
+    int iLip = 1;
+    static std::vector<double> elem_Start_Total(30, 0.0);
+    static int iset = 0;
     class globalHeatBalValsBat dVals;
     DomainLayout &DL = *DL_ptr_;
     dVals.sizeLyte(3); 
-    std::vector<double> elem_New_Total(10, 0.0);
-    std::vector<double>  elem_Old_Total(10, 0.0);
-    std::vector<double>& elemLi_Lyte_New = dVals.elem_New_Cell;
-    std::vector<double>& elemLi_Lyte_Old = dVals.elem_Old_Cell;
+    std::vector<double>  elem_Lyte_New_Total(10, 0.0);
+    std::vector<double>  elem_Lyte_Old_Total(10, 0.0);
+    std::vector<double>  elem_Solid_New_Total(30, 0.0);
+    std::vector<double>  elem_Solid_Old_Total(30, 0.0);
+    
 
     //
     //   Loop over the Volume Domains
@@ -1187,13 +1191,18 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
         dVals.zero();
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	d_ptr->eval_SpeciesElemBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
-	elem_New_Total[0] += elemLi_Lyte_New[0];
-	elem_Old_Total[0] += elemLi_Lyte_Old[0];
-	elem_New_Total[1] += elemLi_Lyte_New[1];
-	elem_Old_Total[1] += elemLi_Lyte_Old[1];
-	elem_New_Total[2] += elemLi_Lyte_New[2];
-	elem_Old_Total[2] += elemLi_Lyte_Old[2];
-       
+	elem_Lyte_New_Total[0] += dVals.elem_Lyte_New[0];
+	elem_Lyte_Old_Total[0] += dVals.elem_Lyte_Old[0];
+	elem_Lyte_New_Total[1] += dVals.elem_Lyte_New[1];
+	elem_Lyte_Old_Total[1] += dVals.elem_Lyte_Old[1];
+	elem_Lyte_New_Total[2] += dVals.elem_Lyte_New[2];
+	elem_Lyte_Old_Total[2] += dVals.elem_Lyte_Old[2];
+        elem_Solid_New_Total[iLip] += dVals.elem_Solid_New[iLip];
+        elem_Solid_Old_Total[iLip] += dVals.elem_Solid_New[iLip];
+
+        if (iDom == 0) {
+
+        }
     }
     //
     //    Loop over the Surface Domains
@@ -1204,13 +1213,25 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
 	d_ptr->eval_SpeciesElemBalance(ifunc, t, deltaT, &y, solnDot_ptr, solnOld_ptr_, dVals);
 
     }
+    double elem_li_old_total = elem_Lyte_Old_Total[iLip] + elem_Solid_Old_Total[iLip];
+    double elem_li_new_total = elem_Lyte_New_Total[iLip] + elem_Solid_New_Total[iLip];
+    if (!iset) {
+        iset = 1;
+        elem_Start_Total[iLip] =  elem_li_old_total;
+    }
 
-    double delta =  elem_New_Total[0] - elem_Old_Total[0];
-    printf("  Solvent Balance           % 12.5E     %12.5E   % 12.5E  \n", elem_New_Total[0],	elem_Old_Total[0], delta);
-    delta =  elem_New_Total[1] - elem_Old_Total[1];
-    printf("  Li Balance         % 12.5E     %12.5E  % 12.5E \n", elem_New_Total[1],	elem_Old_Total[1], delta);
-    delta =  elem_New_Total[2] - elem_Old_Total[2];
-    printf("  PF6- Balance       % 12.5E     %12.5E  % 12.5E \n", elem_New_Total[2],	elem_Old_Total[2], delta);
+    double delta =  elem_Lyte_New_Total[0] - elem_Lyte_Old_Total[0];
+    printf("  Solvent Balance           % 12.5E     %12.5E   % 12.5E  \n", elem_Lyte_New_Total[0],	elem_Lyte_Old_Total[0], delta);
+    delta =  elem_Lyte_New_Total[1] - elem_Lyte_Old_Total[1];
+    printf("  Li Balance         % 12.5E     %12.5E  % 12.5E \n", elem_Lyte_New_Total[1],	elem_Lyte_Old_Total[1], delta);
+    delta =  elem_Lyte_New_Total[2] - elem_Lyte_Old_Total[2];
+    printf("  PF6- Balance       % 12.5E     %12.5E  % 12.5E \n", elem_Lyte_New_Total[2],	elem_Lyte_Old_Total[2], delta);
+    delta =   elem_li_new_total -  elem_li_old_total ;
+    printf("  Li Balance  % 12.5E     % 12.5E  % 12.5E  % 12.5E \n",  elem_li_old_total,  elem_li_new_total, delta, elem_Start_Total[iLip]);
+    
+
+   
+    
    
     
 }

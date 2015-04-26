@@ -79,11 +79,15 @@ public:
 	    species_jFluxRight[k] = 0.0;
 	    species_jFluxLeft[k] = 0.0;
 	}
-	elem_New_Cell.resize(10, 0.0);
-	elem_Old_Cell.resize(10, 0.0);
+        elem_Lyte_New.resize(10, 0.0);
+        elem_Solid_New.resize(10, 0.0);
+        elem_Lyte_Old.resize(10, 0.0);
+        elem_Solid_Old.resize(10, 0.0);
 	for (size_t k = 0; k < 10; k++) {
-	    elem_New_Cell[k] = 0.0;
-	    elem_Old_Cell[k] = 0.0;
+            elem_Lyte_New[k] = 0.0;
+            elem_Solid_New[k] = 0.0;
+            elem_Lyte_Old[k] = 0.0;
+            elem_Solid_Old[k] = 0.0;
 	}
 
     }
@@ -98,8 +102,10 @@ public:
 	species_jFluxRight.resize(nsp, 0.0);
 	species_jFluxLeft.resize(nsp, 0.0);
 
-	elem_New_Cell.resize(10, 0.0);
-	elem_Old_Cell.resize(10, 0.0);
+        elem_Lyte_New.resize(10, 0.0);
+        elem_Solid_New.resize(10, 0.0);
+        elem_Lyte_Old.resize(10, 0.0);
+        elem_Solid_Old.resize(10, 0.0);
     }
 
     double totalEnthalpyInit;
@@ -118,8 +124,10 @@ public:
     double enthalpyIVfluxRight;
     double enthalpyIVfluxLeft;
 
-    std::vector<double> elem_New_Cell;
-    std::vector<double> elem_Old_Cell;
+    std::vector<double> elem_Lyte_New;
+    std::vector<double> elem_Solid_New;
+    std::vector<double> elem_Lyte_Old;
+    std::vector<double> elem_Solid_Old;
 
     std::vector<double> species_Lyte_New_Total;
     std::vector<double> species_Lyte_Old_Total;

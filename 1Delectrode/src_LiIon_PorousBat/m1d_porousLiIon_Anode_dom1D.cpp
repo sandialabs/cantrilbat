@@ -16,6 +16,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
 #include "m1d_ProblemStatementCell.h"
+#include "m1d_SurfDomainDescription.h"
 
 #include "Electrode.h"
 #include "Electrode_Factory.h"
@@ -30,8 +31,32 @@ using namespace std;
 
 namespace m1d
 {
+//==================================================================================================================================
+static void
+drawline(int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        Cantera::writelog(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        Cantera::writelog("-");
+    }
+    Cantera::writelog("\n");
+}
+//==================================================================================================================================
+static void
+drawline0(int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        sprint0(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        sprint0("-");
+    }
+    sprint0("\n");
+}
 
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon& bdd) :
     porousElectrode_dom1D(bdd),
     BDT_ptr_(0),
@@ -101,7 +126,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon& bdd) :
     conductivityElectrode_ = PSinput.conductivityAnode_;
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& r) :
     porousElectrode_dom1D((BDD_porousElectrode&) r.BDD_),
     BDT_ptr_(0),
@@ -212,7 +237,7 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
 
     return *this;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Prepare all of the indices for fast calculation of the residual
 /*
  *  Ok, at this point, we will have figured out the number of equations
@@ -1097,11 +1122,11 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                 res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
             }
         }
-
         /*
          *   Current conservation equation in the electrolyte
          */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell];
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += 
+	  icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell];
 
         /*
          *   Current conservation equation - electrode
@@ -1349,7 +1374,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 			double newStuffSpecies0 =  Xcent_cc_[k] * newStuffTC;
 			double oldStuffSpecies0 =  mf_old[k] * oldStuffTC;
 			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
-			//
 			resLocal_Species[k] -= 
 			  electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + k] * rdelta_t /
 			  crossSectionalArea_;
@@ -1829,14 +1853,306 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 #else
         electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / crossSectionalArea_;
         overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
-        deltaSHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
+        deltaSHeat_Cell_curr_[iCell] = 
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
 #endif
         qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
         qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
+//==================================================================================================================================
+// Evaluate species and element balances
+void
+porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
+						 const double t,
+						 const double deltaT,
+						 const Epetra_Vector *soln_ptr,
+						 const Epetra_Vector *solnDot_ptr,
+						 const Epetra_Vector *solnOld_ptr,
+						 class globalHeatBalVals& dVals)
+{
+    NodalVars* nodeCent = 0;
+    NodalVars* nodeLeft = 0;
+    NodalVars* nodeRight = 0;
+    globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
+    int indexCent_EqnStart, indexLeft_EqnStart, indexRight_EqnStart;
+    const Epetra_Vector& soln = *soln_ptr;
+    double xdelL; // Distance from the center node to the left node
+    double xdelR; // Distance from the center node to the right node
+    double xdelCell;
+    int doPrint = 1;
 
-//======================================================================================================================
+    // Initially, we'll limit it to Li transport, PF6- bal, and solvent balance
+    int doTimes = 1;
+    int nColsTable = 175;
+  
+    //
+    // Find the pointer for the left Anode
+    // SurfDomainDescription *leftS = BDD_.LeftSurf;
+  
+    //
+    // Find the pointer for the left Cathode
+    SurfDomainDescription *rightS = BDD_.RightSurf;
+    BulkDomainDescription *rightDD = rightS->RightBulk;
+    BulkDomain1D *rightD_sep = rightDD->BulkDomainPtr_;
+
+    double moleFluxLeft = 0.0;
+    double moleFluxRight = 0.0;
+    double residAdd = 0.0;
+
+    Cantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Cantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+
+    std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_Lyte_New;
+    std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
+
+    std::vector<double> icurrCBL_Cell(NumLcCells, 0.0);
+    std::vector<double> icurrCBR_Cell(NumLcCells, 0.0);
+
+
+    std::vector<double> convRight(nsp_, 0.0);
+    std::vector<double> convLeft(nsp_, 0.0);
+    std::vector<double> jFluxRight(nsp_, 0.0);
+    std::vector<double> jFluxLeft(nsp_, 0.0);
+    std::vector<double> species_Lyte_New_Curr(nsp_, 0.0);
+    std::vector<double> species_Lyte_Old_Curr(nsp_, 0.0);
+    std::vector<double> species_Lyte_Src_Curr(nsp_, 0.0);
+
+    std::vector<double>& species_Lyte_New_Total = dValsB_ptr->species_Lyte_New_Total;
+    std::vector<double>& species_Lyte_Old_Total = dValsB_ptr->species_Lyte_Old_Total;   
+    std::vector<double> species_convRight  = dValsB_ptr->species_convRight;
+    std::vector<double> species_convLeft   = dValsB_ptr->species_convLeft;
+    std::vector<double> species_jFluxRight = dValsB_ptr->species_jFluxRight;
+    std::vector<double> species_jFluxLeft  = dValsB_ptr->species_jFluxLeft;
+    std::vector<double>& species_Lyte_Src_Total = dValsB_ptr->species_Lyte_Src_Total;   
+   
+    Cantera::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    Cantera::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    Cantera::Array2D res_Species(nsp_,NumLcCells, 0.0);
+
+    /*
+     *   Find the species index for the first species in the electrode object pertaining to the electrolyte
+     */
+    int sf = Electrode_Cell_[0]->solnPhaseIndex();
+    int indexStartEOelectrolyte = Electrode_Cell_[0]->getGlobalSpeciesIndex(sf, 0);
+
+    for (int itimes = 0; itimes < doTimes; itimes++) {
+	if (doPrint) {
+	    if (itimes == 0) {
+		drawline(1, nColsTable);
+		printf(" \n\n           ANODE ::          Species Cell balances \n");
+		printf("Cell Spec|     NewnBal       OldnBal     deltanSpecies | ");
+		printf("  - SrcTerm   | ");
+		printf("    fluxLeft       FluxRight | ");
+		printf("    convLeft    convRight | ");
+		printf("  Residual-additions  Residual  |  Current_CBL  Current CBR ");
+		printf("\n");
+		drawline(1, nColsTable);
+	    }
+	  
+	}
+	double resid;
+
+	for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	    cIndex_cc_ = iCell;
+
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+	    double icurrCBL = 0.0;
+	    double icurrCBR = 0.0;
+
+	    /*
+	     *  ---------------- Get the index for the center node ---------------------------------
+	     *   Get the pointer to the NodalVars object for the center node
+	     *   Index of the first equation in the bulk domain of center node
+	     */
+	    nodeCent = cTmps.nvCent_;
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    for (int k = 0; k < nsp_; k++) {
+		Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+	    } 
+	    Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+	  
+	    /*
+	     *  ------------------- Get the index for the left node -----------------------------
+	     *    There may not be a left node if we are on the left boundary. In that case
+	     *    set the pointer to zero and the index to -1.
+	     *    The solution index is set to the center solution index in that case as well.
+	     */
+	    nodeLeft = cTmps.nvLeft_;
+	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;    
+	    for (int k = 0; k < nsp_; k++) {
+		Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
+	    }
+	    Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
+
+
+	    xdelL = cTmps.xdelL_;
+	    xdelR = cTmps.xdelR_;
+	    xdelCell = cTmps.xdelCell_;
+
+
+	    double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
+
+	    /*
+	     * ------------------------ Get the indexes for the right node ------------------------------------
+	     */
+	    nodeRight = cTmps.nvRight_;
+	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	    for (size_t k = 0; k < (size_t) nsp_; k++) {
+		Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
+	    }
+	    Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
+
+	    if (nodeLeft != 0) {
+		/*
+		 *  Establish the environment at the left cell boundary
+		 */
+		SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart]), nodeCent, &(soln[indexCent_EqnStart]), 0);	    
+		SetupTranShop(xdelL, 0);
+	
+		Fleft_cc_ =soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+		for (size_t k = 0; k < (size_t) nsp_; k++) {
+		    convLeft[k] =  moleFluxLeft *  mfElectrolyte_Soln_Curr_[k];
+		    jFluxLeft[k] = jFlux_trCurr_[k];
+		    icurrCBL += jFluxLeft[k] *spCharge_[k] * Faraday;
+		}
+	    } else {
+		//
+		//  Setup shop at the left node
+		//
+		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+
+		Fleft_cc_ = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+		for (size_t k = 0; k <  (size_t) nsp_; k++) {
+		    convLeft[k] = 0.0;
+		}
+		for (size_t k = 0; k < (size_t) nsp_; k++) {
+		    jFlux_trCurr_[k] = - DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+		    jFluxLeft[k] = 0.0;
+		    icurrCBL += jFlux_trCurr_[k] *spCharge_[k] * Faraday;
+		}
+	    }
+
+	    if (nodeRight != 0) {
+		/*
+		 *  Establish the environment at the right cell boundary
+		 */
+		SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
+		SetupTranShop(xdelR, 1);
+
+		Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
+		for (size_t k = 0; k <  (size_t) nsp_; k++) {
+		    convRight[k] = moleFluxRight * mfElectrolyte_Soln_Curr_[k];
+		    jFluxRight[k] = jFlux_trCurr_[k];
+		    icurrCBR += jFluxRight[k] *spCharge_[k] * Faraday;
+		}
+	    } else {
+		//
+		//  Setup shop at the right node
+		//
+		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));	
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+
+		Fright_cc_ = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
+		for (size_t k = 0; k <  (size_t) nsp_; k++) {
+		    convRight[k] = 0.0;
+		}
+		for (size_t k = 0; k <  (size_t) nsp_; k++) {
+		    jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+		    jFluxRight[k] = 0.0;
+		    icurrCBR += jFlux_trCurr_[k] * spCharge_[k] * Faraday;
+		}
+	    }
+
+	    //
+	    // Return to the center node
+	    //
+	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+	    for (size_t k = 0; k < (size_t) nsp_; k++) {
+		elem_Lyte_New_Cell(k, iCell) = porosity_Curr_ * concTot_Curr_ * xdelCell * mfElectrolyte_Soln_Curr_[k];
+		elem_Lyte_Old_Cell(k, iCell) = (porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell] *
+						xdelCell  * mfElectrolyte_Soln_old[k]);
+	    
+		elemLi_Lyte_New[k] += elem_Lyte_New_Cell(k, iCell);
+		elemLi_Lyte_Old[k] += elem_Lyte_Old_Cell(k, iCell);
+
+	
+       
+	    }
+
+
+	    for (size_t k = 0; k < (size_t) nsp_; k++) {
+		species_Lyte_New_Curr[k] = porosity_Curr_ * concTot_Curr_* xdelCell  * mfElectrolyte_Soln_Curr_[k];
+		species_Lyte_Old_Curr[k] = (porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * 
+					    mfElectrolyte_Soln_old[k]);
+		species_Lyte_New_Total[k] += species_Lyte_New_Curr[k];
+		species_Lyte_Old_Total[k] += species_Lyte_Old_Curr[k];
+
+		species_Lyte_Src_Curr[k] = 
+                    electrodeSpeciesMoleDelta_Cell_[nSpeciesElectrode_ * iCell + indexStartEOelectrolyte + k] /
+                    crossSectionalArea_;
+		species_Lyte_Src_Total[k] += species_Lyte_Src_Curr[k];
+
+		if (iCell == 0) {
+		    species_convLeft[k] = convLeft[k];
+		    species_jFluxLeft[k] =  jFluxLeft[k];	 
+		}
+		if (iCell == NumLcCells-1) {
+		    species_convRight[k]  = convRight[k];
+		    species_jFluxRight[k] = jFluxRight[k];
+		}
+	    }
+
+	    if (doPrint) {
+		if (itimes == 0) {
+		    resid = 0.0;
+		    for (size_t k = 0 ; k <  (size_t) nsp_; k++) {
+			double deltanSp = species_Lyte_New_Curr[k] - species_Lyte_Old_Curr[k];
+			double convSpRight = convRight[k];
+			double convSpLeft = convLeft[k];
+			double jFluxSpRight =  jFluxRight[k];
+			double jFluxSpLeft =  jFluxLeft[k];
+			resid = deltanSp;
+			resid -= species_Lyte_Src_Curr[k];
+			resid += deltaT * ( convSpRight - convSpLeft );
+			resid += deltaT * ( jFluxSpRight - jFluxSpLeft );
+
+			residAdd = 0.0;
+			if (iCell == 0) {
+			    residAdd = 0.0;
+			    //residAdd = deltaT * 
+			    //  leftD_anode->DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+			}
+			if (iCell == NumLcCells - 1) {
+			    residAdd = deltaT *
+			      rightD_sep->DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
+			}
+			resid += residAdd;
+			printf("%3d, %3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, (int) k, 
+			       species_Lyte_New_Total[k], species_Lyte_Old_Total[k], deltanSp);
+			printf("  %12.5E |", - species_Lyte_Src_Curr[k]);
+			printf("  % 12.5E  % 12.5E |",  - deltaT * jFluxSpLeft,  deltaT * jFluxSpRight);
+			printf("  % 12.5E  % 12.5E |",  - deltaT * convSpLeft,  deltaT * convSpRight);
+			printf("  % 12.5E  % 12.5E |", residAdd,  resid);
+			printf("  % 12.5E  % 12.5E |", icurrCBL, icurrCBR);
+			printf("  \n");
+		    }
+		}
+		drawline(1, nColsTable);
+		printf("\n");
+	    }
+	}
+    }
+}
+//==================================================================================================================================
 //
 /*
  *  This routine has been moved to the precalc category.
@@ -2424,30 +2740,6 @@ porousLiIon_Anode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
 	//  Read the state into the electrode object
 	ee->loadTimeStateFinal(*xCell);
     }
-}
-//=====================================================================================================================
-static void
-drawline(int sp, int ll)
-{
-    for (int i = 0; i < sp; i++) {
-        Cantera::writelog(" ");
-    }
-    for (int i = 0; i < ll; i++) {
-        Cantera::writelog("-");
-    }
-    Cantera::writelog("\n");
-}
-//=====================================================================================================================
-static void
-drawline0(int sp, int ll)
-{
-    for (int i = 0; i < sp; i++) {
-        sprint0(" ");
-    }
-    for (int i = 0; i < ll; i++) {
-        sprint0("-");
-    }
-    sprint0("\n");
 }
 
 

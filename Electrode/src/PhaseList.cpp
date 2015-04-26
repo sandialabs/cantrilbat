@@ -672,6 +672,12 @@ PhaseList::elementName(int e) const
     return m_GlobalElementObj->elementName(e);
 }
 //====================================================================================================================
+size_t
+PhaseList::elementIndex(const std::string& elemName) const
+{
+    return m_GlobalElementObj->elementIndex(elemName);
+}
+//====================================================================================================================
 //  Return the file name of the file containing the first surface phase
 //  encountered when initializing this object
 std::string  PhaseList::firstSurfaceFile() const
