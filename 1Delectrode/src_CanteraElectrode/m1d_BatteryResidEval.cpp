@@ -34,14 +34,25 @@ using namespace std;
 
 namespace m1d
 {
-  //=====================================================================================================================
-
-  // Default constructor
-  /*
-   *
-   * @param atol   Absolute tolerance for calculation
-   */
-  BatteryResidEval::BatteryResidEval(double atol) :
+//==================================================================================================================================
+static void
+drawline(int sp, int ll)
+{
+    for (int i = 0; i < sp; i++) {
+        Cantera::writelog(" ");
+    }
+    for (int i = 0; i < ll; i++) {
+        Cantera::writelog("-");
+    }
+    Cantera::writelog("\n");
+}
+//================================================================================================================================
+// Default constructor
+/*
+ *
+ * @param atol   Absolute tolerance for calculation
+ */
+BatteryResidEval::BatteryResidEval(double atol) :
     ProblemResidEval(atol),
     doHeatSourceTracking_(0),
     doResistanceTracking_(0),
@@ -65,12 +76,12 @@ namespace m1d
     Crate_current_(0.0),
     ocvAnode_(0.0),
     ocvCathode_(0.0)
-  {
+{
      doHeatSourceTracking_ = PSCinput_ptr->doHeatSourceTracking_;
      doResistanceTracking_ = PSCinput_ptr->doResistanceTracking_;
      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
-  }
-  //=====================================================================================================================
+}
+//================================================================================================================================
   // Destructor
   /*
    *
@@ -78,7 +89,7 @@ namespace m1d
   BatteryResidEval::~BatteryResidEval()
   {
   }
-  //=====================================================================================================================
+  //================================================================================================================================
   //! Default copy constructor
   /*!
    *
@@ -89,7 +100,7 @@ namespace m1d
   {
     *this = r;
   }
-  //=====================================================================================================================
+  //================================================================================================================================
   // Assignment operator
   /*
    *
@@ -1174,14 +1185,20 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
 {
     int iLip = 1;
     static std::vector<double> elem_Start_Total(30, 0.0);
+    //static double elemLi_Start_Dom[3];
+    static double elemLi_Solid_Start_Dom[3];
+    static std::vector<double> elem_Lyte_Start_Total(10, 0.0);
+
+    double elemLi_Solid_New_Dom[3];
+    double elemLi_Solid_Old_Dom[3];
     static int iset = 0;
     class globalHeatBalValsBat dVals;
     DomainLayout &DL = *DL_ptr_;
     dVals.sizeLyte(3); 
-    std::vector<double>  elem_Lyte_New_Total(10, 0.0);
-    std::vector<double>  elem_Lyte_Old_Total(10, 0.0);
-    std::vector<double>  elem_Solid_New_Total(30, 0.0);
-    std::vector<double>  elem_Solid_Old_Total(30, 0.0);
+    std::vector<double> elem_Lyte_New_Total(10, 0.0);
+    std::vector<double> elem_Lyte_Old_Total(10, 0.0);
+    std::vector<double> elem_Solid_New_Total(30, 0.0);
+    std::vector<double> elem_Solid_Old_Total(30, 0.0);
     
 
     //
@@ -1198,11 +1215,16 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
 	elem_Lyte_New_Total[2] += dVals.elem_Lyte_New[2];
 	elem_Lyte_Old_Total[2] += dVals.elem_Lyte_Old[2];
         elem_Solid_New_Total[iLip] += dVals.elem_Solid_New[iLip];
-        elem_Solid_Old_Total[iLip] += dVals.elem_Solid_New[iLip];
+        elem_Solid_Old_Total[iLip] += dVals.elem_Solid_Old[iLip];
+ 
+	elemLi_Solid_New_Dom[iDom] = dVals.elem_Solid_New[iLip];
+	elemLi_Solid_Old_Dom[iDom] = dVals.elem_Solid_Old[iLip];
 
-        if (iDom == 0) {
-
-        }
+	if (!iset) {
+	    //elemLi_Start_Dom[iDom] = dVals.elem_Lyte_New[iLip] + dVals.elem_Solid_New[iLip];
+	    elemLi_Solid_Start_Dom[iDom] = dVals.elem_Solid_New[iLip];
+	}
+      
     }
     //
     //    Loop over the Surface Domains
@@ -1218,24 +1240,92 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
     if (!iset) {
         iset = 1;
         elem_Start_Total[iLip] =  elem_li_old_total;
+	elem_Lyte_Start_Total[0] = elem_Lyte_New_Total[0];
+	elem_Lyte_Start_Total[1] = elem_Lyte_New_Total[1];
+	elem_Lyte_Start_Total[2] = elem_Lyte_New_Total[2];
     }
+ 
+    drawline(0, 132);
+    printf("                       ELEMENT BALANCES \n");
+    drawline(0, 132);
+    //
+    // Solvent Species Evolution with Time
+    //
+    double delta = elem_Lyte_New_Total[0] - elem_Lyte_Start_Total[0];
+    printf("Solvent Lyte:  Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	   elem_Lyte_New_Total[0], elem_Lyte_Start_Total[0], delta);
 
-    double delta =  elem_Lyte_New_Total[0] - elem_Lyte_Old_Total[0];
-    printf("  Solvent Balance           % 12.5E     %12.5E   % 12.5E  \n", elem_Lyte_New_Total[0],	elem_Lyte_Old_Total[0], delta);
-    delta =  elem_Lyte_New_Total[1] - elem_Lyte_Old_Total[1];
-    printf("  Li Balance         % 12.5E     %12.5E  % 12.5E \n", elem_Lyte_New_Total[1],	elem_Lyte_Old_Total[1], delta);
-    delta =  elem_Lyte_New_Total[2] - elem_Lyte_Old_Total[2];
-    printf("  PF6- Balance       % 12.5E     %12.5E  % 12.5E \n", elem_Lyte_New_Total[2],	elem_Lyte_Old_Total[2], delta);
-    delta =   elem_li_new_total -  elem_li_old_total ;
-    printf("  Li Balance  % 12.5E     % 12.5E  % 12.5E  % 12.5E \n",  elem_li_old_total,  elem_li_new_total, delta, elem_Start_Total[iLip]);
-    
+    delta = elem_Lyte_New_Total[0] - elem_Lyte_Old_Total[0];
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
+	   elem_Lyte_New_Total[0], elem_Lyte_Old_Total[0], delta);
+    printf("\n");
+    //
+    // PF6- Species Evolution with Time
+    //
+    delta = elem_Lyte_New_Total[2] - elem_Lyte_Start_Total[2];
+    printf("PF6- Lyte:     Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	   elem_Lyte_New_Total[2], elem_Lyte_Start_Total[2], delta);
 
-   
-    
-   
-    
+    delta = elem_Lyte_New_Total[2] - elem_Lyte_Old_Total[2];
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
+	   elem_Lyte_New_Total[2], elem_Lyte_Old_Total[2], delta);
+    printf("\n");
+    //
+    // Lip Species Evolution with Time
+    //
+    delta = elem_Lyte_New_Total[1] - elem_Lyte_Start_Total[1];
+    printf("Lip Lyte:      Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	   elem_Lyte_New_Total[1], elem_Lyte_Start_Total[1], delta);
+
+    delta = elem_Lyte_New_Total[1] - elem_Lyte_Old_Total[1];
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
+	   elem_Lyte_New_Total[1], elem_Lyte_Old_Total[1], delta);
+    printf("\n\n");
+    //
+    // Anode Solid Phase Evolution of Lithium
+    //
+    delta = elemLi_Solid_New_Dom[0] - elemLi_Solid_Start_Dom[0]; 
+    printf("Anode Solid:   Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	  elemLi_Solid_New_Dom[0],  elemLi_Solid_Start_Dom[0], delta);
+    delta = elemLi_Solid_New_Dom[0] - elemLi_Solid_Old_Dom[0]; 
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
+	  elemLi_Solid_New_Dom[0], elemLi_Solid_Old_Dom[0], delta);
+    //
+    // Cathode Solid Phase Evolution of Lithium
+    //
+    delta = elemLi_Solid_New_Dom[2] - elemLi_Solid_Start_Dom[2]; 
+    printf("Cath Solid:    Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	  elemLi_Solid_New_Dom[2],  elemLi_Solid_Start_Dom[2], delta);
+    delta = elemLi_Solid_New_Dom[2] - elemLi_Solid_Old_Dom[2]; 
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
+	  elemLi_Solid_New_Dom[2], elemLi_Solid_Old_Dom[2], delta);
+    printf("\n");
+    //
+    // Solid Phase Balance of Lithium
+    //
+    double newS =  elemLi_Solid_New_Dom[0] + elemLi_Solid_New_Dom[2];
+    double oldS =  elemLi_Solid_Old_Dom[0] + elemLi_Solid_Old_Dom[2];
+    double startS= elemLi_Solid_Start_Dom[0] + elemLi_Solid_Start_Dom[2];
+    delta = newS - startS;
+    printf("Total Solid:   Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	  newS, startS,  delta);
+    delta =  newS - oldS;
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n",
+	  newS, oldS, delta);
+    //
+    // Total Balance of Lithium
+    //
+    delta = elem_li_new_total - elem_Start_Total[iLip];
+    printf("Total Li:      Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
+	   elem_li_new_total, elem_Start_Total[iLip], delta);
+    delta = elem_li_new_total - elem_li_old_total;
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n",
+	   elem_li_new_total, elem_li_old_total, delta);
+    printf("\n");
+
+    drawline(0, 132);
 }
-//================================================================================================================
+//==================================================================================================================================
 double
 BatteryResidEval::heatSourceLastStep() const
 {
@@ -1260,7 +1350,7 @@ BatteryResidEval::heatSourceLastStep() const
     //  }
     return q;
 }
-//================================================================================================================
+//==================================================================================================================================
 double
 BatteryResidEval::heatSourceAccumulated() const 
 {
@@ -1278,7 +1368,7 @@ BatteryResidEval::heatSourceAccumulated() const
     }
     return q;
 }
-//================================================================================================================
+//==================================================================================================================================
 void
 BatteryResidEval::heatSourceZeroAccumulated() const
 {
@@ -1294,7 +1384,7 @@ BatteryResidEval::heatSourceZeroAccumulated() const
 	}
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 int
 BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
     if (paramName != "CathodeCollectorVoltage") {
@@ -1311,10 +1401,10 @@ BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
       throw m1d_Error("", "");
     }
     return num;
-  }
-  //====================================================================================================================
-  int
-  BatteryResidEval::getSolutionParam(std::string paramName, double * const paramVal) {
+}
+//==================================================================================================================================
+int
+BatteryResidEval::getSolutionParam(std::string paramName, double * const paramVal) {
     if (paramName == "CathodeCollectorCurrent") {
       // Go find the Cathode Collector object -- the last domain of the DomainLayout
       DomainLayout &DL = *DL_ptr_;
@@ -1336,23 +1426,23 @@ BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
       throw m1d_Error("BatteryResidEval::getSolutionParam", "unknown parameter");
     } 
     return 1;
-  }
-  //====================================================================================================================
-  //   Report on the boundary condition applied to the cathode voltage equation
-  /*
-   *
-   *   @param[in] time     Current time for evaluating time dependent BC
-   *   @param[out] BC_Type  Type of the boundary condition
-   *   @param[out] value    Value of the dirichlet condition or flux - default 0.0
-   *   @param[out] BC_TimeDep BoundaryCondition Pointers for time dependent BC for BC_Tppe = 3,4,5
-   *                   (default 0)
-   *   @param[out] TimeDep  Function pointer to a function that returns a double given a single parameter (the time).
-   *                   Defaults to a NULL pointer.
-   *
-   */
-  void
-  BatteryResidEval::reportCathodeVoltageBC(double time, int &BC_Type, double &value, BoundaryCondition * &BC_TimeDep,
-					   TimeDepFunctionPtr &TimeDep) const {
+}
+//==================================================================================================================================
+//   Report on the boundary condition applied to the cathode voltage equation
+/*
+ *
+ *   @param[in] time     Current time for evaluating time dependent BC
+ *   @param[out] BC_Type  Type of the boundary condition
+ *   @param[out] value    Value of the dirichlet condition or flux - default 0.0
+ *   @param[out] BC_TimeDep BoundaryCondition Pointers for time dependent BC for BC_Tppe = 3,4,5
+ *                   (default 0)
+ *   @param[out] TimeDep  Function pointer to a function that returns a double given a single parameter (the time).
+ *                   Defaults to a NULL pointer.
+ *
+ */
+void
+BatteryResidEval::reportCathodeVoltageBC(double time, int &BC_Type, double &value, BoundaryCondition * &BC_TimeDep,
+					 TimeDepFunctionPtr &TimeDep) const {
     VarType v1(Voltage, 2, "CathodeVoltage");
 
     DomainLayout &DL = *DL_ptr_;
@@ -1365,9 +1455,8 @@ BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
     if (num != 1) {
       throw m1d_Error("", "");
     }
-  }
-
-  //====================================================================================================================
+}
+//================================================================================================================================
   void
   BatteryResidEval::changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep,
 					   TimeDepFunctionPtr TimeDep) {
@@ -1384,7 +1473,7 @@ BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
       throw m1d_Error("", "");
     }
   }
-  //====================================================================================================================
+  //================================================================================================================================
   double
   BatteryResidEval::reportCathodeVoltage() const {
     DomainLayout &DL = *DL_ptr_;

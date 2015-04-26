@@ -329,6 +329,9 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      *  Set up the electrode object at each cell
      */
     instantiateElectrodeCells();
+
+     //int neSolid = Electrode_Cell_[0]->nElements();
+     //elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
 }
 //====================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
@@ -574,6 +577,14 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
          */
         Electrode* ee = Electrode_Cell_[iCell];
         ee->resetStartingCondition(t);
+	/*
+	 *  Store the Amount of Li element in each cell, for later use by conservation
+	 *  checking routines
+	 */
+	size_t neSolid = ee->nElements();
+        for (size_t elem = 0; elem < neSolid; ++elem) {
+            elem_Solid_Old_Cell_(elem,iCell) = ee->elementSolidMoles("Li");
+        }
 
         ee->updateState();
 
@@ -1847,12 +1858,14 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 
 	// Add in the electrode contribution
 #ifdef DELTASHEAT_ZERO
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] = 
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell] = 0.0;
         electrodeHeat_Cell_curr_[iCell] =  overPotentialHeat_Cell_curr_[iCell];
 #else
         electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / crossSectionalArea_;
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] = 
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell] = 
 	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
 #endif
@@ -1905,10 +1918,11 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 
     std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_Lyte_New;
     std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
+    std::vector<double>& elem_Solid_New = dValsB_ptr->elem_Solid_New;
+    std::vector<double>& elem_Solid_Old = dValsB_ptr->elem_Solid_Old;
 
     std::vector<double> icurrCBL_Cell(NumLcCells, 0.0);
     std::vector<double> icurrCBR_Cell(NumLcCells, 0.0);
-
 
     std::vector<double> convRight(nsp_, 0.0);
     std::vector<double> convLeft(nsp_, 0.0);
@@ -1962,6 +1976,7 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 	    double icurrCBL = 0.0;
 	    double icurrCBR = 0.0;
+	    Electrode* Electrode_ptr = Electrode_Cell_[iCell];
 
 	    /*
 	     *  ---------------- Get the index for the center node ---------------------------------
@@ -2083,10 +2098,14 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    
 		elemLi_Lyte_New[k] += elem_Lyte_New_Cell(k, iCell);
 		elemLi_Lyte_Old[k] += elem_Lyte_Old_Cell(k, iCell);
-
-	
-       
 	    }
+	    //const std::vector<double>& species_ElectrodeMoles_new = Electrode_ptr->getMoleNumSpecies();
+            double eLiMoles = Electrode_ptr->elementSolidMoles("Li");
+            // printf(" 0 = %g\n", species_ElectrodeMoles_new[0]);
+            //printf(" eLi = %g\n", eLiMoles );
+            elem_Solid_New[iLip_] += eLiMoles;
+            int eIndex = Electrode_ptr->elementIndex("Li");
+            elem_Solid_Old[iLip_] += elem_Solid_Old_Cell_(eIndex, iCell);
 
 
 	    for (size_t k = 0; k < (size_t) nsp_; k++) {
@@ -2287,7 +2306,7 @@ porousLiIon_Anode_dom1D::calcElectrode()
 
     return numSubcycles;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  Setup shop at a particular point in the domain, calculating intermediate quantites
 //  and updating Cantera's objects
 /*
@@ -2304,7 +2323,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doubl
     updateElectrolyte(nv, solnElectrolyte_Curr);
     updateElectrode();
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Anode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
 					       const doublereal* const solnElectrolyte_Curr)
@@ -2320,7 +2339,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
 //  and updating Cantera's objects
 /*

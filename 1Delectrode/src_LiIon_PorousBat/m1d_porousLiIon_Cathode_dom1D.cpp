@@ -317,6 +317,9 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     instantiateElectrodeCells();
 
+     //int neSolid = Electrode_Cell_[0]->nElements();
+     //elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
+
 }
 //=================================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
@@ -2068,8 +2071,6 @@ porousLiIon_Cathode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 
     Cantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
     Cantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
-    Cantera::Array2D elem_Solid_New_Cell(nsp_, NumLcCells, 0.0);
-    Cantera::Array2D elem_Solid_Old_Cell(nsp_, NumLcCells, 0.0);
 
     std::vector<double>& elem_Lyte_New = dValsB_ptr->elem_Lyte_New;
     std::vector<double>& elem_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
@@ -2078,7 +2079,6 @@ porousLiIon_Cathode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 
     std::vector<double> icurrCBL_Cell(NumLcCells, 0.0);
     std::vector<double> icurrCBR_Cell(NumLcCells, 0.0);
-
 
     std::vector<double> convRight(nsp_, 0.0);
     std::vector<double> convLeft(nsp_, 0.0);

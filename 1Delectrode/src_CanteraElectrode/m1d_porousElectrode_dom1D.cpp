@@ -107,8 +107,10 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     nEnthalpy_Electrode_New_Cell_.resize(NumLcCells, 0.0);
     nEnthalpy_Electrode_Old_Cell_.resize(NumLcCells, 0.0);
     EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
-
-    int neSolid = Electrode_Cell_[0]->nElements();
+ 
+    BDD_porousElectrode* bdde = static_cast<BDD_porousElectrode*>(&BDD_);
+    Electrode*ee = bdde->Electrode_;
+    int neSolid = ee->nElements();
     elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
 }
 //====================================================================================================================
