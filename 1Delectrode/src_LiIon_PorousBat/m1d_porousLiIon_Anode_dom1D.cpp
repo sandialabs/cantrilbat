@@ -333,7 +333,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      //int neSolid = Electrode_Cell_[0]->nElements();
      //elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
 /*
  * Create electrode objects for every cell.
@@ -518,7 +518,7 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
         Electrode_Cell_[iCell] = ee;
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Function that gets called at end the start of every time step
 /*
  *  This function provides a hook for a residual that gets called whenever a
@@ -615,7 +615,7 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
     }
 }
 
-//====================================================================================================================
+//==================================================================================================================================
 // Revert the Residual object's conditions to the conditions at the start of the global time step
 /*
  *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init_init.
@@ -635,7 +635,7 @@ porousLiIon_Anode_dom1D::revertToInitialGlobalTime()
 }
 
 
-//=====================================================================================================================
+//==================================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
  *  This class is used just for volumetric domains with an electrolyte.
@@ -1366,7 +1366,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	}
 	//
-	//  Section to find the Axial velocity at the right domain boundary
+	//  Section to find the residual contributions and the
+	//       Axial velocity at the right domain boundary
 	//
 	if (residType == Base_ShowSolution) {
 	    if (IOwnRight) {
@@ -1398,6 +1399,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
 			  TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
 			  -  Fright_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
+		    }
+		    if  (energyEquationProbType_ == 3) {
+			double resLocal_Enth = (fluxTright - fluxTleft);
+			resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+			resLocal_Enth += (fluxR_JHelec - fluxL_JHelec);
+			resLocal_Enth += (enthConvRight - enthConvLeft);
+			resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+			DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
 		    }
 		}
 	    }
