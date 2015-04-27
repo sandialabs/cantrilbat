@@ -109,11 +109,11 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separ
 {
     porousLiIon_Separator_dom1D::operator=(r);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Separator_dom1D::~porousLiIon_Separator_dom1D()
 {
 }
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Separator_dom1D&
 porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
 {
@@ -157,7 +157,7 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
 
     return *this;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Prepare all of the indices for fast calculation of the residual
 /*
  *  Ok, at this point, we will have figured out the number of equations
@@ -234,7 +234,7 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     trans_->setVelocityBasis(ivb_);
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Function that gets called at end the start of every time step
 /*
  *  This function provides a hook for a residual that gets called whenever a
@@ -307,7 +307,7 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
  *  This class is used just for volumetric domains with an electrolyte.
@@ -750,8 +750,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          *   Current conservation equation
          */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] += (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
-
+        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] +=
+	  (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
 	/*
 	 *  Energy Equation
 	 */
@@ -838,7 +838,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    // oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
             double oldStuffSpecies0 = mfElectrolyte_Soln_Curr_[iLip_] * oldStuffTC;
 
-	    //AssertTrace(mf_old[iLip_] ==  mfElectrolyte_Soln_Curr_[iLip_]);  (HKM Note, this uncovered a print error in time stepper reentry
+	    //AssertTrace(mf_old[iLip_] ==  mfElectrolyte_Soln_Curr_[iLip_]); 
+	    //(HKM Note, this uncovered a print error in time stepper reentry
 	    //if (mf_old[iLip_] !=  mfElectrolyte_Soln_Curr_[iLip_]) {
 	    //printf("We are here\n");
 	    // }
@@ -948,6 +949,13 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 			  TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
 			  -  Fleft_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
 		    }
+		    if  (energyEquationProbType_ == 3) {
+			double resLocal_Enth = (fluxTright - fluxTleft);
+			resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+			resLocal_Enth += (enthConvRight - enthConvLeft);
+			resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+			DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
+		    }
 		}
 	    }
 	    //
@@ -987,22 +995,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 		    }
 
 		    if  (energyEquationProbType_ == 3) {
-			enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
-			
-			for (size_t k = 0; k < (size_t) nsp_; k++) {
-			    jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
-			}
-			jFlux_EnthalpyPhi_Curr_ = 0.0;
-			for (size_t k = 0; k < (size_t) nsp_; ++k) {
-			    jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
-			}
-			fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
-			double res_Enth = (fluxTright - fluxTleft);
-			res_Enth += (fluxR_JHPhi - fluxL_JHPhi);
-			res_Enth += (enthConvRight - enthConvLeft);
-			res_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-			fluxTright = - res_Enth;
-			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = fluxTright;
+			double resLocal_Enth = (fluxTright - fluxTleft);
+			resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+			resLocal_Enth += (enthConvRight - enthConvLeft);
+			resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+			DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
 		    }
 		}
 	    }
@@ -1291,21 +1288,35 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
  
     int doPrint = 1;
     int doTimes = 2;
-  
+    int nColsTable = 173;
+
+    //
+    // Find the pointer for the left Anode
+    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    BulkDomainDescription *leftDD = leftS->LeftBulk;
+    BulkDomain1D *leftD_anode = leftDD->BulkDomainPtr_;
+    //
+    // Find the pointer for the left Cathode
+    SurfDomainDescription *rightS = BDD_.RightSurf;
+    BulkDomainDescription *rightDD = rightS->RightBulk;
+    BulkDomain1D *rightD_cathode = rightDD->BulkDomainPtr_;
+
     double phiIcurrL = 0.0;
     double phiIcurrR = 0.0;
     double moleFluxLeft = 0.0;
     double moleFluxRight = 0.0;
+    double residAdd = 0.0;
 
-    
+ 
     for (int itimes = 0; itimes < doTimes; itimes++) {
 	if (doPrint) {
+	    drawline(1, nColsTable);
 	    if (itimes == 0) {
 		printf("Cell|   NewnEnth       OldnEnth        deltanEnth | ");
 		printf("    fluxTLeft     FluxTRight | ");
 		printf("    fluxL_JHPhi  fluxR_JHPhi | ");
 		printf("  enthConvLeft enthConvRight | ");
-		printf("   Residual ");
+		printf("    Resid_Add     Residual  |");
 		printf("\n");
 	    }
 	    if (itimes == 1) {
@@ -1374,8 +1385,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	    /*
 	     * Calculate the cell width
 	     */
-      
-
+	    //double xdelCell = cTmps.xdelCell_;
 	    /*
 	     * ------------------------ Get the indexes for the right node ------------------------------------
 	     */
@@ -1402,7 +1412,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
 
 		Fleft_cc_ =soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
-		double moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
 
 		/*
@@ -1432,6 +1442,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		Fleft_cc_ = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
 
+		fluxTleft = 0.0;
 		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
 
 		for (int k = 0; k < nsp_; k++) {
@@ -1441,12 +1452,11 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		for (size_t k = 0; k < (size_t) nsp_; ++k) {
 		    jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
 		}
-		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		//fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		fluxL_JHPhi = 0.0;
 
-
-		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
-		
-
+		//enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
+		enthConvLeft = 0.0;
 	    }
 
 	    if (nodeRight != 0) {
@@ -1466,7 +1476,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		fluxTright = heatFlux_Curr_;
 		fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
 		Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
-		double moleFluxRight = Fright_cc_ * concTot_Curr_;
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
 		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
 
 		/*
@@ -1496,7 +1506,8 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		moleFluxRight = Fright_cc_ * concTot_Curr_;
 
 		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
-		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+		//enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+		enthConvRight = 0.0;
 		for (int k = 0; k < nsp_; k++) {
 		    jFlux_trCurr_[k] = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k];
 		}
@@ -1504,25 +1515,39 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		for (size_t k = 0; k < (size_t) nsp_; ++k) {
 		    jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
 		}
-		fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		// fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		fluxR_JHPhi = 0.0;
 
-		fluxTright = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		//fluxTright = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		fluxTright = 0.0;
 	    }
 
 	
 	    if (doPrint) {
 		if (itimes == 0) {
-		resid = 0.0;
-		double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
-		resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
-		resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
-		printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
-		       nEnthalpy_Old_Cell_[iCell], deltanEnth);
-		printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,  deltaT *fluxTright);
-		printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
-		printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft,  deltaT *enthConvRight);
-		printf("   %12.5E", resid);
-		printf("  \n");
+		    resid = 0.0;
+		    double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
+		    resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
+		    resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
+
+		    residAdd = 0.0;
+		    if (iCell == 0) {
+			residAdd = deltaT * 
+			  leftD_anode->DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		    }
+		    if (iCell == NumLcCells - 1) {
+			residAdd = deltaT *
+			  rightD_cathode->DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		    }
+		    resid += residAdd;
+
+		    printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
+			   nEnthalpy_Old_Cell_[iCell], deltanEnth);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,  deltaT *fluxTright);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft,  deltaT *enthConvRight);
+		    printf("  % 12.5E  % 12.5E |", residAdd, resid);
+		    printf("  \n");
 		}
 		if (itimes == 1) {
 		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 
@@ -1533,6 +1558,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		}
 	    }
 
+
 	    dValsB_ptr->jouleHeat_lyte = jouleHeat_lyte_total;
 	    dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
 	    //
@@ -1541,6 +1567,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	    dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
 	    dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
 	}
+	drawline(1, nColsTable);
     }
 }
 //==================================================================================================================================
@@ -1969,7 +1996,7 @@ porousLiIon_Separator_dom1D::getCellHeatCapacity(const NodalVars* const nv, cons
     double cptotal = CpMolar_lyte_Cell_[cIndex_cc_] + CpMolar_solid_Cell_[cIndex_cc_];
     return cptotal;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
 {
@@ -2227,7 +2254,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
     fclose(ofp);
   }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Base class for writing the solution on the domain to a logfile.
 /*
  *
@@ -2470,7 +2497,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Generate the initial conditions
 /*
  *   The basic algorithm is to loop over the volume domains.
@@ -2664,7 +2691,7 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  Fill the vector atolVector with the values from the DomainDescription for abs tol
 /*
  *  @param atoldDefault default value
@@ -2731,7 +2758,7 @@ void porousLiIon_Separator_dom1D::setAtolVector_DAEInit(double atolDefault, cons
         }
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff,
                                                  const Epetra_Vector_Ghosted& soln,
@@ -2788,7 +2815,7 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relc
         }
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff,
                                                          const Epetra_Vector_Ghosted& soln,
@@ -2846,14 +2873,14 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, dou
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::err(const char* msg)
 {
     printf("porousLiIon_Separator_dom1D: function not implemented: %s\n", msg);
     exit(-1);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 /*
  * Method to check for precipitation of the salts.
  * Returns index of offending cation or -1 if no precipitation
@@ -2866,7 +2893,7 @@ porousLiIon_Separator_dom1D::checkPrecipitation()
     return -1;
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  WARNING -> will fail for multiprocessors, becauase the accumulation of information within eval_PostProc will fail.
 double porousLiIon_Separator_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, 
                                                        double &voltOCV, double &current)
@@ -2886,8 +2913,8 @@ double porousLiIon_Separator_dom1D::effResistanceLayer(double &potAnodic, double
     }
     return resistance;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 }
-//=====================================================================================================================
+//==================================================================================================================================
 
 

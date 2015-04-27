@@ -336,4 +336,4 @@ Cathode Collector Temperature = 298.
 Cathode Heat Transfer Coefficient = 1000.
 !---------------------------------------------------------------------------------------------------------
 !
-Maximum Number of Time Steps = 200
+Maximum Number of Time Steps = 75
