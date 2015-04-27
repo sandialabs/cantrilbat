@@ -1682,19 +1682,22 @@ porousLiIon_Anode_dom1D::eval_PostSoln(
 	}
 	// Add in the electrode contribution
 #ifdef DELTASHEAT_ZERO
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] =
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
         deltaSHeat_Cell_curr_[iCell] = 0.0;
         electrodeHeat_Cell_curr_[iCell] =  overPotentialHeat_Cell_curr_[iCell];
 #else
         electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / crossSectionalArea_;
-        overPotentialHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
-        deltaSHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
+        overPotentialHeat_Cell_curr_[iCell] = 
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
+        deltaSHeat_Cell_curr_[iCell] = 
+	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
 #endif
         qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
         qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //
 //  Calculate Various quantities after the solution has been obtained
 //
@@ -1714,172 +1717,225 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
+    int doPrint = 1;
+    int doTimes = 2;
+    int nColsTable = 173;
+    //
+    // Find the pointer for the left Cathode
+    //
+    SurfDomainDescription *rightS = BDD_.RightSurf;
+    BulkDomainDescription *rightDD = rightS->RightBulk;
+    BulkDomain1D *rightD_sep = rightDD->BulkDomainPtr_;
 
-   
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
-        cIndex_cc_ = iCell;
-
-        cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-        NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-        NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-        NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
-
-	qSource_Cell_curr_[iCell] = 0.0;
-
-	Electrode* Electrode_ptr = Electrode_Cell_[iCell];
-	/*
-         *  ---------------- Get the index for the center node ---------------------------------
-         *   Get the pointer to the NodalVars object for the center node
-	 *   Index of the first equation in the bulk domain of center node
-         */
-	nodeCent = cTmps.nvCent_;
-	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	for (int k = 0; k < nsp_; k++) {
-            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
-        }
-        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
-        // HKM fix up - technically correct
-        VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
-
-        if (iCell == 0) {
-            potentialAnodic_ = VElectrodeCent_cc_;
-        }
-        if (iCell == NumLcCells-1) {
-            potentialCathodic_ = Vcent_cc_;
-        }
-
-        /*
-         *  ------------------- Get the index for the left node -----------------------------
-         *    There may not be a left node if we are on the left boundary. In that case
-         *    set the pointer to zero and the index to -1.
-	 *    The solution index is set to the center solution index in that case as well.
-         */
-	nodeLeft = cTmps.nvLeft_;
-	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-        for (int k = 0; k < nsp_; k++) {
-            Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
-        }
-        Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
-        VElectrodeLeft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage + 1];
-
-        /*
-         * If we are past the first cell, then we have already done the calculation
-         * for this flux at the right cell edge of the previous cell
-         */
-    
-	xdelL = cTmps.xdelL_;
-        /*
-         * Calculate the distance between the right and center node points
-         */
-        xdelR = cTmps.xdelR_;
-   
-
-        /*
-         * ------------------------ Get the indexes for the right node ------------------------------------
-         */
-	nodeRight = cTmps.nvRight_;
-	indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
-	for (int k = 0; k < nsp_; k++) {
-            Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
-        }
-        Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
-        VElectrodeRight_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage + 1];
-
-
-	if (nodeLeft != 0) {
-	    /*
-	     *  Establish the environment at the left cell boundary
-	     */
-	    SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart]), nodeCent, &(soln[indexCent_EqnStart]), 0);
-	    
-	    SetupTranShop(xdelL, 0);
-	    /*
-	     * Calculate the flux at the left boundary for each equation
-	     */
-	    gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdelL;
-
-	    /*
-	     * Calculate the flux of species and the flux of charge
-	     *   - the flux of charge must agree with the flux of species
-	     */
-	    icurrElectrolyte_CBL_[iCell] = 0.0;
-	    for (int k = 0; k < nsp_; k++) {
-		icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
+    double phiIcurrL = 0.0;
+    double phiIcurrR = 0.0;
+    double moleFluxLeft = 0.0;
+    double moleFluxRight = 0.0;
+    for (int itimes = 0; itimes < doTimes; itimes++) {
+	if (doPrint) {
+	    drawline(1, nColsTable);
+	    if (itimes == 0) {
+		printf("Cell|   NewnEnth       OldnEnth        deltanEnth | ");
+		printf("    fluxTLeft     FluxTRight | ");
+		printf("    fluxL_JHPhi  fluxR_JHPhi | ");
+		printf("  enthConvLeft enthConvRight | ");
+		printf("    Resid_Add     Residual  |");
+		printf("\n");
 	    }
-	    icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
-	    icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
-	    /*
-             *  Joule heating term in electrolyte
-             */
-            qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
-            jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBL_[iCell] * xdelL * 0.5 * deltaT;
-            /*
-             *  Joule heating term in electrode
-             */
-            qSource_Cell_curr_[iCell]        += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
-            jouleHeat_solid_Cell_curr_[iCell]+= - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelL * 0.5 * deltaT;
+	    if (itimes == 1) {
+		printf("\n\n                Analysys of Source Terms \n");
+		printf("                JOULE HEATING|    DeldotPhiI \n");
+		printf("Cell| ");
+		printf("    sourceTerm   Deldot(Jk hk) |   DelDot(PhiIcurr) ");
+		printf("\n");
+	    }
 	}
+	double fluxTright = 0.0, fluxTleft = 0.0, fluxR_JHPhi = 0.0, fluxL_JHPhi = 0.0, enthConvRight = 0.0,
+	  enthConvLeft = 0.0, resid, residAdd = 0.0;
+	double fluxL_JHelec = 0.0, fluxR_JHelec = 0.0;
+	dVals.oldNEnthalpy = 0.0;
+	dVals.newNEnthalpy = 0.0;
+	dVals.totalHeatCapacity = 0.0;
+	for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	    cIndex_cc_ = iCell;
 
-	if (nodeRight != 0) {
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+	    Electrode* Electrode_ptr = Electrode_Cell_[iCell];
 	    /*
-             *  Establish the environment at the right cell boundary
-             */
-            SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
+	     *  ---------------- Get the index for the center node ---------------------------------
+	     *   Get the pointer to the NodalVars object for the center node
+	     *   Index of the first equation in the bulk domain of center node
+	     */
+	    nodeCent = cTmps.nvCent_;
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    for (int k = 0; k < nsp_; k++) {
+		Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+	    }
+	    Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+	    // HKM fix up - technically correct
+	    VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
 
-            SetupTranShop(xdelR, 1);
+	    if (iCell == 0) {
+		potentialAnodic_ = VElectrodeCent_cc_;
+	    }
+	    if (iCell == NumLcCells-1) {
+		potentialCathodic_ = Vcent_cc_;
+	    }
 
-            /*
-             * Calculate the flux at the right boundary for each equation
-             * This is equal to
-             *       Conc * Vaxial * phi
-             */
-	    gradV_trCurr_ = (Vright_cc_ - Vcent_cc_) / xdelR;
-
-            /*
-             * Calculate the flux of species and the flux of charge
-             *   - the flux of charge must agree with the flux of species
-             */
-            icurrElectrolyte_CBR_[iCell] = 0.0;
-            for (int k = 0; k < nsp_; k++) {
-                icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
-            }
-            icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
 	    /*
-             *  Joule heating term in electrolyte
-             */
-            qSource_Cell_curr_[iCell]       += - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-            jouleHeat_lyte_Cell_curr_[iCell]+= - gradV_trCurr_ * icurrElectrolyte_CBR_[iCell] * xdelR * 0.5 * deltaT;
-            /*
-             *  Joule heating term in electrode
-             */
-            qSource_Cell_curr_[iCell        ]  += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;
-            jouleHeat_solid_Cell_curr_[iCell ] += - gradVElectrode_trCurr_ * icurrElectrode_trCurr_ * xdelR * 0.5 * deltaT;    
+	     *  ------------------- Get the index for the left node -----------------------------
+	     *    There may not be a left node if we are on the left boundary. In that case
+	     *    set the pointer to zero and the index to -1.
+	     *    The solution index is set to the center solution index in that case as well.
+	     */
+	    nodeLeft = cTmps.nvLeft_;
+	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	    for (int k = 0; k < nsp_; k++) {
+		Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
+	    }
+	    Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
+	    VElectrodeLeft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage + 1];
+
+	    /*
+	     * If we are past the first cell, then we have already done the calculation
+	     * for this flux at the right cell edge of the previous cell
+	     */
+    
+	    xdelL = cTmps.xdelL_;
+	    /*
+	     * Calculate the distance between the right and center node points
+	     */
+	    xdelR = cTmps.xdelR_;
+   
+
+	    /*
+	     * ------------------------ Get the indexes for the right node ------------------------------------
+	     */
+	    nodeRight = cTmps.nvRight_;
+	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	    for (int k = 0; k < nsp_; k++) {
+		Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
+	    }
+	    Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
+	    VElectrodeRight_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage + 1];
 
 
+	    if (nodeLeft != 0) {
+		/*
+		 *  Establish the environment at the left cell boundary
+		 */
+		SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart]), nodeCent, &(soln[indexCent_EqnStart]), 0);
+	    
+		SetupTranShop(xdelL, 0);
+		/*
+		 * Calculate the flux at the left boundary for each equation
+		 */
+		gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdelL;
+		fluxTleft = heatFlux_Curr_;
+		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+
+		Fleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
+
+		/*
+		 * Calculate the flux of species and the flux of charge
+		 *   - the flux of charge must agree with the flux of species
+		 */
+		icurrElectrolyte_CBL_[iCell] = 0.0;
+		for (int k = 0; k < nsp_; k++) {
+		    icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
+		}
+		icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+		icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
+	    } else {
+		//
+		//  Setup shop at the left node
+		//
+		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+		fluxTleft = 0.0;
+		fluxL_JHelec = 0.0;
+		fluxL_JHPhi = 0.0;
+	    }
+
+	    if (nodeRight != 0) {
+		/*
+		 *  Establish the environment at the right cell boundary
+		 */
+		SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
+
+		SetupTranShop(xdelR, 1);
+
+		/*
+		 * Calculate the flux at the right boundary for each equation
+		 * This is equal to
+		 *       Conc * Vaxial * phi
+		 */
+		gradV_trCurr_ = (Vright_cc_ - Vcent_cc_) / xdelR;
+		fluxTright = heatFlux_Curr_;
+		fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+		Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
+		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+		/*
+		 * Calculate the flux of species and the flux of charge
+		 *   - the flux of charge must agree with the flux of species
+		 */
+		icurrElectrolyte_CBR_[iCell] = 0.0;
+		for (int k = 0; k < nsp_; k++) {
+		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
+		}
+		icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+       
+	    } 
+
+	    if (doPrint) {
+		if (itimes == 0) {
+		    resid = 0.0;
+		    double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
+		    resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
+		    resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
+		    resid += deltaT * (fluxR_JHelec - fluxL_JHelec);
+		    
+		    residAdd = 0.0;
+		    if (iCell == NumLcCells - 1) {
+			residAdd = deltaT *
+			  rightD_sep->DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		    }
+		    resid += residAdd;
+		    
+		    printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
+			   nEnthalpy_Old_Cell_[iCell], deltanEnth);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,    deltaT *fluxTright);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHelec, deltaT *fluxR_JHelec);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft, deltaT *enthConvRight);
+		    printf("  % 12.5E  % 12.5E |", residAdd, resid);
+		    printf("  \n");
+		}
+		if (itimes == 1) {
+		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 
+			   (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
+		    
+		    printf(" % 12.6E  ", (phiIcurrL - phiIcurrR) * deltaT);
+		    printf("\n");
+		}
+	    }
+	    dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
+	    //
+	    //  Count up the total old and new cell enthalpies
+	    //
+	    dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
+	    dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
 	}
-
-	dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
-	//
-	//  Count up the total old and new cell enthalpies
-	//
-	dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
-	dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
-
-	// Add in the electrode contribution
-#ifdef DELTASHEAT_ZERO
-        overPotentialHeat_Cell_curr_[iCell] = 
-	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
-        deltaSHeat_Cell_curr_[iCell] = 0.0;
-        electrodeHeat_Cell_curr_[iCell] =  overPotentialHeat_Cell_curr_[iCell];
-#else
-        electrodeHeat_Cell_curr_[iCell] = Electrode_ptr->getIntegratedThermalEnergySourceTerm() / crossSectionalArea_;
-        overPotentialHeat_Cell_curr_[iCell] = 
-	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_overpotential() / crossSectionalArea_;
-        deltaSHeat_Cell_curr_[iCell] = 
-	  Electrode_ptr->getIntegratedThermalEnergySourceTerm_reversibleEntropy() / crossSectionalArea_;
-#endif
-        qSource_Cell_curr_[iCell] += electrodeHeat_Cell_curr_[iCell];
-        qSource_Cell_accumul_[iCell] += qSource_Cell_curr_[iCell];
     }
 }
 //==================================================================================================================================
