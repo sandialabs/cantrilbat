@@ -180,9 +180,10 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
      *  Loop over the equations that the boundary conditions are going to be applied to
      *    -> This takes care of the current surface domain equation
      */
+    double res_contrib = 0.0;
     for (int i = 0; i < NumNodeEqns; i++) {
         if (SpecFlag_NE[i]) {
-
+	    res_contrib = 0.0;
             ieqn = index_EqnStart + i;
             double solnVal = soln[ieqn];
             double val = Value_NE[i];
@@ -191,26 +192,30 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                 /*
                  *  For Dirichlet equations, replace the equation
                  */
-                res[ieqn] = val - solnVal;
+                res_contrib = val - solnVal;
+                res[ieqn] = res_contrib;
                 break;
             case 1:
                 /*
                  *  For flux boundary conditions, subtract from equation indicating a flux out
                  */
-                res[ieqn] -= val;
+		res_contrib = -val;
+                res[ieqn] += res_contrib;
                 // CAL: WARNING m1d_SurDomain_CathodeCollector.cpp has += val
                 break;
             case 2:
                 /*
                  *  For Dirichlet boundary conditions with oscillation, replace the equation
                  */
-                res[ieqn] = val * TimeDep_NE[i](t) - solnVal;
+		res_contrib =  val * TimeDep_NE[i](t) - solnVal;
+                res[ieqn] = res_contrib;
                 break;
             case 3:
                 /*
                  *  For flux boundary conditions with oscillation, replace the equation
                  */
-                res[ieqn] += val * TimeDep_NE[i](t);
+		res_contrib = val * TimeDep_NE[i](t);
+                res[ieqn] += res_contrib;
                 break;
             case 4: // voltage BCconstant
             case 6: // voltage BCsteptable
@@ -218,7 +223,8 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                 /*
                  *  For time dependent Dirichlet boundary condition using BoundaryCondition class
                  */
-                res[ieqn] = BC_TimeDep_NE[i]->value(t) - solnVal;
+                res_contrib = BC_TimeDep_NE[i]->value(t) - solnVal;
+                res[ieqn] = res_contrib;
                 break;
             case 5: // current BCconstant
             case 7: // current BCsteptable
@@ -226,7 +232,8 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                 /*
                  *  For time dependent flux boundary condition using BoundaryCondition class
                  */
-                res[ieqn] += BC_TimeDep_NE[i]->value(t);
+		res_contrib = BC_TimeDep_NE[i]->value(t);
+                res[ieqn] += res_contrib;
                 break;
 
             case 10: // Anode collector plate at constant voltage
@@ -252,13 +259,17 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                 *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
                 *
                 */
-                res[ieqn] += BC_TimeDep_NE[i]->valueAtTime(t, solnVal);
+		res_contrib = BC_TimeDep_NE[i]->valueAtTime(t, solnVal);
+                res[ieqn] += res_contrib;
                 break;
 
             default:
                 throw m1d_Error("SurDomain_AnodeCollector::residEval",
                                 "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
             }
+	    if (residType == Base_ShowSolution) { 
+		DomainResidVector_LastResid_NE[ieqn] = res_contrib;
+	    }
         }
     }
 #ifdef DEBUG_HKM

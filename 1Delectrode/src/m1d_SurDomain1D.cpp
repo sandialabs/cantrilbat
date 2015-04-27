@@ -119,6 +119,8 @@ SurDomain1D::operator=(const SurDomain1D &r)
     TotalFluxRightBulkDomain_LastResid_NE = r.TotalFluxRightBulkDomain_LastResid_NE;
     VarVectorLeftBulkDomain_LastResid_NE = r.VarVectorLeftBulkDomain_LastResid_NE;
     VarVectorRightBulkDomain_LastResid_NE = r.VarVectorRightBulkDomain_LastResid_NE;
+    DomainResidVector_LastResid_NE = r.DomainResidVector_LastResid_NE;
+
 
     return *this;
 }
@@ -227,6 +229,7 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
 	//  Resize based on number of equations
 	//
 	Resid_BeforeSurDomain_NE.resize(NumNodeEqns, 0.0);
+        DomainResidVector_LastResid_NE.resize(NumNodeEqns, 0.0);
 
     }
 

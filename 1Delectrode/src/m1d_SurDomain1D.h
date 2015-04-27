@@ -567,6 +567,9 @@ public:
    */
   std::vector<double> Resid_BeforeSurDomain_NE;
 
+
+  std::vector<double> DomainResidVector_LastResid_NE;
+
 private:
 
   //! Call an error exit condition
