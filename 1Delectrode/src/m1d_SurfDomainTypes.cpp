@@ -176,7 +176,8 @@ SDT_Dirichlet::SetEquationDescription()
 SurDomain1D *
 SDT_Dirichlet::mallocDomain1D()
 {
-  return new SurBC_Dirichlet(*this);
+  SurDomain1DPtr_ = new SurBC_Dirichlet(*this);
+  return SurDomain1DPtr_;
 }
 //=====================================================================================================================
 //=====================================================================================================================
@@ -294,7 +295,8 @@ SDT_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCon
 SurDomain1D *
 SDT_Mixed::mallocDomain1D()
 {
-  return new SurBC_Dirichlet(*this);
+  SurDomain1DPtr_ = new SurBC_Dirichlet(*this);
+  return SurDomain1DPtr_;
 }
 //=====================================================================================================================
 

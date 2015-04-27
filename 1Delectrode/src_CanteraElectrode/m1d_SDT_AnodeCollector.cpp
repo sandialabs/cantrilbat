@@ -167,6 +167,7 @@ SurDomain1D *
 SDT_AnodeCollector::mallocDomain1D()
 {
   SurDomain_AnodeCollector * s1d = new SurDomain_AnodeCollector(*this, 1);
+  SurDomain1DPtr_ = s1d;
   return s1d;
 }
 

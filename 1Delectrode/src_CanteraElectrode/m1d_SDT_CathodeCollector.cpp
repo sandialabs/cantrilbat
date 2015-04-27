@@ -200,6 +200,7 @@ SurDomain1D *
 SDT_CathodeCollector::mallocDomain1D()
 {
   SurDomain_CathodeCollector * s1d = new SurDomain_CathodeCollector(*this, 1);
+  SurDomain1DPtr_ = s1d;
   return s1d;
 }
 

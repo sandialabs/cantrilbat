@@ -20,7 +20,8 @@ namespace m1d
 {
 //=====================================================================================================================
   SurfDomainDescription::SurfDomainDescription(DomainLayout *dl_ptr, std::string domainName) :
-    DomainDescription(dl_ptr,domainName), IDSurfDomain(-1), LocGbNode(-1), LeftDomain(0), LeftBulk(0), RightDomain(0), RightBulk(0)
+    DomainDescription(dl_ptr,domainName), IDSurfDomain(-1), LocGbNode(-1), LeftDomain(0), LeftBulk(0), RightDomain(0), RightBulk(0),
+    SurDomain1DPtr_(0)
 {
 
 
@@ -32,7 +33,8 @@ SurfDomainDescription::~SurfDomainDescription()
 //=====================================================================================================================
 SurfDomainDescription::SurfDomainDescription(const SurfDomainDescription &r) :
   DomainDescription(r.DL_ptr_), IDSurfDomain(-1), LocGbNode(-1), LeftDomain(0), LeftBulk(0), RightDomain(0),
-      RightBulk(0)
+      RightBulk(0),
+      SurDomain1DPtr_(0)
 {
   *this = r;
 }
@@ -52,6 +54,7 @@ SurfDomainDescription::operator=(const SurfDomainDescription &r)
   LeftBulk = r.LeftBulk;
   RightDomain = r.RightDomain;
   RightBulk = r.RightBulk;
+  SurDomain1DPtr_ = r.SurDomain1DPtr_;
 
   return *this;
 }
@@ -225,7 +228,8 @@ SurDomain1D *
 SurfDomainDescription::mallocDomain1D()
 {
   throw m1d_Error("SurfDomainDescription::mallocDomain1D()", "base class called");
-  return (SurDomain1D *) 0;
+  SurDomain1DPtr_ = 0;
+  return SurDomain1DPtr_;
 }
 //=====================================================================================================================
 // Sets the mapping between right and left domains to either

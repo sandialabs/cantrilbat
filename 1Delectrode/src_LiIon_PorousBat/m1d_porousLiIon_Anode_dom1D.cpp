@@ -17,6 +17,7 @@
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_SurfDomainDescription.h"
+#include "m1d_SurDomain1D.h"
 
 #include "Electrode.h"
 #include "Electrode_Factory.h"
@@ -960,15 +961,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                 for (int k = 0; k < nsp_; k++) {
                     fluxXleft[k] = 0.0;
                 }
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
 		//
 		// Calculate the current at the boundary that is conservative.
-		//   This is really  icurrElectrolyte_CBR_[iCell]. However, we leave that 0 because of the
+		//   This is really  icurrElectrode_CBL_[iCell]. However, we leave that 0 because of the
 		//   need to impose boundary conditions.
 		//
-		//icurrElectrode_LBcons = -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
-		//jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_RBcons / Faraday;
-		//jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
-		//fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+		icurrElectrode_LBcons = icurrInterface_Cell_[iCell]  + icurrElectrode_CBR_[iCell];
+		jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_LBcons / Faraday;
+		jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
+		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
             } else {
 
                 /*
@@ -1720,12 +1722,16 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
     int doPrint = 1;
     int doTimes = 2;
     int nColsTable = 173;
+    double 	icurrElectrode_LBcons;
     //
     // Find the pointer for the left Cathode
     //
     SurfDomainDescription *rightS = BDD_.RightSurf;
     BulkDomainDescription *rightDD = rightS->RightBulk;
     BulkDomain1D *rightD_sep = rightDD->BulkDomainPtr_;
+
+    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    SurDomain1D *leftSD_collector = leftS->SurDomain1DPtr_;
 
     double phiIcurrL = 0.0;
     double phiIcurrR = 0.0;
@@ -1735,11 +1741,15 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 	if (doPrint) {
 	    drawline(1, nColsTable);
 	    if (itimes == 0) {
+		printf("                     ANODE Enthalpy Cell Balance \n\n");
 		printf("Cell|   NewnEnth       OldnEnth        deltanEnth | ");
 		printf("    fluxTLeft     FluxTRight | ");
 		printf("    fluxL_JHPhi  fluxR_JHPhi | ");
+		printf("   fluxL_JHelec fluxR_JHelec | ");
 		printf("  enthConvLeft enthConvRight | ");
+	
 		printf("    Resid_Add     Residual  |");
+		printf("    icurrL_lyte   icurrR_lyte |");
 		printf("\n");
 	    }
 	    if (itimes == 1) {
@@ -1858,11 +1868,22 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		//  Setup shop at the left node
 		//
 		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
 		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
 		fluxTleft = 0.0;
 		fluxL_JHelec = 0.0;
 		fluxL_JHPhi = 0.0;
+		// Calculate the current at the boundary that is conservative.
+		//   This is really  icurrElectrode_CBL_[iCell]. However, we leave that 0 because of the
+		//   need to impose boundary conditions.
+		//
+		icurrElectrode_CBL_[iCell] = icurrInterface_Cell_[iCell]  + icurrElectrode_CBR_[iCell];
+		icurrElectrode_LBcons = icurrInterface_Cell_[iCell]  + icurrElectrode_CBR_[iCell];
+		jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_LBcons / Faraday;
+		jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
+		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+         
 	    }
 
 	    if (nodeRight != 0) {
@@ -1894,7 +1915,11 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
 		}
 		icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
-       
+	    } else {
+		enthConvRight = 0.0;
+		fluxR_JHPhi = 0.0;
+		fluxR_JHelec = 0.0;
+		fluxTright = 0.0;
 	    } 
 
 	    if (doPrint) {
@@ -1906,6 +1931,10 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		    resid += deltaT * (fluxR_JHelec - fluxL_JHelec);
 		    
 		    residAdd = 0.0;
+		    if (iCell == 0) {
+			residAdd = deltaT *
+			  leftSD_collector->DomainResidVector_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		    }
 		    if (iCell == NumLcCells - 1) {
 			residAdd = deltaT *
 			  rightD_sep->DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
@@ -2230,9 +2259,12 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 			printf("  \n");
 		    }
 		}
-		drawline(1, nColsTable);
-		printf("\n");
 	    }
+
+	}
+	if (doPrint) {
+	    drawline(1, nColsTable);
+	    printf("\n");
 	}
     }
 }
@@ -2387,6 +2419,11 @@ porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doubl
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
     updateElectrode();
+
+    metalPhase_->setState_TP(temp_Curr_, pres_Curr_);
+    metalPhase_->setElectricPotential(phiElectrode_Curr_);
+    metalPhase_->getPartialMolarEnthalpies(&EnthalpyPhiPM_metal_Curr_[0]);
+    EnthalpyPhiPM_metal_Curr_[0] -= Faraday * phiElectrode_Curr_;
 }
 //==================================================================================================================================
 void
@@ -2620,6 +2657,11 @@ porousLiIon_Anode_dom1D::SetupTranShop(const double xdel, const int type)
     // Convert from diffusion velocity to diffusion flux
     for (int k = 0; k < nsp_; k++) {
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
+    }
+
+    jFlux_EnthalpyPhi_Curr_ = 0.0;
+    for (size_t k = 0; k < (size_t) nsp_; ++k) {
+        jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
     }
 
     //

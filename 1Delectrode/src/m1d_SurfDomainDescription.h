@@ -182,6 +182,8 @@ public:
 
   //! Right to left mapping of the bulk equations
   std::vector<int> RightToLeftBulkEqnMapping;
+
+  SurDomain1D* SurDomain1DPtr_;
 };
 
 }
