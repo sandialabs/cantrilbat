@@ -1,0 +1,86 @@
+#!/bin/sh
+#
+#
+# $Id: Makefile.in,v 1.3 2011/01/01 02:24:53 hkmoffa Exp $
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = LiIon_PorousBat
+TEST_NAME = CAEBAT_restart_cycle
+
+DATA =  \
+ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml\
+MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml 
+
+
+BLESSED_FILES =accumulatedHeatSource1_blessed.txt accumulatedHeatSource2_blessed.txt accumulatedHeatSource3_blessed.txt \
+ solutionStartEnd1_blessed.xml solutionStartEnd2_blessed.xml solutionStartEnd3_blessed.xml
+
+INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp  LiIon_PorousBat.inp.tmpl runOnce.sh
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+PROGRAM_ORIGIN = ../../src_LiIon_PorousBat/$(PROGRAM)
+
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+all: 
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends:
+	touch .depends
+
+test:
+	@@MAKE@ -s
+	@echo -n 'Checking need to run test $(TEST_NAME): '
+	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
+
+runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES) $(INPUT_FILES)
+	@echo 'RUNNING TEST ' $(TEST_NAME)
+	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ./runtest)
+
+rebaseline:
+	./rebaseline
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+# Clean up temporary files, but don't touch test run results
+clean:
+	$(RM) runInProgress.txt runFinished.txt
+
+# Clean up all output from the test run
+test_clean:
+	$(RM) SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
+	      solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat \
+	      runGood runBad runInProgress.txt runFinished.txt out.txt diff* err* $(PROGRAM)
+
+# Revert directory to its pristine condition
+dist_clean:
+	@MAKE@ test_clean
+

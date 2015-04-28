@@ -1,0 +1,2 @@
+      tinit  ,     tfinal  ,         anode        ,        separator     ,        cathode       ,         total
+  1.00000E-05 ,   1.00000E-01  ,        4.2078892E-02 ,        1.5923655E-06 ,        7.1891993E-01 ,        7.6100041E-01
