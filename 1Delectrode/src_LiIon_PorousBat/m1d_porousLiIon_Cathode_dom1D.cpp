@@ -991,9 +991,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              *  put in a more sophisticated treatment
              */
             AssertTrace(iCell == NumLcCells-1);
-            // fluxFright = 0.0;
+    
             SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-     
+	    SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
 	    /*
              *  We are here if we are at the right node boundary and we need a flux
              *  condition. The default treatment is to set the flux to zero. The basic idea is that
@@ -1008,13 +1008,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
              */
 	    fluxTright = 0.0;  
 	    fluxR_JHPhi = 0.0;
-	    fluxR_JHelec = 0.0;
             icurrElectrolyte_CBR_[iCell] = 0.0;
             icurrElectrode_CBR_[iCell] = 0.0;
             //
             // Add flow out the right boundary to account for conservation of electrolyte volume
             //
-            SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
             Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
 	    moleFluxRight = Fright_cc_ * concTot_Curr_;
             for (int k = 0; k < nsp_; k++) {
@@ -1039,6 +1037,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_RBcons / Faraday;
 	    jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
 	    fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+
         } else {
             /*
              *  Establish the environment at the right cell boundary
@@ -1418,8 +1417,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	    if (IOwnRight) {
 		if (iCell == NumLcCells - 1) {
-
-
 		}
 	    }
 	}
@@ -1869,7 +1866,11 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
-    double moleFluxRight = 0.0, enthConvRight = 0.0;
+    double moleFluxRight = 0.0;
+    double moleFluxLeft = 0.0;
+    double phiIcurrL = 0.0, phiIcurrR = 0.0;
+    double icurrElectrode_RBcons = 0.0;
+    
     int doPrint = 1;
     int doTimes = 2;
     int nColsTable = 173;
@@ -1897,7 +1898,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 	if (doPrint) {
 	    drawline(1, nColsTable);
 	    if (itimes == 0) {
-		printf("                     ANODE Enthalpy Cell Balance \n\n");
+		printf("                     CATHODE Enthalpy Cell Balance \n\n");
 		printf("Cell|   NewnEnth       OldnEnth        deltanEnth | ");
 		printf("    fluxTLeft     FluxTRight | ");
 		printf("    fluxL_JHPhi  fluxR_JHPhi | ");
@@ -2006,7 +2007,13 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		 * Calculate the flux at the left boundary for each equation
 		 */
 		gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdelL;
+		fluxTleft = heatFlux_Curr_;
+		fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
 
+		Fleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
+		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
 		/*
 		 * Calculate the flux of species and the flux of charge
 		 *   - the flux of charge must agree with the flux of species
@@ -2016,6 +2023,22 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		    icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
 		icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+		icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
+	    } else {
+		//
+		//  Setup shop at the left node
+		//
+		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+		enthConvLeft = 0.0;
+		fluxTleft = 0.0;
+		fluxL_JHelec = 0.0;
+		fluxL_JHPhi = 0.0;
+		// Calculate the current at the boundary that is conservative.
+		//   This is really  icurrElectrode_CBL_[iCell]. However, we leave that 0 because of the
+		//   need to impose boundary conditions.
+		//
 	
 	    }
 
@@ -2033,7 +2056,12 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		 *       Conc * Vaxial * phi
 		 */
 		gradV_trCurr_ = (Vright_cc_ - Vcent_cc_) / xdelR;
-
+		fluxTright = heatFlux_Curr_;
+		fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+		fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+		Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+		moleFluxRight = Fright_cc_ * concTot_Curr_;
+		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
 		/*
 		 * Calculate the flux of species and the flux of charge
 		 *   - the flux of charge must agree with the flux of species
@@ -2043,21 +2071,77 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
 		}
 		icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
-	 
+	 	icurrElectrode_CBL_[iCell] = icurrElectrode_trCurr_;
+
 	    } else {
 
 		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
 
+		//
+		//  In system #1 there is a net outflow out of the system at the right boundary.
+		//  Therefore, enthConvRight is NOT zero!
 		Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
 		moleFluxRight = Fright_cc_ * concTot_Curr_;
 		for (int k = 0; k < nsp_; k++) {
 		    fluxXright[k] = Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
 		}
 		enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
-
+	
+		fluxTright = 0.0;
+		fluxR_JHPhi = 0.0;
+		//
+		//   Calculate the current at the boundary that is conservative.
+		//   This is really  icurrElectrode_CBR_[iCell]. However, in the resid we leave that 0 because of the
+		//   need to impose boundary conditions.
+		//
+		icurrElectrode_CBR_[iCell] = - icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
+		icurrElectrode_RBcons = - icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
+		//
+		//   Calculate the enhanced enthalpy flux out of the boundary. This is an important number.
+		//   
+		jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_RBcons / Faraday;
+		jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
+		fluxR_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
+		phiIcurrR = icurrElectrolyte_CBR_[iCell] * phiElectrolyte_Curr_;
 	    }
 
+	    if (doPrint) {
+		if (itimes == 0) {
+		    resid = 0.0;
+		    double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
+		    resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
+		    resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
+		    resid += deltaT * (fluxR_JHelec - fluxL_JHelec);
+		    
+		    residAdd = 0.0;
+		    if (iCell == NumLcCells - 1) {
+			residAdd = deltaT *
+			  rightSD_collector->DomainResidVector_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		    }
+		    if (iCell == 0) {
+			residAdd = deltaT *
+			  leftD_sep->DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation];
+		    }
+		    resid += residAdd;
+		    
+		    printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
+			   nEnthalpy_Old_Cell_[iCell], deltanEnth);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,    deltaT *fluxTright);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHelec, deltaT *fluxR_JHelec);
+		    printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft, deltaT *enthConvRight);
+		    printf("  % 12.5E  % 12.5E |", residAdd, resid);
+		    printf("  \n");
+		}
+		if (itimes == 1) {
+		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 
+			   (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
+		    
+		    printf(" % 12.6E  ", (phiIcurrL - phiIcurrR) * deltaT);
+		    printf("\n");
+		}
+	    }
 	    dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
 	    dValsB_ptr->jouleHeat_lyte = jouleHeat_lyte_total;
 	    //
@@ -2598,13 +2682,11 @@ porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
         gradV_trCurr_ = (Vcent_cc_ - Vleft_cc_) / xdel;
         gradVElectrode_trCurr_ = (VElectrodeCent_cc_ - VElectrodeLeft_cc_) / xdel;
 	gradT_trCurr_ = (valTmps.Temperature.center - valTmps.Temperature.left) / xdel;
-
     } else {
         // Right boundary
         gradV_trCurr_ = (Vright_cc_ - Vcent_cc_) / xdel;
         gradVElectrode_trCurr_ = (VElectrodeRight_cc_ - VElectrodeCent_cc_) / xdel;
 	gradT_trCurr_ = (valTmps.Temperature.right - valTmps.Temperature.center) / xdel;
-
     }
 
     if (type == 0) {
@@ -2628,6 +2710,11 @@ porousLiIon_Cathode_dom1D::SetupTranShop(const double xdel, const int type)
     //Convert from diffusion velocity to diffusion flux
     for (int k = 0; k < nsp_; k++) {
         jFlux_trCurr_[k] = mfElectrolyte_Soln_Curr_[k] * concTot_Curr_ * Vdiff_trCurr_[k];
+    }
+
+    jFlux_EnthalpyPhi_Curr_ = 0.0;
+    for (size_t k = 0; k < (size_t) nsp_; ++k) {
+        jFlux_EnthalpyPhi_Curr_ += jFlux_trCurr_[k] * EnthalpyPhiPM_lyte_Curr_[k];
     }
 
     //

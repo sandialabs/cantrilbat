@@ -209,8 +209,10 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
      *  Loop over the equations that the boundary conditions are going to be applied to
      *    -> This takes care of the current surface domain equation
      */
+    double res_contrib = 0.0;
     for (int i = 0; i < NumNodeEqns; i++) {
         if (SpecFlag_NE[i]) {
+	    res_contrib = 0.0;
             ieqn = index_EqnStart + i;
             double solnVal = soln[ieqn];
             double val = Value_NE[i];
@@ -220,28 +222,32 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                 /*
                  *  For Dirichlet equations, replace the equation
                  */
-                res[ieqn] = val - solnVal;
+		res_contrib = val - solnVal;
+                res[ieqn] = res_contrib;
                 break;
 
             case 1:
                 /*
                  *  For flux boundary conditions, subtract from equation indicating a flux out
                  */
-                res[ieqn] += val;
+		res_contrib = val;
+                res[ieqn] += res_contrib;
                 break;
 
             case 2:
                 /*
                  *  For Dirichlet boundary conditions with oscillation, replace the equation
                  */
-                res[ieqn] = val * TimeDep_NE[i](t) - solnVal;
+		res_contrib  = val * TimeDep_NE[i](t) - solnVal;
+                res[ieqn] = res_contrib;
                 break;
 
             case 3:
                 /*
                  *  For flux boundary conditions with oscillation, replace the equation
                  */
-                res[ieqn] += val * TimeDep_NE[i](t);
+		res_contrib =  val * TimeDep_NE[i](t);
+                res[ieqn] += res_contrib;
                 break;
 
             case 4: // voltage BCconstant
@@ -254,7 +260,8 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 		 * for the electrode
 		 *  voltage involving a function
                  */
-                res[ieqn] = BC_TimeDep_NE[i]->value(t, timeRegion) - solnVal;
+		res_contrib = BC_TimeDep_NE[i]->value(t, timeRegion) - solnVal;
+                res[ieqn] = res_contrib;
                 break;
 
             case 5: // current BCconstant
@@ -266,7 +273,8 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 		 *  For flux boundary conditions we must supply the value of  = icurr dot n_out
 		 *  icurr is the current density (coul / (sec m2)) dotted into the outward facing normal
                  */
-                res[ieqn] += BC_TimeDep_NE[i]->value(t, timeRegion);
+		res_contrib += BC_TimeDep_NE[i]->value(t, timeRegion);
+                res[ieqn] += res_contrib;
                 break;
 
             case 10:  // Collector constant current with collector plat resistance
@@ -292,13 +300,18 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 		 *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
                  *
 		 */
-                res[ieqn] += BC_TimeDep_NE[i]->valueAtTime(t, solnVal, timeRegion);
+		res_contrib =  BC_TimeDep_NE[i]->valueAtTime(t, solnVal, timeRegion);
+                res[ieqn] += res_contrib;
                 break;
 
             default:
                 throw m1d_Error("SurDomain_CathodeCollector::residEval",
                                 "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
             }
+	    if (residType == Base_ShowSolution) {
+                DomainResidVector_LastResid_NE[i] = res_contrib;
+            }
+
         }
     }
 #ifdef DEBUG_HKM

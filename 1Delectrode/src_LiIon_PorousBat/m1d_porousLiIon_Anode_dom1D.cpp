@@ -1957,7 +1957,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		    printf("\n");
 		}
 	    }
-	    dVals.totalHeatCapacity +=CpMolar_total_Cell_[iCell];
+	    dVals.totalHeatCapacity += CpMolar_total_Cell_[iCell];
 	    //
 	    //  Count up the total old and new cell enthalpies
 	    //

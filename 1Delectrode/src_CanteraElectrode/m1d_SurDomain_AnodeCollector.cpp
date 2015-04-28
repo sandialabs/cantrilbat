@@ -268,7 +268,7 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                                 "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
             }
 	    if (residType == Base_ShowSolution) { 
-		DomainResidVector_LastResid_NE[ieqn] = res_contrib;
+		DomainResidVector_LastResid_NE[i] = res_contrib;
 	    }
         }
     }
