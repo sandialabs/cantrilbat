@@ -1724,7 +1724,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
     int nColsTable = 173;
     double 	icurrElectrode_LBcons;
     //
-    // Find the pointer for the left Cathode
+    // Find the pointer for the Right separator
     //
     SurfDomainDescription *rightS = BDD_.RightSurf;
     BulkDomainDescription *rightDD = rightS->RightBulk;
@@ -1749,7 +1749,6 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		printf("  enthConvLeft enthConvRight | ");
 	
 		printf("    Resid_Add     Residual  |");
-		printf("    icurrL_lyte   icurrR_lyte |");
 		printf("\n");
 	    }
 	    if (itimes == 1) {
