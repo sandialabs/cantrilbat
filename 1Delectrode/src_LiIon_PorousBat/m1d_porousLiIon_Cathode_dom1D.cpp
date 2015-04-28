@@ -2161,6 +2161,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		dValsB_ptr->enthFluxOut = enthConvRight;
 		dValsB_ptr->phiSolid  = phiElectrode_Curr_;
 		dValsB_ptr->enthalpyIVfluxRight = icurrElectrode_CBR_[iCell] *  phiElectrode_Curr_;
+		dValsB_ptr->JHelecRight = fluxR_JHelec;
 		//dValsB_ptr->HeatFluxRight = ??
 	    }
 	}

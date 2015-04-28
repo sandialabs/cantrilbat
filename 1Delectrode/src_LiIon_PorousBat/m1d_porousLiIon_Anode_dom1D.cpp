@@ -1715,6 +1715,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
     NodalVars* nodeCent = 0;
     NodalVars* nodeLeft = 0;
     NodalVars* nodeRight = 0;
+    globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
     int indexCent_EqnStart, indexLeft_EqnStart, indexRight_EqnStart;
     const Epetra_Vector& soln = *soln_ptr;
     double xdelL; // Distance from the center node to the left node
@@ -1963,6 +1964,15 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 	    //
 	    dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
 	    dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
+
+	    if (iCell == 0) {
+		dValsB_ptr->currentLeft = icurrElectrode_CBL_[iCell];
+		dValsB_ptr->enthFluxOut = enthConvLeft;
+		dValsB_ptr->phiSolid  = phiElectrode_Curr_;
+		dValsB_ptr->enthalpyIVfluxRight = icurrElectrode_CBL_[iCell] *  phiElectrode_Curr_;
+		dValsB_ptr->JHelecLeft = fluxL_JHelec;
+
+	    }
 	}
     }
 }

@@ -1076,7 +1076,11 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
         nEnthOldB[iDom] = dVals.oldNEnthalpy;
         nEnthNewTotal +=  dVals.newNEnthalpy;
         nEnthOldTotal +=  dVals.oldNEnthalpy;
+        if (iDom == 0) {
+            JHelecLeft = dVals.JHelecLeft;
+        }
 	if (iDom == 2) {
+            JHelecRight = dVals.JHelecRight;
 	    enthalpyIVfluxRight = dVals.enthalpyIVfluxRight;
 	    HeatFluxRight = dVals.HeatFluxRight;
 	    enthalpyFlowOut = dVals.enthFluxOut;
@@ -1098,14 +1102,12 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 
         if (iDom == 0) {
             HeatFluxLeft = dVals.HeatFluxLeft;
-            JHelecLeft = dVals.JHelecLeft;
             currLeft = dVals.currentLeft;
             phiAnode = dVals.phiSolid;
         }
 
         if (iDom == 3) {
          HeatFluxRight = dVals.HeatFluxRight;
-         JHelecRight = dVals.JHelecRight;
          currRight = dVals.currentRight;
          phiCath = dVals.phiSolid;
         }
@@ -1141,19 +1143,22 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
         if (iDom == 2) printf("  Cathode      ");
         printf(" % 12.6E    % 12.6E       % 12.6E" , nEnthNewB[iDom], nEnthOldB[iDom],   nEnthNewB[iDom] - nEnthOldB[iDom]);
 	if (iDom == 0) {
-	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxLeft, deltaT * HeatFluxLeft, 0.0);
+	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   - deltaT * JHelecLeft, deltaT * HeatFluxLeft, 0.0);
+	    //printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxLeft, deltaT * HeatFluxLeft, 0.0);
 	}
 	if (iDom == 1) {
 	    printf(" % 12.6E    % 12.6E       % 12.6E" , 0.0, 0.0, 0.0);
 	}
 	if (iDom == 2) {
-	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
+	   printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * JHelecRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
+	   // printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
 	}
 	printf("\n");
     }
     printf("-----------------------------------------------------------------------------------------"
 	   "--------------------------------------\n");
-    double IVWorkdT =  deltaT * (enthalpyIVfluxRight +  enthalpyIVfluxLeft);
+    //double IVWorkdT =  deltaT * (enthalpyIVfluxRight +  enthalpyIVfluxLeft);
+    double IVWorkdT =  deltaT * (JHelecRight - JHelecLeft);
     double HeatFluxdT =  deltaT * (HeatFluxRight +  HeatFluxLeft);
     double enthFlowdT = deltaT *  enthalpyFlowOut;
     double enthLossdT =  IVWorkdT + HeatFluxdT + enthFlowdT;
