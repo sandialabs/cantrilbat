@@ -1943,10 +1943,10 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		    
 		    printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
 			   nEnthalpy_Old_Cell_[iCell], deltanEnth);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,    deltaT *fluxTright);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHelec, deltaT *fluxR_JHelec);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft, deltaT *enthConvRight);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *fluxTleft,    deltaT *fluxTright);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *fluxL_JHelec, deltaT *fluxR_JHelec);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *enthConvLeft, deltaT *enthConvRight);
 		    printf("  % 12.5E  % 12.5E |", residAdd, resid);
 		    printf("  \n");
 		}

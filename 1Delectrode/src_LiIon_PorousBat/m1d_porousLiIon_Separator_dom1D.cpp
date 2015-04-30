@@ -1312,6 +1312,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	if (doPrint) {
 	    drawline(1, nColsTable);
 	    if (itimes == 0) {
+		printf("           CELL BALANCES FOR ENTHALPY:    SEPARATOR\n");
 		printf("Cell|   NewnEnth       OldnEnth        deltanEnth | ");
 		printf("    fluxTLeft     FluxTRight | ");
 		printf("    fluxL_JHPhi  fluxR_JHPhi | ");
@@ -1320,10 +1321,10 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		printf("\n");
 	    }
 	    if (itimes == 1) {
-		printf("\n\n                Analysys of Source Terms \n");
-		printf("                JOULE HEATING|    DeldotPhiI \n");
+		printf("\n\n                Analysys of Heat Source Terms:   SEPARATOR \n");
+		printf("                JOULE HEATING  |    DeldotPhiI       \n");
 		printf("Cell| ");
-		printf("    sourceTerm   Deldot(Jk hk) |   DelDot(PhiIcurr) ");
+		printf("    sourceTerm   Deldot(Jk hk) | DelDot(PhiIcurr) | Delta_nEnth SpeciesFluxIn  Heat&SrcTerm |  Delta");
 		printf("\n");
 	    }
 	}
@@ -1485,7 +1486,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		 */
 		icurrElectrolyte_CBR_[iCell] = 0.0;
 		for (int k = 0; k < nsp_; k++) {
-		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
+		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
 		icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
 		if (nodeLeft == 0) {
@@ -1523,10 +1524,11 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	    }
 
 	
-	    if (doPrint) {
+	    if (doPrint) { 
+		double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
 		if (itimes == 0) {
 		    resid = 0.0;
-		    double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
+		   
 		    resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
 		    resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
 
@@ -1543,17 +1545,23 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 
 		    printf("%3d |  % 12.6E  % 12.6E  % 12.5E |", iCell, nEnthalpy_New_Cell_[iCell], 
 			   nEnthalpy_Old_Cell_[iCell], deltanEnth);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxTleft,  deltaT *fluxTright);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
-		    printf("   % 12.5E  % 12.5E |",  - deltaT *enthConvLeft,  deltaT *enthConvRight);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *fluxTleft,  deltaT *fluxTright);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *fluxL_JHPhi,  deltaT *fluxR_JHPhi);
+		    printf("   % 12.5E  % 12.5E |",   deltaT *enthConvLeft,  deltaT *enthConvRight);
 		    printf("  % 12.5E  % 12.5E |", residAdd, resid);
 		    printf("  \n");
 		}
 		if (itimes == 1) {
-		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 
+	
+		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell],
 			   (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
-
+		    double fluxL_JH = fluxL_JHPhi - phiIcurrL;
+		    double fluxR_JH = fluxR_JHPhi - phiIcurrR;
+		    double Einflux = deltaT * (enthConvLeft - enthConvRight + fluxL_JH -  fluxR_JH);
 		    printf(" % 12.6E  ", (phiIcurrL - phiIcurrR) * deltaT);
+		    double HeatIn = deltaT * (fluxTleft - fluxTright) + (phiIcurrL - phiIcurrR) * deltaT;
+		    double delta = deltanEnth - Einflux - HeatIn;
+		    printf(" % 12.6E  % 12.6E % 12.6E  % 12.6E", deltanEnth, Einflux, HeatIn, delta);
 		    printf("\n");
 		}
 	    }
