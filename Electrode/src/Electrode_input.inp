@@ -393,3 +393,16 @@ Level of XML State Information Created = none
 ! Capacity Discharged Per Initial Mole = 0.5
 !
 !------------------------------------------------------------------------
+!-------------------------------------------------------------------------
+!
+!  Model for the formulation of the diffusive Flux 
+!
+!
+!   0 = diffusive flux include the activity coefficient
+!   1 = diffusive flux doesn't include the activity coefficient
+!
+!-------------------------------------------------------------------------
+! diffusive Flux Model = 1
+!-------------------------------------------------------------------------
+
+
