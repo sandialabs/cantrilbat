@@ -15,7 +15,6 @@
     </speciesArray>
     <reactionArray datasrc="#reactions_soln">
     </reactionArray>
-    <kinetics model="SolidKinetics" />
     <standardConc model="unity" />
   </phase>
 

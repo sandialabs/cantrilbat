@@ -145,7 +145,7 @@ int main(int argc, char **argv)
      printf("xmol(LiCoO2) (initial) = %g\n", xmol[klicoo2]);
 
      printf("  VALUES BEFORE OVERRIDE \n");
-     printf("          xV         xLi           OCV         OCV(half_cell)     OCV-corrected    DeltaH   DeltaS    DeltaG\n") ;
+     printf("          xLi         xV           OCV         OCV(half_cell)     OCV-corrected    DeltaH   DeltaS    DeltaG\n") ;
      for (int i =0; i < numP; i++) {
          double xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[klicoo2] = xKC;
@@ -167,7 +167,8 @@ int main(int argc, char **argv)
          rsd->getDeltaEntropy(ds);
 
 
-         printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f % 12.4E  % 12.4E  % 12.4E \n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr, dh[1], ds[1], dg[1]);
+         printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f % 12.4E  % 12.4E  % 12.4E \n", 
+		xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr, dh[1], ds[1], dg[1]);
      }
 
      //

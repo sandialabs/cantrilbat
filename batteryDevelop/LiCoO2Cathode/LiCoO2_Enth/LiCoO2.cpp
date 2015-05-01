@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <cmath>
 
+ const double F = 96485.3E3;   // Joules/kmol
+
  double calcV( double relExtent)
 {
    double volts;
@@ -73,32 +75,81 @@ double calcV_dUdT_mao( double relExtent)
     return 1.0E-3 * dUdT;
 }
 
-int main()
+double calcDeltaS( double relExtent)
 {
-   int numP = 51;
- 
-   printf("DUALFOIL Mao et al (2014) (they are the same) Positive electrode OCV data \n\n");
-   
-   double dd = calcV_dUdT_mao(1.0);
+    double dvoltsDT = calcV_dUdT_mao(relExtent);
+    return - F * dvoltsDT;
+}
 
-   printf("  relExtent(xLi)       xV           OCV           dVdT         DeltaS         DeltaH       DeltaG\n");
-   for (int i = 0; i < numP; i++) {
-      double relE = 0.0 + (double (i) / (numP - 1.0));
-      double voltsM = calcV_mao(relE);
-
-      double dvoltsdT = calcV_dUdT_mao(relE);
+double calcDeltaH(double relExtent)
+{
+      double voltsM = calcV_mao(relExtent);
+      double dvoltsdT = calcV_dUdT_mao(relExtent);
 
       double F = 96485.3E3;   // Joules/kmol
       double DeltaS = - F * dvoltsdT;
       double DeltaG = voltsM * F;
       double T = 300.;
       double DeltaH = DeltaG + T * DeltaS;
+      return DeltaH;
+}
 
-    
+double calcDeltaG(double relExtent, double temp)
+{
+   double deltaG300 = calcV_mao(relExtent) * F;
+   double deltaS = calcDeltaS(relExtent);
+   double deltaG = deltaG300 - (temp - 300.0) * deltaS;
+   return deltaG;
+}
+
+double calcDeltaCp(double relExtent)
+{
+   return 0.0;
+}
+
+
+
+int main()
+{
+   int numP = 51;
+ 
+   printf("DUALFOIL Mao et al (2014) (they are the same) Positive electrode OCV data \n\n");
+   
+   printf("          T = 300 K\n");
+   printf("  relExtent(xLi)       xV           OCV           dVdT         DeltaS         DeltaH       DeltaG\n");
+   for (int i = 0; i < numP; i++) {
+      double relE = 0.0 + (double (i) / (numP - 1.0));
+      double voltsM = calcV_mao(relE);
+
+      double dvoltsdT = calcV_dUdT_mao(relE);
+      double DeltaS = - F * dvoltsdT;
+      double DeltaG = voltsM * F;
+      double T = 300.;
+      double DeltaH = DeltaG + T * DeltaS;
       printf("%15.5E %15.5E %10.5f      % 10.5E  % 10.5E   % 10.5E  % 10.5E\n",
              relE, 1.0-relE, voltsM,  dvoltsdT, DeltaS , DeltaH, DeltaG);
+   }
 
 
-    }
+   double temp = 400.;
+   printf("          T = %f K\n", temp);
+   printf("  relExtent(xLi)       xV           OCV           dVdT         DeltaS         DeltaH       DeltaG\n");
+   for (int i = 0; i < numP; i++) {
+      double relE = 0.0 + (double (i) / (numP - 1.0));
+
+      double DeltaG = calcDeltaG(relE, temp);
+      double DeltaH = calcDeltaH(relE);
+      double DeltaS = calcDeltaS(relE);
+      double dvoltsdT = calcV_dUdT_mao(relE);
+      double voltsM = DeltaG / F;
+      printf("%15.5E %15.5E %10.5f      % 10.5E  % 10.5E   % 10.5E  % 10.5E\n",
+             relE, 1.0-relE, voltsM,  dvoltsdT, DeltaS , DeltaH, DeltaG);
+   }
+
+
+    // Now figure out how this picture changes
+
+
     return 0;
 }
+
