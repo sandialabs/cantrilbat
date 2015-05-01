@@ -1,4 +1,6 @@
-
+/*
+ *  Parameterizations of the OCV for MCMB contained within the paper.
+ */
 
 #include <cstdio>
 #include <cmath>

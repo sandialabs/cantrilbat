@@ -73,7 +73,7 @@
              -->
            <h0 units="kJ/mol">    165.   </h0>
            <s0 units="J/mol/K">   25.639 </s0>
-           <cp0 units="J/kmol/K"> 0.0   </cp0>
+           <cp0 units="J/mol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
@@ -89,7 +89,7 @@
            <t0 units="K">298.14999999999998</t0>
            <h0 units="kJ/mol">    0.0   </h0>
            <s0 units="J/mol/K">   0.0   </s0>
-           <cp0 units="J/kmol/K"> 0.0   </cp0>
+           <cp0 units="J/mol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
       <standardState  model="constant_incompressible">
