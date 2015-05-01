@@ -4785,7 +4785,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
     return q; 
 }
 //==============================================================================================================
-double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
+double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
 {
     double q = 0.0;
     double phiPhase = 0.0;
@@ -4835,12 +4835,69 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
     return q;
 }
 //==============================================================================================================
+/*
+ *   sdot h_k delta_t
+ */
+double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
+{
+    double q = 0.0;     
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+        ThermoPhase& tp = thermo(iph);
+        double phiPhase = phaseVoltages_[iph];
+
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+	for (size_t ik = 0; ik < nsp; ik++) {
+	    size_t k = istart + ik;
+	    double cc = tp.charge(ik);
+#ifdef DEBUG_THERMAL
+	    double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+	    double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+	    printf("deltaNH_%d = %g,   deltaN = %g\n", k, -deltaNH, deltaN);
+#endif
+	    q -= enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+	    if (cc != 0.0) {
+		q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+	    }
+	}
+    }
+    return q;
+}
+//==============================================================================================================
 // This is called at the end of a single step.
 /*
  *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
  *    on all of the surfaces.
  */
 double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
+{
+    double q_alt = 0.0;
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+        ThermoPhase& tp = thermo(iph);
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+	for (size_t ik = 0; ik < nsp; ik++) {
+	    size_t  k = istart + ik;
+	    double deltaNS = temperature_ * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+	    double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+	    printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
+#endif
+	    q_alt -= deltaNS;
+	}
+    }
+    return q_alt;
+}
+//==============================================================================================================
+// This is called at the end of a single step.
+/*
+ *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
+ *    on all of the surfaces.
+ */
+double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
 {
     //
     //  Ok we have calculated q one way, calc q another way so that we can have options.
@@ -4881,7 +4938,7 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
  *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
  *    on all of the surfaces.
  */
-double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
+double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
 {
     double q_alt = 0.0;
     double phiPhase = 0.0;    
@@ -4929,7 +4986,37 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
     }
     return q_alt;
 }
-//====================================================================================================================
+//==================================================================================================================================
+// This is called at the end of a single step.
+//
+double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
+{
+    double q_alt = 0.0;
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+        ThermoPhase& tp = thermo(iph);
+        double phiPhase = phaseVoltages_[iph];
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+	for (size_t ik = 0; ik < nsp; ik++) {
+	    size_t k = istart + ik;
+	    double cc = tp.charge(ik);
+	    double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+	    double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+	    printf("deltaNG_%d = %g,   deltaN = %g\n", k, -deltaNG, deltaN);
+#endif
+	    q_alt -= deltaNG;
+	    if (cc != 0.0) {
+		q_alt -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+	    }
+	}
+    }
+    return q_alt;
+}
+//==================================================================================================================================
 double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
 {
   double result = 0.0;

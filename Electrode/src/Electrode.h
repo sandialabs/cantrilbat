@@ -1007,6 +1007,7 @@ public:
      *
      *   @param return the energy released (joules)
      */
+    virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old();
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
     //! Reversible Entropy release during a single step
@@ -1018,6 +1019,7 @@ public:
      *
      *   @param return the energy released (joules)
      */
+    virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old();
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
 
     //! Irreversible thermal energy release during a single step
@@ -1029,6 +1031,7 @@ public:
      *
      *   @param return the energy released (joules)
      */
+    virtual double thermalEnergySourceTerm_Overpotential_SingleStep_Old();
     virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
 
     //! Get the integrated source term values for one of a set of sources

@@ -517,12 +517,12 @@ cd2 = 4.39126e+07
 current2 = 1.10344e+07 amps
     Check of Thermal Source terms: These should add up to each other:
  q_over    = 2.39298e+06
- q_over2   = 2.42666e+06
+ q_over2   = 2.39298e+06
  q_over3   = 2.46198e+06
- q_entrop  = 1.78061e+07
- q_entrop2 = 1.77724e+07
- q_enth    = 2.0199e+07
- q_enth2   = 2.0199e+07
- diff  =  q_enth -  q_over  - q_entrop = 0
- diff2 =  q_enth2 - q_over  - q_entrop = 0.129489
- diff3 =  q_enth2 - q_over2  - q_entrop2 = -2.70456e-06
+ q_entrop  = -2.09534e+06
+ q_entrop2 = -2.09534e+06
+ q_enth    = 297638
+ q_enth2   = 297638
+ diff  =  q_enth -  q_over  - q_entrop = -6.98492e-10
+ diff2 =  q_enth2 - q_over  - q_entrop = 0.0019081
+ diff3 =  q_enth2 - q_over2  - q_entrop2 = -9.31323e-10

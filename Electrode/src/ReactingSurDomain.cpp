@@ -793,7 +793,7 @@ void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
          m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
      }
 
-     //  If  have an open circuit potential override situation, do extra work
+     //  If have an open circuit potential override situation, do extra work
      if (ocv_ptr_) {
 	 deriveEffectiveChemPot();
      }

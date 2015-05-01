@@ -3656,12 +3656,11 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
     }
 }
 
-//=========================================================================================================================
+//==================================================================================================================================
 double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
 {
     double q = 0.0;
     double phiPhase = 0.0;
-    // double subdeltaT = tfinal_ - tinit_;
     if (pendingIntegratedStep_ != 1) {
 	throw Electrode_Error("Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()",
 			      " no pending integrated step");
@@ -3670,26 +3669,22 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleS
     printf("Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep() Debug Output:\n");
 #endif
     
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-        int indexMidKRSpecies =  iCell * numKRSpecies_;
-        int kstart = 0;
-        //int indexCellPhase = iCell * numSPhases_;
-        /*
-         *  Loop over distributed phases, assume that there are no charged species in these phases
-         */
-        for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
-	    // ThermoPhase* th = thermoSPhase_List_[jRPh];
-	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-
-	    for (int kSp = 0; kSp < nsp; kSp++) {
-		int iKRSpecies = kstart + kSp;
-		double deltaNH = 
-		    partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]
-		    - partialMolarEnthKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] *  spMoles_KRsolid_Cell_init_[indexMidKRSpecies + iKRSpecies];
-		q -= deltaNH;
-	    }
-	    kstart += nsp;
+    size_t indexMidKRSpecies = (numRCells_-1)* numKRSpecies_;
+    size_t kstart = 0;
+    /*
+     *  Loop over distributed phases, assume that there are no charged species in these phases
+     */
+    for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+	size_t nsp = numSpeciesInKRSolidPhases_[jRPh];
+	size_t iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	size_t istart = m_PhaseSpeciesStartIndex[iPh];
+	for (size_t kSp = 0; kSp < nsp; kSp++) {
+	    size_t iKRSpecies = kstart + kSp;
+	    size_t k = istart + kSp;
+	    double deltaNH = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoleIntegratedSourceTermLast_[k];
+	    q -= deltaNH;
 	}
+	kstart += nsp;
     }
 #ifdef DEBUG_THERMAL
     printf("q_enthalpy so far = %g\n", q);
@@ -3700,12 +3695,11 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleS
     //double sa = surfaceAreaRS_final_[0];
     double r_init  = Radius_exterior_init_;
     double r_final = Radius_exterior_final_;
-
     double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final) *  particleNumberToFollow_;
     double iCurrDens[6];
     double iCurrDT= rsd->getCurrentDensityRxn(&(iCurrDens[0]));
     double deltaM0 = iCurrDT * surfaceArea_star / Faraday;
-    printf ("delta electrons = %13.7E\n", deltaM0 * deltaTsubcycle_);
+    printf("delta electrons = %13.7E\n", deltaM0 * deltaTsubcycle_);
 #endif
 
     for (size_t jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
@@ -3715,49 +3709,29 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation_SingleS
 
         int istart = m_PhaseSpeciesStartIndex[iPh];
         int nsp = tp.nSpecies();
-        if (iPh == metalPhase_ || iPh == solnPhase_) {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
-		double cc = tp.charge(ik);
-		double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
-#ifdef DEBUG_THERMAL
-		double deltaN = spMoleIntegratedSourceTermLast_[k];
-		if (iPh == metalPhase_) {
-		    printf("delta electrons = %13.7E\n", deltaN);
-		    printf("delta electrons rate = %13.7E\n", deltaN / subdeltaT);
-		}
-		printf("deltaNH_%d = %g,   deltaN = %13.7E\n", k, deltaNH, deltaN);
-		printf("delta moles rate = %13.7E\n", deltaN / subdeltaT);
-#endif
-		q -= deltaNH;
-		if (cc != 0.0) {
-		    q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
-#ifdef DEBUG_THERMAL
-		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
-#endif
-		}
-	    }
-	} else {
-		for (int ik = 0; ik < nsp; ik++) {
-		    int k = istart + ik;  
-		    double cc = tp.charge(ik);
-		    double deltaNH = enthalpyMolar_final_[k] * spMoles_final_[k] - enthalpyMolar_init_[k] * spMoles_init_[k];
-#ifdef DEBUG_THERMAL
-		    double deltaN = spMoles_final_[k] - spMoles_init_[k];
-		    printf("deltaNH_%d = %g,   deltaN = %g\n", k, -deltaNH, deltaN);
-#endif
-		    q -= deltaNH;
-		    if (cc != 0.0) {
-			q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
-#ifdef DEBUG_THERMAL
-			printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
-#endif
-		    }
-		}
-	    }
-	}
-
     
+	for (int ik = 0; ik < nsp; ik++) {
+	    int k = istart + ik;
+	    double cc = tp.charge(ik);
+	    double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+	    double deltaN = spMoleIntegratedSourceTermLast_[k];
+	    if (iPh == metalPhase_) {
+		printf("delta electrons = %13.7E\n", deltaN);
+		printf("delta electrons rate = %13.7E\n", deltaN / subdeltaT);
+	    }
+	    printf("deltaNH_%d = %g,   deltaN = %13.7E\n", k, deltaNH, deltaN);
+	    printf("delta moles rate = %13.7E\n", deltaN / subdeltaT);
+#endif
+	    q -= deltaNH;
+	    if (cc != 0.0) {
+		q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+#ifdef DEBUG_THERMAL
+		printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+#endif
+	    }
+	}	
+    }
     return q;
 }
 //==============================================================================================================
@@ -3782,71 +3756,52 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_ReversibleEntropy_SingleSte
     deltaNS_JJ[2] = 0.0;
 #endif
 
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-        int indexMidKRSpecies =  iCell * numKRSpecies_;
-        int kstart = 0;
-        //int indexCellPhase = iCell * numSPhases_;
-        /*
-         *  Loop over distributed phases, assume that there are no charged species in these phases
-         */
-        for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
-	    // ThermoPhase* th = thermoSPhase_List_[jRPh];
-	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    int kspStart = m_PhaseSpeciesStartIndex[iPh];
-	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-
-	    for (int kSp = 0; kSp < nsp; kSp++) {
-		int iKRSpecies = kstart + kSp;
-		int k = kspStart + k;
-		double deltaNS =
-		    (   partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]
-		      - partialMolarEntropyKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] *  spMoles_KRsolid_Cell_init_[indexMidKRSpecies + iKRSpecies]);
+    size_t indexMidKRSpecies =  (numRCells_-1) * numKRSpecies_;
+    size_t kstart = 0;
+    /*
+     *  Loop over distributed phases, assume that there are no charged species in these phases
+     */
+    for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+	size_t nsp = numSpeciesInKRSolidPhases_[jRPh];
+	size_t iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	size_t istart = m_PhaseSpeciesStartIndex[iPh];
+	for (size_t kSp = 0; kSp < nsp; kSp++) {
+	    size_t iKRSpecies = kstart + kSp;
+	    size_t k = istart + kSp;
+	    double deltaNS = partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
-		double hstar = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] +
-			       tt *  partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		double hstar2 = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		double diff = hstar - hstar2;
-		printf(" diff = %g, hstar2 = %g\n", diff, hstar2);
+	    double hstar = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] +
+	      tt *  partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+	    double hstar2 = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+	    double diff = hstar - hstar2;
+	    printf(" diff = %g, hstar2 = %g\n", diff, hstar2);
 #endif
-		deltaNS *= tt;
+	    deltaNS *= tt;
 #ifdef DEBUG_THERMAL
-		deltaNS_JJ[kSp] -= deltaNS;
+	    deltaNS_JJ[kSp] -= deltaNS;
 #endif
-		q_alt -= deltaNS;
-	    }
-	    kstart += nsp;
+	    q_alt -= deltaNS;
 	}
+	kstart += nsp;
     }
+    
 #ifdef DEBUG_THERMAL
     printf("q_entropy_alt so far = %g\n", q_alt);
 #endif
-
     for (size_t jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
-        int iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+        size_t iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
         ThermoPhase& tp = thermo(iPh);
-        int istart = m_PhaseSpeciesStartIndex[iPh];
-        int nsp = tp.nSpecies();
-        if (iPh == metalPhase_ || iPh == solnPhase_) {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
-		double deltaNS = tt * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+        size_t istart = m_PhaseSpeciesStartIndex[iPh];
+        size_t nsp = tp.nSpecies();
+	for (size_t ik = 0; ik < nsp; ik++) {
+	    size_t k = istart + ik;
+	    double deltaNS = tt * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
-		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
-		printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
+	    double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+	    printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
 #endif
-		q_alt -= deltaNS;
-	    }
-        } else {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
-		double deltaNS = tt * (entropyMolar_final_[k] * spMoles_final_[k] - entropyMolar_init_[k] * spMoles_init_[k]);
-#ifdef DEBUG_THERMAL
-		double deltaN = spMoles_final_[k] - spMoles_init_[k];
-		printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
-#endif
-		q_alt -= deltaNS;
-	    }
-        }
+	    q_alt -= deltaNS;
+	}
     }
     return q_alt;
 }
@@ -3870,48 +3825,40 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
     double tt = temperature_;
 #endif
     
-    for (int iCell = 0; iCell < numRCells_; iCell++) {
-        int indexMidKRSpecies =  iCell * numKRSpecies_;
-        int kstart = 0;
-        /*
-         *  Loop over distributed phases, assume that there are no charged species in these phases
-         */
-        for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
-	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    int kspStart = m_PhaseSpeciesStartIndex[iPh];
-	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
-
-	    for (int kSp = 0; kSp < nsp; kSp++) {
-		int iKRSpecies = kstart + kSp;
-		int k = kspStart + k;
-		double deltaNG =
-		    (   chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]
-		      - chemPotKRSpecies_Cell_init_[indexMidKRSpecies + iKRSpecies] *  spMoles_KRsolid_Cell_init_[indexMidKRSpecies + iKRSpecies]);
+    size_t indexMidKRSpecies =  (numRCells_-1) * numKRSpecies_;
+    size_t kstart = 0;
+    /*
+     *  Loop over distributed phases, assume that there are no charged species in these phases
+     */
+    for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+	size_t nsp = numSpeciesInKRSolidPhases_[jRPh];
+	size_t iPh = phaseIndeciseKRsolidPhases_[jRPh];
+	size_t istart = m_PhaseSpeciesStartIndex[iPh];
+	for (size_t kSp = 0; kSp < nsp; kSp++) {
+	    size_t iKRSpecies = kstart + kSp;
+	    size_t k = istart + kSp;
+	    double deltaNG = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
-		deltaNG_JJ[kSp] -= deltaNG;
-		double hstar = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] +
-			       tt * partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		double hstar2 = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
-		double diff = hstar - hstar2;
-		printf(" diff = %g, hstar2 = %g\n", diff, hstar2);
+	    deltaNG_JJ[kSp] -= deltaNG;
+	    double hstar = chemPotKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] +
+	      tt * partialMolarEntropyKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+	    double hstar2 = partialMolarEnthKRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
+	    double diff = hstar - hstar2;
+	    printf(" diff = %g, hstar2 = %g\n", diff, hstar2);
 #endif
-		q -= deltaNG;
-	    }
-	    kstart += nsp;
+	    q -= deltaNG;
 	}
+	kstart += nsp;
     }
+    
 #ifdef DEBUG_THERMAL
     printf("Q_so_far = %g\n", q);
     double deltaN = spMoles_final_[4] - spMoles_init_[4];
     printf("deltaNG_4 = %g,   deltaN = %g\n", deltaNG_JJ[0], deltaN);
     deltaN = spMoles_final_[5] - spMoles_init_[5];
     printf("deltaNG_4 = %g,   deltaN = %g\n", deltaNG_JJ[1], deltaN);
-#endif
 
-
-#ifdef DEBUG_THERMAL
     ReactingSurDomain* rsd = RSD_List_[0];
-    //double sa = surfaceAreaRS_final_[0];
     double r_init  = Radius_exterior_init_;
     double r_final = Radius_exterior_final_;
 
@@ -3922,54 +3869,38 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
     printf ("delta electrons = %13.7E\n", deltaM0 * deltaTsubcycle_);
 #endif
 
+    /*
+     *  Loop over non-distributed phases. this is where the charged species are assumed to be.
+     */
     for (size_t jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
-        int iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
+        size_t iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
         ThermoPhase& tp = thermo(iPh);
         phiPhase = phaseVoltages_[iPh];
 
-        int istart = m_PhaseSpeciesStartIndex[iPh];
-        int nsp = tp.nSpecies();
-        if (iPh == metalPhase_ || iPh == solnPhase_) {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
-		double cc = tp.charge(ik);
-		double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
+        size_t istart = m_PhaseSpeciesStartIndex[iPh];
+        size_t nsp = tp.nSpecies();
+	for (size_t ik = 0; ik < nsp; ik++) {
+	    size_t k = istart + ik;
+	    double cc = tp.charge(ik);
+	    double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
-		double deltaN = spMoleIntegratedSourceTermLast_[k];
-		if (iPh == metalPhase_) {
-		    printf("delta electrons = %13.7E\n", deltaN);
-		    printf("delta electrons rate = %13.7E\n", deltaN / subdeltaT);
-		}
-		printf("deltaNG_%d = %g,   deltaN = %13.7E\n", k, -deltaNG, deltaN);
-		printf("delta moles rate = %13.7E\n", deltaN / subdeltaT);
-#endif
-		q -= deltaNG;
-		if (cc != 0.0) {
-		    q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
-#ifdef DEBUG_THERMAL
-		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
-#endif
-		}
+	    double deltaN = spMoleIntegratedSourceTermLast_[k];
+	    if (iPh == metalPhase_) {
+		printf("delta electrons = %13.7E\n", deltaN);
+		printf("delta electrons rate = %13.7E\n", deltaN / subdeltaT);
 	    }
-	} else {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;  
-		double cc = tp.charge(ik);
-		double deltaNG = chempotMolar_final_[k] * spMoles_final_[k] - chempotMolar_init_[k] * spMoles_init_[k];
-#ifdef DEBUG_THERMAL
-		double deltaN = spMoles_final_[k] - spMoles_init_[k];
-		printf("deltaNG_%d = %g,   deltaN = %g\n", k, -deltaNG, deltaN);
+	    printf("deltaNG_%d = %g,   deltaN = %13.7E\n", k, -deltaNG, deltaN);
+	    printf("delta moles rate = %13.7E\n", deltaN / subdeltaT);
 #endif
-		q -= deltaNG;
-		if (cc != 0.0) {
-		    q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
+	    q -= deltaNG;
+	    if (cc != 0.0) {
+		q -= cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
-		    printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
+		printf("deltV_%d = %g\n", k, - cc * Faraday * phiPhase * spMoleIntegratedSourceTermLast_[k]);
 #endif
-		}
 	    }
 	}
-    }    
+    } 
     return q;
 }
 //=========================================================================================================================
