@@ -33,7 +33,8 @@ void printUsage() {
     cout << "usage: MCMBAnode_SimpleDiff [-h] [-help_cmdfile] [-d #] [anode.inp]"
          <<  endl;
     cout << "    -h               : Prints this help" << endl;
-    cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add anode.inp for more information" << endl;
+    cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser "
+      "- add anode.inp for more information" << endl;
     cout << "   -d #              : Level of debug printing" << endl;
     cout << "   anode.inp         : Command file (if missing, assume anode.inp)" << endl;
     cout << endl;
@@ -160,8 +161,40 @@ int main(int argc, char **argv)
          rsd->getDeltaEnthalpy(dh);
          rsd->getDeltaEntropy(ds);
 
-	 printf(" %12.6f   %12.6f   %12.6f   %12.6f, %12.3E, %12.3E, %12.3E\n",  xKC, 1.0 - xKC,  ocv, ocvE, dh[1], ds[1], dg[1]);
+	 printf(" %12.6f   %12.6f   %12.6f   %12.6f, %12.3E, %12.3E, %12.3E\n", 
+		xKC, 1.0 - xKC,  ocv, ocvE, dh[1], ds[1], dg[1]);
      }
+
+     printf("  Analysis of the reaction as experienced at the start of the calculation\n");
+     xmol[1] = 0.0780266;
+     xmol[2] = xmol[1];
+     xmol[0] = 1.0 - 2.0 * xmol[1]; 
+     ecsoln.setState_TPX(300., OneAtm, xmol);
+     printf("  Mole fraction of Li+ = %g\n", xmol[1]);
+     ecsoln.getActivities(aa);
+     printf("activity Li+ = %g\n", aa[1]);
+     double liqS[10];
+     ecsoln.getPartialMolarEntropies(liqS);
+     
+     printf("        xV              xLi          OCV           OCV[1]           DeltaH         DeltaS       DeltaG\n") ;
+     for (int i =0; i < numP; i++) {
+	 double xKC = 0.0 + (double) i / (numP - 1.0);
+         xmol[kC] = xKC;
+         xmol[kLiC] = 1.0 - xmol[kC];
+         mcmb.setState_TPX(300., OneAtm, xmol);
+
+	 rsd->getDeltaGibbs(dg);
+	 double ocv = dg[1] / Faraday / nstoic;
+         dg[0] -= GasConstant * 300. * std::log(0.1);
+	 double ocvE = dg[0] / Faraday / nstoic;
+
+         rsd->getDeltaEnthalpy(dh);
+         rsd->getDeltaEntropy(ds);
+
+	 printf(" %12.6f   %12.6f   %12.6f   %12.6f, %12.3E, %12.3E, %12.3E\n", 
+		xKC, 1.0 - xKC,  ocv, ocvE, dh[0], ds[0], dg[0]);
+     }
+
 
      printf("\n\n SETTING xLi = 0.68 in the tables below\n\n");
      
