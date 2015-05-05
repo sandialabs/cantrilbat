@@ -1301,8 +1301,8 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
     BulkDomainDescription *rightDD = rightS->RightBulk;
     BulkDomain1D *rightD_cathode = rightDD->BulkDomainPtr_;
 
-    double phiIcurrL = 0.0;
-    double phiIcurrR = 0.0;
+    //double phiIcurrL = 0.0;
+    //double phiIcurrR = 0.0;
     double moleFluxLeft = 0.0;
     double moleFluxRight = 0.0;
     double residAdd = 0.0;
@@ -1322,9 +1322,10 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	    }
 	    if (itimes == 1) {
 		printf("\n\n                Analysys of Heat Source Terms:   SEPARATOR \n");
-		printf("                JOULE HEATING  |    DeldotPhiI       \n");
+		printf("      ");
+		printf("                JOULE HEATING  |   Conduction   |        REACTIONS\n");
 		printf("Cell| ");
-		printf("    sourceTerm   Deldot(Jk hk) | DelDot(PhiIcurr) | Delta_nEnth SpeciesFluxIn  Heat&SrcTerm |  Delta");
+		printf("  lyteJHSource   solidJHSource |   HeatSource   | RxnHeatSrcTerm");
 		printf("\n");
 	    }
 	}
@@ -1429,7 +1430,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		    icurrElectrolyte_CBR_[iCell] = icurrElectrolyte_CBL_[iCell];
 		}
 
-		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+		//phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
 
 	
 	    } else {
@@ -1438,7 +1439,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		//
 		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
-		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+		//phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
 
 		Fleft_cc_ = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 		moleFluxLeft = Fleft_cc_ * concTot_Curr_;
@@ -1493,7 +1494,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		    icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell];
 		}
 
-		phiIcurrR = icurrElectrolyte_CBR_[iCell] * phiElectrolyte_Curr_;
+		//phiIcurrR = icurrElectrolyte_CBR_[iCell] * phiElectrolyte_Curr_;
 	    } else {
 
 		//
@@ -1501,7 +1502,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		//
 		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
-		phiIcurrR = icurrElectrolyte_CBR_[iCell] * phiElectrolyte_Curr_;
+		//phiIcurrR = icurrElectrolyte_CBR_[iCell] * phiElectrolyte_Curr_;
 
 		Fright_cc_ = DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
 		moleFluxRight = Fright_cc_ * concTot_Curr_;
@@ -1553,15 +1554,14 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		}
 		if (itimes == 1) {
 	
-		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell],
-			   (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
-		    double fluxL_JH = fluxL_JHPhi - phiIcurrL;
-		    double fluxR_JH = fluxR_JHPhi - phiIcurrR;
-		    double Einflux = deltaT * (enthConvLeft - enthConvRight + fluxL_JH -  fluxR_JH);
-		    printf(" % 12.6E  ", (phiIcurrL - phiIcurrR) * deltaT);
-		    double HeatIn = deltaT * (fluxTleft - fluxTright) + (phiIcurrL - phiIcurrR) * deltaT;
-		    double delta = deltanEnth - Einflux - HeatIn;
-		    printf(" % 12.6E  % 12.6E % 12.6E  % 12.6E", deltanEnth, Einflux, HeatIn, delta);
+		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 0.0);
+		    //double fluxL_JH = fluxL_JHPhi - phiIcurrL;
+		    //double fluxR_JH = fluxR_JHPhi - phiIcurrR;
+		    //double Einflux = deltaT * (enthConvLeft - enthConvRight + fluxL_JH -  fluxR_JH);
+		    double rxnEnt = 0.0;
+		    double HeatIn = deltaT * (fluxTleft - fluxTright);
+		    printf(" % 12.6E | % 12.6E  ", 
+			   HeatIn, rxnEnt);
 		    printf("\n");
 		}
 	    }

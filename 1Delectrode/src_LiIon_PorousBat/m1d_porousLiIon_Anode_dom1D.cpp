@@ -1,5 +1,5 @@
 /**
- * @file m1d_porousLiIon_Anode_dom1D.cpp
+ * @fie m1d_porousLiIon_Anode_dom1D.cpp
  */
 /*
  * Copywrite 2013 Sandia Corporation. Under the terms of Contract
@@ -28,7 +28,7 @@ using namespace std;
 //
 //  Necessary expediency until we model dUdT correctly and fully, matching to experiment
 //
-#define DELTASHEAT_ZERO 1
+// #define DELTASHEAT_ZERO 1
 
 namespace m1d
 {
@@ -1734,8 +1734,8 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
     SurfDomainDescription *leftS = BDD_.LeftSurf;
     SurDomain1D *leftSD_collector = leftS->SurDomain1DPtr_;
 
-    double phiIcurrL = 0.0;
-    double phiIcurrR = 0.0;
+    //double phiIcurrL = 0.0;
+    //double phiIcurrR = 0.0;
     double moleFluxLeft = 0.0;
     double moleFluxRight = 0.0;
     for (int itimes = 0; itimes < doTimes; itimes++) {
@@ -1753,10 +1753,11 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		printf("\n");
 	    }
 	    if (itimes == 1) {
-		printf("\n\n                Analysys of Source Terms \n");
-		printf("                JOULE HEATING|    DeldotPhiI \n");
+		printf("\n\n                Analysys of Heat Source Terms:   ANODE \n");
+		printf("      ");
+		printf("              JOULE HEATING    |  Conduction    |        REACTIONS     \n");
 		printf("Cell| ");
-		printf("    sourceTerm   Deldot(Jk hk) |   DelDot(PhiIcurr) ");
+		printf("  lyteJHSource   solidJHSource |  HeatSource    |  RxnHeatSrcTerm   OverPotHeat  deltaSHeat");
 		printf("\n");
 	    }
 	}
@@ -1774,7 +1775,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
-	    Electrode* Electrode_ptr = Electrode_Cell_[iCell];
+	    //Electrode* Electrode_ptr = Electrode_Cell_[iCell];
 	    /*
 	     *  ---------------- Get the index for the center node ---------------------------------
 	     *   Get the pointer to the NodalVars object for the center node
@@ -1869,7 +1870,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		//
 		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 		SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
-		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+		//phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
 		fluxTleft = 0.0;
 		fluxL_JHelec = 0.0;
 		fluxL_JHPhi = 0.0;
@@ -1882,7 +1883,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		jFlux_EnthalpyPhi_metal_trCurr_ =  - icurrElectrode_LBcons / Faraday;
 		jFlux_EnthalpyPhi_metal_trCurr_ *= EnthalpyPhiPM_metal_Curr_[0];
 		fluxL_JHelec = jFlux_EnthalpyPhi_metal_trCurr_;
-		phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
+		//phiIcurrL = icurrElectrolyte_CBL_[iCell] * phiElectrolyte_Curr_;
          
 	    }
 
@@ -1923,9 +1924,9 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 	    } 
 
 	    if (doPrint) {
+		double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
 		if (itimes == 0) {
 		    resid = 0.0;
-		    double deltanEnth = nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell];
 		    resid = deltanEnth + deltaT *( fluxTright - fluxTleft);
 		    resid += deltaT * (fluxR_JHPhi - fluxL_JHPhi + enthConvRight - enthConvLeft);
 		    resid += deltaT * (fluxR_JHelec - fluxL_JHelec);
@@ -1951,11 +1952,22 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
 		    printf("  \n");
 		}
 		if (itimes == 1) {
-		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell], 
-			   (fluxL_JHPhi - fluxR_JHPhi) * deltaT);
-		    
-		    printf(" % 12.6E  ", (phiIcurrL - phiIcurrR) * deltaT);
+
+		    printf("%3d |  % 12.6E  % 12.6E  | ", iCell, jouleHeat_lyte_Cell_curr_[iCell],
+			   jouleHeat_solid_Cell_curr_[iCell ]);
+		    //double fluxL_JH = fluxL_JHPhi - phiIcurrL;
+		    // double fluxR_JH = fluxR_JHPhi - phiIcurrR;
+		    //double Einflux = deltaT * (enthConvLeft - enthConvRight + fluxL_JH -  fluxR_JH);
+	
+		    double HeatIn = deltaT * (fluxTleft - fluxTright);
+		
+		    double rxnEnt = electrodeHeat_Cell_curr_[iCell]; 
+		    double nui    = overPotentialHeat_Cell_curr_[iCell];
+		    double idels  = deltaSHeat_Cell_curr_[iCell];
+		    printf(" % 12.6E | % 12.6E % 12.6E  % 12.6E ", 
+			   HeatIn, rxnEnt, nui, idels);
 		    printf("\n");
+
 		}
 	    }
 	    dVals.totalHeatCapacity += CpMolar_total_Cell_[iCell];
