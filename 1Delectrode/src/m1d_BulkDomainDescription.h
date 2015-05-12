@@ -44,11 +44,11 @@ public:
   BulkDomainDescription &
   operator=(const BulkDomainDescription &r);
 
-  //! Sets the id of the surface domain
+  //! Sets the id of the bulk domain
   void
   setID(const int id);
 
-  //! Reports the id of the surface domain
+  //! Reports the id of the bulk domain
   int
   ID() const;
 

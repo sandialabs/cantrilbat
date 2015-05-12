@@ -111,10 +111,10 @@ public:
   //! or whether it's a volume.
   // int UniqueID;
 
-  //! Vector containing the variable names as they appear in the
-  //! solution vector
+  //! Vector containing the variable names as they appear in the unknown solution for this domain
   /*!
-   * This vector defines the ordering of the equations on the domain
+   * This vector defines the ordering of the equations on the domain. However, this vector
+   * does not define the ordering within the solution vector.
    *
    * Length = number of equations defined on the domain
    */
@@ -122,7 +122,8 @@ public:
 
   //! Listing of the equations types as a vector
   /*!
-   * This vector defines the ordering of the equations on the domain.
+   * This vector defines the ordering of the equations on the domain. However, this vector
+   * does not define the ordering within the solution vector.
    *
    * Length = number of equations defined on the domain
    */

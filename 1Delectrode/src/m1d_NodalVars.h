@@ -120,18 +120,18 @@ public:
    *    @param variableType   VAR_TYPE to look up the index for
    *    @param subVarIndex    VAR_TYPE_SUBNUM subindex to look up the variable
    *
-   *    @return  Returns -1 if there isn't a variable of that type and subtype.
+   *    @return  Returns npos if there isn't a variable of that type and subtype.
    *             Returns the index into the solution vector from the start of
    *             variables at that node.
    */
   size_t indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM subVarIndex) const;
 
-  //!  Find the index of a particular variable into the nodal solution vector
+  //!  Find the offset index of a particular variable into the nodal solution vector
   /*!
    *   These functions are important as they are used frequently to index into the
    *   solution vector. 
    *
-   *    @param variableType   VAR_TYPEsize_t value to look up the index for
+   *    @param variableTypeS   VAR_TYPE size_t value to look up the index
    *
    *    @return  Returns npos=size_t(-1) if there isn't a variable of that type. 
    *             Returns the index into the solution vector from the start of
@@ -139,9 +139,33 @@ public:
    */
   inline size_t indexBulkDomainVar0(size_t variableTypeS) const;
 
+  //!   Find the index of a particular bulk domain variable, given by its index, at this particular node
+  /*!
+   *   This function isn't important for speed
+   *
+   *    @param  indexBD   Index of the variable within the list of unknowns on the bulk domain
+   *
+   *    @return BDnum     Number of the bulk domain at the current node. Defaults to zero,
+   *                      which is defined as the first bulk domain (MAY CHANGE)
+   *
+   *    @return           Returns the offset of the variable index at the current node.
+   */
+  size_t indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BDnum = 0) const;
+
 
   size_t indexBulkDomainEqn(EQ_TYPE equationType, EQ_TYPE_SUBNUM subEqnIndex) const;
 
+  //!  Find the offset index of a particular equation into the nodal solution vector
+  /*!
+   *   These functions are important as they are used frequently to index into the
+   *   solution vector. 
+   *
+   *    @param equationTypeS   EQN_TYPE size_t value to look up the index
+   *
+   *    @return  Returns npos=size_t(-1) if there isn't an equation of that type. 
+   *             Returns the index into the solution vector from the start of
+   *             equations of that EQN_TYPE at that node.
+   */
   inline size_t indexBulkDomainEqn0(size_t equationTypeS) const;
 
   inline size_t numberBulkDomainVar0(size_t variableTypeS) const;
@@ -187,9 +211,11 @@ public:
    */
   int EqnStart_GbEqnIndex;
 
-  //! Listing of the bulk domains at this node
+  //! Global index of the bulk domain at this node given its bulk domain number at this node
   /*!
-   *  Length = number of domains, NumBulkDomains
+   *  Length = number of bulk domains, NumBulkDomains, at the current node
+   *
+   *  Value = index of the Bulk Domain in the global vector of bulk domains
    */
   std::vector<int> BulkDomainIndex_BDN;
 
@@ -207,7 +233,9 @@ public:
 
   //! Map from the bulk domain id to the order index at the current node
   /*!
-   *
+   *   Given the bulk domain ID, this returns the local index of the bulk domain
+   *   at the current node. If the bulk domain is not at the current node,
+   *   this returns -1.
    */
   std::map<int, int> BulkDomainIndex_fromID;
 

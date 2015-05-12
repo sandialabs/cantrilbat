@@ -24,7 +24,7 @@ using namespace std;
 namespace m1d
 {
 
-//================================================================================================================================================
+//==================================================================================================================================
 NodalVars::NodalVars(DomainLayout *dl_ptr) :
       GbNode(-1),
       LcNode(-1),
@@ -151,7 +151,7 @@ void  insert_into_list(std::list<VarType>& varList, VarType& v1)
     }
     varList.push_back(v1);
 }
-//============================================================================================================
+//==================================================================================================================================
 static int lookupPosition(int val, std::vector<int>& yy) {
     for (size_t i = 0; i < yy.size(); i++) {
 	if (val == yy[i]) {
@@ -160,7 +160,8 @@ static int lookupPosition(int val, std::vector<int>& yy) {
     }
     return -1;
 }
-
+//==================================================================================================================================
+/*
 static size_t lookupPosition(size_t val, std::vector<size_t>& yy) {
     for (size_t i = 0; i < yy.size(); i++) {
         if (val == yy[i]) {
@@ -169,7 +170,8 @@ static size_t lookupPosition(size_t val, std::vector<size_t>& yy) {
     }
     return npos;
 }
-
+*/
+//==================================================================================================================================
 static void print_line(const char *str, int n)
 {
     for (int i = 0; i < n; i++) {
@@ -178,7 +180,7 @@ static void print_line(const char *str, int n)
     printf("\n");
 }
 
-//===========================================================================
+//==================================================================================================================================
 // This routine discovers and order the equation unknowns at a node
 /*
  * This is the ONE PLACE IN THE CODE that discovers and orders the
@@ -679,8 +681,22 @@ NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
 //  This means that mole fractions in different domains that are different should have different
 //  VAR_TYPE_SUBNUM values. This has to be detemined by the application.
 //
+//  Return the starting index of a particular variable from the start of the nodal solution vector
+/*
+ *  These functions are important as they are used frequently to index into the  solution vector. 
+ *
+ *    @param variableType   VAR_TYPE to look up the index for
+ *    @param subVarIndex    VAR_TYPE_SUBNUM subindex to look up the variable
+ *
+ *    @return  Returns npos if there isn't a variable of that type and subtype.
+ *             Returns the index into the solution vector from the start of
+ *             variables at that node.
+ */
 size_t NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM variableSubType) const
 {
+    //
+    // Look up the offset of the variable type in the map, Offset_VarType
+    //
     std::map<VAR_TYPE, size_t>::const_iterator it;
     if ((it = Offset_VarType.find(variableType)) == Offset_VarType.end()) {
       return npos;
@@ -696,6 +712,7 @@ size_t NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM vari
 #endif
     //
     //  We do a quick trial for a common case.
+    //
     if (variableSubType < (int) numV) {
 	VarType vt = VariableNameList_EqnNum[start + variableSubType];
 	if (variableSubType == vt.VariableSubType) {
@@ -709,6 +726,36 @@ size_t NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM vari
 	}
     }
     return npos;
+}
+//==================================================================================================================================
+size_t NodalVars::indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BD_id) const
+{
+    std::map<int, int>::const_iterator it;
+    if ((it = BulkDomainIndex_fromID.find(BD_id)) == BulkDomainIndex_fromID.end()) {
+	return npos;
+    } 
+    int bulkDomainIndex = it->second;
+    if (bulkDomainIndex == -1) {
+	return npos;
+    }
+    int ibdd = BulkDomainIndex_BDN[bulkDomainIndex];
+    if (ibdd == -1) {
+	return npos;
+    }
+    const BulkDomainDescription *bdd = DL_ptr_->BulkDomainDesc_global[ibdd];
+
+    if (indexBDom >= bdd->VariableNameList.size()) {
+	return npos;
+    }
+    //
+    //  Look up the variable type
+    //
+    const VarType& vt = bdd->VariableNameList[indexBDom];
+    //
+    // Look up and return the offset for that variable
+    //
+    size_t offset = indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+    return offset;
 }
 //=====================================================================================================================
 //! returns the node position
