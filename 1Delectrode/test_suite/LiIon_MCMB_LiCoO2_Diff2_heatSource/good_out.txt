@@ -1098,6 +1098,7 @@ Start of Time Step:     1       Time_n =     1e-08 Time_nm1 =         0
 ================================================================================
 
 Solution saved to file solution.xml as solution 1.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.000E-08   
                            Delta_t    1.000E-08   
@@ -1528,6 +1529,7 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 2.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.000E-08   
                            Delta_t    1.000E-08   
@@ -1958,6 +1960,7 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 3.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E-08   
                            Delta_t    1.000E-08   
@@ -2387,6 +2390,7 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 4.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.000E-08   
                            Delta_t    1.000E-08   
@@ -2816,6 +2820,7 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 5.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.500E-08   
                            Delta_t    1.500E-08   
@@ -3245,6 +3250,7 @@ Start of Time Step:     6       Time_n =  7.75e-08 Time_nm1 =   5.5e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 6.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.750E-08   
                            Delta_t    2.250E-08   
@@ -3674,6 +3680,7 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 7.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.113E-07   
                            Delta_t    3.375E-08   
@@ -4103,6 +4110,7 @@ Start of Time Step:     8       Time_n = 1.6188e-07 Time_nm1 = 1.1125e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 8.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.619E-07   
                            Delta_t    5.063E-08   
@@ -4532,6 +4540,7 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 9.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.378E-07   
                            Delta_t    7.594E-08   
@@ -4961,6 +4970,7 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 10.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.517E-07   
                            Delta_t    1.139E-07   
@@ -5390,6 +5400,7 @@ Start of Time Step:    11       Time_n = 5.2258e-07 Time_nm1 = 3.5172e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 11.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.226E-07   
                            Delta_t    1.709E-07   
@@ -5819,6 +5830,7 @@ Start of Time Step:    12       Time_n = 7.7887e-07 Time_nm1 = 5.2258e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 12.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.789E-07   
                            Delta_t    2.563E-07   
@@ -6248,6 +6260,7 @@ Start of Time Step:    13       Time_n = 1.1633e-06 Time_nm1 = 7.7887e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 13.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.163E-06   
                            Delta_t    3.844E-07   
@@ -6677,6 +6690,7 @@ Start of Time Step:    14       Time_n =  1.74e-06 Time_nm1 = 1.1633e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 14.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.740E-06   
                            Delta_t    5.767E-07   
@@ -7106,6 +7120,7 @@ Start of Time Step:    15       Time_n = 2.6049e-06 Time_nm1 =  1.74e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 15.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.605E-06   
                            Delta_t    8.650E-07   
@@ -7535,6 +7550,7 @@ Start of Time Step:    16       Time_n = 3.9024e-06 Time_nm1 = 2.6049e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 16.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.902E-06   
                            Delta_t    1.297E-06   
@@ -7964,6 +7980,7 @@ Start of Time Step:    17       Time_n = 5.8486e-06 Time_nm1 = 3.9024e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 17.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.849E-06   
                            Delta_t    1.946E-06   
@@ -8393,6 +8410,7 @@ Start of Time Step:    18       Time_n = 8.7679e-06 Time_nm1 = 5.8486e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 18.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       8.768E-06   
                            Delta_t    2.919E-06   
@@ -8822,6 +8840,7 @@ Start of Time Step:    19       Time_n = 1.3147e-05 Time_nm1 = 8.7679e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 19.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.315E-05   
                            Delta_t    4.379E-06   
@@ -9251,6 +9270,7 @@ Start of Time Step:    20       Time_n = 1.9715e-05 Time_nm1 = 1.3147e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 20.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.972E-05   
                            Delta_t    6.568E-06   
@@ -9680,6 +9700,7 @@ Start of Time Step:    21       Time_n = 2.9568e-05 Time_nm1 = 1.9715e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 21.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.957E-05   
                            Delta_t    9.853E-06   
@@ -10109,6 +10130,7 @@ Start of Time Step:    22       Time_n = 4.4347e-05 Time_nm1 = 2.9568e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 22.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.435E-05   
                            Delta_t    1.478E-05   
@@ -10538,6 +10560,7 @@ Start of Time Step:    23       Time_n = 6.6515e-05 Time_nm1 = 4.4347e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 23.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       6.652E-05   
                            Delta_t    2.217E-05   
@@ -10967,6 +10990,7 @@ Start of Time Step:    24       Time_n = 9.9768e-05 Time_nm1 = 6.6515e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 24.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       9.977E-05   
                            Delta_t    3.325E-05   
@@ -11396,6 +11420,7 @@ Start of Time Step:    25       Time_n = 0.00014965 Time_nm1 = 9.9768e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 25.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.496E-04   
                            Delta_t    4.988E-05   
@@ -11825,6 +11850,7 @@ Start of Time Step:    26       Time_n = 0.00022446 Time_nm1 = 0.00014965
 ================================================================================
 
 Solution saved to file solution.xml as solution 26.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.245E-04   
                            Delta_t    7.482E-05   
@@ -12254,6 +12280,7 @@ Start of Time Step:    27       Time_n = 0.00033669 Time_nm1 = 0.00022446
 ================================================================================
 
 Solution saved to file solution.xml as solution 27.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.367E-04   
                            Delta_t    1.122E-04   
@@ -12683,6 +12710,7 @@ Start of Time Step:    28       Time_n = 0.00050503 Time_nm1 = 0.00033669
 ================================================================================
 
 Solution saved to file solution.xml as solution 28.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.050E-04   
                            Delta_t    1.683E-04   
@@ -13112,6 +13140,7 @@ Start of Time Step:    29       Time_n = 0.00075755 Time_nm1 = 0.00050503
 ================================================================================
 
 Solution saved to file solution.xml as solution 29.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.575E-04   
                            Delta_t    2.525E-04   
@@ -13541,6 +13570,7 @@ Start of Time Step:    30       Time_n = 0.0011363 Time_nm1 = 0.00075755
 ================================================================================
 
 Solution saved to file solution.xml as solution 30.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.136E-03   
                            Delta_t    3.788E-04   
@@ -13970,6 +14000,7 @@ Start of Time Step:    31       Time_n = 0.0017045 Time_nm1 = 0.0011363
 ================================================================================
 
 Solution saved to file solution.xml as solution 31.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.704E-03   
                            Delta_t    5.682E-04   
@@ -14399,6 +14430,7 @@ Start of Time Step:    32       Time_n = 0.0025567 Time_nm1 = 0.0017045
 ================================================================================
 
 Solution saved to file solution.xml as solution 32.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.557E-03   
                            Delta_t    8.522E-04   
@@ -14828,6 +14860,7 @@ Start of Time Step:    33       Time_n =  0.003835 Time_nm1 = 0.0025567
 ================================================================================
 
 Solution saved to file solution.xml as solution 33.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.835E-03   
                            Delta_t    1.278E-03   
@@ -15257,6 +15290,7 @@ Start of Time Step:    34       Time_n = 0.0057525 Time_nm1 =  0.003835
 ================================================================================
 
 Solution saved to file solution.xml as solution 34.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.753E-03   
                            Delta_t    1.918E-03   
@@ -15686,6 +15720,7 @@ Start of Time Step:    35       Time_n = 0.0086288 Time_nm1 = 0.0057525
 ================================================================================
 
 Solution saved to file solution.xml as solution 35.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       8.629E-03   
                            Delta_t    2.876E-03   
@@ -16115,6 +16150,7 @@ Start of Time Step:    36       Time_n =  0.012943 Time_nm1 = 0.0086288
 ================================================================================
 
 Solution saved to file solution.xml as solution 36.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.294E-02   
                            Delta_t    4.314E-03   
@@ -16544,6 +16580,7 @@ Start of Time Step:    37       Time_n =  0.019415 Time_nm1 =  0.012943
 ================================================================================
 
 Solution saved to file solution.xml as solution 37.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.941E-02   
                            Delta_t    6.472E-03   
@@ -16973,6 +17010,7 @@ Start of Time Step:    38       Time_n =  0.029122 Time_nm1 =  0.019415
 ================================================================================
 
 Solution saved to file solution.xml as solution 38.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.912E-02   
                            Delta_t    9.707E-03   
@@ -17402,6 +17440,7 @@ Start of Time Step:    39       Time_n =  0.043683 Time_nm1 =  0.029122
 ================================================================================
 
 Solution saved to file solution.xml as solution 39.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.368E-02   
                            Delta_t    1.456E-02   
@@ -17831,6 +17870,7 @@ Start of Time Step:    40       Time_n =  0.065525 Time_nm1 =  0.043683
 ================================================================================
 
 Solution saved to file solution.xml as solution 40.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       6.552E-02   
                            Delta_t    2.184E-02   
@@ -18260,6 +18300,7 @@ Start of Time Step:    41       Time_n =  0.098287 Time_nm1 =  0.065525
 ================================================================================
 
 Solution saved to file solution.xml as solution 41.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       9.829E-02   
                            Delta_t    3.276E-02   
@@ -18689,6 +18730,7 @@ Start of Time Step:    42       Time_n =   0.14743 Time_nm1 =  0.098287
 ================================================================================
 
 Solution saved to file solution.xml as solution 42.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.474E-01   
                            Delta_t    4.914E-02   
@@ -19118,6 +19160,7 @@ Start of Time Step:    43       Time_n =   0.22115 Time_nm1 =   0.14743
 ================================================================================
 
 Solution saved to file solution.xml as solution 43.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.211E-01   
                            Delta_t    7.372E-02   
@@ -19547,6 +19590,7 @@ Start of Time Step:    44       Time_n =   0.33172 Time_nm1 =   0.22115
 ================================================================================
 
 Solution saved to file solution.xml as solution 44.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.317E-01   
                            Delta_t    1.106E-01   
@@ -19976,6 +20020,7 @@ Start of Time Step:    45       Time_n =   0.49758 Time_nm1 =   0.33172
 ================================================================================
 
 Solution saved to file solution.xml as solution 45.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.976E-01   
                            Delta_t    1.659E-01   
@@ -20405,6 +20450,7 @@ Start of Time Step:    46       Time_n =   0.74637 Time_nm1 =   0.49758
 ================================================================================
 
 Solution saved to file solution.xml as solution 46.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.464E-01   
                            Delta_t    2.488E-01   
@@ -20834,6 +20880,7 @@ Start of Time Step:    47       Time_n =    1.1196 Time_nm1 =   0.74637
 ================================================================================
 
 Solution saved to file solution.xml as solution 47.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.120E+00   
                            Delta_t    3.732E-01   
@@ -21263,6 +21310,7 @@ Start of Time Step:    48       Time_n =    1.6793 Time_nm1 =    1.1196
 ================================================================================
 
 Solution saved to file solution.xml as solution 48.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.679E+00   
                            Delta_t    5.598E-01   
@@ -21692,6 +21740,7 @@ Start of Time Step:    49       Time_n =     2.519 Time_nm1 =    1.6793
 ================================================================================
 
 Solution saved to file solution.xml as solution 49.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.519E+00   
                            Delta_t    8.397E-01   
@@ -22121,6 +22170,7 @@ Start of Time Step:    50       Time_n =         3 Time_nm1 =     2.519
 ================================================================================
 
 Solution saved to file solution.xml as solution 50.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E+00   
                            Delta_t    4.810E-01   
@@ -22526,6 +22576,7 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
 
 ================================================================================
 Solution saved to file solutionStartEnd.xml as solution 1.
+we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E+00   
                            Delta_t    4.810E-01   
