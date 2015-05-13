@@ -1374,7 +1374,7 @@ ProblemResidEval::showProblemSolution(const int ievent,
     rdelta_t = 1.0 / delta_t;
   }
 
-  residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
+  // residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
 
   int indentSpaces = 4;
   string indent = "    ";
