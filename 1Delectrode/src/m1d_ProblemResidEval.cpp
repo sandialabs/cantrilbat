@@ -1710,6 +1710,17 @@ ProblemResidEval::writeSolution(const int ievent,
     //
     // HKM -> Could gather solnAll, i.e., the entire solution on proc 0,  here
     //
+
+    //
+    //  Do a Base_ShowSolution calculation, so that all items are evaluated no matter what the print level.
+    //
+    double rdelta_t = 0.0;
+    if (delta_t_n > 0.0) {
+       rdelta_t = 1.0 / delta_t_n;
+    }
+    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n_ptr, time_current, rdelta_t, Base_ShowSolution, solveType);
+
+
     static double lastTime = -10000000.;
     if (ievent == 0 || ievent == 1 || ievent == 2) {
         if (ievent == 2) {
