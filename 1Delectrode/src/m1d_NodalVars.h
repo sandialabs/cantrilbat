@@ -126,6 +126,8 @@ public:
    */
   size_t indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM subVarIndex) const;
 
+  size_t indexBulkDomainVar(const VarType& vt) const;
+
   //!  Find the offset index of a particular variable into the nodal solution vector
   /*!
    *   These functions are important as they are used frequently to index into the

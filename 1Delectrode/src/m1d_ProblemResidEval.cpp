@@ -683,7 +683,7 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
 
     //JCH adding tecplot output call here.
     //probably want to change this later
-    d_ptr->writeSolutionTecplotHeader();
+    //d_ptr->writeSolutionTecplotHeader();
   }
   /*
    *    Loop over ths Surface Domains
@@ -694,7 +694,7 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
 
     //JCH adding tecplot output call here.
     //probably want to change this later
-    d_ptr->writeSolutionTecplotHeader();
+    //d_ptr->writeSolutionTecplotHeader();
   }
 
   // Find the restart record number. If this is greater than zero, then the user has
@@ -986,154 +986,154 @@ ProblemResidEval::saveSolutionEnd(const int itype,
                                   const double delta_t,
                                   const double delta_t_np1)
 {
-  //bool doAllProcs = false;
-  struct tm *newtime;
-  time_t aclock;
-  static int solNum = 0;
-  static int solNumAlt = 0;
-  static string savedBase = baseFileName;
-  static string savedAltBase;
-  int appendAtEnd = 1;
-  ::time(&aclock); /* Get time in seconds */
-  newtime = localtime(&aclock); /* Convert time to struct tm form */
-  int mypid = LI_ptr_->Comm_ptr_->MyPID();
-  if (mypid != 0) {
-    baseFileName += ("_" + Cantera::int2str(mypid));
-  }
-  std::string fname = baseFileName + ".xml";
-  if (solNum == 0) {
-     savedBase = fname;
-     appendAtEnd = 0;
-  }
-  if (savedBase != fname) {
-     if ((fname != savedAltBase) && (savedAltBase == "")) {
-         solNumAlt = 0;
-         savedAltBase = fname;
-         appendAtEnd = 0;
-     }
-  }
-  if ((fname != savedBase) && (fname != savedAltBase)) {
-     appendAtEnd = 0;
-  }
-
-  Epetra_BlockMap *nmap = ownedMap();
-  Epetra_Vector *y_n_owned_ptr =  new_EpetraVectorView(y_n_ghosted, *nmap);
-  Epetra_Vector *ydot_n_owned_ptr = 0; 
-  if (ydot_n_ghosted) {
-      ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
-  }
-
-  Cantera::XML_Node root("--");
-
-  Cantera::XML_Node& ct = root.addChild("ctml");
-
-  Cantera::XML_Node& sim = ct.addChild("simulation");
-  //
-  // Initially define the 
-  std::string simulationID = "0";
-  if (fname == savedBase) {
-      simulationID = Cantera::int2str(solNum);
-  } else if (fname == savedAltBase) {
-      simulationID = Cantera::int2str(solNumAlt);
-  }
-  sim.addAttribute("id", simulationID);
-  ctml::addString(sim, "timestamp", asctime(newtime));
-  // if (desc != "")
-  //  addString(sim, "description", desc);
-
-  ctml::addFloat(sim, "time", t, "s", "time");
-  if (delta_t > 0.0) {
-    ctml::addFloat(sim, "delta_t", delta_t, "s", "time");
-  } else {
-      ctml::addFloat(sim, "delta_t", 0.0, "s", "time");
-  }
-  ctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
-  ctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
-
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
-
-  Epetra_Vector *solnAll = GI_ptr_->SolnAll;
-  m1d::gather_nodeV_OnAll(*solnAll, *y_n_owned_ptr);
-  //solnAll = m1d::gatherOnAll(y_n);
-  Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
-  if (ydot_n_ghosted) {
-    m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n_owned_ptr);
-  }
-
-  Domain1D *d_ptr = DL.SurDomain1D_List[0];
-  do {
-    d_ptr->saveDomain(sim, solnAll, soln_dot_All, t, false);
-
-    //JCH adding tecplot output call here.
-    //probably want to change this later
-    d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
-
-    BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-    if (bd_ptr) {
-      //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
-      if (sdd) {
-        int idS = sdd->ID();
-        d_ptr = DL.SurDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
-    } else {
-      SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-      DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-      if (dd) {
-        BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-        int idS = bdd->ID();
-        d_ptr = DL.BulkDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
+    //bool doAllProcs = false;
+    struct tm *newtime;
+    time_t aclock;
+    static int solNum = 0;
+    static int solNumAlt = 0;
+    static string savedBase = baseFileName;
+    static string savedAltBase;
+    int appendAtEnd = 1;
+    ::time(&aclock); /* Get time in seconds */
+    newtime = localtime(&aclock); /* Convert time to struct tm form */
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    if (mypid != 0) {
+	baseFileName += ("_" + Cantera::int2str(mypid));
     }
-  } while (d_ptr);
+    std::string fname = baseFileName + ".xml";
+    if (solNum == 0) {
+	savedBase = fname;
+	appendAtEnd = 0;
+    }
+    if (savedBase != fname) {
+	if ((fname != savedAltBase) && (savedAltBase == "")) {
+	    solNumAlt = 0;
+	    savedAltBase = fname;
+	    appendAtEnd = 0;
+	}
+    }
+    if ((fname != savedBase) && (fname != savedAltBase)) {
+	appendAtEnd = 0;
+    }
 
-  if (mypid == 0) {
-      if (!appendAtEnd) {
-	  fstream s(fname.c_str(), fstream::in | fstream::out | ios::trunc);
-	  root.write(s);
-	  s.close();
-      } else {
+    Epetra_BlockMap *nmap = ownedMap();
+    Epetra_Vector *y_n_owned_ptr =  new_EpetraVectorView(y_n_ghosted, *nmap);
+    Epetra_Vector *ydot_n_owned_ptr = 0; 
+    if (ydot_n_ghosted) {
+	ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
+    }
 
-	  int length = 0;
-	  ifstream sr(fname.c_str());
-	  if (sr) {
-	      sr.seekg(0, ios::end);
-	      length = sr.tellg();
-	      sr.close();
-	  }
+    Cantera::XML_Node root("--");
 
-	  if (length > 0) {
-	      fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
-	      //int pos = s.tellp();
-	      s.seekp(-8, ios_base::end);
-	      sim.write(s, 2);
-	      s.write("</ctml>\n", 8);
-	      s.close();
-	  } else {
-	      fstream s(fname.c_str(), fstream::in | fstream::out | fstream::app);
-	      root.write(s);
-	      s.close();
-	  }
-      }
-  }
+    Cantera::XML_Node& ct = root.addChild("ctml");
 
-  if (mypid == 0) {
-    Cantera::writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
-  }
-  Epetra_Comm *c = LI_ptr_->Comm_ptr_;
-  c->Barrier();
-  if (fname == savedBase) {
-      solNum++;
-  } else if (fname == savedAltBase) {
-      solNumAlt++;
-  }
-  delete y_n_owned_ptr;
-  delete ydot_n_owned_ptr;
+    Cantera::XML_Node& sim = ct.addChild("simulation");
+    //
+    // Initially define the 
+    std::string simulationID = "0";
+    if (fname == savedBase) {
+	simulationID = Cantera::int2str(solNum);
+    } else if (fname == savedAltBase) {
+	simulationID = Cantera::int2str(solNumAlt);
+    }
+    sim.addAttribute("id", simulationID);
+    ctml::addString(sim, "timestamp", asctime(newtime));
+    // if (desc != "")
+    //  addString(sim, "description", desc);
+
+    ctml::addFloat(sim, "time", t, "s", "time");
+    if (delta_t > 0.0) {
+	ctml::addFloat(sim, "delta_t", delta_t, "s", "time");
+    } else {
+	ctml::addFloat(sim, "delta_t", 0.0, "s", "time");
+    }
+    ctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
+    ctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
+
+    // Get a local copy of the domain layout
+    DomainLayout &DL = *DL_ptr_;
+
+    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+    m1d::gather_nodeV_OnAll(*solnAll, *y_n_owned_ptr);
+    //solnAll = m1d::gatherOnAll(y_n);
+    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+    if (ydot_n_ghosted) {
+	m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n_owned_ptr);
+    }
+
+    Domain1D *d_ptr = DL.SurDomain1D_List[0];
+    do {
+	d_ptr->saveDomain(sim, solnAll, soln_dot_All, t, false);
+
+	//JCH adding tecplot output call here.
+	//probably want to change this later
+	//d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
+
+	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
+	if (bd_ptr) {
+	    //BulkDomainDescription &BDD_;
+	    SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+	    if (sdd) {
+		int idS = sdd->ID();
+		d_ptr = DL.SurDomain1D_List[idS];
+	    } else {
+		d_ptr = 0;
+	    }
+	} else {
+	    SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
+	    DomainDescription *dd = sd_ptr->SDD_.RightDomain;
+	    if (dd) {
+		BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
+		int idS = bdd->ID();
+		d_ptr = DL.BulkDomain1D_List[idS];
+	    } else {
+		d_ptr = 0;
+	    }
+	}
+    } while (d_ptr);
+
+    if (mypid == 0) {
+	if (!appendAtEnd) {
+	    fstream s(fname.c_str(), fstream::in | fstream::out | ios::trunc);
+	    root.write(s);
+	    s.close();
+	} else {
+
+	    int length = 0;
+	    ifstream sr(fname.c_str());
+	    if (sr) {
+		sr.seekg(0, ios::end);
+		length = sr.tellg();
+		sr.close();
+	    }
+
+	    if (length > 0) {
+		fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
+		//int pos = s.tellp();
+		s.seekp(-8, ios_base::end);
+		sim.write(s, 2);
+		s.write("</ctml>\n", 8);
+		s.close();
+	    } else {
+		fstream s(fname.c_str(), fstream::in | fstream::out | fstream::app);
+		root.write(s);
+		s.close();
+	    }
+	}
+    }
+
+    if (mypid == 0) {
+	Cantera::writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
+    }
+    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
+    if (fname == savedBase) {
+	solNum++;
+    } else if (fname == savedAltBase) {
+	solNumAlt++;
+    }
+    delete y_n_owned_ptr;
+    delete ydot_n_owned_ptr;
 }
 //=====================================================================================================================
 void
@@ -1439,6 +1439,60 @@ ProblemResidEval::showProblemSolution(const int ievent,
 
 }
 //=====================================================================================================================
+void
+ProblemResidEval::writeTecplot(const int ievent,
+			       std::string baseFileName,
+			       bool doTimeDependentResid, 
+			       const double t,
+			       const double delta_t,
+			       const Epetra_Vector_Ghosted &y_n,
+			       const Epetra_Vector_Ghosted * const ydot_n,
+			       const Solve_Type_Enum solveType,
+			       const double delta_t_np1)
+{ 
+
+    // Get a local copy of the domain layout
+    DomainLayout &DL = *DL_ptr_;
+
+    static int firstTime = 1;
+
+    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+    m1d::gather_nodeV_OnAll(*solnAll, y_n);
+    
+    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+    if (ydot_n) {
+	m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
+    }
+    
+    //
+    // Write individual Tecplot files for each domain
+    //
+    if (firstTime) {
+	firstTime = 0;
+	for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	    d_ptr->writeSolutionTecplotHeader();
+	}
+	for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	    d_ptr->writeSolutionTecplotHeader();
+	}
+	
+
+	//writeGlobalTecplotHeader();
+    }
+    
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
+    }
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+	d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
+    }
+  
+}
+//=====================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
  *
@@ -1653,6 +1707,9 @@ ProblemResidEval::writeSolution(const int ievent,
 				const Solve_Type_Enum solveType,
                                 const double delta_t_np1)
 {
+    //
+    // HKM -> Could gather solnAll, i.e., the entire solution on proc 0,  here
+    //
     static double lastTime = -10000000.;
     if (ievent == 0 || ievent == 1 || ievent == 2) {
         if (ievent == 2) {
@@ -1668,12 +1725,18 @@ ProblemResidEval::writeSolution(const int ievent,
   	    saveSolutionEnd(ievent, "solutionStartEnd", y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
         }
     }
+   
     if (ievent == 0 || ievent == 1 || ievent == 2) {
  	if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
 	    showProblemSolution(ievent,  doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType, 
                                 delta_t_np1);
 	}
     }
+
+    
+    writeTecplot(ievent,  m_baseFileName, doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType, 
+		 delta_t_np1);
+    
     lastTime = time_current;
 }
 //=====================================================================================================================
@@ -1691,6 +1754,9 @@ ProblemResidEval::evalStoppingCritera(double &time_current,
 {
   return false;
 }
+
+
+
 //=====================================================================================================================
 /*
  * matrixConditioning()

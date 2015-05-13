@@ -755,6 +755,18 @@ public:
 		      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
                       const double delta_t_np1 = 0.0);
 
+  virtual void
+  writeTecplot(const int ievent,
+               std::string m_baseFileName,
+	       bool doTimeDependentResid,
+	       const double t,
+	       const double delta_t,
+	       const Epetra_Vector_Ghosted &y_n,
+	       const Epetra_Vector_Ghosted * const ydot_n,
+	       const Solve_Type_Enum solveType,
+	       const double delta_t_np1);
+
+
   //! Write a solution vector type to either the screen or a log file
   /*!
    *   @param solnVecName    Name of the solution vector -> will appear in the output

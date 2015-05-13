@@ -638,7 +638,7 @@ NodalVars::GenerateEqnOrder()
 
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Generate a name for the kth variable at the node
 /*
  *
@@ -651,7 +651,7 @@ NodalVars::VariableName(int k)
   VarType kv = VariableNameList_EqnNum[k];
   return kv.VariableName(200);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //! Change the node position
 /*!
  * @param xNodePos  new value of the node position
@@ -661,7 +661,7 @@ NodalVars::changeNodePosition(double xNodePos)
 {
   XNodePos = xNodePos;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //! Set up the initial node positions
 /*!
  * @param xNodePos
@@ -675,7 +675,12 @@ NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
   X0NodePos = x0NodePos;
   XFracNodePos = xFracNodePos;
 }
-//=====================================================================================================================
+//==================================================================================================================================
+size_t NodalVars::indexBulkDomainVar(const VarType& vt) const
+{
+    return indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+}
+//==================================================================================================================================
 //
 //  variableType and variableSubType completely determine a variable within the code.
 //  This means that mole fractions in different domains that are different should have different
