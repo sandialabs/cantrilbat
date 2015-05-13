@@ -14,6 +14,9 @@
 #include <cstdlib>
 #include <cmath>
 
+#include <vector>
+#include <cstdio>
+
 namespace m1d
 {
 
@@ -88,6 +91,26 @@ intToString(const int p)
     if (dfabs < denom) return true;
     return false;
 }
-//==============================================================================
-
+//==================================================================================================================================
+void
+fwriteTecplotVector(FILE *ofp, const std::vector<double>& vals, int numD, int numPerLine) 
+{
+ 
+    //static const char* form = "%20.13E ";
+    //const int numD = 13;
+    char form[8];
+    sprintf(form, "%%%u.%u ", 7+numD, numD);
+    int rsize = 0;
+    for (size_t i = 0; i < vals.size(); ++i) {
+	fprintf(ofp, form, vals[i]);
+	if (++rsize >= numPerLine) {
+	    fprintf(ofp, "\n");
+	    rsize = 0;
+	}
+    }
+    if (rsize != 0) {
+	fprintf(ofp, "\n");
+    }
+}
+//==================================================================================================================================
 }

@@ -16,6 +16,7 @@ class Epetra_Comm;
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 /*
  * This file contains globally defined functions and data
@@ -106,6 +107,10 @@ std::string intToString(const int p);
 
 //! Check error between two doubles
 bool checkDblAgree(double d1, double d2, double rtol = 1.0E-4, double atol = 1.0E-13);
+
+//! Write out a tecplot vector to a file
+void
+fwriteTecplotVector(FILE *ofp, const std::vector<double>& vals, int numD = 13, int numPerLine = 10);
 
 }
 
