@@ -4883,7 +4883,7 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
 	    size_t  k = istart + ik;
 	    double deltaNS = temperature_ * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
-	    double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
+	    double deltaN = spMoleIntegratedSourceTermLast_[k]; 
 	    printf("deltaNS_%d = %g,   deltaN = %g\n", k, -deltaNS, deltaN);
 #endif
 	    q_alt -= deltaNS;
@@ -4896,6 +4896,7 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
 /*
  *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
  *    on all of the surfaces.
+ *  
  */
 double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
 {

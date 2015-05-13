@@ -3479,7 +3479,7 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
  *        ROP_[jRxn]
  *        spNetProdPerArea_List_[isk][kIndexKin]
  */
-void  Electrode_SimpleDiff::extractInfo()
+void Electrode_SimpleDiff::extractInfo()
 {
     //double mfSig = 0.0;
     /*

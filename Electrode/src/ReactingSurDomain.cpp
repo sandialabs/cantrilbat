@@ -765,6 +765,8 @@ void ReactingSurDomain::updateMu0()
     }
     //
     // This overwrite m_mu0 for the selected species so that we get the experimental OCV
+    // HKM -> This is insufficient!! Need to overwrite the complete thermo functions for that
+    //        species, so that deltaS deltaH and deltaCp are modified as well! 5/1/2015
     //
     if (ocv_ptr_) {
        deriveEffectiveChemPot();

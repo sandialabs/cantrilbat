@@ -162,8 +162,7 @@ public:
      *
      *  @param returns the current density (amps m-2)
      */
-    double calcCurrentDensity(double nu, double nStoich, double io, double beta, 
-                              double temp) const;
+    double calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const;
 
     //!  Identify the metal phase and the electrons species
     /*!
