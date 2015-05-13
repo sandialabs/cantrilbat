@@ -508,7 +508,7 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
 	}
 
 	/*
-	 *  reset the moles in the electrode using the computed porosity
+	 * reset the moles in the electrode using the computed porosity
 	 * and the electrodeWidth FOR THIS node.
 	 */
 	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
@@ -2332,6 +2332,11 @@ porousLiIon_Anode_dom1D::calcElectrode()
 	//
 	//     Carry out the integration from t_init_init   to t_final_final
 	//
+	if (residType_Curr_ == Base_ShowSolution) {
+	    if (cIndex_cc_ == 6) {
+		//printf("we are here\n");
+	    }
+	}
         numSubcycles = Electrode_ptr->integrate(deltaT);
 #ifdef DEBUG_HKM
 	if (ProblemResidEval::s_printFlagEnv > 0 && BDD_.Residual_printLvl_ > 8) {
