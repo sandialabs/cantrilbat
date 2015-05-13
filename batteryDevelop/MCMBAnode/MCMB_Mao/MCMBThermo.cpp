@@ -96,6 +96,7 @@ int main(int argc, char **argv)
   try {
 
      double xmol[10];
+     double Temp = 298.15;
      PhaseList*  pl = new PhaseList();
      pl->addVolPhase("metal_Li_LiIon_electrons.xml");
      pl->addVolPhase ("MCMB_RedlichKister.xml");
@@ -103,7 +104,7 @@ int main(int argc, char **argv)
      pl->addVolPhase("Li_Metal.xml");
      pl->addSurPhase("MCMBAnode_electrode_extra.xml");
 
-     pl->setState_TP(300.0, OneAtm);
+     pl->setState_TP(Temp, OneAtm);
 
      ReactingSurDomain* rsd = new ReactingSurDomain();
      rsd->importFromPL(pl, 0);
@@ -123,7 +124,9 @@ int main(int argc, char **argv)
 
      int ii = pl->globalPhaseIndex("Li(S)");
      ThermoPhase& Limetal = pl->thermo(ii);
-     
+
+     int iPhMetal =  pl->globalPhaseIndex("metal_Li_LiIon_electrons");
+     ThermoPhase& metal = pl->thermo(iPhMetal);
 
 
      double nstoic = 1.0;
@@ -132,12 +135,16 @@ int main(int argc, char **argv)
      printf("ocv = %g\n", ocv);
 
 
+     //
+     //  We wil assume that the Li+ mole fraction in the electrolyte is this value
+     //
+     double xMoleFractionLip = 0.0780266;
 
      ThermoPhase& ecsoln = pl->thermo(2);
-     xmol[1] = 0.1;
+     xmol[1] = xMoleFractionLip;
      xmol[2] = xmol[1];
      xmol[0] = 1.0 - 2.0 * xmol[1]; 
-     ecsoln.setState_TPX(300., OneAtm, xmol);
+     ecsoln.setState_TPX(Temp, OneAtm, xmol);
      double aa[10];
      ecsoln.getActivities(aa);
      printf("activity Li+ = %g\n", aa[1]);
@@ -151,11 +158,11 @@ int main(int argc, char **argv)
 	 double xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[kC] = xKC;
          xmol[kLiC] = 1.0 - xmol[kC];
-         mcmb.setState_TPX(300., OneAtm, xmol);
+         mcmb.setState_TPX(Temp, OneAtm, xmol);
 
 	 rsd->getDeltaGibbs(dg);
 	 double ocv = dg[1] / Faraday / nstoic;
-         dg[0] -= GasConstant * 300. * std::log(0.1);
+         dg[0] -= GasConstant * Temp * std::log(xMoleFractionLip);
 	 double ocvE = dg[0] / Faraday / nstoic;
 
          rsd->getDeltaEnthalpy(dh);
@@ -169,23 +176,28 @@ int main(int argc, char **argv)
      xmol[1] = 0.0780266;
      xmol[2] = xmol[1];
      xmol[0] = 1.0 - 2.0 * xmol[1]; 
-     ecsoln.setState_TPX(300., OneAtm, xmol);
+     ecsoln.setState_TPX(Temp, OneAtm, xmol);
      printf("  Mole fraction of Li+ = %g\n", xmol[1]);
      ecsoln.getActivities(aa);
      printf("activity Li+ = %g\n", aa[1]);
      double liqS[10];
      ecsoln.getPartialMolarEntropies(liqS);
+     double liqH[10];
+     ecsoln.getPartialMolarEnthalpies(liqH);
+     double liqG[10];
+     ecsoln.getChemPotentials(liqG);
      
-     printf("        xV              xLi          OCV           OCV[1]           DeltaH         DeltaS       DeltaG\n") ;
+     
+     printf("        xV              xLi          OCV           OCV_halfCell        DeltaH         DeltaS       DeltaG\n") ;
      for (int i =0; i < numP; i++) {
 	 double xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[kC] = xKC;
          xmol[kLiC] = 1.0 - xmol[kC];
-         mcmb.setState_TPX(300., OneAtm, xmol);
+         mcmb.setState_TPX(Temp, OneAtm, xmol);
 
 	 rsd->getDeltaGibbs(dg);
 	 double ocv = dg[1] / Faraday / nstoic;
-         dg[0] -= GasConstant * 300. * std::log(0.1);
+         double dg0 = dg[0] - GasConstant * Temp * std::log(xMoleFractionLip);
 	 double ocvE = dg[0] / Faraday / nstoic;
 
          rsd->getDeltaEnthalpy(dh);
@@ -196,12 +208,12 @@ int main(int argc, char **argv)
      }
 
 
-     printf("\n\n SETTING xLi = 0.68 in the tables below\n\n");
+     printf("\n\n SETTING xLi = 0.80 in the tables below\n\n");
      
-     double RT = GasConstant * 300.; 
-     xmol[kLiC] = 0.68;
+     double RT = GasConstant * Temp; 
+     xmol[kLiC] = 0.80;
      xmol[kC] = 1.0 -  xmol[kLiC];
-     mcmb.setState_TPX(300., OneAtm, xmol);
+     mcmb.setState_TPX(Temp, OneAtm, xmol);
 
      mcmb.getPartialMolarEnthalpies(hh);
      mcmb.getEnthalpy_RT(hh0);
@@ -217,27 +229,113 @@ int main(int argc, char **argv)
      gg0[1] *= RT;
 
 
-     
-     printf(" Species    h(kJ/gmol)     h0(kJ/gmol)          s        s0        g          \n");
+
+     printf(" Reaction 1\n"); 
+     printf(" Species    h(J/kmol)     h0(kJ/gmol)          s        s0        g          \n");
      printf("Li-C6    ");
-     printf("%12.3E %12.3E %12.3E %12.3E %12.3E %12.3E  \n", hh[kLiC] * 1.0E-6, hh0[kLiC] * 1.0E-6, 
-            ss[kLiC] * 1.0E-3, ss0[kLiC] * 1.0E-3, gg[kLiC] * 1.0E-6, gg0[kLiC] * 1.0E-6 );
+     printf("% 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E  \n", hh[kLiC] , hh0[kLiC],  
+            ss[kLiC] , ss0[kLiC] , gg[kLiC] , gg0[kLiC]  );
      printf(" V-C6    ");
-     printf("%12.3E %12.3E %12.3E %12.3E %12.3E %12.3E \n", hh[kC] * 1.0E-6,   hh0[kC] * 1.0E-6,
-            ss[kC] * 1.0E-3, ss0[kC] * 1.0E-3, gg[kC] * 1.0E-6, gg0[kC] * 1.0E-6  );
+     printf("% 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E \n", hh[kC] ,   hh0[kC] ,
+            ss[kC] , ss0[kC] , gg[kC] , gg0[kC]  );
  
      double h_Li = Limetal.enthalpy_mole();
      double s_Li = Limetal.entropy_mole();
      double g_Li = Limetal.gibbs_mole();
      
 
-     printf("LiMetal    %12.3E %12.3E %12.3E %12.3E %12.3E %12.3E \n", h_Li * 1.0E-6,  h_Li * 1.0E-6, 
-            s_Li * 1.0E-3,  s_Li * 1.0E-3 ,  g_Li * 1.0E-6,  g_Li * 1.0E-6  );
+     printf("LiMetal  % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E \n", h_Li ,  h_Li , 
+            s_Li ,  s_Li  ,  g_Li ,  g_Li );
 
-     printf("Total   ");
+     double deltaH = - hh[kLiC] +  hh[kC] + h_Li;
+     double deltaS = - ss[kLiC] +  ss[kC] + s_Li;
+     double deltaG = - gg[kLiC] +  gg[kC] + g_Li;
+     printf("Total    %12.3E              % 12.3E              % 12.3E\n", deltaH, deltaS, deltaG);
+
+     printf("\n\n");
+     printf(" Reaction 0\n");
+     printf(" Species    h(J/kmol)     h0(kJ/gmol)          s        s0        g       g0   \n");
+     printf("Li-C6    ");
+     printf("% 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E  \n", hh[kLiC] , hh0[kLiC] ,
+            ss[kLiC] , ss0[kLiC] , gg[kLiC] , gg0[kLiC]);
+     printf(" V-C6    ");
+     printf("% 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E \n", hh[kC] ,   hh0[kC] ,
+            ss[kC] , ss0[kC] , gg[kC] , gg0[kC]   );
+
+     double h_e = metal.enthalpy_mole();
+     double s_e = metal.entropy_mole();
+     double g_e = metal.gibbs_mole();
+
+     double h_Lip = liqH[1];
+     double s_Lip = liqS[1];
+     double g_Lip = liqG[1];
 
 
-    Cantera::appdelete();
+     printf("Li+(l)   % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E \n", h_Lip, h_Lip ,
+            s_Lip , s_Lip , g_Lip,  g_Lip );
+     printf("Electron % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E % 12.3E \n", h_e ,  h_e ,
+            s_e ,  s_e  ,  g_e ,  g_e   );
+
+     deltaH = -hh[kLiC] +  hh[kC] + h_Lip + h_e;
+     deltaS = -ss[kLiC] +  ss[kC] + s_Lip + s_e;
+     deltaG = -gg[kLiC] +  gg[kC] + g_Lip + g_e;
+     printf("Total    % 12.3E              % 12.3E              % 12.3E \n", deltaH, deltaS ,   deltaG);
+
+
+     double nTdeltaS =  - Temp * deltaS;
+     
+     double phiSoln = 1.6075E-2;
+     double phiMetal = -5.4418E-04;
+     ecsoln.setElectricPotential(phiSoln);
+     metal.setElectricPotential(phiMetal);
+
+     double icurD = rsd->getCurrentDensityRxn();
+
+     const std::vector<double>& netRate = rsd->calcNetSurfaceProductionRateDensities();
+     double netROP[10];
+     rsd->getNetRatesOfProgress(netROP);
+     
+     int irxn = 0;
+     double nStoich;
+     double OCV;
+     double io;
+     double nu;
+     double beta;
+     double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta);
+
+     printf(" icurr = %g   icurr2 = %g \n", icurD, icurD2);
+     printf(" nu = %g\n", nu);
+     printf(" OCV = %g\n", OCV);
+
+     double delx = (7.4667E-05 - 5.3333E-05) * 0.5;
+     double sad = 2.25E5;  // surface area density
+     double icurrRxnCell = sad * delx * 1.0E-4 * icurD  / 1.0E-4;
+
+     printf("icurrRxnCell = %g amps / m2\n", icurrRxnCell);
+  
+     printf("-TdeltaS = %g Joule / kmol \n", nTdeltaS);
+
+     double deltaT = 1.0E-8;
+
+     double iTdelS = netROP[0] * nTdeltaS * deltaT * sad * delx;
+
+     printf("Cell source term = %g J / m2\n", iTdelS);
+
+     double volts = phiMetal - phiSoln;
+     printf("volts = %g \n", volts);
+     double iVTerm =  icurrRxnCell * volts * deltaT;
+     double ndeltaHterm = - netROP[0] * deltaH * deltaT * sad * delx;
+     double ndeltaHphiterm = iVTerm +  ndeltaHterm;
+     printf("iVterm = %g\n", iVTerm);
+     printf("ndeltaHterm = %g\n", ndeltaHterm);
+     printf("ndeltaHphiterm = %g\n",  ndeltaHphiterm);
+
+     double ndeltaGterm = - netROP[0] * deltaG * deltaT * sad * delx;
+     printf("ndeltaGterm = %g\n", ndeltaGterm);
+     double ndeltaGphiterm = iVTerm +  ndeltaGterm;
+     printf("ndeltaGphiterm = %g\n",  ndeltaGphiterm);
+
+     Cantera::appdelete();
 
     return 0;
 

@@ -54,14 +54,19 @@
    <!--
        Lumped reaction on the Lithium liquid electrode
     -->
-    <reaction reversible="yes" type="surface" id="0001">
+    
+  <reaction reversible="yes" type="ButlerVolmer_NoActivityCoeffs"  id="0001">
       <equation> Li_C6-bulk [=]  V_C6-bulk + Li+  + electron_Li_LiIon </equation>
       <rateCoeff type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
         <Arrhenius_ExchangeCurrentDensity>
-           <A>1.0E26</A>
+            <!-- <A>3.078268E3</A> -->
+           <!--<A>3.078268E20</A> -->
+           <A> 5.5082E8 </A>
            <b>0.0</b>
-           <E units="kJ/mol"> 20.000000 </E>
+           <!--<E units="kJ/mol"> 20.000000 </E> -->
+           <!--  Setting all activation energies to 4000 Kelvin to conform with li-ion-ebar.in from dualfoil -->
+           <E units="kJ/mol"> 33.25800 </E>
         </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
       <reactants> Li_C6-bulk:1.0 </reactants>
@@ -76,9 +81,9 @@
       <equation> Li_C6-bulk [=]  V_C6-bulk + Li(S) </equation>
         <rateCoeff>
         <Arrhenius>
-           <A>0.0E6</A>
+           <A>0.0E0</A>
            <b>0.0</b>
-           <E units="kJ/mol"> 20.000000 </E>
+           <E units="kJ/mol"> 33.258 </E>
         </Arrhenius>
       </rateCoeff>
       <reactants> Li_C6-bulk:1.0 </reactants>

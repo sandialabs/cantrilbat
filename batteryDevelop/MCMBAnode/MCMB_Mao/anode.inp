@@ -50,7 +50,7 @@ Pressure = 1.0 atm
 !
 ! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
-Particle Diameter = 20 microns
+Particle Diameter = 16 microns
 !-------------------------------------------------------------------------
 !
 ! Particle Number to Follow - double [unitless] (default 1) (optional)
@@ -58,7 +58,7 @@ Particle Diameter = 20 microns
 ! Particle Number to Follow = 2.0E8 
 !-------------------------------------------------------------------------
 !
-Electrode Porosity = 0.35
+Electrode Porosity = 0.40
 !-------------------------------------------------------------------------
 !
 ! Electrode Gross Area - [m^2]
