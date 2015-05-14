@@ -35,6 +35,8 @@
 #include "Epetra_SerialComm.h"
 #endif
 
+#include <fstream>
+
 using namespace std;
 
 

@@ -18,6 +18,7 @@
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_SurfDomainDescription.h"
 #include "m1d_SurDomain1D.h"
+#include "m1d_globals.h"
 
 #include "Electrode.h"
 #include "Electrode_Factory.h"
@@ -3002,7 +3003,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
     }
 
 }
-//=====================================================================================================================
+//======================================================================================================================
 // Method for writing the solution on the surface domain to a tecplot file.
 /*
  *
@@ -3048,6 +3049,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         sprintf(filename,"%s%s",sss.c_str(),".dat");
         ofp = fopen(filename, "a");
 
+#ifndef NEW_TECPLOTA
         fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.13E\n", t, numNodes, t);
 
         for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
@@ -3131,7 +3133,31 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 	      fprintf(ofp, "0.0 \t 0.0 \t 0.0 \t 0.0 \t 0.0 \t 0.0 \t " );
 	    }
             fprintf(ofp, "\n");
-        }
+	}
+#else
+	fprintf(ofp, "ZONE T = \"ANOD, %10.4E\", I = %d, SOLUTIONTIME = %12.6E\n", t, numNodes, t);
+	fprintf(ofp, "ZONETYPE = ORDERED\n");
+	fprintf(ofp, "DATAPACKING = BLOCK\n");
+	fprintf(ofp, "STRANDID = 1\n");
+        // ----------------------------------------------------------------------------------------------------------------------
+	// Print the x field
+	//
+	int rsize = 0;
+	for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+	    NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+	    fprintf(ofp, "%20.13E ", nv->xNodePos());
+	    if (++rsize >= 10) {
+		fprintf(ofp, "\n");
+		rsize = 0;
+	    }
+	}
+	if (rsize != 0) {
+	    fprintf(ofp, "\n");
+	}
+	
+#endif
+
+
         fclose(ofp);
 
 #undef DAKOTAOUT

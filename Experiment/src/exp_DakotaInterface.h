@@ -17,6 +17,9 @@
 #include "cantera/base/ct_defs.h" 
 #include "cantera/base/ctexceptions.h"
 
+#include <fstream>
+#include <iostream>
+
 //#include "cantera/base/xml.h"
 //#include "cantera/base/ctml.h"
 //using namespace ctml;

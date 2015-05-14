@@ -26,6 +26,8 @@
 #include "m1d_ProblemStatement.h"
 #include "m1d_GlobalIndices.h"
 
+#include <fstream>
+
 int
 alloc_double_matrix_3d(double ****double_matrix_3d, int L, int M, int N);
 
@@ -96,7 +98,7 @@ int
 main(int argc, char **argv)
 {
 
-  ofstream oftmp;
+  std::ofstream oftmp;
   m1d::stream0 w0;
   int linearIts;
 #ifdef HAVE_MPI

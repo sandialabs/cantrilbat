@@ -13,6 +13,7 @@
 #include <string>
 #include <exception>
 #include <vector>
+#include <ostream>
 
 namespace m1d
 {

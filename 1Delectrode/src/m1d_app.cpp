@@ -11,8 +11,6 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
 
-#include <iostream>
-#include <fstream>
 
 using namespace std;
 namespace m1d
