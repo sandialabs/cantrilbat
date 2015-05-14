@@ -11,10 +11,9 @@
 #include "m1d_globals.h"
 #include "m1d_app.h"
 
+#include <algorithm>
 #include <cstdlib>
 #include <cmath>
-
-#include <vector>
 #include <cstdio>
 
 namespace m1d
@@ -68,13 +67,13 @@ showErrors(std::ostream& f)
 {
   app()->showErrors(f);
 }
-//==============================================================================
+//==================================================================================================================================
 void
 popError()
 {
   app()->popError();
 }
-//==============================================================================
+//==================================================================================================================================
 std::string
 intToString(const int p)
 {
@@ -82,7 +81,7 @@ intToString(const int p)
   sprintf(buf, "%d", p);
   return std::string(buf);
 }
-//==============================================================================
+//==================================================================================================================================
  bool checkDblAgree(double d1, double d2, double rtol, double atol)
 {
     double dfabs = fabs(d1 - d2);
@@ -95,10 +94,9 @@ intToString(const int p)
 void
 fwriteTecplotVector(FILE *ofp, const std::vector<double>& vals, int numD, int numPerLine) 
 {
- 
     //static const char* form = "%20.13E ";
     //const int numD = 13;
-    char form[8];
+    char form[16];
     sprintf(form, "%%%u.%u ", 7+numD, numD);
     int rsize = 0;
     for (size_t i = 0; i < vals.size(); ++i) {

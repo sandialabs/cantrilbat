@@ -14,9 +14,8 @@
 class Epetra_Comm;
 
 #include <string>
-#include <iostream>
-#include <fstream>
 #include <vector>
+#include <ostream>
 
 /*
  * This file contains globally defined functions and data
@@ -106,9 +105,25 @@ popError();
 std::string intToString(const int p);
 
 //! Check error between two doubles
+/*!
+ *
+ *   @param  d1       The first double
+ *   @param  d2       The second double
+ *   @param  rtol     The relative tolerance
+ *   @param  atol     the absolute tolerance
+ *   @return          Returns true if the doubles agree and false otherwise
+ */
 bool checkDblAgree(double d1, double d2, double rtol = 1.0E-4, double atol = 1.0E-13);
 
-//! Write out a tecplot vector to a file
+//! Write out a tecplot vector to an ascii file
+/*!
+ *   Write out a vector of doubles to the output file
+ *
+ *   @param ofp        FILE pointer, Must already be open
+ *   @param vals       vector of doubles
+ *   @param numD       Number of decimal places to be written out. Default is 13
+ *   @param numPerLine Number of values per line. The default is 10.
+ */
 void
 fwriteTecplotVector(FILE *ofp, const std::vector<double>& vals, int numD = 13, int numPerLine = 10);
 
