@@ -2952,10 +2952,10 @@ porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
         fprintf(ofp, "\n");
 
         //  Print depth of discharge for each control volume
-        fprintf(ofp, "\"Capacity discharged [A-s]\" \t");
-        fprintf(ofp, "\"Depth of discharge [-]\" \t");
-        fprintf(ofp, "\"Capacity remaining [A-s]\" \t");
-        fprintf(ofp, "\"Initial capacity [A-s]\" \t");
+        fprintf(ofp, "\"CV Capacity discharged [A-s/m^2]\" \t");
+        fprintf(ofp, "\"Depth of discharge in CV [A-s/m^2]\" \t");
+        fprintf(ofp, "\"CV Capacity remaining [A-s/m^2]\" \t");
+        fprintf(ofp, "\"Initial CV capacity [A-s/m^2]\" \t");
 
         // print porosity, specific surface area, thickness for each control volume
         fprintf(ofp, "\"Porosity []\" \t");
@@ -3037,7 +3037,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         int lastGbNode = BDD_.LastGbNode;
         int numNodes = lastGbNode - firstGbNode + 1;
 	std::vector<VarType>& variableNameList = BDD_.VariableNameList;
-
+	std::vector<double> vars(numNodes);
         //
         //use SetupThermoShop methods to prepare for thermo model evaluation
         //
@@ -3048,7 +3048,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         char filename[20];
         sprintf(filename,"%s%s",sss.c_str(),".dat");
         ofp = fopen(filename, "a");
-
+//#define NEW_TECPLOTA
 #ifndef NEW_TECPLOTA
         fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.13E\n", t, numNodes, t);
 
@@ -3142,19 +3142,141 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         // ----------------------------------------------------------------------------------------------------------------------
 	// Print the x field
 	//
-	int rsize = 0;
-	for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+	for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	    NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-	    fprintf(ofp, "%20.13E ", nv->xNodePos());
-	    if (++rsize >= 10) {
-		fprintf(ofp, "\n");
-		rsize = 0;
-	    }
+	    vars[i] = nv->xNodePos();
 	}
-	if (rsize != 0) {
-	    fprintf(ofp, "\n");
+	fwriteTecplotVector(ofp, vars, 13, 10);
+	//
+	// Print all of the solution variables
+	//
+	for (size_t iVar = 0; iVar < (size_t) numVar; iVar++) {
+	    const VarType& vt = BDD_.VariableNameList[iVar];
+	    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
+		NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+		size_t istart = nv->EqnStart_GbEqnIndex;
+		size_t ioffset = nv->indexBulkDomainVar(vt);
+		if (ioffset == npos) {
+		    throw m1d_Error("", "index prob");
+		}
+		vars[i] = (*soln_GlAll_ptr)[istart + ioffset];
+	    }
+	    fwriteTecplotVector(ofp, vars, 13, 10);
+	}
+	       
+	for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++) {
+	    for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+		vars[iCell] = Ess_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf];
+	    }
+	    fwriteTecplotVector(ofp, vars, 13, 10);
+	    for (size_t iCell = 0; iCell <= (size_t)  NumLcCells;  ++iCell) {
+		vars[iCell] = overpotential_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf];
+	    }
+	    fwriteTecplotVector(ofp, vars, 13, 10);
 	}
 	
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = icurrRxn_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = icurrRxn_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	//   Units are amps / m2 and the area is the cross sectional area of the electrode
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = icurrRxn_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	//  Current electrolyte -  Units are amps / m2 and the area is the cross sectional area of the electrode
+	//        (these are CB quantities, but are being output at nodes
+	for (size_t iCell = 0; iCell <=  (size_t) NumLcCells;  ++iCell) {
+	    if (iCell == 0) {
+		vars[iCell] = icurrElectrolyte_CBL_[iCell];
+	    } else if (iCell == (size_t) (NumLcCells - 1)) {
+		vars[iCell] = icurrElectrolyte_CBR_[iCell];
+	    } else {
+		vars[iCell] = 0.5 * (icurrElectrolyte_CBL_[iCell] + icurrElectrolyte_CBR_[iCell]);
+	    }
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+
+	//
+	//  Current in electrode phase -  Units are amps / m2 and the area is the cross sectional area of the electrode
+	//        (these are CB quantities, but are being output at nodes
+	for (size_t iCell = 0; iCell <=  (size_t) NumLcCells;  ++iCell) {
+	    if (iCell == 0) {
+		vars[iCell] = icurrElectrode_CBL_[iCell];
+	    } else if (iCell == (size_t) (NumLcCells - 1)) {
+		vars[iCell] = icurrElectrode_CBR_[iCell];
+	    } else {
+		vars[iCell] = 0.5 * (icurrElectrode_CBL_[iCell] + icurrElectrode_CBR_[iCell]);
+	    }
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	//  Capacity discharged in control volume per cross sectional area (amps-sec / m2)
+	//
+	for (size_t iCell = 0; iCell <=  (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = capacityDischargedPA_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	//  Depth of discharge in cross sectional area (amps-sec / m2)
+	//
+	for (size_t iCell = 0; iCell <=  (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = depthOfDischargePA_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	//  Capacity left in control volume per area (amps-sec / m2)
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = capacityLeftPA_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	//  Capacity in control volume per cross sectional area (amps-sec / m2)
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = capacityPA_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	// Porosity of control volume
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = porosity_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	// Surface area of control volume  units = m2 / m2. surface area per cross sectional area in each CV
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = surfaceArea_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	// current per interfacial surface area in each CV units - amps / m2
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = icurrInterfacePerSurfaceArea_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
+	// thickness of each control volume units = m
+	//
+	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = xdelCell_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+
+
+
 #endif
 
 

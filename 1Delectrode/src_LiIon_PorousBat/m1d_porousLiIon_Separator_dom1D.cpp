@@ -2156,11 +2156,10 @@ porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
     if (doWrite) {
     
 	// open tecplot file
-	FILE* ofp;
 	string sss = id();
 	char filename[50];
 	sprintf(filename,"%s%s",sss.c_str(),".dat");
-	ofp = fopen(filename, "w");
+	FILE* ofp = fopen(filename, "w");
 
 	//write title and variable list
 	fprintf(ofp, "TITLE = \"Solution on Domain %s\"\n",sss.c_str() );
@@ -2279,83 +2278,61 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 	vars[i] = nv->xNodePos();
     }
     fwriteTecplotVector(ofp, vars, 13, 10);
-
-  
+    //
+    // Print all of the solution variables
+    //
     for (size_t iVar = 0; iVar < (size_t) numVar; iVar++) {
-	//   other variables
 	const VarType& vt = BDD_.VariableNameList[iVar];
-	rsize = 0;
-	for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+	for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	    NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+	    size_t istart = nv->EqnStart_GbEqnIndex;
 	    size_t ioffset = nv->indexBulkDomainVar(vt);
 	    if (ioffset == npos) {
 		throw m1d_Error("", "index prob");
 	    }
-	    size_t istart = nv->EqnStart_GbEqnIndex;
-	    fprintf(ofp, "%20.13E ", (*soln_GlAll_ptr)[istart + ioffset]);
-	    if (++rsize >= 10) {
-		fprintf(ofp, "\n");
-		rsize = 0;
-	    }
+	    vars[i] = (*soln_GlAll_ptr)[istart + ioffset];
 	}
-	if (rsize != 0) {
-	    fprintf(ofp, "\n");
-	}
+	fwriteTecplotVector(ofp, vars, 13, 10);
     }
     //
     // Print the qSource_Cell_accumul_ field
     //
-    for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	int iCell = iGbNode - firstGbNode;
 	double val = qSource_Cell_accumul_[iCell] / xdelCell_Cell_[iCell];
-	if ( deltaTime < 1e-80 ) {
+	if (deltaTime < 1e-80) {
 	    val = 0.0;
 	}
-	fprintf(ofp, "%20.13E ", val);
-	if (++rsize >= 10) {
-	    fprintf(ofp, "\n");
-	    rsize = 0;
-        }
+	vars[i] = val;
     }
-    if (rsize != 0) {
-	fprintf(ofp, "\n");
-    }
+    fwriteTecplotVector(ofp, vars, 13, 10);
+ 
     //
     // Print the qSource_Cell_curr_ field
     //
-    for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	int iCell = iGbNode - firstGbNode;
 	double val = qSource_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime;
 	if ( deltaTime < 1e-80 ) {
 	    val = 0.0;
 	}
-	fprintf(ofp, "%20.13E ", val);
-	if (++rsize >= 10) {
-	    fprintf(ofp, "\n");
-	    rsize = 0;
-        }
+	vars[i] = val;
     }
-    if (rsize != 0) {
-	fprintf(ofp, "\n");
-    }
+    fwriteTecplotVector(ofp, vars, 13, 10);
+
     //
     // Print the qSource_Cell_curr_ field jouleHeat_lyte_Cell_curr_ field
     //
-    for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	int iCell = iGbNode - firstGbNode;
 	double val = jouleHeat_lyte_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime;
-	if ( deltaTime < 1e-80 ) {
+	if (deltaTime < 1e-80) {
 	    val = 0.0;
 	}
-	fprintf(ofp, "%20.13E ", val);
-	if (++rsize >= 10) {
-	    fprintf(ofp, "\n");
-	    rsize = 0;
-        }
+	vars[i] = val;
     }
-    if (rsize != 0) {
-	fprintf(ofp, "\n");
-    }
+    fwriteTecplotVector(ofp, vars, 13, 10);
+
     //
     // Print  the jouleHeat_solid_Cell_curr_ field
     //
