@@ -90,7 +90,7 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
     porousFlow_dom1D((BDD_porousFlow&) r.BDD_),
     BDT_ptr_(0),
@@ -2206,35 +2206,38 @@ void
 porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr, const Epetra_Vector *solnDot_GlAll_ptr,
 			           const double t)
 {
-  int mypid = LI_ptr_->Comm_ptr_->MyPID();
-  bool doWrite = !mypid ; //only proc 0 should write
-  if (doWrite) {
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    bool doWrite = !mypid ; //only proc 0 should write
+    int rsize;
+    if (doWrite) {
 
-    double deltaTime = t_final_ - t_init_;
+ 
+	double deltaTime = t_final_ - t_init_;
     
-    // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    // Number of equations per node
-    int numVar = BDD_.NumEquationsPerNode;
-    //! First global node of this bulk domain
-    int firstGbNode = BDD_.FirstGbNode;
-    //! Last Global node of this bulk domain
-    int lastGbNode = BDD_.LastGbNode;
-    int numNodes = lastGbNode - firstGbNode + 1;
+	// get the NodeVars object pertaining to this global node
+	GlobalIndices *gi = LI_ptr_->GI_ptr_;
+	// Number of equations per node
+	int numVar = BDD_.NumEquationsPerNode;
+	//! First global node of this bulk domain
+	int firstGbNode = BDD_.FirstGbNode;
+	//! Last Global node of this bulk domain
+	int lastGbNode = BDD_.LastGbNode;
+	int numNodes = lastGbNode - firstGbNode + 1;
+	std::vector<double> vars(numNodes);
     
-    //open tecplot file
-    FILE* ofp;
-    string sss = id();
-    char filename[20];
-    sprintf(filename,"%s%s",sss.c_str(),".dat");
-    ofp = fopen(filename, "a");
+	//open tecplot file
+	FILE* ofp;
+	string sss = id();
+	char filename[20];
+	sprintf(filename,"%s%s",sss.c_str(),".dat");
+	ofp = fopen(filename, "a");
     
-    /*
-     *  Write out the Heading for the solution at the current time. It's put in a ZONE structure
-     *  with T being the heading and SOLUTIONTIME being the value of the time
-     */
+	/*
+	 *  Write out the Heading for the solution at the current time. It's put in a ZONE structure
+	 *  with T being the heading and SOLUTIONTIME being the value of the time
+	 */
   
-#define NEW_TECPLOT
+//#define NEW_TECPLOT
 #ifndef NEW_TECPLOT
     fprintf(ofp, "ZONE T = \"t = %11.6E [s]\", I = %d, SOLUTIONTIME = %12.6E\n", t, numNodes, t);
   
@@ -2270,18 +2273,13 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
     // ----------------------------------------------------------------------------------------------------------------------
     // Print the x field
     //
-    int rsize = 0;
-    for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+   
+    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-	fprintf(ofp, "%20.13E ", nv->xNodePos());
-	if (++rsize >= 10) {
-	    fprintf(ofp, "\n");
-	    rsize = 0;
-        }
+	vars[i] = nv->xNodePos();
     }
-    if (rsize != 0) {
-	fprintf(ofp, "\n");
-    }
+    fwriteTecplotVector(ofp, vars, 13, 10);
+
   
     for (size_t iVar = 0; iVar < (size_t) numVar; iVar++) {
 	//   other variables

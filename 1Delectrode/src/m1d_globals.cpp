@@ -97,7 +97,7 @@ fwriteTecplotVector(FILE *ofp, const std::vector<double>& vals, int numD, int nu
     //static const char* form = "%20.13E ";
     //const int numD = 13;
     char form[16];
-    sprintf(form, "%%%u.%u ", 7+numD, numD);
+    sprintf(form, "%%%u.%uE ", 7+numD, numD);
     int rsize = 0;
     for (size_t i = 0; i < vals.size(); ++i) {
 	fprintf(ofp, form, vals[i]);
