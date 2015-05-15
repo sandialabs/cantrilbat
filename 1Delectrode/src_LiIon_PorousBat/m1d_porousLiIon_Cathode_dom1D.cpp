@@ -3202,12 +3202,25 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 	    }
 	    fwriteTecplotVector(ofp, vars, 13, 10);
 	}
-
+	//
+	//  Voltage of each CV = phi_Metal - phi_lyte (units = volts)
+	//
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = deltaV_Cell_[iCell];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+	//
 	for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++) {
+	    //
+	    //  Open circuit potential
+	    //
 	    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
 		vars[iCell] = Ess_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf];
 	    }
 	    fwriteTecplotVector(ofp, vars, 13, 10);
+	    //
+	    // Overpotential of each surface reaction
+	    //
 	    for (size_t iCell = 0; iCell < (size_t)  NumLcCells;  ++iCell) {
 		vars[iCell] = overpotential_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf];
 	    }

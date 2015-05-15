@@ -2236,7 +2236,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 	 *  with T being the heading and SOLUTIONTIME being the value of the time
 	 */
   
-//#define NEW_TECPLOT
+#define NEW_TECPLOT
 #ifndef NEW_TECPLOT
     fprintf(ofp, "ZONE T = \"t = %11.6E [s]\", I = %d, SOLUTIONTIME = %12.6E\n", t, numNodes, t);
   
@@ -2280,7 +2280,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
     fwriteTecplotVector(ofp, vars, 13, 10);
     //
     // Print all of the solution variables
-    //
+    //x
     for (size_t iVar = 0; iVar < (size_t) numVar; iVar++) {
 	const VarType& vt = BDD_.VariableNameList[iVar];
 	for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
