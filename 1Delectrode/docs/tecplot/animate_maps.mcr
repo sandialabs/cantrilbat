@@ -1,0 +1,21 @@
+#!MC 1200
+
+$!ANIMATELINEMAPS 
+  START = 1
+  END = 1
+  SKIP = 1
+  CREATEMOVIEFILE = NO
+  
+$!pause "next"
+$!ANIMATELINEMAPS 
+  START = 2
+  END = 2
+  SKIP = 1
+  CREATEMOVIEFILE = NO
+  
+$!pause "next"
+$!ANIMATELINEMAPS 
+  START = 3
+  END = 3
+  SKIP = 1
+  CREATEMOVIEFILE = NO
