@@ -26,5 +26,12 @@ transport_log.xml
 timeDep_IV_blessed.dat_1.1
 timeDep_IV_blessed.dat_1.2
 LiKCl_PorousBat.TVD.v3breakpoints
-
+animate_maps.mcr 
 LiIon_PorousBat
+scatter_points.lay
+block1.dat
+block1dos.dat
+animate_maps.mcr
+block0.dat
+diff_summary.txt
+out_raw.txt
