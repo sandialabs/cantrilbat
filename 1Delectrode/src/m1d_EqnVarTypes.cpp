@@ -60,8 +60,25 @@ VarType::VarMainName(const VAR_TYPE variableType)
     case Voltage:
       return string("Volt");
       break;
+#ifdef MECH_MODEL
+    // case Solid_Density:
+    //   return string("Solid_Density");
+    //   break;
+    // case Electrolyte_Density:
+    //   return string("Elyte_Density");
+    //   break;
+    // case Gas_Density:
+    //   return string("Gas_Density");
+    //   break;
+    case Solid_Stress_Axial:
+      return string("S_Stress_Axial");
+      break;
+    // case  IStress_Free_Strain_Axial:  
+    //   return string("ISFS_Axial");
+    //   break;
+#endif
     case Max_Var_Name:
-      return string("Max_ Variable");
+      return string("Max_Variable");
     default:
       throw m1d_Error("VarMainName", "unknown");
       break;
@@ -128,6 +145,11 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
     case Species_Eqn_Offset:
       return std::string("Species_Eqn_Offset");
       break;
+#ifdef MECH_MODEL
+    case Mechanical_Model:
+      return std::string("Mechanical_Model");
+      break;
+#endif 
     case Max_Eqn_Name:
       return std::string("Max_Eqn_Name");
       break;

@@ -159,6 +159,12 @@ SurfDomainDescription::SetEquationDescription()
       VarType varN(Temperature);
       AssertTrace(varT == varN);
       IsArithmeticScaled_NE[iEqn] = 1;
+#ifdef MECH_MODEL
+    } else if (eqnT.EquationType == Mechanical_Model) {
+      VarType varN(Solid_Stress_Axial);
+      AssertTrace(varT == varN);
+      IsArithmeticScaled_NE[iEqn] = 1;
+#endif
     } else if (eqnT.EquationType == Continuity) {
       VarType varN(Velocity_Axial);
       AssertTrace(varT == varN);

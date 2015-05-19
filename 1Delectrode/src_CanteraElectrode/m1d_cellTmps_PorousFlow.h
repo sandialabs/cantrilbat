@@ -62,6 +62,8 @@ public:
     //!  Offset of Residual for the Enthalpy Conservation equation
     size_t RO_Enthalpy_Conservation;
 
+    //! Offset of Residual for the Mechanical Model
+
 };
 // --------------------------------------------------------------------------------------------------
 

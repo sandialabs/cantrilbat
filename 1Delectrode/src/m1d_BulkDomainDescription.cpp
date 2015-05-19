@@ -192,6 +192,12 @@ BulkDomainDescription::SetEquationDescription()
       VarType varN(Temperature);
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = iEqn;
+#ifdef MECH_MODEL
+    }  else if (eqnT.EquationType == Mechanical_Model) {
+      VarType varN(Solid_Stress_Axial);
+      AssertTrace(varT == varN);
+      EquationIndexStart_EqName[iEqnTPos] = iEqn;
+#endif
       //IsArithmeticScaled_NE[iEqn] = 1;
     } else if (eqnT.EquationType == Continuity) {
       VarType varN(Velocity_Axial);

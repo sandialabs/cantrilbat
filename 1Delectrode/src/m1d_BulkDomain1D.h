@@ -380,6 +380,15 @@ public:
   //! Get parameters specified by text strings
   virtual int getSolutionParam(std::string paramName, double * const paramVal);
 
+ #ifdef MECH_MODEL
+  //! Get the local value of the stress, from the solution vector, 
+  //! or a reference value if not part of the solution. 
+
+  double getPointStress(const NodalVars * const nv,
+			const doublereal* const solutionPoint) const;
+
+#endif
+
   //! Get the local value of the temperature at a node or control volume interface
   //! given the local solution vector at that point
   /*!

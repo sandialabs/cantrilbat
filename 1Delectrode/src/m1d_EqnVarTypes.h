@@ -21,7 +21,7 @@ namespace m1d
  *
  *              Identification of Variables within the code.
  * 
- *      VAR_TYPE and VAR_TYPE_SUBNUM  pair completely identify a variable within the program.
+ *      VAR_TYPE and VAR_TYPE_SUBNUM  pair completely identify a variable within the program.m1d_Eqn_Names.h
  *      What that means is that if the axial velocity has a step jump located at an interface,
  *      then the axial velocity variable in the two adjacent bulk regions must have different
  *      VAR_TYPE_SUBNUM values.
