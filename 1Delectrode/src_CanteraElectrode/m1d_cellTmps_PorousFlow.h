@@ -50,6 +50,11 @@ public:
     //! Offset of the temperature equation wrt the start of the nodal solution vector
     size_t Offset_Temperature;
 
+#ifdef MECH_MODEL    
+    //! Offset of the stress equation wrt the start of the nodal solution vector
+    size_t Offset_Solid_Stress_Axial;
+#endif
+
     //!  Offset of Residual for the current conservation equation
     size_t RO_Current_Conservation;
 

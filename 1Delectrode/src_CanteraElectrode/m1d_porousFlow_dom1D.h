@@ -289,6 +289,11 @@ protected:
     //! Temperature at the current point (Kelvin)
     double temp_Curr_;
 
+#ifdef MECH_MODEL
+    //! 1d stress at the current point pa
+    double mm_stress_Curr_;
+#endif
+
     //! Local value of the pressure (Pascal)
     double pres_Curr_;
 

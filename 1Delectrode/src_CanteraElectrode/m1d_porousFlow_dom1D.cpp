@@ -39,6 +39,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     Temp_Cell_old_(0),
     cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
+#ifdef MECH_MODEL
+    mm_stress_Curr_(SolidStressAxialRef_),
+#endif
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
@@ -65,6 +68,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
       Temp_Cell_old_(0),
       cIndex_cc_(-1),
       temp_Curr_(TemperatureReference_),
+#ifdef MECH_MODEL
+      mm_stress_Curr_(SolidStressAxialRef_),
+#endif
       pres_Curr_(PressureReference_),
       concTot_Curr_(0.0),
       phiElectrolyte_Curr_(0.0),
@@ -273,6 +279,9 @@ porousFlow_dom1D::residSetupTmps()
         nodeTmpsCenter.Offset_Velocity_Axial       = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
         nodeTmpsCenter.Offset_Temperature          = nodeCent->indexBulkDomainVar0((size_t) Temperature);
 
+#ifdef MECH_MODEL
+	nodeTmpsCenter.Offset_Solid_Stress_Axial   = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+#endif
         nodeTmpsCenter.RO_Current_Conservation     = nodeCent->indexBulkDomainEqn0((size_t) Current_Conservation);
         nodeTmpsCenter.RO_Electrolyte_Continuity   = nodeCent->indexBulkDomainEqn0((size_t) Continuity);
         nodeTmpsCenter.RO_Species_Eqn_Offset       = nodeCent->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
@@ -301,7 +310,9 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsLeft.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
             nodeTmpsLeft.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
             nodeTmpsLeft.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
-
+#ifdef MECH_MODEL
+            nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+#endif
             nodeTmpsLeft.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
             nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
             nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset;
@@ -319,7 +330,9 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsLeft.Offset_MoleFraction_Species = nodeLeft->indexBulkDomainVar0((size_t) MoleFraction_Species);
             nodeTmpsLeft.Offset_Velocity_Axial       = nodeLeft->indexBulkDomainVar0((size_t) Velocity_Axial);
             nodeTmpsLeft.Offset_Temperature          = nodeLeft->indexBulkDomainVar0((size_t) Temperature);
-
+#ifdef MECH_MODEL
+            nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+#endif
             nodeTmpsLeft.RO_Current_Conservation     = nodeLeft->indexBulkDomainEqn0((size_t) Current_Conservation);
             nodeTmpsLeft.RO_Electrolyte_Continuity   = nodeLeft->indexBulkDomainEqn0((size_t) Continuity);
             nodeTmpsLeft.RO_Species_Eqn_Offset       = nodeLeft->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
@@ -344,7 +357,9 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsRight.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
             nodeTmpsRight.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
             nodeTmpsRight.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
-
+#ifdef MECH_MODEL
+            nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+#endif
             nodeTmpsRight.RO_Current_Conservation     = nodeTmpsCenter.RO_Current_Conservation;
             nodeTmpsRight.RO_Electrolyte_Continuity   = nodeTmpsCenter.RO_Electrolyte_Continuity;
             nodeTmpsRight.RO_Species_Eqn_Offset       = nodeTmpsCenter.RO_Species_Eqn_Offset;
@@ -362,7 +377,9 @@ porousFlow_dom1D::residSetupTmps()
             nodeTmpsRight.Offset_MoleFraction_Species = nodeRight->indexBulkDomainVar0((size_t) MoleFraction_Species);
             nodeTmpsRight.Offset_Velocity_Axial       = nodeRight->indexBulkDomainVar0((size_t) Velocity_Axial);
             nodeTmpsRight.Offset_Temperature          = nodeRight->indexBulkDomainVar0((size_t) Temperature);
-
+#ifdef MECH_MODEL
+            nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeRight->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+#endif
             nodeTmpsRight.RO_Current_Conservation     = nodeRight->indexBulkDomainEqn0((size_t) Current_Conservation);
             nodeTmpsRight.RO_Electrolyte_Continuity   = nodeRight->indexBulkDomainEqn0((size_t) Continuity);
             nodeTmpsRight.RO_Species_Eqn_Offset       = nodeRight->indexBulkDomainEqn0((size_t) Species_Eqn_Offset);
