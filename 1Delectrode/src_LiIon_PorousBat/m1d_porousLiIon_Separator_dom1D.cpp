@@ -1005,6 +1005,26 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    }
 	       
 	}
+#ifdef MECH_MODEL
+
+	// for the seperator, we use the following values:
+	// E Youngs Modulus           2560 
+	// v poisson's ratio             0.5
+	// K  Bulk Modulus           96.131 GPa
+	// u_a Shear Mod               .170 GPa
+
+	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
+	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
+	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+
+
+	// stress = 2-
+
+	//	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] 
+
+
+#endif	
     }
 
 }
