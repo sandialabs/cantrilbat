@@ -1008,22 +1008,50 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL
 
 	// for the seperator, we use the following values:
-	// E Youngs Modulus           2560 
-	// v poisson's ratio             0.5
-	// K  Bulk Modulus           96.131 GPa
-	// u_a Shear Mod               .170 GPa
-
+	// These numbers are only 'good' to ~8-20% strain. 
+	// v poisson's ratio             0.5 @28.5C 0.46 @80C
+	// K  Bulk Modulus           615 Mpa @ 28.5C,  481 MPa @ 55C, 327MPa @ 80C, all saturated with liquid. 
+	// youngs mod = 3K(1-2v) 
+	// sher mod G = 3*K(1-2v)/2(1+v)
+	// extracted from graphs on page 59-60 of http://dc.uwm.edu/cgi/viewcontent.cgi?article=1039&context=etd
+	//Martinsen, Michael James, "Material Behavior Characterization of a Thin Film Polymer Used in Lithium-Ion Batteries" (2012).Thesesand Dissertations.Paper 36
+	// thermal expansion coefficient is 35-110 e-6 depending on what kind of mechanical process the seperator polyethylene has be subject to. Until better info exists, pick 50e-6 
+	double Thermal_Expansion = 50e-6;
+	double possion = 0.5;
 	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
-	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
-	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+	//	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
+	//	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
+	//	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+	// need the average temp to get the correct K
+	double AverageTemperature =    valTmps.Temperature.center;
 
+	double BulkMod=-1;
+	if(AverageTemperature < 28.5+273.15 ) BulkMod = 615;
+	else if(AverageTemperature > 80+273.15 ) BulkMod = 327;
+	else if( AverageTemperature < 55+273.15) {
+	  double low = AverageTemperature - (28.5+273.14);
+	  BulkMod= 615 - ((615-481)*low/(55-28.5));
+	}
+	else if (AverageTemperature >= 55+273.15) {
+	  double low = AverageTemperature - (55+273.15);
+	  BulkMod = 481 - (481-327)*low/(80-55);
+	}
+	BulkMod*=1.0e6; // in MPa
+	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
+	// 
+	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
 
-	// stress = 2-
+	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-nodeLeft->x0NodePos()); // factor of 2's cancel
+	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
 
-	//	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] 
+	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
 
-
+	// the separator is intert to chemistry, so no other terms in the strain
+	double mech_strain = tot_strain-thermal_strain-pressure_strain;
+	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);
+	double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
 #endif	
     }
 
