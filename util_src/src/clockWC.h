@@ -58,8 +58,22 @@ public:
      */
     clockWC();
 
+    clockWC(const clockWC& right);
+
+    clockWC&  operator=(const clockWC& right);
+   
+    void startWC();
+
     //! Resets the internal counters and returns the wall clock time in seconds
-    double start();
+    void startTime();
+
+    void restartTime();
+
+    double stopTime();
+
+    double reportTime() const;
+
+    void checkWC();
 
     //! Returns the wall clock time in seconds since the last reset.
     /*!
@@ -74,24 +88,40 @@ public:
 
 private:
 
-    //! Counters the value of the number of ticks from the last call.
-    clock_t last_num_ticks;
-
-    //! Number of clock rollovers since the last initialization
-    /*!
-     * The clock will rollover if the calculation is long enough.
-     * This object senses that by seeing if the raw tick counter is has decreased from the last time.
-     */
-    unsigned int clock_rollovers;
-
-    //! Counter containing the value of the number of ticks from the first call (or the reset call).
-    clock_t start_ticks;
-
     //! Internal constant containing clock ticks per second
-    static const double inv_clocks_per_sec;
+    static const double s_inv_clocks_per_sec;
 
     //! Internal constant containing the total number of ticks per rollover.
-    static const double clock_width;
+    //static const double s_clockTickWidth_;
+
+    //! Counters the value of the number of ticks from the current call.
+    clock_t currNumTicks_;
+
+    //! Counters the value of the number of ticks from the last call.
+    clock_t lastNumTicks_;
+
+    //! This is a flag stating whether interval timing is turned on
+    bool running_;
+
+    //! Counter containing the value of the number of ticks from the last start call
+    clock_t startLastTicks_;
+
+    //! Counter containing the value of the number of ticks from the first call to start();
+    clock_t startTicksWC_;
+
+    //! Storred seconds for calculating the timing of the operations
+    /*!
+     *  This handles clock rollovers
+     */
+    double storredSeconds_;
+
+    //! Storred seconds for calculating the timing of the wall clock
+    /*!
+     *  This handles clock rollovers
+     */
+    double storredSecondsWC_;
+
+    void clear();
 };
 }
 #endif

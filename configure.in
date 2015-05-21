@@ -247,6 +247,11 @@ AC_PROG_CXX()
 # @CC@ and @CFLAGS@
 #
 AC_PROG_CC()
+
+have_posix=0
+AC_CHECK_HEADERS([unistd.h], have_posix=1, have_posix=0)
+AC_SUBST(have_posix)
+
 #
 # Loader flags for the C++ linking operation
 #
@@ -907,6 +912,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/CAEBAT_restart_cycle_altTemp/Makefile \
           util_src/Makefile \
           util_src/src/Makefile \
+          util_src/tests/test_timer/Makefile \
 	  Experiment/Makefile \
 	  Experiment/src/Makefile \
           )

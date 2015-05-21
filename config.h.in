@@ -24,6 +24,8 @@
 /* Define to 1 if you have the `memset' function. */
 #undef HAVE_MEMSET
 
+#undef HAVE_UNISTD_H
+
 /* Define if we want to use MPI */
 #ifndef HAVE_MPI
 #undef HAVE_MPI

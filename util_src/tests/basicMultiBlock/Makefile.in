@@ -1,0 +1,87 @@
+#!/bin/sh
+
+############################################################################
+#
+#  Makefile input to compile the predictor corrector code for
+#  particle reactions
+#
+#############################################################################
+#
+# additional flags to be passed to the linker. If your program
+# requires other external libraries, put them here
+LINK_OPTIONS = 
+#
+#############################################################################
+
+# the C++ compiler
+CXX = @CXX@
+# C++ compile flags
+CXX_FLAGS = @CXXFLAGS@ $(CXX_OPT)
+# Ending C++ linking libraries
+LCXX_END_LIBS = @LCXX_END_LIBS@
+
+
+# Utility src dependencies
+UTILSRC_DIR = @ct_prefix@/lib/util_src/
+UTILSRC_INCDIR = @ct_prefix@/include/util_src/
+
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC_LIB = -L$(UTILSRC_DIR) -lutil_src
+UTILSRC_INC = -I$(UTILSRC_INCDIR)
+
+# Include Directors for .cpp files in this directory
+LOCAL_INCDIR=  $(UTILSRC_INC) 
+
+# Flags passed to the C++ compiler/linker for the linking step
+LCXX_FLAGS = @CXXFLAGS@
+
+# How to compile C++ source files to object files
+.cpp.o:
+	$(CXX) -c $< $(CXX_FLAGS) $(LOCAL_INCDIR)
+
+DEPENDS = basicMultiBlock.d
+
+%.d:
+	@CXX_DEPENDS@  $(LOCAL_INCDIR) $(CXX_FLAGS) $*.cpp > $*.d
+
+####################################################################
+#       Executable Programs
+####################################################################
+
+all: basicMultiBlock .depends
+
+basicMultiBlock: basicMultiBlock.o   $(UTILSRC_DEP) Makefile
+	$(CXX) $(CXX_FLAGS) -o basicMultiBlock basicMultiBlock.o  \
+                 $(UTILSRC_LIB) \
+                 @LIBS@   $(LCXX_END_LIBS)
+
+basicMultiBlock.o: Makefile
+
+$(DEPENDS): Makefile
+
+####################################################################
+#       utility scripts
+####################################################################
+
+test:
+	./runtest
+
+install:
+
+clean:
+	$(RM) out.txt err_out.txt diff*  *.o *.d  .depends basicMultiBlock
+
+depends: 
+	/bin/rm -f *.d .depends
+	@MAKE@ .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+TAGS:
+	etags *.h *.cpp
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

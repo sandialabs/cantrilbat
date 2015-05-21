@@ -1,0 +1,55 @@
+#
+# Example of input
+#-------------------------------------------------------------
+# 
+Start Block Inflow Pipe definition
+ #
+ #----------------------------------------------------------
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 1.0 
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.4
+   N2 = 0.4
+   O2 = 0.2
+ End block inflow gas mole fractions
+
+ #
+ #
+ #
+End Block Inflow Pipe definition
+
+Start Block Inflow Pipe definition
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 9.0
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.8
+   N2 = 0.1
+   O2 = 0.1
+ End block inflow gas mole fractions
+End Block Inflow Pipe definition
+
+Start Block Inflow Pipe definition
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 90.0
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.0
+   N2 = 0.7
+   O2 = 0.3
+ End block inflow gas mole fractions
+End Block Inflow Pipe definition
+

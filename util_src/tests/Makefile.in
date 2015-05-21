@@ -1,0 +1,30 @@
+#/bin/sh
+###############################################################
+#  $Author: hkmoffa $
+#  $Date: 2008/12/22 20:17:46 $
+#  $Revision: 1.1 $
+#
+###############################################################
+
+all:
+	cd test_BE; @MAKE@
+	cd basicMultiBlock; @MAKE@
+
+clean:
+	cd test_BE; @MAKE@ clean
+	cd basicMultiBlock; @MAKE@ clean
+
+depends:
+	cd test_BE; @MAKE@ depends
+	cd basicMultiBlock; @MAKE@ depends
+
+install:
+	cd test_BE; @MAKE@ install
+	cd basicMultiBlock; @MAKE@ install
+
+test:
+	cd test_BE; @MAKE@ -s test
+	cd basicMultiBlock; @MAKE@ -s test
+
+# end of file
+
