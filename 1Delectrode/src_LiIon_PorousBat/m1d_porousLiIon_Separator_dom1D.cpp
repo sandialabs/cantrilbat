@@ -2255,7 +2255,6 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid ; //only proc 0 should write
-    int rsize;
     if (doWrite) {
 
  
@@ -2384,21 +2383,16 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
     //
     // Print  the jouleHeat_solid_Cell_curr_ field
     //
-    for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
+    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	int iCell = iGbNode - firstGbNode;
 	double val = jouleHeat_solid_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime;
 	if ( deltaTime < 1e-80 ) {
 	    val = 0.0;
 	}
-	fprintf(ofp, "%20.13E ", val);
-	if (++rsize >= 10) {
-	    fprintf(ofp, "\n");
-	    rsize = 0;
-        }
+	vars[i] = val;
     }
-    if (rsize != 0) {
-	fprintf(ofp, "\n");
-    }
+    fwriteTecplotVector(ofp, vars, 13, 10);
+
 
 #endif
 

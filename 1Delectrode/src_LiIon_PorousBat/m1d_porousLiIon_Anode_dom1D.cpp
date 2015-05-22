@@ -3308,7 +3308,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 		int nspPhase = tp->nSpecies();
 		int kStart = ee->getGlobalSpeciesIndex(iph, 0);
 		for (size_t k = 0; k < (size_t) nspPhase; k++) {
-		    for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+		    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
 			vars[iCell] =
 			  spmoles_Cell[nSpeciesElectrode_*iCell + kStart + k] / (crossSectionalArea_ * xdelCell_Cell_[iCell]);
 		    }

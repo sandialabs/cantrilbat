@@ -3236,7 +3236,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 	//
 	//
 	//
-	for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
 	    vars[iCell] = LiFlux_Cell_[iCell];
 	}
 	fwriteTecplotVector(ofp, vars, 13);
@@ -3344,7 +3344,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 		int nspPhase = tp->nSpecies();
 		int kStart = ee->getGlobalSpeciesIndex(iph, 0);
 		for (size_t k = 0; k < (size_t) nspPhase; k++) {
-		    for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
+		    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
 			vars[iCell] =
 			  spmoles_Cell[nSpeciesElectrode_*iCell + kStart + k] / (crossSectionalArea_ * xdelCell_Cell_[iCell]);
 		    }
