@@ -1098,7 +1098,6 @@ Start of Time Step:     1       Time_n =     1e-08 Time_nm1 =         0
 ================================================================================
 
 Solution saved to file solution.xml as solution 1.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.000E-08   
                            Delta_t    1.000E-08   
@@ -1499,8 +1498,8 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   7.846E-07   Y   |    1   2.002E-20 | 2.847E-05  | 1.000E+00|  4.628E-07  |   1.00E+00  0 |   2.847E-05   4.628E-07 
-	   2   4.628E-07   Y   |    1   1.520E-21 | 2.020E-06  | 1.000E+00|  2.432E-13  |   1.00E+00  0 |   2.020E-06   2.432E-13 
+	   1   7.846E-07   Y   |    1   1.681E-20 | 2.847E-05  | 1.000E+00|  4.628E-07  |   1.00E+00  0 |   2.847E-05   4.628E-07 
+	   2   4.628E-07   Y   |    1   1.323E-21 | 2.020E-06  | 1.000E+00|  2.432E-13  |   1.00E+00  0 |   2.020E-06   2.432E-13 
 	                       |                  |(1.062E-12) |          |             | converged = 3 |              (1.062E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -1529,7 +1528,6 @@ Start of Time Step:     2       Time_n =     2e-08 Time_nm1 =     1e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 2.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.000E-08   
                            Delta_t    1.000E-08   
@@ -1930,8 +1928,8 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.220E-06   Y   |    1   1.950E-20 | 2.746E-05  | 1.000E+00|  2.859E-07  |   1.00E+00  0 |   2.746E-05   2.859E-07 
-	   2   2.859E-07   Y   |    1   1.200E-21 | 2.536E-06  | 1.000E+00|  1.430E-07  |   1.00E+00  0 |   2.536E-06   1.430E-07 
+	   1   1.220E-06   Y   |    1   1.989E-20 | 2.746E-05  | 1.000E+00|  2.859E-07  |   1.00E+00  0 |   2.746E-05   2.859E-07 
+	   2   2.859E-07   Y   |    1   1.288E-21 | 2.536E-06  | 1.000E+00|  1.430E-07  |   1.00E+00  0 |   2.536E-06   1.430E-07 
 	                       |                  |(1.269E-06) |          |             | converged = 3 |              (1.269E-06) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -1960,7 +1958,6 @@ Start of Time Step:     3       Time_n =     3e-08 Time_nm1 =     2e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 3.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E-08   
                            Delta_t    1.000E-08   
@@ -2361,8 +2358,8 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.208E-06   Y   |    1   4.040E-21 | 8.254E-06  | 1.000E+00|  6.716E-07  |   1.00E+00  0 |   8.254E-06   6.716E-07 
-	   2   6.716E-07   Y   |    1   1.644E-21 | 2.206E-06  | 1.000E+00|  3.688E-13  |   1.00E+00  0 |   2.206E-06   3.688E-13 
+	   1   2.208E-06   Y   |    1   3.944E-21 | 8.254E-06  | 1.000E+00|  6.716E-07  |   1.00E+00  0 |   8.254E-06   6.716E-07 
+	   2   6.716E-07   Y   |    1   1.434E-21 | 2.206E-06  | 1.000E+00|  3.688E-13  |   1.00E+00  0 |   2.206E-06   3.688E-13 
 	                       |                  |(1.211E-12) |          |             | converged = 3 |              (1.211E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -2390,7 +2387,6 @@ Start of Time Step:     4       Time_n =     4e-08 Time_nm1 =     3e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 4.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.000E-08   
                            Delta_t    1.000E-08   
@@ -2791,7 +2787,7 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.009E-06   Y   |    1   1.322E-20 | 2.389E-05  | 1.000E+00|  4.669E-07  |   1.00E+00  0 |   2.389E-05   4.669E-07 
+	   1   3.009E-06   Y   |    1   1.341E-20 | 2.389E-05  | 1.000E+00|  4.669E-07  |   1.00E+00  0 |   2.389E-05   4.669E-07 
 	   2   4.669E-07   Y   |    1   5.849E-22 | 8.344E-07  | 1.000E+00|  4.665E-13  |   1.00E+00  0 |   8.344E-07   4.665E-13 
 	                       |                  |(8.338E-13) |          |             | converged = 3 |              (8.338E-13) 
 	  --------------------------------------------------------------------------------------------
@@ -2820,7 +2816,6 @@ Start of Time Step:     5       Time_n =   5.5e-08 Time_nm1 =     4e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 5.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.500E-08   
                            Delta_t    1.500E-08   
@@ -3221,8 +3216,8 @@ Start of Time Step:     6       Time_n =  7.75e-08 Time_nm1 =   5.5e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.907E-06   Y   |    1   2.434E-20 | 3.484E-05  | 1.000E+00|  1.425E-07  |   1.00E+00  0 |   3.484E-05   1.425E-07 
-	   2   1.425E-07   Y   |    1   3.320E-22 | 5.986E-07  | 1.000E+00|  3.505E-13  |   1.00E+00  0 |   5.986E-07   3.505E-13 
+	   1   2.907E-06   Y   |    1   2.446E-20 | 3.484E-05  | 1.000E+00|  1.425E-07  |   1.00E+00  0 |   3.484E-05   1.425E-07 
+	   2   1.425E-07   Y   |    1   3.322E-22 | 5.986E-07  | 1.000E+00|  3.505E-13  |   1.00E+00  0 |   5.986E-07   3.505E-13 
 	                       |                  |(1.473E-12) |          |             | converged = 3 |              (1.473E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -3250,7 +3245,6 @@ Start of Time Step:     6       Time_n =  7.75e-08 Time_nm1 =   5.5e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 6.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.750E-08   
                            Delta_t    2.250E-08   
@@ -3651,7 +3645,7 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.763E-06   Y   |    1   1.350E-20 | 2.886E-05  | 1.000E+00|  2.625E-07  |   1.00E+00  0 |   2.886E-05   2.625E-07 
+	   1   1.763E-06   Y   |    1   1.358E-20 | 2.886E-05  | 1.000E+00|  2.625E-07  |   1.00E+00  0 |   2.886E-05   2.625E-07 
 	   2   2.625E-07   Y   |    1   7.401E-22 | 1.300E-06  | 1.000E+00|  1.533E-07  |   1.00E+00  0 |   1.300E-06   1.533E-07 
 	                       |                  |(7.591E-07) |          |             | converged = 3 |              (7.591E-07) 
 	  --------------------------------------------------------------------------------------------
@@ -3680,7 +3674,6 @@ Start of Time Step:     7       Time_n = 1.1125e-07 Time_nm1 =  7.75e-08
 ================================================================================
 
 Solution saved to file solution.xml as solution 7.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.113E-07   
                            Delta_t    3.375E-08   
@@ -4081,8 +4074,8 @@ Start of Time Step:     8       Time_n = 1.6188e-07 Time_nm1 = 1.1125e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   9.012E-07   Y   |    1   2.504E-21 | 4.877E-06  | 1.000E+00|  9.815E-08  |   1.00E+00  0 |   4.877E-06   9.815E-08 
-	   2   9.815E-08   Y   |    1   9.841E-22 | 8.823E-07  | 1.000E+00|  3.734E-13  |   1.00E+00  0 |   8.823E-07   3.734E-13 
+	   1   9.012E-07   Y   |    1   2.520E-21 | 4.877E-06  | 1.000E+00|  9.815E-08  |   1.00E+00  0 |   4.877E-06   9.815E-08 
+	   2   9.815E-08   Y   |    1   9.421E-22 | 8.823E-07  | 1.000E+00|  3.734E-13  |   1.00E+00  0 |   8.823E-07   3.734E-13 
 	                       |                  |(3.356E-12) |          |             | converged = 3 |              (3.356E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -4110,7 +4103,6 @@ Start of Time Step:     8       Time_n = 1.6188e-07 Time_nm1 = 1.1125e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 8.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.619E-07   
                            Delta_t    5.063E-08   
@@ -4511,8 +4503,8 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   8.426E-07   Y   |    1   9.238E-21 | 1.218E-05  | 1.000E+00|  1.148E-07  |   1.00E+00  0 |   1.218E-05   1.148E-07 
-	   2   1.148E-07   Y   |    1   3.401E-22 | 3.800E-07  | 1.000E+00|  1.982E-13  |   1.00E+00  0 |   3.800E-07   1.982E-13 
+	   1   8.426E-07   Y   |    1   9.168E-21 | 1.218E-05  | 1.000E+00|  1.148E-07  |   1.00E+00  0 |   1.218E-05   1.148E-07 
+	   2   1.148E-07   Y   |    1   3.250E-22 | 3.800E-07  | 1.000E+00|  1.982E-13  |   1.00E+00  0 |   3.800E-07   1.982E-13 
 	                       |                  |(6.560E-13) |          |             | converged = 3 |              (6.560E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -4540,7 +4532,6 @@ Start of Time Step:     9       Time_n = 2.3781e-07 Time_nm1 = 1.6188e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 9.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.378E-07   
                            Delta_t    7.594E-08   
@@ -4941,8 +4932,8 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.668E-07   Y   |    1   5.083E-21 | 6.970E-06  | 1.000E+00|  5.380E-08  |   1.00E+00  0 |   6.970E-06   5.380E-08 
-	   2   5.380E-08   Y   |    1   2.014E-22 | 2.611E-07  | 1.000E+00|  3.377E-13  |   1.00E+00  0 |   2.611E-07   3.377E-13 
+	   1   4.668E-07   Y   |    1   5.024E-21 | 6.970E-06  | 1.000E+00|  5.380E-08  |   1.00E+00  0 |   6.970E-06   5.380E-08 
+	   2   5.380E-08   Y   |    1   2.214E-22 | 2.611E-07  | 1.000E+00|  3.377E-13  |   1.00E+00  0 |   2.611E-07   3.377E-13 
 	                       |                  |(1.639E-12) |          |             | converged = 3 |              (1.639E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -4970,7 +4961,6 @@ Start of Time Step:    10       Time_n = 3.5172e-07 Time_nm1 = 2.3781e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 10.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.517E-07   
                            Delta_t    1.139E-07   
@@ -5371,7 +5361,7 @@ Start of Time Step:    11       Time_n = 5.2258e-07 Time_nm1 = 3.5172e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.003E-07   Y   |    1   7.970E-22 | 1.104E-06  | 1.000E+00|  2.555E-08  |   1.00E+00  0 |   1.104E-06   2.555E-08 
+	   1   2.003E-07   Y   |    1   8.005E-22 | 1.104E-06  | 1.000E+00|  2.555E-08  |   1.00E+00  0 |   1.104E-06   2.555E-08 
 	   2   2.555E-08   Y   |    1   9.120E-23 | 1.482E-07  | 1.000E+00|  3.780E-13  |   1.00E+00  0 |   1.482E-07   3.780E-13 
 	                       |                  |(2.192E-12) |          |             | converged = 3 |              (2.192E-12) 
 	  --------------------------------------------------------------------------------------------
@@ -5400,7 +5390,6 @@ Start of Time Step:    11       Time_n = 5.2258e-07 Time_nm1 = 3.5172e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 11.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.226E-07   
                            Delta_t    1.709E-07   
@@ -5801,8 +5790,8 @@ Start of Time Step:    12       Time_n = 7.7887e-07 Time_nm1 = 5.2258e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.764E-07   Y   |    1   1.452E-21 | 2.343E-06  | 1.000E+00|  3.552E-08  |   1.00E+00  0 |   2.343E-06   3.552E-08 
-	   2   3.552E-08   Y   |    1   1.160E-22 | 1.515E-07  | 1.000E+00|  2.828E-13  |   1.00E+00  0 |   1.515E-07   2.828E-13 
+	   1   1.764E-07   Y   |    1   1.447E-21 | 2.343E-06  | 1.000E+00|  3.552E-08  |   1.00E+00  0 |   2.343E-06   3.552E-08 
+	   2   3.552E-08   Y   |    1   1.151E-22 | 1.515E-07  | 1.000E+00|  2.828E-13  |   1.00E+00  0 |   1.515E-07   2.828E-13 
 	                       |                  |(1.206E-12) |          |             | converged = 3 |              (1.206E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -5830,7 +5819,6 @@ Start of Time Step:    12       Time_n = 7.7887e-07 Time_nm1 = 5.2258e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 12.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.789E-07   
                            Delta_t    2.563E-07   
@@ -6231,8 +6219,8 @@ Start of Time Step:    13       Time_n = 1.1633e-06 Time_nm1 = 7.7887e-07
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.457E-07   Y   |    1   1.906E-21 | 2.320E-06  | 1.000E+00|  1.638E-08  |   1.00E+00  0 |   2.320E-06   1.638E-08 
-	   2   1.638E-08   Y   |    1   1.026E-22 | 1.809E-07  | 1.000E+00|  3.734E-09  |   1.00E+00  0 |   1.809E-07   3.734E-09 
+	   1   1.457E-07   Y   |    1   1.882E-21 | 2.320E-06  | 1.000E+00|  1.638E-08  |   1.00E+00  0 |   2.320E-06   1.638E-08 
+	   2   1.638E-08   Y   |    1   1.047E-22 | 1.809E-07  | 1.000E+00|  3.734E-09  |   1.00E+00  0 |   1.809E-07   3.734E-09 
 	                       |                  |(4.123E-08) |          |             | converged = 3 |              (4.123E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -6260,7 +6248,6 @@ Start of Time Step:    13       Time_n = 1.1633e-06 Time_nm1 = 7.7887e-07
 ================================================================================
 
 Solution saved to file solution.xml as solution 13.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.163E-06   
                            Delta_t    3.844E-07   
@@ -6661,8 +6648,8 @@ Start of Time Step:    14       Time_n =  1.74e-06 Time_nm1 = 1.1633e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.125E-07   Y   |    1   1.645E-21 | 1.771E-06  | 1.000E+00|  1.174E-08  |   1.00E+00  0 |   1.771E-06   1.174E-08 
-	   2   1.174E-08   Y   |    1   6.483E-23 | 8.970E-08  | 1.000E+00|  2.652E-13  |   1.00E+00  0 |   8.970E-08   2.652E-13 
+	   1   1.125E-07   Y   |    1   1.643E-21 | 1.771E-06  | 1.000E+00|  1.174E-08  |   1.00E+00  0 |   1.771E-06   1.174E-08 
+	   2   1.174E-08   Y   |    1   6.461E-23 | 8.970E-08  | 1.000E+00|  2.652E-13  |   1.00E+00  0 |   8.970E-08   2.652E-13 
 	                       |                  |(2.026E-12) |          |             | converged = 3 |              (2.026E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -6690,7 +6677,6 @@ Start of Time Step:    14       Time_n =  1.74e-06 Time_nm1 = 1.1633e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 14.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.740E-06   
                            Delta_t    5.767E-07   
@@ -7091,7 +7077,7 @@ Start of Time Step:    15       Time_n = 2.6049e-06 Time_nm1 =  1.74e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   7.644E-08   Y   |    1   4.516E-22 | 6.967E-07  | 1.000E+00|  7.829E-09  |   1.00E+00  0 |   6.967E-07   7.829E-09 
+	   1   7.644E-08   Y   |    1   5.225E-22 | 6.967E-07  | 1.000E+00|  7.829E-09  |   1.00E+00  0 |   6.967E-07   7.829E-09 
 	   2   7.829E-09   Y   |    1   6.542E-23 | 7.382E-08  | 1.000E+00|  7.423E-09  |   1.00E+00  0 |   7.382E-08   7.423E-09 
 	                       |                  |(6.999E-08) |          |             | converged = 3 |              (6.999E-08) 
 	  --------------------------------------------------------------------------------------------
@@ -7120,7 +7106,6 @@ Start of Time Step:    15       Time_n = 2.6049e-06 Time_nm1 =  1.74e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 15.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.605E-06   
                            Delta_t    8.650E-07   
@@ -7521,8 +7506,8 @@ Start of Time Step:    16       Time_n = 3.9024e-06 Time_nm1 = 2.6049e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.146E-08   Y   |    1   1.302E-22 | 2.467E-07  | 1.000E+00|  7.192E-09  |   1.00E+00  0 |   2.467E-07   7.192E-09 
-	   2   7.192E-09   Y   |    1   9.075E-24 | 2.457E-08  | 1.000E+00|  1.106E-09  |   1.00E+00  0 |   2.457E-08   1.106E-09 
+	   1   6.146E-08   Y   |    1   1.369E-22 | 2.467E-07  | 1.000E+00|  7.192E-09  |   1.00E+00  0 |   2.467E-07   7.192E-09 
+	   2   7.192E-09   Y   |    1   1.524E-23 | 2.457E-08  | 1.000E+00|  1.106E-09  |   1.00E+00  0 |   2.457E-08   1.106E-09 
 	                       |                  |(3.780E-09) |          |             | converged = 3 |              (3.780E-09) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -7550,7 +7535,6 @@ Start of Time Step:    16       Time_n = 3.9024e-06 Time_nm1 = 2.6049e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 16.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.902E-06   
                            Delta_t    1.297E-06   
@@ -7951,8 +7935,8 @@ Start of Time Step:    17       Time_n = 5.8486e-06 Time_nm1 = 3.9024e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.815E-08   Y   |    1   2.001E-22 | 2.716E-07  | 1.000E+00|  5.569E-09  |   1.00E+00  0 |   2.716E-07   5.569E-09 
-	   2   5.569E-09   Y   |    1   3.022E-23 | 4.694E-08  | 1.000E+00|  2.333E-09  |   1.00E+00  0 |   4.694E-08   2.333E-09 
+	   1   3.815E-08   Y   |    1   2.175E-22 | 2.716E-07  | 1.000E+00|  5.569E-09  |   1.00E+00  0 |   2.716E-07   5.569E-09 
+	   2   5.569E-09   Y   |    1   4.666E-23 | 4.694E-08  | 1.000E+00|  2.333E-09  |   1.00E+00  0 |   4.694E-08   2.333E-09 
 	                       |                  |(1.966E-08) |          |             | converged = 3 |              (1.966E-08) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -7980,7 +7964,6 @@ Start of Time Step:    17       Time_n = 5.8486e-06 Time_nm1 = 3.9024e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 17.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.849E-06   
                            Delta_t    1.946E-06   
@@ -8381,8 +8364,8 @@ Start of Time Step:    18       Time_n = 8.7679e-06 Time_nm1 = 5.8486e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.087E-08   Y   |    1   1.115E-22 | 1.587E-07  | 1.000E+00|  2.909E-09  |   1.00E+00  0 |   1.587E-07   2.909E-09 
-	   2   2.909E-09   Y   |    1   1.254E-23 | 1.546E-08  | 1.000E+00|  5.034E-13  |   1.00E+00  0 |   1.546E-08   5.034E-13 
+	   1   2.087E-08   Y   |    1   7.236E-23 | 1.587E-07  | 1.000E+00|  2.909E-09  |   1.00E+00  0 |   1.587E-07   2.909E-09 
+	   2   2.909E-09   Y   |    1   1.077E-23 | 1.546E-08  | 1.000E+00|  5.034E-13  |   1.00E+00  0 |   1.546E-08   5.034E-13 
 	                       |                  |(2.675E-12) |          |             | converged = 3 |              (2.675E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -8410,7 +8393,6 @@ Start of Time Step:    18       Time_n = 8.7679e-06 Time_nm1 = 5.8486e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 18.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       8.768E-06   
                            Delta_t    2.919E-06   
@@ -8811,8 +8793,8 @@ Start of Time Step:    19       Time_n = 1.3147e-05 Time_nm1 = 8.7679e-06
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.530E-08   Y   |    1   1.020E-22 | 1.305E-07  | 1.000E+00|  2.858E-09  |   1.00E+00  0 |   1.305E-07   2.858E-09 
-	   2   2.858E-09   Y   |    1   1.890E-23 | 2.878E-08  | 1.000E+00|  4.743E-13  |   1.00E+00  0 |   2.878E-08   4.743E-13 
+	   1   1.530E-08   Y   |    1   1.230E-22 | 1.305E-07  | 1.000E+00|  2.858E-09  |   1.00E+00  0 |   1.305E-07   2.858E-09 
+	   2   2.858E-09   Y   |    1   1.772E-23 | 2.878E-08  | 1.000E+00|  4.743E-13  |   1.00E+00  0 |   2.878E-08   4.743E-13 
 	                       |                  |(4.775E-12) |          |             | converged = 3 |              (4.775E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -8840,7 +8822,6 @@ Start of Time Step:    19       Time_n = 1.3147e-05 Time_nm1 = 8.7679e-06
 ================================================================================
 
 Solution saved to file solution.xml as solution 19.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.315E-05   
                            Delta_t    4.379E-06   
@@ -9241,12 +9222,12 @@ Start of Time Step:    20       Time_n = 1.9715e-05 Time_nm1 = 1.3147e-05
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.190E-08   Y   |    1   8.055E-23 | 1.211E-07  | 1.000E+00|  1.661E-09  |   1.00E+00  0 |   1.211E-07   1.661E-09 
-	   2   1.661E-09   Y   |    1   2.791E-24 | 5.145E-09  | 1.000E+00|  3.826E-13  |   1.00E+00  0 |   5.145E-09   3.826E-13 
+	   1   1.190E-08   Y   |    1   1.096E-22 | 1.211E-07  | 1.000E+00|  1.661E-09  |   1.00E+00  0 |   1.211E-07   1.661E-09 
+	   2   1.661E-09   Y   |    1   4.059E-24 | 5.145E-09  | 1.000E+00|  3.826E-13  |   1.00E+00  0 |   5.145E-09   3.826E-13 
 	                       |                  |(1.185E-12) |          |             | converged = 3 |              (1.185E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.18786e-07
+	Time step truncation error = 1.18788e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -9262,7 +9243,7 @@ Start of Time Step:    20       Time_n = 1.9715e-05 Time_nm1 = 1.3147e-05
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    20 was a success: time = 1.97152e-05
 		Estimated Error
-		--------------------   =   1.18786e-07
+		--------------------   =   1.18788e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 9.85261e-06
@@ -9270,7 +9251,6 @@ Start of Time Step:    20       Time_n = 1.9715e-05 Time_nm1 = 1.3147e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 20.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.972E-05   
                            Delta_t    6.568E-06   
@@ -9671,12 +9651,12 @@ Start of Time Step:    21       Time_n = 2.9568e-05 Time_nm1 = 1.9715e-05
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.418E-08   Y   |    1   9.415E-23 | 1.078E-07  | 1.000E+00|  9.158E-10  |   1.00E+00  0 |   1.078E-07   9.158E-10 
-	   2   9.158E-10   Y   |    1   5.243E-24 | 6.641E-09  | 1.000E+00|  6.517E-10  |   1.00E+00  0 |   6.641E-09   6.517E-10 
+	   1   1.418E-08   Y   |    1   9.217E-23 | 1.078E-07  | 1.000E+00|  9.158E-10  |   1.00E+00  0 |   1.078E-07   9.158E-10 
+	   2   9.158E-10   Y   |    1   4.678E-24 | 6.641E-09  | 1.000E+00|  6.517E-10  |   1.00E+00  0 |   6.641E-09   6.517E-10 
 	                       |                  |(4.725E-09) |          |             | converged = 3 |              (4.725E-09) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.12267e-07
+	Time step truncation error = 1.12263e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -9692,7 +9672,7 @@ Start of Time Step:    21       Time_n = 2.9568e-05 Time_nm1 = 1.9715e-05
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    21 was a success: time = 2.95678e-05
 		Estimated Error
-		--------------------   =   1.12267e-07
+		--------------------   =   1.12263e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.47789e-05
@@ -9700,7 +9680,6 @@ Start of Time Step:    21       Time_n = 2.9568e-05 Time_nm1 = 1.9715e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 21.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.957E-05   
                            Delta_t    9.853E-06   
@@ -10101,12 +10080,12 @@ Start of Time Step:    22       Time_n = 4.4347e-05 Time_nm1 = 2.9568e-05
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.280E-08   Y   |    1   9.332E-23 | 1.411E-07  | 1.000E+00|  6.516E-10  |   1.00E+00  0 |   1.411E-07   6.516E-10 
-	   2   6.516E-10   Y   |    1   3.255E-24 | 7.194E-09  | 1.000E+00|  3.154E-13  |   1.00E+00  0 |   7.194E-09   3.154E-13 
-	                       |                  |(3.482E-12) |          |             | converged = 3 |              (3.482E-12) 
+	   1   2.280E-08   Y   |    1   9.261E-23 | 1.411E-07  | 1.000E+00|  6.516E-10  |   1.00E+00  0 |   1.411E-07   6.516E-10 
+	   2   6.516E-10   Y   |    1   5.959E-24 | 7.194E-09  | 1.000E+00|  3.154E-13  |   1.00E+00  0 |   7.194E-09   3.154E-13 
+	                       |                  |(3.483E-12) |          |             | converged = 3 |              (3.483E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.4395e-07
+	Time step truncation error = 1.43954e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -10114,15 +10093,15 @@ Start of Time Step:    22       Time_n = 4.4347e-05 Time_nm1 = 2.9568e-05
 		    10         Volt(Electrolyt)-1       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5561e-05
 		    16         Volt(Electrolyt)-2       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5561e-05
 		    22         Volt(Electrolyt)-3       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5561e-05
-		    28         Volt(Electrolyt)-4       2.2579e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5561e-05
-		    34         Volt(Electrolyt)-5       2.2579e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5560e-05
-		    40         Volt(Electrolyt)-6       2.2579e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5560e-05
-		    46         Volt(Electrolyt)-7       2.2579e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5560e-05
+		    28         Volt(Electrolyt)-4       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5561e-05
+		    34         Volt(Electrolyt)-5       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5560e-05
+		    40         Volt(Electrolyt)-6       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5560e-05
+		    46         Volt(Electrolyt)-7       2.2580e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.5560e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    22 was a success: time = 4.43468e-05
 		Estimated Error
-		--------------------   =   1.43950e-07
+		--------------------   =   1.43954e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 2.21684e-05
@@ -10130,7 +10109,6 @@ Start of Time Step:    22       Time_n = 4.4347e-05 Time_nm1 = 2.9568e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 22.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.435E-05   
                            Delta_t    1.478E-05   
@@ -10531,28 +10509,28 @@ Start of Time Step:    23       Time_n = 6.6515e-05 Time_nm1 = 4.4347e-05
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.034E-08   Y   |    1   1.530E-22 | 2.573E-07  | 1.000E+00|  4.173E-10  |   1.00E+00  0 |   2.573E-07   4.173E-10 
-	   2   4.173E-10   Y   |    1   2.113E-24 | 3.707E-09  | 1.000E+00|  3.377E-13  |   1.00E+00  0 |   3.707E-09   3.377E-13 
+	   1   4.034E-08   Y   |    1   1.823E-22 | 2.573E-07  | 1.000E+00|  4.173E-10  |   1.00E+00  0 |   2.573E-07   4.173E-10 
+	   2   4.173E-10   Y   |    1   2.623E-24 | 3.707E-09  | 1.000E+00|  3.377E-13  |   1.00E+00  0 |   3.707E-09   3.377E-13 
 	                       |                  |(3.000E-12) |          |             | converged = 3 |              (3.000E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.56553e-07
+	Time step truncation error = 2.5656e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		     4         Volt(Electrolyt)-0       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
-		    10         Volt(Electrolyt)-1       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
-		    16         Volt(Electrolyt)-2       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
-		    22         Volt(Electrolyt)-3       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
-		    28         Volt(Electrolyt)-4       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
-		    34         Volt(Electrolyt)-5       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4294e-05
-		    40         Volt(Electrolyt)-6       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4294e-05
-		    46         Volt(Electrolyt)-7       4.4373e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4294e-05
+		     4         Volt(Electrolyt)-0       4.4375e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
+		    10         Volt(Electrolyt)-1       4.4375e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
+		    16         Volt(Electrolyt)-2       4.4375e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
+		    22         Volt(Electrolyt)-3       4.4374e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
+		    28         Volt(Electrolyt)-4       4.4374e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4295e-05
+		    34         Volt(Electrolyt)-5       4.4374e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4294e-05
+		    40         Volt(Electrolyt)-6       4.4374e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4294e-05
+		    46         Volt(Electrolyt)-7       4.4374e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.4294e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    23 was a success: time = 6.65151e-05
 		Estimated Error
-		--------------------   =   2.56553e-07
+		--------------------   =   2.56560e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 3.32526e-05
@@ -10560,7 +10538,6 @@ Start of Time Step:    23       Time_n = 6.6515e-05 Time_nm1 = 4.4347e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 23.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       6.652E-05   
                            Delta_t    2.217E-05   
@@ -10961,28 +10938,28 @@ Start of Time Step:    24       Time_n = 9.9768e-05 Time_nm1 = 6.6515e-05
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.905E-08   Y   |    1   3.687E-22 | 4.659E-07  | 1.000E+00|  2.968E-10  |   1.00E+00  0 |   4.659E-07   2.968E-10 
-	   2   2.968E-10   Y   |    1   1.163E-24 | 1.472E-09  | 1.000E+00|  4.202E-13  |   1.00E+00  0 |   1.472E-09   4.202E-13 
-	                       |                  |(2.084E-12) |          |             | converged = 3 |              (2.084E-12) 
+	   1   6.905E-08   Y   |    1   3.158E-22 | 4.659E-07  | 1.000E+00|  2.968E-10  |   1.00E+00  0 |   4.659E-07   2.968E-10 
+	   2   2.968E-10   Y   |    1   1.012E-24 | 1.472E-09  | 1.000E+00|  4.202E-13  |   1.00E+00  0 |   1.472E-09   4.202E-13 
+	                       |                  |(2.085E-12) |          |             | converged = 3 |              (2.085E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 4.65991e-07
+	Time step truncation error = 4.6598e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
-		     4         Volt(Electrolyt)-0       8.1888e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2738e-05
-		    10         Volt(Electrolyt)-1       8.1888e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2738e-05
-		    16         Volt(Electrolyt)-2       8.1888e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2738e-05
-		    22         Volt(Electrolyt)-3       8.1888e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
-		    28         Volt(Electrolyt)-4       8.1887e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
-		    34         Volt(Electrolyt)-5       8.1887e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
-		    40         Volt(Electrolyt)-6       8.1887e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
-		    46         Volt(Electrolyt)-7       8.1887e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2736e-05
+		     4         Volt(Electrolyt)-0       8.1886e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2738e-05
+		    10         Volt(Electrolyt)-1       8.1886e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2738e-05
+		    16         Volt(Electrolyt)-2       8.1886e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2738e-05
+		    22         Volt(Electrolyt)-3       8.1886e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
+		    28         Volt(Electrolyt)-4       8.1885e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
+		    34         Volt(Electrolyt)-5       8.1885e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
+		    40         Volt(Electrolyt)-6       8.1885e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2737e-05
+		    46         Volt(Electrolyt)-7       8.1885e-08 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -1.2736e-05
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    24 was a success: time = 9.97677e-05
 		Estimated Error
-		--------------------   =   4.65991e-07
+		--------------------   =   4.65980e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 4.98789e-05
@@ -10990,7 +10967,6 @@ Start of Time Step:    24       Time_n = 9.9768e-05 Time_nm1 = 6.6515e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 24.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       9.977E-05   
                            Delta_t    3.325E-05   
@@ -11391,12 +11367,12 @@ Start of Time Step:    25       Time_n = 0.00014965 Time_nm1 = 9.9768e-05
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.131E-07   Y   |    1   4.771E-22 | 7.971E-07  | 1.000E+00|  1.826E-10  |   1.00E+00  0 |   7.971E-07   1.826E-10 
-	   2   1.826E-10   Y   |    1   1.337E-24 | 2.292E-09  | 1.000E+00|  3.863E-13  |   1.00E+00  0 |   2.292E-09   3.863E-13 
+	   1   1.131E-07   Y   |    1   5.518E-22 | 7.971E-07  | 1.000E+00|  1.826E-10  |   1.00E+00  0 |   7.971E-07   1.826E-10 
+	   2   1.826E-10   Y   |    1   1.229E-24 | 2.292E-09  | 1.000E+00|  3.863E-13  |   1.00E+00  0 |   2.292E-09   3.863E-13 
 	                       |                  |(4.851E-12) |          |             | converged = 3 |              (4.851E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 7.97151e-07
+	Time step truncation error = 7.97167e-07
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -11412,7 +11388,7 @@ Start of Time Step:    25       Time_n = 0.00014965 Time_nm1 = 9.9768e-05
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    25 was a success: time = 0.000149647
 		Estimated Error
-		--------------------   =   7.97151e-07
+		--------------------   =   7.97167e-07
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 7.48183e-05
@@ -11420,7 +11396,6 @@ Start of Time Step:    25       Time_n = 0.00014965 Time_nm1 = 9.9768e-05
 ================================================================================
 
 Solution saved to file solution.xml as solution 25.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.496E-04   
                            Delta_t    4.988E-05   
@@ -11821,12 +11796,12 @@ Start of Time Step:    26       Time_n = 0.00022446 Time_nm1 = 0.00014965
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.779E-07   Y   |    1   8.536E-22 | 1.237E-06  | 1.000E+00|  1.357E-10  |   1.00E+00  0 |   1.237E-06   1.357E-10 
-	   2   1.357E-10   Y   |    1   2.983E-25 | 3.276E-10  | 1.000E+00|  1.919E-11  |   1.00E+00  0 |   3.276E-10   1.919E-11 
-	                       |                  |(4.632E-11) |          |             | converged = 3 |              (4.632E-11) 
+	   1   1.779E-07   Y   |    1   5.872E-22 | 1.237E-06  | 1.000E+00|  1.357E-10  |   1.00E+00  0 |   1.237E-06   1.357E-10 
+	   2   1.357E-10   Y   |    1   2.596E-25 | 3.276E-10  | 1.000E+00|  1.919E-11  |   1.00E+00  0 |   3.276E-10   1.919E-11 
+	                       |                  |(4.633E-11) |          |             | converged = 3 |              (4.633E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.23741e-06
+	Time step truncation error = 1.23738e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -11835,14 +11810,14 @@ Start of Time Step:    26       Time_n = 0.00022446 Time_nm1 = 0.00014965
 		     4         Volt(Electrolyt)-0       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2397e-06
 		    10         Volt(Electrolyt)-1       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2397e-06
 		    16         Volt(Electrolyt)-2       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2396e-06
-		    22         Volt(Electrolyt)-3       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2394e-06
+		    22         Volt(Electrolyt)-3       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2395e-06
 		    28         Volt(Electrolyt)-4       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2392e-06
-		    34         Volt(Electrolyt)-5       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2389e-06
+		    34         Volt(Electrolyt)-5       2.0643e-07 |   2.9167e-02   2.9167e-02   5.0000e-05 alg  -9.2390e-06
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    26 was a success: time = 0.000224465
 		Estimated Error
-		--------------------   =   1.23741e-06
+		--------------------   =   1.23738e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 0.000112227
@@ -11850,7 +11825,6 @@ Start of Time Step:    26       Time_n = 0.00022446 Time_nm1 = 0.00014965
 ================================================================================
 
 Solution saved to file solution.xml as solution 26.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.245E-04   
                            Delta_t    7.482E-05   
@@ -12251,12 +12225,12 @@ Start of Time Step:    27       Time_n = 0.00033669 Time_nm1 = 0.00022446
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.685E-07   Y   |    1   1.004E-21 | 1.739E-06  | 1.000E+00|  9.929E-11  |   1.00E+00  0 |   1.739E-06   9.929E-11 
-	   2   9.929E-11   Y   |    1   4.071E-25 | 5.407E-10  | 1.000E+00|  5.637E-13  |   1.00E+00  0 |   5.407E-10   5.637E-13 
+	   1   2.685E-07   Y   |    1   1.304E-21 | 1.739E-06  | 1.000E+00|  9.929E-11  |   1.00E+00  0 |   1.739E-06   9.929E-11 
+	   2   9.929E-11   Y   |    1   3.728E-25 | 5.407E-10  | 1.000E+00|  5.638E-13  |   1.00E+00  0 |   5.407E-10   5.638E-13 
 	                       |                  |(5.407E-11) |          |             | converged = 3 |              (5.407E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 1.73919e-06
+	Time step truncation error = 1.7392e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -12272,7 +12246,7 @@ Start of Time Step:    27       Time_n = 0.00033669 Time_nm1 = 0.00022446
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    27 was a success: time = 0.000336692
 		Estimated Error
-		--------------------   =   1.73919e-06
+		--------------------   =   1.73920e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 0.000168341
@@ -12280,7 +12254,6 @@ Start of Time Step:    27       Time_n = 0.00033669 Time_nm1 = 0.00022446
 ================================================================================
 
 Solution saved to file solution.xml as solution 27.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.367E-04   
                            Delta_t    1.122E-04   
@@ -12681,12 +12654,12 @@ Start of Time Step:    28       Time_n = 0.00050503 Time_nm1 = 0.00033669
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.857E-07   Y   |    1   1.119E-21 | 2.354E-06  | 1.000E+00|  6.569E-11  |   1.00E+00  0 |   2.354E-06   6.569E-11 
-	   2   6.569E-11   Y   |    1   3.506E-25 | 3.829E-10  | 1.000E+00|  2.412E-13  |   1.00E+00  0 |   3.829E-10   2.412E-13 
+	   1   3.857E-07   Y   |    1   1.102E-21 | 2.354E-06  | 1.000E+00|  6.569E-11  |   1.00E+00  0 |   2.354E-06   6.569E-11 
+	   2   6.569E-11   Y   |    1   3.660E-25 | 3.829E-10  | 1.000E+00|  2.412E-13  |   1.00E+00  0 |   3.829E-10   2.412E-13 
 	                       |                  |(3.829E-11) |          |             | converged = 3 |              (3.829E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 2.35369e-06
+	Time step truncation error = 2.3537e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -12702,7 +12675,7 @@ Start of Time Step:    28       Time_n = 0.00050503 Time_nm1 = 0.00033669
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    28 was a success: time = 0.000505033
 		Estimated Error
-		--------------------   =   2.35369e-06
+		--------------------   =   2.35370e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 0.000252512
@@ -12710,7 +12683,6 @@ Start of Time Step:    28       Time_n = 0.00050503 Time_nm1 = 0.00033669
 ================================================================================
 
 Solution saved to file solution.xml as solution 28.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.050E-04   
                            Delta_t    1.683E-04   
@@ -13111,8 +13083,8 @@ Start of Time Step:    29       Time_n = 0.00075755 Time_nm1 = 0.00050503
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.229E-07   Y   |    1   1.127E-21 | 3.445E-06  | 1.000E+00|  4.344E-11  |   1.00E+00  0 |   3.445E-06   4.344E-11 
-	   2   4.344E-11   Y   |    1   9.923E-26 | 1.412E-10  | 1.000E+00|  8.059E-12  |   1.00E+00  0 |   1.412E-10   8.059E-12 
+	   1   5.229E-07   Y   |    1   1.051E-21 | 3.445E-06  | 1.000E+00|  4.344E-11  |   1.00E+00  0 |   3.445E-06   4.344E-11 
+	   2   4.344E-11   Y   |    1   8.198E-26 | 1.412E-10  | 1.000E+00|  8.059E-12  |   1.00E+00  0 |   1.412E-10   8.059E-12 
 	                       |                  |(1.412E-11) |          |             | converged = 3 |              (1.412E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -13140,7 +13112,6 @@ Start of Time Step:    29       Time_n = 0.00075755 Time_nm1 = 0.00050503
 ================================================================================
 
 Solution saved to file solution.xml as solution 29.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.575E-04   
                            Delta_t    2.525E-04   
@@ -13541,8 +13512,8 @@ Start of Time Step:    30       Time_n = 0.0011363 Time_nm1 = 0.00075755
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   6.682E-07   Y   |    1   1.947E-21 | 5.522E-06  | 1.000E+00|  3.354E-11  |   1.00E+00  0 |   5.522E-06   3.354E-11 
-	   2   3.354E-11   Y   |    1   9.222E-26 | 1.083E-10  | 1.000E+00|  2.243E-11  |   1.00E+00  0 |   1.083E-10   2.243E-11 
+	   1   6.682E-07   Y   |    1   2.234E-21 | 5.522E-06  | 1.000E+00|  3.355E-11  |   1.00E+00  0 |   5.522E-06   3.355E-11 
+	   2   3.354E-11   Y   |    1   1.002E-25 | 1.083E-10  | 1.000E+00|  2.243E-11  |   1.00E+00  0 |   1.083E-10   2.243E-11 
 	                       |                  |(1.083E-11) |          |             | converged = 3 |              (1.083E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -13570,7 +13541,6 @@ Start of Time Step:    30       Time_n = 0.0011363 Time_nm1 = 0.00075755
 ================================================================================
 
 Solution saved to file solution.xml as solution 30.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.136E-03   
                            Delta_t    3.788E-04   
@@ -13971,8 +13941,8 @@ Start of Time Step:    31       Time_n = 0.0017045 Time_nm1 = 0.0011363
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   8.130E-07   Y   |    1   3.869E-21 | 9.110E-06  | 1.000E+00|  2.465E-11  |   1.00E+00  0 |   9.110E-06   2.465E-11 
-	   2   2.465E-11   Y   |    1   1.314E-25 | 1.452E-10  | 1.000E+00|  1.212E-11  |   1.00E+00  0 |   1.452E-10   1.212E-11 
+	   1   8.130E-07   Y   |    1   2.016E-21 | 9.110E-06  | 1.000E+00|  2.465E-11  |   1.00E+00  0 |   9.110E-06   2.465E-11 
+	   2   2.465E-11   Y   |    1   1.434E-25 | 1.452E-10  | 1.000E+00|  1.212E-11  |   1.00E+00  0 |   1.452E-10   1.212E-11 
 	                       |                  |(1.452E-11) |          |             | converged = 3 |              (1.452E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -14000,7 +13970,6 @@ Start of Time Step:    31       Time_n = 0.0017045 Time_nm1 = 0.0011363
 ================================================================================
 
 Solution saved to file solution.xml as solution 31.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.704E-03   
                            Delta_t    5.682E-04   
@@ -14401,9 +14370,9 @@ Start of Time Step:    32       Time_n = 0.0025567 Time_nm1 = 0.0017045
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   9.596E-07   Y   |    1   3.994E-21 | 1.530E-05  | 1.000E+00|  1.142E-11  |   1.00E+00  0 |   1.530E-05   1.142E-11 
-	   2   1.142E-11   Y   |    1   6.789E-26 | 7.734E-11  | 1.000E+00|  7.156E-12  |   1.00E+00  0 |   7.734E-11   7.156E-12 
-	                       |                  |(7.734E-12) |          |             | converged = 3 |              (7.734E-12) 
+	   1   9.596E-07   Y   |    1   5.044E-21 | 1.530E-05  | 1.000E+00|  1.142E-11  |   1.00E+00  0 |   1.530E-05   1.142E-11 
+	   2   1.142E-11   Y   |    1   7.020E-26 | 7.760E-11  | 1.000E+00|  7.156E-12  |   1.00E+00  0 |   7.760E-11   7.156E-12 
+	                       |                  |(7.760E-12) |          |             | converged = 3 |              (7.760E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 1.5304e-05
@@ -14430,7 +14399,6 @@ Start of Time Step:    32       Time_n = 0.0025567 Time_nm1 = 0.0017045
 ================================================================================
 
 Solution saved to file solution.xml as solution 32.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.557E-03   
                            Delta_t    8.522E-04   
@@ -14831,9 +14799,9 @@ Start of Time Step:    33       Time_n =  0.003835 Time_nm1 = 0.0025567
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.123E-06   Y   |    1   7.214E-21 | 2.654E-05  | 1.000E+00|  8.260E-12  |   1.00E+00  0 |   2.654E-05   8.260E-12 
-	   2   8.260E-12   Y   |    1   3.065E-26 | 4.712E-11  | 1.000E+00|  5.512E-12  |   1.00E+00  0 |   4.712E-11   5.512E-12 
-	                       |                  |(4.712E-12) |          |             | converged = 3 |              (4.712E-12) 
+	   1   1.123E-06   Y   |    1   5.451E-21 | 2.654E-05  | 1.000E+00|  8.260E-12  |   1.00E+00  0 |   2.654E-05   8.260E-12 
+	   2   8.260E-12   Y   |    1   5.646E-26 | 4.715E-11  | 1.000E+00|  5.512E-12  |   1.00E+00  0 |   4.715E-11   5.512E-12 
+	                       |                  |(4.715E-12) |          |             | converged = 3 |              (4.715E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 2.65399e-05
@@ -14860,7 +14828,6 @@ Start of Time Step:    33       Time_n =  0.003835 Time_nm1 = 0.0025567
 ================================================================================
 
 Solution saved to file solution.xml as solution 33.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.835E-03   
                            Delta_t    1.278E-03   
@@ -15261,9 +15228,9 @@ Start of Time Step:    34       Time_n = 0.0057525 Time_nm1 =  0.003835
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.324E-06   Y   |    1   1.158E-20 | 4.771E-05  | 1.000E+00|  7.642E-12  |   1.00E+00  0 |   4.771E-05   7.642E-12 
-	   2   7.642E-12   Y   |    1   4.278E-26 | 4.278E-11  | 1.000E+00|  5.432E-12  |   1.00E+00  0 |   4.278E-11   5.432E-12 
-	                       |                  |(4.278E-12) |          |             | converged = 3 |              (4.278E-12) 
+	   1   1.324E-06   Y   |    1   1.358E-20 | 4.771E-05  | 1.000E+00|  7.642E-12  |   1.00E+00  0 |   4.771E-05   7.642E-12 
+	   2   7.642E-12   Y   |    1   5.665E-26 | 4.305E-11  | 1.000E+00|  5.432E-12  |   1.00E+00  0 |   4.305E-11   5.432E-12 
+	                       |                  |(4.305E-12) |          |             | converged = 3 |              (4.305E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 4.77146e-05
@@ -15290,7 +15257,6 @@ Start of Time Step:    34       Time_n = 0.0057525 Time_nm1 =  0.003835
 ================================================================================
 
 Solution saved to file solution.xml as solution 34.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       5.753E-03   
                            Delta_t    1.918E-03   
@@ -15691,9 +15657,9 @@ Start of Time Step:    35       Time_n = 0.0086288 Time_nm1 = 0.0057525
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.593E-06   Y   |    1   1.705E-20 | 8.853E-05  | 1.000E+00|  4.588E-12  |   1.00E+00  0 |   8.853E-05   4.588E-12 
-	   2   4.588E-12   Y   |    1   3.735E-26 | 3.565E-11  | 1.000E+00|  3.141E-12  |   1.00E+00  0 |   3.565E-11   3.141E-12 
-	                       |                  |(3.565E-12) |          |             | converged = 3 |              (3.565E-12) 
+	   1   1.593E-06   Y   |    1   2.166E-20 | 8.853E-05  | 1.000E+00|  4.588E-12  |   1.00E+00  0 |   8.853E-05   4.588E-12 
+	   2   4.588E-12   Y   |    1   3.398E-26 | 3.577E-11  | 1.000E+00|  3.142E-12  |   1.00E+00  0 |   3.577E-11   3.142E-12 
+	                       |                  |(3.577E-12) |          |             | converged = 3 |              (3.577E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 8.8534e-05
@@ -15720,7 +15686,6 @@ Start of Time Step:    35       Time_n = 0.0086288 Time_nm1 = 0.0057525
 ================================================================================
 
 Solution saved to file solution.xml as solution 35.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       8.629E-03   
                            Delta_t    2.876E-03   
@@ -16121,9 +16086,9 @@ Start of Time Step:    36       Time_n =  0.012943 Time_nm1 = 0.0086288
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.968E-06   Y   |    1   4.641E-20 | 1.670E-04  | 1.000E+00|  2.700E-12  |   1.00E+00  0 |   1.670E-04   2.700E-12 
-	   2   2.700E-12   Y   |    1   4.129E-26 | 4.807E-11  | 1.000E+00|  2.148E-12  |   1.00E+00  0 |   4.807E-11   2.148E-12 
-	                       |                  |(4.807E-12) |          |             | converged = 3 |              (4.807E-12) 
+	   1   1.968E-06   Y   |    1   4.255E-20 | 1.670E-04  | 1.000E+00|  2.700E-12  |   1.00E+00  0 |   1.670E-04   2.700E-12 
+	   2   2.700E-12   Y   |    1   3.128E-26 | 4.470E-11  | 1.000E+00|  2.148E-12  |   1.00E+00  0 |   4.470E-11   2.148E-12 
+	                       |                  |(4.470E-12) |          |             | converged = 3 |              (4.470E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.000167018
@@ -16150,7 +16115,6 @@ Start of Time Step:    36       Time_n =  0.012943 Time_nm1 = 0.0086288
 ================================================================================
 
 Solution saved to file solution.xml as solution 36.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.294E-02   
                            Delta_t    4.314E-03   
@@ -16551,9 +16515,9 @@ Start of Time Step:    37       Time_n =  0.019415 Time_nm1 =  0.012943
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.486E-06   Y   |    1   7.803E-20 | 3.106E-04  | 1.000E+00|  2.409E-12  |   1.00E+00  0 |   3.106E-04   2.409E-12 
-	   2   2.409E-12   Y   |    1   1.498E-26 | 2.203E-11  | 1.000E+00|  1.861E-12  |   1.00E+00  0 |   2.203E-11   1.861E-12 
-	                       |                  |(2.203E-12) |          |             | converged = 3 |              (2.203E-12) 
+	   1   2.486E-06   Y   |    1   6.388E-20 | 3.106E-04  | 1.000E+00|  2.408E-12  |   1.00E+00  0 |   3.106E-04   2.408E-12 
+	   2   2.408E-12   Y   |    1   1.351E-26 | 2.215E-11  | 1.000E+00|  1.860E-12  |   1.00E+00  0 |   2.215E-11   1.860E-12 
+	                       |                  |(2.215E-12) |          |             | converged = 3 |              (2.215E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.000310567
@@ -16580,7 +16544,6 @@ Start of Time Step:    37       Time_n =  0.019415 Time_nm1 =  0.012943
 ================================================================================
 
 Solution saved to file solution.xml as solution 37.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.941E-02   
                            Delta_t    6.472E-03   
@@ -16981,9 +16944,9 @@ Start of Time Step:    38       Time_n =  0.029122 Time_nm1 =  0.019415
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.131E-06   Y   |    1   1.425E-19 | 5.486E-04  | 1.000E+00|  2.024E-12  |   1.00E+00  0 |   5.486E-04   2.024E-12 
-	   2   2.024E-12   Y   |    1   1.257E-26 | 3.173E-11  | 1.000E+00|  1.413E-12  |   1.00E+00  0 |   3.173E-11   1.413E-12 
-	                       |                  |(3.173E-12) |          |             | converged = 3 |              (3.173E-12) 
+	   1   3.131E-06   Y   |    1   1.277E-19 | 5.486E-04  | 1.000E+00|  2.024E-12  |   1.00E+00  0 |   5.486E-04   2.024E-12 
+	   2   2.024E-12   Y   |    1   1.585E-26 | 3.528E-11  | 1.000E+00|  1.413E-12  |   1.00E+00  0 |   3.528E-11   1.413E-12 
+	                       |                  |(3.528E-12) |          |             | converged = 3 |              (3.528E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.00054863
@@ -17010,7 +16973,6 @@ Start of Time Step:    38       Time_n =  0.029122 Time_nm1 =  0.019415
 ================================================================================
 
 Solution saved to file solution.xml as solution 38.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.912E-02   
                            Delta_t    9.707E-03   
@@ -17411,9 +17373,9 @@ Start of Time Step:    39       Time_n =  0.043683 Time_nm1 =  0.029122
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.786E-06   Y   |    1   2.528E-19 | 8.912E-04  | 1.000E+00|  1.803E-12  |   1.00E+00  0 |   8.912E-04   1.803E-12 
-	   2   1.803E-12   Y   |    1   3.593E-26 | 7.417E-11  | 1.000E+00|  9.890E-13  |   1.00E+00  0 |   7.417E-11   9.890E-13 
-	                       |                  |(7.417E-12) |          |             | converged = 3 |              (7.417E-12) 
+	   1   3.786E-06   Y   |    1   1.984E-19 | 8.912E-04  | 1.000E+00|  1.805E-12  |   1.00E+00  0 |   8.912E-04   1.805E-12 
+	   2   1.805E-12   Y   |    1   2.099E-26 | 6.521E-11  | 1.000E+00|  9.890E-13  |   1.00E+00  0 |   6.521E-11   9.890E-13 
+	                       |                  |(6.521E-12) |          |             | converged = 3 |              (6.521E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.000891209
@@ -17440,7 +17402,6 @@ Start of Time Step:    39       Time_n =  0.043683 Time_nm1 =  0.029122
 ================================================================================
 
 Solution saved to file solution.xml as solution 39.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.368E-02   
                            Delta_t    1.456E-02   
@@ -17841,9 +17802,9 @@ Start of Time Step:    40       Time_n =  0.065525 Time_nm1 =  0.043683
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.226E-06   Y   |    1   3.239E-19 | 1.291E-03  | 1.000E+00|  1.574E-12  |   1.00E+00  0 |   1.291E-03   1.574E-12 
-	   2   1.574E-12   Y   |    1   4.084E-26 | 1.225E-10  | 1.000E+00|  5.590E-13  |   1.00E+00  0 |   1.225E-10   5.590E-13 
-	                       |                  |(1.225E-11) |          |             | converged = 3 |              (1.225E-11) 
+	   1   4.226E-06   Y   |    1   3.730E-19 | 1.291E-03  | 1.000E+00|  1.576E-12  |   1.00E+00  0 |   1.291E-03   1.576E-12 
+	   2   1.576E-12   Y   |    1   3.220E-26 | 1.206E-10  | 1.000E+00|  5.588E-13  |   1.00E+00  0 |   1.206E-10   5.588E-13 
+	                       |                  |(1.206E-11) |          |             | converged = 3 |              (1.206E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.00129095
@@ -17870,7 +17831,6 @@ Start of Time Step:    40       Time_n =  0.065525 Time_nm1 =  0.043683
 ================================================================================
 
 Solution saved to file solution.xml as solution 40.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       6.552E-02   
                            Delta_t    2.184E-02   
@@ -18128,7 +18088,7 @@ we are here
           1.6764E-03  6.96263E-09  9.20003E-01  3.99987E-02  3.99987E-02  2.91644E-02 
           1.7441E-03  4.64318E-09  9.20003E-01  3.99986E-02  3.99986E-02  2.91644E-02 
           1.8119E-03  2.32237E-09  9.20003E-01  3.99985E-02  3.99985E-02  2.91643E-02 
-          1.8796E-03  -9.97751E-19  9.20003E-01  3.99985E-02  3.99985E-02  2.91643E-02 
+          1.8796E-03  -9.97747E-19  9.20003E-01  3.99985E-02  3.99985E-02  2.91643E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -18271,8 +18231,8 @@ Start of Time Step:    41       Time_n =  0.098287 Time_nm1 =  0.065525
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.196E-06   Y   |    1   4.184E-19 | 1.610E-03  | 1.000E+00|  1.453E-12  |   1.00E+00  0 |   1.610E-03   1.453E-12 
-	   2   1.453E-12   Y   |    1   5.743E-26 | 1.831E-10  | 1.000E+00|  3.579E-13  |   1.00E+00  0 |   1.831E-10   3.579E-13 
+	   1   4.196E-06   Y   |    1   3.565E-19 | 1.610E-03  | 1.000E+00|  1.451E-12  |   1.00E+00  0 |   1.610E-03   1.451E-12 
+	   2   1.451E-12   Y   |    1   4.025E-26 | 1.831E-10  | 1.000E+00|  3.580E-13  |   1.00E+00  0 |   1.831E-10   3.580E-13 
 	                       |                  |(1.831E-11) |          |             | converged = 3 |              (1.831E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
@@ -18300,7 +18260,6 @@ Start of Time Step:    41       Time_n =  0.098287 Time_nm1 =  0.065525
 ================================================================================
 
 Solution saved to file solution.xml as solution 41.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       9.829E-02   
                            Delta_t    3.276E-02   
@@ -18558,7 +18517,7 @@ we are here
           1.6764E-03  6.96253E-09  9.20003E-01  3.99985E-02  3.99985E-02  2.91643E-02 
           1.7441E-03  4.64311E-09  9.20003E-01  3.99984E-02  3.99984E-02  2.91642E-02 
           1.8119E-03  2.32233E-09  9.20003E-01  3.99984E-02  3.99984E-02  2.91642E-02 
-          1.8796E-03  2.21723E-19  9.20003E-01  3.99983E-02  3.99983E-02  2.91642E-02 
+          1.8796E-03  2.21725E-19  9.20003E-01  3.99983E-02  3.99983E-02  2.91642E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -18678,7 +18637,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              2.2172E-19 
+         Vel_axial              2.2173E-19 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -18701,9 +18660,9 @@ Start of Time Step:    42       Time_n =   0.14743 Time_nm1 =  0.098287
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.562E-06   Y   |    1   3.923E-19 | 1.661E-03  | 1.000E+00|  1.238E-12  |   1.00E+00  0 |   1.661E-03   1.238E-12 
-	   2   1.238E-12   Y   |    1   5.874E-26 | 2.394E-10  | 1.000E+00|  5.227E-13  |   1.00E+00  0 |   2.394E-10   5.227E-13 
-	                       |                  |(2.394E-11) |          |             | converged = 3 |              (2.394E-11) 
+	   1   3.562E-06   Y   |    1   4.575E-19 | 1.661E-03  | 1.000E+00|  1.238E-12  |   1.00E+00  0 |   1.661E-03   1.238E-12 
+	   2   1.238E-12   Y   |    1   5.488E-26 | 2.293E-10  | 1.000E+00|  5.228E-13  |   1.00E+00  0 |   2.293E-10   5.228E-13 
+	                       |                  |(2.293E-11) |          |             | converged = 3 |              (2.293E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.00166057
@@ -18730,7 +18689,6 @@ Start of Time Step:    42       Time_n =   0.14743 Time_nm1 =  0.098287
 ================================================================================
 
 Solution saved to file solution.xml as solution 42.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.474E-01   
                            Delta_t    4.914E-02   
@@ -18988,7 +18946,7 @@ we are here
           1.6764E-03  6.96241E-09  9.20003E-01  3.99984E-02  3.99984E-02  2.91641E-02 
           1.7441E-03  4.64303E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91640E-02 
           1.8119E-03  2.32229E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91640E-02 
-          1.8796E-03  -2.21722E-19  9.20004E-01  3.99982E-02  3.99982E-02  2.91640E-02 
+          1.8796E-03  -2.21720E-19  9.20004E-01  3.99982E-02  3.99982E-02  2.91640E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -19131,9 +19089,9 @@ Start of Time Step:    43       Time_n =   0.22115 Time_nm1 =   0.14743
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   2.481E-06   Y   |    1   3.267E-19 | 1.358E-03  | 1.000E+00|  9.209E-13  |   1.00E+00  0 |   1.358E-03   9.209E-13 
-	   2   9.209E-13   Y   |    1   9.469E-26 | 2.385E-10  | 1.000E+00|  5.184E-13  |   1.00E+00  0 |   2.385E-10   5.184E-13 
-	                       |                  |(2.385E-11) |          |             | converged = 3 |              (2.385E-11) 
+	   1   2.481E-06   Y   |    1   3.112E-19 | 1.358E-03  | 1.000E+00|  8.038E-13  |   1.00E+00  0 |   1.358E-03   8.038E-13 
+	   2   8.037E-13   Y   |    1   5.017E-26 | 2.230E-10  | 1.000E+00|  5.184E-13  |   1.00E+00  0 |   2.230E-10   5.184E-13 
+	                       |                  |(2.230E-11) |          |             | converged = 3 |              (2.230E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.0013585
@@ -19160,7 +19118,6 @@ Start of Time Step:    43       Time_n =   0.22115 Time_nm1 =   0.14743
 ================================================================================
 
 Solution saved to file solution.xml as solution 43.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.211E-01   
                            Delta_t    7.372E-02   
@@ -19418,7 +19375,7 @@ we are here
           1.6764E-03  6.96226E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91638E-02 
           1.7441E-03  4.64293E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91638E-02 
           1.8119E-03  2.32224E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91637E-02 
-          1.8796E-03  -7.14438E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91637E-02 
+          1.8796E-03  -7.14436E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91637E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -19561,9 +19518,9 @@ Start of Time Step:    44       Time_n =   0.33172 Time_nm1 =   0.22115
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.360E-06   Y   |    1   1.901E-19 | 8.489E-04  | 1.000E+00|  5.211E-13  |   1.00E+00  0 |   8.489E-04   5.211E-13 
-	   2   5.210E-13   Y   |    1   5.359E-26 | 1.598E-10  | 1.000E+00|  2.607E-13  |   1.00E+00  0 |   1.598E-10   2.607E-13 
-	                       |                  |(1.598E-11) |          |             | converged = 3 |              (1.598E-11) 
+	   1   1.360E-06   Y   |    1   2.552E-19 | 8.489E-04  | 1.000E+00|  5.214E-13  |   1.00E+00  0 |   8.489E-04   5.214E-13 
+	   2   5.215E-13   Y   |    1   3.074E-26 | 1.562E-10  | 1.000E+00|  2.607E-13  |   1.00E+00  0 |   1.562E-10   2.607E-13 
+	                       |                  |(1.562E-11) |          |             | converged = 3 |              (1.562E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.000848939
@@ -19590,7 +19547,6 @@ Start of Time Step:    44       Time_n =   0.33172 Time_nm1 =   0.22115
 ================================================================================
 
 Solution saved to file solution.xml as solution 44.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.317E-01   
                            Delta_t    1.106E-01   
@@ -19848,7 +19804,7 @@ we are here
           1.6764E-03  6.96207E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91634E-02 
           1.7441E-03  4.64280E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91634E-02 
           1.8119E-03  2.32218E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91633E-02 
-          1.8796E-03  2.62781E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91633E-02 
+          1.8796E-03  2.62783E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91633E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -19991,9 +19947,9 @@ Start of Time Step:    45       Time_n =   0.49758 Time_nm1 =   0.33172
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.648E-07   Y   |    1   1.147E-19 | 3.933E-04  | 1.000E+00|  3.123E-13  |   1.00E+00  0 |   3.933E-04   3.123E-13 
-	   2   3.123E-13   Y   |    1   1.936E-26 | 7.762E-11  | 1.000E+00|  2.945E-13  |   1.00E+00  0 |   7.762E-11   2.945E-13 
-	                       |                  |(7.762E-12) |          |             | converged = 3 |              (7.762E-12) 
+	   1   5.648E-07   Y   |    1   1.368E-19 | 3.933E-04  | 1.000E+00|  3.135E-13  |   1.00E+00  0 |   3.933E-04   3.135E-13 
+	   2   3.134E-13   Y   |    1   4.095E-26 | 8.895E-11  | 1.000E+00|  2.936E-13  |   1.00E+00  0 |   8.895E-11   2.936E-13 
+	                       |                  |(8.895E-12) |          |             | converged = 3 |              (8.895E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.000393344
@@ -20020,7 +19976,6 @@ Start of Time Step:    45       Time_n =   0.49758 Time_nm1 =   0.33172
 ================================================================================
 
 Solution saved to file solution.xml as solution 45.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       4.976E-01   
                            Delta_t    1.659E-01   
@@ -20278,7 +20233,7 @@ we are here
           1.6764E-03  6.96179E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91629E-02 
           1.7441E-03  4.64261E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91628E-02 
           1.8119E-03  2.32209E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91628E-02 
-          1.8796E-03  2.84682E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91627E-02 
+          1.8796E-03  2.62783E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91627E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -20398,7 +20353,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              2.8468E-19 
+         Vel_axial              2.6278E-19 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -20421,9 +20376,9 @@ Start of Time Step:    46       Time_n =   0.74637 Time_nm1 =   0.49758
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   1.720E-07   Y   |    1   5.214E-20 | 1.327E-04  | 1.000E+00|  3.436E-13  |   1.00E+00  0 |   1.327E-04   3.436E-13 
-	   2   3.436E-13   Y   |    1   6.971E-27 | 2.730E-11  | 1.000E+00|  3.400E-13  |   1.00E+00  0 |   2.730E-11   3.400E-13 
-	                       |                  |(2.730E-12) |          |             | converged = 3 |              (2.730E-12) 
+	   1   1.720E-07   Y   |    1   5.132E-20 | 1.327E-04  | 1.000E+00|  3.435E-13  |   1.00E+00  0 |   1.327E-04   3.435E-13 
+	   2   3.435E-13   Y   |    1   1.029E-26 | 2.861E-11  | 1.000E+00|  3.401E-13  |   1.00E+00  0 |   2.861E-11   3.401E-13 
+	                       |                  |(2.861E-12) |          |             | converged = 3 |              (2.861E-12) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.000132664
@@ -20450,7 +20405,6 @@ Start of Time Step:    46       Time_n =   0.74637 Time_nm1 =   0.49758
 ================================================================================
 
 Solution saved to file solution.xml as solution 46.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       7.464E-01   
                            Delta_t    2.488E-01   
@@ -20708,7 +20662,7 @@ we are here
           1.6764E-03  6.96137E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91620E-02 
           1.7441E-03  4.64234E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91619E-02 
           1.8119E-03  2.32195E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91619E-02 
-          1.8796E-03  1.60588E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91619E-02 
+          1.8796E-03  1.31390E-19  9.20004E-01  3.99981E-02  3.99981E-02  2.91619E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -20828,7 +20782,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              1.6059E-19 
+         Vel_axial              1.3139E-19 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -20851,9 +20805,9 @@ Start of Time Step:    47       Time_n =    1.1196 Time_nm1 =   0.74637
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   3.746E-08   Y   |    1   1.693E-20 | 3.270E-05  | 1.000E+00|  3.272E-13  |   1.00E+00  0 |   3.270E-05   3.272E-13 
-	   2   3.272E-13   Y   |    1   7.859E-27 | 1.275E-11  | 1.000E+00|  3.265E-13  |   1.00E+00  0 |   1.275E-11   3.265E-13 
-	                       |                  |(1.275E-12) |          |             | converged = 3 |              (1.275E-12) 
+	   1   3.746E-08   Y   |    1   1.407E-20 | 3.270E-05  | 1.000E+00|  3.272E-13  |   1.00E+00  0 |   3.270E-05   3.272E-13 
+	   2   3.272E-13   Y   |    1   1.930E-27 | 6.778E-12  | 1.000E+00|  3.266E-13  |   1.00E+00  0 |   6.778E-12   3.266E-13 
+	                       |                  |(6.778E-13) |          |             | converged = 3 |              (6.778E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 3.27012e-05
@@ -20880,7 +20834,6 @@ Start of Time Step:    47       Time_n =    1.1196 Time_nm1 =   0.74637
 ================================================================================
 
 Solution saved to file solution.xml as solution 47.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.120E+00   
                            Delta_t    3.732E-01   
@@ -21138,7 +21091,7 @@ we are here
           1.6764E-03  6.96076E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91607E-02 
           1.7441E-03  4.64193E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91607E-02 
           1.8119E-03  2.32174E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91606E-02 
-          1.8796E-03  -3.89291E-20  9.20004E-01  3.99981E-02  3.99981E-02  2.91606E-02 
+          1.8796E-03  -3.89313E-20  9.20004E-01  3.99981E-02  3.99981E-02  2.91606E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -21258,7 +21211,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              -3.8929E-20 
+         Vel_axial              -3.8931E-20 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -21281,12 +21234,12 @@ Start of Time Step:    48       Time_n =    1.6793 Time_nm1 =    1.1196
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   5.729E-09   Y   |    1   4.493E-21 | 7.112E-06  | 1.000E+00|  4.229E-13  |   1.00E+00  0 |   7.112E-06   4.229E-13 
-	   2   4.229E-13   Y   |    1   6.620E-28 | 1.223E-12  | 1.000E+00|  4.228E-13  |   1.00E+00  0 |   1.223E-12   4.228E-13 
-	                       |                  |(1.223E-13) |          |             | converged = 3 |              (1.223E-13) 
+	   1   5.729E-09   Y   |    1   4.919E-21 | 7.112E-06  | 1.000E+00|  4.229E-13  |   1.00E+00  0 |   7.112E-06   4.229E-13 
+	   2   4.229E-13   Y   |    1   5.248E-27 | 6.244E-12  | 1.000E+00|  4.228E-13  |   1.00E+00  0 |   6.244E-12   4.228E-13 
+	                       |                  |(6.244E-13) |          |             | converged = 3 |              (6.244E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 7.11211e-06
+	Time step truncation error = 7.11212e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
@@ -21302,7 +21255,7 @@ Start of Time Step:    48       Time_n =    1.6793 Time_nm1 =    1.1196
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    48 was a success: time =    1.67933
 		Estimated Error
-		--------------------   =   7.11211e-06
+		--------------------   =   7.11212e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 0.839666
@@ -21310,7 +21263,6 @@ Start of Time Step:    48       Time_n =    1.6793 Time_nm1 =    1.1196
 ================================================================================
 
 Solution saved to file solution.xml as solution 48.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       1.679E+00   
                            Delta_t    5.598E-01   
@@ -21568,7 +21520,7 @@ we are here
           1.6764E-03  6.95983E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91588E-02 
           1.7441E-03  4.64131E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91587E-02 
           1.8119E-03  2.32143E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91587E-02 
-          1.8796E-03  -6.48854E-20  9.20004E-01  3.99981E-02  3.99981E-02  2.91587E-02 
+          1.8796E-03  -6.48832E-20  9.20004E-01  3.99981E-02  3.99981E-02  2.91587E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -21688,7 +21640,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              -6.4885E-20 
+         Vel_axial              -6.4883E-20 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -21711,28 +21663,28 @@ Start of Time Step:    49       Time_n =     2.519 Time_nm1 =    1.6793
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   7.907E-10   Y   |    1   3.441E-21 | 5.029E-06  | 1.000E+00|  2.544E-13  |   1.00E+00  0 |   5.029E-06   2.544E-13 
-	   2   2.545E-13   Y   |    1   1.277E-27 | 2.259E-12  | 1.000E+00|  2.543E-13  |   1.00E+00  0 |   2.259E-12   2.543E-13 
-	                       |                  |(2.259E-13) |          |             | converged = 3 |              (2.259E-13) 
+	   1   7.907E-10   Y   |    1   3.376E-21 | 5.029E-06  | 1.000E+00|  2.545E-13  |   1.00E+00  0 |   5.029E-06   2.545E-13 
+	   2   2.544E-13   Y   |    1   9.620E-28 | 1.305E-12  | 1.000E+00|  2.543E-13  |   1.00E+00  0 |   1.305E-12   2.543E-13 
+	                       |                  |(1.305E-13) |          |             | converged = 3 |              (1.305E-13) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
-	Time step truncation error = 5.02945e-06
+	Time step truncation error = 5.02942e-06
 		Time step truncation error contributors
 		    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot
 		--------------------------------------------------------------------------------
 		     4         Volt(Electrolyt)-0       9.4631e-07 |   2.9159e-02   2.9159e-02   5.0000e-05 alg  -3.4332e-06
-		    10         Volt(Electrolyt)-1       9.4631e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4332e-06
+		    10         Volt(Electrolyt)-1       9.4630e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4332e-06
 		    16         Volt(Electrolyt)-2       9.4630e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4332e-06
 		    22         Volt(Electrolyt)-3       9.4629e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4332e-06
-		    28         Volt(Electrolyt)-4       9.4628e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4331e-06
-		    34         Volt(Electrolyt)-5       9.4626e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4331e-06
-		    40         Volt(Electrolyt)-6       9.4624e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4331e-06
-		    46         Volt(Electrolyt)-7       9.4621e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4330e-06
+		    28         Volt(Electrolyt)-4       9.4627e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4331e-06
+		    34         Volt(Electrolyt)-5       9.4625e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4331e-06
+		    40         Volt(Electrolyt)-6       9.4623e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4331e-06
+		    46         Volt(Electrolyt)-7       9.4620e-07 |   2.9158e-02   2.9158e-02   5.0000e-05 alg  -3.4330e-06
 		   --------------------------------------------------------------------------------
 	  ------------------------------------------------------------------------------------------
 	Time Step Number    49 was a success: time =      2.519
 		Estimated Error
-		--------------------   =   5.02945e-06
+		--------------------   =   5.02942e-06
 		Tolerated Error
 
 	- Recommended next delta_t (not counting history) = 1.2595
@@ -21740,7 +21692,6 @@ Start of Time Step:    49       Time_n =     2.519 Time_nm1 =    1.6793
 ================================================================================
 
 Solution saved to file solution.xml as solution 49.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       2.519E+00   
                            Delta_t    8.397E-01   
@@ -21998,7 +21949,7 @@ we are here
           1.6764E-03  6.95845E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91559E-02 
           1.7441E-03  4.64039E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91559E-02 
           1.8119E-03  2.32097E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91558E-02 
-          1.8796E-03  1.08137E-20  9.20004E-01  3.99981E-02  3.99981E-02  2.91558E-02 
+          1.8796E-03  1.08130E-20  9.20004E-01  3.99981E-02  3.99981E-02  2.91558E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -22118,7 +22069,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              1.0814E-20 
+         Vel_axial              1.0813E-20 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -22141,9 +22092,9 @@ Start of Time Step:    50       Time_n =         3 Time_nm1 =     2.519
 	    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal 
 	--------------------------------------------------------------------------------------------------------------------------------
 	     ... Minimum newton iterations not attained ...
-	   1   4.276E-07   Y   |    1   5.860E-18 | 6.889E-03  | 1.000E+00|  9.302E-13  |   1.00E+00  0 |   6.889E-03   9.302E-13 
-	   2   9.302E-13   Y   |    1   9.446E-25 | 1.193E-09  | 1.000E+00|  2.847E-13  |   1.00E+00  0 |   1.193E-09   2.847E-13 
-	                       |                  |(1.193E-10) |          |             | converged = 3 |              (1.193E-10) 
+	   1   4.276E-07   Y   |    1   6.630E-18 | 6.889E-03  | 1.000E+00|  9.520E-13  |   1.00E+00  0 |   6.889E-03   9.520E-13 
+	   2   9.522E-13   Y   |    1   7.686E-25 | 9.469E-10  | 1.000E+00|  2.847E-13  |   1.00E+00  0 |   9.469E-10   2.847E-13 
+	                       |                  |(9.469E-11) |          |             | converged = 3 |              (9.469E-11) 
 	  --------------------------------------------------------------------------------------------
 	  Nonlinear problem solved successfully in 2 iterations
 	Time step truncation error = 0.00226052
@@ -22170,7 +22121,6 @@ Start of Time Step:    50       Time_n =         3 Time_nm1 =     2.519
 ================================================================================
 
 Solution saved to file solution.xml as solution 50.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E+00   
                            Delta_t    4.810E-01   
@@ -22428,7 +22378,7 @@ we are here
           1.6764E-03  6.95726E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91534E-02 
           1.7441E-03  4.63959E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91534E-02 
           1.8119E-03  2.32057E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91533E-02 
-          1.8796E-03  -2.25970E-24  9.20004E-01  3.99981E-02  3.99981E-02  2.91533E-02 
+          1.8796E-03  -3.49718E-24  9.20004E-01  3.99981E-02  3.99981E-02  2.91533E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -22548,7 +22498,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              -2.2597E-24 
+         Vel_axial              -3.4972E-24 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
@@ -22576,7 +22526,6 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
 
 ================================================================================
 Solution saved to file solutionStartEnd.xml as solution 1.
-we are here
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       3.000E+00   
                            Delta_t    4.810E-01   
@@ -22834,7 +22783,7 @@ we are here
           1.6764E-03  6.95726E-09  9.20003E-01  3.99983E-02  3.99983E-02  2.91534E-02 
           1.7441E-03  4.63959E-09  9.20004E-01  3.99982E-02  3.99982E-02  2.91534E-02 
           1.8119E-03  2.32057E-09  9.20004E-01  3.99981E-02  3.99981E-02  2.91533E-02 
-          1.8796E-03  -2.25970E-24  9.20004E-01  3.99981E-02  3.99981E-02  2.91533E-02 
+          1.8796E-03  -3.49718E-24  9.20004E-01  3.99981E-02  3.99981E-02  2.91533E-02 
       --------------------------------------------------------------------------------
               z    Volt(CathodeVo)
       --------------------------------------------------------------------------------
@@ -22954,7 +22903,7 @@ we are here
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              -2.2597E-24 
+         Vel_axial              -3.4972E-24 
          MF_sp(ECDMC)           9.2000E-01 
          MF_sp(Li+)             3.9998E-02 
          MF_sp(PF6-)            3.9998E-02 
