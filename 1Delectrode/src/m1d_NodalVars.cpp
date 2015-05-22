@@ -763,21 +763,21 @@ size_t NodalVars::indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BD_id) con
     return offset;
 }
 //=====================================================================================================================
-//! returns the node position
+// Returns the current node position
 double
 NodalVars::xNodePos() const
 {
   return XNodePos;
 }
 //=====================================================================================================================
-//! returns the initial node position
+// Returns the initial node position
 double
 NodalVars::x0NodePos() const
 {
   return X0NodePos;
 }
 //=====================================================================================================================
-//! Return the fraction node position from left boundary
+// Return the fraction node position from left boundary
 double
 NodalVars::xFracNodePos() const
 {

@@ -72,7 +72,8 @@ ProblemResidEval::ProblemResidEval(double atol) :
   SolutionBehavior_printLvl_(0),
   Residual_printLvl_(0),
   coordinateSystemType_(Rectilinear_Coordinates),
-  energyEquationProbType_(0)
+  energyEquationProbType_(0),
+  solidMechanicsProbType_(0)
 {
   /*
    *  Read an environmental variable to set the static variable s_printFlagEnv
@@ -104,6 +105,8 @@ ProblemResidEval::ProblemResidEval(double atol) :
        printf("unimplemetned\n");
        exit(-1);
   }
+
+  solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
 
 }
 //=====================================================================================================================
@@ -145,7 +148,8 @@ ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
   counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
   counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
   coordinateSystemType_(r.coordinateSystemType_),
-  energyEquationProbType_(r.energyEquationProbType_)
+  energyEquationProbType_(r.energyEquationProbType_),
+  solidMechanicsProbType_(r.solidMechanicsProbType_)
 {
   *this = r;
 }
@@ -195,15 +199,18 @@ ProblemResidEval::operator=(const ProblemResidEval &r)
   safeDelete(psInput_ptr_);
   psInput_ptr_  = new ProblemStatement(*(r.psInput_ptr_));
 
+  counterResBaseCalcs_                      = r.counterResBaseCalcs_;
+  counterJacBaseCalcs_                      = r.counterJacBaseCalcs_;
+  counterJacDeltaCalcs_                     = r.counterJacDeltaCalcs_;
+  counterResShowSolutionCalcs_              = r.counterResShowSolutionCalcs_;
 
-  counterResBaseCalcs_ = r.counterResBaseCalcs_;
-  counterJacBaseCalcs_ = r.counterJacBaseCalcs_;
-  counterJacDeltaCalcs_ = r.counterJacDeltaCalcs_;
-  counterResShowSolutionCalcs_ = r.counterResShowSolutionCalcs_;
-
-  SolutionBehavior_printLvl_ = r.SolutionBehavior_printLvl_;
-  Residual_printLvl_ = r.Residual_printLvl_;
-  coordinateSystemType_ = r.coordinateSystemType_;
+  SolutionBehavior_printLvl_                = r.SolutionBehavior_printLvl_;
+  Residual_printLvl_                        = r.Residual_printLvl_;
+  coordinateSystemType_                     = r.coordinateSystemType_;
+  crossSectionalArea_                       = r.crossSectionalArea_;
+  cylinderLength_                           = r.cylinderLength_;
+  energyEquationProbType_                   = r.energyEquationProbType_;
+  solidMechanicsProbType_                   = r.solidMechanicsProbType_;
 
   return *this;
 }

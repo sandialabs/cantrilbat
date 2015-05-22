@@ -114,6 +114,23 @@ Restart File Name = solutionRestart.xml
 !--------------------------------------------------------------------------------------------------------
 Energy Equation Problem Type = None
 !--------------------------------------------------------------------------------------------------------
+!
+! Solid Mechanics Problem Type
+!
+!    List of available options
+!            = None (default)
+!            = Linear Elastic
+!
+!  If the problem type is None, then no mesh motion is assumed, and the cell widths and positions
+!  are stationary.
+!
+!
+!  If the problem type is "Linear Elastic", then equations are solved for the mesh motion
+!  due to a global elastic stress-strain relationship.
+!
+!--------------------------------------------------------------------------------------------------------
+Solid Mechanics Problem Type = None
+!--------------------------------------------------------------------------------------------------------
 ! Start Time - double (not required)
 !               Default = 0.0
 !

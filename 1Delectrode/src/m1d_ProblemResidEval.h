@@ -1056,6 +1056,13 @@ public:
     */
    int energyEquationProbType_;
 
+   //! Int indicationg the solid mechanics treatment
+   /*!
+    *   0 -> none                    Don't solve an equation for mesh motion due to stress effects
+    *   1 -> Linear Elastic          Solve a simple treatment for treating the stress-strain effects
+    */
+   int solidMechanicsProbType_;
+
 };
 
 // *****************************************************************

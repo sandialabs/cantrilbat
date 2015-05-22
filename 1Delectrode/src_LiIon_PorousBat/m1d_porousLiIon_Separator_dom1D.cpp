@@ -479,7 +479,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * Calculate the cell width
          */
-	xdelCell = cTmps.xdelCell_; 
+	xdelCell = cTmps.xdelCell_;
 	xdelCell_Cell_[iCell] = xdelCell;
 
         /*

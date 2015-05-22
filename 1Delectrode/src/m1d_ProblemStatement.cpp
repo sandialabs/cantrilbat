@@ -43,6 +43,7 @@ ProblemStatement* PSinput_ptr = 0;
     prob_type(0),
     writeStartEndFile_(0),
     Energy_equation_prob_type_(0),
+    Solid_Mechanics_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
@@ -75,6 +76,7 @@ ProblemStatement* PSinput_ptr = 0;
     prob_type(0),
     writeStartEndFile_(0),
     Energy_equation_prob_type_(0),
+    Solid_Mechanics_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
@@ -124,6 +126,7 @@ ProblemStatement* PSinput_ptr = 0;
     prob_type                  = right.prob_type;
     writeStartEndFile_         = right.writeStartEndFile_;
     Energy_equation_prob_type_ = right.Energy_equation_prob_type_;
+    Solid_Mechanics_prob_type_ = right.Solid_Mechanics_prob_type_;
     SolutionBehavior_printLvl_ = right.SolutionBehavior_printLvl_;
     TimeStepper_printLvl_      = right.TimeStepper_printLvl_;
     NonlinSolver_printLvl_     = right.NonlinSolver_printLvl_;
@@ -141,6 +144,8 @@ ProblemStatement* PSinput_ptr = 0;
     relTol_                    = right.relTol_;
     initDefaultNumCVsPerDomain_= right.initDefaultNumCVsPerDomain_;
     maxNumTimeSteps_           = right.maxNumTimeSteps_;
+    SolutionBehavior_printLvl_ = right.SolutionBehavior_printLvl_;
+    Residual_printLvl_         = right.Residual_printLvl_;
     coordinateSystemType_      = right.coordinateSystemType_;
     crossSectionalArea_        = right.crossSectionalArea_;
     cylinderLength_            = right.cylinderLength_;
@@ -245,6 +250,19 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
 					 energyEqList, 5, 0, "Energy_equation_prob_type_");
     lepkm->set_default(0);
     cf->addLineEntry(lepkm);
+
+    /* --------------------------------------------------------------------
+     * 
+     * Solid Mechanics Problem Type
+     *
+     *   0  = None (default)
+     *   1  = LinearElastic
+     */
+    const char *smEqList[5] = {"None", "Linear Elastic"};
+    LE_PickList *lepsm = new LE_PickList("Solid Mechanics Problem Type", &Solid_Mechanics_prob_type_,
+                                         smEqList, 2, 0, "Solid_Mechanics_prob_type_");
+    lepsm->set_default(0);
+    cf->addLineEntry(lepsm);
 
     /* -----------------------------------------------------------------
      *   Write a start and end solution file

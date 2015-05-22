@@ -136,6 +136,13 @@ public:
          */
         int Energy_equation_prob_type_;
 
+	//! Integer representing the solid mechanics problem type
+	/*!
+	 *  0 -> none                     Don't solve an stress-strain relationship for mesh motion
+	 *  1 -> LinearElastic            Solve for mesh motion using a global simple stress-strain relationship
+	 */
+	int Solid_Mechanics_prob_type_;
+
 	//! Level of solution printing done to stdout
 	/*!
 	 *   0 -> Don't print anything

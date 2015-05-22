@@ -174,7 +174,7 @@ public:
 
   inline size_t numberBulkDomainEqn0(size_t equationTypeS) const;
 
-  //! Returns the node position
+  //! Returns the current node position
   double
   xNodePos() const;
 
