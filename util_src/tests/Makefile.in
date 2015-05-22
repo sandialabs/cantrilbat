@@ -7,24 +7,42 @@
 ###############################################################
 
 all:
-	cd test_BE; @MAKE@
-	cd basicMultiBlock; @MAKE@
+	cd test_BE; 			@MAKE@
+	cd basicMultiBlock; 		@MAKE@
+	cd test_timer; 			@MAKE@
 
 clean:
-	cd test_BE; @MAKE@ clean
-	cd basicMultiBlock; @MAKE@ clean
+	cd test_BE; 			@MAKE@ clean
+	cd basicMultiBlock; 		@MAKE@ clean
+	cd test_timer; 			@MAKE@ clean
 
 depends:
-	cd test_BE; @MAKE@ depends
-	cd basicMultiBlock; @MAKE@ depends
+	cd test_BE;       		@MAKE@ depends
+	cd basicMultiBlock; 		@MAKE@ depends
+	cd test_timer; 			@MAKE@ depends
 
 install:
-	cd test_BE; @MAKE@ install
-	cd basicMultiBlock; @MAKE@ install
+	cd test_BE; 			@MAKE@ install
+	cd basicMultiBlock;		@MAKE@ install
+	cd test_timer; 			@MAKE@ install
 
 test:
-	cd test_BE; @MAKE@ -s test
-	cd basicMultiBlock; @MAKE@ -s test
+	cd test_BE; 			@MAKE@ -s test
+	cd basicMultiBlock; 		@MAKE@ -s test
+	cd test_timer; 			@MAKE@ -s test
+
+tidy:
+	cd test_timer; 			@MAKE@ tidy
+
+dist_clean:
+	cd test_timer; 			@MAKE@ dist_clean
+
+test_clean:
+	cd test_timer; 			@MAKE@ test_clean
+
+rebaseline:
+	cd test_timer;                  @MAKE@ rebaseline
+	
 
 # end of file
 

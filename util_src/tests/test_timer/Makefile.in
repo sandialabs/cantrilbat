@@ -3,35 +3,43 @@
 #  Makefile.in: 
 #     Makefile for mpequil
 #
-# $Id: Makefile.in,v 1.3 2010/10/14 21:11:13 clueth Exp $
 #
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
 # may require a license from the United States Government.
 #
-
 .SUFFIXES: .d
-
-PROGRAM=timerTests
-
-##########################################################################
-#           Setup The Cantera Directory locations
-#########################################################################
-
-PURIFY=@PURIFY@
-
-# These links are to Cantera's install space
-CT_INCROOT =  @ct_incroot@
-
 #
-# Bring in the Cantera includes through the .mak file
+PROGRAM=timerTests
+TEST_NAME = timerTests
+PROGRAM_ORIGIN=$(PROGRAM)
+
+DATA = 
+
+BLESSED_FILES = good_out.txt
+
+INPUT_FILES = 
+#
+##########################################################################
+#           Setup The Directory locations
+#########################################################################
+#
+#   These links are to Cantera's install space
+#
+CT_INCROOT =  @ct_incroot@
+#
+#   Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
-
+#
+#   Find the top of the repository
+#
+TOPDIR = @abs_top_builddir@
+#
+#   Find the utilsrc files
+#
 UTILSRC_DIR = ../../src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
@@ -39,28 +47,29 @@ UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 #########################################################################
 # Set up the various local and global defines
 ########################################################################
+#
+PURIFY=@PURIFY@
+#
 LDEFINES =
 GDEFINES =
 #
-# Set up the global include directory macro
+#   Set up the global include directory macro
 #
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)  -I$(UTILSRC_DIR)
-
-all: .depends $(PROGRAM)
-
-LDR = $(F77LDR)
-LDRFLAGS = $(F77LDRFLAGS)
-LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
-
-CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
-
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
+#
+#   Define the objects to be compiled
+#
 OBJ = timerTests.o
-
-############################################################################
-# section to set up compiler rules
-###########################################################################
 #
-# the C++ compiler
+#   Set up the all variable
+#
+all: .depends $(PROGRAM)
+#
+############################################################################
+#          section to set up the internal compiler rules
+############################################################################
+#
+#   The C++ compiler
 #
 CXX = @CXX@
 DEBUG_FLAGS = -O0 -fno-inline -g
@@ -69,28 +78,37 @@ LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
 CXXLDR = $(CXX)
 #
-# C compiler
+#   The C compiler
 #
 CC = @CC@
 CFLAGS = @CXXFLAGS@
 #
-# Both the C and C++ compiler predefines
+#   Both the C and C++ compiler predefines
 #
-CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+CCFLAGS = $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+#   Set up the LDR variables
+#
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+#
+#   Rules for compilation
 #
 .c.o:
 	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
 .f:
 	$(F77) $(FFLAGS) -c $<
 	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
+#
 ############################################################################
-# section to set up depends
+#           section to set up depends
 ###########################################################################
+#
 DEPENDS = $(OBJ:.o=.d) 
 
 .f.d:
@@ -109,30 +127,65 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
-test: 
-	@MAKE@
-	./$(PROGRAM)
+$(DEPENDS): Makefile
+#
+#############################################################################
+#           section to set up  test structure
+#############################################################################
+#
+test:
+	@@MAKE@ -s
+	@echo -n 'Checking need to run test $(TEST_NAME): '
+	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
+
+runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES) $(INPUT_FILES)
+	@echo 'RUNNING TEST "'$(TEST_NAME)'"'
+	( $(TOPDIR)/bin/runtestExec )
 
 rebaseline:
-
+	cp out.txt good_out.txt
+#
 ##############################################################################
-
-$(DEPENDS): Makefile
-
+#           Section to set up  linking
+#############################################################################
+#
+#
 $(PROGRAM): $(OBJ) $(UTILSRC_DEP) 
 	$(PURIFY) $(CXXLDR) $(CCFLAGS) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS)  -lgtest -lrt \
                   $(LCXX_END_LIBS)
-
+#
 #############################################################################
-#          INSTALL RULES
+#          INSTALL AND CLEAN RULES
 ##############################################################################
-
+#
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
+# Clean temporary files.
+# Don't touch the results of the test run
+#
+tidy:
+	$(RM)  runInProgress.txt transport_log.xml
+#
+# Wipe out object files
+#
 clean:
-	$(RM) *.o  .depends *.d *~ jacobian_unit
-
+	@MAKE@ tidy
+	$(RM) *.o *.d $(PROGRAM)
+#
+# wipe out all output files from the test sweet.
+#
+test_clean: 
+	@MAKE@ tidy
+	$(RM) out.txt runGood runBad diff_summary.txt diff_out.txt err_out.txt testerOut.txt
+#
+# Clean everything
+#
+dist_clean:
+	@MAKE@ clean
+	@MAKE@ test_clean
+#
+##############################################################################
+#

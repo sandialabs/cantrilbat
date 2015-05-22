@@ -23,7 +23,7 @@ double timeSpent(int n)
     for (int i = 2; i < 88888880; i++) {
 	ff *= (i - 1.0) / (i - 0.98);
     }
-    FILE* ofp = fopen("out.txt", "w");
+    FILE* ofp = fopen("testerOut.txt", "w");
     fprintf(ofp, "ff = %g\n", ff);
     fclose(ofp);
     tick.stopTime();
@@ -41,7 +41,7 @@ double timeSpentID(int n, clockid_t ctype)
     for (int i = 2; i < 88888880; i++) {
 	ff *= (i - 1.0) / (i - 0.98);
     }
-    FILE* ofp = fopen("out.txt", "w");
+    FILE* ofp = fopen("testerOut.txt", "w");
     fprintf(ofp, "ff = %g\n", ff);
     fclose(ofp);
     tick.stopTime();
@@ -64,9 +64,6 @@ void time_work(int m)
 
 
 }
-
-
-
 
 
 

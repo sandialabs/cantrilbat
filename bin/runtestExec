@@ -2,6 +2,8 @@
 #
 # testExecutable test Harness Runner
 #
+# todo: add a VERBOSE option to turn off output when not needed
+#
 ################################################################################################################################
 #
 function cleanup {
@@ -177,6 +179,11 @@ then
    shift
 fi
 #
+if test "$TEST_NAME" = ""
+then
+  TEST_NAME=$PROGRAM
+fi
+#
 #
 #############################################################################################################################
 #
@@ -248,11 +255,18 @@ retnStat_run=$?
 if test $retnStat_run != "0" 
 then
   temp_success="0"
-  echo "$PROGRAM returned with bad status, $retnStat, check output"
-   /bin/rm -f runInProgress.txt
+#
+#    Some tests indicate failure solely by setting a bad return flag
+#    This is true of gtests tests. Therefore, this is a normal exit point
+#    for these tests.
+#
+  echo "    $PROGRAM returned with bad status, $retnStat_run, check output"
+  echo "Unsuccessful test comparison of \"$TEST_NAME\" in dir, "`pwd`
+  echo "  Test Failed: " `date` > runBad
+  /bin/rm -f runGood
+  /bin/rm -f runInProgress.txt
   exit 0
 fi
-
 # 
 ############################################################################################################################
 #
@@ -288,7 +302,6 @@ done
 #
 # Run the ascii diff programs to see if the calculation passes
 #
-
 for b in $BLESSED_DATA_FILES
 do
     g=`first_el $DATA_FILES`
@@ -312,7 +325,6 @@ do
     DIFF_NAMES=`chop_head $DIFF_NAMES`
     DIFF_REQ=`chop_head $DIFF_REQ`
 done
-
 # 
 ############################################################################################################################
 #
@@ -326,11 +338,12 @@ fi
 
 if [ $eCode == "0" ]
 then
-  echo "Successful   test comparison on "`pwd`
+  echo "Successful   test comparison of \"$TEST_NAME\" in dir, "`pwd`
+
   echo "  Test Passed: " `date` > runGood
   /bin/rm -f runBad
 else
-  echo "Unsuccessful test comparison on "`pwd`
+  echo "Unsuccessful test comparison of \"$TEST_NAME\" in dir, "`pwd`
   echo "  Test Failed: " `date` > runBad
   /bin/rm -f runGood
 fi
@@ -342,5 +355,3 @@ fi
 # return 0 for no errors, 1 for errors which break the test suite
 #
 exit 0
-
-            
