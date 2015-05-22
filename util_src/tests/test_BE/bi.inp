@@ -1,0 +1,54 @@
+#
+# Example of input
+#-------------------------------------------------------------
+#   -> Start of the top block
+# 
+Start Block TDcads Model definition
+ #
+ #  OneBool test example
+ #    -> true or false
+ #    
+ Include Gas Species in Solution Vector = true
+ #
+ #----------------------------------------------------------
+ #
+ #  OneBoolInt test example
+ #
+ Include Temperature in Solution Vector = true
+ #
+ #---------------------------------------------------------
+ # 
+ # Pick List Example
+ #   constant pressure", "constant volume", "psr
+ #
+ Boundary Conditions = constant pressure
+ #
+ #----------------------------------------------------------
+ #
+ #  OneDblUnits test example
+ #
+ Volume of Reactor = 1.0 cm3
+ #
+ #----------------------------------------------------------
+ #  enclosed block example
+ #
+ Start Block TDcads inflow Conditions
+   #
+   #  OneDbl example
+   #
+   Inflow Molar Flow Rate = 25.0
+   #
+   #-------------------------------------------------------------
+   #
+   # Molar composition example
+   #
+   Start Block Inflow Gas Mole Fractions
+     H2 = 0.4
+     N2 = 0.4
+     O2 = 0.2
+   End block inflow gas mole fractions
+
+ End Block TDcads inflow Conditions
+
+
+End Block TDcads Model definition

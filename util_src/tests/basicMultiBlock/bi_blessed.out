@@ -1,0 +1,283 @@
+
+Copywrite 2005 Sandia Corporation. Under the terms of Contract
+DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+retains certain rights in this software.
+
+==========================================================
+ STARTING PROCESSING COMMAND FILE bmb.inp, PASS # 1
+==========================================================
+#
+# Example of input
+#-------------------------------------------------------------
+# 
+Start Block Inflow Pipe definition
+ #
+ #----------------------------------------------------------
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 1.0 
+ => Inflow Molar Flow Rate = 1.0
+ ====> ifl_ptr->InflowMolarFlowRate = 1
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.4
+ => H2 = 0.4
+ ====> H2 = 0.4
+   N2 = 0.4
+ => N2 = 0.4
+ ====> N2 = 0.4
+   O2 = 0.2
+ => O2 = 0.2
+ ====> O2 = 0.2
+ End block inflow gas mole fractions
+	====> Summary of the block, Inflow Gas Mole Fractions:
+	====>   ifl_ptr->InflowGasMoleFractions[ H2 : 0 ] = 0.4
+	====>   ifl_ptr->InflowGasMoleFractions[ N2 : 1 ] = 0.4
+	====>   ifl_ptr->InflowGasMoleFractions[ O2 : 2 ] = 0.2
+	====>   ifl_ptr->InflowGasMoleFractions[ CH4 : 3 ] = 0
+	====> End of Summmary of the block, Inflow Gas Mole Fractions:
+
+ #
+ #
+ #
+End Block Inflow Pipe definition
+
+Start Block Inflow Pipe definition
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 9.0
+ => Inflow Molar Flow Rate = 9.0
+ ====> ifl_ptr->InflowMolarFlowRate = 9
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.8
+ => H2 = 0.8
+ ====> H2 = 0.8
+   N2 = 0.1
+ => N2 = 0.1
+ ====> N2 = 0.1
+   O2 = 0.1
+ => O2 = 0.1
+ ====> O2 = 0.1
+ End block inflow gas mole fractions
+	====> Summary of the block, Inflow Gas Mole Fractions:
+	====>   ifl_ptr->InflowGasMoleFractions[ H2 : 0 ] = 0.8
+	====>   ifl_ptr->InflowGasMoleFractions[ N2 : 1 ] = 0.1
+	====>   ifl_ptr->InflowGasMoleFractions[ O2 : 2 ] = 0.1
+	====>   ifl_ptr->InflowGasMoleFractions[ CH4 : 3 ] = 0
+	====> End of Summmary of the block, Inflow Gas Mole Fractions:
+End Block Inflow Pipe definition
+
+Start Block Inflow Pipe definition
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 90.0
+ => Inflow Molar Flow Rate = 90.0
+ ====> ifl_ptr->InflowMolarFlowRate = 90
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.0
+ => H2 = 0.0
+ ====> H2 = 0
+   N2 = 0.7
+ => N2 = 0.7
+ ====> N2 = 0.7
+   O2 = 0.3
+ => O2 = 0.3
+ ====> O2 = 0.3
+ End block inflow gas mole fractions
+	====> Summary of the block, Inflow Gas Mole Fractions:
+	====>   ifl_ptr->InflowGasMoleFractions[ H2 : 0 ] = 0
+	====>   ifl_ptr->InflowGasMoleFractions[ N2 : 1 ] = 0.7
+	====>   ifl_ptr->InflowGasMoleFractions[ O2 : 2 ] = 0.3
+	====>   ifl_ptr->InflowGasMoleFractions[ CH4 : 3 ] = 0
+	====> End of Summmary of the block, Inflow Gas Mole Fractions:
+End Block Inflow Pipe definition
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE bmb.inp, PASS # 1
+=========================================================
+Pipe Number 0
+	 Flow rate = 1
+		MF[0] = 0.4
+		MF[1] = 0.4
+		MF[2] = 0.2
+		MF[3] = 0
+Pipe Number 1
+	 Flow rate = 9
+		MF[0] = 0.8
+		MF[1] = 0.1
+		MF[2] = 0.1
+		MF[3] = 0
+Pipe Number 2
+	 Flow rate = 90
+		MF[0] = 0
+		MF[1] = 0.7
+		MF[2] = 0.3
+		MF[3] = 0
+Pipe Number 0
+	 Flow rate = 1
+		MF[0] = 0.4
+		MF[1] = 0.4
+		MF[2] = 0.2
+		MF[3] = 0
+Pipe Number 1
+	 Flow rate = 9
+		MF[0] = 0.8
+		MF[1] = 0.1
+		MF[2] = 0.1
+		MF[3] = 0
+Pipe Number 2
+	 Flow rate = 90
+		MF[0] = 0
+		MF[1] = 0.7
+		MF[2] = 0.3
+		MF[3] = 0
+==========================================================
+ STARTING PROCESSING COMMAND FILE bmb.inp, PASS # 2
+==========================================================
+#
+# Example of input
+#-------------------------------------------------------------
+# 
+Start Block Inflow Pipe definition
+ #
+ #----------------------------------------------------------
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 1.0 
+ => Inflow Molar Flow Rate = 1.0
+ ====> ifl_ptr->InflowMolarFlowRate = 1
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.4
+ => H2 = 0.4
+ ====> H2 = 0.4
+   N2 = 0.4
+ => N2 = 0.4
+ ====> N2 = 0.4
+   O2 = 0.2
+ => O2 = 0.2
+ ====> O2 = 0.2
+ End block inflow gas mole fractions
+	====> Summary of the block, Inflow Gas Mole Fractions:
+	====>   ifl_ptr->InflowGasMoleFractions[ H2 : 0 ] = 0.4
+	====>   ifl_ptr->InflowGasMoleFractions[ N2 : 1 ] = 0.4
+	====>   ifl_ptr->InflowGasMoleFractions[ O2 : 2 ] = 0.2
+	====>   ifl_ptr->InflowGasMoleFractions[ CH4 : 3 ] = 0
+	====> End of Summmary of the block, Inflow Gas Mole Fractions:
+
+ #
+ #
+ #
+End Block Inflow Pipe definition
+
+Start Block Inflow Pipe definition
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 9.0
+ => Inflow Molar Flow Rate = 9.0
+ ====> ifl_ptr->InflowMolarFlowRate = 9
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.8
+ => H2 = 0.8
+ ====> H2 = 0.8
+   N2 = 0.1
+ => N2 = 0.1
+ ====> N2 = 0.1
+   O2 = 0.1
+ => O2 = 0.1
+ ====> O2 = 0.1
+ End block inflow gas mole fractions
+	====> Summary of the block, Inflow Gas Mole Fractions:
+	====>   ifl_ptr->InflowGasMoleFractions[ H2 : 0 ] = 0.8
+	====>   ifl_ptr->InflowGasMoleFractions[ N2 : 1 ] = 0.1
+	====>   ifl_ptr->InflowGasMoleFractions[ O2 : 2 ] = 0.1
+	====>   ifl_ptr->InflowGasMoleFractions[ CH4 : 3 ] = 0
+	====> End of Summmary of the block, Inflow Gas Mole Fractions:
+End Block Inflow Pipe definition
+
+Start Block Inflow Pipe definition
+ #
+ #  OneDbl test example
+ #
+ Inflow Molar Flow Rate= 90.0
+ => Inflow Molar Flow Rate = 90.0
+ ====> ifl_ptr->InflowMolarFlowRate = 90
+ #
+ # Molar composition example
+ #
+ Start Block Inflow Gas Mole Fractions
+   H2 = 0.0
+ => H2 = 0.0
+ ====> H2 = 0
+   N2 = 0.7
+ => N2 = 0.7
+ ====> N2 = 0.7
+   O2 = 0.3
+ => O2 = 0.3
+ ====> O2 = 0.3
+ End block inflow gas mole fractions
+	====> Summary of the block, Inflow Gas Mole Fractions:
+	====>   ifl_ptr->InflowGasMoleFractions[ H2 : 0 ] = 0
+	====>   ifl_ptr->InflowGasMoleFractions[ N2 : 1 ] = 0.7
+	====>   ifl_ptr->InflowGasMoleFractions[ O2 : 2 ] = 0.3
+	====>   ifl_ptr->InflowGasMoleFractions[ CH4 : 3 ] = 0
+	====> End of Summmary of the block, Inflow Gas Mole Fractions:
+End Block Inflow Pipe definition
+
+=========================================================
+ FINISHED PROCESSING COMMAND FILE bmb.inp, PASS # 2
+=========================================================
+Pipe Number 0
+	 Flow rate = 1
+		MF[0] = 0.4
+		MF[1] = 0.4
+		MF[2] = 0.2
+		MF[3] = 0
+Pipe Number 1
+	 Flow rate = 9
+		MF[0] = 0.8
+		MF[1] = 0.1
+		MF[2] = 0.1
+		MF[3] = 0
+Pipe Number 2
+	 Flow rate = 90
+		MF[0] = 0
+		MF[1] = 0.7
+		MF[2] = 0.3
+		MF[3] = 0
+Pipe Number 0
+	 Flow rate = 1
+		MF[0] = 0.4
+		MF[1] = 0.4
+		MF[2] = 0.2
+		MF[3] = 0
+Pipe Number 1
+	 Flow rate = 9
+		MF[0] = 0.8
+		MF[1] = 0.1
+		MF[2] = 0.1
+		MF[3] = 0
+Pipe Number 2
+	 Flow rate = 90
+		MF[0] = 0
+		MF[1] = 0.7
+		MF[2] = 0.3
+		MF[3] = 0

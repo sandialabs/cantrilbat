@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+#
+temp_success="1"
+/bin/rm  -f  out.txt err_out.txt 
+
+#################################################################
+#
+#################################################################
+
+basicInput bi.inp  > out.txt 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "basicInput returned with bad status, $retnStat, check output"
+fi
+#
+# diff returns 0 for a success and 1 for a difference
+#
+diff -w bi_blessed.out out.txt > diff_out.txt
+retnStat_txt=$?
+if test $retnStat_txt = "0"  
+then
+  echo "Successful test comparison on "'"basicInput bi.inp"'
+else
+  echo "Unsuccessful test comparison on "'"basicInput bi.inp"'
+fi
+#
+# return 0 for successful completion of the test,
+# whether it passed or not
+#
+exit 0

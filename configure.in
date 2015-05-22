@@ -912,6 +912,9 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/CAEBAT_restart_cycle_altTemp/Makefile \
           util_src/Makefile \
           util_src/src/Makefile \
+          util_src/tests/Makefile \
+          util_src/tests/basicMultiBlock/Makefile \
+          util_src/tests/test_BE/Makefile \
           util_src/tests/test_timer/Makefile \
 	  Experiment/Makefile \
 	  Experiment/src/Makefile \

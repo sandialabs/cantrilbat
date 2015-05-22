@@ -1,0 +1,8 @@
+basicInput
+*.o
+Makefile
+out.txt
+diff*
+err*
+.depends
+*.d
