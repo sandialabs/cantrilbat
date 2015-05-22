@@ -33,3 +33,9 @@ stepwiseHeatSource.txt
 LiIon_PorousBat
 Capacity_Starting.dat
 out_raw.txt
+#out#
+diff_ahs.txt
+diff_shs.txt
+diff_summary.txt
+out
+valout.txt
