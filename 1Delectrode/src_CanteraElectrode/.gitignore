@@ -1,3 +1,5 @@
 Makefile
 *.d
 .depends
+m1d_SurDomain_ElectrodeSepInterface.h
+
