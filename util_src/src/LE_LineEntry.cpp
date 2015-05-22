@@ -1,9 +1,6 @@
 /**
- * @file LineEntry.cpp
+ * @file LE_LineEntry.cpp
  *
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract

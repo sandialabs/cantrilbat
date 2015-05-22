@@ -1,5 +1,5 @@
 /**
- * @file BlockEntry.cpp
+ * @file BE_BlockEntry.cpp
  *     Definitions for the BlockEntry object 
  * (see \ref blockentryModule and class 
  *   \link BEInput::BlockEntry BE_BlockEntry\endlink).
@@ -1034,7 +1034,7 @@ BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool inc
   void BlockEntry::Wrapup_SubBlock(BlockEntry *subBlockPtr, 
 				   const TK_TOKEN *subBlockEndPtr) {
   }
-
+  //==========================================================================================================
   /*
    *
    * match_keyLine():
@@ -1066,7 +1066,7 @@ BlockEntry *BlockEntry::match_block_argName(const TK_TOKEN *keyLinePtr, bool inc
     }
     return (leBest);
   }
-
+  //==========================================================================================================
   /*
    * process_LineEntry() (virtual function):
    *

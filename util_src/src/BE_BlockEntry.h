@@ -1,11 +1,8 @@
 /**
- * @file BlockEntry.h
+ * @file BE_BlockEntry.h
  *    Declarations for BlockEntry object
  */
-/* $Author: hkmoffa $
- * $Revision: 88 $
- * $Date: 2012-03-21 20:24:09 -0600 (Wed, 21 Mar 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -378,11 +375,21 @@ namespace BEInput {
     virtual void Wrapup_SubBlock(BlockEntry *subBlockPtr,
 				 const TK_TOKEN *subBlockEndPtr);
  
-    //! Match a LineEntry in the current block
+    //!   Match a LineEntry in the current block
     /*!
-     * This function doesn't search recursively through subblocks.
+     *    See if a match exists between the character string and the keyLine
+     *    structure. If it does match, then pick the best match via matching
+     *    via the contribIndex. keylines, contribIndex pairs are unique.
+     *    For unspecified contribIndex, return the highest value multiContribIndex
+     *    value item that matches the lineEntry.
      *
-     * @param lineEntryTok  TOKEN ptr for the keyline to be matched.
+     *    This function doesn't search recursively through subblocks.
+     *
+     *    @param lineEntryTok  TOKEN ptr for the keyline to be matched.
+     *    @param contribIndex  contribIndex value. Defaults to  BE_ANY_INDEX,
+     *                         which doesn't match any index.
+     *
+     *    @return Return a pointer to the LineEntry object that matches.
      */
     LineEntry *match_keyLine(const TK_TOKEN *lineEntryTok,
 			     int contribIndex = BE_ANY_INDEX) const;
