@@ -252,6 +252,12 @@ have_posix=0
 AC_CHECK_HEADERS([unistd.h], have_posix=1, have_posix=0)
 AC_SUBST(have_posix)
 
+
+if test  "x$CXX_GDEFINES" = "x"; then
+  CXX_GDEFINES=""
+fi
+AC_SUBST(CXX_GDEFINES)
+
 #
 # Loader flags for the C++ linking operation
 #

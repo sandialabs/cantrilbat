@@ -125,13 +125,14 @@ INCLUDE_DIRS = -I../.. -I$(CANTERA_INCROOT) \
                -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR)
 
+GDEFINES = @CXX_GDEFINES@
 # C++ compile flags
 LDEFINES =
 #      Turn on additional debugging
 # -DDEBUG_MODE
 #      Turn on the initial calculation
 # -DDEBUG_INIT_CALCULATION
-CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES)
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES) $(GDEFINES)
 
 # Ending C++ linking libraries
 LCXX_END_LIBS = @LCXX_END_LIBS@

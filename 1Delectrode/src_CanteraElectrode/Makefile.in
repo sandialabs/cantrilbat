@@ -88,13 +88,14 @@ INCLUDE_DIRS = -I../src \
 	        $(TRILINOS_INC) \
                -I$(UTILSRC_DIR) -I../..
 
+GDEFINES=@CXX_GDEFINES@
 # C++ compile flags
 LDEFINES= -DDEBUG_DARCY 
 #
 #  -DDEBUG_OLD_CC_FLOW_CONDITION Add in a dirichlet velocity condition on the cathode CC
 #  -DDEBUG_DARCY   Add in debug options for Darcy flow, turn on artificial compressibility
 # 
-CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES)
+CXX_FLAGS = @CXXFLAGS@ -Woverloaded-virtual $(INCLUDE_DIRS) -DUSE_VCSNONIDEAL $(LDEFINES) $(GDEFINES)
 
 # Ending C++ linking libraries
 LCXX_END_LIBS = @LCXX_END_LIBS@

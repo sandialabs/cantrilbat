@@ -186,8 +186,17 @@ export PARMETIS_LIBRARY_NAMES=${PARMETIS_LIBRARY_NAMES:=""}
 CXX=${CXX:=g++}
 #
 # C++ compiler flags to use
+#   CXXFLAGS="-DDEBUG_MODE"
 #
 CXXFLAGS=${CXXFLAGS:="-O2 -Wall -Werror"}
+#
+# CXX global defines to be used to alter the source code:
+# These are defines that are compiled into all source code
+# In Usage:   
+#    CXX_GDEFINES="-DDEBUG_MODE"
+#    CXX_GDEFINES="-DMECH_MODEL"
+#
+CXX_GDEFINES=${CXX_GDEFINES:=""}
 #
 # Loader flags for the C++ compiler
 #   -> These default to the CXXFLAGS
@@ -322,6 +331,7 @@ export CXX_EXT
 export CXXFLAGS
 export CXX_INCLUDES
 export CXX_DEPENDS
+export CXX_GDEFINES
 export EXE_EXT
 export F77
 export F77_EXT
