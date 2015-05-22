@@ -12,5 +12,4 @@ int main() {
   catch (CanteraError) {
     showErrors(std::cout);
   }
-  
-}
+} 
