@@ -479,7 +479,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
         /*
          * Calculate the cell width
          */
-	xdelCell = cTmps.xdelCell_;
+	xdelCell = cTmps.xdelCell_; 
 	xdelCell_Cell_[iCell] = xdelCell;
 
         /*
@@ -1040,6 +1040,16 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
 	// 
 	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
+
+
+	//*********************
+	//
+	// ++++ WARNING +++++++
+	// this calculation is likely wrong for the right and left edges of the separator
+	// ++++++++++++++++++++
+	// 
+	//*********************
+
 
 	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-nodeLeft->x0NodePos()); // factor of 2's cancel
 	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
@@ -2255,6 +2265,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid ; //only proc 0 should write
+    int rsize;
     if (doWrite) {
 
  
@@ -2383,16 +2394,21 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
     //
     // Print  the jouleHeat_solid_Cell_curr_ field
     //
-    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
+    for (size_t iGbNode = (size_t) firstGbNode; iGbNode <= (size_t) lastGbNode; iGbNode++) {
 	int iCell = iGbNode - firstGbNode;
 	double val = jouleHeat_solid_Cell_curr_[iCell] / xdelCell_Cell_[iCell] / deltaTime;
 	if ( deltaTime < 1e-80 ) {
 	    val = 0.0;
 	}
-	vars[i] = val;
+	fprintf(ofp, "%20.13E ", val);
+	if (++rsize >= 10) {
+	    fprintf(ofp, "\n");
+	    rsize = 0;
+        }
     }
-    fwriteTecplotVector(ofp, vars, 13, 10);
-
+    if (rsize != 0) {
+	fprintf(ofp, "\n");
+    }
 
 #endif
 

@@ -1419,7 +1419,75 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 		}
 	    }
 	}
-    }
+	// Residual for MECH_MODEL
+#ifdef MECH_MODEL
+	// for the anode material, we use the following values:
+	// initial porosity  of the pyrolitic graphite  matrix_poro = 0.4
+	// Volume frac of binder                        binder_vf   = 0.064
+	
+	// from http://www-ferp.ucsd.edu/LIB/PROPS/PANOS/c.html
+	// v poisson's ratio             ~~0.5 
+	// K  Bulk Modulus of solid material = 33 MPa
+	// E Younds Modulus                  = 4800 MPa
+	// modification ala Simulation of elastic moduli of porous materials
+	// CREWES Research Report — Volume 13 (2001) 83
+	// Simulation of elastic moduli for porous materials
+	// Charles P. Ursenbach 
+	// @ 40% porosity of graphite, K = 0.226 * K0
+	// @ 30% porosity,             K = 0.276 * K0
+	// youngs mod = 3K(1-2v) 
+	// shear mod G = 3*K(1-2v)/2(1+v)
+	
+	
+	// Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
+	// for the porous matrix, assume grain locking, and use the same values. 
+
+	double Thermal_Expansion = 50e-6;
+	double possion = 0.5;
+	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	//	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
+	//	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
+	//	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+	// need the average temp to get the correct K
+	double AverageTemperature =    valTmps.Temperature.center;
+
+	double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
+
+	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
+	// 
+	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
+
+
+	//*********************
+	//
+	// ++++ WARNING +++++++
+	// this calculation is likely wrong for the right and left edges of the separator
+	// ++++++++++++++++++++
+	// 
+	//*********************
+
+
+	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-nodeLeft->x0NodePos()); // factor of 2's cancel
+	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
+
+	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+
+	// the separator is intert to chemistry, so no other terms in the strain
+	double mech_strain = tot_strain-thermal_strain-pressure_strain;
+
+	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
+	// mech_strain. 
+	abort();
+
+	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);
+	
+
+	double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+#endif
+
+    } //for (int iCell = 0
 }
 //==================================================================================================================================
 // Utility function to calculate quantities before the main residual routine.
@@ -3308,7 +3376,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 		int nspPhase = tp->nSpecies();
 		int kStart = ee->getGlobalSpeciesIndex(iph, 0);
 		for (size_t k = 0; k < (size_t) nspPhase; k++) {
-		    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+		    for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
 			vars[iCell] =
 			  spmoles_Cell[nSpeciesElectrode_*iCell + kStart + k] / (crossSectionalArea_ * xdelCell_Cell_[iCell]);
 		    }
