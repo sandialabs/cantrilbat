@@ -364,6 +364,16 @@ public:
              const double delta_t_n, int istep, const Epetra_Vector_Ghosted &y_n, 
              const Epetra_Vector_Ghosted * const ydot_n_ptr);
 
+    //! Write a global tecplot file that includes variables which span all of the bulk domains
+    /*!
+     *   (Note, this may be replaced with a tecplot substitute that we are working on
+     *
+     *
+     *
+     */
+    virtual void
+    writeGlobalTecplot();
+
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
     //! to be time dependent
     /*!

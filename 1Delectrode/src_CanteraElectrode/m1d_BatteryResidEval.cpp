@@ -678,10 +678,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
 
     Epetra_Comm *c = LI_ptr_->Comm_ptr_;
     c->Barrier();
-
- 
 }
-
 //==================================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
@@ -712,6 +709,8 @@ BatteryResidEval::writeSolution(const int ievent,
     if (ievent == 0 || ievent == 1 || ievent == 2) {
 	write_IV(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     }
+
+    writeGlobalTecplot();
 }
 //==================================================================================================================================
 void
@@ -825,6 +824,12 @@ BatteryResidEval::write_IV(const int ievent,
 	}
     }
     Comm_ptr->Barrier();
+}
+//==================================================================================================================================
+void
+BatteryResidEval::writeGlobalTecplot()
+{
+
 }
 //==================================================================================================================================
 // Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
@@ -1544,6 +1549,6 @@ void BatteryResidEval::gatherCapacityStatistics()
     Crate_current_ = 3600. /  timeToDischargeWhole;
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 } // end of m1d namespace
-//=====================================================================================================================
+//==================================================================================================================================
