@@ -1423,15 +1423,21 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL
 	// for the Cathode material, we use the following values:
 	// From Journal of Power Sources 271 (2014), 
-	// Simulation of temperature rise in Li-Io9n cells at very high currents
+	// Simulation of temperature rise in Li-Ion cells at very high currents
 	// Jing Mao, William Tiedmann, John Newman, page 446
-	// initial porosity  of the LiyCoO2 matrix_poro = 0.36
-	// Volume frac of binder                        binder_vf   = 0.106
-
-
+	// initial porosity  of the LixCoO2 matrix_poro = 0.36
+	// Volume frac of binder            binder_vf   = 0.106
 
 	// **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
 	// the porosity to effective modulus relationship. 
+
+
+	//The 1st International Joint Mini-Symposium on Advanced Coatings between Indiana University
+	//Purdue University Indianapolis and Changwon National University
+	//First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
+	//for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
+	//	double Youngs_Modulus = 213000.0 ; // 213 GPa.
+	double Bulk_Modulus   = 163000.0 ; // 163 GPa.
 
 	// Modification ala Simulation of elastic moduli of porous materials
 	// CREWES Research Report — Volume 13 (2001) 83
@@ -1441,37 +1447,31 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	// @ 30% porosity,             K = 0.276 * K0
 	// youngs mod = 3K(1-2v) 
 	// shear mod G = 3*K(1-2v)/2(1+v)
-	
-	
-	// Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
-	// for the porous matrix, assume grain locking, and use the same values. 
 
-	double Thermal_Expansion = 50e-6;
-	double possion = 0.5;
+	// using 30% porosity
+	Bulk_Modulus *= 0.276;
+	
+	// from J. Electrochmical Society, 157 (2) A155-A163 (2010) 
+	// Theoretical Analysis of Stresses in a Lithium Ion Cell
+	double poisson = 0.2; 
+
+	// US Patent http://www.google.com/patents/US6242129
+	double Thermal_Expansion = 4.5e-6/1.8; // of solid material, not of matrix, and conversion of F to C
+
 	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	//	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
-	//	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
-	//	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
-	// need the average temp to get the correct K
-	double AverageTemperature =    valTmps.Temperature.center;
 
-	double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
+	double AverageTemperature =    valTmps.Temperature.center;
 
 	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
 	// 
 	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
 
-
-	//*********************
-	//
-	// ++++ WARNING +++++++
-	// this calculation is likely wrong for the right and left edges of the separator
-	// ++++++++++++++++++++
-	// 
-	//*********************
-
-
-	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-nodeLeft->x0NodePos()); // factor of 2's cancel
+	double lpz = 0.0;
+	if(nodeLeft == NULL) 
+	  lpz = nodeCent->x0NodePos()/2.0;
+	else
+	  lpz = nodeLeft->x0NodePos();
+	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
 	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
 
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);

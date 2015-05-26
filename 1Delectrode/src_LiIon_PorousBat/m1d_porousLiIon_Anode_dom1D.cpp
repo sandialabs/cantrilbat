@@ -1457,17 +1457,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	// 
 	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
 
-
-	//*********************
-	//
-	// ++++ WARNING +++++++
-	// this calculation is likely wrong for the right and left edges of the separator
-	// ++++++++++++++++++++
-	// 
-	//*********************
-
-
-	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-nodeLeft->x0NodePos()); // factor of 2's cancel
+	double lpz = 0.0;
+	if(nodeLeft == NULL) 
+	  lpz = nodeCent->x0NodePos()/2.0;
+	else
+	  lpz = nodeLeft->x0NodePos();
+	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
 	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
 
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
