@@ -372,8 +372,27 @@ public:
      *
      */
     virtual void
-    writeGlobalTecplot();
+    writeGlobalTecplot(const int ievent,
+		       const bool doTimeDependentResid,
+		       const double time_current,
+		       const double delta_t_n,
+		       int istep,
+		       const Epetra_Vector_Ghosted &y_n,
+		       const Epetra_Vector_Ghosted * const ydot_n_ptr,
+		       const Solve_Type_Enum solveType, 
+		       const double delta_t_np1);
 
+    virtual void
+    writeGlobalTecplotHeader(const int ievent,
+			     const bool doTimeDependentResid,
+			     const double time_current,
+			     const double delta_t_n,
+			     int istep,
+			     const Epetra_Vector_Ghosted &y_n,
+			     const Epetra_Vector_Ghosted * const ydot_n_ptr,
+			     const Solve_Type_Enum solveType, 
+			     const double delta_t_np1);
+    
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
     //! to be time dependent
     /*!

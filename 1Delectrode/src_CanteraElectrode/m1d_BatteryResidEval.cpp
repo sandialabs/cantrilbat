@@ -710,7 +710,8 @@ BatteryResidEval::writeSolution(const int ievent,
 	write_IV(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     }
 
-    writeGlobalTecplot();
+    writeGlobalTecplot(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
+				    ydot_n_ptr, solveType, delta_t_np1);
 }
 //==================================================================================================================================
 void
@@ -827,7 +828,36 @@ BatteryResidEval::write_IV(const int ievent,
 }
 //==================================================================================================================================
 void
-BatteryResidEval::writeGlobalTecplot()
+BatteryResidEval::writeGlobalTecplot(const int ievent,
+				     const bool doTimeDependentResid,
+				     const double time_current,
+				     const double delta_t_n,
+				     int istep,
+				     const Epetra_Vector_Ghosted &y_n,
+				     const Epetra_Vector_Ghosted * const ydot_n_ptr,
+				     const Solve_Type_Enum solveType, 
+				     const double delta_t_np1)
+{
+    static int headerWritten = false;
+    if (!headerWritten) {
+	headerWritten = true;
+	writeGlobalTecplotHeader(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
+				 ydot_n_ptr, solveType, delta_t_np1);
+    }
+
+
+}
+//==================================================================================================================================
+void
+BatteryResidEval::writeGlobalTecplotHeader(const int ievent,
+					   const bool doTimeDependentResid,
+					   const double time_current,
+					   const double delta_t_n,
+					   int istep,
+					   const Epetra_Vector_Ghosted &y_n,
+					   const Epetra_Vector_Ghosted * const ydot_n_ptr,
+					   const Solve_Type_Enum solveType, 
+					   const double delta_t_np1)
 {
 
 }
