@@ -235,6 +235,10 @@ BDD_porousFlow::SetEquationsVariablesList()
         eqnIndex++;
 
     }    
+    // CBL add the mechanical model solution vars here. 
+
+
+
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

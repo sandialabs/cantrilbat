@@ -1420,6 +1420,75 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 		}
 	    }
 	}
+#ifdef MECH_MODEL
+	// for the Cathode material, we use the following values:
+	// From Journal of Power Sources 271 (2014), 
+	// Simulation of temperature rise in Li-Io9n cells at very high currents
+	// Jing Mao, William Tiedmann, John Newman, page 446
+	// initial porosity  of the LiyCoO2 matrix_poro = 0.36
+	// Volume frac of binder                        binder_vf   = 0.106
+
+
+
+	// **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
+	// the porosity to effective modulus relationship. 
+
+	// Modification ala Simulation of elastic moduli of porous materials
+	// CREWES Research Report — Volume 13 (2001) 83
+	// Simulation of elastic moduli for porous materials
+	// Charles P. Ursenbach 
+	// @ 40% porosity of graphite, K = 0.226 * K0
+	// @ 30% porosity,             K = 0.276 * K0
+	// youngs mod = 3K(1-2v) 
+	// shear mod G = 3*K(1-2v)/2(1+v)
+	
+	
+	// Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
+	// for the porous matrix, assume grain locking, and use the same values. 
+
+	double Thermal_Expansion = 50e-6;
+	double possion = 0.5;
+	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	//	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
+	//	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
+	//	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
+	// need the average temp to get the correct K
+	double AverageTemperature =    valTmps.Temperature.center;
+
+	double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
+
+	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
+	// 
+	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
+
+
+	//*********************
+	//
+	// ++++ WARNING +++++++
+	// this calculation is likely wrong for the right and left edges of the separator
+	// ++++++++++++++++++++
+	// 
+	//*********************
+
+
+	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-nodeLeft->x0NodePos()); // factor of 2's cancel
+	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
+
+	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+
+	double mech_strain = tot_strain-thermal_strain-pressure_strain;
+
+	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
+	// mech_strain. 
+	abort();
+
+	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
+
+	double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+#endif
+
     }
 
  

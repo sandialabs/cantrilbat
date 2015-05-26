@@ -1472,16 +1472,13 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
-
-	// the separator is intert to chemistry, so no other terms in the strain
 	double mech_strain = tot_strain-thermal_strain-pressure_strain;
 
 	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
 	// mech_strain. 
 	abort();
 
-	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);
-	
+	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
 
 	double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
