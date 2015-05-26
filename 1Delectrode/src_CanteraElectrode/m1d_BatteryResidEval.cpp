@@ -46,7 +46,7 @@ drawline(int sp, int ll)
     }
     Cantera::writelog("\n");
 }
-//================================================================================================================================
+//==================================================================================================================================
 // Default constructor
 /*
  *
@@ -82,36 +82,36 @@ BatteryResidEval::BatteryResidEval(double atol) :
      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
 }
 //================================================================================================================================
-  // Destructor
-  /*
-   *
-   */
-  BatteryResidEval::~BatteryResidEval()
-  {
-  }
-  //================================================================================================================================
-  //! Default copy constructor
-  /*!
-   *
-   * @param r  Object to be copied
-   */
-  BatteryResidEval::BatteryResidEval(const BatteryResidEval &r) :
+// Destructor
+/*
+ *
+ */
+BatteryResidEval::~BatteryResidEval()
+{
+}
+//================================================================================================================================
+//! Default copy constructor
+/*!
+ *
+ * @param r  Object to be copied
+ */
+BatteryResidEval::BatteryResidEval(const BatteryResidEval &r) :
     ProblemResidEval(r.m_atol)
-  {
+{
     *this = r;
-  }
-  //================================================================================================================================
-  // Assignment operator
-  /*
-   *
-   * @param r  Object to be copied
-   * @return   Returns a copy of the current problem
-   */
-  BatteryResidEval &
-  BatteryResidEval::operator=(const BatteryResidEval &r)
-  {
+}
+//================================================================================================================================
+// Assignment operator
+/*
+ *
+ * @param r  Object to be copied
+ * @return   Returns a copy of the current problem
+ */
+BatteryResidEval &
+BatteryResidEval::operator=(const BatteryResidEval &r)
+{
     if (this == &r) {
-      return *this;
+	return *this;
     }
 
     ProblemResidEval::operator=(r);
@@ -141,7 +141,7 @@ BatteryResidEval::BatteryResidEval(double atol) :
     ocvCathode_                          = r.ocvCathode_;
 
     return *this;
-  }
+}
 //==========================================================================================================
 void
 BatteryResidEval::residSetupTmps()
@@ -189,12 +189,12 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
 {
 
     if (doTimeDependentResid) {
-       if (delta_t > 0.0) {
-         if (fabs(t - (t_old + delta_t)) > 0.001 * delta_t) {
-            throw CanteraError("BatteryResidEval::setStateFromSolution",
-	                       "case of t != (t_old + delta_t) not handled yet");
-         }
-       }
+	if (delta_t > 0.0) {
+	    if (fabs(t - (t_old + delta_t)) > 0.001 * delta_t) {
+		throw CanteraError("BatteryResidEval::setStateFromSolution",
+				   "case of t != (t_old + delta_t) not handled yet");
+	    }
+	}
     }
     //
     // Call the base class
@@ -220,49 +220,49 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
 }
 //=====================================================================================================================
 
-  //! Calculate the initial conditions
-  /*!
-   *   This calls the parent class initialConditions method to loop over the volume and surface domains.
-   *   Then the method tried to better estimate the electrolyte potential.
-   *
-   * @param doTimeDependentResid    Boolean indicating whether we should
-   *                                formulate the time dependent residual
-   * @param soln                    Solution vector. This is the input to
-   *                                the residual calculation.
-   * @param solnDot                 Solution vector. This is the input to
-   *                                the residual calculation.
-   * @param t                       Time
-   * @param delta_t                 delta_t for the initial time step
-   */
-  void
-  BatteryResidEval::initialConditions(const bool doTimeDependentResid,
-				      Epetra_Vector_Ghosted *soln,
-				      Epetra_Vector_Ghosted *solnDot,
-				      double &t,
-				      double &delta_t,
-                                      double &delta_t_np1)
-  {
-      //
-      //   We obtain the cross-sectional area from the cathode. 
-      //   However, we require the cross-sectional area to be consistent across inputs
-      //
-      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
-      //
-      //   loop over all volume and surface domains providing initial guess
-      //
-      ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t, delta_t_np1);
-      //
-      //  improveInitialConditions(soln);
-      //
-  }
-  //====================================================================================================================
-  //! Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
-  /*!
-   * Not currently finished
-   */
-  void
-  BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
-  {
+//! Calculate the initial conditions
+/*!
+ *   This calls the parent class initialConditions method to loop over the volume and surface domains.
+ *   Then the method tried to better estimate the electrolyte potential.
+ *
+ * @param doTimeDependentResid    Boolean indicating whether we should
+ *                                formulate the time dependent residual
+ * @param soln                    Solution vector. This is the input to
+ *                                the residual calculation.
+ * @param solnDot                 Solution vector. This is the input to
+ *                                the residual calculation.
+ * @param t                       Time
+ * @param delta_t                 delta_t for the initial time step
+ */
+void
+BatteryResidEval::initialConditions(const bool doTimeDependentResid,
+				    Epetra_Vector_Ghosted *soln,
+				    Epetra_Vector_Ghosted *solnDot,
+				    double &t,
+				    double &delta_t,
+				    double &delta_t_np1)
+{
+    //
+    //   We obtain the cross-sectional area from the cathode. 
+    //   However, we require the cross-sectional area to be consistent across inputs
+    //
+    crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
+    //
+    //   loop over all volume and surface domains providing initial guess
+    //
+    ProblemResidEval::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t, delta_t_np1);
+    //
+    //  improveInitialConditions(soln);
+    //
+}
+//====================================================================================================================
+//! Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
+/*!
+ * Not currently finished
+ */
+void
+BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
+{
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if ( mypid ) return; //using global variables, we only need to do this once. Need to sync.
 
@@ -278,110 +278,110 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
     //   Loop over the Volume Domains
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
 
-      //positions at boundaries
-      double xleft  = DL_ptr_->StartXLoc_Domain[iDom] ;
-      double xright = DL_ptr_->EndXLoc_Domain[iDom] ;
-      //nodes at boundaries
-      int leftGbNode  = DL_ptr_->StartGBNode_Domain[iDom];
-      int rightGbNode = DL_ptr_->EndGBNode_Domain[iDom];
-      fprintf(stderr, "Boundaries of domain %d are %g and %g\n", iDom, xleft, xright);
-
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      int iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
-
-      for ( int iGbNode = leftGbNode; iGbNode < rightGbNode; iGbNode++ ) {
-	double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
-	int voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
-	fprintf(stderr, "Old var value was %g at x=%g\n", soln[voltEqn], xNode );
-
-      }
-    }
-
-    if (    PSCinput_ptr->cathodeBCType_ == 0 
-	 || PSCinput_ptr->cathodeBCType_ == 2 
-	 || PSCinput_ptr->cathodeBCType_ == 4 
-	 || PSCinput_ptr->cathodeBCType_ == 6 
-	 || PSCinput_ptr->cathodeBCType_ == 8 ) {
-      //! CASE FOR SPECIFIED VOLTAGE 
-      //! Prior to this, the voltage in the electrolyte should have been specified
-      //! as the specified BC voltage minus the open circuit voltage in the edge domains.
-      //! Interpolate voltage between guessed voltages in edge domains.
-      //
-      BulkDomain1D *d_ptr;
-      int iVar_Voltage_BD;
-      int voltEqn;
-      
-      //! Left-most bulk domain
-      int iDom = 0;
-      //The left hand node for interpolation is the N-1st node of the left domain (near it's right edge)
-      int iNodeLeft = DL_ptr_->EndGBNode_Domain[iDom] - 1;
-      double xleft = (*GI_ptr_->XNodePos_GbNode)[iNodeLeft];	
-      //find the voltage at this node
-      d_ptr = DL.BulkDomain1D_List[iDom];
-      iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
-      voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iNodeLeft] + iVar_Voltage_BD ;
-      double voltLeft = soln[voltEqn];
-      
-      //! Right-most bulk domain
-      iDom = DL.NumBulkDomains - 1 ;
-      //The right hand node for interpolation is the 2nd node of the right domain (near it's left edge)
-      int iNodeRight = DL_ptr_->StartGBNode_Domain[iDom] + 1;
-      double xright = (*GI_ptr_->XNodePos_GbNode)[iNodeRight];	
-      //find the voltage at this node
-      d_ptr = DL.BulkDomain1D_List[iDom];
-      iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
-      voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iNodeRight] + iVar_Voltage_BD ;
-      double voltRight = soln[voltEqn];
-      
-      //! Loop over intermediate domains
-      //   Loop over the Volume Domains
-      for (iDom = 1; iDom < DL.NumBulkDomains - 1; iDom++) {
-	
+	//positions at boundaries
+	double xleft  = DL_ptr_->StartXLoc_Domain[iDom] ;
+	double xright = DL_ptr_->EndXLoc_Domain[iDom] ;
 	//nodes at boundaries
 	int leftGbNode  = DL_ptr_->StartGBNode_Domain[iDom];
 	int rightGbNode = DL_ptr_->EndGBNode_Domain[iDom];
-	
+	fprintf(stderr, "Boundaries of domain %d are %g and %g\n", iDom, xleft, xright);
+
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	int iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
-	
-	for ( int iGbNode = leftGbNode; iGbNode < rightGbNode; iGbNode++ ) {
-	  double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
-	  voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
-	  fprintf(stderr, "Old var value was %g", soln[voltEqn] );
-	  double voltInterp = voltLeft + ( voltRight - voltLeft ) * ( xNode - xleft ) / ( xright - xleft );
-	  soln[voltEqn] = voltInterp;
-	  fprintf(stderr, " and new value is %g at x=%g\n", soln[voltEqn], xNode );
-	  
-	}
-      }
-      //! First point for Right edge domain
-      iDom = DL.NumBulkDomains - 1 ;
-      //nodes at boundaries
-      int iGbNode  = DL_ptr_->StartGBNode_Domain[iDom];
-      d_ptr = DL.BulkDomain1D_List[iDom];
-      iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
-      
-      double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
-      voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
-      fprintf(stderr, "Old var value was %g", soln[voltEqn] );
-      double voltInterp = voltLeft + ( voltRight - voltLeft ) * ( xNode - xleft ) / ( xright - xleft );
-      soln[voltEqn] = voltInterp;
-      fprintf(stderr, " and new value is %g at x=%g\n", soln[voltEqn], xNode );
-      
-      //exit(1);
-    }  else {
-      double cathodeCurrent;
-      getSolutionParam( "CathodeCollectorCurrent", &cathodeCurrent );
 
-      //! CASE FOR SPECIFIED CURRENT 
-      //! Prior to this, the voltage in the left bulk domain electrolyte should have been specified
-      //! as the specified BC voltage minus the open circuit voltage in the edge domains.
-      //! Take an estimate for the conductivity and the specified current 
-      //! to estimated the voltage change across intermediate domains.  
-      //! For last domain, use OCV or voltage difference to estimate voltage in electrode (metallic) phase.
-      //
+	for ( int iGbNode = leftGbNode; iGbNode < rightGbNode; iGbNode++ ) {
+	    double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
+	    int voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
+	    fprintf(stderr, "Old var value was %g at x=%g\n", soln[voltEqn], xNode );
+
+	}
     }
-  }
+
+    if (    PSCinput_ptr->cathodeBCType_ == 0 
+	    || PSCinput_ptr->cathodeBCType_ == 2 
+	    || PSCinput_ptr->cathodeBCType_ == 4 
+	    || PSCinput_ptr->cathodeBCType_ == 6 
+	    || PSCinput_ptr->cathodeBCType_ == 8 ) {
+	//! CASE FOR SPECIFIED VOLTAGE 
+	//! Prior to this, the voltage in the electrolyte should have been specified
+	//! as the specified BC voltage minus the open circuit voltage in the edge domains.
+	//! Interpolate voltage between guessed voltages in edge domains.
+	//
+	BulkDomain1D *d_ptr;
+	int iVar_Voltage_BD;
+	int voltEqn;
+      
+	//! Left-most bulk domain
+	int iDom = 0;
+	//The left hand node for interpolation is the N-1st node of the left domain (near it's right edge)
+	int iNodeLeft = DL_ptr_->EndGBNode_Domain[iDom] - 1;
+	double xleft = (*GI_ptr_->XNodePos_GbNode)[iNodeLeft];	
+	//find the voltage at this node
+	d_ptr = DL.BulkDomain1D_List[iDom];
+	iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iNodeLeft] + iVar_Voltage_BD ;
+	double voltLeft = soln[voltEqn];
+      
+	//! Right-most bulk domain
+	iDom = DL.NumBulkDomains - 1 ;
+	//The right hand node for interpolation is the 2nd node of the right domain (near it's left edge)
+	int iNodeRight = DL_ptr_->StartGBNode_Domain[iDom] + 1;
+	double xright = (*GI_ptr_->XNodePos_GbNode)[iNodeRight];	
+	//find the voltage at this node
+	d_ptr = DL.BulkDomain1D_List[iDom];
+	iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iNodeRight] + iVar_Voltage_BD ;
+	double voltRight = soln[voltEqn];
+      
+	//! Loop over intermediate domains
+	//   Loop over the Volume Domains
+	for (iDom = 1; iDom < DL.NumBulkDomains - 1; iDom++) {
+	
+	    //nodes at boundaries
+	    int leftGbNode  = DL_ptr_->StartGBNode_Domain[iDom];
+	    int rightGbNode = DL_ptr_->EndGBNode_Domain[iDom];
+	
+	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+	    int iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	
+	    for ( int iGbNode = leftGbNode; iGbNode < rightGbNode; iGbNode++ ) {
+		double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
+		voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
+		fprintf(stderr, "Old var value was %g", soln[voltEqn] );
+		double voltInterp = voltLeft + ( voltRight - voltLeft ) * ( xNode - xleft ) / ( xright - xleft );
+		soln[voltEqn] = voltInterp;
+		fprintf(stderr, " and new value is %g at x=%g\n", soln[voltEqn], xNode );
+	  
+	    }
+	}
+	//! First point for Right edge domain
+	iDom = DL.NumBulkDomains - 1 ;
+	//nodes at boundaries
+	int iGbNode  = DL_ptr_->StartGBNode_Domain[iDom];
+	d_ptr = DL.BulkDomain1D_List[iDom];
+	iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+      
+	double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
+	voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
+	fprintf(stderr, "Old var value was %g", soln[voltEqn] );
+	double voltInterp = voltLeft + ( voltRight - voltLeft ) * ( xNode - xleft ) / ( xright - xleft );
+	soln[voltEqn] = voltInterp;
+	fprintf(stderr, " and new value is %g at x=%g\n", soln[voltEqn], xNode );
+      
+	//exit(1);
+    }  else {
+	double cathodeCurrent;
+	getSolutionParam( "CathodeCollectorCurrent", &cathodeCurrent );
+
+	//! CASE FOR SPECIFIED CURRENT 
+	//! Prior to this, the voltage in the left bulk domain electrolyte should have been specified
+	//! as the specified BC voltage minus the open circuit voltage in the edge domains.
+	//! Take an estimate for the conductivity and the specified current 
+	//! to estimated the voltage change across intermediate domains.  
+	//! For last domain, use OCV or voltage difference to estimate voltage in electrode (metallic) phase.
+	//
+    }
+}
 
 //=====================================================================================================================
 // Calculate a residual vector
@@ -497,8 +497,8 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	porousElectrode_dom1D* e_ptr =  dynamic_cast<porousElectrode_dom1D*>(d_ptr);
 	if (e_ptr) {
-	  int maxE = e_ptr->getMaxSubGridTimeSteps();
-	  maxSubGridTimeSteps_ = std::max(maxSubGridTimeSteps_, maxE);
+	    int maxE = e_ptr->getMaxSubGridTimeSteps();
+	    maxSubGridTimeSteps_ = std::max(maxSubGridTimeSteps_, maxE);
         }
     }
 
@@ -549,12 +549,12 @@ BatteryResidEval::user_out(const int ievent,
 static void
 sprint_line(char * buf, const char * const st, const int num)
 {
-  int n = strlen(buf);
-  buf += n;
-  for (int k = 0; k < num; k++, buf++) {
-    sprintf(buf, "%s", st);
-  }
-  sprintf(buf, "\n");
+    int n = strlen(buf);
+    buf += n;
+    for (int k = 0; k < num; k++, buf++) {
+	sprintf(buf, "%s", st);
+    }
+    sprintf(buf, "\n");
 }
 
 //=====================================================================================================================
@@ -582,152 +582,152 @@ BatteryResidEval::showProblemSolution(const int ievent,
                                       const double delta_t_np1)
 {
 
-  //bool doAllProcs = false;
-  time_t aclock;
-  ::time(&aclock); /* Get time in seconds */
-  int mypid = LI_ptr_->Comm_ptr_->MyPID();
-  char buf[256];
-  bool duplicateOnAllProcs = false;
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    //bool doAllProcs = false;
+    time_t aclock;
+    ::time(&aclock); /* Get time in seconds */
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    char buf[256];
+    bool duplicateOnAllProcs = false;
+    // Get a local copy of the domain layout
+    DomainLayout &DL = *DL_ptr_;
 
-  Epetra_Vector *solnAll = GI_ptr_->SolnAll;
-  m1d::gather_nodeV_OnAll(*solnAll, y_n);
+    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+    m1d::gather_nodeV_OnAll(*solnAll, y_n);
 
-  Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
-  if (ydot_n) {
-    m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
-  }
-  double rdelta_t = 0.0;
-  if (delta_t > 0.0) {
-    rdelta_t = 1.0 / delta_t;
-  }
+    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+    if (ydot_n) {
+	m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
+    }
+    double rdelta_t = 0.0;
+    if (delta_t > 0.0) {
+	rdelta_t = 1.0 / delta_t;
+    }
 
-  residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
+    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
  
-  gatherCapacityStatistics();
+    gatherCapacityStatistics();
 
 
-  int indentSpaces = 4;
-  string indent = "    ";
-  const char *ind = indent.c_str();
-  if (!mypid || duplicateOnAllProcs) {
-    sprintf(buf, "%s", ind);
-    sprint_line(buf, "-", 100);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
-    Cantera::writelog(buf);
-    if (solveType == TimeDependentInitial) {
-       sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
-    } else {
-       sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+    int indentSpaces = 4;
+    string indent = "    ";
+    const char *ind = indent.c_str();
+    if (!mypid || duplicateOnAllProcs) {
+	sprintf(buf, "%s", ind);
+	sprint_line(buf, "-", 100);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
+	Cantera::writelog(buf);
+	if (solveType == TimeDependentInitial) {
+	    sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
+	} else {
+	    sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+	}
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       Capacity_Anode        %-12.3E  Amp hr / m2\n", ind, capacityAnodePA_ / 3600.);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       Capacity_Anode_Left   %-12.3E  Amp hr / m2\n", ind, capacityLeftAnodePA_ / 3600.);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       DepthDischarge_Anode  %-12.3E  Amp hr / m2\n", ind, dodAnodePA_ / 3600.);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       Capacity_Cathode      %-12.3E  Amp hr / m2\n", ind, capacityCathodePA_ / 3600.);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       Capacity_Cathode_Left %-12.3E  Amp hr / m2\n", ind, capacityLeftCathodePA_ / 3600.);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       DepthDischarge_Cathode%-12.3E  Amp hr / m2\n", ind, dodCathodePA_ / 3600.);
+	Cantera::writelog(buf);
+	sprintf(buf, "%s                       Crate_current         %-12.3E  \n", ind, Crate_current_);
+	Cantera::writelog(buf);
+
+	sprintf(buf, "%s", ind);
+	sprint_line(buf, "-", 100);
+	Cantera::writelog(buf);
     }
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       Capacity_Anode        %-12.3E  Amp hr / m2\n", ind, capacityAnodePA_ / 3600.);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       Capacity_Anode_Left   %-12.3E  Amp hr / m2\n", ind, capacityLeftAnodePA_ / 3600.);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       DepthDischarge_Anode  %-12.3E  Amp hr / m2\n", ind, dodAnodePA_ / 3600.);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       Capacity_Cathode      %-12.3E  Amp hr / m2\n", ind, capacityCathodePA_ / 3600.);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       Capacity_Cathode_Left %-12.3E  Amp hr / m2\n", ind, capacityLeftCathodePA_ / 3600.);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       DepthDischarge_Cathode%-12.3E  Amp hr / m2\n", ind, dodCathodePA_ / 3600.);
-    Cantera::writelog(buf);
-    sprintf(buf, "%s                       Crate_current         %-12.3E  \n", ind, Crate_current_);
-    Cantera::writelog(buf);
 
-    sprintf(buf, "%s", ind);
-    sprint_line(buf, "-", 100);
-    Cantera::writelog(buf);
-  }
+    Domain1D *d_ptr = DL.SurDomain1D_List[0];
+    do {
+	d_ptr->showSolution(solnAll, soln_dot_All, &y_n, ydot_n, solnOld_ptr_,
+			    resInternal_ptr_, t, rdelta_t, indentSpaces + 2,
+			    duplicateOnAllProcs);
+	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
+	if (bd_ptr) {
+	    //BulkDomainDescription &BDD_;
+	    SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+	    if (sdd) {
+		int idS = sdd->ID();
+		d_ptr = DL.SurDomain1D_List[idS];
+	    } else {
+		d_ptr = 0;
+	    }
+	} else {
+	    SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
+	    DomainDescription *dd = sd_ptr->SDD_.RightDomain;
+	    if (dd) {
+		BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
+		int idS = bdd->ID();
+		d_ptr = DL.BulkDomain1D_List[idS];
+	    } else {
+		d_ptr = 0;
+	    }
+	}
+    } while (d_ptr);
 
-  Domain1D *d_ptr = DL.SurDomain1D_List[0];
-  do {
-    d_ptr->showSolution(solnAll, soln_dot_All, &y_n, ydot_n, solnOld_ptr_,
-                        resInternal_ptr_, t, rdelta_t, indentSpaces + 2,
-                        duplicateOnAllProcs);
-    BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-    if (bd_ptr) {
-      //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
-      if (sdd) {
-        int idS = sdd->ID();
-        d_ptr = DL.SurDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
-    } else {
-      SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-      DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-      if (dd) {
-        BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-        int idS = bdd->ID();
-        d_ptr = DL.BulkDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
+    if (!mypid || duplicateOnAllProcs) {
+	sprintf(buf, "%s", ind);
+	sprint_line(buf, "-", 100);
+	Cantera::writelog(buf);
     }
-  } while (d_ptr);
 
-  if (!mypid || duplicateOnAllProcs) {
-    sprintf(buf, "%s", ind);
-    sprint_line(buf, "-", 100);
-    Cantera::writelog(buf);
-  }
-
-  Epetra_Comm *c = LI_ptr_->Comm_ptr_;
-  c->Barrier();
+    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
 
  
 }
 
-  //=====================================================================================================================
-  // Write the solution to either the screen or to a log file
-  /*
-   *
-   * @param ievent  Type of the event. The following form is used:
-   *             0 Initial conditions
-   *             1 Completion of a successful intermediate step.
-   *             2 Final successful conditions.
-   *             3 Intermediate nonlinear step
-   *            -1 unsuccessful step
-   *
-   * @param m_y_n    Current value of the solution vector
-   * @param m_ydot_n  Current value of the derivative of the solution vector
-   */
-  void
-  BatteryResidEval::writeSolution(const int ievent,
-				  const bool doTimeDependentResid,
-				  const double time_current,
-				  const double delta_t_n,
-				  int istep,
-				  const Epetra_Vector_Ghosted &y_n,
-				  const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				  const Solve_Type_Enum solveType, 
-                                  const double delta_t_np1)
-  {
+//=====================================================================================================================
+// Write the solution to either the screen or to a log file
+/*
+ *
+ * @param ievent  Type of the event. The following form is used:
+ *             0 Initial conditions
+ *             1 Completion of a successful intermediate step.
+ *             2 Final successful conditions.
+ *             3 Intermediate nonlinear step
+ *            -1 unsuccessful step
+ *
+ * @param m_y_n    Current value of the solution vector
+ * @param m_ydot_n  Current value of the derivative of the solution vector
+ */
+void
+BatteryResidEval::writeSolution(const int ievent,
+				const bool doTimeDependentResid,
+				const double time_current,
+				const double delta_t_n,
+				int istep,
+				const Epetra_Vector_Ghosted &y_n,
+				const Epetra_Vector_Ghosted * const ydot_n_ptr,
+				const Solve_Type_Enum solveType, 
+				const double delta_t_np1)
+{
     ProblemResidEval::writeSolution(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
 				    ydot_n_ptr, solveType, delta_t_np1);
     if (ievent == 0 || ievent == 1 || ievent == 2) {
-      write_IV(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
+	write_IV(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     }
-  }
-  //=====================================================================================================================
-  void
-  BatteryResidEval::write_IV(const int ievent,
-			     const bool doTimeDependentResid,
-			     const double time_current,
-			     const double delta_t_n,
-			     int istep,
-			     const Epetra_Vector_Ghosted &y_n,
-			     const Epetra_Vector_Ghosted * const ydot_n_ptr)
-  {
+}
+//=====================================================================================================================
+void
+BatteryResidEval::write_IV(const int ievent,
+			   const bool doTimeDependentResid,
+			   const double time_current,
+			   const double delta_t_n,
+			   int istep,
+			   const Epetra_Vector_Ghosted &y_n,
+			   const Epetra_Vector_Ghosted * const ydot_n_ptr)
+{
     DomainLayout &DL = *DL_ptr_;
 
     // we want the last surface, but be careful when we go to double tap batteries
@@ -748,89 +748,89 @@ BatteryResidEval::showProblemSolution(const int ievent,
     int procID = Comm_ptr->MyPID();
 
     if (!procID) {
-    //
-    //  looking for cathode capacity and depth of discharge
-    //
-    //BulkDomain1D *cd_ptr = DL.BulkDomain1D_List.back();
+	//
+	//  looking for cathode capacity and depth of discharge
+	//
+	//BulkDomain1D *cd_ptr = DL.BulkDomain1D_List.back();
 
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
-    porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
-    d_ptr = DL.BulkDomain1D_List.back();
-    porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
+	porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+	d_ptr = DL.BulkDomain1D_List.back();
+	porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
 
-    double capacityZeroDoD, spec_capacityZeroDoD;
-    double dischargedCapacity, spec_dischargedCapacity;
-    d_cathode_ptr->getSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
-    d_cathode_ptr->getSolutionParam( "DepthOfDischarge", &dischargedCapacity );
-    d_cathode_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
-    d_cathode_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
+	double capacityZeroDoD, spec_capacityZeroDoD;
+	double dischargedCapacity, spec_dischargedCapacity;
+	d_cathode_ptr->getSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
+	d_cathode_ptr->getSolutionParam( "DepthOfDischarge", &dischargedCapacity );
+	d_cathode_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
+	d_cathode_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
 
-    ocvAnode_ = d_anode_ptr->openCircuitPotentialQuick();
-    ocvCathode_ = d_cathode_ptr->openCircuitPotentialQuick();
-    double ocvQuick = ocvCathode_ - ocvAnode_;   
+	ocvAnode_ = d_anode_ptr->openCircuitPotentialQuick();
+	ocvCathode_ = d_cathode_ptr->openCircuitPotentialQuick();
+	double ocvQuick = ocvCathode_ - ocvAnode_;   
 
-    FILE *fp = 0;
-    bool doOldFormat = false;
-    if (doOldFormat) {
-	if (ievent == 0) {
-	    fp = fopen("timeDep_IV.dat", "w");
-	    fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
-	    fprintf(fp, "VARIABLES = \" T [s]\"\n");
-	    fprintf(fp, "\"Voltage [volts] \"\n");
-	    fprintf(fp, "\"CathodeCurrent [mA/cm2]\"\n");
-	    fprintf(fp, "\"Initial Specific Cathode Capacity [mA-hr/g] \"\n");
-	    fprintf(fp, "\"Discharged Specific Cathode Capacity [mA-hr/g] \"\n");
-	    fprintf(fp, "\"Initial Cathode Capacity [A-s/m2] \"\n");
-	    fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
-	    fprintf(fp, "\"AnodeCurrent [mA/cm2]\"\n");
+	FILE *fp = 0;
+	bool doOldFormat = false;
+	if (doOldFormat) {
+	    if (ievent == 0) {
+		fp = fopen("timeDep_IV.dat", "w");
+		fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
+		fprintf(fp, "VARIABLES = \" T [s]\"\n");
+		fprintf(fp, "\"Voltage [volts] \"\n");
+		fprintf(fp, "\"CathodeCurrent [mA/cm2]\"\n");
+		fprintf(fp, "\"Initial Specific Cathode Capacity [mA-hr/g] \"\n");
+		fprintf(fp, "\"Discharged Specific Cathode Capacity [mA-hr/g] \"\n");
+		fprintf(fp, "\"Initial Cathode Capacity [A-s/m2] \"\n");
+		fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
+		fprintf(fp, "\"AnodeCurrent [mA/cm2]\"\n");
+	    } else {
+		fp = fopen("timeDep_IV.dat", "a");
+	    }
+	    fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E \n", 
+		    time_current, phiCath, 0.1 * c_icurr, spec_capacityZeroDoD/3.6, spec_dischargedCapacity/3.6, 
+		    capacityZeroDoD,  dischargedCapacity, 0.1 * a_icurr);
 	} else {
-	    fp = fopen("timeDep_IV.dat", "a");
+	    if (ievent == 0) {
+		fp = fopen("timeDep_IV.dat", "w");
+		fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
+		fprintf(fp, "VARIABLES = \" T [s]\"\n");
+		fprintf(fp, "\"Voltage [volts] \"\n");
+		fprintf(fp, "\"CathodeCurrent [A/m2]\"\n");
+		fprintf(fp, "\"Cathode Capacity [A-s/m2] \"\n");
+		fprintf(fp, "\"Cathode DepthOfDischarge [A-s/m2] \"\n");
+		fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
+		fprintf(fp, "\"Cathode Capacity Left [A-s/m2] \"\n");
+		fprintf(fp, "\"AnodeCurrent [A/m2]\"\n");
+		fprintf(fp, "\"Anode Capacity [A-s/m2] \"\n");
+		fprintf(fp, "\"Anode DepthOfDischarge [A-s/m2] \"\n");
+		fprintf(fp, "\"Discharged Anode Capacity [A-s/m2] \"\n");
+		fprintf(fp, "\"Anode Capacity Left [A-s/m2] \"\n");
+		fprintf(fp, "\"OCV_Quick [volts] \"\n");
+
+	    } else {
+		fp = fopen("timeDep_IV.dat", "a");
+	    }
+	    fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E ,  %15.5E ,"
+		    "  %15.5E,  %15.5E, %15.5E ,  %15.5E\n", 
+		    time_current, phiCath, c_icurr, capacityCathodePA_, dodCathodePA_,
+		    capacityDischargedCathodePA_, capacityLeftCathodePA_, a_icurr,
+		    capacityAnodePA_, dodAnodePA_, capacityDischargedAnodePA_, capacityLeftAnodePA_, ocvQuick);
 	}
-	fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E \n", 
-		time_current, phiCath, 0.1 * c_icurr, spec_capacityZeroDoD/3.6, spec_dischargedCapacity/3.6, 
-		capacityZeroDoD,  dischargedCapacity, 0.1 * a_icurr);
-    } else {
-      if (ievent == 0) {
-            fp = fopen("timeDep_IV.dat", "w");
-            fprintf(fp, "TITLE = \"Time versus Current or Voltage\"\n");
-            fprintf(fp, "VARIABLES = \" T [s]\"\n");
-            fprintf(fp, "\"Voltage [volts] \"\n");
-            fprintf(fp, "\"CathodeCurrent [A/m2]\"\n");
-            fprintf(fp, "\"Cathode Capacity [A-s/m2] \"\n");
-            fprintf(fp, "\"Cathode DepthOfDischarge [A-s/m2] \"\n");
-            fprintf(fp, "\"Discharged Cathode Capacity [A-s/m2] \"\n");
-            fprintf(fp, "\"Cathode Capacity Left [A-s/m2] \"\n");
-            fprintf(fp, "\"AnodeCurrent [A/m2]\"\n");
-            fprintf(fp, "\"Anode Capacity [A-s/m2] \"\n");
-            fprintf(fp, "\"Anode DepthOfDischarge [A-s/m2] \"\n");
-            fprintf(fp, "\"Discharged Anode Capacity [A-s/m2] \"\n");
-            fprintf(fp, "\"Anode Capacity Left [A-s/m2] \"\n");
-            fprintf(fp, "\"OCV_Quick [volts] \"\n");
+	fclose(fp);
+	//
+	if (ievent == 0) { 
+	    fp = fopen("Capacity_Starting.dat", "w"); 
+	    fprintf(fp, " starting time = %g\n", time_current);
+	    fprintf(fp, "  Quantity             Units           Anode                Separator           Cathode\n");
+	    fprintf(fp, "  InitialCapacity      [A-s/m2]    %20.10E %20.10E %20.10E\n", capacityAnodePA_, 0.0, capacityCathodePA_);
+	    fprintf(fp, "  InitialDepthDischar  [A-s/m2]    %20.10E %20.10E %20.10E\n", dodAnodePA_,      0.0, dodCathodePA_);
 
-        } else {
-            fp = fopen("timeDep_IV.dat", "a");
-        }
-	fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E ,  %15.5E ,"
-                "  %15.5E,  %15.5E, %15.5E ,  %15.5E\n", 
-		time_current, phiCath, c_icurr, capacityCathodePA_, dodCathodePA_,
-	        capacityDischargedCathodePA_, capacityLeftCathodePA_, a_icurr,
-                capacityAnodePA_, dodAnodePA_, capacityDischargedAnodePA_, capacityLeftAnodePA_, ocvQuick);
-    }
-    fclose(fp);
-    //
-    if (ievent == 0) { 
-      fp = fopen("Capacity_Starting.dat", "w"); 
-      fprintf(fp, " starting time = %g\n", time_current);
-      fprintf(fp, "  Quantity             Units           Anode                Separator           Cathode\n");
-      fprintf(fp, "  InitialCapacity      [A-s/m2]    %20.10E %20.10E %20.10E\n", capacityAnodePA_, 0.0, capacityCathodePA_);
-      fprintf(fp, "  InitialDepthDischar  [A-s/m2]    %20.10E %20.10E %20.10E\n", dodAnodePA_,      0.0, dodCathodePA_);
-
-      fclose(fp);
+	    fclose(fp);
       
-    }
+	}
     }
     Comm_ptr->Barrier();
-  }
+}
 //====================================================================================================================
 // Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
 // to be time dependent
@@ -962,7 +962,7 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
           
             fprintf(fstepE, "       tinit  ,       tfinal  ,  Volts_Anode ,    Volts_Sep , Volts_Cathode,"
 		    "  Volts_Total ,    Volts_OCV ,   OCV_Anode  ,  OCV_Cathode , "
-                   "     Current , Resist_anode ,  Resist_sep  , Resist_cathod,  Resist_Total\n");
+		    "     Current , Resist_anode ,  Resist_sep  , Resist_cathod,  Resist_Total\n");
             fflush(fstepE);
             fclose(fstepE);
         
@@ -1107,9 +1107,9 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
         }
 
         if (iDom == 3) {
-         HeatFluxRight = dVals.HeatFluxRight;
-         currRight = dVals.currentRight;
-         phiCath = dVals.phiSolid;
+	    HeatFluxRight = dVals.HeatFluxRight;
+	    currRight = dVals.currentRight;
+	    phiCath = dVals.phiSolid;
         }
     }
 
@@ -1150,8 +1150,8 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 	    printf(" % 12.6E    % 12.6E       % 12.6E" , 0.0, 0.0, 0.0);
 	}
 	if (iDom == 2) {
-	   printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * JHelecRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
-	   // printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
+	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * JHelecRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
+	    // printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
 	}
 	printf("\n");
     }
@@ -1291,19 +1291,19 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
     //
     delta = elemLi_Solid_New_Dom[0] - elemLi_Solid_Start_Dom[0]; 
     printf("Anode Solid:   Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
-	  elemLi_Solid_New_Dom[0],  elemLi_Solid_Start_Dom[0], delta);
+	   elemLi_Solid_New_Dom[0],  elemLi_Solid_Start_Dom[0], delta);
     delta = elemLi_Solid_New_Dom[0] - elemLi_Solid_Old_Dom[0]; 
     printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
-	  elemLi_Solid_New_Dom[0], elemLi_Solid_Old_Dom[0], delta);
+	   elemLi_Solid_New_Dom[0], elemLi_Solid_Old_Dom[0], delta);
     //
     // Cathode Solid Phase Evolution of Lithium
     //
     delta = elemLi_Solid_New_Dom[2] - elemLi_Solid_Start_Dom[2]; 
     printf("Cath Solid:    Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
-	  elemLi_Solid_New_Dom[2],  elemLi_Solid_Start_Dom[2], delta);
+	   elemLi_Solid_New_Dom[2],  elemLi_Solid_Start_Dom[2], delta);
     delta = elemLi_Solid_New_Dom[2] - elemLi_Solid_Old_Dom[2]; 
     printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n",
-	  elemLi_Solid_New_Dom[2], elemLi_Solid_Old_Dom[2], delta);
+	   elemLi_Solid_New_Dom[2], elemLi_Solid_Old_Dom[2], delta);
     printf("\n");
     //
     // Solid Phase Balance of Lithium
@@ -1313,10 +1313,10 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
     double startS= elemLi_Solid_Start_Dom[0] + elemLi_Solid_Start_Dom[2];
     delta = newS - startS;
     printf("Total Solid:   Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
-	  newS, startS,  delta);
+	   newS, startS,  delta);
     delta =  newS - oldS;
     printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n",
-	  newS, oldS, delta);
+	   newS, oldS, delta);
     //
     // Total Balance of Lithium
     //
@@ -1385,7 +1385,7 @@ BatteryResidEval::heatSourceZeroAccumulated() const
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	porousFlow_dom1D* p_ptr = dynamic_cast<porousFlow_dom1D*>(d_ptr);
 	if (p_ptr) {
-	   p_ptr->heatSourceZeroAccumulated();
+	    p_ptr->heatSourceZeroAccumulated();
 	}
     }
 }
@@ -1403,7 +1403,7 @@ BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
     VarType v1(Voltage, 2, "CathodeVoltage");
     int num = c_ptr->changeDirichletConditionValue(v1, paramVal);
     if (num != 1) {
-      throw m1d_Error("", "");
+	throw m1d_Error("", "");
     }
     return num;
 }
@@ -1411,24 +1411,24 @@ BatteryResidEval::setSolutionParam(std::string paramName, double paramVal) {
 int
 BatteryResidEval::getSolutionParam(std::string paramName, double * const paramVal) {
     if (paramName == "CathodeCollectorCurrent") {
-      // Go find the Cathode Collector object -- the last domain of the DomainLayout
-      DomainLayout &DL = *DL_ptr_;
-      SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
-      SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
-      double icurr = c_ptr->icurrCollector_;
-      paramVal[0] = icurr; 
-      return 1;
+	// Go find the Cathode Collector object -- the last domain of the DomainLayout
+	DomainLayout &DL = *DL_ptr_;
+	SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
+	SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
+	double icurr = c_ptr->icurrCollector_;
+	paramVal[0] = icurr; 
+	return 1;
     }
     else if (paramName == "SeparatorConductivity") {
-      // Go find the Separator object -- the second domain of the DomainLayout
-      DomainLayout &DL = *DL_ptr_;
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[1];
-      porousLiKCl_dom1D *c_ptr = dynamic_cast<porousLiKCl_dom1D *>(d_ptr);
-      double conductivity = c_ptr->getConductivity();
-      paramVal[0] = conductivity; 
+	// Go find the Separator object -- the second domain of the DomainLayout
+	DomainLayout &DL = *DL_ptr_;
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[1];
+	porousLiKCl_dom1D *c_ptr = dynamic_cast<porousLiKCl_dom1D *>(d_ptr);
+	double conductivity = c_ptr->getConductivity();
+	paramVal[0] = conductivity; 
     }
     else {
-      throw m1d_Error("BatteryResidEval::getSolutionParam", "unknown parameter");
+	throw m1d_Error("BatteryResidEval::getSolutionParam", "unknown parameter");
     } 
     return 1;
 }
@@ -1458,13 +1458,13 @@ BatteryResidEval::reportCathodeVoltageBC(double time, int &BC_Type, double &valu
 
     int num = c_ptr->reportBoundaryCondition(time, v1, BC_Type, value, BC_TimeDep, TimeDep);
     if (num != 1) {
-      throw m1d_Error("", "");
+	throw m1d_Error("", "");
     }
 }
 //================================================================================================================================
-  void
-  BatteryResidEval::changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep,
-					   TimeDepFunctionPtr TimeDep) {
+void
+BatteryResidEval::changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep,
+					 TimeDepFunctionPtr TimeDep) {
     VarType v1(Voltage, 2, "CathodeVoltage");
 
     DomainLayout &DL = *DL_ptr_;
@@ -1475,12 +1475,12 @@ BatteryResidEval::reportCathodeVoltageBC(double time, int &BC_Type, double &valu
 
     int num = c_ptr->changeBoundaryCondition(v1, BC_Type, value, BC_TimeDep, TimeDep);
     if (num != 1) {
-      throw m1d_Error("", "");
+	throw m1d_Error("", "");
     }
-  }
-  //================================================================================================================================
-  double
-  BatteryResidEval::reportCathodeVoltage() const {
+}
+//================================================================================================================================
+double
+BatteryResidEval::reportCathodeVoltage() const {
     DomainLayout &DL = *DL_ptr_;
     // we want the last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
@@ -1489,17 +1489,17 @@ BatteryResidEval::reportCathodeVoltageBC(double time, int &BC_Type, double &valu
     double phi =  c_ptr->phiCathode_;
 
     return phi;
-  } 
-  //====================================================================================================================
-  double
-  BatteryResidEval::reportCathodeCurrent() const {
+} 
+//====================================================================================================================
+double
+BatteryResidEval::reportCathodeCurrent() const {
     DomainLayout &DL = *DL_ptr_;
     // we want the last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
     double icurr = c_ptr->icurrCollector_;
     return icurr;
-  }
+}
 //====================================================================================================================
 // Get the max value of the sub grid time step number from the last residual calculation
 /*
