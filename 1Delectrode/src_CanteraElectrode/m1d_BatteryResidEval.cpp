@@ -844,8 +844,6 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
 	writeGlobalTecplotHeader(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
 				 ydot_n_ptr, solveType, delta_t_np1);
     }
-
-
 }
 //==================================================================================================================================
 void
@@ -859,7 +857,38 @@ BatteryResidEval::writeGlobalTecplotHeader(const int ievent,
 					   const Solve_Type_Enum solveType, 
 					   const double delta_t_np1)
 {
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    bool doWrite = !mypid ; //only proc 0 should write out the header
+    DomainLayout* dl = DL_ptr_;
+    BulkDomainDescription* bdd0 = dl->BulkDomainDesc_global[0];
+    if (doWrite) {
+	//open tecplot file
+	FILE* ofp;
+	string sss = getBaseFileName();
+	char filename[30];
+	sprintf(filename,"%s%s",sss.c_str(),"_multiBulk.dat");
+	ofp = fopen(filename, "w");
 
+	//write title and variable list
+	fprintf( ofp, "TITLE = \"Tecplot Solution on multiple bulk domains for %s\"\n",sss.c_str());
+
+	// Number of equations per node
+	int numVar = bdd0->NumEquationsPerNode;
+	// Vector containing the variable names as they appear in the solution vector
+	std::vector<VarType> &variableNameList = bdd0->VariableNameList;
+	//! First global node of this bulk domain
+
+	fprintf( ofp, "VARIABLES = ");
+	fprintf( ofp, "\"x [m]\"  \n" );
+
+	for (int k = 0; k < numVar; k++) {
+	    VarType &vt = variableNameList[k];
+	    string name = vt.VariableName(15);
+	    fprintf( ofp, "\"%s\" \t", name.c_str() );
+	}
+	fprintf(ofp, "\n" );
+	fclose(ofp);
+    }
 }
 //==================================================================================================================================
 // Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
