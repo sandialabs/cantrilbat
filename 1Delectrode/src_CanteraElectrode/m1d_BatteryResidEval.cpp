@@ -2,11 +2,7 @@
  *  @file m1d_ProblemResidEval.cpp
  *
  **/
-/*
- * $Author: hkmoffa $
- * $Revision: 564 $
- * $Date: 2013-03-08 16:35:51 -0700 (Fri, 08 Mar 2013) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -100,7 +96,7 @@ BatteryResidEval::BatteryResidEval(const BatteryResidEval &r) :
 {
     *this = r;
 }
-//================================================================================================================================
+//==================================================================================================================================
 // Assignment operator
 /*
  *
@@ -142,7 +138,7 @@ BatteryResidEval::operator=(const BatteryResidEval &r)
 
     return *this;
 }
-//==========================================================================================================
+//==================================================================================================================================
 void
 BatteryResidEval::residSetupTmps()
 {
@@ -383,7 +379,7 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
     }
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 // Calculate a residual vector
 /*
  *   The basic algorithm is to loop over the volume domains.
@@ -503,7 +499,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
     }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // This function may be used to create output at various points in the
 // execution of an application.
 /*
@@ -545,7 +541,7 @@ BatteryResidEval::user_out(const int ievent,
 	doHeatAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 static void
 sprint_line(char * buf, const char * const st, const int num)
 {
@@ -556,8 +552,7 @@ sprint_line(char * buf, const char * const st, const int num)
     }
     sprintf(buf, "\n");
 }
-
-//=====================================================================================================================
+//==================================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
  *
@@ -687,7 +682,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
  
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
  *
@@ -718,7 +713,7 @@ BatteryResidEval::writeSolution(const int ievent,
 	write_IV(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 BatteryResidEval::write_IV(const int ievent,
 			   const bool doTimeDependentResid,
@@ -831,7 +826,7 @@ BatteryResidEval::write_IV(const int ievent,
     }
     Comm_ptr->Barrier();
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
 // to be time dependent
 /*
@@ -1034,8 +1029,7 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
         }
     }
 }
-//=====================================================================================================================
-
+//==================================================================================================================================
 void
 BatteryResidEval::doHeatAnalysis(const int ifunc,
 				 const double t,
@@ -1059,8 +1053,8 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     //double nEnthNewS[10];
     double nEnthOldTotal = 0.0;
     double nEnthNewTotal = 0.0;
-    double enthalpyIVfluxRight  = 0.0;
-    double enthalpyIVfluxLeft  = 0.0;
+    //double enthalpyIVfluxRight  = 0.0;
+    //double enthalpyIVfluxLeft  = 0.0;
     double enthalpyFlowOut = 0.0;
 
     //
@@ -1081,7 +1075,7 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
         }
 	if (iDom == 2) {
             JHelecRight = dVals.JHelecRight;
-	    enthalpyIVfluxRight = dVals.enthalpyIVfluxRight;
+	    //enthalpyIVfluxRight = dVals.enthalpyIVfluxRight;
 	    HeatFluxRight = dVals.HeatFluxRight;
 	    enthalpyFlowOut = dVals.enthFluxOut;
 	}
@@ -1151,7 +1145,8 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 	}
 	if (iDom == 2) {
 	    printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * JHelecRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
-	    // printf(" % 12.6E    % 12.6E       % 12.6E" ,   deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
+	    // printf(" % 12.6E    % 12.6E       % 12.6E" ,  
+	    //        deltaT * enthalpyIVfluxRight, deltaT * HeatFluxRight, deltaT * enthalpyFlowOut);
 	}
 	printf("\n");
     }
@@ -1176,8 +1171,6 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     printf(" Focus on the separator\n");
 
     printf(" Loss mechanisms:\n");
-
-
     
 }
 //==================================================================================================================================
