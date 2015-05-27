@@ -808,6 +808,7 @@ AC_OUTPUT(Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \
           ctpadds/tests/SolidKinTests/Makefile \
+          doc/doxygen/Makefile \
           Electrode/Makefile \
           Electrode/examples/Makefile \
           Electrode/examples/MCMBAnode_LiIon_CSTR_2_cV/Makefile \

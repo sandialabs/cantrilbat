@@ -227,17 +227,15 @@ extern void    mdp_safe_alloc_dbl_1(double **, int, const double);
  *  (*hndVec)[0:oldLen-1]    = oldVec[0:oldLen-1]
  *  (*hndVec)[oldLen:newLen] = defVal
  *  
- * Input
- * ------
- *   @param newLen  New Length of the vector
- *
- * Output
- * -------
- *   @param oldLen  Old  Length of the vector
- *
+ *   @param[in,out]  hndVec     Handle to the old allocated vector on input. On return
+ *                              this contains the handle to the new allocated vector.
+ *   @param[in]      newLen     New Length of the vector
+ *   @param[in]      oldLen     Old Length of the vector
+ *   @param[in]      defVal     Default fill value to be used on the new members of the double
  */
 extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, 
                                  const double defVal);
+
 extern void    mdp_realloc_dbl_2(double ***, int, int, int, int,
 				 const double);
 

@@ -5,11 +5,6 @@
  *  \link BEInput::BE_UnitConversion BE_UnitConversion\endlink).
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -24,20 +19,20 @@
 
 namespace BEInput {
 
-  /**
-   * @defgroup unitconversion Automatic Unit Conversion
-   *
-   * These classes conduct automatic unit conversion for
-   * double-like data within the input system.
-   * 
-   * All units are internally converted into the MKS system.
-   *
-   * 
-   *
-   *
-   */
-  class BE_UnitConversion {
-  public:
+/**
+ * @defgroup unitconversion Automatic Unit Conversion
+ *
+ * These classes conduct automatic unit conversion for
+ * double-like data within the input system.
+ * 
+ * All units are internally converted into the MKS system.
+ *
+ * 
+ *
+ *
+ */
+class BE_UnitConversion {
+public:
     //! Constructor is defined to be protected so that we can't make multiple
     //! copies of this, yet we can inherit from this object.
     /*!
@@ -58,14 +53,16 @@ namespace BEInput {
      */
     BE_UnitConversion& operator=(const BE_UnitConversion& right);
 
-    virtual BE_UnitConversion * duplMyselfAsUnitConversion() const;
-    /**
+    //! Duplicator function
+    virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
+
+    /*
      * This static function creates a one and only one instantiation
      * of this object.
      */
     // static BE_UnitConversion* units();
 
-    /**
+    /*
      * Use this function to delete the static pointer.
      * Note you can not use the destructor to delete or an
      * infinite loop results when the destructor for the static
@@ -80,8 +77,7 @@ namespace BEInput {
      */
     virtual ~BE_UnitConversion();
    
-     //! The function converts a string expression to 
-     //! a conversion value.
+     //! The function converts a string expression to a conversion value.
      /*!
       * The following syntax is used
       * / -> stands for division

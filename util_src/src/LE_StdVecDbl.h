@@ -63,7 +63,7 @@ namespace BEInput {
    *  using the function #process_LineEntry().
    *  The double is then assigned to the #CurrValue of this object.
    *  And, it is optionally written out to an external address of a vector
-   *  of doubles, #HndlDblVec,
+   *  of doubles, vecDest_ptr ,
    *  that was supplied during the construction of the object.
    *  The object may then later be queried, using either the
    *  #currentTypedValue() or #currentValueAsVoidP()
@@ -195,21 +195,15 @@ namespace BEInput {
      * The double value at address, addrVal, is assigned the value
      * read in from the input file.
      *
-     * @param keyName   C character string setting up the name
-     *                  of the keyline to match
-     * @param vectorDest  Address of the vector to which the
-     *                  object, which will get assigned the vector
-     *                  of doubles
+     * @param keyName   C character string setting up the name of the keyline to match
+     * @param vecDest_ptr  Address of the vector to which the object, which will get assigned the vector  of doubles
      * @param vecLength Length of the vector of doubles.
-     * @param numRL     Number of Required lines in the input file.
-     *                  A fault is triggered if this number is nonzero
-     *                  and the keyline isn't found in the input file.
-     *                  This number should be 0 or 1 
+     * @param numRL     Number of Required lines in the input file. A fault is triggered if this number is nonzero
+     *                  and the keyline isn't found in the input file.  This number should be 0 or 1 
      *                  For 1, it will count the doubles to make sure there are vecLength of them.
-     * @param varName   Variable name that is defined by this command.
-     *                  This is only used for IO purposes.
+     * @param varName   Variable name that is defined by this command.  This is only used for IO purposes.
      */
-    LE_StdVecDbl(const char *keyName, std::vector<double> * vecDest_ptr, int vecLength,
+    LE_StdVecDbl(const char *keyName, std::vector<double>* vecDest_ptr, int vecLength,
 	      int numRL = 0, const char *varName = 0);
 
     //! Copy constructor

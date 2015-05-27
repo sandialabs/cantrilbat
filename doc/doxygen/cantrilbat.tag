@@ -1445,8 +1445,8 @@
       <type>std::set&lt; const BlockEntry * &gt;</type>
       <name>collectBlockEntries</name>
       <anchorfile>classBEInput_1_1BlockEntry.html</anchorfile>
-      <anchor>ae5bb36f98ae029d2f8d9bbf81f551f74</anchor>
-      <arglist>(const char *cnameBN, bool includedMatch=false, int contribIndex=-1, const TK_TOKEN *const blockArgName=0) const </arglist>
+      <anchor>af825d334ebedd92e6d3b70188abae980</anchor>
+      <arglist>(const char *nameBN, bool includedMatch=false, int contribIndex=-1, const TK_TOKEN *const blockArgName=0) const </arglist>
     </member>
     <member kind="function">
       <type>void</type>

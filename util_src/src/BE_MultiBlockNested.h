@@ -265,43 +265,21 @@ namespace BEInput {
      * @param blockName Block name of the block. Note there can
      *                  be multiple blocks with the same name.
      *
-     * @param hndlnumstructures This is a pointer to the location
-     *          where the number of multiblocks processed will be
-     *          storred. It is an optional entry, and not necessarily
-     *          needed since the vector of pointers to storage structures
-     *          is null terminated. However, the last storStruct 
-     *          structure in the vector will be unfilled with data.
-     *          So, it's convenient to have this entry.
+     * @param hndlnumstructures  This is a pointer to the location where the number of multiblocks processed will be
+     *                           storred. It is an optional entry, and not necessarily
+     *                           needed since the vector of pointers to storage structures
+     *                           is null terminated. However, the last storStruct 
+     *                           structure in the vector will be unfilled with data.
+     *                           So, it's convenient to have this entry.
      *
-     * @param hndlStructVec This is the handle to the vector
-     *         of pointers to storStruct structures. Typically, using the
-     *         example above, you would use (&storVec) as the argument
-     *         here.
-     *
-     * @param fptr This is a function pointer to a function that 
-     *             returns (pointer to void) and takes a 
-     *             (pointer to void) as its one argument.
-     *             It creates a new malloced structure and returns
-     *             a pointer to the structure. for example:
-     *   
-     *           void * newStorStruct(void *fdata) {
-     *              void *ptr =  new storStruct(fdata);
-     *              return (ptr);
-     *           }
-     * @param function_data_loc This is the data location of anything
-     *               needed in the constructor call of the new operation
-     *               in the function pointed to by fptr.
-     *
-     * @param numTR Number of times this block is required.
+     * @param numTR             Number of times this block is required.
      *
      * @param parentBlock_input Pointer to the parent block. Set to
-     *                 zero if this is no parent block
+     *                          zero if this is no parent block
      *
      */
-    BE_MultiBlockNested(const char *blockName,
-		  int *hndlnumstructures,
-		  int numTR,
-		  BlockEntry *parentBlock_input = 0);
+    BE_MultiBlockNested(const char *blockName, int *hndlnumstructures,
+			int numTR, BlockEntry *parentBlock_input = 0);
 
     //! Copy constructor
     /*!

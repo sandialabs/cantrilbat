@@ -68,8 +68,7 @@ namespace BEInput {
      *                          default is 0, indicating that this block is the
      *                          top main block that has no parent blocks.
      */
-    explicit BlockEntry(const char *blockName,
-			int numTimesRequired = 0,
+    explicit BlockEntry(const char *blockName, int numTimesRequired = 0,
 			BlockEntry *ParentBlock_input = 0);
 
     //! Copy constructor
@@ -329,8 +328,7 @@ namespace BEInput {
      *                       Block name. If false, then an exact match is required
      *  @param keyArgNamePtr If nonnull, then the name is matched as well. 
      */
-    BlockEntry *match_block_argName(const TK_TOKEN *keyLinePtr,
-                            bool includedMatch = false,
+    BlockEntry *match_block_argName(const TK_TOKEN *keyLinePtr, bool includedMatch = false,
                             int contribIndex = BE_ANY_INDEX,
                             const TK_TOKEN *keyArgNamePtr = 0) const;
 
@@ -391,8 +389,7 @@ namespace BEInput {
      *
      *    @return Return a pointer to the LineEntry object that matches.
      */
-    LineEntry *match_keyLine(const TK_TOKEN *lineEntryTok,
-			     int contribIndex = BE_ANY_INDEX) const;
+    LineEntry *match_keyLine(const TK_TOKEN *lineEntryTok, int contribIndex = BE_ANY_INDEX) const;
 
     //! After a keyline match, the keyline processes the argument list
     /*!
@@ -402,8 +399,7 @@ namespace BEInput {
      *  @param curLE        Pointer to teh current line entry 
      *  @param keyArgTokPtr TOKEN ptr for the argument list
      */
-    virtual void process_LineEntry(LineEntry *curLE,
-				   const TK_TOKEN *keyArgTokPtr);
+    virtual void process_LineEntry(LineEntry *curLE, const TK_TOKEN *keyArgTokPtr);
 
     //! Function is called from the owning BlockEntry 
     //! on every LineEntry that doesn't match an object
@@ -414,9 +410,7 @@ namespace BEInput {
      *  @param keyLineTok TOKEN ptr for keyline that doesn't match
      *  @param keyArgTokPtr TOKEN ptr for arguments to the keyline
      */
-    virtual void skip_lineEntry(FILE *ifp, 
-				const TK_TOKEN *keyLineTok,
-				const TK_TOKEN *keyArgTokPtr) const;
+    virtual void skip_lineEntry(FILE *ifp,  const TK_TOKEN *keyLineTok, const TK_TOKEN *keyArgTokPtr) const;
   
     //!   This adds a subblock entry structure to the current BlockEntry
     //!   structure.
@@ -468,20 +462,21 @@ namespace BEInput {
      *
      * @param nameLE character string as input
      */
-    LineEntry *searchLineEntry(const TK_TOKEN * const nameLE) const;
+    LineEntry* searchLineEntry(const TK_TOKEN* const nameLE) const;
 
-    //! This does a recursive search for a Block Entry 
-    //! name under the current block
-    //!  and under all subblocks of the current block.
+    //! This does a recursive search for a Block Entry name under the current block and under all subblocks of the current block.
     /*!
-     * It uses a character string as the input.
+     * The routine uses a character string as the input.
      *
-     * @param bName block name
-     * @param includedMatch Bookean If true than the TOKEN must only be included in the
-     *                       Block name. If false, then an exact match is required
+     * @param bName           block name
+     * @param includedMatch   Bookean If true than the TOKEN must only be included in the
+     *                        Block name. If false, then an exact match is required
+     * @param contribIndex    Index of the item to find, if there are multiple blocks of the same name, they will be
+     *                        sequentially itemized. The default is to match against the last in the list.
+     * @param blockArgName    Name of the Argment to be matched. The default is to not match against the argument.
      */
-    BlockEntry *searchBlockEntry(const char * const bName, bool includedMatch = false,
-                                 int contribIndex = BE_ANY_INDEX, const TK_TOKEN * const blockArgName = 0) const;
+    BlockEntry* searchBlockEntry(const char * const bName, bool includedMatch = false,
+                                 int contribIndex = BE_ANY_INDEX, const TK_TOKEN* const blockArgName = 0) const;
 
     //! This does a recursive search for a Block Entry 
     //! name under the current block
@@ -489,12 +484,15 @@ namespace BEInput {
     /*!
      * It uses a TOKEN ptr as the search input
      *
-     * @param nameBN block name
-     * @param includedMatch Bookean If true than the TOKEN must only be included in the
-     *                       Block name. If false, then an exact match is required
+     * @param nameBN            block name
+     * @param includedMatch     Bookean If true than the TOKEN must only be included in the
+     *                          Block name. If false, then an exact match is required. The default is false.
+     * @param contribIndex      Index of the item to find, if there are multiple blocks of the same name, they will be
+     *                          sequentially itemized. The default is to match against the last in the list.
+     * @param blockArgName      Name of the Argment to be matched. The default is to not match against the argument.
      */
-    BlockEntry *searchBlockEntry(const TK_TOKEN * const nameBN, bool includedMatch = false, 
-                                 int contribIndex = BE_ANY_INDEX, const TK_TOKEN * const blockArgName = 0) const;
+    BlockEntry *searchBlockEntry(const TK_TOKEN* const nameBN, bool includedMatch = false, 
+                                 int contribIndex = BE_ANY_INDEX, const TK_TOKEN* const blockArgName = 0) const;
 
     //! Prints a keyline to standard out (static)
     /*!
@@ -531,30 +529,30 @@ namespace BEInput {
     std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch = false, 
 						    int contribIndex = -1, const TK_TOKEN * const blockArgName = 0) const;
 
-    //! This does a recursive search for a Block Entry 
-    //! name under the current block
+    //! This does a recursive search for a Block Entry name under the current block
     //! and under all subblocks of the current block.
     /*!
-     * It uses a TOKEN ptr as the search input
+     *      It uses a TOKEN ptr as the search input
      *
-     * @param nameBN         block name
+     * @param nameBN         Block name
      * @param includedMatch  Bookean If true then the TOKEN must only be included in the
-     *                       Block name. If false, then an exact match is required.
+     *                       Block name. If false, then an exact match is required. The default is false.
      * @param contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
-     *                       required. if contribIndex is < 0, then any index is allowed to be matched.
+     *                       required. if contribIndex is < 0, then any index is allowed to be matched. the default is < 0.
      * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
+     *                       The default is not to check.
      */
-    std::set<const BlockEntry*> collectBlockEntries(const char *cnameBN, bool includedMatch = false, 
-						    int contribIndex = -1, const TK_TOKEN * const blockArgName = 0) const;
+    std::set<const BlockEntry*> collectBlockEntries(const char* nameBN, bool includedMatch = false,
+						    int contribIndex = -1, const TK_TOKEN* const blockArgName = 0) const;
 
-    //! Set the int  indicating  whether an error is thrown if an unknown
-    //! block or line entry is encountered in the input.
+    //! Set the int  indicating  whether an error is thrown if an unknown Block or LineEntry is encountered in the input.
     /*!
-     * @param bv value to be set
-     *    0 = throw an error if unknown entries are encountered, always
-     *    1 = throw an error if unknown entries are encountered unless a block is declared as lenient 
-     *    2 = Continue, but print a warning statement.
-     *    3 = Continue and don't print anything.
+     * @param bv    Value to be set
+     *                 0 = throw an error if unknown entries are encountered, always
+     *                 1 = throw an error if unknown entries are encountered unless a block is declared as lenient 
+     *                 2 = Continue, but print a warning statement.
+     *                 3 = Continue and don't print anything.
+     * @param recursive   If true, then all blocks underneath respond to this command.
      */
     void set_SkipUnknownEntries(int bv, bool recursive = true);
 

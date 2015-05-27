@@ -5,11 +5,6 @@
  *  \link BEInput::LE_OneDblUnits LE_OneDblUnits\endlink).
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -55,7 +50,7 @@ namespace BEInput {
    *  at the time the line input is set up. For example, if a single
    *  length is expected, then the \f$ \mathrm{units\_string} \f$
    *  value must correspond to a string representing a single length.
-   *  See \ref BE_UnitConversion for more information on this process.
+   *  See BEInput::BE_UnitConversion for more information on this process.
    *
    *  If the default value specified for the object 
    *  is set to <tt>NO_DEFAULT_DBL</tt>, which is the initial value for

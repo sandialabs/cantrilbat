@@ -5,11 +5,6 @@
  *  \link BEInput::LE_StdVecDblVarLength LE_StdVecDblVarLength\endlink).
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -64,8 +59,7 @@ namespace BEInput {
    *  using the function #process_LineEntry().
    *  The double is then assigned to the #CurrValue of this object.
    *  And, it is optionally written out to an external address of a vector
-   *  of doubles, #HndlDblVec,
-   *  that was supplied during the construction of the object.
+   *  of doubles, hndVec, that was supplied during the construction of the object, LE_StdVecDblVarLength::LE_StdVecDblVarLength().
    *  The object may then later be queried, using either the
    *  #currentTypedValue() or #currentValueAsVoidP()
    *  functions for the value of #CurrValue
@@ -209,7 +203,7 @@ namespace BEInput {
      * @param varName   Variable name that is defined by this command.
      *                  This is only used for IO purposes.
      */
-    LE_StdVecDblVarLength(const char *keyName, std::vector<double> * const hndVec, int vecLength,
+    LE_StdVecDblVarLength(const char *keyName, std::vector<double>* const hndVec, int vecLength,
 		       int numRL = 0, const char *varName = 0);
 
     //! Copy constructor
