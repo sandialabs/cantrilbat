@@ -1437,7 +1437,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	//First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
 	//for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
 	//	double Youngs_Modulus = 213000.0 ; // 213 GPa.
-	double Bulk_Modulus   = 163000.0 ; // 163 GPa.
+	double BulkMod   = 163000.0 ; // 163 GPa.
 
 	// Modification ala Simulation of elastic moduli of porous materials
 	// CREWES Research Report — Volume 13 (2001) 83
@@ -1449,7 +1449,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	// shear mod G = 3*K(1-2v)/2(1+v)
 
 	// using 30% porosity
-	Bulk_Modulus *= 0.276;
+	BulkMod *= 0.276;
 	
 	// from J. Electrochmical Society, 157 (2) A155-A163 (2010) 
 	// Theoretical Analysis of Stresses in a Lithium Ion Cell
@@ -1464,7 +1464,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
 	// 
-	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
+	double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	double lpz = 0.0;
 	if(nodeLeft == NULL) 
@@ -1472,12 +1472,23 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	else
 	  lpz = nodeLeft->x0NodePos();
 	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
-	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
 
+	double thermal_strain_factor = 1.0;
+	if(AverageTemperature - TemperatureReference_!=0.0) 
+	  thermal_strain_factor = 1.0/Thermal_Expansion*(AverageTemperature - TemperatureReference_);
+	
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	double mech_strain = tot_strain-pressure_strain;
 
-	double mech_strain = tot_strain-thermal_strain-pressure_strain;
+	mech_strain *= thermal_strain_factor;
+
+	//	mech_strain *= particle_stress_free_strain_factor;
+
+	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
+	// mech_strain. 
+	abort();
+
 
 	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
 	// mech_strain. 

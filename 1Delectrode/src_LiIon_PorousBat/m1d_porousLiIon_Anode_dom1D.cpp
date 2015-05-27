@@ -1443,7 +1443,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	// for the porous matrix, assume grain locking, and use the same values. 
 
 	double Thermal_Expansion = 50e-6;
-	double possion = 0.5;
+	double poisson = 0.5;
 	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	//	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
 	//	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
@@ -1455,7 +1455,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
 	// 
-	double G = 3*BulkMod*(1-2*possion)/(2*(1+possion));
+	double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	double lpz = 0.0;
 	if(nodeLeft == NULL) 
@@ -1463,11 +1463,17 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	else
 	  lpz = nodeLeft->x0NodePos();
 	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
-	double thermal_strain = Thermal_Expansion*(nodeRight->x0NodePos()-nodeLeft->x0NodePos())*0.5;
 
+	double thermal_strain_factor = 1.0;
+	if(AverageTemperature - TemperatureReference_!=0.0) 
+	  thermal_strain_factor = 1.0/Thermal_Expansion*(AverageTemperature - TemperatureReference_);
+	
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
-	double mech_strain = tot_strain-thermal_strain-pressure_strain;
+	double mech_strain = tot_strain-pressure_strain;
+	mech_strain *= thermal_strain_factor;
+
+	//	mech_strain *= particle_stress_free_strain_factor;
 
 	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
 	// mech_strain. 
