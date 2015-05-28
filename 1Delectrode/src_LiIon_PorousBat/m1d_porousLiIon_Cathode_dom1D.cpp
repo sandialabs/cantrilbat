@@ -264,6 +264,7 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      * Porous electrode domain prep
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
+    iSolidVolume_.resize(NumLcCells, 0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
@@ -1456,7 +1457,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	double poisson = 0.2; 
 
 	// US Patent http://www.google.com/patents/US6242129
-	double Thermal_Expansion = 4.5e-6/1.8; // of solid material, not of matrix, and conversion of F to C
+	double Particle_SFS_v_Porosity_Factor = 1.0;
+	double Thermal_Expansion = 4.5e-6/1.; // of solid material, not of matrix, and conversion of F to C
 
 	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 
@@ -1475,6 +1477,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 	double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
 	
+	double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
+
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
 	double mech_strain = tot_strain-pressure_strain;
