@@ -1045,8 +1045,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	else
 	  lpz = nodeLeft->x0NodePos();
 	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
-	double thermal_strain_factor = 1.0;
-	if(AverageTemperature - TemperatureReference_!=0.0) thermal_strain_factor = 1.0/Thermal_Expansion*(AverageTemperature - TemperatureReference_);
+	double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
 
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
