@@ -201,10 +201,10 @@ namespace m1d
     //porousLiKCl_FeS2Cathode_dom1D *cc_ptr = dynamic_cast<porousLiKCl_FeS2Cathode_dom1D *>(cd_ptr);
     double capacityZeroDoD, spec_capacityZeroDoD;
     double dischargedCapacity, spec_dischargedCapacity;
-    cd_ptr->getSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
-    cd_ptr->getSolutionParam( "DepthOfDischarge", &dischargedCapacity );
-    cd_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
-    cd_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
+    cd_ptr->reportSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
+    cd_ptr->reportSolutionParam( "DepthOfDischarge", &dischargedCapacity );
+    cd_ptr->reportSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
+    cd_ptr->reportSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
 
     FILE *fp = 0;
     if (ievent == 0) {

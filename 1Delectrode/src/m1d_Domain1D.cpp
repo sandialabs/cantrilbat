@@ -422,7 +422,21 @@ Domain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   {
     err("showSolutionIntVector()");
   }
-//==========================================================================================================
+//==================================================================================================================================
+int 
+Domain1D::reportSolutionParam(const std::string& paramID, double* const paramVal) const
+{
+    paramVal[0] = 0.0;
+    return -1;
+}
+//==================================================================================================================================
+int 
+Domain1D::reportSolutionVector(const std::string& requestID, const int requestType, std::vector<double>& vecInfo) const
+{
+    vecInfo.clear();
+    return -1;
+}
+//==================================================================================================================================
 // Set the underlying state of the system from the solution vector
 /*
  *   Note this is an important routine for the speed of the solution.

@@ -3,9 +3,6 @@
  *         the domain layout of the problem.
  */
 
-/*
- *  $Id: m1d_DomainLayout.h 504 2013-01-07 22:32:48Z hkmoffa $
- */
 #ifndef M1D_DOMAINLAYOUT_H
 #define M1D_DOMAINLAYOUT_H
 /*

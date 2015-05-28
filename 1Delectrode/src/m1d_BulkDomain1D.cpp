@@ -1425,10 +1425,18 @@ BulkDomain1D::getPointPressure(const NodalVars* const nv,
 //=====================================================================================================================
 // Get parameters specified by text strings
 int 
-BulkDomain1D::getSolutionParam(std::string paramName, double * const paramVal)
+BulkDomain1D::reportSolutionParam(const std::string& paramName, double* const paramVal) const
 {
   paramVal[0] = 0.0;
   return -1;
+}
+//=====================================================================================================================
+int
+BulkDomain1D::reportSolutionVector(const std::string& requestID, const int requestType, 
+				   std::vector<double>& vecInfo) const
+{
+
+    return -1;
 }
 //=====================================================================================================================
 void

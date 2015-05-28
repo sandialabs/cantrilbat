@@ -421,6 +421,31 @@ public:
 			bool duplicateOnAllProcs = false,
 			FILE *of = stdout);
 
+    //! Get solution parameters specified by text strings
+    /*!
+     *   @param[in]  paramID   String name for the item to be requested
+     *   @param[out] paramVal    Vector of information returned.
+     *
+     *   @return  Returns the number of items returned. A value of -1 signifies a failure.
+     *
+     */
+    virtual int 
+    reportSolutionParam(const std::string& paramID, double* const paramVal) const;
+
+    //! Get vectors of solution quantities requested by text strings
+    /*!
+     *
+     *   @param[in]  requestID   String name for the item to be requested
+     *   @param[in]  requestType Type of the request
+     *                      0    solution variable
+     *                      1    other variable
+     *   @param[out] vecInfo     Vector of information returned.
+     *
+     *   @return  Returns the number of items returned. A value of -1 signifies a failure.
+     */
+    virtual int
+    reportSolutionVector(const std::string& requestID, const int requestType, std::vector<double>& vecInfo) const;
+
 
   //! Set the underlying state of the system from the solution vector
   /*!

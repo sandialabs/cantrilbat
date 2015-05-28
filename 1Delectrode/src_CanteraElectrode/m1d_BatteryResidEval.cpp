@@ -755,10 +755,10 @@ BatteryResidEval::write_IV(const int ievent,
 
 	double capacityZeroDoD, spec_capacityZeroDoD;
 	double dischargedCapacity, spec_dischargedCapacity;
-	d_cathode_ptr->getSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
-	d_cathode_ptr->getSolutionParam( "DepthOfDischarge", &dischargedCapacity );
-	d_cathode_ptr->getSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
-	d_cathode_ptr->getSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
+	d_cathode_ptr->reportSolutionParam( "CapacityZeroDoD", &capacityZeroDoD );
+	d_cathode_ptr->reportSolutionParam( "DepthOfDischarge", &dischargedCapacity );
+	d_cathode_ptr->reportSolutionParam( "SpecificCapacityZeroDoD", &spec_capacityZeroDoD );
+	d_cathode_ptr->reportSolutionParam( "SpecificDepthOfDischarge", &spec_dischargedCapacity );
 
 	ocvAnode_ = d_anode_ptr->openCircuitPotentialQuick();
 	ocvCathode_ = d_cathode_ptr->openCircuitPotentialQuick();
@@ -839,13 +839,12 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
 				     const double delta_t_np1)
 {
     static int headerWritten = false;
-
+    int numRtn;
     // Create a communications vector
     std::vector<doublereal> volInfoVector;
     std::vector<doublereal> varsVector;
     std::string requestID;
     int requestType;
-    bool requestOK = false;
     if (!headerWritten) {
 	headerWritten = true;
 	writeGlobalTecplotHeader(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
@@ -881,7 +880,7 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
 	    for (int iDom = 0; iDom < dl->NumBulkDomains; iDom++) {
 		BulkDomain1D *d_ptr = dl->BulkDomain1D_List[iDom];
 	
-		volInfoVector = d_ptr->reportVector(requestOK, requestID, requestType);
+		numRtn = d_ptr->reportSolutionVector(requestID, requestType, volInfoVector);
 		varsVector.insert(varsVector.end(), volInfoVector.begin(), volInfoVector.end());
 		
 	    }
