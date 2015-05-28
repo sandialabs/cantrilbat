@@ -1,0 +1,14 @@
+
+
+
+
+all:
+	doxygen cantrilbat.dox
+
+incr:
+	doxygen incr.dox
+
+
+debug:
+	doxygen debug.dox
+
