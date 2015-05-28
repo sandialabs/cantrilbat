@@ -439,12 +439,14 @@ public:
      *   @param[in]  requestType Type of the request
      *                      0    solution variable
      *                      1    other variable
+     *   @param[in]  soln_ptr    Current solution vector (if null, not available)
      *   @param[out] vecInfo     Vector of information returned.
      *
      *   @return  Returns the number of items returned. A value of -1 signifies a failure.
      */
     virtual int
-    reportSolutionVector(const std::string& requestID, const int requestType, std::vector<double>& vecInfo) const;
+    reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector *soln_ptr,
+                         std::vector<double>& vecInfo) const;
 
 
   //! Set the underlying state of the system from the solution vector
@@ -552,6 +554,8 @@ public:
 
   void
   incrementCounters(const ResidEval_Type_Enum residType);
+
+  // ------------------------------------------------  DATA ---------------------------------------------------------------
 
   //! Number of equations associated with this domain,
   //! whether it be a bulk or surface domain

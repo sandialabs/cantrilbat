@@ -19,6 +19,8 @@
 
 #include "Epetra_Comm.h"
 
+#include "mdp_stringUtils.h"
+
 #include "cantera/base/ctml.h"
 #include "cantera/base/stringUtils.h"
 
@@ -1432,11 +1434,52 @@ BulkDomain1D::reportSolutionParam(const std::string& paramName, double* const pa
 }
 //=====================================================================================================================
 int
-BulkDomain1D::reportSolutionVector(const std::string& requestID, const int requestType, 
+BulkDomain1D::reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector *soln_ptr,
 				   std::vector<double>& vecInfo) const
 {
+    //GlobalIndices *gi = LI_ptr_->GI_ptr_;
+    size_t findV = npos;
+    VarType vtF;
+    vecInfo.clear();
+    for (size_t i = 0; i < (size_t) NumDomainEqns; ++i) {
+	const VarType& vt = BDD_.VariableNameList[i];
+        const string& varName = vt.VariableName();
+	if (mdpUtil::LowerCaseStringEquals(varName, requestID)) {
+            findV = i;
+	    vtF = vt;
+	    break;
+	}
+    }
+    if (findV == npos) {
+	return -1;
+    }
+    const Epetra_Vector& soln = *soln_ptr;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
 
-    return -1;
+
+	NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+
+
+
+
+      
+	//
+        // Find the start of the solution at the current node
+        //
+        const double *solnCentStart = &(soln[indexCent_EqnStart]);
+	size_t iOffSet = nodeCent->indexBulkDomainVar(vtF);
+	if (iOffSet == npos) {
+	    return -1;
+	}
+	
+	vecInfo.push_back(solnCentStart[iOffSet]);
+
+
+    }
+
+    return NumLcCells;
 }
 //=====================================================================================================================
 void

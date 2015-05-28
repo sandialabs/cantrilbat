@@ -431,7 +431,8 @@ Domain1D::reportSolutionParam(const std::string& paramID, double* const paramVal
 }
 //==================================================================================================================================
 int 
-Domain1D::reportSolutionVector(const std::string& requestID, const int requestType, std::vector<double>& vecInfo) const
+Domain1D::reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector *soln_ptr,
+                               std::vector<double>& vecInfo) const
 {
     vecInfo.clear();
     return -1;

@@ -880,7 +880,7 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
 	    for (int iDom = 0; iDom < dl->NumBulkDomains; iDom++) {
 		BulkDomain1D *d_ptr = dl->BulkDomain1D_List[iDom];
 	
-		numRtn = d_ptr->reportSolutionVector(requestID, requestType, volInfoVector);
+		numRtn = d_ptr->reportSolutionVector(requestID, requestType, &y_n, volInfoVector);
 		varsVector.insert(varsVector.end(), volInfoVector.begin(), volInfoVector.end());
 		
 	    }

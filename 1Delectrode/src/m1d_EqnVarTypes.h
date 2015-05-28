@@ -78,7 +78,7 @@ public:
   setID(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType = 0, const char *subName = 0);
 
   std::string
-  VariableName(const int len) const;
+  VariableName(const int len = 128) const;
 
   //! Variable type
   m1d::VAR_TYPE VariableType;
@@ -153,7 +153,7 @@ public:
    * @return  returns a malloced C++ string
    */
   std::string
-  EquationName(const int len) const;
+  EquationName(const int len = 128) const;
 
   //! Equation type
   m1d::EQ_TYPE EquationType;

@@ -400,7 +400,8 @@ public:
      *   @return  Returns the number of items returned. A value of -1 signifies a failure.
      */
     virtual int
-    reportSolutionVector(const std::string& requestID, const int requestType, std::vector<double>& vecInfo) const;
+    reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector* soln_ptr,
+                         std::vector<double>& vecInfo) const;
 
 #ifdef MECH_MODEL
     //! Get the local value of the stress, from the solution vector, 
