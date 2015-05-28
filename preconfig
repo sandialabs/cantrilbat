@@ -1,10 +1,5 @@
 #!/bin/sh
 #
-# $Source: /cvsroot/cads/cantera_apps/preconfig,v $
-# $Author: hkmoffa $
-# $Revision: 1.15 $
-# $Date: 2011/10/19 16:40:31 $
-#
 #######################################################################
 #
 #           Cantera Apps Configuration Issues
