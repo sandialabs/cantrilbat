@@ -652,6 +652,8 @@ protected:
     // ------------------------------------------------------------------------
     //! Storage of Cell related quantities
 
+    //! Initial solid volume
+    std::vector<double> iSolidVolume_;
 
     //! Interfacial Electrode Current per surface area of the electrode
     /*!

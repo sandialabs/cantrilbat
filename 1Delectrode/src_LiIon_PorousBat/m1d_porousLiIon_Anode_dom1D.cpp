@@ -278,6 +278,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      * Porous electrode domain prep
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
+    iSolidVolume_.resize(numLcCells,0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
@@ -1442,12 +1443,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	// Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
 	// for the porous matrix, assume grain locking, and use the same values. 
 
+	double Particle_SFS_v_Porosity_Factor = 1.0;
 	double Thermal_Expansion = 50e-6;
 	double poisson = 0.5;
 	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	//	valTmps.Temperature.left   = soln[nodeTmpsLeft.index_EqnStart   + nodeTmpsLeft.Offset_Temperature];
-	//	valTmps.Temperature.center = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Temperature];
-	//	valTmps.Temperature.right  = soln[nodeTmpsRight.index_EqnStart  + nodeTmpsRight.Offset_Temperature];
 	// need the average temp to get the correct K
 	double AverageTemperature =    valTmps.Temperature.center;
 
@@ -1465,17 +1464,13 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
 
 	double  thermal_strain_factor =  TemperatureReference_/Thermal_Expansion*AverageTemperature ;
+
+	double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 	
 	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
 	double mech_strain = tot_strain-pressure_strain;
-	mech_strain *= thermal_strain_factor;
-
-	//	mech_strain *= particle_stress_free_strain_factor;
-
-	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
-	// mech_strain. 
-	abort();
+	mech_strain *= thermal_strain_factor*Stress_Free_Strain_factor;
 
 	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
 
@@ -1565,6 +1560,10 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
+	
+	// Store the initial SolidVolume 
+
+	iSolidVolume_[iCell] = Electrode_Cell_[iCell]->SolidVol();
 
         /*
          * Setup the thermo
