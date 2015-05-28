@@ -1,0 +1,14 @@
+# astyle defaults for cantrilbat
+
+style=kr
+add-brackets
+indent=spaces=4
+#indent-coll-comments
+unpad-paren
+pad-header
+align-pointer=type
+#line-end=linux
+align-reference=type
+max-instatement-indent=80
+max-code-length=132
+
