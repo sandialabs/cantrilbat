@@ -278,7 +278,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      * Porous electrode domain prep
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
-    iSolidVolume_.resize(numLcCells,0.0);
+    iSolidVolume_.resize(NumLcCells,0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
