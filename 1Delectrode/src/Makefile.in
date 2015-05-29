@@ -125,7 +125,7 @@ INCLUDE_DIRS = -I../.. -I$(CANTERA_INCROOT) \
                -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR)
 
-GDEFINES = @CXX_GDEFINES@
+#GDEFINES = @CXX_GDEFINES@
 # C++ compile flags
 LDEFINES =
 #      Turn on additional debugging

@@ -43,7 +43,7 @@ export CXXFLAGS
 #
 #  Turn on and off MECH_MODEL here
 #
-# CXX_GDEFINES="-DMECH_MODEL"
+#CXX_GDEFINES="-DMECH_MODEL"
 export CXX_GDEFINES
 #
 LCXX_END_LIBS=" -lgfortran"

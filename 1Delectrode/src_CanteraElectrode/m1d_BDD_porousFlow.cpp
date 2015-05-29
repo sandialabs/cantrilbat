@@ -243,10 +243,8 @@ BDD_porousFlow::SetEquationsVariablesList()
         IsAlgebraic_NE[eqnIndex] = 0;
         IsArithmeticScaled_NE[eqnIndex] = 0;
         eqnIndex++;
-
     }
 #endif
-
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently
