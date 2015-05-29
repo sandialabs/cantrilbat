@@ -844,6 +844,8 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
     std::vector<doublereal> volInfoVector;
     std::vector<doublereal> varsVector;
     std::string requestID;
+    std::string name;
+    VarType vt;
     int requestType;
     if (!headerWritten) {
 	headerWritten = true;
@@ -866,33 +868,68 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
 	// Vector containing the variable names as they appear in the solution vector
 	std::vector<VarType> &variableNameList = bdd0->VariableNameList;
 	//! First global node of this bulk domain
-	
-	requestType = 0;
-	for (int k = 0; k < numVar; k++) {
-	    VarType &vt = variableNameList[k];
-	    string name = vt.VariableName(15);
-	    fprintf( ofp, "\"%s\" \t", name.c_str() );
 
+	double numNodes = 0;
+	for (size_t iDom = 0; iDom < (size_t) dl->NumBulkDomains; ++iDom) {
+	    // BulkDomain1D *d_ptr = dl->BulkDomain1D_List[iDom];
+	    BulkDomainDescription* bdd_ptr = dl->BulkDomainDesc_global[iDom];
+	    int numNodesDD = bdd_ptr->LastGbNode - bdd_ptr->FirstGbNode + 1;
+	    numNodes += numNodesDD;
+	}
+	//
+	//  Write the Zone header information
+	//
+        fprintf(ofp, "ZONE T = \"All, %10.4E\", I = %d, SOLUTIONTIME = %12.6E\n", time_current,
+		(int)  numNodes, time_current);
+        fprintf(ofp, "ZONETYPE = ORDERED\n");
+        fprintf(ofp, "DATAPACKING = BLOCK\n");
+        fprintf(ofp, "STRANDID = 1\n");
+
+       
+
+	for (int k = -1; k < numVar; k++) {
+	    if (k == -1) {
+		name = "x [m]";
+		requestType = 1;
+	    } else {
+		vt = variableNameList[k];
+	        name = vt.VariableName();
+		requestType = 0;
+	    }
+	    requestID = name;
+	  
 	    /*
 	     *   Loop over the Volume Domains
 	     */
 	    varsVector.clear();
 	    for (int iDom = 0; iDom < dl->NumBulkDomains; iDom++) {
 		BulkDomain1D *d_ptr = dl->BulkDomain1D_List[iDom];
-	
-		numRtn = d_ptr->reportSolutionVector(requestID, requestType, &y_n, volInfoVector);
-		varsVector.insert(varsVector.end(), volInfoVector.begin(), volInfoVector.end());
-		
+		BulkDomainDescription* bdd_ptr = dl->BulkDomainDesc_global[iDom];
+		int numNodesDD = bdd_ptr->LastGbNode - bdd_ptr->FirstGbNode + 1;
+		requestID = name;
+		if (name ==  "Volt(AnodeVoltage)") {
+		    if (iDom == 2) {
+			requestID = "Volt(CathodeVoltage)";
+		    }
+		}
+		if ((requestID ==  "Volt(AnodeVoltage)") && iDom == 1) {
+		    numRtn =  numNodesDD;
+		    volInfoVector.clear();
+		    volInfoVector.resize(numNodesDD, 0.0);
+		} else {
+		    numRtn = d_ptr->reportSolutionVector(requestID, requestType, &y_n, volInfoVector);
+		}
+		if (numRtn != numNodesDD) {
+		    throw m1d_Error("BatteryResidEval::writeGlobalTecplot", 
+				    "Can't process requestID " + requestID + " from domain " + int2str(iDom));
+		}
+		varsVector.insert(varsVector.end(), volInfoVector.begin(), volInfoVector.end());	
 	    }
-	    
-	    
-	    
+	    fwriteTecplotVector(ofp, varsVector, 13, 10);
 	}
 	fprintf(ofp, "\n" );
 	fclose(ofp);
     }
-
-
 }
 //==================================================================================================================================
 void
@@ -932,8 +969,11 @@ BatteryResidEval::writeGlobalTecplotHeader(const int ievent,
 
 	for (int k = 0; k < numVar; k++) {
 	    VarType &vt = variableNameList[k];
-	    string name = vt.VariableName(15);
-	    fprintf( ofp, "\"%s\" \t", name.c_str() );
+	    string name = vt.VariableName(128);
+	    if (name == "Volt(AnodeVoltage)") {
+		name = "Volt(Electrode)";
+	    }
+	    fprintf( ofp, "\"%s\" \n", name.c_str() );
 	}
 	fprintf(ofp, "\n" );
 	fclose(ofp);
@@ -1241,7 +1281,8 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
     // extend this to surfaces when they start to have enthalpy
 
     printf("\n");
-    printf("   Region      NewTotalEnthalpy  OldTotalEnthalpy  DeltaTotalEnth    IVWork_Out*delT  Heat_Out*delT       enthFlowOut*delT\n");
+    printf("   Region      NewTotalEnthalpy  OldTotalEnthalpy  DeltaTotalEnth    IVWork_Out*delT"
+	   "Heat_Out*delT       enthFlowOut*delT\n");
     printf("  ---------------------------------------------------------------------------------"
 	   "--------------------------------------------\n");
     for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {

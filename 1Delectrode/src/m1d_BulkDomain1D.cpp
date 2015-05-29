@@ -1440,7 +1440,13 @@ BulkDomain1D::reportSolutionVector(const std::string& requestID, const int reque
     //GlobalIndices *gi = LI_ptr_->GI_ptr_;
     size_t findV = npos;
     VarType vtF;
+    string name;
     vecInfo.clear();
+    if (requestType == 1) {
+	if (requestID != "x [m]") {
+	    throw m1d_Error("reportSolutionVector", "don't know how to respond to request: " + requestID);
+	}
+    } else if (requestType == 0) {
     for (size_t i = 0; i < (size_t) NumDomainEqns; ++i) {
 	const VarType& vt = BDD_.VariableNameList[i];
         const string& varName = vt.VariableName();
@@ -1453,6 +1459,7 @@ BulkDomain1D::reportSolutionVector(const std::string& requestID, const int reque
     if (findV == npos) {
 	return -1;
     }
+    }
     const Epetra_Vector& soln = *soln_ptr;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
 	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
@@ -1464,19 +1471,22 @@ BulkDomain1D::reportSolutionVector(const std::string& requestID, const int reque
 
 
 
-      
+        const double *solnCentStart = &(soln[indexCent_EqnStart]);
 	//
         // Find the start of the solution at the current node
         //
-        const double *solnCentStart = &(soln[indexCent_EqnStart]);
-	size_t iOffSet = nodeCent->indexBulkDomainVar(vtF);
-	if (iOffSet == npos) {
-	    return -1;
+	if (requestType == 0) {
+	    size_t iOffSet = nodeCent->indexBulkDomainVar(vtF);
+	    if (iOffSet == npos) {
+		return -1;
+	    }
+	    vecInfo.push_back(solnCentStart[iOffSet]);
+	} else {
+	    if (requestID == "x [m]") {
+		double x = nodeCent->xNodePos();
+		vecInfo.push_back(x);
+	    }
 	}
-	
-	vecInfo.push_back(solnCentStart[iOffSet]);
-
-
     }
 
     return NumLcCells;
