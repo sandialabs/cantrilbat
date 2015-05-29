@@ -17,12 +17,12 @@
 namespace mdpUtil 
 {
 
-    //!  Compares two strings to see if they are equal ignoring the case
+    //!  Compares two strings to see if they are equal ignoring the difference in case
     /*!
      *   @param[in]  a  first string
      *   @param[in]  b  second string
      *
-     *   @return Returns true if they are equal
+     *   @return Returns true if they are equal, false if they are unequal
      */
     bool LowerCaseStringEquals(const std::string& a, const std::string& b);
 
