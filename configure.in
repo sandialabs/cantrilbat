@@ -168,7 +168,7 @@ fi
 #
 hhhs=`hostname -s`
 hhh=`hostname`
-hname="docs/machinefile_"${hhhs}
+hname="doc/machinefile_"${hhhs}
 cat >${hname} <<+
 $hhh
 $hhh
