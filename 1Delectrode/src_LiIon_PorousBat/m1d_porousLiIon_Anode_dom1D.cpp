@@ -1422,60 +1422,62 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	}
 	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
-	// for the anode material, we use the following values:
-	// initial porosity  of the pyrolitic graphite  matrix_poro = 0.4
-	// Volume frac of binder                        binder_vf   = 0.064
+	if(solidMechanicsProbType_ == 1) {
+	  // for the anode material, we use the following values:
+	  // initial porosity  of the pyrolitic graphite  matrix_poro = 0.4
+	  // Volume frac of binder                        binder_vf   = 0.064
 	
-	// from http://www-ferp.ucsd.edu/LIB/PROPS/PANOS/c.html
-	// v poisson's ratio             ~~0.5 
-	// K  Bulk Modulus of solid material = 33 MPa
-	// E Younds Modulus                  = 4800 MPa
-	// modification ala Simulation of elastic moduli of porous materials
-	// CREWES Research Report — Volume 13 (2001) 83
-	// Simulation of elastic moduli for porous materials
-	// Charles P. Ursenbach 
-	// @ 40% porosity of graphite, K = 0.226 * K0
-	// @ 30% porosity,             K = 0.276 * K0
-	// youngs mod = 3K(1-2v) 
-	// shear mod G = 3*K(1-2v)/2(1+v)
+	  // from http://www-ferp.ucsd.edu/LIB/PROPS/PANOS/c.html
+	  // v poisson's ratio             ~~0.5 
+	  // K  Bulk Modulus of solid material = 33 MPa
+	  // E Younds Modulus                  = 4800 MPa
+	  // modification ala Simulation of elastic moduli of porous materials
+	  // CREWES Research Report — Volume 13 (2001) 83
+	  // Simulation of elastic moduli for porous materials
+	  // Charles P. Ursenbach 
+	  // @ 40% porosity of graphite, K = 0.226 * K0
+	  // @ 30% porosity,             K = 0.276 * K0
+	  // youngs mod = 3K(1-2v) 
+	  // shear mod G = 3*K(1-2v)/2(1+v)
 	
 	
-	// Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
-	// for the porous matrix, assume grain locking, and use the same values. 
+	  // Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
+	  // for the porous matrix, assume grain locking, and use the same values. 
 
-	double Particle_SFS_v_Porosity_Factor = 1.0;
-	double Thermal_Expansion = 50e-6;
-	double poisson = 0.5;
-	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	// need the average temp to get the correct K
-	double AverageTemperature =    valTmps.Temperature.center;
+	  double Particle_SFS_v_Porosity_Factor = 1.0;
+	  double Thermal_Expansion = 50e-6;
+	  double poisson = 0.5;
+	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	  // need the average temp to get the correct K
+	  double AverageTemperature =    valTmps.Temperature.center;
 
-	double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
+	  double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
 
-	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
-	// 
-	double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
+	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
+	  // 
+	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
-	double lpz = 0.0;
-	if(nodeLeft == NULL) 
-	  lpz = nodeCent->x0NodePos()/2.0;
-	else
-	  lpz = nodeLeft->x0NodePos();
-	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
+	  double lpz = 0.0;
+	  if(nodeLeft == NULL) 
+	    lpz = nodeCent->x0NodePos()/2.0;
+	  else
+	    lpz = nodeLeft->x0NodePos();
+	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
 
-	double  thermal_strain_factor =  TemperatureReference_/Thermal_Expansion*AverageTemperature ;
+	  double  thermal_strain_factor =  TemperatureReference_/Thermal_Expansion*AverageTemperature ;
 
-	double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
+	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 	
-	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
-	double mech_strain = tot_strain-pressure_strain;
-	mech_strain *= thermal_strain_factor*Stress_Free_Strain_factor;
+	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	  double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  double mech_strain = tot_strain-pressure_strain;
+	  mech_strain *= thermal_strain_factor*Stress_Free_Strain_factor;
 
-	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
+	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
 
-	double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
-	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+	}
 #endif
 
     } //for (int iCell = 0

@@ -1422,84 +1422,86 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	}
 #ifdef MECH_MODEL
-	// for the Cathode material, we use the following values:
-	// From Journal of Power Sources 271 (2014), 
-	// Simulation of temperature rise in Li-Ion cells at very high currents
-	// Jing Mao, William Tiedmann, John Newman, page 446
-	// initial porosity  of the LixCoO2 matrix_poro = 0.36
-	// Volume frac of binder            binder_vf   = 0.106
+	if(solidMechanicsProbType_ == 1) {
+	  // for the Cathode material, we use the following values:
+	  // From Journal of Power Sources 271 (2014), 
+	  // Simulation of temperature rise in Li-Ion cells at very high currents
+	  // Jing Mao, William Tiedmann, John Newman, page 446
+	  // initial porosity  of the LixCoO2 matrix_poro = 0.36
+	  // Volume frac of binder            binder_vf   = 0.106
 
-	// **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
-	// the porosity to effective modulus relationship. 
+	  // **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
+	  // the porosity to effective modulus relationship. 
 
 
-	//The 1st International Joint Mini-Symposium on Advanced Coatings between Indiana University
-	//Purdue University Indianapolis and Changwon National University
-	//First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
-	//for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
-	//	double Youngs_Modulus = 213000.0 ; // 213 GPa.
-	double BulkMod   = 163000.0 ; // 163 GPa.
+	  //The 1st International Joint Mini-Symposium on Advanced Coatings between Indiana University
+	  //Purdue University Indianapolis and Changwon National University
+	  //First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
+	  //for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
+	  //	double Youngs_Modulus = 213000.0 ; // 213 GPa.
+	  double BulkMod   = 163000.0 ; // 163 GPa.
 
-	// Modification ala Simulation of elastic moduli of porous materials
-	// CREWES Research Report — Volume 13 (2001) 83
-	// Simulation of elastic moduli for porous materials
-	// Charles P. Ursenbach 
-	// @ 40% porosity of graphite, K = 0.226 * K0
-	// @ 30% porosity,             K = 0.276 * K0
-	// youngs mod = 3K(1-2v) 
-	// shear mod G = 3*K(1-2v)/2(1+v)
+	  // Modification ala Simulation of elastic moduli of porous materials
+	  // CREWES Research Report — Volume 13 (2001) 83
+	  // Simulation of elastic moduli for porous materials
+	  // Charles P. Ursenbach 
+	  // @ 40% porosity of graphite, K = 0.226 * K0
+	  // @ 30% porosity,             K = 0.276 * K0
+	  // youngs mod = 3K(1-2v) 
+	  // shear mod G = 3*K(1-2v)/2(1+v)
 
-	// using 30% porosity
-	BulkMod *= 0.276;
+	  // using 30% porosity
+	  BulkMod *= 0.276;
 	
-	// from J. Electrochmical Society, 157 (2) A155-A163 (2010) 
-	// Theoretical Analysis of Stresses in a Lithium Ion Cell
-	double poisson = 0.2; 
+	  // from J. Electrochmical Society, 157 (2) A155-A163 (2010) 
+	  // Theoretical Analysis of Stresses in a Lithium Ion Cell
+	  double poisson = 0.2; 
 
-	// US Patent http://www.google.com/patents/US6242129
-	double Particle_SFS_v_Porosity_Factor = 1.0;
-	double Thermal_Expansion = 4.5e-6/1.; // of solid material, not of matrix, and conversion of F to C
+	  // US Patent http://www.google.com/patents/US6242129
+	  double Particle_SFS_v_Porosity_Factor = 1.0;
+	  double Thermal_Expansion = 4.5e-6/1.; // of solid material, not of matrix, and conversion of F to C
 
-	valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 
-	double AverageTemperature =    valTmps.Temperature.center;
+	  double AverageTemperature =    valTmps.Temperature.center;
 
-	// The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
-	// 
-	double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
+	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
+	  // 
+	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
-	double lpz = 0.0;
-	if(nodeLeft == NULL) 
-	  lpz = nodeCent->x0NodePos()/2.0;
-	else
-	  lpz = nodeLeft->x0NodePos();
-	double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
+	  double lpz = 0.0;
+	  if(nodeLeft == NULL) 
+	    lpz = nodeCent->x0NodePos()/2.0;
+	  else
+	    lpz = nodeLeft->x0NodePos();
+	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
 
-	double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
+	  double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
 	
-	double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
+	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 
-	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
-	double mech_strain = tot_strain-pressure_strain;
+	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	  double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  double mech_strain = tot_strain-pressure_strain;
 
-	mech_strain *= thermal_strain_factor;
+	  mech_strain *= thermal_strain_factor;
 
-	//	mech_strain *= particle_stress_free_strain_factor;
+	  //	mech_strain *= particle_stress_free_strain_factor;
 
-	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
-	// mech_strain. 
-	abort();
+	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above 
+	  // mech_strain. 
+	  abort();
 
 
-	// calculate the stress free strain from the swelling of the particles, and subtract it from the above 
-	// mech_strain. 
-	abort();
+	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above 
+	  // mech_strain. 
+	  abort();
 
-	double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
+	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
 
-	double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
-	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+	}
 #endif
 
     }

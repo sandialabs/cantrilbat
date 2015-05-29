@@ -91,7 +91,6 @@ Domain1D::operator=(const Domain1D &r)
   PressureReference_ = r.PressureReference_;
   energyEquationProbType_ = r.energyEquationProbType_;
   solidMechanicsProbType_ = r.solidMechanicsProbType_;
-
   return *this;
 }
 //=====================================================================================================================

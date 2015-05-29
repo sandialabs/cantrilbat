@@ -627,6 +627,7 @@ public:
    *  4 -> Temperature Equation     Solve a Cp dT/dt formulation for the temperature
    */
   int energyEquationProbType_;
+  int solidMechanicsProbType_;
 
   //! Integer representing the solid mechanics problem type
   /*!

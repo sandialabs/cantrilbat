@@ -58,6 +58,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     solidSkeleton_ = BDT_ptr_->solidSkeleton_;
 
     energyEquationProbType_ = PSinput.Energy_equation_prob_type_;
+    solidMechanicsProbType_ = PSinput.Solid_Mechanics_prob_type_;
 }
 //=====================================================================================================================
   porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
