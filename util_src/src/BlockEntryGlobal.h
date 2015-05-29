@@ -42,53 +42,52 @@
  *  example if the particle initial distribution 
  *  can be described by 2 gaussians of varying distributions
  *  it's possible to specify each of the gaussians 
- *  using one block of input each.
+ *  using one block of input each. 
  *
  *  The Current list of \link BEInput::LineEntry LineEntry\endlink 
  *  derived types and their functionality is:
  *
- *       - \link BEInput::LE_OneInt LE_OneInt\endlink Entry
- *                of a single integer value
- *       - \link BEInput::LE_OneDbl LE_OneDbl\endlink Entry
+ *     - \link BEInput::LE_OneInt LE_OneInt\endlink Entry of a single integer value
+ *     - \link BEInput::LE_OneDbl LE_OneDbl\endlink Entry
  *                of a single double value
- *       - \link BEInput::LE_OneDblUnits LE_OneDblUnits\endlink Entry
+ *     - \link BEInput::LE_OneDblUnits LE_OneDblUnits\endlink Entry
  *                of a single double value with an
  *                optional units converter
- *       - \link BEInput::LE_OneBool LE_OneBool\endlink Entry
+ *     - \link BEInput::LE_OneBool LE_OneBool\endlink Entry
  *                of a single boolean value stored as a bool
- *       - \link BEInput::LE_OneBoolInt LE_OneBoolInt\endlink Entry
+ *     - \link BEInput::LE_OneBoolInt LE_OneBoolInt\endlink Entry
  *                of a single boolean value stored as an int
- *       - \link BEInput::LE_OneStr LE_OneStr\endlink Entry
+ *     - \link BEInput::LE_OneStr LE_OneStr\endlink Entry
  *                of a single C++ string
- *       - \link BEInput::LE_OneCStr LE_OneCStr\endlink Entry
+ *     - \link BEInput::LE_OneCStr LE_OneCStr\endlink Entry
  *                of a single C-style string
- *       - \link BEInput::LE_PickList LE_PickList\endlink Entry
+ *     - \link BEInput::LE_PickList LE_PickList\endlink Entry
  *                of a List choice. The choice is entered
  *                as a string selection from a list. The
  *                choice is saved as an int value.
- *       - \link BEInput::LE_MultiCStr LE_MultiCStr\endlink Entry
+ *     - \link BEInput::LE_MultiCStr LE_MultiCStr\endlink Entry
  *                of multiple C-style string, saved as a
  *                vector of C-style strings.
- *       - \link BEInput::LE_StrListDbl LE_StrListDbl\endlink Entry
+ *     - \link BEInput::LE_StrListDbl LE_StrListDbl\endlink Entry
  *               of multiple related doubles into a single 
- *     .         vector of doubles. The rhs consists of a
+ *               vector of doubles. The rhs consists of a
  *               list token, which determines the vector index,
  *               and the double.
- *       - \link BEInput::LE_VecDbl LE_VecDbl\endlink Entry
+ *     - \link BEInput::LE_VecDbl LE_VecDbl\endlink Entry
  *               of a vector of doubles. The length of the
  *               vector is specified at construction.
- *       - \link BEInput::LE_VecDblVarLength LE_VecDblVarLength\endlink 
+ *     - \link BEInput::LE_VecDblVarLength LE_VecDblVarLength\endlink 
  *               Entry of a vector of doubles. The length of the
  *               vector is a variable.
- *        - \link BEInput::LE_StdVecDbl LE_StdVecDbl\endlink Entry
+ *     - \link BEInput::LE_StdVecDbl LE_StdVecDbl\endlink Entry
  *               of a std vector of doubles. The length of the
  *               vector is specified at construction.
- *       - \link BEInput::LE_StdVecDblVarLength LE_StdVecDblVarLength\endlink 
+ *     - \link BEInput::LE_StdVecDblVarLength LE_StdVecDblVarLength\endlink 
  *               Entry of a std vector of doubles. The length of the
  *               vector is a variable.
  *
  *
- *  The Current list of \link BEInput::BlockEntry BlockEntry\endlink 
+ *  The current list of \link BEInput::BlockEntry BlockEntry\endlink 
  *  derived types and their functionality is:
  *
  *     - \link BEInput::BE_StrDbl BE_StrDbl\endlink 

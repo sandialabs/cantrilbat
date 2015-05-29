@@ -135,8 +135,7 @@ extern int *mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
 
 //! Allocate a vector of integers, potentially freeing memory first
 /*!
- *  The vector is initialized, unless the default int value is set
- * to MDP_INT_NOINIT
+ *  The vector is initialized, unless the default int value is set to MDP_INT_NOINIT
  *
  * Input
  * --------------
@@ -158,8 +157,7 @@ extern void mdp_safe_alloc_int_1(int **array_hdl, int len,
 //!    Reallocates a one dimensional array of ints, copying old
 //!    information to the new array
 /*!
- *    Reallocates a one dimensional array of ints.
- *    This routine always allocates space for at least one int.
+ *    Reallocates a one dimensional array of ints. This routine always allocates space for at least one int.
  *    Calls the smalloc() routine to ensure that all malloc
  *    calls go through one location. This routine will then copy
  *    the pertinent information from the old array to the
@@ -187,10 +185,10 @@ extern void mdp_realloc_int_1(int **array_hdl, int new_len, int old_len,
 			      const int defval = MDP_INT_NOINIT);
 
 
-//! Allocate a 2D matrix of integers
+//! Allocates a 2D matrix of integers with column pointers located at the front of the allocation
 /*!
- *  The matrix is initialized, unless the default int value is set
- * to MDP_INT_NOINIT, which is the default.
+ *    The matrix is initialized on allocation, unless the default int value is set
+ *    to MDP_INT_NOINIT, which is the default.
  *
  *     matrix[len1][len2]
  *
@@ -208,16 +206,26 @@ extern void mdp_realloc_int_1(int **array_hdl, int new_len, int old_len,
  *
  *  The entire structure may be deallocated via one free call.
  * 
- * @param len1  Outer Length of the vector
- * @param len2  Inner length of the matrix
- * @param defval Default value for the int, defaults to MDP_INT_NOINIT
+ *   @param[in]   len1        Outer Length of the vector , i.e, the row in fortran format
+ *   @param[in]   len2        Inner length of the matrix , .e., the column in fortran format
+ *   @param[in]   defval      Default value for the int, defaults to MDP_INT_NOINIT
  *
- * @return returns a pointer to the matrix
+ *   @return                  Returns a pointer to the malloced matrix
  */
-extern int **mdp_alloc_int_2(int len1, int len2, 
-			     const int defval = MDP_INT_NOINIT);
+extern int **mdp_alloc_int_2(int len1, int len2, const int defval = MDP_INT_NOINIT);
 
-extern double *mdp_alloc_dbl_1(int, const double);
+//! Allocate a vector of doubles
+/*!
+ *  The vector is initialized, unless the default double value is set to MDP_DBL_NOINIT
+ * 
+ *   @param[in]    len1          Length of the vector
+ *   @param[in]    defval        Default value for the double, defaults to MDP_DBL_NOINIT
+ *
+ *   @return                     Returns a pointer to the malloced vector
+ */
+extern double *mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
+
+
 extern void    mdp_safe_alloc_dbl_1(double **, int, const double); 
 
 //! Reallocate a vector of doubles possibly retaining a subset of values
