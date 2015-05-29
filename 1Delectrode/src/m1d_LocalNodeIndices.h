@@ -31,12 +31,11 @@ class GlobalIndices;
 
 //! These indices have to do with accessing the local nodes on the processor
 /*!
- *   All numbers are in local Row Node Format. Local Row node format is
- *   defined as the following. All owned nodes come first. They are
- *   ordered in terms of increasing global node number.
- *   Then the right ghost node is listed.
- *   Then the left ghost node is listed
- *   Then, the "globally-all-connected node is listed, if available.
+ *   All numbers are in local row node format. Local row node format is defined as the following. All owned nodes
+ *   come first. They are ordered in terms of increasing global node number.
+ *   Then the right ghost node is listed.  Then the left ghost node is listed
+ *   Then, the "globally-all-connected node is listed, if available. All of this structure spans domains
+ *   starting from left to right. Owned nodes are defined irrespective of the domain structure.
  *
  *   For example if there are 5 processors, numbered from 0 to 4, with
  *   10 nodes per processor, with one globally-all-connected" node. Then,
@@ -63,6 +62,12 @@ class GlobalIndices;
  *       10                           50                false   (global node)
  *       11                           39                true
  *
+ *   The key variable for this structure is NumLcNodes, the number of local nodes defined for this processor.
+ *   Another key variable is NumOwnedLcNodes. This is the number of owned local nodes defined on this processor.
+ *   The difference is that NumLcNodes contains ghost nodes which this processor knows about, but doesn't own.
+ *
+ *   Also, MyProcID in this structure is the processor number that owns this part of the mesh. In a given problem,
+ *   there are numProcs number of these structures in the problem.
  *
  */
 class LocalNodeIndices {
@@ -126,7 +131,8 @@ public:
   //! the local block equations on the processor, including whether they are owned or not
   /*!
    *   GbBlockNodeEqnstoLcBlockNodeEqnsColMap
-   *                           Create a block map of the local eqns and ghost eqns. The global element ids are the global node numbers.
+   *                           Create a block map of the local eqns and ghost eqns.
+   *                           The global element ids are the global node numbers.
    *                           The number of rows in the block are the number of equations defined at each node.
    *
    *   GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap
