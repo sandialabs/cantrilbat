@@ -24,7 +24,7 @@
 namespace BEInput {
 
 
-  //!  BlockEntry of a vector of related vector<double> values into a common
+  //!  %BlockEntry of a vector of related std::vector<double> values into a common
   //!  vector of vector<double>
   /*!
    *   This sets up the <b>BlockEntry</b> special case for the entry of
