@@ -25,6 +25,7 @@ test:
 	cd LiIon_MCMB_LiCoO2_Diff3;	                @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Diff2_restart	       	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ test
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ test
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
@@ -40,6 +41,7 @@ clean:
 	cd LiIon_MCMB_LiCoO2_Diff3;	        	@MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_Diff2_restart;		@MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ clean
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ clean
 	cd CAEBAT_restart_cycle;		  	@MAKE@ clean
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ clean
@@ -55,6 +57,7 @@ test_clean:
 	cd LiIon_MCMB_LiCoO2_Diff3;               	@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_Diff2_restart;		@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ test_clean
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ test_clean
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test_clean
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test_clean
@@ -63,13 +66,14 @@ test_clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test_clean
 
 dist_clean:
-	cd LiKCl_PorousBat_SPCD_MPNewman;         @MAKE@ dist_clean
-	cd LiIon_MCMB_LiCoO2;                     @MAKE@ dist_clean
-	cd LiIon_MCMB_LiCoO2_2;                   @MAKE@ dist_clean
-	cd LiIon_MCMB_LiCoO2_Diff2;               @MAKE@ dist_clean
+	cd LiKCl_PorousBat_SPCD_MPNewman;         	@MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2;                     	@MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_2;                   	@MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_Diff2;               	@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_Diff3;               	@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_Diff2_restart;		@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ dist_clean
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ dist_clean	
 	cd CAEBAT_restart_cycle;		  	@MAKE@ dist_clean
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ dist_clean
@@ -85,6 +89,7 @@ test_bat:
 	cd LiIon_MCMB_LiCoO2_Diff3;               	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Diff2_restart;		@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_DiffTALE2;			@MAKE@ test	
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
@@ -100,6 +105,7 @@ rebaseline:
 	cd LiIon_MCMB_LiCoO2_Diff3;	         	./rebaseline
 	cd LiIon_MCMB_LiCoO2_Diff2_restart;		./rebaseline
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          ./rebaseline
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		./rebaseline
 	cd CAEBAT_restart_cycle;		  	./rebaseline
 	cd CAEBAT_restart_cycle_altTemp;	  	./rebaseline
 	cd LiIon_MCMB_LiCoO2_collectors;		./rebaseline
