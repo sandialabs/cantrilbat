@@ -1006,7 +1006,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	       
 	}
 #ifdef MECH_MODEL
-	if(solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ == 1) {
 	  // for the seperator, we use the following values:
 	  // These numbers are only 'good' to ~8-20% strain. 
 	  // v poisson's ratio             0.5 @28.5C 0.46 @80C
