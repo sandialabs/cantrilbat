@@ -1495,6 +1495,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  std::cout <<"       mech Stress            "<<mech_stress<<std::endl;
 
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
+
 	}
 #endif
 
