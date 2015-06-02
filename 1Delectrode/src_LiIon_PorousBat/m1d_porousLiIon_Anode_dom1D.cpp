@@ -33,7 +33,7 @@ using namespace std;
 
 namespace m1d
 {
-//==================================================================================================================================
+//===================================================================================================================================
 static void
 drawline(int sp, int ll)
 {
@@ -45,7 +45,7 @@ drawline(int sp, int ll)
     }
     Cantera::writelog("\n");
 }
-//==================================================================================================================================
+//===================================================================================================================================
 static void
 drawline0(int sp, int ll)
 {
@@ -58,7 +58,7 @@ drawline0(int sp, int ll)
     sprint0("\n");
 }
 
-//==================================================================================================================================
+//===================================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon& bdd) :
     porousElectrode_dom1D(bdd),
     BDT_ptr_(0),
@@ -160,7 +160,7 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& 
     porousLiIon_Anode_dom1D::operator=(r);
     conductivityElectrode_ = PSinput.conductivityAnode_;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 porousLiIon_Anode_dom1D::~porousLiIon_Anode_dom1D()
 {
     for (int iCell = 0; iCell <NumLcCells; iCell++) {
@@ -168,7 +168,7 @@ porousLiIon_Anode_dom1D::~porousLiIon_Anode_dom1D()
         Electrode_Cell_[iCell] = 0;
     }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 porousLiIon_Anode_dom1D&
 porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
 {
@@ -239,7 +239,7 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
 
     return *this;
 }
-//==================================================================================================================================
+//===================================================================================================================================
 // Prepare all of the indices for fast calculation of the residual
 /*
  *  Ok, at this point, we will have figured out the number of equations
@@ -638,7 +638,7 @@ porousLiIon_Anode_dom1D::revertToInitialGlobalTime()
 }
 
 
-//==================================================================================================================================
+//===================================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
  *  This class is used just for volumetric domains with an electrolyte.
@@ -2878,7 +2878,7 @@ porousLiIon_Anode_dom1D::saveDomain(Cantera::XML_Node& oNode,
         ee->writeTimeStateFinal_toXML(bdom);
     }
 }
-//====================================================================================================================
+//===================================================================================================================================
 //
 //  This treatment assumes that the problem size stays constant. If this is not the case, the routine will
 //  error exit. If we need to change the problem size, then we will need to reinitialize a lot more that just
@@ -2986,7 +2986,7 @@ porousLiIon_Anode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
 
 
 
-//=====================================================================================================================
+//===================================================================================================================================
 // Method for writing the header for the bulk domain to a tecplot file.
 void
 porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
@@ -4265,7 +4265,7 @@ void porousLiIon_Anode_dom1D::setAtolVector(double atolDefault, const Epetra_Vec
 
     }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 //  Fill the vector atolVector with the values from the DomainDescription for abs tol
 /*
  *  @param atoldDefault default value

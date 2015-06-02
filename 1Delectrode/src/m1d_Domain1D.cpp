@@ -14,9 +14,11 @@
 #include "m1d_globals.h"
 #include "m1d_ProblemStatement.h"
 
+#include "mdp_stringUtils.h"
 
-#include "stdio.h"
-#include "stdlib.h"
+
+#include <cstdio>
+#include <cstdlib>
 
 using namespace std;
 using namespace m1d;
@@ -46,7 +48,14 @@ Domain1D::Domain1D() :
     TemperatureReference_ = PSinput_ptr->TemperatureReference_;
     PressureReference_ = PSinput_ptr->PressureReference_;
     energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
+#ifdef MECH_MODEL
     solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
+#else
+    if (PSinput_ptr->Solid_Mechanics_prob_type_ != 0) {
+        throw m1d_Error("Domain1D::Domain1D()", "MECH_MODEL define not set, but Solid_Mechanics_prob_type_ nonzero, " 
+                        + mdpUtil::int2str(PSinput_ptr->Solid_Mechanics_prob_type_));
+    }
+#endif
 }
 //=====================================================================================================================
 Domain1D::Domain1D(const Domain1D &r) :

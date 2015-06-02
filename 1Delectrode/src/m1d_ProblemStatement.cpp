@@ -258,7 +258,7 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
      *   0  = None (default)
      *   1  = LinearElastic
      */
-    const char *smEqList[5] = {"None", "Linear Elastic"};
+    const char *smEqList[2] = {"None", "Linear Elastic"};
     LE_PickList *lepsm = new LE_PickList("Solid Mechanics Problem Type", &Solid_Mechanics_prob_type_,
                                          smEqList, 2, 0, "Solid_Mechanics_prob_type_");
     lepsm->set_default(0);

@@ -26,6 +26,24 @@ namespace mdpUtil
      */
     bool LowerCaseStringEquals(const std::string& a, const std::string& b);
 
+    //! Convert a double into a c++ string
+    /*!
+     *  @param[in]  x     double to be converted
+     *  @param[in]  fmt   Format to be used (printf style)
+     *
+     *  @return     Returns the string
+     */
+    std::string fp2str(const double x, const char* const fmt = "%g");
+
+    //!  Convert an int to a string using a format converter
+    /*!
+     *  @param[in]  n     int to be converted
+     *  @param[in]  fmt   format converter for an int int the printf command
+     *
+     *  @return     Returns the string
+     */
+    std::string int2str(const int n, const char* const fmt ="%d");
+
 }
 
 #endif
