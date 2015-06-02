@@ -216,8 +216,6 @@ public:
    
     // ------------------  Options for Processing ------------------------------------------------------------------------
 
-    //! Boolean indicating whether we are solving the enthalpy conservation equation on the domain
-    // int energyEquationProbType_;
 
 
     // ------------------- Thermodynamics quantities on the domain -------------------------------------------------------

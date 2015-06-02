@@ -616,7 +616,25 @@ public:
    */
   double PressureReference_;
 
+  //! Integer representing the energy equation problem type
+  /*!
+   *  0 -> isothermal               Don't solve an energy equation (default)
+   *  1 -> Fixed Temperature Profile Don't solve an energy equation
+   *  2 -> Dirichlet Equation       Solve a Dirichlet equation for temperature. 
+   *                                This is a way to do the fixed system while keeping the
+   *                                matrix structure the same.
+   *  3 -> Enthalpy Equation        Solve a full enthalpy equation for the temperature
+   *  4 -> Temperature Equation     Solve a Cp dT/dt formulation for the temperature
+   */
   int energyEquationProbType_;
+
+  //! Integer representing the solid mechanics problem type
+  /*!
+   *  0 -> none                     Don't solve an stress-strain relationship for mesh motion
+   *  1 -> LinearElastic            Solve for mesh motion using a global simple stress-strain relationship
+   */
+  int solidMechanicsProbType_;
+
 
 protected:
 

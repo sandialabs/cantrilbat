@@ -33,6 +33,7 @@ Domain1D::Domain1D() :
     TemperatureReference_(298.15), 
     PressureReference_(1.01325e5),
     energyEquationProbType_(0),
+    solidMechanicsProbType_(0),
     residType_Curr_(Base_ResidEval), 
     counterResBaseCalcs_(0), 
     counterJacBaseCalcs_(0),
@@ -45,6 +46,7 @@ Domain1D::Domain1D() :
     TemperatureReference_ = PSinput_ptr->TemperatureReference_;
     PressureReference_ = PSinput_ptr->PressureReference_;
     energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
+    solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
 }
 //=====================================================================================================================
 Domain1D::Domain1D(const Domain1D &r) :
@@ -55,6 +57,7 @@ Domain1D::Domain1D(const Domain1D &r) :
     TemperatureReference_(298.15), 
     PressureReference_(1.01325e5),
     energyEquationProbType_(0),
+    solidMechanicsProbType_(0),
     residType_Curr_(Base_ResidEval), 
     counterResBaseCalcs_(0), 
     counterJacBaseCalcs_(0),
@@ -87,6 +90,7 @@ Domain1D::operator=(const Domain1D &r)
   TemperatureReference_ = r.TemperatureReference_;
   PressureReference_ = r.PressureReference_;
   energyEquationProbType_ = r.energyEquationProbType_;
+  solidMechanicsProbType_ = r.solidMechanicsProbType_;
 
   return *this;
 }
