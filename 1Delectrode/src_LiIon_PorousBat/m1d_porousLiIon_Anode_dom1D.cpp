@@ -1422,7 +1422,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	}
 	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
-	if(solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ == 1) {
 
 
 	  std::cout << " Inside  porousLiIon_Anode_dom1D::residEval "<<std::endl;
@@ -1449,7 +1449,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  double Particle_SFS_v_Porosity_Factor = 1.0;
 	  double Thermal_Expansion = 50e-6;
 	  double poisson = 0.5;
-	  double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
+	  double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	  if(iCell == 0) {
@@ -1476,8 +1476,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	  double pressure_strain = 0;
-	  if( iVar_Pressure != npos)
-	    pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  if (iVar_Pressure != npos) {
+	      pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  }
 	  double mech_strain = tot_strain-pressure_strain;
 	  mech_strain *= thermal_strain_factor*Stress_Free_Strain_factor;
 

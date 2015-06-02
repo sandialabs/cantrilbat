@@ -1,0 +1,12 @@
+doxygen usage.
+
+
+   It seems that the recent doxygen doesn't like *'s at the start of
+comment lines. It get's confused when I added a \verbatim section to
+the .h group files. Not sure how to fix this other than to take the
+*'s out.
+
+
+
+
+
