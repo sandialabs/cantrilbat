@@ -43,6 +43,7 @@ enum Var_Name_Enum
   //  IStress_Free_Strain_Axial, // this initial state may _not_ be uniform at t=0.
   // things like Bulk Modulus, Poisson's Ratio, Cv/Cp, thermal expansion coeffs
   //  are stored in hard coded functions, for anode/spacer/cathode materials   
+  Solid_Stress_Transverse,
 #endif // MECH_MODEL
   Max_Var_Name                   //!< Max_Var_Name
 //! must be last in the list
@@ -72,7 +73,8 @@ enum EQ_Name_Enum
   Voltage_Specification,
   Dirichlet_Specification,
 #ifdef MECH_MODEL
-  Mechanical_Model,
+  Mechanical_Model_Axial,
+  Mechanical_Model_Transverse,
 #endif
   Species_Eqn_Offset,   //! Special equation name representing the first species equation offset
   Max_Eqn_Name

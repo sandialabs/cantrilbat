@@ -193,7 +193,7 @@ BulkDomainDescription::SetEquationDescription()
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = iEqn;
 #ifdef MECH_MODEL
-    }  else if (eqnT.EquationType == Mechanical_Model) {
+    }  else if (eqnT.EquationType == Mechanical_Model_Axial) {
       VarType varN(Solid_Stress_Axial);
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = iEqn;

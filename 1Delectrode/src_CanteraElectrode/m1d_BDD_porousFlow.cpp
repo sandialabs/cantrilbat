@@ -236,8 +236,16 @@ BDD_porousFlow::SetEquationsVariablesList()
 
     }    
     // CBL add the mechanical model solution vars here. 
+#ifdef MECH_MODEL
+    if (pb->solidMechanicsProbType_ == 1) {
+        EquationNameList.push_back(EqnType(Mechanical_Model_Axial, 0, "Mech Strain"));
+        VariableNameList.push_back(VarType(Solid_Stress_Axial, 0, 0));
+        IsAlgebraic_NE[eqnIndex] = 0;
+        IsArithmeticScaled_NE[eqnIndex] = 0;
+        eqnIndex++;
 
-
+    }
+#endif
 
 }
 //=====================================================================================================================

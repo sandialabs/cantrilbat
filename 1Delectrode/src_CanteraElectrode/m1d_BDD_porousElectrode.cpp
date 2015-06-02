@@ -11,6 +11,10 @@
 #include "m1d_CanteraElectrodeGlobals.h" 
 #include "Electrode_Factory.h"
 
+#include "m1d_DomainLayout.h"
+
+#include "m1d_BatteryResidEval.h"
+
 #include "m1d_exception.h"
 
 using namespace std;
@@ -166,6 +170,16 @@ BDD_porousElectrode::ReadModelDescriptions()
 void
 BDD_porousElectrode::SetEquationsVariablesList()
 {
+    //
+    //  Get the Problem object. This will have information about what type of equations are to be solved
+    //
+    ProblemResidEval *pb = DL_ptr_->problemResid_;
+    BatteryResidEval *batres = dynamic_cast<BatteryResidEval*>(pb);
+    if (!batres) {
+	printf("contention not true\n");
+	exit(-1);
+    }
+
     int eqnIndex = 0;
     /*
      *  Create a vector of Equation Names
@@ -296,7 +310,21 @@ BDD_porousElectrode::SetEquationsVariablesList()
         IsAlgebraic_NE[eqnIndex] = 0;
         IsArithmeticScaled_NE[eqnIndex] = 0;
         eqnIndex++;
+    } 
+    //
+    //  Mechanical strain equation
+    //
+#ifdef MECH_MODEL
+    if (batres->solidMechanicsProbType_ == 1) {
+	EquationNameList.push_back(EqnType(Mechanical_Model_Axial, 0, "Mech Strain"));
+        VariableNameList.push_back(VarType(Solid_Stress_Axial, 0, 0));
+        IsAlgebraic_NE[eqnIndex] = 0;
+        IsArithmeticScaled_NE[eqnIndex] = 0;
+        eqnIndex++;
     }
+#endif
+
+
 
 }
 //=====================================================================================================================

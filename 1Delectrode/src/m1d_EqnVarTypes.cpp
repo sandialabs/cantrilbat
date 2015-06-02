@@ -73,6 +73,9 @@ VarType::VarMainName(const VAR_TYPE variableType)
     case Solid_Stress_Axial:
       return string("S_Stress_Axial");
       break;
+    case Solid_Stress_Transverse:
+      return string("S_Stress_Trans");
+      break;
     // case  IStress_Free_Strain_Axial:  
     //   return string("ISFS_Axial");
     //   break;
@@ -146,8 +149,11 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
       return std::string("Species_Eqn_Offset");
       break;
 #ifdef MECH_MODEL
-    case Mechanical_Model:
-      return std::string("Mechanical_Model");
+    case Mechanical_Model_Axial:
+      return std::string("Mechanical_Model_Axial");
+      break;
+    case Mechanical_Model_Transverse:
+      return std::string("Mechanical_Model_Transverse");
       break;
 #endif 
     case Max_Eqn_Name:
