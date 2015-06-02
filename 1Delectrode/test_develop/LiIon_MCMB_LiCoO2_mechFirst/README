@@ -1,8 +1,10 @@
 
+HKM 6/2/2015
+
+ Simple test problem for mechanics. Here the molar volumes in  MCMB_RedlichKister.xml   and     LiCoO2_Margules_1.xml   
+are all the same. Therefore, there is no volume expansion during reaction on either the
+cathode or the anode.
+
+This is an isothermal problem.
 
 
-Simple test problem designed with Dirichelet boundary conditions between 302 and 298.
-A temperature ramp is the expected solution.
-
-
-this is a first problem.

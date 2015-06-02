@@ -71,7 +71,7 @@ Electrolyte Phase = ECDMC_LiPF6
 !  inferior to the enthalpy formulation in this respect
 !
 !--------------------------------------------------------------------------------------------------------
-Energy Equation Problem Type = Enthalpy Equation
+!Energy Equation Problem Type = Enthalpy Equation
 !--------------------------------------------------------------------------------------------------------
 !
 ! Solid Mechanics Problem Type
@@ -322,13 +322,13 @@ Anode TemperatureBC Type = 0
 !    Anode Collector Temperature - double (not required)
 !               (default = 298.15
 !---------------------------------------------------------------------------------------------------------
-Anode Collector Temperature = 302.
+!Anode Collector Temperature = 302.
 !---------------------------------------------------------------------------------------------------------
 !
 !  Anode Heat Transfer Coefficient - double (not required)
 !                ( default = 1000 )
 !---------------------------------------------------------------------------------------------------------
-Anode Heat Transfer Coefficient = 1000
+!Anode Heat Transfer Coefficient = 1000
 !---------------------------------------------------------------------------------------------------------
 !!
 !   Cathode Temp BC Type - int (not required)
@@ -344,13 +344,13 @@ Cathode TemperatureBC Type = 0
 !   Cathode Collector Temperature - double (not required)
 !               (default = 298.15
 !---------------------------------------------------------------------------------------------------------
-Cathode Collector Temperature = 298.
+!Cathode Collector Temperature = 298.
 !---------------------------------------------------------------------------------------------------------
 !
 ! Cathode Heat Transfer Coefficient - double (not required)
 !                ( default = 1000 )
 !---------------------------------------------------------------------------------------------------------
-Cathode Heat Transfer Coefficient = 1000
+!Cathode Heat Transfer Coefficient = 1000
 !---------------------------------------------------------------------------------------------------------
 
-Maximum number of time steps = 10
+Maximum number of time steps = 100
