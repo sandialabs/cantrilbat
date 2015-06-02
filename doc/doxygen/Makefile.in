@@ -1,13 +1,16 @@
-
-
-
+#!/bin/sh
+#
+#
 
 all:
 	doxygen cantrilbat.dox
 
 incr:
+	/bin/rm html/*
 	doxygen incr.dox
 
+clean:
+	/bin/rm html/*
 
 debug:
 	doxygen debug.dox
