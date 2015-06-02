@@ -43,7 +43,7 @@ CT_INCROOT =  @ct_incroot@
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
 
-all: 
+all: $(PROGRAM)
 
 depends:
 	$(RM) $(DEPENDS)
@@ -56,13 +56,17 @@ doTest:
 	@/bin/rm -f runGood
 	@MAKE@ test
 
+$(PROGRAM): $(PROGRAM_ORIGIN)
+	/bin/rm -f $(PROGRAM)
+	/bin/ln -s $(PROGRAM_ORIGIN) $(PROGRAM)
+
 test:
 	@@MAKE@ -s
 	@echo -n 'Checking need to run test $(TEST_NAME): '
 	@/bin/rm -f runBad
 	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
-runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
+runGood: $(PROGRAM_ORIGIN) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
 	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../runtest)
 
