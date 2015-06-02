@@ -1048,7 +1048,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
 
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	  double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  double pressure_strain = 0.0;
+	  if( iVar_Pressure != npos)
+	    pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
 
 	  // the separator is intert to chemistry, so no other terms in the strain
 	  double mech_strain = tot_strain-pressure_strain;

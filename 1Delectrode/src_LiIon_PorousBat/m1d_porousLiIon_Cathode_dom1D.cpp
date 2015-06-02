@@ -1481,7 +1481,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	  double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  double pressure_strain = 0.0;
+	   if( iVar_Pressure != npos) 
+	     pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
 	  double mech_strain = tot_strain-pressure_strain;
 
 	  mech_strain *= thermal_strain_factor;

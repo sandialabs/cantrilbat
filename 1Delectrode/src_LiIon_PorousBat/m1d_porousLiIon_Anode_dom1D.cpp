@@ -1423,6 +1423,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
 	if(solidMechanicsProbType_ == 1) {
+
+
+	  std::cout << " Inside  porousLiIon_Anode_dom1D::residEval "<<std::endl;
+
 	  // for the anode material, we use the following values:
 	  // initial porosity  of the pyrolitic graphite  matrix_poro = 0.4
 	  // Volume frac of binder                        binder_vf   = 0.064
@@ -1438,44 +1442,58 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  // @ 40% porosity of graphite, K = 0.226 * K0
 	  // @ 30% porosity,             K = 0.276 * K0
 	  // youngs mod = 3K(1-2v) 
-	  // shear mod G = 3*K(1-2v)/2(1+v)
-	
+	  // shear mod G = 3*K(1-2v)/2(1+v)       
 	
 	  // Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
 	  // for the porous matrix, assume grain locking, and use the same values. 
-
 	  double Particle_SFS_v_Porosity_Factor = 1.0;
 	  double Thermal_Expansion = 50e-6;
 	  double poisson = 0.5;
+	  double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
+	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
+
+	  if(iCell == 0) {
+	    std::cout <<" Chi                "<< Particle_SFS_v_Porosity_Factor<<std::endl;
+	    std::cout <<" Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
+	    std::cout <<" Poisson Ration     "<< poisson << std::endl;
+	    std::cout <<" Bulk Modulus       "<< BulkMod <<std::endl;
+	    std::cout <<" G                  "<<G<<std::endl;  
+	  }
 	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	  // need the average temp to get the correct K
 	  double AverageTemperature =    valTmps.Temperature.center;
-
-	  double BulkMod=33e6*.226; // hard wired untill we get the porosity and Chi values. 
-
 	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
 	  // 
-	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	  double lpz = 0.0;
 	  if(nodeLeft == NULL) 
 	    lpz = nodeCent->x0NodePos()/2.0;
 	  else
 	    lpz = nodeLeft->x0NodePos();
-	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
-
-	  double  thermal_strain_factor =  TemperatureReference_/Thermal_Expansion*AverageTemperature ;
-
+	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel	  
+	  double thermal_strain_factor =  TemperatureReference_/Thermal_Expansion*AverageTemperature ;
 	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 	
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	  double pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
+	  double pressure_strain = 0;
+	  if( iVar_Pressure != npos)
+	    pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
 	  double mech_strain = tot_strain-pressure_strain;
 	  mech_strain *= thermal_strain_factor*Stress_Free_Strain_factor;
 
 	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
-
+	  
 	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+
+	  std::cout <<" iCell "<<iCell<<std::endl;
+	  std::cout <<"       total Strain           "<<tot_strain<<std::endl;
+	  std::cout <<"       Thermal Strail Factor  "<<thermal_strain_factor<<std::endl;
+	  std::cout <<"       StressFreeStrainFactor "<<Stress_Free_Strain_factor<<std::endl;
+	  std::cout <<"       pressure_strain        "<<pressure_strain<<std::endl;
+	  std::cout <<"       mech_strain            "<<mech_strain<<std::endl;
+	  std::cout <<"       Previous Stress        "<<sol_stress<<std::endl;
+	  std::cout <<"       mech Stress            "<<mech_stress<<std::endl;
+
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
 	}
 #endif
