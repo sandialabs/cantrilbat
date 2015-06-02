@@ -347,6 +347,7 @@ NodalVars::GenerateEqnOrder()
 	  do {
 	      VarType varL = VarType(Max_Var_Name);
 	      EqnType eqnL = EqnType(Max_Eqn_Name);
+	      // Get the next bulk domain equation from the left side and store it in varL, eqnL.
 	      if (leftBulkDomEqn < numEqnsBulkL) {
 		  varL = bddL->VariableNameList[leftBulkDomEqn];
 		  eqnL = bddL->EquationNameList[leftBulkDomEqn];
@@ -386,7 +387,11 @@ NodalVars::GenerateEqnOrder()
 		      rightBulkDomEqn++;
 		  } else {
 		      // Will have to fix up cases later
-		      int pos = lookupPosition(jLEqn, LeftToEqnMapping);
+		      // int pos = lookupPosition(jLEqn, LeftToEqnMapping);
+		      int pos = -1;
+		      if (jLEqn < (int) LeftToEqnMapping.size()) {
+			  pos = LeftToEqnMapping[jLEqn];
+		      }
 		      if (pos >= 0) {
 			  RightToEqnMapping.push_back(pos);
 			  EqntoRightMapping[pos] = rightBulkDomEqn;
@@ -489,7 +494,7 @@ NodalVars::GenerateEqnOrder()
 	  }
 
       } else {
-	  printf("NUmbers of bulk domains greater than 2 hasn't been coded yet\n");
+	  printf("Numbers of bulk domains greater than 2 hasn't been coded yet\n");
 	  exit(-1);
       }
 
