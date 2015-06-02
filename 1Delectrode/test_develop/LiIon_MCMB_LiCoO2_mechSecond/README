@@ -1,0 +1,10 @@
+
+HKM 6/2/2015
+
+ Simple test problem for mechanics. Here the molar volumes in  MCMB_RedlichKister.xml   and     LiCoO2_Margules_1.xml   
+are modified so that volume expansion will occur. Therefore, there is volume expansion during reaction on both the
+cathode and the anode.
+
+This is an isothermal problem.
+
+
