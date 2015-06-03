@@ -61,7 +61,7 @@ fi
 #
 # Specify the MPI environment
 #
-MP_MACHINEFILE=${MP_MACHINEFILE:=/ascldap/users/hkmoffa/arch/linux/lib/machinefile_ceerws0603}
+MP_MACHINEFILE=${MP_MACHINEFILE:=/home/cbluchi/machinefile}
 MPIRUN=mpirun
 MPIOPTS=""
 NP=1

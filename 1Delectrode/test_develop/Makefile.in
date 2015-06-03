@@ -6,14 +6,9 @@
 #
 ###############################################################
 
-MP_MACHINEFILE_DEFAULT=@MP_MACHINEFILE_DEFAULT@
-
 #
-# Determine the machine file to use
 #  (gnu make: The shell command evaluates the shell command and sets the variable equal to its output)
 #  
-MPMACH := $(shell if test -z ${MP_MACHINEFILE}; then echo $(MP_MACHINEFILE_DEFAULT) ; else echo ${MP_MACHINEFILE} ; fi)
-
 all:
 
 
