@@ -1434,15 +1434,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  // from http://www-ferp.ucsd.edu/LIB/PROPS/PANOS/c.html
 	  // v poisson's ratio             ~~0.5 
 	  // K  Bulk Modulus of solid material = 33 MPa
-	  // E Younds Modulus                  = 4800 MPa
+	  // E Younds Modulus                  = 4800 MPa  = stress/strain
 	  // modification ala Simulation of elastic moduli of porous materials
 	  // CREWES Research Report — Volume 13 (2001) 83
 	  // Simulation of elastic moduli for porous materials
 	  // Charles P. Ursenbach 
 	  // @ 40% porosity of graphite, K = 0.226 * K0
 	  // @ 30% porosity,             K = 0.276 * K0
-	  // youngs mod = 3K(1-2v) 
-	  // shear mod G = 3*K(1-2v)/2(1+v)       
+	  // youngs mod == E =  3K(1-2v) 
+	  // shear mod G = 3*K(1-2v)/2(1+v)
+	  //
 	
 	  // Thermal expansion coefficient is temp dependant:  @ 0 - 100 C : 0.6 - 4.3x10-6 m/m-K
 	  // for the porous matrix, assume grain locking, and use the same values. 
@@ -1450,6 +1451,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  double Thermal_Expansion = 50e-6;
 	  double poisson = 0.45;
 	  double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
+	  double Eyoung = 4800e6 * 0.266;
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	  if(iCell == 0) {
@@ -1457,8 +1459,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    std::cout <<" Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
 	    std::cout <<" Poisson Ratio      "<< poisson << std::endl;
 	    std::cout <<" Bulk Modulus       "<< BulkMod <<std::endl;
-	    std::cout <<" G                  "<<G<<std::endl;  
+	    std::cout <<" G                  "<<G<<std::endl;
+	    std::cout <<" Eyoung             "<<Eyoung<<std::endl;
+	    double efromk = 3*BulkMod*(1.0 - 2*poisson);
+	    std::cout <<" EfromK             "<<efromk<<std::endl;
 	  }
+
+	  Eyoung = 3*BulkMod*(1.0 - 2*poisson);
+
 	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	  // need the average temp to get the correct K
 	  double AverageTemperature =    valTmps.Temperature.center;
@@ -1490,7 +1498,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  double mech_strain = tot_strain-pressure_strain;
 	  mech_strain *= thermal_strain_factor*Stress_Free_Strain_factor;
 
-	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
+	  double mech_stress = mech_strain * Eyoung;
 	  
 	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
 
