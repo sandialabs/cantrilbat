@@ -1038,14 +1038,21 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  // 
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
-
 	  double lpz = 0.0;
+	  double rpz = 0.0;
 	  if(nodeLeft == NULL) 
 	    lpz = nodeCent->x0NodePos()/2.0;
 	  else
 	    lpz = nodeLeft->x0NodePos();
-	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
-	  double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
+	  if(nodeRight == NULL) 
+	    rpz =  nodeCent->x0NodePos()/2.0;
+	  else
+	    rpz = nodeRight->x0NodePos();
+	  // this _will_ fail if the anode is <= 3 nodes across!!!!!!
+	  if(rpz == lpz) abort();
+
+	  double tot_strain = (xdelR-xdelL)/ (rpz-lpz); // factor of 2's cancel
+	  double thermal_strain_factor = TemperatureReference_/(1.0+Thermal_Expansion)*AverageTemperature ;
 
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	  double pressure_strain = 0.0;

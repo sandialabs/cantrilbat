@@ -1439,7 +1439,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  //First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
 	  //for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
 	  //	double Youngs_Modulus = 213000.0 ; // 213 GPa.
-	  double BulkMod   = 163000.0 ; // 163 GPa.
+	  double BulkMod   = 163.0e9 ; // 163 GPa.
 
 	  // Modification ala Simulation of elastic moduli of porous materials
 	  // CREWES Research Report — Volume 13 (2001) 83
@@ -1459,7 +1459,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 	  // US Patent http://www.google.com/patents/US6242129
 	  double Particle_SFS_v_Porosity_Factor = 1.0;
-	  double Thermal_Expansion = 4.5e-6/1.; // of solid material, not of matrix, and conversion of F to C
+	  double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
 
 	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 
@@ -1470,13 +1470,21 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	  double lpz = 0.0;
+	  double rpz = 0.0;
 	  if(nodeLeft == NULL) 
 	    lpz = nodeCent->x0NodePos()/2.0;
 	  else
 	    lpz = nodeLeft->x0NodePos();
-	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel
+	  if(nodeRight == NULL) 
+	    rpz = nodeCent->x0NodePos()/2.0;
+	  else
+	    rpz = nodeRight->x0NodePos();
+	  // this _will_ fail if the anode is <= 3 nodes across!!!!!!
+	  if(rpz == lpz) abort();
 
-	  double thermal_strain_factor = TemperatureReference_/Thermal_Expansion*AverageTemperature ;
+	  double tot_strain = (xdelR-xdelL)/ (rpz-lpz); // factor of 2's cancel
+
+	  double thermal_strain_factor = TemperatureReference_/(1.0+Thermal_Expansion)*AverageTemperature ;
 	
 	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 
@@ -1492,12 +1500,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above 
 	  // mech_strain. 
-	  abort();
-
-
-	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above 
-	  // mech_strain. 
-	  abort();
 
 	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
 

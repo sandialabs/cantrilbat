@@ -1448,14 +1448,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  // for the porous matrix, assume grain locking, and use the same values. 
 	  double Particle_SFS_v_Porosity_Factor = 1.0;
 	  double Thermal_Expansion = 50e-6;
-	  double poisson = 0.5;
+	  double poisson = 0.45;
 	  double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
 	  if(iCell == 0) {
 	    std::cout <<" Chi                "<< Particle_SFS_v_Porosity_Factor<<std::endl;
 	    std::cout <<" Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
-	    std::cout <<" Poisson Ration     "<< poisson << std::endl;
+	    std::cout <<" Poisson Ratio      "<< poisson << std::endl;
 	    std::cout <<" Bulk Modulus       "<< BulkMod <<std::endl;
 	    std::cout <<" G                  "<<G<<std::endl;  
 	  }
@@ -1466,12 +1466,20 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  // 
 
 	  double lpz = 0.0;
+	  double rpz = 0.0;
 	  if(nodeLeft == NULL) 
 	    lpz = nodeCent->x0NodePos()/2.0;
 	  else
 	    lpz = nodeLeft->x0NodePos();
-	  double tot_strain = (xdelR-xdelL)/ (nodeRight->x0NodePos()-lpz); // factor of 2's cancel	  
-	  double thermal_strain_factor =  TemperatureReference_/Thermal_Expansion*AverageTemperature ;
+	  if(nodeRight == NULL) 
+	    rpz =  nodeCent->x0NodePos()/2.0;
+	  else
+	    rpz = nodeRight->x0NodePos();
+	  // this _will_ fail if the anode is <= 3 nodes across!!!!!!
+	  if(rpz == lpz) abort();
+
+	  double tot_strain = (xdelR-xdelL)/ (rpz-lpz); // factor of 2's cancel	  
+	  double thermal_strain_factor =  TemperatureReference_/(1+Thermal_Expansion)*AverageTemperature ;
 	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 	
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
@@ -1488,7 +1496,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 	  std::cout <<" iCell "<<iCell<<std::endl;
 	  std::cout <<"       total Strain           "<<tot_strain<<std::endl;
-	  std::cout <<"       Thermal Strail Factor  "<<thermal_strain_factor<<std::endl;
+	  std::cout <<"       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
 	  std::cout <<"       StressFreeStrainFactor "<<Stress_Free_Strain_factor<<std::endl;
 	  std::cout <<"       pressure_strain        "<<pressure_strain<<std::endl;
 	  std::cout <<"       mech_strain            "<<mech_strain<<std::endl;
