@@ -1453,16 +1453,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
 	  double Eyoung = 4800e6 * 0.266;
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
-
+ 
 	  if(iCell == 0) {
-	    std::cout <<" Chi                "<< Particle_SFS_v_Porosity_Factor<<std::endl;
-	    std::cout <<" Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
-	    std::cout <<" Poisson Ratio      "<< poisson << std::endl;
-	    std::cout <<" Bulk Modulus       "<< BulkMod <<std::endl;
-	    std::cout <<" G                  "<<G<<std::endl;
-	    std::cout <<" Eyoung             "<<Eyoung<<std::endl;
+	    std::cout <<"Anode  Chi                "<< Particle_SFS_v_Porosity_Factor<<std::endl;
+	    std::cout <<"Anode  Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
+	    std::cout <<"Anode  Poisson Ratio      "<< poisson << std::endl;
+	    std::cout <<"Anode  Bulk Modulus       "<< BulkMod <<std::endl;
+	    std::cout <<"Anode  G                  "<<G<<std::endl;
+	    std::cout <<"Anode  Eyoung             "<<Eyoung<<std::endl;
 	    double efromk = 3*BulkMod*(1.0 - 2*poisson);
-	    std::cout <<" EfromK             "<<efromk<<std::endl;
+	    std::cout <<"Anode EfromK             "<<efromk<<std::endl;
 	  }
 
 	  Eyoung = 3*BulkMod*(1.0 - 2*poisson);
@@ -1471,8 +1471,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  // need the average temp to get the correct K
 	  double AverageTemperature =    valTmps.Temperature.center;
 	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
-	  // 
-
 	  double lpz = 0.0;
 	  double rpz = 0.0;
 	  if(nodeLeft == NULL) 
@@ -1502,14 +1500,15 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  
 	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
 
-	  std::cout <<" iCell "<<iCell<<std::endl;
-	  std::cout <<"       total Strain           "<<tot_strain<<std::endl;
-	  std::cout <<"       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
-	  std::cout <<"       StressFreeStrainFactor "<<Stress_Free_Strain_factor<<std::endl;
-	  std::cout <<"       pressure_strain        "<<pressure_strain<<std::endl;
-	  std::cout <<"       mech_strain            "<<mech_strain<<std::endl;
-	  std::cout <<"       Previous Stress        "<<sol_stress<<std::endl;
-	  std::cout <<"       mech Stress            "<<mech_stress<<std::endl;
+	  std::cout <<"Anode iCell "<<iCell<<std::endl;
+	  std::cout <<"Anode       init volume "<< 	iSolidVolume_[iCell]<< " current volume  "<<Electrode_Cell_[iCell]->SolidVol()<<std::endl;    
+	  std::cout <<"Anode       total Strain           "<<tot_strain<<std::endl;
+	  std::cout <<"Anode       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
+	  std::cout <<"Anode       StressFreeStrainFactor "<<Stress_Free_Strain_factor<<std::endl;
+	  std::cout <<"Anode       pressure_strain        "<<pressure_strain<<std::endl;
+	  std::cout <<"Anode       mech_strain            "<<mech_strain<<std::endl;
+	  std::cout <<"Anode       Previous Stress        "<<sol_stress<<std::endl;
+	  std::cout <<"Anode       mech Stress            "<<mech_stress<<std::endl;
 
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
 

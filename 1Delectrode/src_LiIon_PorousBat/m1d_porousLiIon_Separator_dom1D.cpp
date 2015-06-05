@@ -1038,6 +1038,17 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  // 
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
 
+	  double Eyoung=0;
+	  if(iCell == 0)  {
+	    std::cout <<"Sep  Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
+	    std::cout <<"Sep  Poisson Ratio      "<< poisson << std::endl;
+	    std::cout <<"Sep  Bulk Modulus       "<< BulkMod <<std::endl;
+	    std::cout <<"Sep  G                  "<<G<<std::endl;
+	    double efromk = 3*BulkMod*(1.0 - 2*poisson);
+	    Eyoung = efromk;
+	    std::cout <<"Sep EfromK             "<<efromk<<std::endl;
+	  }
+
 	  double lpz = 0.0;
 	  double rpz = 0.0;
 	  if(nodeLeft == NULL) 
@@ -1063,8 +1074,18 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  double mech_strain = tot_strain-pressure_strain;
 	  mech_strain *= thermal_strain_factor; // back out the thermal expansion. 
 
-	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);
+	  double mech_stress = mech_strain * Eyoung;
 	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+
+	  std::cout <<"Sep iCell "<<iCell<<std::endl;
+	  std::cout <<"Sep       total Strain           "<<tot_strain<<std::endl;
+	  std::cout <<"Sep       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
+	  std::cout <<"Sep       pressure_strain        "<<pressure_strain<<std::endl;
+	  std::cout <<"Sep       mech_strain            "<<mech_strain<<std::endl;
+	  std::cout <<"Sep       Previous Stress        "<<sol_stress<<std::endl;
+	  std::cout <<"Sep       mech Stress            "<<mech_stress<<std::endl;
+
+
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
 	}
 #endif	

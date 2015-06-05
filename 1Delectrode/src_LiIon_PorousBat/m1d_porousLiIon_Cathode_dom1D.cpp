@@ -1466,8 +1466,19 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  double AverageTemperature =    valTmps.Temperature.center;
 
 	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
-	  // 
+
 	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
+	  double Eyoung=0;
+	  if(iCell == 0) {
+	    std::cout <<"Cathode  Chi                "<< Particle_SFS_v_Porosity_Factor<<std::endl;
+	    std::cout <<"Cathode  Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
+	    std::cout <<"Cathode  Poisson Ratio      "<< poisson << std::endl;
+	    std::cout <<"Cathode  Bulk Modulus       "<< BulkMod <<std::endl;
+	    std::cout <<"Cathode  G                  "<<G<<std::endl;
+	    double efromk = 3*BulkMod*(1.0 - 2*poisson);
+	    Eyoung = efromk;
+	    std::cout <<"Cathode EfromK             "<<efromk<<std::endl;
+	  }
 
 	  double lpz = 0.0;
 	  double rpz = 0.0;
@@ -1488,6 +1499,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	
 	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
 
+
+
 	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	  double pressure_strain = 0.0;
 	   if( iVar_Pressure != npos) 
@@ -1498,12 +1511,24 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 	  //	mech_strain *= particle_stress_free_strain_factor;
 
-	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above 
-	  // mech_strain. 
+	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above. The value should be unrelated to that of the anode. 
 
-	  double mech_stress = mech_strain * (2.0*G/9.0 + BulkMod/3.0);	
+
+	  double mech_stress = mech_strain * Eyoung;	
 
 	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+
+	  std::cout <<"Cathode iCell "<<iCell<<std::endl;
+	  std::cout <<"Cathode       init volume "<< 	iSolidVolume_[iCell]<< " current volume  "<<Electrode_Cell_[iCell]->SolidVol()<<std::endl;
+	  std::cout <<"Cathode       total Strain           "<<tot_strain<<std::endl;
+	  std::cout <<"Cathode       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
+	  std::cout <<"Cathode       StressFreeStrainFactor "<<Stress_Free_Strain_factor<<std::endl;
+	  std::cout <<"Cathode       pressure_strain        "<<pressure_strain<<std::endl;
+	  std::cout <<"Cathode       mech_strain            "<<mech_strain<<std::endl;
+	  std::cout <<"Cathode       Previous Stress        "<<sol_stress<<std::endl;
+	  std::cout <<"Cathode       mech Stress            "<<mech_stress<<std::endl;
+
+
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
 	}
 #endif
@@ -1606,6 +1631,10 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
+
+	// Store the initial SolidVolume 
+
+	iSolidVolume_[iCell] = Electrode_Cell_[iCell]->SolidVol();
 
         /*
          * Setup the thermo at the cell center.
