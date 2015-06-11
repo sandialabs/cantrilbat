@@ -1466,8 +1466,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ == 1) {
-	  if(noderight) { // only do the calculations for center to right, on iCell == 0, center is the left most node. 
+	  if(nodeRight) { // only do the calculations for center to right, on iCell == 0, center is the left most node. 
 	    // use the average temp of the center and right nodes. 
+	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	    xratio[iCell] =  (Thermal_Expansion+1.0)*0.5*(valTmps.Temperature.center + valTmps.Temperature.right)/ TemperatureReference_;
 	    xratio[iCell] *=  Particle_SFS_v_Porosity_Factor *(Electrode_Cell_[iCell]->SolidVol() / iSolidVolume_[iCell]);
 	    
@@ -1495,19 +1496,19 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     }
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ == 1) {
-	  new_node_pos(NumLcCells+1,0.0);
+	  new_node_pos.resize(NumLcCells+1,0.0);
 	  // node that this is offset by one node. 
 	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
-	    NodalVars* nodeCent = cTmps.nvCent_;
-	    NodalVars* nodeRight = cTmps.nvRight;
-	    NodalVars* nodeLeft = cTmps.nvLeft_;
+	    //	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+	    NodalVars* nodeCent  = cTmps.nvCent_;
+	    //	    NodalVars* nodeRight = cTmps.nvRight_;
+	    NodalVars* nodeLeft  = cTmps.nvLeft_;
 
-	    nodeRight = cTmps.nvRight_;
-	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	    //	    nodeRight = cTmps.nvRight_;
+	    //	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 	    nodeCent = cTmps.nvCent_;
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	    nodeLeft = cTmps.nvLeft_;
