@@ -339,758 +339,775 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                                        const ResidEval_Type_Enum residType,
                                        const Solve_Type_Enum solveType)
 {
-    static int tmpsSetup = 0;
-    if (!tmpsSetup) {
-	residSetupTmps();
-	tmpsSetup = 1;
-    }
-    residType_Curr_ = residType;
-    // convert to static_cast!!
-    BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
-    t_final_ = t;
-    if (rdelta_t < 1.0E-200) {
-        t_init_ = t;
-    } else {
-        t_init_ = t - 1.0/rdelta_t;
-    }
+  static int tmpsSetup = 0;
+  if (!tmpsSetup) {
+    residSetupTmps();
+    tmpsSetup = 1;
+  }
+  residType_Curr_ = residType;
+  // convert to static_cast!!
+  BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+  t_final_ = t;
+  if (rdelta_t < 1.0E-200) {
+    t_init_ = t;
+  } else {
+    t_init_ = t - 1.0/rdelta_t;
+  }
 
-    NodalVars* nodeLeft = 0;
-    NodalVars* nodeCent = 0;
-    NodalVars* nodeRight = 0;
+  NodalVars* nodeLeft = 0;
+  NodalVars* nodeCent = 0;
+  NodalVars* nodeRight = 0;
 
-    double xdelL; // Distance from the center node to the left node
-    double xdelR; // Distance from the center node to the right node
-    double xdelCell; // cell width - right boundary minus the left boundary.
+  double xdelL; // Distance from the center node to the left node
+  double xdelR; // Distance from the center node to the right node
+  double xdelCell; // cell width - right boundary minus the left boundary.
 
-    //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
-    double moleFluxRight = 0.0;
-    double moleFluxLeft = 0.0;
-    //  Thermal fluxes
-    double fluxTright = 0.0;
-    double fluxTleft = 0.0;
-    double fluxL_JHPhi = 0.0;
-    double fluxR_JHPhi = 0.0;
-    double enthConvRight = 0.0;
-    double enthConvLeft = 0.0;
-    double oldStuffTC = 0.0;
-    double newStuffTC = 0.0;
-    double* mf_old = 0;
+  //  Electrolyte mass fluxes - this is rho V dot n at the boundaries of the cells
+  double moleFluxRight = 0.0;
+  double moleFluxLeft = 0.0;
+  //  Thermal fluxes
+  double fluxTright = 0.0;
+  double fluxTleft = 0.0;
+  double fluxL_JHPhi = 0.0;
+  double fluxR_JHPhi = 0.0;
+  double enthConvRight = 0.0;
+  double enthConvLeft = 0.0;
+  double oldStuffTC = 0.0;
+  double newStuffTC = 0.0;
+  double* mf_old = 0;
 
-    //mole fraction fluxes
-    std::vector<double> fluxXright(nsp_, 0.0);
-    std::vector<double> fluxXleft(nsp_, 0.0);
+  //mole fraction fluxes
+  std::vector<double> fluxXright(nsp_, 0.0);
+  std::vector<double> fluxXleft(nsp_, 0.0);
  
-    std::vector<double> resLocal_Species(nsp_, 0.0);
+  std::vector<double> resLocal_Species(nsp_, 0.0);
 
-    double res_Cont_0 = 0.0;
+  double res_Cont_0 = 0.0;
  
-    const Epetra_Vector& soln = *soln_ptr;
-    const Epetra_Vector& solnOld = *solnOld_ptr;
+  const Epetra_Vector& soln = *soln_ptr;
+  const Epetra_Vector& solnOld = *solnOld_ptr;
 
-    /*
-     * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
-     */
-    size_t indexLeft_EqnStart;
-    /*
-     * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
-     */
-    size_t indexCent_EqnStart;
-    /*
-     * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
-     */
-    size_t indexRight_EqnStart;
+  // scratch pad to calculate the expansion of the matrix
+  std::vector<double> xratio(NumLcCells,0.0); 
+  
+  // scratch pad to calculate the new positions due to the strain of the elements
+  std::vector<double> new_node_pos(NumLcCells,0.0);
+  // for the seperator, we use the following values:
+  // These numbers are only 'good' to ~8-20% strain. 
+  // v poisson's ratio             0.5 @28.5C 0.46 @80C
+  // K  Bulk Modulus           615 Mpa @ 28.5C,  481 MPa @ 55C, 327MPa @ 80C, all saturated with liquid. 
+  // youngs mod = 3K(1-2v) 
+  // sher mod G = 3*K(1-2v)/2(1+v)
+  // extracted from graphs on page 59-60 of http://dc.uwm.edu/cgi/viewcontent.cgi?article=1039&context=etd
+  //Martinsen, Michael James, "Material Behavior Characterization of a Thin Film Polymer Used in Lithium-Ion Batteries" (2012).Thesesand Dissertations.Paper 36
+  // thermal expansion coefficient is 35-110 e-6 depending on what kind of mechanical process the seperator polyethylene has be subject to. Until better info exists, pick 50e-6 
+  double Thermal_Expansion = 50e-6;
+  double poisson = 0.45;
+  double Eyoung = -1;
 
-    incrementCounters(residType);
-    Fright_cc_ = 0.0;
-    /*
-     *  -------------------- Special section to do the left boundary -------------------------------
-     */
+  /*
+   * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
+   */
+  size_t indexLeft_EqnStart;
+  /*
+   * Index of the first equation at the center node corresponding to the first bulk domain, which is the electrolyte
+   */
+  size_t indexCent_EqnStart;
+  /*
+   * Index of the first equation at the right node corresponding to the first bulk domain, which is the electrolyte
+   */
+  size_t indexRight_EqnStart;
+
+  incrementCounters(residType);
+  Fright_cc_ = 0.0;
+  /*
+   *  -------------------- Special section to do the left boundary -------------------------------
+   */
 
   
-    /*
-     *  Boolean flag that specifies whether the left flux should be recalculated.
-     *  Usually you don't need to calculate the left flux because it can be copied from the right flux
-     *  from the previous cell.
-     */
-    bool doLeftFluxCalc = true;
-    /*
-     *  ------------------------------ LOOP OVER CELL -------------------------------------------------
-     *  Loop over the number of Cells in this domain on this processor
-     *  This loop is done from left to right.
-     */
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
-        cIndex_cc_ = iCell;
+  /*
+   *  Boolean flag that specifies whether the left flux should be recalculated.
+   *  Usually you don't need to calculate the left flux because it can be copied from the right flux
+   *  from the previous cell.
+   */
+  bool doLeftFluxCalc = true;
+  /*
+   *  ------------------------------ LOOP OVER CELL -------------------------------------------------
+   *  Loop over the number of Cells in this domain on this processor
+   *  This loop is done from left to right.
+   */
+  for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    cIndex_cc_ = iCell;
 
-	cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
-        ///valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+    cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
+    ///valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 
-	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 
 #ifdef DEBUG_HKM_NOT
-        if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
-            if (iCell == NumLcCells - 1) {
-                // printf("we are here\n");
-            }
-        }
+    if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
+      if (iCell == NumLcCells - 1) {
+	// printf("we are here\n");
+      }
+    }
 #endif
     
 
-        /*
-         *  ---------------- Get the index for the center node ---------------------------------
-         *   Get the pointer to the NodalVars object for the center node
-	 *   Index of the first equation in the bulk domain of center node
-         */
-	nodeCent = cTmps.nvCent_;
-	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-
-        /*
-         *  ------------------- Get the index for the left node -----------------------------
-         *    There may not be a left node if we are on the left boundary. In that case
-         *    set the pointer to zero and the index to -1.
-	 *    The solution index is set to the center solution index in that case as well.
-         */
-	nodeLeft = cTmps.nvLeft_;
-	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-        /*
-         * If we are past the first cell, then we have already done the calculation
-         * for this flux at the right cell edge of the previous cell
-         */
-        if (iCell > 0) {
-            doLeftFluxCalc = false;
-        }
-
-        /*
-         * ------------------------ Get the indexes for the right node ------------------------------------
-         */
-	nodeRight = cTmps.nvRight_;
-	indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
-
-        /*
-         * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
-         * Calculate the distance between the left and center node points
-         */
-	xdelL = cTmps.xdelL_;
-        /*
-         * Calculate the distance between the right and center node points
-         */
-	xdelR = cTmps.xdelR_;
-        /*
-         * Calculate the cell width
-         */
-	xdelCell = cTmps.xdelCell_; 
-	xdelCell_Cell_[iCell] = xdelCell;
-
-        /*
-         * --------------------------- DO PRE-SETUPSHOP RASTER OVER LEFT,CENTER,RIGHT -----------------------------
-         * Calculate the distance between the left and center node points
-         */
-        /*
-         * Get current velocity, mole fraction, temperature, potential
-         * from the solution
-         */
-
-        for (int k = 0; k < nsp_; k++) {
-            Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
-        }
-        Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
-
-        if (nodeLeft != 0) {
-            /*
-             * Find the velocity located at the left cell boundary.
-             * The left cell boundary velocity is stored at the previous (left)
-             * cell index as per our conventions.
-             */
-            Fleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
-            for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
-            }
-            Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
-        } else {
-            /*
-             * We are here when we are at the left most part of the boundary. Then, there is no
-             * left node. Or, the left node is actually the center node. The boundary conditions
-             * on the fluxes are set by boundary condition routines.
-             */
-            /*
-             *   We set the left flux to zero in this case. It may or may not be overridden by
-             *   a boundary condition in the adjoining surface domain
-             */
-            Fleft_cc_ = 0.0;
-            for (int k = 0; k < nsp_; k++) {
-                Xleft_cc_[k] = Xcent_cc_[k];
-            }
-            Vleft_cc_ = Vcent_cc_;
-        }
-        /*
-         * The right velocity is stored at the current cell index.
-         */
-        Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
-
-        if (nodeRight != 0) {
-
-            for (int k = 0; k < nsp_; k++) {
-                Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
-            }
-            Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
-        } else {
-
-            for (int k = 0; k < nsp_; k++) {
-                Xright_cc_[k] = Xcent_cc_[k];
-            }
-            Vright_cc_ = Vcent_cc_;
-        }
-
-        /*
-         * ------------------- CALCULATE FLUXES AT THE LEFT BOUNDARY -------------------------------
-         *
-         */
-	// We've turned this off, because it is not necessary
-        if (doLeftFluxCalc) {
-            if (nodeLeft == 0) {
-		AssertTrace(iCell == 0);
-                /*
-                 *  We are here if we are at the left node boundary and we
-                 *  need a flux condition. The default now is to
-                 *  set the flux to zero. This is good if we expect the negate/equalize the fluxes at a domain boundary,
-		 *  since both sides are set to zero. We could put in a more
-                 *  sophisticated treatment.
-		 *
-		 *  The other case is when we are specifying a flux boundary condition. In that case,
-		 *  we set the flux here to zero. Then, in the surface domain we add the specification of
-		 *  the flux to the residual of the node at the boundary.
-                 */
-                moleFluxLeft = 0.0;
-                fluxTleft = 0.0;
-                fluxL_JHPhi = 0.0;
-		enthConvLeft = 0.0;
-                icurrElectrolyte_CBL_[iCell] = 0.0;
-                for (int k = 0; k < nsp_; k++) {
-                    fluxXleft[k] = 0.0;
-                }
-            } else {
-
-                /*
-                 *  Establish the environment at the left cell boundary
-                 */
-                SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart]), nodeCent, &(soln[indexCent_EqnStart]), 0);
-
-                SetupTranShop(xdelL, 0);
-
-                /*
-                 * Calculate the flux at the left boundary for each equation
-                 */
-                moleFluxLeft = Fleft_cc_ * concTot_Curr_;
-                fluxTleft = heatFlux_Curr_;
-                fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
-		enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
-
-                /*
-                 * Calculate the flux of species and the flux of charge
-                 *   - the flux of charge must agree with the flux of species
-		 *   - At the left boundary, we've set Fleft_cc_ to zero. This is necessary if the domain isn't the left-most one.
-		 *     In that case the cell is shared between half-cells on either side of the domain. So, we will want to 
-		 *     not add any convection term here.
-                 */
-                icurrElectrolyte_CBL_[iCell] = 0.0;
-                for (int k = 0; k < nsp_; k++) {
-                    fluxXleft[k] = jFlux_trCurr_[k];
-                    icurrElectrolyte_CBL_[iCell] += fluxXleft[k] * spCharge_[k];
-                    if (Fleft_cc_ > 0.0) {
-                        fluxXleft[k] += Fleft_cc_ * Xleft_cc_[k] * concTot_Curr_;
-                    } else {
-                        fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_;
-                    }
-                }
-                icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
-            }
-        } else {
-            /*
-             * Copy the fluxes from the stored right side of the previous cell to the left side of the current cell
-             */
-            moleFluxLeft = moleFluxRight;
-	    fluxTleft = fluxTright;
-            fluxL_JHPhi = fluxR_JHPhi;
-	    enthConvLeft = enthConvRight;
-            icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
-            for (int k = 0; k < nsp_; k++) {
-                fluxXleft[k] = fluxXright[k];
-            }
-        }
-        /*
-         * ------------------- CALCULATE FLUXES AT THE RIGHT BOUNDARY -------------------------------
-         *
-         */
-        if (nodeRight == 0) {
-	    AssertTrace(iCell == NumLcCells-1);
-	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-	    SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
-            /*
-             *  We are here if we are at the right node boundary and we need a flux
-             *  condition. The default now is to set the flux to zero. 
-	     *  This is good if we expect the negate/equalize the fluxes at a domain boundary,
-	     *  since both sides are set to zero.
-	     *
-	     *  The other case is when we are specifying a flux boundary condition. In that case,
-	     *  we set the flux here to zero. Then, in the surface domain we add the specification of
-	     *  the flux to the residual of the node at the boundary.
-	     *
-	     *  Fright_cc_ is set to zero, because we are at an internal boundary. Convection terms are set to zero at these 
-	     *  types of internal boundaries.
-             */
-            Fright_cc_ = 0.0;
-            fluxTright = 0.0;
-            fluxR_JHPhi = 0.0;
-	    enthConvRight = 0.0;
-            moleFluxRight = Fright_cc_ * concTot_Curr_;
-            icurrElectrolyte_CBR_[iCell] = 0.0;
-            for (int k = 0; k < nsp_; k++) {
-                fluxXright[k] = 0.0;
-            }
-        } else {
-            /*
-             *  Establish the environment at a normal right cell boundary
-             */
-            SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
-
-            SetupTranShop(xdelR, 1);
-
-            /*
-             * Calculate the flux at the right boundary for each equation
-             * This is equal to
-             *     fluxFright =  Conc * Vaxial * phi
-             */
-            moleFluxRight = Fright_cc_ * concTot_Curr_;
-            /*
-             * Calculate the heat flux - all of the types
-             */
-            fluxTright = heatFlux_Curr_;
-            fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
-	    enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
-           
-            /*
-             * Calculate the flux of species and the flux of charge
-             *   - the flux of charge must agree with the flux of species
-             */
-            icurrElectrolyte_CBR_[iCell] = 0.0;
-            for (int k = 0; k < nsp_; k++) {
-                fluxXright[k] = jFlux_trCurr_[k];
-                icurrElectrolyte_CBR_[iCell] += fluxXright[k] * spCharge_[k];
-                if (Fright_cc_ > 0.0) {
-                    fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
-                } else {
-                    fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
-                }
-            }
-            icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
-        }
-
-#ifdef DEBUG_HKM_NOT
-        if (doTimeDependentResid) {
-
-            if (residType == Base_ResidEval) {
-                printf(" Cell = %d, Totalflux_K+ = %10.3e,  Totalflux_Cl- = %10.3e \n", iCell, fluxXright[1], fluxXright[2]);
-                printf("           Vmolal = %10.3e, jd_Li+ = %10.3e  jd_K+ = %10.3e jd_Cl- = %10.3e\n", Fright_cc_,
-                       jFlux_trCurr_[0], jFlux_trCurr_[1], jFlux_trCurr_[2]);
-                printf("           Vmolal = %10.3e, vd_Li+ = %10.3e  vd_K+ = %10.3e vd_Cl- = %10.3e\n", Fright_cc_,
-                       Vdiff_trCurr_[0], Vdiff_trCurr_[1], Vdiff_trCurr_[2]);
-            }
-        }
-#endif
-
-        /*
-	 * -------------------- ADD THE FLUX TERMS INTO THE RESIDUAL EQUATIONS -----------------------------------------------
-         */
-
-#ifdef DEBUG_RESID
-        double residBefore = 0.0;
-        if (IOwnLeft && iCell == 0) {
-            if (residType == Base_ShowSolution) {
-                residBefore =  res[indexCent_EqnStart + nodeTmpsCent.RO_Electrolyte_Continuity];
-                double tmp3 = 0.0;
-                double sum5 = residBefore + fluxFright - tmp3;
-                printf("ResidSep Cell = %d, ResBefore = -fluxleft = %10.3e, FluxRight = %10.3e,"
-		       "Prod = %10.3e total = %10.3e \n", iCell,
-                       residBefore, fluxFright, tmp3, sum5);
-
-            }
-        }
-#endif
-        /*
-         *  Total continuity equation - fluxFright and fluxFleft represent the total mass
-         *                              fluxes coming and going from the cell.
-         *                    R =   d rho d t + del dot (rho V) = 0
-         */
-        if (ivb_ == VB_MOLEAVG) {
-           res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
-
-	   
-        } else {
-           exit(-1); 
-        }
-
-        /*
-         * Species continuity Equation
-         */
-        for (int k = 0; k < nsp_; k++) {
-            if ((k != (int) fa->iMFS_index_) && (k != iPF6m_)) {
-                res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
-            }
-        }
-
-        /*
-         * Mole fraction summation equation
-         */
-
-        /*
-         * Electroneutrality equation
-         */
-
-        /*
-         *   Current conservation equation
-         */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] +=
-	  (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
-	/*
-	 *  Energy Equation
-	 */
-	if (PS_ptr->energyEquationProbType_ == 3) {
-              AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
-              res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
-              res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
-	      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (enthConvRight - enthConvLeft);
-	}
-        /*
-         * --------------------------------------------------------------------------
-         *             Add in the source terms at the current cell center
-         * --------------------------------------------------------------------------
-         */
-        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-
-        /*
-         *  Total continuity equation -
-         */
-
-        /*
-         * Mole fraction summation equation
-         */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] = 1.0;
-        for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] -= Xcent_cc_[k];
-        }
-
-        /*
-         * Electroneutrality equation
-         */
-        res[indexCent_EqnStart + nodeTmpsCenter.RO_ChargeBal_offset] = 0.0;
-        for (int k = 0; k < nsp_; k++) {
-            res[indexCent_EqnStart + nodeTmpsCenter.RO_ChargeBal_offset] += Xcent_cc_[k] * spCharge_[k];
-        }
-
-        /*
-         *   Current conservation equation
-         */
-
-        /*
-         * Special section if we own the left node of the domain. If we do
-         * it will be cell 0. Store currents for later use.
-         * These are the correct currents that work for the global balances
-         */
-        if (IOwnLeft && iCell == 0) {
-            if (residType == Base_ShowSolution) {
-                icurrElectrolyte_CBL_[iCell] =  icurrElectrolyte_CBR_[iCell];
-            }
-        }
-        /*
-         * Special section if we own the right node of the domain. If we do
-         * it will be cell 0. Store currents for later use.
-         * These are the correct currents that work for the global balances
-         */
-        if (IOwnRight && iCell == (NumLcCells - 1)) {
-            if (residType == Base_ShowSolution) {
-                icurrElectrolyte_CBR_[iCell] =  icurrElectrolyte_CBL_[iCell];
-            }
-        }
-        /*
-         *   ------------------ ADD IN THE TIME DEPENDENT TERMS ----------------------------------------------------
-         */
-        if (doTimeDependentResid) {
-
-#ifdef DEBUG_HKM_NOT
-            if (residType == Base_ResidEval) {
-                printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[0], fluxXleft[0]);
-            }
-#endif
-            newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
-            double newStuffSpecies0 = Xcent_cc_[iLip_] * newStuffTC;
-	    /*
-             *   .................... Calculate quantities needed at the previous time step
-             */
-            /*
-             * Setup shop with the old time step
-             */
-            SetupThermoShop1(nodeCent, &(solnOld[indexCent_EqnStart]));
-
-	    mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
-            oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
-
-	    // oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
-            double oldStuffSpecies0 = mfElectrolyte_Soln_Curr_[iLip_] * oldStuffTC;
-
-	    //AssertTrace(mf_old[iLip_] ==  mfElectrolyte_Soln_Curr_[iLip_]); 
-	    //(HKM Note, this uncovered a print error in time stepper reentry
-	    //if (mf_old[iLip_] !=  mfElectrolyte_Soln_Curr_[iLip_]) {
-	    //printf("We are here\n");
-	    // }
-	    // double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
-    
-
-            /*
-             *   .................... Add these terms in the residual
-             */
-            /*
-             *  Add in the time term for species iLip
-             */
-
-            for (int k = 0; k < nsp_; k++) {
-                if (k != iECDMC_ && k != iPF6m_) {
-		    double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
-                    res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += tmp;
-                }
-            }
-
-            /*
-             *   Add in the time term for the total continuity equation
-             *         note: the current problem will have this term equally zero always.
-             *               However, we put it in here for the next problem and for consistency of the time terms
-             */
-            res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
-
-            if (iCell == 0) {
-		res_Cont_0 =  (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight - moleFluxLeft);
-	    }
-
-
-
-	    if  (energyEquationProbType_ == 3) {
-		//
-		// Do old time enthalpy calculation -> will be replaced
-		//   (volcell might have changed -> this will work if it hasn't)
-		double volCellOld = xdelCell;
-                double solidMolarEnthalpyOld = solidSkeleton_->enthalpy_mole();
-		double solidConcOld =  1.0 / solidSkeleton_->molarVolume();
-		double volSolidOld = (1.0 - porosity_Curr_) * volCellOld;
-		double solidEnthalpyOld = solidMolarEnthalpyOld * solidConcOld *  volSolidOld;
-
-	        double lyteMolarEnthalpyOld = ionicLiquid_->enthalpy_mole();
-		double volLyteOld = porosity_Curr_ * volCellOld;
-		double lyteEnthalpyOld =  lyteMolarEnthalpyOld * concTot_Curr_ * volLyteOld;
-	
-		double nEnthalpy_Old =  solidEnthalpyOld + lyteEnthalpyOld;
-
-
-		if (! checkDblAgree( nEnthalpy_Old, nEnthalpy_Old_Cell_[iCell] ) ) {
-		    throw m1d_Error("", "Disagreement on old enthalpy calc");
-		}
-
-		SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-
-		double volCellNew = xdelCell;
-                double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
-		double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
-		double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
-		double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
-
-	        double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
-		double volLyteNew = porosity_Curr_ * volCellNew;
-		double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
-	
-		nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
-
-		double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-		res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
-	    }
-
-	    // ----------------------  Calculations that are based on having a complete local residual -----------------------------
-
-            /*
-             *   .................... Go back to setting up shop at the current time
-             */
-            SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-	}
-	//
-	//  Section to find the Axial velocity at the left domain boundary, but only for show and only when the 
-	//          residual is already solved.
-	//
-	if (residType == Base_ShowSolution) {
-	    if (IOwnLeft) {
-		if (iCell == 0) {
-		    res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight );
-		    moleFluxLeft = res_Cont_0;
-		    Fleft_cc_ = moleFluxLeft / concTot_Curr_;
-		    DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fleft_cc_;
-		    //
-		    //  Section to find the Diffusive flux of species
-		    //        fluxXleft[k] is set to zero. Also some species are replaced by constraints.
-		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations
-		    for (size_t k = 0; k < (size_t) nsp_; k++) {
-			resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
-			double newStuffSpecies0 = Xcent_cc_[k] * newStuffTC;
-			double oldStuffSpecies0 = mf_old[k] * oldStuffTC;
-			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
-			//
-			// Save the local domain residual to a vector for later validation studies
-			//
-			DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
-
-			TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
-			DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
-			  TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
-			  -  Fleft_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
-		    }
-		    if  (energyEquationProbType_ == 3) {
-			double resLocal_Enth = (fluxTright - fluxTleft);
-			resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
-			resLocal_Enth += (enthConvRight - enthConvLeft);
-			resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-			DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
-		    }
-		}
-	    }
-	    //
-	    //  Section to find the Axial velocity at the right domain boundary
-	    //
-	    if (IOwnRight) {
-		if (iCell == NumLcCells - 1) {
-		    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-		    SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
-		    //
-		    // Calculate the axial velocity that is needed to zero out the residual in this domain only
-		    //
-		    res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft );
-		    moleFluxRight = - res_Cont_0;
-		    Fright_cc_ = moleFluxRight / concTot_Curr_;
-		    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
-		    //
-		    //  Section to find the Diffusive flux of species
-		    //        fluxXright[k] is set to zero. Also some species are replaced by constraints.
-		    //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations
-		    //
-		    for (size_t k = 0; k < (size_t) nsp_; k++) {
-			resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
-			double newStuffSpecies0 =  Xcent_cc_[k] * newStuffTC;
-			double oldStuffSpecies0 =  mf_old[k] * oldStuffTC;
-			resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
-			//
-			// Save the local domain residual to a vector for later validation studies
-			//
-			DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
-
-			TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
-			fluxXright[k] = - resLocal_Species[k];
-			DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
-			  TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
-			  -  Fright_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
-		    }
-
-		    if  (energyEquationProbType_ == 3) {
-			double resLocal_Enth = (fluxTright - fluxTleft);
-			resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
-			resLocal_Enth += (enthConvRight - enthConvLeft);
-			resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-			DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
-		    }
-		}
-	    }
-	       
-	}
-#ifdef MECH_MODEL
-	if (solidMechanicsProbType_ == 1) {
-	  // for the seperator, we use the following values:
-	  // These numbers are only 'good' to ~8-20% strain. 
-	  // v poisson's ratio             0.5 @28.5C 0.46 @80C
-	  // K  Bulk Modulus           615 Mpa @ 28.5C,  481 MPa @ 55C, 327MPa @ 80C, all saturated with liquid. 
-	  // youngs mod = 3K(1-2v) 
-	  // sher mod G = 3*K(1-2v)/2(1+v)
-	  // extracted from graphs on page 59-60 of http://dc.uwm.edu/cgi/viewcontent.cgi?article=1039&context=etd
-	  //Martinsen, Michael James, "Material Behavior Characterization of a Thin Film Polymer Used in Lithium-Ion Batteries" (2012).Thesesand Dissertations.Paper 36
-	  // thermal expansion coefficient is 35-110 e-6 depending on what kind of mechanical process the seperator polyethylene has be subject to. Until better info exists, pick 50e-6 
-	  double Thermal_Expansion = 50e-6;
-	  double poisson = 0.5;
-	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	  // need the average temp to get the correct K
-	  double AverageTemperature =    valTmps.Temperature.center;
-
-	  double BulkMod=-1;
-	  if(AverageTemperature < 28.5+273.15 ) BulkMod = 615;
-	  else if(AverageTemperature > 80+273.15 ) BulkMod = 327;
-	  else if( AverageTemperature < 55+273.15) {
-	    double low = AverageTemperature - (28.5+273.14);
-	    BulkMod= 615 - ((615-481)*low/(55-28.5));
-	  }
-	  else if (AverageTemperature >= 55+273.15) {
-	    double low = AverageTemperature - (55+273.15);
-	    BulkMod = 481 - (481-327)*low/(80-55);
-	  }
-	  BulkMod*=1.0e6; // in MPa
-	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
-	  // 
-	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
-
-	  double Eyoung=0;
-	  if(iCell == 0)  {
-	    std::cout <<"Sep  Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
-	    std::cout <<"Sep  Poisson Ratio      "<< poisson << std::endl;
-	    std::cout <<"Sep  Bulk Modulus       "<< BulkMod <<std::endl;
-	    std::cout <<"Sep  G                  "<<G<<std::endl;
-	    double efromk = 3*BulkMod*(1.0 - 2*poisson);
-	    Eyoung = efromk;
-	    std::cout <<"Sep EfromK             "<<efromk<<std::endl;
-	  }
-
-	  double lpz = 0.0;
-	  double rpz = 0.0;
-	  if(nodeLeft == NULL) 
-	    lpz = nodeCent->x0NodePos()/2.0;
-	  else
-	    lpz = nodeLeft->x0NodePos();
-	  if(nodeRight == NULL) 
-	    rpz =  nodeCent->x0NodePos()/2.0;
-	  else
-	    rpz = nodeRight->x0NodePos();
-	  // this _will_ fail if the anode is <= 3 nodes across!!!!!!
-	  if(rpz == lpz) abort();
-
-	  double tot_strain = (xdelR-xdelL)/ (rpz-lpz); // factor of 2's cancel
-	  double thermal_strain_factor = TemperatureReference_/(1.0+Thermal_Expansion)*AverageTemperature ;
-
-	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	  double pressure_strain = 0.0;
-	  if( iVar_Pressure != npos)
-	    pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
-
-	  // the separator is intert to chemistry, so no other terms in the strain
-	  double mech_strain = tot_strain-pressure_strain;
-	  mech_strain *= thermal_strain_factor; // back out the thermal expansion. 
-
-	  double mech_stress = mech_strain * Eyoung;
-	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
-
-	  std::cout <<"Sep iCell "<<iCell<<std::endl;
-	  std::cout <<"Sep       total Strain           "<<tot_strain<<std::endl;
-	  std::cout <<"Sep       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
-	  std::cout <<"Sep       pressure_strain        "<<pressure_strain<<std::endl;
-	  std::cout <<"Sep       mech_strain            "<<mech_strain<<std::endl;
-	  std::cout <<"Sep       Previous Stress        "<<sol_stress<<std::endl;
-	  std::cout <<"Sep       mech Stress            "<<mech_stress<<std::endl;
-
-
-	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
-	}
-#endif	
+    /*
+     *  ---------------- Get the index for the center node ---------------------------------
+     *   Get the pointer to the NodalVars object for the center node
+     *   Index of the first equation in the bulk domain of center node
+     */
+    nodeCent = cTmps.nvCent_;
+    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+
+    /*
+     *  ------------------- Get the index for the left node -----------------------------
+     *    There may not be a left node if we are on the left boundary. In that case
+     *    set the pointer to zero and the index to -1.
+     *    The solution index is set to the center solution index in that case as well.
+     */
+    nodeLeft = cTmps.nvLeft_;
+    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+    /*
+     * If we are past the first cell, then we have already done the calculation
+     * for this flux at the right cell edge of the previous cell
+     */
+    if (iCell > 0) {
+      doLeftFluxCalc = false;
     }
 
+    /*
+     * ------------------------ Get the indexes for the right node ------------------------------------
+     */
+    nodeRight = cTmps.nvRight_;
+    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+
+    /*
+     * --------------------------- CALCULATE POSITION AND DELTA_X Variables -----------------------------
+     * Calculate the distance between the left and center node points
+     */
+    xdelL = cTmps.xdelL_;
+    /*
+     * Calculate the distance between the right and center node points
+     */
+    xdelR = cTmps.xdelR_;
+    /*
+     * Calculate the cell width
+     */
+    xdelCell = cTmps.xdelCell_; 
+    xdelCell_Cell_[iCell] = xdelCell;
+
+    /*
+     * --------------------------- DO PRE-SETUPSHOP RASTER OVER LEFT,CENTER,RIGHT -----------------------------
+     * Calculate the distance between the left and center node points
+     */
+    /*
+     * Get current velocity, mole fraction, temperature, potential
+     * from the solution
+     */
+
+    for (int k = 0; k < nsp_; k++) {
+      Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
+    }
+    Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+
+    if (nodeLeft != 0) {
+      /*
+       * Find the velocity located at the left cell boundary.
+       * The left cell boundary velocity is stored at the previous (left)
+       * cell index as per our conventions.
+       */
+      Fleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Velocity_Axial];
+      for (int k = 0; k < nsp_; k++) {
+	Xleft_cc_[k] = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_MoleFraction_Species + k];
+      }
+      Vleft_cc_ = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Voltage];
+    } else {
+      /*
+       * We are here when we are at the left most part of the boundary. Then, there is no
+       * left node. Or, the left node is actually the center node. The boundary conditions
+       * on the fluxes are set by boundary condition routines.
+       */
+      /*
+       *   We set the left flux to zero in this case. It may or may not be overridden by
+       *   a boundary condition in the adjoining surface domain
+       */
+      Fleft_cc_ = 0.0;
+      for (int k = 0; k < nsp_; k++) {
+	Xleft_cc_[k] = Xcent_cc_[k];
+      }
+      Vleft_cc_ = Vcent_cc_;
+    }
+    /*
+     * The right velocity is stored at the current cell index.
+     */
+    Fright_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Velocity_Axial];
+
+    if (nodeRight != 0) {
+
+      for (int k = 0; k < nsp_; k++) {
+	Xright_cc_[k] = soln[indexRight_EqnStart + nodeTmpsRight.Offset_MoleFraction_Species + k];
+      }
+      Vright_cc_ = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Voltage];
+    } else {
+
+      for (int k = 0; k < nsp_; k++) {
+	Xright_cc_[k] = Xcent_cc_[k];
+      }
+      Vright_cc_ = Vcent_cc_;
+    }
+
+    /*
+     * ------------------- CALCULATE FLUXES AT THE LEFT BOUNDARY -------------------------------
+     *
+     */
+    // We've turned this off, because it is not necessary
+    if (doLeftFluxCalc) {
+      if (nodeLeft == 0) {
+	AssertTrace(iCell == 0);
+	/*
+	 *  We are here if we are at the left node boundary and we
+	 *  need a flux condition. The default now is to
+	 *  set the flux to zero. This is good if we expect the negate/equalize the fluxes at a domain boundary,
+	 *  since both sides are set to zero. We could put in a more
+	 *  sophisticated treatment.
+	 *
+	 *  The other case is when we are specifying a flux boundary condition. In that case,
+	 *  we set the flux here to zero. Then, in the surface domain we add the specification of
+	 *  the flux to the residual of the node at the boundary.
+	 */
+	moleFluxLeft = 0.0;
+	fluxTleft = 0.0;
+	fluxL_JHPhi = 0.0;
+	enthConvLeft = 0.0;
+	icurrElectrolyte_CBL_[iCell] = 0.0;
+	for (int k = 0; k < nsp_; k++) {
+	  fluxXleft[k] = 0.0;
+	}
+      } else {
+
+	/*
+	 *  Establish the environment at the left cell boundary
+	 */
+	SetupThermoShop2(nodeLeft, &(soln[indexLeft_EqnStart]), nodeCent, &(soln[indexCent_EqnStart]), 0);
+
+	SetupTranShop(xdelL, 0);
+
+	/*
+	 * Calculate the flux at the left boundary for each equation
+	 */
+	moleFluxLeft = Fleft_cc_ * concTot_Curr_;
+	fluxTleft = heatFlux_Curr_;
+	fluxL_JHPhi = jFlux_EnthalpyPhi_Curr_;
+	enthConvLeft = moleFluxLeft * EnthalpyMolar_lyte_Curr_;
+
+	/*
+	 * Calculate the flux of species and the flux of charge
+	 *   - the flux of charge must agree with the flux of species
+	 *   - At the left boundary, we've set Fleft_cc_ to zero. This is necessary if the domain isn't the left-most one.
+	 *     In that case the cell is shared between half-cells on either side of the domain. So, we will want to 
+	 *     not add any convection term here.
+	 */
+	icurrElectrolyte_CBL_[iCell] = 0.0;
+	for (int k = 0; k < nsp_; k++) {
+	  fluxXleft[k] = jFlux_trCurr_[k];
+	  icurrElectrolyte_CBL_[iCell] += fluxXleft[k] * spCharge_[k];
+	  if (Fleft_cc_ > 0.0) {
+	    fluxXleft[k] += Fleft_cc_ * Xleft_cc_[k] * concTot_Curr_;
+	  } else {
+	    fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_;
+	  }
+	}
+	icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+      }
+    } else {
+      /*
+       * Copy the fluxes from the stored right side of the previous cell to the left side of the current cell
+       */
+      moleFluxLeft = moleFluxRight;
+      fluxTleft = fluxTright;
+      fluxL_JHPhi = fluxR_JHPhi;
+      enthConvLeft = enthConvRight;
+      icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell - 1];
+      for (int k = 0; k < nsp_; k++) {
+	fluxXleft[k] = fluxXright[k];
+      }
+    }
+    /*
+     * ------------------- CALCULATE FLUXES AT THE RIGHT BOUNDARY -------------------------------
+     *
+     */
+    if (nodeRight == 0) {
+      AssertTrace(iCell == NumLcCells-1);
+      SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+      SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+      /*
+       *  We are here if we are at the right node boundary and we need a flux
+       *  condition. The default now is to set the flux to zero. 
+       *  This is good if we expect the negate/equalize the fluxes at a domain boundary,
+       *  since both sides are set to zero.
+       *
+       *  The other case is when we are specifying a flux boundary condition. In that case,
+       *  we set the flux here to zero. Then, in the surface domain we add the specification of
+       *  the flux to the residual of the node at the boundary.
+       *
+       *  Fright_cc_ is set to zero, because we are at an internal boundary. Convection terms are set to zero at these 
+       *  types of internal boundaries.
+       */
+      Fright_cc_ = 0.0;
+      fluxTright = 0.0;
+      fluxR_JHPhi = 0.0;
+      enthConvRight = 0.0;
+      moleFluxRight = Fright_cc_ * concTot_Curr_;
+      icurrElectrolyte_CBR_[iCell] = 0.0;
+      for (int k = 0; k < nsp_; k++) {
+	fluxXright[k] = 0.0;
+      }
+    } else {
+      /*
+       *  Establish the environment at a normal right cell boundary
+       */
+      SetupThermoShop2(nodeCent, &(soln[indexCent_EqnStart]), nodeRight, &(soln[indexRight_EqnStart]), 1);
+
+      SetupTranShop(xdelR, 1);
+
+      /*
+       * Calculate the flux at the right boundary for each equation
+       * This is equal to
+       *     fluxFright =  Conc * Vaxial * phi
+       */
+      moleFluxRight = Fright_cc_ * concTot_Curr_;
+      /*
+       * Calculate the heat flux - all of the types
+       */
+      fluxTright = heatFlux_Curr_;
+      fluxR_JHPhi = jFlux_EnthalpyPhi_Curr_;
+      enthConvRight = moleFluxRight * EnthalpyMolar_lyte_Curr_;
+           
+      /*
+       * Calculate the flux of species and the flux of charge
+       *   - the flux of charge must agree with the flux of species
+       */
+      icurrElectrolyte_CBR_[iCell] = 0.0;
+      for (int k = 0; k < nsp_; k++) {
+	fluxXright[k] = jFlux_trCurr_[k];
+	icurrElectrolyte_CBR_[iCell] += fluxXright[k] * spCharge_[k];
+	if (Fright_cc_ > 0.0) {
+	  fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
+	} else {
+	  fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
+	}
+      }
+      icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+    }
+
+#ifdef DEBUG_HKM_NOT
+    if (doTimeDependentResid) {
+
+      if (residType == Base_ResidEval) {
+	printf(" Cell = %d, Totalflux_K+ = %10.3e,  Totalflux_Cl- = %10.3e \n", iCell, fluxXright[1], fluxXright[2]);
+	printf("           Vmolal = %10.3e, jd_Li+ = %10.3e  jd_K+ = %10.3e jd_Cl- = %10.3e\n", Fright_cc_,
+	       jFlux_trCurr_[0], jFlux_trCurr_[1], jFlux_trCurr_[2]);
+	printf("           Vmolal = %10.3e, vd_Li+ = %10.3e  vd_K+ = %10.3e vd_Cl- = %10.3e\n", Fright_cc_,
+	       Vdiff_trCurr_[0], Vdiff_trCurr_[1], Vdiff_trCurr_[2]);
+      }
+    }
+#endif
+
+    /*
+     * -------------------- ADD THE FLUX TERMS INTO THE RESIDUAL EQUATIONS -----------------------------------------------
+     */
+
+#ifdef DEBUG_RESID
+    double residBefore = 0.0;
+    if (IOwnLeft && iCell == 0) {
+      if (residType == Base_ShowSolution) {
+	residBefore =  res[indexCent_EqnStart + nodeTmpsCent.RO_Electrolyte_Continuity];
+	double tmp3 = 0.0;
+	double sum5 = residBefore + fluxFright - tmp3;
+	printf("ResidSep Cell = %d, ResBefore = -fluxleft = %10.3e, FluxRight = %10.3e,"
+	       "Prod = %10.3e total = %10.3e \n", iCell,
+	       residBefore, fluxFright, tmp3, sum5);
+
+      }
+    }
+#endif
+    /*
+     *  Total continuity equation - fluxFright and fluxFleft represent the total mass
+     *                              fluxes coming and going from the cell.
+     *                    R =   d rho d t + del dot (rho V) = 0
+     */
+    if (ivb_ == VB_MOLEAVG) {
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
+
+	   
+    } else {
+      exit(-1); 
+    }
+
+    /*
+     * Species continuity Equation
+     */
+    for (int k = 0; k < nsp_; k++) {
+      if ((k != (int) fa->iMFS_index_) && (k != iPF6m_)) {
+	res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
+      }
+    }
+
+    /*
+     * Mole fraction summation equation
+     */
+
+    /*
+     * Electroneutrality equation
+     */
+
+    /*
+     *   Current conservation equation
+     */
+    res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation] +=
+      (icurrElectrolyte_CBR_[iCell] - icurrElectrolyte_CBL_[iCell]);
+    /*
+     *  Energy Equation
+     */
+    if (PS_ptr->energyEquationProbType_ == 3) {
+      AssertTrace(nodeTmpsCenter.RO_Enthalpy_Conservation != npos);
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxTright - fluxTleft);
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (fluxR_JHPhi - fluxL_JHPhi);
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += (enthConvRight - enthConvLeft);
+    }
+    /*
+     * --------------------------------------------------------------------------
+     *             Add in the source terms at the current cell center
+     * --------------------------------------------------------------------------
+     */
+    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+    /*
+     *  Total continuity equation -
+     */
+
+    /*
+     * Mole fraction summation equation
+     */
+    res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] = 1.0;
+    for (int k = 0; k < nsp_; k++) {
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_MFSum_offset] -= Xcent_cc_[k];
+    }
+
+    /*
+     * Electroneutrality equation
+     */
+    res[indexCent_EqnStart + nodeTmpsCenter.RO_ChargeBal_offset] = 0.0;
+    for (int k = 0; k < nsp_; k++) {
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_ChargeBal_offset] += Xcent_cc_[k] * spCharge_[k];
+    }
+
+    /*
+     *   Current conservation equation
+     */
+
+    /*
+     * Special section if we own the left node of the domain. If we do
+     * it will be cell 0. Store currents for later use.
+     * These are the correct currents that work for the global balances
+     */
+    if (IOwnLeft && iCell == 0) {
+      if (residType == Base_ShowSolution) {
+	icurrElectrolyte_CBL_[iCell] =  icurrElectrolyte_CBR_[iCell];
+      }
+    }
+    /*
+     * Special section if we own the right node of the domain. If we do
+     * it will be cell 0. Store currents for later use.
+     * These are the correct currents that work for the global balances
+     */
+    if (IOwnRight && iCell == (NumLcCells - 1)) {
+      if (residType == Base_ShowSolution) {
+	icurrElectrolyte_CBR_[iCell] =  icurrElectrolyte_CBL_[iCell];
+      }
+    }
+    /*
+     *   ------------------ ADD IN THE TIME DEPENDENT TERMS ----------------------------------------------------
+     */
+    if (doTimeDependentResid) {
+
+#ifdef DEBUG_HKM_NOT
+      if (residType == Base_ResidEval) {
+	printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[0], fluxXleft[0]);
+      }
+#endif
+      newStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
+      double newStuffSpecies0 = Xcent_cc_[iLip_] * newStuffTC;
+      /*
+       *   .................... Calculate quantities needed at the previous time step
+       */
+      /*
+       * Setup shop with the old time step
+       */
+      SetupThermoShop1(nodeCent, &(solnOld[indexCent_EqnStart]));
+
+      mf_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
+      oldStuffTC = concTot_Cell_old_[iCell] * porosity_Cell_old_[iCell] * xdelCell;
+
+      // oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
+      double oldStuffSpecies0 = mfElectrolyte_Soln_Curr_[iLip_] * oldStuffTC;
+
+      //AssertTrace(mf_old[iLip_] ==  mfElectrolyte_Soln_Curr_[iLip_]); 
+      //(HKM Note, this uncovered a print error in time stepper reentry
+      //if (mf_old[iLip_] !=  mfElectrolyte_Soln_Curr_[iLip_]) {
+      //printf("We are here\n");
+      // }
+      // double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+    
+
+      /*
+       *   .................... Add these terms in the residual
+       */
+      /*
+       *  Add in the time term for species iLip
+       */
+
+      for (int k = 0; k < nsp_; k++) {
+	if (k != iECDMC_ && k != iPF6m_) {
+	  double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+	  res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += tmp;
+	}
+      }
+
+      /*
+       *   Add in the time term for the total continuity equation
+       *         note: the current problem will have this term equally zero always.
+       *               However, we put it in here for the next problem and for consistency of the time terms
+       */
+      res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (newStuffTC - oldStuffTC) * rdelta_t;
+
+      if (iCell == 0) {
+	res_Cont_0 =  (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight - moleFluxLeft);
+      }
+
+
+
+      if  (energyEquationProbType_ == 3) {
+	//
+	// Do old time enthalpy calculation -> will be replaced
+	//   (volcell might have changed -> this will work if it hasn't)
+	double volCellOld = xdelCell;
+	double solidMolarEnthalpyOld = solidSkeleton_->enthalpy_mole();
+	double solidConcOld =  1.0 / solidSkeleton_->molarVolume();
+	double volSolidOld = (1.0 - porosity_Curr_) * volCellOld;
+	double solidEnthalpyOld = solidMolarEnthalpyOld * solidConcOld *  volSolidOld;
+
+	double lyteMolarEnthalpyOld = ionicLiquid_->enthalpy_mole();
+	double volLyteOld = porosity_Curr_ * volCellOld;
+	double lyteEnthalpyOld =  lyteMolarEnthalpyOld * concTot_Curr_ * volLyteOld;
+	
+	double nEnthalpy_Old =  solidEnthalpyOld + lyteEnthalpyOld;
+
+
+	if (! checkDblAgree( nEnthalpy_Old, nEnthalpy_Old_Cell_[iCell] ) ) {
+	  throw m1d_Error("", "Disagreement on old enthalpy calc");
+	}
+
+	SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+	double volCellNew = xdelCell;
+	double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
+	double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
+	double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
+	double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
+
+	double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+	double volLyteNew = porosity_Curr_ * volCellNew;
+	double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+	
+	nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+
+	double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+	res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
+      }
+
+      // ----------------------  Calculations that are based on having a complete local residual -----------------------------
+
+      /*
+       *   .................... Go back to setting up shop at the current time
+       */
+      SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+    }
+    //
+    //  Section to find the Axial velocity at the left domain boundary, but only for show and only when the 
+    //          residual is already solved.
+    //
+    if (residType == Base_ShowSolution) {
+      if (IOwnLeft) {
+	if (iCell == 0) {
+	  res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + (moleFluxRight );
+	  moleFluxLeft = res_Cont_0;
+	  Fleft_cc_ = moleFluxLeft / concTot_Curr_;
+	  DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fleft_cc_;
+	  //
+	  //  Section to find the Diffusive flux of species
+	  //        fluxXleft[k] is set to zero. Also some species are replaced by constraints.
+	  //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations
+	  for (size_t k = 0; k < (size_t) nsp_; k++) {
+	    resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
+	    double newStuffSpecies0 = Xcent_cc_[k] * newStuffTC;
+	    double oldStuffSpecies0 = mf_old[k] * oldStuffTC;
+	    resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+	    //
+	    // Save the local domain residual to a vector for later validation studies
+	    //
+	    DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
+
+	    TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
+	    DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
+	      TotalFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
+	      -  Fleft_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
+	  }
+	  if  (energyEquationProbType_ == 3) {
+	    double resLocal_Enth = (fluxTright - fluxTleft);
+	    resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+	    resLocal_Enth += (enthConvRight - enthConvLeft);
+	    resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+	    DomainResidVectorLeftBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
+	  }
+	}
+      }
+      //
+      //  Section to find the Axial velocity at the right domain boundary
+      //
+      if (IOwnRight) {
+	if (iCell == NumLcCells - 1) {
+	  SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+	  SetupThermoShop1Extra(nodeCent, &(soln[indexCent_EqnStart]));
+	  //
+	  // Calculate the axial velocity that is needed to zero out the residual in this domain only
+	  //
+	  res_Cont_0 = (newStuffTC - oldStuffTC) * rdelta_t + ( - moleFluxLeft );
+	  moleFluxRight = - res_Cont_0;
+	  Fright_cc_ = moleFluxRight / concTot_Curr_;
+	  DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity] = Fright_cc_;
+	  //
+	  //  Section to find the Diffusive flux of species
+	  //        fluxXright[k] is set to zero. Also some species are replaced by constraints.
+	  //        Here, we solve for everything, revealing the hidden and satisfied missing species continuity equations
+	  //
+	  for (size_t k = 0; k < (size_t) nsp_; k++) {
+	    resLocal_Species[k] = (fluxXright[k] - fluxXleft[k]);
+	    double newStuffSpecies0 =  Xcent_cc_[k] * newStuffTC;
+	    double oldStuffSpecies0 =  mf_old[k] * oldStuffTC;
+	    resLocal_Species[k] += (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
+	    //
+	    // Save the local domain residual to a vector for later validation studies
+	    //
+	    DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = resLocal_Species[k];
+
+	    TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] = - resLocal_Species[k];
+	    fluxXright[k] = - resLocal_Species[k];
+	    DiffFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k] =  
+	      TotalFluxRightBound_LastResid_NE[nodeTmpsCenter.RO_Species_Eqn_Offset + k]
+	      -  Fright_cc_ * mfElectrolyte_Soln_Curr_[k] * concTot_Curr_;
+	  }
+
+	  if  (energyEquationProbType_ == 3) {
+	    double resLocal_Enth = (fluxTright - fluxTleft);
+	    resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+	    resLocal_Enth += (enthConvRight - enthConvLeft);
+	    resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+	    DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
+	  }
+	}
+      }
+	       
+    }
+#ifdef MECH_MODEL
+    if (solidMechanicsProbType_ == 1) {
+      valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+      // need the average temp to get the correct K
+      double AverageTemperature =    valTmps.Temperature.center;
+      
+      double BulkMod=-1;
+      if(AverageTemperature < 28.5+273.15 ) BulkMod = 615;
+      else if(AverageTemperature > 80+273.15 ) BulkMod = 327;
+      else if( AverageTemperature < 55+273.15) {
+	double low = AverageTemperature - (28.5+273.14);
+	BulkMod= 615 - ((615-481)*low/(55-28.5));
+      }
+      else if (AverageTemperature >= 55+273.15) {
+	double low = AverageTemperature - (55+273.15);
+	BulkMod = 481 - (481-327)*low/(80-55);
+      }
+      BulkMod*=1.0e6; // in MPa
+      Eyoung =       3*BulkMod*(1.0 - 2*poisson);
+
+      xratio[iCell] =  (Thermal_Expansion+1.0)*valTmps.Temperature.center/ TemperatureReference_;
+      
+	// the divergence of the pressure == - the trace of the STRESS tensor No factor of 3 as we are 1 d
+
+	// HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
+	// SO the below result may need to be modified by the non-solid-volume ratio. 
+	// Also!!!
+	// With the assumption that the time step is much much greater than the sound speed across the whole battery layer;
+	// then this is quasi static: the """correct""" way to calculate the pressure induced strain would be to average the pressure
+	// across the whole battery, and adjust the strain in each cell so that average would be equal to the right boundary pressure. 
+	// While the implicit solution generated by calculating the residuals as below will give the same result, the convergance
+	// of the solution may be greatly lenghtened by not explicitly calculating the quasi-static solution. 
+
+	size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	double pressure_STRESS = 0;
+	if (iVar_Pressure != npos) {
+	  if(nodeRight && ! nodeLeft)
+	    pressure_STRESS = -(1.0/BulkMod)*(soln[indexRight_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure]);
+	  else if(nodeLeft && ! nodeRight)
+	    pressure_STRESS = -(1.0/BulkMod)*(soln[indexLeft_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure]);
+	  else if (nodeLeft && nodeRight) {
+	    pressure_STRESS = -(1.0/BulkMod)*(
+					      (soln[indexLeft_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure])+
+					      (soln[indexRight_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure])
+					      );	    	    
+
+	  }
+	}
+	double pressure_strain = pressure_STRESS/Eyoung;
+	xratio[iCell]*= (1.0+pressure_strain);
+    }
+#endif	
+  } // end of iCell loop
+
+#ifdef MECH_MODEL
+	if (solidMechanicsProbType_ == 1) {
+	  new_node_pos.resize(NumLcCells+1,0.0);
+	  // node that this is offset by one node. 
+	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+	    NodalVars* nodeCent  = cTmps.nvCent_;
+	    NodalVars* nodeRight = cTmps.nvRight_;
+	    NodalVars* nodeLeft  = cTmps.nvLeft_;
+
+	    nodeRight = cTmps.nvRight_;
+	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	    nodeCent = cTmps.nvCent_;
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    nodeLeft = cTmps.nvLeft_;
+	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+
+	    // NOTE new_node_pos[0] must be set, using the information from the Anode???? 
+
+	    double delta_0 =  nodeCent->xNodePos() - nodeLeft->xNodePos();
+	    double new_delta = delta_0 *  xratio[iCell-1]; // 
+	    double new_position = new_node_pos[iCell-1] + new_delta;
+	    new_node_pos[iCell]=new_position;
+	    // now calculate residual for  Displacement_Axial, 
+	    // nv->changeNodePosition((*Xpos_LcNode_p)[iNode]); orres[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
+	  }
+	}
+#endif
 }
 //==================================================================================================================================
 void

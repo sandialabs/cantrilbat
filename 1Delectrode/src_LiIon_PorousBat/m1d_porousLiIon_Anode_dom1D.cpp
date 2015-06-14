@@ -1464,10 +1464,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ == 1) {
-	  if(nodeRight) { // only do the calculations for center to right, on iCell == 0, center is the left most node. 
-	    // use the average temp of the center and right nodes. 
+
 	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	    xratio[iCell] =  (Thermal_Expansion+1.0)*0.5*(valTmps.Temperature.center + valTmps.Temperature.right)/ TemperatureReference_;
+	    xratio[iCell] =  (Thermal_Expansion+1.0)*valTmps.Temperature.center / TemperatureReference_;
 	    xratio[iCell] *=  Particle_SFS_v_Porosity_Factor *(Electrode_Cell_[iCell]->SolidVol() / iSolidVolume_[iCell]);
 	    
 	    // the divergence of the pressure == the trace of the STRESS tensor
@@ -1483,19 +1482,28 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 	    double pressure_STRESS = 0;
 	    if (iVar_Pressure != npos) {
-	        pressure_STRESS = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-soln[indexRight_EqnStart + iVar_Pressure]);
-	    }
+	      if(nodeRight && ! nodeLeft)
+	        pressure_STRESS = -(1.0/BulkMod)*(soln[indexRight_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure]);
+	      else if(nodeLeft && ! nodeRight)
+		pressure_STRESS = -(1.0/BulkMod)*(soln[indexLeft_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure]);
+	      else if (nodeLeft && nodeRight) {
+		pressure_STRESS = -(1.0/BulkMod)*(
+						  (soln[indexLeft_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure])+
+						  (soln[indexRight_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure])
+						  );
+	      }	 
+	    } // pressure exists
 	    double pressure_strain = pressure_STRESS/Eyoung;
 	    xratio[iCell]*= (1+pressure_strain);   
-	  }
 	}
 #endif
 
     }
+
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ == 1) {
 	  new_node_pos.resize(NumLcCells+1,0.0);
-	  // node that this is offset by one node. 
+	  // this is fully correct: We have node[0] pinned so it never moves. 
 	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
@@ -1504,21 +1512,19 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    NodalVars* nodeCent  = cTmps.nvCent_;
 	    //	    NodalVars* nodeRight = cTmps.nvRight_;
 	    NodalVars* nodeLeft  = cTmps.nvLeft_;
-
+	    if(iCell ==1) new_node_pos[iCell-1] = nodeLeft->x0NodePos(); 
 	    //	    nodeRight = cTmps.nvRight_;
 	    //	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 	    nodeCent = cTmps.nvCent_;
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	    nodeLeft = cTmps.nvLeft_;
 	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	    double node_left_pos = nodeLeft->xNodePos(); 
 	    double delta_0 = nodeCent->xNodePos() - nodeLeft->xNodePos();
 	    double new_delta = delta_0 *  xratio[iCell-1]; // 
-	    double new_position = node_left_pos + new_delta;
-	    new_node_pos[iCell]=new_position;
+	    new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
 	    // now calculate residual for  Displacement_Axial, 
 	    // nv->changeNodePosition((*Xpos_LcNode_p)[iNode]); orres[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
-	  }
+	  } // end of iCell loop
 	}
 #endif
 }
