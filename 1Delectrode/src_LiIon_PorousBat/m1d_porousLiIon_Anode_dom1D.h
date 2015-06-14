@@ -655,12 +655,6 @@ protected:
     //! Initial solid volume
     std::vector<double> iSolidVolume_;
 
-    // scratch pad to calculate the expansion of the matrix
-    std::vector<double> xratio_; 
-
-    // scratch pad to calculate the new positions due to the strain of the elements
-    std::vector<double> new_node_pos_; 
-
     //! Interfacial Electrode Current per surface area of the electrode
     /*!
      *  The surface area is specifically defined as the external surface of the electrode

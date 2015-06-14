@@ -759,6 +759,52 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
      *  Loop over the number of Cells in this domain on this processor
      *  This loop is done from left to right.
      */
+
+    // scratch pad to calculate the expansion of the matrix
+    std::vector<double> xratio(NumLcCells,0.0); 
+
+    // scratch pad to calculate the new positions due to the strain of the elements
+    std::vector<double> new_node_pos(NumLcCells,0.0);
+
+    // for the Cathode material, we use the following values:
+    // From Journal of Power Sources 271 (2014), 
+    // Simulation of temperature rise in Li-Ion cells at very high currents
+    // Jing Mao, William Tiedmann, John Newman, page 446
+    // initial porosity  of the LixCoO2 matrix_poro = 0.36
+    // Volume frac of binder            binder_vf   = 0.106
+    
+    // **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
+    // the porosity to effective modulus relationship. 
+    
+    
+    //The 1st International Joint Mini-Symposium on Advanced Coatings between Indiana University
+    //Purdue University Indianapolis and Changwon National University
+    //First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
+    //for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
+    //	double Youngs_Modulus = 213000.0 ; // 213 GPa.
+    double BulkMod   = 163.0e9 ; // 163 GPa.
+    
+    // Modification ala Simulation of elastic moduli of porous materials
+    // CREWES Research Report — Volume 13 (2001) 83
+    // Simulation of elastic moduli for porous materials
+    // Charles P. Ursenbach 
+    // @ 40% porosity of graphite, K = 0.226 * K0
+    // @ 30% porosity,             K = 0.276 * K0
+    // youngs mod = 3K(1-2v) 
+    // shear mod G = 3*K(1-2v)/2(1+v)
+    
+    // using 30% porosity
+    BulkMod *= 0.276;
+    // from J. Electrochmical Society, 157 (2) A155-A163 (2010) 
+    // Theoretical Analysis of Stresses in a Lithium Ion Cell
+    double poisson = 0.2; 
+    // US Patent http://www.google.com/patents/US6242129
+    double Particle_SFS_v_Porosity_Factor = 1.0;
+    double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
+    //	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
+    double Eyoung=3*BulkMod*(1.0 - 2*poisson);
+
+
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
         Electrode* Electrode_ptr = Electrode_Cell_[iCell];
@@ -1422,115 +1468,36 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	}
 #ifdef MECH_MODEL
-	if(solidMechanicsProbType_ == 1) {
-	  // for the Cathode material, we use the following values:
-	  // From Journal of Power Sources 271 (2014), 
-	  // Simulation of temperature rise in Li-Ion cells at very high currents
-	  // Jing Mao, William Tiedmann, John Newman, page 446
-	  // initial porosity  of the LixCoO2 matrix_poro = 0.36
-	  // Volume frac of binder            binder_vf   = 0.106
+	if (solidMechanicsProbType_ == 1) {
+	  new_node_pos.resize(NumLcCells+1,0.0);
+	  // node that this is offset by one node. 
+	  for (int iCell = 0; iCell < NumLcCells-1; iCell++) {
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	    //	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+	    NodalVars* nodeCent  = cTmps.nvCent_;
+	    NodalVars* nodeRight = cTmps.nvRight_;
+	    //NodalVars* nodeLeft  = cTmps.nvLeft_;
 
-	  // **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
-	  // the porosity to effective modulus relationship. 
-
-
-	  //The 1st International Joint Mini-Symposium on Advanced Coatings between Indiana University
-	  //Purdue University Indianapolis and Changwon National University
-	  //First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
-	  //for thin film rechargeable battery. Linmin Wu, Weng Hoh Lee, Jing Zhang
-	  //	double Youngs_Modulus = 213000.0 ; // 213 GPa.
-	  double BulkMod   = 163.0e9 ; // 163 GPa.
-
-	  // Modification ala Simulation of elastic moduli of porous materials
-	  // CREWES Research Report — Volume 13 (2001) 83
-	  // Simulation of elastic moduli for porous materials
-	  // Charles P. Ursenbach 
-	  // @ 40% porosity of graphite, K = 0.226 * K0
-	  // @ 30% porosity,             K = 0.276 * K0
-	  // youngs mod = 3K(1-2v) 
-	  // shear mod G = 3*K(1-2v)/2(1+v)
-
-	  // using 30% porosity
-	  BulkMod *= 0.276;
-	
-	  // from J. Electrochmical Society, 157 (2) A155-A163 (2010) 
-	  // Theoretical Analysis of Stresses in a Lithium Ion Cell
-	  double poisson = 0.2; 
-
-	  // US Patent http://www.google.com/patents/US6242129
-	  double Particle_SFS_v_Porosity_Factor = 1.0;
-	  double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
-
-	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-
-	  double AverageTemperature =    valTmps.Temperature.center;
-
-	  // The strain is: ((delx_Right - delx_left)/(xR_reference-xL_reference)
-
-	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
-	  double Eyoung=0;
-	  if(iCell == 0) {
-	    std::cout <<"Cathode  Chi                "<< Particle_SFS_v_Porosity_Factor<<std::endl;
-	    std::cout <<"Cathode  Thermal_Expansion  "<< Thermal_Expansion<<std::endl;
-	    std::cout <<"Cathode  Poisson Ratio      "<< poisson << std::endl;
-	    std::cout <<"Cathode  Bulk Modulus       "<< BulkMod <<std::endl;
-	    std::cout <<"Cathode  G                  "<<G<<std::endl;
-	    double efromk = 3*BulkMod*(1.0 - 2*poisson);
-	    Eyoung = efromk;
-	    std::cout <<"Cathode EfromK             "<<efromk<<std::endl;
+	    nodeRight = cTmps.nvRight_;
+	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	    nodeCent = cTmps.nvCent_;
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    //nodeLeft = cTmps.nvLeft_;
+	    //indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	    double node_right_pos = nodeRight->xNodePos(); 
+	    double node_center_pos = nodeCent->xNodePos(); 
+	    double delta_0 =  nodeRight->xNodePos() - nodeCent->xNodePos();
+	    double new_delta = delta_0 *  xratio[iCell]; // 
+	    double new_position = node_center_pos + new_delta;
+	    new_node_pos[iCell+1]=new_position;
+	    // now calculate residual for  Displacement_Axial, 
+	    // nv->changeNodePosition((*Xpos_LcNode_p)[iNode]); 
+	    // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
 	  }
-
-	  double lpz = 0.0;
-	  double rpz = 0.0;
-	  if(nodeLeft == NULL) 
-	    lpz = nodeCent->x0NodePos()/2.0;
-	  else
-	    lpz = nodeLeft->x0NodePos();
-	  if(nodeRight == NULL) 
-	    rpz = nodeCent->x0NodePos()/2.0;
-	  else
-	    rpz = nodeRight->x0NodePos();
-	  // this _will_ fail if the anode is <= 3 nodes across!!!!!!
-	  if(rpz == lpz) abort();
-
-	  double tot_strain = (xdelR-xdelL)/ (rpz-lpz); // factor of 2's cancel
-
-	  double thermal_strain_factor = TemperatureReference_/(1.0+Thermal_Expansion)*AverageTemperature ;
-	
-	  double Stress_Free_Strain_factor = Particle_SFS_v_Porosity_Factor *( 	iSolidVolume_[iCell]/Electrode_Cell_[iCell]->SolidVol());
-
-
-
-	  size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	  double pressure_strain = 0.0;
-	   if( iVar_Pressure != npos) 
-	     pressure_strain = (1.0/BulkMod)*(soln[indexCent_EqnStart + iVar_Pressure]-PressureReference_);
-	  double mech_strain = tot_strain-pressure_strain;
-
-	  mech_strain *= thermal_strain_factor;
-
-	  //	mech_strain *= particle_stress_free_strain_factor;
-
-	  // calculate the stress free strain from the swelling of the particles, and subtract it from the above. The value should be unrelated to that of the anode. 
-
-
-	  double mech_stress = mech_strain * Eyoung;	
-
-	  double sol_stress = soln[nodeTmpsCenter.index_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
-
-	  std::cout <<"Cathode iCell "<<iCell<<std::endl;
-	  std::cout <<"Cathode       init volume "<< 	iSolidVolume_[iCell]<< " current volume  "<<Electrode_Cell_[iCell]->SolidVol()<<std::endl;
-	  std::cout <<"Cathode       total Strain           "<<tot_strain<<std::endl;
-	  std::cout <<"Cathode       Thermal Strain Factor  "<<thermal_strain_factor<<std::endl;
-	  std::cout <<"Cathode       StressFreeStrainFactor "<<Stress_Free_Strain_factor<<std::endl;
-	  std::cout <<"Cathode       pressure_strain        "<<pressure_strain<<std::endl;
-	  std::cout <<"Cathode       mech_strain            "<<mech_strain<<std::endl;
-	  std::cout <<"Cathode       Previous Stress        "<<sol_stress<<std::endl;
-	  std::cout <<"Cathode       mech Stress            "<<mech_stress<<std::endl;
-
-
-	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = sol_stress - mech_stress;
 	}
+
 #endif
 
     }

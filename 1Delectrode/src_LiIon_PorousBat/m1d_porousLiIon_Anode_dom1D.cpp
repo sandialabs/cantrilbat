@@ -279,8 +279,6 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
     iSolidVolume_.resize(NumLcCells,0.0);
-    xratio_.resize(NumLcCells,0.0);
-    new_node_pos_.resize(NumLcCells,0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
@@ -753,7 +751,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double poisson = 0.45;
     double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
-    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
+    //    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     
 
     //mole fraction fluxes
@@ -1519,6 +1517,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double new_position = node_left_pos + new_delta;
 	    new_node_pos[iCell]=new_position;
 	    // now calculate residual for  Displacement_Axial, 
+	    // nv->changeNodePosition((*Xpos_LcNode_p)[iNode]); orres[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
 	  }
 	}
 #endif
