@@ -119,7 +119,7 @@ namespace BEInput {
     string::size_type k;
     char action = '-';
     while (1 > 0) {
-      k = u.find_first_of("/-");
+      k = u.find_first_of("/-*");
       if (k != string::npos)
 	tok = u.substr(0,k);
       else
@@ -131,28 +131,23 @@ namespace BEInput {
 	tsub = tok.substr(0,tsize-1);
 	fctr = m_u[tsub];
 	fctr *= fctr;
-      }
-      else if (tok[tsize - 1] == '3') {
+      } else if (tok[tsize - 1] == '3') {
 	tsub = tok.substr(0,tsize-1);
 	fctr = m_u[tsub];
 	fctr *= fctr*fctr;
-      }
-      else if (tok[tsize - 1] == '4') {
+      } else if (tok[tsize - 1] == '4') {
 	tsub = tok.substr(0,tsize-1);
 	fctr = m_u[tsub];
 	fctr *= fctr*fctr*fctr;
-      }
-      else if (tok[tsize - 1] == '5') {
+      } else if (tok[tsize - 1] == '5') {
 	tsub = tok.substr(0,tsize-1);
 	fctr = m_u[tsub];
 	fctr *= fctr*fctr*fctr*fctr;
-      }
-      else if (tok[tsize - 1] == '6') {
+      } else if (tok[tsize - 1] == '6') {
 	tsub = tok.substr(0,tsize-1);
 	fctr = m_u[tsub];
 	fctr *= fctr*fctr*fctr*fctr*fctr;
-      }
-      else {
+      } else {
 	tsub = tok;
 	fctr = m_u[tok];
       }
@@ -161,11 +156,11 @@ namespace BEInput {
 	throw BI_InputError("BE_UnitConversion::toSI",
 			    "unknown unit: " + tsub);
       }
-      if (action == '-') f *= fctr;
+      if (action == '-' || action == '*') f *= fctr;
       else if (action == '/') f /= fctr;
       if (k == string::npos) break;
       action = u[k];
-      u = u.substr(k+1,u.size());
+      u = u.substr(k+1, u.size());
     }
     return f;
   }

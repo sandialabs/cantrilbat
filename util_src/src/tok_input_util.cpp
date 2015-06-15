@@ -33,7 +33,7 @@ static int PrintInputFile = 1;     /* Used to turn on and off the
 
 /*************** R O U T I N E S   I N   T H E   F I L E *******************
  *
- *    NAME				TYPE		CALLED_BY
+ *    NAME				TYPE		Called_By
  *--------------------------------------------------------------------
  *    set_tok_input_print_flag           void            extern
  *    get_next_keyLine                   BOOLEAN         extern
@@ -667,12 +667,8 @@ char* tok_to_string(const TOKEN* tokPtr,  const int maxTok,
     }
     return (str);
 }
-/*****************************************************************************/
-/*****************************************************************************/
-/*****************************************************************************/
-
-char* str_to_string(const char* str, const char* defaultVal,
-                    BOOLEAN* error)
+//==================================================================================================================================
+char* str_to_string(const char* str, const char* defaultVal, BOOLEAN* error)
 /*
  *      Interprets the argument string as a string.
  *      It mallocs new space for the string, and returns the pointer to it.

@@ -124,7 +124,31 @@ extern BOOLEAN tok_to_boolean(const TOKEN*, const int, BOOLEAN*);
 extern BOOLEAN str_to_boolean(const char*, const int, BOOLEAN*);
 extern char*   tok_to_string(const TOKEN*,  const int,  const int,
                              const char*, BOOLEAN*);
-extern char*   str_to_string(const char*, const char*, BOOLEAN*);
+
+
+
+//! Interprets the argument string as a string, then mallocs new space for the string, and returns the pointer to it
+/*!
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value
+ *                 ---------        --------------
+ *                 default            defaultVal
+ *
+ *      A default may be specified on the command line. The absence of a default may also be specified by setting
+ *      devault_value to NO_DEFAULT_INT.
+ *
+ *      If there is an error, *error is set to TRUE. *error isn't touched if there isn't an error.
+ *
+ *  @param[in]    str          Input c string to be interpreted
+ *  @param[in]    defaultVal   Input default value of the c string
+ *  @param]out]   error        True if there is an error condition on the card
+ *  
+ *  @return                    Returns the value of the string as a c string, i.e., null terminated. This string
+ *                             is always malloced.
+ */
+char* str_to_string(const char* str, const char* defaultVal, BOOLEAN* error);
+
 extern int    scan_for_int(FILE*, const char*, const int, const int);
 extern double scan_for_double(FILE*,  const char*, const double,
                               const double);

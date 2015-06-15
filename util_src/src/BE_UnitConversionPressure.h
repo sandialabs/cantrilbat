@@ -1,9 +1,6 @@
 /**
  * @file BE_UnitConversionPressure.h
  *
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -17,23 +14,26 @@
 
 #include "BE_UnitConversion.h"
 
-namespace BEInput {
+namespace BEInput
+{
 
-  class BE_UnitConversionPressure : public BE_UnitConversion {
-  public:
-  
-    /**
-     * Constructor is defined to be private so that we can't make multiple
-     * copies of this.
-     */
+//!  Unit conversion operator for quantities that are of type pressure
+/*!
+ *    The member function toSi() converts pressure unit strings to a conversion factor for pascals.
+ */
+class BE_UnitConversionPressure : public BE_UnitConversion
+{
+public:
+
+    //! Constructor
     BE_UnitConversionPressure();
 
-   //! Constructor is defined to be protected so that we can't make multiple
+    //! Constructor is defined to be protected so that we can't make multiple
     //! copies of this, yet we can inherit from this object.
     /*!
      * In the constructor, we define all of the conversion amounts.
      */
-    BE_UnitConversionPressure(const BE_UnitConversionPressure &right);
+    BE_UnitConversionPressure(const BE_UnitConversionPressure& right);
 
     //! Assignment operator
     /*!
@@ -41,8 +41,8 @@ namespace BEInput {
      */
     BE_UnitConversionPressure& operator=(const BE_UnitConversionPressure& right);
 
-    //! duplicator
-    virtual BE_UnitConversion * duplMyselfAsUnitConversion() const;
+    //! Duplicator
+    virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
     /**
      * Destructor for the object. -> Note: we don't destroy the static
@@ -52,15 +52,15 @@ namespace BEInput {
     virtual ~BE_UnitConversionPressure();
 
     /**
-     * Return a string containing a short description of what the 
+     * Return a string containing a short description of what the
      * units converter does.
      */
     std::string returnUsage() const;
 
-  private:
-  
- 
-  };
+private:
+
+
+};
 
 }
 
