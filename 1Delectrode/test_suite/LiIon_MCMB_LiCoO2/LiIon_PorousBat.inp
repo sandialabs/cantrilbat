@@ -172,7 +172,7 @@ Cathode Voltage = 3.8 V
 !
 !-------------------------------------------------------------------------
 
-Solid Mechanics Problem Type = Linear Elastic
+! Solid Mechanics Problem Type = Linear Elastic
 !-------------------------------------------------------------------------
 !  Nonlinear Solver Inputs
 !-------------------------------------------------------------------------
