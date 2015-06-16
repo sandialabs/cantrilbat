@@ -69,57 +69,10 @@ BDT_porAnode_LiKCl::operator=(const BDT_porAnode_LiKCl &r)
  void
  BDT_porAnode_LiKCl::ReadModelDescriptions()
  {
-     int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
-     if (iph < 0) {
-	 throw CanteraError("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()",
-			    "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
-     }
-     ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-     ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
-     ionicLiquid_ = ionicLiquidIFN_;
 
+     BDD_porousElectrode::ReadModelDescriptions();
 
-
-     ELECTRODE_KEY_INPUT *ai = PSinput.anode_input_;
-
-     Electrode_ = newElectrodeObject(ai->electrodeModelName);
-     if (!Electrode_) {
-	 throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", "Electrode factory method failed");
-     }
-     ELECTRODE_KEY_INPUT *ai_new = newElectrodeKeyInputObject(ai->electrodeModelName);  
-     string commandFile = ai->commandFile_;
-     BEInput::BlockEntry *cfA = new BEInput::BlockEntry("command_file");
-     
-     /*
-      *  Parse the complete child input file
-      */
-     int retn = ai_new->electrode_input_child(commandFile, cfA);
-     if (retn == -1) {
-	 throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()",
-			  "Electrode input child method failed");
-     }
-     /*
-      * Switch the pointers around so that the child input file is returned.
-      * Delete the original pointer.
-      */
-     delete ai;
-     PSinput.anode_input_ = ai_new;
-     
-     retn = Electrode_->electrode_model_create(PSinput.anode_input_);
-     if (retn == -1) {
-	 throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
-			  "Electrode model create method failed");
-     }
-     retn = Electrode_->setInitialConditions(PSinput.anode_input_);
-     if (retn == -1) {
-	 throw  m1d_Error("BDT_porAnode_LiKCl::BDT_porAnode_LiKCl()", 
-			  "setInitialConditions method failed");
-     }
-     
-     delete cfA;
-
-
-
+     ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
  }
 //=====================================================================================================================
 void
