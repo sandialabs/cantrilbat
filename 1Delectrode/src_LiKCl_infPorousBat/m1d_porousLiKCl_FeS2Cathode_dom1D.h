@@ -166,7 +166,7 @@ public:
    * @param solnElectrolyte
    */
   void
-  updateElectrolyte(const doublereal * const solnElectrolyte);
+  updateElectrolyteOld(const doublereal * const solnElectrolyte);
 
   //! Functions updates the Electrode object from the current values that are stored within the object
   void
@@ -177,10 +177,10 @@ public:
    * @param solnElectrolyte start of the solution vector at the current node
    */
   void
-  getVoltages(const double * const solnElectrolyte);
+  getVoltagesOld(const double * const solnElectrolyte);
 
   void
-  getMFElectrolyte_soln(const double * const solnElectrolyte);
+  getMFElectrolyte_solnOld(const double * const solnElectrolyte);
 
   //! Base class for saving the solution on the domain in an xml node.
   /*!
