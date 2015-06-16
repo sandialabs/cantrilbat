@@ -26,7 +26,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     nEnthalpy_Electrode_New_Cell_(0),
     nEnthalpy_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
-    EnthalpyPhiPM_metal_Curr_(0)
+    EnthalpyPhiPM_metal_Curr_(0),
+    elem_Solid_Old_Cell_()
 {
     BDT_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
 
@@ -42,7 +43,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     nEnthalpy_Electrode_New_Cell_(0),
     nEnthalpy_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
-    EnthalpyPhiPM_metal_Curr_(0)
+    EnthalpyPhiPM_metal_Curr_(0),
+    elem_Solid_Old_Cell_()
 {
     operator=(r);
 }
@@ -78,6 +80,8 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     nEnthalpy_Electrode_Old_Cell_    = r.nEnthalpy_Electrode_Old_Cell_;
     jFlux_EnthalpyPhi_metal_trCurr_  = r.jFlux_EnthalpyPhi_metal_trCurr_;
     EnthalpyPhiPM_metal_Curr_        = r.EnthalpyPhiPM_metal_Curr_;
+    metalPhase_                      = r.metalPhase_;
+    elem_Solid_Old_Cell_             = r.elem_Solid_Old_Cell_;
     
     return *this;
 }
