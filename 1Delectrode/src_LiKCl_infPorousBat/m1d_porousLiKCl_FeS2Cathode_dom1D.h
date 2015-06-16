@@ -334,13 +334,13 @@ protected:
   /*!
    *   We do not own this object
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+  //Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We do not own this object
    */
-  Cantera::Transport* trans_;
+  //Cantera::Transport* trans_;
 
   //! Pointer to the electrode object
   /*!

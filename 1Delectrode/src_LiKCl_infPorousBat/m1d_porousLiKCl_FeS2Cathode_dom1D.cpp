@@ -44,7 +44,8 @@ namespace m1d
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKCl& bdd) :
   porousElectrode_dom1D(bdd), 
-  ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), 
+  Electrode_(0),
+  nph_(0), nsp_(0), 
   surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
@@ -71,11 +72,11 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
   /*
    * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
    */
-  ionicLiquid_ = fa->ionicLiquidIFN_;
+  //ionicLiquid_ = fa->ionicLiquidIFN_;
   /* 
    *  This is a shallow pointer copy. The BDT object owns the transport object
    */
-  trans_ = fa->trans_;
+  //trans_ = fa->trans_;
   /*
    *  This is a shallow pointer copy. The BDT object owns the Electrode object
    */
@@ -87,7 +88,8 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
 //=====================================================================================================================
 porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
     porousElectrode_dom1D((BDT_porCathode_LiKCl&) r.BDD_), 
-    ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0),
+    Electrode_(0),
+    nph_(0), nsp_(0),
     surfaceAreaDensity_Cell_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
@@ -123,8 +125,7 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   // Call the parent assignment operator
   porousElectrode_dom1D::operator=(r);
 
-  ionicLiquid_ = r.ionicLiquid_;
-  trans_ = r.trans_;
+
   Electrode_ = r.Electrode_;
 
   nph_ = r.nph_;
