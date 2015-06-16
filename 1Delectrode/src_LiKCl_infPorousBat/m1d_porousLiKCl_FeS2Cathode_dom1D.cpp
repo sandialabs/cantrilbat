@@ -54,8 +54,8 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
   capacityZeroDoD_Cell_(0),
   Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
-  Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-  mfElectrolyte_Thermo_Curr_(0), temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
+  Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), 
+  temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
   phiElectrode_Curr_(0.0), concTot_Curr_(0.0), porosity_Curr_(0.0), conductivityElectrode_(1.0E2),
   gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
   jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0), electrodeSpeciesProdRates_(0), icurrInterface_Curr_(0.0),
@@ -97,8 +97,8 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   capacityZeroDoD_Cell_(0),
   Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
   Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
-  Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), mfElectrolyte_Soln_Curr_(0),
-  mfElectrolyte_Thermo_Curr_(0), temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
+  Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0), spCharge_(0), 
+  temp_Curr_(TemperatureReference_), pres_Curr_(0.0), phiElectrolyte_Curr_(-10000.),
   phiElectrode_Curr_(0.0), concTot_Curr_(0.0), porosity_Curr_(0.0), conductivityElectrode_(1.0E2),
   gradT_trCurr_(0.0), gradV_trCurr_(0.0), gradVElectrode_trCurr_(0.0), gradX_trCurr_(0), Vdiff_trCurr_(0),
   jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0), electrodeSpeciesProdRates_(0), icurrInterface_Curr_(0.0),
@@ -150,8 +150,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   Xcent_cc_ = r.Xcent_cc_;
   Xright_cc_ = r.Xright_cc_;
   spCharge_ = r.spCharge_;
-  mfElectrolyte_Soln_Curr_ = r.mfElectrolyte_Soln_Curr_;
-  mfElectrolyte_Thermo_Curr_ = r.mfElectrolyte_Thermo_Curr_;
   temp_Curr_ = r.temp_Curr_;
   pres_Curr_ = r.pres_Curr_;
   phiElectrolyte_Curr_ = r.phiElectrolyte_Curr_;
@@ -227,9 +225,6 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   spCharge_[0] = 1.0;
   spCharge_[1] = 1.0;
   spCharge_[2] = -1.0;
-
-  mfElectrolyte_Soln_Curr_.resize(3, 0.0);
-  mfElectrolyte_Thermo_Curr_.resize(3, 0.0);
 
   gradX_trCurr_.resize(3, 0.0);
   Vdiff_trCurr_.resize(3, 0.0);
