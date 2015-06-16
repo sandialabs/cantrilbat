@@ -1459,11 +1459,11 @@ ProblemResidEval::writeTecplot(const int ievent,
 			       const Solve_Type_Enum solveType,
 			       const double delta_t_np1)
 { 
-
     // Get a local copy of the domain layout
     DomainLayout &DL = *DL_ptr_;
 
     static int firstTime = 1;
+    static double lastTime = -10000.0;
 
     Epetra_Vector *solnAll = GI_ptr_->SolnAll;
     m1d::gather_nodeV_OnAll(*solnAll, y_n);
@@ -1490,7 +1490,15 @@ ProblemResidEval::writeTecplot(const int ievent,
 
 	//writeGlobalTecplotHeader();
     }
-    
+
+    bool doWrite = true;
+    if (ievent == 2) {
+        if (fabs(t - lastTime) <= (1.0E-3 * delta_t)) {
+           doWrite = false;
+        } 
+    }
+        
+    if (doWrite) {
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
 	d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
@@ -1499,7 +1507,9 @@ ProblemResidEval::writeTecplot(const int ievent,
 	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
 	d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
     }
-  
+    }
+
+    lastTime = t;
 }
 //=====================================================================================================================
 // Write the solution to either the screen or to a log file
