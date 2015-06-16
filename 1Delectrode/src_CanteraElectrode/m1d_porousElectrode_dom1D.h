@@ -11,6 +11,7 @@
 
 #include "m1d_porousFlow_dom1D.h"
 #include "m1d_BDD_porousElectrode.h"
+#include "cantera/base/Array.h"
 
 //#include <cantera/transport.h>    
 
@@ -315,7 +316,7 @@ protected:
      */
     Cantera::ThermoPhase* metalPhase_;
 
-    //!  
+    //!  Counter that stores the moles of elements in each of the electrode objects
     /*!
      *
      */
