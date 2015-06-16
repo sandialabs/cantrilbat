@@ -40,9 +40,10 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl & bdd) :
-      porousElectrode_dom1D(bdd), 
-      ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdt_LiKCl) :
+      porousElectrode_dom1D(bdt_LiKCl), 
+      Electrode_(0), 
+      nph_(0), nsp_(0), concTot_cent_(0.0),
       concTot_cent_old_(0.0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0),
       xdelCell_Cell_(0),
       concTot_Cell_(0), concTot_Cell_old_(0), 
@@ -57,29 +58,32 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl & bd
       icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
       solnTemp(0)
 {
-  BDT_porAnode_LiKCl *fa = dynamic_cast<BDT_porAnode_LiKCl *> (&bdd);
-  if (!fa) {
-    throw m1d_Error("confused", "confused");
-  }
-  /*
-   * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
-   */
-  ionicLiquid_ = fa->ionicLiquidIFN_;
-  /* 
-   *  This is a shallow pointer copy. The BDT object owns the transport object
-   */
-  trans_ = fa->trans_;
-  /*
-   *  This is a shallow pointer copy. The BDT object owns the Electrode object
-   */
-  Electrode_ = fa->Electrode_;
-  Electrode_->setID(0, 0);
-  nsp_ = 3;
-  nph_ = 1;
+    BDT_porAnode_LiKCl *fa = &bdt_LiKCl;
+    // dynamic_cast<BDT_porAnode_LiKCl *> (&bdd);
+    if (!fa) {
+	throw m1d_Error("confused", "confused");
+    }
+    /*
+     * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
+     */
+    //ionicLiquid_ = fa->ionicLiquidIFN_;
+    /* 
+     *  This is a shallow pointer copy. The BDT object owns the transport object
+     */
+    //trans_ = fa->trans_;
+    /*
+     *  This is a shallow pointer copy. The BDT object owns the Electrode object
+     */
+    Electrode_ = fa->Electrode_;
+    Electrode_->setID(0, 0);
+    nsp_ = 3;
+    nph_ = 1;
 }
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
-    porousElectrode_dom1D((BDD_porousElectrode&) r.BDD_), ionicLiquid_(0), trans_(0), Electrode_(0), nph_(0), nsp_(0), concTot_cent_(0.0),
+    porousElectrode_dom1D((BDD_porousElectrode&) r.BDD_),
+    Electrode_(0),
+    nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0), 
     xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0), 
@@ -111,8 +115,8 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
   // Call the parent assignment operator
   BulkDomain1D::operator=(r);
 
-  ionicLiquid_ = r.ionicLiquid_;
-  trans_ = r.trans_;
+  //ionicLiquid_ = r.ionicLiquid_;
+  //trans_ = r.trans_;
   Electrode_ = r.Electrode_;
 
   nph_ = r.nph_;
@@ -215,8 +219,10 @@ porousLiKCl_LiSiAnode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   spCharge_[1] = 1.0;
   spCharge_[2] = -1.0;
   
-  mfElectrolyte_Soln_Curr_.resize(3, 0.0);
-  mfElectrolyte_Thermo_Curr_.resize(3, 0.0);
+  // mfElectrolyte_Soln_Curr_.resize(3, 0.0);
+  //mfElectrolyte_Thermo_Curr_.resize(3, 0.0);
+
+  ionicLiquid_->getMoleFractions( &(mfElectrolyte_Soln_Curr_[0]));
   
   gradX_trCurr_.resize(3, 0.0);
   Vdiff_trCurr_.resize(3, 0.0);
