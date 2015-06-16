@@ -130,7 +130,7 @@ public:
    *                              0 - at the current cell center
    */
   void
-  SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, int type);
+  SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type);
 
   //!  Setup shop at a particular point in the domain, calculating intermediate quantites
   //!  and updating Cantera's objects
@@ -145,7 +145,7 @@ public:
    *                              1 - at the right cell boundary
    */
   void
-  SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
+  SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
                    const doublereal * const solnElectrolyte_CurrR,
                    int type);
 

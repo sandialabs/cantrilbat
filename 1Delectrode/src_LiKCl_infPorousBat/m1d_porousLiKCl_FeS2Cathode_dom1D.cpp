@@ -572,7 +572,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
         /*
          *  Establish the environment at the left cell boundary
          */
-        SetupThermoShop2(&(soln[indexLeft_EqnStart_BD]), &(soln[indexCent_EqnStart_BD]), 0);
+        SetupThermoShop2Old(&(soln[indexLeft_EqnStart_BD]), &(soln[indexCent_EqnStart_BD]), 0);
 
         SetupTranShop(xdelL, 0);
 
@@ -625,7 +625,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
        */
       AssertTrace(iCell == NumLcCells-1);
       // fluxFright = 0.0;
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+      SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0);
       fluxFright = Fright_cc_ * concTot_Curr_ * porosity_Curr_;
       // fluxVRight = 0.0;
       icurrElectrolyte_CBR_[iCell] = 0.0;
@@ -638,7 +638,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
       /*
        *  Establish the environment at the right cell boundary
        */
-      SetupThermoShop2(&(soln[indexCent_EqnStart_BD]), &(soln[indexRight_EqnStart_BD]), 1);
+      SetupThermoShop2Old(&(soln[indexCent_EqnStart_BD]), &(soln[indexRight_EqnStart_BD]), 1);
 
       SetupTranShop(xdelR, 1);
 
@@ -722,7 +722,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
     /*
      *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
      */
-    SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+    SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0);
 
     /*
      *  Calculate the electrode reactions
@@ -837,7 +837,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
       /*
        * Setup shop with the old time step
        */
-      SetupThermoShop1(&(solnOld[indexCent_EqnStart_BD]), 0);
+      SetupThermoShop1Old(&(solnOld[indexCent_EqnStart_BD]), 0);
 
       double oldStuffTC = concTot_Curr_ * porosity_Curr_ * xdelCell;
       double oldStuffSpecies0 = mfElectrolyte_Soln_Curr_[0] * oldStuffTC;
@@ -866,7 +866,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
       /*
        *   .................... Go back to setting up shop at the current time
        */
-      SetupThermoShop1(&(soln[indexCent_EqnStart_BD]), 0);
+      SetupThermoShop1Old(&(soln[indexCent_EqnStart_BD]), 0);
     }
 
   }
@@ -922,7 +922,7 @@ porousLiKCl_FeS2Cathode_dom1D::calcElectrode()
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1(const doublereal * const solnElectrolyte_Curr, int type)
+porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type)
 {
   if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
@@ -932,9 +932,9 @@ porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1(const doublereal * const solnEle
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2(const doublereal * const solnElectrolyte_CurrL,
-                                                const doublereal * const solnElectrolyte_CurrR,
-                                                int type)
+porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
+                                                   const doublereal * const solnElectrolyte_CurrR,
+                                                   int type)
 {
   for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
     solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
