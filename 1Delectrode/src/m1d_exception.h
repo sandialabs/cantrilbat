@@ -16,9 +16,12 @@
 namespace m1d
 {
 
-//! base error class for m1d package inherits from the exception stl
+//! Base error class for m1d package. Inherits from the std exception class
 /*!
+ *  This causes an immediate error exit from the program. 
  *
+ *  @TODO:
+ *   This class needs to handle mp program exits better.
  */
 class m1d_Error : public std::exception {
 public:
@@ -30,7 +33,7 @@ public:
    * the strings associated with the generated error condition.
    *
    * @param procedure String name for the function within which the error was
-   *             generated.
+   *                  generated.
    * @param msg  Descriptive string describing the type of error message.
    */
   m1d_Error(const std::string &procedure, const std::string &msg);
@@ -54,7 +57,16 @@ protected:
 };
 
 //! Assert two number are equal up to a number of digits
-bool doubleEqual(double a1, double a2, double atol = 1.0E-3, int digits = 13);
+/*!
+ *  @param[in] a1          First double
+ *  @param[in] a2          Second double
+ *  @param[in] atol        Absolute tolerance. Number below this value are not considered to be different.
+ *                         
+ *  @param[in] digits      Number of digits of accuracy to be considered. Defaults to 13
+ *
+ *  @return                Returns true for equality, and false for inequality
+ */
+bool doubleEqual(double a1, double a2, double atol = 1.0E-13, int digits = 13);
 
 
 //! Provides a line number
