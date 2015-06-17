@@ -97,12 +97,17 @@ extern int MDP_MP_myproc;
 
 /* function declarations for dynamic array allocation */
 
-//! allocates multidimensional pointer arrays of arbitrary length
-//! via a single malloc call
+//! Allocates multidimensional pointer arrays of arbitrary length via a single malloc call
 /*!
- *  The first dimension is the number of dimensions in the allocation
+ *  This allocates space for the allocation and space for the pointers that stores the handling of the array structure.
+ *
+ *  The first dimension is the number of dimensions in the allocation.
+ *
+ * @param[in] numdim           Number of dimensions in the array
+ *
+ * @return                     Returns a pointer to the allocated space. 
  */
-extern double *mdp_array_alloc(int numdim, ...);
+extern double* mdp_array_alloc(int numdim, ...);
 
 //! Free a vector and set its value to 0
 /*!
@@ -212,7 +217,7 @@ extern void mdp_realloc_int_1(int **array_hdl, int new_len, int old_len,
  *
  *   @return                  Returns a pointer to the malloced matrix
  */
-extern int **mdp_alloc_int_2(int len1, int len2, const int defval = MDP_INT_NOINIT);
+extern int** mdp_alloc_int_2(int len1, int len2, const int defval = MDP_INT_NOINIT);
 
 //! Allocate a vector of doubles
 /*!
@@ -223,10 +228,17 @@ extern int **mdp_alloc_int_2(int len1, int len2, const int defval = MDP_INT_NOIN
  *
  *   @return                     Returns a pointer to the malloced vector
  */
-extern double *mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
+double* mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
 
-
-extern void    mdp_safe_alloc_dbl_1(double **, int, const double); 
+//! Allocates and/or initialize a one dimensional array of doubles, releasing old memory if necessary
+/*!
+ *    @param[in,out] array_hdl    Handle to the allocated memory. May contain a previous value of the pointer.
+ *                                If non-NULL will try to free the memory at this address before allocating new.
+ *                                A null value in this position indicates an error.
+ *    @param[in]     nvalues      Length of the array to be allocated
+ *    @param[in]     defval       Initialization value. If equal to MDP_DBL_NOINIT, no initialization is done.
+ */
+void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double defval = MDP_DBL_NOINIT); 
 
 //! Reallocate a vector of doubles possibly retaining a subset of values
 /*!
@@ -239,15 +251,30 @@ extern void    mdp_safe_alloc_dbl_1(double **, int, const double);
  *                              this contains the handle to the new allocated vector.
  *   @param[in]      newLen     New Length of the vector
  *   @param[in]      oldLen     Old Length of the vector
- *   @param[in]      defVal     Default fill value to be used on the new members of the double
+ *   @param[in]      defval     Default fill value to be used on the new members of the double. if MDP_DBL_NOINIT,
+ *                              no initialization is done.
  */
-extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, 
-                                 const double defVal);
+extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, const double defval = MDP_DBL_NOINIT);
 
-extern void    mdp_realloc_dbl_2(double ***, int, int, int, int,
-				 const double);
+//! Reallocates a two dimensional array of doubles, copying  the pertinent information from  the old array to the new array.
+/*!
+ *    If both old dimensions are set to zero or less, then this routine will free the old memory before mallocing
+ *    the new memory. This may be a benefit for extremely large mallocs.
+ *    In all other cases, the new and the old malloced arrays will exist for a short time together.
+ *
+ *    @param[in,out] array_hdl       Pointer to the global variable that holds the old and (eventually new)
+ *                                   address of the array of doubles to be reallocated
+ *    @param[in] ndim1               First dimension of the new array
+ *    @param[in] ndim2               Second dimension of the new array
+ *    @param[in] ndim1Old            First dimension of the old array
+ *    @param[in] ndim2Old            Second dimension of the old array
+ *    @param[in] defval              Default fill value. Defaults to MDP_DBL_NOINIT.
+ */
+void mdp_realloc_dbl_2(double*** array_hdl, int ndim1, int ndim2, int ndim1Old, int ndim2Old, const double defval = MDP_DBL_NOINIT);
 
-extern char   *mdp_alloc_char_1(int, const char = '\0');
+
+char* mdp_alloc_char_1(int, const char = '\0');
+
 extern void    mdp_safe_alloc_char_1(char **, int, const char = '\0');    
 extern char  **mdp_alloc_VecFixedStrings(int, int);
 extern void    mdp_safe_alloc_VecFixedStrings(char ***, int, int);
@@ -325,8 +352,45 @@ extern void    mdp_init_int_1(int * const,    int, int);
 /*
  * subtractRD.cpp
  */
-extern double subtractRD(double, double);
-extern "C" double subtractrd_(double *, double *);
+//! This routine subtracts 2 numbers. If the difference is less than 1.0E-14 times the magnitude of the smallest number,
+//!  then diff returns an exact zero.
+/*!
+ *   It also returns an exact zero if the difference is less than 1.0E-300.
+ *
+ *   Returns:  a - b
+ *
+ *   This routine is used in numerical differencing schemes in order
+ *   to avoid roundoff errors resulting in creating Jacobian terms.
+ *   Note: This is a slow routine. However, jacobian errors may cause
+ *         loss of convergence. Therefore, in practice this routine has proved cost-effective.
+ *
+ *   @param[in] a         First number
+ *   @param[in] b         Second number
+ *
+ *   @return              returns a - b
+ */
+extern double subtractRD(double a, double b);
+
+//!  This fortran binding version routine subtracts 2 numbers. If the difference is less than 1.0E-14 times the
+//!   magnitude of the smallest number, then diff returns an exact zero.
+/*!
+ *   This is the fortran bindings version of subtractRD.
+ *   It also returns an exact zero if the difference is less than 1.0E-300.
+ *
+ *   Returns:  (*a) - (*b)
+ *
+ *   This routine is used in numerical differencing schemes in order
+ *   to avoid roundoff errors resulting in creating Jacobian terms.
+ *   Note: This is a slow routine. However, jacobian errors may cause
+ *         loss of convergence. Therefore, in practice this routine has proved cost-effective.
+ *
+ *   @param[in] a         Pointer to the First number
+ *   @param[in] b         Pointer to the Second number
+ *
+ *   @return              returns (*a) - (*b)
+ */
+extern "C" double subtractrd_(double *a, double *b);
+
 /* 
  * checkFinite
  */

@@ -688,7 +688,7 @@ double *mdp_alloc_dbl_1(int nvalues, const double val)
 /****************************************************************************/
 /****************************************************************************/
 
-void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double val)
+void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double defval)
  
    /*************************************************************************
    *
@@ -715,7 +715,7 @@ void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double val)
     return;
   }
   if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
-  *array_hdl = mdp_alloc_dbl_1(nvalues, val);
+  *array_hdl = mdp_alloc_dbl_1(nvalues, defval);
   if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_dbl_1");   
 }
 /****************************************************************************/
