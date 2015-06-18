@@ -126,7 +126,7 @@ public:
   //SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, const doublereal * const solnDotElectrolyte_Curr, 
   //		   int type);
 
-  void
+  virtual void
   SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
   //!  Setup shop at a particular point in the domain, calculating intermediate quantites
@@ -164,7 +164,7 @@ public:
   void
   updateElectrolyteOld(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
 
-  void
+  virtual void
   updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
   //! Retrieves the voltages from the solution vector and puts them into local storage
@@ -174,7 +174,7 @@ public:
   void
   getVoltagesOld(const double * const solnElectrolyte, const double * const solnSolid);
 
-  void
+  virtual void
   getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
   //! Fetch the Mole fractions of the electrolyte at the current cell position and store them in convenient vector
@@ -185,7 +185,7 @@ public:
   void
   getMFElectrolyte_solnOld(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
 
-  void
+  virtual void
   getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
   void
