@@ -44,8 +44,9 @@ namespace m1d
 //=====================================================================================================================
   porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdd) :
     porousElectrode_dom1D(bdd),
-    BDT_ptr_(0),
-    nph_(0), nsp_(0),
+    BDT_porAnode_LiKCl_ptr_(0),
+    nph_(0),
+    nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     electrodeCrossSectionalArea_(1.0),
@@ -75,7 +76,10 @@ namespace m1d
     icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
     solnTemp(0)
 {
-  BDT_ptr_ = static_cast<BDT_porAnode_LiKCl *> (&bdd);
+  BDT_porAnode_LiKCl_ptr_ = &bdd;
+  BDT_porAnode_LiKCl* ssd = dynamic_cast<m1d::BDT_porAnode_LiKCl*>(&BDD_);
+  BDT_porAnode_LiKCl* ss1 = static_cast<m1d::BDT_porAnode_LiKCl*>(&BDD_);
+  BDT_porAnode_LiKCl& ssr = dynamic_cast<m1d::BDT_porAnode_LiKCl&>(BDD_);
 
   nsp_ = 3;
   nph_ = 1;
@@ -83,8 +87,9 @@ namespace m1d
 //=====================================================================================================================
 porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
     porousElectrode_dom1D((BDT_porAnode_LiKCl &) r.BDD_), 
-    BDT_ptr_(0),
-  nph_(0), nsp_(0), 
+    BDT_porAnode_LiKCl_ptr_(0),
+    nph_(0), 
+    nsp_(0), 
   icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(1.0),
@@ -128,7 +133,7 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
   // Call the parent assignment operator
   porousElectrode_dom1D::operator=(r);
 
-  BDT_ptr_ =  r.BDT_ptr_;
+  BDT_porAnode_LiKCl_ptr_ = r.BDT_porAnode_LiKCl_ptr_;
   nph_ = r.nph_;
   nsp_ = r.nsp_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
@@ -215,12 +220,16 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
     /*
      * First call the parent domain prep to get the node information
      */
+    BDT_porAnode_LiKCl* ss1 = static_cast<BDT_porAnode_LiKCl*>(&(BDD_));
     porousElectrode_dom1D::domain_prep(li_ptr);
 
-    BDT_porAnode_LiKCl* BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl *>(&(BDD_));
+    BDT_porAnode_LiKCl* sss = static_cast<BDT_porAnode_LiKCl*>(&(BDD_));
+
+    BDT_porAnode_LiKCl* BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl*>(&(BDD_));
     if (!BDD_LiSi_Anode) {
       throw CanteraError(" porousLiKCl_LiSiAnode_dom1D::domain_prep()", "bad dynamic cast ");
     }
+   
     
     Cantera::Electrode *ee = BDD_LiSi_Anode->Electrode_;
     nSpeciesElectrode_ = ee->nSpecies();
@@ -3173,7 +3182,7 @@ double
 porousLiKCl_LiSiAnode_dom1D::getInitialAnodeMass() 
 {
   //something to find the mass of the anode originally
-  BDT_porAnode_LiKCl * BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl *>(&(BDD_));
+  BDT_porAnode_LiKCl* BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl *>(&(BDD_));
   if (!BDD_LiSi_Anode) {
     throw CanteraError(" porousLiKCl_LiSiAnode_dom1D::getInitialAnodeMass()", "bad dynamic cast ");
   }

@@ -8,7 +8,7 @@
 #ifndef M1D_BDT_PORANODE_LIKCL_H_
 #define M1D_BDT_PORANODE_LIKCL_H_
 
-#include "m1d_BulkDomainTypes.h"
+//#include "m1d_BulkDomainTypes.h"
 #include "m1d_BDD_porousElectrode.h"
 
 #include <cantera/transport.h>      // transport properties
@@ -106,7 +106,6 @@ public:
    * We own this object
    */
   //Cantera::Transport* trans_;
-
 
 
   //! top or bottom of the domain

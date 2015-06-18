@@ -20,6 +20,8 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_GlobalIndices.h"
 
+#include "cantera/base/Array.h"
+
 //=====================================================================================
 /*
  * HKM

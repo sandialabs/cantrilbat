@@ -17,14 +17,13 @@
  * A porosity/tortuosity is also associated with the domain.
  */
 
+#include "m1d_porousElectrode_dom1D.h"
+#include "m1d_BDT_porAnode_LiKCl.h"
+
 #include <cantera/transport.h>      // transport properties
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
-#include "m1d_DomainDescription.h"
-#include "m1d_BulkDomain1D.h"
 #include "Electrode.h"
-#include "m1d_porousElectrode_dom1D.h"
-#include "m1d_BDT_porAnode_LiKCl.h"
 
 //======================================================================================================================
 namespace Cantera
@@ -53,7 +52,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_LiSiAnode_dom1D(m1d::BDT_porAnode_LiKCl &bdd);
+  porousLiKCl_LiSiAnode_dom1D(m1d::BDT_porAnode_LiKCl& bdd);
 
   //! Copy constructor
   /*!
@@ -191,7 +190,7 @@ public:
    * @param type                  Type of call
    *                              0 - at the current cell center
    */
-  void
+  virtual void
   SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
 
@@ -233,7 +232,7 @@ public:
   void
   updateElectrolyteOld(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
 
-  void
+  virtual void
   updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
 
   //! Functions updates the Electrode object from the current values that are stored within the object
@@ -247,7 +246,7 @@ public:
   void
   getVoltagesOld(const double * const solnElectrolyte);
 
-  void
+  virtual void
   getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
   //! Fetch the Mole fractions of the electrolyte at the current cell position and store them in convenient vector
@@ -258,7 +257,7 @@ public:
   void
   getMFElectrolyte_solnOld(const double * const solnElectrolyte, const double * const solnDotElectrolyte);
 
-  void
+  virtual void
   getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
   void
@@ -562,7 +561,7 @@ protected:
     // -------------------------------------------------------------------------------------------------------------------
 
     //! Pointer to the BDT object that is most derived
-    BDT_porAnode_LiKCl* BDT_ptr_;
+    BDT_porAnode_LiKCl* BDT_porAnode_LiKCl_ptr_;
 
     //! Number of phases solved
     int nph_;

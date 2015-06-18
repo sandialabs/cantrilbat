@@ -7,7 +7,7 @@
  *  $Id: m1d_DomainLayout_LiKCl_PorousBat.cpp 5 2012-02-23 21:34:18Z hkmoffa $
  */
 #include "m1d_defs.h"
-#include "m1d_DomainLayout.h"
+//#include "m1d_DomainLayout.h"
 #include "m1d_BulkDomainTypes.h"
 #include "m1d_SurfDomainTypes.h"
 
