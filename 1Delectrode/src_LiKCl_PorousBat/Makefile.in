@@ -102,9 +102,10 @@ os_is_win = @OS_IS_WIN@
 CXX = @MPICXX@
 #
 # The directory where Cantera include files may be found.
+#  include the base directory for cantrilbat to get config.h file
 #
 
-INCLUDE_DIRS = $(M1D_BASE_INC) -I../src_LiKCl_infPorousBat $(APPL_BASE_INC) \
+INCLUDE_DIRS = $(M1D_BASE_INC)  $(APPL_BASE_INC) \
                $(CANTERA_TOTAL_INCLUDES) \
                $(TRILINOS_INC) \
                -I$(UTILSRC_DIR) -I../..
