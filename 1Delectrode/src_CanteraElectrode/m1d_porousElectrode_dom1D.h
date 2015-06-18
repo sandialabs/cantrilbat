@@ -244,7 +244,7 @@ public:
 protected:
 
     //! Pointer to the Most Derived Domain Description
-    BDD_porousElectrode* BDT_ptr_;
+    BDD_porousElectrode* BDD_PE_ptr_;
     
     //! Electrode Cell data for the anode/cathode cells
     /*!
