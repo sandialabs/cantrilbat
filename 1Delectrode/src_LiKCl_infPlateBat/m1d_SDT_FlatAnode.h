@@ -20,7 +20,7 @@ namespace m1d
 //! This class specifies that all equations are handled
 //! by a simple Dirichlet condition
 /*!
- *
+ *  This is a substitute class for a full electrode as well
  */
 class SDT_FlatAnode : public SDT_Mixed
 {

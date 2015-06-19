@@ -332,6 +332,9 @@ protected:
    */
   double icurrCathodeSpecified_;
 
+  //! Actual Current at the collector
+  double icurrCollector_;
+
   friend class FlatBatteryResidEval;
 
 };

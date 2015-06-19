@@ -49,7 +49,8 @@ SurDomain_FlatFeS2Cathode::SurDomain_FlatFeS2Cathode(SurfDomainDescription &sdd,
   ReactingSurDomain(sdd), ElectrodeC_(0), electrolyteThermo_(0), bedd_(0), mfElectrolyte_Soln(0),
       mfElectrolyte_Thermo(0), phiElectrolyte_(0.0), phiCathode_(0.0), NumNodeEqns(0), SpecFlag_NE(0), Value_NE(0),
       electrodeSpeciesProdRates_(0), phaseMoleFlux_(0), surfaceArea_(1.0), concTot_Curr_(0.0), voltageVarBCType_(0),
-      icurrCathodeSpecified_(0.0)
+  icurrCathodeSpecified_(0.0),
+  icurrCollector_(0.0)
 {
 
   SDT_FlatCathode *fc = dynamic_cast<SDT_FlatCathode *> (&sdd);
@@ -79,7 +80,8 @@ SurDomain_FlatFeS2Cathode::SurDomain_FlatFeS2Cathode(const SurDomain_FlatFeS2Cat
   ReactingSurDomain(r.SDD_), ElectrodeC_(0), electrolyteThermo_(0), bedd_(0), mfElectrolyte_Soln(0),
       mfElectrolyte_Thermo(0), phiElectrolyte_(0.0), phiCathode_(0.0), NumNodeEqns(0), SpecFlag_NE(0), Value_NE(0),
       electrodeSpeciesProdRates_(0), phaseMoleFlux_(0), surfaceArea_(1.0), concTot_Curr_(0.0), voltageVarBCType_(0),
-      icurrCathodeSpecified_(0.0)
+  icurrCathodeSpecified_(0.0),
+  icurrCollector_(0.0)
 {
   operator=(r);
 }
@@ -118,10 +120,11 @@ SurDomain_FlatFeS2Cathode::operator=(const SurDomain_FlatFeS2Cathode &r)
   concTot_Curr_ = r.concTot_Curr_;
   voltageVarBCType_ = r.voltageVarBCType_;
   icurrCathodeSpecified_ = r.icurrCathodeSpecified_;
+  icurrCollector_ = r.icurrCollector_;
 
   return *this;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Prepare all of the indices for fast calculation of the residual
 /*
  *  Here we collect all of the information necessary to
@@ -373,7 +376,7 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
 
   // ------------------ SURFACE DOMAIN -----------------------------------
   /*
-   *   Surface domain's voltage is handled two ways. The first way is a dirichlet condition. This
+   *   Surface domain's voltage is handled two ways. The first way is a Dirichlet condition. This
    *   is not handled here.
    *   The second way is handled here. The current is set to a specified value. This creates an
    *   equation below.
@@ -401,6 +404,11 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
     }
 #endif
   }
+
+  //
+  // Store the current for use in printouts
+  //
+  icurrCollector_ = icurr * surfaceArea_;
 }
 
 //=====================================================================================================================

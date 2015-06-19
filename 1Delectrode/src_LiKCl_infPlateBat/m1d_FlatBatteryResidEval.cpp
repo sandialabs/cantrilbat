@@ -2,11 +2,7 @@
  *  @file m1d_ProblemResidEval.cpp
  *
  **/
-/*
- * $Author: hkmoffa $
- * $Revision: 564 $
- * $Date: 2013-03-08 16:35:51 -0700 (Fri, 08 Mar 2013) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -41,9 +37,7 @@ extern m1d::ProblemStatementCell PSinput;
 
 namespace m1d
 {
-
   //=====================================================================================================================
-
   // Default constructor
   /*
    *
@@ -52,6 +46,9 @@ namespace m1d
   FlatBatteryResidEval::FlatBatteryResidEval(double atol) :
       BatteryResidEval(atol)
   {
+      // Set the anode and cathode types to a flat domain boundary
+      anodeType_ = 1;
+      cathodeType_ = 1;
   }
   //=====================================================================================================================
   // Destructor
@@ -229,6 +226,30 @@ namespace m1d
     }
     Comm_ptr->Barrier();
   }
+//================================================================================================================================
+double
+FlatBatteryResidEval::reportCathodeVoltage() const {
+    DomainLayout &DL = *DL_ptr_;
+    // we want the last surface, but be careful when we go to double tap batteries
+    SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
+    SurDomain_FlatFeS2Cathode* c_ptr = dynamic_cast<SurDomain_FlatFeS2Cathode*>(d_ptr);
+    // might have to update the SurDomain.
+    double phi =  c_ptr->phiCathode_;
+    
+    return phi;
+} 
+//====================================================================================================================
+double
+FlatBatteryResidEval::reportCathodeCurrent() const {
+    DomainLayout &DL = *DL_ptr_;
+  
+    SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
+    SurDomain_FlatFeS2Cathode* c_ptr = dynamic_cast<SurDomain_FlatFeS2Cathode*>(d_ptr);
+    double icurr = c_ptr->icurrCollector_;
+    return icurr;
+}
+
+
 //====================================================================================================================
 //=====================================================================================================================
 } // end of m1d namespace

@@ -66,8 +66,6 @@ public:
     FlatBatteryResidEval &
     operator=(const FlatBatteryResidEval&r);
 
-
-
     //! Write out to a file or to standard output the current solution
     /*!
      *   These functions are affected by the print controls of the nonlinear solver
@@ -129,7 +127,21 @@ public:
     void write_IV(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n, int istep,
                   const Epetra_Vector_Ghosted &y_n, const Epetra_Vector_Ghosted * const ydot_n_ptr);
 
-    
+    //! Report the cathode voltage
+    /*!
+     *  Note the anode voltage is set to zero. So this function will return the voltage of the battery.
+     *
+     *  @return    Returns the cathode voltage (volts)
+     */
+    virtual double reportCathodeVoltage() const;
+
+    //! Report the cathode current
+    /*!
+     *  Note the anode current should be exactly equal to the cathode current
+     *
+     *  @return    Returns the cathode current (amp)
+     */
+    virtual double reportCathodeCurrent() const;
 
 };
 // *****************************************************************
