@@ -101,7 +101,7 @@ porousLiKCl_infPlate_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   /*
    * First call the parent domain prep to get the node information
    */
-  BulkDomain1D::domain_prep(li_ptr);
+   porousFlow_dom1D::domain_prep(li_ptr);
 
   /*
    * Figure out what the mass of the separator is
