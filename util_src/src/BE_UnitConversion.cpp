@@ -1,11 +1,6 @@
 /**
  * @file BE_UnitConversion.cpp
- *   Definitions for the BE_UnitConversion object
- */
-/*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
+ *        Definitions for the BE_UnitConversion object
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -18,19 +13,20 @@
 #include "BI_InputError.h"
 #include <new>
 using std::string;
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace BEInput
+{
 
-namespace BEInput {
-
-  //! Avogadro's number in molecules per kmol
-  const double Avogadro =  6.022136736e26;
-
-  /**
-   * BE_UnitConversion() Constructor:
-   * This general map will convert to SI units 
-   * in most cases.
-   */
-  BE_UnitConversion::BE_UnitConversion(){
-
+// Avogadro's number in molecules per kmol
+static const double Avogadro =  6.022136736e26;
+//==================================================================================================================================
+/*
+ * BE_UnitConversion() Constructor:
+ * This general map will convert to SI units
+ * in most cases.
+ */
+BE_UnitConversion::BE_UnitConversion()
+{
     // length
     m_u["m"]        = 1.0;
     m_u["cm"]       = 0.01;
@@ -82,103 +78,108 @@ namespace BEInput {
     m_u["min"]      = 60.0;
     m_u["hr"]       = 3600.0;
     m_u["ms"]       = 0.001;
-  }
-
-
-  BE_UnitConversion::BE_UnitConversion(const BE_UnitConversion &right) :
+}
+//==================================================================================================================================
+BE_UnitConversion::BE_UnitConversion(const BE_UnitConversion& right) :
     m_u(right.m_u)
-  {
-  }
-
-  BE_UnitConversion& BE_UnitConversion::operator=(const BE_UnitConversion& right) {
+{
+}
+//==================================================================================================================================
+BE_UnitConversion& BE_UnitConversion::operator=(const BE_UnitConversion& right)
+{
     if (this != &right) {
-      m_u = right.m_u;
+        m_u = right.m_u;
     }
     return *this;
-  }
-
-  BE_UnitConversion * BE_UnitConversion::duplMyselfAsUnitConversion() const {
-    BE_UnitConversion *bec = new BE_UnitConversion(*this);
+}
+//==================================================================================================================================
+BE_UnitConversion* BE_UnitConversion::duplMyselfAsUnitConversion() const
+{
+    BE_UnitConversion* bec = new BE_UnitConversion(*this);
     return bec;
-  }
-
-
-  /**
-   * The function converts a string expression to 
-   * a conversion value. The following syntax is used
-   * / -> stands for division
-   * - -> stands for multiplication
-   * [1-9] -> stands for the powers of the previous string
-   *          expression.
-   */
-  double BE_UnitConversion::toSI(std::string unitString) const {
-    if (unitString == "") return 1.0;
+}
+//==================================================================================================================================
+/*
+ * The function converts a string expression to
+ * a conversion value. The following syntax is used
+ * / -> stands for division
+ * - -> stands for multiplication
+ * [1-9] -> stands for the powers of the previous string
+ *          expression.
+ */
+double BE_UnitConversion::toSI(std::string unitString) const
+{
+    if (unitString == "") {
+        return 1.0;
+    }
     double f = 1.0, fctr = 0.0;
     int tsize;
     string u = unitString, tok, tsub;
     string::size_type k;
     char action = '-';
     while (1 > 0) {
-      k = u.find_first_of("/-*");
-      if (k != string::npos)
-	tok = u.substr(0,k);
-      else
-	tok = u;
-      tsize = static_cast<int>(tok.size());
-      if (tsize == 0) 
-	fctr = 1.0;
-      else if (tok[tsize - 1] == '2') {
-	tsub = tok.substr(0,tsize-1);
-	fctr = m_u[tsub];
-	fctr *= fctr;
-      } else if (tok[tsize - 1] == '3') {
-	tsub = tok.substr(0,tsize-1);
-	fctr = m_u[tsub];
-	fctr *= fctr*fctr;
-      } else if (tok[tsize - 1] == '4') {
-	tsub = tok.substr(0,tsize-1);
-	fctr = m_u[tsub];
-	fctr *= fctr*fctr*fctr;
-      } else if (tok[tsize - 1] == '5') {
-	tsub = tok.substr(0,tsize-1);
-	fctr = m_u[tsub];
-	fctr *= fctr*fctr*fctr*fctr;
-      } else if (tok[tsize - 1] == '6') {
-	tsub = tok.substr(0,tsize-1);
-	fctr = m_u[tsub];
-	fctr *= fctr*fctr*fctr*fctr*fctr;
-      } else {
-	tsub = tok;
-	fctr = m_u[tok];
-      }
+        k = u.find_first_of("/-*");
+        if (k != string::npos) {
+            tok = u.substr(0,k);
+        } else {
+            tok = u;
+        }
+        tsize = static_cast<int>(tok.size());
+        if (tsize == 0) {
+            fctr = 1.0;
+        } else if (tok[tsize - 1] == '2') {
+            tsub = tok.substr(0,tsize-1);
+            fctr = m_u[tsub];
+            fctr *= fctr;
+        } else if (tok[tsize - 1] == '3') {
+            tsub = tok.substr(0,tsize-1);
+            fctr = m_u[tsub];
+            fctr *= fctr*fctr;
+        } else if (tok[tsize - 1] == '4') {
+            tsub = tok.substr(0,tsize-1);
+            fctr = m_u[tsub];
+            fctr *= fctr*fctr*fctr;
+        } else if (tok[tsize - 1] == '5') {
+            tsub = tok.substr(0,tsize-1);
+            fctr = m_u[tsub];
+            fctr *= fctr*fctr*fctr*fctr;
+        } else if (tok[tsize - 1] == '6') {
+            tsub = tok.substr(0,tsize-1);
+            fctr = m_u[tsub];
+            fctr *= fctr*fctr*fctr*fctr*fctr;
+        } else {
+            tsub = tok;
+            fctr = m_u[tok];
+        }
 
-      if (fctr == 0.0) {
-	throw BI_InputError("BE_UnitConversion::toSI",
-			    "unknown unit: " + tsub);
-      }
-      if (action == '-' || action == '*') f *= fctr;
-      else if (action == '/') f /= fctr;
-      if (k == string::npos) break;
-      action = u[k];
-      u = u.substr(k+1, u.size());
+        if (fctr == 0.0) {
+            throw BI_InputError("BE_UnitConversion::toSI", "unknown unit: " + tsub);
+        }
+        if (action == '-' || action == '*') {
+            f *= fctr;
+        } else if (action == '/') {
+            f /= fctr;
+        }
+        if (k == string::npos) {
+            break;
+        }
+        action = u[k];
+        u = u.substr(k+1, u.size());
     }
     return f;
-  }
-
-  string BE_UnitConversion::returnUsage() const {
+}
+//==================================================================================================================================
+std::string BE_UnitConversion::returnUsage() const
+{
     string hhh;
     hhh = "Units conversion to mks on a per unit_name basis using #/- operators";
     hhh += " (Default: mks units = 1.0)";
     return hhh;
-  }
-
-
-  /**
-   * Destructor for the object. -> Note: we don't destroy the static
-   * object here, because that would create an inifinite loop if the
-   * destructor is called for the static object.
-   */
-  BE_UnitConversion::~BE_UnitConversion() 
-  {
-  }
 }
+//==================================================================================================================================
+BE_UnitConversion::~BE_UnitConversion()
+{
+}
+//==================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------
