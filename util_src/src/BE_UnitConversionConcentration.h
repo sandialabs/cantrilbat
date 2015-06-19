@@ -1,12 +1,8 @@
 /**
  * @file BE_UnitConversionConcentration.h
- *
+ *          Declarations for the the  BE_UnitConversionConcentration object
  */
-/*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -18,53 +14,57 @@
 #define BE_UNITCONVERSIONCONCENTRATION_H
 
 #include "BE_UnitConversion.h"
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace BEInput
+{
 
-namespace BEInput {
+//==================================================================================================================================
+//! Class to group units of type concentration
+/*!
+ *  @ingroup unitconversion
+ *
+ *          
+ */
+class BE_UnitConversionConcentration : public BE_UnitConversion
+{
+public:
 
-  class BE_UnitConversionConcentration : public BE_UnitConversion {
-  public:
-
-     
-
-    /*
-     * Constructor is defined to be private so that we can't make multiple
-     * copies of this.
-     */
+    //! Default constructor
     BE_UnitConversionConcentration();
 
- //! Constructor is defined to be protected so that we can't make multiple
-    //! copies of this, yet we can inherit from this object.
+    //! Copy constructor
     /*!
      * In the constructor, we define all of the conversion amounts.
+     *
+     * @param[in]   right             
      */
-    BE_UnitConversionConcentration(const BE_UnitConversionConcentration &right);
+    BE_UnitConversionConcentration(const BE_UnitConversionConcentration& right);
 
     //! Assignment operator
     /*!
-     *  @param right Object to be copied
+     *  @param[in] right              Object to be copied
+     *
+     * @return                        returns a reference to the current object
      */
     BE_UnitConversionConcentration& operator=(const BE_UnitConversionConcentration& right);
 
     //! duplicator
-    virtual BE_UnitConversion * duplMyselfAsUnitConversion() const;
+    virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
 
-    /**
-     * Destructor for the object. -> Note: we don't destroy the static
-     * object here, because that would create an inifinite loop if the
-     * destructor is called for the static object.
-     */
+    //! Destructor
     virtual ~BE_UnitConversionConcentration();
-
-    /**
-     * Return a string containing a short description of what the 
-     * units converter does.
-     */
+    
+     //! Return a string containing a short description of what the units converter does.
+     /*!
+      * @return                   Returns a descriptive string
+      */
     std::string returnUsage() const;
 
-  private:
+private:
 
-
-  };
+};
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
