@@ -52,6 +52,8 @@ BatteryResidEval::BatteryResidEval(double atol) :
     ProblemResidEval(atol),
     doHeatSourceTracking_(0),
     doResistanceTracking_(0),
+    anodeType_(0),
+    cathodeType_(0),
     maxSubGridTimeSteps_(0),
     QdotPerArea_n_(0.0),
     QdotPerArea_nm1_(0.0),
@@ -114,6 +116,8 @@ BatteryResidEval::operator=(const BatteryResidEval &r)
 
     doHeatSourceTracking_              = r.doHeatSourceTracking_;
     doResistanceTracking_              = r.doResistanceTracking_;
+    anodeType_                         = r.anodeType_;
+    cathodeType_                       = r.cathodeType_;
     maxSubGridTimeSteps_               = r.maxSubGridTimeSteps_;
     QdotPerArea_n_                     = r.QdotPerArea_n_;
     QdotPerArea_nm1_                   = r.QdotPerArea_nm1_;
@@ -1662,27 +1666,29 @@ int   BatteryResidEval::getMaxSubGridTimeSteps() const
 void BatteryResidEval::gatherCapacityStatistics() 
 {
     DomainLayout &DL = *DL_ptr_;
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
-    porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
-    d_ptr = DL.BulkDomain1D_List[2];
-    porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
 
-    capacityAnodePA_   =   d_anode_ptr->capacityPA();
-    capacityCathodePA_ = d_cathode_ptr->capacityPA();
-
-    capacityLeftAnodePA_   =   d_anode_ptr->capacityLeftPA();
-    capacityLeftCathodePA_ = d_cathode_ptr->capacityLeftPA();
-
-    capacityDischargedAnodePA_   =   d_anode_ptr->capacityDischargedPA();
-    capacityDischargedCathodePA_ = d_cathode_ptr->capacityDischargedPA();
-
-    dodAnodePA_   = d_anode_ptr->depthOfDischargePA();
-    dodCathodePA_ = d_cathode_ptr->depthOfDischargePA();
+    if (anodeType_ == 0) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[0];
+	porousElectrode_dom1D*  d_anode_ptr= dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+	capacityAnodePA_   =   d_anode_ptr->capacityPA();
+	capacityLeftAnodePA_   =   d_anode_ptr->capacityLeftPA();
+	capacityDischargedAnodePA_   =   d_anode_ptr->capacityDischargedPA();
+	dodAnodePA_   = d_anode_ptr->depthOfDischargePA();
+    }
+ 
+    if (cathodeType_ == 0) {
+	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[2];
+	porousElectrode_dom1D* d_cathode_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+	capacityCathodePA_ = d_cathode_ptr->capacityPA();
+	capacityLeftCathodePA_ = d_cathode_ptr->capacityLeftPA();
+	capacityDischargedCathodePA_ = d_cathode_ptr->capacityDischargedPA();
+	dodCathodePA_ = d_cathode_ptr->depthOfDischargePA();
+    }
 
     capacityPAEff_ = std::min(capacityAnodePA_, capacityCathodePA_);
     capacityLeftPAEff_ = std::min(capacityLeftAnodePA_, capacityLeftCathodePA_);
 
-  
+
     double icurr = reportCathodeCurrent();
 
     double timeToDischargeWhole = 1.0E10;

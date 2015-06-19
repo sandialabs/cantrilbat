@@ -520,6 +520,9 @@ public:
      */
     void gatherCapacityStatistics();
 
+
+    // ---------------------------        MEMBER DATA ----------------------------------------------------------------------------
+
     //! Boolean indicating whether to calculate Heat Source Time tracking terms and output file
     int doHeatSourceTracking_;
 
@@ -527,6 +530,24 @@ public:
     int doResistanceTracking_;
 
  protected:
+
+    //! Type of anode
+    /*!
+     *  Determines whether the anode is distributed or is part of a surdomain
+     *       0 Anode is distributed as a domain1D
+     *       1 Anode is a SurDomain_Electrode type
+     */
+    int anodeType_;
+
+    //! Type of the cathode
+    /*!
+     *  Determines whether the cathode is distributed or is part of a surdomain
+     *       0    Cathode is distributed as a domain1D
+     *       1    Cathode is a SurDomain_Electrode type
+     */
+    int cathodeType_;
+
+    //! 
     int maxSubGridTimeSteps_;
 
     //! Heat generation term for the battery sandwidge at the time step t_n
