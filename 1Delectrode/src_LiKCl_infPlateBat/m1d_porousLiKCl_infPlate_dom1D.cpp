@@ -730,20 +730,16 @@ porousLiKCl_infPlate_dom1D::SetupThermoShop2(const NodalVars* const nvL, const d
     mfElectrolyte_Soln_Curr_[0] = 0.5 * (solnElectrolyte_CurrL[indexMFL] +solnElectrolyte_CurrR[indexMFR]);
     mfElectrolyte_Soln_Curr_[1] = 0.5 * (solnElectrolyte_CurrL[indexMFL+1] +solnElectrolyte_CurrR[indexMFR+1]);
     mfElectrolyte_Soln_Curr_[2] = 0.5 * (solnElectrolyte_CurrL[indexMFL+2] +solnElectrolyte_CurrR[indexMFR+2]);
-    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
-    double mf1b = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
-    double mf2b = std::max(mfElectrolyte_Soln_Curr_[2], 0.0);
-    double mf1 = mf1b;
-    double mf2 = mf2b;
-    if (mf1b != mf2b) {
-        mf1 = 0.5 * (mf1b + mf2b);
-        mf2 = 0.5 * (mf1b + mf2b);
-    }
-    double tmp = mf0 + mf1 + mf2;
 
-    mfElectrolyte_Thermo_Curr_[0] = mf0 / tmp;
-    mfElectrolyte_Thermo_Curr_[1] = mf1 / tmp;
-    mfElectrolyte_Thermo_Curr_[2] = mf2 / tmp;
+    double mf0 = std::max(mfElectrolyte_Soln_Curr_[0], 0.0);
+    double mf1 = std::max(mfElectrolyte_Soln_Curr_[1], 0.0);
+    double tmp = mf0 + mf1;
+
+    mfElectrolyte_Thermo_Curr_[0] = (mf0) * 0.5 / tmp;
+    mfElectrolyte_Thermo_Curr_[1] = (mf1) * 0.5 / tmp;
+    mfElectrolyte_Thermo_Curr_[2] = 0.5;
+
+
     size_t indexVS = nvL->indexBulkDomainVar0(Voltage);
     double phiElectrolyteL = solnElectrolyte_CurrL[indexVS];
     indexVS = nvR->indexBulkDomainVar0(Voltage);
