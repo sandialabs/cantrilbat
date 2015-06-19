@@ -174,8 +174,7 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
   delete ionicLiquidIFN_;
   ionicLiquidIFN_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
 
-  delete trans_;
-  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+  setupTransport();
 
   return *this;
 }
@@ -202,6 +201,12 @@ BDT_porousLiKCl::mallocDomain1D()
 {
   BulkDomainPtr_ = new porousLiKCl_infPlate_dom1D(*this);
   return BulkDomainPtr_;
+}
+//=====================================================================================================================
+void
+BDT_porousLiKCl::DetermineConstitutiveModels()
+{
+    setupTransport();
 }
 //==================================================================
 } /* End of Namespace */

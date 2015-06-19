@@ -70,6 +70,14 @@ public:
 
   virtual void setupTransport();
 
+  //! This is done after the equations are set up
+  /*!
+   *  We loop over volume and then surface domains at that point
+   */
+  virtual void
+  DetermineConstitutiveModels();
+
+
   // --------------------------------------------------------------------------------------------
 
   //! Equation type and var type to apply them
