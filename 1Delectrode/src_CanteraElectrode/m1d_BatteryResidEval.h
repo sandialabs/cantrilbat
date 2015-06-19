@@ -489,7 +489,7 @@ public:
      *
      *  @return    Returns the cathode voltage (volts)
      */
-    double reportCathodeVoltage() const;
+    virtual double reportCathodeVoltage() const;
 
     //! Report the cathode current
     /*!
@@ -497,7 +497,7 @@ public:
      *
      *  @return    Returns the cathode current (amp)
      */
-    double reportCathodeCurrent() const;
+    virtual double reportCathodeCurrent() const;
 
     //! Get the max value of the sub grid time step number from the last residual calculation
     /*!
@@ -529,11 +529,11 @@ public:
     //! Boolean indicating whether to calculate the Electrical resistance tracking terms and output file
     int doResistanceTracking_;
 
- protected:
-
     //! Type of anode
     /*!
-     *  Determines whether the anode is distributed or is part of a surdomain
+     *  Determines whether the anode is distributed or is part of a SurDomain1D.
+     *  Right now, this defaults to 0, but can be set to 1 because it's public.
+     *
      *       0 Anode is distributed as a domain1D
      *       1 Anode is a SurDomain_Electrode type
      */
@@ -541,12 +541,15 @@ public:
 
     //! Type of the cathode
     /*!
-     *  Determines whether the cathode is distributed or is part of a surdomain
+     *  Determines whether the cathode is distributed or is part of a SurDomain1D
+     *  Right now, this defaults to 0, but can be set to 1 because it's public.
+     *
      *       0    Cathode is distributed as a domain1D
      *       1    Cathode is a SurDomain_Electrode type
      */
     int cathodeType_;
 
+ protected:
     //! 
     int maxSubGridTimeSteps_;
 
