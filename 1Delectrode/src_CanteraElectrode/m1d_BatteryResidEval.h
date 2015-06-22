@@ -5,12 +5,6 @@
  */
 
 /*
- *  $Author: hkmoffa $
- *  $Date: 2013-03-08 16:35:51 -0700 (Fri, 08 Mar 2013) $
- *  $Revision: 564 $
- *
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -679,6 +673,18 @@ public:
 
     //! Quick determination of the open circuit voltage of the cathode
     double ocvCathode_;
+public:
+    //!  If true, the residual equations have a pressure equation and we have Darcy's equation for velocity
+    /*!
+     *  If true there the total continuity equation is associated with the pressure equation.
+     *  And, the axial velocity is associated with the Darcy expresion
+     *
+     *  If not true the the axial velocity is associated with the pressure equation
+     */
+    int hasPressureEquation_;
+
+    //! If true we have a separate equation for the gas in the container.
+    int hasGasResevoir_;
 };
 
 // *****************************************************************

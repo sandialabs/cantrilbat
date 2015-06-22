@@ -2,9 +2,11 @@
  * @file m1d_BDT_porAnode_LiKCl.cpp
  */
 
- 
 /*
- *  $Id: m1d_BDD_porousFlow.cpp 552 2013-03-01 21:25:03Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include "m1d_defs.h"
@@ -12,6 +14,7 @@
 #include "m1d_porousFlow_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h" 
+#include "m1d_BatteryResidEval.h"
 
 #include "m1d_DomainLayout.h"
 
@@ -127,26 +130,51 @@ BDD_porousFlow::SetEquationsVariablesList()
     //
     //  Get the Problem object. This will have information about what type of equations are to be solved
     //
-    ProblemResidEval *pb = DL_ptr_->problemResid_; 
+    ProblemResidEval *pb = DL_ptr_->problemResid_;
+    BatteryResidEval* batRes = static_cast<BatteryResidEval*>(pb);
+
     if (!pb) {
 	throw m1d_Error("BDD_porousFlow::setEquationsVariablesList()",
 			"ProblemResidEval not set yet");
+    }
+    if (!batRes) {
+	throw m1d_Error("BDD_porousFlow::setEquationsVariablesList()",
+			"problem isn't a battery problem");
     }
     /*
      *  Clear the list. We may have set the list previously
      */
     EquationNameList.clear();
     VariableNameList.clear();
-    
-    // Continuity is used to solve for bulk velocity
-    // Note that this is a single phase continuity so phase change will result in a source term
-    //         Equation 0: = Continuity         variable 0 = Axial Velocity
-    
-    EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Bulk Velocity"));
-    VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
-    IsAlgebraic_NE[eqnIndex] = 1;
-    IsArithmeticScaled_NE[eqnIndex] = 1;
-    eqnIndex++;
+
+    if (batRes->hasPressureEquation_ == 0) {
+	// Continuity is used to solve for bulk velocity
+	// Note that this is a single phase continuity so phase change will result in a source term
+	//         Equation 0: = Continuity         variable 0 = Axial Velocity
+	
+	EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Bulk Velocity"));
+	VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
+	IsAlgebraic_NE[eqnIndex] = 1;
+	IsArithmeticScaled_NE[eqnIndex] = 1;
+	eqnIndex++;
+    } else {
+	// Continuity is used to solve for pressure
+	//
+	//         Equation 0: = Continuity         variable 0 = Pressure
+	//         Equation 1: = Darcy's equation   variable 1 = Axial Velocity
+	EquationNameList.push_back(EqnType(Continuity, 0, "Continuity: Pressure"));
+	VariableNameList.push_back(VarType(Pressure_Axial, 0, 0));
+	IsAlgebraic_NE[eqnIndex] = 0;          // Pressure has a time derivative!
+	IsArithmeticScaled_NE[eqnIndex] = 1;   // liquid Pressure may not be positive -> think cavitation. 
+	eqnIndex++;
+
+	EquationNameList.push_back(EqnType(Momentum_Axial, 0, "Electrolyte Darcy Velocity"));
+	VariableNameList.push_back(VarType(Velocity_Axial, 0, 0));
+	IsAlgebraic_NE[eqnIndex] = 1;          // Velocity doesn't have a time derivative -> It is instantaneous
+	                                       //  This means it's part of the DAE problem
+	IsArithmeticScaled_NE[eqnIndex] = 1;   // velocity may be pos or neg 
+	eqnIndex++;
+    }
     
     // List of species in the electrolyte
     const std::vector<std::string> & namesSp = ionicLiquid_->speciesNames();

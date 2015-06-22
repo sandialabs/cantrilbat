@@ -73,11 +73,23 @@ BatteryResidEval::BatteryResidEval(double atol) :
     timeLeft_(0.0),
     Crate_current_(0.0),
     ocvAnode_(0.0),
-    ocvCathode_(0.0)
+    ocvCathode_(0.0),
+    hasPressureEquation_(false),
+    hasGasResevoir_(false)
 {
      doHeatSourceTracking_ = PSCinput_ptr->doHeatSourceTracking_;
      doResistanceTracking_ = PSCinput_ptr->doResistanceTracking_;
      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
+
+     // Determine whether there is a darcy formulation
+     if (PSCinput_ptr->Pressure_formulation_prob_type_ >= 1) {
+	 hasPressureEquation_ = true;
+     }
+
+     // Determine whether there is a gas resevoir
+     if (PSCinput_ptr->Pressure_formulation_prob_type_ >= 2) {
+	 hasGasResevoir_ = true;
+     }
 }
 //================================================================================================================================
 // Destructor
@@ -139,6 +151,8 @@ BatteryResidEval::operator=(const BatteryResidEval &r)
     Crate_current_                       = r.Crate_current_;
     ocvAnode_                            = r.ocvAnode_;
     ocvCathode_                          = r.ocvCathode_;
+    hasPressureEquation_                 = r.hasPressureEquation_;
+    hasGasResevoir_                      = r.hasGasResevoir_;
 
     return *this;
 }
@@ -162,7 +176,7 @@ BatteryResidEval::residSetupTmps()
 	}
     }
 }
-//==========================================================================================================
+//==================================================================================================================================
 // Set the underlying state of the system from the solution vector
 /*
  *   Note this is an important routine for the speed of the solution.
@@ -218,10 +232,10 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
     }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 
-//! Calculate the initial conditions
-/*!
+// Calculate the initial conditions
+/*
  *   This calls the parent class initialConditions method to loop over the volume and surface domains.
  *   Then the method tried to better estimate the electrolyte potential.
  *
