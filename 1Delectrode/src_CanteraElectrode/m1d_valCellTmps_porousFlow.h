@@ -54,7 +54,6 @@ public:
     Value_CellRL AxialVeloc;
 
     Value_CellRL Temperature;
-    
 
 
 };

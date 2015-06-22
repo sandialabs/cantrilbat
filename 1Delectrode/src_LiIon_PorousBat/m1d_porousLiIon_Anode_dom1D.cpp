@@ -1130,6 +1130,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Electrolyte_Continuity] += (moleFluxRight - moleFluxLeft);
 
         /*
+         * Momentum Equation - When there is a pressure unknown
+         *            
+         */
+        if (PS_ptr->hasPressureEquation_) {
+              // res[indexCent_EqnStart + nodeTmpsCenter.RO_Momentum_Axial] += permeability * (pressureRight - pressureLeft) / deltaX_right;
+        }
+
+        /*
          * Species continuity equation
          */
         for (int k = 0; k < nsp_; k++) {
