@@ -1,6 +1,6 @@
 /**
  * @file BE_UnitConversionConcentration.cpp
- *
+ *    Definitions for the  BE_UnitConversionConcentration class
  */
 
 /*

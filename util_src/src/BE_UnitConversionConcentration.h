@@ -23,7 +23,8 @@ namespace BEInput
 /*!
  *  @ingroup unitconversion
  *
- *          
+ *       This class is used to convert units of the concentration (kmol / m3).
+ *                  
  */
 class BE_UnitConversionConcentration : public BE_UnitConversion
 {
@@ -51,7 +52,6 @@ public:
     //! duplicator
     virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
-
     //! Destructor
     virtual ~BE_UnitConversionConcentration();
     
@@ -62,7 +62,6 @@ public:
     std::string returnUsage() const;
 
 private:
-
 };
 //==================================================================================================================================
 }
