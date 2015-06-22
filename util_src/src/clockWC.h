@@ -52,39 +52,68 @@ namespace mdpUtil
 class clockWC
 {
 public:
+
+
     //! Constructor
     /*!
      * This also serves to initialize the ticks within the object
      */
     clockWC();
 
+    //! Copy constructor
+    /*!
+     *    @param[in]   right        Object to be copied
+     */
     clockWC(const clockWC& right);
 
-    clockWC&  operator=(const clockWC& right);
+    //! Assignment operator
+    /*!
+     *    @param[in]   right        Object to be copied
+     *
+     *    @return  Returns a reference to itself
+     */
+    clockWC& operator=(const clockWC& right);
    
+    //! Start the wall clock
     void startWC();
 
-    //! Resets the internal counters and returns the wall clock time in seconds
+    //!  Starts the time ticking
     void startTime();
 
+    //! Restart the timer ticking
     void restartTime();
 
+    //!  Stop the clock and returns the time in the last interval
+    /*!
+     *   @return  Returns the time in the last interval in seconds
+     */
     double stopTime();
 
+    //! Returns the time spent in all of the intervals
+    /*!
+     *   @return  Returns the time spent in all of the intervals (seconds)
+     */
     double reportTime() const;
 
+    //! checks to see if timer has recycled the interval
     void checkWC();
 
     //! Returns the wall clock time in seconds since the last reset.
     /*!
      *  Returns system cpu and wall clock time in seconds. This is a strictly
-     *  Ansi C timer, since clock() is defined as an Ansi C function. On some
-     *  machines clock() returns type unsigned long (HP) and on others (SUN)
-     *  it returns type long. An attempt to recover the actual time for clocks
+     *  Ansi C timer, since clock() is defined as an Ansi C function An attempt to recover the actual time for clocks
      *  which have rolled over is made also. However, it only works if this
      *  function is called fairly regularily during the solution procedure.
+     *
+     *  @return    Returns the wall clock time in seconds
      */
     double secondsWC();
+
+    //! Resets all of the internals of the clock
+    /*!
+     *  The cummulative record is cleared
+     */
+    void clear();
 
 private:
 
@@ -120,8 +149,8 @@ private:
      *  This handles clock rollovers
      */
     double storredSecondsWC_;
-
-    void clear();
 };
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
