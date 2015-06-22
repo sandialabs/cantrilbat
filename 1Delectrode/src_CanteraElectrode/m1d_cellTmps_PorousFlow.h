@@ -50,6 +50,9 @@ public:
     //! Offset of the temperature equation wrt the start of the nodal solution vector
     size_t Offset_Temperature;
 
+    //! Offset of the pressure equation wrt the start of the nodal solution vector
+    size_t Offset_Pressure;
+
 #ifdef MECH_MODEL    
     //! Offset of the stress equation wrt the start of the nodal solution vector
     size_t Offset_Solid_Stress_Axial;

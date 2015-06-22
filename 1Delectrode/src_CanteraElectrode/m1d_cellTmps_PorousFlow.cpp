@@ -17,6 +17,7 @@ NodeTmps::NodeTmps() :
     Offset_Voltage(npos),
     Offset_MoleFraction_Species(npos),
     Offset_Temperature(npos),
+    Offset_Pressure(npos),
 #ifdef MECH_MODEL
     Offset_Solid_Stress_Axial(npos),
 #endif
@@ -36,6 +37,7 @@ NodeTmps::NodeTmps(const NodeTmps & r) :
     Offset_Voltage(r.Offset_Voltage),
     Offset_MoleFraction_Species(r.Offset_MoleFraction_Species),
     Offset_Temperature(r.Offset_Temperature),
+    Offset_Pressure(r.Offset_Pressure),
 #ifdef MECH_MODEL
     Offset_Solid_Stress_Axial(r.Offset_Solid_Stress_Axial),
 #endif
@@ -64,6 +66,7 @@ NodeTmps& NodeTmps::operator=(const NodeTmps &r)
     Offset_Voltage = r.Offset_Voltage;
     Offset_MoleFraction_Species = r.Offset_MoleFraction_Species;
     Offset_Temperature = r.Offset_Temperature;
+    Offset_Pressure    = r.Offset_Pressure;
 #ifdef MECH_MODEL
     Offset_Solid_Stress_Axial = r.Offset_Solid_Stress_Axial,
 #endif
