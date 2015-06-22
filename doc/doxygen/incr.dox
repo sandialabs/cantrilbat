@@ -891,7 +891,7 @@ COLS_IN_ALPHA_INDEX    = 5
 # The IGNORE_PREFIX tag can be used to specify one or more prefixes that
 # should be ignored while generating the index headers.
 
-IGNORE_PREFIX          = Cantera::
+IGNORE_PREFIX          = 
 
 #---------------------------------------------------------------------------
 # configuration options related to the HTML output
@@ -1611,7 +1611,8 @@ PREDEFINED             = WITH_HTML_LOGS \
                          THREAD_SAFE_CANTERA \
                          HAVE_CONFIG_H \
                          DEPRECATED(x)=x \
-                         __declspec(x)=  
+                         __declspec(x)=  \
+                         DOXYGEN_SHOULD_IGNORE_THIS
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
