@@ -4,11 +4,6 @@
  *   allow for dimensioning of arbitrarily dimensioned pointer arrays.
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 508 $
- * $Date: 2013-01-07 15:54:04 -0700 (Mon, 07 Jan 2013) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -35,7 +30,6 @@
  *     for disposition of the error condition.
  *
  */
-
 namespace mdpUtil {
 
 /****************************************************************************/
@@ -89,6 +83,23 @@ extern int MDP_MP_myproc;
  */
 #define MDP_SAFE_DELETE(a) if (a) { delete (a); a = 0; }
 
+/****************************************************************************************************************************/
+//!  Flag to specify how to handle error exceptions within mdp_allo
+/*!
+ *      Error Handling
+ *         7 print and exit
+ *         6 exit
+ *         5 print and create a divide by zero for stack trace analysis.
+ *         4 create a divide by zero for stack trace analysis.
+ *         3 print a message and throw the bad_alloc exception.
+ *         2 throw the bad_alloc exception and be quite
+ *         1 print a message and return from package with the NULL pointer
+ *         0 Keep completely silent about the matter and return with
+ *           a null pointer.
+ *
+ *  Right now, the only way to change this option is to right here
+ */
+extern int MDP_ALLO_errorOption;
 
 /****************************************************************************/
 
@@ -228,7 +239,7 @@ extern int** mdp_alloc_int_2(int len1, int len2, const int defval = MDP_INT_NOIN
  *
  *   @return                     Returns a pointer to the malloced vector
  */
-double* mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
+extern double* mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
 
 //! Allocates and/or initialize a one dimensional array of doubles, releasing old memory if necessary
 /*!
@@ -238,7 +249,7 @@ double* mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
  *    @param[in]     nvalues      Length of the array to be allocated
  *    @param[in]     defval       Initialization value. If equal to MDP_DBL_NOINIT, no initialization is done.
  */
-void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double defval = MDP_DBL_NOINIT); 
+extern void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double defval = MDP_DBL_NOINIT); 
 
 //! Reallocate a vector of doubles possibly retaining a subset of values
 /*!
@@ -270,10 +281,10 @@ extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, const
  *    @param[in] ndim2Old            Second dimension of the old array
  *    @param[in] defval              Default fill value. Defaults to MDP_DBL_NOINIT.
  */
-void mdp_realloc_dbl_2(double*** array_hdl, int ndim1, int ndim2, int ndim1Old, int ndim2Old, const double defval = MDP_DBL_NOINIT);
+extern void mdp_realloc_dbl_2(double*** array_hdl, int ndim1, int ndim2, int ndim1Old, int ndim2Old, const double defval = MDP_DBL_NOINIT);
 
 
-char* mdp_alloc_char_1(int, const char = '\0');
+extern char* mdp_alloc_char_1(int, const char = '\0');
 
 extern void    mdp_safe_alloc_char_1(char **, int, const char = '\0');    
 extern char  **mdp_alloc_VecFixedStrings(int, int);
@@ -291,7 +302,18 @@ extern void  **mdp_alloc_ptr_1(int);
 extern void    mdp_safe_alloc_ptr_1(void ***, int);
 extern void    mdp_realloc_ptr_1(void ***, int, int);
 extern void    mdp_copy_ptr_1(void *const, const void *const, int);
-extern void  **mdp_dupl_ptr_1(const void * const, int);
+
+
+//! Duplicates one ptr vector into another ptr vector
+/*!
+ *  This malloc and makes a copy of a vector of pointers.
+ *
+ *   @param[in]   copyFrom       Vector of ptr values to be copied
+ *   @param[in]   len            Length of the vector
+ *
+ *  @return       copyTo         Vector of values to receive the copy
+ */
+extern void **mdp_dupl_ptr_1(const void * const copyFrom, int len);
 
 extern char   *mdp_copy_C16_NAME_to_string(const C16_NAME);
 extern void    mdp_copy_VecFixedStrings(char ** const, const char ** const,
@@ -320,9 +342,7 @@ extern void    mdp_safe_copy_string(char **, const char *);
  * -------
  * @param copyTo   Vector to receive the copy ( length >= len)
  */
-extern void    mdp_copy_dbl_1(double * const copyTo, 
-                              const double * const copyFrom, 
-                              int len);
+extern void mdp_copy_dbl_1(double * const copyTo,  const double * const copyFrom,  int len);
 
 //! Copy a double array to a double array
 /*!
@@ -338,20 +358,72 @@ extern void    mdp_copy_dbl_1(double * const copyTo,
  * ----------
  * @param copyTo   Array to receive the copy ( length >= len1 * len2)
  */
-extern void    mdp_copy_dbl_2(double ** const copyTo, const double ** const copyFrom,
-			      int len1, int len2);
+extern void mdp_copy_dbl_2(double ** const copyTo, const double ** const copyFrom, int len1, int len2);
 
-extern void    mdp_copy_int_1(int * const,    const int * const, int);
-extern void    mdp_copy_int_2(int ** const,   const int ** const, int, int);
-extern void    mdp_init_dbl_1(double * const, double, int);
-extern void    mdp_zero_dbl_1(double * const, int);
-extern void    mdp_zero_int_1(int * const, int);
-extern void    mdp_init_dbl_2(double ** const v, double value, 
-			      int len1, int len2);
-extern void    mdp_init_int_1(int * const,    int, int);
+//! Copies one int vector into another int vector
+/*!
+ * @param[in]   copyFrom  Vector to  copy
+ * @param[in]   len       Length of the first dimension
+ * @param[out]  copyTo    Array to receive the copy ( must have length >= len)
+ */
+extern void mdp_copy_int_1(int * const copyTo, const int * const copyFrom, int len);
+
+//!  Copies one 2D int array into another 2D int array 
+/*!
+ *   This does a straight copy of the first len1 * len2 data from one array into the other array without any checks
+ *
+ * @param[in]   copyFrom  Vector to  copy ( length >= len1 * len2)
+ * @param[in]   len1      Length of the first dimension
+ * @param[in]   len2      Length of the second dimension
+ * @param[out]  copyTo    Array to receive the copy ( must have length >= len1 * len2)
+ */
+extern void mdp_copy_int_2(int ** const copyTo, const int ** const copyFrom, int len1, int len2);
+
+//!  Assigns a single value to a double vector
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         value     Value to assign with
+ *  @param[in]         len       Length of the vector
+ */
+extern void mdp_init_dbl_1(double * const v, double value, int len);
+
+//! Zeroes out a double vector (special form of mdp_allo_dbl_1())
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         len       Length of the vector
+ */
+extern void mdp_zero_dbl_1(double * const v, int len);
+
+//! Zeroes out an int vector (special form of mdp_allo_int_1())
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         len       Length of the vector
+ */
+extern void mdp_zero_int_1(int * const v, int len);
+
+//! Assigns a single value to a double matrix. Contiguous data for the matrix is assumed.
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         value     Value to assign with
+ *  @param[in]         len1      First Length of the vector
+ *  @param[in]         len2      Second Length of the vector
+ */
+extern void mdp_init_dbl_2(double ** const v, double value, int len1, int len2);
+
+//!  Assigns a single value to a int vector
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         value     Value to assign with
+ *  @param[in]         len       Length of the vector
+ */
+extern void mdp_init_int_1(int * const v, int value, int len);
+
+//==================================================================================================================================
 /*
  * subtractRD.cpp
  */
+//==================================================================================================================================
+
 //! This routine subtracts 2 numbers. If the difference is less than 1.0E-14 times the magnitude of the smallest number,
 //!  then diff returns an exact zero.
 /*!

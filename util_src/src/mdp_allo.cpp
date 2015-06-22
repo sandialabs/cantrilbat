@@ -30,6 +30,8 @@ namespace mdpUtil {
 int MDP_MP_Nprocs = 1;
 int MDP_MP_myproc = 0;
 #endif
+
+//  Flag to specify how to handle error exceptions within mdp_allo
 /*
  *      Error Handling
  *         7 print and exit
@@ -42,7 +44,7 @@ int MDP_MP_myproc = 0;
  *         0 Keep completely silent about the matter and return with
  *           a null pointer.
  *
- *   -> Right now, the only way to change this option is to right here
+ *  Right now, the only way to change this option is to right here
  */
 int MDP_ALLO_errorOption = 3;
 
@@ -53,7 +55,7 @@ inline int MaxI(const int &x, const int &y) {
   return ( ( x > y ) ? x : y );
 }
 
-
+//! Arbitrary constant indicating an interfacial error
 const int MDP_ALLOC_INTERFACE_ERROR = -230346;
 
 /****************************************************************************/
@@ -1631,27 +1633,23 @@ void mdp_copy_int_1(int *const copyTo,
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
-
-void mdp_copy_int_2(int **const copyTo, 
-		    const int ** const copyFrom, int len1, int len2)
- 
-  /**************************************************************************
-   * 
-   * mdp_copy_int_2:
-   *
-   * Copies one 2D int array into another 2D int array 
-   *
-   * Input
-   * -------------
-   *  *copyFrom = Vector of values to be copied
-   *  len1       = Length of the first array
-   *  len2       = length of the second array
-   *
-   * Output
-   * ------------
-   * *copyTo   = array of values to receive the copy
-   *
-   **************************************************************************/
+//==================================================================================================================================
+void mdp_copy_int_2(int **const copyTo, const int ** const copyFrom, int len1, int len2)
+/*
+ * mdp_copy_int_2:
+ *
+ * Copies one 2D int array into another 2D int array 
+ *
+ * Input
+ * -------------
+ *  *copyFrom = Vector of values to be copied
+ *  len1       = Length of the first array
+ *  len2       = length of the second array
+ *
+ * Output
+ * ------------
+ * *copyTo   = array of values to receive the copy
+ */
 {
     if (len1 > 0 && len2 > 0) {
       size_t bytelen = len1 * len2 * sizeof(int);
@@ -1660,59 +1658,48 @@ void mdp_copy_int_2(int **const copyTo,
       (void) memcpy((void *)dTo, (const void *)dFrom, bytelen);
     }
 }
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-void mdp_copy_ptr_1(void *const copyTo, 
-		    const void * const copyFrom, int len)
- 
-  /**************************************************************************
-   * 
-   * mdp_copy_ptr_1:
-   *
-   * Copies one ptr vector into another ptr vector
-   *
-   * Input
-   * -------------
-   *  *copyFrom = Vector of ptr values to be copied
-   *  len       = Length of the vector
-   *
-   * Output
-   * ------------
-   * *copyTo   = Vector of values to receive the copy
-   *
-   **************************************************************************/
+//==================================================================================================================================
+void mdp_copy_ptr_1(void *const copyTo, const void * const copyFrom, int len)
+/*
+ * 
+ * mdp_copy_ptr_1:
+ *
+ * Copies one ptr vector into another ptr vector
+ *
+ * Input
+ * -------------
+ *  *copyFrom = Vector of ptr values to be copied
+ *  len       = Length of the vector
+ *
+ * Output
+ * ------------
+ * *copyTo   = Vector of values to receive the copy
+ *
+ */
 {
   if (len > 0) {
     size_t bytelen = len * sizeof(void *);
     (void) memcpy((void *)copyTo, (const void *)copyFrom, bytelen);
   }
 }
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void **mdp_dupl_ptr_1(const void * const copyFrom, int len)
- 
-  /**************************************************************************
-   * 
-   * mdp_dupl_ptr_1:
-   *
-   * duplicates one ptr vector into another ptr vector
-   *
-   * Input
-   * -------------
-   *  *copyFrom = Vector of ptr values to be copied
-   *  len       = Length of the vector
-   *
-   * Output
-   * ------------
-   * *copyTo   = Vector of values to receive the copy
-   *
-   **************************************************************************/
+/*
+ * 
+ * mdp_dupl_ptr_1:
+ *
+ * duplicates one ptr vector into another ptr vector
+ *
+ * Input
+ * -------------
+ *  *copyFrom = Vector of ptr values to be copied
+ *  len       = Length of the vector
+ *
+ * Output
+ * ------------
+ * *copyTo   = Vector of values to receive the copy
+ *
+ */
 {
   if (len > 0) {
     void **array = mdp_alloc_ptr_1(len);
@@ -1724,26 +1711,21 @@ void **mdp_dupl_ptr_1(const void * const copyFrom, int len)
   }
   return 0;
 }
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_init_dbl_1(double * const v, double value, int len)
- 
-  /**************************************************************************
-   * 
-   * mdp_init_dbl_1:
-   *
-   * Assigns a single value to a double vector
-   *
-   * Input
-   * -------------
-   *  v = Vector of values to be assigned
-   *  value = value to assign with
-   *  len       = Length of the vector
-   *
-   **************************************************************************/
+/*
+ * 
+ * mdp_init_dbl_1:
+ *
+ * Assigns a single value to a double vector
+ *
+ * Input
+ * -------------
+ *  v = Vector of values to be assigned
+ *  value = value to assign with
+ *  len       = Length of the vector
+ *
+ **************************************************************************/
 {
     if (len > 0) {
       if (value == 0.0) {
@@ -1769,73 +1751,60 @@ void mdp_init_dbl_1(double * const v, double value, int len)
       }
     }
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_zero_dbl_1(double * const v, int len)
- 
-  /**************************************************************************
-   * 
-   * mdp_zero_dbl_1:
-   *
-   * Zeroes out a double vector (special form of mdp_allo_dbl_1())
-   *
-   * Input
-   * -------------
-   *  v = Vector of values to be set to zero
-   *  len       = Length of the vector
-   **************************************************************************/
+/*
+ * 
+ * mdp_zero_dbl_1:
+ *
+ * Zeroes out a double vector (special form of mdp_allo_dbl_1())
+ *
+ * Input
+ * -------------
+ *  v = Vector of values to be set to zero
+ *  len       = Length of the vector
+*/
 {
     if (len > 0) {
       size_t bytelen = len * sizeof(double);
       (void) memset((void *)v, 0, bytelen);
     }
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_zero_int_1(int * const v, int len)
- 
-  /**************************************************************************
-   * 
-   * mdp_zero_int_1:
-   *
-   * Zeroes out an int vector (special form of mdp_allo_int_1())
-   *
-   * Input
-   * -------------
-   *  v = Vector of values to be set to zero
-   *  len       = Length of the vector
-   **************************************************************************/
+/*
+ * 
+ * mdp_zero_int_1:
+ *
+ * Zeroes out an int vector (special form of mdp_allo_int_1())
+ *
+ * Input
+ * -------------
+ *  v = Vector of values to be set to zero
+ *  len       = Length of the vector
+ */
 {
     if (len > 0) {
       size_t bytelen = len * sizeof(int);
       (void) memset((void *)v, 0, bytelen);
     }
 }
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_init_dbl_2(double ** const v, double value, int len1, int len2)
- 
-  /**************************************************************************
-   * 
-   * mdp_init_dbl_2:
-   *
-   * Assigns a single value to a double matrix. Contiguous data for the
-   * matrix is assumed.
-   *
-   * Input
-   * -------------
-   *  v = matrix of values to be assigned
-   *  value = value to assign with
-   *  len       = Length of the vector
-   *
-   **************************************************************************/
+/*
+ * 
+ * mdp_init_dbl_2:
+ *
+ * Assigns a single value to a double matrix. Contiguous data for the
+ * matrix is assumed.
+ *
+ * Input
+ * -------------
+ *  v = matrix of values to be assigned
+ *  value = value to assign with
+ *  len       = Length of the vector
+ *
+ */
 {
     int len = len1 * len2;
     if (len > 0 && len1 > 0 && v) {
@@ -1863,26 +1832,20 @@ void mdp_init_dbl_2(double ** const v, double value, int len1, int len2)
       }
     }
 }
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_init_int_1(int * const v, int value, int len)
- 
-  /**************************************************************************
-   * 
-   * mdp_init_int_1:
-   *
-   * Assigns a single value to a int vector
-   *
-   * Input
-   * -------------
-   *  v = Vector of values to be assigned
-   *  value = value to assign with
-   *  len       = Length of the vector
-   *
-   **************************************************************************/
+/**************************************************************************
+ * 
+ * mdp_init_int_1:
+ *
+ * Assigns a single value to a int vector
+ *
+ * Input
+ * -------------
+ *  v = Vector of values to be assigned
+ *  value = value to assign with
+ *  len       = Length of the vector
+ **************************************************************************/
 {
     if (len > 0) {
       if (value == 0) {
@@ -1908,7 +1871,6 @@ void mdp_init_int_1(int * const v, int value, int len)
       }
     }
 }
-
 /****************************************************************************/
 /*                      END of mdp_allo.cpp                                 */
 /****************************************************************************/
