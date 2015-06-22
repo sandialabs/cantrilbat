@@ -170,8 +170,7 @@ extern int *mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
 extern void mdp_safe_alloc_int_1(int **array_hdl, int len, 
 				 const int defval = MDP_INT_NOINIT);
 
-//!    Reallocates a one dimensional array of ints, copying old
-//!    information to the new array
+//!    Reallocates a one dimensional array of ints, copying old information to the new array
 /*!
  *    Reallocates a one dimensional array of ints. This routine always allocates space for at least one int.
  *    Calls the smalloc() routine to ensure that all malloc
