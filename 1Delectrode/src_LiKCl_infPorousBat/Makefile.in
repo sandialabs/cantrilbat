@@ -19,8 +19,8 @@ PROG_NAME = LiKCl_infPorousBat
 # and from C/C++ separately
 OBJS = $(PROG_NAME).o  \
 	m1d_DomainLayout_LiKCl_infPorousBat.o \
-        m1d_porousLiKCl_FeS2Cathode_dom1D.o \
-        m1d_porousLiKCl_LiSiAnode_dom1D.o m1d_BDT_porAnode_LiKCl.o  m1d_BDT_porCathode_LiKCl.o 
+        m1d_infPorousLiKCl_FeS2Cathode_dom1D.o \
+        m1d_infPorousLiKCl_LiSiAnode_dom1D.o m1d_BDT_infPorAnode_LiKCl.o  m1d_BDT_infPorCathode_LiKCl.o 
 
 
 TOBJS =  $(OBJS)

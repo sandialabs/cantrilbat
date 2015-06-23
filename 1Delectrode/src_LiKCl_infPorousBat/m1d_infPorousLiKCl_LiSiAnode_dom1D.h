@@ -1,12 +1,12 @@
 /*
- * m1d_porousLiKCl_LiSiAnode_dom1D.h
+ * m1d_infPorousLiKCl_LiSiAnode_dom1D.h
  *
  *  Created on: May 19, 2009
  *      Author: hkmoffa
  */
 
-#ifndef M1D_POROUSLIKCL_LISIANODE_DOM1D_H_
-#define M1D_POROUSLIKCL_LISIANODE_DOM1D_H_
+#ifndef M1D_INFPOROUSLIKCL_LISIANODE_DOM1D_H_
+#define M1D_INFPOROUSLIKCL_LISIANODE_DOM1D_H_
 
 //! This is derived class  provides the function
 //! evaluation for a porous electrolyte bulk domain.
@@ -24,7 +24,7 @@
 #include "m1d_BulkDomain1D.h"
 #include "m1d_porousElectrode_dom1D.h"
 #include "Electrode.h"
-#include "m1d_BDT_porAnode_LiKCl.h"
+#include "m1d_BDT_infPorAnode_LiKCl.h"
 
 //======================================================================================================================
 namespace Cantera
@@ -44,7 +44,7 @@ class LocalNodeIndices;
  * There is a 1 to 1 mapping between the global control volume indexing
  * and the Global node number indexing that is given by a single offset.
  */
-class porousLiKCl_LiSiAnode_dom1D : public porousElectrode_dom1D
+class infPorousLiKCl_LiSiAnode_dom1D : public porousElectrode_dom1D
 {
 
 public:
@@ -53,25 +53,25 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiKCl_LiSiAnode_dom1D(m1d::BDT_porAnode_LiKCl &bdd);
+    infPorousLiKCl_LiSiAnode_dom1D(m1d::BDT_infPorAnode_LiKCl &bdd);
 
   //! Copy constructor
   /*!
    * @param r      Object to be copied into the current object
    */
-  porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r);
+  infPorousLiKCl_LiSiAnode_dom1D(const infPorousLiKCl_LiSiAnode_dom1D &r);
 
   //! Destructor
   virtual
-  ~porousLiKCl_LiSiAnode_dom1D();
+  ~infPorousLiKCl_LiSiAnode_dom1D();
 
   //! Assignment operator
   /*!
    * @param r      Object to be copied into the current object
    * @return       Returns a changeable reference to the current object
    */
-  porousLiKCl_LiSiAnode_dom1D &
-  operator=(const porousLiKCl_LiSiAnode_dom1D &r);
+  infPorousLiKCl_LiSiAnode_dom1D &
+  operator=(const infPorousLiKCl_LiSiAnode_dom1D &r);
 
   //! Prepare all of the indices for fast calculation of the residual
   /*!

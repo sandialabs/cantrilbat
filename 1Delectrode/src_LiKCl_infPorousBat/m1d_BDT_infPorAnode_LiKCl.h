@@ -1,12 +1,10 @@
 /**
- * @file m1d_BDT_porAnode_LiKCl.h
- */
-/*
- *   $Id: m1d_BDT_porAnode_LiKCl.h 504 2013-01-07 22:32:48Z hkmoffa $
+ * @file m1d_BDT_infPorAnode_LiKCl.h
  */
 
-#ifndef M1D_BDT_PORANODE_LIKCL_H_
-#define M1D_BDT_PORANODE_LIKCL_H_
+
+#ifndef M1D_BDT_INFPORANODE_LIKCL_H_
+#define M1D_BDT_INFPORANODE_LIKCL_H_
 
 #include "m1d_BulkDomainTypes.h"
 #include "m1d_BDD_porousElectrode.h"
@@ -27,7 +25,7 @@ namespace m1d
 /*!
  * 
  */
-class BDT_porAnode_LiKCl : public BDD_porousElectrode
+class BDT_infPorAnode_LiKCl : public BDD_porousElectrode
 {
 public:
 
@@ -39,25 +37,25 @@ public:
    * and what the equations are, that are solved within the domain.
    *
    */
-  BDT_porAnode_LiKCl (DomainLayout *dl_ptr);
+  BDT_infPorAnode_LiKCl(DomainLayout *dl_ptr);
 
   //! Destructor
   virtual
-  ~BDT_porAnode_LiKCl(); 
+  ~BDT_infPorAnode_LiKCl(); 
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  BDT_porAnode_LiKCl (const BDT_porAnode_LiKCl &r);
+  BDT_infPorAnode_LiKCl (const BDT_infPorAnode_LiKCl &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  BDT_porAnode_LiKCl &
-  operator=(const BDT_porAnode_LiKCl  &r);
+  BDT_infPorAnode_LiKCl &
+  operator=(const BDT_infPorAnode_LiKCl  &r);
 
   //! Read in the possible models for each domain
   /*!

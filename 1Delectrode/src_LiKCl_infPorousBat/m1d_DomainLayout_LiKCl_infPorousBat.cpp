@@ -13,8 +13,8 @@
 
 #include "m1d_DomainLayout_LiKCl_infPorousBat.h"
 #include "m1d_BDT_porousLiKCl.h"
-#include "m1d_BDT_porAnode_LiKCl.h"
-#include "m1d_BDT_porCathode_LiKCl.h"
+#include "m1d_BDT_infPorAnode_LiKCl.h"
+#include "m1d_BDT_infPorCathode_LiKCl.h"
 #include "m1d_SDT_AnodeCollector.h"
 #include "m1d_SDT_CathodeCollector.h"
 
@@ -123,7 +123,7 @@ DomainLayout_LiKCl_infPorousBat::malloc_domains()
     double cathodeSize = PSinput.cathode_input_->electrodeGrossThickness;
 
     double endZ = startZ + anodeSize;
-    BDD_porousFlow *bdd = new BDT_porAnode_LiKCl(this);
+    BDD_porousFlow *bdd = new BDT_infPorAnode_LiKCl(this);
     int numNodesA = pscInput_ptr_->initDefaultNumCVsAnode_;
     addBulkDomainToRightEnd(bdd, numNodesA, startZ, endZ);
 
@@ -148,7 +148,7 @@ DomainLayout_LiKCl_infPorousBat::malloc_domains()
 
     startZ = endZ;
     endZ = startZ + cathodeSize;
-    bdd = new BDT_porCathode_LiKCl(this);
+    bdd = new BDT_infPorCathode_LiKCl(this);
     int numNodesC = pscInput_ptr_->initDefaultNumCVsCathode_;
     addBulkDomainToRightEnd(bdd, numNodesC, startZ, endZ);
 

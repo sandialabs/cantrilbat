@@ -1,13 +1,9 @@
 /**
- * @file m1d_BDT_porCathode_LiKCl.cpp
+ * @file m1d_BDT_infPorCathode_LiKCl.cpp
  */
 
-/*
- *  $Id: m1d_BDT_porCathode_LiKCl.cpp 598 2013-05-15 15:22:09Z hkmoffa $
- */
-
-#include "m1d_BDT_porCathode_LiKCl.h"
-#include "m1d_porousLiKCl_FeS2Cathode_dom1D.h"
+#include "m1d_BDT_infPorCathode_LiKCl.h"
+#include "m1d_infPorousLiKCl_FeS2Cathode_dom1D.h"
 #include "m1d_exception.h"
 #include "m1d_defs.h"
 
@@ -26,7 +22,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(DomainLayout *dl_ptr) :
+BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl(DomainLayout *dl_ptr) :
     BDD_porousElectrode(dl_ptr, 1), 
     ionicLiquidIFN_(0), 
     m_position(1)
@@ -39,7 +35,7 @@ BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(DomainLayout *dl_ptr) :
 
 }
 //=====================================================================================================================
-BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(const BDT_porCathode_LiKCl &r) :
+BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl(const BDT_infPorCathode_LiKCl &r) :
     BDD_porousElectrode(r.DL_ptr_, 1 ), 
     ionicLiquidIFN_(0), 
     m_position(1)
@@ -47,7 +43,7 @@ BDT_porCathode_LiKCl::BDT_porCathode_LiKCl(const BDT_porCathode_LiKCl &r) :
   *this = r;
 }
 //=====================================================================================================================
-BDT_porCathode_LiKCl::~BDT_porCathode_LiKCl()
+BDT_infPorCathode_LiKCl::~BDT_infPorCathode_LiKCl()
 {
   /*
    * Delete objects that we own
@@ -56,8 +52,8 @@ BDT_porCathode_LiKCl::~BDT_porCathode_LiKCl()
   //safeDelete(Electrode_);
 }
 //=====================================================================================================================
-BDT_porCathode_LiKCl &
-BDT_porCathode_LiKCl::operator=(const BDT_porCathode_LiKCl &r)
+BDT_infPorCathode_LiKCl &
+BDT_infPorCathode_LiKCl::operator=(const BDT_infPorCathode_LiKCl &r)
 {
   if (this == &r) {
     return *this;
@@ -73,11 +69,11 @@ BDT_porCathode_LiKCl::operator=(const BDT_porCathode_LiKCl &r)
 }
 //=====================================================================================================================
 void
-BDT_porCathode_LiKCl::ReadModelDescriptions()
+BDT_infPorCathode_LiKCl::ReadModelDescriptions()
 {
      int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
      if (iph < 0) {
-	 throw CanteraError("BDT_porCathode_LiKCl::ReadModelDescriptions()",
+	 throw CanteraError("BDT_infPorCathode_LiKCl::ReadModelDescriptions()",
 			    "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
      }
      ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
@@ -91,7 +87,7 @@ BDT_porCathode_LiKCl::ReadModelDescriptions()
   ELECTRODE_KEY_INPUT *ci = psc_ptr->cathode_input_;
   Electrode_  = newElectrodeObject(ci->electrodeModelName);
   if (!Electrode_) {
-      throw  m1d_Error("BDT_porCathode_LiKCl::BDT_porCathode_LiKCl()",
+      throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()",
 		       "Electrode factory method failed");
   }
   ELECTRODE_KEY_INPUT *ci_new = newElectrodeKeyInputObject(ci->electrodeModelName);  
@@ -103,7 +99,7 @@ BDT_porCathode_LiKCl::ReadModelDescriptions()
    */
   int retn = ci_new->electrode_input_child(commandFile, cfC);
   if (retn == -1) {
-    throw  m1d_Error("BDT_porCathode_LiKCl::BDT_porCathode_LiKCl()",
+    throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()",
                      "Electrode input child method failed");
   }
   /*
@@ -115,12 +111,12 @@ BDT_porCathode_LiKCl::ReadModelDescriptions()
 
   retn = Electrode_->electrode_model_create(PSinput.cathode_input_);
   if (retn == -1) {
-    throw  m1d_Error("BDT_porCathode_LiKCl::BDT_porCathode_LiKCl()", 
+    throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()", 
                      "Electrode model create method failed");
   }
   retn = Electrode_->setInitialConditions(PSinput.cathode_input_);
   if (retn == -1) {
-    throw  m1d_Error("BDT_porCathode_LiKCl::BDT_porCathode_LiKCl()", 
+    throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()", 
                      "Electrode::setInitialConditions method failed");
   }
 
@@ -129,7 +125,7 @@ BDT_porCathode_LiKCl::ReadModelDescriptions()
 }
 //=====================================================================================================================
 void
-BDT_porCathode_LiKCl::SetEquationsVariablesList()
+BDT_infPorCathode_LiKCl::SetEquationsVariablesList()
 {
     int eqnIndex = 0;
     EquationNameList.clear();
@@ -208,15 +204,15 @@ BDT_porCathode_LiKCl::SetEquationsVariablesList()
  *          efficiently
  */
 BulkDomain1D *
-BDT_porCathode_LiKCl::mallocDomain1D()
+BDT_infPorCathode_LiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_FeS2Cathode_dom1D(*this);
+  BulkDomainPtr_ = new infPorousLiKCl_FeS2Cathode_dom1D(*this);
   return BulkDomainPtr_;
 }
 
 //=====================================================================================================================
 void
-BDT_porCathode_LiKCl::DetermineConstitutiveModels()
+BDT_infPorCathode_LiKCl::DetermineConstitutiveModels()
 {
     if (!trans_) {
 	delete trans_;

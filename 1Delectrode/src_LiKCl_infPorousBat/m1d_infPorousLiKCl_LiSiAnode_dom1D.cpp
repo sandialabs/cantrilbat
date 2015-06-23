@@ -1,13 +1,12 @@
 /*
- * m1d_porousLiKCl_LiSiAnode_dom1D.cpp
+ * @file m1d_infPorousLiKCl_LiSiAnode_dom1D.cpp
  *
- 
  */
 
 //  This is a heavyweight base class that provides the function
 //evaluation for a single bulk domain.
-#include "m1d_porousLiKCl_LiSiAnode_dom1D.h"
-#include "m1d_BDT_porAnode_LiKCl.h"
+#include "m1d_infPorousLiKCl_LiSiAnode_dom1D.h"
+#include "m1d_BDT_infPorAnode_LiKCl.h"
 
 #include "m1d_NodalVars.h"
 #include "m1d_LocalNodeIndices.h"
@@ -40,7 +39,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdt_LiKCl) :
+infPorousLiKCl_LiSiAnode_dom1D::infPorousLiKCl_LiSiAnode_dom1D(BDT_infPorAnode_LiKCl& bdt_LiKCl) :
       porousElectrode_dom1D(bdt_LiKCl), 
       Electrode_(0), 
       nph_(0), nsp_(0), concTot_cent_(0.0),
@@ -58,8 +57,8 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdt
       icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
       solnTemp(0)
 {
-    BDT_porAnode_LiKCl *fa = &bdt_LiKCl;
-    // dynamic_cast<BDT_porAnode_LiKCl *> (&bdd);
+    BDT_infPorAnode_LiKCl *fa = &bdt_LiKCl;
+    // dynamic_cast<BDT_infPorAnode_LiKCl *> (&bdd);
     if (!fa) {
 	throw m1d_Error("confused", "confused");
     }
@@ -80,7 +79,7 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(BDT_porAnode_LiKCl& bdt
     nph_ = 1;
 }
 //=====================================================================================================================
-porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiAnode_dom1D &r) :
+infPorousLiKCl_LiSiAnode_dom1D::infPorousLiKCl_LiSiAnode_dom1D(const infPorousLiKCl_LiSiAnode_dom1D &r) :
     porousElectrode_dom1D((BDD_porousElectrode&) r.BDD_),
     Electrode_(0),
     nph_(0), nsp_(0), concTot_cent_(0.0),
@@ -99,15 +98,15 @@ porousLiKCl_LiSiAnode_dom1D::porousLiKCl_LiSiAnode_dom1D(const porousLiKCl_LiSiA
       icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0), icurrRxn_Cell_(0),  LiFlux_Cell_(0), 
       solnTemp(0)
 {
-  porousLiKCl_LiSiAnode_dom1D::operator=(r);
+  infPorousLiKCl_LiSiAnode_dom1D::operator=(r);
 }
 //=====================================================================================================================
-porousLiKCl_LiSiAnode_dom1D::~porousLiKCl_LiSiAnode_dom1D()
+infPorousLiKCl_LiSiAnode_dom1D::~infPorousLiKCl_LiSiAnode_dom1D()
 {
 }
 //=====================================================================================================================
-porousLiKCl_LiSiAnode_dom1D &
-porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
+infPorousLiKCl_LiSiAnode_dom1D &
+infPorousLiKCl_LiSiAnode_dom1D::operator=(const infPorousLiKCl_LiSiAnode_dom1D &r)
 {
   if (this == &r) {
     return *this;
@@ -191,7 +190,7 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
  *  recursive fashion.
  */
 void
-porousLiKCl_LiSiAnode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
+infPorousLiKCl_LiSiAnode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
   /*
    * First call the parent domain prep to get the node information
@@ -276,7 +275,7 @@ porousLiKCl_LiSiAnode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
  *
  */
 void
-porousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
+infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
                                        const bool doTimeDependentResid,
                                        const Epetra_Vector *soln_ptr,
                                        const Epetra_Vector *solnDot_ptr,
@@ -894,7 +893,7 @@ porousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
 }
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::calcElectrode()
+infPorousLiKCl_LiSiAnode_dom1D::calcElectrode()
 {
 #undef PRECIPITATE
 #ifdef PRECIPITATE
@@ -932,7 +931,7 @@ porousLiKCl_LiSiAnode_dom1D::calcElectrode()
 }
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const doublereal* const solnElectrolyte_Curr, int type)
+infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const doublereal* const solnElectrolyte_Curr, int type)
 {
   if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
@@ -942,7 +941,7 @@ porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const doublereal* const solnEle
 }
 //==================================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv,
+infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv,
 					      const doublereal* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
@@ -956,7 +955,7 @@ porousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv,
 }
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
+infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
 						 const doublereal * const solnElectrolyte_CurrR,
 						 int type)
 {
@@ -980,7 +979,7 @@ porousLiKCl_LiSiAnode_dom1D::SetupThermoShop2Old(const doublereal * const solnEl
  * @param solnElectrolyte
  */
 void
-porousLiKCl_LiSiAnode_dom1D::updateElectrolyteOld(const doublereal* const solnElectrolyte_Curr)
+infPorousLiKCl_LiSiAnode_dom1D::updateElectrolyteOld(const doublereal* const solnElectrolyte_Curr)
 {
   /*
    * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -1009,7 +1008,7 @@ porousLiKCl_LiSiAnode_dom1D::updateElectrolyteOld(const doublereal* const solnEl
 }
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::updateElectrolyte(const NodalVars* const nv,
+infPorousLiKCl_LiSiAnode_dom1D::updateElectrolyte(const NodalVars* const nv,
 					       const doublereal* const solnElectrolyte_Curr)
 {
     /*
@@ -1041,7 +1040,7 @@ porousLiKCl_LiSiAnode_dom1D::updateElectrolyte(const NodalVars* const nv,
 }
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::updateElectrode()
+infPorousLiKCl_LiSiAnode_dom1D::updateElectrode()
 {
   /*
    * set the properties in the Electrode object
@@ -1063,7 +1062,7 @@ porousLiKCl_LiSiAnode_dom1D::updateElectrode()
  * @param solnElectrolyte start of the solution vector at the current node
  */
 void
-porousLiKCl_LiSiAnode_dom1D::getVoltagesOld(const double* const solnElectrolyte)
+infPorousLiKCl_LiSiAnode_dom1D::getVoltagesOld(const double* const solnElectrolyte)
 {
     int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
     phiElectrolyte_Curr_ = solnElectrolyte[indexVS];
@@ -1071,7 +1070,7 @@ porousLiKCl_LiSiAnode_dom1D::getVoltagesOld(const double* const solnElectrolyte)
 }
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr)
+infPorousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr)
 {
   int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
@@ -1087,7 +1086,7 @@ porousLiKCl_LiSiAnode_dom1D::getMFElectrolyte_solnOld(const double * const solnE
 }
 //==================================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::SetupTranShop(const double xdel, const int type)
+infPorousLiKCl_LiSiAnode_dom1D::SetupTranShop(const double xdel, const int type)
 {
 
     /*
@@ -1147,7 +1146,7 @@ porousLiKCl_LiSiAnode_dom1D::SetupTranShop(const double xdel, const int type)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-porousLiKCl_LiSiAnode_dom1D::saveDomain(Cantera::XML_Node& oNode,
+infPorousLiKCl_LiSiAnode_dom1D::saveDomain(Cantera::XML_Node& oNode,
                                         const Epetra_Vector *soln_GLALL_ptr,
                                         const Epetra_Vector *solnDot_GLALL_ptr,
                                         const double t,
@@ -1231,7 +1230,7 @@ drawline0(int sp, int ll)
 //=====================================================================================================================
 // Method for writing the header for the surface domain to a tecplot file.
 void
-porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplotHeader()
+infPorousLiKCl_LiSiAnode_dom1D::writeSolutionTecplotHeader()
 {
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   bool doWrite = !mypid ; //only proc 0 should write
@@ -1292,7 +1291,7 @@ porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplotHeader()
  *                             false, the loginfo will only exist on proc 0.
  */
 void
-porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
+infPorousLiKCl_LiSiAnode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
 						const Epetra_Vector *solnDot_GlAll_ptr,
 						const double t )
 {
@@ -1421,7 +1420,7 @@ porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
  *                             false, the loginfo will only exist on proc 0.
  */
 void
-porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
+infPorousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
                                           const Epetra_Vector *solnDot_GlAll_ptr,
                                           const Epetra_Vector *soln_ptr,
                                           const Epetra_Vector *solnDot_ptr,
@@ -1698,7 +1697,7 @@ porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
  * @param delta_t                 delta_t for the initial time step
  */
 void
-porousLiKCl_LiSiAnode_dom1D::initialConditions(const bool doTimeDependentResid,
+infPorousLiKCl_LiSiAnode_dom1D::initialConditions(const bool doTimeDependentResid,
                                                Epetra_Vector *soln_ptr,
                                                Epetra_Vector *solnDot,
                                                const double t,
@@ -1761,7 +1760,7 @@ porousLiKCl_LiSiAnode_dom1D::initialConditions(const bool doTimeDependentResid,
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_LiSiAnode_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
+infPorousLiKCl_LiSiAnode_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 					   Epetra_Vector_Ghosted & atolVector,
 					   const Epetra_Vector_Ghosted * const atolV)
 {
@@ -1826,7 +1825,7 @@ porousLiKCl_LiSiAnode_dom1D::setAtolVector(double atolDefault, const Epetra_Vect
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_LiSiAnode_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln, 
+infPorousLiKCl_LiSiAnode_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 						   const Epetra_Vector_Ghosted & solnDot,
 						   Epetra_Vector_Ghosted & atolVector,
 						   const Epetra_Vector_Ghosted * const atolV )
@@ -1892,7 +1891,7 @@ porousLiKCl_LiSiAnode_dom1D::setAtolVector_DAEInit(double atolDefault, const Epe
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_LiSiAnode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff, 
+infPorousLiKCl_LiSiAnode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff, 
 						 const Epetra_Vector_Ghosted & soln, 
 						 Epetra_Vector_Ghosted & atolDeltaDamping,
 						 const Epetra_Vector_Ghosted * const atolV)
@@ -1958,7 +1957,7 @@ porousLiKCl_LiSiAnode_dom1D::setAtolDeltaDamping(double atolDefault, double relc
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_LiSiAnode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, 
+infPorousLiKCl_LiSiAnode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, 
 							 const Epetra_Vector_Ghosted & soln, 
 							 const Epetra_Vector_Ghosted & solnDot, 
 							 Epetra_Vector_Ghosted & atolDeltaDamping,
@@ -2024,13 +2023,13 @@ porousLiKCl_LiSiAnode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, dou
  * Returns index of offending cation or -1 if no precipitation
  */
 int 
-porousLiKCl_LiSiAnode_dom1D::checkPrecipitation(  ) {
+infPorousLiKCl_LiSiAnode_dom1D::checkPrecipitation(  ) {
 
   // molten salt phase
   string id_salt = "LiKCl_Margules";
   int iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
+    throw CanteraError("infPorousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
@@ -2047,7 +2046,7 @@ porousLiKCl_LiSiAnode_dom1D::checkPrecipitation(  ) {
   id_salt = "LiCl(S)";
   iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
+    throw CanteraError("infPorousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
@@ -2057,7 +2056,7 @@ porousLiKCl_LiSiAnode_dom1D::checkPrecipitation(  ) {
   id_salt = "KCl(S)";
   iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
+    throw CanteraError("infPorousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
@@ -2118,9 +2117,9 @@ porousLiKCl_LiSiAnode_dom1D::checkPrecipitation(  ) {
 
 //=====================================================================================================================
 void
-porousLiKCl_LiSiAnode_dom1D::err(const char *msg)
+infPorousLiKCl_LiSiAnode_dom1D::err(const char *msg)
 {
-  printf("porousLiKCl_LiSiAnode_dom1D: function not implemented: %s\n", msg);
+  printf("infPorousLiKCl_LiSiAnode_dom1D: function not implemented: %s\n", msg);
   exit(-1);
 }
 //=====================================================================================================================

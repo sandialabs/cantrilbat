@@ -1,13 +1,9 @@
 /**
- * @file m1d_BDT_porAnode_LiKCl.cpp
+ * @file m1d_BDT_infPorAnode_LiKCl.cpp
  */
 
-/*
- *  $Id: m1d_BDT_porAnode_LiKCl.cpp 598 2013-05-15 15:22:09Z hkmoffa $
- */
-
-#include "m1d_BDT_porAnode_LiKCl.h"
-#include "m1d_porousLiKCl_LiSiAnode_dom1D.h"
+#include "m1d_BDT_infPorAnode_LiKCl.h"
+#include "m1d_infPorousLiKCl_LiSiAnode_dom1D.h"
 #include "m1d_exception.h"
 
 #include "Electrode_input.h"
@@ -26,7 +22,7 @@ namespace m1d
 {
 
 //====================================================================================================================
-BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr) :
+BDT_infPorAnode_LiKCl::BDT_infPorAnode_LiKCl(DomainLayout *dl_ptr) :
     BDD_porousElectrode(dl_ptr,0), 
     ionicLiquidIFN_(0),
     m_position(0)
@@ -35,7 +31,7 @@ BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(DomainLayout *dl_ptr) :
   IsArithmeticScaled_NE.resize(6,0);
 }
 //=====================================================================================================================
-BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(const BDT_porAnode_LiKCl &r) :
+BDT_infPorAnode_LiKCl::BDT_infPorAnode_LiKCl(const BDT_infPorAnode_LiKCl &r) :
     BDD_porousElectrode(r.DL_ptr_, 0),
     ionicLiquidIFN_(0), 
     m_position(0)
@@ -43,7 +39,7 @@ BDT_porAnode_LiKCl::BDT_porAnode_LiKCl(const BDT_porAnode_LiKCl &r) :
   *this = r;
 }
 //=====================================================================================================================
-BDT_porAnode_LiKCl::~BDT_porAnode_LiKCl()
+BDT_infPorAnode_LiKCl::~BDT_infPorAnode_LiKCl()
 {
   /*
    * Delete objects that we own
@@ -51,8 +47,8 @@ BDT_porAnode_LiKCl::~BDT_porAnode_LiKCl()
   ionicLiquidIFN_ = 0;
 }
 //=====================================================================================================================
-BDT_porAnode_LiKCl &
-BDT_porAnode_LiKCl::operator=(const BDT_porAnode_LiKCl &r)
+BDT_infPorAnode_LiKCl &
+BDT_infPorAnode_LiKCl::operator=(const BDT_infPorAnode_LiKCl &r)
 {
   if (this == &r) {
     return *this;
@@ -67,7 +63,7 @@ BDT_porAnode_LiKCl::operator=(const BDT_porAnode_LiKCl &r)
 }
 //=====================================================================================================================
  void
- BDT_porAnode_LiKCl::ReadModelDescriptions()
+ BDT_infPorAnode_LiKCl::ReadModelDescriptions()
  {
 
      BDD_porousElectrode::ReadModelDescriptions();
@@ -76,7 +72,7 @@ BDT_porAnode_LiKCl::operator=(const BDT_porAnode_LiKCl &r)
  }
 //=====================================================================================================================
 void
-BDT_porAnode_LiKCl::SetEquationsVariablesList()
+BDT_infPorAnode_LiKCl::SetEquationsVariablesList()
 {
     EquationNameList.clear();
     VariableNameList.clear();
@@ -140,14 +136,14 @@ BDT_porAnode_LiKCl::SetEquationsVariablesList()
  * @return  Returns a pointer to the object that will calculate the residual efficiently
  */
 BulkDomain1D *
-BDT_porAnode_LiKCl::mallocDomain1D()
+BDT_infPorAnode_LiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_LiSiAnode_dom1D(*this);
+  BulkDomainPtr_ = new infPorousLiKCl_LiSiAnode_dom1D(*this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================
 void
-BDT_porAnode_LiKCl::DetermineConstitutiveModels()
+BDT_infPorAnode_LiKCl::DetermineConstitutiveModels()
 {
     if (!trans_) {
 	delete trans_;

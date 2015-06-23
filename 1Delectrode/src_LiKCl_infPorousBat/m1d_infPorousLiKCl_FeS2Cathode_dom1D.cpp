@@ -1,13 +1,13 @@
 /*
- * m1d_porousLiKCl_FeS2Cathode_dom1D.cpp
+ * m1d_infPorousLiKCl_FeS2Cathode_dom1D.cpp
  *
  
  */
 
 //  This is a heavyweight base class that provides the function
 //evaluation for a single bulk domain.
-#include "m1d_porousLiKCl_FeS2Cathode_dom1D.h"
-#include "m1d_BDT_porCathode_LiKCl.h"
+#include "m1d_infPorousLiKCl_FeS2Cathode_dom1D.h"
+#include "m1d_BDT_infPorCathode_LiKCl.h"
 
 #include "m1d_NodalVars.h"
 #include "m1d_LocalNodeIndices.h"
@@ -42,7 +42,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKCl& bdd) :
+infPorousLiKCl_FeS2Cathode_dom1D::infPorousLiKCl_FeS2Cathode_dom1D(BDT_infPorCathode_LiKCl& bdd) :
   porousElectrode_dom1D(bdd), 
   Electrode_(0),
   nph_(0), nsp_(0), 
@@ -65,7 +65,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
   icurrRxn_Cell_(0), LiFlux_Cell_(0), 
   solnTemp(0)
 {
-  BDT_porCathode_LiKCl *fa = dynamic_cast<BDT_porCathode_LiKCl *> (&bdd);
+  BDT_infPorCathode_LiKCl *fa = dynamic_cast<BDT_infPorCathode_LiKCl *> (&bdd);
   if (!fa) {
     throw m1d_Error("confused", "confused");
   }
@@ -86,8 +86,8 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
   nph_ = 1;
 }
 //=====================================================================================================================
-porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_FeS2Cathode_dom1D &r) :
-    porousElectrode_dom1D((BDT_porCathode_LiKCl&) r.BDD_), 
+infPorousLiKCl_FeS2Cathode_dom1D::infPorousLiKCl_FeS2Cathode_dom1D(const infPorousLiKCl_FeS2Cathode_dom1D &r) :
+    porousElectrode_dom1D((BDT_infPorCathode_LiKCl&) r.BDD_), 
     Electrode_(0),
     nph_(0), nsp_(0),
     surfaceAreaDensity_Cell_(0), 
@@ -109,15 +109,15 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
   icurrRxn_Cell_(0), LiFlux_Cell_(0), 
   solnTemp(0)
 {
-  porousLiKCl_FeS2Cathode_dom1D::operator=(r);
+  infPorousLiKCl_FeS2Cathode_dom1D::operator=(r);
 }
 //=====================================================================================================================
-porousLiKCl_FeS2Cathode_dom1D::~porousLiKCl_FeS2Cathode_dom1D()
+infPorousLiKCl_FeS2Cathode_dom1D::~infPorousLiKCl_FeS2Cathode_dom1D()
 {
 }
 //=====================================================================================================================
-porousLiKCl_FeS2Cathode_dom1D &
-porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
+infPorousLiKCl_FeS2Cathode_dom1D &
+infPorousLiKCl_FeS2Cathode_dom1D::operator=(const infPorousLiKCl_FeS2Cathode_dom1D &r)
 {
   if (this == &r) {
     return *this;
@@ -196,7 +196,7 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
  *  recursive fashion.
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
+infPorousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
     /*
      * First call the parent domain prep to get the node information
@@ -279,7 +279,7 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
  *
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
+infPorousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
                                          const bool doTimeDependentResid,
                                          const Epetra_Vector *soln_ptr,
                                          const Epetra_Vector *solnDot_ptr,
@@ -886,7 +886,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::calcElectrode()
+infPorousLiKCl_FeS2Cathode_dom1D::calcElectrode()
 {
 #undef PRECIPITATE
 #ifdef PRECIPITATE
@@ -923,7 +923,7 @@ porousLiKCl_FeS2Cathode_dom1D::calcElectrode()
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type)
+infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type)
 {
   if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
@@ -933,7 +933,7 @@ porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const doublereal * const soln
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
+infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
                                                    const doublereal * const solnElectrolyte_CurrR,
                                                    int type)
 {
@@ -957,7 +957,7 @@ porousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const doublereal * const soln
  * @param solnElectrolyte
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const doublereal * const solnElectrolyte_Curr)
+infPorousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const doublereal * const solnElectrolyte_Curr)
 {
   /*
    * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -985,7 +985,7 @@ porousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const doublereal * const sol
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::updateElectrode()
+infPorousLiKCl_FeS2Cathode_dom1D::updateElectrode()
 {
   /*
    * set the properties in the Electrode object
@@ -1002,7 +1002,7 @@ porousLiKCl_FeS2Cathode_dom1D::updateElectrode()
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::getVoltagesOld(const double * const solnElectrolyte_Curr)
+infPorousLiKCl_FeS2Cathode_dom1D::getVoltagesOld(const double * const solnElectrolyte_Curr)
 {
   int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
@@ -1010,7 +1010,7 @@ porousLiKCl_FeS2Cathode_dom1D::getVoltagesOld(const double * const solnElectroly
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr)
+infPorousLiKCl_FeS2Cathode_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr)
 {
   int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
@@ -1026,7 +1026,7 @@ porousLiKCl_FeS2Cathode_dom1D::getMFElectrolyte_solnOld(const double * const sol
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::SetupTranShop(const double xdel, const int type)
+infPorousLiKCl_FeS2Cathode_dom1D::SetupTranShop(const double xdel, const int type)
 {
 
   /*
@@ -1086,7 +1086,7 @@ porousLiKCl_FeS2Cathode_dom1D::SetupTranShop(const double xdel, const int type)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
+infPorousLiKCl_FeS2Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
                                           const Epetra_Vector *soln_GLALL_ptr,
                                           const Epetra_Vector *solnDot_GLALL_ptr,
                                           const double t,
@@ -1173,7 +1173,7 @@ drawline0(int sp, int ll)
 //=====================================================================================================================
 // Method for writing the header for the surface domain to a tecplot file.
 void
-porousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplotHeader()
+infPorousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplotHeader()
 {
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   bool doWrite = !mypid ; //only proc 0 should write
@@ -1235,7 +1235,7 @@ porousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplotHeader()
  *                             false, the loginfo will only exist on proc 0.
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
+infPorousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr,
 						const Epetra_Vector *solnDot_GlAll_ptr,
 						const double t )
 {
@@ -1364,7 +1364,7 @@ porousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_Gl
  *                             false, the loginfo will only exist on proc 0.
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
+infPorousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
                                             const Epetra_Vector *solnDot_GlAll_ptr,
                                             const Epetra_Vector *soln_ptr,
                                             const Epetra_Vector *solnDot_ptr,
@@ -1635,7 +1635,7 @@ porousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
  * @param delta_t                 delta_t for the initial time step
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
+infPorousLiKCl_FeS2Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
                                                  Epetra_Vector *soln_ptr,
                                                  Epetra_Vector *solnDot,
                                                  const double t,
@@ -1698,7 +1698,7 @@ porousLiKCl_FeS2Cathode_dom1D::initialConditions(const bool doTimeDependentResid
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
+infPorousLiKCl_FeS2Cathode_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 					     Epetra_Vector_Ghosted & atolVector,
 					     const Epetra_Vector_Ghosted * const atolV )
 {
@@ -1763,7 +1763,7 @@ porousLiKCl_FeS2Cathode_dom1D::setAtolVector(double atolDefault, const Epetra_Ve
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln, 
+infPorousLiKCl_FeS2Cathode_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 						     const Epetra_Vector_Ghosted & solnDot,
 						     Epetra_Vector_Ghosted & atolVector,
 						     const Epetra_Vector_Ghosted * const atolV )
@@ -1829,7 +1829,7 @@ porousLiKCl_FeS2Cathode_dom1D::setAtolVector_DAEInit(double atolDefault, const E
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff, 
+infPorousLiKCl_FeS2Cathode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff, 
 						   const Epetra_Vector_Ghosted & soln, 
 						   Epetra_Vector_Ghosted & atolDeltaDamping,
 						   const Epetra_Vector_Ghosted * const atolV)
@@ -1895,7 +1895,7 @@ porousLiKCl_FeS2Cathode_dom1D::setAtolDeltaDamping(double atolDefault, double re
  *  @param atolVector Reference for the atol vector to fill up
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, 
+infPorousLiKCl_FeS2Cathode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, 
 							   const Epetra_Vector_Ghosted & soln, 
 							   const Epetra_Vector_Ghosted & solnDot, 
 							   Epetra_Vector_Ghosted & atolDeltaDamping,
@@ -1956,9 +1956,9 @@ porousLiKCl_FeS2Cathode_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, d
 }
 //=====================================================================================================================
 void
-porousLiKCl_FeS2Cathode_dom1D::err(const char *msg)
+infPorousLiKCl_FeS2Cathode_dom1D::err(const char *msg)
 {
-  printf("porousLiKCl_FeS2Cathode_dom1D: function not implemented: %s\n", msg);
+  printf("infPorousLiKCl_FeS2Cathode_dom1D: function not implemented: %s\n", msg);
   exit(-1);
 }
 //=====================================================================================================================
@@ -1967,7 +1967,7 @@ porousLiKCl_FeS2Cathode_dom1D::err(const char *msg)
    * Returns index of offending cation or -1 if no precipitation
    */
 int 
-porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
+infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
 
   //mole fraction of the electrolyte ions are held in
   // mfElectrolyte_Thermo_Curr_[3]
@@ -1976,7 +1976,7 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
   string id_salt = "LiKCl_Margules";
   int iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
+    throw CanteraError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
@@ -1993,7 +1993,7 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
   id_salt = "LiCl(S)";
   iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
+    throw CanteraError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
@@ -2003,7 +2003,7 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation(  ) {
   id_salt = "KCl(S)";
   iph = (PSinput.PhaseList_)->globalPhaseIndex(id_salt);
   if (iph < 0) {
-    throw CanteraError("porousLiKCl_LiSiAnode_dom1D::checkPrecipitation()",
+    throw CanteraError("infPorousLiKCl_FeS2Cathode_dom1D::checkPrecipitation()",
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
