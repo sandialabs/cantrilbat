@@ -499,28 +499,6 @@ START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
     Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
     Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
 END BLOCK Radial Diffusion Region
---------------------------------------------------------------------------------------------------------------------------------------------------------
-    Equation Order for Global Node 9          numbulkdomains = 2          numsurfdomains = 1
-                 EQUATION                         |                 LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |
-     eqnNum             Var                 Eqn   |    eqnNum          Var                    Eqn   |     eqnNum           Var               Eqn       |
-     0            Vel_axial                       |    0            Vel_axial                       |     0            Vel_axial                       |
-     1         MF_sp(ECDMC)                       |    1         MF_sp(ECDMC)                       |     1         MF_sp(ECDMC)                       |
-     2           MF_sp(Li+)                       |    2           MF_sp(Li+)                       |     2           MF_sp(Li+)                       |
-     3          MF_sp(PF6-)                       |    3          MF_sp(PF6-)                       |     3          MF_sp(PF6-)                       |
-     4    Volt(Electrolyte)                       |    4    Volt(Electrolyte)                       |     4    Volt(Electrolyte)                       |
-     5   Volt(AnodeVoltage)                       |    5   Volt(AnodeVoltage)                       |                                                  |
---------------------------------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------------------------------
-    Equation Order for Global Node 18          numbulkdomains = 2          numsurfdomains = 1
-                 EQUATION                         |                 LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |
-     eqnNum             Var                 Eqn   |    eqnNum          Var                    Eqn   |     eqnNum           Var               Eqn       |
-     0            Vel_axial                       |    0            Vel_axial                       |     0            Vel_axial                       |
-     1         MF_sp(ECDMC)                       |    1         MF_sp(ECDMC)                       |     1         MF_sp(ECDMC)                       |
-     2           MF_sp(Li+)                       |    2           MF_sp(Li+)                       |     2           MF_sp(Li+)                       |
-     3          MF_sp(PF6-)                       |    3          MF_sp(PF6-)                       |     3          MF_sp(PF6-)                       |
-     4    Volt(Electrolyte)                       |    4    Volt(Electrolyte)                       |     4    Volt(Electrolyte)                       |
-     5 Volt(CathodeVoltage)                       |                                                 |     5 Volt(CathodeVoltage)                       |
---------------------------------------------------------------------------------------------------------------------------------------------------------
 Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
 Solution saved to file solution.xml as solution 0.
     ----------------------------------------------------------------------------------------------------

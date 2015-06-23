@@ -58,7 +58,7 @@ test:
 
 runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
-	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ./runtest)
+	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../runtest)
 
 rebaseline:
 	./rebaseline
