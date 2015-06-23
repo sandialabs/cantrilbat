@@ -18,17 +18,19 @@
  */
 #include <cstring>
 
-/**
+//!  This namespace contains a selection of utility routines that mallocs memory in a C fashion
+//!  and also supplies timing and debugging utilities.
+/*!
+ *      General Principles for the malloc routines follow.
+ *       If an allocation size is set to 0 on input, then the actual allocation size is set to 1 within the program.
+ *       In other words, something is always allocated within the routines.
  *
- *  General Principles
- *     If an allocation size is set to 0, then the actual
- *     allocation size is set to 1 within the program.
- *     Something is always allocated.
+ *       All allocations are always checked for success.
+ *       If a failure is found, then the routine  mdp_alloc_eh() is called for disposition of the error condition.
+ *       The user can set the result by setting the variable \link mdpUtil::MDP_ALLO_errorOption MDP_ALLO_errorOption \endlink .
  *
- *     All checks for allocations are always checked for success.
- *     If a failure is found, thene mdp_alloc_eh() is called
- *     for disposition of the error condition.
- *
+ *       Pointers are and should always be set to null to indicate that nothing is malloced. When they are malloced,
+ *       they are set to nonnull. When they are freed, they should be set back to null.
  */
 namespace mdpUtil {
 
@@ -83,21 +85,22 @@ extern int MDP_MP_myproc;
  */
 #define MDP_SAFE_DELETE(a) if (a) { delete (a); a = 0; }
 
-/****************************************************************************************************************************/
-//!  Flag to specify how to handle error exceptions within mdp_allo
+/************************************************************************************************************************************/
+
+//!  Integer global variable to specify how to handle error exceptions within the %mdpUtil mdp_alloc routines
 /*!
- *      Error Handling
- *         7 print and exit
- *         6 exit
- *         5 print and create a divide by zero for stack trace analysis.
- *         4 create a divide by zero for stack trace analysis.
- *         3 print a message and throw the bad_alloc exception.
- *         2 throw the bad_alloc exception and be quite
- *         1 print a message and return from package with the NULL pointer
- *         0 Keep completely silent about the matter and return with
- *           a null pointer.
- *
- *  Right now, the only way to change this option is to right here
+ *      Error Handling behavior is determined by setting this variable to the following values.
+ *         
+ *       -  7  Print a descriptive message and error exit
+ *       -  6  Error exit
+ *       -  5  Print a descriptive message and create a divide by zero for stack trace analysis.
+ *       -  4  Create a divide by zero for stack trace analysis.
+ *       -  3  Print a message and throw the bad_alloc exception.
+ *       -  2  Throw the bad_alloc exception and be quite
+ *       -  1  Print a message and return from the package with the NULL pointer.
+ *       -  0  Keep completely silent about the error and return with a null pointer.
+ * 
+ *      The default behavior is 3, print an error message and throw the bad_alloc exception.  
  */
 extern int MDP_ALLO_errorOption;
 
@@ -167,8 +170,7 @@ extern int *mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
  *                     of the array.
  *                     A NULL value in the position indicates an error.
  */
-extern void mdp_safe_alloc_int_1(int **array_hdl, int len, 
-				 const int defval = MDP_INT_NOINIT);
+extern void mdp_safe_alloc_int_1(int **array_hdl, int len,  const int defval = MDP_INT_NOINIT);
 
 //!    Reallocates a one dimensional array of ints, copying old information to the new array
 /*!
@@ -300,8 +302,14 @@ extern void    mdp_safe_alloc_C16_NAME_1(C16_NAME **, int, const int);
 extern void  **mdp_alloc_ptr_1(int);
 extern void    mdp_safe_alloc_ptr_1(void ***, int);
 extern void    mdp_realloc_ptr_1(void ***, int, int);
-extern void    mdp_copy_ptr_1(void *const, const void *const, int);
 
+//!  Copies the contents of one ptr vector into another ptr vector
+/*!
+ *   @param[out]      copyTo         Vector of values to receive the copy.  Must have a length of at least len.
+ *   @param[in]       copyFrom       Vector of ptr values to be copied
+ *   @param[in]       len            Length of the vector
+ */
+extern void mdp_copy_ptr_1(void *const copyTo, const void *const copyFrom, int len);
 
 //! Duplicates one ptr vector into another ptr vector
 /*!
@@ -313,10 +321,32 @@ extern void    mdp_copy_ptr_1(void *const, const void *const, int);
  *  @return       copyTo         Vector of values to receive the copy
  */
 extern void **mdp_dupl_ptr_1(const void * const copyFrom, int len);
+ 
+//!    Allocates space for and copies a C16_NAME
+/*!
+ *   
+ *    @param[in]  copyFrom  C16_NAME string (note, this doesn't necessarily have to be null terminate. This is the reason for this
+ *                          subroutine. If NULL is supplied, then nothing is malloced and a NULL value is returned.
+ *   
+ *    @return               This value is initialized to the correct address of the array.
+ *                          A NULL value in the position either indicates an error, or
+ *                          that the original pointer to the string was NULL.
+ */
+extern char* mdp_copy_C16_NAME_to_string(const C16_NAME copyFrom);
 
-extern char   *mdp_copy_C16_NAME_to_string(const C16_NAME);
-extern void    mdp_copy_VecFixedStrings(char ** const, const char ** const,
-					int, size_t);
+//! Copies an array of fixed-length character vectors.
+/*!
+ *    Input
+ *     @param[in]     copyFrom       Vector of C strings. They should be null terminated. On input each of the strings must
+ *                                   already be malloced. It is an error condition to encounter an unmalloced string.
+ *     @param[in]     numStrings     Number of strings
+ *     @param[in]     maxLenString   Maximum of the size of the copy operation. This is used as the
+ *                                   argument to strncpy() function.
+ *    Output
+ *    @param[in,out]  copyTo         Vector of cstrings. On input it must already be malloced, with at least numString strings,
+ *                                   each of which must be as long as copyFrom strings or be at least maxLenString in length.
+ */
+extern void mdp_copy_VecFixedStrings(char** const copyTo, const char** const copyFrom, int numStrings, size_t maxLenString);
 
 //! Copy a cstring 
 /*!
@@ -326,7 +356,15 @@ extern void    mdp_copy_VecFixedStrings(char ** const, const char ** const,
  */
 extern char   *mdp_copy_string(const char * cstring);
 
-extern void    mdp_safe_copy_string(char **, const char *);
+//! Allocates space for and then copies a string
+/*!
+ *     @param[in]      copyFrom     Null-terminated cstring to be copied.
+ *
+ *     @param[in,out] string_hdl    Previous value of pointer. If non-NULL will try to free the memory at this address before 
+ *                                  mallocing again. On output, contains the  Pointer to the copied string.
+ *                                  A NULL value in the position indicates an error.
+ */
+extern void mdp_safe_copy_string(char** string_hdl, const char* copyFrom);
 
 //! Copy a double vector to a double vector
 /*!
