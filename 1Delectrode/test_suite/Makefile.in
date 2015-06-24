@@ -116,6 +116,9 @@ rebaseline:
 #
 
 install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c runtest @cta_bindir@/runtest_1D
+	
 
 
 
