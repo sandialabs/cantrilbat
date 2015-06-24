@@ -63,9 +63,11 @@ namespace mdpUtil {
 
 
 #ifndef _C16_NAME_DEF
-#  define _C16_NAME_DEF
-   typedef char    C16_NAME[16]; /* Character array used for fortran names */
-   typedef char    C16_NAME_STR[17];
+#define _C16_NAME_DEF
+    //!   Character array used for fortran names. We restrict its length to 16 characters
+    typedef char C16_NAME[16];
+    //!   cstring used for fortran names. We strict it to 16 chars plus a null termination char.
+    typedef char C16_NAME_STR[17];
 #endif
 /****************************************************************************/
 /*
@@ -289,19 +291,67 @@ extern char* mdp_alloc_char_1(int, const char = '\0');
 
 extern void    mdp_safe_alloc_char_1(char **, int, const char = '\0');    
 extern char  **mdp_alloc_VecFixedStrings(int, int);
-extern void    mdp_safe_alloc_VecFixedStrings(char ***, int, int);
+
+//!  Allocate and initialize an array of strings of fixed length
+/*!
+ *   @param[in,out] array_hdl     Previous value of pointer. If non-NULL will try to free the memory at this address.
+ *                                This value is initialized to the correct address of the array.
+ *                                A NULL value in the position indicates an error.
+ *   @param[in]     numStrings    Number of strings
+ *   @param[in]     lenString     Length of each string including the trailing null character
+ */
+extern void mdp_safe_alloc_VecFixedStrings(char ***array_hdl, int numStrings, int lenString);
+
+
 extern void    mdp_realloc_VecFixedStrings(char ***, int,  int, int);
 
 extern double **mdp_alloc_dbl_2(int, int, const double);
-extern void    mdp_safe_alloc_dbl_2(double ***, int, int, 
-				    const double = MDP_DBL_NOINIT);
 
-extern C16_NAME *mdp_alloc_C16_NAME_1(int, const int);
-extern void    mdp_safe_alloc_C16_NAME_1(C16_NAME **, int, const int);
 
-extern void  **mdp_alloc_ptr_1(int);
-extern void    mdp_safe_alloc_ptr_1(void ***, int);
-extern void    mdp_realloc_ptr_1(void ***, int, int);
+extern void    mdp_safe_alloc_dbl_2(double ***, int, int, const double = MDP_DBL_NOINIT);
+
+//!  Allocate and initialize a vector of fixed-length strings of type C16_NAME
+/*!
+ *  @param[in]   numStrings         Number of strings
+ *  @param[in]   init               If true, this routine initializes the space to the space character.
+ *
+ *  @return                         Returns the pointer to the space allocated by this function
+ */
+extern C16_NAME *mdp_alloc_C16_NAME_1(int numStrings, const int init);
+
+//!  Allocates and initializes a vector of fixed-length strings of type C16_NAME
+/*!
+ *   @param[in,out] array_hdl     Previous value of pointer. If non-NULL will try to free the memory at this address.
+ *                                This value is initialized to the correct address of the array.
+ *                                A NULL value in the position indicates an error.
+ *   @param[in]     numStrings    Number of strings
+ *   @param[in]     init          If true, this routine initializes the space to the space character.
+ */
+extern void mdp_safe_alloc_C16_NAME_1(C16_NAME** array_hdl, int numStrings, const int init);
+
+//! Allocate and initializes a vector of pointers of type pointer to void. All pointers are initialized to the NULL value.
+/*!
+ *  @param[in]       numPointers    New number of pointers
+ */
+extern void** mdp_alloc_ptr_1(int numPointers);
+
+//! Allocate and initialize a vector of pointers of type pointer to void. All pointers are initialized to the NULL value
+/*!
+ *  @param[in,out]   array_hdl      The pointer to the void ** location holding the data to be assigned. If initially
+ *                                  nonnull, it is freed first.
+ *                                  On return,  *array_hdl  is initialized to the correct address of the array.
+ *  @param[in]       numPointers    New number of pointers
+ */
+extern void mdp_safe_alloc_ptr_1(void ***array_hdl, int numPointers);
+
+//!  Reallocate and initializes a vector of pointers. Each new pointer is initialized to NULL, and old pointers are copied.
+/*!
+ *   @param[in,out]   array_hdl      The pointer to the void ** location holding the data to be reallocated. Must have
+ *                                   an initial length of numOldLen
+ *   @param[in]       numLen         New number of pointers
+ *   @param[in]       numOldLen      Old number of pointers
+ */
+extern void mdp_realloc_ptr_1(void ***array_hdl, int numLen, int numOldLen);
 
 //!  Copies the contents of one ptr vector into another ptr vector
 /*!

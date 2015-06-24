@@ -1151,8 +1151,7 @@ void mdp_realloc_VecFixedStrings(char ***array_hdl, int numStrings,
 /****************************************************************************/
 /****************************************************************************/
 
-void mdp_safe_alloc_VecFixedStrings(char ***array_hdl,
-				    int numStrings, int lenString)
+void mdp_safe_alloc_VecFixedStrings(char ***array_hdl, int numStrings, int lenString)
  
    /*************************************************************************
    *
@@ -1174,221 +1173,165 @@ void mdp_safe_alloc_VecFixedStrings(char ***array_hdl,
    *                     A NULL value in the position indicates an error.
    **************************************************************************/
 {
-  if (array_hdl == NULL) {
-    mdp_alloc_eh("mdp_safe_alloc_VecFixedStrings: handle is NULL",
-		 MDP_ALLOC_INTERFACE_ERROR);
-    return;
-  }
-  if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
-  *array_hdl = mdp_alloc_VecFixedStrings(numStrings, lenString);
-  if (*array_hdl == NULL)
-      mdp_alloc_eh2("mdp_safe_alloc_VecFixedStrings");
-}
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-C16_NAME *mdp_alloc_C16_NAME_1(int numStrings, const int init)
- 
-   /**************************************************************************
-   *
-   *  mdp_alloc_C16_NAME_1:
-   *
-   *    Allocate and initialize a vector of fixed-length 
-   *    strings of type C16_NAME
-   *
-   *    Input
-   *    -------
-   *        numStrings = Number of strings
-   *        init  =  If true, this routine initializes the space to the
-   *                 space character.
-   *    Return
-   *    ------
-   *        This value is initialized to the correct address of the array.
-   *        A NULL value in the position indicates an error.
-   **************************************************************************/
-{
-  int i, j;
-  char *c_ptr;
-  if (numStrings <= 0) numStrings = 1;
-  C16_NAME *array = (C16_NAME *) 
-      mdp_array_alloc(1, numStrings, sizeof(C16_NAME));
-  if (array != NULL) {
-    if (init) {
-      for (i = 0; i < numStrings; i++) {
-	c_ptr = (char *) (array + i);
-	for (j = 0; j < (int) sizeof(C16_NAME); j++) c_ptr[j] = ' ';  	 
-      }
+    if (array_hdl == NULL) {
+	mdp_alloc_eh("mdp_safe_alloc_VecFixedStrings: handle is NULL",
+		     MDP_ALLOC_INTERFACE_ERROR);
+	return;
     }
-  } else {
-    mdp_alloc_eh("mdp_alloc_C16_NAME_1",
-		 sizeof(C16_NAME) * numStrings);
-  }
-  return array;
+    if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
+    *array_hdl = mdp_alloc_VecFixedStrings(numStrings, lenString);
+    if (*array_hdl == NULL) {
+	mdp_alloc_eh2("mdp_safe_alloc_VecFixedStrings");
+    }
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-void mdp_safe_alloc_C16_NAME_1(C16_NAME **array_hdl, int numStrings,
-			      const int init)
-   
-   /*************************************************************************
-   *
-   *  mdp_safe_alloc_C16_NAME_1:
-   *
-   *    Allocate and initialize a vector of fixed-length 
-   *    strings of type C16_NAME
-   *
-   *    Input
-   *    -------
-   *        *array_hdl = Previous value of pointer. If non-NULL will try
-   *                     to free the memory at this address.
-   *        numStrings = Number of strings
-   *        init  =  If true, this routine initializes the space to the
-   *                 space character.
-   *    Output
-   *    ------
-   *        *array_hdl = This value is initialized to the correct address
-   *                     of the array.
-   *                     A NULL value in the position indicates an error.
-   **************************************************************************/
+//==================================================================================================================================
+C16_NAME* mdp_alloc_C16_NAME_1(int numStrings, const int init)
+/*
+ *    Allocate and initialize a vector of fixed-length strings of type C16_NAME
+ *
+ *    Input
+ *    -------
+ *        numStrings = Number of strings
+ *        init  =  If true, this routine initializes the space to the space character.
+ *    Return
+ *    ------
+ *        This value is initialized to the correct address of the array. A NULL value in the position indicates an error.
+ */
+{
+    int i, j;
+    char* c_ptr;
+    if (numStrings <= 0) numStrings = 1;
+    C16_NAME* array = (C16_NAME *) mdp_array_alloc(1, numStrings, sizeof(C16_NAME));
+    if (array != NULL) {
+	if (init) {
+	    for (i = 0; i < numStrings; i++) {
+		c_ptr = (char *) (array + i);
+		for (j = 0; j < (int) sizeof(C16_NAME); j++) c_ptr[j] = ' ';  	 
+	    }
+	}
+    } else {
+	mdp_alloc_eh("mdp_alloc_C16_NAME_1", sizeof(C16_NAME) * numStrings);
+    }
+    return array;
+}
+//==================================================================================================================================
+void mdp_safe_alloc_C16_NAME_1(C16_NAME **array_hdl, int numStrings, const int init) 
+/*
+ *    Allocate and initialize a vector of fixed-length strings of type C16_NAME
+ *
+ *    Input
+ *    -------
+ *        *array_hdl = Previous value of pointer. If non-NULL will try
+ *                     to free the memory at this address.
+ *        numStrings = Number of strings
+ *        init  =  If true, this routine initializes the space to the
+ *                 space character.
+ *    Output
+ *    ------
+ *        *array_hdl = This value is initialized to the correct address
+ *                     of the array. A NULL value in the position indicates an error.
+ */
 {
   if (array_hdl == NULL) {
-    mdp_alloc_eh("mdp_safe_alloc_C16_NAME_1: handle is NULL",
-		 MDP_ALLOC_INTERFACE_ERROR);
-    return;
+      mdp_alloc_eh("mdp_safe_alloc_C16_NAME_1: handle is NULL", MDP_ALLOC_INTERFACE_ERROR);
+      return;
   }
   if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
   *array_hdl = mdp_alloc_C16_NAME_1(numStrings, init);
   if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_C16_NAME_1");
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-void **mdp_alloc_ptr_1(int numPointers)
- 
-   /*************************************************************************
-   *
-   *  mdp_alloc_ptr_1:
-   *
-   *    Allocate and initialize a vector of pointers
-   *    of type pointer to void. All pointers are initialized to the NULL
-   *    value.
-   *
-   *    Input
-   *    -------
-   *        numPointers = Number of pointers
-   *    Return
-   *    ------
-   *        This value is initialized to the correct address of the vector.
-   *        A NULL value in the position indicates an error.
-   **************************************************************************/
+//==================================================================================================================================
+void** mdp_alloc_ptr_1(int numPointers) 
+/*
+ *    Allocate and initialize a vector of pointers of type pointer to void. All pointers are initialized to the NULL value.
+ *
+ *    Input
+ *    -------
+ *        numPointers = Number of pointers
+ *    Return
+ *    ------
+ *        This value is initialized to the correct address of the vector.
+ *        A NULL value in the position indicates an error.
+ */
 {
-   int i;
-   void **array;
-   if (numPointers <= 0) numPointers = 1;
-   array = (void **) mdp_array_alloc(1, numPointers, sizeof(void *));
-   if (array != NULL) {
-      for (i = 0; i < numPointers; i++) {
-         array[i] = NULL;
-      }
-   } else {
-    mdp_alloc_eh("mdp_alloc_ptr_1",
-		      sizeof(void *) * numPointers);
-   }
-   return array;
+    if (numPointers <= 0) numPointers = 1;
+    void **array = (void **) mdp_array_alloc(1, numPointers, sizeof(void *));
+    if (array != NULL) {
+	(void) memset(array, 0, sizeof(void *) * numPointers);
+    } else {
+	mdp_alloc_eh("mdp_alloc_ptr_1",  sizeof(void *) * numPointers);
+    }
+    return array;
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_safe_alloc_ptr_1(void ***array_hdl, int numPointers)
- 
-   /**************************************************************************
-   *
-   *  mdp_safe_alloc_ptr_1:
-   *
-   *    Allocate and initialize a vector of pointers
-   *    of type pointer to void. All pointers are initialized to the NULL
-   *    value.
-   *
-   *    Input
-   *    -------
-   *        *array_hdl = Previous value of pointer. If non-NULL will try
-   *                     to free the memory at this address.
-   *        numPointers = Number of pointers
-   *    Output
-   *    ------
-   *        *array_hdl = This value is initialized to the correct address
-   *                     of the array.
-   *                     A NULL value in the position indicates an error.
-   **************************************************************************/
+ /*
+ *    Allocate and initialize a vector of pointers of type pointer to void. All pointers are initialized to the NULL value.
+ *
+ *    Input
+ *    -------
+ *        *array_hdl = Previous value of pointer. If non-NULL will try
+ *                     to free the memory at this address.
+ *        numPointers = Number of pointers
+ *    Output
+ *    ------
+ *        *array_hdl = This value is initialized to the correct address
+ *                     of the array. A NULL value in the position indicates an error.
+ */
 {
   if (array_hdl == NULL) {
-    mdp_alloc_eh("mdp_safe_alloc_ptr_1: handle is NULL",
-		 MDP_ALLOC_INTERFACE_ERROR);
-    return;
+      mdp_alloc_eh("mdp_safe_alloc_ptr_1: handle is NULL", MDP_ALLOC_INTERFACE_ERROR);
+      return;
   }
   if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
   *array_hdl = mdp_alloc_ptr_1(numPointers);
   if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_ptr_1");
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_realloc_ptr_1(void ***array_hdl, int numLen, int numOldLen)
- 
-   /*************************************************************************
-   *
-   *  mdp_realloc__ptr_1:
-   *
-   *    Reallocate and initialize a vector of pointers
-   *    Each new pointer is initialized to NULL.
-   *    old Pointers are copied.
-   *
-   *    Input
-   *    -------
-   *        ***array_hdl = The pointer to the char ** location holding
-   *                       the data to be reallocated.
-   *        numLen = Number of strings
-   *        numOldLen = Number of old strings
-   **************************************************************************/
+ /*
+  *
+  *  mdp_realloc__ptr_1:
+  *
+  *    Reallocate and initialize a vector of pointers. Each new pointer is initialized to NULL. Old Pointers are copied.
+  *
+  *    Input
+  *    -------
+  *        ***array_hdl = The pointer to the void ** location holding
+  *                       the data to be reallocated.
+  *        numLen = Number of new pointers
+  *        numOldLen = Number of old pointers
+  */
 {
-  if (array_hdl == NULL) {
-    mdp_alloc_eh("mdp_safe_alloc_ptr_1: handle is NULL",
-		 MDP_ALLOC_INTERFACE_ERROR);
-    return;
-  }
-  if (numLen <= 0) numLen = 1;
-  if (numOldLen < 0) numOldLen = 0;
-  if (numLen == numOldLen) return;
-  size_t bytenum = sizeof(void *) * numLen;
-  void **array = (void **) smalloc(bytenum);
-  if (array != NULL) {
-    int len = MinI(numLen, numOldLen);
-    if (*array_hdl) {
-      void **ao = *array_hdl;
-      for (int i = 0; i < len; i++) array[i] = ao[i];
+    if (array_hdl == NULL) {
+	mdp_alloc_eh("mdp_safe_alloc_ptr_1: handle is NULL", MDP_ALLOC_INTERFACE_ERROR);
+	return;
+    }
+    if (numLen <= 0) numLen = 1;
+    if (numOldLen < 0) numOldLen = 0;
+    if (numLen == numOldLen) return;
+    size_t bytenum = sizeof(void *) * numLen;
+    void **array = (void **) smalloc(bytenum);
+    if (array != NULL) {
+	int len = MinI(numLen, numOldLen);
+	if (*array_hdl && (len > 0)) {
+	    void **aOld = *array_hdl;
+	    bytenum = sizeof(void *) * len;
+	    (void) memcpy(array, aOld, bytenum);
+	} else {
+	    numOldLen = 0;
+	}
+	if (numLen > numOldLen) {
+	    bytenum = sizeof(void *) * (numLen - numOldLen);
+	    (void) memset((void *) (array + numOldLen), 0, bytenum);
+	}
+	mdp_safe_free((void **) array_hdl);
+	*array_hdl = array;
     } else {
-      numOldLen = 0;
+	mdp_alloc_eh("mdp_realloc_ptr_1", sizeof(void *) * numLen);
     }
-    if (numLen > numOldLen) {
-      bytenum = sizeof(void *) * (numLen - numOldLen);
-      (void) memset((void *) (array + numOldLen), 0, bytenum);
-    }
-    mdp_safe_free((void **) array_hdl);
-    *array_hdl = array;
-  } else {
-    mdp_alloc_eh("mdp_realloc_ptr_1", sizeof(void *) * numLen);
-  }
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 char *mdp_copy_C16_NAME_to_string(const C16_NAME copyFrom)
  
    /*************************************************************************
