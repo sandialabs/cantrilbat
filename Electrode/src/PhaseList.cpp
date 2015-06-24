@@ -644,6 +644,89 @@ getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
     localSpeciesIndex = globalSpeciesIndex
                         - m_PhaseSpeciesStartIndex[phaseIndex];
 }
+//====================================================================================================================
+static bool ThermoPhasesTheSameNames(const ThermoPhase* const tpA, const ThermoPhase* const tpB)
+{
+    string sna = tpA->id();
+    string snb = tpB->id();
+    if (sna != snb) {
+	return false;
+    }
+    size_t nspA = tpA->nSpecies();
+    size_t nspB = tpB->nSpecies();
+    if (nspA != nspB) {
+        return false;
+    }
+    for (size_t k = 0; k <  nspA; ++k) {
+	string spA = tpA->speciesName(k);
+	string spB = tpB->speciesName(k);
+	if (spA != spB) {
+	    return false;
+	}
+    }
+    return true;
+}
+//====================================================================================================================
+// Compare against other phase lists
+/*
+ *        0  Phase lists are completely the same
+ *        1  Phase lists are the same, but in a different phase order
+ *        2  Owning phase list is a superset 
+ *        3  Guest phaseList is a superset
+ */
+int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
+{
+    PhaseList* plA;
+    PhaseList* plB;
+    int result = 0;
+    //
+    //  First compare for absolute agreement
+    int compGood = 1;
+    if (m_NumTotPhases == plGuest->m_NumTotPhases) {
+	if (NumVolPhases_ == plGuest->NumVolPhases_) {
+	    for (size_t i = 0; i < (size_t) NumVolPhases_; ++i) {
+		const ThermoPhase* tpa = PhaseList_[i];
+		const ThermoPhase* tpb = plGuest->PhaseList_[i];
+		bool sameNames = ThermoPhasesTheSameNames(tpa, tpb);
+		if (!sameNames) {
+		    compGood = 0;
+		    break;
+		}
+	    }
+	} else {
+	    compGood = 0;
+	}
+	if (m_NumSurPhases == plGuest->m_NumSurPhases) {
+	    for (size_t i = 0; i < (size_t) m_NumSurPhases; ++i) {
+		const ThermoPhase* tpa = SurPhaseList[i];
+		const ThermoPhase* tpb = plGuest->SurPhaseList[i];
+		bool sameNames = ThermoPhasesTheSameNames(tpa, tpb);
+		if (!sameNames) {
+		    compGood = 0;
+		    break;
+		}
+	    }
+	} else {
+	    compGood = 0;
+	}
+    } else {
+	compGood = 0;
+    }
+    if (compGood == 1) {
+	return result;
+    } else {
+	result = 4;
+    }
+    bool AhasAll = true;
+    bool BhasAll = true;
+    for (size_t i = 0; i < (size_t) NumVolPhases_; ++i) {
+	
+
+    }
+
+
+    return result;
+}
 //===================================================================================================================
 ThermoPhase&
 PhaseList::thermo(int globalPhaseIndex) const

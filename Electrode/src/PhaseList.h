@@ -214,6 +214,16 @@ public:
                                             int& localSpeciesIndex) const;
 
 
+    //! Compare against other phase lists
+    /*!
+     *        0  Phase lists are completely the same
+     *        1  Phase lists are the same, but in a different phase order
+     *        2  Owning phase list is a superset 
+     *        3  Guest phaseList is a superset
+     *        4  PhaseLists are not compatible
+     */
+    int compareOtherPL(const PhaseList* const plGuest) const;
+
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
      *  @param globalPhaseIndex  global phase index

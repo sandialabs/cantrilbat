@@ -3807,10 +3807,26 @@ double Electrode::reportTimeLimit(int allowedSubSteps, double allowedErrorStateV
     throw CanteraError("Electrode::reportTimeLimit()", "Base Class Called");
     return 0.0;
 }
+//==================================================================================================================================
+bool Electrode::localIntervalDoubleEqual(const Electrode* const eGuest, int nDigits)
+{
+    bool doComplicated = false;
+    double atol = molarAtol_;
+    double a1 = 8.0, a2 = 8.0;
+    
+    if (m_NumTotSpecies != eGuest->m_NumTotSpecies) {
+	doComplicated = true;
+    }
+
+    bool goodComp = doubleEqual(a1, a2, atol, nDigits);
+
+
+    return goodComp;
+}
 //====================================================================================================================
 Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
-                ResidJacEval(),
-                ee_(ee)
+    ResidJacEval(),
+    ee_(ee)
 {
 }
 //  -----------------------------------------------------------------------------------------------------------------

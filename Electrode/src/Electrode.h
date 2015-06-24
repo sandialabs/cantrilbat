@@ -971,6 +971,9 @@ public:
     
     double reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError);
 
+    //! Given a guest, are the two local intervals the same
+    virtual bool localIntervalDoubleEqual(const Electrode* const eGuest, int nDigits);
+
     //------------------------------------------------------------------------------------------------------------------
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
