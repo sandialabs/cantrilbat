@@ -645,11 +645,22 @@ getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
                         - m_PhaseSpeciesStartIndex[phaseIndex];
 }
 //====================================================================================================================
+//! Kernel function that checks consistency of the phase name and the the name and number/name/order of species in a phase 
+/*!
+ *   It returns true if the phases are the same and have the same species in it in the same order.
+ */
 static bool ThermoPhasesTheSameNames(const ThermoPhase* const tpA, const ThermoPhase* const tpB)
 {
+    // Check the id() attribute of the phase to see that it is the same
     string sna = tpA->id();
     string snb = tpB->id();
     if (sna != snb) {
+	return false;
+    }
+    // We also check the eosType() of the phase
+    int ia = tpA->eosType();
+    int ib = tpB->eosType();
+    if (ia != ib) {
 	return false;
     }
     size_t nspA = tpA->nSpecies();
@@ -666,21 +677,23 @@ static bool ThermoPhasesTheSameNames(const ThermoPhase* const tpA, const ThermoP
     }
     return true;
 }
-//====================================================================================================================
-// Compare against other phase lists
+//==================================================================================================================================
+// Compare this Phaselist against another PhaseList, seeing if it contains the same lists
 /*
  *        0  Phase lists are completely the same
- *        1  Phase lists are the same, but in a different phase order
+ *        1  Phase lists are the same, but in a different phase order, and possibly different species
  *        2  Owning phase list is a superset 
  *        3  Guest phaseList is a superset
+ *        4  apples and oranges.
  */
 int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 {
-    PhaseList* plA;
-    PhaseList* plB;
     int result = 0;
     //
-    //  First compare for absolute agreement
+    //  First compare for absolute agreement:
+    //       We say that there is absolute agreement if 
+    //          volume phases are same number and are the same ThermoPhase
+    //          surface phases are same number and are the same ThermoPhase
     int compGood = 1;
     if (m_NumTotPhases == plGuest->m_NumTotPhases) {
 	if (NumVolPhases_ == plGuest->NumVolPhases_) {
@@ -713,21 +726,186 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 	compGood = 0;
     }
     if (compGood == 1) {
-	return result;
+	return 0;
     } else {
 	result = 4;
     }
-    bool AhasAll = true;
-    bool BhasAll = true;
-    for (size_t i = 0; i < (size_t) NumVolPhases_; ++i) {
-	
 
+    std::vector<size_t> volPhaseMatchForA(NumVolPhases_, npos);
+    std::vector<size_t> volPhaseMatchForB(plGuest->NumVolPhases_, npos);
+    //
+    //  Loop through owning volume phases, looking for agreement. We find the best match if any
+    //
+    bool foundAllA = true;
+    bool foundAllB = true;
+    for (size_t i = 0; i < (size_t) NumVolPhases_; ++i) {
+	bool iFound = false;
+	int numBestAgreement = 0;
+	int numCurrentAgreement = 0;
+	const ThermoPhase* tpa = VolPhaseList[i];
+	string ida = tpa->id();
+	string pna = tpa->name();
+	int iEOSa = tpa->eosType();
+	const std::vector<std::string>&  sNa_list = tpa->speciesNames();
+	for (size_t iGuest =  0; i < (size_t) plGuest->NumVolPhases_; ++i) {
+	    const ThermoPhase* tpb = plGuest->VolPhaseList[i];
+	    numCurrentAgreement = 0;
+	    if (ida == tpb->id()) {
+		numCurrentAgreement++;
+	    }
+	    if (pna == tpb->name()) {
+		numCurrentAgreement++;
+	    }
+	    for (size_t kGuest =  0; kGuest < (size_t) tpb->nSpecies(); ++kGuest) {
+		std::string spnb = tpb->speciesName(kGuest);
+		std::vector<std::string>::const_iterator it = find(sNa_list.begin(), sNa_list.end(), spnb);
+		if (it != sNa_list.end()) {
+		    numCurrentAgreement++;
+		}
+	    }
+	    if (numCurrentAgreement >= numBestAgreement && numCurrentAgreement > 0) {
+	
+		if (numCurrentAgreement == numBestAgreement) {
+		    if (iEOSa == tpb->eosType()) {
+			numCurrentAgreement++;
+		    } else {
+			continue;
+		    }
+		} else {
+		    if (iEOSa == tpb->eosType()) {
+			numCurrentAgreement++;
+		    }
+		}
+		if (iFound) {
+		    size_t iGuest_alt = volPhaseMatchForA[i];
+		    volPhaseMatchForB[iGuest_alt] = npos;
+		}
+		iFound = true;
+		numBestAgreement = numCurrentAgreement;
+		volPhaseMatchForA[i] = iGuest;
+		volPhaseMatchForB[iGuest] = i;
+	    }
+	}
+	//  If we didn't find a matching A then indicate it
+	if (!iFound) {
+	    foundAllA = false;
+	}
+    }
+    for (size_t iB = 0; iB <  volPhaseMatchForB.size(); ++iB) {
+	if (volPhaseMatchForB[iB] == npos) {
+	    foundAllB = false;
+	}
     }
 
+    if (foundAllA && foundAllB) {
+	result = 1;
+    } else {
+	if (foundAllB) {
+	    result = 2;
+	} else if (foundAllA) {
+	    result = 3;
+	} else {
+	    result = 4;
+	}
+    }
+
+    int sresult = result;
+
+    std::vector<size_t> surPhaseMatchForA(m_NumSurPhases, npos);
+    std::vector<size_t> surPhaseMatchForB(plGuest->m_NumSurPhases, npos);
+    //
+    //  Loop through owning surface phases, looking for agreement. We find the best match if any
+    //
+    foundAllA = true;
+    foundAllB = true;
+    for (size_t i = 0; i < (size_t) m_NumSurPhases; ++i) {
+	bool iFound = false;
+	int numBestAgreement = 0;
+	int numCurrentAgreement = 0;
+	const ThermoPhase* tpa = SurPhaseList[i];
+	string ida = tpa->id();
+	string pna = tpa->name();
+	int iEOSa = tpa->eosType();
+	const std::vector<std::string>&  sNa_list = tpa->speciesNames();
+	for (size_t iGuest =  0; i < (size_t) plGuest->m_NumSurPhases; ++i) {
+	    const ThermoPhase* tpb = plGuest->SurPhaseList[i];
+	    numCurrentAgreement = 0;
+	    if (ida == tpb->id()) {
+		numCurrentAgreement++;
+	    }
+	    if (pna == tpb->name()) {
+		numCurrentAgreement++;
+	    }
+	    for (size_t kGuest =  0; kGuest < (size_t) tpb->nSpecies(); ++kGuest) {
+		std::string spnb = tpb->speciesName(kGuest);
+		std::vector<std::string>::const_iterator it = find(sNa_list.begin(), sNa_list.end(), spnb);
+		if (it != sNa_list.end()) {
+		    numCurrentAgreement++;
+		}
+	    }
+	    if (numCurrentAgreement >= numBestAgreement && numCurrentAgreement > 0) {
+	
+		if (numCurrentAgreement == numBestAgreement) {
+		    if (iEOSa == tpb->eosType()) {
+			numCurrentAgreement++;
+		    } else {
+			continue;
+		    }
+		} else {
+		    if (iEOSa == tpb->eosType()) {
+			numCurrentAgreement++;
+		    }
+		}
+		if (iFound) {
+		    size_t iGuest_alt = volPhaseMatchForA[i];
+		    volPhaseMatchForB[iGuest_alt] = npos;
+		}
+		iFound = true;
+		numBestAgreement = numCurrentAgreement;
+		surPhaseMatchForA[i] = iGuest;
+		surPhaseMatchForB[iGuest] = i;
+	    }
+	}
+	//  If we didn't find a matching A then indicate it
+	if (!iFound) {
+	    foundAllA = false;
+	}
+    }
+    for (size_t iB = 0; iB <  surPhaseMatchForB.size(); ++iB) {
+	if (surPhaseMatchForB[iB] == npos) {
+	    foundAllB = false;
+	}
+    }
+
+    if (foundAllA && foundAllB) {
+	sresult = 1;
+    } else {
+	if (foundAllB) {
+	    sresult = 2;
+	} else if (foundAllA) {
+	    sresult = 3;
+	} else {
+	    sresult = 4;
+	}
+    }
+
+    if (result == 1) {
+	if (sresult != 1) {
+	    result = sresult;
+	}
+    } else if (result == 2) {
+	if (sresult != 2 || sresult != 1) {
+	    result = 4;
+	}
+    } else if (result == 3) {
+	if (sresult != 3 || sresult != 1) {
+	    result = 4;
+	}
+    }
 
     return result;
 }
-//===================================================================================================================
+//==================================================================================================================================
 ThermoPhase&
 PhaseList::thermo(int globalPhaseIndex) const
 {

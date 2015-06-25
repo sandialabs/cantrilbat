@@ -214,12 +214,18 @@ public:
                                             int& localSpeciesIndex) const;
 
 
-    //! Compare against other phase lists
+    //! Compare against other phase lists, coming up with a number for the matching of phases and species
     /*!
+     *  This is a messy routine where we try to determine whether two Phaselist's are logically the same, or 
+     *  whether one PhaseList is a superset of the other PhaseList. 
+     *
      *        0  Phase lists are completely the same
-     *        1  Phase lists are the same, but in a different phase order
-     *        2  Owning phase list is a superset 
-     *        3  Guest phaseList is a superset
+     *        1  Phase lists are the same, but in a different phase order. Each ThermoPhase may have different
+     *           numbers of species in the phase, but all phases map into another phase.
+     *        2  Owning phase list is a superset of the other PhaseList. Each ThermoPhase of the guest PhaseList 
+     *           maps into a unique ThermoPhase in the owning Phaselist. The number of species in that ThermoPhase may be different.
+     *        3  Guest PhaseList is a superset of the owning PhaseList. Each ThermoPhase of the owing PhaseList
+     *           maps into a unique ThermoPhase in the guest Phaselist. The number of species in that ThermoPhase may be different.
      *        4  PhaseLists are not compatible
      */
     int compareOtherPL(const PhaseList* const plGuest) const;
