@@ -286,11 +286,42 @@ extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, const
  */
 extern void mdp_realloc_dbl_2(double*** array_hdl, int ndim1, int ndim2, int ndim1Old, int ndim2Old, const double defval = MDP_DBL_NOINIT);
 
+//!  Allocate and initialize a one dimensional array of characters.
+/*!
+ *  Allocate and initialize a one dimensional array of characters.
+ *  
+ *     @param[in]   nvalues  Length of the array
+ *     @param[in]   val      intialization value
+ *  
+ *     @return               Pointer to the intialized character array. Failures are indicated by returning the NULL pointer.
+ */
+extern char* mdp_alloc_char_1(int nvalues, const char val = '\0');
 
-extern char* mdp_alloc_char_1(int, const char = '\0');
+//!  Reallocates and initializes a one dimensional array of characters.
+/*!
+ *    Reallocates and initializes a one dimensional array of characters.
+ *  
+ *     @param[in,out] array_hdl    Previous value of pointer. If non-NULL will try to free the memory at this address.
+ *                                 This value is initialized to the correct address of the array.
+ *                                 A NULL value in the position indicates an error.
+ *     @param[in]   nvalues        Length of the array
+ *     @param[in]   val            Initialization value
+ *  
+ *     @return                     Pointer to the intialized character array. Failures are indicated by returning the NULL pointer.
+ */
+extern void mdp_safe_alloc_char_1(char **array_hdl, int nvalues, const char val = '\0');
 
-extern void    mdp_safe_alloc_char_1(char **, int, const char = '\0');    
-extern char  **mdp_alloc_VecFixedStrings(int, int);
+//!  Allocate and initialize an array of strings of fixed length
+/*! 
+ *   Allocate and initialize a vector of fixed-length strings. Each string is initialized to the NULL string.
+ *
+ *   @param[in]     numStrings    Number of strings
+ *   @param[in]     lenString     Length of each string including the trailing null character
+ *
+ *   @return                      This value is initialized to the correct address of the array.
+ *                                A NULL value in the position indicates an error. 
+ */  
+extern char** mdp_alloc_VecFixedStrings(int numStrings, int lenString);
 
 //!  Allocate and initialize an array of strings of fixed length
 /*!
@@ -302,13 +333,59 @@ extern char  **mdp_alloc_VecFixedStrings(int, int);
  */
 extern void mdp_safe_alloc_VecFixedStrings(char ***array_hdl, int numStrings, int lenString);
 
+//!  Reallocates and initializes an array of strings of fixed length
+/*! 
+ *   Reallocates and initializes a vector of fixed-length strings. Each new string is initialized to the NULL string.
+ *   Old string addresses are copied.
+ *
+ *   @param[in,out] array_hdl      Previous value of pointer. If non-NULL will try to free the memory at this address.
+ *                                 This value is initialized to the correct address of the array.
+ *                                 A NULL value in the position indicates an error.
+ *   @param[in]     numStrings     Number of strings
+ *   @param[in]     numOldStrings  Number of strings
+ *   @param[in]     lenString      Length of each string including the trailing null character
+ *
+ *   @return                      This value is initialized to the correct address of the array.
+ *                                A NULL value in the position indicates an error. 
+ */  
+extern void mdp_realloc_VecFixedStrings(char ***array_hdl, int numStrings, int numOldStrings, int lenString);
 
-extern void    mdp_realloc_VecFixedStrings(char ***, int,  int, int);
+//!  Allocate and initialize a two dimensional array of doubles.
+/*!
+ *     Allocate and initialize a two dimensional array of doubles.
+ *
+ *            dblVec[ndim1][ndim2]
+ *
+ *   Note, ndim2 is the inner dimension.
+ *
+ *    Input
+ *    -------
+ *    @param[in]    ndim1         Length of the first dimension of the array
+ *    @param[in]    ndim2         Length of the second dimension of the array
+ *    @param[in]    val           Intialization value. If the value is MDP_DBL_NOINIT, then no initialization is carried out.
+ *  
+ *    @return                     Pointer to the intialized integer array. Failures are indicated by returning the NULL pointer.
+ */
+extern double** mdp_alloc_dbl_2(int ndim1, int ndim2, const double val = MDP_DBL_NOINIT);
 
-extern double **mdp_alloc_dbl_2(int, int, const double);
-
-
-extern void    mdp_safe_alloc_dbl_2(double ***, int, int, const double = MDP_DBL_NOINIT);
+//!  Reallocates and initializes a two dimensional array of doubles.
+/*!
+ *    Reallocate and initialize a two dimensional array of doubles. If nonnull, the old pointer is deallocated first.
+ *
+ *            dblVec[ndim1][ndim2]
+ *
+ *   Note, ndim2 is the inner dimension.
+ *
+ *    @param[in,out] array_hdl    Previous value of pointer. If non-NULL will try to free the memory at this address.
+ *                                The value is then initialized to the correct address of the array.
+ *                                A NULL value in the position indicates an error.
+ *    @param[in]    ndim1         Length of the first dimension of the array
+ *    @param[in]    ndim2         Length of the second dimension of the array
+ *    @param[in]    val           Intialization value. If the value is MDP_DBL_NOINIT, then no initialization is carried out.
+ *  
+ *    @return                     Pointer to the intialized integer array. Failures are indicated by returning the NULL pointer.
+ */
+extern void mdp_safe_alloc_dbl_2(double ***array_hdl, int ndim1, int ndim2, const double val = MDP_DBL_NOINIT);
 
 //!  Allocate and initialize a vector of fixed-length strings of type C16_NAME
 /*!
@@ -322,7 +399,7 @@ extern C16_NAME *mdp_alloc_C16_NAME_1(int numStrings, const int init);
 //!  Allocates and initializes a vector of fixed-length strings of type C16_NAME
 /*!
  *   @param[in,out] array_hdl     Previous value of pointer. If non-NULL will try to free the memory at this address.
- *                                This value is initialized to the correct address of the array.
+ *                                The value is then initialized to the correct address of the array.
  *                                A NULL value in the position indicates an error.
  *   @param[in]     numStrings    Number of strings
  *   @param[in]     init          If true, this routine initializes the space to the space character.

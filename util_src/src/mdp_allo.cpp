@@ -3,11 +3,6 @@
  *   Definitions for dynamic allocation of multidimensional pointer arrays
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 508 $
- * $Date: 2013-01-07 15:54:04 -0700 (Mon, 07 Jan 2013) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -48,9 +43,24 @@ int MDP_MP_myproc = 0;
  */
 int MDP_ALLO_errorOption = 3;
 
+//! Inline min routine for two ints
+/*!
+ *    @param[in]  x    first int
+ *    @param[in]  y    second int
+ *
+ *    @return returns the minimum value of x or y
+ */
 inline int MinI(const int &x, const int &y) {
   return ( ( x < y ) ? x : y );
 }
+
+//! Inline max routine for two ints
+/*!
+ *    @param[in]  x    first int
+ *    @param[in]  y    second int
+ *
+ *    @return returns the maximum value of x or y
+ */
 inline int MaxI(const int &x, const int &y) {
   return ( ( x > y ) ? x : y );
 }
@@ -58,101 +68,97 @@ inline int MaxI(const int &x, const int &y) {
 //! Arbitrary constant indicating an interfacial error
 const int MDP_ALLOC_INTERFACE_ERROR = -230346;
 
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
+//!   Error Handling routine for the package
+/*!
+ *         7 print and exit
+ *         6 exit
+ *         5 print and create a divide by zero for stack trace analysis.
+ *         4 create a divide by zero for stack trace analysis.
+ *         3 print a message and throw the bad_alloc exception.
+ *         2 throw the bad_alloc exception and be quite
+ *         1 print a message and return from package with the NULL pointer
+ *         0 Keep completely silent about the matter and return with
+ *           a null pointer.
+ *
+ *   @param[in]     rname     Null terminated string representing the routine that created the error
+ *   @param[in]     bytes     Number of bytes that were attempted to be malloced.
+ */
 static void mdp_alloc_eh(const char *rname, int bytes)
-   
-   /*************************************************************************
-   *
-   * mdp_alloc_eh:
-   *
-   *      Error Handling
-   *         7 print and exit
-   *         6 exit
-   *         5 print and create a divide by zero for stack trace analysis.
-   *         4 create a divide by zero for stack trace analysis.
-   *         3 print a message and throw the bad_alloc exception.
-   *         2 throw the bad_alloc exception and be quite
-   *         1 print a message and return from package with the NULL pointer
-   *         0 Keep completely silent about the matter and return with
-   *           a null pointer.
-   **************************************************************************/
 {
-  double cd = 0.0;
-  static char mesg[64];
-  if (bytes == MDP_ALLOC_INTERFACE_ERROR) {
+    double cd = 0.0;
+    static char mesg[64];
+    if (bytes == MDP_ALLOC_INTERFACE_ERROR) {
 #ifdef MDP_MPDEBUGIO
-    sprintf(mesg,"MDP_ALLOC Interface ERROR P_%d: %s", MDP_MP_my_proc,
-	    rname);
+	sprintf(mesg,"MDP_ALLOC Interface ERROR P_%d: %s", MDP_MP_my_proc, rname);
 #else
-    sprintf(mesg,"MDP_ALLOC Interface ERROR: %s", rname);
+	sprintf(mesg,"MDP_ALLOC Interface ERROR: %s", rname);
 #endif
-  } else {
-    sprintf(mesg,"%s ERROR: out of memory while mallocing %d bytes",
-	    rname, bytes);
-  }
-  if (MDP_ALLO_errorOption % 2 == 1) {
-    fprintf(stderr, "\n%s", mesg);
-#ifdef MDP_MPDEBUGIO
-    if (MDP_MP_Nprocs > 1) {
-      fprintf(stderr,": proc = %d\n", MDP_MP_myproc);
     } else {
-      fprintf(stderr,"\n");
+	sprintf(mesg,"%s ERROR: out of memory while mallocing %d bytes", rname, bytes);
     }
-#else
-    fprintf(stderr,"\n");
-#endif
-  }
-  fflush(stderr);
-  if (MDP_ALLO_errorOption == 2 || MDP_ALLO_errorOption == 3) {
-      throw std::bad_alloc();
-  }
-  if (MDP_ALLO_errorOption == 4 || MDP_ALLO_errorOption == 5) cd = 1.0 / cd;
-  if (MDP_ALLO_errorOption > 5) exit(-1);
-}
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-static void mdp_alloc_eh2(const char * rname)
-   
-   /*************************************************************************
-   *
-   *  mdp_alloc_eh2:
-   *
-   *      Second Level Error Handling
-   *         This routine is used at the second level.
-   *         It will be triggered after mdp_allo_eh() has
-   *         been triggered. Thus, it only needs to deal with 1 -> print mess
-   *
-   *         3 create a divide by zero for stack trace analysis.
-   *         2 or above ->
-   *         1 print a message and return with the NULL pointer
-   *         0 Keep completely silent about the matter.
-   **************************************************************************/
-{
-  if (MDP_ALLO_errorOption == 1) {
-    fprintf(stderr,"%s ERROR: returning with null pointer", rname);
+    if (MDP_ALLO_errorOption % 2 == 1) {
+	fprintf(stderr, "\n%s", mesg);
 #ifdef MDP_MPDEBUGIO
-    if (MDP_MP_Nprocs > 1) {
-      fprintf(stderr,": proc = %d", MDP_MP_myproc);
-    } 
+	if (MDP_MP_Nprocs > 1) {
+	    fprintf(stderr,": proc = %d\n", MDP_MP_myproc);
+	} else {
+	    fprintf(stderr,"\n");
+	}
+#else
+	fprintf(stderr,"\n");
 #endif
-    fprintf(stderr,"\n");
-  }
+    }
+    fflush(stderr);
+    if (MDP_ALLO_errorOption == 2 || MDP_ALLO_errorOption == 3) {
+	throw std::bad_alloc();
+    }
+    if (MDP_ALLO_errorOption == 4 || MDP_ALLO_errorOption == 5) cd = 1.0 / cd;
+    if (MDP_ALLO_errorOption > 5) exit(-1);
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
+//==================================================================================================================================
+//!  Second Level Error Handling routine
+/*!
+ *      This routine is used at the second level.It will be triggered after mdp_allo_eh() has
+ *         been triggered. Thus, it only needs to deal with 1 -> print mess
+ *
+ *         3 create a divide by zero for stack trace analysis.
+ *         2 or above ->
+ *         1 print a message and return with the NULL pointer
+ *         0 Keep completely silent about the matter.
+ *
+ *        @param[in]    rname      Null terminated character string for the name of the routine that created the error
+ */
+static void mdp_alloc_eh2(const char * rname)
+{
+    if (MDP_ALLO_errorOption == 1) {
+	fprintf(stderr,"%s ERROR: returning with null pointer", rname);
+#ifdef MDP_MPDEBUGIO
+	if (MDP_MP_Nprocs > 1) {
+	    fprintf(stderr,": proc = %d", MDP_MP_myproc);
+	} 
+#endif
+	fprintf(stderr,"\n");
+    }
+}
+//==================================================================================================================================
+
 
 #define Fprintf (void) fprintf
 
 /****************************************************************************/
 #ifndef HAVE_ARRAY_ALLOC
 /****************************************************************************/
+
+//!  This is a low level allocation routine that every malloc goes through
+/*!
+ *   This version of smalloc assigns space in even chunks of 8 bytes only.
+ *
+ *   @param     n       Size in bytes of the allocation
+ *
+ *   @return            Returns the pointer (as a double* value) for the allocation.
+ *                      A NULL pointer return indicates an error.
+ */
 static double *smalloc(size_t n);
 
 /*****************************************************************************
@@ -318,52 +324,48 @@ double *mdp_array_alloc(int numdim, ...)
 
   return dfield;
 } 
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 static double *smalloc(size_t n)
-
-   /**************************************************************************
-   *  smalloc: safe version of malloc
-   *
-   *  This version of smalloc assigns space in even chunks of 8 bytes only 
-   **************************************************************************/
+/*
+ *  smalloc: safe version of malloc
+ *
+ *  This version of smalloc assigns space in even chunks of 8 bytes only 
+ */
 {
 #ifdef MDP_MEMDEBUG
-  static int firsttime = 1;
-  FILE *file;
+    static int firsttime = 1;
+    FILE *file;
 #endif
-  double *pntr; 
-  if (n < 0) {
-    fprintf(stderr, "smalloc ERROR: Non-positive argument. (%d)\n", (int) n);
-    return NULL;
-  }
-  else if (n == 0) pntr = NULL;
-  else {
-    n = ((n - 1) / 8);
-    n = (n + 1) * 8;
-    pntr = (double *) malloc((size_t) n);
-  }
-  if (pntr == NULL && n != 0) {
-    fprintf(stderr, "smalloc : Out of space - number of bytes "
-            "requested = %d\n", (int) n);
-  }
+    double *pntr; 
+    if (n < 0) {
+	fprintf(stderr, "smalloc ERROR: Non-positive argument. (%d)\n", (int) n);
+	return NULL;
+    }
+    else if (n == 0) pntr = NULL;
+    else {
+	n = ((n - 1) / 8);
+	n = (n + 1) * 8;
+	pntr = (double *) malloc((size_t) n);
+    }
+    if (pntr == NULL && n != 0) {
+	fprintf(stderr, "smalloc : Out of space - number of bytes "
+		"requested = %d\n", (int) n);
+    }
 #ifdef MDP_MEMDEBUG
-  if (firsttime) {
-    firsttime = 0;	
-    file = fopen("memops.txt", "w");
-  } else {
-    file = fopen("memops.txt", "a");     
-  }
-  fprintf(file, "%x  %d   malloc\n", pntr, n);
-  if ( (int) pntr == 0x00000001) {
-    fprintf(stderr, "FOUND IT!\n");
-    exit(-1);
-  }
-  fclose(file);
+    if (firsttime) {
+	firsttime = 0;	
+	file = fopen("memops.txt", "w");
+    } else {
+	file = fopen("memops.txt", "a");     
+    }
+    fprintf(file, "%x  %d   malloc\n", pntr, n);
+    if ( (int) pntr == 0x00000001) {
+	fprintf(stderr, "FOUND IT!\n");
+	exit(-1);
+    }
+    fclose(file);
 #endif
-  return pntr;
+    return pntr;
 }
 /****************************************************************************/
 /****************************************************************************/
@@ -559,49 +561,49 @@ mdp_realloc_int_1(int **array_hdl, int new_length, int old_length,
    *        old_length   = Length of the old array
    **************************************************************************/
 {
-  if (new_length == old_length) return;
-  if (new_length <= 0) {
+    if (new_length == old_length) return;
+    if (new_length <= 0) {
 #ifdef MDP_MPDEBUGIO
-    fprintf(stderr,
-	    "Warning: mdp_realloc_int_1 P_%d: called with n = %d\n",
-	    MDP_MP_myproc, new_length);
+	fprintf(stderr,
+		"Warning: mdp_realloc_int_1 P_%d: called with n = %d\n",
+		MDP_MP_myproc, new_length);
 #else
-    fprintf(stderr,
-	    "Warning: mdp_realloc_int_1: called with n = %d\n",
-	    new_length);
+	fprintf(stderr,
+		"Warning: mdp_realloc_int_1: called with n = %d\n",
+		new_length);
 #endif
-    new_length = 1;
-  }
-  if (old_length < 0) old_length = 0;
-  if (new_length == old_length) return;
-  size_t bytenum = new_length * sizeof(int);
-  int *array = (int *) smalloc(bytenum);
-  if (array != NULL) {
-    if (*array_hdl) {
-      if (old_length > 0)  bytenum = sizeof(int) * old_length;
-      else                 bytenum = 0;
-      if (new_length < old_length)   bytenum = sizeof(int) * new_length;
-      if (bytenum > 0) {
-        (void) memcpy((void *) array, (const void *) *array_hdl, bytenum);
-      }
-      mdp_safe_free((void **) array_hdl);
-    } else {
-      old_length = 0;
+	new_length = 1;
     }
-    *array_hdl = array;
-    if ((defval != MDP_INT_NOINIT) && (new_length > old_length)) {
-      if (defval == 0) {
-	bytenum = sizeof(int) * (new_length - old_length);
-	(void) memset((void *)(array+old_length), 0, bytenum);
-      } else {
-	for (int i = old_length; i < new_length; i++) {
-	  array[i] = defval;
+    if (old_length < 0) old_length = 0;
+    if (new_length == old_length) return;
+    size_t bytenum = new_length * sizeof(int);
+    int *array = (int *) smalloc(bytenum);
+    if (array != NULL) {
+	if (*array_hdl) {
+	    if (old_length > 0)  bytenum = sizeof(int) * old_length;
+	    else                 bytenum = 0;
+	    if (new_length < old_length)   bytenum = sizeof(int) * new_length;
+	    if (bytenum > 0) {
+		(void) memcpy((void *) array, (const void *) *array_hdl, bytenum);
+	    }
+	    mdp_safe_free((void **) array_hdl);
+	} else {
+	    old_length = 0;
 	}
-      }
+	*array_hdl = array;
+	if ((defval != MDP_INT_NOINIT) && (new_length > old_length)) {
+	    if (defval == 0) {
+		bytenum = sizeof(int) * (new_length - old_length);
+		(void) memset((void *)(array+old_length), 0, bytenum);
+	    } else {
+		for (int i = old_length; i < new_length; i++) {
+		    array[i] = defval;
+		}
+	    }
+	}
+    } else {
+	mdp_alloc_eh("mdp_realloc_int_1", static_cast<int>(bytenum));
     }
-  } else {
-    mdp_alloc_eh("mdp_realloc_int_1", static_cast<int>(bytenum));
-  }
 }
 /****************************************************************************/
 /****************************************************************************/
@@ -820,123 +822,103 @@ char *mdp_alloc_char_1(int nvalues, const char val)
   }
   return array;
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_safe_alloc_char_1(char **array_hdl, int nvalues, const char val)
- 
-   /*************************************************************************
-   *
-   *  mdp_safe_alloc_char_1:
-   *
-   *    Allocates and/or initializse a one dimensional array of characters.
-   *
-   *    Input
-   *    -------
-   *        array_hdl =  Previous value of pointer. If non-NULL will try
-   *                     to free the memory at this address.
-   *        nvalues = Length of the array
-   *        val     = intialization value
-   *    Output
-   *    ------
-   *        *array_hdl = This value is initialized to the correct address
-   *                     of the array.
-   *                     A NULL value in the position indicates an error.
-   **************************************************************************/
+/*
+ *    Allocates and/or initializse a one dimensional array of characters.
+ *
+ *    Input
+ *    -------
+ *        array_hdl =  Previous value of pointer. If non-NULL will try
+ *                     to free the memory at this address.
+ *        nvalues = Length of the array
+ *        val     = intialization value
+ *    Output
+ *    ------
+ *        *array_hdl = This value is initialized to the correct address
+ *                     of the array.
+ *                     A NULL value in the position indicates an error.
+ */
 {
-  if (array_hdl == NULL) {
-    mdp_alloc_eh("mdp_safe_alloc_char_1: handle is NULL",
-		 MDP_ALLOC_INTERFACE_ERROR);
-    return;
-  }
-  if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
-  *array_hdl = mdp_alloc_char_1(nvalues, val);
-  if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_char_1");
-}
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-double **mdp_alloc_dbl_2(int ndim1, int ndim2, const double val)
- 
-   /*************************************************************************
-   *
-   *  mdp_alloc_dbl_2:
-   *
-   *    Allocate and initialize a two dimensional array of doubles.
-   *
-   *  dblVec[ndim1][ndim2]
-   *
-   *   Note, ndim2 is the inner dimension
-   *
-   *    Input
-   *    -------
-   *        ndim1 = Length of the first dimension of the array
-   *        ndim2 = Length of the second dimension of the array
-   *        val   = intialization value
-   *    Return
-   *    ------
-   *        Pointer to the intialized integer array
-   *        Failures are indicated by returning the NULL pointer.
-   **************************************************************************/
-{
-  int i;
-  double **array, *dptr;
-  if (ndim1 <= 0) ndim1 = 1;
-  if (ndim2 <= 0) ndim2 = 1;
-  array = (double **) mdp_array_alloc(2, ndim1, ndim2, sizeof(double));
-  if (array != NULL) {
-    if (val != MDP_DBL_NOINIT) {
-      if (val == 0.0) {
-	(void) memset((void *) array[0], 0, ndim1*ndim2 * sizeof(double));
-      } else {
-	dptr = &(array[0][0]);
-	for (i = 0; i < ndim1*ndim2; i++) dptr[i] = val;
-      }
+    if (array_hdl == NULL) {
+	mdp_alloc_eh("mdp_safe_alloc_char_1: handle is NULL", MDP_ALLOC_INTERFACE_ERROR);
+	return;
     }
-  } else {
-    mdp_alloc_eh("mdp_alloc_dbl_2",
-		      sizeof(double) * ndim1 * ndim2 +
-		      ndim1 * sizeof(void *));
-  }
-  return array;
+    if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
+    *array_hdl = mdp_alloc_char_1(nvalues, val);
+    if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_char_1");
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-void mdp_safe_alloc_dbl_2(double ***array_hdl, int ndim1, int ndim2,
-			  const double val)
- 
-   /*************************************************************************
-   *
-   *  mdp_safe_alloc_dbl_2:
-   *
-   *    Allocate and initialize a two dimensional array of doubles.
-   *
-   *    Input
-   *    -------
-   *        *array_hdl = Previous value of pointer. If non-NULL will try
-   *                     to free the memory at this address.
-   *        ndim1 = Length of the array
-   *        ndim2 = Length of inner loop of the array
-   *        val     = intialization value
-   *    Return
-   *    ------
-   *        *array_hdl = This value is initialized to the correct address
-   *                     of the array.
-   *                     A NULL value in the position indicates an error.
-   **************************************************************************/
+//==================================================================================================================================
+double **mdp_alloc_dbl_2(int ndim1, int ndim2, const double val)
+/*
+ *
+ *  mdp_alloc_dbl_2:
+ *
+ *    Allocate and initialize a two dimensional array of doubles.
+ *
+ *  dblVec[ndim1][ndim2]
+ *
+ *   Note, ndim2 is the inner dimension
+ *
+ *    Input
+ *    -------
+ *        ndim1 = Length of the first dimension of the array
+ *        ndim2 = Length of the second dimension of the array
+ *        val   = intialization value
+ *    Return
+ *    ------
+ *        Pointer to the intialized integer array
+ *        Failures are indicated by returning the NULL pointer.
+ */
 {
-  if (array_hdl == NULL) {
-    mdp_alloc_eh("mdp_safe_alloc_dbl_2: handle is NULL",
-		 MDP_ALLOC_INTERFACE_ERROR);
-    return;
-  }  
-  if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
-  *array_hdl = mdp_alloc_dbl_2(ndim1, ndim2, val);
-  if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_dbl_2");
+    int i;
+    double **array, *dptr;
+    if (ndim1 <= 0) ndim1 = 1;
+    if (ndim2 <= 0) ndim2 = 1;
+    array = (double **) mdp_array_alloc(2, ndim1, ndim2, sizeof(double));
+    if (array != NULL) {
+	if (val != MDP_DBL_NOINIT) {
+	    if (val == 0.0) {
+		(void) memset((void *) array[0], 0, ndim1*ndim2 * sizeof(double));
+	    } else {
+		dptr = &(array[0][0]);
+		for (i = 0; i < ndim1*ndim2; i++) dptr[i] = val;
+	    }
+	}
+    } else {
+	mdp_alloc_eh("mdp_alloc_dbl_2",
+		     sizeof(double) * ndim1 * ndim2 +
+		     ndim1 * sizeof(void *));
+    }
+    return array;
+}
+//==================================================================================================================================
+void mdp_safe_alloc_dbl_2(double ***array_hdl, int ndim1, int ndim2, const double val)
+/*
+ *
+ *    Allocate and initialize a two dimensional array of doubles.
+ *
+ *    Input
+ *    -------
+ *        *array_hdl = Previous value of pointer. If non-NULL will try
+ *                     to free the memory at this address.
+ *        ndim1 = Length of the array
+ *        ndim2 = Length of inner loop of the array
+ *        val     = intialization value
+ *    Return
+ *    ------
+ *        *array_hdl = This value is initialized to the correct address
+ *                     of the array.
+ *                     A NULL value in the position indicates an error.
+ */
+{
+    if (array_hdl == NULL) {
+	mdp_alloc_eh("mdp_safe_alloc_dbl_2: handle is NULL", MDP_ALLOC_INTERFACE_ERROR);
+	return;
+    }  
+    if (*array_hdl != NULL) mdp_safe_free((void **) array_hdl);
+    *array_hdl = mdp_alloc_dbl_2(ndim1, ndim2, val);
+    if (*array_hdl == NULL) mdp_alloc_eh2("mdp_safe_alloc_dbl_2");
 }
 /****************************************************************************/
 /****************************************************************************/
