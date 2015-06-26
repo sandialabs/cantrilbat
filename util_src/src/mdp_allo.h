@@ -32,7 +32,8 @@
  *       Pointers are and should always be set to null to indicate that nothing is malloced. When they are malloced,
  *       they are set to nonnull. When they are freed, they should be set back to null.
  */
-namespace mdpUtil {
+namespace mdpUtil
+{
 
 /****************************************************************************/
 /*
@@ -64,10 +65,10 @@ namespace mdpUtil {
 
 #ifndef _C16_NAME_DEF
 #define _C16_NAME_DEF
-    //!   Character array used for fortran names. We restrict its length to 16 characters
-    typedef char C16_NAME[16];
-    //!   cstring used for fortran names. We strict it to 16 chars plus a null termination char.
-    typedef char C16_NAME_STR[17];
+//!   Character array used for fortran names. We restrict its length to 16 characters
+typedef char C16_NAME[16];
+//!   cstring used for fortran names. We strict it to 16 chars plus a null termination char.
+typedef char C16_NAME_STR[17];
 #endif
 /****************************************************************************/
 /*
@@ -81,7 +82,7 @@ extern int MDP_MP_myproc;
 
 /****************************************************************************/
 /*
- * MDP_SAFE_DELETE() 
+ * MDP_SAFE_DELETE()
  *       This useful define is great for delete single instances of
  *       mallocing using new.
  */
@@ -92,7 +93,7 @@ extern int MDP_MP_myproc;
 //!  Integer global variable to specify how to handle error exceptions within the %mdpUtil mdp_alloc routines
 /*!
  *      Error Handling behavior is determined by setting this variable to the following values.
- *         
+ *
  *       -  7  Print a descriptive message and error exit
  *       -  6  Error exit
  *       -  5  Print a descriptive message and create a divide by zero for stack trace analysis.
@@ -101,8 +102,8 @@ extern int MDP_MP_myproc;
  *       -  2  Throw the bad_alloc exception and be quite
  *       -  1  Print a message and return from the package with the NULL pointer.
  *       -  0  Keep completely silent about the error and return with a null pointer.
- * 
- *      The default behavior is 3, print an error message and throw the bad_alloc exception.  
+ *
+ *      The default behavior is 3, print an error message and throw the bad_alloc exception.
  */
 extern int MDP_ALLO_errorOption;
 
@@ -121,7 +122,7 @@ extern int MDP_ALLO_errorOption;
  *
  * @param[in] numdim           Number of dimensions in the array
  *
- * @return                     Returns a pointer to the allocated space. 
+ * @return                     Returns a pointer to the allocated space.
  */
 extern double* mdp_array_alloc(int numdim, ...);
 
@@ -140,19 +141,19 @@ extern double* mdp_array_alloc(int numdim, ...);
  * a pointer that can be malloced is either malloced or its value
  * is 0. This routine enforces this convention.
  */
-extern void mdp_safe_free(void ** hndVec);
+extern void mdp_safe_free(void** hndVec);
 
 //! Allocate a vector of integers
 /*!
  *  The vector is initialized, unless the default int value is set
  * to MDP_INT_NOINIT
- * 
+ *
  * @param len  Length of the vector
  * @param defval Default value for the int, defaults to MDP_INT_NOINIT
  *
  * @return returns a pointer to the vector
  */
-extern int *mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
+extern int* mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
 
 //! Allocate a vector of integers, potentially freeing memory first
 /*!
@@ -166,13 +167,13 @@ extern int *mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
  * @param len  Length of the vector
  * @param defval Default value for the int, defaults to MDP_INT_NOINIT
  *
- * Output 
+ * Output
  * ---------
  * @return  *array_hdl = This value is initialized to the correct address
  *                     of the array.
  *                     A NULL value in the position indicates an error.
  */
-extern void mdp_safe_alloc_int_1(int **array_hdl, int len,  const int defval = MDP_INT_NOINIT);
+extern void mdp_safe_alloc_int_1(int** array_hdl, int len,  const int defval = MDP_INT_NOINIT);
 
 //!    Reallocates a one dimensional array of ints, copying old information to the new array
 /*!
@@ -194,14 +195,14 @@ extern void mdp_safe_alloc_int_1(int **array_hdl, int len,  const int defval = M
  * @param old_len  New Length of the vector
  * @param defval Default value for the int, defaults to MDP_INT_NOINIT
  *
- * Output 
+ * Output
  * ---------
  * @return  *array_hdl = This value is initialized to the correct address
  *                     of the array.
  *                     A NULL value in the position indicates an error.
  */
-extern void mdp_realloc_int_1(int **array_hdl, int new_len, int old_len, 
-			      const int defval = MDP_INT_NOINIT);
+extern void mdp_realloc_int_1(int** array_hdl, int new_len, int old_len,
+                              const int defval = MDP_INT_NOINIT);
 
 
 //! Allocates a 2D matrix of integers with column pointers located at the front of the allocation
@@ -224,7 +225,7 @@ extern void mdp_realloc_int_1(int **array_hdl, int new_len, int old_len,
  *  contiguous data.
  *
  *  The entire structure may be deallocated via one free call.
- * 
+ *
  *   @param[in]   len1        Outer Length of the vector , i.e, the row in fortran format
  *   @param[in]   len2        Inner length of the matrix , .e., the column in fortran format
  *   @param[in]   defval      Default value for the int, defaults to MDP_INT_NOINIT
@@ -236,7 +237,7 @@ extern int** mdp_alloc_int_2(int len1, int len2, const int defval = MDP_INT_NOIN
 //! Allocate a vector of doubles
 /*!
  *  The vector is initialized, unless the default double value is set to MDP_DBL_NOINIT
- * 
+ *
  *   @param[in]    len1          Length of the vector
  *   @param[in]    defval        Default value for the double, defaults to MDP_DBL_NOINIT
  *
@@ -252,7 +253,7 @@ extern double* mdp_alloc_dbl_1(int len1, const double defval = MDP_DBL_NOINIT);
  *    @param[in]     nvalues      Length of the array to be allocated
  *    @param[in]     defval       Initialization value. If equal to MDP_DBL_NOINIT, no initialization is done.
  */
-extern void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double defval = MDP_DBL_NOINIT); 
+extern void mdp_safe_alloc_dbl_1(double** array_hdl, int nvalues, const double defval = MDP_DBL_NOINIT);
 
 //! Reallocate a vector of doubles possibly retaining a subset of values
 /*!
@@ -260,7 +261,7 @@ extern void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double d
  *
  *  (*hndVec)[0:oldLen-1]    = oldVec[0:oldLen-1]
  *  (*hndVec)[oldLen:newLen] = defVal
- *  
+ *
  *   @param[in,out]  hndVec     Handle to the old allocated vector on input. On return
  *                              this contains the handle to the new allocated vector.
  *   @param[in]      newLen     New Length of the vector
@@ -268,7 +269,7 @@ extern void mdp_safe_alloc_dbl_1(double **array_hdl, int nvalues, const double d
  *   @param[in]      defval     Default fill value to be used on the new members of the double. if MDP_DBL_NOINIT,
  *                              no initialization is done.
  */
-extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, const double defval = MDP_DBL_NOINIT);
+extern void    mdp_realloc_dbl_1(double** hndVec, int newLen, int oldLen, const double defval = MDP_DBL_NOINIT);
 
 //! Reallocates a two dimensional array of doubles, copying  the pertinent information from  the old array to the new array.
 /*!
@@ -284,15 +285,16 @@ extern void    mdp_realloc_dbl_1(double ** hndVec, int newLen, int oldLen, const
  *    @param[in] ndim2Old            Second dimension of the old array
  *    @param[in] defval              Default fill value. Defaults to MDP_DBL_NOINIT.
  */
-extern void mdp_realloc_dbl_2(double*** array_hdl, int ndim1, int ndim2, int ndim1Old, int ndim2Old, const double defval = MDP_DBL_NOINIT);
+extern void mdp_realloc_dbl_2(double** * array_hdl, int ndim1, int ndim2, int ndim1Old, int ndim2Old,
+                              const double defval = MDP_DBL_NOINIT);
 
 //!  Allocate and initialize a one dimensional array of characters.
 /*!
  *  Allocate and initialize a one dimensional array of characters.
- *  
+ *
  *     @param[in]   nvalues  Length of the array
  *     @param[in]   val      intialization value
- *  
+ *
  *     @return               Pointer to the intialized character array. Failures are indicated by returning the NULL pointer.
  */
 extern char* mdp_alloc_char_1(int nvalues, const char val = '\0');
@@ -300,27 +302,27 @@ extern char* mdp_alloc_char_1(int nvalues, const char val = '\0');
 //!  Reallocates and initializes a one dimensional array of characters.
 /*!
  *    Reallocates and initializes a one dimensional array of characters.
- *  
+ *
  *     @param[in,out] array_hdl    Previous value of pointer. If non-NULL will try to free the memory at this address.
  *                                 This value is initialized to the correct address of the array.
  *                                 A NULL value in the position indicates an error.
  *     @param[in]   nvalues        Length of the array
  *     @param[in]   val            Initialization value
- *  
+ *
  *     @return                     Pointer to the intialized character array. Failures are indicated by returning the NULL pointer.
  */
-extern void mdp_safe_alloc_char_1(char **array_hdl, int nvalues, const char val = '\0');
+extern void mdp_safe_alloc_char_1(char** array_hdl, int nvalues, const char val = '\0');
 
 //!  Allocate and initialize an array of strings of fixed length
-/*! 
+/*!
  *   Allocate and initialize a vector of fixed-length strings. Each string is initialized to the NULL string.
  *
  *   @param[in]     numStrings    Number of strings
  *   @param[in]     lenString     Length of each string including the trailing null character
  *
  *   @return                      This value is initialized to the correct address of the array.
- *                                A NULL value in the position indicates an error. 
- */  
+ *                                A NULL value in the position indicates an error.
+ */
 extern char** mdp_alloc_VecFixedStrings(int numStrings, int lenString);
 
 //!  Allocate and initialize an array of strings of fixed length
@@ -331,10 +333,10 @@ extern char** mdp_alloc_VecFixedStrings(int numStrings, int lenString);
  *   @param[in]     numStrings    Number of strings
  *   @param[in]     lenString     Length of each string including the trailing null character
  */
-extern void mdp_safe_alloc_VecFixedStrings(char ***array_hdl, int numStrings, int lenString);
+extern void mdp_safe_alloc_VecFixedStrings(char** *array_hdl, int numStrings, int lenString);
 
 //!  Reallocates and initializes an array of strings of fixed length
-/*! 
+/*!
  *   Reallocates and initializes a vector of fixed-length strings. Each new string is initialized to the NULL string.
  *   Old string addresses are copied.
  *
@@ -346,9 +348,9 @@ extern void mdp_safe_alloc_VecFixedStrings(char ***array_hdl, int numStrings, in
  *   @param[in]     lenString      Length of each string including the trailing null character
  *
  *   @return                      This value is initialized to the correct address of the array.
- *                                A NULL value in the position indicates an error. 
- */  
-extern void mdp_realloc_VecFixedStrings(char ***array_hdl, int numStrings, int numOldStrings, int lenString);
+ *                                A NULL value in the position indicates an error.
+ */
+extern void mdp_realloc_VecFixedStrings(char** *array_hdl, int numStrings, int numOldStrings, int lenString);
 
 //!  Allocate and initialize a two dimensional array of doubles.
 /*!
@@ -363,7 +365,7 @@ extern void mdp_realloc_VecFixedStrings(char ***array_hdl, int numStrings, int n
  *    @param[in]    ndim1         Length of the first dimension of the array
  *    @param[in]    ndim2         Length of the second dimension of the array
  *    @param[in]    val           Intialization value. If the value is MDP_DBL_NOINIT, then no initialization is carried out.
- *  
+ *
  *    @return                     Pointer to the intialized integer array. Failures are indicated by returning the NULL pointer.
  */
 extern double** mdp_alloc_dbl_2(int ndim1, int ndim2, const double val = MDP_DBL_NOINIT);
@@ -382,10 +384,10 @@ extern double** mdp_alloc_dbl_2(int ndim1, int ndim2, const double val = MDP_DBL
  *    @param[in]    ndim1         Length of the first dimension of the array
  *    @param[in]    ndim2         Length of the second dimension of the array
  *    @param[in]    val           Intialization value. If the value is MDP_DBL_NOINIT, then no initialization is carried out.
- *  
+ *
  *    @return                     Pointer to the intialized integer array. Failures are indicated by returning the NULL pointer.
  */
-extern void mdp_safe_alloc_dbl_2(double ***array_hdl, int ndim1, int ndim2, const double val = MDP_DBL_NOINIT);
+extern void mdp_safe_alloc_dbl_2(double** *array_hdl, int ndim1, int ndim2, const double val = MDP_DBL_NOINIT);
 
 //!  Allocate and initialize a vector of fixed-length strings of type C16_NAME
 /*!
@@ -394,7 +396,7 @@ extern void mdp_safe_alloc_dbl_2(double ***array_hdl, int ndim1, int ndim2, cons
  *
  *  @return                         Returns the pointer to the space allocated by this function
  */
-extern C16_NAME *mdp_alloc_C16_NAME_1(int numStrings, const int init);
+extern C16_NAME* mdp_alloc_C16_NAME_1(int numStrings, const int init);
 
 //!  Allocates and initializes a vector of fixed-length strings of type C16_NAME
 /*!
@@ -419,7 +421,7 @@ extern void** mdp_alloc_ptr_1(int numPointers);
  *                                  On return,  *array_hdl  is initialized to the correct address of the array.
  *  @param[in]       numPointers    New number of pointers
  */
-extern void mdp_safe_alloc_ptr_1(void ***array_hdl, int numPointers);
+extern void mdp_safe_alloc_ptr_1(void** *array_hdl, int numPointers);
 
 //!  Reallocate and initializes a vector of pointers. Each new pointer is initialized to NULL, and old pointers are copied.
 /*!
@@ -428,7 +430,7 @@ extern void mdp_safe_alloc_ptr_1(void ***array_hdl, int numPointers);
  *   @param[in]       numLen         New number of pointers
  *   @param[in]       numOldLen      Old number of pointers
  */
-extern void mdp_realloc_ptr_1(void ***array_hdl, int numLen, int numOldLen);
+extern void mdp_realloc_ptr_1(void** *array_hdl, int numLen, int numOldLen);
 
 //!  Copies the contents of one ptr vector into another ptr vector
 /*!
@@ -436,7 +438,7 @@ extern void mdp_realloc_ptr_1(void ***array_hdl, int numLen, int numOldLen);
  *   @param[in]       copyFrom       Vector of ptr values to be copied
  *   @param[in]       len            Length of the vector
  */
-extern void mdp_copy_ptr_1(void *const copyTo, const void *const copyFrom, int len);
+extern void mdp_copy_ptr_1(void* const copyTo, const void* const copyFrom, int len);
 
 //! Duplicates one ptr vector into another ptr vector
 /*!
@@ -447,14 +449,14 @@ extern void mdp_copy_ptr_1(void *const copyTo, const void *const copyFrom, int l
  *
  *  @return       copyTo         Vector of values to receive the copy
  */
-extern void **mdp_dupl_ptr_1(const void * const copyFrom, int len);
- 
+extern void** mdp_dupl_ptr_1(const void* const copyFrom, int len);
+
 //!    Allocates space for and copies a C16_NAME
 /*!
- *   
+ *
  *    @param[in]  copyFrom  C16_NAME string (note, this doesn't necessarily have to be null terminate. This is the reason for this
  *                          subroutine. If NULL is supplied, then nothing is malloced and a NULL value is returned.
- *   
+ *
  *    @return               This value is initialized to the correct address of the array.
  *                          A NULL value in the position either indicates an error, or
  *                          that the original pointer to the string was NULL.
@@ -473,21 +475,22 @@ extern char* mdp_copy_C16_NAME_to_string(const C16_NAME copyFrom);
  *    @param[in,out]  copyTo         Vector of cstrings. On input it must already be malloced, with at least numString strings,
  *                                   each of which must be as long as copyFrom strings or be at least maxLenString in length.
  */
-extern void mdp_copy_VecFixedStrings(char** const copyTo, const char** const copyFrom, int numStrings, size_t maxLenString);
+extern void mdp_copy_VecFixedStrings(char** const copyTo, const char** const copyFrom, int numStrings,
+                                     size_t maxLenString);
 
-//! Copy a cstring 
+//! Copy a cstring
 /*!
  *  @param cstring cstring to be copied. It is not changed by the routine
  *
  *  @return Returns a malloced copy of the string
  */
-extern char   *mdp_copy_string(const char * cstring);
+extern char*   mdp_copy_string(const char* cstring);
 
 //! Allocates space for and then copies a string
 /*!
  *     @param[in]      copyFrom     Null-terminated cstring to be copied.
  *
- *     @param[in,out] string_hdl    Previous value of pointer. If non-NULL will try to free the memory at this address before 
+ *     @param[in,out] string_hdl    Previous value of pointer. If non-NULL will try to free the memory at this address before
  *                                  mallocing again. On output, contains the  Pointer to the copied string.
  *                                  A NULL value in the position indicates an error.
  */
@@ -495,7 +498,7 @@ extern void mdp_safe_copy_string(char** string_hdl, const char* copyFrom);
 
 //! Copy a double vector to a double vector
 /*!
- *  copyTo[len] = copyFrom[len] 
+ *  copyTo[len] = copyFrom[len]
  *
  * Input
  * -------
@@ -506,7 +509,7 @@ extern void mdp_safe_copy_string(char** string_hdl, const char* copyFrom);
  * -------
  * @param copyTo   Vector to receive the copy ( length >= len)
  */
-extern void mdp_copy_dbl_1(double * const copyTo,  const double * const copyFrom,  int len);
+extern void mdp_copy_dbl_1(double* const copyTo,  const double* const copyFrom,  int len);
 
 //! Copy a double array to a double array
 /*!
@@ -522,7 +525,7 @@ extern void mdp_copy_dbl_1(double * const copyTo,  const double * const copyFrom
  * ----------
  * @param copyTo   Array to receive the copy ( length >= len1 * len2)
  */
-extern void mdp_copy_dbl_2(double ** const copyTo, const double ** const copyFrom, int len1, int len2);
+extern void mdp_copy_dbl_2(double** const copyTo, const double** const copyFrom, int len1, int len2);
 
 //! Copies one int vector into another int vector
 /*!
@@ -530,9 +533,9 @@ extern void mdp_copy_dbl_2(double ** const copyTo, const double ** const copyFro
  * @param[in]   len       Length of the first dimension
  * @param[out]  copyTo    Array to receive the copy ( must have length >= len)
  */
-extern void mdp_copy_int_1(int * const copyTo, const int * const copyFrom, int len);
+extern void mdp_copy_int_1(int* const copyTo, const int* const copyFrom, int len);
 
-//!  Copies one 2D int array into another 2D int array 
+//!  Copies one 2D int array into another 2D int array
 /*!
  *   This does a straight copy of the first len1 * len2 data from one array into the other array without any checks
  *
@@ -541,7 +544,7 @@ extern void mdp_copy_int_1(int * const copyTo, const int * const copyFrom, int l
  * @param[in]   len2      Length of the second dimension
  * @param[out]  copyTo    Array to receive the copy ( must have length >= len1 * len2)
  */
-extern void mdp_copy_int_2(int ** const copyTo, const int ** const copyFrom, int len1, int len2);
+extern void mdp_copy_int_2(int** const copyTo, const int** const copyFrom, int len1, int len2);
 
 //!  Assigns a single value to a double vector
 /*!
@@ -549,21 +552,21 @@ extern void mdp_copy_int_2(int ** const copyTo, const int ** const copyFrom, int
  *  @param[in]         value     Value to assign with
  *  @param[in]         len       Length of the vector
  */
-extern void mdp_init_dbl_1(double * const v, double value, int len);
+extern void mdp_init_dbl_1(double* const v, double value, int len);
 
 //! Zeroes out a double vector (special form of mdp_allo_dbl_1())
 /*!
  *  @param[in,out]     v         Vector of values to be assigned
  *  @param[in]         len       Length of the vector
  */
-extern void mdp_zero_dbl_1(double * const v, int len);
+extern void mdp_zero_dbl_1(double* const v, int len);
 
 //! Zeroes out an int vector (special form of mdp_allo_int_1())
 /*!
  *  @param[in,out]     v         Vector of values to be assigned
  *  @param[in]         len       Length of the vector
  */
-extern void mdp_zero_int_1(int * const v, int len);
+extern void mdp_zero_int_1(int* const v, int len);
 
 //! Assigns a single value to a double matrix. Contiguous data for the matrix is assumed.
 /*!
@@ -572,7 +575,7 @@ extern void mdp_zero_int_1(int * const v, int len);
  *  @param[in]         len1      First Length of the vector
  *  @param[in]         len2      Second Length of the vector
  */
-extern void mdp_init_dbl_2(double ** const v, double value, int len1, int len2);
+extern void mdp_init_dbl_2(double** const v, double value, int len1, int len2);
 
 //!  Assigns a single value to a int vector
 /*!
@@ -580,7 +583,7 @@ extern void mdp_init_dbl_2(double ** const v, double value, int len1, int len2);
  *  @param[in]         value     Value to assign with
  *  @param[in]         len       Length of the vector
  */
-extern void mdp_init_int_1(int * const v, int value, int len);
+extern void mdp_init_int_1(int* const v, int value, int len);
 
 //==================================================================================================================================
 /*
@@ -625,9 +628,9 @@ extern double subtractRD(double a, double b);
  *
  *   @return              returns (*a) - (*b)
  */
-extern "C" double subtractrd_(double *a, double *b);
+extern "C" double subtractrd_(double* a, double* b);
 
-/* 
+/*
  * checkFinite
  */
 //extern void checkZeroFinite(double);
