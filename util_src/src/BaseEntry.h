@@ -2,10 +2,6 @@
  * @file BaseEntry.h
  *   Declarations for the base object, BaseEntry
  */
-/* $Author: hkmoffa $
- * $Revision: 508 $
- * $Date: 2013-01-07 15:54:04 -0700 (Mon, 07 Jan 2013) $
- */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -48,16 +44,6 @@ class BI_Dependency;
  * is used in the interface to public functions
  */
 typedef class TKInput::TOKEN TK_TOKEN;
-
-//! Convert a double into a c++ string
-/*
- *  This routine doesn't assume a formatting. You
-   *  must supply the formatting
-   *
-   * @param x double to be converted
-   * @param fmt   Format to be used (printf style)
-   */
-std::string fp2str(const double x);
 
 //!   This is the base class for all LineEntry and BlockEntry objects.
 //!   At this level dependencies between objects are handled

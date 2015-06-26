@@ -19,6 +19,7 @@
 #include "LE_OneDblUnits.h"
 #include "mdp_allo.h"
 #include "BE_UnitConversion.h"
+#include "mdp_stringUtils.h"
 
 #include <cfloat>
 
@@ -158,7 +159,7 @@ namespace BEInput {
 	value *= fchange;
 	if (value > MaxVal || value < MinVal) {
 	  throw BI_InputError("LE_OneDblUnits OutofBounds:",
-			      fp2str(value) + " is not within max = " + fp2str(MaxVal) + ", min = " + fp2str(MinVal));
+			      mdpUtil::fp2str(value) + " is not within max = " + mdpUtil::fp2str(MaxVal) + ", min = " + mdpUtil::fp2str(MinVal));
 	}
       }
     } else {

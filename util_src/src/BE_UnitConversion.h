@@ -34,7 +34,7 @@ namespace BEInput
  *
  *
  */
-
+//==================================================================================================================================
 //!  Base class for the unit conversion system
 /*!
  *    The main member function is toSI(). Given a string representing units,
@@ -62,10 +62,17 @@ public:
     //! Assignment operator
     /*!
      *  @param[in] right Object to be copied
+     *
+     *  @return                         Returns a reference to the current object
      */
     BE_UnitConversion& operator=(const BE_UnitConversion& right);
 
     //! Duplicator function
+    /*!
+     *   This is the base class of this virtual member function
+     *
+     *  @return                   Returns a pointer to a duplicated object
+     */
     virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
     //! Destructor for the object.
@@ -98,5 +105,7 @@ protected:
     //! Map from the string to the multiplicative conversion amount.
     mutable std::map<std::string, double> m_u;
 };
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

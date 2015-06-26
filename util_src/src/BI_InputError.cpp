@@ -21,8 +21,11 @@ using namespace TKInput;
 namespace BEInput
 {
 //==================================================================================================================================
-/**
- * Given an integer, this function returns a C++ string for the integer
+//!  Given an integer, this function returns a C++ string for the integer
+/*!
+ *       @param[in]   n      Integer to be converted
+ *
+ *       @return             Converted integer as a string
  */
 static std::string integerToStr(int n)
 {

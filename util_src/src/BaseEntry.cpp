@@ -12,6 +12,7 @@
 #include "BaseEntry.h"
 #include "mdp_allo.h"
 #include "BI_Dependency.h"
+#include "mdp_stringUtils.h"
 
 
 #ifdef WIN32
@@ -26,17 +27,6 @@ using namespace mdpUtil;
 
 namespace BEInput
 {
-
-std::string fp2str(const double x)
-{
-    char buf[64];
-    int n = SNPRINTF(buf, 64, "%g" , x);
-    if (n > 0) {
-        buf[29] = '\0';
-        return std::string(buf);
-    }
-    return std::string(" ");
-}
 
 /*
  *

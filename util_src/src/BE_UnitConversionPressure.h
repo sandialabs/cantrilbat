@@ -31,17 +31,24 @@ public:
     //! Constructor is defined to be protected so that we can't make multiple
     //! copies of this, yet we can inherit from this object.
     /*!
-     * In the constructor, we define all of the conversion amounts.
+     *     In the constructor, we define all of the conversion amounts.
+     *
+     *    @param[in]  right             Object to be copied
      */
     BE_UnitConversionPressure(const BE_UnitConversionPressure& right);
 
     //! Assignment operator
     /*!
      *  @param right Object to be copied
+     *
+     *  @return                   Returns a reference to the current object
      */
     BE_UnitConversionPressure& operator=(const BE_UnitConversionPressure& right);
 
     //! Duplicator
+    /*!
+     *  @return                   Returns a pointer to a copy of the current object
+     */
     virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
     /**
@@ -51,9 +58,9 @@ public:
      */
     virtual ~BE_UnitConversionPressure();
 
-    /**
-     * Return a string containing a short description of what the
-     * units converter does.
+    //! Return a string containing a short description of what the units converter does.
+    /*!
+     *   @return                  Returns a description as a string.
      */
     std::string returnUsage() const;
 
