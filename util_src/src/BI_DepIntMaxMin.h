@@ -2,11 +2,7 @@
  * @file BI_DepIntMaxMin.h
  *   Declarations for the BI_DepIntMaxMin class
  */
-/*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -16,30 +12,31 @@
 #ifndef BI_DEPINTMAXMIN_H
 #define BI_DEPINTMAXMIN_H
 
-
 #include "BI_Dependency.h"
 #include "BaseEntry.h"
-
-namespace BEInput {
-
-  //! Conditional Dependency check that queries the target BaseEntry expecting
-  //! an int response. The condition is that the int response must be
-  //! between a range of values
-  /*!
-   *  This is a derived dependency.  The key here is that this dependency
-   *  requires that the target BaseEntry be able to return an int.
-   *
-   * BIDT_type
-   *    This is the exact definition of what it means for the
-   *    dependency to be satisfied. There are two choices
-   *    that make sense for this class:
-   *        -  BIDT_ONEINT
-   *        -  BIDT_INTMAXMIN
-   *
-   *    The ResultType for the dependency can be almost any type.
-   */
-  class BI_DepIntMaxMin : public BI_Dependency {
-  public:
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace BEInput
+{
+//==================================================================================================================================
+//! Conditional Dependency check that queries the target BaseEntry expecting
+//! an int response. The condition is that the int response must be between a range of values
+/*!
+ *  This is a derived dependency.  The key here is that this dependency
+ *  requires that the target BaseEntry be able to return an int.
+ *
+ * BIDT_type
+ *    This is the exact definition of what it means for the
+ *    dependency to be satisfied. There are two choices
+ *    that make sense for this class:
+ *
+ *        -  BIDT_ONEINT
+ *        -  BIDT_INTMAXMIN
+ *
+ *    The ResultType for the dependency can be almost any type.
+ */
+class BI_DepIntMaxMin : public BI_Dependency
+{
+public:
 
     //! constructor
     /*!
@@ -57,13 +54,12 @@ namespace BEInput {
      *                   -   BIDT_INTMAXMIN
      *
      * @param BIDRT_type   This is the result -> Basically what happens if the
-     *                     dependency is met or not met. The default is to 
+     *                     dependency is met or not met. The default is to
      *                     throw an error condition if the dependency is not
      *                     met and to do nothing if the dependency is met.
      */
-    BI_DepIntMaxMin(BaseEntry *be, BIDT_TYPE BIDT_type,
-		    int maxTargetI , int minTargetI, 
-		    BIDRT_TYPE BIDRT_type = BIDRT_PT_ERROR);
+    BI_DepIntMaxMin(BaseEntry* be, BIDT_TYPE BIDT_type, int maxTargetI , int minTargetI,
+                    BIDRT_TYPE BIDRT_type = BIDRT_PT_ERROR);
 
     //! Copy Constuctor
     /*!
@@ -74,18 +70,25 @@ namespace BEInput {
     //! Assignment operator
     /*!
      * @param b object to be copied
+     *
+     *  @return        Returns a reference to the current object
      */
-    BI_DepIntMaxMin& operator=(const BI_DepIntMaxMin&b);
+    BI_DepIntMaxMin& operator=(const BI_DepIntMaxMin& b);
 
     //! destructor
     virtual ~BI_DepIntMaxMin();
 
-    //! duplicator
+    //! Duplicator
+    /*!
+     *    @return   Returns a duplicate of this object
+     */
     virtual BI_Dependency* duplicateMyself() const;
 
     //! Check to see if the dependency is satisfied
     /*!
      *  This requires that the target dependency return an int.
+     *
+     *     @return                Returns true if the target dependency is satisfied, false otherwise
      */
     virtual bool checkDependencySatisfied() const;
 
@@ -95,25 +98,22 @@ namespace BEInput {
      *
      * @param returnInt Value of the returned int
      *
-     * @return
-     *  returns a boolean indicating whether the dependency has
-     *  been satisified.
+     * @return                  Returns a boolean indicating whether the dependency has been satisified.
      */
-    virtual bool checkDepOneInt(int &returnInt) const;
+    virtual bool checkDepOneInt(int& returnInt) const;
 
-  protected:
+protected:
 
-    //! max value to trigger the dependency check
+    //! Max value to trigger the dependency check
     int m_maxValue;
 
-    //! min value to trigger the dependency check
+    //! Min value to trigger the dependency check
     int m_minValue;
 
-    //! holds the int variable returned from the
-    //! dependency query.
-    mutable int m_RetnOneInt; 
-  };
-
+    //! Holds the int variable returned from the dependency query.
+    mutable int m_RetnOneInt;
+};
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
