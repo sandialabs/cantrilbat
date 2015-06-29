@@ -4,11 +4,6 @@
  *  (see \ref blockentryModule and class \link BEInput::LE_OneStr LE_OneStr\endlink).
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 508 $
- * $Date: 2013-01-07 15:54:04 -0700 (Mon, 07 Jan 2013) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
