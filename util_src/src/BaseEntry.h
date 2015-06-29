@@ -77,6 +77,8 @@ public:
     //! Assignment operator
     /*!
      * @param right object to be copied
+     *
+     *   @return                     Returns a reference to the current object
      */
     BaseEntry& operator=(const BaseEntry& right);
 
@@ -85,8 +87,9 @@ public:
 
     //! Duplicator function.
     /*!
-     * This function duplicates the entry and returns a pointer
-     * to a BaseEntry.
+     * This function duplicates the entry and returns a pointer to a BaseEntry.
+     *
+     *  @return                       Returns a duplicate to the current object
      */
     virtual BaseEntry* duplMyselfAsBaseEntry() const;
 
@@ -151,6 +154,12 @@ public:
     //! Return the multiContribIndex value
     int multiContribIndex() const;
 
+    //! Set the value of the multiContribIndex variable 
+    /*!
+     *   This parameter is used for multiBlocks. When there are multiple blocks, each block will have a unique ContribIndex.
+     *
+     *   @param[in]                  Input int value of the contribIndex variable
+     */
     void set_multiContribIndex(int contribIndex);
 
     //! Query to this object, asking if this object can service
@@ -255,12 +264,11 @@ protected:
     //! This is the keyline name of the BaseEntry
     TK_TOKEN EntryName;
 
-    //! Index of the Base entry, for the case where there
-    //! can be multiple BlockEntries
+    //! Index of the Base entry, for the case where there can be multiple BlockEntries
     /*!
-     *  This is almost always 0. When there are multiblocks
-     *  each multiblock will have a unique id, but
-     *  the same EntryName.
+     *  This is almost always 0. When there are multiblocks each multiblock will have a unique id, but the same EntryName.
+     *  This is used when there are multiple blocks input. Each block will have the same block name. However, they will
+     *  have different indexes.
      */
     int m_multiContribIndex;
 

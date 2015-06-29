@@ -335,8 +335,7 @@ namespace BEInput {
      *  @param blockArgTok pointer to the TOKEN structure representing
      *                     the argument list for the START BLOCK
      */
-    void Initialization(FILE *ifp_input, 
-			const TK_TOKEN *blockArgTok);
+    void Initialization(FILE *ifp_input, const TK_TOKEN *blockArgTok);
 
    
     //! Virtual function called at the start of internally processing
