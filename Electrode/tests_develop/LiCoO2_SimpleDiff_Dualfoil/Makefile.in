@@ -193,6 +193,9 @@ endif
 
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) LiCoO2_Cathode_Radial_cc LiCoO2Thermo LiCoO2
+	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt ccout.txt
+
+test_clean:
+	$(RM) LiCoO2_intResults_0_0.csv 
 
