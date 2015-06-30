@@ -52,7 +52,7 @@ namespace mdpUtil
  *  of real ints and dbls to indicate that initialization shouldn't take
  *  place.
  */
-#define MDP_INT_NOINIT          -68361
+#define MDP_INT_NOINIT         -68361
 
 /*!
  *  MDP_DBL_NOINIT is a poor man's way of specifying whether a value should be
@@ -60,7 +60,7 @@ namespace mdpUtil
  *  of real ints and dbls to indicate that initialization shouldn't take
  *  place.
  */
-#define MDP_DBL_NOINIT          -1.241E11
+#define MDP_DBL_NOINIT       -1.241E11
 
 
 #ifndef _C16_NAME_DEF
