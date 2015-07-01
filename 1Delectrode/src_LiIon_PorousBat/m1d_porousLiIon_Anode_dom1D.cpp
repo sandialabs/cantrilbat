@@ -1495,37 +1495,64 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    } // pressure exists
 	    double pressure_strain = pressure_STRESS/Eyoung;
 	    xratio[iCell]*= (1+pressure_strain);   
+	    //
+	    nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	    if(nodeLeft) 
+	      nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	    else
+	      nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+	    if(nodeRight)
+	      nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeRight->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	    else
+	      nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+	    
+	    double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	    double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	    double right_matrix_stress = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] ;
+	    double matrix_pressure_left = - (left_matrix_stress- center_matrix_stress);
+	    double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
+	    double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
+	    xratio[iCell] *= (1+ matrix_LP_center/Eyoung);
 	}
 #endif
-
     }
 
 #ifdef MECH_MODEL
-	if (solidMechanicsProbType_ == 1) {
-	  new_node_pos.resize(NumLcCells+1,0.0);
-	  // this is fully correct: We have node[0] pinned so it never moves. 
-	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
-	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    //	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
-	    NodalVars* nodeCent  = cTmps.nvCent_;
-	    //	    NodalVars* nodeRight = cTmps.nvRight_;
-	    NodalVars* nodeLeft  = cTmps.nvLeft_;
-	    if(iCell ==1) new_node_pos[iCell-1] = nodeLeft->x0NodePos(); 
-	    //	    nodeRight = cTmps.nvRight_;
-	    //	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
-	    nodeCent = cTmps.nvCent_;
-	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	    nodeLeft = cTmps.nvLeft_;
-	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	    double delta_0 = nodeCent->xNodePos() - nodeLeft->xNodePos();
-	    double new_delta = delta_0 *  xratio[iCell-1]; // 
-	    new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
-	    // now calculate residual for  Displacement_Axial, 
-	    // nv->changeNodePosition((*Xpos_LcNode_p)[iNode]); orres[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
-	  } // end of iCell loop
+  
+    if (solidMechanicsProbType_ == 1) {
+      //  We have node[0] pinned so it never moves. 
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	//	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+	NodalVars* nodeCent  = cTmps.nvCent_;
+	//	    NodalVars* nodeRight = cTmps.nvRight_;
+	NodalVars* nodeLeft  = cTmps.nvLeft_;
+	if(iCell ==1) {
+	  new_node_pos[iCell-1] = nodeLeft->x0NodePos(); 
+	  // Left most node is pinned at zero displacement
 	}
+	//	    nodeRight = cTmps.nvRight_;
+	//	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	nodeCent = cTmps.nvCent_;
+	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	nodeLeft = cTmps.nvLeft_;
+	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	double delta_0 = nodeCent->xNodePos() - nodeLeft->xNodePos();
+	double new_delta = delta_0 *  xratio[iCell-1]; // 
+	new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
+      } // end of iCell loop
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	if(iCell == 1) 	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial   ] = 0.0;
+	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- nodeCent->xNodePos();
+      }
+    }
 #endif
 }
 //==================================================================================================================================

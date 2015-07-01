@@ -13,6 +13,7 @@ namespace m1d
 NodeTmps::NodeTmps() :
     nv(0),
     index_EqnStart(npos),
+    Offset_Displacement_Axial(npos),
     Offset_Velocity_Axial(npos),
     Offset_Voltage(npos),
     Offset_MoleFraction_Species(npos),
@@ -33,6 +34,7 @@ NodeTmps::NodeTmps() :
 NodeTmps::NodeTmps(const NodeTmps & r) :
     nv(r.nv),
     index_EqnStart(r.index_EqnStart),
+    Offset_Displacement_Axial(r.Offset_Displacement_Axial),
     Offset_Velocity_Axial(r.Offset_Velocity_Axial),
     Offset_Voltage(r.Offset_Voltage),
     Offset_MoleFraction_Species(r.Offset_MoleFraction_Species),
@@ -62,6 +64,7 @@ NodeTmps& NodeTmps::operator=(const NodeTmps &r)
 
     nv = r.nv;
     index_EqnStart = r.index_EqnStart;
+    Offset_Displacement_Axial = r.Offset_Displacement_Axial;
     Offset_Velocity_Axial = r.Offset_Velocity_Axial;
     Offset_Voltage = r.Offset_Voltage;
     Offset_MoleFraction_Species = r.Offset_MoleFraction_Species;

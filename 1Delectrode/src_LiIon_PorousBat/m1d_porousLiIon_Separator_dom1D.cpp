@@ -1073,6 +1073,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	}
 	double pressure_strain = pressure_STRESS/Eyoung;
 	xratio[iCell]*= (1.0+pressure_strain);
+	// now do the Solid Stess calculation
+
     }
 #endif	
   } // end of iCell loop
