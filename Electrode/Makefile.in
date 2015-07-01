@@ -8,8 +8,9 @@
 
 all:
 	cd src;                       @MAKE@
+	cd src_tests;		      @MAKE@
 	cd tests;                     @MAKE@ 
-#	cd tests_develop;             @MAKE@ 
+	cd tests_develop;             @MAKE@ 
 #	cd examples;                  @MAKE@ 
 
 allsrc:
@@ -17,31 +18,37 @@ allsrc:
 
 debug:
 	cd src; make debug
+	cd src_tests; 			@MAKE@ debug
 	cd tests; make debug
 
 test:
 	cd tests;                     @MAKE@ -s test
+	cd src_tests;			@MAKE@ -s test
 	cd tests_develop;             @MAKE@ -s test
 
 clean:
 	cd src;                      $(RM) .depends ; @MAKE@ clean
+	cd src_tests;                $(RM) .depends ; @MAKE@ clean
 	cd tests;                                     @MAKE@ clean
 	cd tests_develop;                             @MAKE@ clean
 #	cd examples;                                     @MAKE@ clean
 
 dist_clean:
 	cd src;			     $(RM) .depends ; @MAKE@ dist_clean
+	cd src_tests;		     $(RM) .depends ; @MAKE@ dist_clean
 	cd tests;                                     @MAKE@ clean
 	cd tests_develop;                             @MAKE@ clean
 
 
 depends:
 	cd src; @MAKE@ depends
+	cd src_tests; @MAKE@ depends
 	cd tests; @MAKE@ depends
 	cd tests_develop; @MAKE@ depends
 
 install:
 	cd src; @MAKE@ install
+	cd src_tests; @MAKE@ install
 
 rebaseline:
 	cd tests; @MAKE@ rebaseline
