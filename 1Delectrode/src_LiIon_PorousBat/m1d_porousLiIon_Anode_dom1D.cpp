@@ -729,8 +729,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     std::vector<double> new_node_pos(NumLcCells,0.0);
   
     // average grad grad stress
-    double avg_matrix_pressure = 0;
-
+    double avg_delta_matrix_pressure = 0;
 
   // for the anode material, we use the following values:
     // initial porosity  of the pyrolitic graphite  matrix_poro = 0.4
@@ -757,7 +756,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
     //    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     
-
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
@@ -1518,9 +1516,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
 	    xratio[iCell] *= (1+ matrix_LP_center/Eyoung);
 
-	    avg_matrix_pressure += matrix_pressure_left;
+	    avg_delta_matrix_pressure += matrix_pressure_left;
 	}
-	avg_matrix_pressure /= NumLcCells;
+	avg_delta_matrix_pressure /= NumLcCells;
 #endif
     }
 
@@ -1550,10 +1548,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	double new_delta = delta_0 *  xratio[iCell-1]; // 
 	new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
 	// stress
-	 double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
-	 double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
-	 double lc_pressure = -(left_matrix_stress-center_matrix_stress);
-	 res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_matrix_pressure-lc_pressure); 
+	double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	double lc_pressure = -(left_matrix_stress-center_matrix_stress);
+	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
 
       } // end of iCell loop
       for (int iCell = 1; iCell < NumLcCells; iCell++) {
@@ -1565,7 +1563,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	if(iCell == 1) 	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial   ] = 0.0;
 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- nodeCent->xNodePos();
       }
-      // impose that -grad grad Solid_Stress == the average across this part of the battery.
+      // impose that -grad trace Solid_Stress == the average across this part of the battery.
       
 
     }

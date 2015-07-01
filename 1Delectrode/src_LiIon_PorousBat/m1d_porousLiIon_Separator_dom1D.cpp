@@ -392,6 +392,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   
   // scratch pad to calculate the new positions due to the strain of the elements
   std::vector<double> new_node_pos(NumLcCells,0.0);
+
+  // average grad trace stress
+  double avg_delta_matrix_pressure = 0;
+
   // for the seperator, we use the following values:
   // These numbers are only 'good' to ~8-20% strain. 
   // v poisson's ratio             0.5 @28.5C 0.46 @80C
@@ -1074,8 +1078,27 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	double pressure_strain = pressure_STRESS/Eyoung;
 	xratio[iCell]*= (1.0+pressure_strain);
 	// now do the Solid Stess calculation
+ nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	    if(nodeLeft) 
+	      nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	    else
+	      nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+	    if(nodeRight)
+	      nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeRight->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	    else
+	      nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+	    
+	    double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	    double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	    double right_matrix_stress = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] ;
+	    double matrix_pressure_left = - (left_matrix_stress- center_matrix_stress);
+	    double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
+	    double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
+	    xratio[iCell] *= (1+ matrix_LP_center/Eyoung);
 
+	    avg_delta_matrix_pressure += matrix_pressure_left;
     }
+    avg_delta_matrix_pressure /= NumLcCells;
 #endif	
   } // end of iCell loop
 
@@ -1087,13 +1110,13 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+	    //	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 	    NodalVars* nodeCent  = cTmps.nvCent_;
-	    NodalVars* nodeRight = cTmps.nvRight_;
+	    //	    NodalVars* nodeRight = cTmps.nvRight_;
 	    NodalVars* nodeLeft  = cTmps.nvLeft_;
 
-	    nodeRight = cTmps.nvRight_;
-	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+	    //	    nodeRight = cTmps.nvRight_;
+	    //	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 	    nodeCent = cTmps.nvCent_;
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	    nodeLeft = cTmps.nvLeft_;
@@ -1103,10 +1126,22 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
 	    double delta_0 =  nodeCent->xNodePos() - nodeLeft->xNodePos();
 	    double new_delta = delta_0 *  xratio[iCell-1]; // 
-	    double new_position = new_node_pos[iCell-1] + new_delta;
-	    new_node_pos[iCell]=new_position;
-	    // now calculate residual for  Displacement_Axial, 
-	    // nv->changeNodePosition((*Xpos_LcNode_p)[iNode]); orres[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
+	    new_node_pos[iCell] = new_node_pos[iCell-1] + new_delta;
+	    // stress
+	    double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	    double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	    double lc_pressure = -(left_matrix_stress-center_matrix_stress);
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
+	  }
+	  for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	    nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	    // the node at the Anode-Seperator boundary needs it's residual summed, not replaced.  
+	    if(iCell == 0) 
+	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] += new_node_pos[iCell]- nodeCent->xNodePos();
+	    else 	      
+	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- nodeCent->xNodePos();
 	  }
 	}
 #endif
