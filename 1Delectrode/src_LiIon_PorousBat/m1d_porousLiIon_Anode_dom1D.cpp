@@ -728,6 +728,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     // scratch pad to calculate the new positions due to the strain of the elements
     std::vector<double> new_node_pos(NumLcCells,0.0);
   
+    // average grad grad stress
+    double avg_matrix_pressure = 0;
+
+
   // for the anode material, we use the following values:
     // initial porosity  of the pyrolitic graphite  matrix_poro = 0.4
     // Volume frac of binder                        binder_vf   = 0.064
@@ -1513,7 +1517,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
 	    double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
 	    xratio[iCell] *= (1+ matrix_LP_center/Eyoung);
+
+	    avg_matrix_pressure += matrix_pressure_left;
 	}
+	avg_matrix_pressure /= NumLcCells;
 #endif
     }
 
@@ -1542,6 +1549,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	double delta_0 = nodeCent->xNodePos() - nodeLeft->xNodePos();
 	double new_delta = delta_0 *  xratio[iCell-1]; // 
 	new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
+	// stress
+	 double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	 double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	 double lc_pressure = -(left_matrix_stress-center_matrix_stress);
+	 res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_matrix_pressure-lc_pressure); 
+
       } // end of iCell loop
       for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
@@ -1552,6 +1565,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	if(iCell == 1) 	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial   ] = 0.0;
 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- nodeCent->xNodePos();
       }
+      // impose that -grad grad Solid_Stress == the average across this part of the battery.
+      
+
     }
 #endif
 }
