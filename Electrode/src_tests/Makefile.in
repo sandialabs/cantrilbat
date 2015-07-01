@@ -81,7 +81,7 @@ all: $(PROGRAM) .depends
 
 rebaseline:
 
-$(PROGRAM): $(OBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP)
+$(PROGRAM): $(OBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
                   $(ELECTRODE_LIB) \
                   $(CANTERA_TOTAL_LIBS) $(LCXX_END_LIBS)
