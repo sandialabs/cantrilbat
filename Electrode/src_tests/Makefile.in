@@ -11,11 +11,11 @@
 .SUFFIXES : .d
 
 # the name of the executable program to be created
-PROG_NAME = xmlSolnDiff
+PROG_NAME = xmlElectrodeDiff
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
-OBJS = xmlSolnDiff.o tok_input_util.o SolnLayout.o SolnDomain.o
+OBJS = xmlElectrodeDiff.o 
 
 TOBJS = $(OBJS)
 
@@ -33,14 +33,26 @@ include $(CANTERA_INCROOT)/cantera/Cantera.mak
 #
 # Check to see whether we are in the msvc++ environment
 os_is_win = @OS_IS_WIN@
-
-
+#
+# Utility source dir
+#
+UTILSRC_DIR=../../util_src/src
+UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
+UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
+#
+# Electrode src directory
+#
+ELECTRODE_DIR= ../src
+ELECTRODE_INC= -I$(ELECTRODE_DIR)
+ELECTRODE_DEP= $(ELECTRODE_DIR)/libElectrode.a 
+ELECTRODE_LIB= -L$(ELECTRODE_DIR) -lElectrode 
+#
 # the C++ compiler
 CXX = @MPICXX@
 #
-# The directory where Cantera include files may be found.
+# The directory where  include files may be found.
 #
-INCLUDE_DIRS = -I$(CANTERA_INCROOT) 
+INCLUDE_DIRS = $(ELECTRODE_INC) -I$(UTILSRC_DIR) -I$(CANTERA_INCROOT) 
 
 # C++ compile flags
 CXX_FLAGS = @CXXFLAGS@ $(INCLUDE_DIRS)
@@ -57,7 +69,7 @@ LCXX_FLAGS = @CXXFLAGS@
 
 # How to compile the dependency file
 .cpp.d:
-	@CXX_DEPENDS@  $(CXX_FLAGS) $*.cpp > $*.d
+	@CXX_DEPENDS@ $(CXX_FLAGS) $*.cpp > $*.d
 
 # List of dependency files to be created
 DEPENDS=$(TOBJS:.o=.d)
@@ -69,9 +81,10 @@ all: $(PROGRAM) .depends
 
 rebaseline:
 
-$(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP)
+$(PROGRAM): $(OBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(CANTERA_TOTAL_LIBS) $(AMESOS_LIBS) $(IFPACK_LIBS) $(LCXX_END_LIBS)
+                  $(ELECTRODE_LIB) \
+                  $(CANTERA_TOTAL_LIBS) $(LCXX_END_LIBS)
 
 # depends target -> forces recalculation of dependencies
 depends:
@@ -89,13 +102,9 @@ ifeq ($(os_is_win), 1)
 else
 	@MAKE@ $(PROGRAM)
 endif
-	./runtest
 
 clean:
-	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends Multi1DDomain
-	(if test -d SunWS_cache ; then \
-           $(RM) -rf SunWS_cache ; \
-         fi )
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends 
 
 install:
 	@INSTALL@ -c $(PROGRAM) @cta_bindir@
