@@ -340,7 +340,11 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     relativeElectronsDischargedPerMole_ = ctml::getFloat(xmlEState, "relativeElectronsDischargedPerMole", "toSI");
     relativeDepthOfDischarge_ = ctml::getFloat(xmlEState, "relativeDepthOfDischarge", "toSI");
     capacityDischargedToDate_ = ctml::getFloat(xmlEState, "capacityDischargedToDate", "toSI");
-    electronKmolDischargedToDate_ = ctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
+    if (xmlEState.hasChild("electronKmolDischargedToDate")) {
+	electronKmolDischargedToDate_ = ctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
+    } else {
+	electronKmolDischargedToDate_ =  capacityDischargedToDate_ / Cantera::Faraday;
+    }
     deltaTsubcycle_init_next_ = ctml::getFloat(xmlEState, "deltaTsubcycle_init_next", "toSI");
 }
 //======================================================================================================================
