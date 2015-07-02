@@ -9,32 +9,38 @@ all:
 	cd LiSi_1_Newman ;                                          @MAKE@
 	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@
 	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@
+	cd CSTR_ReadCompareSoln ;				    @MAKE@
 
 test:
 #	cd LiSi_1_Newman ;     (not ready yet)                      @MAKE@ -s test
 	cd LiCoO2_SimpleDiff_Dualfoil ;                             @MAKE@ -s test
 	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ -s test
+	cd CSTR_ReadCompareSoln ;				    @MAKE@ -s test
 
 dist_clean:
 	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
 	cd LiCoO2_SimpleDiff_Dualfoil;                              @MAKE@ clean
 	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil;                     @MAKE@ clean
+	cd CSTR_ReadCompareSoln ;				    @MAKE@ clean
 
 
 clean:
 	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; @MAKE@ clean
 	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@ clean
 	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ clean
+	cd CSTR_ReadCompareSoln ;				    @MAKE@ clean
 
 depends:
 	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; @MAKE@ depends
 	cd LiCoO2_SimpleDiff_Dualfoil;				    @MAKE@ depends
 	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ depends
+	cd CSTR_ReadCompareSoln ;				    @MAKE@ depends
 
 
 rebaseline:
 	cd LiCoO2_SimpleDiff_Dualfoil ;                             @MAKE@ rebaseline
 	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    @MAKE@ rebaseline
+	cd LiSi_1_Newman ;                                          @MAKE@ rebaseline
 
 
 install:
