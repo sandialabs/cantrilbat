@@ -673,6 +673,7 @@ public:
      */
     virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
+
 protected:
     //! Update all state information for a single phase from the mole numbers in the spMoles_final_[] vector
     /*!
@@ -1184,13 +1185,35 @@ public:
     // -------------------------------  SetState Functions -------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
 
-    //! Set the time
+    //! Sets the time for the electrode object. This sets all of the times to the same time.
     /*!
-     *   Set the time
+     *   Sets the time for t_final, t_final_final, t_init, and t_init_init. 
+     *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
      */
     void setTime(double time);
 
+    //! Sets the state of the Electrode object given an EState object
+    /*!
+     *   (virtual function)
+     *   This sets all of the states within the object to the same state.
+     *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *   @param[in]  es          const reference to the EState object.  Must be the correct EState object for the
+     *                           current Electrode object, or else it will throw an error. However, there is an option to 
+     *                           read EState objects with less information. 
+     */
+    virtual void setState_EState(const EState& es);
   
+    //! Sets the state of the Electrode object given a base EState object
+    /*!
+     *   This is not a virtual function.
+     *   This sets all of the states within the object to the same state.
+     *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *   @param[in]  es          const reference to the base EState object.  Must be the base EState object .
+     *                           There is an option to read base EState objects, even though the current Electrode may be more complicated.
+     */
+    void setState_EStateBase(const EState& es);
 
   private:
     //! Set the internal initial intermediate and initial global state from the internal final state

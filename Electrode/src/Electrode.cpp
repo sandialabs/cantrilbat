@@ -1819,6 +1819,7 @@ void Electrode::setState_relativeExtentRxn(double relativeExtentRxn)
 //================================================================================================
 void Electrode::setTime(double time)
 {
+    // if we are in a pending step, this is an error.
     if (pendingIntegratedStep_) {
         throw CanteraError("Electrode::setTime()", "called when there is a pending step");
     }
@@ -1826,6 +1827,75 @@ void Electrode::setTime(double time)
     tfinal_ = t_init_init_;
     tinit_ = t_init_init_;
     t_final_final_ = t_init_init_;
+}
+//==================================================================================================================================
+// Sets the state of the Electrode object given an EState object
+/*
+ *   (virtual function)
+ *   This sets all of the states within the object to the same state.
+ *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+ *
+ *   @param[in]  es          const reference to the EState object.  Must be the correct EState object for the
+ *                           current Electrode object, or else it will throw an error. However, there is an option to 
+ *                           read EState objects with less information. 
+ */
+void Electrode::setState_EState(const EState& e)
+{
+    Electrode::setState_EStateBase(e);
+}
+//==================================================================================================================================
+// Sets the state of the Electrode object given a base EState object
+/*
+ *   This is not a virtual function.
+ *   This sets all of the states (t_final, t_init, t_init_init_)  within the object to the same state.
+ *   Therefore, it is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+ *
+ *   @param[in]  es          const reference to the base EState object.  Must be the base EState object .
+ *                           There is an option to read base EState objects, even though the current Electrode may be more complicated.
+ */
+void Electrode::setState_EStateBase(const EState& e)
+{
+    if (pendingIntegratedStep_) {
+        throw Electrode_Error("Electrode::setState_EState()",
+			      "called when there is a pending step");
+    }
+    spMoles_final_                     = e.spMoles_;
+    phaseVoltages_                     = e.phaseVoltages_;
+    temperature_                       = e.temperature_;
+    pressure_                          = e.pressure_;
+    electrodeChemistryModelType_       = e.electrodeChemistryModelType_;
+    electrodeDomainNumber_             = e.electrodeDomainNumber_;
+    electrodeCellNumber_               = e.electrodeCellNumber_;
+    particleNumberToFollow_            = e.particleNumberToFollow_;
+    ElectrodeSolidVolume_              = e.electrodeSolidVolume_;
+     
+    Radius_exterior_final_             = e.radiusExterior_;
+
+    surfaceAreaRS_final_               = e.surfaceAreaRS_;
+    // electrodeMoles_                    = e.electrodeMoles_;
+    electrodeCapacityType_             = e.electrodeCapacityType_;
+
+    //capacityLeft_                      = e.capacityLeft_;
+    capacityInitialZeroDod_            = e.capacityInitial_;
+
+    // depthOfDischarge_                  = e.depthOfDischarge_;
+    depthOfDischargeStarting_          = e.depthOfDischargeStarting_;
+
+      //relativeDepthOfDischarge_          = e.relativeDepthOfDischarge_ 
+    electronKmolDischargedToDate_      = e.electronKmolDischargedToDate_;
+
+  
+    deltaTsubcycle_init_next_          = e.deltaTsubcycle_init_next_;
+
+    double grossVol = e.grossVolume_;
+    double currentSolidVol = e.electrodeSolidVolume_;
+    
+    porosity_ = currentSolidVol / grossVol;
+
+    Electrode::updateState();
+
+    Electrode::setInitStateFromFinal(true);
+    Electrode::setFinalFinalStateFromFinal();
 }
 //================================================================================================
 double Electrode::getFinalTime() const

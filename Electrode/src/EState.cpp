@@ -60,6 +60,7 @@ EState::EState() :
     relativeElectronsDischargedPerMole_(0.0),
     relativeDepthOfDischarge_(0.0),
     capacityDischargedToDate_(0.0),
+    electronKmolDischargedToDate_(0.0),
     deltaTsubcycle_init_next_(1.0E300)
 {
 }
@@ -96,6 +97,7 @@ EState::EState(const EState& right) :
     relativeElectronsDischargedPerMole_(0.0),
     relativeDepthOfDischarge_(0.0),
     capacityDischargedToDate_(0.0),
+    electronKmolDischargedToDate_(0.0),
     deltaTsubcycle_init_next_(1.0E300)
 {
     /*
@@ -142,6 +144,8 @@ EState& EState::operator=(const EState& right)
     relativeElectronsDischargedPerMole_= right.relativeElectronsDischargedPerMole_;
     relativeDepthOfDischarge_          = right.relativeDepthOfDischarge_;
     capacityDischargedToDate_          = right.capacityDischargedToDate_;
+    electronKmolDischargedToDate_      = right.electronKmolDischargedToDate_;
+
     deltaTsubcycle_init_next_          = right.deltaTsubcycle_init_next_;
 
     /*
@@ -227,6 +231,7 @@ XML_Node*   EState::writeStateToXML() const
     ctml::addFloat(*x, "relativeElectronsDischargedPerMole", relativeElectronsDischargedPerMole_, "");
     ctml::addFloat(*x, "relativeDepthOfDischarge", relativeDepthOfDischarge_, "");
     ctml::addFloat(*x, "capacityDischargedToDate", capacityDischargedToDate_, "coulomb");
+    ctml::addFloat(*x, "electronKmolDischargedToDate", electronKmolDischargedToDate_, "kmol");
     ctml::addFloat(*x, "deltaTsubcycle_init_next", deltaTsubcycle_init_next_, "s");
 
     return x;
@@ -335,6 +340,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     relativeElectronsDischargedPerMole_ = ctml::getFloat(xmlEState, "relativeElectronsDischargedPerMole", "toSI");
     relativeDepthOfDischarge_ = ctml::getFloat(xmlEState, "relativeDepthOfDischarge", "toSI");
     capacityDischargedToDate_ = ctml::getFloat(xmlEState, "capacityDischargedToDate", "toSI");
+    electronKmolDischargedToDate_ = ctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
     deltaTsubcycle_init_next_ = ctml::getFloat(xmlEState, "deltaTsubcycle_init_next", "toSI");
 }
 //======================================================================================================================
@@ -365,6 +371,8 @@ void EState::copyElectrode_intoState(const Cantera::Electrode* const e)
     relativeDepthOfDischarge_          = e->depthOfDischargeFraction();
 
     capacityDischargedToDate_          = e->capacityDischarged();
+
+    electronKmolDischargedToDate_      = e->electronKmolDischargedToDate_;
 
     deltaTsubcycle_init_next_          = e->deltaTsubcycle_init_next_;
 
@@ -410,7 +418,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->surfaceAreaRS_final_               = surfaceAreaRS_;
     e->depthOfDischargeStarting_          = depthOfDischargeStarting_;
     e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Cantera::Faraday;
-
+    e->electronKmolDischargedToDate_      = electronKmolDischargedToDate_;
     e->setCapacityType(electrodeCapacityType_);
 
     for (int iph = 0; iph < e->m_NumTotPhases; iph++) {

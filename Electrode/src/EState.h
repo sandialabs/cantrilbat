@@ -134,7 +134,7 @@ public:
      */
     virtual EState* duplMyselfAsEState() const;
 
-    //! Initialize the object based on an electrode Base class
+    //! Initialize the EState object based on an electrode Base class
     /*!
      *   This call will initialize all of the arrays within this class.
      *   All of the species and phase identification information is created and the class is
@@ -418,8 +418,10 @@ protected:
     //! Capacity discharged to date -> this is a number that is dependent on the past time history of the simulation
     double capacityDischargedToDate_;
 
+    double electronKmolDischargedToDate_;
     //! Initial value of the next subcycle deltaT
     double deltaTsubcycle_init_next_;
+
 
 
     //! Statement that the Electrode class can access any information in this class
