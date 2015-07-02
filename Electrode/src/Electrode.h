@@ -972,7 +972,13 @@ public:
     double reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError);
 
     //! Given a guest, are the two local intervals the same
-    virtual bool localIntervalDoubleEqual(const Electrode* const eGuest, int nDigits);
+    /*!
+     *
+     *     @param[in] eGuest                 Guest electrode object
+     *     @param[in] nDigits                Number of digits of accuracy
+     *     @return                           True if the two local intervals are equal
+     */
+    virtual bool compareLocalInterval(const Electrode* const eGuest, int nDigits);
 
     //------------------------------------------------------------------------------------------------------------------
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
@@ -3057,8 +3063,7 @@ protected:
     XML_Node* xmlStateData_final_final_;
 
 
-    //!  Pointer to the object that is in charge of formulating the saved state and writing
-    //!  that state out to an XML object
+    //!  Pointer to the object that is in charge of formulating the saved state and writing that state out to an XML object
     EState* eState_final_;
 
     //! Base name of the solution file, currently defaults to "soln"

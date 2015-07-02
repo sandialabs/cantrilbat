@@ -3808,7 +3808,7 @@ double Electrode::reportTimeLimit(int allowedSubSteps, double allowedErrorStateV
     return 0.0;
 }
 //==================================================================================================================================
-bool Electrode::localIntervalDoubleEqual(const Electrode* const eGuest, int nDigits)
+bool Electrode::compareLocalInterval(const Electrode* const eGuest, int nDigits)
 {
     bool doComplicated = false;
     double atol = molarAtol_;
@@ -3818,12 +3818,18 @@ bool Electrode::localIntervalDoubleEqual(const Electrode* const eGuest, int nDig
 	doComplicated = true;
     }
 
+    int res = compareOtherPL(eGuest);
+    if (res != 0) {
+	printf("Electrode::compareLocalInterval:  Underlying PhaseLists of two electrode objects are different, res = %d\n", res);
+        return false;
+    }
+
     bool goodComp = doubleEqual(a1, a2, atol, nDigits);
 
-
+    printf("Electrode::compareLocalInterval NOT CODED YET\n");
     return goodComp;
 }
-//====================================================================================================================
+//==================================================================================================================================
 Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
     ResidJacEval(),
     ee_(ee)
