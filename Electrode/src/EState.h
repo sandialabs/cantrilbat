@@ -12,9 +12,10 @@
 
 #include "Electrode_defs.h"
 
+
 #include <string>
 #include <vector>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace Cantera
 {
 
@@ -23,6 +24,7 @@ class XML_Node;
 
 //! Enum indicating the type of Electrode object output file that is written.
 enum EState_Type_Enum {
+    EST_UNKNOWN_TYPE = -1,
     //! Electrode State file containing CSTR information for the explicit State of the electrode.
     /*!
      * The chief state variable is the number of moles of each species in the electrode phase.
@@ -36,9 +38,26 @@ enum EState_Type_Enum {
     EST_RADIALDISTRIB
 };
 
-//! Base Class for the ElectrodeState class concept. We define the state of the electrode here
-//! which can be used to set the Electrode object classes and can be used to write out to
-//! an XML file.
+
+struct EState_Identification 
+{
+    EState_Identification();
+    std::string  electrodeTypeString_;
+    enum Cantera::EState_Type_Enum  EST_Type_;
+    std::string  EState_Type_String_;
+    int EST_Version_;
+    int electrodeChemistryModelType_;
+    int electrodeDomainNumber_;
+    int electrodeCellNumber_;
+    Cantera::Electrode_Capacity_Type_Enum  electrodeCapacityType_;
+};
+
+typedef struct EState_Identification EState_ID_struct;
+
+//==================================================================================================================================
+//! Base Class for the Electrode State class concept. We define the state of the electrode here
+//! which can be used to set the Electrode object classes and can be used to write out to an XML file.
+//! This is the main class involved with saves and restarts of the Electrode object.
 /*!
  *     This is a glue class that allows one to write out states of electrode objects.
  *     There is a direct correspondence with members of this class with an XML_Node object
@@ -127,7 +146,7 @@ public:
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
-     *  @return Returns a malloced XML_Node tree.
+     *  @return Returns a malloced XML_Node tree containing the identification information
      */
     XML_Node* writeIdentificationToXML() const;
 
@@ -148,19 +167,28 @@ public:
      */
     void readStateFromXMLRoot(const XML_Node& xmlRoot);
 
-    //! Read the state from the XML_Node  given by the argument
+
+    //! Read the state from the XML_Node given by the argument
     /*!
      *  Virtual function -> main way to get the process going and the child functions called.
      *
-     *  @param xmlRoot   Root of the xml tree to get the information from
+     *  @param[in]    xmlEState                 electrodeState XML element to be read from
+     *                                          The electrodeState XML element contains the state of the electrode.
      */
     virtual void readStateFromXML(const XML_Node& xmlEState);
 
-    //! Read indentification information from the XML header record
+    //! Read identification information from the XML header record
     /*!
      *  @param xmlEState   reference to the XML node.
      */
     void readIdentificationFromXML(const XML_Node& xmlEState);
+
+    //! Read identification information from a struct EState_Identification object
+    /*!
+     *
+     */
+    void readIdentificationFromStruct(const EState_ID_struct& es_ID);
+
 
     //! Set the State of this object from the state of the Electrode object
     /*!
@@ -212,6 +240,20 @@ public:
      *             correct.
      */
     void copyEState_toElectrode(Cantera::Electrode* const e) const;
+
+    //!  Compare the current state of this object against another guest state to see if they are the same
+    /*!
+     *    We compare the state of the solution up to a certain number of digits.
+     *
+     *     @param[in]       ESguest          Guest state object to be compared against
+     *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+     *                                       Note from this value, we can get all other absolute tolerance inputs.
+     *     @param[in]       nDigits          Number of digits to compare against
+     *     @param[in]       printLvl         print level of the routine
+     *
+     *     @return                           Returns true
+     */
+    virtual bool compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, int printLvl = 0) const;
 
     /* --------------------------------------------------------------------------------------  */
 
@@ -386,6 +428,6 @@ protected:
      */
     friend class Cantera::Electrode;
 };
-
+//==================================================================================================================================
 }
 #endif

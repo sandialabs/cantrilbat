@@ -7,8 +7,24 @@
 #include "Electrode_MP_RxnExtent.h"
 #include "Electrode_Factory.h"
 
+#include "mdp_allo.h"
+
+#include <string>
+
 namespace Cantera
 {
+//==================================================================================================================================
+EState_Identification::EState_Identification() :
+    electrodeTypeString_(""),
+    EST_Type_(EST_UNKNOWN_TYPE),
+    EState_Type_String_("Unknown"),
+    EST_Version_(1),
+    electrodeChemistryModelType_(0),
+    electrodeDomainNumber_(0),
+    electrodeCellNumber_(0),
+    electrodeCapacityType_(CAPACITY_ANODE_ECT)
+{
+}
 //======================================================================================================================
 /*
  * EState constructor
@@ -87,7 +103,7 @@ EState::EState(const EState& right) :
      */
     EState::operator=(right);
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Assignment operator
 /*
  *  @param right object to be copied
@@ -228,36 +244,76 @@ void EState::readStateFromXMLRoot(const XML_Node& xmlRoot)
     }
 }
 //======================================================================================================================
-void EState::readIdentificationFromXML(const XML_Node& xmlEState)
+void EState::readIdentificationFromXML(const XML_Node& xmlEI)
 {
     std::string typeSS;
-    ctml::getNamedStringValue(xmlEState,"electrodeTypeString", electrodeTypeString_ , typeSS);
 
-    EST_lastFileRead_ = (EState_Type_Enum)  ctml::getInteger(xmlEState, "EState_Type");
+    std::string nn = xmlEI.name();
+    const XML_Node* x = &xmlEI;
+    if (nn != "ElectrodeIndentification") {
+	x = xmlEI.findByName("ElectrodeIdentification");
+	if (!x) {
+	    throw Electrode_Error("EState::readIdentificationFromXM",
+				  "Could not find the XML node named ElectrodeIdentification");
+	}
+    }
+
+    ctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString_ , typeSS);
+
+    EST_lastFileRead_ = (EState_Type_Enum)  ctml::getInteger(*x, "EState_Type");
     if (EST_lastFileRead_ !=  EST_CSTR) {
         throw CanteraError(" EState::readIdentificationFromXML()",
                            "read the wrong EState type - new situation");
     }
-
-    EST_Version_lastFileRead_ = ctml::getInteger(xmlEState, "fileVersionNumber");
+    if (x->hasChild("fileVersionNumber")) {
+	EST_Version_lastFileRead_ = ctml::getInteger(*x, "fileVersionNumber");
+    }
     if (EST_Version_lastFileRead_ != 1) {
         throw CanteraError(" EState::readIdentificationFromXML()",
                            "read the wrong EState version type - new situation");
     }
-
-    electrodeCapacityType_ = (Cantera::Electrode_Capacity_Type_Enum) ctml::getInteger(xmlEState, "electrodeCapacityType");
-    electrodeChemistryModelType_ = ctml::getInteger(xmlEState, "electrodeModelType");
-    electrodeDomainNumber_ = ctml::getInteger(xmlEState, "electrodeDomainNumber");
-    electrodeCellNumber_ = ctml::getInteger(xmlEState, "electrodeCellNumber");
+    if (x->hasChild("electrodeCapacityType")) {
+	electrodeCapacityType_ = (Cantera::Electrode_Capacity_Type_Enum) ctml::getInteger(*x, "electrodeCapacityType");
+    }
+    if (x->hasChild("electrodeModelType")) {
+	electrodeChemistryModelType_ = ctml::getInteger(*x, "electrodeModelType");
+    } 
+    if (x->hasChild("electrodeDomainNumber")) {
+	electrodeDomainNumber_ = ctml::getInteger(*x, "electrodeDomainNumber");
+    }
+    if (x->hasChild("electrodeDomainNumber")) {
+     electrodeCellNumber_ = ctml::getInteger(*x, "electrodeDomainNumber");
+    }
+}
+//==================================================================================================================================
+// Read identification information from a struct EState_Identification object
+/*
+ *
+ */
+void EState::readIdentificationFromStruct(const EState_ID_struct& es_ID)
+{
+    // @todo do checking on compatible values
+    electrodeTypeString_ = es_ID.electrodeTypeString_;
+    
+    EST_lastFileRead_ = es_ID.EST_Type_;
+    EST_Version_lastFileRead_ =  es_ID.EST_Version_;
+    electrodeCapacityType_ = es_ID.electrodeCapacityType_;
+    electrodeChemistryModelType_ = es_ID.electrodeChemistryModelType_; 
+    electrodeDomainNumber_ = es_ID.electrodeDomainNumber_;
+    electrodeCellNumber_ = es_ID.electrodeCellNumber_;
 }
 //======================================================================================================================
-
-//! Write the ElectrodeState to an XML_Node tree
-/*!
- *  @return pointer to the XML_Node tree
+//  Read the  electrode state from  an XML_Node tree
+/*
+ *   
  */
 void EState::readStateFromXML(const XML_Node& xmlEState)
 {
+    std::string nodeName = xmlEState.name();
+    if (nodeName != "electrodeState") {
+	throw Electrode_Error(" EState::readStateFromXML",
+			      " Name of the xml node should have been electrodeState. Instead it was " + nodeName);
+    }
     ctml::getFloatArray(xmlEState, spMoles_, true, "", "spMoles");
     ctml::getFloatArray(xmlEState, phaseVoltages_, true, "volts", "phaseVoltages");
     temperature_ = ctml::getFloat(xmlEState, "temperature", "toSI");
@@ -369,6 +425,141 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     if (emp) {
         emp->RelativeExtentRxn_final_ = relativeElectronsDischargedPerMole_;
     }
+}
+//==================================================================================================================================
+static double setAtolEm40(double a1, double a2)
+{
+    double m1 = std::max(a1, a2);
+    double m2 = std::max(m1, 1.0E-40);
+    return m2;
+}
+
+//==================================================================================================================================
+static void printDiff(std::string vexp, int index,  double val, double gval, int printLvl)
+{
+    static int num = 0;
+    static bool printHead = false;
+    std::string istring = "   ";
+    if (index >= 0) {
+	istring = int2str(index, "%3d");
+    }
+    if (printLvl >= 2) {
+	num++;
+	if (!printHead) {
+	    printf("\t\t       Quantity       Value        Guest_Value \n");
+	    printHead = true;
+	}
+        
+        if ( (printLvl == 2 && num < 100) || (printLvl >= 3) ) {
+	    printf("\t\t%30s  %3s  ",
+		   vexp.c_str(), istring.c_str() );
+	    if (val != MDP_DBL_NOINIT) {
+		printf("%15.7E ", val);
+	    } else {
+		printf("- NotAvail -    ");
+	    }
+	    if (gval != MDP_DBL_NOINIT) {
+		printf("%15.7E", gval);
+	    } else {
+		printf("-NotAvail-     ");
+	    }
+	    printf("\n");	
+	}
+    }
+}
+//==================================================================================================================================
+static void printVecDiff(std::string vexp, const std::vector<double>& val, const std::vector<double>& gval,
+			 int printLvl)
+{
+    static int num = 0;
+    static bool printHead = false;
+    std::string istring = "   ";
+    size_t j1 = val.size();
+    size_t j2 = gval.size();
+    size_t jmax = std::max(j1, j2);
+    if (printLvl >= 2) {
+	num++;
+	if (!printHead) {
+	    printf("\t\t       Quantity       Value        Guest_Value \n");
+	    printHead = true;
+	}
+	
+	for (size_t j = 0; j < jmax; ++j) {
+	    if (j > j2) {
+		printDiff(vexp, j, val[j], MDP_DBL_NOINIT, printLvl);
+	    } else if (j > j1) {
+		printDiff(vexp, j, MDP_DBL_NOINIT, gval[j], printLvl);
+	    } else {
+		printDiff(vexp, j, val[j], gval[j], printLvl);
+	    }
+	
+	}
+    }
+}
+//==================================================================================================================================
+bool EState::compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, int printLvl) const
+{
+    bool btotal = true;
+    bool boolR = true;
+    double currentTimeFinal = eRef_->tfinal_;
+
+    if (printLvl > 0) {
+	printf("EState::compareOtherState at time %g: \n",  currentTimeFinal);
+    }
+
+
+    // Compare temperature
+    boolR = doubleEqual(temperature_, ESguest->temperature_, 0.0, nDigits);
+    if (!boolR) {
+	printDiff("Temperature", -1, temperature_, ESguest->temperature_,printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare pressure
+    boolR = doubleEqual(pressure_, ESguest->pressure_, 0.0, nDigits);
+    if (!boolR) {
+	printDiff("Pressure", -1, pressure_, ESguest->pressure_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare gross Volumes  
+    // based on 55 kmol / m3 ( water)
+    double volAtol =  molarAtol / 55.;
+    boolR = doubleEqual(grossVolume_, ESguest->grossVolume_, volAtol, nDigits);
+    if (!boolR) {
+	printDiff("grossVolume", -1,  grossVolume_, ESguest->grossVolume_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare exterior radius
+    double radiusAtol = pow(volAtol, 0.3333);
+    boolR = doubleEqual(radiusExterior_, ESguest->radiusExterior_, radiusAtol, nDigits);
+   
+
+    // Compare surface area vector
+    double surfaceAtol = 12 * radiusAtol * radiusAtol;
+    boolR = doubleVectorEqual(surfaceAreaRS_, ESguest->surfaceAreaRS_, surfaceAtol, nDigits);
+    if (!boolR) {
+	printVecDiff("surfaceAreaRS_", surfaceAreaRS_, ESguest->surfaceAreaRS_, printLvl);
+    }
+    btotal = boolR && btotal;
+	
+    
+    // Compare spMoles vector
+    boolR = doubleVectorEqual(spMoles_, ESguest->spMoles_, molarAtol, nDigits);
+    if (!boolR) {
+	printVecDiff("speciesMoles", spMoles_, ESguest->spMoles_,  printLvl);
+    }
+    btotal = boolR && btotal;
+
+  
+    if (!btotal) {
+	if (printLvl == 1) {
+	    printf("EState:: States at time %g are not compatible\n", currentTimeFinal);
+	}
+    }
+
+    return false;
 }
 //====================================================================================================================
 } // End of namespace Cantera

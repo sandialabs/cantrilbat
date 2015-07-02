@@ -279,12 +279,10 @@ double Electrode::loadTimeStateFinal(XML_Node& xFinal)
     return time;
 }
 //====================================================================================================================
-//  Select the global time step increment record by the consequuatively numbered record index number
+//  Select the global time step increment record by the consequatively numbered record index number
 /*
  *    @param   xSoln               Solution file for the electrode object
  *    @param   globalTimeStepNum   Time step number to select
- *
- *  @TODO shouldn't this be a static routine.
  */
 XML_Node* Electrode::selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTimeStepNum)
 {
@@ -311,6 +309,7 @@ XML_Node* Electrode::selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTi
     return eRecord;
 }
 //====================================================================================================================
+//  Write a global time step to the solution file. 
 //  Wrap the timeIncrement XML element within a solution XML element and then write it out to
 //  an output file
 /*
@@ -360,7 +359,7 @@ void Electrode::writeSolutionTimeIncrement()
     struct tm*   newtime = localtime(&aclock); /* Convert time to struct tm form */
 
     /*
-     *  Find the name of the solution file
+     *  Determine the name of the solution file
      */
     std::string bname = "soln";
     if (baseNameSoln_ != "") {
@@ -389,7 +388,16 @@ void Electrode::writeSolutionTimeIncrement()
     stepNum++;
     if (stepNum == 1) {
         doTrunc = true;
+
+	//   Add a time stamp
         ctml::addString(soln, "timeStamp", asctime(newtime));
+
+	/*
+	 *  Add an identification XML element
+	 */
+	XML_Node* xmlID = eState_final_->writeIdentificationToXML();
+	soln.mergeAsChild(*xmlID);
+
     }
 
     /*
@@ -400,10 +408,17 @@ void Electrode::writeSolutionTimeIncrement()
     gts.addAttribute("index", ii);
     std::string fmt = "%22.14E";
 
+    /*
+     *   Add the next time step's deltaT as a child XML element
+     */
     gts.addChild("deltaTime_init_next", deltaTsubcycle_init_next_ , fmt);
+    /*
+     *  Add the number of substep integrations as a child element
+     */
     ctml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
     /*
-     *  Add the child timeIncrement to the globalTimeStep XML element
+     *  Add the child XML element, timeIncrement, to the globalTimeStep XML element.
+     *  This includes the initial state, the final state, and the substep integration states.
      */
     if (!xmlTimeIncrementData_) {
         throw CanteraError("Electrode::writeSolutionTimeIncrement()",
@@ -411,6 +426,7 @@ void Electrode::writeSolutionTimeIncrement()
     }
     gts.addChild(*xmlTimeIncrementData_);
 
+    //       ------------------------- now finish up by writing the file -------------------------
     /*
      * Find the byte length of the current file
      */
