@@ -33,6 +33,8 @@ first_el() {
 #
 ################################################################################################################################
 #
+#   Compare two ascii files using the generic diff command
+#
 #   arg 1 = blessed file
 #   arg 2 = 
 #
