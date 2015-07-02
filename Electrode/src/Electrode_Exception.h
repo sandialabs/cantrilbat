@@ -13,6 +13,7 @@
 #include "cantera/base/ctexceptions.h" 
 
 #include <string>
+#include <vector>
 
 namespace Cantera 
 {
@@ -127,6 +128,9 @@ protected:
 // ==================================================================================================
 //! Assert two number are equal up to a number of digits
 extern bool doubleEqual(double a1, double a2, double atol, int digits);
+
+extern bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits);
+
 
 } // End of m1d namespace
 // ==================================================================================================

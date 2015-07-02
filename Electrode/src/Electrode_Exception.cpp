@@ -38,4 +38,22 @@ bool doubleEqual(double a1, double a2, double atol, int digits)
     return false;
 }
 
+//=====================================================================================================================================
+
+bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits)
+{
+    size_t j = a1.size();
+    size_t j2 = a2.size();
+    if (j2 != j) {
+        return false; 
+    } 
+    for (size_t i = 0; i < j; ++i) {
+       if (! doubleEqual(a1[i], a2[i], atol, digits)) {
+           return false;
+       }
+    }
+    return true;
+}
+//=====================================================================================================================================
+
 }
