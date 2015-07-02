@@ -814,6 +814,7 @@ AC_OUTPUT(Makefile \
           Electrode/examples/MCMBAnode_LiIon_CSTR_2_cV/Makefile \
           Electrode/examples/MCMBAnode_LiIon_SimpleDiff_2_cV/Makefile \
           Electrode/src/Makefile \
+          Electrode/src_tests/Makefile \
           Electrode/tests/Makefile \
           Electrode/tests_develop/Makefile \
           Electrode/tests/ImplicitIntegrator/Makefile \
@@ -844,6 +845,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_OCV/Makefile \
           Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_Dualfoil/Makefile \
           Electrode/tests_develop/LiCoO2_Complex_LiIonCathode_SimpleDiff_cV/Makefile \
+          Electrode/tests_develop/CSTR_ReadCompareSoln/Makefile \
 	  cttables/Makefile \
 	  cttables/src/Makefile \
 	  cttables/tests/Makefile \

@@ -30,22 +30,24 @@
  *        one another.
  */
 
-#include <stdio.h>
+
+#include "Electrode.h"
+
+
+#include <cstdio>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <float.h>
 #include <limits.h>
 
-#include "SolnLayout.h"
-#include "SolnDomain.h"
-
-
+#include <fstream>
+#include <unistd.h>
 
 
 using namespace std;
 using namespace Cantera;
-using namespace m1d;
+
 
 
 #if defined(__CYGWIN__)
@@ -342,41 +344,7 @@ bool compareVectorFlts(std::vector<double> & comp1,
   }
   return (ndiff == 0);
 }
-//=========================================================================================================
-bool compareBulkDomains(m1d::SolnDomainBulk *b1, m1d::SolnDomainBulk *b2)
-{
-  bool iTotal = true;
 
-  if (b1->NumVariables != b2->NumVariables) {
-    printf("Caution number of variables differs 1: %d   2: %d \n", b1->NumVariables, b2->NumVariables);
-  }
-  if (b1->NumNodes != b2->NumNodes) {
-    printf("FAILURE number of nodes differs 1: %d   2: %d \n", b1->NumNodes, b2->NumNodes);
-  }
-
-  std::vector<double> & comp1 = b1->X0NodePos;
-  std::vector<double> & comp2 = b2->X0NodePos;
-  bool itest = compareVectorFlts(comp1, comp2, "X0");
-  iTotal = iTotal && itest;
-  itest = compareVectorFlts(b1->XNodePos, b2->XNodePos, "X");
-  iTotal = iTotal && itest;
-  std::vector<double> *nodePos = & b1->X0NodePos;
-  if (b1->XNodePos.size() > 0) {
-    nodePos = & b1->XNodePos;
-  }
-
-  for (int j = 0; j < b1->NumVariables; j++) {
-    std::vector<double> & comp1 = b1->DataArray[j];
-    std::vector<double> & comp2 = b2->DataArray[j];
-    if (b1->VarNames[j] != b2->VarNames[j]) {
-      printf("ERROR variable names differs 1: %s   2: %s \n", b1->VarNames[j].c_str(), b2->VarNames[j].c_str());
-      exit(-1);
-    }
-    itest = compareFieldVectorFlts(comp1, comp2, *nodePos, b1->VarNames[j]);	 
-    iTotal = iTotal && itest;		     
-  }
-  return iTotal;
-}
 //======================================================================================================================
 XML_Node *getSimul(XML_Node *xmlTop, std::string id_tag) {
   XML_Node *xctml = xmlTop;
@@ -479,6 +447,7 @@ int main(int argc, char *argv[])
   int id2 = 0;
   char *ggg = 0;
   char *rrr = 0;
+  int iTotal = 0;
   /*
    * Interpret command line arguments
    */
@@ -580,60 +549,8 @@ int main(int argc, char *argv[])
     exit(-1);
   }
 
-
-  std::vector<m1d::SolnLayout *> sim1_List(numSim1);
-  std::vector<m1d::SolnLayout *> sim2_List(numSim2);
-
-
-  for (int iSim1 = 0; iSim1 < numSim1; iSim1++) {
-    int iSim2 = iSim1;
-    Cantera::XML_Node *sim1 = getSimulNum(fp1, iSim1);
-    Cantera::XML_Node *sim2 = getSimulNum(fp2, iSim2);
-
-    /*
-     *  Read the simulation into a new structure
-     */
-    sim1_List[iSim1] = new m1d::SolnLayout(sim1);
-
-    sim2_List[iSim2] = new m1d::SolnLayout(sim2);
-
-  };
-  int iTotal = 1;
-  for (int iSim1 = 0; iSim1 < numSim1; iSim1++) {
-    SolnLayout * sim1_SL =   sim1_List[iSim1];
-    SolnLayout * sim2_SL =   sim2_List[iSim1];
-    /*
-     *   Obtain the size of the problem information: Compare between files. 
-     */
-    if (sim1_SL->NumDomains != sim2_SL->NumDomains) {
-      printf("Number of Domains differ: %d, %d\n",sim1_SL->NumDomains, sim2_SL->NumDomains);
-      testPassed = 0;
-    } else if (Debug_Flag) {
-      printf("Number of Domains in each file = %d\n", sim1_SL->NumDomains);
-    }
-
-    if (sim1_SL->NumBulkDomains != sim2_SL->NumBulkDomains) {
-      printf("Number of Bulk Domains differ: %d, %d\n",sim1_SL->NumBulkDomains, sim2_SL->NumBulkDomains);
-      testPassed = 0;
-    } else if (Debug_Flag) {
-      printf("Number of Bulk Domains in each file = %d\n", sim1_SL->NumBulkDomains);
-    }
-
-    if (sim1_SL->NumSurfDomains != sim2_SL->NumSurfDomains) {
-      printf("Number of Surface Domains differ: %d, %d\n",sim1_SL->NumSurfDomains, sim2_SL->NumSurfDomains);
-      testPassed = 0;
-    } else if (Debug_Flag) {
-      printf("Number of Surface Domains in each file = %d\n", sim1_SL->NumSurfDomains);
-    }
-
-    for (int iBulkD = 0; iBulkD < sim1_SL->NumBulkDomains; iBulkD++) {
-      bool iSame = compareBulkDomains(sim1_SL->SolnDomainBulk_List[iBulkD],
-				      sim2_SL->SolnDomainBulk_List[iBulkD]);
-      if (!iSame) {
-	iTotal = 0;
-	printf("FAILURE: One or more variables on the bulk domain %d are different\n", iBulkD);
-      }
-    }
+  if (testPassed == -1) {
+      iTotal = 1;
   }
   return iTotal;
 
