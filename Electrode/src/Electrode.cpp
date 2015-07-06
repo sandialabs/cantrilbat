@@ -1272,7 +1272,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 {
     int nspecies = 0;
@@ -1807,7 +1807,8 @@ void Electrode::setPhaseMoleNumbers(int iph, const double* const moleNum)
  */
 void Electrode::setState_relativeExtentRxn(double relativeExtentRxn)
 {
-
+    throw Electrode_Error("Electrode::setState_relativeExtentRxn",
+	                  "Base class called but not implemented");
 }
 //==================================================================================================================
 
@@ -1848,10 +1849,12 @@ void Electrode::setState_EState(const EState& e)
 /*
  *   This is not a virtual function.
  *   This sets all of the states (t_final, t_init, t_init_init_)  within the object to the same state.
- *   Therefore, it is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+ *   Therefore, it is an error to call this function during a pending step where there can be a difference between t_init and
+ *   t_final.
  *
  *   @param[in]  es          const reference to the base EState object.  Must be the base EState object .
- *                           There is an option to read base EState objects, even though the current Electrode may be more complicated.
+ *                           There is an option to read base EState objects, even though the current Electrode 
+ *                           may be more complicated.
  */
 void Electrode::setState_EStateBase(const EState& e)
 {
@@ -1897,12 +1900,12 @@ void Electrode::setState_EStateBase(const EState& e)
     Electrode::setInitStateFromFinal(true);
     Electrode::setFinalFinalStateFromFinal();
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::getFinalTime() const
 {
     return tfinal_;
 }
-//================================================================================================
+//==================================================================================================================================
 // Update all mole numbers in the object from the mole numbers in the spMoles_final_[] vector
 /*
  *  We use the field spMoles_final_[] to set the field phaseMoles_final_[].
