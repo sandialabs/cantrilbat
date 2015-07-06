@@ -662,16 +662,7 @@ public:
      */
     virtual void setPhaseMoleNumbers(int iph, const double* const moleNum);
     
-    //! Set the current state of the electrode object based on a relative extent of reaction
-    /*!
-     *   The relative extent of reaction is a dimensionless number on the order of one
-     *   that represents the state of the electrode. A value of zero represents the
-     *   fully charged state, while a value of one (or equivalent) represents a fully
-     *   discharged state. 
-     *
-     *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
-     */
-    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
+  
 
 
 protected:
@@ -1214,6 +1205,17 @@ public:
      *                           There is an option to read base EState objects, even though the current Electrode may be more complicated.
      */
     void setState_EStateBase(const EState& es);
+
+    //! Set the current state of the electrode object based on a relative extent of reaction
+    /*!
+     *   The relative extent of reaction is a dimensionless number on the order of one
+     *   that represents the state of the electrode. A value of zero represents the
+     *   fully charged state, while a value of one (or equivalent) represents a fully
+     *   discharged state. 
+     *
+     *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
+     */
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
   private:
     //! Set the internal initial intermediate and initial global state from the internal final state
