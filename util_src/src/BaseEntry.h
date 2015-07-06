@@ -119,6 +119,8 @@ public:
      *          3 = less than or equal match: The number of times processed
      *                    must be less than or equal to m_numTimesRequired.
      *                    It must be at least one.
+     *
+     *   @param[in]   timesRequiredType    Input parameter for the member function with a value of 0 to 3
      */
     void set_TimesRequiredType(int timesRequiredType);
 
