@@ -249,13 +249,15 @@ public:
      *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
      *                                       Note from this value, we can get all other absolute tolerance inputs.
      *     @param[in]       nDigits          Number of digits to compare against
+     *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
      *     @param[in]       printLvl         print level of the routine
      *
      *     @return                           Returns true
      */
-    virtual bool compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, int printLvl = 0) const;
+    virtual bool compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, 
+				   bool includeHist = false, int printLvl = 0) const;
 
-    /* --------------------------------------------------------------------------------------  */
+    /* -------------------------------------------------------------------------------------------------------------------------- */
 
 protected:
 
@@ -380,6 +382,7 @@ protected:
      */
     std::vector<double> surfaceAreaRS_;
 
+    //! Total number of moles in the solid phases of the electrode.
     double electrodeMoles_;
 
     //! Capacity type of the electrode.
@@ -418,7 +421,9 @@ protected:
     //! Capacity discharged to date -> this is a number that is dependent on the past time history of the simulation
     double capacityDischargedToDate_;
 
+    // kmol of electrons that are discharged to date -> this is a number that is dependent on the past time history of the simulation
     double electronKmolDischargedToDate_;
+
     //! Initial value of the next subcycle deltaT
     double deltaTsubcycle_init_next_;
 

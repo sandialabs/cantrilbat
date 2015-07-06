@@ -6,6 +6,7 @@
 #include "Electrode.h"
 #include "Electrode_MP_RxnExtent.h"
 #include "Electrode_Factory.h"
+#include "EState_XML.h"
 
 #include "mdp_allo.h"
 
@@ -445,9 +446,53 @@ static double setAtolEm40(double a1, double a2)
     double m2 = std::max(m1, 1.0E-40);
     return m2;
 }
-
+//=================================================================================================================================
+static void printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl)
+{
+    std::string istr = "no ";
+    if (significant) {
+	istr = "yes";
+    }
+    if (printLvl >= 2) {
+	printf("\t\t%30s    %3s   ", vexp.c_str(), istr.c_str());
+	printf("%17s %17s\n", val.c_str(), gval.c_str());
+    }
+}
 //==================================================================================================================================
-static void printDiff(std::string vexp, int index,  double val, double gval, int printLvl)
+static void printDiff(const std::string& vexp, int index, int val, int gval, int printLvl)
+{
+    static int num = 0;
+    static bool printHead = false;
+    std::string istring = "   ";
+    if (index >= 0) {
+	istring = int2str(index, "%3d");
+    }
+    if (printLvl >= 2) {
+	num++;
+	if (!printHead) {
+	    printf("\t\t       Quantity       Value        Guest_Value \n");
+	    printHead = true;
+	}
+        
+        if ( (printLvl == 2 && num < 100) || (printLvl >= 3) ) {
+	    printf("\t\t%30s  %3s  ",
+		   vexp.c_str(), istring.c_str() );
+	    if (val != MDP_INT_NOINIT) {
+		printf("%15d ", val);
+	    } else {
+		printf("- NotAvail -    ");
+	    }
+	    if (gval != MDP_INT_NOINIT) {
+		printf("%15d", gval);
+	    } else {
+		printf("-NotAvail-     ");
+	    }
+	    printf("\n");	
+	}
+    }
+}
+//==================================================================================================================================
+static void printDiff(const std::string& vexp, int index,  double val, double gval, int printLvl)
 {
     static int num = 0;
     static bool printHead = false;
@@ -480,7 +525,7 @@ static void printDiff(std::string vexp, int index,  double val, double gval, int
     }
 }
 //==================================================================================================================================
-static void printVecDiff(std::string vexp, const std::vector<double>& val, const std::vector<double>& gval,
+static void printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval,
 			 int printLvl)
 {
     static int num = 0;
@@ -509,7 +554,7 @@ static void printVecDiff(std::string vexp, const std::vector<double>& val, const
     }
 }
 //==================================================================================================================================
-bool EState::compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, int printLvl) const
+bool EState::compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, bool includeHist, int printLvl) const
 {
     bool btotal = true;
     bool boolR = true;
@@ -519,8 +564,47 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 	printf("EState::compareOtherState at time %g: \n",  currentTimeFinal);
     }
 
+    // electrodeTypeString_
+    /*
+     *    Differences in electrodeTypeString_ don't cause errors. We can solve the problem with different models and 
+     *    get the same answer.
+     */
+    boolR = (electrodeTypeString_ == ESguest->electrodeTypeString_);
+    if (!boolR) {
+	printDiff("electrodeTypeString_", false, electrodeTypeString_, ESguest->electrodeTypeString_, printLvl);
+    }
 
-    // Compare temperature
+    // EST_lastFileRead_  The file type read
+    /*
+     *  Presumably differences in this are fatal
+     */
+    boolR = (EST_lastFileRead_ == ESguest->EST_lastFileRead_);
+    if (!boolR) {
+	printDiff("EST_lastFileRead_", true, esmodel::EState_Type_Enum_to_string(EST_lastFileRead_),
+		  esmodel::EState_Type_Enum_to_string(ESguest->EST_lastFileRead_), printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // EST_fileToBeWritten_  The file type that EState will write out
+    /*
+     *  Presumably differences in this not significant
+     */
+    boolR = (EST_fileToBeWritten_ == ESguest->EST_fileToBeWritten_);
+    if (!boolR) {
+	printDiff("EST_fileToBeWritten_", false, esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_),
+		  esmodel::EState_Type_Enum_to_string(ESguest->EST_fileToBeWritten_), printLvl);
+    }
+
+    // EST_Version_fileToBeWritten_  The file type version that EState will write out
+    /*
+     *  Presumably differences in this not significant
+     */
+    boolR = (EST_Version_fileToBeWritten_ == ESguest->EST_Version_fileToBeWritten_);
+    if (!boolR) {
+	printDiff("EST_fileToBeWritten_", false, EST_Version_fileToBeWritten_ ,ESguest->EST_Version_fileToBeWritten_, printLvl);
+    }
+
+    // temperature
     boolR = doubleEqual(temperature_, ESguest->temperature_, 0.0, nDigits);
     if (!boolR) {
 	printDiff("Temperature", -1, temperature_, ESguest->temperature_,printLvl);
@@ -546,7 +630,10 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     // Compare exterior radius
     double radiusAtol = pow(volAtol, 0.3333);
     boolR = doubleEqual(radiusExterior_, ESguest->radiusExterior_, radiusAtol, nDigits);
-   
+    if (!boolR) {
+	printDiff("radiusExterior_", -1, radiusExterior_, ESguest->radiusExterior_, printLvl);
+    }
+    btotal = boolR && btotal;
 
     // Compare surface area vector
     double surfaceAtol = 12 * radiusAtol * radiusAtol;
@@ -564,6 +651,118 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     }
     btotal = boolR && btotal;
 
+ 
+    // Compare phase voltages
+    boolR = doubleVectorEqual(phaseVoltages_, ESguest->phaseVoltages_, molarAtol, nDigits);
+    if (!boolR) {
+	printVecDiff("phaseVoltages", phaseVoltages_, ESguest->phaseVoltages_,  printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Electrode Model Chemistry Type
+    /*
+     *   Specific chemistry models
+     */
+    boolR = (electrodeChemistryModelType_ == ESguest->electrodeChemistryModelType_);
+    if (!boolR) {
+	printDiff("electrodeChemistryModelType_", -1, electrodeChemistryModelType_, ESguest->electrodeChemistryModelType_, 
+		  printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare particle number
+    double numberAtol = volAtol / (4.0E-18);
+    boolR = doubleEqual(particleNumberToFollow_, ESguest->particleNumberToFollow_, numberAtol, nDigits);
+    if (!boolR) {
+	printDiff("particleNumberToFollow_", -1, particleNumberToFollow_, ESguest->particleNumberToFollow_,  printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // compare the electrode solid volume
+    boolR = doubleEqual(electrodeSolidVolume_, ESguest->electrodeSolidVolume_, volAtol, nDigits);
+    if (!boolR) {
+	printDiff("electrodeSolidVolume", -1, electrodeSolidVolume_, ESguest->electrodeSolidVolume_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+
+    // compare the total solid moles
+    boolR = doubleEqual(electrodeMoles_, ESguest->electrodeMoles_, molarAtol, nDigits);
+    if (!boolR) {
+	printDiff("electrodeMoles_", -1, electrodeMoles_, ESguest->electrodeMoles_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare the electrode capacity type
+    boolR = (electrodeCapacityType_ == ESguest->electrodeCapacityType_);
+    if (!boolR) {
+	printDiff("electrodeMoles_", -1, int(electrodeCapacityType_), int(ESguest->electrodeCapacityType_), printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare the capacity Left
+    double capAtol = molarAtol * Faraday;
+    boolR = doubleEqual(capacityLeft_, ESguest->capacityLeft_, capAtol, nDigits);
+    if (!boolR) {
+	printDiff("capacityLeft_", -1, capacityLeft_, ESguest->capacityLeft_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare the capacity initial
+    boolR = doubleEqual(capacityInitial_, ESguest->capacityInitial_, capAtol, nDigits);
+    if (!boolR) {
+	printDiff("capacityInitial_", -1, capacityInitial_, ESguest->capacityInitial_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare the depth of discharge
+    boolR = doubleEqual(depthOfDischarge_, ESguest->depthOfDischarge_, capAtol, nDigits);
+    if (!boolR) {
+	printDiff("depthOfDischarge_", -1, depthOfDischarge_, ESguest->depthOfDischarge_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+    // Compare the relative discharge
+    double unitlessAtol = 1.0E-10;
+    if (electrodeMoles_ > 1.0E-100) {
+	unitlessAtol = molarAtol / electrodeMoles_;
+    }
+    boolR = doubleEqual(relativeDepthOfDischarge_, ESguest->relativeDepthOfDischarge_, unitlessAtol, nDigits);
+    if (!boolR) {
+	printDiff("relativeDepthOfDischarge_", -1, relativeDepthOfDischarge_, ESguest->relativeDepthOfDischarge_, printLvl);
+    }
+    btotal = boolR && btotal;
+
+     
+    // Compare the capacity discharged to date -> this is a number that is dependent on the past time history of the simulation
+    boolR = doubleEqual(capacityDischargedToDate_, ESguest->capacityDischargedToDate_, capAtol, nDigits);
+    if (!boolR) {
+	printDiff("capacityDischargedToDate_", -1, capacityDischargedToDate_, ESguest->capacityDischargedToDate_, printLvl);
+    }
+    if (includeHist) {
+	btotal = boolR && btotal;
+    }
+
+    // Compare the electron moles discharged to date -> this is a number that is dependent on the past time history of the simulation
+    boolR = doubleEqual(electronKmolDischargedToDate_, ESguest->electronKmolDischargedToDate_, molarAtol, nDigits);
+    if (!boolR) {
+	printDiff("electronKmolDischargedToDate_", -1, electronKmolDischargedToDate_, ESguest->electronKmolDischargedToDate_,
+		  printLvl);
+    }
+    if (includeHist) {
+	btotal = boolR && btotal;
+    }
+
+    // Compare the next deltaT -> this is a number that is dependent on the past time history of the simulation
+    boolR = doubleEqual(deltaTsubcycle_init_next_, ESguest->deltaTsubcycle_init_next_, unitlessAtol, nDigits);
+    if (!boolR) {
+	printDiff("deltaTsubcycle_init_next_", -1, deltaTsubcycle_init_next_, ESguest->deltaTsubcycle_init_next_,
+		  printLvl);
+    }
+    if (includeHist) {
+	btotal = boolR && btotal;
+    }
+
   
     if (!btotal) {
 	if (printLvl == 1) {
@@ -573,6 +772,6 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
     return false;
 }
-//====================================================================================================================
+//==================================================================================================================================
 } // End of namespace Cantera
-//======================================================================================================================
+//==================================================================================================================================
