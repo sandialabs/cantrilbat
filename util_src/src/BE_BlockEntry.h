@@ -20,41 +20,43 @@
 
 #include <set>
 
-namespace BEInput {
+namespace BEInput
+{
 
-  // Forward declaration
-  class LineEntry;
+// Forward declaration
+class LineEntry;
 
 #define BE_ANY_INDEX -7777779
 
-  //!  The BlockEntry Class is used to describe blocks 
-  /*!
-   *   A block has the following structure
-   *
-   *    Start Block KeylineName = "start arguments"
-   *       . . .
-   *       keylines and blocks
-   *       . . .
-   *    End Block KeylineName = "end arguments"
-   *
-   *  The keylines for the start and end blocks must match
-   *  up. It is an error if they don't.
-   *
-   *  It may be set as being required in the input block or as being optional
-   *  in the input block. Keylines within the block may be set as being
-   *  required even if the block is optional.
-   *
-   *  The arguments to the block appear after an equals sign. They are tokenized
-   *  and then available for later processing within the block.
-   *
-   *  This class contains the methods for recursively scanning
-   *  nested blocks and reading their input.
-   *
-   * @ingroup blockentryModule
-   */
-  class BlockEntry : public BaseEntry {
+//!  The BlockEntry Class is used to describe blocks
+/*!
+ *   A block has the following structure
+ *
+ *    Start Block KeylineName = "start arguments"
+ *       . . .
+ *       keylines and blocks
+ *       . . .
+ *    End Block KeylineName = "end arguments"
+ *
+ *  The keylines for the start and end blocks must match
+ *  up. It is an error if they don't.
+ *
+ *  It may be set as being required in the input block or as being optional
+ *  in the input block. Keylines within the block may be set as being
+ *  required even if the block is optional.
+ *
+ *  The arguments to the block appear after an equals sign. They are tokenized
+ *  and then available for later processing within the block.
+ *
+ *  This class contains the methods for recursively scanning
+ *  nested blocks and reading their input.
+ *
+ * @ingroup blockentryModule
+ */
+class BlockEntry : public BaseEntry
+{
 
-  public:
+public:
 
     //! Constructor
     /*!
@@ -68,8 +70,8 @@ namespace BEInput {
      *                          default is 0, indicating that this block is the
      *                          top main block that has no parent blocks.
      */
-    explicit BlockEntry(const char *blockName, int numTimesRequired = 0,
-			BlockEntry *ParentBlock_input = 0);
+    explicit BlockEntry(const char* blockName, int numTimesRequired = 0,
+                        BlockEntry* ParentBlock_input = 0);
 
     //! Copy constructor
     /*!
@@ -102,7 +104,7 @@ namespace BEInput {
 
     //! Remove all line entries and subblocks
     void clear();
-  
+
     //!  read_block handes the I/O of block commands. It is designed so that
     //!  it can be called recursively.
     /*!
@@ -111,7 +113,7 @@ namespace BEInput {
      *  Then, the line is either interpretted as a keyline or as the
      *  start of another block.
      *
-     *  Block starts are indicated by the first two tokens on a 
+     *  Block starts are indicated by the first two tokens on a
      *  line being "START BLOCK". Then, the name of the block is
      *  next. Then, an optional "=" sign and an argument list to the
      *  block is next.
@@ -121,10 +123,10 @@ namespace BEInput {
      *  an optional "=" sign and an argument list.
      *
      *  Within a block there may be keylines. A keyline is a string
-     *  of arbitrary size followed by the "=" key, or a newline, 
+     *  of arbitrary size followed by the "=" key, or a newline,
      *  whichever comes first. After the "=" sign is the argument to
      *  the keyline.
-     *    
+     *
      *    Input
      *  --------------
      * @param input_file File pointer to read additional keylines
@@ -140,16 +142,16 @@ namespace BEInput {
      *
      *    Output
      *   ------------
-     * @param endArgPtr   Pointer to the TOKEN that represents the 
+     * @param endArgPtr   Pointer to the TOKEN that represents the
      *                    arguments to the end block line for the current
      *                    block. This is returned to the calling block
      *                    and represents a way to communicate with the
      *                    calling block
-     *                    Default is the null address. 
+     *                    Default is the null address.
      *
      */
-    void read_block(FILE *input_file, TK_TOKEN *endArgPtr, 
-		    const TK_TOKEN *startArgPtr, BlockEntry *parentBlock);
+    void read_block(FILE* input_file, TK_TOKEN* endArgPtr,
+                    const TK_TOKEN* startArgPtr, BlockEntry* parentBlock);
 
     //!  This function will skip ahead to read a subblock within a block
     //!  structure.
@@ -164,11 +166,11 @@ namespace BEInput {
      *                   BLOCK keyline for the current block.
      *                   Default = stdin
      */
-    void read_this_block_only(FILE *input_file);
+    void read_this_block_only(FILE* input_file);
 
     //!  skip_block skips a block and all embedded blocks in the input file
     /*!
-     *  On entry the file position should be just after the 
+     *  On entry the file position should be just after the
      *  block header of the block to be skipped.
      *
      *    Input
@@ -184,27 +186,27 @@ namespace BEInput {
      *                    to the current block. (default no parent indicates
      *                    that this is the top block.
      */
-    void skip_block(FILE *input_file, TK_TOKEN *blockName,
-		    BlockEntry *parentBlock);
+    void skip_block(FILE* input_file, TK_TOKEN* blockName,
+                    BlockEntry* parentBlock);
 
     //! Virtual function called at the start of internally processing
     //! the block
     /*!
      *  This function may be used to start the process of setting up
-     *  internal data functions when the block is first called. 
+     *  internal data functions when the block is first called.
      *  This is also where the current block processes the
-     *  arguments specified on the START BLOCK line. 
+     *  arguments specified on the START BLOCK line.
      *
      *  The default behavior is listed below.
      *
-     *   -  An Error exit will occur if 
+     *   -  An Error exit will occur if
      *      a blockARgTok string is actually supplied.
      *
      *   -  We increment the NumProcessedBlocks counter, which
      *      keeps track of the number of times this particular object has
      *      been called for parent block.
      *
-     *   -  A dependency check is made to make sure that the 
+     *   -  A dependency check is made to make sure that the
      *      required dependencies for this block have been satisfied.
      *
      * Derived classes may override the default behavior. Usually
@@ -218,8 +220,8 @@ namespace BEInput {
      *  @param blockArgPtr pointer to the TOKEN structure representing
      *                     the argument list for the START BLOCK
      */
-    virtual void Initialization(FILE *ifp_input, 
-				const TK_TOKEN *blockArgPtr);
+    virtual void Initialization(FILE* ifp_input,
+                                const TK_TOKEN* blockArgPtr);
 
     //! This virtual function is used to wrap up the setup of the current
     //! block before returning to the parent block.
@@ -227,15 +229,15 @@ namespace BEInput {
      *
      *  The default behavior is listed below.
      *
-     *   -  An Error exit will occur if 
+     *   -  An Error exit will occur if
      *      a blockArgTok string is actually supplied.
      *
      *   -  A checkRequirements check is made on all enclosed line
      *      entry objects. If they haven't been satisfied, an error
-     *      is generated. 
+     *      is generated.
      *
      *   -  A checkRequirements check is made on all enclosed blocks.
-     *      If they haven't been satisfied, an error is generated. 
+     *      If they haven't been satisfied, an error is generated.
      *
      * Derived classes may override the default behavior. Usually
      * derived classes will call the base class Initialization function
@@ -248,7 +250,7 @@ namespace BEInput {
      *  @param blockArgPtr pointer to the TOKEN structure representing
      *                     the argument list for the START BLOCK
      */
-    virtual void Wrapup(FILE *ifp_input, const TK_TOKEN *blockArgPtr);
+    virtual void Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgPtr);
 
     //! Adjust the address of external target objects
     /*!
@@ -275,7 +277,7 @@ namespace BEInput {
 
     //! This call zeroes the numTimesProcessed count
     /*!
-     * This is needed 
+     * This is needed
      * when BlockEntry is used in a multiple pass format.
      * It zeroes the numTimesProcessed field for the
      * current block and all enclosed blocks and LineEntry's.
@@ -307,9 +309,9 @@ namespace BEInput {
      *  @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
      */
-    BlockEntry *match_block(const TK_TOKEN *keyLinePtr,
-			    int contribIndex = BE_ANY_INDEX, 
-			    bool includedMatch = false) const;
+    BlockEntry* match_block(const TK_TOKEN* keyLinePtr,
+                            int contribIndex = BE_ANY_INDEX,
+                            bool includedMatch = false) const;
 
     //!   Match the block name as defined by a sequence of tokens and optionally
     //!   defined by the argument name of the block.
@@ -326,11 +328,11 @@ namespace BEInput {
      *                     hasn't been processed gets selected.
      *  @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
-     *  @param keyArgNamePtr If nonnull, then the name is matched as well. 
+     *  @param keyArgNamePtr If nonnull, then the name is matched as well.
      */
-    BlockEntry *match_block_argName(const TK_TOKEN *keyLinePtr, bool includedMatch = false,
-                            int contribIndex = BE_ANY_INDEX,
-                            const TK_TOKEN *keyArgNamePtr = 0) const;
+    BlockEntry* match_block_argName(const TK_TOKEN* keyLinePtr, bool includedMatch = false,
+                                    int contribIndex = BE_ANY_INDEX,
+                                    const TK_TOKEN* keyArgNamePtr = 0) const;
 
 
     //!   Match the block name as defined by a sequence of tokens.
@@ -348,31 +350,31 @@ namespace BEInput {
      *  @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
      */
-    BlockEntry *match_block(const char *keyLinePtr,
-			    int contribIndex = BE_ANY_INDEX, bool includedMatch = false) const;
-  
+    BlockEntry* match_block(const char* keyLinePtr,
+                            int contribIndex = BE_ANY_INDEX, bool includedMatch = false) const;
+
     //! Do initialization of the subblock at the current block lvl.
-    /*!     
+    /*!
      *  Input
      * ------
-     *  @param  subBlockPtr = pointer to the subblock object 
+     *  @param  subBlockPtr = pointer to the subblock object
      *  @param  keyArgTok   = arguments to the subblock call.
      *
      *  Note, this functionality is currently unused.
      */
-    virtual void Initialize_SubBlock(BlockEntry *subBlockPtr,
-				     const TK_TOKEN *keyArgTok);
+    virtual void Initialize_SubBlock(BlockEntry* subBlockPtr,
+                                     const TK_TOKEN* keyArgTok);
 
 
     //! Do wrapup work for the subblock at the current block lvl.
-    /*!     
-     * 
-     * @param subBlockPtr     = pointer to the subblock object 
+    /*!
+     *
+     * @param subBlockPtr     = pointer to the subblock object
      * @param subBlockEndPtr  = arguments to the subblock call.
      */
-    virtual void Wrapup_SubBlock(BlockEntry *subBlockPtr,
-				 const TK_TOKEN *subBlockEndPtr);
- 
+    virtual void Wrapup_SubBlock(BlockEntry* subBlockPtr,
+                                 const TK_TOKEN* subBlockEndPtr);
+
     //!   Match a LineEntry in the current block
     /*!
      *    See if a match exists between the character string and the keyLine
@@ -389,19 +391,19 @@ namespace BEInput {
      *
      *    @return Return a pointer to the LineEntry object that matches.
      */
-    LineEntry *match_keyLine(const TK_TOKEN *lineEntryTok, int contribIndex = BE_ANY_INDEX) const;
+    LineEntry* match_keyLine(const TK_TOKEN* lineEntryTok, int contribIndex = BE_ANY_INDEX) const;
 
     //! After a keyline match, the keyline processes the argument list
     /*!
      *  The basic approach is to pass the control of dealing with line entries
      *  down to the individual LineEntry objects themselves.
      *
-     *  @param curLE        Pointer to teh current line entry 
+     *  @param curLE        Pointer to teh current line entry
      *  @param keyArgTokPtr TOKEN ptr for the argument list
      */
-    virtual void process_LineEntry(LineEntry *curLE, const TK_TOKEN *keyArgTokPtr);
+    virtual void process_LineEntry(LineEntry* curLE, const TK_TOKEN* keyArgTokPtr);
 
-    //! Function is called from the owning BlockEntry 
+    //! Function is called from the owning BlockEntry
     //! on every LineEntry that doesn't match an object
     /*!
      *  Currently, this is blank
@@ -410,22 +412,22 @@ namespace BEInput {
      *  @param keyLineTok TOKEN ptr for keyline that doesn't match
      *  @param keyArgTokPtr TOKEN ptr for arguments to the keyline
      */
-    virtual void skip_lineEntry(FILE *ifp,  const TK_TOKEN *keyLineTok, const TK_TOKEN *keyArgTokPtr) const;
-  
-    //!   This adds a subblock entry structure to the current BlockEntry
-    //!   structure.
-    /*!
-     * @param sb pointer to the subblock BlockEntry object 
-     */
-    void addSubBlock(BlockEntry *sb);
+    virtual void skip_lineEntry(FILE* ifp,  const TK_TOKEN* keyLineTok, const TK_TOKEN* keyArgTokPtr) const;
 
     //!   This adds a subblock entry structure to the current BlockEntry
     //!   structure.
     /*!
-     * @param le pointer to the LineEntry object 
+     * @param sb pointer to the subblock BlockEntry object
      */
-    void addLineEntry(LineEntry *le);
- 
+    void addSubBlock(BlockEntry* sb);
+
+    //!   This adds a subblock entry structure to the current BlockEntry
+    //!   structure.
+    /*!
+     * @param le pointer to the LineEntry object
+     */
+    void addLineEntry(LineEntry* le);
+
     //! Report the number of times a line entry has been processed.
     /*!
      *   This does a recursive search for a Line Entry on the current block
@@ -434,12 +436,12 @@ namespace BEInput {
      *
      *  @param lineName Character string reprsentation of the keyLine
      */
-    int reportNumProcessedLines(const char *lineName) const;
+    int reportNumProcessedLines(const char* lineName) const;
 
     //! Check for all requirements being met at the end of input
     //! for that block
     /*!
-     * @param throwSpecificError If true then you should throw a 
+     * @param throwSpecificError If true then you should throw a
      *        specific error condition, if you have one. If not,
      *        an generic error condition will be thrown on return.
      */
@@ -453,7 +455,7 @@ namespace BEInput {
      *
      * @param lineName character string as input
      */
-    LineEntry *searchLineEntry(const char * const lineName) const; 
+    LineEntry* searchLineEntry(const char* const lineName) const;
 
     //!  This does a recursive search for a Line Entry on the current block
     //! and all subblocks of the current block
@@ -475,10 +477,10 @@ namespace BEInput {
      *                        sequentially itemized. The default is to match against the last in the list.
      * @param blockArgName    Name of the Argment to be matched. The default is to not match against the argument.
      */
-    BlockEntry* searchBlockEntry(const char * const bName, bool includedMatch = false,
+    BlockEntry* searchBlockEntry(const char* const bName, bool includedMatch = false,
                                  int contribIndex = BE_ANY_INDEX, const TK_TOKEN* const blockArgName = 0) const;
 
-    //! This does a recursive search for a Block Entry 
+    //! This does a recursive search for a Block Entry
     //! name under the current block
     //! and under all subblocks of the current block.
     /*!
@@ -491,7 +493,7 @@ namespace BEInput {
      *                          sequentially itemized. The default is to match against the last in the list.
      * @param blockArgName      Name of the Argment to be matched. The default is to not match against the argument.
      */
-    BlockEntry *searchBlockEntry(const TK_TOKEN* const nameBN, bool includedMatch = false, 
+    BlockEntry* searchBlockEntry(const TK_TOKEN* const nameBN, bool includedMatch = false,
                                  int contribIndex = BE_ANY_INDEX, const TK_TOKEN* const blockArgName = 0) const;
 
     //! Prints a keyline to standard out (static)
@@ -500,10 +502,10 @@ namespace BEInput {
      *         "keyLineTok" = "keyArgTok"
      *
      * @param keyLineTok TOKEN Ptr representing the keyline
-     * @param keyArgTok  TOKEN Ptr representing the arguments 
+     * @param keyArgTok  TOKEN Ptr representing the arguments
      */
-    static void print_keyLine(const TK_TOKEN *keyLineTok, 
-			      const TK_TOKEN *keyArgTok);
+    static void print_keyLine(const TK_TOKEN* keyLineTok,
+                              const TK_TOKEN* keyArgTok);
 
     //! Indents a line by a certain amount
     /*!
@@ -513,7 +515,7 @@ namespace BEInput {
     static void print_indent(int ilvl);
 
 
-    //! This does a recursive search for a Block Entry 
+    //! This does a recursive search for a Block Entry
     //! name under the current block
     //! and under all subblocks of the current block.
     /*!
@@ -526,8 +528,8 @@ namespace BEInput {
      *                       required. if contribIndex is < 0, then any index is allowed to be matched.
      * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
      */
-    std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN * const nameBN, bool includedMatch = false, 
-						    int contribIndex = -1, const TK_TOKEN * const blockArgName = 0) const;
+    std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN* const nameBN, bool includedMatch = false,
+                                                    int contribIndex = -1, const TK_TOKEN* const blockArgName = 0) const;
 
     //! This does a recursive search for a Block Entry name under the current block
     //! and under all subblocks of the current block.
@@ -543,13 +545,13 @@ namespace BEInput {
      *                       The default is not to check.
      */
     std::set<const BlockEntry*> collectBlockEntries(const char* nameBN, bool includedMatch = false,
-						    int contribIndex = -1, const TK_TOKEN* const blockArgName = 0) const;
+                                                    int contribIndex = -1, const TK_TOKEN* const blockArgName = 0) const;
 
     //! Set the int  indicating  whether an error is thrown if an unknown Block or LineEntry is encountered in the input.
     /*!
      * @param bv    Value to be set
      *                 0 = throw an error if unknown entries are encountered, always
-     *                 1 = throw an error if unknown entries are encountered unless a block is declared as lenient 
+     *                 1 = throw an error if unknown entries are encountered unless a block is declared as lenient
      *                 2 = Continue, but print a warning statement.
      *                 3 = Continue and don't print anything.
      * @param recursive   If true, then all blocks underneath respond to this command.
@@ -563,17 +565,17 @@ namespace BEInput {
      */
     int get_SkipUnknownEntries() const;
 
-  protected:
-   
+protected:
+
     //! Pointer to the parent block
     /*!
      * The top block will have this be equal to NULL.
      */
-    BlockEntry *ParentBlock;
+    BlockEntry* ParentBlock;
 
     //! This is a null terminated list of pointers to LineEntry objects
     //! that define the valid phrases that this block understands
-    LineEntry **BlockLineInput;
+    LineEntry** BlockLineInput;
 
     /*!
      * This is equal to the number of nonnull items in BlockLineInput
@@ -582,7 +584,7 @@ namespace BEInput {
 
     //! This is a null terminated list of pointers to BlockEntry objects
     //! that define the valid subblocks that this block understands
-    BlockEntry **SubBlocks;
+    BlockEntry** SubBlocks;
 
     //! Number of subblocks in this list.
     /*!
@@ -602,14 +604,14 @@ namespace BEInput {
     int m_SkipUnknownEntries;
 
     //! Adjustment to the address originally input to memory assignments
-    //! used by line elements in this block. Note, this number is the
-    //! cumulative adjustment.
+    //! used by line elements in this block. Note, this number is the cumulative adjustment.
     LONG_PTR m_adjustAddress;
 
+    //! Arguments to the block call, after the = sign.
     TK_TOKEN m_ArgTok;
 
-   
-
-  };
+};
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
