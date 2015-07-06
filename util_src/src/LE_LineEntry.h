@@ -20,6 +20,7 @@
 
 namespace BEInput
 {
+//==================================================================================================================================
 //! A LineEntry object is a single-line entry that can be matched
 //! and then acted upon
 /*!
@@ -68,9 +69,11 @@ public:
      */
     LineEntry(const LineEntry& b);
 
-    //! copy assignment operator
+    //!  Assignment operator
     /*!
-     * @param b object to be copied
+     * @param[in] b object to be copied
+     *
+     *   @return    Returns a reference to the current object
      */
     LineEntry& operator=(const LineEntry& b);
 
@@ -79,15 +82,18 @@ public:
 
     //! Duplicator for a BaseEntry object
     /*!
-     * This just calls the duplMyselfAsLineEntry command.
+     *         This just calls the duplMyselfAsLineEntry command.
+     *
+     *   @return            Returns a pointer to the duplicate object as a BaseEntry object
      */
     virtual BaseEntry* duplMyselfAsBaseEntry() const;
 
     //! Duplicator function. This is a pure virtual function here
     /*!
-     * This function duplicates the entry and returns a pointer
-     * to a LineEntry. This is a pure virtual function
-     * making direct instances of this class not possible.
+     *   This function duplicates the entry and returns a pointer to a LineEntry. This is a pure virtual function
+     *   making direct instances of this class not possible.
+     *
+     *   @return            Returns a pointer to the duplicate object as a LineEntry object
      */
     virtual LineEntry* duplMyselfAsLineEntry() const = 0;
 
@@ -149,17 +155,17 @@ protected:
 
     //! Adjust base address to store the value
     /*!
-     * @param addrAdjustment Offset in raw bytes to adjust the
-     *              internal value of the Address that will receive
-     *              the int.
+     * @param addrAdjustment                 Offset in raw bytes to adjust the internal value of the Address that will receive
+     *                                       the int.
      */
     virtual void adjustAddress(LONG_PTR addrAdjustment) = 0;
 
     //! Check for requirements being met at the end of input
     /*!
-     * @param throwSpecificError If true then you should throw a
-     *        specific error condition, if you have one. If not,
-     *        an generic error condition will be thrown on return.
+     * @param[in]   throwSpecificError      If true then you should throw a specific error condition, if you have one. If not,
+     *                                      an generic error condition will be thrown on return.
+     *
+     *  @return                             Returns a boolean indicating whether the specific requirements have been met.
      */
     virtual bool checkRequirements(bool throwSpecificError = false);
 
