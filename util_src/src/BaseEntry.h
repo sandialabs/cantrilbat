@@ -154,20 +154,23 @@ public:
     //! Return the multiContribIndex value
     int multiContribIndex() const;
 
-    //! Set the value of the multiContribIndex variable 
+    //! Set the value of the multiContribIndex variable
     /*!
      *   This parameter is used for multiBlocks. When there are multiple blocks, each block will have a unique ContribIndex.
      *
-     *   @param[in]                  Input int value of the contribIndex variable
+     *   @param[in]    contribIndex              Input int value of the contribIndex variable
      */
     void set_multiContribIndex(int contribIndex);
 
     //! Query to this object, asking if this object can service
     //! a particular dependency service request type.
     /*!
-     * @param BIDSR_value  Dependency service request type
-     *      -> right now this is figured out from the previous two ints.
-     *         It is not part of the interface.
+     * @param BIDSR_value   Dependency service request type
+     *                       -> right now this is figured out from the previous two ints.
+     *                          It is not part of the interface.
+     *
+     *    @return          Boolean for true or false whether this object can service a particular dependency
+     *                     service request type.
      */
     virtual bool DepCanService(BIDSR_TYPE BIDSR_value) const;
 
@@ -189,9 +192,8 @@ public:
      *  @param returnInt Return value of the int.
      *                   This int is the natural int value
      *                   Created by the derived class of this int.
-     *  @return
-     *     This returns the same value as the function
-     *     ansDepCheck() does.
+     *
+     *  @return                 This returns the same value as the function ansDepCheck() does.
      */
     virtual bool ansDepCheckOneInt(int& returnInt) const;
 
