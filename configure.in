@@ -816,7 +816,6 @@ AC_OUTPUT(Makefile \
           Electrode/src/Makefile \
           Electrode/src_tests/Makefile \
           Electrode/tests/Makefile \
-          Electrode/tests_develop/Makefile \
           Electrode/tests/ImplicitIntegrator/Makefile \
           Electrode/tests/ImplicitIntegrator_2/Makefile \
           Electrode/tests/LiCoO2_LiIonCathode_CSTR_3_cc/Makefile \
@@ -839,6 +838,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cc/Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
           Electrode/tests/UnitTests/Makefile \
+          Electrode/tests_develop/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \
           Electrode/tests_develop/LiCoO2_SimpleDiff_Dualfoil/Makefile \
           Electrode/tests_develop/LiMn2O4_OCP/Makefile \
