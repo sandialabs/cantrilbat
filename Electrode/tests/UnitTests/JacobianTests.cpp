@@ -201,7 +201,7 @@ TEST_F(FDJacobianTest, SpeciesJacobians)
   EXPECT_NEAR(4., fd_jacobian->get_jacobian_value(species_source_pairs[2]), 1.e-9);
 }
 
-//! Thest the electrolyte phase source jacobian entries wrt each dof.
+//! Test the electrolyte phase source jacobian entries wrt each dof.
 TEST_F(FDJacobianTest, ElectrolytePhaseSource)
 {
   Electrode_Jacobian::DOF_SOURCE_PAIR electrolyte_phase(SOLID_VOLTAGE, ELECTROLYTE_PHASE_SOURCE);
