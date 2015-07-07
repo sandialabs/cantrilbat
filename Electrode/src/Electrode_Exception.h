@@ -17,6 +17,7 @@
 
 namespace Cantera 
 {
+class Electrode;
 
 //! base error class for m1d package inherits from the exception stl
 /*!
@@ -49,6 +50,13 @@ protected:
    */
   Electrode_Error();
 };
+
+
+void Electrode_Warning(const Electrode& e,  const std::string &procedure, const std::string &msg);
+
+void ESModel_Warning(const std::string &procedure, const std::string &msg);
+
+
 
 //! Provides a line number
 #define XSTR_TRACE_LINE(s) STR_TRACE_LINE(s)

@@ -3,6 +3,8 @@
  *
  */
 #include "Electrode_Exception.h"
+#include "Electrode.h"
+#include "Electrode_Factory.h"
 #include <cmath>
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace Cantera
@@ -20,6 +22,29 @@ Electrode_Error::~Electrode_Error() throw()
 Electrode_Error::Electrode_Error() :
     Cantera::CanteraError()
 {
+}
+
+void Electrode_Warning(const Electrode& e,  const std::string &procedure, const std::string &msg)
+{
+    int eDom = e.electrodeDomainNumber_;
+    int eCell = e.electrodeCellNumber_;
+    int printLvl_ = e.printLvl_;
+
+    if (printLvl_) {
+    Electrode_Types_Enum etype = e.electrodeType();
+    std::string estring = Electrode_Types_Enum_to_string(etype);
+    std::string pmsg = "Electrode_Warning: dom: " + int2str(eDom) + " Cell: " + int2str(eCell) + ": " + estring + ":" + procedure;
+    std::cerr << pmsg << " " << msg << std::endl; 
+   }
+}
+//==================================================================================================================================
+void ESModel_Warning(const std::string &procedure, const std::string &msg)
+{
+    int printLvl_ = 1;
+    if (printLvl_) {
+    std::string pmsg = "ESModel Warning: " + procedure;
+    std::cerr << pmsg << " " << msg << std::endl; 
+    }
 }
 //==================================================================================================================================
 bool doubleEqual(double a1, double a2, double atol, int digits)
