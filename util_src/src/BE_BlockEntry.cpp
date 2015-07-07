@@ -1007,7 +1007,7 @@ BlockEntry* BlockEntry::match_block(const char* blockstring,
     delete(t1_ptr);
     return ber;
 }
-
+//=================================================================================================================
 /*
  *  Initialize_SubBlock() (virtual function):
  *
@@ -1027,7 +1027,7 @@ void BlockEntry::Initialize_SubBlock(BlockEntry* subBlockPtr,
         m_ArgTok = TK_TOKEN("");
     }
 }
-
+//===================================================================================================================
 /*
  *  Wrapup_SubBlock() (virtual function):
  *
