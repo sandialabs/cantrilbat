@@ -70,8 +70,7 @@ public:
      *                          default is 0, indicating that this block is the
      *                          top main block that has no parent blocks.
      */
-    explicit BlockEntry(const char* blockName, int numTimesRequired = 0,
-                        BlockEntry* ParentBlock_input = 0);
+    explicit BlockEntry(const char* blockName, int numTimesRequired = 0, BlockEntry* ParentBlock_input = 0);
 
     //! Copy constructor
     /*!
@@ -82,20 +81,24 @@ public:
     //! Assignment operator
     /*!
      *  @param right Object to be copied
+     *
+     *  @return          Returns a reference to the current object
      */
     BlockEntry& operator=(const BlockEntry& right);
 
-    //! duplicator function
+    //! Duplicator function
     /*!
-     * Duplicates the object and all underlying objects
-     * and returns a pointer to BaseEntry
+     * Duplicates the object and all underlying objects and returns a pointer to BaseEntry
+     *
+     *  @return          Returns a BaseEntry pointer to the duplicate block
      */
     virtual BaseEntry* duplMyselfAsBaseEntry() const;
 
-    //! duplicator function
+    //! Duplicator function
     /*!
-     * Duplicates the object and all underlying objects
-     * and returns a pointer to BlockEntry
+     * Duplicates the object and all underlying objects and returns a pointer to BlockEntry
+     *
+     *  @return          Returns a BlockEntry pointer to the duplicate block
      */
     virtual BlockEntry* duplMyselfAsBlockEntry() const;
 
@@ -308,6 +311,8 @@ public:
      *                     hasn't been processed gets selected.
      *  @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
+     *
+    *  @return                    Returns the matched block. If no match is found, it returns the NULL pointer.
      */
     BlockEntry* match_block(const TK_TOKEN* keyLinePtr,
                             int contribIndex = BE_ANY_INDEX,
@@ -329,29 +334,29 @@ public:
      *  @param includedMatch Bookean If true than the TOKEN must only be included in the
      *                       Block name. If false, then an exact match is required
      *  @param keyArgNamePtr If nonnull, then the name is matched as well.
+     *
+     *  @return                    Returns the matched block. If no match is found, it returns the NULL pointer.
      */
-    BlockEntry* match_block_argName(const TK_TOKEN* keyLinePtr, bool includedMatch = false,
-                                    int contribIndex = BE_ANY_INDEX,
+    BlockEntry* match_block_argName(const TK_TOKEN* keyLinePtr, bool includedMatch = false, int contribIndex = BE_ANY_INDEX,
                                     const TK_TOKEN* keyArgNamePtr = 0) const;
 
 
-    //!   Match the block name as defined by a sequence of tokens.
-    //!    Return the address of the block entry.
+    //!   Match the block name as defined by a sequence of tokens. Return the address of the block entry.
     /*!
-     *    This function will lop off unwanted trailing "block" "end" and "start"
-     *    words from the token list.
+     *    This function will lop off unwanted trailing "block" "end" and "start" words from the token list.
      *
-     * @param keyLinePtr Pointer to the character string to be used to match
-     *                   the block.
-     * @param contribIndex If the contribIndex is 0 or pos, an exact match with the index is
-     *                     required. if contribIndex is < 0, the following procedure is used.
-     *                     The value of the lowest  multiContribIndex value for a block that
-     *                     hasn't been processed gets selected.
-     *  @param includedMatch Bookean If true than the TOKEN must only be included in the
-     *                       Block name. If false, then an exact match is required
+     * @param[in]   keyLinePtr        Pointer to the character string to be used to match
+     *                                the block.
+     * @param[in]   contribIndex      If the contribIndex is 0 or pos, an exact match with the index is
+     *                                required. if contribIndex is < 0, the following procedure is used.
+     *                                The value of the lowest  multiContribIndex value for a block that
+     *                                hasn't been processed gets selected.
+     *  @param[in] includedMatch      Boolean If true than the TOKEN must only be included in the
+     *                                Block name. If false, then an exact match is required.
+     *
+     *  @return                    Returns the matched block. If no match is found, it returns the NULL pointer.
      */
-    BlockEntry* match_block(const char* keyLinePtr,
-                            int contribIndex = BE_ANY_INDEX, bool includedMatch = false) const;
+    BlockEntry* match_block(const char* keyLinePtr, int contribIndex = BE_ANY_INDEX, bool includedMatch = false) const;
 
     //! Do initialization of the subblock at the current block lvl.
     /*!
@@ -362,8 +367,7 @@ public:
      *
      *  Note, this functionality is currently unused.
      */
-    virtual void Initialize_SubBlock(BlockEntry* subBlockPtr,
-                                     const TK_TOKEN* keyArgTok);
+    virtual void Initialize_SubBlock(BlockEntry* subBlockPtr, const TK_TOKEN* keyArgTok);
 
 
     //! Do wrapup work for the subblock at the current block lvl.
@@ -372,8 +376,7 @@ public:
      * @param subBlockPtr     = pointer to the subblock object
      * @param subBlockEndPtr  = arguments to the subblock call.
      */
-    virtual void Wrapup_SubBlock(BlockEntry* subBlockPtr,
-                                 const TK_TOKEN* subBlockEndPtr);
+    virtual void Wrapup_SubBlock(BlockEntry* subBlockPtr, const TK_TOKEN* subBlockEndPtr);
 
     //!   Match a LineEntry in the current block
     /*!
@@ -385,11 +388,11 @@ public:
      *
      *    This function doesn't search recursively through subblocks.
      *
-     *    @param lineEntryTok  TOKEN ptr for the keyline to be matched.
-     *    @param contribIndex  contribIndex value. Defaults to  BE_ANY_INDEX,
-     *                         which doesn't match any index.
+     *    @param[in] lineEntryTok  TOKEN ptr for the keyline to be matched.
+     *    @param[in] contribIndex  contribIndex value. Defaults to  BE_ANY_INDEX,
+     *                             which doesn't match any index.
      *
-     *    @return Return a pointer to the LineEntry object that matches.
+     *    @return                  Return a pointer to the LineEntry object that matches.
      */
     LineEntry* match_keyLine(const TK_TOKEN* lineEntryTok, int contribIndex = BE_ANY_INDEX) const;
 
@@ -428,22 +431,25 @@ public:
      */
     void addLineEntry(LineEntry* le);
 
-    //! Report the number of times a line entry has been processed.
+    //! Report the number of times a LineEntry has been processed.
     /*!
      *   This does a recursive search for a Line Entry on the current block
      *   and all subblocks of the current block, using a character string
      *   as the input.
      *
-     *  @param lineName Character string reprsentation of the keyLine
+     *  @param[in]    lineName   Character string reprsentation of the keyLine
+     *
+     *   @return                 Returns an int indicating how many times the LineEntry has been processed.
      */
     int reportNumProcessedLines(const char* lineName) const;
 
-    //! Check for all requirements being met at the end of input
-    //! for that block
+    //! Check for all requirements being met at the end of input for that block
     /*!
-     * @param throwSpecificError If true then you should throw a
-     *        specific error condition, if you have one. If not,
-     *        an generic error condition will be thrown on return.
+     * @param throwSpecificError If true then you should throw a specific error condition, if you have one. If not,
+     *                           an generic error condition will be thrown on return.
+     *
+     *   @return              Returns a boolean indicating whether the requirement for this BlockEntry has
+     *                        been satisfied by the input deck.
      */
     virtual bool checkRequirements(bool throwSpecificError);
 
