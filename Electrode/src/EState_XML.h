@@ -123,18 +123,40 @@ private:
 #endif
 };
 
+//!  Class representing an EState time state object
+/*!
+ *
+ */
 class ETimeState {
 
 public:
 
+    //! Constructor
     ETimeState();
 
+    //! Copy constructor
+    /*!
+     *   @param[in]      r   Object to be copied
+     */
     ETimeState(const ETimeState& r);
 
     //! Destructor
     ~ETimeState();
 
+    //! Assignment operator
+    /*!
+     *   @param[in]      r   Object to be copied
+     *  
+     *   @return             Returns a reference to the current object
+     */
     ETimeState& operator=(const ETimeState& r);
+
+    //! Create/Malloc an XML Node containing the timeState data contained in this object
+    /*!
+     *   @return   Returns the malloced XML_Node with name timeState containing the information in this
+     *             object. The calling program is responsible for freeing this.
+     */
+    Cantera::XML_Node* write_ETimeState_ToXML() const;
 
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!
@@ -153,32 +175,43 @@ public:
 			       bool includeHist = false, int printLvl = 0) const;
 
 
-    // Cell number of the electrode object
+    //! Cell number of the electrode object
     int cellNumber_;
 
     //! domain number of the electrode object
     int domainNumber_;
 
+    //! Base class pointer for the solution at each time
+    /*!
+     *          Note, this may be overwritten by child objects
+     */
     Cantera::EState* es_;
 
+    //! Type of the state
+    /*!
+     *      Possible types
+     *                t_init
+     *                t_intermediate
+     *                t_final
+     */
     std::string stateType_;
 
-    //! type of the time increment
+    //! Type of the time increment
     /*!
      *  Two possible values: "global" or "local"
+     *
+     *   Right now, we are practically only using global
      */
     std::string timeIncrType_;
 
     //! Time within the simulation corresponding to the state
     double time_;
     
-    //! whether I own the EState object
+    //! Boolean indicating whether I own the EState object
     bool iOwnES_;
-    
 };
-
-
 //==================================================================================================================================
+
 //!  Create a new EState Object
 /*!
  * @param model   String to look up the model against
@@ -189,30 +222,42 @@ public:
  */
 Cantera::EState* newEStateObject(std::string model, EState_Factory* f = 0);
 
-//====================================================================================================================================
 //!  Read an XML Electrode output file and create an XML tree structure
 /*!
+ *    File doesn't throw on failure. Instead it returns a NULL pointer.
  *
- *    @param[in]         fileName            File name of 
- *
+ *    @param[in]         fileName            File name of XML file
+ *    @param[in]         index               Index of the electrodeOutput node that is requested. The default is "1", which
+ *                                           is the first index written.
  *
  *    @return          Returns the pointer to the XML tree. If the file can't be found or is the wrong type, a NULL pointer is
- *                     returned.
+ *                     returned. The top XML_Node is set at the electrodeOutput node corresponding to the specified input index
  */
 Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index);
 
-
-//! Given an Electrode solution file, select a particular global time step number given by the index
+//! Given an Electrode solution file, select the last global time step number returning its XML element
 /*!
+ *   @param[in]      xElectrodeOutput   Input XML tree containing the electrodeOutput XML_Node.
+ *   @param[out]     globalTimeStepNum  Returns the global time step number index selected. This is the last global time step
+ *                                      number in the input file
  *
- *  
+ *   @return                            Returns the XML_Node corresponding to the last global time step in the solution file.
+ *                                      The node will have a named called, globalTimeStep, and will have the largest index
+ *                                      in the electrodeOutput XML element.                  
  */
-Cantera::XML_Node* selectLastGlobalTimeStepIncrement(Cantera::XML_Node* xSoln, int& globalTimeStepNum);
+Cantera::XML_Node* selectLastGlobalTimeStepInterval(Cantera::XML_Node* xElectrodeOutput, int& globalTimeStepNum);
 
-
-
-Cantera::XML_Node* locateTimeLast_GlobalTimeStepFromXML(const Cantera::XML_Node& xmlGlobalTimeStep, double& timeVal,
-							int printSteps = 0);
+//! Given a global time step interval XML tree, this routine will locate the t_final Electrode Time State
+/*!
+ *   @param[in]   xmlGlobalTimeStep     XML node corresponding to the global time step interval
+ *   @param[out]  timeVal               Value of the time read
+ *   @param[in]   printSteps            If nonzero it prints the type of steps and the time value. THe default is zero.
+ *    
+ *   @return                            Returns a pointer to the  t_final Electrode Time State xml tree. If there is problem,
+ *                                      it returns NULL.
+ */
+Cantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const Cantera::XML_Node& xmlGlobalTimeStep, double& timeVal,
+								int printSteps = 0);
 
 bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, Cantera::EState_ID_struct & e_id);
 
@@ -226,6 +271,10 @@ bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, Cantera::EState_
  *                                  with the state of the elctrode at t_final in that Estate object.
  */
 Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& timeRead);
+
+//!   Create a new EState object from an XML_Node and EState id structure
+Cantera::EState* newEStatefromXML(const Cantera::XML_Node& XeState, const Cantera::EState_ID_struct& e_id);
+
 
 }
 //----------------------------------------------------------------------------------------------------------------------------------

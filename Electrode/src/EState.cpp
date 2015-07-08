@@ -198,11 +198,11 @@ XML_Node*   EState::writeIdentificationToXML() const
     return x;
 }
 //======================================================================================================================
-// Write the ElectrodeState to an XML_Node tree
+// Write the electrodeState to an XML_Node tree
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node*   EState::writeStateToXML() const
+XML_Node* EState::write_electrodeState_ToXML() const
 {
     XML_Node* x = new XML_Node("electrodeState");
 

@@ -171,7 +171,7 @@ bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
     //
     if (!xmlStateData_final_) {
 	if (eState_final_) {
-	    xmlStateData_final_ = eState_final_->writeStateToXML();
+	    xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
 	}
     }
     if (xmlStateData_final_) {

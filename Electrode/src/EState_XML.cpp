@@ -48,7 +48,7 @@ static void create_string_maps()
     }
 
 }
-//======================================================================================================================
+//=================================================================================================================================
 Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index)
 {
     /*
@@ -72,8 +72,8 @@ Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index
 
     XML_Node* eRecord = eOutput->findNameIDIndex("electrodeOutput", "", index);
     if (!eRecord) {
-        throw Electrode_Error("esmodel::getElectrodeOutputFile()",
-			      "could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
+        ESModel_Warning("esmodel::getElectrodeOutputFile()",
+	                "Could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
     }
     return eRecord;
 }
@@ -202,6 +202,27 @@ ETimeState& ETimeState::operator=(const ETimeState& r)
     return *this;
 }
 //==================================================================================================================================
+XML_Node* ETimeState::write_ETimeState_ToXML() const
+ {
+     const std::string fmt = "%22.14E";
+     XML_Node* xes = es_->write_electrodeState_ToXML();
+     if (!xes) {
+	 return NULL;
+     }
+     XML_Node* xmi = new XML_Node("timeState");
+     if (stateType_ == "t_init" || stateType_ == "t_final" ||  stateType_ == "t_intermediate") {
+	 xmi->addAttribute("type", stateType_);
+     } else {
+	 throw Electrode_Error( "ETimeState::write_ETimeState_ToXML()",
+			      " Unknown state " + stateType_);
+     }
+     xmi->addAttribute("domain", domainNumber_);
+     xmi->addAttribute("cellNumber", cellNumber_);
+     xmi->addChild("time", time_, fmt);
+     xmi->addChild(*xes);
+     return xmi;
+ }
+//==================================================================================================================================
 //  Compare the current state of this object against another guest state to see if they are the same
 /*
  *    We compare the state of the solution up to a certain number of digits.
@@ -281,8 +302,7 @@ Cantera::XML_Node* getElectrodeIndentification()
 }
 
 //==================================================================================================================================
-
-Cantera::XML_Node* selectLastGlobalTimeStepIncrement(Cantera::XML_Node* xSoln, int& globalTimeStepNum)
+Cantera::XML_Node* selectLastGlobalTimeStepInterval(Cantera::XML_Node* xSoln, int& globalTimeStepNum)
 {
     /*
      *  Find the electrodeOutput XML element.
@@ -290,17 +310,22 @@ Cantera::XML_Node* selectLastGlobalTimeStepIncrement(Cantera::XML_Node* xSoln, i
      */
     XML_Node* eOutput = xSoln->findByName("electrodeOutput");
     if (!eOutput) {
-        throw CanteraError("Electrode::selectGlobalTimeStepIncrement()",
-                           "could not find a node named electrodeOutput");
+        ESModel_Warning("Electrode::selectGlobalTimeStepIncrement()",
+                        "could not find a node named electrodeOutput");
+        globalTimeStepNum = 0;
+        return eOutput;
     }
-    std::vector<XML_Node*>  xGlobalTimeSteps = eOutput->getChildren("globalTimeStep");
-
-
+    /*
+     *  Get pointers to all of the children representing global time steps.
+     */
+    std::vector<XML_Node*> xGlobalTimeSteps = eOutput->getChildren("globalTimeStep");
 
     size_t numG =  xGlobalTimeSteps.size();
     if (numG == 0) {
-	throw CanteraError("Electrode::selectGlobalTimeStepIncrement()",
-                           "could not find a node named electrodeOutput");
+        ESModel_Warning("Electrode::selectGlobalTimeStepIncrement()",
+                        "Could not find globalTimeStep children");
+        globalTimeStepNum = 0;
+        return NULL;
     }
     int maxG = 0;
     int currIndex = 0;
@@ -319,13 +344,15 @@ Cantera::XML_Node* selectLastGlobalTimeStepIncrement(Cantera::XML_Node* xSoln, i
     return xGlobalTimeSteps[jMax];
 }
 //==================================================================================================================================
-Cantera::XML_Node* locateTimeLast_GlobalTimeStepFromXML(const XML_Node& xmlGlobalTimeStep, double& timeVal, int printSteps)
+Cantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node& xmlGlobalTimeStep, double& timeVal, int printSteps)
 {
     string typeString;
     string timeValStr;
    if (xmlGlobalTimeStep.name() != "globalTimeStep") {
-        throw Electrode_Error(" EState::readGlobalTimeStepFromXML",
-                              " Name of the xml node should have been globalTimeStep. Instead it was " + xmlGlobalTimeStep.name());
+        ESModel_Warning(" EState::readGlobalTimeStepIntervalFromXML",
+                        " Name of the xml node should have been globalTimeStep. Instead it was " + xmlGlobalTimeStep.name());
+        timeVal = 0.0;
+        return NULL;
     }
     std::vector<XML_Node*>  xSteps = xmlGlobalTimeStep.getChildren("timeIncrement"); 
     XML_Node* lastTimeIncrement = xSteps.back();
@@ -349,15 +376,11 @@ Cantera::XML_Node* locateTimeLast_GlobalTimeStepFromXML(const XML_Node& xmlGloba
 
     // Read the time
    
-   
     ctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
     timeVal = fpValueCheck(timeValStr);
     XML_Node* eStateX = xTimeState->findByName("electrodeState");
 
-    // locate the electrodeState
-
     return eStateX;
-
 }
 //====================================================================================================================================
 bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, EState_ID_struct & e_id)
@@ -389,7 +412,7 @@ bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, EState_ID_struct
 	e_id.EST_Version_ = ctml::getInteger(*xID, "fileVersionNumber");
     }
     if (e_id.EST_Version_ != 1) {
-        throw CanteraError(" EState::readIdentificationFromXML()",
+        throw Electrode_Error(" EState::readIdentificationFromXML()",
                            "read the wrong EState version type - new situation");
     }
     if (xID->hasChild("electrodeCapacityType")) {
@@ -451,7 +474,7 @@ Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& 
      *   Select the last global time step increment
      */
     int globalTimeStepNum = 0;
-    Cantera::XML_Node* x = selectLastGlobalTimeStepIncrement(xEout, globalTimeStepNum);
+    Cantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
     if (!x) {
 	delete es;
 	return NULL;
@@ -460,7 +483,7 @@ Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& 
      *  Select the t_final step from the last global time step
      */
     double timeVal;
-    Cantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepFromXML(*x, timeVal, 0);
+    Cantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 0);
     if (!xSt) {
 	delete es;
 	return NULL;
@@ -475,12 +498,29 @@ Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& 
     return es;
 }
 //==================================================================================================================================
+Cantera::EState* newEStatefromXML(const Cantera::XML_Node& XeState, const Cantera::EState_ID_struct& e_id)
+{
+    /*
+     *   Malloc the appropriate type of EState object
+     */
+    EState* es = newEStateObject(e_id.EState_Type_String_);
+    if (!es) {
+	return NULL;
+    }
+    /*
+     *   Put the identification information back into the EState object
+     */
+    es->readIdentificationFromStruct(e_id);
+    /*
+     *  Read the state into the EState object
+     */
+    es->readStateFromXML(XeState);
+
+    return es;
+}
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 
 

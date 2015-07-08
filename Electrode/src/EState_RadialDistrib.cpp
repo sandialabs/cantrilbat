@@ -190,9 +190,9 @@ XML_Node*   EState_RadialDistrib::writeIdentificationToXML() const
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node* EState_RadialDistrib::writeStateToXML() const
+XML_Node* EState_RadialDistrib::write_electrodeState_ToXML() const
 {
-    XML_Node* x = EState::writeStateToXML();
+    XML_Node* x = EState::write_electrodeState_ToXML();
 
     ctml::addInteger(*x, "numRCells", numRCells_);
     ctml::addInteger(*x, "numKRSpecies", numKRSpecies_);
@@ -206,7 +206,6 @@ XML_Node* EState_RadialDistrib::writeStateToXML() const
 
     return x;
 }
-
 //======================================================================================================================
 //  Read the state from the XML_Node  given by the argument
 /*

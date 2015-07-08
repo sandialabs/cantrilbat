@@ -150,16 +150,18 @@ public:
      */
     XML_Node* writeIdentificationToXML() const;
 
-    //! Write the ElectrodeState to an XML_Node tree
+    //! Write the electrodeState contained within the EState object to a new malloced XML_Node tree
     /*!
-     *  (virtual function)
+     *  (virtual function from EState)
      *
-     *  virtual function, because the base class is called from general code, allowing
-     *      the child classes to be invoked.
+     *  This function creates/mallocs an XML_Node tree containing the contents of the electrodeState.
+     *  This is a virtual function, because the base class is called from general code, allowing
+     *  the child classes to be invoked.
      *
-     *  @return pointer to the XML_Node tree
+     *  @return       Pointer to the XML_Node tree that is malloced. The calling routine is responsible for
+     *                freeing the XML_Node tree. 
      */
-    virtual XML_Node* writeStateToXML() const;
+    virtual XML_Node* write_electrodeState_ToXML() const;
 
     //! Read the state from the XML_Node tree given by the argument
     /*!

@@ -84,7 +84,7 @@ public:
      *
      *  @return pointer to the XML_Node tree
      */
-    virtual XML_Node* writeStateToXML() const;
+    virtual XML_Node* write_electrodeState_ToXML() const;
 
     //! Read the state from the XML_Node  given by the argument
     /*!

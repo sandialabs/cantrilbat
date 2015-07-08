@@ -3508,7 +3508,7 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 	if (eState_final_) {
 	    if (!xmlStateData_final_) {
 		eState_final_->copyElectrode_intoState(this);
-		xmlStateData_final_ = eState_final_->writeStateToXML();
+		xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
 	    }
 	    delete xmlStateData_init_init_;
 	    xmlStateData_init_init_ =   xmlStateData_final_;

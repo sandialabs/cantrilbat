@@ -865,7 +865,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     if (eState_final_) {
         eState_final_->copyElectrode_intoState(this);
         SAFE_DELETE(xmlStateData_init_);
-        xmlStateData_init_ = eState_final_->writeStateToXML();
+        xmlStateData_init_ = eState_final_->write_electrodeState_ToXML();
         startXML_TI_final();
     }
     //
@@ -1484,7 +1484,7 @@ topConvergence:
         if (eState_final_) {
             eState_final_->copyElectrode_intoState(this);
             SAFE_DELETE(xmlStateData_final_);
-            xmlStateData_final_ = eState_final_->writeStateToXML();
+            xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
             makeXML_TI_intermediate();
             addtoXML_TI_final(notDone);
         }
