@@ -125,9 +125,15 @@ public:
     void set_TimesRequiredType(int timesRequiredType);
 
     //! return the number of times processed int
+    /*!
+     *    @return     Returns the number of times this card has been processed in the input deck as an int.
+     */
     int get_NumTimesProcessed() const;
 
     //! return the name of the object
+    /*!
+     *    @return       Returns the name of the object as a string. This is defined as the keyname of the object.
+     */
     std::string keyname() const;
 
     //! Declare a dependency for this entry on another entry.
@@ -154,6 +160,9 @@ public:
     void declareSimpleOrderDependency(BaseEntry* be_req);
 
     //! Return the multiContribIndex value
+    /*!
+     *   @return        Returns the storred value of m_multiContribIndex.
+     */
     int multiContribIndex() const;
 
     //! Set the value of the multiContribIndex variable
@@ -184,6 +193,8 @@ public:
      *  been called at all. If it has not been called, it will return false.
      *  If the entry is required, it will return true if the number
      *  of calls equals or exceeds the required number of calls.
+     *
+     *    @return          Returns whether the dependency check is satisfied or not.
      */
     bool ansDepCheck() const;
 
@@ -202,28 +213,42 @@ public:
     //! Return an address from which an application can read the
     //! data, if it knows how to convert the memory address.
     /*!
+     *   (virtual function from BaseEntry)
      * This address is a const void * since we don't know what
      * the form of the data is.
      * For the base case, we return the NULL pointer.
      *
      * @note Can not make this pure virtual yet, because
      *       this functions hasn't been implemented in all objects yet.
+     *
+     *  @return        Returns a pointer to void containing the information storred in the object.
+     *                 The calling object must know how to reinterpret the information.
      */
     virtual const void* currentValueAsVoidP() const;
 
-    //! get the Boolean indicating whether a line should be echoed to output
+    //! Get the Boolean indicating whether a line should be echoed to output
     //! if it is found and processed
+    /*!
+     *  @return       Returns an int on whether line echoing should be done. 1  indicates yes, 0 indicates no.
+     */
     static bool get_printProcessedLine();
 
     //! Set the Boolean indicating whether a line should be echoed to output
     //! if it is found and processed
     /*!
-     * @param bv value to be set
+     * @param       bv     value to be set
      */
     static void set_printProcessedLine(bool bv);
 
     //!  Get the int indicating  whether an error is thrown if an unknown
     //!  block or line entry is encountered in the input.
+    /*!
+     *     @return   Returns an int indicating the behavior when encountering an unknown BlockEntry or LineEntry
+     *               0 = throw an error if unknown entries are encountered, always
+     *               1 = throw an error if unknown entries are encountered unless a block is declared as lenient
+     *               2 = Continue, but print a warning statement.
+     *               3 = Continue and don't print anything.
+     */
     static int get_SkipUnknownEntries();
 
     //! Set the int  indicating  whether an error is thrown if an unknown
