@@ -558,10 +558,10 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 {
     bool btotal = true;
     bool boolR = true;
-    double currentTimeFinal = eRef_->tfinal_;
-
+ 
     if (printLvl > 0) {
-	printf("EState::compareOtherState at time %g: \n",  currentTimeFinal);
+	printf("EState::compareOtherState start comparison of types %s vs. %s\n\n",electrodeTypeString_.c_str(), 
+	       ESguest->electrodeTypeString_.c_str());
     }
 
     // electrodeTypeString_
@@ -763,14 +763,12 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 	btotal = boolR && btotal;
     }
 
-  
     if (!btotal) {
 	if (printLvl == 1) {
-	    printf("EState:: States at time %g are not compatible\n", currentTimeFinal);
+	    printf("EState:: States are not compatible\n");
 	}
     }
-
-    return false;
+    return btotal;
 }
 //==================================================================================================================================
 } // End of namespace Cantera

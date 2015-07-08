@@ -417,38 +417,62 @@ Cantera::EState* newEStateObject(std::string model, EState_Factory* f)
 }
 //==================================================================================================================================
 /*
- *
+ *  Read the last time step from an EState XML file and return the EState object
  */
-Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName)
+Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& timeRead)
 {
+    timeRead = 0.0;
+    /*
+     *   Read the XML file name getting the first ElectrodeOutput XML tree.
+     *    -> that's what the 1 argument is. May do more with this in the future.
+     */
+    Cantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, 1);
+    if (!xEout) {
+	ESModel_Warning("getElectrodeOutputFile", "Error");
+	return NULL;
+    }
+    /*
+     *   Read the identification structure, putting that into e_id struct
+     */
+    EState_ID_struct e_id;
+    get_Estate_Indentification(*xEout , e_id);
+    /*
+     *   Malloc the appropriate type of EState object
+     */
+    EState* es = newEStateObject(e_id.EState_Type_String_);
+    if (!es) {
+	return NULL;
+    }
+    /*
+     *   Put the identification information back into the EState object
+     */
+    es->readIdentificationFromXML(*xEout); 
+    /*
+     *   Select the last global time step increment
+     */
+    int globalTimeStepNum = 0;
+    Cantera::XML_Node* x = selectLastGlobalTimeStepIncrement(xEout, globalTimeStepNum);
+    if (!x) {
+	delete es;
+	return NULL;
+    }
+    /*
+     *  Select the t_final step from the last global time step
+     */
+    double timeVal;
+    Cantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepFromXML(*x, timeVal, 0);
+    if (!xSt) {
+	delete es;
+	return NULL;
+    }
+    /*
+     *  Read the t_final state into es and also return the time
+     */
+    timeRead = timeVal;
+    es->readStateFromXML(*xSt);
+    // printf("Read global time step num %d representing solution at time %g\n", globalTimeStepNum, timeVal);
 
-  Cantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, 1);
-  if (!xEout) {
-      ESModel_Warning("getElectrodeOutputFile", "Error");
-      return NULL;
-  }
-  
-  EState_ID_struct e_id;
-  get_Estate_Indentification(*xEout , e_id);
-
-  EState* es = newEStateObject(e_id.EState_Type_String_);
-  if (!es) {
-      return NULL;
-  }
-
-  es->readIdentificationFromXML(*xEout); 
-
-  int globalTimeStepNum = 0;
-  Cantera::XML_Node* x = selectLastGlobalTimeStepIncrement(xEout, globalTimeStepNum);
-
-  double timeVal;
-  Cantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepFromXML(*x, timeVal, 1);
-  es->readStateFromXML(*xSt);
- 
-
-  printf("Read global time step num %d representing solution at time %g\n", globalTimeStepNum, timeVal);
-
-  return es;
+    return es;
 }
 //==================================================================================================================================
 }

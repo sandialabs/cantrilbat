@@ -216,8 +216,16 @@ Cantera::XML_Node* locateTimeLast_GlobalTimeStepFromXML(const Cantera::XML_Node&
 
 bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, Cantera::EState_ID_struct & e_id);
 
-
-Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName);
+//!   Read an EState XMLfile returning the last time step and its corresponding time
+/*!
+ *    @param[in]    XMLfileName     File name of the XML electrode solution object
+ * 
+ *    @param[out]   timeRead        corresponding time of the solution, read from the file
+ *
+ *    @return                       Return a malloced EState object of the appropriate form
+ *                                  with the state of the elctrode at t_final in that Estate object.
+ */
+Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& timeRead);
 
 }
 //----------------------------------------------------------------------------------------------------------------------------------
