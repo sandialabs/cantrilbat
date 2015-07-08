@@ -122,6 +122,62 @@ private:
     static boost::mutex state_mutex;
 #endif
 };
+
+class ETimeState {
+
+public:
+
+    ETimeState();
+
+    ETimeState(const ETimeState& r);
+
+    //! Destructor
+    ~ETimeState();
+
+    ETimeState& operator=(const ETimeState& r);
+
+    //!  Compare the current state of this object against another guest state to see if they are the same
+    /*!
+     *    We compare the state of the solution up to a certain number of digits.
+     *
+     *     @param[in]       ESguest          Guest state object to be compared against
+     *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+     *                                       Note from this value, we can get all other absolute tolerance inputs.
+     *     @param[in]       nDigits          Number of digits to compare against
+     *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
+     *     @param[in]       printLvl         print level of the routine
+     *
+     *     @return                           Returns true
+     */
+    bool compareOtherTimeState(const ETimeState* const ETSguest, double molarAtol, int nDigits,
+			       bool includeHist = false, int printLvl = 0) const;
+
+
+    // Cell number of the electrode object
+    int cellNumber_;
+
+    //! domain number of the electrode object
+    int domainNumber_;
+
+    Cantera::EState* es_;
+
+    std::string stateType_;
+
+    //! type of the time increment
+    /*!
+     *  Two possible values: "global" or "local"
+     */
+    std::string timeIncrType_;
+
+    //! Time within the simulation corresponding to the state
+    double time_;
+    
+    //! whether I own the EState object
+    bool iOwnES_;
+    
+};
+
+
 //==================================================================================================================================
 //!  Create a new EState Object
 /*!
@@ -134,8 +190,15 @@ private:
 Cantera::EState* newEStateObject(std::string model, EState_Factory* f = 0);
 
 //====================================================================================================================================
-
-
+//!  Read an XML Electrode output file and create an XML tree structure
+/*!
+ *
+ *    @param[in]         fileName            File name of 
+ *
+ *
+ *    @return          Returns the pointer to the XML tree. If the file can't be found or is the wrong type, a NULL pointer is
+ *                     returned.
+ */
 Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index);
 
 
@@ -152,6 +215,9 @@ Cantera::XML_Node* locateTimeLast_GlobalTimeStepFromXML(const Cantera::XML_Node&
 							int printSteps = 0);
 
 bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, Cantera::EState_ID_struct & e_id);
+
+
+Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName);
 
 }
 //----------------------------------------------------------------------------------------------------------------------------------

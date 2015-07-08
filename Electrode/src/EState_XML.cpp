@@ -51,10 +51,13 @@ static void create_string_maps()
 //======================================================================================================================
 Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index)
 {
+    /*
+     * Call the basic Cantera routine that reads the XML file. If the file isn't found a NULL is returned 
+     * causing this program to also return NULL
+     */
     Cantera::XML_Node* xSavedSoln = get_XML_File(fileName);
     if (!xSavedSoln) {
-	throw Electrode_Error(" getElectrodeOutputFile()",
-			      " Could not open file, " + fileName);
+        return xSavedSoln;
     }
     /*
      *  Find the electrodeOutput XML element.
@@ -62,8 +65,9 @@ Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index
      */
     XML_Node* eOutput = xSavedSoln->findByName("electrodeOutput");
     if (!eOutput) {
-        throw Electrode_Error("esmodel::getElectrodeOutputFile()",
-			      "could not find a node named electrodeOutput");
+        ESModel_Warning("esmodel::getElectrodeOutputFile()",
+			"Could not find a node named electrodeOutput");
+        return NULL;
     }
 
     XML_Node* eRecord = eOutput->findNameIDIndex("electrodeOutput", "", index);
@@ -144,6 +148,93 @@ void  EState_Factory::deleteFactory()
     if (s_factory) {
         delete s_factory;
         s_factory = 0;
+    }
+}
+//==================================================================================================================================
+ETimeState::ETimeState() :
+    cellNumber_(0),
+    domainNumber_(0),
+    es_(0),
+    stateType_("t_final"),
+    timeIncrType_("global"),
+    time_(0.0),
+    iOwnES_(true)
+{
+}
+
+//==================================================================================================================================
+ETimeState::ETimeState(const ETimeState& r) :
+    cellNumber_(r.cellNumber_),
+    domainNumber_(r.domainNumber_),
+    es_(0),
+    stateType_(r.stateType_),
+    timeIncrType_(r.timeIncrType_),
+    time_(r.time_),
+    iOwnES_(r.iOwnES_)
+{
+    if (iOwnES_) {
+	es_ = (r.es_)->duplMyselfAsEState();
+    } else {
+	es_ = (r.es_)->duplMyselfAsEState();
+	iOwnES_ = true;
+    }
+}
+//==================================================================================================================================
+ETimeState& ETimeState::operator=(const ETimeState& r)
+{
+    if (this == &r) return *this;
+    if (iOwnES_) {
+	if (es_) {
+	    delete es_;
+	}
+    }
+    cellNumber_ = r.cellNumber_;
+    domainNumber_ = r.domainNumber_;
+    stateType_ = r.stateType_;
+    timeIncrType_ = r.timeIncrType_;
+    time_ = r.time_;
+    iOwnES_ = r.iOwnES_;
+    if (iOwnES_) {
+	es_ = (r.es_)->duplMyselfAsEState();
+    } else {
+	es_ = r.es_;
+    }
+    return *this;
+}
+//==================================================================================================================================
+//  Compare the current state of this object against another guest state to see if they are the same
+/*
+ *    We compare the state of the solution up to a certain number of digits.
+ *
+ *     @param[in]       ESguest          Guest state object to be compared against
+ *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+ *                                       Note from this value, we can get all other absolute tolerance inputs.
+ *     @param[in]       nDigits          Number of digits to compare against
+ *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
+ *     @param[in]       printLvl         print level of the routine
+ *
+ *     @return                           Returns true
+ */
+bool ETimeState::compareOtherTimeState(const ETimeState* const ETSguest, double molarAtol, int nDigits,
+				       bool includeHist, int printLvl) const
+{
+    EState* esGuest_ =  ETSguest->es_;
+    
+    if (printLvl > 1) {
+	printf("   CompareotherTimeState:        state1            state2\n");
+	printf("               Time:             %11.5E         %11.5E\n", time_, ETSguest->time_);
+	printf("               type:             %15s               %15s \n",  stateType_.c_str(), ETSguest->stateType_.c_str());
+	printf("               Cell#:            %3d                  %3d\n", cellNumber_, ETSguest->cellNumber_);
+    }
+
+    bool ok =  es_->compareOtherState(esGuest_, molarAtol, nDigits, includeHist, printLvl);
+    return ok;
+}
+//==================================================================================================================================
+ETimeState::~ETimeState()
+{
+    if (iOwnES_) {
+	delete es_;
     }
 }
 //==================================================================================================================================
@@ -325,7 +416,41 @@ Cantera::EState* newEStateObject(std::string model, EState_Factory* f)
 
 }
 //==================================================================================================================================
+/*
+ *
+ */
+Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName)
+{
 
+  Cantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, 1);
+  if (!xEout) {
+      ESModel_Warning("getElectrodeOutputFile", "Error");
+      return NULL;
+  }
+  
+  EState_ID_struct e_id;
+  get_Estate_Indentification(*xEout , e_id);
+
+  EState* es = newEStateObject(e_id.EState_Type_String_);
+  if (!es) {
+      return NULL;
+  }
+
+  es->readIdentificationFromXML(*xEout); 
+
+  int globalTimeStepNum = 0;
+  Cantera::XML_Node* x = selectLastGlobalTimeStepIncrement(xEout, globalTimeStepNum);
+
+  double timeVal;
+  Cantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepFromXML(*x, timeVal, 1);
+  es->readStateFromXML(*xSt);
+ 
+
+  printf("Read global time step num %d representing solution at time %g\n", globalTimeStepNum, timeVal);
+
+  return es;
+}
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 
