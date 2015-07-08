@@ -447,51 +447,68 @@ public:
      */
     virtual bool checkRequirements(bool throwSpecificError);
 
-
-    //!  This does a recursive search for a Line Entry on the current block
-    //! and all subblocks of the current block
+    //!  This does a recursive search for a Line Entry on the current block and all subblocks of the current block
     /*!
-     * It uses a character string as the input.
+     *           It uses a character string as the input.
      *
-     * @param lineName character string as input
+     * @param[in] lineName          Character string as input
+     *
+     *   @return                    Returns a pointer to the LineEntry found. If no line entry is found, the null pointer is
+     *                              returned. The first matching LineEntry is returned.
      */
     LineEntry* searchLineEntry(const char* const lineName) const;
 
-    //!  This does a recursive search for a Line Entry on the current block
-    //! and all subblocks of the current block
+    //!  This does a recursive search for a Line Entry on the current block and all subblocks of the current block
     /*!
-     * It uses a TOKEN ptr as the search input
+     *       It uses a TOKEN ptr as the search input
      *
-     * @param nameLE character string as input
+     *   @param[in] nameLE   Name to be searched for, as a TOKEN object.
+     *
+     *   @return                    Returns a pointer to the LineEntry found. If no line entry is found, the null pointer is
+     *                              returned. The first matching LineEntry is returned.
      */
     LineEntry* searchLineEntry(const TK_TOKEN* const nameLE) const;
 
-    //! This does a recursive search for a Block Entry name under the current block and under all subblocks of the current block.
+    //! This does a recursive search for a BlockEntry name under the current block and under all subblocks of the current block.
     /*!
-     * The routine uses a character string as the input.
+     *        The routine uses a character string as the input.
      *
-     * @param bName           block name
-     * @param includedMatch   Bookean If true than the TOKEN must only be included in the
-     *                        Block name. If false, then an exact match is required
-     * @param contribIndex    Index of the item to find, if there are multiple blocks of the same name, they will be
-     *                        sequentially itemized. The default is to match against the last in the list.
-     * @param blockArgName    Name of the Argment to be matched. The default is to not match against the argument.
+     * @param[in] bName             block name to be searched for. It transforms into a TOKEN ptr and then does a search.
+     *
+     * @param[in] includedMatch     Boolean. If true than the TOKEN must only be included in the
+     *                              Block name. If false, then an exact match is required. The default is false.
+     *
+     * @param[in] contribIndex      Index of the item to find, if there are multiple blocks of the same name, they will be
+     *                              sequentially itemized. The default is to match against the last in the list, i.e.,
+     *                              the one with the largest value of multiContribIndex. However,
+     *                              this option can be used to search for a particular index, starting with 0.
+     *
+     * @param[in] blockArgName      Name of the argment to be matched. The default is to not match against the argument.
+     *
+     *  @return                     Returns a pointer to the matched entry. Note, this returns one entry even if there are 
+     *                              multiple matches. If there are no matches, the NULL pointer is returned.
      */
     BlockEntry* searchBlockEntry(const char* const bName, bool includedMatch = false,
                                  int contribIndex = BE_ANY_INDEX, const TK_TOKEN* const blockArgName = 0) const;
 
-    //! This does a recursive search for a Block Entry
-    //! name under the current block
-    //! and under all subblocks of the current block.
+    //! This does a recursive search for a Block Entry name under the current block and under all subblocks of the current block.
     /*!
-     * It uses a TOKEN ptr as the search input
+     *        It uses a TOKEN ptr as the search input.
      *
-     * @param nameBN            block name
-     * @param includedMatch     Bookean If true than the TOKEN must only be included in the
-     *                          Block name. If false, then an exact match is required. The default is false.
-     * @param contribIndex      Index of the item to find, if there are multiple blocks of the same name, they will be
-     *                          sequentially itemized. The default is to match against the last in the list.
-     * @param blockArgName      Name of the Argment to be matched. The default is to not match against the argument.
+     * @param[in] nameBN            block name to be searched for
+     *
+     * @param[in] includedMatch     Boolean. If true than the TOKEN must only be included in the
+     *                              Block name. If false, then an exact match is required. The default is false.
+     *
+     * @param[in] contribIndex      Index of the item to find, if there are multiple blocks of the same name, they will be
+     *                              sequentially itemized. The default is to match against the last in the list, i.e.,
+     *                              the one with the largest value of multiContribIndex. However,
+     *                              this option can be used to search for a particular index, starting with 0.
+     *
+     * @param[in] blockArgName      Name of the argment to be matched. The default is to not match against the argument.
+     *
+     *  @return                     Returns a pointer to the matched entry. Note, this returns one entry even if there are 
+     *                              multiple matches. If there are no matches, the NULL pointer is returned.
      */
     BlockEntry* searchBlockEntry(const TK_TOKEN* const nameBN, bool includedMatch = false,
                                  int contribIndex = BE_ANY_INDEX, const TK_TOKEN* const blockArgName = 0) const;
@@ -514,19 +531,19 @@ public:
      */
     static void print_indent(int ilvl);
 
-
-    //! This does a recursive search for a Block Entry
-    //! name under the current block
-    //! and under all subblocks of the current block.
+    //! This does a recursive search for a Block Entry name under the current block and under all subblocks of the current block.
     /*!
-     * It uses a TOKEN ptr as the search input
+     *     It uses a TOKEN ptr as the search input
      *
-     * @param nameBN         block name
-     * @param includedMatch  Bookean If true then the TOKEN must only be included in the
-     *                       Block name. If false, then an exact match is required.
-     * @param contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
-     *                       required. if contribIndex is < 0, then any index is allowed to be matched.
-     * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
+     * @param[in] nameBN         block name
+     * @param[in] includedMatch  Boolean If true then the TOKEN must only be included in the
+     *                           Block name. If false, then an exact match is required.
+     * @param[in] contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
+     *                           required. if contribIndex is < 0, then any index is allowed to be matched.
+     * @param[in] blockArgName   If this is nonNull then the block argument name is needed to be matched.
+     *
+     *   @return                 Returns a set of pointers to const BlockEntry objects representing matches to the Block name 
+     *                           objects. If no matches are found, it returns an empty set object.
      */
     std::set<const BlockEntry*> collectBlockEntries(const TK_TOKEN* const nameBN, bool includedMatch = false,
                                                     int contribIndex = -1, const TK_TOKEN* const blockArgName = 0) const;
@@ -534,15 +551,19 @@ public:
     //! This does a recursive search for a Block Entry name under the current block
     //! and under all subblocks of the current block.
     /*!
-     *      It uses a TOKEN ptr as the search input
+     *      It uses a character string as the search input. The character string is broken up into tokens and then searched
+     *      as normal.
      *
-     * @param nameBN         Block name
-     * @param includedMatch  Bookean If true then the TOKEN must only be included in the
-     *                       Block name. If false, then an exact match is required. The default is false.
-     * @param contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
-     *                       required. if contribIndex is < 0, then any index is allowed to be matched. the default is < 0.
-     * @param blockArgName   If this is nonNull then the block argument name is needed to be matched.
-     *                       The default is not to check.
+     * @param[in] nameBN         Block name to be matched against
+     * @param[in] includedMatch  Boolean. If true then the TOKEN must only be included in the
+     *                           Block name. If false, then an exact match is required. The default is false.
+     * @param[in] contribIndex   If the contribIndex is 0 or pos, an exact match with the multiContribIndex() value is
+     *                           required. if contribIndex is < 0, then any index is allowed to be matched. the default is < 0.
+     * @param[in] blockArgName   If this is nonNull then the block argument name is needed to be matched.
+     *                           The default is not to check.
+     *
+     *   @return                 Returns a set of pointers to const BlockEntry objects representing matches to the Block name 
+     *                           objects. If no matches are found, it returns an empty set object.
      */
     std::set<const BlockEntry*> collectBlockEntries(const char* nameBN, bool includedMatch = false,
                                                     int contribIndex = -1, const TK_TOKEN* const blockArgName = 0) const;

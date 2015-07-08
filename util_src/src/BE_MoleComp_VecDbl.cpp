@@ -2,7 +2,7 @@
  * @file BE_MoleComp_VecDbl.cpp
  *  Definitions for the BlockEntry of a set of doubles that fills up a vector
  *   of mole fractions
- *  (see \ref blockentryModule and class 
+ *  (see \ref blockentryModule and class
  *  \link BEInput::BE_MoleComp_VecDbl BE_MoleComp_VecDbl\endlink).
  */
 /*
@@ -21,109 +21,112 @@
 
 
 using namespace BEInput;
-namespace BEInput {
-  /*
-   * BE_MoleComp_VecDbl Constructor:
-   *
-   *   This sets up the line entry special case.
-   *   We make sure to call the base class constructor here to do
-   *   much of the initialization. 
-   */
-  BE_MoleComp_VecDbl::BE_MoleComp_VecDbl(const char *blockName,
-                           std::vector<double> * ptrVecDbl,
-			   int numTimesRequired,
-			   char **charList, int listLength, 
-			   int constructLE,
-			   const char *varName,
-			   BlockEntry *parentBlock_input) :
+namespace BEInput
+{
+/*
+ * BE_MoleComp_VecDbl Constructor:
+ *
+ *   This sets up the line entry special case.
+ *   We make sure to call the base class constructor here to do
+ *   much of the initialization.
+ */
+BE_MoleComp_VecDbl::BE_MoleComp_VecDbl(const char* blockName,
+                                       std::vector<double>* ptrVecDbl,
+                                       int numTimesRequired,
+                                       char** charList, int listLength,
+                                       int constructLE,
+                                       const char* varName,
+                                       BlockEntry* parentBlock_input) :
     BE_StrVecDbl(blockName, ptrVecDbl, numTimesRequired, 0,
-	      charList,listLength, constructLE,
-	      varName, parentBlock_input)
-  {
+                 charList,listLength, constructLE,
+                 varName, parentBlock_input)
+{
     /*
-     * We set the default to 0. This means that the mole fraction 
-     * vector is zeroed just before being filled. 
+     * We set the default to 0. This means that the mole fraction
+     * vector is zeroed just before being filled.
      */
     set_default(0.0);
     set_limits(1.0, 0.0);
-  }
+}
 
-  /*
-   * BE_MoleComp_VecDbl(const BE_MoleComp_VecDbl&)
-   *
-   * Copy constructor
-   */
-  BE_MoleComp_VecDbl::BE_MoleComp_VecDbl(const BE_MoleComp_VecDbl& b) :
+/*
+ * BE_MoleComp_VecDbl(const BE_MoleComp_VecDbl&)
+ *
+ * Copy constructor
+ */
+BE_MoleComp_VecDbl::BE_MoleComp_VecDbl(const BE_MoleComp_VecDbl& b) :
     BE_StrVecDbl(b)
-  {
-  }
+{
+}
 
-  /*
-   *  BE_MoleComp_VecDbl& operator=(const BE_MoleComp_VecDbl&);
-   *
-   *  Assignment operator
-   */
-  BE_MoleComp_VecDbl& BE_MoleComp_VecDbl::operator=(const BE_MoleComp_VecDbl& b) {
+/*
+ *  BE_MoleComp_VecDbl& operator=(const BE_MoleComp_VecDbl&);
+ *
+ *  Assignment operator
+ */
+BE_MoleComp_VecDbl& BE_MoleComp_VecDbl::operator=(const BE_MoleComp_VecDbl& b)
+{
     if (&b != this) {
-      BE_StrVecDbl::operator=(b);
+        BE_StrVecDbl::operator=(b);
     }
     return *this;
-  }
+}
 
-  /*
-   * BlockEntry* duplMyselfAsBlockEntry();  
-   *
-   *  Duplicate myself in a list of base class objects
-   */
-  BlockEntry* BE_MoleComp_VecDbl::duplMyselfAsBlockEntry() const {
-    BE_MoleComp_VecDbl *newBE = new BE_MoleComp_VecDbl(*this);
-    return (BlockEntry *) newBE;
-  }
+/*
+ * BlockEntry* duplMyselfAsBlockEntry();
+ *
+ *  Duplicate myself in a list of base class objects
+ */
+BlockEntry* BE_MoleComp_VecDbl::duplMyselfAsBlockEntry() const
+{
+    BE_MoleComp_VecDbl* newBE = new BE_MoleComp_VecDbl(*this);
+    return (BlockEntry*) newBE;
+}
 
-  /*
-   * BE_MoleComp destructor: (virtual function)
-   *
-   * We malloced memory here, so we must explicitly call free.
-   */
-  BE_MoleComp_VecDbl::~BE_MoleComp_VecDbl()
-  {
+/*
+ * BE_MoleComp destructor: (virtual function)
+ *
+ * We malloced memory here, so we must explicitly call free.
+ */
+BE_MoleComp_VecDbl::~BE_MoleComp_VecDbl()
+{
 #ifdef DEBUG_DESTRUCTOR
     printf("~BE_MoleComp_VecDbl called for %s\n", BlockName.orig_str);
-#endif  
-  }
+#endif
+}
 
-  /*
-   *  Wrapup() (virtual function)
-   *
-   *  This function is called when the end block line for the
-   *  current block is read. Cleanup is done, and debugging printouts
-   *  as well.
-   *  We require the mole fractions to sum to almost 1.0. Small errors
-   *  are gotten rid of by normalization. Large errors produce
-   *  errors.
-   */
-  void BE_MoleComp_VecDbl::Wrapup(FILE *ifp_input, const TK_TOKEN *blockArgTok)
-  {
+/*
+ *  Wrapup() (virtual function)
+ *
+ *  This function is called when the end block line for the
+ *  current block is read. Cleanup is done, and debugging printouts
+ *  as well.
+ *  We require the mole fractions to sum to almost 1.0. Small errors
+ *  are gotten rid of by normalization. Large errors produce
+ *  errors.
+ */
+void BE_MoleComp_VecDbl::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
+{
     /*
      * Normalize
      */
     double sum = 0.0;
-    double *AddrVal = &(*HndlVecDbl_)[0]; 
+    double* AddrVal = &(*HndlVecDbl_)[0];
     for (int i = 0; i < ListLength; i++) {
-      sum += AddrVal[i];
+        sum += AddrVal[i];
     }
     if (sum <= 0.98 || sum >= 1.02) {
-      char st[20];
-      sprintf(st, "%g", sum);
-      std::string err = "Incorrect total sum of input mole fractions: sum = " ;
-      err += st;
-      throw BI_InputError("BE_MoleComp_VecDbl::Wrapup", err);
+        char st[20];
+        sprintf(st, "%g", sum);
+        std::string err = "Incorrect total sum of input mole fractions: sum = " ;
+        err += st;
+        throw BI_InputError("BE_MoleComp_VecDbl::Wrapup", err);
     } else {
-      for (int i = 0; i < ListLength; i++) {
-	AddrVal[i] /= sum;
-      }
-    }  
+        for (int i = 0; i < ListLength; i++) {
+            AddrVal[i] /= sum;
+        }
+    }
 
     BE_StrVecDbl::Wrapup(ifp_input, blockArgTok);
-  }
+}
 }
