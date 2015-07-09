@@ -48,6 +48,9 @@ public:
     BE_UnitConversionEnergy& operator=(const BE_UnitConversionEnergy& right);
 
     //! Duplicator
+    /*!
+     *   @return               Returns a pointer to the duplicate of the current object
+     */
     virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
     //! Destructor

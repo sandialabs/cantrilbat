@@ -18,14 +18,12 @@
 
 namespace TKInput
 {
-static char DEFAULT_STR[8] = "default";
-static char DELIMITERS[8] = " \t\n\f\r\v"; /* Defn of white space in isspace() - Used in tokenizing lines */
-static char COM_CHAR = '!';   /* This is used as a comment character */
-static char COM_CHAR2 = '#';  /* This is used as a 2nd comment character */
-static char KEY_CHAR = '=';   /* This is used to separate the key_string
-				   from the rest of the line */
-static int PrintInputFile = 1;     /* Used to turn on and off the
-					printing of the input file */
+static char DEFAULT_STR[8] = "default";    //!<  C string indicating the default value
+static char DELIMITERS[8] = " \t\n\f\r\v"; //!<  Defn of white space in isspace() - Used in tokenizing lines 
+static char COM_CHAR = '!';                //!<  This is used as a comment character 
+static char COM_CHAR2 = '#';               //!<  This is used as a 2nd comment character 
+static char KEY_CHAR = '=';                //!<  This is used to separate the key_string from the rest of the line 
+static int PrintInputFile = 1;             //!<  Used to turn on and off the printing of the input file 
 
 #ifndef SAFE_FREE
 #define SAFE_FREE(a)         if ((a)) { free (a); a = 0; }
@@ -1746,7 +1744,7 @@ void copyTokStruct(TOKEN* keyptr1, const TOKEN* keyptr2)
 int in_char_list(const char* const str1, const char** const list, int numList)
 {
     for (int i = 0; i < numList; ++i) {
-	if (strstrmatch(str1, list[i])) {
+        if (strstrmatch(str1, list[i])) {
             return i;
         }
     }

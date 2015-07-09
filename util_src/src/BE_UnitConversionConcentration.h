@@ -49,7 +49,10 @@ public:
      */
     BE_UnitConversionConcentration& operator=(const BE_UnitConversionConcentration& right);
 
-    //! duplicator
+    //! Duplicator
+    /*!
+     *   @return                      Returns a pointer to the duplicate of the current object
+     */
     virtual BE_UnitConversion* duplMyselfAsUnitConversion() const;
 
     //! Destructor
