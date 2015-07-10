@@ -1,10 +1,7 @@
 /**
  * @file tok_input_util.h
- *
- * $Author: hkmoffa $
- * $Revision: 508 $
- * $Date: 2013-01-07 15:54:04 -0700 (Mon, 07 Jan 2013) $
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -31,6 +28,12 @@
 #include <vector>
 #include <cstdio>
 //----------------------------------------------------------------------------------------------------------------------------------
+//!  Namespace for the manipulation of TOKEN structures and for the reading and writing of ascii input files based on 
+//!  reading each line and tokenizing their input.
+/*!
+ *  This is largely a C routine based namespace. It is efficient and fast.  It relies on the C standard library routines
+ *  stokenize() to manipulate and break up character strings.
+ */
 namespace TKInput
 {
 //==================================================================================================================================
@@ -243,11 +246,21 @@ extern BOOLEAN strstrmatch(const char*, const char*);
 extern BOOLEAN strtokmatch(const TOKEN*, const char*);
 extern BOOLEAN toktokmatch(const TOKEN*, const TOKEN*);
 extern BOOLEAN toktokincluded(const TOKEN* tok1, const TOKEN* tok2);
-extern void fillTokStruct(TOKEN*, const char*);
 
+//! Fill in a %TOKEN structure with a string. Use the definition of white space
+//! at the start of the file to tokenize the string, storring it in the TOKEN structure.
+/*!
+ *   @param[in]       s2          Null terminated C string that will be copied into the %TOKEN structure
+ *   @param[out]      keyptr1     Pointer to the TOKEN structure that will be filled by the character string.
+ */
+void fillTokStruct(TOKEN* keyptr1, const char* s2);
 
-
-extern void copyTokStruct(TOKEN*, const TOKEN*);
+//!  Copies the information stored in TOKEN keyptr2 into TOKEN keyptr1
+/*!
+ *    @param[in]     keyptr2         Pointer to the TOKEN object to be copied
+ *    @param[out]    keyptr1         Pointer to the TOKEN object to be copied into.
+ */
+void copyTokStruct(TOKEN* keyptr1, const TOKEN* keyptr2);
 
 //!   Finds a match of one string against a list of strings.
 /*!

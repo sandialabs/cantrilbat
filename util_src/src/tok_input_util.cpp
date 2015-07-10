@@ -96,7 +96,7 @@ TOKEN::TOKEN(void) :
     tok_str  =  copy_string("");
     tok_ptrV.push_back(orig_str);
 }
-//====================================================================================================================
+//==================================================================================================================================
 TOKEN::TOKEN(const char* str, const char* nstd_delims) :
     orig_str(0),
     tok_str(0),
@@ -121,7 +121,7 @@ TOKEN::TOKEN(const char* str, const char* nstd_delims) :
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 TOKEN::TOKEN(const TOKEN& b) :
     orig_str(0),
     tok_str(0),
@@ -144,7 +144,7 @@ TOKEN::TOKEN(const TOKEN& b) :
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 TOKEN& TOKEN::operator=(const TOKEN& b)
 {
     if (&b != this) {
@@ -170,24 +170,19 @@ TOKEN& TOKEN::operator=(const TOKEN& b)
     }
     return *this;
 }
-//==================================================================================================
+//==================================================================================================================================
 TOKEN::~TOKEN()
 {
     SAFE_FREE(orig_str);
     SAFE_FREE(tok_str);
     SAFE_FREE(nstd_delims_);
 }
-/**************************************************************************
- *
- * set_tok_input_print_flag() :
- *
- */
+//==================================================================================================================================
 void set_tok_input_print_flag(int print_flag)
 {
     PrintInputFile = print_flag;
 }
-/**************************************************************************/
-
+//==================================================================================================================================
 BOOLEAN get_next_keyLine(FILE* ifp, TOKEN* keyLineTok, TOKEN* keyArgTok)
 /*
  *   This routine reads the input file to obtain the next line of
@@ -322,12 +317,8 @@ do_it_again:
     fillTokStruct(keyArgTok,  token_start);
     return (TRUE);
 }
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-
-int tok_to_int(const TOKEN* tokPtr, const int maxVal, const int minVal,
-               const int defaultVal, BOOLEAN* error)
+//==================================================================================================================================
+int tok_to_int(const TOKEN* tokPtr, const int maxVal, const int minVal, const int defaultVal, BOOLEAN* error)
 /*
  *      Interprets the first string of a TOKEN structure as an int.
  *      Returns the interpreted value as the return value.
@@ -1668,7 +1659,7 @@ BOOLEAN toktokincluded(const TOKEN* keyptr1, const TOKEN* keyptr2)
     }
     return FALSE;
 }
-/**************************************************************************/
+//==================================================================================================================================
 /*
  * fillTokStruct()
  *
@@ -1697,8 +1688,7 @@ void fillTokStruct(TOKEN* keyptr1, const char* s2)
     }
     keyptr1->orig_str = copy_string(s2);
     keyptr1->tok_str  = copy_string(s2);
-    keyptr1->ntokes = stokenizeV(keyptr1->tok_str, DELIMITERS, keyptr1->tok_ptrV,
-                                 MAXTOKENS);
+    keyptr1->ntokes = stokenizeV(keyptr1->tok_str, DELIMITERS, keyptr1->tok_ptrV, MAXTOKENS);
 }
 //==================================================================================================================================
 /*

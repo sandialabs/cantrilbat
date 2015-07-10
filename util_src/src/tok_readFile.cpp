@@ -26,12 +26,13 @@ using std::vector;
 
 using namespace TKInput;
 
-namespace TKInput {
-  /**
-   * read a list of doubles from a file.
-   */
-  int tok_read2dbl(const char * const file_name, 
-		   vector<double>& a1, vector<double>& a2) {
+namespace TKInput
+{
+/**
+ * read a list of doubles from a file.
+ */
+int tok_read2dbl(const char* const file_name, std::vector<double>& a1, std::vector<double>& a2)
+{
     TOKEN lineTok;
     int nvsize = 0;
     a1.resize(0);
@@ -42,51 +43,51 @@ namespace TKInput {
     double tmp1, tmp2;
     BOOLEAN error = 0;
 
-    static FILE *ifp;
+    static FILE* ifp;
     ifp = fopen(file_name, "r");
     if (!ifp) {
-      return -1;
+        return -1;
     }
 
     do {
-      /*
-       * go get the next line
-       */
-      nchar = read_line(ifp, input, 0);
-      iline++;
-      if (nchar > 0) {
-	fillTokStruct(&lineTok, input);
-	if (lineTok.ntokes != 2) {
-	  if (iline == 1 && lineTok.ntokes == 1) {
-	    str_to_int(lineTok.tok_ptrV[0], INT_MAX, 1, -1, &error);
-	    continue;
-	  } else { 
-	    printf("ERROR iline = %d, Number tokens != 2: %s\n", iline,
-		   lineTok.orig_str);
-	    return(-1);
-	  }
-	}
+        /*
+         * go get the next line
+         */
+        nchar = read_line(ifp, input, 0);
+        iline++;
+        if (nchar > 0) {
+            fillTokStruct(&lineTok, input);
+            if (lineTok.ntokes != 2) {
+                if (iline == 1 && lineTok.ntokes == 1) {
+                    str_to_int(lineTok.tok_ptrV[0], INT_MAX, 1, -1, &error);
+                    continue;
+                } else {
+                    printf("ERROR iline = %d, Number tokens != 2: %s\n", iline,
+                           lineTok.orig_str);
+                    return (-1);
+                }
+            }
 
-	tmp1 = str_to_double(lineTok.tok_ptrV[0], DBL_MAX, -DBL_MAX, 
-			     NO_DEFAULT_DOUBLE, &error);
-	if (error) {
-	  printf("ERROR iline = %d, reading first token = %s\n",
-		 iline, lineTok.tok_ptrV[0]);
-	  return(-1);
-	}
-	a1.push_back(tmp1);
-	tmp2 = str_to_double(lineTok.tok_ptrV[1], DBL_MAX, -DBL_MAX, 
-			     NO_DEFAULT_DOUBLE, &error);
-	if (error) {
-	  printf("ERROR iline = %d, reading second token = %s\n",
-		 iline, lineTok.tok_ptrV[1]);
-	  return(-1);
-	}
-	a2.push_back(tmp2);
-	nvsize++;
-      }
+            tmp1 = str_to_double(lineTok.tok_ptrV[0], DBL_MAX, -DBL_MAX,
+                                 NO_DEFAULT_DOUBLE, &error);
+            if (error) {
+                printf("ERROR iline = %d, reading first token = %s\n",
+                       iline, lineTok.tok_ptrV[0]);
+                return (-1);
+            }
+            a1.push_back(tmp1);
+            tmp2 = str_to_double(lineTok.tok_ptrV[1], DBL_MAX, -DBL_MAX,
+                                 NO_DEFAULT_DOUBLE, &error);
+            if (error) {
+                printf("ERROR iline = %d, reading second token = %s\n",
+                       iline, lineTok.tok_ptrV[1]);
+                return (-1);
+            }
+            a2.push_back(tmp2);
+            nvsize++;
+        }
     } while (nchar >= 0);
     fclose(ifp);
     return nvsize;
-  }
+}
 }
