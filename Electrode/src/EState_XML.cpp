@@ -180,6 +180,20 @@ ETimeState::ETimeState(const ETimeState& r) :
     }
 }
 //==================================================================================================================================
+ETimeState::ETimeState(const Cantera::XML_Node& xTimeState, const Cantera::EState_ID_struct& e_id) :
+    cellNumber_(0),
+    domainNumber_(0),
+    es_(0),
+    stateType_("t_final"),
+    timeIncrType_("global"),
+    time_(0.0),
+    iOwnES_(true)
+{
+    cellNumber_ = e_id.electrodeCellNumber_;
+    domainNumber_ = e_id.electrodeDomainNumber_;
+    read_ETimeState_fromXML(xTimeState, e_id);
+}
+//==================================================================================================================================
 ETimeState& ETimeState::operator=(const ETimeState& r)
 {
     if (this == &r) return *this;
@@ -223,6 +237,52 @@ XML_Node* ETimeState::write_ETimeState_ToXML() const
      return xmi;
  }
 //==================================================================================================================================
+void ETimeState::read_ETimeState_fromXML(const Cantera::XML_Node& xTimeState, const Cantera::EState_ID_struct& e_id)
+{
+    /*
+     *   Check to see that we are in the right spot
+     */
+    if (xTimeState.name() != "timeState") {
+	throw Electrode_Error("read_ETimeState_fromXML", "Error: expecting timeState node but got " + xTimeState.name());
+    }
+
+    string ss = xTimeState["cellNumber"];
+    cellNumber_ = atoi(ss.c_str());
+    if (cellNumber_ != e_id.electrodeCellNumber_) {
+	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "different cellNumbers");
+    }
+
+    ss = xTimeState["domain"];
+    domainNumber_ = atoi(ss.c_str());
+    if (domainNumber_ !=  e_id.electrodeDomainNumber_) {
+	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "different domainNumbers");
+    }
+
+    ss = xTimeState["type"];
+    if (ss != "t_init" && ss != "t_final"  && ss != "t_intermediate") {
+	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "unknown type: " + ss);
+    } 
+    stateType_ = ss;
+    timeIncrType_ = "global";
+
+    if (es_) {
+	if (iOwnES_) {
+	    delete es_;
+	}
+    }
+    iOwnES_ = 1;
+    
+    string typeString;
+    string timeValStr;
+    ctml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
+    time_ = fpValueCheck(timeValStr);
+
+    const XML_Node* xEState =  xTimeState.findByName("electrodeName");
+
+    es_ =  createEState_fromXML(*xEState, e_id);
+
+}
+//==================================================================================================================================
 //  Compare the current state of this object against another guest state to see if they are the same
 /*
  *    We compare the state of the solution up to a certain number of digits.
@@ -257,6 +317,96 @@ ETimeState::~ETimeState()
     if (iOwnES_) {
 	delete es_;
     }
+}
+//==================================================================================================================================
+ETimeInterval::ETimeInterval() :
+     intervalType_("global"),
+     index_(-1),
+     numIntegrationSubCycles_(1),
+     etsList_(0),
+     deltaTime_init_next_(1.0E-8)
+{
+}
+
+//==================================================================================================================================
+ETimeInterval::~ETimeInterval() 
+{
+     for (size_t k = 0; k < etsList_.size(); ++k) {
+        ETimeState* ets = etsList_[k];
+        if (ets) {
+           delete ets;
+        } 
+     }
+}
+//==================================================================================================================================
+ETimeInterval::ETimeInterval(const Cantera::XML_Node& xTimeInterval, const Cantera::EState_ID_struct& e_id) :
+    intervalType_("global"),
+     index_(-1),
+     numIntegrationSubCycles_(1),
+     etsList_(0),
+     deltaTime_init_next_(1.0E-8)
+{
+    read_ETimeInterval_fromXML(xTimeInterval, e_id);
+}
+//==================================================================================================================================
+ETimeInterval::ETimeInterval(const ETimeInterval& right) :
+     intervalType_(right.intervalType_),
+     index_(right.index_),
+     numIntegrationSubCycles_(right.numIntegrationSubCycles_),
+     etsList_(0),
+     deltaTime_init_next_(right.deltaTime_init_next_)
+{
+     etsList_.resize(numIntegrationSubCycles_+1, 0);
+     for (size_t k = 0; k < (size_t) (numIntegrationSubCycles_+1); ++k) {
+         etsList_[k] = new ETimeState(*(right.etsList_[k]));
+     }
+}
+//==================================================================================================================================
+// Create/Malloc an XML Node containing the ETimeInterval data contained in this object
+/*
+ *   @return   Returns the malloced XML_Node with name globalTimeStep containing the information in this
+ *             object. The calling program is responsible for freeing this.
+ */
+Cantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
+{
+     int ii = index_;
+     if (index >= 0) {
+        ii = index;
+     } 
+     XML_Node* xtg = new XML_Node("globalTimeStep");
+     xtg->addAttribute("index", int2str(ii));
+     ctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
+     ctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
+     XML_Node* xti = new XML_Node("timeIncrement");
+     xti->addAttribute("type", "global");
+     for (size_t k = 0; k < etsList_.size(); ++k) {
+         XML_Node* xmi = etsList_[k]->write_ETimeState_ToXML();
+         xti->addChild(*xmi); 
+     }
+     xtg->addChild(*xti);
+     return xtg;
+}
+//==================================================================================================================================
+void ETimeInterval::read_ETimeInterval_fromXML(const Cantera::XML_Node& xTimeInterval, const Cantera::EState_ID_struct& e_id)
+{
+    string nn = xTimeInterval.name();
+    if (nn != "globalTimeStep") {
+	throw Electrode_Error("ETimeInterval::read_ETimeInterval_fromXML()",
+			      "Was expecting the name globalTimeStep, but got instead: " + nn);
+    }
+    nn = xTimeInterval["index"];
+    index_ = atoi(nn.c_str());
+    numIntegrationSubCycles_ = ctml::getInteger(xTimeInterval, "numberIntegrationSybCycles");
+    deltaTime_init_next_ = ctml::getFloat(xTimeInterval, "deltaTime_init_next");
+    const XML_Node* xTimeIncr = xTimeInterval.findByName("timeIncrement");
+    std::vector<XML_Node*> xStatesList = xTimeIncr->getChildren("timeState");
+    size_t num =  xStatesList.size();
+    etsList_.resize(num, 0);
+    for (size_t k = 0; k < num; ++k) {
+	XML_Node* xState = xStatesList[k];
+	etsList_[k] = new ETimeState(*xState, e_id);
+    }
+    intervalType_ = "global";
 }
 //==================================================================================================================================
 // Create a new EState Object
@@ -469,7 +619,7 @@ Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& 
     /*
      *   Put the identification information back into the EState object
      */
-    es->readIdentificationFromXML(*xEout); 
+    es->readIdentificationFromXML(*xEout);
     /*
      *   Select the last global time step increment
      */
@@ -498,8 +648,15 @@ Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& 
     return es;
 }
 //==================================================================================================================================
-Cantera::EState* newEStatefromXML(const Cantera::XML_Node& XeState, const Cantera::EState_ID_struct& e_id)
+Cantera::EState* createEState_fromXML(const Cantera::XML_Node& xEState, const Cantera::EState_ID_struct& e_id)
 {
+    /*
+     *   Check to see that we are in the right spot
+     */
+    if (xEState.name() != "electrodeState") {
+	ESModel_Warning("createEState_fromXML", "Error: expecting electrodeState node but got " + xEState.name());
+	return NULL;
+    }
     /*
      *   Malloc the appropriate type of EState object
      */
@@ -510,14 +667,15 @@ Cantera::EState* newEStatefromXML(const Cantera::XML_Node& XeState, const Canter
     /*
      *   Put the identification information back into the EState object
      */
-    es->readIdentificationFromStruct(e_id);
+    es->readIdentificationFromStruct(e_id); 
     /*
-     *  Read the state into the EState object
+     *   Read the state into es and return
      */
-    es->readStateFromXML(XeState);
-
+    es->readStateFromXML(xEState);
     return es;
 }
+//==================================================================================================================================
+
 //==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------

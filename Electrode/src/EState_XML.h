@@ -140,6 +140,8 @@ public:
      */
     ETimeState(const ETimeState& r);
 
+    ETimeState(const Cantera::XML_Node& xETime, const Cantera::EState_ID_struct& e_id);
+
     //! Destructor
     ~ETimeState();
 
@@ -157,6 +159,8 @@ public:
      *             object. The calling program is responsible for freeing this.
      */
     Cantera::XML_Node* write_ETimeState_ToXML() const;
+
+    void read_ETimeState_fromXML(const Cantera::XML_Node& xETime, const Cantera::EState_ID_struct& e_id);
 
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!
@@ -210,6 +214,65 @@ public:
     //! Boolean indicating whether I own the EState object
     bool iOwnES_;
 };
+//==================================================================================================================================
+
+//! Structure to hold time interval information
+/*!
+ *    This can be saved and written out to an XML element
+ */
+class ETimeInterval 
+{
+public:
+    //! Constructor
+    ETimeInterval();
+
+    //! Destructor
+    ~ETimeInterval();
+
+    //! Constructor
+    ETimeInterval(const Cantera::XML_Node& xTimeInterval, const Cantera::EState_ID_struct& e_id);
+
+    //! Copy Constructor
+    /*!
+     *   @param[in]   right Object to be copied
+     */
+    ETimeInterval(const ETimeInterval& right);
+
+    //! Create/Malloc an XML Node containing the ETimeInterval data contained in this object
+    /*!
+     *   @param[in]  index       Index to assign to the globalTimeStep. This defaults to -1 to indicate
+     *                           that the storred index should be used. Global time steps start from the value 1 usually.
+     *
+     *   @return   Returns the malloced XML_Node with name globalTimeStep containing the information in this
+     *             object. The calling program is responsible for freeing this.
+     */
+    Cantera::XML_Node* write_ETimeInterval_ToXML(int index = -1) const;
+
+    void read_ETimeInterval_fromXML(const Cantera::XML_Node& xTimeInterval, const Cantera::EState_ID_struct& e_id);
+
+    //! The default value of the interval type is "global"
+    /*!
+     *    A "local" type is also envisioned but not implemented
+     */
+    std::string intervalType_;
+
+    //! Storred value of the global time step number
+    int index_;
+
+    //!  Number of integrations needed to carry out the global step. Defaults to 1
+    int numIntegrationSubCycles_;
+
+    //! Vector of time time states 
+    /*!
+     *   The first state will be t_init type. Intermediate states will be t_intermediate type, and final state will be t_final
+     *   If we have this structure, we own the ETimeState objects.
+     */
+    std::vector<ETimeState*> etsList_;
+
+    //! The next delta T to be used on the next subintegration on the next global step
+    double deltaTime_init_next_;
+};
+
 //==================================================================================================================================
 
 //!  Create a new EState Object
@@ -272,8 +335,23 @@ bool get_Estate_Indentification(const Cantera::XML_Node& xSoln, Cantera::EState_
  */
 Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& timeRead);
 
-//!   Create a new EState object from an XML_Node and EState id structure
-Cantera::EState* newEStatefromXML(const Cantera::XML_Node& XeState, const Cantera::EState_ID_struct& e_id);
+//!  Create an EState object and read a solution state into that object
+/*!
+ *   This is a wrapper around the EState factory routine. Therefore, it may have to be modified in the future
+ *   to get access to the factory.
+ *
+ *   @param[in]           xEState          XML_Node tree with the name "electrodeState" containing a state
+ *                                         of the electrode.
+ *   @param[in]           e_id             EState_ID struct needed to complete the state information and to
+ *                                         malloc the correct EState child.
+ *
+ *   @return                               Returns an EState object containing the solution state of the electrode
+ *                                         and relevant id information. This is malloced, and up to the calling
+ *                                         program to free it.
+ *
+ *     @note Starting to look good -> I think this is the write way to do it
+ */
+Cantera::EState* createEState_fromXML(const Cantera::XML_Node& xEState, const Cantera::EState_ID_struct & e_id);
 
 
 }

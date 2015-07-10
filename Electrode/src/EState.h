@@ -21,6 +21,7 @@ namespace Cantera
 
 class Electrode;
 class XML_Node;
+class Electrode_Factory;
 
 //! Enum indicating the type of Electrode object output file that is written.
 enum EState_Type_Enum {
@@ -143,6 +144,8 @@ public:
      *  @param e    Pointer to the electrode base class
      */
     virtual int initialize(const Cantera::Electrode* const e);
+
+    const std::string& electrodeType() const;
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
@@ -438,5 +441,22 @@ protected:
     friend class Cantera::Electrode;
 };
 //==================================================================================================================================
+
+// Create a new Electrode Object
+/*
+ * @param model  String to look up the model against
+ *
+ * @return    Returns a pointer to a new Electrode instance matching the definition within EState object. Returns NULL if
+ *            something went wrong. Throws an exception if the electrodeType isn't covered.
+ *
+ *     --       CAN't DO THIS!!  -> Need an underlying PhaseList object to be formed!
+ *
+ *          essentially this can take the place of  setInitialConditions(ELECTRODE_KEY_INPUT* ei). However, it can't take the place
+ *          of electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+
+ */
+//Electrode* newElectrodeObject(const Cantera::EState& es, double currentTime, Cantera::Electrode_Factory* f = 0);
+
+
 }
 #endif

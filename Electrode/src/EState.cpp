@@ -168,7 +168,7 @@ EState* EState::duplMyselfAsEState() const
     EState* es = new EState(*this);
     return es;
 }
-//======================================================================================================================
+//===================================================================================================================================
 int EState::initialize(const Cantera::Electrode* const e)
 {
     eRef_ = e;
@@ -180,7 +180,12 @@ int EState::initialize(const Cantera::Electrode* const e)
     copyElectrode_intoState(eRef_);
     return 1;
 }
-//======================================================================================================================
+//==================================================================================================================================
+const std::string& EState::electrodeType() const
+{
+    return electrodeTypeString_;
+}
+//==================================================================================================================================
 // Write the ElectrodeState to an XML_Node tree
 /*
  *  @return pointer to the XML_Node tree
@@ -770,6 +775,33 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     }
     return btotal;
 }
+//==================================================================================================================================
+// Create a new Electrode Object
+/*
+ * @param model  String to look up the model against
+ *
+ * @return    Returns a pointer to a new Electrode instance matching the definition within EState object. Returns NULL if
+ *            something went wrong. Throws an exception if the electrodeType isn't covered.
+ *
+ *  - Can't do this because you need an underlying PhaseList object to have been formed.
+ */
+/*
+Electrode* newElectrodeObject(const Cantera::EState& es, double currentTime, Cantera::Electrode_Factory* f)
+{
+    if (f == 0) {
+        f = Electrode_Factory::factory();
+    }
+
+    const std::string smodel = es.electrodeType();
+
+    Electrode* e = f->newElectrodeObject(smodel);
+
+    es.copyEState_toElectrode(e);
+    e->setTime(currentTime);
+
+    return e;
+}
+*/
 //==================================================================================================================================
 } // End of namespace Cantera
 //==================================================================================================================================
