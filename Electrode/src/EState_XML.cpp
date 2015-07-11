@@ -15,6 +15,7 @@
 #include "mdp_stringUtils.h"
 
 #include <cstdio>
+#include <fstream>
 
 using namespace Cantera;
 using namespace std;
@@ -63,14 +64,8 @@ Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index
      *  Find the electrodeOutput XML element.
      *   
      */
-    XML_Node* eOutput = xSavedSoln->findByName("electrodeOutput");
-    if (!eOutput) {
-        ESModel_Warning("esmodel::getElectrodeOutputFile()",
-			"Could not find a node named electrodeOutput");
-        return NULL;
-    }
 
-    XML_Node* eRecord = eOutput->findNameIDIndex("electrodeOutput", "", index);
+    XML_Node* eRecord = xSavedSoln->findNameIDIndex("electrodeOutput", "", index);
     if (!eRecord) {
         ESModel_Warning("esmodel::getElectrodeOutputFile()",
 	                "Could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
@@ -409,6 +404,84 @@ void ETimeInterval::read_ETimeInterval_fromXML(const Cantera::XML_Node& xTimeInt
     intervalType_ = "global";
 }
 //==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput() :
+    index_(1),
+    timeStamp_(""),
+    e_ID_(),
+    etiList_(0)
+{
+}
+//==================================================================================================================================
+ElectrodeTimeEvolutionOutput::~ElectrodeTimeEvolutionOutput()
+{
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+	delete etiList_[k];
+    }
+}
+//==================================================================================================================================
+ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const Cantera::XML_Node& xElectrodeOutput) :
+    index_(1),
+    timeStamp_(""),
+    e_ID_(),
+    etiList_(0)
+{
+     read_ElectrodeTimeEvolutionOutput_fromXML(xElectrodeOutput);
+}
+//==================================================================================================================================
+ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ElectrodeTimeEvolutionOutput& right) :
+    index_(right.index_),
+    timeStamp_(right.timeStamp_),
+    e_ID_(right.e_ID_)
+{
+    etiList_.resize(right.etiList_.size(), 0);
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+	etiList_[k] = new ETimeInterval(*(right.etiList_[k]));
+    }
+}
+//==================================================================================================================================
+Cantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOutput_ToXML(int index) const
+{
+    XML_Node* xEO = 0; new XML_Node("electrodeOutput");
+    (*xEO)["index"] = int2str(index);
+    ctml::addString(*xEO, "timeStamp", timeStamp_);
+    XML_Node* xID = e_ID_.writeIdentificationToXML();
+    xEO->addChild(*xID);
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+	ETimeInterval* eti = etiList_[k];
+	int timeIndex =  eti->index_;
+	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex);
+	xEO->addChild(*xETI);
+    }
+    return xEO;
+}
+//==================================================================================================================================
+void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(const Cantera::XML_Node& xElectrodeOutput)
+{
+    string valueString, typeString;
+    string nn = xElectrodeOutput.name();
+    if (nn != "electrodeOutput") {
+	throw Electrode_Error("ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML",
+			      "Was expecting the name electrodeOutput, but got instead: " + nn);
+    }
+    nn = xElectrodeOutput["index"];
+    index_ = atoi(nn.c_str());
+
+    ctml::getNamedStringValue(xElectrodeOutput, "timeStamp", valueString, typeString);
+    timeStamp_ = valueString;
+    const XML_Node* xmlEI = xElectrodeOutput.findByName("ElectrodeIdentification");
+    e_ID_.readIdentificationFromXML(*xmlEI);
+
+    std::vector<XML_Node*> xGlobalTimeSteps = xElectrodeOutput.getChildren("globalTimeStep");
+    numGlobalTimeIntervals_ =  xGlobalTimeSteps.size();
+    etiList_.resize(numGlobalTimeIntervals_, 0);
+    for (size_t k = 0; k <(size_t) numGlobalTimeIntervals_; ++k) {
+	XML_Node* xState = xGlobalTimeSteps[k];
+	etiList_[k] = new ETimeInterval(*xState, e_ID_);
+    }
+}
+//==================================================================================================================================
 // Create a new EState Object
 /*
  * @param model  String to look up the model against
@@ -675,10 +748,47 @@ Cantera::EState* createEState_fromXML(const Cantera::XML_Node& xEState, const Ca
     return es;
 }
 //==================================================================================================================================
-
+esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const Cantera::XML_Node& Xfile, int index)
+{
+    /*
+     *  Find the electrodeOutput XML element.
+     *   
+     */
+    XML_Node* xRecord = Xfile.findNameIDIndex("electrodeOutput", "", index);
+    if (!xRecord) {
+        ESModel_Warning("esmodel::getElectrodeOutputFile()",
+	                "Could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
+    }
+    ElectrodeTimeEvolutionOutput* e_teo = new ElectrodeTimeEvolutionOutput(*xRecord);
+    return e_teo;
+}
+//==================================================================================================================================
+esmodel::ElectrodeTimeEvolutionOutput* readFileElectrodeOutput(const std::string& XMLfileName, int index)
+{
+    /*
+     *   Read the XML file name getting the first ElectrodeOutput XML tree.
+     *    -> that's what the 1 argument is. May do more with this in the future.
+     */
+    Cantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, index);
+    if (!xEout) {
+	ESModel_Warning("getElectrodeOutputFile", "Error");
+	return NULL;
+    }
+    ElectrodeTimeEvolutionOutput* e_teo = new ElectrodeTimeEvolutionOutput(*xEout);
+    return e_teo;
+}
+//==================================================================================================================================
+void writeElectrodeOutputFile(std::string fileName, const esmodel::ElectrodeTimeEvolutionOutput& e_teo)
+{
+     Cantera::XML_Node root("--");
+     Cantera::XML_Node& ct = root.addChild("ctml");
+     Cantera::XML_Node* x_eteo = e_teo.write_ElectrodeTimeEvolutionOutput_ToXML();
+     ct.addChild(*x_eteo);
+     std::fstream s(fileName.c_str(), fstream::in | fstream::out | fstream::trunc);
+     root.write(s);
+     s.close();
+}
 //==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-
-
 

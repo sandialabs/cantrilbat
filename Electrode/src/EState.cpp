@@ -26,7 +26,71 @@ EState_Identification::EState_Identification() :
     electrodeCapacityType_(CAPACITY_ANODE_ECT)
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
+Cantera::XML_Node* EState_Identification::writeIdentificationToXML() const
+{
+    XML_Node* x = new XML_Node("ElectrodeIdentification");
+    ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
+    ctml::addInteger(*x, "EState_Type",         EST_Type_);
+    ctml::addString(*x, "EState_Type_String", EState_Type_String_);
+    ctml::addInteger(*x, "fileVersionNumber",  EST_Version_);
+    ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
+    ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
+    ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
+    if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
+	ctml::addString(*x, "electrodeCapacityType", "Capacity_Anode");
+    } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+	ctml::addString(*x, "electrodeCapacityType", "Capacity_Cathode");
+    } else {
+	ctml::addString(*x, "electrodeCapacityType", "Capacity_Other");
+    }
+    return x;
+}
+//==================================================================================================================================
+void EState_Identification::readIdentificationFromXML(const XML_Node& xmlEI)
+{  
+    std::string typeSS;
+    std::string nn = xmlEI.name();
+    const XML_Node* x = &xmlEI;
+    if (nn != "ElectrodeIndentification") {
+        x = xmlEI.findByName("ElectrodeIdentification");
+        if (!x) {
+            throw Electrode_Error("EState::readIdentificationFromXM",
+                                  "Could not find the XML node named ElectrodeIdentification");
+        }
+    }
+
+    ctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString_ , typeSS);
+    EST_Type_ = (EState_Type_Enum)  ctml::getInteger(*x, "EState_Type");
+    if (x->hasChild("EState_Type_String")) {
+	ctml::getNamedStringValue(*x, "Estate_Type_String", EState_Type_String_ , typeSS);
+    }
+    if (x->hasChild("fileVersionNumber")) {
+	EST_Version_ = ctml::getInteger(*x, "fileVersionNumber");
+    }
+    if (x->hasChild("electrodeModelType")) {
+        electrodeChemistryModelType_ = ctml::getInteger(*x, "electrodeModelType");
+    }
+    if (x->hasChild("electrodeDomainNumber")) {
+        electrodeDomainNumber_ = ctml::getInteger(*x, "electrodeDomainNumber");
+    }
+    if (x->hasChild("electrodeDomainNumber")) {
+     electrodeCellNumber_ = ctml::getInteger(*x, "electrodeDomainNumber");
+    }
+ 
+    if (x->hasChild("electrodeCapacityType")) {
+	ctml::getNamedStringValue(*x, "electrodeCapacityType", nn, typeSS);
+	if (nn == "Capacity_Anode") {
+	    electrodeCapacityType_ = CAPACITY_ANODE_ECT;
+	} else if (nn == "Capacity_Cathode") {
+	    electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
+	} else if (nn == "Capacity_Other") {
+	    electrodeCapacityType_ = CAPACITY_OTHER_ECT;
+	}
+    }
+  
+}
+//==================================================================================================================================
 /*
  * EState constructor
  *

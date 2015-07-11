@@ -43,7 +43,9 @@ enum Electrode_Capacity_Type_Enum {
     //!  Capacity and state of charge concepts are pertinent for an anode
     CAPACITY_ANODE_ECT = 0,
     //!  Capacity and state of charge concepts are pertinent for a cathode.
-    CAPACITY_CATHODE_ECT
+    CAPACITY_CATHODE_ECT,
+    //!  Capacity that is neither anodic or cathodic.
+    CAPACITY_OTHER_ECT
 };
 
 enum Electrode_Function_Type_Enum {

@@ -248,6 +248,7 @@ public:
      */
     Cantera::XML_Node* write_ETimeInterval_ToXML(int index = -1) const;
 
+    //! Read the time interval object from an XML file
     void read_ETimeInterval_fromXML(const Cantera::XML_Node& xTimeInterval, const Cantera::EState_ID_struct& e_id);
 
     //! The default value of the interval type is "global"
@@ -273,6 +274,69 @@ public:
     double deltaTime_init_next_;
 };
 
+
+//==================================================================================================================================
+//! Structure to hold electrode time evolution information
+/*!
+ *    This can be saved and written out to an XML element
+ */
+class ElectrodeTimeEvolutionOutput
+{
+public:
+    //! Constructor
+    ElectrodeTimeEvolutionOutput();
+
+    //! Destructor
+    ~ElectrodeTimeEvolutionOutput();
+
+    //! Constructor
+    /*!
+     *  @param[in]  xElectrodeOutput        XML_Noded named electrodeOutput containing electrode ID and
+     *                                      global time interval information
+     */
+    ElectrodeTimeEvolutionOutput(const Cantera::XML_Node& xElectrodeOutput);
+
+    //! Copy Constructor
+    /*!
+     *   @param[in]   right Object to be copied
+     */
+    ElectrodeTimeEvolutionOutput(const ElectrodeTimeEvolutionOutput& right);
+
+    //! Create/Malloc an XML Node containing the ETimeInterval data contained in this object
+    /*!
+     *   @param[in]  index       Index to assign to the globalTimeStep. This defaults to -1 to indicate
+     *                           that the storred index should be used. Global time steps start from the value 1 usually.
+     *
+     *   @return   Returns the malloced XML_Node with name globalTimeStep containing the information in this
+     *             object. The calling program is responsible for freeing this.
+     */
+    Cantera::XML_Node* write_ElectrodeTimeEvolutionOutput_ToXML(int index = -1) const;
+
+    //! Read an XML_Node tree containing all of the information needed for filling up this structure
+    /*!
+     *  @param[in]  xElectrodeOutput        XML_Noded named electrodeOutput containing electrode ID and
+     *                                      global time interval information
+     */
+    void read_ElectrodeTimeEvolutionOutput_fromXML(const Cantera::XML_Node& xElectrodeOutput);
+
+    //! Storred value of the electrodeOutput index
+    int index_;
+
+    //! Storred value of the time stamp for file creation
+    std::string timeStamp_;
+
+    //! Electrode Indentification structure
+    Cantera::EState_ID_struct e_ID_;
+
+    //!  Number of global time intervals
+    int numGlobalTimeIntervals_;
+
+    //! Vector of time interval structures
+    /*!
+     *   Has a length equal to numGlobalTimeIntervals_;
+     */
+    std::vector<ETimeInterval*> etiList_;
+};
 //==================================================================================================================================
 
 //!  Create a new EState Object
@@ -353,6 +417,13 @@ Cantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& 
  */
 Cantera::EState* createEState_fromXML(const Cantera::XML_Node& xEState, const Cantera::EState_ID_struct & e_id);
 
+
+esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const Cantera::XML_Node& Xfile, int index = 1);
+
+esmodel::ElectrodeTimeEvolutionOutput* readFileElectrodeOutput(const std::string& XMLfileName, int index = 1);
+
+//! write the output file
+void writeElectrodeOutputFile(std::string fileName, const esmodel::ElectrodeTimeEvolutionOutput& e_teo);
 
 }
 //----------------------------------------------------------------------------------------------------------------------------------

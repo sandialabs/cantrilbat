@@ -38,21 +38,64 @@ enum EState_Type_Enum {
     EST_MULTIPLATEAU,
     EST_RADIALDISTRIB
 };
-
-
+//==================================================================================================================================
+//!  Structure that holdes the identification of the Electrode object
+/*!
+ *   This structure contains the information about the type of electrode object and the file type for the EState object.
+ *   It also contains the information about the domain number and cell number. which uniquely identifies the electrode
+ *   object in a multi-cell simulation.
+ */
 struct EState_Identification 
 {
+    //! Constructor
     EState_Identification();
+
+    //! Write the XML_Node Element that contains this structure's information
+    /*!
+     *   @return   Returns a pointer to the malloced XML_Node containing the structure's information
+     */
+    Cantera::XML_Node* writeIdentificationToXML() const;
+
+    //! Read this structure's information from the XML_Node
+    /*!
+     *   @param[in]     xmlEI
+     */
+    void readIdentificationFromXML(const XML_Node& xmlEI);
+
+    /*  ---------------- Data ----------------------------------------- */
+
+    //! Electrode Type String
+    /*!
+     *  This string is the one used in the Electrode Factory routines
+     */
     std::string  electrodeTypeString_;
+
+    //! enum type for the EState. This is used in the factory routine
     enum Cantera::EState_Type_Enum  EST_Type_;
+
+    //! String used to identify the EState type. This is used in the factory routine
     std::string  EState_Type_String_;
+
+    //! Version number of the file
     int EST_Version_;
+
+    //! Integer describing a version model number for a chemistry model
     int electrodeChemistryModelType_;
+    
+    //! Domain number of the electrode (starts from 0 with the usual convention that 0 refers to anode and 2 refers to cathode)
     int electrodeDomainNumber_;
+
+    //! Cell number of the electrode (unique within each domain)
     int electrodeCellNumber_;
+
+    //! Capacity type of the electrode. 
+    /*!
+     *    There is a basic sign issue with capacity that differs between anodes and cathodes.
+     *    Capacity left goes does when an anodic electrode gives off an electron but increases for a cathode electrode
+     */
     Cantera::Electrode_Capacity_Type_Enum  electrodeCapacityType_;
 };
-
+//! Typedef for the EState_ID structure
 typedef struct EState_Identification EState_ID_struct;
 
 //==================================================================================================================================
