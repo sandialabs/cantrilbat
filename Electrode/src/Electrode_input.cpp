@@ -733,13 +733,14 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
  * generic function Wrapper around new, in order to create a function
  * pointer for BE_MultiBlock
  */
-void* getNewEGRInput(void* data_loc)
+
+static void* getNewEGRInput(void* data_loc)
 {
     void* ptr = new EGRInput();
     return ptr;
 }
 //========================================================================================================================
-void* getNewERSSpec(void* data_loc)
+static void* getNewERSSpec(void* data_loc)
 {
     void* ptr = new ERSSpec();
     return ptr;
