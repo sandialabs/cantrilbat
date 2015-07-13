@@ -306,14 +306,16 @@ bool ETimeState::compareOtherTimeState(const ETimeState* const ETSguest, double 
 				       bool includeHist, int printLvl) const
 {
     EState* esGuest_ =  ETSguest->es_;
-    
+ 
+    //  Note, we print out differences in time, but we don't throw an error if time_ isn't the same between the two structs
+   
     if (printLvl > 1) {
-	printf("   CompareotherTimeState:        state1            state2\n");
-	printf("               Time:             %11.5E         %11.5E\n", time_, ETSguest->time_);
-	printf("               type:             %15s               %15s \n",  stateType_.c_str(), ETSguest->stateType_.c_str());
-	printf("               Cell#:            %3d                  %3d\n", cellNumber_, ETSguest->cellNumber_);
+	printf("   CompareOtherTimeState:        state1            state2\n");
+	printf("                    Time:      %11.5E         %11.5E\n", time_, ETSguest->time_);
+	printf("                    type:       %15s               %15s \n",  stateType_.c_str(), ETSguest->stateType_.c_str());
+	printf("                   Cell#:        %3d                  %3d\n", cellNumber_, ETSguest->cellNumber_);
+	printf("            timeIncrType:  %15s               %15s \n", timeIncrType_.c_str(), ETSguest->timeIncrType_.c_str());
     }
-
     bool ok =  es_->compareOtherState(esGuest_, molarAtol, nDigits, includeHist, printLvl);
     return ok;
 }
@@ -413,6 +415,82 @@ void ETimeInterval::read_ETimeInterval_fromXML(const Cantera::XML_Node& xTimeInt
 	etsList_[k] = new ETimeState(*xState, e_id);
     }
     intervalType_ = "global";
+}
+//==================================================================================================================================
+//  Compare the current state of this object against another guest state to see if they are the same
+/*
+ *    We compare the state of the solution up to a certain number of digits.
+ *
+ *     @param[in]       ETIguest         Guest time interval to be compared against
+ *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+ *                                       Note from this value, we can get all other absolute tolerance inputs.
+ *     @param[in]       nDigits          Number of digits to compare against
+ *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
+ *     @param[in]       compareType      Comparison type:
+ *                                           0 Intermediates and initial state has to be the same
+ *     @param[in]       printLvl         print level of the routine
+ *
+ *     @return                           Returns true if the times are the same and the states are the same.
+ */
+bool ETimeInterval::compareOtherETimeInterval(const ETimeInterval* const ETIguest, double molarAtol, double unitlessAtol, int nDigits,
+					      bool includeHist, int compareType, int printLvl) const
+{
+    bool total_ok = true, ok;
+    ok = numIntegrationSubCycles_ == ETIguest->numIntegrationSubCycles_;
+    total_ok = total_ok && ok;
+
+    ok = etsList_.size() == ETIguest->etsList_.size();
+    total_ok = total_ok && ok;
+
+    int subPrint = printLvl - 1;
+    if (subPrint < 0) subPrint = 0;
+
+    if (ok) {
+	if (subPrint == 1) {
+	    printf("         CompareOtherETimeInterval:\n");
+	    printf("               time1         time2            state1   state2         success\n");
+	}
+	for (size_t k = 0; k < etsList_.size(); ++k) {
+	    const ETimeState* ets = etsList_[k];
+	    const ETimeState* etsGuest =  ETIguest->etsList_[k];
+	    
+	    ok = doubleEqual(ets->time_, etsGuest->time_, unitlessAtol, nDigits);
+	    if (printLvl) {
+		if (printLvl == 1) {
+		    printf("        %E15.8   %E15.8   %15s %15s   ", 
+			   ets->time_, etsGuest->time_, ets->stateType_.c_str(), etsGuest->stateType_.c_str());	
+		} else {
+		    if (ok) {
+			printf("CompareTimeIntervals: times are equal time = %g\n",  ets->time_);
+		    } else {
+			printf("CompareTimeIntervals: times different: %g %g\n",  ets->time_, etsGuest->time_);
+		    }
+		}	
+	    }
+	    total_ok = total_ok && ok;
+
+	    ok = ets->compareOtherTimeState(etsGuest, molarAtol, nDigits, true, subPrint);
+	    if (printLvl) {
+		if (printLvl == 1) {
+		    if (ok) {
+			printf("    OK\n");
+		    } else {
+			printf("    Different\n");
+		    }
+		} else {
+		    if (ok) {
+			printf("CompareTimeIntervals: ETimeStates are equivalent\n");
+		    } else {
+			printf("CompareTimeIntervals: ETimeStates are different\n");
+		    }
+		}
+	    }
+	    total_ok = total_ok && ok;
+	}
+    
+    }
+
+    return total_ok;
 }
 //==================================================================================================================================
 //==================================================================================================================================
