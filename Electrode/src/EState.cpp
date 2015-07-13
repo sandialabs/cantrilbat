@@ -64,6 +64,8 @@ void EState_Identification::readIdentificationFromXML(const XML_Node& xmlEI)
     EST_Type_ = (EState_Type_Enum)  ctml::getInteger(*x, "EState_Type");
     if (x->hasChild("EState_Type_String")) {
 	ctml::getNamedStringValue(*x, "Estate_Type_String", EState_Type_String_ , typeSS);
+    } else {
+        EState_Type_String_ = "EState_CSTR";
     }
     if (x->hasChild("fileVersionNumber")) {
 	EST_Version_ = ctml::getInteger(*x, "fileVersionNumber");
@@ -260,6 +262,7 @@ XML_Node*   EState::writeIdentificationToXML() const
 
     ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
     ctml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
+    ctml::addString(*x, "EState_Type_String", esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_));
     ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);

@@ -35,6 +35,8 @@ enum EState_Type_Enum {
      * choose which ones to impliment as state variables.
      */
     EST_CSTR = 0,
+    EST_CSTR_LiCoO2Cathode,
+    EST_CSTR_MCMBAnode,
     EST_MULTIPLATEAU,
     EST_RADIALDISTRIB
 };
@@ -66,14 +68,18 @@ struct EState_Identification
 
     //! Electrode Type String
     /*!
-     *  This string is the one used in the Electrode Factory routines
+     *  This string is the one used in the Electrode Factory routines. It identifies the model
+     *  used for the Electrode Object uniquely.
      */
     std::string  electrodeTypeString_;
 
     //! enum type for the EState. This is used in the factory routine
     enum Cantera::EState_Type_Enum  EST_Type_;
 
-    //! String used to identify the EState type. This is used in the factory routine
+    //! String used to identify the EState type. This is used in the factory routine for the EState object.
+    /*!
+     *  Note this can be different than the electrodeTypeString_
+     */
     std::string  EState_Type_String_;
 
     //! Version number of the file
@@ -312,6 +318,7 @@ protected:
     //! Constant reference to the Electrode object that this object refers to.
     const Electrode* eRef_;
 
+public:
     //! Electrode Model
     /*!
      *    String identification of the model used to instantiate the Electrode object.
@@ -319,6 +326,7 @@ protected:
      */
     std::string electrodeTypeString_;
 
+protected:
     //! Value of the Electrode State type file that was previously read
     /*!
      *  In almost all cases this is equal to the value to be written.

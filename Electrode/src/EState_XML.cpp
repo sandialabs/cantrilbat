@@ -37,6 +37,8 @@ static void create_string_maps()
 
     gMap_ESEnum_String.string_maps_created = true;
     estate_types_string[EST_CSTR]                       =  "EState_CSTR";
+    estate_types_string[EST_CSTR_LiCoO2Cathode]         =  "EState_CSTR_LiCoO2Cathode";
+    estate_types_string[EST_CSTR_MCMBAnode]             =  "EState_CSTR_MCMBAnode";
     estate_types_string[EST_MULTIPLATEAU]               =  "EState_MultiPlateau";
     estate_types_string[EST_RADIALDISTRIB]              =  "EState_RadialDistrib";
 
@@ -60,12 +62,18 @@ Cantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index
     if (!xSavedSoln) {
         return xSavedSoln;
     }
+    XML_Node* xCTML = xSavedSoln->findByName("ctml");
+    if (!xCTML) {
+	ESModel_Warning("esmodel::getElectrodeOutputFile()",
+		  "Could not find a node named ctml");
+	return xCTML;
+    }
     /*
      *  Find the electrodeOutput XML element.
      *   
      */
 
-    XML_Node* eRecord = xSavedSoln->findNameIDIndex("electrodeOutput", "", index);
+    XML_Node* eRecord = xCTML->findNameIDIndex("electrodeOutput", "", index);
     if (!eRecord) {
         ESModel_Warning("esmodel::getElectrodeOutputFile()",
 	                "Could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
@@ -272,10 +280,13 @@ void ETimeState::read_ETimeState_fromXML(const Cantera::XML_Node& xTimeState, co
     ctml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
     time_ = fpValueCheck(timeValStr);
 
-    const XML_Node* xEState =  xTimeState.findByName("electrodeName");
+    const XML_Node* xEState =  xTimeState.findByName("electrodeState");
+    if (!xEState) {
+	throw Electrode_Error("ETimeState::read_ETimeState_fromXML()",
+			      "Could not find the XML element electrodeState");
+    }
 
     es_ =  createEState_fromXML(*xEState, e_id);
-
 }
 //==================================================================================================================================
 //  Compare the current state of this object against another guest state to see if they are the same
@@ -391,7 +402,7 @@ void ETimeInterval::read_ETimeInterval_fromXML(const Cantera::XML_Node& xTimeInt
     }
     nn = xTimeInterval["index"];
     index_ = atoi(nn.c_str());
-    numIntegrationSubCycles_ = ctml::getInteger(xTimeInterval, "numberIntegrationSybCycles");
+    numIntegrationSubCycles_ = ctml::getInteger(xTimeInterval, "numIntegrationSubCycles");
     deltaTime_init_next_ = ctml::getFloat(xTimeInterval, "deltaTime_init_next");
     const XML_Node* xTimeIncr = xTimeInterval.findByName("timeIncrement");
     std::vector<XML_Node*> xStatesList = xTimeIncr->getChildren("timeState");
@@ -443,8 +454,12 @@ ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ElectrodeTimeEv
 //==================================================================================================================================
 Cantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOutput_ToXML(int index) const
 {
-    XML_Node* xEO = 0; new XML_Node("electrodeOutput");
-    (*xEO)["index"] = int2str(index);
+    int windex = index_;
+    if (index != -1) {
+        windex = index;
+    }
+    XML_Node* xEO = new XML_Node("electrodeOutput");
+    xEO->addAttribute("index",  int2str(windex));
     ctml::addString(*xEO, "timeStamp", timeStamp_);
     XML_Node* xID = e_ID_.writeIdentificationToXML();
     xEO->addChild(*xID);
@@ -501,7 +516,17 @@ Cantera::EState* EState_Factory::newEStateObject(std::string model)
      */
     switch (ieos) {
     case EST_CSTR:
+	ee = new EState();
+	ee->electrodeTypeString_ = "CSTR";
+	break;
+    case EST_CSTR_LiCoO2Cathode:
+	ee = new EState();
+	ee->electrodeTypeString_ = "CSTR_LiCoO2Cathode";
+	break;
+    case EST_CSTR_MCMBAnode:
         ee = new EState();
+	ee->electrodeTypeString_ = "CSTR_MCMBAnode";
+	break;
         break;
     case EST_MULTIPLATEAU:
 	throw Electrode_Error("EState_Factory::newEStateObject()",
