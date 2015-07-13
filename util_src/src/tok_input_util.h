@@ -241,11 +241,57 @@ extern int  stokenize(char*, const char*, char* [], const int);
 
 extern int  stokenizeV(char*, const char*, std::vector<char*>& tok_ptr, const int);
 
-extern BOOLEAN strmatch(const char*, const char*);
-extern BOOLEAN strstrmatch(const char*, const char*);
-extern BOOLEAN strtokmatch(const TOKEN*, const char*);
-extern BOOLEAN toktokmatch(const TOKEN*, const TOKEN*);
-extern BOOLEAN toktokincluded(const TOKEN* tok1, const TOKEN* tok2);
+//!   This routine checks whether one string is the same as another.
+//!   Upper case is transformed into lower case before the comparison is done.
+//!   Thus, case doesn't matter in the comparison. However, white space does matter in this comparison.
+/*!
+ *    @param[in]        s1                Const pointer to null terminated C string
+ *    @param[in]        s2                Const pointer to null terminated C string
+ *
+ *    @return                             If there is a match it returns true. If they aren't, it returns false.
+ */
+BOOLEAN strmatch(const char* s1, const char* s2);
+
+//! This routine checks whether two strings are the same modulo differences in their white space
+/*!
+ *    @param[in]        s1                Const pointer to null terminated C string
+ *    @param[in]        s2                Const pointer to null terminated C string
+ *
+ *    @return                             If there is a match it returns true. If they aren't, it returns false.
+ */
+BOOLEAN strstrmatch(const char* s1, const char* s2);
+
+//!  THIS routine checks whether a string matches the string contained in the tokens of a keyLineStr.
+//!  White space and case are ignored.
+/*!
+ *    @param[in]        keyptr1           Const pointer to first TOKEN structure
+ *    @param[in]        s2                Const pointer to null terminated C string
+ *
+ *    @return   If there is a match it returns true. If they aren't, it returns false.
+ */
+BOOLEAN strtokmatch(const TOKEN* keyptr, const char* s2);
+
+//! This routine checks whether two %TOKEN structures contain the same data up to differences in white space.
+//!  Case is ignored as well, as strmatch is called.
+/*!
+ *  @param[in]           keyptr1                   Const pointer to first TOKEN structure
+ *  @param[in]           keyptr2                   Const pointer to second TOKEN structure
+ *
+ *  @return                                        Returns true if the two TOKENs match, false otherwise
+ */
+BOOLEAN toktokmatch(const TOKEN* keyptr1, const TOKEN* keyptr2);
+
+//!  This routine checks whether the first TOKEN structure is included in the second TOKEN structure.
+//!  Case and whitespace are ignored, as strmatch is called.
+/*!
+ *    If the first TOKEN is empty, this routine returns true.
+ *
+ *  @param[in]           keyptr1                   Const pointer to first TOKEN structure
+ *  @param[in]           keyptr2                   Const pointer to second TOKEN structure
+ *
+ *  @return                                        Returns true if the first TOKEN is included in the second TOKEN pointer.
+ */
+BOOLEAN toktokincluded(const TOKEN* keyptr1, const TOKEN* keyptr2);
 
 //! Fill in a %TOKEN structure with a string. Use the definition of white space
 //! at the start of the file to tokenize the string, storring it in the TOKEN structure.
