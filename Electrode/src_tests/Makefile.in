@@ -40,6 +40,14 @@ UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
 UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
 #
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+
+#
 # Electrode src directory
 #
 ELECTRODE_DIR= ../src
@@ -81,9 +89,10 @@ all: $(PROGRAM) .depends
 
 rebaseline:
 
-$(PROGRAM): $(OBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
+$(PROGRAM): $(OBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
+              $(CTPADDS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(ELECTRODE_LIB) \
+                  $(ELECTRODE_LIB) $(UTILSRC_LIB) $(CTPADDS_LIB) \
                   $(CANTERA_TOTAL_LIBS) $(LCXX_END_LIBS)
 
 # depends target -> forces recalculation of dependencies

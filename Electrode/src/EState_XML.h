@@ -374,7 +374,8 @@ public:
      *    This routine is used to study continuation runs within the test suite.
      *
      *     @param[in]       ETOguest         Guest time evolution object to be compared against
-     *     @param[in]       numZonesNeededToPass   Number of zones needed to pass before comparison is considered to have passed.
+     *     @param[in, out]  numZonesNeededToPass   Number of zones needed to pass before comparison is considered to have passed.
+     *                                       On output, this contains number of time intervals that actually passed.
      *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
      *                                       Note from this value, we can get all other absolute tolerance inputs.
      *     @param[in]       unitlessAtol     Absolute tolerance of the unitless quantitiesin the state.
@@ -388,7 +389,7 @@ public:
      *     @return                           Returns true if the times are the same and the states are the same.
      */
     bool compareOtherTimeEvolutionSub(const ElectrodeTimeEvolutionOutput* const ETOguest,
-				      int numZonesNeededToPass,
+				      int& numZonesNeededToPass,
 				      double molarAtol, double unitlessAtol, int nDigits,
 				      bool includeHist, int compareType, int printLvl) const;
 

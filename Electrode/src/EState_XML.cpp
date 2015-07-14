@@ -699,13 +699,14 @@ bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolution(const ElectrodeTime
 }
 //==================================================================================================================================
 bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub(const ElectrodeTimeEvolutionOutput* const ETOguest,
-								int numZonesNeededToPass,
+								int& numZonesNeededToPass,
 								double molarAtol, double unitlessAtol, int nDigits,
 								bool includeHist, int compareType, int printLvl) const
 {
     // We'll first code up a simple 1 - 1 comparison
     bool total_ok = true, ok, ok2;
     int numChecked = 0;
+    int numPassed = 0;
    
     std::vector<int> guestZoneMatch(numGlobalTimeIntervals_, -1);
     std::vector<int> hostZoneMatch(ETOguest->numGlobalTimeIntervals_, -1);
@@ -768,6 +769,9 @@ bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub(const ElectrodeT
 		int compareType = 0;
 		numChecked++;
 		ok = ets->compareOtherETimeInterval(etsGuest, molarAtol, unitlessAtol, nDigits, true,  compareType, subPrint);
+                if (ok) {
+                    ++numPassed;
+                }
 		if (printLvl) {
 		    if (printLvl == 1) {
 			if (ok) {
@@ -810,7 +814,7 @@ bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub(const ElectrodeT
 	    }
 	}
     }
-
+    numZonesNeededToPass = numPassed;
     return total_ok;
 }
 //==================================================================================================================================
@@ -1092,14 +1096,24 @@ Cantera::EState* createEState_fromXML(const Cantera::XML_Node& xEState, const Ca
 //==================================================================================================================================
 esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const Cantera::XML_Node& Xfile, int index)
 {
+    //
+    //  Need to be at the ctml level for the next command to work
+    //
+    const XML_Node* xCTML = Xfile.findByName("ctml");
+    if (!xCTML) {
+        ESModel_Warning("esmodel::readXMLElectrodeOutput()",
+			"Could not find a node named \"ctml\"");
+        return 0;
+    }
     /*
-     *  Find the electrodeOutput XML element.
+     *  Find the correct electrodeOutput XML element.
      *   
      */
-    XML_Node* xRecord = Xfile.findNameIDIndex("electrodeOutput", "", index);
+    const XML_Node* xRecord = xCTML->findNameIDIndex("electrodeOutput", "", index);
     if (!xRecord) {
         ESModel_Warning("esmodel::getElectrodeOutputFile()",
 	                "Could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
+	return 0;
     }
     ElectrodeTimeEvolutionOutput* e_teo = new ElectrodeTimeEvolutionOutput(*xRecord);
     return e_teo;
