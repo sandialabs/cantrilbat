@@ -270,6 +270,10 @@ public:
     bool compareOtherETimeInterval(const ETimeInterval* const ETIguest, double molarAtol, double unitlessAtol, int nDigits,
 				   bool includeHist, int compareType, int printLvl) const;
 
+    double startingTime() const;
+
+    double endingTime() const;
+
     //! The default value of the interval type is "global"
     /*!
      *    A "local" type is also envisioned but not implemented
@@ -357,6 +361,36 @@ public:
      */
     bool compareOtherTimeEvolution(const ElectrodeTimeEvolutionOutput* const ETOguest, double molarAtol, double unitlessAtol, int nDigits,
                                    bool includeHist, int compareType, int printLvl) const;
+
+
+    //!  Compare the current state of this object against another guest state to see if they are the same. The time zones
+    //!  don't have to be 1 to 1. The guest is compared to the host, so the guest should be the smaller of the two data structures.
+    /*!
+     *    We compare the state of the solution up to a certain number of digits.
+     *    A guest time zone is checked if the starting time and ending time coincide with a starting and end time in the host
+     *    structure. If there are a given number of time interval hits and the data is the same, then the comparison is considered
+     *    to have passed.
+     *
+     *    This routine is used to study continuation runs within the test suite.
+     *
+     *     @param[in]       ETOguest         Guest time evolution object to be compared against
+     *     @param[in]       numZonesNeededToPass   Number of zones needed to pass before comparison is considered to have passed.
+     *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+     *                                       Note from this value, we can get all other absolute tolerance inputs.
+     *     @param[in]       unitlessAtol     Absolute tolerance of the unitless quantitiesin the state.
+     *                                      
+     *     @param[in]       nDigits          Number of digits to compare against
+     *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
+     *     @param[in]       compareType      Comparison type:
+     *                                           0 Intermediates and initial state has to be the same
+     *     @param[in]       printLvl         print level of the routine
+     *
+     *     @return                           Returns true if the times are the same and the states are the same.
+     */
+    bool compareOtherTimeEvolutionSub(const ElectrodeTimeEvolutionOutput* const ETOguest,
+				      int numZonesNeededToPass,
+				      double molarAtol, double unitlessAtol, int nDigits,
+				      bool includeHist, int compareType, int printLvl) const;
 
 
     //! Storred value of the electrodeOutput index

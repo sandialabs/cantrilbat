@@ -62,7 +62,17 @@ public:
 	delete es2;
 	delete eto1;
 	delete eto2;
-    }
+    } 
+    //==============================================================================================================================
+    void shutdown()
+    {
+	delete es1;
+	delete es2;
+	delete eto1;
+	delete eto2;
+	es1 = es2 = 0;
+	eto1 = eto2 = 0;
+    } 
     //==============================================================================================================================
     bool ReadTwoFilesLastStepintoEState(const std::string& file1, const std::string& file2)
     {
@@ -150,6 +160,8 @@ TEST_F(EStateComparisonTest , ShouldWork)
     bool ok = CompareTwoEStates();
     total_ok = r_ok && ok;
     EXPECT_TRUE(total_ok);
+
+    shutdown();
 }
 //==================================================================================================================================
 TEST_F(EStateComparisonTest , ReadWriteRead)
@@ -162,6 +174,8 @@ TEST_F(EStateComparisonTest , ReadWriteRead)
   
     total_ok = r_ok && w_ok && r2_ok;
     EXPECT_TRUE(total_ok);
+
+    shutdown();
 }
 //==================================================================================================================================
 int main(int argc, char **argv)
@@ -195,6 +209,11 @@ int main(int argc, char **argv)
   printf(" comparison at times %g and %g\n", time1, time2);
 
   bool ok = es1->compareOtherState(es2, molarAtol, nDigits, includeHist, printLvl);
+  delete es1;
+  es1 = 0;
+  delete es2;
+  es2 = 0;
+
 
   if (!ok) {
       printf("WARNING files are different\n");
@@ -218,6 +237,8 @@ int main(int argc, char **argv)
   es->readStateFromXML(*xSt);
   //es->readStateFromXML(*x);
 
+  delete es; 
+  es = 0;
   printf("read global time step num %d\n", globalTimeStepNum);
 
   //
@@ -226,6 +247,8 @@ int main(int argc, char **argv)
   testing::InitGoogleTest(&argc, argv);
   int res = RUN_ALL_TESTS();
   
+  Cantera::appdelete();
+
 
   return res;
 

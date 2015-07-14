@@ -236,7 +236,12 @@ XML_Node* ETimeState::write_ETimeState_ToXML() const
      xmi->addAttribute("domain", domainNumber_);
      xmi->addAttribute("cellNumber", cellNumber_);
      xmi->addChild("time", time_, fmt);
+#ifdef NEW_XML
+     xmi->addChildToTree(xes);
+#else
      xmi->addChild(*xes);
+     delete xes;
+#endif
      return xmi;
  }
 //==================================================================================================================================
@@ -389,9 +394,19 @@ Cantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
      xti->addAttribute("type", "global");
      for (size_t k = 0; k < etsList_.size(); ++k) {
          XML_Node* xmi = etsList_[k]->write_ETimeState_ToXML();
+#ifdef NEW_XML
+         xti->addChildToTree(xmi); 
+#else
          xti->addChild(*xmi); 
+         delete xmi;
+#endif
      }
+#ifdef NEW_XML
+     xtg->addChildToTree(xti);
+#else
      xtg->addChild(*xti);
+     delete xti;
+#endif
      return xtg;
 }
 //==================================================================================================================================
@@ -453,7 +468,7 @@ bool ETimeInterval::compareOtherETimeInterval(const ETimeInterval* const ETIgues
 	for (size_t k = 0; k < etsList_.size(); ++k) {
 	    const ETimeState* ets = etsList_[k];
 	    const ETimeState* etsGuest =  ETIguest->etsList_[k];
-	    
+	   
 	    ok = doubleEqual(ets->time_, etsGuest->time_, unitlessAtol, nDigits);
 	    if (printLvl) {
 		if (printLvl == 1) {
@@ -491,6 +506,18 @@ bool ETimeInterval::compareOtherETimeInterval(const ETimeInterval* const ETIgues
     }
 
     return total_ok;
+}
+//==================================================================================================================================
+double ETimeInterval::startingTime() const
+{
+    ETimeState* ets = etsList_[0];
+    return ets->time_;
+}
+//==================================================================================================================================
+double ETimeInterval::endingTime() const
+{
+    ETimeState* ets = etsList_.back();
+    return ets->time_;
 }
 //==================================================================================================================================
 //==================================================================================================================================
@@ -536,17 +563,33 @@ Cantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOut
     if (index != -1) {
         windex = index;
     }
+#ifdef NEW_XML
+    XML_Node* xEO = new XML_Node("electrodeOutput");
+    xEO->addAttribute("index",  int2str(windex));
+    ctml::addString(*xEO, "timeStamp", timeStamp_);
+    XML_Node* xID = e_ID_.writeIdentificationToXML();
+    xEO->addChildToTree(xID);
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+	ETimeInterval* eti = etiList_[k];
+	int timeIndex =  eti->index_;
+	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex);
+	xEO->addChildToTree(ETI);
+    }
+#else
     XML_Node* xEO = new XML_Node("electrodeOutput");
     xEO->addAttribute("index",  int2str(windex));
     ctml::addString(*xEO, "timeStamp", timeStamp_);
     XML_Node* xID = e_ID_.writeIdentificationToXML();
     xEO->addChild(*xID);
+    delete xID;
     for (size_t k = 0; k < etiList_.size(); ++k) {
 	ETimeInterval* eti = etiList_[k];
 	int timeIndex =  eti->index_;
 	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex);
 	xEO->addChild(*xETI);
+        delete xETI;
     }
+#endif
     return xEO;
 }
 //==================================================================================================================================
@@ -652,7 +695,123 @@ bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolution(const ElectrodeTime
         }
 
     }
-    return true;
+    return total_ok;
+}
+//==================================================================================================================================
+bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub(const ElectrodeTimeEvolutionOutput* const ETOguest,
+								int numZonesNeededToPass,
+								double molarAtol, double unitlessAtol, int nDigits,
+								bool includeHist, int compareType, int printLvl) const
+{
+    // We'll first code up a simple 1 - 1 comparison
+    bool total_ok = true, ok, ok2;
+    int numChecked = 0;
+   
+    std::vector<int> guestZoneMatch(numGlobalTimeIntervals_, -1);
+    std::vector<int> hostZoneMatch(ETOguest->numGlobalTimeIntervals_, -1);
+
+
+    int subPrint = printLvl - 1;
+    if (subPrint < 0) subPrint = 0;
+
+   
+    if (subPrint == 1) {
+	printf("         CompareOtherETimeInterval:\n");
+	printf("            Zone1   time1 - time1Last    Zone2    time2- time2Last              state1   state2         success\n");
+    }
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+	const ETimeInterval* ets = etiList_[k];
+	ETimeState* firstTimeState = ets->etsList_[0];
+	double firstTime =  firstTimeState->time_;
+	size_t klast = ets->etsList_.size() - 1;
+	ETimeState* lastTimeState = ets->etsList_[klast];
+	double lastTime =  lastTimeState->time_;
+
+	for (size_t j = 0; j < (size_t) ETOguest->numGlobalTimeIntervals_; ++j) {
+	    const ETimeInterval* etsGuest = ETOguest->etiList_[j];
+	    ETimeState* firstTimeStateG = etsGuest->etsList_[0];
+	    double firstTimeG =  firstTimeStateG->time_;
+	    size_t klastG = etsGuest->etsList_.size() - 1;
+	    ETimeState* lastTimeStateG = etsGuest->etsList_[klastG];
+	    double lastTimeG =  lastTimeStateG->time_;
+
+	    ok = doubleEqual(firstTime, firstTimeG, unitlessAtol, nDigits);
+	    ok2 = doubleEqual(lastTime, lastTimeG, unitlessAtol, nDigits);
+	    ok = ok && ok2;
+	    /*
+	     *  If beginning and ending time match, we'll call that a match
+	     */
+	    if (ok) {
+		if (guestZoneMatch[k] != -1) {
+		    throw Electrode_Error(" ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub",
+					  " zones don't match up 1 to 1, there is a 1 to 2 match");
+		}
+		guestZoneMatch[k] = j;
+		if (hostZoneMatch[j] != -1) {
+		    throw Electrode_Error(" ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub",
+					  " zones don't match up 1 to 1, there is a 2 to 1 match");
+		}
+		hostZoneMatch[j] = k;
+
+	  
+
+		if (printLvl) {
+		    if (printLvl == 1) {
+			printf("    %lu    %E15.8   %E15.8 %lu %E15.8   %E15.8   ",
+			       k, firstTime, lastTime,  j, firstTimeG, lastTimeG);
+		    } else {
+			printf("CompareTimeIntervals: times in zone1: %lu are equal to zone2: %lu  time = %g % g\n", 
+			       k, j, firstTime, lastTime);
+		    }
+		}
+		total_ok = total_ok && ok;
+		int compareType = 0;
+		numChecked++;
+		ok = ets->compareOtherETimeInterval(etsGuest, molarAtol, unitlessAtol, nDigits, true,  compareType, subPrint);
+		if (printLvl) {
+		    if (printLvl == 1) {
+			if (ok) {
+			    printf("    OK\n");
+			} else {
+			    printf("    Different\n");
+			}
+		    } else {
+			if (ok) {
+			    printf("CompareTimeIntervals: ETimeStates are equivalent\n");
+			} else {
+			    printf("CompareTimeIntervals: ETimeStates are different\n");
+			}
+		    }
+		}
+		total_ok = total_ok && ok;
+	    }
+	}
+    }
+    
+    if (numChecked < numZonesNeededToPass) {
+	if (printLvl) {
+	    printf(" CompareTimeIntervals:  Not enough zones checked, %d, compared to requested, %d, to pass\n",
+		   numChecked, numZonesNeededToPass);
+	    if (numChecked > 0) {
+		printf(" CompareTimeIntervals: The zones that were checked did pass!\n");
+	    } else {
+		printf(" CompareTimeIntervals:  No zones were checked at all\n");
+	    }
+	}
+	total_ok = false;
+    } else {
+  	if (printLvl) {
+	    printf(" CompareTimeIntervals:  Enough zones were checked, %d, compared to requested, %d, to pass\n",
+		   numChecked, numZonesNeededToPass);
+	    if (total_ok) {
+		printf(" CompareTimeIntervals: PASSED!\n");
+	    } else {
+		printf(" CompareTimeIntervals: However, Some zones had different data in them, so FAILED\n");
+	    }
+	}
+    }
+
+    return total_ok;
 }
 //==================================================================================================================================
 // Create a new EState Object
@@ -966,7 +1125,12 @@ void writeElectrodeOutputFile(std::string fileName, const esmodel::ElectrodeTime
      Cantera::XML_Node root("--");
      Cantera::XML_Node& ct = root.addChild("ctml");
      Cantera::XML_Node* x_eteo = e_teo.write_ElectrodeTimeEvolutionOutput_ToXML();
+#ifdef NEW_XML
+     ct.addChildToTree(x_eteo);
+#else
      ct.addChild(*x_eteo);
+     delete x_eteo;
+#endif
      std::fstream s(fileName.c_str(), fstream::in | fstream::out | fstream::trunc);
      root.write(s);
      s.close();
