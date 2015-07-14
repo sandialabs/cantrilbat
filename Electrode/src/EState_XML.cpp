@@ -575,6 +575,86 @@ void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(con
     }
 }
 //==================================================================================================================================
+
+bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolution(const ElectrodeTimeEvolutionOutput* const ETOguest,
+							     double molarAtol, double unitlessAtol, int nDigits,
+							     bool includeHist, int compareType, int printLvl) const
+{
+    // We'll first code up a simple 1 - 1 comparison
+    bool total_ok = true, ok;
+    ok = numGlobalTimeIntervals_ == ETOguest->numGlobalTimeIntervals_;
+    total_ok = total_ok && ok;
+
+    ok = etiList_.size() == ETOguest->etiList_.size();
+    total_ok = total_ok && ok;
+
+    int subPrint = printLvl - 1;
+    if (subPrint < 0) subPrint = 0;
+
+    if (ok) {
+        if (subPrint == 1) {
+            printf("         CompareOtherETimeInterval:\n");
+            printf("               time1 - time1Last        time2- time2Last              state1   state2         success\n");
+        }
+        for (size_t k = 0; k < etiList_.size(); ++k) {
+            const ETimeInterval* ets = etiList_[k];
+            const ETimeInterval* etsGuest = ETOguest->etiList_[k];
+
+	    ETimeState* firstTimeState = ets->etsList_[0];
+	    double firstTime =  firstTimeState->time_;
+
+	    ETimeState* firstTimeStateG = etsGuest->etsList_[0];
+	    double firstTimeG =  firstTimeStateG->time_;
+
+	    size_t klast = ets->etsList_.size() - 1;
+	    ETimeState* lastTimeState = ets->etsList_[klast];
+	    double lastTime =  lastTimeState->time_;
+
+	    size_t klastG = etsGuest->etsList_.size() - 1;
+	    ETimeState* lastTimeStateG = etsGuest->etsList_[klastG];
+	    double lastTimeG =  lastTimeStateG->time_;
+
+            ok = doubleEqual(firstTime, firstTimeG, unitlessAtol, nDigits);
+	    bool ok2 = doubleEqual(lastTime, lastTimeG, unitlessAtol, nDigits);
+	    ok = ok && ok2;
+            if (printLvl) {
+                if (printLvl == 1) {
+                    printf("        %E15.8   %E15.8  %E15.8   %E15.8   ",
+                           firstTime, lastTime, firstTimeG, lastTimeG);
+                } else {
+                    if (ok) {
+                        printf("CompareTimeIntervals: times are equal time = %g % g\n", firstTime, lastTime );
+                    } else {
+                        printf("CompareTimeIntervals: times different: %g - %g , %g - %g \n",
+			       firstTime, lastTime, firstTimeG, lastTimeG);
+                    }
+                }
+            }
+            total_ok = total_ok && ok;
+	    int compareType = 0;
+            ok = ets->compareOtherETimeInterval(etsGuest, molarAtol, unitlessAtol, nDigits, true,  compareType, subPrint);
+            if (printLvl) {
+                if (printLvl == 1) {
+                    if (ok) {
+                        printf("    OK\n");
+                    } else {
+                        printf("    Different\n");
+                    }
+                } else {
+                    if (ok) {
+                        printf("CompareTimeIntervals: ETimeStates are equivalent\n");
+                    } else {
+                        printf("CompareTimeIntervals: ETimeStates are different\n");
+                    }
+                }
+            }
+            total_ok = total_ok && ok;
+        }
+
+    }
+    return true;
+}
+//==================================================================================================================================
 // Create a new EState Object
 /*
  * @param model  String to look up the model against

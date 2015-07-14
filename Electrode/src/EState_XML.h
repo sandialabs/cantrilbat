@@ -338,6 +338,27 @@ public:
      */
     void read_ElectrodeTimeEvolutionOutput_fromXML(const Cantera::XML_Node& xElectrodeOutput);
 
+    //!  Compare the current state of this object against another guest state to see if they are the same
+    /*!
+     *    We compare the state of the solution up to a certain number of digits.
+     *
+     *     @param[in]       ETOguest         Guest time interval to be compared against
+     *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+     *                                       Note from this value, we can get all other absolute tolerance inputs.
+     *     @param[in]       unitlessAtol     Absolute tolerance of the unitless quantitiesin the state.
+     *                                      
+     *     @param[in]       nDigits          Number of digits to compare against
+     *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
+     *     @param[in]       compareType      Comparison type:
+     *                                           0 Intermediates and initial state has to be the same
+     *     @param[in]       printLvl         print level of the routine
+     *
+     *     @return                           Returns true if the times are the same and the states are the same.
+     */
+    bool compareOtherTimeEvolution(const ElectrodeTimeEvolutionOutput* const ETOguest, double molarAtol, double unitlessAtol, int nDigits,
+                                   bool includeHist, int compareType, int printLvl) const;
+
+
     //! Storred value of the electrodeOutput index
     int index_;
 
