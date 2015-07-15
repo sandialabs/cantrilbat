@@ -333,22 +333,80 @@ void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* cons
 bool EState_RadialDistrib::compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, 
 			               	     bool includeHist, int printLvl) const
 {
-     bool total_ok = true;
-     const EState* ESG_rad = dynamic_cast<const EState_RadialDistrib*>(ESguest);
+     bool btotal = true;
+     bool boolR = true;
+     const EState_RadialDistrib* ESG_rad = dynamic_cast<const EState_RadialDistrib*>(ESguest);
      if (!ESG_rad) {
           throw Electrode_Error("EState_RadialDistrib::compareOtherState()",
                                 "Guest state isn't an EState_RadialDistrib object. This hasn't been done yet");
      }
+
+     printHead(-1);
+
+     if (printLvl > 1) {
+	 printf("\t\tEState_RadialDistrib::compareOtherState() Start comparison of types %s vs. %s\n",
+		electrodeTypeString_.c_str(), ESguest->electrodeTypeString_.c_str());
+     }
+
      /*
       *  Compare the 0D outputs first. They must agree first
       */
      bool sub_ok = EState::compareOtherState(ESguest, molarAtol, nDigits, includeHist, printLvl); 
-     total_ok = total_ok && sub_ok; 
-     //cellBoundR_; 
+     btotal = btotal && sub_ok; 
 
 
-     printf("EState_RadialDistrib::compareOtherState:: UNIMPLIMENTED\n");
-     return false;
+     double volAtol =  molarAtol / 55.;
+     double radiusAtol = pow(volAtol, 0.3333);
+     // double surfaceAtol = 12 * radiusAtol * radiusAtol;
+
+     boolR = doubleVectorEqual(rnodePos_, ESG_rad->rnodePos_, radiusAtol, nDigits);
+     if (!boolR) {
+	 printVecDiff("rnodeR_", rnodePos_, ESG_rad->rnodePos_, printLvl);
+     }
+     btotal = boolR && btotal;
+
+     boolR = doubleVectorEqual(cellBoundR_, ESG_rad->cellBoundR_, radiusAtol, nDigits);
+     if (!boolR) {
+	 printVecDiff("cellboundR_", cellBoundR_, ESG_rad->cellBoundR_, printLvl);
+     }
+     btotal = boolR && btotal;
+
+
+     boolR = doubleVectorEqual(concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, radiusAtol, nDigits);
+     if (!boolR) {
+	 printVecDiff("concTot_SPhase_Cell_", concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, printLvl);
+     }
+     btotal = boolR && btotal;
+
+     boolR = doubleVectorEqual(concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, radiusAtol, nDigits);
+     if (!boolR) {
+	 printVecDiff("concKRSpecies_Cell_", concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, printLvl);
+     }
+     btotal = boolR && btotal;
+
+     boolR = doubleVectorEqual(spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, radiusAtol, nDigits);
+     if (!boolR) {
+	 printVecDiff("spMoles_KRsolid_Cell_", spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, printLvl);
+     }
+     btotal = boolR && btotal;
+
+     boolR = onRegionBoundary_ == ESG_rad->onRegionBoundary_;
+     if (!boolR) {
+	 printDiff("onRegionBoundary_", true, onRegionBoundary_, ESG_rad->onRegionBoundary_, printLvl);
+     }
+     btotal = boolR && btotal;
+
+     if (!btotal) {
+	 if (printLvl == 1) {
+	     printf("\t\tEState_RadialDistrib:: ERROR:   States are not the same\n");
+	 }
+     } else {
+	 if (printLvl >= 1) {
+	     printf("\t\tEState_RadialDistrib:: SUCCESS: States are the same\n");
+	 }
+     }
+
+     return btotal;
 }
 
 
