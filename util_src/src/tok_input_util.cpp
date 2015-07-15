@@ -614,32 +614,8 @@ BOOLEAN str_to_boolean(const char* string, const int default_value,
     }
     return ((BOOLEAN) retn_value);
 }
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-
-char* tok_to_string(const TOKEN* tokPtr,  const int maxTok,
-                    const int minTok, const char* defaultVal, BOOLEAN* error)
-/*
- *      Interprets the arguments in a TOKEN structure as a string.
- *      It mallocs new space for the string, and returns the pointer to it.
- *      The number of tokens in the string is checked before returning.
- *      The value must be between the maxTok and minTok; it can equal the
- *      max or min value.
- *
- *      Certain ascii strings are checked for first (case is insignificant):
- *
- *                 String              Retn_Value
- *                 ---------        --------------
- *                 default or ""        defaultVal
- *
- *      A default may be specified on the command line. The absence of a
- *      default may also be specified by setting devault_value to
- *      NO_DEFAULT_INT.
- *
- *      If there is an error, *error is set to TRUE. *error isn't touched
- *      if there isn't an error.
- */
+//================================================================================================================================
+char* tok_to_string(const TOKEN* tokPtr,  const int maxTok, const int minTok, const char* defaultVal, BOOLEAN* error)
 {
     char* str;
     if (tokPtr->ntokes == 0) {
@@ -647,8 +623,7 @@ char* tok_to_string(const TOKEN* tokPtr,  const int maxTok,
     } else {
         str = str_to_string(tokPtr->orig_str, defaultVal, error);
     }
-    if (outofbnds((double) tokPtr->ntokes, (double) maxTok,
-                  (double) minTok)) {
+    if (outofbnds((double) tokPtr->ntokes, (double) maxTok, (double) minTok)) {
         (void) fprintf(stderr, "ERROR: tok_to_String:\n\t\"%s\"\n",
                        tokPtr->orig_str);
         (void) fprintf(stderr,"\tmaxTok = %d, minTok = %d\n", maxTok, minTok);
@@ -1422,12 +1397,7 @@ char* TokToStrng(const TOKEN* keyptr)
     }
     return (strcat(fstr, *str));
 }
-/******************************************************************************/
-/******************************************************************************/
-/******************************************************************************/
-
-int stokenize(char* string, const char* delimiters, char* tok_ptr[],
-              const int max_tokens)
+//==================================================================================================================
 /*
  * stokenize
  *
@@ -1449,6 +1419,7 @@ int stokenize(char* string, const char* delimiters, char* tok_ptr[],
  *    tok_ptr    - Vector of pointers to strings, that contain the input
  *                    string's tokens
  */
+int stokenize(char* string, const char* delimiters, char* tok_ptr[], const int max_tokens)
 {
     int i = 0;
     if (string == NULL) {
@@ -1469,11 +1440,8 @@ int stokenize(char* string, const char* delimiters, char* tok_ptr[],
     return (i);
 }
 //====================================================================================================================
-int stokenizeV(char* string, const char* delimiters, std::vector<char*>& tok_ptrV,
-               const int max_tokens)
-
 /*
- * stokenize
+ * stokenizeV
  *
  *  This function will break up a string into its respective "tokens".
  *  It returns the number of tokens found. See the strtok(3) man page.
@@ -1493,6 +1461,7 @@ int stokenizeV(char* string, const char* delimiters, std::vector<char*>& tok_ptr
  *    tok_ptrV    - Vector of pointers to strings, that contain the input
  *                  string's tokens
  */
+int stokenizeV(char* string, const char* delimiters, std::vector<char*>& tok_ptrV, const int max_tokens)
 {
     int i = 0;
     tok_ptrV.clear();
@@ -1519,10 +1488,7 @@ int stokenizeV(char* string, const char* delimiters, std::vector<char*>& tok_ptr
     }
     return (i);
 }
-/*****************************************************************************/
-/*****************************************************************************/
-/*****************************************************************************/
-
+//=====================================================================================================================
 static BOOLEAN outofbnds(const double value, const double maxVal,
                          const double minVal)
 /*

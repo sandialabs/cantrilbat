@@ -198,10 +198,34 @@ extern double  str_to_double(const char*,    const double, const double,
                              const double, BOOLEAN*);
 extern BOOLEAN tok_to_boolean(const TOKEN*, const int, BOOLEAN*);
 extern BOOLEAN str_to_boolean(const char*, const int, BOOLEAN*);
-extern char*   tok_to_string(const TOKEN*,  const int,  const int,
-                             const char*, BOOLEAN*);
 
 
+//!      Interprets the arguments in a TOKEN structure as a string.
+//!      It mallocs new space for the string, and returns the pointer to it.
+/*!
+ *      The number of tokens in the string is checked before returning.
+ *      The value must be between the maxTok and minTok; it can equal the
+ *      max or min value.
+ *
+ *      A default may be specified on this routine. If the TOKEN hasn't been filled yet,
+ *      the value of the default is returned. The absence of a
+ *      default may also be specified by setting devault_value to
+ *      NO_DEFAULT_INT.
+ *
+ *      If there is an error, *error is set to TRUE. *error isn't touched
+ *      if there isn't an error.
+ *
+ *  @param[in]    tokPtr       Pointer to the input TOKEN structure
+ *  @param[in]    maxTok       Maximum number of tokens
+ *  @param[in]    minTok       Minimum number of tokens
+ *  @param[in]    defaultVal   Input default value of the c string. If there is no default use the
+ *                             value NO_DEFAULT_STR
+ *  @param[out]   error        Set to True if there is an error condition on the card
+ *
+ *  @return                    Returns the value of the string as a c string, i.e., null terminated. This string
+ *                             is always malloced, and therefore always has to be freed by the calling program.
+ */
+char* tok_to_string(const TOKEN* tokPtr, const int maxTok, const int minTok, const char* defaultVal, BOOLEAN* error);
 
 //! Interprets the argument string as a string, then mallocs new space for the string, and returns the pointer to it
 /*!
@@ -218,7 +242,7 @@ extern char*   tok_to_string(const TOKEN*,  const int,  const int,
  *
  *  @param[in]    str          Input c string to be interpreted
  *  @param[in]    defaultVal   Input default value of the c string
- *  @param]out]   error        True if there is an error condition on the card
+ *  @param[out]   error        True if there is an error condition on the card
  *
  *  @return                    Returns the value of the string as a c string, i.e., null terminated. This string
  *                             is always malloced.
@@ -237,9 +261,41 @@ extern int  read_string(FILE*, char [], const char);
 extern int strip(char []);
 extern void lower_case(char []);
 extern char* TokToStrng(const TOKEN*);
-extern int  stokenize(char*, const char*, char* [], const int);
 
-extern int  stokenizeV(char*, const char*, std::vector<char*>& tok_ptr, const int);
+//! This function will break up a string into its respective "tokens".
+//!  It returns the number of tokens found. See the strtok(3) man page.
+/*!
+ *
+ *  @param[in]      string                    String to be tokenized.  Note, that the string is
+ *                                            changed by this procedure. Null characters are put between each symbol.
+ *
+ *  @param[in]      delimiters                String containing a list of delimiters. The example below covers 'white space'
+ *                                            e.g., char *delimiters  = " \t\n"
+ *  @param[in]      max_tokens                Maximum number of tokens to be found
+ *
+ *  @param[out]    tok_ptr                    Vector of pointers to char*. This must already have been malloced before entrance
+ *                                            to the routine, with length max_tokens.
+ *
+ *  @return                                   Returns the number of tokens in the string
+ */
+int stokenize(char* string, const char* delimiters, char* tok_ptr[], const int max_tokens);
+
+//! This function will break up a string into its respective "tokens".
+//!  It returns the number of tokens found. See the strtok(3) man page.
+/*!
+ *
+ *  @param[in]      string                    String to be tokenized.  Note, that the string is
+ *                                            changed by this procedure. Null characters are put between each symbol.
+ *
+ *  @param[in]      delimiters                String containing a list of delimiters. The example below covers 'white space'
+ *                                            e.g., char *delimiters  = " \t\n"
+ *  @param[in]      max_tokens                Maximum number of tokens to be found
+ *
+ *  @param[out]     tok_ptrV                  Vector of pointers to strings, that contain the input string's tokens
+ *
+ *  @return                                   Returns the number of tokens in the string
+ */
+int stokenizeV(char* string, const char* delimiters, std::vector<char*>& tok_ptrV, const int max_tokens);
 
 //!   This routine checks whether one string is the same as another.
 //!   Upper case is transformed into lower case before the comparison is done.
@@ -264,7 +320,7 @@ BOOLEAN strstrmatch(const char* s1, const char* s2);
 //!  THIS routine checks whether a string matches the string contained in the tokens of a keyLineStr.
 //!  White space and case are ignored.
 /*!
- *    @param[in]        keyptr1           Const pointer to first TOKEN structure
+ *    @param[in]        keyptr            Const pointer to first TOKEN structure
  *    @param[in]        s2                Const pointer to null terminated C string
  *
  *    @return   If there is a match it returns true. If they aren't, it returns false.
