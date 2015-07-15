@@ -258,9 +258,35 @@ extern int    scan_for_line(FILE*, const char*, char [], const char,
                             const int, bool errorPrinting = true);
 extern int  read_line(FILE*, char [], const int);
 extern int  read_string(FILE*, char [], const char);
-extern int strip(char []);
-extern void lower_case(char []);
-extern char* TokToStrng(const TOKEN*);
+
+//!  This routine strips off blanks and tabs (only leading and trailing characters) 
+/*!
+ *   Comments are excluded -> All instances of the comment character, '!', are replaced by '\0' thereby terminating the string.
+ *
+ *    @param[in,out]  str              On output 'str' contains the same characters as on
+ *                                     input except the leading and trailing white space and comments have been removed.
+ *
+ *    @return                          Returns the number of characters remaining in the string (excluding the null character).
+ */
+int strip(char str[]);
+
+//!  Translates a string delimited by a NULL character to lower case.
+/*!
+ *  There is no error checking in this version.  Relies on stlib function, tolower.
+ *
+ *   @param[in,out]      str            On input it contains the string. On output it contains the converted string.
+ */
+void lower_case(char str[]);
+
+//!  Mallocs a new character string and copies the tokens character string to it, appending all tokens together
+//!  into a single string separated by a single space character.
+/*!
+ *      @param[in]   keyptr             Pointer to the TOKEN structure to be copied
+ *
+ *      @return                         Returns the pointer to the newly malloced string. The new string should be freed 
+ *                                      when no longer needed.
+ */
+char* TokToStrng(const TOKEN* keyptr);
 
 //! This function will break up a string into its respective "tokens".
 //!  It returns the number of tokens found. See the strtok(3) man page.
