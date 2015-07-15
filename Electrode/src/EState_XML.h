@@ -277,6 +277,9 @@ public:
 
     double endingTime() const;
 
+    //! Return the electrode moles at the initial time in kmol
+    double electrodeInitialMoles() const;
+
     //! The default value of the interval type is "global"
     /*!
      *    A "local" type is also envisioned but not implemented
@@ -396,6 +399,8 @@ public:
 				      double molarAtol, double unitlessAtol, int nDigits,
 				      bool includeHist, int compareType, int printLvl) const;
 
+    //! Return the electrode moles at the initial time in kmol
+    double electrodeInitialMoles() const;
 
     //! Storred value of the electrodeOutput index
     int index_;

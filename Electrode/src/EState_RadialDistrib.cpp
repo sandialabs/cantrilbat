@@ -371,20 +371,20 @@ bool EState_RadialDistrib::compareOtherState(const EState* const ESguest, double
      }
      btotal = boolR && btotal;
 
-
-     boolR = doubleVectorEqual(concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, radiusAtol, nDigits);
+     double concTolAtol = molarAtol * 55.;
+     boolR = doubleVectorEqual(concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, concTolAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("concTot_SPhase_Cell_", concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, printLvl);
      }
      btotal = boolR && btotal;
 
-     boolR = doubleVectorEqual(concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, radiusAtol, nDigits);
+     boolR = doubleVectorEqual(concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, concTolAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("concKRSpecies_Cell_", concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, printLvl);
      }
      btotal = boolR && btotal;
 
-     boolR = doubleVectorEqual(spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, radiusAtol, nDigits);
+     boolR = doubleVectorEqual(spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, molarAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("spMoles_KRsolid_Cell_", spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, printLvl);
      }
