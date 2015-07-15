@@ -311,6 +311,12 @@ public:
     virtual bool compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, 
 				   bool includeHist = false, int printLvl = 0) const;
 
+    //! Get the number of moles in the electrode in kmol
+    /*!
+     *  @return  Returns the number of moles
+     */
+    virtual double electrodeMoles() const;
+
     /* -------------------------------------------------------------------------------------------------------------------------- */
 
 protected:

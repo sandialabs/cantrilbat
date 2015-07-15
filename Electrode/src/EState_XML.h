@@ -179,6 +179,9 @@ public:
     bool compareOtherTimeState(const ETimeState* const ETSguest, double molarAtol, int nDigits,
 			       bool includeHist = false, int printLvl = 0) const;
 
+    //! Return the electrode moles in kmol
+    double electrodeMoles() const;
+
 
     //! Cell number of the electrode object
     int cellNumber_;

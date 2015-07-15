@@ -117,14 +117,39 @@ public:
 
     //! Set the state of the Electrode from the state of this object
     /*!
+     *  (virtual function)
+     *
+     *   Virtual function -> main way to get the process going and the child functions called.
+     *
+     *   This function is called from the Electrode object or a battery simulator to
+     *   initialize the Electrode object from an input file.
+     *
      *   This function will set the _final_ state of the Electrode object.
      *   This function will also set all of the internal degrees of freedom such that
      *   the next time step taken by the object will result in the same values and time step
      *   that would have occurred if there hadn't been a restart.
      *
-     *  @param  e  changeable pointer to the electrode object.
+     *  @param  e  Changeable pointer to the base class Electrode object. This function may
+     *             do dynamic casting to get the correct child Electrode object.
      */
-    virtual void setStateElectrode_fromEState(Cantera::Electrode*   const e) const;
+    virtual void setStateElectrode_fromEState(Cantera::Electrode* const e) const;
+
+
+    //!  Compare the current state of this object against another guest state to see if they are the same
+    /*!
+     *    We compare the state of the solution up to a certain number of digits.
+     *
+     *     @param[in]       ESguest          Guest state object to be compared against
+     *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+     *                                       Note from this value, we can get all other absolute tolerance inputs.
+     *     @param[in]       nDigits          Number of digits to compare against
+     *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
+     *     @param[in]       printLvl         print level of the routine
+     *
+     *     @return                           Returns true
+     */
+    virtual bool compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, 
+				   bool includeHist = false, int printLvl = 0) const;
 
     /* --------------------------------------------------------------------------------------  */
 protected:

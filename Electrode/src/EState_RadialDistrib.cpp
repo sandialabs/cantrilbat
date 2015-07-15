@@ -329,6 +329,31 @@ void EState_RadialDistrib::setStateElectrode_fromEState(Cantera::Electrode* cons
        }
     }
 }
+//======================================================================================================================
+bool EState_RadialDistrib::compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, 
+			               	     bool includeHist, int printLvl) const
+{
+     bool total_ok = true;
+     const EState* ESG_rad = dynamic_cast<const EState_RadialDistrib*>(ESguest);
+     if (!ESG_rad) {
+          throw Electrode_Error("EState_RadialDistrib::compareOtherState()",
+                                "Guest state isn't an EState_RadialDistrib object. This hasn't been done yet");
+     }
+     /*
+      *  Compare the 0D outputs first. They must agree first
+      */
+     bool sub_ok = EState::compareOtherState(ESguest, molarAtol, nDigits, includeHist, printLvl); 
+     total_ok = total_ok && sub_ok; 
+     //cellBoundR_; 
+
+
+     printf("EState_RadialDistrib::compareOtherState:: UNIMPLIMENTED\n");
+     return false;
+}
+
+
+
+
 //====================================================================================================================
 } // End of namespace Cantera
 //======================================================================================================================

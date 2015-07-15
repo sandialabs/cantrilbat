@@ -325,6 +325,11 @@ bool ETimeState::compareOtherTimeState(const ETimeState* const ETSguest, double 
     return ok;
 }
 //==================================================================================================================================
+double ETimeState::electrodeMoles() const
+{
+    return es_->electrodeMoles();
+}
+//==================================================================================================================================
 ETimeState::~ETimeState()
 {
     if (iOwnES_) {

@@ -519,35 +519,51 @@ static double setAtolEm40(double a1, double a2)
     return m2;
 }
 //=================================================================================================================================
+static int printHead(int printLvl)
+{
+    
+    static bool printHead = false;
+    static int num = 0;
+    if (printLvl == -1) {
+        printHead = false;
+        num = 0;
+    } else {
+    if (printLvl >= 2) {
+        if (!printHead) {
+            printf("\t\tEState:: FAILURE: differing quantities\n");
+            printf("\t\t   Quantity           Index  Value            Guest_Value \n");
+            printHead = true;
+        }
+    }
+    num++; 
+    }
+    return num;
+}
+//=================================================================================================================================
+//! print a difference between two strings
 static void printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl)
 {
     std::string istr = "no ";
     if (significant) {
 	istr = "yes";
     }
-    if (printLvl >= 2) {
-	printf("\t\t%30s    %3s   ", vexp.c_str(), istr.c_str());
+    int num = printHead(printLvl);
+    if ((printLvl == 2 && num < 100) || (printLvl >= 3) ) {
+	printf("\t\t   %-15.15s  %-3.3s   ", vexp.c_str(), istr.c_str());
 	printf("%17s %17s\n", val.c_str(), gval.c_str());
     }
 }
 //==================================================================================================================================
 static void printDiff(const std::string& vexp, int index, int val, int gval, int printLvl)
 {
-    static int num = 0;
-    static bool printHead = false;
     std::string istring = "   ";
     if (index >= 0) {
 	istring = int2str(index, "%3d");
     }
+    int num = printHead(printLvl);
     if (printLvl >= 2) {
-	num++;
-	if (!printHead) {
-	    printf("\t\t       Quantity       Value        Guest_Value \n");
-	    printHead = true;
-	}
-        
         if ( (printLvl == 2 && num < 100) || (printLvl >= 3) ) {
-	    printf("\t\t%30s  %3s  ",
+	    printf("\t\t   %-15.15s  %-3.3s  ",
 		   vexp.c_str(), istring.c_str() );
 	    if (val != MDP_INT_NOINIT) {
 		printf("%15d ", val);
@@ -564,26 +580,19 @@ static void printDiff(const std::string& vexp, int index, int val, int gval, int
     }
 }
 //==================================================================================================================================
-static void printDiff(const std::string& vexp, int index,  double val, double gval, int printLvl)
+static void printDiff(const std::string& vexp, int index, double val, double gval, int printLvl)
 {
-    static int num = 0;
-    static bool printHead = false;
     std::string istring = "   ";
     if (index >= 0) {
 	istring = int2str(index, "%3d");
     }
+    int num = printHead(printLvl);    
     if (printLvl >= 2) {
-	num++;
-	if (!printHead) {
-	    printf("\t\t       Quantity       Value        Guest_Value \n");
-	    printHead = true;
-	}
-        
-        if ( (printLvl == 2 && num < 100) || (printLvl >= 3) ) {
-	    printf("\t\t%30s  %3s  ",
+        if ( (printLvl == 2 && num < 15) || (printLvl >= 3) ) {
+	    printf("\t\t   %-15.15s  %-3.3s    ",
 		   vexp.c_str(), istring.c_str() );
 	    if (val != MDP_DBL_NOINIT) {
-		printf("%15.7E ", val);
+		printf("%-15.7E ", val);
 	    } else {
 		printf("- NotAvail -    ");
 	    }
@@ -600,19 +609,12 @@ static void printDiff(const std::string& vexp, int index,  double val, double gv
 static void printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval,
 			 int printLvl)
 {
-    static int num = 0;
-    static bool printHead = false;
     std::string istring = "   ";
     size_t j1 = val.size();
     size_t j2 = gval.size();
     size_t jmax = std::max(j1, j2);
+    printHead(printLvl);
     if (printLvl >= 2) {
-	num++;
-	if (!printHead) {
-	    printf("\t\t       Quantity       Value        Guest_Value \n");
-	    printHead = true;
-	}
-	
 	for (size_t j = 0; j < jmax; ++j) {
 	    if (j > j2) {
 		printDiff(vexp, j, val[j], MDP_DBL_NOINIT, printLvl);
@@ -626,13 +628,23 @@ static void printVecDiff(const std::string& vexp, const std::vector<double>& val
     }
 }
 //==================================================================================================================================
+/*
+ *    printLvl settings
+ *              All printing starts two tabs in
+ *              0  Absolutely no printing is done
+ *              1  One line is printed
+ *              2  A heading and about 10 lines are printed
+ *              3  A heading and unlimited lines are printed
+ *
+ */
 bool EState::compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, bool includeHist, int printLvl) const
 {
     bool btotal = true;
     bool boolR = true;
+    printHead(-1);
  
-    if (printLvl > 0) {
-	printf("EState::compareOtherState start comparison of types %s vs. %s\n\n",electrodeTypeString_.c_str(), 
+    if (printLvl > 1) {
+	printf("\t\tEState::compareOtherState() Start comparison of types %s vs. %s\n",electrodeTypeString_.c_str(), 
 	       ESguest->electrodeTypeString_.c_str());
     }
 
@@ -837,10 +849,19 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
     if (!btotal) {
 	if (printLvl == 1) {
-	    printf("EState:: States are not compatible\n");
-	}
+	    printf("\t\tEState:: ERROR:   States are not the same\n");
+        }
+    } else {
+	if (printLvl >= 1) {
+	    printf("\t\tEState:: SUCCESS: States are the same\n");
+        }
     }
     return btotal;
+}
+//==================================================================================================================================
+double EState::electrodeMoles() const
+{
+    return electrodeMoles_;
 }
 //==================================================================================================================================
 // Create a new Electrode Object
