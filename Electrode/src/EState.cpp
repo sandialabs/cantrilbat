@@ -519,7 +519,7 @@ static double setAtolEm40(double a1, double a2)
     return m2;
 }
 //=================================================================================================================================
-static int printHead(int printLvl)
+int EState::printHead(int printLvl) const
 {
     
     static bool printHead = false;
@@ -541,7 +541,7 @@ static int printHead(int printLvl)
 }
 //=================================================================================================================================
 //! print a difference between two strings
-static void printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl)
+void EState::printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl) const
 {
     std::string istr = "no ";
     if (significant) {
@@ -554,7 +554,7 @@ static void printDiff(const std::string& vexp, bool significant,  const std::str
     }
 }
 //==================================================================================================================================
-static void printDiff(const std::string& vexp, int index, int val, int gval, int printLvl)
+void EState::printDiff(const std::string& vexp, int index, int val, int gval, int printLvl) const
 {
     std::string istring = "   ";
     if (index >= 0) {
@@ -580,7 +580,7 @@ static void printDiff(const std::string& vexp, int index, int val, int gval, int
     }
 }
 //==================================================================================================================================
-static void printDiff(const std::string& vexp, int index, double val, double gval, int printLvl)
+void EState::printDiff(const std::string& vexp, int index, double val, double gval, int printLvl) const
 {
     std::string istring = "   ";
     if (index >= 0) {
@@ -606,8 +606,8 @@ static void printDiff(const std::string& vexp, int index, double val, double gva
     }
 }
 //==================================================================================================================================
-static void printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval,
-			 int printLvl)
+void EState::printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval,
+			  int printLvl) const
 {
     std::string istring = "   ";
     size_t j1 = val.size();

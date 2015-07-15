@@ -295,6 +295,55 @@ public:
      */
     void copyEState_toElectrode(Cantera::Electrode* const e) const;
 
+    //! Print a heading
+    /*!
+     *   @param[in]   printLvl            Level of printing
+     *
+     *    @return                         Returns the number of lines printed.
+     */
+    int printHead(int printLvl) const;
+
+    //! Print a difference between two strings
+    /*!
+     *   @param[in]        vexp                String containing the expression
+     *   @param[in]        significant         Causes a comparison failure
+     *   @param[in]        val                 String containing the val
+     *   @param[in]        gval                String containing the guest val
+     *   @param[in]        printLvl            print lvl
+     */
+    void printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl) const;
+
+    //! Print a difference between two int values
+    /*!
+     *   @param[in]        vexp                String containing the expression
+     *   @param[in]        significant         Causes a comparison failure
+     *   @param[in]        val                 int containing the val
+     *   @param[in]        gval                int containing the guest val
+     *   @param[in]        printLvl            print lvl
+     */
+    void printDiff(const std::string& vexp, int index, int val, int gval, int printLvl) const;
+
+    //! Print a difference between two double values
+    /*!
+     *   @param[in]        vexp                String containing the expression
+     *   @param[in]        significant         Causes a comparison failure
+     *   @param[in]        val                 double containing the val
+     *   @param[in]        gval                double containing the guest val
+     *   @param[in]        printLvl            print lvl
+     */
+    void printDiff(const std::string& vexp, int index, double val, double gval, int printLvl) const;
+
+    //! Print a difference between two double vector values
+    /*!
+     *   @param[in]        vexp                String containing the expression
+     *   @param[in]        significant         Causes a comparison failure
+     *   @param[in]        val                 vector of double containing the val
+     *   @param[in]        gval                vector of double containing the guest val
+     *   @param[in]        printLvl            print lvl
+     */
+    void printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval,
+		      int printLvl) const;
+
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!
      *    We compare the state of the solution up to a certain number of digits.
