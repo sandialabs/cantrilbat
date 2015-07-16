@@ -254,10 +254,71 @@ extern double scan_for_double(FILE*,  const char*, const double,
                               const double);
 extern char*  scan_for_string(FILE*,  const char*, const int, const int);
 extern BOOLEAN scan_for_boolean(FILE*, const char*);
-extern int    scan_for_line(FILE*, const char*, char [], const char,
-                            const int, bool errorPrinting = true);
-extern int  read_line(FILE*, char [], const int);
-extern int  read_string(FILE*, char [], const char);
+
+//!   Scan the input file (reading in strings according to 'read_string(ifp,)'
+//!   specifications) until the character pattern in 'string' is matched.
+//!   Returns all of the characters after the termination character in a null-character terminated string,
+/*!
+ *
+ *     @param[in]      ifp            Pointer to file "input"
+ *     @param[in]      str            Contains string pattern to be matched.
+ *     @param[in,out]  input          Buffer array to hold characters that are read in.
+ *                                    On output, it contains the return character string
+ *    @param[in]       print_flag     Line is printed to standard output if true. 
+ *     @param[in]      ch_term        Termination character. When scanning a line of input
+ *                                    is read until either a newline, the 'ch' termination
+ *                                    character is read, or the end-of-file is read.
+ *
+ *     @param[in]      errorPrinting  Prints an error if match string is in the comment fields.
+ *                                    Defaults to true 
+ *     
+ *     @return                        This function returns the number of characters in the string input,
+ *                                    excluding the null character.  Error conditions are currently
+ *                                    handled by returning with negative return values.
+ */
+int scan_for_line(FILE* ifp, const char* str, char input[], const char ch_term, const int print_flag,
+                  bool errorPrinting = true);
+
+//!   Reads a line of input.  The line is returned in the character string pointed to by input. 
+//!   Leading and trailing white spaces are  stripped from the line.
+/*!
+ *    The line is  printed to standard output, if print_flag is true. The number of characters, excluding the null character, is
+ *    returned, except when read_string encounters an error condition (negative return values).  Then, the error condition
+ *    is returned.
+ *
+ *    @param[in]     ifp               Pointer to file "input"
+ *    @param[out]    string            On output, string contains the characters read from the input stream with the NULL 
+ *                                     termination character at the end  However, the newline character is not included in the string.
+ *    @param[in]     print_flag        Line is printed to standard output if true. 
+ *
+ *    @return                          Returns the number of characters plus NULL character read. If an EOF occurs, -1 is returned.
+ *                                     If a line is longer than MAX_INPUT_STR_LN, a -2 is returned
+ */
+int read_line(FILE* ifp, char string[], const int print_flag);
+
+//!      This routine reads the standard input until encountering
+//!     the end-of-file, a newline,  the character 'ch' or until
+//!      MAX_INPUT_STR_LN characters are read.
+/*!
+ *     The inputted characters are read into 'string'. If an EOF occurs, -1 is returned.
+ *     If a line is longer than MAX_INPUT_STR_LN, a -2 is returned
+ *     and an error message is written to standard error. string[] will be returned null-terminated with the
+ *     first MAX_INPUT_STR_LN of the line. Upon successful completion with the read terminated by the
+ *     character 'ch', the number of characters read plus 1 for the
+ *      null character at the end of the string is returned.  If the
+ *     read is terminated by '\n', a 0 is returned, even if  ch = '\n'
+ *
+ *    @param[in]     ifp               pointer to file "input"
+ *    @param[out]    string            On output, 'string' contains the characters read from the input stream with the NULL termination
+ *                                     character at the end. However, the newline character is not included in the string.
+ *
+ *    @param[in]     ch                Additional Termination character. That is, input function
+ *                                     stops when 'ch' or '\n' is read.
+ *
+ *    @return                          Returns the number of characters plus NULL character read. If an EOF occurs, -1 is returned.
+ *                                     If a line is longer than MAX_INPUT_STR_LN, a -2 is returned
+ */
+int read_string(FILE* ifp, char string[], const char ch);
 
 //!  This routine strips off blanks and tabs (only leading and trailing characters) 
 /*!
