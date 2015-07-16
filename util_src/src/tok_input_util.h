@@ -188,17 +188,237 @@ void set_tok_input_print_flag(int print_flag);
  */
 BOOLEAN get_next_keyLine(FILE* ifp, TOKEN* keyLineTok, TOKEN* keyArgTok);
 
-extern int     tok_to_int(const TOKEN*, const int, const int,
-                          const int,    BOOLEAN*);
-extern int     str_to_int(const char*,    const int,    const int,
-                          const int,    BOOLEAN*);
-extern double  tok_to_double(const TOKEN*, const double, const double,
-                             const double, BOOLEAN*);
-extern double  str_to_double(const char*,    const double, const double,
-                             const double, BOOLEAN*);
-extern BOOLEAN tok_to_boolean(const TOKEN*, const int, BOOLEAN*);
-extern BOOLEAN str_to_boolean(const char*, const int, BOOLEAN*);
+//!   Interprets a stripped character string as an integer.
+//!   Bounds checking is done on the value before returning.  Value must be between the max and min; 
+//!   it can equal the max or min value.
+/*!
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value (defined in <limits.h>
+ *                 ---------        --------------
+ *                  INT_MAX, max, all     INT_MAX
+ *                  INT_MIN               INT_MIN
+ *                  N/A, Not Available    INT_MIN
+ *                  default               default_value
+ *
+ *      A default may be specified on the command line. The absence of a
+ *      default may also be specified by setting devault_value to
+ *      NO_DEFAULT_INT.
+ *
+ *      If there is an error, *error is set to TRUE. *error isn't touched
+ *      if there isn't an error.
+ *
+ *    @param[in]   tokPtr        Pointer to the TOKEN to be interpreted as a single int.
+ *                               Some strings are associated with certain values of int.
+ *
+ *    @param[in]   maxVal        Maximum value of the int
+ *
+ *    @param[in]   minVal        Minimum value of the int
+ *
+ *    @param[in]   defaultVal    int indicating the Default value of the card.  The absence of a
+ *                               default may also be specified by setting the value of default_value to NO_DEFAULT_INT.
+ *
+ *    @param[out]  error         If there is an error, *error is set to TRUE. *error isn't touched
+ *                               if there isn't an error.
+ *
+ *    @return                    Returns the int value
+ */
+int tok_to_int(const TOKEN* tokPtr, const int maxVal, const int minVal, const int defaultVal, BOOLEAN* error);
 
+//!   Interprets a stripped character string as an integer.
+//!   Bounds checking is done on the value before returning.  Value must be between the max and min; 
+//!   it can equal the max or min value.
+/*!
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value (defined in <limits.h>
+ *                 ---------        --------------
+ *                  INT_MAX, max, all     INT_MAX
+ *                  INT_MIN               INT_MIN
+ *                  N/A, Not Available    INT_MIN
+ *                  default               default_value
+ *
+ *      A default may be specified on the command line. The absence of a
+ *      default may also be specified by setting devault_value to
+ *      NO_DEFAULT_INT.
+ *
+ *      If there is an error, *error is set to TRUE. *error isn't touched
+ *      if there isn't an error.
+ *
+ *    @param[in]   int_string    Pointer to the string to be interpreted as a single int.
+ *                               Some strings are associated with certain values of int.
+ *
+ *    @param[in]   maxVal        Maximum value of the int
+ *
+ *    @param[in]   minVal        Minimum value of the int
+ *
+ *    @param[in]   defaultVal    int indicating the Default value of the card.  The absence of a
+ *                               default may also be specified by setting the value of default_value to NO_DEFAULT_INT.
+ *
+ *    @param[out]  error         If there is an error, *error is set to TRUE. *error isn't touched
+ *                               if there isn't an error.
+ *
+ *    @return                    Returns the int value
+ */
+int str_to_int(const char* int_string, const int maxVal, const int minVal, const int defaultVal, BOOLEAN* error);
+
+
+//!      Interprets a stripped character string as a double. Returns the
+//!      interpreted value as the return value.
+/*!
+ *      Bounds checking is then done on the value before returning.  Value
+ *      must be between the max and min; it can equal the max or min.
+ *
+ *      Useful values for bounds (specified in <limits.h>:
+ *          DBL_MAX = largest legitimate value of a double ~ 2.0E308
+ *         -DBL_MAX = smallest legitimate value of a double ~ -2.0E308
+ *          DBL_EPSILON = smallest value of a double that can be added to one
+ *                        and produce a different number. ~ 2.0E-16
+ *          DBL_MIN = smallest value of a double ~ 2.0E-308
+ *      For example:
+ *        If 0.0 is not a legitimate number for value, set min = DBL_MIN
+ *        If value>=0.0 is legitimate, set min = 0.0
+ *        if value<=100., set max = 100.
+ *        If no range checking is required, set max = DBL_MAX, min = -DBL_MAX
+ *
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value ( specified in <limits.h>
+ *                 ---------        ---------------------------------------
+ *                  FLT_MAX, all          FLT_MAX
+ *                  DBL_MAX, max          DBL_MAX
+ *                  N/A                  -DBL_MAX
+ *                  default               default_value
+ *                  small, DBL_MIN        DBL_MIN
+ *                  DBL_EPSILON           DBL_EPSILON
+ *
+ *      A default may be specified. The absence of a
+ *      default may also be specified by setting the value of default_value
+ *      to NO_DEFAULT_DOUBLE.
+ *
+ *      If there is an error, *error is set to TRUE. *error isn't touched
+ *      if there isn't an error.
+
+ *    @param[in]   tokPtr        Pointer to the TOKEN to be interpreted as a single double.
+ *                               Some strings are associated with certain values of doubles.
+ *
+ *    @param[in]   maxVal        Maximum value of the double
+ *
+ *    @param[in]   minVal        Minimum value of the double
+ *
+ *    @param[in]   defaultVal    Double indicating the Default value of the card.  The absence of a
+ *                               default may also be specified by setting the value of default_value to NO_DEFAULT_DOUBLE.
+ *
+ *    @param[out]  error         If there is an error, *error is set to TRUE. *error isn't touched
+ *                               if there isn't an error.
+ *
+ *    @return                    Returns the double value
+ */
+double tok_to_double(const TOKEN* tokPtr, const double maxVal, const double minVal, const double defaultVal, 
+		     BOOLEAN* error);
+
+//!      Interprets a stripped character string as a double. Returns the
+//!      interpreted value as the return value.
+/*!
+ *      Bounds checking is then done on the value before returning.  Value
+ *      must be between the max and min; it can equal the max or min.
+ *
+ *      Useful values for bounds (specified in <limits.h>:
+ *          DBL_MAX = largest legitimate value of a double ~ 2.0E308
+ *         -DBL_MAX = smallest legitimate value of a double ~ -2.0E308
+ *          DBL_EPSILON = smallest value of a double that can be added to one
+ *                        and produce a different number. ~ 2.0E-16
+ *          DBL_MIN = smallest value of a double ~ 2.0E-308
+ *      For example:
+ *        If 0.0 is not a legitimate number for value, set min = DBL_MIN
+ *        If value>=0.0 is legitimate, set min = 0.0
+ *        if value<=100., set max = 100.
+ *        If no range checking is required, set max = DBL_MAX, min = -DBL_MAX
+ *
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value ( specified in <limits.h>
+ *                 ---------        ---------------------------------------
+ *                  FLT_MAX, all          FLT_MAX
+ *                  DBL_MAX, max          DBL_MAX
+ *                  N/A                  -DBL_MAX
+ *                  default               default_value
+ *                  small, DBL_MIN        DBL_MIN
+ *                  DBL_EPSILON           DBL_EPSILON
+ *
+ *      A default may be specified. The absence of a
+ *      default may also be specified by setting the value of default_value
+ *      to NO_DEFAULT_DOUBLE.
+ *
+ *      If there is an error, *error is set to TRUE. *error isn't touched
+ *      if there isn't an error.
+ *
+ *    @param[in]   dbl_string    Pointer to the string to be interpreted as a single double.
+ *                               Some strings are associated with certain values of doubles.
+ *
+ *    @param[in]   maxVal        Maximum value of the double
+ *
+ *    @param[in]   minVal        Minimum value of the double
+ *
+ *    @param[in]   defaultVal    Double indicating the Default value of the card.  The absence of a
+ *                               default may also be specified by setting the value of default_value to NO_DEFAULT_DOUBLE.
+ *
+ *    @param[out]  error         If there is an error, *error is set to TRUE. *error isn't touched
+ *                               if there isn't an error.
+ *
+ *    @return                    Returns the double value
+ */
+double str_to_double(const char* dbl_string, const double maxVal, const double minVal,
+		     const double defaultVal, BOOLEAN* error);
+
+//!      Interprets the first string of a TOKEN structure as a BOOLEAN.
+//!      (i.e., TRUE or FALSE).  Returns the interpreted value as the return value.
+/*!
+ *      Errors conditions are created if more than one token is found.
+ *
+ *      The following character strings are interpreted (case doesn't matter):
+ *
+ *      TRUE  = "YES", "TRUE", "T", "Y"
+ *      FALSE = "NO,   "FALSE", "N", "F"
+ *      default_value = "DEFAULT" or ""
+ *
+ *      A default may be specified on the command line. The absence of a
+ *      default may also be specified by using the value of NO_DEFAULT_INT.
+ *      If tokPtr contains no tokens, this routine will try to use the default value.
+ *
+ *    @param[in]   tokPtr        Pointer to the TOKEN to be interpreted
+ *
+ *    @param[in]   default_value BOOLEAN indicating the Default value of the card.
+ *
+ *    @param[out]  error         If there is an error, *error is set to TRUE. *error isn't touched
+ *                               if there isn't an error.
+ *
+ *    @return                    Returns true or false.
+ */
+BOOLEAN tok_to_boolean(const TOKEN* tokPtr, const int default_value, BOOLEAN* error);
+
+//!   Interprets a stripped character string as a BOOLEAN value
+//!   (i.e., TRUE or FALSE). It returns that value as the return value.
+/*!
+ *  The following character strings are interpreted (case doesn't matter):
+ *
+ *      TRUE  = "YES", "TRUE", "T", "Y"
+ *      FALSE = "NO,   "FALSE", "N", "F"
+ *      default_value = "DEFAULT"
+ *
+ *      A default may be specified on the command line. The absence of a
+ *      default may also be specified by using the value of NO_DEFAULT_INT.
+ *
+ *    @param[in]   string        String to be interpreted.
+ *
+ *    @param[in]   default_value BOOLEAN indicating the Default value of the card.
+ *
+ *    @param[out]  error         If there is an error, *error is set to TRUE. *error isn't touched
+ *                               if there isn't an error.
+ *
+ *    @return                    Returns true or false.
+ */
+BOOLEAN str_to_boolean(const char* string, const int default_value, BOOLEAN* error);
 
 //!      Interprets the arguments in a TOKEN structure as a string.
 //!      It mallocs new space for the string, and returns the pointer to it.
@@ -220,6 +440,7 @@ extern BOOLEAN str_to_boolean(const char*, const int, BOOLEAN*);
  *  @param[in]    minTok       Minimum number of tokens
  *  @param[in]    defaultVal   Input default value of the c string. If there is no default use the
  *                             value NO_DEFAULT_STR
+ *
  *  @param[out]   error        Set to True if there is an error condition on the card
  *
  *  @return                    Returns the value of the string as a c string, i.e., null terminated. This string
