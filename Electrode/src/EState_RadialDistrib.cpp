@@ -9,6 +9,7 @@
 
 #include "Electrode_SimpleDiff.h"
 #include "Electrode_DiffTALE.h"
+#include "EState_XML.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -177,11 +178,20 @@ XML_Node*   EState_RadialDistrib::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
 
-    ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
+    ctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
     ctml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
+    ctml::addNamedString(*x, "EState_Type_String", esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_));
+    ctml::addInteger(*x, "fileVersionNumber",  EST_Version_lastFileRead_);
     ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
+   if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
+    } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
+    } else {
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
+    }
 
     return x;
 }
@@ -217,7 +227,7 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
 
     numRCells_ = ctml::getInteger(xmlEState, "numRCells");
     numKRSpecies_ = ctml::getInteger(xmlEState, "numKRSpecies");
-    numSPhases_ = ctml::getInteger(xmlEState, "numRCells");
+    numSPhases_ = ctml::getInteger(xmlEState, "numSPhases");
 
     ctml::getFloatArray(xmlEState, rnodePos_, true, "", "rnodePos");
     ctml::getFloatArray(xmlEState, cellBoundR_, true, "", "cellBoundR"); 

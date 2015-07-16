@@ -30,19 +30,19 @@ EState_Identification::EState_Identification() :
 Cantera::XML_Node* EState_Identification::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
-    ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
+    ctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
     ctml::addInteger(*x, "EState_Type",         EST_Type_);
-    ctml::addString(*x, "EState_Type_String", EState_Type_String_);
+    ctml::addNamedString(*x, "EState_Type_String", EState_Type_String_);
     ctml::addInteger(*x, "fileVersionNumber",  EST_Version_);
     ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
     if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
-	ctml::addString(*x, "electrodeCapacityType", "Capacity_Anode");
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
     } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
-	ctml::addString(*x, "electrodeCapacityType", "Capacity_Cathode");
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
     } else {
-	ctml::addString(*x, "electrodeCapacityType", "Capacity_Other");
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
     }
     return x;
 }
@@ -63,7 +63,7 @@ void EState_Identification::readIdentificationFromXML(const XML_Node& xmlEI)
     ctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString_ , typeSS);
     EST_Type_ = (EState_Type_Enum)  ctml::getInteger(*x, "EState_Type");
     if (x->hasChild("EState_Type_String")) {
-	ctml::getNamedStringValue(*x, "Estate_Type_String", EState_Type_String_ , typeSS);
+	ctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String_ , typeSS);
     } else {
         EState_Type_String_ = "EState_CSTR";
     }
@@ -260,13 +260,20 @@ XML_Node*   EState::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
 
-    ctml::addString(*x, "electrodeTypeString", electrodeTypeString_);
+    ctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
     ctml::addInteger(*x, "EState_Type",         EST_fileToBeWritten_);
-    ctml::addString(*x, "EState_Type_String", esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_));
+    ctml::addNamedString(*x, "EState_Type_String", esmodel::EState_Type_Enum_to_string(EST_fileToBeWritten_));
+    ctml::addInteger(*x, "fileVersionNumber", EST_Version_lastFileRead_);
     ctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
     ctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
     ctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
-
+    if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
+    } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
+    } else {
+	ctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
+    }
     return x;
 }
 //======================================================================================================================
@@ -339,17 +346,22 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
     ctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString_ , typeSS);
 
     EST_lastFileRead_ = (EState_Type_Enum)  ctml::getInteger(*x, "EState_Type");
-    if (EST_lastFileRead_ !=  EST_CSTR) {
-        throw CanteraError(" EState::readIdentificationFromXML()",
-                           "read the wrong EState type - new situation");
-    }
+
+    std::string EState_Type_String;
+    if (x->hasChild("EState_Type_String")) {
+
+	ctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String, typeSS);
+	Cantera::EState_Type_Enum echeck = esmodel::string_to_EState_Type_Enum(EState_Type_String);
+	if (echeck !=  EST_lastFileRead_ ) {
+	    throw Electrode_Error("EState::readIdentificationFromXM",
+				  "Incompatibility between EState_Type and EState_Type_String ");
+	}
+    } 
+   
     if (x->hasChild("fileVersionNumber")) {
 	EST_Version_lastFileRead_ = ctml::getInteger(*x, "fileVersionNumber");
     }
-    if (EST_Version_lastFileRead_ != 1) {
-        throw CanteraError(" EState::readIdentificationFromXML()",
-                           "read the wrong EState version type - new situation");
-    }
+   
     if (x->hasChild("electrodeCapacityType")) {
 	electrodeCapacityType_ = (Cantera::Electrode_Capacity_Type_Enum) ctml::getInteger(*x, "electrodeCapacityType");
     }
@@ -362,6 +374,18 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
     if (x->hasChild("electrodeDomainNumber")) {
      electrodeCellNumber_ = ctml::getInteger(*x, "electrodeDomainNumber");
     }
+
+    if (x->hasChild("electrodeCapacityType")) {
+	ctml::getNamedStringValue(*x, "electrodeCapacityType", nn, typeSS);
+	if (nn == "Capacity_Anode") {
+	    electrodeCapacityType_ = CAPACITY_ANODE_ECT;
+	} else if (nn == "Capacity_Cathode") {
+	    electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
+	} else if (nn == "Capacity_Other") {
+	    electrodeCapacityType_ = CAPACITY_OTHER_ECT;
+	}
+    }
+
 }
 //==================================================================================================================================
 // Read identification information from a struct EState_Identification object

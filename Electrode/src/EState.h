@@ -194,13 +194,13 @@ public:
      */
     virtual int initialize(const Cantera::Electrode* const e);
 
-    const std::string& electrodeType() const;
+    virtual const std::string& electrodeType() const;
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
      *  @return Returns a malloced XML_Node tree containing the identification information
      */
-    XML_Node* writeIdentificationToXML() const;
+    virtual XML_Node* writeIdentificationToXML() const;
 
     //! Write the electrodeState contained within the EState object to a new malloced XML_Node tree
     /*!

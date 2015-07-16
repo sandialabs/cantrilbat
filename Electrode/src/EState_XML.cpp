@@ -393,8 +393,8 @@ Cantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
      } 
      XML_Node* xtg = new XML_Node("globalTimeStep");
      xtg->addAttribute("index", int2str(ii));
-     ctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
      ctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
+     ctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
      XML_Node* xti = new XML_Node("timeIncrement");
      xti->addAttribute("type", "global");
      for (size_t k = 0; k < etsList_.size(); ++k) {

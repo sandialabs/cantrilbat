@@ -411,7 +411,9 @@ void Electrode::writeSolutionTimeIncrement()
     /*
      *   Add the next time step's deltaT as a child XML element
      */
-    gts.addChild("deltaTime_init_next", deltaTsubcycle_init_next_ , fmt);
+    ctml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
+    //XML_Node& f = gts.addChild("deltaTime_init_next", deltaTsubcycle_init_next_ , fmt);
+    //f.addAttribute("vtype", "float"); 
     /*
      *  Add the number of substep integrations as a child element
      */
