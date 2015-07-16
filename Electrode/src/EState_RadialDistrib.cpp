@@ -134,7 +134,7 @@ EState_RadialDistrib::~EState_RadialDistrib()
 EState* EState_RadialDistrib::duplMyselfAsEState() const
 {
     EState_RadialDistrib* es = new EState_RadialDistrib(*this);
-    return dynamic_cast<EState*>(es);
+    return es;
 }
 //======================================================================================================================
 int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
@@ -174,7 +174,7 @@ int EState_RadialDistrib::initialize(const Cantera::Electrode* const ebase)
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node*   EState_RadialDistrib::writeIdentificationToXML() const
+XML_Node* EState_RadialDistrib::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
 
