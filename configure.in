@@ -816,6 +816,7 @@ AC_OUTPUT(Makefile \
           Electrode/src/Makefile \
           Electrode/src_tests/Makefile \
           Electrode/tests/Makefile \
+          Electrode/tests/runtest_Electrode \
           Electrode/tests/ImplicitIntegrator/Makefile \
           Electrode/tests/ImplicitIntegrator_2/Makefile \
           Electrode/tests/LiCoO2_LiIonCathode_CSTR_3_cc/Makefile \
@@ -935,6 +936,7 @@ AC_OUTPUT(Makefile \
 #
 chmod +x  epequil/tests/ionizedGasEquil/runtest
 chmod +x  1Delectrode/test_suite/runtest
+chmod +x  Electrode/tests/runtest_Electrode
 #
 # -----------------------------------------------------------------------------
 #          END

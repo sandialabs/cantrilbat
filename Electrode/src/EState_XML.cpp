@@ -618,6 +618,10 @@ void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(con
     ctml::getNamedStringValue(xElectrodeOutput, "timeStamp", valueString, typeString);
     timeStamp_ = valueString;
     const XML_Node* xmlEI = xElectrodeOutput.findByName("ElectrodeIdentification");
+    if (! xmlEI) {
+       throw Electrode_Error("ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML",
+                              "Was expecting to find the ElectrodeIdentification XML Element, but didn't. Something is seriously wrong");
+    }
     e_ID_.readIdentificationFromXML(*xmlEI);
 
     std::vector<XML_Node*> xGlobalTimeSteps = xElectrodeOutput.getChildren("globalTimeStep");
