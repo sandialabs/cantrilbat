@@ -33,6 +33,7 @@ using namespace mdpUtil;
 namespace BEInput
 {
 
+const int BE_ANY_INDEX = -7777779;
 
 /*
  *  BlockEntry Constructor

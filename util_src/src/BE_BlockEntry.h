@@ -26,7 +26,8 @@ namespace BEInput
 // Forward declaration
 class LineEntry;
 
-#define BE_ANY_INDEX -7777779
+//! Value to indicate that any multicontrib index will be matched
+const extern int BE_ANY_INDEX;
 
 //!  The BlockEntry Class is used to describe blocks
 /*!

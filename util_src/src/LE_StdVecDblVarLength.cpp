@@ -22,6 +22,7 @@
 #include <cfloat>
 
 #ifndef DATA_PTR
+//! Macro to return the address of the start of data
 #define DATA_PTR(x)  &(x[0])
 #endif
 

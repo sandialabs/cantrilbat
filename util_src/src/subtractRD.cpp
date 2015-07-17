@@ -12,15 +12,19 @@
  * See file License.txt for licensing information.
  */
 
-#include <math.h>
+#include <cmath>
+#ifndef MIN
+//!  minimum of two quantities
 #define MIN(x,y)     (( (x) < (y) ) ? (x) : (y))
-namespace mdpUtil {
+#endif
+namespace mdpUtil
+{
 /*************************************************************************
  *
  * subtractRD():
  *   This routine subtracts 2 numbers. If the difference is less
  *   than 1.0E-14 times the magnitude of the smallest number,
- *   then diff returns an exact zero. 
+ *   then diff returns an exact zero.
  *   It also returns an exact zero if the difference is less than
  *   1.0E-300.
  *
@@ -32,16 +36,17 @@ namespace mdpUtil {
  *         loss of convergence. Therefore, in practice this routine
  *         has proved cost-effective.
  */
-double subtractRD(double a, double b) {
+double subtractRD(double a, double b)
+{
     double diff = a - b;
     double d = MIN(fabs(a), fabs(b));
     d *= 1.0E-14;
     double ad = fabs(diff);
     if (ad < 1.0E-300) {
-      diff = 0.0;
+        diff = 0.0;
     }
     if (ad < d) {
-      diff = 0.0;
+        diff = 0.0;
     }
     return diff;
 }
@@ -51,16 +56,17 @@ double subtractRD(double a, double b) {
 /*
  * This is the fortran binding version of this routine
  */
-extern "C" double subtractrd_(double *aptr, double *bptr) {
+extern "C" double subtractrd_(double* aptr, double* bptr)
+{
     double diff = *aptr - *bptr;
     double d = MIN(fabs(*aptr), fabs(*bptr));
     d *= 1.0E-14;
     double ad = fabs(diff);
     if (ad < 1.0E-300) {
-      diff = 0.0;
+        diff = 0.0;
     }
     if (ad < d) {
-      diff = 0.0;
+        diff = 0.0;
     }
     return diff;
 }

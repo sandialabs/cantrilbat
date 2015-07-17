@@ -64,6 +64,7 @@ namespace mdpUtil
 
 
 #ifndef _C16_NAME_DEF
+//!         Defensive name assignment
 #define _C16_NAME_DEF
 //!   Character array used for fortran names. We restrict its length to 16 characters
 typedef char C16_NAME[16];
@@ -81,11 +82,7 @@ extern int MDP_MP_myproc;
 #endif
 
 /****************************************************************************/
-/*
- * MDP_SAFE_DELETE()
- *       This useful define is great for delete single instances of
- *       mallocing using new.
- */
+//!  Macro for deleting memory created with single instances of new(). This delete the memory and sets the pointer to zero.
 #define MDP_SAFE_DELETE(a) if (a) { delete (a); a = 0; }
 
 /************************************************************************************************************************************/
@@ -107,12 +104,16 @@ extern int MDP_MP_myproc;
  */
 extern int MDP_ALLO_errorOption;
 
-/****************************************************************************/
-
+/***************************************************************************************************************************************/
+//! Macro for assigning and mallocing memory for vectors of C structures
+/*!
+ *   @param x     Name of the structure
+ *   @param num   Number of terms in the structure
+ */
 #define mdp_alloc_struct(x, num) (x *) mdp_array_alloc(1, (num), sizeof(x))
 
 
-/* function declarations for dynamic array allocation */
+/******* function declarations for dynamic array allocation ***********************/
 
 //! Allocates multidimensional pointer arrays of arbitrary length via a single malloc call
 /*!

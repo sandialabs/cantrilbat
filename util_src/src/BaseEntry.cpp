@@ -18,9 +18,8 @@
 #ifdef WIN32
 #define SNPRINTF _snprintf
 #else
-//!  @cond DEV
+//! Macro to get the correct name 
 #define SNPRINTF snprintf
-//!  @endcond
 #endif
 
 using namespace mdpUtil;

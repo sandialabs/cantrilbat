@@ -21,7 +21,10 @@
 #include <cstring>
 #include <cfloat>
 
+#ifndef DATA_PTR
+//! Macro to point to the start of data
 #define DATA_PTR(x)  &(x[0])
+#endif
 
 using namespace TKInput;
 using namespace std;

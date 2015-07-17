@@ -150,8 +150,9 @@ static void mdp_alloc_eh2(const char* rname)
 }
 //==================================================================================================================================
 
-
+//!  Macro to take care of the return from fprintf
 #define Fprintf (void) fprintf
+
 
 /****************************************************************************/
 #ifndef HAVE_ARRAY_ALLOC

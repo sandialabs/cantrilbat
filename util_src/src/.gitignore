@@ -1,5 +1,3 @@
 *.d
 Makefile
 .depends
-logger.h
-logger.cpp

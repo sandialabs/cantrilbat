@@ -1,9 +1,5 @@
 /**
  * @file md_timer.h
- *
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -16,6 +12,10 @@
 #define MD_TIMER_H
 
 extern "C" {
+//! Returns the wall clock time in seconds
+/*!
+ *      @return              Returns the wall clock time in seconds
+ */
 extern double second();
 }
 #endif
