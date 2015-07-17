@@ -28,7 +28,7 @@
 #include <vector>
 #include <cstdio>
 //----------------------------------------------------------------------------------------------------------------------------------
-//!  Namespace for the manipulation of TOKEN structures and for the reading and writing of ascii input files based on 
+//!  Namespace for the manipulation of TOKEN structures and for the reading and writing of ascii input files based on
 //!  reading each line and tokenizing their input.
 /*!
  *  This is largely a C routine based namespace. It is efficient and fast.  It relies on the C standard library routines
@@ -146,7 +146,7 @@ void set_tok_input_print_flag(int print_flag);
  *        char *tok_ptr[MAXTOKENS];
  *        int   ntokes;
  *      };
- *   
+ *
  *     orig_str Contains the original string, unmodified.
  *     tok_str  Contains a modified version of the string,
  *              whose positions
@@ -189,7 +189,7 @@ void set_tok_input_print_flag(int print_flag);
 BOOLEAN get_next_keyLine(FILE* ifp, TOKEN* keyLineTok, TOKEN* keyArgTok);
 
 //!   Interprets a stripped character string as an integer.
-//!   Bounds checking is done on the value before returning.  Value must be between the max and min; 
+//!   Bounds checking is done on the value before returning.  Value must be between the max and min;
 //!   it can equal the max or min value.
 /*!
  *      Certain ascii strings are checked for first (case is insignificant):
@@ -226,7 +226,7 @@ BOOLEAN get_next_keyLine(FILE* ifp, TOKEN* keyLineTok, TOKEN* keyArgTok);
 int tok_to_int(const TOKEN* tokPtr, const int maxVal, const int minVal, const int defaultVal, BOOLEAN* error);
 
 //!   Interprets a stripped character string as an integer.
-//!   Bounds checking is done on the value before returning.  Value must be between the max and min; 
+//!   Bounds checking is done on the value before returning.  Value must be between the max and min;
 //!   it can equal the max or min value.
 /*!
  *      Certain ascii strings are checked for first (case is insignificant):
@@ -314,8 +314,8 @@ int str_to_int(const char* int_string, const int maxVal, const int minVal, const
  *
  *    @return                    Returns the double value
  */
-double tok_to_double(const TOKEN* tokPtr, const double maxVal, const double minVal, const double defaultVal, 
-		     BOOLEAN* error);
+double tok_to_double(const TOKEN* tokPtr, const double maxVal, const double minVal, const double defaultVal,
+                     BOOLEAN* error);
 
 //!      Interprets a stripped character string as a double. Returns the
 //!      interpreted value as the return value.
@@ -369,7 +369,7 @@ double tok_to_double(const TOKEN* tokPtr, const double maxVal, const double minV
  *    @return                    Returns the double value
  */
 double str_to_double(const char* dbl_string, const double maxVal, const double minVal,
-		     const double defaultVal, BOOLEAN* error);
+                     const double defaultVal, BOOLEAN* error);
 
 //!      Interprets the first string of a TOKEN structure as a BOOLEAN.
 //!      (i.e., TRUE or FALSE).  Returns the interpreted value as the return value.
@@ -470,11 +470,97 @@ char* tok_to_string(const TOKEN* tokPtr, const int maxTok, const int minTok, con
  */
 char* str_to_string(const char* str, const char* defaultVal, BOOLEAN* error);
 
-extern int    scan_for_int(FILE*, const char*, const int, const int);
-extern double scan_for_double(FILE*,  const char*, const double,
-                              const double);
-extern char*  scan_for_string(FILE*,  const char*, const int, const int);
-extern BOOLEAN scan_for_boolean(FILE*, const char*);
+//!      Scans the file for a line matching string. Then, interprets
+//!      everything after the equals sign as a single integer.
+/*!
+ *      Bounds checking is done on the value before returning.  Value
+ *      must be between the max and min; it can equal the max or min value.
+ *
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value
+ *                 ---------        --------------
+ *                  INT_MAX, max, all     INT_MAX
+ *                  INT_MIN, default      INT_MIN
+ *                  N/A, Not Available    INT_MIN
+ *
+ *      Because this is a fixed format input file routine, errors are
+ *      handled by terminally exiting the program.
+ *
+ *     @param[in]      ifp            Pointer to file "input"
+ *     @param[in]      string         Contains string pattern to be matched.
+ *     @param[in]      minVal         Minimum value 
+ *     @param[in]      maxVal         Maximum value
+ *
+ *     @return                        This function returns the value of the int
+ */
+int scan_for_int(FILE* ifp, const char* string, const int maxVal, const int minVal);
+
+//!     Scans the file for a line matching string. Then, interprets everything after the equals sign as a single floating
+//!     point number. Bounds checking is then done on the value before returning.
+/*!
+ *      Value must be between the max and min; it can equal the max or min.
+ *
+ *      Useful values for bounds:
+ *          DBL_MAX = largest legitimate value of a double ~ 2.0E-308
+ *         -DBL_MAX = smallest legitimate value of a double ~ 2.0E-308
+ *          DBL_EPSILON = smallest value of a double that can be added to one
+ *                        and produce a different number. ~ 2.0E-16
+ *          DBL_MIN = smallest value of a double ~ 2.0E-308
+ *      For example:
+ *        If 0.0 is not a legitimate number for value, set min = DBL_MIN
+ *        If value>=0.0 is legitimate, set min = 0.0
+ *        if value<=100., set max = 100.
+ *        If no range checking is required, set max = DBL_MAX, min = -DBL_MAX
+ *
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value
+ *                 ---------        --------------
+ *                  FLT_MAX, all          FLT_MAX
+ *                  DBL_MAX, max          DBL_MAX
+ *                  N/A, default         -DBL_MAX
+ *                  small, DBL_MIN        DBL_MIN
+ *                  DBL_EPSILON           DBL_EPSILON
+ *
+ *      Because this is a fixed format input file routine, errors are
+ *      handled by terminally exiting the program.
+ *
+ *     @param[in]      ifp            Pointer to file "input"
+ *     @param[in]      string         Contains string pattern to be matched.
+ *     @param[in]      minVal         Minimum value 
+ *     @param[in]      maxVal         Maximum value
+ *
+ *     @return                        This function returns the value of the double
+ */
+double scan_for_double(FILE* ifp, const char* string, const double maxVal, const double minVal);
+
+//! Scans the file for a line matching string. Then, interprets everything after the equals sign as a as string to be returned.
+/*!
+ *  Because this is a fixed format input file routine, errors are handled by terminally exiting the program.
+ *
+ *  Storage for the resulting string is malloced, and the address  of the string is returned.
+ *  The string is returned stripped of leading and trailing white space and of comments.
+ *
+ *     @param[in]      ifp            Pointer to file "input"
+ *     @param[in]      string         Contains string pattern to be matched.
+ *     @param[in]      minVal         Minimum number of characters to be input
+ *     @param[in]      maxVal         Maximum number of characters to be input
+ *
+ *     @return                        This function returns the value of the string
+ */
+char* scan_for_string(FILE* ifp, const char* string, const int minVal, const int maxVal);
+
+//! Scans the file for a line matching string. Then, interprets everything after the equals sign as a single boolean value
+/*!
+ *  Because this is a fixed format input file routine, errors are handled by terminally exiting the program.
+ *
+ *     @param[in]      ifp            Pointer to file "input"
+ *     @param[in]      string         Contains string pattern to be matched.
+ *
+ *     @return                        This function returns the value of the boolean
+ */
+BOOLEAN scan_for_boolean(FILE* ifp, const char* string);
 
 //!   Scan the input file (reading in strings according to 'read_string(ifp,)'
 //!   specifications) until the character pattern in 'string' is matched.
@@ -485,14 +571,14 @@ extern BOOLEAN scan_for_boolean(FILE*, const char*);
  *     @param[in]      str            Contains string pattern to be matched.
  *     @param[in,out]  input          Buffer array to hold characters that are read in.
  *                                    On output, it contains the return character string
- *    @param[in]       print_flag     Line is printed to standard output if true. 
+ *    @param[in]       print_flag     Line is printed to standard output if true.
  *     @param[in]      ch_term        Termination character. When scanning a line of input
  *                                    is read until either a newline, the 'ch' termination
  *                                    character is read, or the end-of-file is read.
  *
  *     @param[in]      errorPrinting  Prints an error if match string is in the comment fields.
- *                                    Defaults to true 
- *     
+ *                                    Defaults to true
+ *
  *     @return                        This function returns the number of characters in the string input,
  *                                    excluding the null character.  Error conditions are currently
  *                                    handled by returning with negative return values.
@@ -500,7 +586,7 @@ extern BOOLEAN scan_for_boolean(FILE*, const char*);
 int scan_for_line(FILE* ifp, const char* str, char input[], const char ch_term, const int print_flag,
                   bool errorPrinting = true);
 
-//!   Reads a line of input.  The line is returned in the character string pointed to by input. 
+//!   Reads a line of input.  The line is returned in the character string pointed to by input.
 //!   Leading and trailing white spaces are  stripped from the line.
 /*!
  *    The line is  printed to standard output, if print_flag is true. The number of characters, excluding the null character, is
@@ -508,9 +594,9 @@ int scan_for_line(FILE* ifp, const char* str, char input[], const char ch_term, 
  *    is returned.
  *
  *    @param[in]     ifp               Pointer to file "input"
- *    @param[out]    string            On output, string contains the characters read from the input stream with the NULL 
+ *    @param[out]    string            On output, string contains the characters read from the input stream with the NULL
  *                                     termination character at the end  However, the newline character is not included in the string.
- *    @param[in]     print_flag        Line is printed to standard output if true. 
+ *    @param[in]     print_flag        Line is printed to standard output if true.
  *
  *    @return                          Returns the number of characters plus NULL character read. If an EOF occurs, -1 is returned.
  *                                     If a line is longer than MAX_INPUT_STR_LN, a -2 is returned
@@ -541,7 +627,7 @@ int read_line(FILE* ifp, char string[], const int print_flag);
  */
 int read_string(FILE* ifp, char string[], const char ch);
 
-//!  This routine strips off blanks and tabs (only leading and trailing characters) 
+//!  This routine strips off blanks and tabs (only leading and trailing characters)
 /*!
  *   Comments are excluded -> All instances of the comment character, '!', are replaced by '\0' thereby terminating the string.
  *
@@ -565,7 +651,7 @@ void lower_case(char str[]);
 /*!
  *      @param[in]   keyptr             Pointer to the TOKEN structure to be copied
  *
- *      @return                         Returns the pointer to the newly malloced string. The new string should be freed 
+ *      @return                         Returns the pointer to the newly malloced string. The new string should be freed
  *                                      when no longer needed.
  */
 char* TokToStrng(const TOKEN* keyptr);
