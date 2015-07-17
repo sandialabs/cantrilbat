@@ -140,6 +140,12 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
+    retn = electrodeC->electrode_stateSave_create();
+    if (retn == -1) {
+      printf("exiting with error\n");
+      exit(-1);
+    }
+
     electrodeC->doThermalPropertyCalculations_ = true;
 
     double deltaT = 0.1;
@@ -188,6 +194,8 @@ int main(int argc, char **argv)
  
       cout << setw(15) << Tfinal << setw(15) << amps << endl;
       electrodeC->printElectrode();
+      electrodeC->writeSolutionTimeIncrement();
+
  
       electrodeC->getSurfaceAreas(sa);
  
@@ -224,12 +232,12 @@ int main(int argc, char **argv)
       q_entrop2 /= deltaT;
 
       printf("    Check of Thermal Source terms: These should add up to each other:\n");
-      printf (" q_over    = %g\n", q_over);
-      printf (" q_over2   = %g\n", q_over2);
-      printf (" q_entrop  = %g\n", q_entrop);
-      printf (" q_entrop2 = %g\n", q_entrop2);
-      printf (" q_enth    = %g\n", q_enth);
-      printf (" q_enth2   = %g\n", q_enth2);
+      printf(" q_over    = %g\n", q_over);
+      printf(" q_over2   = %g\n", q_over2);
+      printf(" q_entrop  = %g\n", q_entrop);
+      printf(" q_entrop2 = %g\n", q_entrop2);
+      printf(" q_enth    = %g\n", q_enth);
+      printf(" q_enth2   = %g\n", q_enth2);
       double diff = q_enth - q_over - q_entrop;
       if (fabs(diff) < 1.0E-16) {
           diff = 0.0;

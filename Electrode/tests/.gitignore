@@ -2,3 +2,7 @@ runGood
 runBad
 runInProgress.txt
 *breakpoints
+diff_summary.txt
+diff_xml.txt
+soln_0_0.xml
+runtest_Electrode

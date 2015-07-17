@@ -13,3 +13,6 @@ LiCoO2_globalResults_0_0.csv
 LiCoO2_intResults_0_0.csv
 runGood
 runBad
+diff_summary.txt
+diff_xml.txt
+soln_0_0.xml
