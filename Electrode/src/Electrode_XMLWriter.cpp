@@ -349,6 +349,11 @@ void Electrode::writeSolutionTimeIncrement()
      */
     static int solnNum = 1;
 
+    if (!eState_final_) {
+        throw Electrode_Error("Electrode::writeSolutionTimeIncrement()", 
+                              "Solution Output has been requested, but it has never been set up by invoking electrode_stateSave_create()");
+    }
+
     /*
      *  stepNum is the global time step number written to the file.
      */
