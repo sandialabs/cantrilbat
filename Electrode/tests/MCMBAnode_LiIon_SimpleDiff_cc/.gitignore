@@ -17,3 +17,7 @@ MCMBAnode_SimpleDiff_cc
 outputTable.csv
 capCheck_0.txt
 diff_tcsv.txt
+diff_ocsv.txt
+diff_summary.txt
+diff_xml.txt
+
