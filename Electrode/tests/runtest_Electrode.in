@@ -319,8 +319,18 @@ then
 fi
 #
 #  Find and resolve the soln differencer
-# 
-XMLELECTRODEDIFF=${CANTERA_APPS_INSTALL_BINDIR}/xmlElectrodeDiff
+#      -> Can either pull from the source directory or the install dir. The general rule is that current module
+#         always pulls from itself. Downstream modules pull from the install dir only.  
+pullFromInstall=0
+#
+XBINDIR=${CANTERA_APPS_INSTALL_BINDIR}
+if test $pullFromInstall = 1
+then
+  XBINDIR=${CANTERA_APPS_INSTALL_BINDIR}
+else
+  XBINDIR=@abs_top_builddir@/Electrode/src_tests
+fi
+XMLELECTRODEDIFF=${XBINDIR}/xmlElectrodeDiff
 if test ! -x ${XMLELECTRODEDIFF}
 then
    echo 'Fatal error. file xmlElectrodeDiff, ' ${XMLELECTRODEDIFF} ', doesn't exist or isn't executable'
