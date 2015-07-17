@@ -1647,7 +1647,9 @@ SKIP_FUNCTION_MACROS   = YES
 # NOT include the path). If a tag file is not located in the directory in which
 # doxygen is run, you must also specify the path to the tagfile here.
 
-TAGFILES               =
+# TAGFILES               = /ascldap/users/hkmoffa/Cantera/gc/cab_trunk_3279/build/docs/Cantera.tag
+TAGFILES               = /ascldap/users/hkmoffa/Cantera/gc/cab_trunk_3279/build/docs/Cantera.tag=/ascldap/users/hkmoffa/Cantera/gc/cab_trunk_3279/build/docs/doxygen/html
+#TAGFILES               = Cantera.tag
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create
 # a tag file that is based on the input files it reads.
