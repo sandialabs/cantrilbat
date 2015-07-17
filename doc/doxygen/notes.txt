@@ -8,5 +8,31 @@ the .h group files. Not sure how to fix this other than to take the
 
 
 
+Proper use of TAGFILES:  the = argment must point to the html output of
+              the external doxygen documentation. for example:
 
 
+
+UTPUT_DIRECTORY  = proj
+INPUT             = proj/src
+TAGFILES          = ext1/ext1.tag=../../ext1/html \
+                    ext2/ext2.tag=../../ext2/html 
+
+where 
+
+    root>
+      +- proj
+      |   +- html               HTML output directory for proj
+      |   +- src                sources for proj
+      |   |- proj.cpp
+      +- ext1
+      |   +- html               HTML output directory for ext1
+      |   |- ext1.tag           tag file for ext1
+      +- ext2
+      |   +- html               HTML output directory for ext2
+      |   |- ext2.tag           tag file for ext2
+      |- proj.cfg               doxygen configuration file for proj
+      |- ext1.cfg               doxygen configuration file for ext1
+      |- ext2.cfg               doxygen configuration file for ext2
+
+Verified that this works.
