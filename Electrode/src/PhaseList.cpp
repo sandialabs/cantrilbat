@@ -255,7 +255,7 @@ addSurPhase(std::string canteraFile)
  *     meta information lists kept by the PhaseList object
  */
 void PhaseList::
-addVolPhase(Cantera::ThermoPhase* const vp, XML_Node* vPhase, std::string canteraFile)
+addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase, std::string canteraFile)
 {
 
     // Check for incompatibilities

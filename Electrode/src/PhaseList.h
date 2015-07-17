@@ -2,14 +2,10 @@
 /**
  * @file PhaseList.h
  * This file contains definitions for the class PhaseList
- *  (see \ref thermoprops and
+ *  (see \ref ExtendedPhaseGroups and
  * class \link Cantera::PhaseList PhaseList\endlink).
  */
 
-/**
- *  $Id: PhaseList.h 571 2013-03-26 16:44:21Z hkmoffa $
- *
- */
 
 #ifndef CT_PHASELIST_H
 #define CT_PHASELIST_H
@@ -79,18 +75,18 @@ public:
      *  @param vnode          XML_Node pointer to the phase XML Node for the current object
      *  @param canteraFile    File name of the file that contains the phase XML Node
      */
-    void addVolPhase(ThermoPhase* const vp, XML_Node* vNode, std::string canteraFile = "");
+    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode, std::string canteraFile = "");
 
     //! Add a volumetric phase
     void addVolPhase(std::string canteraFile);
 
-    //! Add a surface phase to the list
+    //! Add a surface phase to the list of surfaces within the object.
     /*!
-     *  @param vp             Previously initialized ThermoPhase object to be added to PhaseList
-     *  @param snode          XML_Node pointer to the phase XML Node for the current object
-     *  @param canteraFile    File name of the file that contains the phase XML Node
+     *  @param[in]   vp             Previously initialized ThermoPhase object to be added to PhaseList
+     *  @param[in]   snode          XML_Node pointer to the phase XML Node for the current object
+     *  @param[in]   canteraFile    File name for the file that contains the phase XML Node description.
      */
-    void addSurPhase(ThermoPhase* const vp, XML_Node* sNode, std::string canteraFile = "");
+    void addSurPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* sNode, std::string canteraFile = "");
 
     //! Add a surface phase
     void addSurPhase(std::string canteraFile);
