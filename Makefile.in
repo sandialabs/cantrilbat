@@ -37,6 +37,20 @@ allsrc:
 	cd cttables;                      @MAKE@ allsrc
 	cd electrodeCell;                 @MAKE@ allsrc
 #
+# allback: Compile all programs from the back
+#
+allback:
+	cd imt_model;                     @MAKE@
+	cd electrodeCell;                 @MAKE@
+	cd fitShomate;                    @MAKE@
+	cd cttables;                      @MAKE@
+	cd epequil;                       @MAKE@
+	cd mpequil;                       @MAKE@
+	cd 1Delectrode;                   @MAKE@
+	cd Electrode;                     @MAKE@
+	cd ctpadds;                       @MAKE@
+	cd util_src;                      @MAKE@
+#
 # clean: Clean all executables, depends files, and objects from the directory tree.
 #        Leaves the current output from test programs (IMPLEMENTATION IN PROGRESS).
 #
