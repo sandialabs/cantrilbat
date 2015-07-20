@@ -83,12 +83,21 @@ public:
     //! Add a surface phase to the list of surfaces within the object.
     /*!
      *  @param[in]   vp             Previously initialized ThermoPhase object to be added to PhaseList
-     *  @param[in]   snode          XML_Node pointer to the phase XML Node for the current object
-     *  @param[in]   canteraFile    File name for the file that contains the phase XML Node description.
+     *  @param[in]   sNode          XML_Node pointer to the surface phase XML Node for the current object
      */
-    void addSurPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* sNode, std::string canteraFile = "");
+    void addSurPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* sNode);
 
-    //! Add a surface phase
+    //! Add a surface phase to the PhaseList object given an XML file name
+    /*!
+     *  Add a surface phase to the PhaseList object. This routine doesn't add the kinetics information to the
+     *  PhaseList object.
+     *
+     *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
+     *  that it is a surface phase.
+     *
+     *      @param[in]        String containing the XML file description of a cantera surface phase. The phase
+     *                        may or may not have a kinetics object associated with it.
+     */
     void addSurPhase(std::string canteraFile);
     /*
      * getVolPhaseIndex

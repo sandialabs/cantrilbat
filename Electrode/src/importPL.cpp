@@ -58,7 +58,7 @@ static void processPhasePL(XML_Node* xmlphase, PhaseList* pl, std::string canter
     if (dimS == "3") {
         pl->addVolPhase(tPhase, xmlphase, canteraFile);
     } else if (dimS == "2") {
-        pl->addSurPhase(tPhase, xmlphase, canteraFile);
+        pl->addSurPhase(tPhase, xmlphase);
     } else {
         throw CanteraError("processPhasePL", "unknown dim string: " + dimS);
     }
