@@ -149,7 +149,6 @@ OCV_Override_input::~OCV_Override_input()
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     printLvl_(printLvl),
     commandFile_(""),
-    CanteraFNSurface(""),
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
@@ -199,7 +198,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     printLvl_(right.printLvl_),
     commandFile_(""),
-    CanteraFNSurface(""),
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
@@ -249,7 +247,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      printLvl_                       = right.printLvl_;
      commandFile_                    = right.commandFile_;
      lastBlockEntryPtr_              = right.lastBlockEntryPtr_;
-     CanteraFNSurface                = right.CanteraFNSurface;
      NumberCanteraFiles              = right.NumberCanteraFiles;
 
      if (CanteraFileNames) {
@@ -497,7 +494,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
  *         SpeciesNames
  *         PhaseNames
  *         ElementNames
- *         CanteraFNSurface
  *
  *  The sized fields include:
  *         PhaseInclude
@@ -544,10 +540,6 @@ void ELECTRODE_KEY_INPUT::InitForInput(const Cantera::PhaseList* const pl)
             kT++;
         }
 
-    }
-
-    if (pl->nSurPhases() > 0) {
-        CanteraFNSurface = pl->firstSurfaceFile();
     }
 
     ElementNames = mdp_alloc_VecFixedStrings(nTotElements,
@@ -1509,7 +1501,6 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
         importAllCTMLIntoPhaseList(pl, fn);
         if (surNotFound && (pl->nSurPhases() > 0)) {
             surNotFound = false;
-            //   pl->CanteraFNSurface = fn;
         }
     }
     /*

@@ -310,7 +310,7 @@ public:
     BEInput::BlockEntry* lastBlockEntryPtr_;
 
     //! This is assigned to the first surface phase found in the PhaseList
-    std::string CanteraFNSurface;
+    //std::string CanteraFNSurface;
 
     //! Number of Cantera files to be read in
     int NumberCanteraFiles;

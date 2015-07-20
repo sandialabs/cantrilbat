@@ -241,17 +241,19 @@ public:
      */
     std::string elementName(int e) const;
 
+    //!       Index number of an element given its name
+    /*!
+     *    @param[in]           elementName              String name of the element
+     *
+     *    @return                                       returns the element index of the element.
+     */
     size_t elementIndex(const std::string& elementName) const;
-
-    //! Return the file name of the file containing the first surface phase
-    //! encountered when initializing this object
-    std::string firstSurfaceFile() const;
 
     //! Returns the number of elements in all of the phases, combined
     /*!
-     * Note, we do not require
-     * all element objects have the same number of elements and the
-     * same ordering of elements.
+     * Note, we do not require all element objects have the same number of elements and the same ordering of elements.
+     *
+     *  @return   Returns the number of elements in all of the phases, combined.
      */
     int nElements() const;
 
@@ -266,43 +268,71 @@ public:
     //! Return a pointer to the surface phase XML Node for a single surface phase
     /*!
      * @param iSurIndex   Surface index of the surface phase
+     *
+     *   @return                  Return a pointer to the surface phase XML Node for a single surface phase.
      */
     XML_Node* surPhaseXMLNode(int iSurIndex) const;
 
     //! Returns a pointer to a single volume phase
     /*!
      *  @param iVolIndex   Volume index of the volume phase
+     *
+     *   @return                           Returns a reference to the %ThermoPhase object for the volume phase.
      */
     ThermoPhase& volPhase(int iVolIndex);
 
     //! Returns a reference to a single surface phase
     /*!
-     *  @param iSurIndex   Surface index of the surface phase
+     *  @param[in]    iSurIndex            Surface index of the surface phase
+     *
+     *   @return                           Returns a reference to the %ThermoPhase object for the surface phase.
      */
     ThermoPhase& surPhase(int iSurIndex);
 
     //! Return the total number of phases
     /*!
-     *   @return        returns the total number of phases
+     *   @return                           returns the total number of phases
      */
     int nPhases() const;
 
     //! Return the number of volume phases
+    /*!
+     *     @return                         Return the total number of volume phases
+     */
     int nVolPhases() const;
 
     //! Return the number of surface phases
+    /*!
+     *     @return                         Return the total number of surface phases
+     */
     int nSurPhases() const;
 
     //! Return the total number of volume species
+    /*!
+     *     @return                         Return the total number of volume species
+     */
     int nVolSpecies() const;
 
     //! Return the total number of species in all volume and surface phases
+    /*!
+     *     @return                          Return the total number of species in all volume and surface phases
+     */
     int nSpecies() const;
 
     //! Boolean indicating whether a volume phase has a kinetics object
+    /*!
+     *    @param[in]    iVolIndex          volume phase index 
+     *
+     *    @return                          Returns true if the selected volume phase has a kinetics object associated with it.
+     */
     bool volPhaseHasKinetics(int iVolIndex) const ;
 
     //! Boolean indicating whether a surface phase has a surface kinetics object
+    /*!
+     *    @param[in]    iSurIndex          surface phase index 
+     *
+     *    @return                          Returns true if the selected surface phase has a kinetics object associated with it.
+     */
     bool surPhaseHasKinetics(int iSurIndex) const ;
 
     //! Return the species name given the global species index
@@ -387,7 +417,7 @@ protected:
     std::vector<int> m_PhaseSpeciesStartIndex;
 
     //! Name of the file containing the first surface phase encountered
-    std::string CanteraFNSurface;
+    //std::string CanteraFNSurface;
 
     /*********************************************************************
      *       DERIVED DATA THAT DEPEND ON INDEPENDENT VARIABLES           *

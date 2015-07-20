@@ -50,7 +50,6 @@ PhaseList::PhaseList(ThermoPhase* const vp, XML_Node* vPhase, double vol,
     PhaseNames_(0),
     m_numElements(0),
     m_PhaseSpeciesStartIndex(0),
-    CanteraFNSurface(),
     IOwnPhasePointers(ownership),
     m_GlobalElementObj(0)
 {
@@ -202,8 +201,6 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     m_numElements = right.m_numElements;
 
     m_PhaseSpeciesStartIndex  = right.m_PhaseSpeciesStartIndex;
-
-    CanteraFNSurface = right.CanteraFNSurface;
 
     IOwnPhasePointers = right.IOwnPhasePointers;
 
@@ -385,9 +382,6 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase, std::stri
         }
     }
 
-    if (m_NumSurPhases == 0) {
-        CanteraFNSurface = canteraFile;
-    }
 
     m_NumSurPhases++;
     SurPhaseList.resize(m_NumSurPhases, 0);
@@ -936,13 +930,6 @@ size_t
 PhaseList::elementIndex(const std::string& elemName) const
 {
     return m_GlobalElementObj->elementIndex(elemName);
-}
-//====================================================================================================================
-//  Return the file name of the file containing the first surface phase
-//  encountered when initializing this object
-std::string  PhaseList::firstSurfaceFile() const
-{
-    return CanteraFNSurface;
 }
 //====================================================================================================================
 int PhaseList::nElements() const
