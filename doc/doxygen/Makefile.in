@@ -3,10 +3,11 @@
 #
 
 all:
+	/bin/rm -f html/*
 	doxygen cantrilbat.dox
 
 incr:
-	/bin/rm html/*
+	/bin/rm -f html/*
 	doxygen incr.dox
 
 clean:
