@@ -753,8 +753,8 @@ double Electrode_CSTR::capacityRaw(int platNum) const
         setCapacityCoeff_FeS2();
     }
     double capZeroDoD = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -817,8 +817,8 @@ double Electrode_CSTR::capacityLeftRaw(int platNum, double voltsMax, double volt
         setCapacityCoeff_FeS2();
     }
     double capLeft = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -957,8 +957,8 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
 double Electrode_CSTR::capacityLeftDot(int platNum, double voltsMax, double voltsMin) const
 {
     double capLeftDot = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -975,8 +975,8 @@ double Electrode_CSTR::capacityLeftDot(int platNum, double voltsMax, double volt
 double Electrode_CSTR::capacityDot(int platNum) const
 {
     double capDot = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t)  metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -1911,14 +1911,14 @@ REDO:
                    minPH_,  deltaTsubcycleCalc_, -phaseMoles_init_[minPH_] / DphMoles_final_[minPH_],  resid[0]);
         }
         printf("\t\t        PhaseName        Moles_Init    Moles_final     KExists  |   Src_Moles  Pred_Moles_Final  |    Resid     |\n");
-        for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
             double src =   DphMoles_final_[iph] * deltaTsubcycleCalc_;
             printf("\t\t %20.20s  %12.4e  %12.4e            %2d | %12.4e %12.4e", PhaseNames_[iph].c_str(), phaseMoles_init_[iph],
                    phaseMoles_final_[iph], KineticsPhaseExistence_[iph], src,  phaseMoles_init_[iph] + src);
             bool found = false;
             for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
                 int jph = phaseIndexSolidPhases_[ph];
-                if (jph == iph) {
+                if ((size_t) jph == iph) {
                     found = true;
                     index++;
                     double res =  phaseMoles_final_[iph] - (phaseMoles_init_[iph] + src);

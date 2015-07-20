@@ -364,7 +364,7 @@ restartStep:
             double dampTS = 1.0;
             bool doPhase = false;
 
-            for (int iph = 0; iph < m_NumTotPhases; iph++) {
+            for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
                 int istart = m_PhaseSpeciesStartIndex[iph];
                 doPhase = false;
                 // ThermoPhase &tp = thermo(solnPhase_);
@@ -462,7 +462,7 @@ restartStep:
             /*
              *  Accept the tmp vector and assign it to the final_ vector
              */
-            for (int iph = 0; iph < m_NumTotPhases; iph++) {
+            for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
                 ThermoPhase& tp = thermo(iph);
                 string pname = tp.id();
                 int istart = m_PhaseSpeciesStartIndex[iph];
@@ -470,16 +470,16 @@ restartStep:
                 for (int ik = 0; ik < nsp; ik++) {
                     int k = istart + ik;
 
-                    if (iph == solnPhase_) {
+                    if (iph == (size_t) solnPhase_) {
                         continue;
                     }
-                    if (iph == metalPhase_) {
+                    if (iph == (size_t) metalPhase_) {
                         continue;
                     }
                     spMoles_final_[k] = spMoles_tmp[k];
                 }
             }
-            for (int i = 0; i < m_NumTotPhases; i++) {
+            for (size_t i = 0; i < m_NumTotPhases; i++) {
                 updateState_Phase(i);
             }
 
@@ -515,7 +515,7 @@ restartStep:
         /*
          *  We are
          */
-        for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
             ThermoPhase& tp = thermo(iph);
             string pname = tp.id();
             int istart = m_PhaseSpeciesStartIndex[iph];
@@ -525,10 +525,10 @@ restartStep:
                 spMoleIntegratedSourceTermLast_[k] = (spMoles_tmp[k] - spMoles_init_[k]);
                 spMoleIntegratedSourceTerm_[k] += spMoleIntegratedSourceTermLast_[k];
 
-                if (iph == solnPhase_) {
+                if (iph == (size_t) solnPhase_) {
                     continue;
                 }
-                if (iph == metalPhase_) {
+                if (iph == (size_t) metalPhase_) {
                     continue;
                 }
                 spMoles_final_[k] = spMoles_tmp[k];

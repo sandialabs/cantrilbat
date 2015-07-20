@@ -235,7 +235,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     }
 
 
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
         string pname = tp.id();
         int istart = m_PhaseSpeciesStartIndex[iph];
@@ -246,10 +246,10 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
             //        had numerical roundoff error in the 5th or 6th digit.
             //    spMoleIntegratedSourceTerm_[k] = (spMoles_tmp[k] - spMoles_init_[k]);
 
-            if (iph == solnPhase_) {
+            if ((int) iph == solnPhase_) {
                 continue;
             }
-            if (iph == metalPhase_) {
+            if ((int) iph == metalPhase_) {
                 continue;
             }
             // NOTHING CHANGES HERE -> this is what we mean by infinite capacity
@@ -307,7 +307,7 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(doublereal* const pha
                            "no pending integration step");
     }
     double sum = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMolesTransfered[iph] = 0.0;
         Cantera::ThermoPhase& tp = thermo(iph);
         string pname = tp.id();

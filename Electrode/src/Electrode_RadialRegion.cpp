@@ -1713,7 +1713,6 @@ void  Electrode_RadialRegion::setFinalFinalStateFromFinal()
 //====================================================================================================================
 void Electrode_RadialRegion::printElectrode(int pSrc, bool subTimeStep)
 {
-    int iph;
     double* netROP = new double[m_NumTotSpecies];
     double egv = TotalVol();
     printf("   ===============================================================\n");
@@ -1736,7 +1735,7 @@ void Electrode_RadialRegion::printElectrode(int pSrc, bool subTimeStep)
     printf("          followElectrolyteMoles = %d\n", followElectrolyteMoles_);
     printf("          ElectrolytePseudoMoles = %g\n",  electrolytePseudoMoles_);
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc);
         printf("     ===============================================================\n");
     }

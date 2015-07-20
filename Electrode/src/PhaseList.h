@@ -282,6 +282,9 @@ public:
     ThermoPhase& surPhase(int iSurIndex);
 
     //! Return the total number of phases
+    /*!
+     *   @return        returns the total number of phases
+     */
     int nPhases() const;
 
     //! Return the number of volume phases
@@ -326,10 +329,9 @@ public:
     /***********************************************************************/
 protected:
 
-    /*
-     * Total number of volume and surface phases
-     */
-    int m_NumTotPhases;
+    
+    //! Total number of volume and surface phases defined in the object
+    size_t m_NumTotPhases;
 
     //! Total number of species in all phases
     int m_NumTotSpecies;

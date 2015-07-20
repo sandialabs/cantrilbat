@@ -623,7 +623,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     std::copy(spMf_final_.begin(), spMf_final_.end(), spMf_init_init_.begin());
     std::copy(spMf_final_.begin(), spMf_final_.end(), spMf_init_.begin());
 
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
@@ -815,7 +815,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     phaseMoles_final_[ip_FeS2_B] =  spMoles_FeS2_Normalization_ / 2.0;
 
 
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
@@ -917,7 +917,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         Electrode::updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
@@ -1304,7 +1304,7 @@ void Electrode_MP_RxnExtent::getPhaseVol(double* const phaseVols) const
 
 
 
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseVols[iph] = 0.0;
         int kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
@@ -1363,7 +1363,7 @@ void Electrode_MP_RxnExtent::updateState()
     /*
      * Loop over all phases in the object
      */
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         Electrode::updateState_Phase(iph);
     }
 
@@ -4359,7 +4359,6 @@ int Electrode_MP_RxnExtent::check_nonlinResidConditions()
  */
 void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
 {
-    int iph;
 
     double egv = TotalVol();
     double tsm = SolidTotalMoles();
@@ -4568,7 +4567,7 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
 
     printElectrodePhaseList(pSrc, subTimeStep);
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
 }

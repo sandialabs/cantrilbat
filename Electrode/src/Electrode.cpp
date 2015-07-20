@@ -815,7 +815,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  formally to the Electrode object.
      */
     int nspecies = 0;
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 	// Get the pointer to the ThermoPhase object
         ThermoPhase* tphase = &(thermo(iph));
         int nSpecies = tphase->nSpecies();
@@ -887,7 +887,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     /*
      * Now that spMoles_final_ is sized appropriately, we can call updatePhaseNumbers()
      */
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         Electrode::updateState_Phase(iph);
     }
 
@@ -925,7 +925,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     ReactingSurDomain* rsd = RSD_List_[0];
     std::vector<RxnMolChange*>& rmcV = rsd->rmcVector;
     int nr = rmcV.size();
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tp = &(thermo(iph));
         int nSpecies = tp->nSpecies();
         int nElements = tp->nElements();
@@ -948,7 +948,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                 }
             }
         }
-        if (iph != metalPhase_) {
+        if ((int) iph != metalPhase_) {
             int jph = rsd->PLtoKinPhaseIndex_[iph];
             if (jph >= 0) {
                 for (int i = 0; i < nr; i++) {
@@ -978,7 +978,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             std::vector<RxnMolChange*>& rmcV = rsd->rmcVector;
             if (rsd) {
                 InterfaceKinetics* iK = rsd;
-                for (iph = 0; iph < m_NumTotPhases; iph++) {
+                for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
                     ThermoPhase* tp = &(thermo(iph));
                     int nSpecies = tp->nSpecies();
                     int nElements = tp->nElements();
@@ -1002,7 +1002,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                             }
                         }
                     }
-                    if (iph != metalPhase_) {
+                    if ((int) iph != metalPhase_) {
                         int jph = rsd->PLtoKinPhaseIndex_[iph];
                         if (jph >= 0) {
                             for (int i = 0; i < nr; i++) {
@@ -1149,8 +1149,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     ElectrodeBath* BG = ei->m_BG;
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if ((int) iph == solnPhase_ || (int) iph == metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -1180,7 +1180,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
       electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
     }
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 
         if (PhaseNames_[iph] == "LiFeS_X_combo") {
             electrodeChemistryModelType_ = 4;
@@ -1276,7 +1276,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 {
     int nspecies = 0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 
         ThermoPhase* tphase = &(thermo(iph));
         int nSpecies = tphase->nSpecies();
@@ -1317,7 +1317,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
     /*
      * Now that spMoles_final_ is sized appropriately, we can call updateState_Phase()
      */
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         Electrode::updateState_Phase(iph);
     }
 
@@ -1505,7 +1505,7 @@ void Electrode::resizeMoleNumbersToGeometry()
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         updateState_Phase(iph);
     }
     phaseMoles_init_ = phaseMoles_final_;
@@ -2041,7 +2041,7 @@ void Electrode::updateState_Phase(int iph)
 void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
         vector<doublereal>& spMf_tmp)
 {
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         int istart = m_PhaseSpeciesStartIndex[iph];
         // ThermoPhase &tp = thermo(solnPhase_);
         int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
@@ -2054,7 +2054,7 @@ void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<do
             for (int k = 0; k < nsp; k++) {
                 spMf_tmp[istart + k] = spMoles_tmp[istart + k] / tmp;
             }
-            if (iph == solnPhase_) {
+            if ((int) iph == solnPhase_) {
 #ifdef OLD_FOLLOW
                 if (!followElectrolyteMoles_) {
                     ThermoPhase& tp = thermo(solnPhase_);
@@ -2169,7 +2169,7 @@ doublereal Electrode::elementMoles(int ieG) const
 doublereal Electrode::elementMoles(std::string eN) const
 {
     double sum = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         const ThermoPhase* tp_ptr = &thermo(iph);
         size_t ie = tp_ptr->elementIndex(eN);
         if (ie != npos) {
@@ -2194,8 +2194,8 @@ doublereal Electrode::elementSolidMoles(int ieG) const
 doublereal Electrode::elementSolidMoles(std::string eN) const
 {
     double sum = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph != solnPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if ((int) iph != solnPhase_) {
             const ThermoPhase* tp_ptr = &thermo(iph);
             size_t ie = tp_ptr->elementIndex(eN);
             if (ie != npos) {
@@ -2215,7 +2215,7 @@ double Electrode::speciesElectrochemPotential(int iGlobalSpIndex) const
 {
     // DANGER -> Check to see this is updated
 
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
         int kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
@@ -2227,13 +2227,13 @@ double Electrode::speciesChemPotential(int iGlobalSpIndex) const
 {
     // DANGER -> Check to see this is updated
 
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
         int kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getChemPotentials(&(spElectroChemPot_[kStart]));
     }
     double tmp = spElectroChemPot_[iGlobalSpIndex];
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
         int kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
@@ -2382,7 +2382,7 @@ double Electrode::TotalVol(bool ignoreErrors) const
 //====================================================================================================================
 void Electrode::getPhaseVol(double* const phaseVols) const
 {
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseVols[iph] = 0.0;
         int kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
@@ -2390,7 +2390,7 @@ void Electrode::getPhaseVol(double* const phaseVols) const
         for (int k = 0; k < nspPhase; k++) {
             phaseVols[iph] += spMoles_final_[kStart + k] * VolPM_[kStart + k];
         }
-        if (iph >= NumVolPhases_) {
+        if ((int) iph >= NumVolPhases_) {
             phaseVols[iph] = 0.0;
         }
     }
@@ -2403,7 +2403,7 @@ double Electrode::SolidHeatCapacityCV() const
     //         -> debatable about how to do this most efficiently.
     //
     if (!doThermalPropertyCalculations_) {
-	for (int iph = 0; iph < m_NumTotPhases; iph++) {
+	for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 	    int istart = m_PhaseSpeciesStartIndex[iph];
 	    ThermoPhase& tp = thermo(iph);
 	    tp.getPartialMolarCp(&(CvPM_[istart]));
@@ -2564,11 +2564,10 @@ void Electrode::setPhaseVoltage(int iph, double volts)
  */
 void Electrode::updateState()
 {
-    int iph;
      // 
      //   Loop over all phases in the object, volume and surface phases
      //
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         updateState_Phase(iph);
     }
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
@@ -2592,18 +2591,17 @@ void Electrode::updateState()
  */
 void Electrode::updateState_OnionOut()
 {
-    int iph;
     /*
      * However, I want to make sure mole fractions are
      * consistent with final moles.
      */
-    for (int i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         Electrode::updateState_Phase(i);
     }
     /*
      * Loop over all phases in the object
      */
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
         std::string pName = tphase->id();
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -2620,7 +2618,7 @@ void Electrode::updateState_OnionOut()
         tphase->getPartialMolarVolumes(&(VolPM_[kStart]));
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
 
-        if (iph < NumVolPhases_) {
+        if ((int) iph < NumVolPhases_) {
             phaseMolarVolumes_[iph] = tphase->molarVolume();
         } else {
             phaseMolarVolumes_[iph] = 0.0;
@@ -2663,7 +2661,7 @@ void Electrode::updateSurfaceAreas()
      * Here we assume that the surface just creates species enough to fill the available surface sites
      */
     int i = 0;
-    for (int iph = NumVolPhases_; iph < m_NumTotPhases; iph++, i++) {
+    for (size_t iph = NumVolPhases_; iph < m_NumTotPhases; iph++, i++) {
         ThermoPhase* tphase = &(thermo(iph));
         sphaseMolarAreas_[i] = tphase->molarVolume();
         int kstart = m_PhaseSpeciesStartIndex[iph];
@@ -2943,7 +2941,7 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
 void Electrode::getPhaseProductionRates(const doublereal* const speciesProductionRates,
 					doublereal* const phaseProductionRates) const
 {
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseProductionRates[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
         //string pname = tp.id();
@@ -2962,7 +2960,7 @@ void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTrans
         throw CanteraError(" Electrode::getIntegratedPhaseMoleTransfer", "no pending integration step");
     }
     double sum = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMolesTransfered[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
         //string pname = tp.id();
@@ -3883,12 +3881,12 @@ double Electrode::reportTimeLimit(int allowedSubSteps, double allowedErrorStateV
 //==================================================================================================================================
 bool Electrode::compareLocalInterval(const Electrode* const eGuest, int nDigits)
 {
-    bool doComplicated = false;
+    //bool doComplicated = false;
     double atol = molarAtol_;
     double a1 = 8.0, a2 = 8.0;
     
     if (m_NumTotSpecies != eGuest->m_NumTotSpecies) {
-	doComplicated = true;
+	//doComplicated = true;
     }
 
     int res = compareOtherPL(eGuest);
@@ -4125,7 +4123,7 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
     }
 
     // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         phaseMoles_init_[i] = phaseMoles_final_[i];
         if (setInitInit) {
             phaseMoles_init_init_[i] = phaseMoles_final_[i];
@@ -4220,7 +4218,7 @@ void Electrode::setInitInitStateFromFinalFinal()
     }
 
     // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         phaseMoles_init_[i] = phaseMoles_final_final_[i];
         phaseMoles_init_init_[i] = phaseMoles_final_final_[i];
     }
@@ -4298,7 +4296,7 @@ void Electrode::setFinalStateFromInit_Oin()
 	chempotMolar_final_[i] = chempotMolar_init_[i]; 
     }
     // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         phaseMoles_final_[i] = phaseMoles_init_[i];
     }
     // Reset the particle size
@@ -4362,11 +4360,11 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
 
     }
     // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         phaseMoles_init_[i] = phaseMoles_init_init_[i];
     }
     if (setFinal) {
-        for (i = 0; i < m_NumTotPhases; i++) {
+        for (size_t i = 0; i < m_NumTotPhases; i++) {
             phaseMoles_final_[i] = phaseMoles_init_init_[i];
         }
     }
@@ -4423,7 +4421,7 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
         surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];
     }
 
-    for (int i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         phaseMoles_final_final_[i] = phaseMoles_final_[i];
     }
 
@@ -4885,13 +4883,13 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
     double q = 0.0;
     double phiPhase = 0.0;
      
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
         phiPhase = phaseVoltages_[iph];
 
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();
-        if (iph == metalPhase_ || iph == solnPhase_) {
+        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;
 		double cc = tp.charge(ik);
@@ -5000,11 +4998,11 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
     // 
     double q_alt = 0.0;
     double tt = temperature_;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();
-        if (iph == metalPhase_ || iph == solnPhase_) {
+        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;
 		double deltaNS = tt * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
@@ -5038,13 +5036,13 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
 {
     double q_alt = 0.0;
     double phiPhase = 0.0;    
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
         phiPhase = phaseVoltages_[iph];
 
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();
-        if (iph == metalPhase_ || iph == solnPhase_) {
+        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
 	    for (int ik = 0; ik < nsp; ik++) {
 		int k = istart + ik;
 		double cc = tp.charge(ik);
@@ -5218,11 +5216,11 @@ void Electrode::printElectrodePhaseList(int pSrc, bool subTimeStep)
     printf("         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   \n");
     printf("     ============================================================================================\n");
     double egv = TotalVol();
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         std::string pname = PhaseNames_[iph];
         ThermoPhase& tp = thermo(iph);
         double mv = tp.molarVolume();
-        if (iph >= NumVolPhases_) {
+        if ((int) iph >= NumVolPhases_) {
             mv = 0.0;
         }
         double pv = mv * phaseMoles_final_[iph];
@@ -5232,7 +5230,7 @@ void Electrode::printElectrodePhaseList(int pSrc, bool subTimeStep)
         printf(" %12.3E", mv);
         printf(" %12.3E", pv);
         printf(" %12.3E", pv / egv);
-        if (iph == metalPhase_ || iph == solnPhase_) {
+        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
             printf(" %12.5E", tp.electricPotential());
         } else {
             printf("             ");
@@ -5503,7 +5501,7 @@ void Electrode::calculateTimeDerivatives(doublereal deltaTsubcycle)
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_dot_[k] = invT * (spMoles_final_[k] - spMoles_init_[k]);
     }
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMoles_dot_[iph] = invT * (phaseMoles_final_[iph] - phaseMoles_init_[iph]);
     }
 }

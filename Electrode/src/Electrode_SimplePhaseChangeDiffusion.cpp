@@ -791,13 +791,12 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
 //===============================================================================================================
 void Electrode_SimplePhaseChangeDiffusion::updateState()
 {
-    int iph;
 
     /*
      * This may be redundant. However, I want to make sure mole fractions are
      * consistent with final moles.
      */
-    for (int i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
         updateState_Phase(i);
     }
 
@@ -805,7 +804,7 @@ void Electrode_SimplePhaseChangeDiffusion::updateState()
     /*
      * Loop over all phases in the object
      */
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
         std::string pName = tphase->id();
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -822,7 +821,7 @@ void Electrode_SimplePhaseChangeDiffusion::updateState()
         tphase->getPartialMolarVolumes(& (VolPM_[kStart]));
         tphase->getElectrochemPotentials(& (spElectroChemPot_[kStart]));
 
-        if (iph < NumVolPhases_) {
+        if ( iph < (size_t) NumVolPhases_) {
             phaseMolarVolumes_[iph] = tphase->molarVolume();
         }
 
@@ -1222,7 +1221,7 @@ restartStep:
         /*
          *  Accept the tmp vector and assign it to the final_ vector
          */
-        for (int iph = 0; iph < m_NumTotPhases; iph++) {
+        for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
             ThermoPhase& tp = thermo(iph);
             string pname = tp.id();
             int istart = m_PhaseSpeciesStartIndex[iph];
@@ -1231,10 +1230,10 @@ restartStep:
                 int k = istart + ik;
                 spMoleIntegratedSourceTerm_[k] += (spMoles_tmp[k] - spMoles_init_[k]);
                 spMoleIntegratedSourceTermLast_[k] = (spMoles_tmp[k] - spMoles_init_[k]);
-                if (iph == solnPhase_) {
+                if (iph == (size_t) solnPhase_) {
                     continue;
                 }
-                if (iph == metalPhase_) {
+                if (iph == (size_t) metalPhase_) {
                     continue;
                 }
                 spMoles_final_[k] = spMoles_tmp[k];
@@ -1297,7 +1296,6 @@ restartStep:
 //====================================================================================================================
 void Electrode_SimplePhaseChangeDiffusion::printElectrode(int pSrc, bool subTimeStep)
 {
-    int iph;
     double* netROP = new double[m_NumTotSpecies];
     double egv = TotalVol();
     printf("   ===============================================================\n");
@@ -1320,7 +1318,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrode(int pSrc, bool subTime
     printf("          followElectrolyteMoles = %d\n", followElectrolyteMoles_);
     printf("          ElectrolytePseudoMoles = %g\n",  electrolytePseudoMoles_);
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc);
         printf("     ===============================================================\n");
     }

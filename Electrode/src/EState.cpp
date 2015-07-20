@@ -522,7 +522,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->electronKmolDischargedToDate_      = electronKmolDischargedToDate_;
     e->setCapacityType(electrodeCapacityType_);
 
-    for (int iph = 0; iph < e->m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {
         e->updateState_Phase(iph);
     }
 
@@ -536,12 +536,14 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     }
 }
 //==================================================================================================================================
+/*
 static double setAtolEm40(double a1, double a2)
 {
     double m1 = std::max(a1, a2);
     double m2 = std::max(m1, 1.0E-40);
     return m2;
 }
+*/
 //=================================================================================================================================
 int EState::printHead(int printLvl) const
 {

@@ -41,8 +41,8 @@ double Electrode::capacity(int platNum) const
         setCapacityCoeff_FeS2();
     }
     double capZeroDoD = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -79,8 +79,8 @@ double Electrode::capacityLeft(int platNum, double voltsMax, double voltsMin) co
         setCapacityCoeff_FeS2();
     }
     double capLeft = 0.0;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -212,8 +212,8 @@ void Electrode::fixCapacityBalances_final()
 
 	double coeffA = 0.0;
 	double coeffB = 0.0;
-	for (int iph = 0; iph < m_NumTotPhases; iph++) {
-	    if (iph == solnPhase_ || iph == metalPhase_) {
+	for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+	    if (iph == (size_t) solnPhase_ || iph == (size_t)  metalPhase_) {
 		continue;
 	    }
 	    int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -324,8 +324,8 @@ void  Electrode::setCapacityType(Electrode_Capacity_Type_Enum electrodeCapacityT
 void Electrode::setCapacityCalcParams(std::string sName, double coeffLeft, double coeffZeroDoD)
 {
     bool found = false;
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -375,8 +375,8 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
     if (!CapZeroDoDPhase) {
 	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Zero DoD coefficients not set in the input file");
     }
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == metalPhase_) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        if (iph == (size_t) metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
