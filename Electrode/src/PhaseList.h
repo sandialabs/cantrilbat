@@ -103,6 +103,11 @@ public:
     int getGlobalPhaseIndex(const ThermoPhase* const tp) const;
 
     //! Get a pointer to the named phase from the list.
+    /*!
+     *   @param[in]        phaseName       CString containing the name of the phase
+     *
+     *   @return                           Returns the pointer to the phase. On errors, a NULL pointer is returned.
+     */
     ThermoPhase* getPhase(const char* phaseName) const;
 
     //! Get the name of the phase
@@ -125,26 +130,24 @@ public:
 
     //! Get the global species index given the thermophase and the local species index
     /*!
-     *   @param ttp
-     *   @param k
+     *   @param ttp                        Pointer to the ThermoPhase index
+     *   @param k                          Value of the local species index 
+     *
+     *   @return                           Returns the value of the global species index.
      */
     int getGlobalSpeciesIndex(const ThermoPhase* const ttp, int k = 0) const;
 
     //! Get the global species index for a volume or surface phase
     /*!
-     * PhaseList maintains a global species list, containing all
-     * of the species in all of the phases within PhaseList.
-     * The volume phases are first in this list, followed by
-     * the surface phases. The global species index is the
+     * PhaseList maintains a global species list, containing all of the species in all of the phases within PhaseList.
+     * The volume phases are first in this list, followed by the surface phases. The global species index is the
      * index in this list.
      *
-     * @param globPhaseIndex     global phase Index of the volume or
-     *                       surface Phase.
-     * @param k              local species index within the phase.
-     *                       Default = 0.
+     * @param[in]          globPhaseIndex        global phase Index of the volume or  surface Phase.
+     * @param[in]          k                     local species index within the phase.  Default = 0.
      *
-     * @return
-     *   Returns the global species index within the PhaseList object.
+     * @return                               Returns the global species index within the PhaseList object. 
+     *                                       If the parameters don't identify an index negative 1 is returned, or the an error is thrown.
      */
     int getGlobalSpeciesIndex(int globPhaseIndex, int k = 0) const;
 
@@ -215,6 +218,9 @@ public:
      *  This is a messy routine where we try to determine whether two Phaselist's are logically the same, or 
      *  whether one PhaseList is a superset of the other PhaseList. 
      *
+     *  @param[in]       plGuest            Pointer to a const PhaseList which will be compared.
+     *
+     *  @return             Returns an int describing whether the phases are the same:
      *        0  Phase lists are completely the same
      *        1  Phase lists are the same, but in a different phase order. Each ThermoPhase may have different
      *           numbers of species in the phase, but all phases map into another phase.
@@ -223,21 +229,30 @@ public:
      *        3  Guest PhaseList is a superset of the owning PhaseList. Each ThermoPhase of the owing PhaseList
      *           maps into a unique ThermoPhase in the guest Phaselist. The number of species in that ThermoPhase may be different.
      *        4  PhaseLists are not compatible
+     *  
+     *
      */
     int compareOtherPL(const PhaseList* const plGuest) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param globalPhaseIndex  global phase index
+     *  @param[in]        globalPhaseIndex  global phase index
+     *
+     *  @return                    Return a reference to the ThermoPhase object
      */
     ThermoPhase& thermo(int globalPhaseIndex) const;
 
     //! Return the common Elements object as a const pointer
+    /*!
+     *      @return              Return a pointer to a const Element object containing a description of the elements in the problem.
+     */
     const Elements* getGlobalElements() const;
 
     //! Return the element name of the eth element
     /*!
-     *  @param e  element index
+     *  @param[in]       e                element index
+     *  
+     *  @return                           String Name of the element
      */
     std::string elementName(int e) const;
 
@@ -378,7 +393,7 @@ protected:
     //! Vector of pointers to volume phase XML trees
     std::vector<XML_Node*> VolPhaseXMLNodes;
 
-    //! Boolean vector indicating whether volume phase has kinetics
+    //! Boolean vector indicating whether each volume phase has kinetics
     std::vector<int> VolPhaseHasKinetics;
 
     //! Number of surface phases
