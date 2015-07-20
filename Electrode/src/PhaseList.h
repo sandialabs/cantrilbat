@@ -49,9 +49,7 @@ public:
     PhaseList(ThermoPhase* const p = 0, XML_Node* vPhase = 0,
               double vol = 0.0,  bool ownership = true);
 
-    /*
-     * Destructor():
-     */
+     //! Destructor():
     ~PhaseList();
 
     //! Copy constructor
@@ -65,6 +63,8 @@ public:
      *  Does an appropriate copy operation
      *
      *  @param right PhaseList to copy
+     *
+     *  @return      Returns a reference to the current object
      */
     PhaseList& operator=(const PhaseList& right);
 
@@ -95,8 +95,8 @@ public:
      *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
      *  that it is a surface phase.
      *
-     *      @param[in]        String containing the XML file description of a cantera surface phase. The phase
-     *                        may or may not have a kinetics object associated with it.
+     *      @param[in]  canteraFile       String containing the XML file description of a cantera surface phase. The phase
+     *                                     may or may not have a kinetics object associated with it.
      */
     void addSurPhase(std::string canteraFile);
     /*
@@ -109,6 +109,12 @@ public:
 
     int getSurPhaseIndex(const ThermoPhase* const sp) const;
 
+    //! Given a pointer to the ThermoPhase object this returns the global phase index of the phase
+    /*!
+     *       @param[in]    tp          Pointer to the ThermoPhase object
+     * 
+     *       @return                   Returns the global phase index.
+     */
     int getGlobalPhaseIndex(const ThermoPhase* const tp) const;
 
     //! Get a pointer to the named phase from the list.
@@ -121,10 +127,9 @@ public:
 
     //! Get the name of the phase
     /*!
-     * @param globPhaseIndex     global phase Index of the volume or
-     *                           surface Phase.
-     * @return
-     *   Returns the global phase name as a string
+     * @param globPhaseIndex     global phase Index of the volume or surface Phase.
+     *
+     * @return                   Returns the global phase name as a string
      */
     std::string phaseName(int globPhaseIndex) const;
 
