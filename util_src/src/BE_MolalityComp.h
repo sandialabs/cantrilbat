@@ -272,15 +272,13 @@ public:
      */
     BE_MolalityComp(const BE_MolalityComp& right);
 
-
     //! Copy assignment operator
     /*!
-     * @param right Object to be copied
+     * @param[in] right          Object to be copied
      *
-     *      @return                  Returns a reference to the current object
+     *  @return                  Returns a reference to the current object
      */
     BE_MolalityComp& operator=(const BE_MolalityComp& right);
-
 
     //! Duplicator function
     /*!

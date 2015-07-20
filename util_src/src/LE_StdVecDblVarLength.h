@@ -288,9 +288,9 @@ public:
 
     //! Return the current vector of values as a const std::vector<double>&
     /*!
-     * This is a nonvirtual function since the return type is specific to this child.
+     *  This is a nonvirtual function since the return type is specific to this child.
      *
-     *       @return         Returns a reference to the current vector of doubles.
+     *  @return      Returns a reference to the current vector of doubles 
      */
     const std::vector<double>& currentTypedValue() const;
 

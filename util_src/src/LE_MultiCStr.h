@@ -249,11 +249,11 @@ public:
 
     //! Duplicator function
     /*!
-     * This function duplicates the entry and returns a pointer to a LineEntry
+     *    This function duplicates the entry and returns a pointer to a LineEntry
      *
-     *       @return      Returns a pointer to the duplicate object.
+     *  @return                Returns a pointer to the duplicate object as a LineEntry pointer
      */
-    virtual  LineEntry* duplMyselfAsLineEntry() const;
+    virtual LineEntry* duplMyselfAsLineEntry() const;
 
     //! Process this line Entry, which assigns a std::string variable
     /*!

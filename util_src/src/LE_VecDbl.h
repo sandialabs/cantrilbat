@@ -308,9 +308,9 @@ public:
 
     //! Check for requirements being met at the end of input
     /*!
-     * @param throwSpecificError Usually false.
+     * @param[in]  throwSpecificError Usually false. The default is false.
      *
-     *       @return           Returns true if requirements are met, and false otherwise
+     *   @return            Returns true if requirements are met, and false otherwise.
      */
     virtual bool checkRequirements(bool throwSpecificError = false);
 

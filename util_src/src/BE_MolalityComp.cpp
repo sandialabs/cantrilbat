@@ -82,22 +82,22 @@ BE_MolalityComp::BE_MolalityComp(const BE_MolalityComp& b) :
     m_mwSolvent(b.m_mwSolvent)
 {
 }
-
+//===============================================================================================================================
 /*
  *  BE_MolalityComp& operator=(const BE_MolalityComp&);
  *
  *  Assignment operator
  */
-BE_MolalityComp& BE_MolalityComp::operator=(const BE_MolalityComp& b)
+BE_MolalityComp& BE_MolalityComp::operator=(const BE_MolalityComp& right)
 {
-    if (&b != this) {
-        BE_StrDbl::operator=(b);
-        m_indexSolvent = b.m_indexSolvent;
-        m_mwSolvent    = b.m_mwSolvent;
+    if (&right != this) {
+        BE_StrDbl::operator=(right);
+        m_indexSolvent = right.m_indexSolvent;
+        m_mwSolvent    = right.m_mwSolvent;
     }
     return *this;
 }
-
+//====================================================================================================================================
 /*
  * BlockEntry* duplMyselfAsBlockEntry();
  *
