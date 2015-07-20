@@ -310,6 +310,14 @@ public:
      */
     std::string speciesName(int iGlobSpeciesIndex) const;
 
+    //! Set the state of all the phases within the PhaseList to a given temperature and pressure
+    /*!
+     *  Calls the underlying function \link Cantera::ThermoPhase::setState_TP() setState_TP() \endlink
+     *  for all phases in the group.
+     *
+     *   @param[in] temperature     Temperature in Kelvin
+     *   @param[in] pressure        pressure in pascals
+     */
     void setState_TP(doublereal temperature, doublereal pressure);
 
 
