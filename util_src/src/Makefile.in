@@ -73,7 +73,7 @@ LIBOBJS = mdp_allo.o sort.o tok_input_util.o tok_readFile.o LE_LineEntry.o \
           LE_OneCStr.o LE_MultiCStr.o BE_MolalityComp.o \
           sortAlgorithms.o LE_VecDblVarLength.o BI_DepIntMaxMin.o \
           subtractRD.o LE_StdVecDbl.o LE_StdVecDblVarLength.o \
-          BE_StrVecDbl.o BE_MoleComp_VecDbl.o clockWC.o clockID.o mdp_stringUtils.o Logger.o
+          BE_StrVecDbl.o BE_MoleComp_VecDbl.o wallClock.o clockID.o mdp_stringUtils.o Logger.o
 
 ifeq ($(have_posix), 1)
 LIBOBJS += clockID.o
@@ -89,7 +89,7 @@ INCFILES = BaseEntry.h sort.h  BE_UnitConversion.h BE_BlockEntry.h LE_OneInt.h \
           BI_InputError.h LE_OneDbl.h LE_VecDblVarLength.h \
           BE_UnitConversionEnergy.h BlockEntryGlobal.h  LE_OneDblUnits.h  LE_LineEntry.h \
           LE_StdVecDbl.h  LE_StdVecDblVarLength.h \
-          BE_StrVecDbl.h BE_MoleComp_VecDbl.h clockWC.h clockID.h mdp_stringUtils.h Logger.h
+          BE_StrVecDbl.h BE_MoleComp_VecDbl.h wallClock.h clockID.h mdp_stringUtils.h Logger.h
 
 ifeq ($(have_posix), 1)
 INCFILES += clockID.h

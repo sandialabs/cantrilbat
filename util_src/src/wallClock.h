@@ -1,7 +1,7 @@
 /**
- * @file clockWC.h
+ * @file wallClock.h
  *    Declarations for a simple class that implements an Ansi C wall clock timer
- *   (see \ref mdpUtil::clockWC).
+ *   (see \ref mdpUtil::wallClock).
  */
 /*
  * Copyright 2004 Sandia Corporation. Under the terms of Contract
@@ -37,7 +37,7 @@ namespace mdpUtil
  *
  *
  *  @code
- *   clockWC wc;
+ *   wallClock wc;
  *   do_hefty_calculations_atLeastgreaterThanAMillisecond();
  *   double timeToDoCalcs = wc.secondsWC();
  *  @endcode
@@ -49,7 +49,7 @@ namespace mdpUtil
  * @ingroup globalUtilFuncs
  *
  */
-class clockWC
+class wallClock
 {
 public:
 
@@ -58,13 +58,13 @@ public:
     /*!
      * This also serves to initialize the ticks within the object
      */
-    clockWC();
+    wallClock();
 
     //! Copy constructor
     /*!
      *    @param[in]   right        Object to be copied
      */
-    clockWC(const clockWC& right);
+    wallClock(const wallClock& right);
 
     //! Assignment operator
     /*!
@@ -72,7 +72,7 @@ public:
      *
      *    @return  Returns a reference to itself
      */
-    clockWC& operator=(const clockWC& right);
+    wallClock& operator=(const wallClock& right);
    
     //! Start the wall clock
     void startWC();

@@ -1,7 +1,7 @@
 /**
- * @file clockWC.cpp
+ * @file wallClock.cpp
  *    Definitions for a simple class that implements an Ansi C wall clock and interval timer
- *     (see \ref mdpUtil::clockWC).
+ *     (see \ref mdpUtil::wallClock).
  */
 /*
  * Copyright 2004 Sandia Corporation. Under the terms of Contract
@@ -10,7 +10,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "clockWC.h"
+#include "wallClock.h"
 #include <climits>
 #include <stdexcept>
 #ifndef DEBUG_MODE
@@ -19,13 +19,13 @@
 namespace mdpUtil
 {
 //===============================================================================================================================
-const double clockWC::s_inv_clocks_per_sec(1.0/(double)CLOCKS_PER_SEC);
+const double wallClock::s_inv_clocks_per_sec(1.0/(double)CLOCKS_PER_SEC);
 //
 //  This isn't correct. Really should use LONG_MAX
 //
-//   const double clockWC::s_clockTickWidth_((double)(1L<<((int)sizeof(clock_t)*8-2))*4./(double)CLOCKS_PER_SEC);
+//   const double wallClock::s_clockTickWidth_((double)(1L<<((int)sizeof(clock_t)*8-2))*4./(double)CLOCKS_PER_SEC);
 //===============================================================================================================================
-clockWC::clockWC() :
+wallClock::wallClock() :
     lastNumTicks_(clock()),
     running_(false),
     startLastTicks_(lastNumTicks_),
@@ -45,13 +45,13 @@ clockWC::clockWC() :
 #endif
 }
 //===============================================================================================================================
-clockWC::clockWC(const clockWC& right) :
+wallClock::wallClock(const wallClock& right) :
     currNumTicks_(right.currNumTicks_)
 {
     operator=(right);
 }
 //===============================================================================================================================
-clockWC& clockWC::operator=(const clockWC& right)
+wallClock& wallClock::operator=(const wallClock& right)
 {
     if (this == &right) return *this;
     lastNumTicks_ = right.lastNumTicks_;
@@ -63,7 +63,7 @@ clockWC& clockWC::operator=(const clockWC& right)
     return *this;
 }
 //===============================================================================================================================
-void clockWC::startWC()
+void wallClock::startWC()
 {
     lastNumTicks_ = clock();
     startTicksWC_ = startLastTicks_ = lastNumTicks_;
@@ -71,7 +71,7 @@ void clockWC::startWC()
     running_ = true;
 }
 //===============================================================================================================================
-void clockWC::startTime()
+void wallClock::startTime()
 {  
  #ifdef DEBUG_MODE
     if (running_) {
@@ -82,7 +82,7 @@ void clockWC::startTime()
     startLastTicks_ = lastNumTicks_ = clock();
 }
 //===============================================================================================================================
-void clockWC::restartTime()
+void wallClock::restartTime()
 {  
  #ifdef DEBUG_MODE
     if (running_) {
@@ -94,7 +94,7 @@ void clockWC::restartTime()
     startLastTicks_ = lastNumTicks_;
 }
 //===============================================================================================================================
-double clockWC::stopTime()
+double wallClock::stopTime()
 {
     currNumTicks_ = clock();
     if (!running_) {
@@ -115,12 +115,12 @@ double clockWC::stopTime()
     return secsLast;
 }
 //===============================================================================================================================
-double clockWC::reportTime() const
+double wallClock::reportTime() const
 {
     return storredSeconds_;
 }
 //===============================================================================================================================
-void clockWC::checkWC()
+void wallClock::checkWC()
 {   
     currNumTicks_ = clock();
     if (currNumTicks_ < lastNumTicks_) {
@@ -130,7 +130,7 @@ void clockWC::checkWC()
     lastNumTicks_ = currNumTicks_;
 }
 //===============================================================================================================================
-double clockWC::secondsWC()
+double wallClock::secondsWC()
 {
     currNumTicks_ = clock();
     if (currNumTicks_ < lastNumTicks_) {
@@ -141,7 +141,7 @@ double clockWC::secondsWC()
     return storredSecondsWC_ + (currNumTicks_ - startTicksWC_) * s_inv_clocks_per_sec;
 }
 //===============================================================================================================================
-void clockWC::clear()
+void wallClock::clear()
 {
     storredSeconds_ = 0.0;
     storredSecondsWC_ = 0.0;
