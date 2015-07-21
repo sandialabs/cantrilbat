@@ -21,38 +21,42 @@ namespace Cantera
 //!   Class PhaseList is a list of Phases. It's used as a container class
 //!
 /*!
- *    PhaseList maintains a global species list, containing all
- *    of the species in all of the phases within PhaseList.
- *    The volume phases are first in this list, followed by
- *    the surface phases. The global species index is the
- *    index in this list.
- *
- *    Right now PhaseList doesn't contain any thermodynamic state information.
+ *    %PhaseList maintains a global species list, containing all of the species in all of the phases within %PhaseList.
+ *    The volume phases are first in this list, followed by  the surface phases. The global species index is the
+ *    index in this list.  %PhaseList doesn't contain any thermodynamic state information.
  *    Therefore, it doesn't include a temperature or pressure variable. It doesn't include
- *    mole numbers of species or a mole fraction vector.
+ *    mole numbers of species or a mole fraction vector, either
  *
  *    A note about the nomenclature. The following are official names for the indecises provided by this class:
  *
- *    Volume phase index number.
- *       Volumes phases have their own index number, ranging from 0 to the number of volume phases,  NumVolPhases_. 
- *
- *    Surface phase index number.
- *       Surface phases have their own index number, ranging from 0 to the number of surface phases,  NumSurPhases_. 
- *       Edge phases are included in the surface phase list. They are treated no differently than surface phases. 
- *       Therefore, 1 and 2 dimensional ThermoPhases are lumped together.
- *
- *    Global phase index number.
- *       All phases are grouped first by volume and then by surface. This index is called the global phase
- *       index number.
- *
- *    Local species index.
- *       The local species index is the species index of a species within its own ThermoPhase.
- *
- *    Global species index.
- *       PhaseList maintains a vector of species located in all of the volume and surface phases within its
- *       structure. The global species index is the index into that vector. The species are contiguous first by their phase ids.
- *       The phases are organized according to the global phase index number, so that all of the volume phases
- *       are placed first in the phase list.
+ *  <TABLE>
+ *  <TR>
+ *     <TD> Volume phase index number.</TD>
+ *     <TD> Volumes phases have their own index number, ranging from 0 to the number of volume phases,  NumVolPhases_.</TD>
+ *  </TR>
+ *  <TR>
+ *     <TD> Surface phase index number.</TD>
+ *     <TD> Surface phases have their own index number, ranging from 0 to the number of surface phases,  NumSurPhases_. 
+ *          Edge phases are included in the surface phase list. They are treated no differently than surface phases. 
+ *          Therefore, 1 and 2 dimensional ThermoPhases are lumped together.</TD>
+ *  </TR>
+ *  <TR>
+ *     <TD> Global phase index number.</TD>
+ *     <TD> All phases are grouped first by volume and then by surface. This index is called the global phase
+ *          index number. </TD>
+ *  </TR>
+ *  <TR>
+ *     <TD> Local species index. </TD>
+ *     <TD> The local species index is the species index of a species within its own %ThermoPhase. </TD>
+ *  </TR>
+ *  <TR>
+ *     <TD> Global species index. </TD>
+ *     <TD> %PhaseList maintains a vector of species located in all of the volume and surface phases within its
+ *          structure. The global species index is the index into that vector. The species are contiguous first by their phase ids.
+ *          The phases are organized according to the global phase index number, so that all of the volume phases
+ *          are placed first in the phase list. </TD>
+ *  </TR>
+ *  </TABLE>
  *
  */
 class PhaseList
@@ -96,7 +100,6 @@ public:
     /*!
      *  @param[in]  vp             Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]  vNode          XML_Node pointer to the phase XML Node for the current object
-     *  @param[in] canteraFile     File name of the file that contains the phase XML Node
      */
     void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode);
 
