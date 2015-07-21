@@ -30,6 +30,30 @@ namespace Cantera
  *    Right now PhaseList doesn't contain any thermodynamic state information.
  *    Therefore, it doesn't include a temperature or pressure variable. It doesn't include
  *    mole numbers of species or a mole fraction vector.
+ *
+ *    A note about the nomenclature. The following are official names for the indecises provided by this class:
+ *
+ *    Volume phase index number.
+ *       Volumes phases have their own index number, ranging from 0 to the number of volume phases,  NumVolPhases_. 
+ *
+ *    Surface phase index number.
+ *       Surface phases have their own index number, ranging from 0 to the number of surface phases,  NumSurPhases_. 
+ *       Edge phases are included in the surface phase list. They are treated no differently than surface phases. 
+ *       Therefore, 1 and 2 dimensional ThermoPhases are lumped together.
+ *
+ *    Global phase index number.
+ *       All phases are grouped first by volume and then by surface. This index is called the global phase
+ *       index number.
+ *
+ *    Local species index.
+ *       The local species index is the species index of a species within its own ThermoPhase.
+ *
+ *    Global species index.
+ *       PhaseList maintains a vector of species located in all of the volume and surface phases within its
+ *       structure. The global species index is the index into that vector. The species are contiguous first by their phase ids.
+ *       The phases are organized according to the global phase index number, so that all of the volume phases
+ *       are placed first in the phase list.
+ *
  */
 class PhaseList
 {
@@ -68,16 +92,27 @@ public:
      */
     PhaseList& operator=(const PhaseList& right);
 
-
-    //!   Add a volumetric phase to the list
+    //!   Add a volumetric phase to the list of phases held by this object
     /*!
-     *  @param vp             Previously initialized ThermoPhase object to be added to PhaseList
-     *  @param vnode          XML_Node pointer to the phase XML Node for the current object
-     *  @param canteraFile    File name of the file that contains the phase XML Node
+     *  @param[in]  vp             Previously initialized ThermoPhase object to be added to PhaseList
+     *  @param[in]  vNode          XML_Node pointer to the phase XML Node for the current object
+     *  @param[in] canteraFile     File name of the file that contains the phase XML Node
      */
-    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode, std::string canteraFile = "");
+    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode);
 
-    //! Add a volumetric phase
+    //! Add a volume phase to the  volume PhaseList object given an XML file name
+    /*!
+     *  Add a volume phase to the PhaseList object. This routine doesn't add the kinetics information to the
+     *  PhaseList object.
+     *
+     *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
+     *  that it is a volume phase. 
+     *
+     *  \todo Check that the phase added is unique and has a dimension of three
+     *
+     *   @param[in]    canteraFile         String containing the XML file description of a %Cantera volume phase. The phase
+     *                                     may or may not have a kinetics object associated with it.
+     */
     void addVolPhase(std::string canteraFile);
 
     //! Add a surface phase to the list of surfaces within the object.
@@ -93,20 +128,35 @@ public:
      *  PhaseList object.
      *
      *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
-     *  that it is a surface phase.
+     *  that it is a surface phase. 
      *
-     *      @param[in]  canteraFile       String containing the XML file description of a cantera surface phase. The phase
+     *  \todo Check that the phase added is unique and has a dimension of one or two.
+     *
+     *   @param[in]    canteraFile         String containing the XML file description of a cantera surface phase. The phase
      *                                     may or may not have a kinetics object associated with it.
      */
     void addSurPhase(std::string canteraFile);
-    /*
-     * getVolPhaseIndex
-     *     This routine returns the phase index of a phase. This
-     *     number is the index value of the phase in the PhaseList
-     *     object.
+
+    //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
+    /*!
+     *     This routine returns the phase index of a phase. This number is the index value of the phase in the VolPhaseList object.
+     *
+     *     @param[in]     ttp             Pointer to the volume phase ThermoPhase object
+     *
+     *     @return                        Returns the volume phase index number. Returns -1 if the phase is not found.
+     *
+     *   \todo return size_t instead of int
      */
     int getVolPhaseIndex(const ThermoPhase* const ttp) const;
 
+    //! Get the surface phase index given the pointer to the surface phase ThermoPhase object
+    /*!
+     *     @param[in]     sp              Pointer to a surface ThermoPhase
+     *
+     *     @return                        Returns the surface phase index number. Returns -1 if the phase is not found.
+     *
+     *   \todo return size_t instead of int
+     */
     int getSurPhaseIndex(const ThermoPhase* const sp) const;
 
     //! Given a pointer to the ThermoPhase object this returns the global phase index of the phase
@@ -114,10 +164,12 @@ public:
      *       @param[in]    tp          Pointer to the ThermoPhase object
      * 
      *       @return                   Returns the global phase index.
+     *
+     *   \todo return size_t instead of int
      */
     int getGlobalPhaseIndex(const ThermoPhase* const tp) const;
 
-    //! Get a pointer to the named phase from the list.
+    //! Get a %ThermoPhase pointer to the named phase from the list.
     /*!
      *   @param[in]        phaseName       CString containing the name of the phase
      *
@@ -454,29 +506,23 @@ protected:
 private:
 
 
-    /*********************************************************************
-     *      INTERNAL DATA                                                *
-     *********************************************************************/
-    /*
-     *  IOwnPhasePointers: boolean specifying whether this object
-     *               owns its phase pointers.
+    /********************************************************** INTERNAL DATA *****************************************************/
+    
+    //! Boolean specifying whether this object owns its phase pointers.
+    /*!
      *
-     *   Note: normally, the volume and surface domains own the
-     *         phase pointers. However, in thermodynamics programs,
-     *         where this object is the top level organizing object,
-     *         this object will own phase pointers.
+     *   Note: normally, the volume and surface domains own the phase pointers. However, in thermodynamics programs,
+     *         where this object is the top level organizing object,  this object will own phase pointers.
      *
-     *     (ownership means that it is responsible for destroying
-     *      the object).
+     *         (ownership means that it is responsible for destroying  the object).
      */
     bool IOwnPhasePointers;
 
-    /*
-     * Pointer to the element object
-     */
+    
+    //! Pointer to the element object that represents all of the elements within all of the phases owned by this object
     Elements* m_GlobalElementObj;
 };
-
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

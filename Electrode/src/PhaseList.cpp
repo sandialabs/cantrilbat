@@ -229,7 +229,7 @@ addVolPhase(std::string canteraFile)
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, "");
     Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, "");
-    addVolPhase(tp, vPhase, canteraFile);
+    addVolPhase(tp, vPhase);
 }
 //==============================================================================================================================================
 void PhaseList::
@@ -251,7 +251,7 @@ addSurPhase(std::string canteraFile)
  *     meta information lists kept by the PhaseList object
  */
 void PhaseList::
-addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase, std::string canteraFile)
+addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
 {
 
     // Check for incompatibilities

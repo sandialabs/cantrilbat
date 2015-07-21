@@ -56,7 +56,7 @@ static void processPhasePL(XML_Node* xmlphase, PhaseList* pl, std::string canter
     }
     string dimS = xmlphase->operator[]("dim");
     if (dimS == "3") {
-        pl->addVolPhase(tPhase, xmlphase, canteraFile);
+        pl->addVolPhase(tPhase, xmlphase);
     } else if (dimS == "2") {
         pl->addSurPhase(tPhase, xmlphase);
     } else {
