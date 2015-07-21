@@ -32,8 +32,7 @@ namespace Cantera
  *   vol = default is 0.0
  *   ownership = default is to not own the phases in the list.
  */
-PhaseList::PhaseList(ThermoPhase* const vp, XML_Node* vPhase, double vol,
-                     bool ownership) :
+PhaseList::PhaseList(bool ownership) :
     m_NumTotPhases(0),
     m_NumTotSpecies(0),
     NumVolPhases_(0),
@@ -54,19 +53,6 @@ PhaseList::PhaseList(ThermoPhase* const vp, XML_Node* vPhase, double vol,
     m_GlobalElementObj(0)
 {
     m_PhaseSpeciesStartIndex.resize(1, 0);
-
-    if (vp) {
-        AssertThrow(vPhase->name() == "phase", "PhaseList constructor with bad xml node");
-        string dimS = vPhase->operator[]("dim");
-        if (dimS == "3") {
-            addVolPhase(vp, vPhase);
-        } else if (dimS == "2") {
-            addSurPhase(vp, vPhase);
-        } else {
-            throw CanteraError("processPhasePL", "unknown dim string: " + dimS);
-        }
-    }
-
     m_GlobalElementObj = new Elements();
 }
 

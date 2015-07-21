@@ -61,28 +61,23 @@ namespace Cantera
  */
 class PhaseList
 {
-
 public:
-    /***********************************************************************/
-    /*                   PUBLIC FUNCTIONS                                  */
-    /***********************************************************************/
-    /*
-     * Constructors.
-     *
-     *   We default to setting up either no phases or just one
-     *   single phase during the construction phase.
-     *   We also default to not owning the phase pointers that
-     *   this object keeps in its list.
-     */
-    PhaseList(ThermoPhase* const p = 0, XML_Node* vPhase = 0,
-              double vol = 0.0,  bool ownership = true);
 
-     //! Destructor():
+    //! Constructor
+    /*!
+     *   We default to setting up either no phases or just one single phase during the construction phase.
+     *   We also default to owning the phase pointers that this object keeps in its list.
+     *
+     *  @param[in]     Iownphases             Boolean indicating ownership of all of the ThermoPhase objects.
+     */
+    PhaseList(bool Iownphases = true);
+
+    //! Destructor
     ~PhaseList();
 
     //! Copy constructor
     /*!
-     * @param right PhaseList to copy
+     * @param[in]     right                   Reference to the PhaseList to copy into this object
      */
     PhaseList(const PhaseList& right);
 
@@ -90,20 +85,20 @@ public:
     /*!
      *  Does an appropriate copy operation
      *
-     *  @param right PhaseList to copy
+     *  @param        right                    PhaseList to copy
      *
-     *  @return      Returns a reference to the current object
+     *  @return                                Returns a reference to the current object
      */
     PhaseList& operator=(const PhaseList& right);
 
     //!   Add a volumetric phase to the list of phases held by this object
     /*!
-     *  @param[in]  vp             Previously initialized ThermoPhase object to be added to PhaseList
-     *  @param[in]  vNode          XML_Node pointer to the phase XML Node for the current object
+     *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
+     *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
      */
     void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode);
 
-    //! Add a volume phase to the  volume PhaseList object given an XML file name
+    //! Add a volume phase to the volume PhaseList object given an XML file name
     /*!
      *  Add a volume phase to the PhaseList object. This routine doesn't add the kinetics information to the
      *  PhaseList object.
