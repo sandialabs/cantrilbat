@@ -617,10 +617,8 @@ getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
                                         int& phaseIndex,
                                         int& localSpeciesIndex) const
 {
-    phaseIndex =
-        getPhaseIndexFromGlobalSpeciesIndex(globalSpeciesIndex);
-    localSpeciesIndex = globalSpeciesIndex
-                        - m_PhaseSpeciesStartIndex[phaseIndex];
+    phaseIndex = getPhaseIndexFromGlobalSpeciesIndex(globalSpeciesIndex);
+    localSpeciesIndex = globalSpeciesIndex - m_PhaseSpeciesStartIndex[phaseIndex];
 }
 //====================================================================================================================
 //! Kernel function that checks consistency of the phase name and the the name and number/name/order of species in a phase 

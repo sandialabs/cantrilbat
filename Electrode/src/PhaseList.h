@@ -260,7 +260,6 @@ public:
      */
     int getGlobalSpeciesIndexSurPhaseIndex(int surPhaseIndex, int k = 0) const;
 
-
     //! Get the global phase index from the global species index
     /*!
      *  @param   globalSpeciesIndex  species index
@@ -268,13 +267,13 @@ public:
      */
     int getPhaseIndexFromGlobalSpeciesIndex(int globalSpeciesIndex) const;
 
-    /*
-     *
+    //!  Get the local species and global phase index  given the global species index
+    /*!
+     *      @param[in]    globalSpeciesIndex          Global species index
+     *      @param[out]   phaseIndex                  On return this contains the global phase index
+     *      @param[out]   localSpeciesIndex           on return this contains the local species index
      */
-    void
-    getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
-                                            int& phaseIndex,
-                                            int& localSpeciesIndex) const;
+    void getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex, int& phaseIndex, int& localSpeciesIndex) const;
 
 
     //! Compare against other phase lists, coming up with a number for the matching of phases and species
