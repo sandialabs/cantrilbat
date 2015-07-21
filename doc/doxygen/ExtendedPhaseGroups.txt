@@ -1,6 +1,4 @@
-
-namespace Cantera
-{
+namespace Cantera {
 /*!
  * @defgroup ExtendedPhaseGroups Extended Groups of Phases
  *
