@@ -217,7 +217,7 @@ restartStep:
                         double mmf = phaseMoles_final_[iph];
                         ThermoPhase& tp = thermo(iph);
                         int nsp = tp.nSpecies();
-                        if (iph >=  NumVolPhases_) {
+                        if ((size_t) iph >=  NumVolPhases_) {
                             // we are in a surface phase
                             int isur = iph -  NumVolPhases_;
                             double sa_init = surfaceAreaRS_init_[isur];
@@ -324,7 +324,7 @@ restartStep:
 
             for (int k = 0; k < m_NumTotSpecies; k++) {
                 spMoles_tmp[k] = spMoles_init_[k];
-                for (int isk = 0; isk < m_NumSurPhases; isk++) {
+                for (size_t isk = 0; isk < m_NumSurPhases; isk++) {
                     if (ActiveKineticsSurf_[isk]) {
                         sa_init =  surfaceAreaRS_init_[isk];
                         sa_final = surfaceAreaRS_final_[isk];
@@ -652,7 +652,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
-                if (iph >=  NumVolPhases_) {
+                if ((size_t) iph >=  NumVolPhases_) {
                     // we are in a surface phase
                     int isur = iph -  NumVolPhases_;
                     double sa_init = surfaceAreaRS_init_[isur];
@@ -756,7 +756,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
 
     for (int k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
-        for (int isk = 0; isk < m_NumSurPhases; isk++) {
+        for (size_t isk = 0; isk < m_NumSurPhases; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 sa_init =  surfaceAreaRS_init_[isk];
                 sa_final = surfaceAreaRS_final_[isk];

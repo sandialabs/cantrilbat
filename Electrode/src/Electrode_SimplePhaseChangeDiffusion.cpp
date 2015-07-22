@@ -665,7 +665,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
-                if (iph >=  NumVolPhases_) {
+                if ((size_t) iph >=  NumVolPhases_) {
                     // we are in a surface phase
                     int isur = iph -  NumVolPhases_;
                     double sa_init = surfaceAreaRS_init_[isur];
@@ -958,7 +958,7 @@ restartStep:
                         continue;
                     }
                     double mm = phaseMoles_init_[iph];
-                    if (iph >=  NumVolPhases_) {
+                    if ((size_t) iph >=  NumVolPhases_) {
                         // we are in a surface phase
                         int isur = iph -  NumVolPhases_;
                         double sa_init = surfaceAreaRS_init_[isur];
@@ -1355,7 +1355,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
     if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
-    if (iph >= NumVolPhases_) {
+    if ((size_t) iph >= NumVolPhases_) {
         isph = iph - NumVolPhases_;
         printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
@@ -1390,7 +1390,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
             }
         }
     }
-    if (iph >= NumVolPhases_) {
+    if ((size_t) iph >= NumVolPhases_) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 

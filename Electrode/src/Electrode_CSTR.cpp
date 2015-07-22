@@ -294,7 +294,7 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     phaseIndexSolidPhases_.clear();
     numSpecInSolidPhases_.clear();
-    for (int ph = 0; ph < NumVolPhases_; ph++) {
+    for (size_t ph = 0; ph < NumVolPhases_; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
         int iph = getGlobalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
@@ -2333,8 +2333,9 @@ void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 
 }
 //===================================================================================================================
-void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
+    size_t iph = iphI;
     int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -2345,11 +2346,11 @@ void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
         return;
     }
     printf("     ============================================================================================\n");
-    printf("          PHASE %d %s \n", iph,pname.c_str());
+    printf("          PHASE %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
-    if (iph == metalPhase_) {
+    if (iphI == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -2364,7 +2365,7 @@ void Electrode_CSTR::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
             printf("                Current = NA amps \n");
         }
     }
-    if (iph == metalPhase_ || iph == solnPhase_) {
+    if (iphI == metalPhase_ || iphI == solnPhase_) {
         printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     /*

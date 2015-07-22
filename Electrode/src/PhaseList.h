@@ -445,7 +445,7 @@ protected:
     int m_NumTotSpecies;
 
     //!  Number of volume phases
-    int NumVolPhases_;
+    size_t NumVolPhases_;
 
     //!  Total number of volume phase species
     int m_totNumVolSpecies;
@@ -460,7 +460,7 @@ protected:
     std::vector<int> VolPhaseHasKinetics;
 
     //! Number of surface phases
-    int m_NumSurPhases;
+    size_t m_NumSurPhases;
 
     //! Total number of surface phase species.
     int m_totNumSurSpecies;

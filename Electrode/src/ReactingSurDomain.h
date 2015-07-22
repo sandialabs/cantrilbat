@@ -236,6 +236,19 @@ public:
      */
     std::vector<int> PLtoKinPhaseIndex_;
 
+    //! Vector of the indexes of each species in the ReactionSurfaceDomain object
+    //! given the index within the PhaseList object
+    /*!
+     *       jsp = PLtoKinSpeciesIndex_[isp];
+     *
+     *          isp refers to the index of the species in the PhaseList object
+     *          jsp refers to the index of the species in the heterogeneous kinetics object
+     *
+     *  Length = number of species in the PhaseList object
+     *
+     *  A value of -1 in this slot means that the species doesn't participate in the
+     *  current ReactingSurDomain object
+     */
     std::vector<int> PLtoKinSpeciesIndex_;
 
     //! ID of the phase in the PhaseList object that has the kinetics
@@ -280,14 +293,6 @@ public:
      */
     Cantera::PhaseList* m_pl;
 
-    //! index of the metal phase in the list of phases for this surface
-    //int metalPhaseRS_;
-
-    //! Index of the electrons species in the list of species for this surface, if none set it to -1
-    //int kElectronRS_;
-
-    //! Index of the solution phase in the list of phases for this surface
-    //int solnPhaseRS_;
 
     OCV_Override_input *ocv_ptr_;
 

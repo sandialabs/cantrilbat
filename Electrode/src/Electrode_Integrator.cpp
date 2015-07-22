@@ -2310,7 +2310,7 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
     printElectrodePhaseList(pSrc, subTimeStep);
 
     int m = m_NumTotPhases;
-    if (numSurfaces_ > m_NumSurPhases) {
+    if ((size_t) numSurfaces_ > m_NumSurPhases) {
         m = numSurfaces_ + NumVolPhases_;
     }
     for (iph = 0; iph < m; iph++) {
@@ -2320,8 +2320,9 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
 }
 //===================================================================================================================
 
-void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
+    size_t iph = iphI;
     int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -2329,9 +2330,9 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     int istart = m_PhaseSpeciesStartIndex[iph];
     int nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iph,pname.c_str());
+    printf("          Phase %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iph == metalPhase_) {
+    if (iphI == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -2346,7 +2347,7 @@ void Electrode_Integrator::printElectrodePhase(int iph, int pSrc, bool subTimeSt
             printf("                Current = NA amps \n");
         }
     }
-    if (iph == metalPhase_ || iph == solnPhase_) {
+    if (iphI == metalPhase_ || iphI == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {

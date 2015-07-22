@@ -98,7 +98,7 @@ int Electrode_Equilibrium::setupEquilibriumProblem()
     m_mp = new MultiPhase();
 
     PhaseIndex_mp_.resize(ee_->NumVolPhases_);
-    for (int iph = 0; iph < ee_->NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < ee_->NumVolPhases_; iph++) {
         ThermoPhase* tp = ee_->VolPhaseList[iph];
         m_mp->addPhase(tp, ee_->phaseMoles_final_[iph]);
         PhaseIndex_mp_[iph] = iph;

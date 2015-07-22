@@ -60,7 +60,7 @@ PhaseList::PhaseList(bool ownership) :
 PhaseList::~PhaseList()
 {
     if (IOwnPhasePointers) {
-        int i;
+        size_t i;
         for (i = 0; i < NumVolPhases_; i++) {
             delete VolPhaseList[i];
         }
@@ -106,7 +106,7 @@ PhaseList::PhaseList(const PhaseList& right) :
  */
 PhaseList& PhaseList::operator=(const PhaseList& right)
 {
-    int i;
+    size_t i;
     /*
      * Check for self assignment.
      */
@@ -119,7 +119,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
      */
 
     if (IOwnPhasePointers) {
-        int i;
+        size_t i;
         for (i = 0; i < NumVolPhases_; i++) {
             delete VolPhaseList[i];
             VolPhaseList[i] = 0;
@@ -145,7 +145,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     VolPhaseList = right.VolPhaseList;
     if (IOwnPhasePointers) {
-        for (i = 0; i < NumVolPhases_; i++) {
+        for (size_t i = 0; i < NumVolPhases_; i++) {
             VolPhaseList[i] = (right.VolPhaseList[i])->duplMyselfAsThermoPhase();
         }
     }
@@ -154,7 +154,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     // These are shallow pointers, so they need to be reevaluated
     //
     VolPhaseXMLNodes=  right.VolPhaseXMLNodes;
-    for (int i = 0; i < NumVolPhases_; i++) {
+    for (size_t i = 0; i < NumVolPhases_; i++) {
         VolPhaseXMLNodes[i] = &(VolPhaseList[i]->xml());
     }
 
@@ -179,7 +179,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     // These are shallow pointers, so they need to be reevaluated
     //
     SurPhaseXMLNodes = right.SurPhaseXMLNodes;
-    for (int i = 0; i < m_NumSurPhases; i++) {
+    for (i = 0; i < m_NumSurPhases; i++) {
         SurPhaseXMLNodes[i] = &(SurPhaseList[i]->xml());
     }
     SurPhaseHasKinetics = right.SurPhaseHasKinetics;
@@ -197,7 +197,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     PhaseList_.resize(m_NumTotPhases);
     PhaseNames_.resize(m_NumTotPhases);
-    for (i = 0; i < NumVolPhases_; i++) {
+    for (size_t i = 0; i < NumVolPhases_; i++) {
         PhaseList_[i] =  VolPhaseList[i];
         PhaseNames_[i] =  VolPhaseList[i]->name();
     }
@@ -283,7 +283,7 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     m_PhaseSpeciesStartIndex.resize(m_NumTotPhases + 1, 0);
     if (m_NumSurPhases > 0) {
         int indexP = NumVolPhases_ + m_NumSurPhases;
-        for (int isp = 0; isp < m_NumSurPhases; isp++) {
+        for (size_t isp = 0; isp < m_NumSurPhases; isp++) {
             m_PhaseSpeciesStartIndex[indexP] =
                 m_PhaseSpeciesStartIndex[indexP - 1] + nSpecies;
             indexP--;
@@ -319,11 +319,11 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     PhaseList_.resize(m_NumTotPhases);
     PhaseNames_.resize(m_NumTotPhases);
 
-    for (int i = 0; i < NumVolPhases_; i++) {
+    for (size_t i = 0; i < NumVolPhases_; i++) {
         PhaseList_[i] = VolPhaseList[i];
         PhaseNames_[i] =  VolPhaseList[i]->name();
     }
-    for (int i = 0; i < m_NumSurPhases; i++) {
+    for (size_t i = 0; i < m_NumSurPhases; i++) {
         PhaseList_[i + NumVolPhases_] = SurPhaseList[i];
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
     }
@@ -419,11 +419,11 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
 
     PhaseList_.resize(m_NumTotPhases);
     PhaseNames_.resize(m_NumTotPhases);
-    for (int i = 0; i < NumVolPhases_; i++) {
+    for (size_t i = 0; i < NumVolPhases_; i++) {
         PhaseList_[i] = VolPhaseList[i];
         PhaseNames_[i] =  VolPhaseList[i]->name();
     }
-    for (int i = 0; i < m_NumSurPhases; i++) {
+    for (size_t i = 0; i < m_NumSurPhases; i++) {
         PhaseList_[i + NumVolPhases_] = SurPhaseList[i];
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
     }
@@ -443,10 +443,10 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
  */
 int PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
 {
-    for (int i = 0; i < NumVolPhases_; i++) {
+    for (size_t i = 0; i < NumVolPhases_; i++) {
         const ThermoPhase* const temp = VolPhaseList[i];
         if (temp == vp) {
-            return i;
+            return (int) i;
         }
     }
     return -1;
@@ -454,10 +454,10 @@ int PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
 //==================================================================================================================
 int PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
 {
-    for (int i = 0; i < m_NumSurPhases; i++) {
+    for (size_t i = 0; i < m_NumSurPhases; i++) {
         const ThermoPhase* const temp = SurPhaseList[i];
         if (temp == sp) {
-            return i;
+            return (int) i;
         }
     }
     return -1;
@@ -563,7 +563,7 @@ int PhaseList::
 getGlobalSpeciesIndexVolPhaseIndex(int volPhaseIndex, int k) const
 {
     AssertTrace(volPhaseIndex >= 0);
-    AssertTrace(volPhaseIndex < NumVolPhases_);
+    AssertTrace((size_t) volPhaseIndex < NumVolPhases_);
     ThermoPhase* tp = VolPhaseList[volPhaseIndex];
     AssertTrace(k < (int) tp->nSpecies());
     int istart = m_PhaseSpeciesStartIndex[volPhaseIndex];
@@ -574,7 +574,7 @@ int PhaseList::
 getGlobalSpeciesIndexSurPhaseIndex(int surPhaseIndex, int k) const
 {
     AssertTrace(surPhaseIndex >= 0);
-    AssertTrace(surPhaseIndex < m_NumSurPhases);
+    AssertTrace((size_t) surPhaseIndex < m_NumSurPhases);
     ThermoPhase* tp = SurPhaseList[surPhaseIndex];
     AssertTrace(k < (int) tp->nSpecies());
     int phaseIndex = NumVolPhases_ + surPhaseIndex;
@@ -888,10 +888,10 @@ PhaseList::thermo(int globalPhaseIndex) const
     if (globalPhaseIndex < 0) {
         throw CanteraError("  ", "error");
     }
-    if (globalPhaseIndex < NumVolPhases_) {
+    if ((size_t) globalPhaseIndex < NumVolPhases_) {
         return *(VolPhaseList[globalPhaseIndex]);
     }
-    if (globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases)) {
+    if ((size_t) globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases)) {
         throw CanteraError("  ", "error");
     }
     int isurphase = globalPhaseIndex - NumVolPhases_;
@@ -986,11 +986,11 @@ std::string PhaseList::speciesName(int iGlobSpeciesIndex) const
 //======================================================================================================================
 void PhaseList::setState_TP(doublereal temperature, doublereal pressure)
 {
-    for (int i = 0; i <  NumVolPhases_; i++) {
+    for (size_t i = 0; i <  NumVolPhases_; i++) {
         ThermoPhase *tp = VolPhaseList[i];
         tp->setState_TP(temperature, pressure);
     } 
-    for (int i = 0; i < m_NumSurPhases; i++) {
+    for (size_t i = 0; i < m_NumSurPhases; i++) {
         ThermoPhase *tp = SurPhaseList[i];
         tp->setState_TP(temperature, pressure);
     }

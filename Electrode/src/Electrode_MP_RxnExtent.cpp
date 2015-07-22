@@ -477,7 +477,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
 
 
-    for (int ph = 0; ph < NumVolPhases_; ph++) {
+    for (size_t ph = 0; ph < NumVolPhases_; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
         int iph = getGlobalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
@@ -709,7 +709,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
         setRelativeCapacityDischargedPerMole(ei->RelativeCapacityDischargedPerMole);
     }
 
-    for (int ph = 0; ph < NumVolPhases_; ph++) {
+    for (size_t ph = 0; ph < NumVolPhases_; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
         int iph = getGlobalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
@@ -4573,8 +4573,9 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
 }
 
 //====================================================================================================================
-void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
+    size_t iph = iphI;
     int printDetail = 10;
     //int isph;
     int isurfA;
@@ -4585,7 +4586,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
     int istart = m_PhaseSpeciesStartIndex[iph];
     int nsp = tp.nSpecies();
     printf("     ============================================================================================\n");
-    printf("          PHASE %d %s \n", iph,pname.c_str());
+    printf("          PHASE %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     if (iph >= NumVolPhases_) {
@@ -4595,7 +4596,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
     }
 
-    if (iph == metalPhase_) {
+    if (iphI == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -4610,7 +4611,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iph, int pSrc, bool subTime
             printf("                Current = NA amps \n");
         }
     }
-    if (iph == metalPhase_ || iph == solnPhase_) {
+    if (iphI == metalPhase_ || iphI == solnPhase_) {
         printf("                Electric Potential = %g volts\n", tp.electricPotential());
     }
     /*

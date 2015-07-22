@@ -997,8 +997,9 @@ void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doResetAlw
  *
  *  update phaseMoles_final_[]
  */
-void Electrode_DiffTALE::updateState_Phase(int iph)
+void Electrode_DiffTALE::updateState_Phase(int iphI)
 { 
+    size_t iph = iphI;
     int istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
     int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
@@ -4551,8 +4552,9 @@ void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
 }
 //===================================================================================================================
 
-void Electrode_DiffTALE::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
+    size_t iph = iphI;
     int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -4561,9 +4563,9 @@ void Electrode_DiffTALE::printElectrodePhase(int iph, int pSrc, bool subTimeStep
     int istart = m_PhaseSpeciesStartIndex[iph];
     int nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iph,pname.c_str());
+    printf("          Phase %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iph == metalPhase_) {
+    if (iphI == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -4578,7 +4580,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iph, int pSrc, bool subTimeStep
             printf("                Current = NA amps \n");
         }
     }
-    if (iph == metalPhase_ || iph == solnPhase_) {
+    if (iphI == metalPhase_ || iphI == solnPhase_) {
         printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {
