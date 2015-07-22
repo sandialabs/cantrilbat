@@ -18,6 +18,16 @@
 
 PROGRAM = FeS2_3_MPNewman_cV_restart
 
+PROGRAM = FeS2_3_MPNewman_cV_restart
+TESTNAME = FeS2_3_MPNewman_cV_restart
+
+BLESSED_FILES = good_out.txt  FeS2_intResults_blessed.csv
+
+DATA =  cathode.inp problem_setup.sh \
+        FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml  LiKCl_recipmoltenSalt.xml \
+        Li_Liquid.xml  metal_Li_LiCl_electrons.xml 
+
+
 OBJ = $(PROGRAM).o
 
 ##########################################################################
@@ -97,6 +107,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 #
 .c.o:
 	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
@@ -127,8 +138,13 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
-	./runtest
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../runtest_Electrode
 
 rebaseline:
 	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
@@ -142,9 +158,7 @@ $(DEPENDS): Makefile
 $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
-	          $(OBJ_CANTERA_ADDONS)  \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS) 
+	          $(OBJ_CANTERA_ADDONS)   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS)  $(LCXX_END_LIBS) 
 
 #############################################################################
 #          INSTALL RULES
@@ -154,9 +168,12 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
-
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
+	$(RM) ${PROG} runInProgress.txt runBad runGood
+
+dist_clean:
+	@MAKE@ clean
+	$(RM) Makefile out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
+
 
