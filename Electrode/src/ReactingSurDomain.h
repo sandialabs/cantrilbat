@@ -25,18 +25,24 @@ namespace Cantera
 {
 struct OCV_Override_input;
 
+//! ReactingSurDomain is a class of reaction that combines the PhaseList information
+//! with the Cantera Kinetics class
+/*!
+ *       The class also implements the OCV override
+ */
 class ReactingSurDomain : public Cantera::ElectrodeKinetics
 {
 public:
+
     //! Default constructor
     ReactingSurDomain();
 
     //! Copy Constructor for the %Kinetics object.
     /*!
-     * Currently, this is not fully implemented. If called it will
-     * throw an exception.
+     * Currently, this is not fully implemented. If called it will  throw an exception.
      */
     ReactingSurDomain(const ReactingSurDomain& right);
+
 
     //! Assignment operator
     /*!
@@ -143,24 +149,31 @@ public:
      *    In this formulation, io can be positive or negative. It's sign will be determined by the
      *    sign of the nSt, the stoichiometric electrons.
      *
-     *   @param   irxn     Reaction id
-     *   @param   nSt      Number of stoichiometric electrons transferred (can be negative)
-     *   @param   OCV      Open circuit voltage (volts)
-     *   @param   io       Exchange Current density value (can be negative)
-     *                        units coulombs / sec / m^2
-     *   @param   nu       Overpotential for the reaction (can be positive or negative)
-     *   @param   beta     Symmetry factor
+     *   \todo          Understand if this can be a const function
+     *   \todo          Generalize this to the case where activities aren't included in io.
      *
-     *  @return  returns the current density for the reaction (amps m-2)
+     *   @param[in]    irxn                  Reaction id
+     *   @param[out]   nStoich               Number of stoichiometric electrons transferred (can be negative)
+     *   @param[out]   OCV                   Open circuit voltage (volts)
+     *   @param[out]   io                    Exchange Current density value (can be negative) units coulombs / sec / m^2
+     *   @param[out]   nu                    Overpotential for the reaction (can be positive or negative)
+     *   @param[out]   beta                  Symmetry factor
+     *
+     *   @return                             Returns the current density for the reaction (amps m-2)
      */
-    double getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV,
+    double getExchangeCurrentDensityFormulation(int irxn, doublereal* nStoich, doublereal* OCV,
                                                 doublereal* io, doublereal* nu, doublereal *beta);
 
     //! Utility routine to calculate the current density given the parameters for
     //! an exchange current density formulation of the reaction rate
     /*!
+     *  @param[in]  nu                       Overpotential for the reaction (can be positive or negative) (volts)
+     *  @param[in]  nStoich                  Number of stoichiometric electrons transfered
+     *  @param[in]  io                       Exchange Current density value (can be negative) units coulombs / sec / m^2
+     *  @param[in]  beta                     Symmetry factor (unitless)
+     *  @param[in]  temp                     temperature (Kelvin)
      *
-     *  @param returns the current density (amps m-2)
+     *  @return                              Returns the current density (amps m-2)
      */
     double calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const;
 
@@ -197,10 +210,13 @@ public:
 
 public:
     //! Declare a printing routine as a friend to this class
+    /*!
+     *   @param[in]        s              Reference to the ostream that will be used for the printing
+     *   @param[in]        vd             Reference to the ReactingSurDomain whose values will be printed
+     *
+     *   @return                          Returns a reference to the input ostream, as required for chaining these commands together.
+     */
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& vd);
-
-    //! Vector of additional information about each reaction
-    //std::vector<RxnMolChange*> rmcVector;
 
     //! Number of phases within the class
     int numPhases_;
@@ -293,7 +309,11 @@ public:
      */
     Cantera::PhaseList* m_pl;
 
-
+    //!  Pointer to an OCV_Override_input object which is used to override the thermodynamics of an electrode
+    //!  reaction given input
+    /*!
+     *      The default value is NULL, indicating that there isn't any override.
+     */
     OCV_Override_input *ocv_ptr_;
 
     //! Pointer to the OCV model that may be used to override the thermodynamics for the OCV for this interface
@@ -305,9 +325,6 @@ public:
     //!  Kinetic species index for species
     int kReplacedSpeciesRS_;
 
-    //size_t kElectronRS_;
-    //size_t metalPhaseRS_;
-    //size_t solnPhase_RS_;
 
 protected:
 
