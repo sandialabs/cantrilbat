@@ -1,6 +1,7 @@
 /**
  * @file BE_BlockEntry.h
- *    Declarations for BlockEntry object
+ *    Declarations for BlockEntry object (see \ref blockentryModule and class
+ *  \link BEInput::BlockEntry BlockEntry\endlink), which is the base class for all block input classes.
  */
 
 /*

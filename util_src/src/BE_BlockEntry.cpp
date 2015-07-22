@@ -1,21 +1,15 @@
 /**
  * @file BE_BlockEntry.cpp
- *     Definitions for the BlockEntry object
- * (see \ref blockentryModule and class
- *   \link BEInput::BlockEntry BE_BlockEntry\endlink).
+ *   Definitions for the BlockEntry class which is the base class for all block entry classes
+ *   (see \ref blockentryModule and class \link BEInput::BlockEntry BlockEntry\endlink)
  */
-/*
- * $Author: hkmoffa $
- * $Revision: 248 $
- * $Date: 2012-07-05 14:45:20 -0600 (Thu, 05 Jul 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
-
 
 #include "BE_BlockEntry.h"
 #include "LE_LineEntry.h"

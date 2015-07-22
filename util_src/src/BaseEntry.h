@@ -1,6 +1,7 @@
 /**
  * @file BaseEntry.h
- *   Declarations for the base object, BaseEntry
+ *   Declarations for the base object, \link BEInput::BaseEntry BaseEntry\endlink, which is inherited by all LineEntry and BlockEntry classes.
+ *  (see \ref blockentryModule and class \link BEInput::BaseEntry BaseEntry\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract

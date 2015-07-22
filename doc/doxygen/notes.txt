@@ -36,3 +36,32 @@ where
       |- ext2.cfg               doxygen configuration file for ext2
 
 Verified that this works.
+
+
+------------------------------------------------------------------------------------------
+
+File List
+  The proper use of the block at the top of files is listed below as an
+example:
+
+/**
+ * @file BaseEntry.h
+ *   Declarations for the base object, BaseEntry, which is inherited by all
+ *   LineEntry and BlockEntry classes.
+ */
+
+  Note that all words after the first period are ignored in the "Files" index
+They are included in the "Detailed Description" part of the Files. I think
+that we should be working towards not using the "Detailed Description" part of
+the Files tab.
+  
+  Note that the example includes a 2 character indentation between the @file
+line and the subsequent lines. This is needed to avoid doxygen putting a box
+around the text in the "Files" tab. The box destroys the look and feel of the 
+"Files" tab. I have no idea why doxygen puts the box there. It just does.
+
+
+
+
+
+
