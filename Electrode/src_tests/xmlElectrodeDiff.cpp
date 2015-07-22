@@ -301,9 +301,23 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Error opening up file2, %s\n", fileName2);
     exit(-1);
   }
-  esmodel::ElectrodeTimeEvolutionOutput* eto1 = readXMLElectrodeOutput(*Xfp1);
+  esmodel::ElectrodeTimeEvolutionOutput* eto1 = 0;
+  esmodel::ElectrodeTimeEvolutionOutput* eto2 = 0; 
 
-  esmodel::ElectrodeTimeEvolutionOutput* eto2 = readXMLElectrodeOutput(*Xfp2);
+  try {
+      eto1 = readXMLElectrodeOutput(*Xfp1);
+  } catch (CanteraError) {
+    showErrors();
+    printf("xmlElectrodeDiff ERROR:: Error while reading first file, %s. Exiting program\n", fileName1);
+    return -1;
+  }
+  try {
+      eto2 = readXMLElectrodeOutput(*Xfp2);
+  } catch (CanteraError) {
+    showErrors();
+    printf("xmlElectrodeDiff ERROR:: Error while reading second file, %s. Exiting program\n", fileName2);
+    return -1;
+  }
 
   if (eto1->numGlobalTimeIntervals_ != eto2->numGlobalTimeIntervals_) {
       printf("Warning: number of time intervals are unequal\n");
@@ -316,8 +330,15 @@ int main(int argc, char *argv[])
  
   int numZonesNeededToPass = std::min(eto1->numGlobalTimeIntervals_, eto2->numGlobalTimeIntervals_);
   int numPassed =  numZonesNeededToPass;
-  bool ok =  eto1->compareOtherTimeEvolutionSub(eto2, numPassed, molarAtol, gatol, nDigits,
-						 includeHist, compareType, printLvl);
+  bool ok;
+  try {
+      ok = eto1->compareOtherTimeEvolutionSub(eto2, numPassed, molarAtol, gatol, nDigits,includeHist, compareType, printLvl);
+  } catch (CanteraError) {
+    showErrors();
+    printf("xmlElectrodeDiff ERROR:: Error while comparing first solution %s to second solution %s. Exiting program\n",
+	   fileName1, fileName2);
+    return -1;
+  }
 
   if (ok) {
       printf("xmlElectrodeDiff: Passed, a total of %d zones were the same\n",  numZonesNeededToPass);
