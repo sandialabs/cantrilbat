@@ -1,6 +1,7 @@
 /**
  * @file BE_UnitConversionConcentration.h
- *          Declarations for the the  BE_UnitConversionConcentration object
+ *   Declarations for the UnitConversion class that handles concentrations 
+ *   (see \ref blockentryModule and class \link BEInput::BE_UnitConversionConcentration BE_UnitConversionConcentration\endlink).
  */
 
 /*

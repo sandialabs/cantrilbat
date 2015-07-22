@@ -1,9 +1,9 @@
 /**
  * @file BE_UnitConversion.h
- *  Header for the base object that handles units conversion
- *  (see \ref blockentryModule and class
- *  \link BEInput::BE_UnitConversion BE_UnitConversion\endlink).
+ *   Header for the base object that handles units conversion
+ *   (see \ref blockentryModule and class \link BEInput::BE_UnitConversion BE_UnitConversion\endlink).
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government

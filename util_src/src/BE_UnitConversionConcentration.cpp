@@ -1,6 +1,7 @@
 /**
  * @file BE_UnitConversionConcentration.cpp
- *    Definitions for the  BE_UnitConversionConcentration class
+ *  Definitions for the UnitConversion class that handles concentrations
+ * (see \ref blockentryModule and class \link BEInput::BE_UnitConversionConcentration BE_UnitConversionConcentration\endlink).
  */
 
 /*

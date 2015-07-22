@@ -1,8 +1,7 @@
 /**
- * @file BE_StrDbl.h
- *   Header for the BlockEntry of a set of doubles that fills up a vector
- *  (see \ref blockentryModule and class
- *  \link BEInput::BE_StrDbl BE_StrDbl\endlink).
+ * @file BE_StrVecDbl.h
+ *   Header for the BlockEntry of a set of doubles that fills up a standard vector
+ *   (see \ref blockentryModule and class \link BEInput::BE_StrVecDbl BE_StrVecDbl\endlink).
  */
 
 /*

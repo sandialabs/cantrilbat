@@ -1,14 +1,9 @@
 /**
- * @file BE_StrDbl.cpp
- *  Definitions for the BlockEntry of a set of doubles that fills up a vector
- *  (see \ref blockentryModule and class
- *  \link BEInput::BE_StrDbl BE_StrDbl\endlink).
+ * @file BE_StrVecDbl.cpp
+ *   Definitions for the BlockEntry of a set of doubles that fills up a standard vector
+ *   (see \ref blockentryModule and class \link BEInput::BE_StrVecDbl BE_StrVecDbl\endlink).
  */
-/*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -22,14 +17,13 @@
 
 #include <cstring>
 #include <cfloat>
-
-#include  <vector>
+#include <vector>
 
 using namespace mdpUtil;
 
 namespace BEInput
 {
-
+//=============================================================================================================================================
 /*
  * BE_StrDbl Constructor:
  *

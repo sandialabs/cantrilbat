@@ -1,9 +1,7 @@
 /**
  * @file BE_MultiBlockNested.h
- *  Header for the BlockEntry for a block which may occur
- *  multiple times within the input file.
- *  (see \ref blockentryModule and class
- *  \link BEInput::BE_MultiBlockNested BE_MultiBlockNested\endlink).
+ *   Header for the BlockEntry for a block which may occur multiple times within the input file
+ *   (see \ref blockentryModule and class \link BEInput::BE_MultiBlockNested BE_MultiBlockNested\endlink).
  */
 
 /*

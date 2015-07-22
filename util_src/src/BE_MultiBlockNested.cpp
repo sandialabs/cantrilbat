@@ -1,15 +1,9 @@
 /**
  * @file BE_MultiBlockNested.cpp
- *  Definitions for the BlockEntry for a block which may occur
- *  multiple times within the input file.
- *  (see \ref blockentryModule and class
- *  \link BEInput::BE_MultiBlockNested BE_MultiBlockNested\endlink).
+ *  Definitions for the BlockEntry for a block which may occur multiple times within the input file
+ *  (see \ref blockentryModule and class \link BEInput::BE_MultiBlockNested BE_MultiBlockNested\endlink).
  */
-/*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -23,17 +17,12 @@
 #include "BE_UnitConversionLength.h"
 
 using namespace mdpUtil;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
-
 //==================================================================================================================================
 /*
- *
- * BE_MultiBlockNested Constructor:
- *
- *   This sets up the line entry special case.
- *   We make sure to call the base class constructor here to do
+ *   This sets up the line entry special case. We make sure to call the base class constructor here to do
  *   much of the initialization.
  */
 BE_MultiBlockNested::BE_MultiBlockNested(const char* blockName,

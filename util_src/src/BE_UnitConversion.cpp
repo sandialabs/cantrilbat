@@ -1,6 +1,7 @@
 /**
  * @file BE_UnitConversion.cpp
- *        Definitions for the BE_UnitConversion object
+ *   Definitions for the base object that handles unit conversions 
+ *  ((see \ref blockentryModule and class \link BEInput::BE_UnitConversion BE_UnitConversion\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract

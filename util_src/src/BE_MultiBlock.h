@@ -1,15 +1,9 @@
 /**
  * @file BE_MultiBlock.h
- *  Header for the BlockEntry for a block which may occur
- *  multiple times within the input file.
- *  (see \ref blockentryModule and class
- *  \link BEInput::BE_MultiBlock BE_MultiBlock\endlink).
+ *   Declarations for the BlockEntry for a block which may occur multiple times within the input file
+ *   (see \ref blockentryModule and class \link BEInput::BE_MultiBlock BE_MultiBlock\endlink).
  */
-/*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government

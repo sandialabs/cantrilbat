@@ -1,6 +1,7 @@
 /**
  * @file BaseEntry.cpp
- *   Definitions for the base object, BaseEntry
+ *   Definitions for the base object, BaseEntry  (see \ref blockentryModule and class
+ *  \link BEInput::BaseEntry BaseEntry\endlink).
  */
 
 /*
