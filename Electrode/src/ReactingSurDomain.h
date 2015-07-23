@@ -114,6 +114,13 @@ public:
      */
     const std::vector<double>& calcNetSurfaceProductionRateDensities();
 
+    //! Returns a constant reference to the vector of reaction rates of progress
+    /*!
+     *  This is just a wrapper around updateROP() and then it returns the internal vector m_ropnet;
+     *
+     *  @return                                 Returns a const reference to  the vector of reaction rates of progress.
+     *                                          The units are kmol m-2 s-1.
+     */
     const std::vector<double>& calcNetSurfaceROP();
 
     //! Returns a reference to the calculated creation rates of species
@@ -314,7 +321,7 @@ public:
      */
     std::vector<int> PLtoKinSpeciesIndex_;
 
-    //! ID of the phase in the PhaseList object that has the kinetics
+    //! Global phase Index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
     int iphaseKin_;
 
@@ -328,6 +335,10 @@ public:
     //! Temp vector that may be eliminated in the future.
     std::vector<int> tplRead;
 
+    //! If there is a surface kinetics mechanism associated with this object, this is true. 
+    /*!
+     *   The index of the surface phase is kept in the variable, iphaseKin_ 
+     */
     bool m_DoSurfKinetics;
 
     //! Vector that will expose the species production rates for this kinetics object
@@ -374,7 +385,8 @@ public:
      */
     RSD_OCVmodel* OCVmodel_;
 
-    //!  Kinetic species index for species
+    //!  Kinetic species index for the species whose thermodynamics representation is replaced by an experimentally
+    //!  determined open circuit voltage expression. If there is none, then this value is -1.
     int kReplacedSpeciesRS_;
 
 

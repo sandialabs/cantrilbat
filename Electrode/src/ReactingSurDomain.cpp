@@ -256,8 +256,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn)
 //====================================================================================================================
 
 double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
-        double* nStoich, doublereal* OCV, doublereal* io,
-        doublereal* overPotential, doublereal *beta)
+        doublereal* nStoich, doublereal* OCV, doublereal* io, doublereal* overPotential, doublereal *beta)
 {
     // This will calculate the equilibrium constant
     updateROP();
