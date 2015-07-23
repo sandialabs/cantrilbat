@@ -56,24 +56,51 @@ public:
     //! Default destructor
     virtual ~ReactingSurDomain();
 
-    //! Duplication routine for objects which inherit from Kinetics
+    //!  Duplication routine for objects which inherit from Kinetics
     /*!
-     *  This virtual routine can be used to duplicate %Kinetics objects
-     *  inherited from %Kinetics even if the application only has
-     *  a pointer to %Kinetics to work with.
+     *   This virtual routine can be used to duplicate %Kinetics objects
+     *   inherited from %Kinetics even if the application only has a pointer to %Kinetics to work with.
      *
-     *  These routines are basically wrappers around the derived copy  constructor.
+     *   These routines are basically wrappers around the derived copy constructor. Here we provide an
+     *   opportunity to associate the new Kinetics duplicate with a different set of ThermoPhase objects.
+     *   This means that we provide a vector of ThermoPhase pointers as input to this routine.
      *
-     * @param  tpVector Vector of shallow pointers to ThermoPhase objects. this is the
-     *                  m_thermo vector within this object
+     *   @param         tpVector              Vector of shallow pointers to ThermoPhase objects. This is the
+     *                                        m_thermo vector within this object.
+     *
+     *   @return                              Returns a pointer to the duplicate object.
      */
     virtual Kinetics* duplMyselfAsKinetics(const std::vector<thermo_t*>& tpVector) const;
 
-    //!   Import all the phases from a PhaseList and initialize the kinetics for this object
+    //!  Import all the phases from a PhaseList and initialize the surface kinetics for this object
     /*!
+     *   This routine initializes a ReactingSurDomain object and its underlying interfacial kinetics
+     *   given a PhaseList object. It uses the XML data written into the PhaseList object to go find
+     *   and initialize the surface kinetics. On input the surface phase containing the kinetics
+     *   must be identified via the parameter list. It then reads the XML data for the surface
+     *   phase. It then finds the ThermoPhase objects within the PhaseList associated with the
+     *   surface kinetics.
      *
+     *   The routine finds all of the ThermoPhase objects that are part of the Kinetics object by
+     *   querying the XML node phaseArray. It then finds these ThermoPhase objects within the PhaseList
+     *   objects to see if the kinetics object can be successfully formulated.
+     *   It then creates the kinetics object by calling Cantera's importPhase() routine.
+     *   
+     *   Then other initializations are carried out such as formulating the kinetics species list
+     *   and its indexing into the Phaselist species list.
+     *
+     *   Right now it is an error for there not to be a kinetics mechanism.
+     *
+     *   @param[in]     pl                         Fully formed pointer to the PhaseList object that will be associated
+     *                                             with this object.
+     *
+     *   @param[in]     iskin                      The index of the surface phase that has the surface kinetics associated
+     *                                             with it.
+     *
+     *   @return                                   Returns true upon proper instanteation of the kinetics. Returns false
+     *                                             if there was a problem.
      */
-    bool importFromPL(Cantera::PhaseList* pl, int iskin);
+    bool importFromPL(Cantera::PhaseList* const pl, int iskin);
 
     //! Returns a reference to the calculated production rates of species
     /*!
@@ -111,11 +138,22 @@ public:
      */
     virtual void updateMu0();
 
-    //! Get the net current for the set of reactions on this surface
+    //! Get the net current for the set of reactions on this surface in amps m-2.
     /*!
-     *       
+     *  Get the net current.  We use the value of kElectronIndex_ to identify the index for the electron species.
+     *  Then the net electron production is used for the net current across the interface. Note a positive electron
+     *  production means that positive charge is being put from the solid into the solution. We identify this
+     *  as a positive current. Therefore, under normal operations an anode has positive current and a cathode 
+     *  has a negative current.
+     * 
+     *  @param[out]      currentDensityRxn          Returns a vector containing the net current from all
+     *                                              reactions in the mechanism. On input this must be of length
+     *                                              nReactions(). On output the units are amps m-2.
+     *
+     *  @return                                     Returns the net current in amps m-2 from all reactions
+     *                                              at the current conditions.
      */
-    double getCurrentDensityRxn(double *currentDensityRxn = 0);
+    double getCurrentDensityRxn(double * const currentDensityRxn = 0);
 
     //! Get the exchange current density formulation for the current reaction rate
     /*!

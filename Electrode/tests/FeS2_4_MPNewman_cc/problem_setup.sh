@@ -1,24 +1,36 @@
 #!/bin
 #    runtest_Electrode input file:
 #
+#     Problem setup for runtest_Electrode
+#
+TEST_NAME=FeS2_4_MPNewman_cc
+#
 #  Name of the program to run
 #
-PROGRAM=Fes2_4_MPNewman_cc
-#
-#  Program input file
-#
-PROGRAM_INPUT=
+PROGRAM=FeS2_4_MPNewman_cc
 #
 #  Any other program options
 #
 PROGRAM_OPTS=''
 #
+#  
+SOLUTION_BLESSED_XML="   soln_0_0_blessed.xml "
+SOLUTION_XML="           soln_0_0.xml         "
+SOLUTION_XML_DIFFNAME="  diff_xml.txt         "
 #
-BLESSED_DATA_FILES=" good_out.txt FeS2_intResults_blessed.csv"
-DATA_FILES="         out.txt      FeS2_intResults.csv        "
-DIFF_NAMES="         diff_out.txt diff_csv.txt             "
-DIFF_REQ="           True         True                    " 
-
+#   Text files to compare against
+#
+BLESSED_DATA_FILES=" good_out.txt  "
+DATA_FILES="         out.txt       "
+DIFF_NAMES="         diff_out.txt  "
+DIFF_REQ="           True          "
+#
+#  CSV file to compare against
+#
+BLESSED_CSV_FILES="  FeS2_intResults_blessed.csv  "
+CSV_FILES="          FeS2_intResults_0_0.csv          "
+DIFF_CSV_NAMES="     diff_csv.txt        "
+DIFF_CSV_REQ="       True                     "
 #
 #  Extra files to be removed before the test starts
 #

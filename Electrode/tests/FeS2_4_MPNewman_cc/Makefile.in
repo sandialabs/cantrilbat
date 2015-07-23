@@ -1,12 +1,7 @@
 #!/bin/sh
 #
 #  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2011/08/30 00:24:03 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
+#      Makefile for an electrode test problem using the runtest_Electrode test harness.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -18,10 +13,10 @@
 
 PROGRAM = FeS2_4_MPNewman_cc
 
-BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv
+BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv soln_0_0_blessed.xml
 
 DATA_FILES = FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml  LiKCl_recipmoltenSalt.xml \
-            cathode.inp Li_Liquid.xml  metal_Li_LiCl_electrons.xml
+            cathode.inp Li_Liquid.xml  metal_Li_LiCl_electrons.xml problem_setup.sh
 
 OBJ = $(PROGRAM).o
 
@@ -38,11 +33,12 @@ CT_INCROOT =  @ct_incroot@
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
-
+#
+# Utilsrc dependencies
+#
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-
 #
 # Set up the Cantera addition library
 #
@@ -50,7 +46,7 @@ CTPADDS_DIR = ../../../ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
 #
-# Set up the Cantera Application Base directory
+# Set up the Electrode  directory
 #
 CTAPPLBASE_DIR = ../../src
 CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
@@ -59,6 +55,7 @@ CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
 #########################################################################
 # Set up the various local and global defines
 ########################################################################
+#
 LDEFINES = -DDEBUG 
 GDEFINES =
 #
@@ -72,13 +69,8 @@ LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
-CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
-
-
-OBJ_ANODE =  $(OBJ)
-
-OBJ_CANTERA_ADDONS =  
-
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+#
 ############################################################################
 # section to set up compiler rules
 ###########################################################################
@@ -91,38 +83,22 @@ LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
 CXXLDR = $(CXX)
 #
-# C compiler
-#
-CC = @CC@
-CFLAGS = @CXXFLAGS@
 #
 # Both the C and C++ compiler predefines
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
+#
 ############################################################################
 # section to set up depends
 ###########################################################################
-DEPENDS = $(OBJ_ANODE:.o=.d) 
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
+#
+DEPENDS = $(OBJ:.o=.d) 
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
-
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
@@ -138,7 +114,7 @@ test:
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(PROGRAM)
-	./runtest
+	../runtest_Electrode
 
 rebaseline:
 	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
@@ -146,12 +122,12 @@ rebaseline:
 
 ##############################################################################
 
-$(OBJ_MPEQUIL): Makefile
+$(OBJ): Makefile
 $(DEPENDS): Makefile
 
-$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+$(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
@@ -165,8 +141,14 @@ include .depends
 endif
 
 
-
 clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
+	$(RM) ${PROG} runGood runBad 
+
+dist_clean:
+	@MAKE@ clean
+	$(RM) diff_csv.txt diff_out.txt  diff_summary.txt   diff_xml.txt   err_out.txt  \
+	      FeS2_globalResults_0_0.csv   out.txt  soln_0_0.xml   FeS2_intResults_0_0.csv \
+	      outputTable.csv  
+
 

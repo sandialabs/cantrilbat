@@ -152,6 +152,12 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
+    retn = electrodeC->electrode_stateSave_create();
+    if (retn == -1) {
+      printf("exiting with error\n");
+      exit(-1);
+    }
+    retn = 0;
    
     double deltaTgoal = 0.1;
 
@@ -162,12 +168,7 @@ int main(int argc, char **argv)
 
  
     double molNum[10];
-
-
-
     electrodeC->setPhaseExistenceForReactingSurfaces(true);
- 
-    
     electrodeC->setVoltages(1.60, 0.0);
 
     double oc = electrodeC->openCircuitVoltageSSRxn(1);
@@ -215,20 +216,17 @@ int main(int argc, char **argv)
 
     
       electrodeC->printElectrode();
-  
+      electrodeC->writeSolutionTimeIncrement();
     }
 
     fclose(fp);
 
-      delete cfC;
-      delete electrodeC_input;
-      delete electrodeC;
-      Cantera::appdelete();
-
-    return retn;
-
+    delete cfC;
+    delete electrodeC_input;
+    delete electrodeC;
+    Cantera::appdelete();
+    return 0;
   } catch (CanteraError) {
-
     showErrors();
     return -1;
   }

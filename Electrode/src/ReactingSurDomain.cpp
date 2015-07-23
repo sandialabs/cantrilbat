@@ -224,7 +224,8 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensitie
     return speciesDestructionRates_;
 }
 //====================================================================================================================
-double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn) 
+// Note: signs have been checked to be correct in this routine.
+double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn) 
 {
     double netCurrentDensity = 0.0;
     double ps, rs;
@@ -239,7 +240,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn)
 	    rs = m_rrxn[kElectronIndex_][irxn];
 	    ps = m_prxn[kElectronIndex_][irxn];
 	    double electronProd = (ps - rs) * m_ropnet[irxn];
-	    currentDensityRxn[irxn] = Faraday * electronProd;
+	    currentDensityRxn[irxn] =  Faraday * electronProd;
 	    netCurrentDensity += currentDensityRxn[irxn];
 	}
     } else {
@@ -247,7 +248,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double *currentDensityRxn)
 	    rs = m_rrxn[kElectronIndex_][irxn];
 	    ps = m_prxn[kElectronIndex_][irxn];
 	    double electronProd = (ps - rs) * m_ropnet[irxn];
-	    netCurrentDensity +=  Faraday * electronProd;
+	    netCurrentDensity =  Faraday * electronProd;
 	}
     }
     return netCurrentDensity;
@@ -343,8 +344,7 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
 
  *  Note -> The output doesn't cover kinetics.
  */
-std::ostream& operator<<(std::ostream& s,
-                         ReactingSurDomain& mix)
+std::ostream& operator<<(std::ostream& s, ReactingSurDomain& mix)
 {
     ThermoPhase* th;
     ElectrodeKinetics* iK = &mix;
@@ -411,7 +411,7 @@ void ReactingSurDomain::identifyMetalPhase()
  *                     interfacial kinetics object.
  */
 bool ReactingSurDomain::
-importFromPL(Cantera::PhaseList* pl, int iskin)
+importFromPL(Cantera::PhaseList* const pl, int iskin)
 {
     try {
         int iph;
@@ -432,8 +432,7 @@ importFromPL(Cantera::PhaseList* pl, int iskin)
 
         int nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
         /*
-         * Resize the internal list of pointers and
-         * get a pointer to the vacant ThermoPhase pointer
+         * Resize the internal list of pointers and get a pointer to the vacant ThermoPhase pointer
          */
         std::vector<ThermoPhase*> tpList;
         tpList.clear();
