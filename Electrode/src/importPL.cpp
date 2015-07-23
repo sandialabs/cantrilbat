@@ -54,7 +54,7 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
         pl->addSurPhase(tPhase, xmlphase);
     } else {
         throw CanteraError("processPhasePL", 
-			   "While processing file, " + canateraFile ", unknown dim string: " + dimS);
+			   "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }
 }
 //==================================================================================================================================
