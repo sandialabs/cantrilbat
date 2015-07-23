@@ -39,17 +39,19 @@ public:
 
     //! Copy Constructor for the %Kinetics object.
     /*!
-     * Currently, this is not fully implemented. If called it will  throw an exception.
+     *  Currently, this is not fully implemented. If called it will  throw an exception.
+     *
+     *  @param           right                Reference to %Kinetics object to be copied into the current one.
      */
     ReactingSurDomain(const ReactingSurDomain& right);
 
 
     //! Assignment operator
     /*!
-     *  This is NOT a virtual function.
      *
-     * @param right    Reference to %Kinetics object to be copied into the
-     *                 current one.
+     *  @param           right                Reference to %Kinetics object to be copied into the current one.
+     *
+     *  @return                               Returns a reference to the current object
      */
     ReactingSurDomain& operator=(const ReactingSurDomain& right);
 
@@ -234,6 +236,14 @@ public:
     //! Calculate the effective chemical potential of the replaced species
     void deriveEffectiveChemPot();
 
+    //!  Get the vector of deltaG values for all reactions defined in the kinetics object
+    /*!
+     *   This routine provides an override to the normal calculation of deltaG, when the thermodynamics
+     *   is modified by a specification of the open circuit potential.
+     *
+     *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal
+     *                                  to the number of reactions
+     */
     void getDeltaGibbs(doublereal* deltaG);
 
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
@@ -244,7 +254,6 @@ public:
      *                     length = nReactions(), J/kmol
      */
     void getDeltaGibbs_electrolyteSS(doublereal* deltaG_special);
-
 
 public:
     //! Declare a printing routine as a friend to this class
@@ -339,7 +348,12 @@ public:
      */
     std::vector<double> speciesDestructionRates_;
 
-    std::vector<double> deltaGRxn_;
+    //! Internal Vector of DeltaG of reaction for all reactions
+    /*!
+     *  This is used to store the DeltaG of reaction before modification due to OCV override.
+     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
+     */
+    std::vector<double> deltaGRxn_Before_;
 
     //! Pointer to the PhaseList object that contains the ThermoPhase objects.
     /*!

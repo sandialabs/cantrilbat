@@ -46,7 +46,7 @@ ReactingSurDomain::ReactingSurDomain() :
     speciesProductionRates_(0),
     speciesCreationRates_(0),
     speciesDestructionRates_(0),
-    deltaGRxn_(0),
+    deltaGRxn_Before_(0),
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
@@ -73,7 +73,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     speciesProductionRates_(0),
     speciesCreationRates_(0),
     speciesDestructionRates_(0),
-    deltaGRxn_(0),
+    deltaGRxn_Before_(0),
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
@@ -120,7 +120,7 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     speciesProductionRates_ = right.speciesProductionRates_;
     speciesCreationRates_ = right.speciesCreationRates_;
     speciesDestructionRates_ = right.speciesDestructionRates_;
-    deltaGRxn_ = right.deltaGRxn_;
+    deltaGRxn_Before_ = right.deltaGRxn_Before_;
 
     //
     // Beware -  Shallow copy of m_pl pointer
@@ -589,7 +589,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         //for (size_t i = 0; i < m_ii; i++) {
         //    rmcVector[i] = new RxnMolChange(this, i);
         //}
-        deltaGRxn_.resize(m_ii, 0.0);
+        deltaGRxn_Before_.resize(m_ii, 0.0);
 
         //
         //  Identify the electron phase
@@ -669,7 +669,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //
     //  Get the reaction delta based on the mixed G and G_SS values accummulated above
     //
-    getReactionDelta(DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
+    getReactionDelta(DATA_PTR(m_grt), DATA_PTR(deltaGRxn_Before_));
 
     double phiRxnOrig = 0.0;
 
@@ -707,7 +707,7 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     //
     //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten
     //
-    phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
+    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
     //
     //    In order to calculate the OCV, we need the relative extent of reaction value. This is determined
     //    automatically within the OCVmodel object given that the ThermoPhase is current.
@@ -741,11 +741,11 @@ void  ReactingSurDomain::deriveEffectiveChemPot()
     // Now recalc deltaG and calc OCV   HKM This calculation has checked out for the MCMB model
     //   We should now be at the exp OCV
 #ifdef DEBUG_NEW
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxn_));
-    phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxn_Before_));
+    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
     //printf(" phiRxnOrig_halfcell  =  %g\n",  phiRxnOrig );
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_));
-    phiRxnOrig = deltaGRxn_[rxnID] / Faraday / nStoichElectrons;
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_Before_));
+    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
     //printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
 #endif
 }
