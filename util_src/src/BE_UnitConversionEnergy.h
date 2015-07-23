@@ -1,6 +1,7 @@
 /**
  * @file BE_UnitConversionEnergy.h
- *      Declarations for the class  BE_UnitConversionEnergy 
+ *   Declarations for the object that handles unit conversions for Energy units
+ *   (see \ref blockentryModule and class \link BEInput::BE_UnitConversionEnergy BE_UnitConversionEnergy\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract

@@ -1,5 +1,7 @@
 /**
  * @file BE_UnitConversionLength.h
+ *   Declarations for the object that handles unit conversions based on length or multiples of the length
+ *   ((see \ref blockentryModule and class \link BEInput::BE_UnitConversionLength BE_UnitConversionLength\endlink).
  *
  */
 /*
@@ -8,7 +10,6 @@
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
-
 
 #ifndef BE_UNITCONVERSIONLENGTH_H
 #define BE_UNITCONVERSIONLENGTH_H
@@ -20,7 +21,7 @@ namespace BEInput
 //==================================================================================================================================
 //! Unit conversion object for quantities that have units of length, returning values in meters
 /*!
- *    This may include powers of lengths.
+ *    This may include powers of the length.
  */
 class BE_UnitConversionLength : public BE_UnitConversion
 {
@@ -57,7 +58,6 @@ public:
      *            destructor is called for the static object.
      */
     virtual ~BE_UnitConversionLength();
-
    
     //!Return a string containing a short description of what the
     /*!

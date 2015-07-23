@@ -1,6 +1,7 @@
 /**
- * @file BE_UnitConversionConcentration.cpp
- *
+ * @file BE_UnitConversionEnergy.cpp
+ *   Definitions for the object that handles unit conversions for Energy units
+ *   (see \ref blockentryModule and class \link BEInput::BE_UnitConversionEnergy BE_UnitConversionEnergy\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -9,18 +10,17 @@
  * See file License.txt for licensing information.
  */
 
-
 #include "BE_UnitConversionEnergy.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
-
-
+//==================================================================================================================================
 BE_UnitConversionEnergy::BE_UnitConversionEnergy(const BE_UnitConversionEnergy& right) :
     BE_UnitConversion(right)
 {
 }
-
+//==================================================================================================================================
 BE_UnitConversionEnergy&
 BE_UnitConversionEnergy::operator=(const BE_UnitConversionEnergy& right)
 {
@@ -29,21 +29,13 @@ BE_UnitConversionEnergy::operator=(const BE_UnitConversionEnergy& right)
     }
     return *this;
 }
-
+//==================================================================================================================================
 BE_UnitConversion* BE_UnitConversionEnergy::duplMyselfAsUnitConversion() const
 {
     BE_UnitConversionEnergy* bec = new BE_UnitConversionEnergy(*this);
     return (BE_UnitConversion*) bec;
 }
-
-
-
-/*********************************************************************
- *
- * returnUsage():
- *
- *  return a short string describing the conversion usage.
- */
+//==================================================================================================================================
 std::string BE_UnitConversionEnergy::returnUsage() const
 {
     std::string hhh;
@@ -51,12 +43,7 @@ std::string BE_UnitConversionEnergy::returnUsage() const
     hhh += " (Default = J/kmol)";
     return hhh;
 }
-
-
-/*********************************************************************
- *
- * toSI
- */
+//==================================================================================================================================
 double BE_UnitConversionEnergy::toSI(std::string unitString) const
 {
     /*
@@ -67,31 +54,15 @@ double BE_UnitConversionEnergy::toSI(std::string unitString) const
     double f = BE_UnitConversion::toSI(unitString);
     return f;
 }
-
-/*********************************************************************
- *
- * BE_UnitConversionEnergy():
- *
- * Constructor for the object. ->
- *  Here, we just call the base class constructor. The base map
- *  is fine for our purposes.
- */
+//==================================================================================================================================
 BE_UnitConversionEnergy::BE_UnitConversionEnergy()  :
     BE_UnitConversion()
 {
-
 }
-
-/*********************************************************************
- *
- * ~BE_UnitConversionEnergy():
- *
- * Destructor for the object. -> Note: we don't destroy the static
- * object here, because that would create an inifinite loop if the
- * destructor is called for the static object.
- */
+//==================================================================================================================================
 BE_UnitConversionEnergy::~BE_UnitConversionEnergy()
 {
 }
-/********************************************************************/
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
