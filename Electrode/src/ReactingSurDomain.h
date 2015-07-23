@@ -1,6 +1,8 @@
 /**
- * @file ReactingVolDomain.h
- *
+ * @file ReactingSurDomain.h
+ *  Declarations for the ElectrodeKinetics object that does handles interactions with the PhaseList object
+ *  (see \ref ExtendedPhaseGroups and class \link Cantera::ReactingSurDomain ReactingSurDomain\endlink).
+
  */
 /*
  * Copywrite (2005) Sandia Corporation. Under the terms of
@@ -266,11 +268,11 @@ public:
     //! Declare a printing routine as a friend to this class
     /*!
      *   @param[in]        s              Reference to the ostream that will be used for the printing
-     *   @param[in]        vd             Reference to the ReactingSurDomain whose values will be printed
+     *   @param[in]        rsd            Reference to the ReactingSurDomain whose values will be printed
      *
      *   @return                          Returns a reference to the input ostream, as required for chaining these commands together.
      */
-    friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& vd);
+    friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd);
 
     //! Number of phases within the class
     int numPhases_;

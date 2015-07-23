@@ -1,5 +1,7 @@
 /**
- *  @file importAllCTML.h
+ *  @file importPL.h
+ *  Declarations for utility routine to read files containing phase descriptions into PhaseList objects.
+ *  (see \ref ExtendedPhaseGroups ).
  */
 /*
  * Copywrite (2006) Sandia Corporation. Under the terms of
@@ -19,15 +21,15 @@ class PhaseList;
 
 //! Import all phases found in a single file into a PhaseList object
 /*!
- *  Import all phases found in a single file into a PhaseList object,
- *  in an additive fashion.
- *  This returns the number of phases found, processed, and added
- *  to the PhaseList object.
+ *  Import all phases found in a single file into a PhaseList object, in an additive fashion.
+ *  This returns the number of phases found, processed, and added  to the PhaseList object.
  *
- * @param pl             Pointer to the PhaseList object
- * @param canteraFile    Cantera CTML file
+ * @param       pl              Pointer to the PhaseList object
+ * @param       canteraFile     Cantera CTML file
+ *
+ * @return                      Returns the number of phases added to the PhaseList object.
  */
-int importAllCTMLIntoPhaseList(Cantera::PhaseList* pl, std::string canteraFile);
+int importAllCTMLIntoPhaseList(Cantera::PhaseList* const pl, const std::string& canteraFile);
 
 }
 #endif

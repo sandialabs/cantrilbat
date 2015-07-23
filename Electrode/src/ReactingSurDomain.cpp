@@ -1,9 +1,7 @@
 /**
- * @file ReactingVolDomain.cpp
- *
- * $Author: hkmoffa $
- * $Revision: 571 $
- * $Date: 2013-03-26 10:44:21 -0600 (Tue, 26 Mar 2013) $
+ * @file ReactingSurDomain.cpp
+ *  Definitions for the ElectrodeKinetics object that does handles interactions with the PhaseList object
+ *  (see \ref ExtendedPhaseGroups and class \link Cantera::ReactingSurDomain ReactingSurDomain\endlink).
  */
 
 /*
@@ -343,18 +341,17 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
 
  *  Note -> The output doesn't cover kinetics.
  */
-std::ostream& operator<<(std::ostream& s, ReactingSurDomain& mix)
+std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd)
 {
     ThermoPhase* th;
-    ElectrodeKinetics* iK = &mix;
-    for (int i = 0; i < mix.numPhases_; i++) {
+    ElectrodeKinetics* iK = &rsd;
+    for (int i = 0; i < rsd.numPhases_; i++) {
         th = &(iK->thermo(i));
         std::string r = th->report(true);
         s << r;
     }
     return s;
 }
-
 //====================================================================================================================
 //  Identify the metal phase and the electrons species
 //  This can be taken out, because it's been moved to Cantera

@@ -782,7 +782,9 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/importPL.h \
                          ../../Electrode/src/importPL.cpp  \
                          ../../Electrode/src/ReactingSurDomain.h \
-                         ../../Electrode/src/ReactingSurDomain.cpp 
+                         ../../Electrode/src/ReactingSurDomain.cpp \
+                         ../../Electrode/src/RSD_OCVmodel.h \
+                         ../../Electrode/src/RSD_OCVmodel.cpp \
 
 
 # This tag can be used to specify the character encoding of the source files

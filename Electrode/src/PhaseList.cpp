@@ -624,6 +624,12 @@ getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
 //! Kernel function that checks consistency of the phase name and the the name and number/name/order of species in a phase 
 /*!
  *   It returns true if the phases are the same and have the same species in it in the same order.
+ *
+ *   @param[in]      tpA                    Pointer to the first %ThermoPhase object
+ *   @param[in]      tpB                    Pointer to the second ThermoPhase object
+ *
+ *   @return                                Returns true if the two ThermoPhase classes have the same eos and the same
+ *                                          phase name and species names. Returns false otherwise.
  */
 static bool ThermoPhasesTheSameNames(const ThermoPhase* const tpA, const ThermoPhase* const tpB)
 {
