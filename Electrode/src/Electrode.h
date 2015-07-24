@@ -40,37 +40,6 @@ namespace Cantera
 
 
 
-//!  Enum Type identifying the models for the Electrodes
-/*!
- *  Note that this Enum class may be extended in other contexts.
- *  Therefore, loops over this enum should use a case statement with a default that either throws
- *  a catchable signal or returns a similar type of error message.
- */
-enum Electrode_Types_Enum {
-    UNKNOWN_ET = -1,
-    BASE_TYPE_ET = 0,
-    INF_CAPACITY_ET,
-    MP_RXNEXTENT_ET,
-    MULTIPLATEAU_NODIFF_ET,
-    //! Diffusion
-    SIMPLE_DIFF_ET,
-    SIMPLE_PHASE_CHANGE_DIFFUSION_ET,
-    CSTR_ET,
-    CSTR_ZN_ANODE_ET,
-    CSTR_MCMB_ANODE_ET,
-    CSTR_LICO2_CATHODE_ET,
-    SUCCESSIVE_SUBSTITUTION_ET,
-    MP_RXNEXTENT_FES2_ET,
-    MP_RXNEXTENT_LISI_ET,
-
-
-    //! network of one or more radial diffusion regions with surrounding interfacial kinetics regions
-    RADIAL_DIFF_REGIONS_ET,
-
-    DIFF_TALE_ET
-        
-};
-
 //!  The SOURCES enum lists the source terms that are supplied by the electrode object to the calling
 //!  routine.  This is currently only used in the Jacobian wrapper. However, it may be used
 //!  more widely in the future later.

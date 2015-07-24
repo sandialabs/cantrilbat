@@ -360,13 +360,13 @@ Electrode& Electrode::operator=(const Electrode& right)
 
             if (RSD_List_[i]->OCVmodel_) {
               RSD_OCVmodel* mm = RSD_List_[i]->OCVmodel_;
-              std::string ss = mm->solidPhaseModel_->id();
+              std::string ss = (mm->solidPhasePtr())->id();
 	      bool notFound = true;
               for (int jph = 0; jph <  nPhases(); jph++)  {
                     ThermoPhase *tp = & thermo(jph);
                     if (tp->id() == ss) {
                         notFound = false;
-                        mm->solidPhaseModel_ = tp;
+                        mm->assignShallowPointers(tp);
                         break;
                     }
                 }

@@ -63,15 +63,24 @@ std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype);
 Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_string);
 
 
-//! String to int routine for the OCV model types
+//! String to int routine for the OCV override model types
 /*!
- *   @param     input_string
- *   @return    Returns the int type for the string
- *              Unknown models return -1
+ *   \relates RSD_OCVmodel
+ *
+ *   @param     input_string                    the string representation for the  OCV override model.
+ *   @return    Returns the int type for the string.  Unknown models return a value of -1.
  */
 int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string);
 
 
+//!  int type to string routine for OCV model types
+/*!
+ *  \relates RSD_OCVmodel
+ * 
+ *  @param[in]      modelID                      int type for the string OCV model
+ *
+ *  @return                                      Returns the string representation for the string OCV model.
+ */
 std::string modelID_to_stringName_RCD_OCVmodel(int modelID);
 
 
