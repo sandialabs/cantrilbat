@@ -1,9 +1,7 @@
 /*!
  *   @file Electrode_SimpleDiff.h
  */
-/*
- * $Id: Electrode_SimpleDiff.h 571 2013-03-26 16:44:21Z hkmoffa $
- */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this

@@ -1,9 +1,14 @@
-/*
- * $Id: Electrode_defs.h 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_defs.h
+ *  Declarations for the major types and enums that are used by the Electrode Object to describe itself
+ *  (see \ref electrodeobj).
  */
+
 
 #ifndef CT_ELECTRODE_DEFS_H
 #define CT_ELECTRODE_DEFS_H
+
+#include <vector>
 
 namespace Cantera
 {
@@ -71,7 +76,7 @@ enum Electrode_Types_Enum {
     RADIAL_DIFF_REGIONS_ET
 
 };
-/*!    @}                       */
+
 
 
 //! Description of what the capacity means in terms of direction, and the specification of 
@@ -102,6 +107,86 @@ enum Electrode_Capacity_Type_Enum {
     //!  Capacity that is neither anodic or cathodic.
     CAPACITY_OTHER_ECT
 };
+
+//! NEW CONCEPT
+//!  Integration routine needs to know the context in which it is being called in order
+//!  to make decisions about how it will be treating the time stepping.
+/*!
+ *  This enum provides the variations of the context with which it is being called.
+ */
+enum Subgrid_Integration_RunType_Enum {
+
+    //! Time integration stategy is developed for the first time along the interval and storred
+    //! for later use.
+    /*!
+     *  This is used in the calculation of numerical deltas of the Electrode objects, where
+     *  we want to minimize the noise in the calculation due to time stepping.
+     *   -> this has been the default
+     */
+    BASE_TIMEINTEGRATION_SIR= 0,
+
+    //! Time integration stategy is reevalulated after the first time along the interval and storred for later use.
+    /*!
+     *  This is used in the calculation of numerical deltas of the Electrode objects, where
+     *  we want to minimize the noise in the calculation due to time stepping. Here,
+     *  we use the previous history of the time step over the interval to smooth out the calculation
+     *  so as to equalize the errors incurred between steps.
+     *
+     *   (HKM -> delay implementation or delete)
+     */
+    BASE_REEVALUATION_TIMEINTEGRATION_SIR,
+
+    //! Time integration strategy is fixed at a set number of subcycles from the input file
+    /*!
+     *   Special cases can change the actual number of subcylces used to be greater than
+     *   the requested number
+     */
+    FIXEDSUBCYCLENUMBER_TIMEINTEGRATION_SIR,
+
+    //! Reuse the time integration stategy using a delta of the value of the field variables
+    /*!
+     *  This is used in the  calculation of numerical deltas of the Electrode objects, where
+     *  we want to minimize the noise in the calculation due to time stepping.
+     */
+    FVDELTA_TIMEINTEGRATION_SIR
+};
+
+
+//! Interpolation of exterior fields
+enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
+
+    //! Field interpolation scheme based on assuming final_final values persist throughout the time step
+    T_FINAL_CONST_FIS = 0,
+
+    //! Field interpolation scheme based on assuming that external fields linearly vary
+    //! from the init_init_ values to the final_final values.
+    LINEAR_INTERP_FIS
+};
+
+//! Base structure for storing the external state of the electrode at a particular time
+/*!
+ *  There will be external states for the t_init_init and t_final_final times.
+ *  And, there will be an interpolation strategy between the two.
+ */
+class Electrode_ExternalField_State {
+public:
+    //! electrode Potential of the electrode metal phase (volts)
+    double phiMetal_;
+
+    //! Electric potential of the electrode electrolyte phase (volts)
+    double phiElectrolyte_;
+
+    //! Mole fractions of the electrolyte phase
+    std::vector<double> electrolyteMoleFractions_;
+
+    //! Temperature of the electrode (Kelvin)
+    double Temperature_;
+
+    //! Pressure of the electrode (Pascals)
+    double Pressure_;
+};
+
+/*!    @}                       */
 
 };
 
