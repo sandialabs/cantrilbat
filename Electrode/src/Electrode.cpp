@@ -3896,7 +3896,7 @@ bool Electrode::compareLocalInterval(const Electrode* const eGuest, int nDigits)
         return false;
     }
 
-    bool goodComp = doubleEqual(a1, a2, atol, nDigits);
+    bool goodComp = esmodel::doubleEqual(a1, a2, atol, nDigits);
 
     printf("Electrode::compareLocalInterval NOT CODED YET\n");
     return goodComp;

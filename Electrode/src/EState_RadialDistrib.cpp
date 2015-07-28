@@ -369,32 +369,32 @@ bool EState_RadialDistrib::compareOtherState(const EState* const ESguest, double
      double radiusAtol = pow(volAtol, 0.3333);
      // double surfaceAtol = 12 * radiusAtol * radiusAtol;
 
-     boolR = doubleVectorEqual(rnodePos_, ESG_rad->rnodePos_, radiusAtol, nDigits);
+     boolR = esmodel::doubleVectorEqual(rnodePos_, ESG_rad->rnodePos_, radiusAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("rnodeR_", rnodePos_, ESG_rad->rnodePos_, printLvl);
      }
      btotal = boolR && btotal;
 
-     boolR = doubleVectorEqual(cellBoundR_, ESG_rad->cellBoundR_, radiusAtol, nDigits);
+     boolR = esmodel::doubleVectorEqual(cellBoundR_, ESG_rad->cellBoundR_, radiusAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("cellboundR_", cellBoundR_, ESG_rad->cellBoundR_, printLvl);
      }
      btotal = boolR && btotal;
 
      double concTolAtol = molarAtol * 55.;
-     boolR = doubleVectorEqual(concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, concTolAtol, nDigits);
+     boolR = esmodel::doubleVectorEqual(concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, concTolAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("concTot_SPhase_Cell_", concTot_SPhase_Cell_, ESG_rad->concTot_SPhase_Cell_, printLvl);
      }
      btotal = boolR && btotal;
 
-     boolR = doubleVectorEqual(concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, concTolAtol, nDigits);
+     boolR = esmodel::doubleVectorEqual(concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, concTolAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("concKRSpecies_Cell_", concKRSpecies_Cell_, ESG_rad->concKRSpecies_Cell_, printLvl);
      }
      btotal = boolR && btotal;
 
-     boolR = doubleVectorEqual(spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, molarAtol, nDigits);
+     boolR = esmodel::doubleVectorEqual(spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, molarAtol, nDigits);
      if (!boolR) {
 	 printVecDiff("spMoles_KRsolid_Cell_", spMoles_KRsolid_Cell_, ESG_rad->spMoles_KRsolid_Cell_, printLvl);
      }

@@ -1,11 +1,9 @@
 /**
- * @file m1d_exceptions.h
- *  Declarations for error handling within m1d
+ * @file Electrode_Exception.h
+ *  Declarations for error handling within the Electrode Object
+ *  (see \ref errorHandling and class Electrode_Error
  */
 
-/*
- *  $Id: m1d_exception.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #ifndef ELECTRODE_EXCEPTION_H
 #define ELECTRODE_EXCEPTION_H
@@ -14,11 +12,15 @@
 
 #include <string>
 #include <vector>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace Cantera 
 {
 class Electrode;
+}
 
+namespace Cantera
+{
+//==================================================================================================================================
 //! base error class for m1d package inherits from the exception stl
 /*!
  *
@@ -32,9 +34,9 @@ public:
    * constructor, a call to the Application class is made to store
    * the strings associated with the generated error condition.
    *
-   * @param procedure String name for the function within which the error was
+   * @param[in] procedure String name for the function within which the error was
    *             generated.
-   * @param msg  Descriptive string describing the type of error message.
+   * @param[in] msg  Descriptive string describing the type of error message.
    */
   Electrode_Error(const std::string &procedure, const std::string &msg);
 
@@ -43,20 +45,15 @@ public:
 
 protected:
 
-  //! Empty base constructor is made protected so that it may be used only by
-  //! inherited classes.
+  //! Empty base constructor is made protected so that it may be used only by inherited classes.
   /*!
    *  We want to discourage throwing an error containing no information.
    */
   Electrode_Error();
+
 };
 
-
-void Electrode_Warning(const Electrode& e,  const std::string &procedure, const std::string &msg);
-
-void ESModel_Warning(const std::string &procedure, const std::string &msg);
-
-
+//==================================================================================================================================
 
 //! Provides a line number
 #define XSTR_TRACE_LINE(s) STR_TRACE_LINE(s)
@@ -90,9 +87,8 @@ void ESModel_Warning(const std::string &procedure, const std::string &msg);
 
 //! Assertion must be true or an error is thrown
 /*!
- * Assertion must be true or else a ElectrodeError is thrown. A diagnostic string containing the
- * file and line number,  indicating where the error
- * occured is added to the thrown object.
+ * Assertion must be true or else a Electrode_Error is thrown. A diagnostic string containing the
+ * file and line number, indicating where the error occurred is added to the thrown object.
  *
  * @param expr  Boolean expression that must be true
  *
@@ -133,14 +129,56 @@ void ESModel_Warning(const std::string &procedure, const std::string &msg);
                                                        std::string(#expr) + std::string("\""), message) )
 
 #endif
-// ==================================================================================================
-//! Assert two number are equal up to a number of digits
-extern bool doubleEqual(double a1, double a2, double atol, int digits);
+}
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace esmodel
+{
+//==================================================================================================================================
 
-extern bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits);
+//! Write a warning to the logfile when within an Electrode object
+/*!
+ *   Writes a warning to the logfile but the code keeps going.
+ *
+ *   @param[in]             e                     Reference to the electrode object where the warning originated
+ *   @param[in]             procedure             String identifying the procedure where the warning occurred.
+ *   @param[in]             msg                   String with the message
+ */
+void Electrode_Warning(const Cantera::Electrode& e,  const std::string &procedure, const std::string &msg);
 
+//! Write a warning to the logfile when not within an Electrode object
+/*!
+ *   Writes a warning to the logfile but the code keeps going.
+ *
+ *   @param[in]             procedure             String identifying the procedure where the warning occurred.
+ *   @param[in]             msg                   String with the message
+ */
+void ESModel_Warning(const std::string &procedure, const std::string &msg);
 
-} // End of m1d namespace
-// ==================================================================================================
+//==================================================================================================================================
+//! Assert two numbers are equal up to a number of digits and to an absolute tolerance
+/*!
+ *   @param[in]      a1                  First float
+ *   @param[in]      a2                  Second float
+ *   @param[in]      atol                Absolute tolerance - defaults to 1.0E-200, must be positive
+ *   @param[in]      digits              Number of digits - defaults to 4
+ *
+ *   @return                             Returns true if floats are equal up to the specification
+ */
+extern bool doubleEqual(double a1, double a2, double atol = 1.0E-200, int digits = 6);
+
+//! Assert two vectors of doubles are equal up to a number of digits
+/*!
+ *   @param[in]      a1                  first float vector
+ *   @param[in]      a2                  second float vector
+ *   @param[in]      atol                Absolute tolerance - defaults to 1.0E-200, most be positive
+ *   @param[in]      digits              Number of digits - defaults to 4
+ *
+ *   @return                             Returns true if floats are equal up to the specification
+ */
+extern bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol = 1.0E-200, int digits = 6);
+
+//==================================================================================================================================
+} // End of esmodel namespace
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
 

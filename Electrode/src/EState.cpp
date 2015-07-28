@@ -715,14 +715,14 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     }
 
     // temperature
-    boolR = doubleEqual(temperature_, ESguest->temperature_, 0.0, nDigits);
+    boolR = esmodel::doubleEqual(temperature_, ESguest->temperature_, 0.0, nDigits);
     if (!boolR) {
 	printDiff("Temperature", -1, temperature_, ESguest->temperature_,printLvl);
     }
     btotal = boolR && btotal;
 
     // Compare pressure
-    boolR = doubleEqual(pressure_, ESguest->pressure_, 0.0, nDigits);
+    boolR = esmodel::doubleEqual(pressure_, ESguest->pressure_, 0.0, nDigits);
     if (!boolR) {
 	printDiff("Pressure", -1, pressure_, ESguest->pressure_, printLvl);
     }
@@ -731,7 +731,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     // Compare gross Volumes  
     // based on 55 kmol / m3 ( water)
     double volAtol =  molarAtol / 55.;
-    boolR = doubleEqual(grossVolume_, ESguest->grossVolume_, volAtol, nDigits);
+    boolR = esmodel::doubleEqual(grossVolume_, ESguest->grossVolume_, volAtol, nDigits);
     if (!boolR) {
 	printDiff("grossVolume", -1,  grossVolume_, ESguest->grossVolume_, printLvl);
     }
@@ -739,7 +739,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
     // Compare exterior radius
     double radiusAtol = pow(volAtol, 0.3333);
-    boolR = doubleEqual(radiusExterior_, ESguest->radiusExterior_, radiusAtol, nDigits);
+    boolR = esmodel::doubleEqual(radiusExterior_, ESguest->radiusExterior_, radiusAtol, nDigits);
     if (!boolR) {
 	printDiff("radiusExterior_", -1, radiusExterior_, ESguest->radiusExterior_, printLvl);
     }
@@ -747,7 +747,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
     // Compare surface area vector
     double surfaceAtol = 12 * radiusAtol * radiusAtol;
-    boolR = doubleVectorEqual(surfaceAreaRS_, ESguest->surfaceAreaRS_, surfaceAtol, nDigits);
+    boolR = esmodel::doubleVectorEqual(surfaceAreaRS_, ESguest->surfaceAreaRS_, surfaceAtol, nDigits);
     if (!boolR) {
 	printVecDiff("surfaceAreaRS_", surfaceAreaRS_, ESguest->surfaceAreaRS_, printLvl);
     }
@@ -755,7 +755,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 	
     
     // Compare spMoles vector
-    boolR = doubleVectorEqual(spMoles_, ESguest->spMoles_, molarAtol, nDigits);
+    boolR = esmodel::doubleVectorEqual(spMoles_, ESguest->spMoles_, molarAtol, nDigits);
     if (!boolR) {
 	printVecDiff("speciesMoles", spMoles_, ESguest->spMoles_,  printLvl);
     }
@@ -763,7 +763,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
  
     // Compare phase voltages
-    boolR = doubleVectorEqual(phaseVoltages_, ESguest->phaseVoltages_, molarAtol, nDigits);
+    boolR = esmodel::doubleVectorEqual(phaseVoltages_, ESguest->phaseVoltages_, molarAtol, nDigits);
     if (!boolR) {
 	printVecDiff("phaseVoltages", phaseVoltages_, ESguest->phaseVoltages_,  printLvl);
     }
@@ -782,14 +782,14 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
     // Compare particle number
     double numberAtol = volAtol / (4.0E-18);
-    boolR = doubleEqual(particleNumberToFollow_, ESguest->particleNumberToFollow_, numberAtol, nDigits);
+    boolR = esmodel::doubleEqual(particleNumberToFollow_, ESguest->particleNumberToFollow_, numberAtol, nDigits);
     if (!boolR) {
 	printDiff("particleNumberToFollow_", -1, particleNumberToFollow_, ESguest->particleNumberToFollow_,  printLvl);
     }
     btotal = boolR && btotal;
 
     // compare the electrode solid volume
-    boolR = doubleEqual(electrodeSolidVolume_, ESguest->electrodeSolidVolume_, volAtol, nDigits);
+    boolR = esmodel::doubleEqual(electrodeSolidVolume_, ESguest->electrodeSolidVolume_, volAtol, nDigits);
     if (!boolR) {
 	printDiff("electrodeSolidVolume", -1, electrodeSolidVolume_, ESguest->electrodeSolidVolume_, printLvl);
     }
@@ -797,7 +797,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
 
     // compare the total solid moles
-    boolR = doubleEqual(electrodeMoles_, ESguest->electrodeMoles_, molarAtol, nDigits);
+    boolR = esmodel::doubleEqual(electrodeMoles_, ESguest->electrodeMoles_, molarAtol, nDigits);
     if (!boolR) {
 	printDiff("electrodeMoles_", -1, electrodeMoles_, ESguest->electrodeMoles_, printLvl);
     }
@@ -812,21 +812,21 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
     // Compare the capacity Left
     double capAtol = molarAtol * Faraday;
-    boolR = doubleEqual(capacityLeft_, ESguest->capacityLeft_, capAtol, nDigits);
+    boolR = esmodel::doubleEqual(capacityLeft_, ESguest->capacityLeft_, capAtol, nDigits);
     if (!boolR) {
 	printDiff("capacityLeft_", -1, capacityLeft_, ESguest->capacityLeft_, printLvl);
     }
     btotal = boolR && btotal;
 
     // Compare the capacity initial
-    boolR = doubleEqual(capacityInitial_, ESguest->capacityInitial_, capAtol, nDigits);
+    boolR = esmodel::doubleEqual(capacityInitial_, ESguest->capacityInitial_, capAtol, nDigits);
     if (!boolR) {
 	printDiff("capacityInitial_", -1, capacityInitial_, ESguest->capacityInitial_, printLvl);
     }
     btotal = boolR && btotal;
 
     // Compare the depth of discharge
-    boolR = doubleEqual(depthOfDischarge_, ESguest->depthOfDischarge_, capAtol, nDigits);
+    boolR = esmodel::doubleEqual(depthOfDischarge_, ESguest->depthOfDischarge_, capAtol, nDigits);
     if (!boolR) {
 	printDiff("depthOfDischarge_", -1, depthOfDischarge_, ESguest->depthOfDischarge_, printLvl);
     }
@@ -837,7 +837,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     if (electrodeMoles_ > 1.0E-100) {
 	unitlessAtol = molarAtol / electrodeMoles_;
     }
-    boolR = doubleEqual(relativeDepthOfDischarge_, ESguest->relativeDepthOfDischarge_, unitlessAtol, nDigits);
+    boolR = esmodel::doubleEqual(relativeDepthOfDischarge_, ESguest->relativeDepthOfDischarge_, unitlessAtol, nDigits);
     if (!boolR) {
 	printDiff("relativeDepthOfDischarge_", -1, relativeDepthOfDischarge_, ESguest->relativeDepthOfDischarge_, printLvl);
     }
@@ -845,7 +845,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
 
      
     // Compare the capacity discharged to date -> this is a number that is dependent on the past time history of the simulation
-    boolR = doubleEqual(capacityDischargedToDate_, ESguest->capacityDischargedToDate_, capAtol, nDigits);
+    boolR = esmodel::doubleEqual(capacityDischargedToDate_, ESguest->capacityDischargedToDate_, capAtol, nDigits);
     if (!boolR) {
 	printDiff("capacityDischargedToDate_", -1, capacityDischargedToDate_, ESguest->capacityDischargedToDate_, printLvl);
     }
@@ -854,7 +854,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     }
 
     // Compare the electron moles discharged to date -> this is a number that is dependent on the past time history of the simulation
-    boolR = doubleEqual(electronKmolDischargedToDate_, ESguest->electronKmolDischargedToDate_, molarAtol, nDigits);
+    boolR = esmodel::doubleEqual(electronKmolDischargedToDate_, ESguest->electronKmolDischargedToDate_, molarAtol, nDigits);
     if (!boolR) {
 	printDiff("electronKmolDischargedToDate_", -1, electronKmolDischargedToDate_, ESguest->electronKmolDischargedToDate_,
 		  printLvl);
@@ -864,7 +864,7 @@ bool EState::compareOtherState(const EState* const ESguest, double molarAtol, in
     }
 
     // Compare the next deltaT -> this is a number that is dependent on the past time history of the simulation
-    boolR = doubleEqual(deltaTsubcycle_init_next_, ESguest->deltaTsubcycle_init_next_, unitlessAtol, nDigits);
+    boolR = esmodel::doubleEqual(deltaTsubcycle_init_next_, ESguest->deltaTsubcycle_init_next_, unitlessAtol, nDigits);
     if (!boolR) {
 	printDiff("deltaTsubcycle_init_next_", -1, deltaTsubcycle_init_next_, ESguest->deltaTsubcycle_init_next_,
 		  printLvl);
