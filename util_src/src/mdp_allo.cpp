@@ -18,6 +18,8 @@
 
 namespace mdpUtil
 {
+const size_t npos = static_cast<size_t>(-1);
+
 /*
  *  Allocate global storage for 2 debugging ints that are used in IO of
  *  error information.
@@ -1577,14 +1579,9 @@ void mdp_safe_copy_string(char** string_hdl, const char* copyFrom)
     }
     return;
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-void mdp_copy_dbl_1(double* const copyTo,
-                    const double* const copyFrom, int len)
-
-/**************************************************************************
+//============================================================================================================================
+void mdp_copy_dbl_1(double* const copyTo, const double* const copyFrom, int len)
+/*
  *
  * mdp_copy_dbl_1:
  *
@@ -1599,20 +1596,22 @@ void mdp_copy_dbl_1(double* const copyTo,
  * ------------
  * *copyTo   = Vector of values to receive the copy
  *
- **************************************************************************/
+*/
 {
     if (len > 0) {
         size_t bytelen = len * sizeof(double);
         (void) memcpy((void*)copyTo, (const void*)copyFrom, bytelen);
     }
 }
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
-void mdp_copy_dbl_2(double** const copyTo,
-                    const double** const copyFrom, int len1, int len2)
+//==============================================================================================================================
+void mdp_copy_dbl_1(double* const copyTo, const double* const copyFrom, size_t len)
+{
+    if (len > 0 && len != npos) {
+        (void) memcpy((void*)copyTo, (const void*)copyFrom, len * sizeof(double));
+    }
+}
+//==============================================================================================================================
+void mdp_copy_dbl_2(double** const copyTo, const double** const copyFrom, int len1, int len2)
 
 /**************************************************************************
  *
@@ -1810,6 +1809,13 @@ void mdp_zero_dbl_1(double* const v, int len)
     if (len > 0) {
         size_t bytelen = len * sizeof(double);
         (void) memset((void*)v, 0, bytelen);
+    }
+}
+//==================================================================================================================================
+void mdp_zero_dbl_1(double* const v, size_t len)
+{
+    if (len > 0 && len != npos) {
+        (void) memset((void*)v, 0, len * sizeof(double));
     }
 }
 //==================================================================================================================================

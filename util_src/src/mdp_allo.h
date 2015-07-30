@@ -510,7 +510,22 @@ extern void mdp_safe_copy_string(char** string_hdl, const char* copyFrom);
  * -------
  * @param copyTo   Vector to receive the copy ( length >= len)
  */
-extern void mdp_copy_dbl_1(double* const copyTo,  const double* const copyFrom,  int len);
+extern void mdp_copy_dbl_1(double* const copyTo, const double* const copyFrom, int len);
+
+//! Copy a double vector to a double vector
+/*!
+ *  copyTo[len] = copyFrom[len]
+ *
+ * Input
+ * -------
+ * @param copyFrom Vector to  copy ( length >= len)
+ * @param len      Length of the copy
+ *
+ * Output
+ * -------
+ * @param copyTo   Vector to receive the copy ( length >= len)
+ */
+void mdp_copy_dbl_1(double* const copyTo, const double* const copyFrom, size_t len);
 
 //! Copy a double array to a double array
 /*!
@@ -553,14 +568,21 @@ extern void mdp_copy_int_2(int** const copyTo, const int** const copyFrom, int l
  *  @param[in]         value     Value to assign with
  *  @param[in]         len       Length of the vector
  */
-extern void mdp_init_dbl_1(double* const v, double value, int len);
+void mdp_init_dbl_1(double* const v, double value, int len);
 
-//! Zeroes out a double vector (special form of mdp_allo_dbl_1())
+//! Zeroes out a double vector 
 /*!
  *  @param[in,out]     v         Vector of values to be assigned
  *  @param[in]         len       Length of the vector
  */
-extern void mdp_zero_dbl_1(double* const v, int len);
+void mdp_zero_dbl_1(double* const v, int len);
+
+//! Zeroes out a double vector 
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         len       Length of the vector
+ */
+void mdp_zero_dbl_1(double* const v, size_t len);
 
 //! Zeroes out an int vector (special form of mdp_allo_int_1())
 /*!
