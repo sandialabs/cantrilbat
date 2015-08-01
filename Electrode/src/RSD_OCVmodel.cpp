@@ -29,6 +29,7 @@ void createOCVmodel_map(std::map<int, std::string>& smap)
 {
    smap.clear();
    smap[OCVAnode_CONSTANT]          = "ANODE_CONSTANT";
+   smap[OCVCathode_CONSTANT]        = "CATHODE_CONSTANT";
    smap[OCVAnode_MCMB2528]          = "MCMB2528";
    smap[OCVAnode_MCMB2528_dualfoil] = "MCMB2528_dualfoil";
    smap[OCVCathode_CoO2_dualfoil]   = "CoO2_dualfoil";
@@ -38,10 +39,13 @@ void createOCVmodel_map(std::map<int, std::string>& smap)
 //  Constructor 
 RSD_OCVmodel::RSD_OCVmodel(int modelID) :
     modelID_(modelID),
+    rsd_ptr_(0),
     solidPhaseModel_(0),
     kSpecies_DoD_(npos),
+    OCV_Format_(0),
     relExtent_(-1.0),
     xMF_(0),
+    temperatureDerivType_(0),
     dvec_(0)
 {
     //
@@ -54,10 +58,13 @@ RSD_OCVmodel::RSD_OCVmodel(int modelID) :
 RSD_OCVmodel::RSD_OCVmodel(const RSD_OCVmodel& right) :
     modelID_ (right.modelID_),
     modelName_(right.modelName_),
+    rsd_ptr_(right.rsd_ptr_),
     solidPhaseModel_(right.solidPhaseModel_),
     kSpecies_DoD_(right.kSpecies_DoD_),
+    OCV_Format_(right.OCV_Format_),
     relExtent_ (right.relExtent_),
     xMF_(right.xMF_),
+    temperatureDerivType_(right.temperatureDerivType_),
     dvec_(right.dvec_)
 {
 }
@@ -74,12 +81,18 @@ RSD_OCVmodel& RSD_OCVmodel::operator=(const RSD_OCVmodel& right)
     modelID_ = right.modelID_;
     modelName_ = right.modelName_;
     //
+    //  BEWARE:  This is a shallow copy
+    //
+    rsd_ptr_ = right.rsd_ptr_;
+    //
     //  BEWARE:  This is a shallow copy. It will have to be fixed up outside
     //
     solidPhaseModel_ = right.solidPhaseModel_;
     kSpecies_DoD_ = right.kSpecies_DoD_;
+    OCV_Format_   = right.OCV_Format_;
     relExtent_  = right.relExtent_;
     xMF_ = right.xMF_;
+    temperatureDerivType_ = right.temperatureDerivType_;
     dvec_ = right.dvec_;
 
     return *this;
@@ -92,6 +105,54 @@ RSD_OCVmodel* RSD_OCVmodel::duplMyselfAsOCVmodel(ThermoPhase *solidPhase) const
 	pp->assignShallowPointers(solidPhase);
     }
     return pp;    
+}
+//===============================================================================================================================
+void RSD_OCVmodel::initialize(ReactingSurDomain * rsd_ptr, const OCV_Override_input& OCVinput)
+{
+    rsd_ptr_ = rsd_ptr;
+    /*
+    int numTimes;
+    int surfacePhaseID;
+    std::string surfacePhaseName;
+    std::string OCVModel;
+    std::string replacedSpeciesName;
+   
+    //! the global species id for the species whose thermo will be replaced
+    int replacedGlobalSpeciesID;
+    int replacedLocalSpeciesID;
+    int replacedSpeciesPhaseID;
+    //! OCV_Format defaults to 0
+    int OCV_Format_;
+    std::string DoDSurrogateSpeciesName;
+    size_t MF_DoD_LocalSpeciesID;
+    int rxnID;
+    int temperatureDerivType;
+    double temperatureBase;
+    std::string OCVTempDerivModel;
+    */
+    // surfasePhaseID -> not relevant at this point as we are on a particular surface at this point
+    // surfacePhaseName -> not used
+    // OCVModel -> modelName_
+    // numTimes -> not relevant at this point
+    // replacedSpeciesName -> already processed to produce species index.
+    if (modelName_ != OCVinput.OCVModel) {
+	throw Electrode_Error("", "Something ain't right");
+    }
+    modelName_ = OCVinput.OCVModel;
+
+    // replacedGlobalSpeciesID -> don't want to add PhaseList 
+    // replacedLocalSpeciesID; -> don't want to put replaced species stuff here
+
+
+    temperatureDerivType_ =  OCVinput.temperatureDerivType;
+    
+    OCVTempDerivModel_ =  OCVinput.OCVTempDerivModel;
+
+    temperatureDerivModelType_ = stringName_RCD_OCVmodel_to_modelID(OCVTempDerivModel_);
+    if (temperatureDerivModelType_ == -1) {
+	printf(" bad model name\n");
+	exit(-1);
+    }
 }
 //===============================================================================================================================
  void  RSD_OCVmodel::assignShallowPointers(ThermoPhase* solidPhase)
@@ -112,8 +173,8 @@ void RSD_OCVmodel::setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec, 
     solidPhaseModel_->getMoleFractions(& xMF_[0]);
 
     if (modelID_ == OCVAnode_CONSTANT) {
-           dvec_.resize(1);
-           dvec_[0] = dvec[0];
+	dvec_.resize(1);
+	dvec_[0] = dvec[0];
     }
 }
 //=============================================================================================================================== 
@@ -132,7 +193,7 @@ void RSD_OCVmodel::calcRelExtent() const
 //=============================================================================================================================== 
 double RSD_OCVmodel::OCV_value() const
 {
-    calcRelExtent();
+    //calcRelExtent();
     double volts ;
     double xLi = 1.0 - relExtent_;
     double xV;
@@ -173,7 +234,6 @@ double RSD_OCVmodel::OCV_value() const
 	 *   (note this agrees exactly with dualfoil)
 	 */
 
-        xV = 1.0 - relExtent_;
 	volts = ( 0.194 + 1.5 * exp(-120.0 * xLi)
 		  + 0.0351 * tanh( (xLi - 0.286)   / 0.083)
 		  - 0.0045 * tanh( (xLi - 0.849)   /0.119)
@@ -220,9 +280,61 @@ double RSD_OCVmodel::OCV_dvaldExtent() const
 //===============================================================================================================================
 double RSD_OCVmodel::OCV_dvaldT() const
 {  
+    double dOCVdt = 0.0;
+    /*
+     *  Calculate the relative extent of the model
+     */
     calcRelExtent();
-    throw Electrode_Error("", "not handled");
-    return 0.0;
+
+    double xLi = 1.0 - relExtent_;
+   
+    if (temperatureDerivType_ == 0) {
+	/*
+	 *  Temperature derivative is zero. -> this is a common choice to avoid egregiously incorrect behavior
+	 *                                     and when there is a lack of information.
+	 */
+	return 0.0;
+    } else if (temperatureDerivType_ == 1) {
+	return 0.0;
+    } else if (temperatureDerivType_ == 2) {
+	if (temperatureDerivModelType_ == OCVAnode_CONSTANT) {
+	    dOCVdt = dvec_[1];
+	}
+
+	else if (temperatureDerivModelType_ == OCVCathode_CONSTANT) {
+	    dOCVdt = dvec_[1];
+	}
+	
+	else if (temperatureDerivModelType_ == OCVAnode_MCMB2528) {
+	    double xLi_2 = xLi * xLi;
+	    double xLi_3 = xLi_2 * xLi;
+	    double xLi_4 = xLi_3 * xLi;
+	    double xLi_5 = xLi_4 * xLi;
+	    double xLi_6 = xLi_5 * xLi;
+	    double xLi_7 = xLi_6 * xLi;
+	    double xLi_8 = xLi_7 * xLi;
+
+	    double A = (0.00527             + 3.29927     * xLi   - 91.79326    * xLi_2 + 1004.91101  * xLi_3 - 5812.27813 * xLi_4 +
+		        19329.75490 * xLi_5 - 37147.89470 * xLi_6 + 38379.18127 * xLi_7 - 16515.05308 * xLi_8);
+
+	    double B = (1.0                - 48.09287     * xLi   + 1017.23480  * xLi_2 - 10481.80419  * xLi_3 + 59431.30001 * xLi_4 -
+		        195881.64880 * xLi_5 + 374577.31520 * xLi_6 - 385821.16070 * xLi_7 + 165705.85970 * xLi_8);
+	    
+	    dOCVdt = A / B;
+	    return dOCVdt;
+	}
+
+	else {
+	    throw Electrode_Error("RSD_OCVmodel::OCV_dvaldT()",
+				  "Model ID, " + int2str(temperatureDerivModelType_) + ", doesn't have a temperature formulation: " 
+				  + OCVTempDerivModel_);
+	}
+    } else {
+	throw Electrode_Error("RSD_OCVmodel::OCV_dvaldT()",
+			      "Unknown temperture deriv type: " + int2str(temperatureDerivType_));
+    }
+
+    return dOCVdt;
 }
 //===============================================================================================================================
 std::string RSD_OCVmodel::modelName() const

@@ -16,6 +16,8 @@
 
 #include "Electrode_defs.h"
 
+#include "Electrode_input.h"
+
 #include <string>
 #include <vector>
 #include <map>
@@ -26,11 +28,16 @@ namespace Cantera
 {
 
 class ThermoPhase;
+class ReactingSurDomain;
 //==================================================================================================================================
 
 //! OCV Model ID for an Anode that can be used to set an arbitrary OCV using a member function.
 //!                                     
-#define  OCVAnode_CONSTANT               100
+#define  OCVAnode_CONSTANT                    100
+
+//! OCV Model ID for an Cathode that can be used to set an arbitrary OCV using a member function.
+//!                                     
+#define  OCVCathode_CONSTANT                  200
 
 //! OCV Model ID for MCMB 2528 graphite measured by Chris Bogatu 2000, 
 //!                                     Telcordia and PolyStor materials.
@@ -151,6 +158,15 @@ class RSD_OCVmodel
      */
     virtual RSD_OCVmodel* duplMyselfAsOCVmodel(ThermoPhase* solidPhase = 0) const;
 
+    //! Initialize the OCV override model with input from the OCV_Override_input structure
+    /*!
+     *  @param[in]            rsd_ptr           Owning ReactingSurDomain object. We need this because some of the calculations
+     *                                          for this object are carried out by the ReactingSurDomain object.
+     *                                          This means that they are mutual friends.
+     *  @param[in]            OCVinput          Reference to the structure containing the input for this override
+     */
+    virtual void initialize(ReactingSurDomain * const rsd_ptr, const OCV_Override_input& OCVinput);
+
     //!  Assign the shallow pointer ThermoPhase object for the solidPhase
     /*!
      *   @param[in]    solidPhase                Pointer to the ThermoPhase class to use within this object
@@ -177,21 +193,20 @@ class RSD_OCVmodel
 
     //!  Return the open circuit voltage given the relative extent of reaction
     /*!
-     *   @returns                               Returns the open circuit voltage at the current relative extent of reaction
+     *   @return                               Returns the open circuit voltage at the current relative extent of reaction
      */
     virtual double OCV_value() const;
 
     //!  Return the derivative of the open circuit voltage wrt the relative extent of reaction
     /*!
-     *   @returns                               Return the derivative of the open circuit voltage wrt the relative extent of
+     *   @return                               Return the derivative of the open circuit voltage wrt the relative extent of
      *                                          reaction
      */
     virtual double OCV_dvaldExtent() const;
 
-    //!  Return the derivative of the open circuit voltage wrt the relative extent of reaction
+    //!  Return the derivative of the open circuit voltage wrt the Temperature
     /*!
-     *   @returns                               Return the derivative of the open circuit voltage wrt the relative 
-     *                                          extent of reaction
+     *   @return                               Return the derivative of the open circuit voltage wrt the temperature
      */
     virtual double OCV_dvaldT() const;
 
@@ -227,6 +242,12 @@ protected:
     //!  Model name
     std::string modelName_;
 
+    //! Pointer to the owning Reacting Surface domain
+    /*!
+     *  This is a shallow pointer.
+     */
+    ReactingSurDomain *rsd_ptr_;
+
     //!  Pointer to the Underlying %ThermoPhase model for the solid phase of the electrode.
     ThermoPhase* solidPhaseModel_;
 
@@ -238,6 +259,37 @@ protected:
      */
     size_t kSpecies_DoD_;
 
+public:
+    //!  Format for the OCV Specification
+    /*!
+     *   There are different ways to specify the open circuit voltage. The one that is used most often is to specify
+     *   the OCV as a full-cell reaction versus the reference state electrode. Then, the OCV and its temperature derivative
+     *   is given with respect to the reference electrode.
+     *
+     *     : 0  :   The OCV is given using a deltaG value based on treating all of the participating species as having
+     *              just their standard state thermo values. This actually works out as bing the OCV for the full-cell
+     *              reaction in most clases.
+     *                    example:   actual cathode reaction    Li+   + e-  + CoO2     ->  LiCoO2
+     *                          reference electrode anode rxn    Li(m)                 -> Li+ + e-
+     *                                                          ------------------------------------------
+     *                                                            Li(m) + CoO2         -> LiCoO2
+     *                             
+     *               We can model the full-cell reaction OCV using Li+ and e- thermodynamics if we stick to using the standard
+     *               state thermodynamics for Li+, because frequently the following holds:
+     *                                                           mu0(Li+)  + mu0(e-) = mu(Li(m))
+     *
+     *      : 1 :    The OCV and its temperature derivative is given for the half cell reaction only. The concentration of the
+     *               species in the electrolyte refer to their standard state values. The OCV has to be modified for concentration
+     *               effects by adding in the RT ln (a_k) terms of the electrolyte species in order to obtain the actual values of OCV
+     *               and the temperature derivative of OCV.
+     *      
+     *      : 2 :    The OCV is given by the deltaG of the half cell reaction without change
+     *
+     *      : 3 :    The OCV is given by the deltaG_SS of the half cell reaction as input to RSD_OCVmodel calculations
+     */
+    int OCV_Format_;
+
+protected:
     //!  Value of the relative extent
     /*!
      *   For calculations related to OCV calculations, we keep an intermediate value of the relative extent.
@@ -251,8 +303,25 @@ protected:
      */
     mutable std::vector<double> xMF_;
 
+  
+    //! Type of the temperature derivative
+    /*!
+     *  0      zero    = The temperature derivative is set to zero.
+     *  1      species = The temperature derivative is set to the value determined
+     *                   by the thermo, even the thermo of the missing species.
+     *  2      model   = The temperature derivative is set by a model, specified further in the input deck.
+     */
+    int temperatureDerivType_;
+
+    //! This is the same model types as used for the main model types. However, it can 
+    int temperatureDerivModelType_;
+
+    std::string OCVTempDerivModel_;
+
     //! Vector available for use by models
     std::vector<double> dvec_;
+
+    friend class ReactingSurDomain;
 };
 //==================================================================================================================================
 }

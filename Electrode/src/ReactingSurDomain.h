@@ -25,12 +25,23 @@ class RxnMolChange;
 
 namespace Cantera
 {
+
+// Forward declartion for structure. This is fully defined in Electrode_input.h
 struct OCV_Override_input;
 
 //! ReactingSurDomain is a class of reaction that combines the PhaseList information
 //! with the Cantera Kinetics class
 /*!
- *       The class also implements the OCV override
+ *       The class also implements the OCV override.
+ *
+ *      Usually the Interface class calculates temporary vectors over and over again for thermodynamic information.
+ *      Here we keep vectors for phase gibbs free energies, enthalpies and entropies. Then we override the 
+ *      these entries for the particular species that is designitated to receive the OCV override information.
+ *      
+ *      
+ *
+ *      The standard state thermodynamic functions for the delta of reactions are not overridden. They 
+ *      still refer to the unchanged thermodynamics values.
  */
 class ReactingSurDomain : public Cantera::ElectrodeKinetics
 {
@@ -105,6 +116,11 @@ public:
      *                                             if there was a problem.
      */
     bool importFromPL(Cantera::PhaseList* const pl, int iskin);
+
+    //! Routine to be called after all species and phases have been defined for the object
+    virtual void init();
+
+    virtual void finalize();
 
     //! Returns a reference to the calculated production rates of species
     /*!
@@ -245,15 +261,51 @@ public:
     //! Calculate the effective chemical potential of the replaced species
     void deriveEffectiveChemPot();
 
+    //! Calculate the effectit thermodynamic variables of all of the species due to the OCV override
+    /*!
+     *  We calculate the effects of the OCV override on the storred thermodynamics of the species
+     *
+     *   We modify the following storage variables
+     *
+     *     
+     */
+    void deriveEffectiveThermo();
+
     //!  Get the vector of deltaG values for all reactions defined in the kinetics object
     /*!
+     *   (Virtual from Kinetics.h)
+     *
      *   This routine provides an override to the normal calculation of deltaG, when the thermodynamics
      *   is modified by a specification of the open circuit potential.
      *
      *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal
      *                                  to the number of reactions
      */
-    void getDeltaGibbs(doublereal* deltaG);
+    virtual void getDeltaGibbs(doublereal* deltaG);
+
+    //! Return the vector of values for the reaction electrochemical free energy change.
+    /*!
+     * These values depend upon the concentration of the solution and the
+     * voltage of the phases
+     *
+     *  units = J kmol-1
+     *
+     * @param deltaM  Output vector of  deltaM's for reactions Length: m_ii.
+     */
+    virtual void getDeltaElectrochemPotentials(doublereal* deltaM);
+
+    //!  Get the vector of deltaH values for all reactions defined in the kinetics object
+    /*!
+     *   (Virtual from Kinetics.h)
+     *
+     *   This routine provides an override to the normal calculation of deltaH, when the thermodynamics
+     *   is modified by a specification of the open circuit potential and the derivative of the
+     *   OCV wrt temperature.
+     *
+     *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
+     *                                  to the number of reactions
+     */
+    virtual void getDeltaEnthalpy(doublereal* deltaH);
 
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
     //! chemical potential for the electrolyte.
@@ -263,6 +315,53 @@ public:
      *                     length = nReactions(), J/kmol
      */
     void getDeltaGibbs_electrolyteSS(doublereal* deltaG_special);
+
+    //!  Get the vector of deltaS values for all reactions defined in the kinetics object
+    /*!
+     *   (Virtual from Kinetics.h)
+     *
+     *   This routine provides an override to the normal calculation of deltaS, when the thermodynamics
+     *   is modified by a specification of the open circuit potential and the derivative of the
+     *   OCV wrt temperature.
+     *
+     *   @param[out]        deltaS      Vector of deltaH values. Must be at least of length equal
+     *                                  to the number of reactions. Units are J kmol-1 K-1.
+     */
+    virtual void getDeltaEntropy(doublereal* deltaS);
+
+
+    //!  Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
+    //!  the concentration of the solution.
+    /*!   
+     *  (virtual from Kinetics.h)
+     *  units = J kmol-1
+     *
+     * @param[out]      deltaG            Output vector of ss deltaG's for reactions Length: m_ii.
+     */
+    virtual void getDeltaSSGibbs(doublereal* deltaG);
+
+    //!  Return the vector of values for the change in the standard
+    //! state enthalpies of reaction.  These values don't depend
+    //! upon the concentration of the solution.
+    /*!
+     *  (virtual from Kinetics.h)
+     *  units = J kmol-1
+     *
+     * @param[out]     deltaH              Output vector of ss deltaH's for reactions Length: m_ii.
+     */
+    virtual void getDeltaSSEnthalpy(doublereal* deltaH);
+
+    
+    //!  Return the vector of values for the change in the standard
+    //!  state entropies for each reaction.  These values don't
+    //! depend upon the concentration of the solution.
+    /*! 
+     *  (virtual from Kinetics.h)
+     *  units = J kmol-1 Kelvin-1
+     *
+     * @param[out     deltaS                Output vector of ss deltaS's for reactions Length: m_ii.
+     */
+    virtual void getDeltaSSEntropy(doublereal* deltaS);
 
 public:
     //! Declare a printing routine as a friend to this class
@@ -275,7 +374,7 @@ public:
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd);
 
     //! Number of phases within the class
-    int numPhases_;
+    size_t numPhases_;
 
     //!  Vector of pointers to xml trees
     std::vector<XML_Node*> xmlList;
@@ -361,12 +460,26 @@ public:
      */
     std::vector<double> speciesDestructionRates_;
 
-    //! Internal Vector of DeltaG of reaction for all reactions
+    //! Internal Vector of deltaG of reaction for all reactions
     /*!
      *  This is used to store the DeltaG of reaction before modification due to OCV override.
      *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
      */
     std::vector<double> deltaGRxn_Before_;
+
+    //! Internal Vector of deltaH of reaction for all reactions
+    /*!
+     *  This is used to store the DeltaH of reaction before modification due to OCV override.
+     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
+     */
+    std::vector<double> deltaHRxn_Before_;
+
+    //! Internal Vector of deltaS of reaction for all reactions
+    /*!
+     *  This is used to store the DeltaS of reaction before modification due to OCV override.
+     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1 K-1.
+     */
+    std::vector<double> deltaSRxn_Before_;
 
     //! Pointer to the PhaseList object that contains the ThermoPhase objects.
     /*!
@@ -391,8 +504,31 @@ public:
     //!  determined open circuit voltage expression. If there is none, then this value is -1.
     int kReplacedSpeciesRS_;
 
+    //!  Vector of the enthalpies for all species in all phases that participate in the reaction mechanism
+    /*!
+     *   We keep a vector of enthalpies here over all reaction species. This vectors gets modified from its
+     *   strictly thermodynamic origin when an OCV override is done.
+     */
+    std::vector<double> m_Enthalpies_rspec;
+
+    //!  Vector of the entropies for all species in all phases that participate in the reaction mechanism
+    /*!
+     *   We keep a vector of enthalpies here over all reaction species. This vectors gets modified from its
+     *   strictly thermodynamic origin when an OCV override is done.
+     */
+    std::vector<double> m_Entropies_rspec;
+    std::vector<double> m_Entropies_Before_rspec;
+
+    std::vector<double> m_GibbsOCV_rspec;
+
+    double deltaG_species_;
+    double deltaS_species_;
+    double deltaH_species_;
+
 
 protected:
+
+    friend class RSD_OCVmodel;
 
 };
 

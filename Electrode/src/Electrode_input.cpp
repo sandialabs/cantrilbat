@@ -83,15 +83,16 @@ ElectrodeBath::~ElectrodeBath()
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffSpecVec);
 }
 //====================================================================================================================================================
+//====================================================================================================================================================
 OCV_Override_input::OCV_Override_input() :
     numTimes(0),
     surfacePhaseID(-1),
-    surfacePhaseName(""),
     OCVModel("Constant"),
     replacedSpeciesName(""),
     replacedGlobalSpeciesID(-1),
     replacedLocalSpeciesID(-1),
     replacedSpeciesPhaseID(-1),
+    OCV_Format_(0),
     DoDSurrogateSpeciesName(""),
     MF_DoD_LocalSpeciesID(npos),
     rxnID(0),
@@ -104,12 +105,12 @@ OCV_Override_input::OCV_Override_input() :
 OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
     numTimes(right.numTimes),
     surfacePhaseID(right.surfacePhaseID),
-    surfacePhaseName(right.surfacePhaseName),
     OCVModel(right.OCVModel),
     replacedSpeciesName(right.replacedSpeciesName),
     replacedGlobalSpeciesID(right.replacedGlobalSpeciesID),
     replacedLocalSpeciesID(right.replacedLocalSpeciesID),
     replacedSpeciesPhaseID(right.replacedSpeciesPhaseID),
+    OCV_Format_(right.OCV_Format_),
     DoDSurrogateSpeciesName(right.DoDSurrogateSpeciesName),
     MF_DoD_LocalSpeciesID(right.MF_DoD_LocalSpeciesID),
     rxnID(right.rxnID),
@@ -126,12 +127,12 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
     }
     numTimes                       = right.numTimes;
     surfacePhaseID                 = right.surfacePhaseID;
-    surfacePhaseName               = right.surfacePhaseName;
     OCVModel                       = right.OCVModel;
     replacedSpeciesName            = right.replacedSpeciesName;
     replacedGlobalSpeciesID        = right.replacedGlobalSpeciesID;
     replacedLocalSpeciesID         = right.replacedLocalSpeciesID;
     replacedSpeciesPhaseID         = right.replacedSpeciesPhaseID;
+    OCV_Format_                    = right.OCV_Format_;
     DoDSurrogateSpeciesName        = right.DoDSurrogateSpeciesName;
     MF_DoD_LocalSpeciesID          = right.MF_DoD_LocalSpeciesID;
     rxnID                          = right.rxnID;
@@ -145,6 +146,7 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
 OCV_Override_input::~OCV_Override_input()
 {
 }
+//===================================================================================================================================================
 //===================================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     printLvl_(printLvl),

@@ -86,6 +86,7 @@ public:
 };
 
 namespace Cantera {
+
 //! Structure for storring the input for OCVoverride models
 struct OCV_Override_input {
     OCV_Override_input();
@@ -95,18 +96,21 @@ struct OCV_Override_input {
 
     int numTimes;
     int surfacePhaseID;
-    std::string surfacePhaseName;
     std::string OCVModel;
     std::string replacedSpeciesName;
+   
     //! the global species id for the species whose thermo will be replaced
     int replacedGlobalSpeciesID;
     int replacedLocalSpeciesID;
     int replacedSpeciesPhaseID;
+    //! OCV_Format defaults to 0
+    int OCV_Format_;
     std::string DoDSurrogateSpeciesName;
     size_t MF_DoD_LocalSpeciesID;
     int rxnID;
     int temperatureDerivType;
     double temperatureBase;
+    double temperatureDerivValue;
     std::string OCVTempDerivModel;
 };
 }
