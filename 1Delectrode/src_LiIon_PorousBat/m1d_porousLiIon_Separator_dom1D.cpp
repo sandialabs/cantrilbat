@@ -1110,13 +1110,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    //	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 	    NodalVars* nodeCent  = cTmps.nvCent_;
-	    //	    NodalVars* nodeRight = cTmps.nvRight_;
 	    NodalVars* nodeLeft  = cTmps.nvLeft_;
 
-	    //	    nodeRight = cTmps.nvRight_;
-	    //	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 	    nodeCent = cTmps.nvCent_;
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	    nodeLeft = cTmps.nvLeft_;
@@ -1247,7 +1243,17 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	    //
 	    thermalCond_Cell_[iCell] = thermalCondCalc_PorMatrix();
 	}
-    }
+	if (solidMechanicsProbType_ == 1) {
+	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	  NodalVars* nodeLeft  = cTmps.nvLeft_; 
+	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	  int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	  double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	  nodeLeft->changeNodePosition(new_node_position);
+	  // need to zero out the solution once it's been used to reset the position.
+	  //	  soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial] = 0.0;
+	}
+    } // end of icell loop
 }
 //==================================================================================================================================
 void

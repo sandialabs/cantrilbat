@@ -278,7 +278,6 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      * Porous electrode domain prep
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
-    iSolidVolume_.resize(NumLcCells,0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
@@ -1467,9 +1466,47 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ == 1) {
 
+	  // we compute the mass and [ in the future heat capacity] weighted temperture of the volume between the nodes,
+	  
+	  if(iCell>=1) {
 	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	    xratio[iCell] =  (Thermal_Expansion+1.0)*valTmps.Temperature.center / TemperatureReference_;
-	    xratio[iCell] *=  Particle_SFS_v_Porosity_Factor *(Electrode_Cell_[iCell]->SolidVol() / iSolidVolume_[iCell]);
+	    // cellsize takes into account that the SolidVolume of the 1/2 control volumes at the edges of the layer are 1/2 size. 
+	    double cellsize = 1;
+	    if(iCell == 1) cellsize = .5;
+
+	    // NOTE!!! This assumes that density of the SolidVol is constant. 
+	    double aveTempE = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*Electrode_Cell_[iCell-1]->SolidHeatCapacityCV()*0.5/cellsize;
+	    // need to add the non-solid contribution. 	    // ????;
+	    double mass = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
+	    // need to add the non-solid contribution. 	    // ????;
+	    double chemexpansion = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
+
+	    cellsize = 1.0;
+	    if(iCell == NumLcCells-1) cellsize = 0.5;
+	    // need to add the non-solid contribution. 	    // ????;
+	    double lastTemp = valTmps.Temperature.center*Electrode_Cell_[iCell]->SolidVol()*Electrode_Cell_[iCell]->SolidHeatCapacityCV()*0.5/cellsize;
+	    aveTempE +=  lastTemp;
+	    // need to add the non-solid contribution. 	    // ????;
+	    double lastMass = Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
+	    mass +=lastMass;
+
+	    aveTempE/= mass;
+	    lastTemp/=lastMass;
+
+	    double lastChemEx =  Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
+	    chemexpansion += lastChemEx;
+
+	    xratio[iCell-1] =  (Thermal_Expansion+1.0)*aveTempE/ TemperatureReference_;
+
+	    double nc_pos = nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+	    double nl_pos = nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ];
+	    double vol_lc_now = nc_pos - nl_pos;
+
+	    xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
+	    if(iCell == NumLcCells-1)  {
+	      xratio[iCell] =  (Thermal_Expansion+1.0)*lastTemp/TemperatureReference_;
+	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (lastChemEx/(0.5*vol_lc_now));
+	    }
 	    
 	    // the divergence of the pressure == the trace of the STRESS tensor
 	    // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
@@ -1496,7 +1533,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	      }	 
 	    } // pressure exists
 	    double pressure_strain = pressure_STRESS/Eyoung;
-	    xratio[iCell]*= (1+pressure_strain);   
+	    xratio[iCell-1]*= (1+pressure_strain);
+	    if(iCell == NumLcCells-1)
+	      xratio[iCell] *= (1+pressure_strain/2.0);
 	    //
 	    nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
 	    if(nodeLeft) 
@@ -1514,11 +1553,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double matrix_pressure_left = - (left_matrix_stress- center_matrix_stress);
 	    double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
 	    double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
-	    xratio[iCell] *= (1+ matrix_LP_center/Eyoung);
-
+	    xratio[iCell-1] *= (1+ matrix_LP_center/Eyoung);
+	    if(iCell == NumLcCells-1)
+	      xratio[iCell] *= (1+ (0.5*matrix_LP_center/Eyoung));
 	    avg_delta_matrix_pressure += matrix_pressure_left;
 	}
-	avg_delta_matrix_pressure /= NumLcCells;
+	  // since we have the half control volumes at the right and left hand boundaries the divisor is NumLcCells-1
+	  avg_delta_matrix_pressure /= (NumLcCells-1);
+	}
 #endif
     }
 
@@ -1530,16 +1572,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	//	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
 	NodalVars* nodeCent  = cTmps.nvCent_;
-	//	    NodalVars* nodeRight = cTmps.nvRight_;
 	NodalVars* nodeLeft  = cTmps.nvLeft_;
 	if(iCell ==1) {
 	  new_node_pos[iCell-1] = nodeLeft->x0NodePos(); 
 	  // Left most node is pinned at zero displacement
 	}
-	//	    nodeRight = cTmps.nvRight_;
-	//	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
 	nodeCent = cTmps.nvCent_;
 	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	nodeLeft = cTmps.nvLeft_;
@@ -1564,7 +1602,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- nodeCent->xNodePos();
       }
       // impose that -grad trace Solid_Stress == the average across this part of the battery.
-      
 
     }
 #endif
@@ -1650,10 +1687,6 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
 	
-	// Store the initial SolidVolume 
-
-	iSolidVolume_[iCell] = Electrode_Cell_[iCell]->SolidVol();
-
         /*
          * Setup the thermo
          */
@@ -1673,7 +1706,20 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	    EnthalpyMolar_lyte_Cell_[iCell] = ionicLiquid_->enthalpy_mole();
 
 	}
-    }
+	// update the node position at the beginning of the time step. 
+	if (solidMechanicsProbType_ == 1) {
+	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	  NodalVars* nodeLeft  = cTmps.nvLeft_;
+	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	  int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	  double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	  nodeLeft->changeNodePosition(new_node_position);
+
+	  // need to zero out the solution!!!! \CBL
+	  //	  soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial] = 0.0;
+
+	}
+    } // loop over cell
 }
 //==================================================================================================================================
 //
