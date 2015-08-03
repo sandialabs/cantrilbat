@@ -1714,9 +1714,8 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	  int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 	  double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  nodeLeft->changeNodePosition(new_node_position);
-
-	  // need to zero out the solution!!!! \CBL
-	  //	  soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial] = 0.0;
+	  double & stmp=(double &) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	  stmp = 0.0;
 
 	}
     } // loop over cell

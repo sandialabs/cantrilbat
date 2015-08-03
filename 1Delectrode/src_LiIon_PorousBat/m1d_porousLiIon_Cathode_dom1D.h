@@ -631,10 +631,6 @@ protected:
      */
     std::vector<double> icurrInterfacePerSurfaceArea_Cell_;
 
-
-    //! Initial solid volume
-    std::vector<double> iSolidVolume_;
-
     //! delta X for the current cell
     /*!
      *  Length is number of cells on the processor
