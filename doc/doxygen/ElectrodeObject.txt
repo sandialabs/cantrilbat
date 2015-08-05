@@ -1,0 +1,12 @@
+namespace Cantera {
+/*!
+ * @defgroup electrodeobj ElectrodeObject
+ *
+ *  The electrode object is a complex object that acts as a source object
+ *  within  
+ *
+ * The class PhaseList is the start of the this.
+ *
+ */
+
+}

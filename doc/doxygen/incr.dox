@@ -786,6 +786,10 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/RSD_OCVmodel.h \
                          ../../Electrode/src/RSD_OCVmodel.cpp \
                          ../../Electrode/src/Electrode_defs.h \
+                         ../../Electrode/src/Electrode_Exception.h \
+                         ../../Electrode/src/Electrode_Exception.cpp \
+                         ../../Electrode/src/Electrode.h \
+                         ../../Electrode/src/Electrode.cpp \
 
 
 # This tag can be used to specify the character encoding of the source files

@@ -1,0 +1,9 @@
+namespace esmodel {
+/*!
+ * @defgroup errorHandling  Error Handling
+ *
+ *    Error handling is done by throwing exceptions.
+ *
+ */
+
+}
