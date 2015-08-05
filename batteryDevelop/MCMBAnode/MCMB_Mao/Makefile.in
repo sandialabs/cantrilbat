@@ -63,7 +63,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends MCMBThermo MCMB
+all: .depends MCMBThermo MCMB MCMBThermo_RSD_Override
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -72,7 +72,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
-OBJ_TOTAL = MCMB.o MCMBThermo.o
+OBJ_TOTAL = MCMB.o MCMBThermo.o MCMBThermo_RSD_Override.o
 
 OBJ_CANTERA_ADDONS =  
 
@@ -150,6 +150,13 @@ $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
+MCMBThermo_RSD_Override: MCMBThermo_RSD_Override.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBThermo_RSD_Override MCMBThermo_RSD_Override.o \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
 MCMB: MCMB.o
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMB MCMB.o \
 	          $(OBJ_CANTERA_ADDONS)  \
@@ -165,9 +172,10 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
+test_clean:
+	$(RM) err_out.txt out.txt
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
+	@MAKE@ test_clean
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) MCMBThermo_RSD_Override MCMB
 
