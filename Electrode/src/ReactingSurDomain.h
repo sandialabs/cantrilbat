@@ -223,11 +223,12 @@ public:
      *   @param[out]   io                    Exchange Current density value (can be negative) units coulombs / sec / m^2
      *   @param[out]   nu                    Overpotential for the reaction (can be positive or negative)
      *   @param[out]   beta                  Symmetry factor
+     *   @param[out]   resist_ptr            Resistivity pointer
      *
      *   @return                             Returns the current density for the reaction (amps m-2)
      */
     double getExchangeCurrentDensityFormulation(int irxn, doublereal* nStoich, doublereal* OCV,
-                                                doublereal* io, doublereal* nu, doublereal *beta);
+                                                doublereal* io, doublereal* nu, doublereal *beta, doublereal* resist_ptr);
 
     //! Utility routine to calculate the current density given the parameters for
     //! an exchange current density formulation of the reaction rate

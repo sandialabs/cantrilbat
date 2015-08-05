@@ -1025,7 +1025,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(int isk)
 #ifdef DEBUG_THERMAL
     printf("Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential Debugging Output:\n");
 #endif
-    double nstoich, ocv, io, nu, beta;
+    double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
 
@@ -1042,7 +1042,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(int isk)
     size_t nr = rsd->nReactions();
     for (size_t irxn = 0; irxn < nr; irxn++) {
 	double overpotential = overpotentialRxn(isk, (int) irxn);
-	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 	if (nstoich != 0.0) {
 	    q += surfaceArea_star * iCurr * overpotential;
 	}
@@ -1063,7 +1063,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy(size_t is
 #ifdef DEBUG_THERMAL
     printf("Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy Debugging Output:\n");
 #endif
-    double nstoich, ocv, io, nu, beta;
+    double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
     static vector<double> s_deltaS;
@@ -1089,7 +1089,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy(size_t is
     double tt = temperature_;
     
     for (size_t irxn = 0; irxn < nr; irxn++) {
-	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 	if (nstoich != 0.0) {
 	    q -= sa * iCurr * tt * s_deltaS[irxn] / Faraday;
 	} else {
@@ -1118,7 +1118,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
 #ifdef DEBUG_THERMAL
     printf("Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation Debugging Output:\n");
 #endif
-    double nstoich, ocv, io, nu, beta;
+    double nstoich, ocv, io, nu, beta, resist;
     double iCurrDT;
     double q = 0.0;
     static vector<double> s_deltaH;
@@ -1149,7 +1149,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
 #endif
 
     for (size_t irxn = 0; irxn < nr; irxn++) {
-	iCurrDT = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+	iCurrDT = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 #ifdef DEBUG_THERMAL
 	double deltaM = iCurrDT * surfaceArea_star / Faraday;
 	printf ("delta electrons = %13.7E\n", deltaM * deltaTsubcycle_);

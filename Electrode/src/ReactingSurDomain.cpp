@@ -251,75 +251,185 @@ double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn)
     }
     return netCurrentDensity;
 }
-//====================================================================================================================
+//==================================================================================================================================
 
-double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,
-        doublereal* nStoich, doublereal* OCV, doublereal* io, doublereal* overPotential, doublereal *beta)
+double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV, doublereal* io,
+							       doublereal* overPotential, doublereal *beta, doublereal* resist_ptr)
 {
+    doublereal icurr = 0.0;
+    size_t iBeta = npos;
     // This will calculate the equilibrium constant
     updateROP();
+    *resist_ptr = 0.0;
 
-    RxnMolChange*   rmc = rmcVector[irxn];
-    // could also get this from reactant and product stoichiometry
-    double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
-    *nStoich = nStoichElectrons;
-    *OCV = 0.0;
-
-    int nr = nReactions();
-    std::vector<double> deltaG(nr);
-    getDeltaGibbs(DATA_PTR(deltaG));
-
-    if (nStoichElectrons != 0.0) {
-        *OCV = deltaG[irxn]/Faraday/ nStoichElectrons;
-    }
-    //PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
-    // we have a vector of standard concentrations calculated from the routine below
-    //            m_StandardConc[ik]
-    updateExchangeCurrentQuantities();
+    double TT = m_surf->temperature();
+    double rtdf = GasConstant * TT / Faraday;
 
 
-    //rkc is reciprocal equilibrium constant
+    /*
+     * 
+     */
+    int reactionType = m_rxntype[irxn];
+
+    if (reactionType == BUTLERVOLMER_NOACTIVITYCOEFFS_RXN) {
+
+	for (size_t iBetaT = 0; iBetaT < m_beta.size(); iBetaT++) {
+	    if (m_ctrxn[iBetaT] == (size_t) irxn) {
+		iBeta = iBetaT;
+		break;
+	    }
+	}
+	//
+	//   Get the beta value
+	//
+	if (iBeta == npos) {
+	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation", " beta value not found");
+	}
+	*beta = m_beta[iBeta];
+	//
+	// OK, the reaction rate constant contains the current density rate constant calculation
+	// the rxnstoich calculation contained the dependence of the current density on the activity concentrations
+	// We finish up with the ROP calculation
+	//
+	int iECDFormulation =  m_ctrxn_ecdf[iBeta];
+	if (iECDFormulation == 0) {
+	    throw CanteraError("ElectrodeKinetics::updateROP()",
+			       "Straight kfwrd with BUTLERVOLMER_NOACTIVITYCOEFFS_RXN not handled yet");
+	}
+	//
+	//   Get the phase mole change structure
+	//
+	RxnMolChange* rmc = rmcVector[irxn];
+	//
+	//   Calculate the stoichiometric eletrons for the reaction
+	//   This is the number of electrons that are the net products of the reaction
+	//
+	AssertThrow(metalPhaseIndex_ != npos, "ElectrodeKinetics::updateROP()");
+	double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
+	*nStoich = nStoichElectrons;
+	//
+	//   Calculate the open circuit voltage of the reaction
+	//
+	getDeltaGibbs(0);
+	if (nStoichElectrons != 0.0) {
+	    *OCV = m_deltaG[irxn]/Faraday/ nStoichElectrons;
+	} else {
+	    *OCV = 0.0;
+	}
+	//
+	//   Calculate the voltage of the electrode.
+	//
+	double voltage = m_phi[metalPhaseIndex_] - m_phi[solnPhaseIndex_];
+	//
+	//   Calculate the overpotential
+	//
+	double nu = voltage - *OCV;
+	*overPotential = nu;
+	//
+	//   Now calculate the exchange current density, io
+	//
+	//   Start with the exchange current reaction rate constant, which should
+	//   be located in m_rfn[]. Multiply by stoich electrons and perturbation factor
+	//
+	double ioc = m_rfn[irxn] * nStoichElectrons *  m_perturb[irxn];
+	//
+	//   Now we need the mole fraction vector and we need the RxnOrders vector.
+	//
+	const RxnOrders* ro_fwd = m_ctrxn_ROPOrdersList_[iBeta];
+	if (ro_fwd == 0) {
+	    throw CanteraError("ElectrodeKinetics::calcForwardROP_BV()", "forward orders pointer is zero ?!?");
+	}
+	double tmp = 1.0;
+	double mfS = 0.0;
+	const std::vector<size_t>& kinSpeciesIDs = ro_fwd->kinSpeciesIDs_;
+	const std::vector<doublereal>& kinSpeciesOrders = ro_fwd->kinSpeciesOrders_;
+	for (size_t j = 0; j < kinSpeciesIDs.size(); j++) {
+	    size_t ks = kinSpeciesIDs[j];
+	    thermo_t& th = speciesPhase(ks);
+	    size_t n = speciesPhaseIndex(ks);
+	    size_t klocal = ks - m_start[n];
+	    mfS = th.moleFraction(klocal);
+	    
+	    double oo = kinSpeciesOrders[j];
+	    tmp *= pow(mfS, oo);
+	}
+	ioc *= tmp;
+	//
+	//   Add in the film resistance here, later
+	//
+	double resist = m_ctrxn_resistivity_[iBeta];
+	double exp1 = nu * nStoichElectrons * (*beta) / rtdf;
+	double exp2 = - nu * nStoichElectrons * (1.0 - (*beta)) / (rtdf);
+        icurr = ioc * (exp(exp1) - exp(exp2));
+	if (resist != 0.0) {
+	    icurr = solveCurrentRes(nu, nStoichElectrons, ioc, (*beta), TT, resist, 0);
+	}
+	*io = ioc;
+	
+    } else {
+	RxnMolChange*   rmc = rmcVector[irxn];
+	// could also get this from reactant and product stoichiometry
+	double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
+	*nStoich = nStoichElectrons;
+	*OCV = 0.0;
+
+	int nr = nReactions();
+	std::vector<double> deltaG(nr);
+	getDeltaGibbs(DATA_PTR(deltaG));
+
+	if (nStoichElectrons != 0.0) {
+	    *OCV = deltaG[irxn]/Faraday/ nStoichElectrons;
+	}
+	//PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
+	// we have a vector of standard concentrations calculated from the routine below
+	//            m_StandardConc[ik]
+	updateExchangeCurrentQuantities();
+
+
+	//rkc is reciprocal equilibrium constant
 #define OLDWAY
 #ifdef OLDWAY
-    const vector_fp& rf = m_rfn;
-    const vector_fp& rkc= m_rkcn;
+	const vector_fp& rf = m_rfn;
+	const vector_fp& rkc= m_rkcn;
 #else
-    const vector_fp& rf = m_kdata->m_rfn;
-    const vector_fp& rkc= m_kdata->m_rkcn;
+	const vector_fp& rf = m_kdata->m_rfn;
+	const vector_fp& rkc= m_kdata->m_rkcn;
 #endif
 
-    // start with the forward reaction rate
-    double iO = rf[irxn] * Faraday * nStoichElectrons;
+	// start with the forward reaction rate
+	double iO = rf[irxn] * Faraday * nStoichElectrons;
 
-    if (m_beta[irxn] > 0.0) {
-        iO *= pow(rkc[irxn], m_beta[irxn]);
+	if (m_beta[irxn] > 0.0) {
+	    iO *= pow(rkc[irxn], m_beta[irxn]);
+	}
+	double b = m_beta[irxn];
+	*beta = m_beta[irxn];
+	double omb = 1.0 - b;
+
+
+	for (size_t k = 0; k < m_kk; k++) {
+	    doublereal reactCoeff = reactantStoichCoeff(k, irxn);
+	    doublereal prodCoeff =  productStoichCoeff(k, irxn);
+
+	    if (reactCoeff != 0.0) {
+		iO *= pow(m_actConc[k], reactCoeff*omb);
+		iO *= pow(m_StandardConc[k], reactCoeff*b);
+	    }
+	    if (prodCoeff != 0.0) {
+		iO *= pow(m_actConc[k], prodCoeff*b);
+		iO /= pow(m_StandardConc[k], prodCoeff*omb);
+	    }
+	}
+	*io = iO;
+
+	double phiMetal = thermo(metalPhaseIndex_).electricPotential();
+	double phiSoln = thermo(solnPhaseIndex_).electricPotential();
+	double E = phiMetal - phiSoln;
+	*overPotential = E - *OCV;
+
+	icurr = calcCurrentDensity(*overPotential, *nStoich, *io, *beta, m_temp);
     }
-    double b = m_beta[irxn];
-    *beta = m_beta[irxn];
-    double omb = 1.0 - b;
-
-
-    for (size_t k = 0; k < m_kk; k++) {
-        doublereal reactCoeff = reactantStoichCoeff(k, irxn);
-        doublereal prodCoeff =  productStoichCoeff(k, irxn);
-
-        if (reactCoeff != 0.0) {
-            iO *= pow(m_actConc[k], reactCoeff*omb);
-            iO *= pow(m_StandardConc[k], reactCoeff*b);
-        }
-        if (prodCoeff != 0.0) {
-            iO *= pow(m_actConc[k], prodCoeff*b);
-            iO /= pow(m_StandardConc[k], prodCoeff*omb);
-        }
-    }
-    *io = iO;
-
-    double phiMetal = thermo(metalPhaseIndex_).electricPotential();
-    double phiSoln = thermo(solnPhaseIndex_).electricPotential();
-    double E = phiMetal - phiSoln;
-    *overPotential = E - *OCV;
-
-    return calcCurrentDensity(*overPotential, *nStoich, *io, *beta, m_temp);
+    return icurr;
 }
 //====================================================================================================================
 double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const

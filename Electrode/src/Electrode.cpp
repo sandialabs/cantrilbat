@@ -3506,7 +3506,8 @@ double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
         double io;
         double nu;
         double beta;
-        i = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+        double resist;
+        i = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
         return io;
     }
     return i;
@@ -4766,7 +4767,7 @@ double Electrode::integratedEnthalpySourceTerm()
  */
 double Electrode::thermalEnergySourceTerm_overpotential(int isk)
 {   
-    double nstoich, ocv, io, nu, beta;
+    double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
     if (RSD_List_[isk]) {
@@ -4775,7 +4776,7 @@ double Electrode::thermalEnergySourceTerm_overpotential(int isk)
          size_t nr = rsd->nReactions();
          for (size_t irxn = 0; irxn < nr; irxn++) {
              double overpotential = overpotentialRxn(isk, (int) irxn);
-             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 	     if (nstoich != 0.0) {
 		 q += sa * iCurr * overpotential;
 	     }
@@ -4790,7 +4791,7 @@ double Electrode::thermalEnergySourceTerm_overpotential(int isk)
  */
 double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
 {
-    double nstoich, ocv, io, nu, beta;
+    double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
     static vector<double> s_deltaS;
@@ -4807,7 +4808,7 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
 	 double tt = temperature_;
 
          for (size_t irxn = 0; irxn < nr; irxn++) {
-             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 	     if (nstoich != 0.0) {
 		 q -= sa * iCurr * tt * s_deltaS[irxn] / Faraday;
 	     } else {
@@ -4826,7 +4827,7 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
  */
 double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
 {
-    double nstoich, ocv, io, nu, beta;
+    double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
     static vector<double> s_deltaH;
@@ -4848,7 +4849,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
          }
 #endif
          for (size_t irxn = 0; irxn < nr; irxn++) {
-             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta);
+             iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 #ifdef DEBUG_THERMAL
 	     double deltaM = - iCurr * sa / Faraday;
              printf ("delta moles = %g\n", deltaM * deltaTsubcycle_);
