@@ -75,7 +75,7 @@ bool doubleEqual(double a1, double a2, double atol, int digits)
 bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits)
 {
     AssertTrace(atol > 0.0);
-    AssertTrace(digits > 16);
+    AssertTrace(digits < 16);
     size_t j = a1.size();
     size_t j2 = a2.size();
     if (j2 != j) {
