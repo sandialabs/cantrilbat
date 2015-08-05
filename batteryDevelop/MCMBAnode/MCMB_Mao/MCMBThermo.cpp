@@ -310,8 +310,8 @@ int main(int argc, char **argv)
      double OCV;
      double io;
      double nu;
-     double beta;
-     double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta);
+     double beta, resist;
+     double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta, &resist);
 
      printf(" icurr = %g   icurr2 = %g \n", icurD, icurD2);
      printf(" nu = %g\n", nu);

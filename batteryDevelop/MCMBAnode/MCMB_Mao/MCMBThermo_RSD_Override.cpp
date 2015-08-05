@@ -403,7 +403,7 @@ end block Open Circuit Potential Override for interface anode_surface
      printf("Now let's look at a single reaction point:\n");
      double nTdeltaS =  - Temp * deltaS;
      
-     double phiSoln = 0.1;
+     double phiSoln = -0.1;
      double phiMetal = 0.109659;
      double volts = phiMetal - phiSoln;
      printf(" phiMetal = %g, phiSoln = %g , Voltage = %g\n", phiMetal, phiSoln, volts);
@@ -421,8 +421,8 @@ end block Open Circuit Potential Override for interface anode_surface
      double OCV;
      double io;
      double nu;
-     double beta;
-     double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta);
+     double beta, resist;
+     double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta, &resist);
 
      printf(" icurr = %g   icurr2 = %g \n", icurD, icurD2);
      printf("      Calculated exchange current density formulation:\n");
@@ -431,6 +431,7 @@ end block Open Circuit Potential Override for interface anode_surface
      printf("            io =  %g\n", io);
      printf("            beta = %g\n", beta);
      printf("            nStoich = %g\n", nStoich);
+     printf("            resist = %g\n", resist);
      double icalc =  rsd->calcCurrentDensity(nu, nStoich, io, beta, Temp);
      printf("            i = %g\n", icalc);
 
