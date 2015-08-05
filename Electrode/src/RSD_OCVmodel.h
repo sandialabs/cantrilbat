@@ -185,30 +185,30 @@ class RSD_OCVmodel
      *      depth of discharge.
      *
      *   @param        tp                       Pointer to the ThermoPhase class
-     *   @param        kspec                    Species whose mole fraction will be assigned as the rel extent
+     *   @param        kspec_DOD                Local species index whose mole fraction will be assigned as the rel extent
      *   @param        dvec                     double vector for later expansion
      *   @param        ivec                     int vector for later expansion
      */
-    virtual void setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec = 0, int *ivec = 0);
+    virtual void setup_RelExtent(ThermoPhase *tp, size_t kspec_DOD, double *dvec = 0, int *ivec = 0);
 
     //!  Return the open circuit voltage given the relative extent of reaction
     /*!
      *   @return                               Returns the open circuit voltage at the current relative extent of reaction
      */
-    virtual double OCV_value() const;
+    virtual double OCV_value(double temp) const;
 
     //!  Return the derivative of the open circuit voltage wrt the relative extent of reaction
     /*!
      *   @return                               Return the derivative of the open circuit voltage wrt the relative extent of
      *                                          reaction
      */
-    virtual double OCV_dvaldExtent() const;
+    virtual double OCV_dvaldExtent(double temp) const;
 
     //!  Return the derivative of the open circuit voltage wrt the Temperature
     /*!
      *   @return                               Return the derivative of the open circuit voltage wrt the temperature
      */
-    virtual double OCV_dvaldT() const;
+    virtual double OCV_dvaldT(double temp) const;
 
     //! Return the model name
     /*!
@@ -315,6 +315,8 @@ protected:
 
     //! This is the same model types as used for the main model types. However, it can 
     int temperatureDerivModelType_;
+
+    double temperatureBase_;
 
     std::string OCVTempDerivModel_;
 

@@ -283,6 +283,8 @@ public:
      */
     virtual void getDeltaGibbs(doublereal* deltaG);
 
+    void getDeltaGibbs_Before(doublereal* const deltaG = 0);
+
     //! Return the vector of values for the reaction electrochemical free energy change.
     /*!
      * These values depend upon the concentration of the solution and the
@@ -307,6 +309,8 @@ public:
      */
     virtual void getDeltaEnthalpy(doublereal* deltaH);
 
+    void getDeltaEnthalpy_Before(doublereal* const deltaH = 0);
+
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
     //! chemical potential for the electrolyte.
     /*!
@@ -324,11 +328,20 @@ public:
      *   is modified by a specification of the open circuit potential and the derivative of the
      *   OCV wrt temperature.
      *
-     *   @param[out]        deltaS      Vector of deltaH values. Must be at least of length equal
+     *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
     virtual void getDeltaEntropy(doublereal* deltaS);
 
+    //!  Get the vector of deltaS values for all reactions defined in the kinetics object before OCV override
+    /*!
+     *
+     *   This routine does a normal calculation of deltaS,
+     *
+     *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
+     *                                  to the number of reactions. Units are J kmol-1 K-1.
+     */
+    void getDeltaEntropy_Before(doublereal* const deltaS = 0);
 
     //!  Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
     //!  the concentration of the solution.
@@ -362,6 +375,10 @@ public:
      * @param[out     deltaS                Output vector of ss deltaS's for reactions Length: m_ii.
      */
     virtual void getDeltaSSEntropy(doublereal* deltaS);
+
+    void setState_TP(double temp, double pres);
+
+    void getOCVThermoOffsets_ReplacedSpecies(double& deltaG_species, double& deltaH_species, double& deltaS_species);
 
 public:
     //! Declare a printing routine as a friend to this class
@@ -466,6 +483,7 @@ public:
      *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
      */
     std::vector<double> deltaGRxn_Before_;
+    std::vector<double> deltaGRxnOCV_Before_;
 
     //! Internal Vector of deltaH of reaction for all reactions
     /*!
@@ -510,6 +528,7 @@ public:
      *   strictly thermodynamic origin when an OCV override is done.
      */
     std::vector<double> m_Enthalpies_rspec;
+    std::vector<double> m_Enthalpies_Before_rspec;
 
     //!  Vector of the entropies for all species in all phases that participate in the reaction mechanism
     /*!
@@ -520,6 +539,7 @@ public:
     std::vector<double> m_Entropies_Before_rspec;
 
     std::vector<double> m_GibbsOCV_rspec;
+    std::vector<double> m_Gibbs_Before_rspec;
 
     double deltaG_species_;
     double deltaS_species_;

@@ -246,7 +246,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn)
 	    rs = m_rrxn[kElectronIndex_][irxn];
 	    ps = m_prxn[kElectronIndex_][irxn];
 	    double electronProd = (ps - rs) * m_ropnet[irxn];
-	    netCurrentDensity =  Faraday * electronProd;
+	    netCurrentDensity += Faraday * electronProd;
 	}
     }
     return netCurrentDensity;
@@ -407,6 +407,9 @@ void ReactingSurDomain::init()
     m_Enthalpies_rspec.resize(m_kk, 0.0);
     m_Entropies_rspec.resize(m_kk, 0.0);
     m_GibbsOCV_rspec.resize(m_kk, 0.0);
+    m_Enthalpies_Before_rspec.resize(m_kk, 0.0);
+    m_Entropies_Before_rspec.resize(m_kk, 0.0);
+    m_Gibbs_Before_rspec.resize(m_kk, 0.0);
     speciesProductionRates_.resize(m_kk, 0.0);
     speciesCreationRates_.resize(m_kk, 0.0);
     speciesDestructionRates_.resize(m_kk, 0.0);
@@ -418,6 +421,7 @@ void ReactingSurDomain::finalize()
     deltaGRxn_Before_.resize(m_ii, 0.0);
     deltaHRxn_Before_.resize(m_ii, 0.0);
     deltaSRxn_Before_.resize(m_ii, 0.0);
+    deltaGRxnOCV_Before_.resize(m_ii, 0.0);
 }
 //==================================================================================================================================
 /*
@@ -632,11 +636,14 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     //  Go get the model from the factory routine
     //
     OCVmodel_ = newRSD_OCVmodel(ocv_ptr_->OCVModel);
-    OCVmodel_->OCV_Format_ = ocv_ptr->OCV_Format_;
+
+    OCVmodel_->initialize(this, *ocv_ptr_);
+   
     //
     // Now setup the internal structures within the model to calculate the relative extent
     // Find the phase id and phase name of the replaced global species. We will assume that it is also
-    // the solid phase where we will get the relative extent. 
+    // the solid phase where we will get the relative extent.
+    
     int phase_id = m_pl->getPhaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
     string phaseName = m_pl->phaseName(phase_id);
     //
@@ -662,6 +669,10 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
 //====================================================================================================================
 void ReactingSurDomain::deriveEffectiveChemPot()
 {
+    /*
+     *   Find and store the temperature
+     */
+    double TT = m_surf->temperature();
     //  Wastefull, but for now get a complete SSG and G vector.
     for (size_t n = 0; n < nPhases(); n++) {
 	size_t nsp = thermo(n).nSpecies();
@@ -697,7 +708,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //
     //  Get the reaction delta based on the mixed G and G_SS values accummulated above
     //
-    getReactionDelta(DATA_PTR(m_GibbsOCV_rspec), DATA_PTR(deltaGRxn_Before_));
+    getReactionDelta(DATA_PTR(m_GibbsOCV_rspec), DATA_PTR(deltaGRxnOCV_Before_));
 
     double phiRxnOrig = 0.0;
 
@@ -717,6 +728,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //  Figure out the reaction id for the override
     //
     int rxnID = ocv_ptr_->rxnID;
+    int rxnID_deltaS = ocv_ptr_->rxnID_deltaS;
     //
     //  Get a pointer to the RxnMolChange struct, which contains more info about the reaction
     //
@@ -735,7 +747,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //
     //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten
     //
-    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    phiRxnOrig = deltaGRxnOCV_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //
     //    In order to calculate the OCV, we need the relative extent of reaction value. This is determined
     //    automatically within the OCVmodel object given that the ThermoPhase is current.
@@ -745,21 +757,20 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //
     //    Now calculate the OCV value to be used from the fit presumably from a fit to experiment.
     //
-    double phiRxnExp = OCVmodel_->OCV_value();
+    double phiRxnExp = OCVmodel_->OCV_value(TT);
     //
     //    Calculate the deltaGibbs needed to turn phiRxnOrig into phiRxnExp
     //
-    double deltaG_Exp = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
+    double deltaG_Exp_delta = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
     //
     //
     //   
-    double fstoich =  reactantStoichCoeff( kReplacedSpeciesRS_,  ocv_ptr_->rxnID);
-    double rstoich =  productStoichCoeff( kReplacedSpeciesRS_, ocv_ptr_->rxnID);
+    double fstoich =  reactantStoichCoeff( kReplacedSpeciesRS_,  ocv_ptr_->rxnID_deltaS);
+    double rstoich =  productStoichCoeff( kReplacedSpeciesRS_, ocv_ptr_->rxnID_deltaS);
     double nstoich = rstoich - fstoich;
-    deltaG_species_ = deltaG_Exp / nstoich;
-    
+    deltaG_species_ = deltaG_Exp_delta / nstoich;
     //
-    // calculate new G value for replaced species that will yield the experimental open circuit voltage
+    // Calculate new G value for replaced species that will yield the experimental open circuit voltage
     //
     m_GibbsOCV_rspec[kReplacedSpeciesRS_] += deltaG_species_;
     m_mu[kReplacedSpeciesRS_]  += deltaG_species_;
@@ -769,11 +780,11 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     // Now recalc deltaG and calc OCV   HKM This calculation has checked out for the MCMB model
     //   We should now be at the exp OCV
 #ifdef DEBUG_NEW
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxn_Before_));
-    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxnOCV_Before_));
+    phiRxnOrig = deltaGRxnOCV_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //printf(" phiRxnOrig_halfcell  =  %g\n",  phiRxnOrig );
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxn_Before_));
-    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_grt), DATA_PTR(deltaGRxnOCV_Before_));
+    phiRxnOrig = deltaGRxnOCV_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
 #endif
 }
@@ -815,15 +826,26 @@ void ReactingSurDomain::deriveEffectiveThermo()
         }
 
     }
-    //
-    //  Calculate the delta G and the open circuit voltage normally
-    //
+    // Calc Delta G's as before
+    getDeltaGibbs_Before(DATA_PTR(deltaGRxn_Before_));
+    getDeltaEnthalpy_Before(DATA_PTR(deltaHRxn_Before_));
+    getDeltaEntropy_Before(DATA_PTR(deltaSRxn_Before_));
+
+    
+#ifdef DEBUG_MODE
+    double dgc = deltaHRxn_Before_[1] - TT * deltaSRxn_Before_[1];
+    bool de = esmodel::doubleEqual(dgc, deltaGRxn_Before_[1]);
+    if (!de) {
+	printf("error!\n");
+	exit(-1);
+    }
+#endif
     //
     //
     //
     //  Get the reaction delta based on the mixed G and G_SS values accummulated above
     //
-    getReactionDelta(DATA_PTR(m_GibbsOCV_rspec), DATA_PTR(deltaGRxn_Before_));
+    getReactionDelta(DATA_PTR(m_GibbsOCV_rspec), DATA_PTR(deltaGRxnOCV_Before_));
 
     double phiRxnOrig = 0.0;
 
@@ -843,6 +865,7 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //  Figure out the reaction id for the override
     //
     int rxnID = ocv_ptr_->rxnID;
+    int rxnID_deltaS =  ocv_ptr_->rxnID_deltaS;
     //
     //  Get a pointer to the RxnMolChange struct, which contains more info about the reaction
     //
@@ -861,11 +884,11 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //
     //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten
     //
-    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    phiRxnOrig = deltaGRxnOCV_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //
     //  Calculate the dOCV/dT from that relation that would occur if it was not being overwritten
     //  -> where is deltaSRxn_Before_[rxnID] calculated
-    doublereal d_phiRxnOrig_dT = -deltaSRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    doublereal d_phiRxnOrig_dT = -deltaSRxn_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //
     //    In order to calculate the OCV, we need the relative extent of reaction value. This is determined
     //    automatically within the OCVmodel object given that the ThermoPhase is current.
@@ -875,27 +898,29 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //
     //    Now calculate the OCV value to be used from the fit presumably from a fit to experiment.
     //
-    double phiRxnExp = OCVmodel_->OCV_value();
+    double phiRxnExp = OCVmodel_->OCV_value(TT);
     //
     //   Now calculate the dOCV/dT value to be used presumably from a fit
     //
-   double d_phiRxnExp_dT = OCVmodel_->OCV_dvaldT();
+    double d_phiRxnExp_dT = OCVmodel_->OCV_dvaldT(TT);
     //
     //    Calculate the deltaGibbs needed to turn phiRxnOrig into phiRxnExp
     //
-    double deltaG_Exp = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
+    //double deltaG_Exp = (phiRxnExp) * Faraday * nStoichElectrons;
+    double deltaG_Exp_delta = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
     //
     //    Calculate the deltaEntropy needed to turn dphiRxnOrigdT into dphiRxnExpdT
     //
-    double deltaS_Exp = (- d_phiRxnExp_dT + d_phiRxnOrig_dT) * Faraday * nStoichElectrons;
+    //double deltaS_Exp = (- d_phiRxnExp_dT) * Faraday * nStoichElectrons;
+    double deltaS_Exp_delta = (- d_phiRxnExp_dT + d_phiRxnOrig_dT) * Faraday * nStoichElectrons;
     //
     //
     //   
-    double fstoich =  reactantStoichCoeff( kReplacedSpeciesRS_,  ocv_ptr_->rxnID);
-    double rstoich =  productStoichCoeff(kReplacedSpeciesRS_, ocv_ptr_->rxnID);
+    double fstoich =  reactantStoichCoeff( kReplacedSpeciesRS_,  ocv_ptr_->rxnID_deltaS);
+    double rstoich =  productStoichCoeff(kReplacedSpeciesRS_, ocv_ptr_->rxnID_deltaS);
     double nstoich = rstoich - fstoich;
-    deltaG_species_ = deltaG_Exp / nstoich;
-    deltaS_species_ = deltaS_Exp / nstoich;
+    deltaG_species_ = deltaG_Exp_delta / nstoich;
+    deltaS_species_ = deltaS_Exp_delta / nstoich;
     deltaH_species_ = deltaG_species_ + TT * deltaS_species_;
     
     //
@@ -908,18 +933,19 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //
     // Calculate the replaced entropies and enthalpies
     //
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_Entropies_rspec), DATA_PTR(m_Entropies_Before_rspec), m_kk);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_Enthalpies_rspec), DATA_PTR(m_Enthalpies_Before_rspec), m_kk);
     m_Entropies_rspec[kReplacedSpeciesRS_] += deltaS_species_;
     m_Enthalpies_rspec[kReplacedSpeciesRS_] += deltaH_species_;
-
     //
     //   Now recalc deltaG and calc OCV   HKM This calculation has checked out for the MCMB model
     //   We should now be at the exp OCV
 #ifdef DEBUG_NEW
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxn_Before_));
-    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(m_mu), DATA_PTR(deltaGRxnOCV_Before_));
+    phiRxnOrig = deltaGRxnOCV_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //printf(" phiRxnOrig_halfcell  =  %g\n",  phiRxnOrig );
-    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(mGibbsOCV_rspec), DATA_PTR(deltaGRxn_Before_));
-    phiRxnOrig = deltaGRxn_Before_[rxnID] / Faraday / nStoichElectrons;
+    m_rxnstoich.getReactionDelta(m_ii, DATA_PTR(mGibbsOCV_rspec), DATA_PTR(deltaGRxnOCV_Before_));
+    phiRxnOrig = deltaGRxnOCV_Before_[rxnID_deltaS] / Faraday / nStoichElectrons;
     //printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
 #endif
 }
@@ -954,7 +980,7 @@ void ReactingSurDomain::updateMu0()
         }
     }
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // Modification for OCV override when called for.
 //         ( works for MCMB )
 void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
@@ -970,7 +996,8 @@ void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
 
      //  If have an open circuit potential override situation, do extra work
      if (ocv_ptr_) {
-	 deriveEffectiveChemPot();
+	 //deriveEffectiveChemPot();
+	 deriveEffectiveThermo();
      }
 
     //
@@ -982,6 +1009,16 @@ void ReactingSurDomain::getDeltaGibbs(doublereal* deltaG)
 	for (size_t j = 0; j < m_ii; ++j) {
 	    deltaG[j] = m_deltaG[j];
 	}
+    }
+}
+//==================================================================================================================================
+void ReactingSurDomain::getDeltaGibbs_Before(doublereal* const deltaG)
+{
+    for (size_t n = 0; n < numPhases_; n++) {
+         m_thermo[n]->getChemPotentials(DATA_PTR(m_Gibbs_Before_rspec) + m_start[n]);
+    }
+    if (deltaG) {
+	getReactionDelta(DATA_PTR(m_Gibbs_Before_rspec), DATA_PTR(deltaG));
     }
 }
 //=======================================================================================================================
@@ -1039,7 +1076,20 @@ void ReactingSurDomain::getDeltaEnthalpy(doublereal* deltaH)
      *  Use the stoichiometric manager to find deltaH for each reaction.
      *    (we do not sture the deltaH vector, as I can't think of a reason to do so).
      */
-    getReactionDelta(DATA_PTR(m_Enthalpies_rspec), DATA_PTR(deltaH));
+    if (deltaH) {
+	getReactionDelta(DATA_PTR(m_Enthalpies_rspec), DATA_PTR(deltaH));
+    }
+}
+//=======================================================================================================================
+// Modification for OCV override when called for.
+void ReactingSurDomain::getDeltaEnthalpy_Before(doublereal* const deltaH)
+{
+    for (size_t n = 0; n < numPhases_; n++) {
+        thermo(n).getPartialMolarEnthalpies(DATA_PTR(m_Enthalpies_Before_rspec) + m_start[n]);
+    }
+    if (deltaH) {
+	getReactionDelta(DATA_PTR(m_Enthalpies_Before_rspec), DATA_PTR(deltaH));
+    }
 }
 //=======================================================================================================================
 // Modification for OCV override when called for
@@ -1063,6 +1113,17 @@ void ReactingSurDomain::getDeltaEntropy(doublereal* deltaS)
      *    (we do not store the deltaS vector, as I can't think of a reason to do so).
      */
     getReactionDelta(DATA_PTR(m_Entropies_rspec), DATA_PTR(deltaS));
+}
+//=======================================================================================================================
+// Modification for OCV override when called for
+void ReactingSurDomain::getDeltaEntropy_Before(doublereal* const deltaS)
+{
+    for (size_t n = 0; n < numPhases_; n++) {
+        thermo(n).getPartialMolarEntropies(DATA_PTR(m_Entropies_Before_rspec) + m_start[n]);
+    }
+    if (deltaS) {
+	getReactionDelta(DATA_PTR(m_Entropies_Before_rspec), DATA_PTR(deltaS));
+    }
 }
 //=======================================================================================================================
 // This gets the deltaG for each reaction in the mechanism, but using the standard state
@@ -1171,6 +1232,26 @@ void ReactingSurDomain::getDeltaSSEntropy(doublereal* deltaS)
      * Use the stoichiometric manager to find deltaS for each reaction.
      */
     getReactionDelta(DATA_PTR(m_grt), deltaS); 
+}
+//==================================================================================================================================
+void ReactingSurDomain::getOCVThermoOffsets_ReplacedSpecies(double& deltaG_species, double& deltaH_species, double& deltaS_species)
+{
+    deltaG_species = 0.0;
+    deltaH_species = 0.0;
+    deltaS_species = 0.0;
+    if (ocv_ptr_) {
+	deriveEffectiveThermo();
+	deltaG_species = deltaG_species_;
+	deltaH_species = deltaH_species_;
+	deltaS_species = deltaS_species_;
+    }
+}
+//==================================================================================================================================
+void ReactingSurDomain::setState_TP(double temp, doublereal pres) 
+{
+    for (size_t n = 0; n < nPhases(); n++) {
+	m_thermo[n]->setState_TP(temp, pres);
+    }
 }
 //==================================================================================================================================
 } // End of namespace cantera

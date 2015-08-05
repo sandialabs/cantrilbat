@@ -13,6 +13,7 @@
 
 #include "cantera/thermo/ThermoPhase.h"
 
+#include "mdp_stringUtils.h"
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -46,6 +47,7 @@ RSD_OCVmodel::RSD_OCVmodel(int modelID) :
     relExtent_(-1.0),
     xMF_(0),
     temperatureDerivType_(0),
+    temperatureBase_(298.15),
     dvec_(0)
 {
     //
@@ -65,6 +67,7 @@ RSD_OCVmodel::RSD_OCVmodel(const RSD_OCVmodel& right) :
     relExtent_ (right.relExtent_),
     xMF_(right.xMF_),
     temperatureDerivType_(right.temperatureDerivType_),
+    temperatureBase_(right.temperatureBase_),
     dvec_(right.dvec_)
 {
 }
@@ -93,6 +96,7 @@ RSD_OCVmodel& RSD_OCVmodel::operator=(const RSD_OCVmodel& right)
     relExtent_  = right.relExtent_;
     xMF_ = right.xMF_;
     temperatureDerivType_ = right.temperatureDerivType_;
+    temperatureBase_ = right.temperatureBase_;
     dvec_ = right.dvec_;
 
     return *this;
@@ -135,19 +139,20 @@ void RSD_OCVmodel::initialize(ReactingSurDomain * rsd_ptr, const OCV_Override_in
     // OCVModel -> modelName_
     // numTimes -> not relevant at this point
     // replacedSpeciesName -> already processed to produce species index.
-    if (modelName_ != OCVinput.OCVModel) {
-	throw Electrode_Error("", "Something ain't right");
+    if (! mdpUtil::LowerCaseStringEquals(modelName_, OCVinput.OCVModel)) {
+	throw Electrode_Error("RSD_OCVmodel::initialize", "Model names aren't consistent: " + modelName_ + 
+			      " vs " + OCVinput.OCVModel);
     }
     modelName_ = OCVinput.OCVModel;
-
+    dvec_.resize(2);
     // replacedGlobalSpeciesID -> don't want to add PhaseList 
     // replacedLocalSpeciesID; -> don't want to put replaced species stuff here
-
+    OCV_Format_ = OCVinput.OCV_Format_;
 
     temperatureDerivType_ =  OCVinput.temperatureDerivType;
     
     OCVTempDerivModel_ =  OCVinput.OCVTempDerivModel;
-
+    temperatureBase_ = OCVinput.temperatureBase;
     temperatureDerivModelType_ = stringName_RCD_OCVmodel_to_modelID(OCVTempDerivModel_);
     if (temperatureDerivModelType_ == -1) {
 	printf(" bad model name\n");
@@ -172,8 +177,8 @@ void RSD_OCVmodel::setup_RelExtent(ThermoPhase *tp, size_t kspec, double *dvec, 
     xMF_.resize(nsp, 0.0);
     solidPhaseModel_->getMoleFractions(& xMF_[0]);
 
-    if (modelID_ == OCVAnode_CONSTANT) {
-	dvec_.resize(1);
+    if (modelID_ == OCVAnode_CONSTANT || modelID_ == OCVCathode_CONSTANT ) {
+	dvec_.resize(2);
 	dvec_[0] = dvec[0];
     }
 }
@@ -191,12 +196,16 @@ void RSD_OCVmodel::calcRelExtent() const
     relExtent_ = xMF_[kSpecies_DoD_];
 }
 //=============================================================================================================================== 
-double RSD_OCVmodel::OCV_value() const
+double RSD_OCVmodel::OCV_value(double temp) const
 {
-    //calcRelExtent();
+    calcRelExtent();
     double volts ;
     double xLi = 1.0 - relExtent_;
     double xV;
+    double dOCVdt = 0.0;
+    if (temp != temperatureBase_) {
+	dOCVdt = OCV_dvaldT(temp);
+    }
     if (modelID_ == OCVAnode_CONSTANT) {
        volts = dvec_[0];
 
@@ -268,17 +277,22 @@ double RSD_OCVmodel::OCV_value() const
         printf("model not found\n");
         exit(-1);
     }
+    /*
+     *  interpolate assuming a linear relation. If we get something more complicated we'll have to revise
+     */
+    volts += dOCVdt * (temp - temperatureBase_);
+
     return volts;           
 }
 //===============================================================================================================================
-double RSD_OCVmodel::OCV_dvaldExtent() const
+double RSD_OCVmodel::OCV_dvaldExtent(double temp) const
 {  
     calcRelExtent();
     throw Electrode_Error("", "not handled");
     return 0.0;
 }
 //===============================================================================================================================
-double RSD_OCVmodel::OCV_dvaldT() const
+double RSD_OCVmodel::OCV_dvaldT(double temp) const
 {  
     double dOCVdt = 0.0;
     /*
@@ -305,7 +319,7 @@ double RSD_OCVmodel::OCV_dvaldT() const
 	    dOCVdt = dvec_[1];
 	}
 	
-	else if (temperatureDerivModelType_ == OCVAnode_MCMB2528) {
+	else if (temperatureDerivModelType_ == OCVAnode_MCMB2528_dualfoil) {
 	    double xLi_2 = xLi * xLi;
 	    double xLi_3 = xLi_2 * xLi;
 	    double xLi_4 = xLi_3 * xLi;
@@ -320,7 +334,7 @@ double RSD_OCVmodel::OCV_dvaldT() const
 	    double B = (1.0                - 48.09287     * xLi   + 1017.23480  * xLi_2 - 10481.80419  * xLi_3 + 59431.30001 * xLi_4 -
 		        195881.64880 * xLi_5 + 374577.31520 * xLi_6 - 385821.16070 * xLi_7 + 165705.85970 * xLi_8);
 	    
-	    dOCVdt = A / B;
+	    dOCVdt = 1.0E-3 * A / B;
 	    return dOCVdt;
 	}
 

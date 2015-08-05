@@ -108,6 +108,7 @@ struct OCV_Override_input {
     std::string DoDSurrogateSpeciesName;
     size_t MF_DoD_LocalSpeciesID;
     int rxnID;
+    int rxnID_deltaS;
     int temperatureDerivType;
     double temperatureBase;
     double temperatureDerivValue;
