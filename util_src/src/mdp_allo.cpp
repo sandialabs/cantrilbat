@@ -18,6 +18,8 @@
 
 namespace mdpUtil
 {
+//==================================================================================================================================
+//! Declaration for the npos value that is used for size_t values, which are unsigned, to indicate an undefined or unset value.
 const size_t npos = static_cast<size_t>(-1);
 
 /*
@@ -46,6 +48,7 @@ int MDP_MP_myproc = 0;
  */
 int MDP_ALLO_errorOption = 3;
 
+//==================================================================================================================================
 //! Inline min routine for two ints
 /*!
  *    @param[in]  x    first int
@@ -152,13 +155,7 @@ static void mdp_alloc_eh2(const char* rname)
 }
 //==================================================================================================================================
 
-//!  Macro to take care of the return from fprintf
-#define Fprintf (void) fprintf
-
-
-/****************************************************************************/
 #ifndef HAVE_ARRAY_ALLOC
-/****************************************************************************/
 
 //!  This is a low level allocation routine that every malloc goes through
 /*!
@@ -243,12 +240,7 @@ static double* smalloc(size_t n);
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
-
 double* mdp_array_alloc(int numdim, ...)
-
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
 {
     int i, j;
     struct dim {
@@ -269,14 +261,12 @@ double* mdp_array_alloc(int numdim, ...)
     va_start(va, numdim);
 
     if (numdim <= 0) {
-        Fprintf(stderr,
+        fprintf(stderr,
                 "mdp_array_alloc ERROR: number of dimensions, %d, is <=0\n",
                 numdim);
         return NULL;
     } else if (numdim > 4) {
-        Fprintf(stderr,
-                "mdp_array_alloc ERROR: number of dimensions, %d, is > 4\n",
-                numdim);
+        fprintf(stderr, "mdp_array_alloc ERROR: number of dimensions, %d, is > 4\n", numdim);
         return NULL;
     }
 
@@ -284,8 +274,7 @@ double* mdp_array_alloc(int numdim, ...)
 
     if (dim[0].index <= 0) {
 #ifdef DEBUG
-        Fprintf(stderr, "WARNING: mdp_array_alloc called with first "
-                "dimension <= 0, %d\n\twill return the nil pointer\n",
+        fprintf(stderr, "WARNING: mdp_array_alloc called with first dimension <= 0, %d\n\twill return the nil pointer\n",
                 (int)(dim[0].index));
 #endif
         return ((double*) NULL);
@@ -297,10 +286,9 @@ double* mdp_array_alloc(int numdim, ...)
     for (i = 1; i < numdim; i++) {
         dim[i].index = va_arg(va, int);
         if (dim[i].index <= 0) {
-            Fprintf(stderr,
-                    "WARNING: mdp_array_alloc called with dimension %d <= 0, "
+            fprintf(stderr, "WARNING: mdp_array_alloc called with dimension %d <= 0, "
                     "%d\n", i+1, (int)(dim[i].index));
-            Fprintf(stderr, "\twill return the nil pointer\n");
+            fprintf(stderr, "\twill return the nil pointer\n");
             return ((double*) NULL);
         }
         dim[i].total = dim[i-1].total * dim[i].index;
@@ -376,23 +364,17 @@ static double* smalloc(size_t n)
 #endif
     return pntr;
 }
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 void mdp_safe_free(void** ptr)
-
-/*************************************************************************
-*
-* mdp_safe_free():
-*
-*  This version of free calls the system's free function
-*  with maximum error checking. It also doesn't call free if ptr is
-*  the NULL pointer already.
-*  It will then set the freed pointer to NULL. Thus, a convention may
-*  be established wherein all pointers that can be malloced can be
-*  set to NULL if they are not malloced.
-**************************************************************************/
+/*
+ *
+ * mdp_safe_free():
+ *
+ *  This version of free calls the system's free function
+ *  with maximum error checking. It also doesn't call free if ptr is the NULL pointer already.
+ *  It will then set the freed pointer to NULL. Thus, a convention may be established wherein all pointers that 
+ *  can be malloced can be set to NULL if they are not malloced.
+ */
 {
 #ifdef MDP_MEMDEBUG
     FILE* file;
@@ -419,8 +401,9 @@ void mdp_safe_free(void** ptr)
         *ptr = NULL;
     }
 }
-/****************************************************************************/
-#endif
+//==================================================================================================================================
+#endif          // end of #ifndef HAVE_ARRAY_ALLOC
+//==================================================================================================================================
 /*****************************************************************************
 *
 * Wrapper Functions
@@ -470,27 +453,23 @@ void mdp_safe_free(void** ptr)
 *                      inner loop.
 *
 *****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-/****************************************************************************/
-
+//==================================================================================================================================
 int* mdp_alloc_int_1(int nvalues, const int val)
-
-/**************************************************************************
-*
-*  mdp_alloc_int_1:
-*
-*    Allocate and initialize a one dimensional array of integers.
-*
-*    Input
-*    -------
-*        nvalues = Length of the array
-*        val     = intialization value
-*    Return
-*    ------
-*        Pointer to the intialized integer array
-*        Failures are indicated by returning the NULL pointer.
-**************************************************************************/
+/*
+ *
+ *  mdp_alloc_int_1:
+ *
+ *    Allocate and initialize a one dimensional array of integers.
+ *
+ *    Input
+ *    -------
+ *        nvalues = Length of the array
+ *        val     = intialization value
+ *    Return
+ *    ------
+ *        Pointer to the intialized integer array
+ *        Failures are indicated by returning the NULL pointer.
+ */
 {
     int* array;
     if (nvalues <= 0) {
@@ -522,18 +501,16 @@ void mdp_safe_alloc_int_1(int** array_hdl, int nvalues, const int val)
 *
 *  mdp_safe_alloc_int_1:
 *
-*    Allocates and/or initializse a one dimensional array of integers.
+*    Allocates and/or initialize a one dimensional array of integers.
 *
 *    Input
 *    -------
-*        *array_hdl = Previous value of pointer. If non-NULL will try
-*                     to free the memory at this address.
+*        *array_hdl = Previous value of pointer. If non-NULL will try to free the memory at this address.
 *        nvalues = Length of the array
 *        val     = intialization value
 *    Output
 *    ------
-*        *array_hdl = This value is initialized to the correct address
-*                     of the array.
+*        *array_hdl = This value is initialized to the correct address of the array.
 *                     A NULL value in the position indicates an error.
 **************************************************************************/
 {
@@ -566,8 +543,7 @@ mdp_realloc_int_1(int** array_hdl, int new_length, int old_length,
 *    This routine always allocates space for at least one int.
 *    Calls the smalloc() routine to ensure that all malloc
 *    calls go through one location. This routine will then copy
-*    the pertinent information from the old array to the
-*    new array.
+*    the pertinent information from the old array to the new array.
 *
 *    Input
 *    -------
