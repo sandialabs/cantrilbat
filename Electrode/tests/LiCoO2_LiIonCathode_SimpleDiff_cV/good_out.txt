@@ -601,7 +601,8 @@ end block Bath Specification for Phase LiCoO2_Margules_1
     START BLOCK Open Circuit Potential Override for interface cathode_surface           (OPTIONAL BLOCK)
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
         Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
-        Identify Reaction for OCV Model = (integer) with default 0
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
         Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
             LIST = 
                 zero : 0
@@ -1643,7 +1644,8 @@ end block Bath Specification for Phase LiCoO2_Margules_1
     START BLOCK Open Circuit Potential Override for interface cathode_surface           (OPTIONAL BLOCK)
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
         Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
-        Identify Reaction for OCV Model = (integer) with default 0
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
         Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
             LIST = 
                 zero : 0
