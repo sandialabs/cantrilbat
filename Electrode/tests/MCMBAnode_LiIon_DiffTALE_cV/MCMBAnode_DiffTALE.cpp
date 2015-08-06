@@ -107,7 +107,8 @@ int main(int argc, char **argv)
   
     Cantera::Electrode_DiffTALE *electrodeA  = new Cantera::Electrode_DiffTALE();
 
-    ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
+    int printLvlInput = 3;
+    ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT(printLvlInput);
     
     std::string commandFileA = commandFileNet;
 	

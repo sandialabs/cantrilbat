@@ -108,7 +108,12 @@ struct OCV_Override_input {
     std::string DoDSurrogateSpeciesName;
     size_t MF_DoD_LocalSpeciesID;
     int rxnID;
+
+    //! Reaction whose deltaS value is modeled by the dOCVdT calculation. This is usually the
+    //! open circuit voltage for the Full-cell reaction or the half cell consisting of this reaction
+    //! and the half-cell for the reference electrode reaction.
     int rxnID_deltaS;
+
     int temperatureDerivType;
     double temperatureBase;
     double temperatureDerivValue;

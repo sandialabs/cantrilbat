@@ -96,6 +96,7 @@ OCV_Override_input::OCV_Override_input() :
     DoDSurrogateSpeciesName(""),
     MF_DoD_LocalSpeciesID(npos),
     rxnID(0),
+    rxnID_deltaS(0),
     temperatureDerivType(0),
     temperatureBase(298.15),
     OCVTempDerivModel("Constant 0.0")
@@ -114,6 +115,7 @@ OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
     DoDSurrogateSpeciesName(right.DoDSurrogateSpeciesName),
     MF_DoD_LocalSpeciesID(right.MF_DoD_LocalSpeciesID),
     rxnID(right.rxnID),
+    rxnID_deltaS(rxnID_deltaS),
     temperatureDerivType(right.temperatureDerivType),
     temperatureBase(right.temperatureBase),
     OCVTempDerivModel(right.OCVTempDerivModel)
@@ -136,6 +138,7 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
     DoDSurrogateSpeciesName        = right.DoDSurrogateSpeciesName;
     MF_DoD_LocalSpeciesID          = right.MF_DoD_LocalSpeciesID;
     rxnID                          = right.rxnID;
+    rxnID_deltaS                   = right.rxnID_deltaS;
     temperatureDerivType           = right.temperatureDerivType;
     temperatureBase                = right.temperatureBase;
     OCVTempDerivModel              = right.OCVTempDerivModel;
@@ -1120,9 +1123,22 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *   with assuming that it's the first reaction in the mechanism 
          */
         LE_OneInt* rid = new LE_OneInt("Identify Reaction for OCV Model", 
-                                       &(ocv_input_ptr->rxnID), 0, "OCVModel_rxnID");
+                                       &(ocv_input_ptr->rxnID), 1, "OCVModel_rxnID");
         rid->set_default(0);
         bOCVoverride->addLineEntry(rid);
+
+	/* ----------------------------------------------------------------------------------
+         *    Identify Full Cell Reaction for OCV Model = int      (optional) (default = 0)
+         *
+         *   Integer name of the reaction. Since most models just have one reaction, we will start
+         *   with assuming that it's the first reaction in the mechanism. 
+	 *   If this card is not specified, there is an error exit. We recently added this
+	 *   to specify   
+         */
+        LE_OneInt* ridFC = new LE_OneInt("Identify Full Cell Reaction for OCV Model", 
+					 &(ocv_input_ptr->rxnID_deltaS), 1, "OCVModel_FCrxnID");
+        ridFC->set_default(0);
+        bOCVoverride->addLineEntry(ridFC);
 
         /* --------------------------------------------------------------
          *    Temperature Derivative = PickList = [Zero, Species, Model] (required)

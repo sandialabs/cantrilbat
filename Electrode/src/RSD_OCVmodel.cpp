@@ -13,7 +13,10 @@
 
 #include "cantera/thermo/ThermoPhase.h"
 
+
 #include "mdp_stringUtils.h"
+#include "BI_InputError.h"
+#include "tok_input_util.h"
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -152,6 +155,18 @@ void RSD_OCVmodel::initialize(ReactingSurDomain * rsd_ptr, const OCV_Override_in
     temperatureDerivType_ =  OCVinput.temperatureDerivType;
     
     OCVTempDerivModel_ =  OCVinput.OCVTempDerivModel;
+    TKInput::TOKEN toktd(OCVinput.OCVTempDerivModel);
+    OCVTempDerivModel_ = toktd.tok_ptrV[0];
+    if (toktd.ntokes > 1) {
+      BOOLEAN err = 0;
+      double val = TKInput::str_to_double(toktd.tok_ptrV[1], 1.0E300, -1.0E300, 0.0, &err);
+      if (err) {
+            throw BEInput::BI_InputError("TKInput::str_to_double()",
+                                         "str_to_double interpretation failed: " + std::string(toktd.tok_ptrV[1]));
+      }
+      dvec_.resize(10);
+      dvec_[1] =   val;
+    }
     temperatureBase_ = OCVinput.temperatureBase;
     temperatureDerivModelType_ = stringName_RCD_OCVmodel_to_modelID(OCVTempDerivModel_);
     if (temperatureDerivModelType_ == -1) {
