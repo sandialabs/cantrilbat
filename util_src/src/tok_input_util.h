@@ -27,6 +27,7 @@
 
 #include <vector>
 #include <cstdio>
+#include <string>
 //----------------------------------------------------------------------------------------------------------------------------------
 //!  Namespace for the manipulation of TOKEN structures and for the reading and writing of ascii input files based on
 //!  reading each line and tokenizing their input.
@@ -71,6 +72,15 @@ public:
      *                                  Usually, it the standard white space characters (i.e., isspace()), " \t\n\f\r\v"
      */
     TOKEN(const char* str, const char* nstd_delims = 0);
+
+    //! Regular constructor for initializing a %TOKEN structure
+    /*!
+     *   @param[in] sss                 std::string input for the token
+     *   @param[in] nstd_delims         Nonstandard delimiters for the tokenization.
+     *                                  This defaults to 0, which uses the white space delimiters
+     *                                  Usually, it the standard white space characters (i.e., isspace()), " \t\n\f\r\v"
+     */
+    TOKEN(const std::string& sss, const char* nstd_delims = 0);
 
     //! Copy constructor
     /*!

@@ -205,6 +205,32 @@ TOKEN::TOKEN(const char* str, const char* nstd_delims) :
     }
 }
 //==================================================================================================================================
+TOKEN::TOKEN(const std::string& sss, const char* nstd_delims) :
+    orig_str(0),
+    tok_str(0),
+    ntokes(0),
+    nstd_delims_(0)
+{
+    const char* str = sss.c_str();
+    if (nstd_delims) {
+        nstd_delims_ = copy_string(nstd_delims);
+    }
+    if (str == NULL) {
+        orig_str = copy_string("");
+        tok_str  = copy_string("");
+        tok_ptrV.push_back(orig_str);
+        ntokes = 0;
+    } else {
+        orig_str = copy_string(str);
+        tok_str  = copy_string(str);
+        if (nstd_delims_) {
+            ntokes = stokenizeV(tok_str, nstd_delims_, tok_ptrV, MAXTOKENSBIG);
+        } else {
+            ntokes = stokenizeV(tok_str, DELIMITERS, tok_ptrV, MAXTOKENSBIG);
+        }
+    }
+}
+//==================================================================================================================================
 TOKEN::TOKEN(const TOKEN& b) :
     orig_str(0),
     tok_str(0),
