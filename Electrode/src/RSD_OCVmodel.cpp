@@ -170,8 +170,7 @@ void RSD_OCVmodel::initialize(ReactingSurDomain * rsd_ptr, const OCV_Override_in
     temperatureBase_ = OCVinput.temperatureBase;
     temperatureDerivModelType_ = stringName_RCD_OCVmodel_to_modelID(OCVTempDerivModel_);
     if (temperatureDerivModelType_ == -1) {
-	printf(" bad model name\n");
-	exit(-1);
+        throw Electrode_Error("RSD_OCVmodel::initialize()", "Unknown temperature derivative model: " + OCVTempDerivModel_);
     }
 }
 //===============================================================================================================================
