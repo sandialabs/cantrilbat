@@ -1023,7 +1023,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
 
     /*
-     *  Find the maximum number of reactions in any reacting domain
+     *  Find the maximum number of reactions in any reacting domain and the max of the number of species in the 
+     *  Electrode object.
      */
     int mR = spMoles_final_.size();
     for (int isk = 0; isk < (int) RSD_List_.size(); isk++) {
@@ -3220,12 +3221,12 @@ double Electrode::openCircuitVoltage_MixtureAveraged(int isk,  bool comparedToRe
 }
 //======================================================================================================
 // A calculation of the open circuit voltage of a surface
-/*!
+/*
  *  This routine uses a root finder to find the voltage at which there
  *  is zero net electron production.  It leaves the object unchanged. However, it
  *  does change the voltage of the phases during the calculation, so this is a nonconst function.
  */
-double Electrode::openCircuitVoltage(int isk,  bool comparedToReferenceElectrode)
+double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 {
     int printDebug = 30;
     static int oIts = 0;
@@ -3279,7 +3280,7 @@ double Electrode::openCircuitVoltage(int isk,  bool comparedToReferenceElectrode
     double phiMin = +100.;
     double phiMax = -100.;
     int nT = 0;
-    vector<int> reactionTurnedOn(nR, 1);
+    std::vector<int> reactionTurnedOn(nR, 1);
     bool thereIsOneTurnedOn = false;
     for (int i = 0; i < nR; i++) {
         int rxnIndex = i;
@@ -3289,23 +3290,23 @@ double Electrode::openCircuitVoltage(int isk,  bool comparedToReferenceElectrode
          */
         nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons != 0.0) {
-            nT++;
-            ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
-            phiMax = std::max(phiMax, ERxn);
-            phiMin = std::min(phiMin, ERxn);
-
             for (int jph = 0; jph < nP; jph++) {
+		//  \todo check to see whether this needs deltaG additions to see what direction it is going.
                 if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
                     if (phaseExistsInit[jph] == 0 || phaseStabInit[jph] == 0) {
                         reactionTurnedOn[i] = 0;
                     }
                 }
             }
-
         } else {
-            ERxn = 0.0;
             reactionTurnedOn[i] = 0;
         }
+	if (reactionTurnedOn[i]) {
+	    nT++;
+            ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
+            phiMax = std::max(phiMax, ERxn);
+            phiMin = std::min(phiMin, ERxn);
+	}
 
         if (printLvl_ > printDebug) {
             string rstring = rsd->reactionString(i);
