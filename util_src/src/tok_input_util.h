@@ -24,10 +24,12 @@
 # define BOOLEAN int
 #endif
 
-
 #include <vector>
-#include <cstdio>
 #include <string>
+
+#include <cstdio>
+#include <cfloat>
+
 //----------------------------------------------------------------------------------------------------------------------------------
 //!  Namespace for the manipulation of TOKEN structures and for the reading and writing of ascii input files based on
 //!  reading each line and tokenizing their input.
@@ -380,6 +382,59 @@ double tok_to_double(const TOKEN* tokPtr, const double maxVal, const double minV
  */
 double str_to_double(const char* dbl_string, const double maxVal, const double minVal,
                      const double defaultVal, BOOLEAN* error);
+
+//!      Interprets a character string as a double. Returns the interpreted value as the return value.
+//!      Throws a BI_InputError() if there is an error.
+/*!
+ *      Bounds checking is then done on the value before returning.  Value
+ *      must be between the max and min; it can equal the max or min. This function either throws
+ *      an error or returns a valid value for the double.
+ *
+ *      Useful values for bounds (specified in <limits.h>:
+ *          DBL_MAX = largest legitimate value of a double ~ 2.0E308
+ *         -DBL_MAX = smallest legitimate value of a double ~ -2.0E308
+ *          DBL_EPSILON = smallest value of a double that can be added to one
+ *                        and produce a different number. ~ 2.0E-16
+ *          DBL_MIN = smallest value of a double ~ 2.0E-308
+ *
+ *      For example:
+ *        If 0.0 is not a legitimate number for value, set min = DBL_MIN
+ *        If value>=0.0 is legitimate, set min = 0.0
+ *        if value<=100., set max = 100.
+ *        If no range checking is required, set max = DBL_MAX, min = -DBL_MAX
+ *
+ *      Certain ascii strings are checked for first (case is insignificant):
+ *
+ *                 String              Retn_Value ( specified in <limits.h>
+ *                 ---------        ---------------------------------------
+ *                  FLT_MAX, all          FLT_MAX
+ *                  DBL_MAX, max          DBL_MAX
+ *                  N/A                  -DBL_MAX
+ *                  default               default_value
+ *                  small, DBL_MIN        DBL_MIN
+ *                  DBL_EPSILON           DBL_EPSILON
+ *
+ *      A default may be specified. The absence of a
+ *      default may also be specified by setting the value of default_value
+ *      to NO_DEFAULT_DOUBLE.
+ *
+ *      If there is an error, a BI_InputError() object is thrown.
+ *
+ *    @param[in]   dbl_string    Pointer to the string to be interpreted as a single double.
+ *                               Some strings are associated with certain values of doubles.
+ *
+ *    @param[in]   maxVal        Maximum value of the double. Defaults to DBL_MAX
+ *
+ *    @param[in]   minVal        Minimum value of the double. Defaults to -DBL_MAX
+ *
+ *    @param[in]   defaultVal    Double indicating the Default value of the card.  The absence of a
+ *                               default may also be specified by setting the value of default_value to NO_DEFAULT_DOUBLE.
+ *                               The default is NO_DEFAULT_DOUBLE.
+ *
+ *    @return                    Returns the double value.
+ */
+double str_to_double(const char* dbl_string, const double maxVal = DBL_MAX, const double minVal = -DBL_MAX,
+                     const double defaultVal = NO_DEFAULT_DOUBLE);
 
 //!      Interprets the first string of a TOKEN structure as a BOOLEAN.
 //!      (i.e., TRUE or FALSE).  Returns the interpreted value as the return value.

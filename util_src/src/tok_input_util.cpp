@@ -16,6 +16,9 @@
 #include <cstring>
 #include <cctype>
 
+#include "BI_InputError.h"
+#include "mdp_stringUtils.h"
+
 namespace TKInput
 {
 static char DEFAULT_STR[8] = "default";    //!<  C string indicating the default value
@@ -634,6 +637,33 @@ double str_to_double(const char* dbl_string, const double maxVal, const double m
         }
     } else {
         *error = TRUE;
+    }
+    return (retn_value);
+}
+//==================================================================================================================================
+double str_to_double(const char* dbl_string, const double maxVal, const double minVal, const double defaultVal)
+{
+    double retn_value = defaultVal;
+    int    check = FALSE;
+    if (defaultVal == NO_DEFAULT_DOUBLE) {
+        check = TRUE;
+    }
+    if (!dbl_string) {
+        throw BEInput::BI_InputError("str_to_double()", "string address is null");
+    }
+    if (interpret_double(dbl_string, &retn_value, maxVal, minVal, defaultVal)) {
+        if (check)
+            if (retn_value == NO_DEFAULT_DOUBLE) {
+                throw BEInput::BI_InputError("str_to_double()", "Default is not allowed");
+            }
+        if (outofbnds(retn_value, maxVal, minVal)) {
+            throw BEInput::BI_InputError("str_to_double()",
+                                         "Value, " +  mdpUtil::fp2str(retn_value) + " is out of bounds: "
+                                         +  mdpUtil::fp2str(minVal) + " : " +  mdpUtil::fp2str(maxVal));
+        }
+    } else {
+        throw BEInput::BI_InputError("str_to_double()",
+                                     "Can't interpret string as double: " + std::string(dbl_string));
     }
     return (retn_value);
 }
