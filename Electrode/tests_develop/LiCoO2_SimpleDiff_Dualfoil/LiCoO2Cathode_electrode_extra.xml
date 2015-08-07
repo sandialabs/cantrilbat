@@ -47,15 +47,19 @@
   <!--
        Lumped reaction on the LiCoO2 electrode
     -->
-    <reaction reversible="yes" type="surface" id="0001">
+    <reaction reversible="yes" type="ButlerVolmer_NoActivityCoeffs" id="0001">
       <equation> LiCoO2 [=] Li+  + electron_Li_LiIon + CoO2 </equation>
-      <rateCoeff>
+      <rateCoeff  type="ExchangeCurrentDensity" >
         <electrochem beta="0.5"/>
-        <Arrhenius>
+        <Arrhenius_ExchangeCurrentDensity>
+            <!--  The answer for this is that it should be 1.7395E-4 amps m-2 at 298.15K. And the
+                activation energy is E/R = 4000 K. dualfoil almost always uses 4000 K as the
+                default activation energy.
+            -->
            <A> 116.67 </A>
            <b>0.0</b>
            <E units="kJ/mol"> 33.25788 </E>
-        </Arrhenius>
+        </Arrhenius_ExchangeCurrentDensity>
       </rateCoeff>
       <reactants> LiCoO2:1.0 </reactants>
       <products> Li+:1.0  electron_Li_LiIon:1.0 CoO2:1.0 </products>
@@ -64,11 +68,11 @@
     <!--
        non-charge  LiCoO2 electrode
     -->
-    <reaction reversible="yes" type="ButlerVolmer_NoActivityCoeffs" id="0001">
+    <reaction reversible="yes" type="surface" id="0001">
       <equation> LiCoO2 [=] Li(S) + CoO2 </equation>
-      <rateCoeff type="ExchangeCurrentDensity" >
+      <rateCoeff >
          <electrochem beta="0.5"/>
-         <Arrhenius_ExchangeCurrentDensity>
+         <Arrhenius>
             <!--  The answer for this is that it should be 1.7395E-4 at 298.15K. And the
                 activation energy is E/R = 4000 K. dualfoil almost always uses 4000 K as the
                 default activation energy.
@@ -76,7 +80,7 @@
            <A>0.0</A>
            <b>0.0</b>
            <E units="kJ/mol"> 33.25788 </E>
-         </Arrhenius_ExchangeCurrentDensity>
+         </Arrhenius>
       </rateCoeff>
       <reactants> LiCoO2:1.0 </reactants>
       <products> Li(S):1.0  CoO2:1.0 </products>

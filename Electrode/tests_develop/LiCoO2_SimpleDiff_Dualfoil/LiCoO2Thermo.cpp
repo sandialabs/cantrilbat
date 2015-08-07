@@ -169,7 +169,7 @@ int main(int argc, char **argv)
      ocv_input_ptr->rxnID = 0;
      ocv_input_ptr->temperatureDerivType = 0;
      ocv_input_ptr->temperatureBase = 298.15;
-     ocv_input_ptr->OCVTempDerivModel = "Constant 0.0";
+     ocv_input_ptr->OCVTempDerivModel = "CATHODE_CONSTANT 0.0";
      ocv_input_ptr->DoDSurrogateSpeciesName = "LiCoO2";
      int iphS = 0;
 	 

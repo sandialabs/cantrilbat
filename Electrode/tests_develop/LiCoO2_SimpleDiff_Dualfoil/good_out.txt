@@ -6,17 +6,18 @@
             anode : 0
             cathode : 1
     Number of Cantera Files = (integer) with default 1
-         => Number of Cantera Files ====> NumCanteraFiles = 4
+         => Number of Cantera Files ====> NumCanteraFiles = 5
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
     Temperature = (double) with limits (0, 3000) with default 300
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
-    Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
+    Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 5)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  LiCoO2_RedlichKister.xml
-         ====> CanteraFileNames =  LiCoO2Cathode_electrode.xml
+         ====> CanteraFileNames =  LiCoO2Cathode_electrode_extra.xml
+         ====> CanteraFileNames =  Li_Metal.xml
     Particle Diameter = (double) [Units] with limits (0, 1) with default 1e-06 (REQUIRED LINE)
 	Units = Length Units (m cm mm um nm inches ft) (Default = m)
     Particle Number to Follow = (double) with limits (1, 1e+28) with default -1
@@ -108,6 +109,20 @@
                  ====> CoO2 = 1
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase LiCoO2_Interstitials_cathode
+    START BLOCK Bath Specification for Phase Li(S)           (OPTIONAL BLOCK)
+        Voltage = (double) with limits (1e+09, 0) with default 0
+        Phase Moles = (double) with default 0
+        Phase Mass = (double) with default 0
+        START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
+            Li(S) = (double) with limits (0, 1) with default 0
+        END BLOCK Bath Species Mole Fraction
+        START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
+            Li(S) = (double) with default 0
+        END BLOCK Capacity Left Coefficients
+        START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
+            Li(S) = (double) with default 0
+        END BLOCK Capacity At Zero DoD Coefficients
+    END BLOCK Bath Specification for Phase Li(S)
     START BLOCK Bath Specification for Phase cathode_surface           (OPTIONAL BLOCK)
         START BLOCK Bath Species Mole Fraction           (OPTIONAL BLOCK)
             li_site = (double) with limits (0, 1) with default 0
@@ -117,8 +132,10 @@
         => timesProcessed = 1 multiContribIndex = 0 
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
         Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
-        Identify Reaction for OCV Model = (integer) with default 0
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
              => Identify Reaction for OCV Model ====> OCVModel_rxnID = 0
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+             => Identify Full Cell Reaction for OCV Model ====> OCVModel_FCrxnID = 1
         Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
             LIST = 
                 zero : 0
@@ -140,6 +157,7 @@
         PF6- = (double) with default 0
         LiCoO2 = (double) with default 0
         CoO2 = (double) with default 0
+        Li(S) = (double) with default 0
         li_site = (double) with default 0
     END BLOCK Species Initial KMoles
     START BLOCK Extra Global Reaction           (OPTIONAL BLOCK)
@@ -151,7 +169,8 @@
                 PF6- : 3
                 LiCoO2 : 4
                 CoO2 : 5
-                li_site : 6
+                Li(S) : 6
+                li_site : 7
         START BLOCK Elementary Reaction Specification           (OPTIONAL BLOCK)
             Reaction Index = (integer) with default -1 (REQUIRED LINE)
             Reaction Multiplier = (double) with default 0 (REQUIRED LINE)
@@ -288,7 +307,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0000E-01  5.0000E-01 |  5.0000E-01  5.0000E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -305,6 +330,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.661E-09
                            CoO2                   -2.661E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.1   -0.00053919214
@@ -390,7 +416,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0001E-01  5.0000E-01 |  4.9999E-01  5.0000E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -407,6 +439,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.661E-09
                            CoO2                   -2.661E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.2   -0.0005391292
@@ -492,7 +525,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0001E-01  5.0001E-01 |  4.9999E-01  4.9999E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -509,6 +548,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.661E-09
                            CoO2                   -2.661E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.3   -0.0005390722
@@ -594,7 +634,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0002E-01  5.0001E-01 |  4.9998E-01  4.9999E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -611,6 +657,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.660E-09
                            CoO2                   -2.660E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.4   -0.0005390081
@@ -696,7 +743,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0002E-01  5.0002E-01 |  4.9998E-01  4.9998E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -713,6 +766,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.660E-09
                            CoO2                   -2.660E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.5   -0.0005389541
@@ -798,7 +852,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0003E-01  5.0002E-01 |  4.9997E-01  4.9998E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -815,6 +875,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.660E-09
                            CoO2                   -2.660E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.6   -0.0005389011
@@ -900,7 +961,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0003E-01  5.0003E-01 |  4.9997E-01  4.9997E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -917,6 +984,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.660E-09
                            CoO2                   -2.660E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.7   -0.0005388481
@@ -1002,7 +1070,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0004E-01  5.0003E-01 |  4.9996E-01  4.9997E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1019,6 +1093,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.659E-09
                            CoO2                   -2.659E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.8   -0.0005387961
@@ -1104,7 +1179,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0004E-01  5.0004E-01 |  4.9996E-01  4.9996E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1121,6 +1202,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.659E-09
                            CoO2                   -2.659E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             0.9   -0.0005387431
@@ -1206,7 +1288,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0005E-01  5.0004E-01 |  4.9995E-01  4.9996E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1223,6 +1311,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.659E-09
                            CoO2                   -2.659E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
               1   -0.0005386911
@@ -1308,7 +1397,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0005E-01  5.0005E-01 |  4.9995E-01  4.9995E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1325,6 +1420,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.659E-09
                            CoO2                   -2.659E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.1   -0.0005386391
@@ -1410,7 +1506,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0006E-01  5.0005E-01 |  4.9994E-01  4.9995E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1427,6 +1529,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.658E-09
                            CoO2                   -2.658E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.2   -0.0005385871
@@ -1512,7 +1615,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0007E-01  5.0006E-01 |  4.9993E-01  4.9994E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1529,6 +1638,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.658E-09
                            CoO2                   -2.658E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.3   -0.0005385361
@@ -1614,7 +1724,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0007E-01  5.0007E-01 |  4.9993E-01  4.9993E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1631,6 +1747,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.658E-09
                            CoO2                   -2.658E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.4   -0.0005384841
@@ -1716,7 +1833,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0008E-01  5.0007E-01 |  4.9992E-01  4.9993E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1733,6 +1856,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.658E-09
                            CoO2                   -2.658E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.5   -0.0005384331
@@ -1818,7 +1942,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0008E-01  5.0008E-01 |  4.9992E-01  4.9992E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1835,6 +1965,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.657E-09
                            CoO2                   -2.657E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.6   -0.0005383821
@@ -1920,7 +2051,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0009E-01  5.0008E-01 |  4.9991E-01  4.9992E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -1937,6 +2074,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.657E-09
                            CoO2                   -2.657E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.7   -0.0005383321
@@ -2022,7 +2160,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0009E-01  5.0009E-01 |  4.9991E-01  4.9991E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2039,6 +2183,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.657E-09
                            CoO2                   -2.657E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.8   -0.0005382811
@@ -2124,7 +2269,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0010E-01  5.0009E-01 |  4.9990E-01  4.9991E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2141,6 +2292,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.657E-09
                            CoO2                   -2.657E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             1.9   -0.0005382311
@@ -2226,7 +2378,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0010E-01  5.0010E-01 |  4.9990E-01  4.9990E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2243,6 +2401,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.656E-09
                            CoO2                   -2.656E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
               2   -0.0005381811
@@ -2328,7 +2487,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0011E-01  5.0010E-01 |  4.9989E-01  4.9990E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2345,6 +2510,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.656E-09
                            CoO2                   -2.656E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.1   -0.0005381311
@@ -2430,7 +2596,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0011E-01  5.0011E-01 |  4.9989E-01  4.9989E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2447,6 +2619,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.656E-09
                            CoO2                   -2.656E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.2   -0.0005380821
@@ -2532,7 +2705,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0012E-01  5.0011E-01 |  4.9988E-01  4.9989E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2549,6 +2728,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.656E-09
                            CoO2                   -2.656E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.3   -0.0005380331
@@ -2634,7 +2814,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0012E-01  5.0012E-01 |  4.9988E-01  4.9988E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2651,6 +2837,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.655E-09
                            CoO2                   -2.655E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.4   -0.0005379831
@@ -2736,7 +2923,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0013E-01  5.0012E-01 |  4.9987E-01  4.9988E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2753,6 +2946,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.655E-09
                            CoO2                   -2.655E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.5   -0.0005379341
@@ -2838,7 +3032,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0013E-01  5.0013E-01 |  4.9987E-01  4.9987E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2855,6 +3055,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.655E-09
                            CoO2                   -2.655E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.6   -0.0005378861
@@ -2940,7 +3141,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0014E-01  5.0013E-01 |  4.9986E-01  4.9987E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -2957,6 +3164,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.655E-09
                            CoO2                   -2.655E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.7   -0.0005378371
@@ -3042,7 +3250,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0014E-01  5.0014E-01 |  4.9986E-01  4.9986E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3059,6 +3273,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.654E-09
                            CoO2                   -2.654E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.8   -0.0005377891
@@ -3144,7 +3359,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0015E-01  5.0014E-01 |  4.9985E-01  4.9986E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3161,6 +3382,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.654E-09
                            CoO2                   -2.654E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             2.9   -0.0005377411
@@ -3246,7 +3468,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0015E-01  5.0015E-01 |  4.9985E-01  4.9985E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3263,6 +3491,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.654E-09
                            CoO2                   -2.654E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
               3   -0.0005376931
@@ -3348,7 +3577,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0016E-01  5.0015E-01 |  4.9984E-01  4.9985E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3365,6 +3600,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.654E-09
                            CoO2                   -2.654E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.1   -0.0005376451
@@ -3450,7 +3686,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0016E-01  5.0016E-01 |  4.9984E-01  4.9984E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3467,6 +3709,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.653E-09
                            CoO2                   -2.653E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.2   -0.0005375981
@@ -3552,7 +3795,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0017E-01  5.0016E-01 |  4.9983E-01  4.9984E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3569,6 +3818,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.653E-09
                            CoO2                   -2.653E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.3   -0.0005375511
@@ -3654,7 +3904,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0017E-01  5.0017E-01 |  4.9983E-01  4.9983E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3671,6 +3927,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.653E-09
                            CoO2                   -2.653E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.4   -0.0005375031
@@ -3756,7 +4013,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0018E-01  5.0017E-01 |  4.9982E-01  4.9983E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3773,6 +4036,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.653E-09
                            CoO2                   -2.653E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.5   -0.0005374571
@@ -3858,7 +4122,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0018E-01  5.0018E-01 |  4.9982E-01  4.9982E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3875,6 +4145,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.653E-09
                            CoO2                   -2.653E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.6    -0.000537411
@@ -3960,7 +4231,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0019E-01  5.0018E-01 |  4.9981E-01  4.9982E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -3977,6 +4254,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.652E-09
                            CoO2                   -2.652E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.7   -0.0005373631
@@ -4062,7 +4340,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0019E-01  5.0019E-01 |  4.9981E-01  4.9981E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4079,6 +4363,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.652E-09
                            CoO2                   -2.652E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.8   -0.0005373171
@@ -4164,7 +4449,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0020E-01  5.0019E-01 |  4.9980E-01  4.9981E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4181,6 +4472,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.652E-09
                            CoO2                   -2.652E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             3.9   -0.0005372711
@@ -4266,7 +4558,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0020E-01  5.0020E-01 |  4.9980E-01  4.9980E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4283,6 +4581,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.652E-09
                            CoO2                   -2.652E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
               4   -0.0005372251
@@ -4368,7 +4667,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0021E-01  5.0020E-01 |  4.9979E-01  4.9980E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4385,6 +4690,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.651E-09
                            CoO2                   -2.651E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.1   -0.0005371791
@@ -4470,7 +4776,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0021E-01  5.0021E-01 |  4.9979E-01  4.9979E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4487,6 +4799,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.651E-09
                            CoO2                   -2.651E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.2   -0.0005371341
@@ -4572,7 +4885,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0021E-01  5.0021E-01 |  4.9979E-01  4.9979E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4589,6 +4908,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.651E-09
                            CoO2                   -2.651E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.3   -0.0005370881
@@ -4674,7 +4994,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0022E-01  5.0021E-01 |  4.9978E-01  4.9979E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4691,6 +5017,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.651E-09
                            CoO2                   -2.651E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.4   -0.0005370431
@@ -4776,7 +5103,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0022E-01  5.0022E-01 |  4.9978E-01  4.9978E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4793,6 +5126,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.651E-09
                            CoO2                   -2.651E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.5   -0.0005369981
@@ -4878,7 +5212,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0023E-01  5.0022E-01 |  4.9977E-01  4.9978E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4895,6 +5235,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.650E-09
                            CoO2                   -2.650E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.6   -0.0005369541
@@ -4980,7 +5321,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0023E-01  5.0023E-01 |  4.9977E-01  4.9977E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -4997,6 +5344,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.650E-09
                            CoO2                   -2.650E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.7   -0.0005369091
@@ -5082,7 +5430,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0024E-01  5.0023E-01 |  4.9976E-01  4.9977E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -5099,6 +5453,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.650E-09
                            CoO2                   -2.650E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.8   -0.0005368651
@@ -5184,7 +5539,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0024E-01  5.0024E-01 |  4.9976E-01  4.9976E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -5201,6 +5562,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.650E-09
                            CoO2                   -2.650E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
             4.9    -0.000536821
@@ -5286,7 +5648,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0025E-01  5.0024E-01 |  4.9975E-01  4.9976E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -5303,6 +5671,7 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.649E-09
                            CoO2                   -2.649E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
               5   -0.0005367761
@@ -5388,7 +5757,13 @@ oc[0] = 4.17612
                    1.0000E-05 |  5.0025E-01  5.0025E-01 |  4.9975E-01  4.9975E-01 |
 
      ===============================================================
-          Phase 3 cathode_surface 
+          Phase 3 Li(S) 
+                Total moles = 0
+
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li(S)                   1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
+     ===============================================================
+          Phase 4 cathode_surface 
                 Total moles = 6.3e-11
                 surface area (final) = 2.10000E-03 m2
                 surface area (init)  = 2.10000E-03 m2
@@ -5405,5 +5780,6 @@ oc[0] = 4.17612
                            PF6-                    0.000E+00
                            LiCoO2                  2.649E-09
                            CoO2                   -2.649E-09
+                           Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
