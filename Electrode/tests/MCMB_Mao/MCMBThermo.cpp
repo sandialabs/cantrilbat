@@ -312,10 +312,23 @@ int main(int argc, char **argv)
      double nu;
      double beta, resist;
      double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta, &resist);
+     printf("\nSample Rate Calculation Results:\n");
+     printf("          T = %g \n", Temp);
+     printf("          X_Li+ = %g\n", xMoleFractionLip);
+     mcmb.getMoleFractions(xmol);
+     printf("          X_LiC6 = %g\n", xmol[kLiC]);
+     printf(" icurr  = %g (from getCurrentDensityRxn())\n", icurD);
+     printf(" icurr2 = %g (from getExchangeCurrentDensityFormulation())\n", icurD2);
+     printf("      Calculated exchange current density formulation:\n");
+     printf("            nu = %g\n", nu);
+     printf("            OCV = %g         -> volts = %g\n", OCV, nu + OCV);
+     printf("            io =  %g\n", io);
+     printf("            beta = %g\n", beta);
+     printf("            nStoich = %g\n", nStoich);
+     printf("            resist = %g\n", resist);
+     double icalc =  rsd->calcCurrentDensity(nu, nStoich, io, beta, Temp);
+     printf(" icurr3 = %g (from calcCurrentDensity()\n\n", icalc);
 
-     printf(" icurr = %g   icurr2 = %g \n", icurD, icurD2);
-     printf(" nu = %g\n", nu);
-     printf(" OCV = %g\n", OCV);
 
      double delx = (7.4667E-05 - 5.3333E-05) * 0.5;
      double sad = 2.25E5;  // surface area density

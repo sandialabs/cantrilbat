@@ -132,9 +132,22 @@ Li-C6      -1.175E+07    1.650E+08    2.749E+04    2.564E+04   -1.994E+07    1.5
 Li+(l)      0.000E+00    0.000E+00    2.121E+04    2.121E+04   -6.323E+06   -6.323E+06 
 Electron    3.449E+02    3.449E+02    2.909E+04    2.909E+04   -8.672E+06   -8.672E+06 
 Total       8.449E+06                 3.618E+04                -2.338E+06 
- icurr = 27.285   icurr2 = 27.285 
- nu = 0.00761207
- OCV = -0.0242313
+
+Sample Rate Calculation Results:
+          T = 298.15 
+          X_Li+ = 0.0780266
+          X_LiC6 = 0.8
+ icurr  = 27.285 (from getCurrentDensityRxn())
+ icurr2 = 27.285 (from getExchangeCurrentDensityFormulation())
+      Calculated exchange current density formulation:
+            nu = 0.00761207
+            OCV = -0.0242313         -> volts = -0.0166192
+            io =  91.7574
+            beta = 0.5
+            nStoich = 1
+            resist = 0
+ icurr3 = 27.285 (from calcCurrentDensity()
+
 icurrRxnCell = 65.486 amps / m2
 -TdeltaS = -1.07874e+07 Joule / kmol 
 Cell source term = -7.32158e-08 J / m2
