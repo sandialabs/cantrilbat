@@ -1,0 +1,10 @@
+MCMB
+MCMBThermo
+MCMBThermo.out
+MCMBThermo_RSD_Override
+MCMBThermo_RSD_Override.out
+diff_csv.txt
+diff_out.txt
+diff_tout.txt
+err_out.txt
+thermo.csv
