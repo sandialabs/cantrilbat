@@ -1,0 +1,125 @@
+#!/bin/sh
+#
+#
+#################################################################################################################################
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+#
+###############################################################################################################
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#############################################################################################################
+temp_success="1"
+/bin/rm  -f  out.txt err_out.txt \
+             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv diff_icsv.txt diff_gcsv.txt \
+              MCMBThermo.out MCMBThermo_RSD_Override.out
+
+
+#################################################################
+#
+#################################################################
+
+ELECTRODE_TURN_OFF_PC_PRINTING=true
+export ELECTRODE_TURN_OFF_PC_PRINTING
+
+MCMBThermo > MCMBThermo.out 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0"
+then
+  temp_success="0"
+  echo "MCMBThermo returned with bad status, $retnStat, check output"
+fi
+
+diff MCMBThermo_blessed.out MCMBThermo.out > diff_tout.txt
+retnStat_ttxt=$?
+if test $retnStat_ttxt = "0"
+then
+    echo "Successful test comparison on MCMBThermo "`pwd`
+else
+    echo "Unsuccessful test comparison on MCMBThermo "`pwd`
+fi
+
+
+MCMBThermo_RSD_Override > MCMBThermo_RSD_Override.out 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "$PROG_EXE returned with bad status, $retnStat, check output"
+fi
+
+
+diff MCMBThermo_RSD_Override_blessed.out MCMBThermo_RSD_Override.out > diff_out.txt
+retnStat_t2txt=$?
+if test $retnStat_t2txt = "0"
+then
+    echo "Successful test comparison on MCMBThermo_RSD_Override "`pwd`
+else
+    echo "Unsuccessful test comparison on MCMBThermo_RSD_Override "`pwd`
+fi
+
+retnStat_txt=$retnStat_t2txt
+if test $retnStat_ttxt != "0"
+then
+    retnState_txt=$retnStat_ttxt
+fi
+
+csvdiff thermo_blessed.csv thermo.csv > diff_csv.txt
+retnStat_csv=$?
+
+if test $retnStat_csv = "0"
+then
+  if test $retnStat_txt = "0"
+  then
+    echo "Successful test comparison on "`pwd`
+    echo "  Test Passed: " `date` > runGood
+    /bin/rm -f runBad
+  else
+    echo "Partial Successful test comparison on "`pwd` " but text files differ. See diff_out.txt"
+     /bin/rm -f runGood
+     echo "  Test Failed: " `date` > runBad
+  fi
+else 
+  /bin/rm -f runGood
+  echo "  Test Failed: " `date` > runBad
+
+  echo "Unsuccessful test comparison on "`pwd` " test. See diff_csv.txt "
+  if  test $retnStat_txt != "0"
+  then
+     echo "            Text files differ also. See diff_out.txt"
+     
+  fi
+fi
+#
+#  Release the semiphore
+#
+/bin/rm runInProgress.txt
+
+#
+# return 0 for no errors, 1 for errors
+#
+exit 0
+

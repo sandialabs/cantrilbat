@@ -211,11 +211,13 @@ end block Open Circuit Potential Override for interface anode_surface
       *                                           1 - full cell reaction with zero rate constant.
       */
 
+     FILE *fp = fopen("thermo.csv", "w");
      printf("                                 Thermo For Full-Cell Rxn, 1 : %s\n", rs.c_str());
      int numP = 51;
      printf("                      - notes = half cell reaction with LiP contribution is equal to the full cell reaction\n");
      printf("                             \n");
      printf("        xV              xLi OCV_HalfCellPlusLiP OCV_FullCell[1] DeltaH[1]     DeltaS[1]     DeltaG[1]   (DH - T DS)\n") ;
+     fprintf(fp, "        xV,              xLi, OCV_HalfCellPlusLiP, OCV_FullCell[1], DeltaH[1],     DeltaS[1] ,    DeltaG[1] ,  (DH - T DS)\n") ;
      for (int i = -1; i < numP; i++) {
          double xKC;
          if (i == -1) {
@@ -240,7 +242,11 @@ end block Open Circuit Potential Override for interface anode_surface
 	 double dgCheck = dh[1] - Temp * ds[1];
 	 printf("  %12.5E ", dgCheck);
 	 printf("\n");
+         fprintf(fp, " %12.6f ,  %12.6f , %12.7f , %12.7f, %12.5E, %12.5E, %12.5E",
+                xKC, 1.0 - xKC, ocvE, ocv, dh[1], ds[1], dg[1]);
+         fprintf(fp, ", %12.5E\n", dgCheck);
      }
+     fclose(fp);
 
      printf("    What's suppose to occur:   The last two columns of the table are suppuse to be equal and \n");
      printf("    The OCV value is suppose to agree with Fig. 8 Mao et al.\n");
