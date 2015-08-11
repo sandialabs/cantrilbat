@@ -249,13 +249,13 @@ then
    shift
 fi
 #
-#  Override the defaults via the command line
+# Add to the defaults via the command line
+#       PROGRAM_OPTS is set within problem_setup.sh to specify the default arguments
 #
-PROGRAM_OPTS=
 if test $# -ge 1
 then
    //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
-   PROGRAM_OPTS=$@
+   PROGRAM_OPTS="$PROGRAM_OPTS $@"
    shift
 fi
 #

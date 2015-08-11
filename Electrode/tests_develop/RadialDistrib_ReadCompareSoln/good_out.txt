@@ -1,0 +1,16 @@
+ comparison at times 0.0004 and 0.0004
+EState::compareOtherState start comparison of types CSTR_LiCoO2Cathode vs. CSTR_LiCoO2Cathode
+
+ type = t_init  time = 0.0002
+ type = t_final  time = 0.0004
+read global time step num 2
+[==========] Running 2 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 2 tests from EStateComparisonTest
+[ RUN      ] EStateComparisonTest.ShouldWork
+[       OK ] EStateComparisonTest.ShouldWork
+[ RUN      ] EStateComparisonTest.ReadWriteRead
+[       OK ] EStateComparisonTest.ReadWriteRead
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test case ran.
+[  PASSED  ] 2 tests.
