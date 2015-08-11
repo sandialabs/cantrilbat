@@ -1,0 +1,151 @@
+#!/bin/sh
+#
+#  Makefile.in: 
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+.SUFFIXES: .d
+
+TESTNAME = MCMB_OCVOverride_ConstTemp
+PROGRAMS= MCMBThermo MCMB
+
+DATA = ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode_extra.xml  MCMB_RedlichKister.xml \
+       metal_Li_LiIon_electrons.xml MCMB.cpp MCMBThermo.cpp 
+
+BLESSED_FILES = MCMB_blessed.out  MCMBThermo_blessed.out   thermo_blessed.csv
+#
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+#
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+UTILSRC_DIR = ../../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../../../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+# Set up the Cantera Application Base directory
+#
+CTAPPLBASE_DIR = ../../src
+CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
+CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
+#
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+LDEFINES = -DDEBUG 
+GDEFINES =
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+
+all: MCMB MCMBThermo 
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS = $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+OBJ_ALL =  MCMB.o MCMBThermo.o
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_ALL:.o=.d) 
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+test: 
+	@MAKE@ -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	./runtest
+
+rebaseline:
+	cp MCMB.out MCMB_blessed.out
+	cp MCMBThermo.out  MCMBThermo_blessed.out
+	cp thermo.csv thermo_blessed.csv
+#
+#######################################################################################################################
+#                     SECTION TO SET UP PROGRAM RULES
+#######################################################################################################################
+#
+$(OBJ_ALL): Makefile
+$(DEPENDS): Makefile
+
+MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+            $(CANTERA_CORE_LIBS_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBThermo MCMBThermo.o \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+MCMB: MCMB.o
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMB MCMB.o \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+test_clean:
+	$(RM) err_out.txt out.txt  MCMBThermo_RSD_Override.out MCMB.out diff_csv.txt diff_out.txt \
+              MCMBThermo.out runGood runBad  diff_out.txt diff_csv.txt
+
+clean:
+	@MAKE@ test_clean
+	$(RM) *.o  .depends *.d *~  $(PROGRAMS) 
+#
+#############################################################################
+#       DEPENDS INCLUDE 
+##############################################################################
+#
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
