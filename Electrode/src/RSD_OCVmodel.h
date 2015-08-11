@@ -193,19 +193,24 @@ class RSD_OCVmodel
 
     //!  Return the open circuit voltage given the relative extent of reaction
     /*!
+     *   @param[in]        temp                Value of the temperature (Kelvin)
+     *
      *   @return                               Returns the open circuit voltage at the current relative extent of reaction
      */
     virtual double OCV_value(double temp) const;
 
     //!  Return the derivative of the open circuit voltage wrt the relative extent of reaction
     /*!
-     *   @return                               Return the derivative of the open circuit voltage wrt the relative extent of
-     *                                          reaction
+     *   @param[in]        temp                Value of the temperature (Kelvin)
+     *
+     *   @return                               Return the derivative of the open circuit voltage wrt the relative extent of reaction
      */
     virtual double OCV_dvaldExtent(double temp) const;
 
     //!  Return the derivative of the open circuit voltage wrt the Temperature
     /*!
+     *   @param[in]        temp                Value of the temperature (Kelvin)
+     *
      *   @return                               Return the derivative of the open circuit voltage wrt the temperature
      */
     virtual double OCV_dvaldT(double temp) const;
@@ -316,8 +321,10 @@ protected:
     //! This is the same model types as used for the main model types. However, it can 
     int temperatureDerivModelType_;
 
+    //! Temperature base. This is the temperature at which the OCV values are fit
     double temperatureBase_;
 
+    //! String name for the OCV temperature derivative model
     std::string OCVTempDerivModel_;
 
     //! Vector available for use by models

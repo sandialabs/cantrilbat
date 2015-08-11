@@ -373,7 +373,7 @@ public:
      *  (virtual from Kinetics.h)
      *  units = J kmol-1 Kelvin-1
      *
-     * @param[out     deltaS                Output vector of ss deltaS's for reactions Length: m_ii.
+     *     @param[out]    deltaS           Output vector of ss deltaS's for reactions Length: m_ii.
      */
     virtual void getDeltaSSEntropy(doublereal* deltaS);
 
@@ -381,17 +381,17 @@ public:
     /*!
      *     This calls the underlying %ThermoPhase routines for all phases that are part of the surface
      *
-     *      @param[in]     temp          Temperature (Kelvin)
-     *      @param[in]     pres          Pressure    (Pascal)
+     *      @param[in]     temp            Temperature (Kelvin)
+     *      @param[in]     pres            Pressure    (Pascal)
      */
     void setState_TP(double temp, double pres);
 
     //!  Get the OCV thermodynamic functions offsets for the species that is replaced when carrying out
     //!  an OCV override step
     /*!
-     *      @param[out]   deltaG_species Change in the value of chemical potential
-     *      @param[out]   deltaH_species Change in the value of the enthalpy
-     *      @param[out]   deltaS_species Change in the value of the entropy
+     *      @param[out]   deltaG_species   Change in the value of chemical potential
+     *      @param[out]   deltaH_species   Change in the value of the enthalpy
+     *      @param[out]   deltaS_species   Change in the value of the entropy
      */
     void getOCVThermoOffsets_ReplacedSpecies(double& deltaG_species, double& deltaH_species, double& deltaS_species);
 
