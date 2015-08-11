@@ -54,7 +54,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM) MCMBAnode_SimpleDiff_3_cc
+all: .depends $(PROGRAM)
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -115,23 +115,25 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
+$(OBJ): Makefile
+
+$(DEPENDS): Makefile
+
 test: 
-	@MAKE@
-	./runtest
-	./runtest_cc
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../../tests/runtest_Electrode
 
 rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
 	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
 	cp out.txt good_out.txt
-	cp MCMB_CC_intResults_0_0.csv     MCMB_CC_intResults_blessed_0_0.csv
-	cp MCMB_CC_globalResults_0_0.csv  MCMB_CC_globalResults_blessed_0_0.csv
-	cp ccout.txt good_ccout.txt
 
 ##############################################################################
-
-$(OBJ_MPEQUIL): Makefile
-$(DEPENDS): Makefile
 
 $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
@@ -140,24 +142,15 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-MCMBAnode_SimpleDiff_3_cc: $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP) MCMBAnode_SimpleDiff_3_cc.o
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMBAnode_SimpleDiff_3_cc MCMBAnode_SimpleDiff_3_cc.o \
-	          $(OBJ_CANTERA_ADDONS)  \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS) 
-
-#############################################################################
-#          INSTALL RULES
-##############################################################################
+#########################################################################################################################
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
+test_clean: $(RM) runGood runBad runInProgress.txt out.txt diff_out.txt diff_summary.txt diff_xml.txt err_out.txt \
+                  diff_csv.txt  MCMB_globalResults_0_0.csv MCMB_intResults_0_0.csv  soln_0_0.xml
 
 clean:
+	@MAKE@ -s test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
-

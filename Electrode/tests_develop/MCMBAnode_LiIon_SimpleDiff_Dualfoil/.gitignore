@@ -37,4 +37,6 @@ ccout.txt
 outputTable.csv
 MCMB_CC_globalResults_0_0.csv
 MCMB_CC_intResults_0_0.csv
-
+diff_summary.txt
+diff_xml.txt
+runGood

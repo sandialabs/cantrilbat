@@ -17,7 +17,7 @@
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  MCMB_RedlichKister.xml
          ====> CanteraFileNames =  Li_Metal.xml
-         ====> CanteraFileNames =  MCMBAnode_electrode.xml
+         ====> CanteraFileNames =  MCMBAnode_electrode_extra.xml
     Particle Diameter = (double) [Units] with limits (0, 1) with default 1e-06 (REQUIRED LINE)
 	Units = Length Units (m cm mm um nm inches ft) (Default = m)
     Particle Number to Follow = (double) with limits (1, 1e+28) with default -1
@@ -140,8 +140,10 @@
         => timesProcessed = 1 multiContribIndex = 0 
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
         Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
-        Identify Reaction for OCV Model = (integer) with default 0
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
              => Identify Reaction for OCV Model ====> OCVModel_rxnID = 0
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+             => Identify Full Cell Reaction for OCV Model ====> OCVModel_FCrxnID = 1
         Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
             LIST = 
                 zero : 0
