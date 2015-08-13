@@ -260,6 +260,10 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
         }
     }
 
+    if (vp->nDim() != 3) {
+        throw CanteraError("PhaseList::addVolPhase()",
+                           "number of dimensions isn't three");
+    }
 
     NumVolPhases_++;
     VolPhaseList.resize(NumVolPhases_, 0);
@@ -368,6 +372,10 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
     }
 
 
+    if (sp->nDim() >=  3) {
+        throw CanteraError("PhaseList::addSurPhase()",
+                           "Number of dimensions is three or greater");
+    }
     m_NumSurPhases++;
     SurPhaseList.resize(m_NumSurPhases, 0);
     SurPhaseList[m_NumSurPhases - 1] = sp;
