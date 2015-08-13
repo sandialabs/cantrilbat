@@ -553,12 +553,14 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         XML_Node* kinXMLPhase = 0;
         ThermoPhase* kinPhase = 0;
 
+        if (iskin < 0 || iskin >= pl->nSurPhases()) {
+           throw Electrode_Error("ReactingSurDomain::importFromPL()",
+                                 "index of surface reaction not within bounds");
+        }
         if (iskin >= 0) {
             kinXMLPhase = pl->surPhaseXMLNode(iskin);
             kinPhase = &(pl->surPhase(iskin));
-        } else {
-            throw CanteraError("importFromPL", "iskin is neg");
-        }
+        } 
 
         int nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
         /*

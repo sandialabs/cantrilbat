@@ -218,6 +218,7 @@ TEST_F(FDJacobianTest, ElectrolytePhaseSource)
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
   // PRESSURE
   EXPECT_NEAR(0., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
+  //EXPECT_NEAR(1., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
   electrolyte_phase.first = (DOFS)(electrolyte_phase.first + 1);
   // SPECIES 0-2
   EXPECT_NEAR(3., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
@@ -234,6 +235,7 @@ main(int argc, char** argv)
 {
   printf("Running main() from FDJacobianTests.cpp\n");
   testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  int retnCode = RUN_ALL_TESTS();
+  return retnCode;
 }
 
