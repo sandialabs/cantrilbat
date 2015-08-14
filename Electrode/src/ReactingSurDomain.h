@@ -498,6 +498,12 @@ public:
      *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
      */
     std::vector<double> deltaGRxn_Before_;
+
+    //! Internal Vector of deltaG of reaction for all reactions (without the electrolyte mixing entropy term)
+    /*!
+     *  This is used to store the DeltaG of reaction before modification due to OCV override.
+     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
+     */
     std::vector<double> deltaGRxnOCV_Before_;
 
     //! Internal Vector of deltaH of reaction for all reactions
@@ -537,27 +543,58 @@ public:
     //!  determined open circuit voltage expression. If there is none, then this value is -1.
     int kReplacedSpeciesRS_;
 
-    //!  Vector of the enthalpies for all species in all phases that participate in the reaction mechanism
+    //!  Vector of the enthalpies for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
     /*!
-     *   We keep a vector of enthalpies here over all reaction species. This vectors gets modified from its
+     *   We keep a vector of enthalpies here over all reaction species. This vector gets modified from its
      *   strictly thermodynamic origin when an OCV override is done.
      */
     std::vector<double> m_Enthalpies_rspec;
+
+    //!  Vector of the enthalpies for all species in all phases that participate in the reaction mechanism
+    /*!
+     *   We keep a vector of enthalpies here over all reaction species. This vector does not get modified from its
+     *   strictly thermodynamic origin when an OCV override is done.
+     */
     std::vector<double> m_Enthalpies_Before_rspec;
 
-    //!  Vector of the entropies for all species in all phases that participate in the reaction mechanism
+    //!  Vector of the entropies for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
     /*!
-     *   We keep a vector of enthalpies here over all reaction species. This vectors gets modified from its
+     *   We keep a vector of enthalpies here over all reaction species. This vector gets modified from its
      *   strictly thermodynamic origin when an OCV override is done.
      */
     std::vector<double> m_Entropies_rspec;
+
+    //!  Vector of the entropies for all species in all phases that participate in the reaction mechanism
+    /*!
+     *   We keep a vector of enthalpies here over all reaction species. This vector does not get modified from its
+     *   strictly thermodynamic origin when an OCV override is done.
+     */
     std::vector<double> m_Entropies_Before_rspec;
 
+    //!  Vector of the chemical potential for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
+    /*!
+     *   We keep a vector of gibbs energy here over all reaction species. This vector gets modified from its
+     *   strictly thermodynamic origin when an OCV override is done.
+     */
     std::vector<double> m_GibbsOCV_rspec;
+
+    //!  Vector of the chemical potential for all species in all phases that participate in the reaction mechanism
+    /*!
+     *   We keep a vector of gibbs energy here over all reaction species. This vector does not get modified from its
+     *   strictly thermodynamic origin when an OCV override is done.
+     */
     std::vector<double> m_Gibbs_Before_rspec;
 
+    //!  Value of deltaG, i.e., the change in the chemical potential, for the particular species that gets modified  
+    //!  due to the OCV override 
     double deltaG_species_;
+
+    //!  Value of deltaS, i.e., the change in the entropy, for the particular species that gets modified  
+    //!  due to the OCV override 
     double deltaS_species_;
+
+    //!  Value of deltaH, i.e., the change in the enthalpy, for the particular species that gets modified  
+    //!  due to the OCV override 
     double deltaH_species_;
 
 

@@ -252,12 +252,12 @@ double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn)
     return netCurrentDensity;
 }
 //==================================================================================================================================
-/*!
- *  \todo   The getExchangeCurrentDensityFormulation() function needs to be checked against a slew of special case reactions.
- */
 double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV, doublereal* io,
 							       doublereal* overPotential, doublereal *beta, doublereal* resist_ptr)
 {
+   /*
+    *  \todo   The getExchangeCurrentDensityFormulation() function needs to be checked against a slew of special case reactions.
+    */
     doublereal icurr = 0.0;
     size_t iBeta = npos;
     // This will calculate the equilibrium constant
