@@ -1,0 +1,31 @@
+#
+# cttables silane.inp
+# This is comment line
+#
+#
+Number of Cantera Files = 4
+Cantera File Name = Li_Metal.xml
+Cantera File Name = metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+
+DebugPrinting = true
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+START BLOCK Temperature Table Format
+  Number of Points = 14
+  Added Temperatures = 373.15 293.15 
+END BLOCK Temperature Table Format
+
+start block Bath specification for Phase Li(S)
+  Bath Species ID =  Li(S)
+  start block Bath Species Mole Fraction
+    Li(S) = 1.0
+  End block Bath Species Mole Fraction
+end block Bath specification for Phase Li(S)
+
+
+# the above were empty lines

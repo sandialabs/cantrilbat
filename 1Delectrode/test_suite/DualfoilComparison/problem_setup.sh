@@ -3,7 +3,7 @@
 #
 #  Name of the program to run
 #
-PROGRAM=LiIon_PorousBat
+PROGRAM=../../src_LiIon_PorousBat/LiIon_PorousBat
 #
 #  Program input file
 #
