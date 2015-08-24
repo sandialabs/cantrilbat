@@ -3219,7 +3219,7 @@ double Electrode::openCircuitVoltage_MixtureAveraged(int isk,  bool comparedToRe
 {
     return Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
 }
-//======================================================================================================
+//==================================================================================================================================
 // A calculation of the open circuit voltage of a surface
 /*
  *  This routine uses a root finder to find the voltage at which there
@@ -3280,8 +3280,13 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     double phiMin = +100.;
     double phiMax = -100.;
     int nT = 0;
+    // Counter for the number of reactions producing or consuming electrons
+    int numERxns = 0;
     std::vector<int> reactionTurnedOn(nR, 1);
     bool thereIsOneTurnedOn = false;
+    //
+    //  Our first check is to see whether there is one reaction occurring between phases which are allowed to exist
+    //
     for (int i = 0; i < nR; i++) {
         int rxnIndex = i;
         rmc = rsd->rmcVector[rxnIndex];
@@ -3290,9 +3295,13 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
          */
         nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons != 0.0) {
+	    numERxns++;
             for (int jph = 0; jph < nP; jph++) {
 		//  \todo check to see whether this needs deltaG additions to see what direction it is going.
+		// If this phase participates in the reaction mechanism ...
                 if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
+		    // If this phase doesn't exist or if this phase is not stable then discount this reaction.
+		    // \todo Check that this logic is right.
                     if (phaseExistsInit[jph] == 0 || phaseStabInit[jph] == 0) {
                         reactionTurnedOn[i] = 0;
                     }
@@ -3325,22 +3334,35 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
      *  open circuit potential is given by the Nernst equation for that reaction.
      *  We just calculated it above. Therefore, we can do a quick return.
      */
-    if (nT <= 1) {
+    if (nT == 1) {
         return ERxn;
     }
+    // 
+    // Early exist if there aren't any reactions with electrons, we return 0.0
+    //
+    if (numERxns == 0) {
+	return ERxn;
+    }
+    //
+    //  ----------------- When we are here, we have a more complicated case ----------------------------------
+    //
+
     double phiMetalInit = phaseVoltages_[metalPhase_];
-
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
-
-    vector<int> phaseExists(phaseExistsInit);
-    vector<int> phaseStab(phaseStabInit);
+    //
+    //  Make copies of the phaseExistsInit and phaseStabInit vectors. We will turn phases on now
+    //
+    std::vector<int> phaseExists(phaseExistsInit);
+    std::vector<int> phaseStab(phaseStabInit);
 
     double ERxnBest = 1.0E300;
+    double ERxnMin = 0.0;;
+    double ERxnMax = 0.0;
     for (int i = 0; i < nR; i++) {
         bool electReact = false;
         bool electProd = false;
         /*
-         *  get the extra information for the reaction
+         *  Get the extra information for the reaction
          */
         rmc = rsd->rmcVector[i];
         /*
@@ -3354,8 +3376,22 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
             electProd = true;
         }
         if (nStoichElectrons != 0.0) {
-
+	    //
+	    //  Calculate the open circuit voltage for the current reaction
+	    //
             ERxn = deltaG_[i] / Faraday / nStoichElectrons;
+	    if (ERxnBest == 1.0E300) {
+		ERxnMin = ERxn;
+		ERxnMax = ERxn;
+	    }
+	    if (ERxn < ERxnMin) {
+		ERxnMin = ERxn;
+	    }
+	    if (ERxn > ERxnMax) {
+		ERxnMax = ERxn;
+	    }
+	    //
+	    //  Pick out the OCV closest to the current detla voltage
             if (fabs(deltaVoltage_ - ERxnBest) > fabs(deltaVoltage_ - ERxn)) {
                 ERxnBest = ERxn;
             }
@@ -3420,16 +3456,20 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     ERxn = openCircuitVoltageSSRxn(isk);
     ERxn = ERxnBest;
     double phiMetalRxn = ERxn + phaseVoltages_[solnPhase_];
+    double phiMetalMax = ERxnMax + phaseVoltages_[solnPhase_] + 0.01;
+    double phiMetalMin = ERxnMin + phaseVoltages_[solnPhase_] - 0.01;
+#ifdef DEBUG_OCV
+    rf.setPrintLvl(15);
+#else
     if (printLvl_ > printDebug) {
         rf.setPrintLvl(15);
     }
+#endif
     rf.setTol(1.0E-5, 1.0E-10);
     rf.setFuncIsGenerallyIncreasing(true);
     rf.setDeltaX(0.01);
 
     double funcTargetValue = 0.0;
-    double phiMetalMin = phiMin + phaseVoltages_[solnPhase_];
-    double phiMetalMax = phiMax + phaseVoltages_[solnPhase_];
 
     int retn = rf.solve(phiMetalMin, phiMetalMax, 100, funcTargetValue, &phiMetalRxn);
 

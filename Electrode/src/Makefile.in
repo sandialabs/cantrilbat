@@ -56,6 +56,8 @@ F2C_INC=$(CANTERA_INCROOT)/cantera
 # LDEFINES =   -DDEBUG_MODE_PREDICTION -DDEBUG_HKM
 #       Temporary IO for debugging thermal terms
 # LDEFINES =   -DDEBUG_THERMAL
+#       Temporary IO for debugging OCV calcualtion
+# LDEFINES =   -DDEBUG_OCV
 #
 # Set up the global include directory macro
 #
