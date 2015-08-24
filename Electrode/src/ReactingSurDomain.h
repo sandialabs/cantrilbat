@@ -279,21 +279,28 @@ public:
      *   This routine provides an override to the normal calculation of deltaG, when the thermodynamics
      *   is modified by a specification of the open circuit potential.
      *
-     *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal
-     *                                  to the number of reactions
+     *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal to the number of reactions.
      */
     virtual void getDeltaGibbs(doublereal* deltaG);
 
+    //!  Get the vector of deltaG values for all reactions defined in the kinetics object
+    /*!
+     *
+     *   This routine provides the normal calculation of deltaG in all cases. It ignores the
+     *   possible presence of an override.
+     *
+     *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal to the number of reactions.
+     */
     void getDeltaGibbs_Before(doublereal* const deltaG = 0);
 
-    //! Return the vector of values for the reaction electrochemical free energy change.
+    //! Return the vector of values for the electrochemical free energy change of reaction.
     /*!
-     * These values depend upon the concentration of the solution and the
-     * voltage of the phases
+     * These values depend upon the concentration of the solution and the  voltage of the phases
+     * involved with each reaction that has a charged species as a participant.
      *
      *  units = J kmol-1
      *
-     * @param deltaM  Output vector of  deltaM's for reactions Length: m_ii.
+     *  @param[out]        deltaM       Output vector of  deltaM's for all of the reactions. The length is m_ii.
      */
     virtual void getDeltaElectrochemPotentials(doublereal* deltaM);
 

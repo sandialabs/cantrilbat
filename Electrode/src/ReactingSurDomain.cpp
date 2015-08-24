@@ -1135,7 +1135,7 @@ void ReactingSurDomain::getDeltaGibbs_Before(doublereal* const deltaG)
 	getReactionDelta(DATA_PTR(m_Gibbs_Before_rspec), DATA_PTR(deltaG));
     }
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // Modification for OCV override when called for.
 //         ( works for MCMB )
 void ReactingSurDomain::getDeltaElectrochemPotentials(doublereal* deltaG)
@@ -1166,10 +1166,9 @@ void ReactingSurDomain::getDeltaElectrochemPotentials(doublereal* deltaG)
     // Use the stoichiometric manager to find deltaG for each
     // reaction.
     //
-    getReactionDelta(DATA_PTR(m_grt), DATA_PTR(m_deltaG));
-  
+    getReactionDelta(DATA_PTR(m_grt), DATA_PTR(deltaG));
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // Modification for OCV override when called for.
 void ReactingSurDomain::getDeltaEnthalpy(doublereal* deltaH)
 {
