@@ -3228,6 +3228,10 @@ double Electrode::openCircuitVoltage_MixtureAveraged(int isk,  bool comparedToRe
  */
 double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 {
+#ifdef DEBUG_OCV
+    static int s_numIters = 0;
+    s_numIters++;
+#endif
     int printDebug = 30;
     static int oIts = 0;
     double nStoichElectrons = 0.0;
@@ -3346,7 +3350,9 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     //
     //  ----------------- When we are here, we have a more complicated case ----------------------------------
     //
-
+    if (comparedToReferenceElectrode) {
+     	rsd->getDeltaGibbs(DATA_PTR(deltaG_));
+    } 
     double phiMetalInit = phaseVoltages_[metalPhase_];
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
     //
@@ -3355,9 +3361,18 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     std::vector<int> phaseExists(phaseExistsInit);
     std::vector<int> phaseStab(phaseStabInit);
 
+#ifdef DEBUG_OCV
+    printf("s_numIters = %d\n", s_numIters);
+    if (s_numIters == 389) {
+	printf("we are here\n");
+    }
+#endif
+
     double ERxnBest = 1.0E300;
     double ERxnMin = 0.0;;
     double ERxnMax = 0.0;
+    numERxns = 0;
+    int iR = -1;
     for (int i = 0; i < nR; i++) {
         bool electReact = false;
         bool electProd = false;
@@ -3370,12 +3385,14 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
          */
         nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons > 0) {
-            electReact = true;
+            electReact = true; 
         }
         if (nStoichElectrons < 0) {
             electProd = true;
         }
         if (nStoichElectrons != 0.0) {
+	    numERxns++;
+	    iR = i;
 	    //
 	    //  Calculate the open circuit voltage for the current reaction
 	    //
@@ -3419,6 +3436,20 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
             }
         }
     }
+    if (numERxns == 1) {
+	if (comparedToReferenceElectrode) {
+	    rsd->getDeltaGibbs_electrolyteSS(DATA_PTR(deltaG_)); 
+	    ERxn = deltaG_[iR] / Faraday / nStoichElectrons;
+	}
+	return ERxn;
+    } else {
+	if (comparedToReferenceElectrode) {
+#ifdef DEBUG_OCV
+	    printf("openCircuitWarning() warning: Calculating OCV for multiple electron reaction not carried out correctly yet\n");
+#endif
+	}
+    }
+    
     if (!thereIsOneTurnedOn) {
         rmc = rsd->rmcVector[rxnIndex];
         for (int jph = 0; jph < nP; jph++) {
@@ -3455,7 +3486,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 
     ERxn = openCircuitVoltageSSRxn(isk);
     ERxn = ERxnBest;
-    double phiMetalRxn = ERxn + phaseVoltages_[solnPhase_];
+    double phiMetalRxn = ERxn    + phaseVoltages_[solnPhase_];
     double phiMetalMax = ERxnMax + phaseVoltages_[solnPhase_] + 0.01;
     double phiMetalMin = ERxnMin + phaseVoltages_[solnPhase_] - 0.01;
 #ifdef DEBUG_OCV
@@ -3478,6 +3509,9 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         printf("            phiMetalMin = %g, phiMetalMax = %g, phiMetalRxn = %g, funcTargetValue = %g\n", phiMetalMin,
                phiMetalMax, phiMetalRxn, funcTargetValue);
         printf("            Redoing calculating with printing turned on, then terminating, oIts = %d\n", oIts);
+#ifdef DEBUG_OCV
+        printf("            OCV iteration# = %d\n", s_numIters);
+#endif
         if (printDebug >= 0) {
             printDebug = -1;
             goto startOver;

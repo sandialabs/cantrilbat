@@ -103,7 +103,7 @@ public:
 
 
 //! This class calculates the total electron production from a reacting surface domain
-//! as a functional, given the electric potential of the metalPhase
+//! as a functional, given the electric potential of the metalPhase as the single unknown.
 /*!
  *  This calcualtion is used in finding the open circuit potential of a reacting
  *  surface with multiple electron reactions occurring.
@@ -129,8 +129,7 @@ public:
         return 1;
     }
 
-    virtual int evalSS(const doublereal t, const doublereal* const x,
-                       doublereal* const r) {
+    virtual int evalSS(const doublereal t, const doublereal* const x, doublereal* const r) {
         // set the metal and the electrolyte voltage
 
         ThermoPhase& mtp = m_rsd->thermo(ikMetalPhase_);
