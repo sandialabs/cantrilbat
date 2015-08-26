@@ -301,9 +301,25 @@ public:
     /*!
      *  @param[in]        globalPhaseIndex  global phase index
      *
-     *  @return                    Return a reference to the ThermoPhase object
+     *  @return                      Return a reference to the ThermoPhase object
      */
     ThermoPhase& thermo(int globalPhaseIndex) const;
+
+    //! Return the reference to the %ThermoPhase of a single volume or surface phase
+    /*!
+     *  @param[in]        phaseName  Character string name of the phase
+     *
+     *  @return                      Return a reference to the ThermoPhase object
+     */
+    ThermoPhase& thermo(const char* phaseName) const;
+
+    //! Return the reference to the %ThermoPhase of a single volume or surface phase
+    /*!
+     *  @param[in]        phaseName  String name of the phase
+     *
+     *  @return                      Return a reference to the ThermoPhase object
+     */
+    ThermoPhase& thermo(const std::string&  phaseName) const;
 
     //! Return the common Elements object as a const pointer
     /*!

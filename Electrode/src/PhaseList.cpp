@@ -604,7 +604,7 @@ getPhaseIndexFromGlobalSpeciesIndex(int globalSpeciesIndex) const
     }
     return -1;
 }
-//===========================================================================================================================================
+//==================================================================================================================================
 ThermoPhase* PhaseList::getPhase(const char* phaseName) const
 {
     for (size_t i = 0; i < m_NumTotPhases; i++) {
@@ -911,29 +911,47 @@ PhaseList::thermo(int globalPhaseIndex) const
     int isurphase = globalPhaseIndex - NumVolPhases_;
     return *(SurPhaseList[isurphase]);
 }
-//===================================================================================================================
+//==================================================================================================================================
+ThermoPhase&
+PhaseList::thermo(const char* phaseName) const
+{
+    std::string pp(phaseName);
+    return thermo(pp);
+}
+//==================================================================================================================================
+ThermoPhase&
+PhaseList::thermo(const std::string& phaseName) const
+{
+    for (size_t ip = 0; ip <  m_NumTotPhases; ++ip) {
+	if (phaseName == PhaseNames_[ip]) {
+	    return *PhaseList_[ip];
+	}
+    }
+    throw CanteraError("PhaseList::thermo()", "Can't find phase named, " + phaseName + ", in list of phases");
+}
+//==================================================================================================================================
 const Elements* PhaseList ::getGlobalElements() const
 {
     return m_GlobalElementObj;
 }
-//====================================================================================================================
+//==================================================================================================================================
 std::string
 PhaseList::elementName(int e) const
 {
     return m_GlobalElementObj->elementName(e);
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t
 PhaseList::elementIndex(const std::string& elemName) const
 {
     return m_GlobalElementObj->elementIndex(elemName);
 }
-//====================================================================================================================
+//==================================================================================================================================
 int PhaseList::nElements() const
 {
     return m_numElements;
 }
-//====================================================================================================================
+//==================================================================================================================================
 XML_Node* PhaseList::surPhaseXMLNode(int iSurIndex) const
 {
     return SurPhaseXMLNodes[iSurIndex];
