@@ -118,8 +118,15 @@ public:
     bool importFromPL(Cantera::PhaseList* const pl, int iskin);
 
     //! Routine to be called after all species and phases have been defined for the object
+    /*!
+     *  This initializes based on number of species
+     */
     virtual void init();
 
+    //! Routine to be called after all reactions have been defined for the object.
+    /*!
+     *    This routine initializes vectors based on the number of reactions.
+     */
     virtual void finalize();
 
     //! Returns a reference to the calculated production rates of species
@@ -317,7 +324,14 @@ public:
      */
     virtual void getDeltaEnthalpy(doublereal* deltaH);
 
-    void getDeltaEnthalpy_Before(doublereal* const deltaH = 0);
+    //!  Get the vector of deltaH values for all reactions defined in the kinetics object
+    /*!
+     *   This routine provides the normal calculation of deltaH, before any override modification.
+     *
+     *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
+     *                                  to the number of reactions, m_ii
+     */
+    void getDeltaEnthalpy_Before(doublereal* const deltaH);
 
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
     //! chemical potential for the electrolyte.
@@ -343,13 +357,12 @@ public:
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object before OCV override
     /*!
-     *
-     *   This routine does a normal calculation of deltaS,
+     *   This routine does a normal calculation of deltaS, before any override of thermodynamics is carried out.
      *
      *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
-    void getDeltaEntropy_Before(doublereal* const deltaS = 0);
+    void getDeltaEntropy_Before(doublereal* const deltaS);
 
     //!  Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
     //!  the concentration of the solution.
