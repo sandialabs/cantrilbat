@@ -175,7 +175,7 @@ public:
      */
     ThermoPhase* getPhase(const char* phaseName) const;
 
-    //! Get the name of the phase
+    //! Get the name of the phase given its global id
     /*!
      * @param globPhaseIndex     global phase Index of the volume or surface Phase.
      *
@@ -303,7 +303,7 @@ public:
      *
      *  @return                      Return a reference to the ThermoPhase object
      */
-    ThermoPhase& thermo(int globalPhaseIndex) const;
+    ThermoPhase& thermo(size_t globalPhaseIndex) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!

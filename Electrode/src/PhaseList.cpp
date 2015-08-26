@@ -897,18 +897,18 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 }
 //==================================================================================================================================
 ThermoPhase&
-PhaseList::thermo(int globalPhaseIndex) const
+PhaseList::thermo(size_t globalPhaseIndex) const
 {
-    if (globalPhaseIndex < 0) {
-        throw CanteraError("  ", "error");
+    if (globalPhaseIndex == npos) {
+        throw CanteraError("PhaseList::thermo()", "error");
     }
-    if ((size_t) globalPhaseIndex < NumVolPhases_) {
+    if (globalPhaseIndex < NumVolPhases_) {
         return *(VolPhaseList[globalPhaseIndex]);
     }
-    if ((size_t) globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases)) {
-        throw CanteraError("  ", "error");
+    if (globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases)) {
+        throw CanteraError("PhaseList::thermo()", "error");
     }
-    int isurphase = globalPhaseIndex - NumVolPhases_;
+    size_t isurphase = globalPhaseIndex - NumVolPhases_;
     return *(SurPhaseList[isurphase]);
 }
 //==================================================================================================================================
