@@ -106,10 +106,10 @@ int main(int argc, char **argv)
      //
      PhaseList*  pl = new PhaseList();
      pl->addVolPhase("metal_Li_LiIon_electrons.xml");
-     pl->addVolPhase("LiCoO2_RedlichKister.xml");
+     pl->addVolPhase("LiCoO2_Margules_1.xml");
      pl->addVolPhase("ECsoln_ion.xml");
      pl->addVolPhase("Li_Metal.xml");
-     pl->addSurPhase("LiCoO2Cathode_electrode_extra.xml");
+     pl->addSurPhase("LiCoO2Cathode_electrode_M_extra.xml");
      pl->setState_TP(298.15, OneAtm);
 
      ReactingSurDomain* rsd = new ReactingSurDomain();
@@ -182,7 +182,7 @@ int main(int argc, char **argv)
      ocv_input_ptr->rxnID = 0;
      ocv_input_ptr->temperatureDerivType = 0;
      ocv_input_ptr->temperatureBase = 298.15;
-     ocv_input_ptr->OCVTempDerivModel = "Cathode_Constant 0.0";
+     ocv_input_ptr->OCVTempDerivModel = "Constant 0.0";
      ocv_input_ptr->DoDSurrogateSpeciesName = "LiCoO2";
      int iphS = 0;
 	 

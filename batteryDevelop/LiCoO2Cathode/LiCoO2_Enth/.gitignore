@@ -1,2 +1,12 @@
 LiCoO2
 LiCoO2Thermo
+LiCoO2.out
+LiCoO2Thermo.out
+LiCoO2Thermo_M
+LiCoO2Thermo_M.out
+diff_M_tout.txt
+diff_eout.txt
+diff_tout.txt
+err_out.txt
+runGood
+runBad

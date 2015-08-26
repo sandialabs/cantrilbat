@@ -2,7 +2,7 @@ moleFrac Li+ = 0.0780266
 activity Li+ = 0.0780266
 xmol(LiCoO2) (initial) = 0.676
   VALUES BEFORE OVERRIDE 
-          xV         xLi           OCV         OCV(half_cell)     OCV-corrected    DeltaH   DeltaS    DeltaG
+          xLi         xV           OCV         OCV(half_cell)     OCV-corrected    DeltaH   DeltaS    DeltaG
      0.000000       1.000000    -435.714885    -435.720893   -435.714885  -4.3744E+10   -5.7143E+06   -4.2040E+10 
      0.020000       0.980000    -355.008772    -355.014780   -355.008772  -3.4254E+10   -3.2722E+03   -3.4253E+10 
      0.040000       0.960000    -275.485399    -275.491407   -275.485399  -2.6580E+10    2.6624E+03   -2.6580E+10 

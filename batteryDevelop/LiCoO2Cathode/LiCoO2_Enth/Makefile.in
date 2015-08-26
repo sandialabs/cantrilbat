@@ -18,6 +18,15 @@
 
 PROGRAM =   LiCoO2Thermo
 
+BLESSED_FILES = LiCoO2_blessed.out  LiCoO2Thermo_blessed.out
+
+DATA = \
+ECsoln_ion.xml                        LiCoO2_Margules_1_1.xml     LiCoO2_Margules_1.xml     metal_Li_LiIon_electrons.xml\
+LiCoO2Cathode_electrode_extra.xml         LiCoO2_RedlichKister.xml \
+LiCoO2Cathode_electrode_M_extra.xml  LiCoO2Cathode_electrode.xml        Li_Metal.xml \
+
+
+
 OBJ = $(PROGRAM).o
 
 ##########################################################################
@@ -135,11 +144,14 @@ depends:
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
-
 test: 
-	@MAKE@
-	./runtest
-	./runtest_cc
+	  @gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	  @echo 'RUNNING TEST ' $(TESTNAME)
+	  runtest
 
 rebaseline:
 	cp out.txt good_out.txt

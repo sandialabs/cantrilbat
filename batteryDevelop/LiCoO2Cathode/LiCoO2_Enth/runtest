@@ -1,0 +1,128 @@
+#!/bin/sh
+#
+#
+#################################################################################################################################
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+#
+###############################################################################################################
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#############################################################################################################
+temp_success="1"
+/bin/rm  -f  out.txt err_out.txt \
+             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv diff_icsv.txt diff_gcsv.txt \
+             LiCoO2.out LiCoO2Thermo.out diff_eout.txt
+
+#################################################################
+#
+#################################################################
+
+ELECTRODE_TURN_OFF_PC_PRINTING=true
+export ELECTRODE_TURN_OFF_PC_PRINTING
+
+LiCoO2 > LiCoO2.out 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0"
+then
+  temp_success="0"
+  echo "LiCoO2 returned with bad status, $retnStat, check output"
+fi
+diff LiCoO2_blessed.out LiCoO2.out > diff_eout.txt
+retnStat_etxt=$?
+if test $retnStat_etxt = "0"
+then
+    echo "Successful test comparison on LiCoO2 "`pwd`
+else
+    echo "Unsuccessful test comparison on liCoO2 "`pwd`
+fi
+
+LiCoO2Thermo > LiCoO2Thermo.out
+retnStat=$?
+if test $retnStat != "0"
+then
+  temp_success="0"
+  echo "LiCoO2Thermo returned with bad status, $retnStat, check output"
+fi
+
+diff LiCoO2Thermo_blessed.out LiCoO2Thermo.out > diff_tout.txt
+retnStat_ttxt=$?
+if test $retnStat_ttxt = "0"
+then
+    echo "Successful test comparison on LiCoO2Thermo "`pwd`
+else
+    echo "Unsuccessful test comparison on LiCoO2Thermo "`pwd`
+fi
+
+LiCoO2Thermo_M > LiCoO2Thermo_M.out
+retnStat=$?
+if test $retnStat != "0"
+then
+  temp_success="0"
+  echo "LiCoO2Thermo_M returned with bad status, $retnStat, check output"
+fi
+
+diff LiCoO2Thermo_M_blessed.out LiCoO2Thermo_M.out > diff_M_tout.txt
+retnStat_M_ttxt=$?
+if test $retnStat_M_ttxt = "0"
+then
+    echo "Successful test comparison on LiCoO2Thermo_M "`pwd`
+else
+    echo "Unsuccessful test comparison on LiCoO2Thermo_M "`pwd`
+fi
+
+retnStat_csv=0
+retnStat_txt=$retnStat_ttxt
+if test $retnStat_etxt != "0"
+then
+  retnStat_txt=$retnStat_etxt
+else
+   if test $retnStat_M_ttxt != "0"
+   then
+     retnStat_txt=$retnStat_M_ttxt
+   fi
+fi
+
+
+if test $retnStat_txt = "0"
+then
+  echo "Successful test comparison on "`pwd`
+  echo "  Test Passed: " `date` > runGood
+  /bin/rm -f runBad
+else
+  echo "Unsuccessful test comparison on "`pwd` " test. See diff_tout.txt "
+   /bin/rm -f runGood
+   echo "  Test Failed: " `date` > runBad
+fi
+#
+#  Release the semiphore
+#
+/bin/rm runInProgress.txt
+
+#
+# return 0 for no errors, 1 for errors
+#
+exit 0
