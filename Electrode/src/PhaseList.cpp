@@ -897,6 +897,15 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 }
 //==================================================================================================================================
 ThermoPhase&
+PhaseList::thermo(int globalPhaseIndex) const
+{
+    if (globalPhaseIndex < 0) {
+        throw CanteraError("PhaseList::thermo()", "error");
+    }
+    return thermo((size_t) globalPhaseIndex);
+}
+//==================================================================================================================================
+ThermoPhase&
 PhaseList::thermo(size_t globalPhaseIndex) const
 {
     if (globalPhaseIndex == npos) {

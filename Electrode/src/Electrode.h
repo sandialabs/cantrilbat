@@ -3069,28 +3069,69 @@ public:
 
 private:
     // -----------------------------------------------------------------------------------------------------------------
-    //! Class that calculates the residual for a phase Pop evaluation
+
+    //! Class that calculates the residual for a phase Pop Kinetics evaluation
     /*!
-     *
+     *  This class calculates a problem based on the kinetic equations for a phase to pop into existence.
+     *  This problem can be very nonlinear.
+     *  The number of equations is equal to the number of species in the phase to be tested.
      */
     class phasePop_Resid : public Cantera::ResidEval
     {
     public:
+
+	//! Constructor
+	/*!
+	 *    @param[in]          ee              Pointer to this %Electrode object
+	 *    @param[in]          iphaseTarget    Target phase within the PhaseList to be popped.
+	 *    @param[in]          Xmf_stable      Mole fractions of target phase that are thermodynamically stable.
+	 *    @param[in]          deltaTsubcycle  Current value of Delta T
+	 */
         phasePop_Resid(Electrode* ee, int iphaseTarget, double* const Xmf_stable,
                        double deltaTsubcycle);
-        int evalSS(const doublereal t, const doublereal* const y,
-                   doublereal* const r);
 
+	//! Evalulate the steady state residual
+	/*!
+	 *   The residuals are based on the relative net production rate of each species being equal to its mole
+	 *   fraction at initial time.
+	 *
+	 *     @param[in]          t              Time of the evaluation
+	 *     @param[in]          y              Vector of unknowns
+	 *     @param[out]         r              Vector of residuals
+	 *
+	 *     @return                            A return of zero indicates success. Anthing else is a failure
+	 */
+        int evalSS(const doublereal t, const doublereal* const y,  doublereal* const r);
+
+	//! get the initial conditions for the problem
+	/*!
+	 *     @param[in]          t0             Time of the evaluation
+	 *     @param[out]         y              Vector of unknowns
+	 *     @param[out]         ydot           Vector of the time derivatives of the unknowns.
+	 *
+	 *     @return                            A return of zero indicates success. Anthing else is a failure
+	 */
         int getInitialConditions(const doublereal t0, doublereal* const y,
                                  doublereal* const ydot);
 
 
         //! Return the number of equations in the equation system
+	/*!
+	 *     @return                            Returns the number of equations, which is equal to the number of species in 
+	 *                                        the phase to be popped.
+	 */
         int nEquations() const;
 
+	//! Pointer to this %Electrode object
         Electrode* ee_;
+
+	//! Target phase for popping
         int iphaseTarget_;
+
+	//! Vector of mole fractions within the phase
         double*   Xmf_stable_;
+
+	//! DeltaT subcycle -> not sure why this is needed
         double deltaTsubcycle_;
 
     public:

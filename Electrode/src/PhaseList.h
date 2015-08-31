@@ -299,9 +299,18 @@ public:
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
+     * 
      *  @param[in]        globalPhaseIndex  global phase index
      *
-     *  @return                      Return a reference to the ThermoPhase object
+     *  @return                             Return a reference to the ThermoPhase object
+     */
+    ThermoPhase& thermo(int globalPhaseIndex) const;
+
+    //! Return the reference to the %ThermoPhase of a single volume or surface phase
+    /*!
+     *  @param[in]        globalPhaseIndex  global phase index
+     *
+     *  @return                             Return a reference to the ThermoPhase object
      */
     ThermoPhase& thermo(size_t globalPhaseIndex) const;
 
@@ -323,15 +332,16 @@ public:
 
     //! Return the common Elements object as a const pointer
     /*!
-     *      @return              Return a pointer to a const Element object containing a description of the elements in the problem.
+     *      @return                  Return a pointer to a const Element object containing a description of the elements 
+     *                               in the problem.
      */
     const Elements* getGlobalElements() const;
 
     //! Return the element name of the eth element
     /*!
-     *  @param[in]       e                element index
+     *  @param[in]       e             element index
      *  
-     *  @return                           String Name of the element
+     *  @return                        String Name of the element
      */
     std::string elementName(int e) const;
 
