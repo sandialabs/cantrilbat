@@ -164,9 +164,19 @@ void ESModel_Warning(const std::string &procedure, const std::string &msg);
  *
  *   @return                             Returns true if floats are equal up to the specification
  */
-extern bool doubleEqual(double a1, double a2, double atol = 1.0E-200, int digits = 6);
+extern bool doubleEqual(double a1, double a2, double atol = 1.0E-300, int digits = 6);
 
-//! Assert two vectors of doubles are equal up to a number of digits
+//! Assert two numbers are equal up to a number of digits 
+/*!
+ *   @param[in]      a1                  First float
+ *   @param[in]      a2                  Second float
+ *   @param[in]      digits              Number of digits - defaults to 4
+ *
+ *   @return                             Returns true if floats are equal up to the specification
+ */
+extern bool doubleEqualNoAtol(double a1, double a2, int digits = 6);
+
+//! Assert two vectors of doubles are equal up to a number of digits and to an absolute tolerance
 /*!
  *   @param[in]      a1                  first float vector
  *   @param[in]      a2                  second float vector
@@ -175,7 +185,18 @@ extern bool doubleEqual(double a1, double a2, double atol = 1.0E-200, int digits
  *
  *   @return                             Returns true if floats are equal up to the specification
  */
-extern bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol = 1.0E-200, int digits = 6);
+extern bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol = 1.0E-300, int digits = 6);
+
+//! Assert two vectors of doubles are equal up to a number of digits
+/*!
+ *   This routine asserts that the vector of doubles are all equal up to a number of digits.
+ *   @param[in]      a1                  first float vector
+ *   @param[in]      a2                  second float vector
+ *   @param[in]      digits              Number of digits - defaults to 4
+ *
+ *   @return                             Returns true if floats are equal up to the specification
+ */
+extern bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<double>& a2, int digits = 6);
 
 //==================================================================================================================================
 } // End of esmodel namespace

@@ -52,6 +52,16 @@ void ESModel_Warning(const std::string &procedure, const std::string &msg)
     }
 }
 //==================================================================================================================================
+bool doubleEqualNoAtol(double a1, double a2, int digits)
+{
+    double atol = 0.5 * (fabs(a1) + fabs(a2));
+    if (atol == 0.0) {
+        return true;
+    }
+    atol = atol * pow(10.0, -digits) + 1.0E-300;
+    return doubleEqual(a1, a2, atol, digits);
+}
+//==================================================================================================================================
 bool doubleEqual(double a1, double a2, double atol, int digits)
 {
     double diff = fabs(a1 - a2);
@@ -70,6 +80,21 @@ bool doubleEqual(double a1, double a2, double atol, int digits)
         }
     }
     return false;
+}
+//==================================================================================================================================
+bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits)
+{
+    size_t j = a1.size();
+    size_t j2 = a2.size();
+    if (j2 != j) {
+        return false; 
+    } 
+    for (size_t i = 0; i < j; ++i) {
+       if (!doubleEqualNoAtol(a1[i], a2[i], digits)) {
+           return false;
+       }
+    }
+    return true;
 }
 //==================================================================================================================================
 bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits)
