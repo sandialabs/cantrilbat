@@ -267,9 +267,30 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     double TT = m_surf->temperature();
     double rtdf = GasConstant * TT / Faraday;
 
-
+    //
+    //   Get the phase mole change structure, and then the number of stoichiometric electrons
+    //
+    AssertThrow(metalPhaseIndex_ != npos, "ReactingSurDomain::getExchangeCurrentDensityFormulation");
+    RxnMolChange* rmc = rmcVector[irxn];
+    double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
+    *nStoich = nStoichElectrons;
+    //
+    //  If the stoich electrons are zero, we can't proceed here (need to generalize this to general charge transfer case)
+    //
+    if (nStoichElectrons == 0.0) {
+	*OCV = 0.0;
+	*overPotential = 0.0;
+        *io = 0.0;
+	return 0.0;
+    }
+    //
+    //  Calculate the Open circuit potential
+    //
+    getDeltaGibbs(0);
+    *OCV = m_deltaG[irxn] / Faraday/ nStoichElectrons;
+	
     /*
-     * 
+     *  Get the reaction type
      */
     int reactionType = m_rxntype[irxn];
 
@@ -298,26 +319,13 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	    throw CanteraError("ElectrodeKinetics::updateROP()",
 			       "Straight kfwrd with BUTLERVOLMER_NOACTIVITYCOEFFS_RXN not handled yet");
 	}
-	//
-	//   Get the phase mole change structure
-	//
-	RxnMolChange* rmc = rmcVector[irxn];
-	//
-	//   Calculate the stoichiometric eletrons for the reaction
-	//   This is the number of electrons that are the net products of the reaction
-	//
-	AssertThrow(metalPhaseIndex_ != npos, "ElectrodeKinetics::updateROP()");
-	double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
-	*nStoich = nStoichElectrons;
+
 	//
 	//   Calculate the open circuit voltage of the reaction
 	//
 	getDeltaGibbs(0);
-	if (nStoichElectrons != 0.0) {
-	    *OCV = m_deltaG[irxn]/Faraday/ nStoichElectrons;
-	} else {
-	    *OCV = 0.0;
-	}
+	*OCV = m_deltaG[irxn] / Faraday/ nStoichElectrons;
+
 	//
 	//   Calculate the voltage of the electrode.
 	//
@@ -367,12 +375,23 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	    icurr = solveCurrentRes(nu, nStoichElectrons, ioc, (*beta), TT, resist, 0);
 	}
 	*io = ioc;
+
     } else if (reactionType == SURFACEAFFINITY_RXN) {
-	RxnMolChange*   rmc = rmcVector[irxn];
-	// could also get this from reactant and product stoichiometry
-	double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
-	*nStoich = nStoichElectrons;
-	*OCV = 0.0;
+
+
+	for (size_t iBetaT = 0; iBetaT < m_beta.size(); iBetaT++) {
+	    if (m_ctrxn[iBetaT] == (size_t) irxn) {
+		iBeta = iBetaT;
+		break;
+	    }
+	}
+	//
+	//   Get the beta value
+	//
+	if (iBeta == npos) {
+	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation", " beta value not found");
+	}
+	*beta = m_beta[iBeta];
 	
 	size_t jjA = npos;
 	for (size_t jj = 0; jj < m_numAffinityRxns; ++jj) {
@@ -388,13 +407,11 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	affinityRxnData& aJ = affinityRxnDataList_[jjA];
 
 	*resist_ptr = 0.0;
-	int nr = nReactions();
-	std::vector<double> deltaG(nr);
-	getDeltaGibbs(DATA_PTR(deltaG));
 
-	if (nStoichElectrons != 0.0) {
-	    *OCV = deltaG[irxn] / Faraday / nStoichElectrons;
-	}
+
+	getDeltaGibbs(0);
+	*OCV = m_deltaG[irxn] / Faraday / nStoichElectrons;
+
 	//
 	//   Calculate the voltage of the electrode.
 	//
@@ -416,7 +433,8 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	//   be located in m_rfn[]. Multiply by stoich electrons and perturbation factor
 	//
 
-	double iO = m_rfn[irxn] * nStoichElectrons *  m_perturb[irxn];
+	double iO = Faraday * m_rfn[irxn] * nStoichElectrons *  m_perturb[irxn];
+
 
 	//
 	// Undo the voltage correction term that was added in applyVoltageKfwdCorrection()
@@ -425,15 +443,19 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	doublereal rt = GasConstant * thermo(0).temperature();
 	doublereal rrt = 1.0 / rt;
 	iO /= exp(-eamod * rrt);
-            
+
+	double b = m_beta[iBeta];
+	double omb = 1.0 - b;
         //
 	// Apply the exp (beta DeltaG0) term
 	//
-	if (m_beta[irxn] > 0.0) {
-	    iO *= pow(m_rkcn[irxn], m_beta[irxn]);
+	double mG0 =  m_deltaG0[irxn];
+	if (m_beta[iBeta] > 0.0) {
+	    double fac = exp(mG0 * b * rrt);
+            iO *= fac;
 	}
-	double b = m_beta[iBeta];
-	double omb = 1.0 - b;
+
+
 	//
 	//  Eqn. (65) of writeup
 	//
@@ -464,21 +486,21 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	    double order = aJ.affinOrder_FRC[kk];
 	    iO *= pow(m_actConc[kspec], order);
 	}
+	*io = iO;
+
 
     } else {
-	RxnMolChange*   rmc = rmcVector[irxn];
-	// could also get this from reactant and product stoichiometry
-	double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
-	*nStoich = nStoichElectrons;
+
+
 	*OCV = 0.0;
 
-	int nr = nReactions();
-	std::vector<double> deltaG(nr);
-	getDeltaGibbs(DATA_PTR(deltaG));
 
-	if (nStoichElectrons != 0.0) {
-	    *OCV = deltaG[irxn]/Faraday/ nStoichElectrons;
-	}
+
+	getDeltaGibbs(0);
+
+
+	*OCV = m_deltaG[irxn]/Faraday/ nStoichElectrons;
+	
 	//PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
 	// we have a vector of standard concentrations calculated from the routine below
 	//            m_StandardConc[ik]
