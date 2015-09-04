@@ -367,7 +367,104 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	    icurr = solveCurrentRes(nu, nStoichElectrons, ioc, (*beta), TT, resist, 0);
 	}
 	*io = ioc;
+    } else if (reactionType == SURFACEAFFINITY_RXN) {
+	RxnMolChange*   rmc = rmcVector[irxn];
+	// could also get this from reactant and product stoichiometry
+	double nStoichElectrons = - rmc->m_phaseChargeChange[metalPhaseIndex_];
+	*nStoich = nStoichElectrons;
+	*OCV = 0.0;
 	
+	size_t jjA = npos;
+	for (size_t jj = 0; jj < m_numAffinityRxns; ++jj) {
+	    //
+	    // Get the list of data needed to calculate the affinity reaction
+	    //
+	    affinityRxnData& aJ = affinityRxnDataList_[jj];
+	    size_t jrxn = aJ.rxn_id;
+	    if (jrxn == (size_t) irxn) {
+		jjA = jj;
+	    }
+	}
+	affinityRxnData& aJ = affinityRxnDataList_[jjA];
+
+	*resist_ptr = 0.0;
+	int nr = nReactions();
+	std::vector<double> deltaG(nr);
+	getDeltaGibbs(DATA_PTR(deltaG));
+
+	if (nStoichElectrons != 0.0) {
+	    *OCV = deltaG[irxn] / Faraday / nStoichElectrons;
+	}
+	//
+	//   Calculate the voltage of the electrode.
+	//
+	double voltage = m_phi[metalPhaseIndex_] - m_phi[solnPhaseIndex_];
+	//
+	//   Calculate the overpotential
+	//
+	double nu = voltage - *OCV;
+	*overPotential = nu;
+
+	//PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
+	// we have a vector of standard concentrations calculated from the routine below
+	//            m_StandardConc[ik]
+	updateExchangeCurrentQuantities();
+	//
+	//   Now calculate the exchange current density, io
+	//
+	//   Start with the exchange current reaction rate constant, which should
+	//   be located in m_rfn[]. Multiply by stoich electrons and perturbation factor
+	//
+
+	double iO = m_rfn[irxn] * nStoichElectrons *  m_perturb[irxn];
+
+	//
+	// Undo the voltage correction term that was added in applyVoltageKfwdCorrection()
+	//
+	doublereal eamod = m_beta[iBeta] * deltaElectricEnergy_[irxn];
+	doublereal rt = GasConstant * thermo(0).temperature();
+	doublereal rrt = 1.0 / rt;
+	iO /= exp(-eamod * rrt);
+            
+        //
+	// Apply the exp (beta DeltaG0) term
+	//
+	if (m_beta[irxn] > 0.0) {
+	    iO *= pow(m_rkcn[irxn], m_beta[irxn]);
+	}
+	double b = m_beta[iBeta];
+	double omb = 1.0 - b;
+	//
+	//  Eqn. (65) of writeup
+	//
+	for (size_t k = 0; k < m_kk; k++) {
+	    doublereal reactCoeff = reactantStoichCoeff(k, irxn);
+	    doublereal prodCoeff =  productStoichCoeff(k, irxn);
+
+	    if (reactCoeff != 0.0) {
+		iO *= pow(m_actConc[k],      reactCoeff*omb);
+		iO /= pow(m_StandardConc[k], reactCoeff*omb);
+	    }
+	    if (prodCoeff != 0.0) {
+		iO *= pow(m_actConc[k],      prodCoeff*b);
+		iO /= pow(m_StandardConc[k], prodCoeff*b);
+	    }
+	}
+	for (size_t k = 0; k < m_kk; k++) {
+	    doublereal reactCoeff = reactantStoichCoeff(k, irxn);
+	    if (reactCoeff != 0.0) {
+		iO *= pow(m_actConc[k],      -reactCoeff);
+		iO /= pow(m_StandardConc[k], -reactCoeff);
+	    }
+	}
+	//const std::vector<size_t>& affinSpec_FRC = aJ.affinSpec_FRC;
+	//const std::vector<doublereal>&  affinOrder_FRC = aJ.affinOrder_FRC;
+	for (size_t kk = 0; kk < aJ.affinSpec_FRC.size(); ++kk) {
+	    size_t kspec = aJ.affinSpec_FRC[kk];
+	    double order = aJ.affinOrder_FRC[kk];
+	    iO *= pow(m_actConc[kspec], order);
+	}
+
     } else {
 	RxnMolChange*   rmc = rmcVector[irxn];
 	// could also get this from reactant and product stoichiometry
