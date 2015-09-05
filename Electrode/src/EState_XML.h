@@ -26,6 +26,13 @@ class Electrode;
 namespace esmodel
 {
 
+/*!
+ *   @defgroup electrode_xml_format    Electrode XML Format
+ *
+ *    We have defined a format for storing the electrode state
+ *
+ */
+
 //! This structure will hold globally defined variables associated with maps for EState types
 /*!
  *  There will only be one of these

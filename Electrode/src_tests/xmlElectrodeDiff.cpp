@@ -1,13 +1,14 @@
-/*====================================================================
- * ------------------------
- * | CVS File Information | 
- * ------------------------
- * $RCSfile: xmlSolnDiff.cpp,v $
- * $Author: hkmoffa $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- * $Revision: 5 $
- * $Name:  $
- *====================================================================*/
+/**
+ * @file xmlElectrodeDiff.cpp
+ *  Main routine for carrying out an xml diff on saved electrode files in esmodel Electrode XML format.
+ *  (see \ref electrode_xml_format ).
+ */
+/*
+ * Copywrite (2005) Sandia Corporation. Under the terms of
+ * Contract DE-AC04-94AL85000 with Sandia Corporation, the
+ * U.S. Government retains certain rights in this software.
+ */
+
 /*
  *
  *  xmlSolnDiff File1.xml File2.xml
