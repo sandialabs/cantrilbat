@@ -259,11 +259,10 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     *  \todo   The getExchangeCurrentDensityFormulation() function needs to be checked against a slew of special case reactions.
     */
     doublereal icurr = 0.0;
-    size_t iBeta = npos;
+  
     // This will calculate the equilibrium constant
     updateROP();
-    *resist_ptr = 0.0;
-
+ 
     double TT = m_surf->temperature();
     double rtdf = GasConstant * TT / Faraday;
 
@@ -288,27 +287,40 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     //
     getDeltaGibbs(0);
     *OCV = m_deltaG[irxn] / Faraday/ nStoichElectrons;
-	
+    //
+    // Find the iBeta index and beta
+    //
+    size_t iBeta = npos;
+    for (size_t iBetaT = 0; iBetaT < m_beta.size(); iBetaT++) {
+	if (m_ctrxn[iBetaT] == (size_t) irxn) {
+	    iBeta = iBetaT;
+	    break;
+	}
+    }
+    if (iBeta == npos) {
+	throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation()", " beta value not found");
+    }
+    *beta = m_beta[iBeta];
+    //
+    // Set the resistance to zero
+    //
+    *resist_ptr = 0.0;
+    //
+    //   Calculate the voltage of the electrode (Note, can't really do this without the specification of the
+    //   metal phase and the solution phase, as the sign of the voltage would be unspecified)
+    //
+    double voltage = m_phi[metalPhaseIndex_] - m_phi[solnPhaseIndex_];
+    //
+    //   Calculate the overpotential
+    //
+    double nu = voltage - *OCV;
+    *overPotential = nu;
     /*
      *  Get the reaction type
      */
     int reactionType = m_rxntype[irxn];
 
     if (reactionType == BUTLERVOLMER_NOACTIVITYCOEFFS_RXN) {
-
-	for (size_t iBetaT = 0; iBetaT < m_beta.size(); iBetaT++) {
-	    if (m_ctrxn[iBetaT] == (size_t) irxn) {
-		iBeta = iBetaT;
-		break;
-	    }
-	}
-	//
-	//   Get the beta value
-	//
-	if (iBeta == npos) {
-	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation", " beta value not found");
-	}
-	*beta = m_beta[iBeta];
 	//
 	// OK, the reaction rate constant contains the current density rate constant calculation
 	// the rxnstoich calculation contained the dependence of the current density on the activity concentrations
@@ -316,38 +328,23 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	//
 	int iECDFormulation =  m_ctrxn_ecdf[iBeta];
 	if (iECDFormulation == 0) {
-	    throw CanteraError("ElectrodeKinetics::updateROP()",
+	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation()",
 			       "Straight kfwrd with BUTLERVOLMER_NOACTIVITYCOEFFS_RXN not handled yet");
 	}
-
-	//
-	//   Calculate the open circuit voltage of the reaction
-	//
-	getDeltaGibbs(0);
-	*OCV = m_deltaG[irxn] / Faraday/ nStoichElectrons;
-
-	//
-	//   Calculate the voltage of the electrode.
-	//
-	double voltage = m_phi[metalPhaseIndex_] - m_phi[solnPhaseIndex_];
-	//
-	//   Calculate the overpotential
-	//
-	double nu = voltage - *OCV;
-	*overPotential = nu;
 	//
 	//   Now calculate the exchange current density, io
 	//
-	//   Start with the exchange current reaction rate constant, which should
-	//   be located in m_rfn[]. Multiply by stoich electrons and perturbation factor
+	//     Start with the exchange current reaction rate constant, which should
+	//     be located in m_rfn[]. Multiply by stoichiometric electrons and perturbation factor
 	//
-	double ioc = m_rfn[irxn] * nStoichElectrons *  m_perturb[irxn];
+	double ioc = m_rfn[irxn] * nStoichElectrons * m_perturb[irxn];
 	//
 	//   Now we need the mole fraction vector and we need the RxnOrders vector.
 	//
 	const RxnOrders* ro_fwd = m_ctrxn_ROPOrdersList_[iBeta];
 	if (ro_fwd == 0) {
-	    throw CanteraError("ElectrodeKinetics::calcForwardROP_BV()", "forward orders pointer is zero ?!?");
+	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation()",
+			       "Forward orders pointer is zero ?!?");
 	}
 	double tmp = 1.0;
 	double mfS = 0.0;
@@ -368,6 +365,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	//   Add in the film resistance here, later
 	//
 	double resist = m_ctrxn_resistivity_[iBeta];
+	*resist_ptr = resist;
 	double exp1 = nu * nStoichElectrons * (*beta) / rtdf;
 	double exp2 = - nu * nStoichElectrons * (1.0 - (*beta)) / (rtdf);
         icurr = ioc * (exp(exp1) - exp(exp2));
@@ -377,21 +375,6 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	*io = ioc;
 
     } else if (reactionType == SURFACEAFFINITY_RXN) {
-
-
-	for (size_t iBetaT = 0; iBetaT < m_beta.size(); iBetaT++) {
-	    if (m_ctrxn[iBetaT] == (size_t) irxn) {
-		iBeta = iBetaT;
-		break;
-	    }
-	}
-	//
-	//   Get the beta value
-	//
-	if (iBeta == npos) {
-	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation", " beta value not found");
-	}
-	*beta = m_beta[iBeta];
 	
 	size_t jjA = npos;
 	for (size_t jj = 0; jj < m_numAffinityRxns; ++jj) {
@@ -406,21 +389,8 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	}
 	affinityRxnData& aJ = affinityRxnDataList_[jjA];
 
-	*resist_ptr = 0.0;
 
 
-	getDeltaGibbs(0);
-	*OCV = m_deltaG[irxn] / Faraday / nStoichElectrons;
-
-	//
-	//   Calculate the voltage of the electrode.
-	//
-	double voltage = m_phi[metalPhaseIndex_] - m_phi[solnPhaseIndex_];
-	//
-	//   Calculate the overpotential
-	//
-	double nu = voltage - *OCV;
-	*overPotential = nu;
 
 	//PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
 	// we have a vector of standard concentrations calculated from the routine below
@@ -492,15 +462,6 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     } else {
 
 
-	*OCV = 0.0;
-
-
-
-	getDeltaGibbs(0);
-
-
-	*OCV = m_deltaG[irxn]/Faraday/ nStoichElectrons;
-	
 	//PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
 	// we have a vector of standard concentrations calculated from the routine below
 	//            m_StandardConc[ik]
@@ -523,8 +484,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	if (m_beta[irxn] > 0.0) {
 	    iO *= pow(rkc[irxn], m_beta[irxn]);
 	}
-	double b = m_beta[irxn];
-	*beta = m_beta[irxn];
+	double b = *beta;
 	double omb = 1.0 - b;
 
 
