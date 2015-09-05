@@ -376,7 +376,7 @@ public:
      * @param temperature    Temperature (Kelvin)
      * @param pressure       Pressure (Pa)
      */
-    void setState_TP(double temperature, double pressure);
+    void setState_TP(doublereal temperature, doublereal pressure);
 
     //! return the current temperature
     /*!

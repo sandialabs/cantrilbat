@@ -259,6 +259,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     *  \todo   The getExchangeCurrentDensityFormulation() function needs to be checked against a slew of special case reactions.
     */
     doublereal icurr = 0.0;
+    *resist_ptr = 0.0;
   
     // This will calculate the equilibrium constant
     updateROP();
@@ -302,9 +303,10 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     }
     *beta = m_beta[iBeta];
     //
-    // Set the resistance to zero
+    //  Find the resistance
     //
-    *resist_ptr = 0.0;
+    double resist = m_ctrxn_resistivity_[iBeta];
+    *resist_ptr = resist;
     //
     //   Calculate the voltage of the electrode (Note, can't really do this without the specification of the
     //   metal phase and the solution phase, as the sign of the voltage would be unspecified)
@@ -364,8 +366,6 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	//
 	//   Add in the film resistance here, later
 	//
-	double resist = m_ctrxn_resistivity_[iBeta];
-	*resist_ptr = resist;
 	double exp1 = nu * nStoichElectrons * (*beta) / rtdf;
 	double exp2 = - nu * nStoichElectrons * (1.0 - (*beta)) / (rtdf);
         icurr = ioc * (exp(exp1) - exp(exp2));
@@ -388,9 +388,6 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	    }
 	}
 	affinityRxnData& aJ = affinityRxnDataList_[jjA];
-
-
-
 
 	//PROBABLY DELETE THIS CALL SINCE IT IS CALLED BY updateROP()
 	// we have a vector of standard concentrations calculated from the routine below
@@ -469,14 +466,9 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 
 
 	//rkc is reciprocal equilibrium constant
-#define OLDWAY
-#ifdef OLDWAY
+
 	const vector_fp& rf = m_rfn;
 	const vector_fp& rkc= m_rkcn;
-#else
-	const vector_fp& rf = m_kdata->m_rfn;
-	const vector_fp& rkc= m_kdata->m_rkcn;
-#endif
 
 	// start with the forward reaction rate
 	double iO = rf[irxn] * Faraday * nStoichElectrons;
@@ -1439,7 +1431,7 @@ void ReactingSurDomain::getOCVThermoOffsets_ReplacedSpecies(double& deltaG_speci
     }
 }
 //==================================================================================================================================
-void ReactingSurDomain::setState_TP(double temp, doublereal pres) 
+void ReactingSurDomain::setState_TP(double temp, double pres) 
 {
     for (size_t n = 0; n < nPhases(); n++) {
 	m_thermo[n]->setState_TP(temp, pres);
