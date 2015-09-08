@@ -112,7 +112,10 @@ test:
 	@echo -n 'Checking need to run test ' $(PROGRAM) ': '
 	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 
-runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+#
+#  Took Makefile out of dependency for runGood because this is one of the longer running tests
+#
+runGood: $(PROGRAM) $(DATA)  $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(PROGRAM)
 	../runtest_Electrode
 

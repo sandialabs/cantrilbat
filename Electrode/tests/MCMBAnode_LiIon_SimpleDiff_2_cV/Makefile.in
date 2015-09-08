@@ -17,6 +17,13 @@
 .SUFFIXES: .d
 
 PROGRAM = MCMBAnode_SimpleDiff_2
+TESTNAME =  MCMBAnode_SimpleDiff_2
+
+BLESSED_FILES = good_out.txt MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv soln_0_0_blessed.xml
+
+DATA = anode.inp problem_setup.sh \
+       ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister_base.xml  MCMB_RedlichKister_ss.xml \
+       MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml
 
 OBJ = $(PROGRAM).o
 
@@ -100,18 +107,12 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
 
 ############################################################################
 # section to set up depends
 ###########################################################################
 DEPENDS = $(OBJ_ANODE:.o=.d) 
 
-.f.d:
-	echo "$*.o: $*.f" > $*.d
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -127,8 +128,14 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
-	./runtest
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../runtest_Electrode
+
 
 rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
@@ -155,9 +162,12 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
+test_clean:
+	$(RM) runBad runGood runInProgress.txt diff_csv.txt  diff_gcsv.txt  \
+              diff_icsv.txt  diff_out.txt  diff_summary.txt  diff_xml.txt   \
+	          out.txt soln_0_0.xml err_out.txt
 
 clean:
+	@MAKE@ test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
 

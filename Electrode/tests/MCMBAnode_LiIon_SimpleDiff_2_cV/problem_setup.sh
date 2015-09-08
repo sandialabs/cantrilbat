@@ -7,7 +7,7 @@ TEST_NAME=`basename $WD`
 #
 #  Name of the program to run
 #
-PROGRAM=LiCoO2_Cathode_thermal  
+PROGRAM=MCMBAnode_SimpleDiff_2
 #
 #  Any other program options
 #
@@ -27,10 +27,10 @@ DIFF_REQ="           True          "
 #
 #  CSV file to compare against
 #
-BLESSED_CSV_FILES="  LiCoO2_intResults_blessed.csv  "
-CSV_FILES="          LiCoO2_intResults_0_0.csv          "
-DIFF_CSV_NAMES="     diff_csv.txt        "
-DIFF_CSV_REQ="       True                     "
+BLESSED_CSV_FILES=" MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv "
+CSV_FILES="         MCMB_globalResults_0_0.csv  MCMB_intResults_0_0.csv          "
+DIFF_CSV_NAMES="     diff_gcsv.txt                 diff_icsv.txt   "
+DIFF_CSV_REQ="       True  True                   "
 #
 #  Extra files to be removed before the test starts
 #
