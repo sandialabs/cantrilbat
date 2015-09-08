@@ -1,12 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.3 2010/10/14 21:11:13 clueth Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -16,10 +9,17 @@
 
 .SUFFIXES: .d
 
+PROGRAM = jacobian_unit
+TESTNAME = jacobian_unit
+
+BLESSED_FILES = 
+
+DATA = 
+#
 ##########################################################################
 #           Setup The Cantera Directory locations
 #########################################################################
-
+#
 PURIFY=@PURIFY@
 
 # These links are to Cantera's install space
@@ -33,7 +33,6 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-
 #
 # Set up the Cantera addition library
 #
@@ -97,29 +96,19 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
+#
 ############################################################################
 # section to set up depends
 ###########################################################################
+#
 DEPENDS = $(OBJ_ANODE:.cpp=.d) 
 
-.f.d:
-	echo "$*.o: $*.f" > $*.d
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
@@ -129,10 +118,16 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
-	./jacobian_unit
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	./runtest
 
 rebaseline:
+	cp out.txt good_out.txt
 
 ##############################################################################
 

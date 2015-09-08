@@ -1,0 +1,82 @@
+#!/bin/sh
+#
+#
+#################################################################################################################################
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+#
+###############################################################################################################
+#
+fff='0'
+while getopts "fh" opt; do
+  case $opt in
+    f  ) fff='1' ;;
+    h  ) echo 'usage runtest_Electrode [-f] [-h] [ PROGRAM [ PROGRAM_OPTS] ] '
+        exit 1 ;;
+    \? ) echo 'usage runtest_Electrode [-f] [-h] [ PROGRAM [ PROGRAM_OPTS] ]'
+        exit 1 ;;
+  esac
+done
+#
+###############################################################################################################
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#############################################################################################################
+temp_success="1"
+/bin/rm  -f  out.txt err_out.txt diff_csv.txt  diff_out.txt diff_tout.txt  
+#
+##################################################################################################################################
+#
+export ELECTRODE_TURN_OFF_PC_PRINTING=true
+
+jacobian_unit | tee out.txt
+retnStat=$?
+if test $retnStat != "0"
+then
+  echo "jacobian_unit returned with bad status, $retnStat, check output"
+fi
+retnStat_txt=$retnStat
+
+
+
+if test $retnStat_txt = "0"
+then
+    echo "Successful test comparison on "`pwd`
+    echo "  Test Passed: " `date` > runGood
+    /bin/rm -f runBad
+else 
+    /bin/rm -f runGood
+    echo "  Test Failed: " `date` > runBad
+    echo ' Unsuccessful test of ' `pwd` ' . See out.txt '
+fi
+#
+#  Release the semiphore
+#
+/bin/rm runInProgress.txt
+#
+# return 0 for no errors, 1 for errors
+#
+exit 0

@@ -1,0 +1,25 @@
+Running main() from FDJacobianTests.cpp
+[==========] Running 8 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 8 tests from FDJacobianTest
+[ RUN      ] FDJacobianTest.MissingEntry
+[       OK ] FDJacobianTest.MissingEntry (0 ms)
+[ RUN      ] FDJacobianTest.AddEntry
+[       OK ] FDJacobianTest.AddEntry (0 ms)
+[ RUN      ] FDJacobianTest.RemoveEntry
+[       OK ] FDJacobianTest.RemoveEntry (0 ms)
+[ RUN      ] FDJacobianTest.ComputeJacobian
+[       OK ] FDJacobianTest.ComputeJacobian (1 ms)
+[ RUN      ] FDJacobianTest.ComputeJacobianWithDofValueZero
+[       OK ] FDJacobianTest.ComputeJacobianWithDofValueZero (0 ms)
+[ RUN      ] FDJacobianTest.ComputeJacobianMultipleEntries
+[       OK ] FDJacobianTest.ComputeJacobianMultipleEntries (0 ms)
+[ RUN      ] FDJacobianTest.SpeciesJacobians
+[       OK ] FDJacobianTest.SpeciesJacobians (0 ms)
+[ RUN      ] FDJacobianTest.ElectrolytePhaseSource
+[       OK ] FDJacobianTest.ElectrolytePhaseSource (0 ms)
+[----------] 8 tests from FDJacobianTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test case ran. (1 ms total)
+[  PASSED  ] 8 tests.
