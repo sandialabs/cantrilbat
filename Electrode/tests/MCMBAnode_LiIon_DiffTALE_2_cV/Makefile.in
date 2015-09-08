@@ -1,12 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/02/22 20:32:47 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -17,6 +10,14 @@
 .SUFFIXES: .d
 
 PROGRAM = MCMBAnode_DiffTALE_2
+
+TESTNAME =  MCMBAnode_LiIon_DiffTALE_2_cV
+
+BLESSED_FILES = good_out.txt MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv soln_0_0_blessed.xml
+
+DATA = anode.inp problem_setup.sh \
+       ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister_base.xml\
+       MCMB_RedlichKister_ss.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  
 
 OBJ = $(PROGRAM).o
 
@@ -127,8 +128,13 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
-	./runtest
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../runtest_Electrode
 
 rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
@@ -154,7 +160,6 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
 
 
 clean:
