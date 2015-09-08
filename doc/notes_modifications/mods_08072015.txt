@@ -1,0 +1,46 @@
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Issue #          note-1
+Name             Harry Moffat
+Concept          Calculation of open circuit voltages
+Date             080715
+Files            Electrode.cpp
+Functions        openCircuitVoltage()
+
+Bug Issues      I noticed that the open circuit voltage returned by Electrode::openCircuitVoltage(isk, comparedToRefElectrode)
+                returned a zero answer. This was my original bug report. However, 
+                there is a basic issue with returning the open circuit voltage 
+                compared to the reference electrode that needs to be handled.
+
+motivation      The OCV is reported vs the reference electrode exclusively in the open literature.
+                It doesn't make sense to report half-cell OCV, because the reference can
+                change arbitrarily.
+
+Implementation  Worked on understanding what it means to report "OCV vs reference electrode". 
+                the original implementation used getDeltaGibbs_electrolyteSS() to calculate the local
+                reference electrode OCV. This should remain the default as it uses only local information and is absolutely
+                correct in some cases (my original cases) and is at least approximately correct in some other cases.
+                However, a better approach would be to calculate the full cell OCV at the local conditions 
+                if it is available. This can be accomplished in the Li ssystem if Li-metal solid phase is added to the
+                ReactingSurDomain object and the full-cell reaction included with a zero reaction rate. This does have the
+                disatvantage that there may be a temperature difference. Also Li_metal has a zero mole number. This
+                may lead to problems, but I haven't noticed any but the original bug about OCV=0.0
+
+              
+                
+Example
+
+To Do            Formalize how the OCV vs. the reference electrode is calculated in a ReactingSurDomain object.
+                 Initial idea:
+                      There is an initial complication about multiple electron reactions. The OCV is defined as the
+                      voltage which produces a zero electron flux from the cumulative system.
+                      Then, the reference electrode value of the OCV is calculated via the following differing methods:
+                      1) Use the value of getDeltaGibbs_electrolyteSS() to calculate deltaG of the main reaction.
+                         Use this, with the nStoichElectrons value to calculate OCV.  This works for Li+ reactions because
+                         Li+ mole term is not included in  getDeltaGibbs_electrolyteSS().
+                      2) Use the full-cell reaction with Li_metal phase added to the local electrode and an extra
+                         reaction describing the full cell reaction.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
