@@ -157,6 +157,7 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
+    electrodeC->electrode_stateSave_create();
 
     double deltaT = 0.1;
     double Tinitial = 0.0;
@@ -178,6 +179,7 @@ int main(int argc, char **argv)
     electrodeC->printCSVLvl_ = 4;
 
     electrodeC->printElectrode();
+
     electrodeC->setPrintLevel(2);
     //electrodeC->setPrintLevel(1);
     electrodeC->setDeltaTSubcycle(0.01);
@@ -200,6 +202,7 @@ int main(int argc, char **argv)
  
       cout << setw(15) << Tfinal << setw(15) << amps << endl;
       electrodeC->printElectrode();
+      electrodeC->writeSolutionTimeIncrement();
   
     }
 

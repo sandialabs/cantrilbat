@@ -57,7 +57,7 @@ export LCXX_END_LIBS
 # F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
 F77='/sierra/sntools/SDK/compilers/gcc/4.7.2-RHEL6/bin/gfortran'
 export F77
-i#
+#
 #FFLAGS="-g -DDEBUG_HKM  -fno-second-underscore"
 FFLAGS="-g -fno-second-underscore"
 export FFLAGS
@@ -69,8 +69,7 @@ MPICXX=${MPIHOME}/bin/mpiCC
 export MPICXX
 
 MPICC=${MPIHOME}/bin/mpicc
-ierra_gcc472_current
-xport MPICC
+export MPICC
 
 MPIF77=${MPIHOME}/bin/mpif77
 export MPIF77

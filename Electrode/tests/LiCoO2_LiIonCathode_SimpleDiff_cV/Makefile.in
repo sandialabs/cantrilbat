@@ -1,13 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2011/12/01 21:40:53 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -23,27 +15,26 @@ BLESSED_FILES = good_out.txt LiCoO2_intResults_blessed.csv
 DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
         metal_Li_LiIon_electrons.xml cathode.inp
 
-
 OBJ = $(PROGRAM).o
-
+#
 ##########################################################################
 #           Setup The Cantera Directory locations
 #########################################################################
-
+#
 PURIFY=@PURIFY@
 
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
-
 #
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
-
+#
+#  Util directory
+#
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-
 #
 # Set up the Cantera addition library
 #
@@ -75,10 +66,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
-
 OBJ_ANODE =  $(OBJ)
-
-OBJ_CANTERA_ADDONS =  
 
 ############################################################################
 # section to set up compiler rules
@@ -139,7 +127,7 @@ test:
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(PROGRAM)
-	./runtest
+	../runtest_Electrode
 
 rebaseline:
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
@@ -165,7 +153,8 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
+test_clean:
+	$(RM) *~  out.txt  diff_out.txt diff_csv.txt err_out.txt runInProgress.txt runBad runGood
 
 clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
@@ -173,7 +162,7 @@ clean:
 
 dist_clean:
 	@MAKE@ clean
-	$(RM) Makefile out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
+	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
 
 
 
