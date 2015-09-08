@@ -31,7 +31,7 @@ Electrode Model Name = SimpleDiff
 !   Number of cantera files.  
 !
 !-------------------------------------------------------------------------
-Number of Cantera Files = 4
+Number of Cantera Files = 5
 !-------------------------------------------------------------------------
 ! Cantera File Name = [string] [ required ]
 !
@@ -45,6 +45,7 @@ Cantera File Name = metal_Li_LiIon_electrons.xml
 Cantera File Name = ECsoln_ion.xml
 Cantera File Name = MCMB_RedlichKister.xml
 Cantera File Name = MCMBAnode_electrode.xml
+Cantera File Name = Li_Metal.xml
 !
 !-------------------------------------------------------------------------
 ! Temperature - double (no default) (required)
@@ -119,7 +120,8 @@ start block Open Circuit Potential Override for interface  anode_surface
    Identify Reaction for OCV Model = 0
    Temperature Derivative =  MODEL
    Temperature for OCV = 298.15
-   Open Circuit Voltage Temperature Derivative Model = MCMB2528
+   Open Circuit Voltage Temperature Derivative Model = Anode_Constant 0.0
+   Identify Full Cell Reaction for OCV Model = 1
 end block Open Circuit Potential Override for interface anode_surface
 !
 !--------------------------------------------------------------------------------------------------------------

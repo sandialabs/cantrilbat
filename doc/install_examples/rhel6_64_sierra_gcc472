@@ -1,17 +1,17 @@
-#!/bin/sh
+#h/bin/sh
 #
+# Installation from the CAB_3279 trunk
 #
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/CanteraSCON
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera-1.8_liquidTransportDevelop  
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc444/cantera_trunk_dbg
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cantera_trunk_stable_dbg
-#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc424/cantera-1.8_liquidTransportDevelop_541
+#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cab_3279_dbg
+CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/zuzax_trunk_dbg
 export CANTERA_INSTALL_DIR
 #
-CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
+#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
+#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_3279
+CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zax
 export CANTERA_ROOT
 #
-CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_stable_dbg"
+CANTERA_APPS_INSTALL_DIR="${CANTERA_INSTALL_DIR}/apps_dbg"
 export CANTERA_APPS_INSTALL_DIR
 #
 PYTHON_DIR=/home/hkmoffa/arch/linux64_gcc444/python-2.6.4
@@ -32,15 +32,20 @@ PYTHON_SITE_PACKAGE_TOPDIR=/home/hkmoffa/arch/linux64_gcc444/python-2.6.4
 export PYTHON_SITE_PACKAGE_TOPDIR
 #
 CXX=/sierra/sntools/SDK/compilers/gcc/4.7.2-RHEL6/bin/g++
-
 export CXX
-
-# -DDEBUG_MODE
-# -DDEBUG_HKM
-# -DDO_INIT_CALC
-#CXXFLAGS="-g -Wall -DDEBUG_HKM"
+#
+# CXXFLAGS:
+#   Defines within the code:
+#     -DDEBUG_MODE
+#     -DDEBUG_HKM
+#     -DDO_INIT_CALC
 CXXFLAGS="-g -Wall -DDEBUG_MODE"
 export CXXFLAGS
+#
+#  Turn on and off MECH_MODEL here
+#
+#CXX_GDEFINES="-DMECH_MODEL"
+export CXX_GDEFINES
 #
 LCXX_END_LIBS=" -lgfortran"
 export LCXX_END_LIBS
@@ -49,30 +54,62 @@ export LCXX_END_LIBS
 # written in fortran. This is used to find the libraries
 # to link against
 #
-F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
+# F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
 F77='/sierra/sntools/SDK/compilers/gcc/4.7.2-RHEL6/bin/gfortran'
 export F77
+i#
 #FFLAGS="-g -DDEBUG_HKM  -fno-second-underscore"
 FFLAGS="-g -fno-second-underscore"
 export FFLAGS
-
+#
+# MPIHOME
+#
 export MPIHOME=/sierra/sntools/SDK/mpi/openmpi/1.6.4-gcc-4.7.2-RHEL6
-
 MPICXX=${MPIHOME}/bin/mpiCC
 export MPICXX
 
 MPICC=${MPIHOME}/bin/mpicc
-export MPICC
+ierra_gcc472_current
+xport MPICC
 
 MPIF77=${MPIHOME}/bin/mpif77
 export MPIF77
+
+# 
+#  Location and Name of the blas library
+#
+export BLAS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+export BLAS_LIBRARY_NAMES=libblas_linux64-gcc472.a
+# 
+#  Location and Name of the lapack library
+#
+export LAPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+export LAPACK_LIBRARY_NAMES=liblapack_linux64-gcc472.a
+#
+#  Location of the Umfpack library
+#
+export UMFPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/UMFPACK-5.4/lib
+export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
+#
+#  Location of the superludist library
+#
+export SUPERLUDIST_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
+export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
+
+export PARMETIS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/ParMetis-3.1.1/lib
+export PARMETIS_LIBRARY_NAMES="libparmetis.a:libmetis.a"
+
+export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+export Y12M_LIBRARY_NAMES="liby12m.a"
+
 
 CXX_DEPENDS='/sierra/sntools/SDK/mpi/openmpi/1.6.4-gcc-4.7.2-RHEL6/bin/mpiCC -MM'
 # CXX_DEPENDS="${CXX}  -MM"
 echo CXX_DEPENDS = $CXX_DEPENDS
 export CXX_DEPENDS 
 
-TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
+#TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
+TRILINOS_INSTALL_DIR="/home/cbluchi/install/Trilinos-11.12.1-dbg"
 #TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_10_10_2_dbg"
 # TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc444/trilinos_9.0.1_linux_64_dbg"
 # TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc444/trilinos_9.0.1_linux_64_nompi_dbg"

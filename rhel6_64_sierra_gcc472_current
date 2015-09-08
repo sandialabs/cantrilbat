@@ -32,13 +32,13 @@ PYTHON_SITE_PACKAGE_TOPDIR=/home/hkmoffa/arch/linux64_gcc444/python-2.6.4
 export PYTHON_SITE_PACKAGE_TOPDIR
 #
 CXX=/sierra/sntools/SDK/compilers/gcc/4.7.2-RHEL6/bin/g++
-
 export CXX
-
-# -DDEBUG_MODE
-# -DDEBUG_HKM
-# -DDO_INIT_CALC
-#CXXFLAGS="-g -Wall -DDEBUG_HKM"
+#
+# CXXFLAGS:
+#   Defines within the code:
+#     -DDEBUG_MODE
+#     -DDEBUG_HKM
+#     -DDO_INIT_CALC
 CXXFLAGS="-g -Wall -DDEBUG_MODE"
 export CXXFLAGS
 #
@@ -54,15 +54,17 @@ export LCXX_END_LIBS
 # written in fortran. This is used to find the libraries
 # to link against
 #
-F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
+# F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
 F77='/sierra/sntools/SDK/compilers/gcc/4.7.2-RHEL6/bin/gfortran'
 export F77
+i#
 #FFLAGS="-g -DDEBUG_HKM  -fno-second-underscore"
 FFLAGS="-g -fno-second-underscore"
 export FFLAGS
-
+#
+# MPIHOME
+#
 export MPIHOME=/sierra/sntools/SDK/mpi/openmpi/1.6.4-gcc-4.7.2-RHEL6
-
 MPICXX=${MPIHOME}/bin/mpiCC
 export MPICXX
 
@@ -83,10 +85,14 @@ export BLAS_LIBRARY_NAMES=libblas_linux64-gcc472.a
 #
 export LAPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
 export LAPACK_LIBRARY_NAMES=liblapack_linux64-gcc472.a
-
+#
+#  Location of the Umfpack library
+#
 export UMFPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/UMFPACK-5.4/lib
 export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
-
+#
+#  Location of the superludist library
+#
 export SUPERLUDIST_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
 export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
 
