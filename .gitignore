@@ -13,4 +13,4 @@ config.h
 *~
 .*.swp
 rhel6_64_sierra_gcc472_mech
-
+rhel6_64_sierra_gcc472_current

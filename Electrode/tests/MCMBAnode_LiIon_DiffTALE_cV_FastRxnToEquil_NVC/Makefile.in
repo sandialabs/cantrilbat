@@ -1,13 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/02/22 20:32:47 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -17,6 +9,15 @@
 .SUFFIXES: .d
 
 PROGRAM = MCMBAnode_DiffTALE_Frxn_NVC
+TESTNAME = MCMBAnode_DiffTALE_Frxn_NVC
+
+OBJ = $(PROGRAM).o
+
+BLESSED_FILES = good_out.txt MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv
+
+DATA = anode.inp problem_setup.sh \
+       ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml
+
 
 OBJ = $(PROGRAM).o
 
@@ -72,8 +73,6 @@ CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 OBJ_ANODE =  $(OBJ)
 
-OBJ_CANTERA_ADDONS =  
-
 ############################################################################
 # section to set up compiler rules
 ###########################################################################
@@ -127,8 +126,14 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
-	./runtest
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../runtest_Electrode
+
 
 rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
