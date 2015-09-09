@@ -252,12 +252,10 @@ double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn)
     return netCurrentDensity;
 }
 //==================================================================================================================================
+#ifdef DONOTREMOVE
 double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV, doublereal* io,
 							       doublereal* overPotential, doublereal *beta, doublereal* resist_ptr)
 {
-   /*
-    *  \todo   The getExchangeCurrentDensityFormulation() function needs to be checked against a slew of special case reactions.
-    */
     doublereal icurr = 0.0;
     *resist_ptr = 0.0;
   
@@ -317,9 +315,6 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     //
     double nu = voltage - *OCV;
     *overPotential = nu;
-    /*
-     *  Get the reaction type
-     */
     int reactionType = m_rxntype[irxn];
 
     if (reactionType == BUTLERVOLMER_NOACTIVITYCOEFFS_RXN) {
@@ -504,7 +499,9 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     }
     return icurr;
 }
+#endif
 //====================================================================================================================
+#ifdef DONOTREMOVE
 double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const
 {
      double exp1 = nu * nStoich * Faraday * beta / (GasConstant * temp);
@@ -512,6 +509,7 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
      double val = io * (exp(exp1) - exp(exp2));
      return val;
 }
+#endif
 //====================================================================================================================
 /*
  *  This ostream function describes how to extend cout output

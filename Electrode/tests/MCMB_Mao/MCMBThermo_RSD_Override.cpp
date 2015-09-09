@@ -428,7 +428,18 @@ end block Open Circuit Potential Override for interface anode_surface
      double io;
      double nu;
      double beta, resist;
-     double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta, &resist);
+     //double icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta, &resist);
+     double icurD2;
+#ifdef DONOTREMOVE
+     icurD2 = rsd->getExchangeCurrentDensityFormulation(irxn, &nStoich, &OCV, &io, &nu, &beta, &resist);
+#else
+     bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, nStoich, OCV, io, nu, beta, resist);
+     if (okk) {
+                icurD2 = rsd->calcCurrentDensity(nu, nStoich, io, beta, Temp, resist);
+     } else {
+	 icurD2 = 0.0;
+     }
+#endif
 
      printf(" icurr = %g   icurr2 = %g \n", icurD, icurD2);
      printf("      Calculated exchange current density formulation:\n");

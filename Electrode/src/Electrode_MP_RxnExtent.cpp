@@ -4486,7 +4486,17 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     double io;
     double nu;
     double beta, resist;
-    double icurr = rsd->getExchangeCurrentDensityFormulation(irxn,  &dStoich, &OCV, &io, &nu, &beta, &resist);
+#ifdef DONOTREMOVE
+    double icurr = rsd->getExchangeCurrentDensityFormulation(irxn, &dStoich, &OCV, &io, &nu, &beta, &resist);
+#else
+    bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, dStoich, OCV, io, nu, beta, resist);
+    double icurr = 0.0;
+    if (okk) {
+	icurr = rsd->calcCurrentDensity(nu, dStoich, io, beta, temperature_, resist);
+    }
+#endif
+
+
     printf("          OCV from (rsd)                                         %- 12.7g Volts\n", OCV);
     printf("          i_o                                                    %- 12.7E coul/sec/m2\n", io);
     printf("          nStoich                                                %- 12.7g\n", dStoich);

@@ -234,8 +234,10 @@ public:
      *
      *   @return                             Returns the current density for the reaction (amps m-2)
      */
+#ifdef DONOTREMOVE
     double getExchangeCurrentDensityFormulation(int irxn, doublereal* nStoich, doublereal* OCV,
                                                 doublereal* io, doublereal* nu, doublereal *beta, doublereal* resist_ptr);
+#endif
 
     //! Utility routine to calculate the current density given the parameters for
     //! an exchange current density formulation of the reaction rate
@@ -248,7 +250,9 @@ public:
      *
      *  @return                              Returns the current density (amps m-2)
      */
+#ifdef DONOTREMOVE
     double calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const;
+#endif
 
     //!  Identify the metal phase and the electrons species
     /*!

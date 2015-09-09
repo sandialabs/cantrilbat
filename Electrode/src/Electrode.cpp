@@ -3571,7 +3571,7 @@ double Electrode::overpotentialRxn(int isk, int irxn)
  */
 double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
 {
-    double i = 0.0;
+    double iCurr = 0.0;
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
@@ -3582,10 +3582,20 @@ double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
         double nu;
         double beta;
         double resist;
-        i = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
+#ifdef DONOTREMOVE
+	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
+#else
+	bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, nstoich, ocv, io, nu, beta, resist);
+	if (okk) {
+	    iCurr = rsd->calcCurrentDensity(nu, nstoich, io, beta, temperature_, resist);
+	} else {
+	    iCurr = 0.0;
+	}
+#endif
+
         return io;
     }
-    return i;
+    return iCurr;
 }
 //====================================================================================================================
 int Electrode::kKinSpecElectron(int isurf) const
@@ -4851,7 +4861,18 @@ double Electrode::thermalEnergySourceTerm_overpotential(int isk)
          size_t nr = rsd->nReactions();
          for (size_t irxn = 0; irxn < nr; irxn++) {
              double overpotential = overpotentialRxn(isk, (int) irxn);
+      
+#ifdef DONOTREMOVE
              iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
+#else
+             bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, nstoich, ocv, io, nu, beta, resist);
+             if (okk) {
+                iCurr = rsd->calcCurrentDensity(nu, nstoich, io, beta, temperature_, resist);
+             } else {
+                iCurr = 0.0;
+             }
+#endif
+
 	     if (nstoich != 0.0) {
 		 q += sa * iCurr * overpotential;
 	     }
@@ -4883,7 +4904,17 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
 	 double tt = temperature_;
 
          for (size_t irxn = 0; irxn < nr; irxn++) {
+#ifdef DONOTREMOVE
              iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
+#else
+             bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, nstoich, ocv, io, nu, beta, resist);
+             if (okk) {
+                iCurr = rsd->calcCurrentDensity(nu, nstoich, io, beta, temperature_, resist);
+             } else {
+                iCurr = 0.0;
+             }
+#endif
+
 	     if (nstoich != 0.0) {
 		 q -= sa * iCurr * tt * s_deltaS[irxn] / Faraday;
 	     } else {
@@ -4923,8 +4954,18 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
             printf("h %d = %20.9E\n", k, enthalpyMolar_final_[k]);
          }
 #endif
+         // HKM -> what happens here when not in exchange current format?
          for (size_t irxn = 0; irxn < nr; irxn++) {
+#ifdef DONOTREMOVE
              iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
+#else
+             bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, nstoich, ocv, io, nu, beta, resist);
+             if (okk) {
+                iCurr = rsd->calcCurrentDensity(nu, nstoich, io, beta, temperature_, resist);
+             } else {
+                iCurr = 0.0;
+             }
+#endif
 #ifdef DEBUG_THERMAL
 	     double deltaM = - iCurr * sa / Faraday;
              printf ("delta moles = %g\n", deltaM * deltaTsubcycle_);

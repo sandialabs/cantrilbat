@@ -211,8 +211,20 @@ int main(int argc, char **argv)
       double current1 = cd1 * sa[0];
       printf("current1 = %g amps\n", current1);
 
-      double nStoich, OCV, io, nu, beta, resist;
-      double cd2 = rsd->getExchangeCurrentDensityFormulation(0, &nStoich, &OCV, &io, &nu, &beta, &resist);
+      double nStoich, OCV, io, nu, beta, resist, cd2;
+      double TT = electrodeC->temperature();
+      
+#ifdef DONOTREMOVE
+      cd2 = rsd->getExchangeCurrentDensityFormulation(0, &nStoich, &OCV, &io, &nu, &beta, &resist);
+#else
+      bool okk = rsd->getExchangeCurrentDensityFormulation(0, nStoich, OCV, io, nu, beta, resist);
+      if (okk) {
+          cd2 = rsd->calcCurrentDensity(nu, nStoich, io, beta, TT, resist);
+      } else {
+          cd2 = 0.0;
+      }
+#endif
+
       printf("cd2 = %g\n", cd2);
 
       double current2 = cd2 * sa[0];
