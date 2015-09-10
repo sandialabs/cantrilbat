@@ -1,12 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/01/19 01:03:00 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -18,6 +11,13 @@
 
 PROGRAM = MCMBAnode_CSTR_2
 
+TESTNAME = MCMBAnode_LiIon_CSTR_2_cV_restart
+
+BLESSED_FILES = good_out.txt MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv soln_0_0_blessed.xml
+
+DATA =  anode.inp problem_setup.sh \
+        ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  
+
 OBJ = $(PROGRAM).o
 
 ##########################################################################
@@ -28,16 +28,14 @@ PURIFY=@PURIFY@
 
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
-
 #
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
-
+#
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-
 #
 # Set up the Cantera addition library
 #
@@ -71,9 +69,7 @@ CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
 OBJ_ANODE =  $(OBJ)
-
-OBJ_CANTERA_ADDONS =  
-
+#
 ############################################################################
 # section to set up compiler rules
 ###########################################################################
@@ -95,29 +91,18 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
 ############################################################################
 # section to set up depends
-###########################################################################
+############################################################################
+#
 DEPENDS = $(OBJ_ANODE:.o=.d) 
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
@@ -127,12 +112,19 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
-	./runtest
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../runtest_Electrode
+
 
 rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
 	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
+	cp soln_0_0.xml soln_0_0_blessed.xml
 	cp out.txt good_out.txt
 
 ##############################################################################
@@ -150,14 +142,16 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 #############################################################################
 #          INSTALL RULES
 ##############################################################################
-
+#
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
+test_clean: diff_csv.txt  diff_gcsv.txt  diff_icsv.txt  diff_out.txt  diff_summary.txt  diff_xml.txt \
+            runGood runBad runInProgress.txt err_out.txt out.txt \
+            MCMB_intResults_0_0.csv   MCMB_globalResults_0_0.csv      soln_0_0.xml
 
 clean:
+	@MAKE@ test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
 
