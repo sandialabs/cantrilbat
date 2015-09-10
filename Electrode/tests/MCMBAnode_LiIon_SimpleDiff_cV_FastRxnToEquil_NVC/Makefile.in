@@ -1,12 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/02/22 20:32:47 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -18,8 +11,7 @@
 
 PROGRAM = MCMBAnode_SimpleDiff_Frxn_NVC
 
-
-TESTNAME = LiCoO2_LiIonCathode_CSTR_thermal
+TESTNAME = MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC
 
 BLESSED_FILES = good_out.txt  MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv
 
