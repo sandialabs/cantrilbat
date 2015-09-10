@@ -1,6 +1,9 @@
 
 
-
 The templated test for copying is located in
-    LiCoO2_LiIonCathode_CSTR_3_cc
-This has the option to check for whether the test results are current and for not running the test again.
+   LiCo2_LiIonCathode_CSTR_thermal
+
+This runs off of the runtest_Electrode script.
+It also includes the most recent version of the Makefile.in file.
+
+
