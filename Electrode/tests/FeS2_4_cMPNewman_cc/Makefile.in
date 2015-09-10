@@ -1,12 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2011/08/30 00:24:03 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -18,7 +11,8 @@
 
 PROGRAM = FeS2_4_MPNewman_cc
 
-BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv
+BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv \
+                soln_0_0_blessed.xml outputTable_blessed.csv
 
 DATA = cathode.inp  FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml\
        LiKCl_recipmoltenSalt.xml  Li_Liquid.xml  metal_Li_LiCl_electrons.xml
@@ -105,11 +99,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
+#
 ############################################################################
 # section to set up depends
 ###########################################################################
@@ -138,10 +128,12 @@ test:
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(PROGRAM)
-	./runtest
+	../runtest_Electrode
 
 rebaseline:
 	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
+	cp soln_0_0.xml            soln_0_0_blessed.xml
+	cp outputTable.csv     outputTable_blessed.csv
 	cp out.txt good_out.txt
 
 ##############################################################################
@@ -163,6 +155,11 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
+
+test_clean:
+	$(RM) runGood runBad runInProgress.txt \
+	      diff* err* out.txt  \
+	       FeS2_globalResults_0_0.csv  FeS2_intResults_0_0.csv outputTable.csv
 
 clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)

@@ -244,7 +244,7 @@ int EState::initialize(const Cantera::Electrode* const e)
     electrodeCellNumber_    = e->electrodeCellNumber_;
 
     copyElectrode_intoState(eRef_);
-    return 1;
+    return 0;
 }
 //==================================================================================================================================
 const std::string& EState::electrodeType() const

@@ -151,6 +151,11 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
+    retn = electrodeC->electrode_stateSave_create();
+    if (retn == -1) {
+      printf("exiting with error\n");
+      exit(-1);
+    }
    
     double deltaTgoal = 0.1;
 
@@ -222,6 +227,8 @@ int main(int argc, char **argv)
 
     
       electrodeC->printElectrode();
+      electrodeC->writeSolutionTimeIncrement();
+
 
       SubIntegrationHistory sih1 = electrodeC->timeHistory();
       //sih1.print(3);
@@ -259,7 +266,7 @@ int main(int argc, char **argv)
       delete electrodeC;
       Cantera::appdelete();
 
-    return retn;
+    return 0;
 
   } catch (CanteraError) {
 
