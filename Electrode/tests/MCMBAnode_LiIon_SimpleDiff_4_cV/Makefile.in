@@ -1,43 +1,42 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/02/22 20:32:47 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
 # may require a license from the United States Government.
 #
-
 .SUFFIXES: .d
 
 PROGRAM = MCMBAnode_SimpleDiff_4
+TESTNAME = MCMBAnode_LiIon_SimpleDiff_4_cV
 
-OBJ = $(PROGRAM).o
+BLESSED_FILES = good_out.txt soln_0_0_blessed.xml \
+                MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv  
 
-##########################################################################
-#           Setup The Cantera Directory locations
-#########################################################################
+DATA = anode.inp problem_setup.sh \
+ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  
 
+all: .depends $(PROGRAM)
+#
+################################################################################################################
+#                          Setup The Cantera Directory locations
+################################################################################################################
+#
 PURIFY=@PURIFY@
-
+#
 # These links are to Cantera's install space
+#
 CT_INCROOT =  @ct_incroot@
-
 #
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
-
+#
+# Setup the util_src library for inclusion in this project
+#
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-
 #
 # Set up the Cantera addition library
 #
@@ -51,40 +50,26 @@ CTAPPLBASE_DIR = ../../src
 CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
 CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
 #
-#########################################################################
-# Set up the various local and global defines
-########################################################################
+###################################################################################################################
+#                    Set up the various local and global defines
+##################################################################################################################
+#
 LDEFINES = -DDEBUG 
 GDEFINES =
 #
 # Set up the global include directory macro
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
-
-all: .depends $(PROGRAM)
-
-LDR = $(F77LDR)
-LDRFLAGS = $(F77LDRFLAGS)
-LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
-
-CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
-
-
-OBJ_ANODE =  $(OBJ)
-
-OBJ_CANTERA_ADDONS =  
-
-############################################################################
-# section to set up compiler rules
-###########################################################################
+#
+##################################################################################################################
+#                          SECTION TO SET UP COMPILER RULES 
+##################################################################################################################
 #
 # the C++ compiler
 #
 CXX = @CXX@
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 CXXFLAGS = @CXXFLAGS@
-LCXX_FLAGS = @LCXX_FLAGS@
-LCXX_END_LIBS = @LCXX_END_LIBS@
-CXXLDR = $(CXX)
 #
 # C compiler
 #
@@ -95,29 +80,37 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
-############################################################################
-# section to set up depends
-###########################################################################
-DEPENDS = $(OBJ_ANODE:.o=.d) 
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
-
+#
+##################################################################################################################
+#                        Section to Set Up Linking Rules
+##################################################################################################################
+#
+CXXLDR = $(CXX)
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+#
+OBJ = $(PROGRAM).o
+$(OBJ): Makefile
+#
+$(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+#
+#######################################################################################################################
+#                          SECTION TO SET UP DEPENDS RULES
+#######################################################################################################################
+#
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+DEPENDS = $(OBJ_ANODE:.o=.d) 
+
+$(DEPENDS): Makefile
 
 depends:
 	$(RM) $(DEPENDS)
@@ -125,39 +118,46 @@ depends:
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
-
-test: 
-	@MAKE@
-	./runtest
-
-rebaseline:
-	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
-	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
-	cp out.txt good_out.txt
-
-##############################################################################
-
-$(OBJ_MPEQUIL): Makefile
-$(DEPENDS): Makefile
-
-$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
-	          $(OBJ_CANTERA_ADDONS)  \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS) 
-
-#############################################################################
-#          INSTALL RULES
-##############################################################################
-
+#
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
-
-
+#
+########################################################################################################################
+#                        SECTION TO SET UP TEST RUNS
+########################################################################################################################
+#
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+#
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../runtest_Electrode
+#
+rebaseline:
+	cp out.txt                   good_out.txt
+	cp soln_0_0.xml              soln_0_0_blessed.xml
+	cp  MCMB_intResults_0_0.csv  MCMB_intResults_blessed_0_0.csv 
+	cp  MCMB_globalResults_0_0.csv MCMB_globalResults_blessed_0_0.csv 
+#
+##########################################################################################################################
+#          SECTION TO SET UP CLEAN RULES
+##########################################################################################################################
+#
+test_clean:
+	$(RM) runInProgress.txt runBad runGood \
+	      diff_out.txt diff_csv.txt err_out.txt soln_0_0.xml out.txt diff_gcsv.txt diff_icsv.txt \
+	      MCMB_intResults_0_0.csv     MCMB_globalResults_0_0.csv  
+#
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
-
+	$(RM) runInProgress.txt runBad runGood 
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) 
+#
+dist_clean:
+	@MAKE@ test_clean
+	@MAKE@ clean
+#
+##########################################################################################################################
+#
