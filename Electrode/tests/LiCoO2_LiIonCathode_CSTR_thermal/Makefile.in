@@ -148,7 +148,7 @@ rebaseline:
 #
 test_clean:
 	$(RM) runInProgress.txt runBad runGood \
-	      diff_out.txt diff_csv.txt err_out.txt soln_0_0.xml out.txt \
+	      diff_out.txt diff_csv.txt err_out.txt soln_0_0.xml out.txt diff_gcsv.txt diff_icsv.txt \
               LiCoO2_intResults_0_0.csv  LiCoO2_globalResults_0_0.csv
 #
 clean:
