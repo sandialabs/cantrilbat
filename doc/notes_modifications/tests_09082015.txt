@@ -1,0 +1,26 @@
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Issue #          note-1
+Name             Harry Moffat
+Concept          Test suite
+Date             090715
+Files            Electrode test suite
+Functions       
+
+Bug Issues       All tests should look  alike. There may be significant issues with users if this is not the case.
+                 Also, it will help the automatic running of the suite.
+
+motivation       Ease of use
+                 If and when I go to cmake, I'll need a uniform standard.
+                 CTest relies on the executable that is called returning 0 for
+                 pass and 1 for a failure.  I think this is the standard.
+                 I want an automatic way to count the number of passed and failed tests 
+
+
+Example          
+
+To Do       
+
+-----------------------------------------------------------------------------------------------------------------------------------
+~                                                                                                                                                       
