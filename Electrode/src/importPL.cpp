@@ -48,7 +48,8 @@ namespace Cantera
  */
 static void processPhasePL(XML_Node* xmlphase, PhaseList* pl, std::string canteraFile)
 {
-    ThermoPhase* tPhase = processExpandedThermoPhase(xmlphase);
+    //ThermoPhase* tPhase = processExpandedThermoPhase(xmlphase);
+    ThermoPhase* tPhase = newPhase(*xmlphase);
     if (!tPhase) {
         printf("processPhasePL ERROR: tPhase = 0\n");
         exit(-1);

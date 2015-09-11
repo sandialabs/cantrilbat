@@ -527,6 +527,7 @@ END BLOCK Radial Diffusion Region
      5 Volt(CathodeVoltage)  Current_conservation |                                                 |     5 Volt(CathodeVoltage)  Current_conservation |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
+WARNING: 'XML_Node::getChildren' is deprecated. To be removed after Cantera 2.2.Use overload that returns the vector of XML_Node pointers.
 Read saved solution from  file solution_start.xml as solution 0.
 Read saved solution from  file solution_start.xml as solution 0.
 Solution saved to file solution.xml as solution 0.
