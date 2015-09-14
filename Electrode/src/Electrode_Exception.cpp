@@ -82,7 +82,7 @@ bool doubleEqual(double a1, double a2, double atol, int digits)
     return false;
 }
 //==================================================================================================================================
-bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<double>& a2, double atol, int digits)
+bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<double>& a2, int digits)
 {
     size_t j = a1.size();
     size_t j2 = a2.size();
