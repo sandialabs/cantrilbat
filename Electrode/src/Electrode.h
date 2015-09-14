@@ -464,10 +464,17 @@ public:
      *  The number of surfaces may differ from the number of surface kinetics objects now.
      *  All references to surfaces within the Electrode loop over the number of surfaces,
      *  with an array determining there is an Electrode kinetics object located at that surface.
+     *
+     *   @return                          Returns the number of surfaces
      */
     int nSurfaces() const;
 
-    //! Return the number of reactions in the a reacting surface domain
+    //! Return the number of reactions in a reacting surface domain given by the index
+    /*!
+     *   @param[in]        isk            Index of the reacting surface domain to query
+     *
+     *   @return                          Returns the number of reactions
+     */
     int nReactions(int isk) const ;
 
     //! Return a vector of surface phase areas.
@@ -499,7 +506,7 @@ public:
      *  The voltage of the electrode is defined as the potential of the metal minus
      *  the potential of the electrolyte.
      *
-     *  @return  returns voltage in volts.
+     *  @return                     returns voltage in volts.
      */
     double voltage() const;
 
@@ -507,7 +514,7 @@ public:
     /*!
      * @param iph  Phase id
      *
-     * @return Returns the voltage in volts
+     * @return                                  Returns the voltage in volts
      */
     double phaseVoltage(int iph) const;
 
@@ -564,8 +571,6 @@ public:
     virtual void setPhaseMoleNumbers(int iph, const double* const moleNum);
     
   
-
-
 protected:
     //! Update all state information for a single phase from the mole numbers in the spMoles_final_[] vector
     /*!
@@ -618,10 +623,10 @@ public:
     //!  Returns the current and the net production rates of all species in the electrode object
     //!  at the current conditions from one surface kinetics object
     /*!
-     * @param isk   Surface index to get the net production rates from
-     * @param net   Species net production rates [kmol/m^2/s]. Return the species
+     * @param[in]   isk              Surface index to get the net production rates from
+     * @param[in]   net              Species net production rates [kmol/m^2/s]. Return the species
      *
-     *   @return   Returns the current columb sec-1 m-2
+     *   @return                     Returns the current columb sec-1 m-2
      */
     doublereal getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const;
 
@@ -662,19 +667,27 @@ public:
 
     //! Overpotential term for the heat generation from a single surface
     /*!
-     *   @param irxn Surface index 
+     *   ( units = J / s) 
+     *   @param[in]  irxn            Index of the ReactingSurDomain
+     *
+     *   @return                     Returns the thermal energy overpotential term ( units = J / s)                     
      */
     virtual double thermalEnergySourceTerm_overpotential(int isk);
 
-    //! Reversible Entropy term leading to  heat generation
+    //! Reversible Entropy term leading to heat generation
     /*!
-     *    @param isk   
+     *   ( units = J / s ) 
+     *   This is the term due to the reversible entropy production.
+     *    @param[in]    isk             
+     *
+     *    @return                    Returns the themal energy source term  (units J / s)
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 
-    //! Reversible Entropy term leading to  heat generation
+    //! Energy source term due to Enthalpy formation
     /*!
-     *
+     *  ( units = J / s)
+     *   @param[in]  irxn            Index of the ReactingSurDomain
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
