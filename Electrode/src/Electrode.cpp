@@ -4547,8 +4547,8 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
  *
  *  @return Return the voltage used to obtain the current
  */
-double Electrode::integrateConstantCurrent(doublereal& current, double& deltaT, double phiMax, double phiMin,
-					   int maxIntegrationSteps)
+double Electrode::integrateConstantCurrent(doublereal& current, doublereal& deltaT, doublereal phiMax,
+                                           doublereal phiMin, int maxIntegrationSteps)
 {
     int status;
     double currentNeeded = current;

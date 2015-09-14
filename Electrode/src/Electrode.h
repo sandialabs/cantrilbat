@@ -796,28 +796,25 @@ public:
      *  will return at the requested max and min values, indicating that we are at a boundary
      *  or that we have run out of electrons in the electrode.
      *
-     *  @param current    Current in amps. On return it returns the current actually obtained.
+     *  @param[in,out] current    Current in amps. On return it returns the current actually obtained.
      *
-     *  @param deltaT     DeltaT for the integration step. On output it contains the actual
-     *                    deltaT taken. This value may be different than the input deltaT.
-     *                    The algorithm reduces deltaT if there is a problem with the original
-     *                    deltaT, in order to find the requested current at a shorter time
-     *                    step.
+     *  @param[in,out] deltaT     DeltaT for the integration step. On output it contains the actual
+     *                            deltaT taken. This value may be different than the input deltaT.
+     *                            The algorithm reduces deltaT if there is a problem with the original
+     *                            deltaT, in order to find the requested current at a shorter time step.
      *
-     *  @param phiMax     Maximum value of the voltage. Defaults to  100.
-     *                    This is an input. The voltage must be bounded for the rootfinder to
-     *                    work efficiently and to avoid overflows, roundoff errors due to
-     *                    large reaction rate constants.
+     *  @param[in] phiMax         Maximum value of the voltage. Defaults to  100.
+     *                            This is an input. The voltage must be bounded for the rootfinder to
+     *                            work efficiently and to avoid overflows, roundoff errors due to large reaction rate constants.
      *
-     *  @param phiMin     Minimum value of the voltage. Defaults to -100.
-     *                    This is an input.
+     *  @param[in] phiMin         Minimum value of the voltage. Defaults to -100. This is an input.
      *
-     *  @param maxIntegrationSteps max number of integration steps. defaults to 5000
+     *  @param[in] maxIntegrationSteps Max number of integration steps. defaults to 5000
      *
-     *  @return Return the voltage used to obtain the current.
+     *  @return                   Return the voltage used to obtain the requested current.
      */
     virtual double integrateConstantCurrent(doublereal& current, doublereal& deltaT,
-                                            double phiMax = 100., double phiMin = -100.,
+                                            doublereal phiMax = 100., doublereal phiMin = -100.,
                                             int maxIntegrationSteps = 5000);
 
     //! Set the deltaT used for the subcycle step
