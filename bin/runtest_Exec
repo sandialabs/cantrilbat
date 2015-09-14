@@ -2,6 +2,31 @@
 #
 # testExecutable test Harness Runner
 #
+#   Runs a single program putting the standard output in the file "out.txt"
+#   
+#     Files Used:
+#          program_setup.sh    shell variable file that sets up the test problem
+#
+#     Environmental Variables Used (set up within program_setup.sh:
+#           TEST_NAME = name of the test that is used downstream
+#
+#           PROGRAM = Name of the executable to be run (there is one executable that is run
+#              
+#
+#           Text list of file to be checked using the diff command:
+#             BLESSED_DATA_FILES='good_out.txt good_out2.txt'  
+#             DATA_FILES='out.txt  out2.txt'
+#             DIFF_NAMES='diff.txt diff_2.txt'
+#             DIFF_REQ='True True'
+#
+#                    If the standard output is to be checked then include out.txt in the DATA_FILES list.
+#
+#           csv file to be checked using the diff command:
+#             BLESSED_CSV_FILES='table_blessed.csv table_2_blessed.csv'
+#             CSV_FILES='out.txt  out2.txt
+#             DIFF_CSV_NAMES='diff.txt diff_2.txt'
+#             DIFF_CSV_REQ='True True'
+#
 # todo: add a VERBOSE option to turn off output when not needed
 #
 ################################################################################################################################
@@ -34,9 +59,14 @@ first_el() {
 }
 #
 ################################################################################################################################
+# diff_compare_file arg1 arg2  
+#       Compare two files using the standard diff operator
+#       Returns the retnState of the diff operator
+#       Sets the variable retnState_cum if there is a failure.
+#       Sets the file flag runBadd if there is a failure
 #
 #   arg 1 = blessed file
-#   arg 2 = 
+#   arg 2 = created text file to be compared to the blessed file
 #
 diff_compare_file() {
 
@@ -81,9 +111,7 @@ diff_compare_file() {
     unset gg
     unset difname
     unset filename
-
     return $retnStat
-
 }
 #
 ################################################################################################################################
@@ -151,43 +179,36 @@ PROGRAM_SETUP='problem_setup.sh'
 while getopts "fhi:" opt; do
   case $opt in
     f  ) fff='1' ;;
-    h  ) echo 'usage runtest [-f] [-h] [-i program_setup.sh]'
+    h  ) echo 'usage runtestExec [-f] [-h] [-i program_setup.sh] [ $PROGRAM_EXTRA_OPTS ] '
          exit 1 ;;
     i  )  echo 'input file changed to ' $OPTARG
          PROGRAM_SETUP=$OPTARG
          ;;
-    \? ) echo 'usage runtest [-f] [-h] [-i program_setup.sh]'
+    \? ) echo 'usage runtestExec [-f] [-h] [-i program_setup.sh] [ $PROGRAM_EXTRA_OPTS ]'
          exit 1 ;;
   esac
 done
 shift $(($OPTIND - 1))
 #
 #
-PROGRAM_INPUT=
+PROGRAM_EXTRA_OPTS=
 if test $# -ge 1
 then
    //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
-   PROGRAM_INPUT=$1
+   PROGRAM_EXTRA_OPTS=$@
    shift
 fi
 #
-PROGRAM_OPTS=
-if test $# -ge 1
-then
-   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
-   PROGRAM_OPTS=$@
-   shift
-fi
+# Test name is the name of the current directory
 #
 if test "$TEST_NAME" = ""
 then
-  TEST_NAME=$PROGRAM
+  ff=`pwd`
+  TEST_NAME=`basename $ff`
 fi
 #
 #
 #############################################################################################################################
-#
-#  Check the file flag to see if a run is in progress
 #
 #  Check the file flag to see if a run is in progress
 #
@@ -205,7 +226,6 @@ echo $$ > runInProgress.txt
 #  trap interrupt and signals. 
 #
 trap cleanup INT TERM TSTP QUIT
-#
 #
 #############################################################################################################################
 #
@@ -242,16 +262,24 @@ if test ! -x $PROGRAM   ; then
     exit -1
   fi
 fi
-
-
-#################################################################
 #
-#################################################################
-
+##############################################################################################################################
+#
+#   Run the program and check exit status
+#
 export ELECTRODE_TURN_OFF_PC_PRINTING=true
-
-$PROGRAM   > out.txt 2>err_out.txt
-retnStat_run=$?
+#
+if test ! -z $PROGRAM_STD_INPUT
+then
+  $PROGRAM $PROGRAM_EXTRA_OPTS < $PROGRAM_STD_INPUT > out.txt 2>err_out.txt
+  retnStat_run=$?
+else
+  $PROGRAM $PROGRAM_EXTRA_OPTS  > out.txt 2>err_out.txt
+  retnStat_run=$?
+fi
+#
+#
+#
 if test $retnStat_run != "0" 
 then
   temp_success="0"
@@ -339,7 +367,6 @@ fi
 if [ $eCode == "0" ]
 then
   echo "Successful   test comparison of \"$TEST_NAME\" in dir, "`pwd`
-
   echo "  Test Passed: " `date` > runGood
   /bin/rm -f runBad
 else

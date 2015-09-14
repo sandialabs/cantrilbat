@@ -9,6 +9,7 @@ build_python=@BUILD_PYTHON@
 
 ctv=@ctversion@
 
+INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 MP_MACHINEFILE_DEFAULT=@MP_MACHINEFILE_DEFAULT@
 #
 #  all:   Compiles all programs, both application and tests
@@ -146,6 +147,11 @@ testBack:
 # install:   Posts all install files 
 #
 install:
+	@ @INSTALL@ -d @cta_incdir@
+	@ @INSTALL@ -d @cta_libdir@
+	@ @INSTALL@ -d @cta_bindir@
+	cd bin;       $(INSTALL_TSC)  runtest_Exec @cta_bindir@
+
 	cd util_src;                      @MAKE@ install
 	cd ctpadds;                       @MAKE@ install
 	cd Electrode;                     @MAKE@ install
