@@ -350,11 +350,15 @@ public:
 //Can protect
     void resizeSurfaceAreasToGeometry();
 
-    // We change the particleNumbertoFollow_ field to comply with the number of moles and the particle diameter
-//Can protect
+protected:
+    //! Calculate a new particle number to comply with the overall number of moles of particles
+    /*!
+     *   We change the particleNumbertoFollow_ field to comply with the number of moles and the particle diameter.
+     *   Use the routine SolidVol() to calculate the total volume of electrode.
+     */
     void resizeParticleNumbersToMoleNumbers();
 
-
+public:
     //! Returns a pointer to the current outer reacting surface object
     /*!
      *  We currently assume that the first Active reacting surface is the outer surface
@@ -652,7 +656,8 @@ public:
 // Deprecate
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
 
-    void getPhaseProductionRates(const double * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
+    
+    // void getPhaseProductionRates(const doublereal * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
 
 
     //! Overpotential term for the heat generation from a single surface

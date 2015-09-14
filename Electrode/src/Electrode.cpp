@@ -2940,6 +2940,7 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
     }
 }
 //================================================================================================
+/*
 void Electrode::getPhaseProductionRates(const doublereal* const speciesProductionRates,
 					doublereal* const phaseProductionRates) const
 {
@@ -2955,6 +2956,7 @@ void Electrode::getPhaseProductionRates(const doublereal* const speciesProductio
         } 
     }
 }
+*/
 //================================================================================================
 void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
 {
