@@ -1330,44 +1330,46 @@ public:
 
     //! Get mole numbers of all species in the phase object
     /*!
-     *   @param x  Vector of mole numbers. Index is the same as PhaseList's global species index
-     *             Length = number of species in PhaseList
-     *             units are kmol
+     *   @param[out]     n                    Vector of mole numbers. Index is the same as PhaseList's global species index
+     *                                        Length = number of species in PhaseList.  Units are kmol.
      */
     void getMoleNumSpecies(doublereal* const n) const;
+
+    //! Return the vector of mole numbers of all species in the PhaseList
+    /*!
+     *     @return                           Return a const reference to a vector of mole numbers.
+     *                                       The length is the number of species in PhaseList, and the units are kmol.
+     */
     const std::vector<doublereal> & getMoleNumSpecies() const;
 
     //! Get mole numbers of all phases in the phase object
     /*!
-     *   @param x  Vector of mole numbers. Index is the same as PhaseList  index
-     *             Length = number of phases in PhaseList
-     *             units are kmol
+     *   @param[out] np     Vector of mole numbers. Index is the same as PhaseList  index
+     *                      Length = number of phases in PhaseList.  Units are kmol.
      */
     void getMoleNumPhases(doublereal* const np) const;
 
     //! Return the mole number of a single species
     /*!
-     *  @param globalSpeciesIndex  PhaseList's global species index
+     *  @param globalSpeciesIndex                PhaseList's global species index
      *
-     *  @return Returns the mole number. Units are kmol.
+     *  @return                                  Returns the mole number. Units are kmol.
      */
     double moleNumSpecies(int globalSpeciesIndex) const;
-
 
     //! Returns the index of a phase in the ReactionSurfaceDomain object
     //! given the index of that phase in the PhaseList object
     /*!
-     * @param isk  Surface phase index, used to look up the ReactingSurfaceDomain object
-     * @param PLph index of the phase in the PhaseList object, which is also the
-     *             Electrode_Model object.
+     *  
+     * @param[in]       isk                    Surface phase index, used to look up the ReactingSurfaceDomain object
+     * @param[in]       PLph                   index of the phase in the PhaseList object, which is also the
+     *                                         Electrode_Model object.
      *
-     *  @return  Returns the index of the phase in the current ReactingSurDomain
-     *           object. A value of -1 in this slot means that the phase doesn't
-     *           participate in the  current ReactingSurDomain object
+     *  @return                                Returns the index of the phase in the current ReactingSurDomain
+     *                                         object. A value of -1 in this slot means that the phase doesn't
+     *                                         participate in the current ReactingSurDomain object
      */
-// Deprecate
     int ReactingSurfacePhaseIndex(int isk, int PLph) const;
-
 
     //! Take the state (i.e., the final state) within the Electrode object and push it down
     //! to the ThermoPhase objects and other variables that are part of the Electrode object
@@ -1409,9 +1411,8 @@ public:
      *        	    phaseMolarVolumes_[iph]      iph in solid phase electrode
      *              ElectrodeSolidVolume_        (this is called from SolidVolume();
      *              Radius_exterior_final_       (this is calculated from ElectrodeSolidVolume_)
-     *
+     *      //Should probably protect
      */
-//Should probably protect
     virtual void updateState();
 
     //! Take the state (i.e., the final state) within the Electrode object and push it down
@@ -2837,21 +2838,76 @@ protected:
      */
     std::vector<double> spMoleIntegratedSourceTermLast_;
 
-    
+    //! Vector of molar enthapies of the species, init_init state
+    /*!
+     *   Length is number of species in PhaseList, units are J /kmol.
+     */
     std::vector<double> enthalpyMolar_init_init_;
+
+    //! Vector of molar enthapies of the species, init state
+    /*!
+     *   Length is number of species in PhaseList, units are J /kmol.
+     */
     std::vector<double> enthalpyMolar_init_;
+
+    //! Vector of molar enthapies of the species, final state
+    /*!
+     *   Length is number of species in PhaseList, units are J /kmol.
+     */
     mutable std::vector<double> enthalpyMolar_final_;
+
+    //! Vector of molar enthapies of the species, final_final state
+    /*!
+     *   Length is number of species in PhaseList, units are J /kmol.
+     */
     std::vector<double> enthalpyMolar_final_final_;
 
-
+    //! Vector of molar entropies of the species, init_init state
+    /*!
+     *   Length is number of species in PhaseList, units are J /K /kmol.
+     */
     std::vector<double> entropyMolar_init_init_;
+
+    //! Vector of molar entropies of the species, init state
+    /*!
+     *   Length is number of species in PhaseList, units are J /K /kmol.
+     */
     std::vector<double> entropyMolar_init_;
+
+    //! Vector of molar entropies of the species, final state
+    /*!
+     *   Length is number of species in PhaseList, units are J /K /kmol.
+     */
     std::vector<double> entropyMolar_final_;
+
+    //! Vector of molar entropies of the species, final_final state
+    /*!
+     *   Length is number of species in PhaseList, units are J /K /kmol.
+     */
     std::vector<double> entropyMolar_final_final_;
 
+    //! Vector of chemical potentials of species, init_init state
+    /*!
+     *   Length is number of species in PhaseList, units are J/kmol.
+     */
     std::vector<double> chempotMolar_init_init_;
+
+    //! Vector of chemical potentials of species, init state
+    /*!
+     *   Length is number of species in PhaseList, units are J/kmol.
+     */
     std::vector<double> chempotMolar_init_;
+
+    //! Vector of chemical potentials of species, final state
+    /*!
+     *   Length is number of species in PhaseList, units are J/kmol.
+     */
     std::vector<double> chempotMolar_final_;
+
+    //! Vector of chemical potentials of species, final_final state
+    /*!
+     *   Length is number of species in PhaseList, units are J/kmol.
+     */
     std::vector<double> chempotMolar_final_final_;
 
     //!
