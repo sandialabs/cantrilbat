@@ -1035,12 +1035,17 @@ public:
 
     //! Class used in the nonlinear solve of the integration equations
     /*!
+     *     -  Deprecate??
      *   This is a child of the ResidJacEval class
      */
-// Deprecate
     class integrate_ResidJacEval : public Cantera::ResidJacEval
     {
     public:
+	//! Constructor
+	/*!
+	 *   @param[in]    ee          The pointer to the current electrode object. This
+	 *                             is used as a self-reference.
+	 */
         integrate_ResidJacEval(Electrode* ee);
 
         //! Evaluate the residual function
@@ -1055,6 +1060,8 @@ public:
          *                      the jacobian (defaults to -1, which indicates that no variable is being
          *                      differenced or that the residual doesn't take this issue into account)
          * @param delta_x       Value of the delta used in the numerical differencing
+	 *
+	 *  @return             Returns 1 if the residual is ok.
          */
         int  evalResidNJ(const doublereal t, const doublereal delta_t,
                          const doublereal* const y,
@@ -1064,11 +1071,22 @@ public:
                          const int id_x = -1,
                          const doublereal delta_x = 0.0);
 
+	//!  Fill in the initial conditions for the nonlinear problem
+	/*!
+	 *  @param[in]    t0           Initial time of the problem.
+	 *  @param[out]    y           Initial conditions of the solution unknowns
+	 *  @param[out]   ydot         Intial time derivatives of the solutions
+	 *
+	 *  @return                    Returns 1 if the problem is ok
+	 */
         int  getInitialConditions(const doublereal t0, doublereal* const y,
                                   doublereal* const ydot);
 
 
         //! Return the number of equations in the equation system
+	/*!
+	 *   @return           Returns the number of equations in the nonlinear system to be solved
+	 */
         int nEquations() const;
 
         //! Pointer that is used as a self-reference
@@ -1639,9 +1657,16 @@ public:
      */
     virtual double  openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
 
-    //! Returns the vector of OCV's for the selected ReactingSurfaceDomain and current conditions.
+    //! Returns the vector of OCV's for all reactions on the selected ReactingSurfaceDomain for the
+    //! current conditions.
     /*
-     * @param isk  Reacting surface domain id
+     *  (The compareToReferenceElectrode idea is under construction. It's hard to generalize. What it means
+     *   now is for the standard state gibbs free energy to be used in the solution. In some common cases this
+     *   produces the OCV vs. the reference electrode.)
+     *
+     *  @param[in]  isk                            Reacting surface domain id
+     *  @param[out] ocv                            Vector of open circuit voltages (length number of reactions
+     *  @param[in]  comparedToReferenceElectrode   Boolean, if true compare to the reference electrode.         
      */
     void  getOpenCircuitVoltages(int isk, double* ocv, bool comparedToReferenceElectrode = false) const;
 
@@ -1708,22 +1733,31 @@ public:
     double overpotentialRxn(int isk, int irxn = -1);
 
     //! Return the kinetics species index of the electron for the surface phase, isph
-    //! Return the kinetics species index of the electron for the surface phase, isph
     /*!
-     *  @param isph   Surface phase index
+     *  @param[in]    isph                    Surface phase index
+     *
+     *  @return                               Returns the kinetic species index
      */
     int kKinSpecElectron(const int isph) const;
 
     //!  Return the global species index of the electron in the Electrode object
+    /*!
+     *  @return                               Returns the global species index of the electron in the PhaseList
+     */
     int kSpecElectron() const;
 
     //! Return the global index of the phase corresponding to the currently active metal
     /*!
      *   The phase may then be retrived by a thermo(index) call.
+     *
+     *  @return                              Returns the index of the metal phase in the PhaseList
      */
     int metalPhaseIndex() const;
 
-    //! return the index of the phase corresponding to the soln
+    //! Return the index of the phase corresponding to the soln
+    /*!
+     *   @return                             Returns the index of thesolution phase within the %PhaseList 
+     */
     int solnPhaseIndex() const;
 
     virtual int numSolnPhaseSpecies() const;
@@ -2089,7 +2123,7 @@ public:
     /*!
      *    Creates the following XML tree structure.
      *    If the boolean addInitState is false the timeState t_init is not written.
-     *
+     *   \verbatim
      *     <timeIncrement   type="intermediate">
      *        <timeState type="t_init">
      *              ....xmlStateData_init_
@@ -2098,13 +2132,14 @@ public:
      *              ....xmlStateData_final_
      *        </timeState>
      *     </timeIncrement>
+     *   \endverbatim
      */
     void makeXML_TI_intermediate(bool addInitState = true);
 
     //! Adds to a timeIncrement XML element to store the results for intermediate or global-final steps of the solver.
     /*!
      *    Adds a timeState record to the following XML tree structure.
-     *
+     *  \verbatim
      *     <timeIncrement   type="intermediate">
      *        <timeState type="t_init">
      *              ....xmlStateData_init_
@@ -2116,7 +2151,7 @@ public:
      *              ....xmlStateData_final_
      *        </timeState>
      *     </timeIncrement>
-     *
+     *  \endverbatim
      *    This XML Tree is storred in the variable  xmlTimeIncrementData_
      *
      *  @param notDone   Boolean that if true sets the type attribute to t_intermediate
@@ -2128,7 +2163,7 @@ public:
     /*!
      *   Creates a XML Tree structure of the following form. What this function does is to delete the old record
      *   and start a new record. Later calls to addtoXML_TI_final() adds records to the XML tree.
-     *
+     *  \verbatim
      *     <timeIncrement   type="global">
      *        <timeState type="t_init">
      *              ....xmlStateData_init_
@@ -2140,7 +2175,7 @@ public:
      *              ....xmlStateData_final_
      *        </timeState>
      *     </timeIncrement>
-     *
+     *  \endverbatim
      *    This XML Tree is storred in the variable  xmlTimeIncrementData_
      *
      *
@@ -2167,7 +2202,7 @@ public:
     /*!
      *       We assume that the XML file has the following topology
      *
-     *
+     *   \verbatim
      *         <ctml>
      *           <electrodeOutput index = 1>
      *             <timeIncrement index = 1>
@@ -2175,10 +2210,11 @@ public:
      *             </timeIncrement index>
      *           </electrodeOutput>
      *         </ctml>
+     *   \endverbatim
      *
-     *  This routine adds another <timeIncrement> XML element to the end of the file. It
+     *  This routine adds another  \verbatim <timeIncrement> \endverbatim  XML element to the end of the file. It
      *  takes care to first eliminate any existing to backspace over the last
-     *  </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML
+     *  \verbatim </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML  \endverbatim
      *  element.
      */
     void writeSolutionTimeIncrement();
@@ -2188,7 +2224,7 @@ public:
      *  This routine is used by the 1Dsolvers to write a restart file for the electrode object out
      *  to an XML file. The following XML records are written out by this routine, usually into 
      *  a surrounding domain XML_Node
-     *
+     *   \verbatim
      *    <domain id="BulkDomain1D_0" numVariables="6" points="10" type="bulk">
      *       <TimeState Cell Number="0" Domain="0" type="t_final">   <------------------------ Routines writes this out
      *          <time> 1e-08 </time>
@@ -2198,7 +2234,7 @@ public:
      *       </TimeState>
      *       . . .
      *    </domain>
-     *
+     *   \endverbatim
      *   The electrodeState record is written out by the child Electrode objects from saved data.
      *   Usually, all objects within the domain write their own records.
      *
@@ -2447,7 +2483,6 @@ protected:
      *  Length = global number of species in PhaseList species vector
      *  units = m**3 kmol-1
      */
-// Is this a duplicate of phaseMolarVolumes_?
     std::vector<double> VolPM_;
 
     //! Partial molar Heat Capacity at constant volume of all of the species
@@ -2987,18 +3022,29 @@ protected:
 
     XML_Node* xmlTimeIncrementIntermediateData_;
 
-    //! Storage of the  external state of the system in terms of an XML data structure
+    //! Storage of the  external state of the system in terms of an XML data structure - init_init state
     XML_Node* xmlExternalData_init_init_;
+
+    //! Storage of the  external state of the system in terms of an XML data structure - initial state
     XML_Node* xmlExternalData_init_;
+
+    //! Storage of the  external state of the system in terms of an XML data structure - final state
     XML_Node* xmlExternalData_final_;
+
+    //! Storage of the  external state of the system in terms of an XML data structure - final_final state
     XML_Node* xmlExternalData_final_final_;
 
-    //! Storage of the state of the system in terms of an XML data structure
+    //! Storage of the state of the system in terms of an XML data structure - init_init state
     XML_Node* xmlStateData_init_init_;
-    XML_Node* xmlStateData_init_;
-    XML_Node* xmlStateData_final_;
-    XML_Node* xmlStateData_final_final_;
 
+    //! Storage of the state of the system in terms of an XML data structure - init state
+    XML_Node* xmlStateData_init_;
+
+    //! Storage of the state of the system in terms of an XML data structure - final state
+    XML_Node* xmlStateData_final_;
+
+    //! Storage of the state of the system in terms of an XML data structure - final_final state
+    XML_Node* xmlStateData_final_final_;
 
     //!  Pointer to the object that is in charge of formulating the saved state and writing that state out to an XML object
     EState* eState_final_;
