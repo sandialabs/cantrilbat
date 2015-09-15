@@ -662,7 +662,7 @@ public:
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
 
     
-    // void getPhaseProductionRates(const doublereal * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
+    void getPhaseProductionRates(const doublereal * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
 
 
     //! Overpotential term for the heat generation from a single surface
@@ -1495,12 +1495,18 @@ public:
 //Can protect
     virtual bool stateToPhaseFlagsReconciliation(bool flagErrors);
 
+protected:
     //!  Reactant stoichiometric coefficient
     /*!
      *   Get the reactant stoichiometric coefficient for the kth global species
      *   in the ith reaction of the reacting surface domain with index isk.
+     *
+     *   @param[in]    isk                     Index of the reacting surface domain
+     *   @param[in]    kGlobal                 Global PhaseList species number of the species
+     *   @param[in]    i                       Reaction number
+     *
+     *   @return                               Returns the reactant stoichiometric coefficient.
      */
-//Can protect
     double reactantStoichCoeff(const int isk, int kGlobal, int i) const;
 
     //! Product stoichiometric coefficient
@@ -1508,9 +1514,9 @@ public:
      * Get the product stoichiometric coefficient for the kth global species
      * in the ith reaction of the reacting surface domain with index isk.
      */
-//Can protect
     double productStoichCoeff(const int isk, int kGlobal, int i) const;
 
+public:
     //! Returns the current potential drop across the electrode
     /*!
      *   This is equal to phiMetal - phiSoln
@@ -1563,19 +1569,16 @@ public:
 
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iPhase        Print the phase
-     *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
-     *                       to the final_final time.
-     *                       The default is to print out the source terms
-     *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
-     *                       time step. The default is to print out the global values
+     *  (virtual from Electrode class)
+     *
+     *  @param[in]   iPhase        Index of the phase
+     *  @param[in]   pSrc          Print Source terms that have occurred during the step from the initial_initial
+     *                             to the final_final time.
+     *                             The default is to print out the source terms
+     *  @param[in]  subTimeStep    Print out conditions from the most recent subTimeStep and not the global
+     *                             time step. The default is to print out the global values
      */
     virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
-
-
-    //! Return the number of extra print tables
-// Deprecate
-    virtual int getNumPrintTables() const;
 
     //! Get the values that are printed in tables for the 1D code.
     /*!
@@ -1618,9 +1621,11 @@ public:
      *
      *  (virtual function from Electrode.h)
      *
-     * @param isk  Reacting surface domain id
-     *  @param iReaction   Explicit index of the reaction. If -1, then it attempts
-     *                     to pick the reaction that best represents the open circuit potential.
+     *  @param[in]   isk                  Reacting surface domain id
+     *  @param[in]   iReaction            Explicit index of the reaction. If -1, then it attempts
+     *                                    to pick the reaction that best represents the open circuit potential.
+     *
+     *  @return                           Returns the OCV (volts)
      */
     virtual double openCircuitVoltageSSRxn(int isk, int iReaction = -1) const;
 
@@ -1635,6 +1640,8 @@ public:
      *   @param isk         Reacting surface domain id
      *   @param iReaction   Explicit index of the reaction. If -1, then it attempts
      *                      to pick the reaction that best represents the open circuit potential.
+     *
+     *   @return            Returns the OCV (volts)
      */
     virtual double openCircuitVoltageRxn(int isk, int iReaction = -1, bool comparedToReferenceElectrode = false) const;
 
@@ -1648,12 +1655,18 @@ public:
      * @param comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
      *                        the current conditions (false) or compared to the voltage wrt the reference electrode (true).
      *                        The later is akin to using the standard state thermo functions for the electrolyte species.
+     *
+     *   @return                        Returns the OCV (volts)
      */
     virtual double openCircuitVoltage(int isk, bool comparedToReferenceElectrode = false);
 
-    //! Get the open circuit potential
+    //! Get the open circuit potential at the mixture averaged conditions of the electrode
     /*!
+     *  (virtual from Electrode)
+     *   This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
+     *   before calculating the OCV. The result is the sama as  openCircuitVoltage() in the base class.
      *
+     *   @return                        Returns the OCV (volts)
      */
     virtual double  openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
 
@@ -1716,8 +1729,11 @@ public:
     /*!
      *  The overpotential is the current voltage minus the open circuit voltage.
      *  This routine calculates the open circuit voltage for the surface via a rootfinder.
+     *  The OCV is a half-cell calculation.
      *
-     *   @param isk  Reacting surface number
+     *   @param[in]     isk                     Reacting surface number
+     *
+     *   @return                                Returns the overpotential of a given reacting surface (volts)
      */
     double overpotential(int isk);
 
@@ -1725,10 +1741,12 @@ public:
     /*!
      *  The overpotential is the current voltage minus the open circuit voltage.
      *  This routine calculates the open circuit voltage for the surface by calling a
-     *  openCircuitVoltageRxn() routine.
+     *  openCircuitVoltageRxn() routine. The OCV is a half-cell calculation.
      *
      *   @param isk   reacting surface number
      *   @param irxn  Reaction number
+     *
+     *   @return                                Returns the overpotential of a given reaciton on a reacting surface (volts)
      */
     double overpotentialRxn(int isk, int irxn = -1);
 
@@ -1803,14 +1821,18 @@ public:
 
     //! Initial capacity of the electrode in Amp seconds
     /*!
-     *  This is the initial capacity of the electrode before any degradation occurs.
+     *  This is the initial capacity of the electrode before any degradation occurs. the default
+     *  is to return the total capacity in all pateaus. The platNum is specified, it returns the
+     *  capacity in a single plateau.
      *
      *  At all times the following relation holds:
      *
      *  capacityInitial() = capacity() + capacityLost().
+     * 
+     *   @param[in]     platNum              Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                       If positive or zero, each plateau is treated as a separate entity.
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                   If positive or zero, each plateau is treated as a separate entity.
+     *   @return                             Returns the capacity in units of Amp sec = coulombs
      */
     virtual double capacityInitial(int platNum = -1) const;
 
@@ -1826,8 +1848,10 @@ public:
      *   Note, the current is defined as the amount
      *   of positive charge that goes from the solid into the electrolyte.
      *
-     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                   If positive or zero, each plateau is treated as a separate entity.
+     *   @param[in]  platNum               Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                     If positive or zero, each plateau is treated as a separate entity.
+     *
+     *   @return                           Returns the capacity discharged in units of Amp sec = coulombs
      */
     virtual double capacityDischarged(int platNum = -1) const;
 
@@ -1847,6 +1871,8 @@ public:
      *
      *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
+     *
+     *   @return                           Returns the capacity left  in units of Amp sec = coulombs
      */
     virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 
@@ -1856,6 +1882,8 @@ public:
      *
      *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                   If positive or zero, each plateau is treated as a separate entity.
+     *
+     *   @return                           Returns the capacity discharged in units of Amp sec = coulombs
      */
     virtual double depthOfDischargeStarting(int platNum = -1) const;
 
@@ -1873,7 +1901,7 @@ public:
      *
      *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
-     *  @return  returns the depth of discharge in Amp seconds
+     *  @return  returns the depth of discharge in Amp seconds = coulombs
      */
     double depthOfDischarge(int platNum = -1) const;
 
@@ -1901,13 +1929,24 @@ public:
      * cutoff voltage at which the electron counting is turned off. Neither of these
      * concepts is employed here.
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]            platNum                Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
-     *  @return  returns the depth of discharge in percent
+     *  @return                                      Returns the depth of discharge in percent
      */
     double depthOfDischargePerMole(int platNum = -1) const;
 
-    bool checkCapacityBalances_final(int platNum = -1) const;
+    //!  Check on the accounting of the capacity, done at t_final
+    /*!
+     *     (virtual from Electrode) 
+     *
+     *  This check should be as extensive as possible. It should be more extensive in the child routines. The
+     *  parent routines does a cursory accounting.
+     *
+     *  @param[in]   platNum                     Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *
+     *  @return                                  True if everything checks out. False otherwise
+     */
+    virtual bool checkCapacityBalances_final(int platNum = -1) const;
 
     //! Experimental routine to enforce a balance on the electrode capacity given previous balance information
     /*! 
@@ -1928,7 +1967,7 @@ public:
      *  However there is frequently a better way to do this. Also, for intercalating electrodes, we want this
      *  number to refer to the mole fraction of one of the species.
      *
-     *  @return returns the relative extent of reaction (dimensionless).
+     *  @return                          Returns the relative extent of reaction (dimensionless).
      */
     virtual double calcRelativeExtentRxn_final() const;
 

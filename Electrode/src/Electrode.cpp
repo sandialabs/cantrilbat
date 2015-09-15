@@ -2940,7 +2940,6 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
     }
 }
 //================================================================================================
-/*
 void Electrode::getPhaseProductionRates(const doublereal* const speciesProductionRates,
 					doublereal* const phaseProductionRates) const
 {
@@ -2956,7 +2955,6 @@ void Electrode::getPhaseProductionRates(const doublereal* const speciesProductio
         } 
     }
 }
-*/
 //================================================================================================
 void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
 {
@@ -3618,12 +3616,6 @@ int Electrode::solnPhaseIndex() const
 int Electrode::numSolnPhaseSpecies() const
 {
     return getPhase(phaseName(solnPhase_).c_str())->nSpecies();
-}
-//====================================================================================================================
-// Return the number of extra print tables
-int Electrode::getNumPrintTables() const
-{
-    return 0;
 }
 //====================================================================================================================
 //! Get the values that are printed in tables for the 1D code.
