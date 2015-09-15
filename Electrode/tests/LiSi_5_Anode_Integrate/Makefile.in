@@ -136,7 +136,7 @@ test:
 
 runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
-	( $(TOPDIR)/bin/runtestExec )
+	( $(TOPDIR)/bin/runtest_Exec )
 
 
 rebaseline:
