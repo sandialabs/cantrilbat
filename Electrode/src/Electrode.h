@@ -1580,6 +1580,12 @@ public:
      */
     virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
 
+    //! Return the number of extra print tables
+    /*!
+     *   @return                          Returns the number of print tables
+     */
+    virtual int getNumPrintTables() const;
+
     //! Get the values that are printed in tables for the 1D code.
     /*!
      *   @param itable    table id

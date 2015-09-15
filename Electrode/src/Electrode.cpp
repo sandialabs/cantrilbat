@@ -3618,6 +3618,12 @@ int Electrode::numSolnPhaseSpecies() const
     return getPhase(phaseName(solnPhase_).c_str())->nSpecies();
 }
 //====================================================================================================================
+// Return the number of extra print tables
+int Electrode::getNumPrintTables() const
+{
+    return 0;
+}
+//====================================================================================================================
 //! Get the values that are printed in tables for the 1D code.
 void Electrode::getPrintTable(int itable, std::vector<std::string>& colNames, std::vector<double>& colValues) const
 {
