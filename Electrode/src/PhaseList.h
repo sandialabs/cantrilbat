@@ -175,6 +175,14 @@ public:
      */
     ThermoPhase* getPhase(const char* phaseName) const;
 
+    //! Get a %ThermoPhase pointer to the named phase from the list.
+    /*!
+     *   @param[in]        phaseName       string containing the name of the phase
+     *
+     *   @return                           Returns the pointer to the phase. On errors, a NULL pointer is returned.
+     */
+    ThermoPhase* getPhase(const std::string& phaseName) const;
+
     //! Get the name of the phase given its global id
     /*!
      * @param globPhaseIndex     global phase Index of the volume or surface Phase.
@@ -329,6 +337,22 @@ public:
      *  @return                      Return a reference to the ThermoPhase object
      */
     ThermoPhase& thermo(const std::string&  phaseName) const;
+
+    //! Return the reference to the %ThermoPhase of a single volume or surface phase
+    /*!
+     *  @param[in]        globalPhaseIndex  global phase index
+     *
+     *  @return                             Return a reference to the ThermoPhase object
+     */
+    ThermoPhase& phase(int globalPhaseIndex) const;
+
+    //! Return the reference to the %ThermoPhase of a single volume or surface phase
+    /*!
+     *  @param[in]        globalPhaseIndex  global phase index
+     *
+     *  @return                             Return a reference to the ThermoPhase object
+     */
+    ThermoPhase& phase(size_t globalPhaseIndex) const;
 
     //! Return the common Elements object as a const pointer
     /*!

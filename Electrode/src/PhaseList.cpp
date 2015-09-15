@@ -614,12 +614,22 @@ ThermoPhase* PhaseList::getPhase(const char* phaseName) const
         }
     }
     // did not find matching phase
-    throw CanteraError("PhaseList::getPhase()",
-                       "Phase name was not found\n");
+    throw CanteraError("PhaseList::getPhase()", "Phase name was not found\n");
     return 0;
-
 }
-//====================================================================================================================
+//==================================================================================================================================
+ThermoPhase* PhaseList::getPhase(const std::string& phaseName) const
+{
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
+        //if phase names match, return this phase
+        if (!PhaseNames_[i].compare(phaseName)) {
+            return PhaseList_[i];
+        }
+    }
+    throw CanteraError("PhaseList::getPhase()", "Phase name was not found\n");
+    return 0;
+}
+//====================================================================================================================================
 void PhaseList::
 getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
                                         int& phaseIndex,
@@ -916,6 +926,31 @@ PhaseList::thermo(size_t globalPhaseIndex) const
     }
     if (globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases)) {
         throw CanteraError("PhaseList::thermo()", "error");
+    }
+    size_t isurphase = globalPhaseIndex - NumVolPhases_;
+    return *(SurPhaseList[isurphase]);
+}
+//==================================================================================================================================
+ThermoPhase&
+PhaseList::phase(int globalPhaseIndex) const
+{
+    if (globalPhaseIndex < 0) {
+        throw CanteraError("PhaseList::phase()", "error");
+    }
+    return phase((size_t) globalPhaseIndex);
+}
+//==================================================================================================================================
+ThermoPhase&
+PhaseList::phase(size_t globalPhaseIndex) const
+{
+    if (globalPhaseIndex == npos) {
+        throw CanteraError("PhaseList::phase()", "error");
+    }
+    if (globalPhaseIndex < NumVolPhases_) {
+        return *(VolPhaseList[globalPhaseIndex]);
+    }
+    if (globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases)) {
+        throw CanteraError("PhaseList::phase()", "error");
     }
     size_t isurphase = globalPhaseIndex - NumVolPhases_;
     return *(SurPhaseList[isurphase]);
