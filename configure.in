@@ -364,6 +364,26 @@ AC_SUBST(F77LDRCLIBS)
 AC_PROG_FC()
 #
 AC_FC_LIBRARY_LDFLAGS()
+
+#
+#  Add a configure variable for fortran to add ftnString length variables
+#  at the end
+#
+if test ! -z $LAPACK_FTN_STRING_LEN_AT_END
+then
+AC_DEFINE(LAPACK_FTN_STRING_LEN_AT_END)
+fi
+
+#
+#  Add a configure variable for fortran to add  underscores 
+#  at the end of names
+#
+if test ! -z $LAPACK_FTN_TRAILING_UNDERSCORE
+then
+AC_DEFINE(LAPACK_FTN_TRAILING_UNDERSCORE)
+fi
+
+
 #
 # -----------------------------------------------------------------------------
 #        Configure Python build process
@@ -653,6 +673,10 @@ AC_SUBST(lapack_library)
 
 lapack_library_dir=${LAPACK_LIBRARY_DIR}
 AC_SUBST(lapack_library_dir)
+
+
+
+
 
 echo 'using lapack location "'$lapack_library_dir'" and library string "'$lapack_library'"'
 #

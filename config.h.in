@@ -60,6 +60,17 @@
 
 #undef CANTERA_DEBUG_MODE
 
+//
+// Add a fortran string length to the argument list for all fortran char variables.
+//
+#undef LAPACK_FTN_STRING_LEN_AT_END
+
+//
+// Add a trailing underscore to fortran names (note they are assumed to be lowercase)
+//
+#undef LAPACK_FTN_TRAILING_UNDERSCORE
+
+
 // Compiling with PURIFY instrumentation
 #undef PURIFY_MODE
 
