@@ -83,6 +83,7 @@ TRILINOS_LIB_LINE=$(AMESOS_LINE)  $(SUPERLUDIST_LINE) $(UMFPACK_LINE) $(PARMETIS
 ##########################################################################################################
 #
 #
+MPI_INCLUDE_DIR=@mpi_include_dir@
 
 UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
@@ -111,6 +112,7 @@ CXX = @MPICXX@
 INCLUDE_DIRS = $(M1D_BASE_INC) $(APPL_BASE_INC) \
                $(CANTERA_TOTAL_INCLUDES) \
                $(TRILINOS_INC) \
+               -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR) -I../..
 
 # C++ compile flags

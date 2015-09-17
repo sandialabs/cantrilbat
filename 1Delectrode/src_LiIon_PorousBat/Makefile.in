@@ -41,6 +41,8 @@ TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
 include $(TRILINOS_INC_DIR)/Makefile.export.Amesos
 include $(TRILINOS_INC_DIR)/Makefile.export.Ifpack
 
+MPI_INCLUDE_DIR=@mpi_include_dir@
+
 UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
 UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
@@ -93,6 +95,7 @@ CXX = @MPICXX@
 INCLUDE_DIRS = $(M1D_BASE_INC) -I../src_LiIon_infPorousBat $(APPL_BASE_INC) \
                $(CANTERA_TOTAL_INCLUDES) \
                $(TRILINOS_INC) \
+               -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR) -I../..
 
 # C++ compile flags

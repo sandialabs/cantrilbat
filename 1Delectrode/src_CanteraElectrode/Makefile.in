@@ -58,6 +58,8 @@ TRILINOS_LIB=-L$(TRILINOS_DIR)/lib  -lamesos
 include $(TRILINOS_INC_DIR)/Makefile.export.Amesos
 include $(TRILINOS_INC_DIR)/Makefile.export.Ifpack
 
+MPI_INCLUDE_DIR=@mpi_include_dir@
+
 UTILSRC_DIR=../../util_src/src
 UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
 UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
@@ -70,7 +72,6 @@ APPL_BASE_LIB= -L$(APPL_BASE_DIR) -lElectrode   -L$(CTPADDS_DIR) -lctpadds
 #
 ####################################################################################################3
 #
-
 
 # Check to see whether we are in the msvc++ environment
 os_is_win = @OS_IS_WIN@
@@ -86,6 +87,7 @@ INCLUDE_DIRS = -I../src \
 		$(CANTERA_TOTAL_INCLUDES) \
 		$(APPL_BASE_INC) \
 	        $(TRILINOS_INC) \
+               -I$(MPI_INCLUDE_DIR) \
                -I$(UTILSRC_DIR) -I../..
 
 GDEFINES=@CXX_GDEFINES@
