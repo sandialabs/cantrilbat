@@ -37,18 +37,32 @@ ReactingSurDomain::ReactingSurDomain() :
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
+    KintoPLSpeciesIndex_(0),
     iphaseKin_(-1),
     tpList_IDs_(0),
     tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
+    limitedROP_(0),
     speciesCreationRates_(0),
     speciesDestructionRates_(0),
     deltaGRxn_Before_(0),
+    deltaGRxnOCV_Before_(0),
+    deltaHRxn_Before_(0),
+    deltaSRxn_Before_(0),
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
-    kReplacedSpeciesRS_(-1)
+    kReplacedSpeciesRS_(-1),
+    m_Enthalpies_rspec(0),
+    m_Enthalpies_Before_rspec(0),
+    m_Entropies_rspec(0),
+    m_Entropies_Before_rspec(0),
+    m_GibbsOCV_rspec(0),
+    m_Gibbs_Before_rspec(0),
+    deltaG_species_(0.0),
+    deltaS_species_(0.0),
+    deltaH_species_(0.0)
 {
 }
 //====================================================================================================================
@@ -64,25 +78,78 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
+    KintoPLSpeciesIndex_(0),
     iphaseKin_(-1),
     tpList_IDs_(0),
     tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
+    limitedROP_(0),
     speciesCreationRates_(0),
     speciesDestructionRates_(0),
     deltaGRxn_Before_(0),
+    deltaGRxnOCV_Before_(0),
+    deltaHRxn_Before_(0),
+    deltaSRxn_Before_(0),
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
-    kReplacedSpeciesRS_(-1)
+    kReplacedSpeciesRS_(-1),
+    m_Enthalpies_rspec(0),
+    m_Enthalpies_Before_rspec(0),
+    m_Entropies_rspec(0),
+    m_Entropies_Before_rspec(0),
+    m_GibbsOCV_rspec(0),
+    m_Gibbs_Before_rspec(0),
+    deltaG_species_(0.0),
+    deltaS_species_(0.0),
+    deltaH_species_(0.0)
 {
     /*
      * Call the assignment operator
      */
     operator=(right);
 }
-//====================================================================================================================
+//==================================================================================================================================
+ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, int iskin) :
+    ElectrodeKinetics(),
+    numPhases_(0),
+    kinOrder(pl->nPhases(), -1),
+    PLtoKinPhaseIndex_(pl->nPhases(), -1),
+    PLtoKinSpeciesIndex_(pl->nSpecies(), -1),
+    KintoPLSpeciesIndex_(0),
+    iphaseKin_(iskin + pl->nVolPhases()),
+    tplRead(pl->nPhases(),0),
+    m_DoSurfKinetics(true),
+    speciesProductionRates_(0),
+    limitedROP_(0),
+    speciesCreationRates_(0),
+    speciesDestructionRates_(0),
+    deltaGRxn_Before_(0),
+    deltaGRxnOCV_Before_(0),
+    deltaHRxn_Before_(0),
+    deltaSRxn_Before_(0),
+    m_pl(pl),
+    ocv_ptr_(0),
+    OCVmodel_(0),
+    kReplacedSpeciesRS_(-1),
+    m_Enthalpies_rspec(0),
+    m_Enthalpies_Before_rspec(0),
+    m_Entropies_rspec(0),
+    m_Entropies_Before_rspec(0),
+    m_GibbsOCV_rspec(0),
+    m_Gibbs_Before_rspec(0),
+    deltaG_species_(0.0),
+    deltaS_species_(0.0),
+    deltaH_species_(0.0)
+{
+    bool ok = importFromPL(pl, iskin);
+    if (!ok) {
+	throw Electrode_Error("ReactingSurDomain::ReactingSurDomain()",
+			      "import from Phase list failed");
+    }
+}
+//==================================================================================================================================
 // Assignment operator
 /*
  *  This is NOT a virtual function.
@@ -90,7 +157,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
  * @param right    Reference to %Kinetics object to be copied into the
  *                 current one.
  */
-ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
+ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
 {
     /*
      * Check for self assignment.
@@ -111,15 +178,20 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     kinOrder        = right.kinOrder;
     PLtoKinPhaseIndex_ = right.PLtoKinPhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
+    KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
     iphaseKin_      = right.iphaseKin_;
     tpList_IDs_     = right.tpList_IDs_;
     tplRead         = right.tplRead;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
     speciesProductionRates_ = right.speciesProductionRates_;
+    limitedROP_     = right.limitedROP_;
     speciesCreationRates_ = right.speciesCreationRates_;
     speciesDestructionRates_ = right.speciesDestructionRates_;
-    deltaGRxn_Before_ = right.deltaGRxn_Before_;
 
+    deltaGRxn_Before_ = right.deltaGRxn_Before_;
+    deltaGRxnOCV_Before_ = right.deltaGRxnOCV_Before_;
+    deltaHRxn_Before_ = right.deltaHRxn_Before_;
+    deltaSRxn_Before_ = right.deltaSRxn_Before_;
     //
     // Beware -  Shallow copy of m_pl pointer
     //
@@ -141,11 +213,21 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
     }
 
     kReplacedSpeciesRS_ = right.kReplacedSpeciesRS_;
- 
+
+    m_Enthalpies_rspec = right.m_Enthalpies_rspec;
+    m_Enthalpies_Before_rspec = right.m_Enthalpies_Before_rspec;
+    m_Entropies_rspec = right.m_Entropies_rspec;
+    m_Entropies_Before_rspec = right.m_Entropies_Before_rspec;
+    m_GibbsOCV_rspec = right.m_GibbsOCV_rspec;
+    m_Gibbs_Before_rspec = right.m_Gibbs_Before_rspec;
+
+    deltaG_species_ = right.deltaG_species_;
+    deltaS_species_ = right.deltaS_species_;
+    deltaH_species_ = right.deltaH_species_;
 
     return *this;
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * Destructor for the ReactingSurDomain object.
  *
@@ -155,7 +237,7 @@ ReactingSurDomain&  ReactingSurDomain::operator=(const ReactingSurDomain& right)
 ReactingSurDomain::~ReactingSurDomain()
 {
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Duplication routine for objects which inherit from
 // Kinetics
 /*
@@ -175,7 +257,7 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
     rsd->assignShallowPointers(tpVector);
     return dynamic_cast<Kinetics*>(rsd);
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Returns a reference to the calculated production rates of species
 /*
  *   This routine calls thet getNetProductionRate function
@@ -189,13 +271,90 @@ const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensit
     getNetProductionRates(&speciesProductionRates_[0]);
     return speciesProductionRates_;
 }
-//====================================================================================================================
+//==================================================================================================================================
+void ReactingSurDomain::limitROP(const double* n)
+{
+    // Apply smooth limiter to ROP
+    /*
+     *         Seems to basically satisfy the needs of turning interfacial kinetics into homogeneous kinetics.
+     *         There is a basic exponential decay algorithm created out of the interfacial kinetics, which is
+     *         not exponential decay.
+     *
+     *  HKM -> several problems. One is that the surface area doesn't enter into this limiter. Therefore, the
+     *         limiter doesn't have the correct units, and will fail as surface area scales to different values
+     *         than what it was set up to be. That way you could also talk about the algorithm setting a minimum "time
+     *         constant" for phase removal.
+     *
+     *         Second is that rate turns off for phase_moles = 1.0E-20. There's no reason for that as this is straight
+     *         exponential decay. The 1.0E-20 value has to be reconciled with other small numbers in the algorithm
+     *         to see if there isn't a conflict.
+     *
+     *         Third, the algorithm only works for phase_moles > 0.0. Phase pop problems typically have times when
+     *         phase_moles < 0.0. What happens in these cases. Also non-max principle algorithms will have problems.
+     *
+     *         Fourth, algorithm should maybe not be based on phase_moles, but individual moles. One really wants
+     *         all moles to stay positive, not just the phase moles.
+     */
+    for (size_t j = 0; j < nReactions(); ++j) {
+	double netRev = m_ropr[j] - m_ropf[j];
+	double netFwd = -netRev;
+	
+	for (size_t p = 0; p < nPhases(); ++p) {
+	    if (m_rxnPhaseIsProduct[j][p] && netRev > 0.0) {
+		ThermoPhase* tp = m_thermo[p];
+		int k = m_pl->getGlobalSpeciesIndex(tp);
+		double phase_moles = 0.0;
+
+		for (size_t kk = 0; kk < tp->nSpecies(); ++kk) {
+		    phase_moles += n[k+kk];
+		}
+		
+		  if (phase_moles < 1e-20) {
+		      m_ropr[j] = m_ropf[j];
+		  }
+		  else if (phase_moles < 1e-7) {
+		      m_ropr[j] = std::min(m_ropr[j],m_ropf[j]+tanh(1.0e9*phase_moles) * netRev);
+		  }
+	    }
+	    else if (m_rxnPhaseIsReactant[j][p] && netFwd > 0.0) {
+		ThermoPhase* tp = m_thermo[p];
+		int k = m_pl->getGlobalSpeciesIndex(tp);
+		double phase_moles = 0.0;
+
+		for(size_t kk = 0; kk < tp->nSpecies(); ++kk) {
+		    phase_moles += n[k+kk];
+		}
+		
+		if (phase_moles < 1e-20) {
+		    m_ropf[j] = m_ropr[j];
+		}
+		else if (phase_moles < 1e-7) {
+		    m_ropf[j] = std::min(m_ropf[j], m_ropr[j] + tanh(1e9*phase_moles) * netFwd);
+		}
+	    }
+	}
+	
+	m_ropnet[j] = m_ropf[j] - m_ropr[j];
+    }
+}
+//==================================================================================================================================
+const std::vector<double>& ReactingSurDomain::calcNetLimitedSurfaceProductionRateDensities(const double* n)
+{
+    updateROP();
+
+    limitROP(n);
+
+    getNetProductionRates(&limitedROP_[0]);
+
+    return limitedROP_;
+}
+//==================================================================================================================================
 const std::vector<double>& ReactingSurDomain::calcNetSurfaceROP()
 {
     updateROP();
     return m_ropnet;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //    Returns a reference to the calculated creation rates of species
 /*
  *   This routine calls thet getCreationRate function
@@ -208,7 +367,7 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceCreationRateDensities()
     getCreationRates(&speciesCreationRates_[0]);
     return speciesCreationRates_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Returns a reference to the calculated destruction rates of species
 /*
  *   This routine calls thet getDestructionRate function
@@ -221,7 +380,7 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensitie
     getDestructionRates(&speciesDestructionRates_[0]);
     return speciesDestructionRates_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Note: signs have been checked to be correct in this routine.
 double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn) 
 {
@@ -251,6 +410,28 @@ double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn)
     }
     return netCurrentDensity;
 }
+//==================================================================================================================================
+double ReactingSurDomain::getLimitedCurrentDensityRxn(const double* n)
+{
+    double netCurrentDensity = 0.0;
+    double ps, rs;
+    if (kElectronIndex_ < 0) {
+        return netCurrentDensity;
+    }
+    size_t nr = nReactions();
+    // update rates of progress -> puts this into m_ropnet[]
+    updateROP();
+    limitROP(n);
+    
+    for (size_t irxn = 0; irxn < nr; irxn++) {
+        rs = m_rrxn[kElectronIndex_][irxn];
+        ps = m_prxn[kElectronIndex_][irxn];
+        double electronProd = (ps - rs) * m_ropnet[irxn];
+        netCurrentDensity += Faraday * electronProd;
+    }   
+    return netCurrentDensity;
+}
+
 //==================================================================================================================================
 #ifdef DONOTREMOVE
 double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV, doublereal* io,
@@ -510,7 +691,7 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
      return val;
 }
 #endif
-//====================================================================================================================
+//==================================================================================================================================
 /*
  *  This ostream function describes how to extend cout output
  *  functions to this object. The way this is done is to
@@ -594,6 +775,7 @@ void ReactingSurDomain::init()
     speciesProductionRates_.resize(m_kk, 0.0);
     speciesCreationRates_.resize(m_kk, 0.0);
     speciesDestructionRates_.resize(m_kk, 0.0);
+    KintoPLSpeciesIndex_.resize(m_kk, npos);
 }
 //==================================================================================================================================
 void ReactingSurDomain::finalize()
@@ -603,6 +785,7 @@ void ReactingSurDomain::finalize()
     deltaHRxn_Before_.resize(m_ii, 0.0);
     deltaSRxn_Before_.resize(m_ii, 0.0);
     deltaGRxnOCV_Before_.resize(m_ii, 0.0);
+    limitedROP_.resize(m_ii, 0.0);
 }
 //==================================================================================================================================
 /*
@@ -744,6 +927,8 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         kinOrder.resize(nKinPhases, -1);
         PLtoKinPhaseIndex_.resize(pl->nPhases(), -1);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), -1);
+	KintoPLSpeciesIndex_.resize(m_kk, npos);
+	//size_t kKinIndex = 0;
         for (int kph = 0; kph < nKinPhases; kph++) {
             ThermoPhase& tt = thermo(kph);
             string kname = tt.id();
@@ -771,6 +956,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
                                        "Indexing error found while initializing  PLtoKinSpeciesIndex_");
                 }
                 PLtoKinSpeciesIndex_[k + PLkstart] = m_start[kph] + k;
+		KintoPLSpeciesIndex_[m_start[kph] + k] = k + PLkstart;
             }
         }
 
@@ -780,6 +966,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         speciesProductionRates_.resize(m_kk, 0.0);
         speciesCreationRates_.resize(m_kk, 0.0);
         speciesDestructionRates_.resize(m_kk, 0.0);
+
 
 	m_Enthalpies_rspec.resize(m_kk, 0.0);
 	m_Entropies_rspec.resize(m_kk, 0.0);
@@ -791,6 +978,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         deltaGRxn_Before_.resize(m_ii, 0.0);
 	deltaHRxn_Before_.resize(m_ii, 0.0);
 	deltaSRxn_Before_.resize(m_ii, 0.0);
+	limitedROP_.resize(m_ii, 0.0);
 
         //
         //  Identify the electron phase
@@ -971,7 +1159,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
 #endif
 }
-//====================================================================================================================
+//==================================================================================================================================
 void ReactingSurDomain::deriveEffectiveThermo()
 {
     /*
@@ -1132,7 +1320,7 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //printf(" phiRxnOrig_new  =  %g\n",  phiRxnOrig );
 #endif
 }
-//============================================================================================================================
+//==================================================================================================================================
 void ReactingSurDomain::updateMu0()
 {
     /*
@@ -1338,7 +1526,7 @@ void ReactingSurDomain::getDeltaGibbs_electrolyteSS(doublereal* deltaG_special)
       */
      getReactionDelta(DATA_PTR(m_grt), deltaG_special);
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // Modification for OCV override when called for
 void ReactingSurDomain::getDeltaSSEnthalpy(doublereal* deltaH)
 {

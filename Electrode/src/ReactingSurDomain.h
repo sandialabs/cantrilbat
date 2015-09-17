@@ -50,6 +50,9 @@ public:
     //! Default constructor
     ReactingSurDomain();
 
+    //! Construct from a PhaseList object
+    ReactingSurDomain(Cantera::PhaseList* pl, int iskin);
+
     //! Copy Constructor for the %Kinetics object.
     /*!
      *  Currently, this is not fully implemented. If called it will  throw an exception.
@@ -139,6 +142,11 @@ public:
      */
     const std::vector<double>& calcNetSurfaceProductionRateDensities();
 
+
+    const std::vector<double>& calcNetLimitedSurfaceProductionRateDensities(const double* n);
+
+    void limitROP(const double* n);
+
     //! Returns a constant reference to the vector of reaction rates of progress
     /*!
      *  This is just a wrapper around updateROP() and then it returns the internal vector m_ropnet;
@@ -188,6 +196,9 @@ public:
      *                                              at the current conditions.
      */
     double getCurrentDensityRxn(double * const currentDensityRxn = 0);
+
+
+    double getLimitedCurrentDensityRxn(const double* n);
 
 #ifdef DONOTREMOVE
     //! Get the exchange current density formulation for the current reaction rate
@@ -253,6 +264,9 @@ public:
      */
     double calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const;
 #endif
+
+
+ 
 
     //!  Identify the metal phase and the electrons species
     /*!
@@ -429,6 +443,11 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd);
 
+
+    //
+    //   -----------------------------------   DATA --------------------------------------------------------------------------
+    //
+
     //! Number of phases within the class
     size_t numPhases_;
 
@@ -478,6 +497,12 @@ public:
      */
     std::vector<int> PLtoKinSpeciesIndex_;
 
+    //! Index mapping kinetics species index to the PhaseList species index.
+    /*!
+     *   Length is the number of species in the kinetics species list
+     */
+    std::vector<size_t> KintoPLSpeciesIndex_;
+
     //! Global phase Index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
     int iphaseKin_;
@@ -487,7 +512,7 @@ public:
      *    Currently this is needed to fix up the shallow pointer copy operation. 
      *    The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
      */
-    std::vector<std::string>tpList_IDs_;
+    std::vector<std::string> tpList_IDs_;
 
     //! Temp vector that may be eliminated in the future.
     std::vector<int> tplRead;
@@ -500,9 +525,15 @@ public:
 
     //! Vector that will expose the species production rates for this kinetics object
     /*!
-     *  Length is the number of species in the kinetics vector
+     *  Length is the number of species in the kinetics vector. The units are kmol m-2 s-1.
      */
     std::vector<double> speciesProductionRates_;
+
+    //! Vector of Limited Rates of Progress of the reactions
+    /*!
+     *  Length is the number of reactions, n_ii. The units are kmol m-2 s-1.
+     */
+    std::vector<double> limitedROP_;
 
     //! Vector that will expose the species creation rates for this kinetics object
     /*!
