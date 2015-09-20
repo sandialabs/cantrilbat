@@ -7,14 +7,11 @@ States Government.
 #
 #
 #
-Number of Cantera Files = 2
- => Number of Cantera Files ====> Number of Cantera Files = 2
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
 Cantera File Name = KCl_Solid_MEQ3.xml 
  => Cantera File Name = KCl_Solid_MEQ3.xml
  ====> CanteraFileNames =  KCl_Solid_MEQ3.xml
-Cantera File Name = KCl_Solid.xml 
- => Cantera File Name = KCl_Solid.xml
- ====> CanteraFileNames =  KCl_Solid.xml
 
 DebugPrinting = true
  => DebugPrinting = true
@@ -36,25 +33,16 @@ start block Bath specification for Phase KCl(S)
   End block Bath Species Mole Fraction
 end block Bath specification for Phase KCl(S)
 
-start block Bath specification for Phase KCl(S)_nist
-  Bath Species ID =  KCl(S)_nist
-  start block Bath Species Mole Fraction
-    KCl(S)_nist = 1.0
-  End block Bath Species Mole Fraction
-end block Bath specification for Phase KCl(S)_nist
 
 # the above were empty lines
 #
 #
 #
-Number of Cantera Files = 2
- => Number of Cantera Files ====> Number of Cantera Files = 2
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
 Cantera File Name = KCl_Solid_MEQ3.xml 
  => Cantera File Name = KCl_Solid_MEQ3.xml
  ====> CanteraFileNames =  KCl_Solid_MEQ3.xml
-Cantera File Name = KCl_Solid.xml 
- => Cantera File Name = KCl_Solid.xml
- ====> CanteraFileNames =  KCl_Solid.xml
 
 DebugPrinting = true
  => DebugPrinting = true
@@ -93,23 +81,9 @@ start block Bath specification for Phase KCl(S)
 	====> End of Summmary of the block, Bath Species Mole Fraction:
 end block Bath specification for Phase KCl(S)
 
-start block Bath specification for Phase KCl(S)_nist
-  Bath Species ID =  KCl(S)_nist
- => Bath Species ID = KCl(S)_nist
- ====> BG_ID = KCl(S)_nist, list item 0
-  start block Bath Species Mole Fraction
-    KCl(S)_nist = 1.0
- => KCl(S)_nist = 1.0
- ====> KCl(S)_nist = 1
-  End block Bath Species Mole Fraction
-	====> Summary of the block, Bath Species Mole Fraction:
-	====>   XBathmol[ KCl(S)_nist : 0 ] = 1
-	====> End of Summmary of the block, Bath Species Mole Fraction:
-end block Bath specification for Phase KCl(S)_nist
 
 # the above were empty lines
 Bath Species set to KCl(S)
-Bath Species set to KCl(S)_nist
 ----------------------------------------------------------------
  Dump of Mixture properties: 
 Bath Species set to KCl(S)
@@ -151,10 +125,10 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 41.3798: 
                          21.7568                 0                 0          0.322168
-                   -448.90791688      127.95170357 4.9406564584e-324
+                   -448.90791688      127.95170357 6.9532559483e-310
                High temperature polynomials: 41.3798 < T < 1043: 
-               1.5810100667e-322 2.2767256415e-317 6.9531436083e-310 7.7808500561e-315
-               6.9532214167e-310 2.2763313771e-317 7.7808490284e-315
+                               0 2.7795579882e-317 6.9532559483e-310 6.9532559483e-310
+               1.1234003312e-314  1.224788736e-320 6.9531436083e-310
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -178,73 +152,4 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
 |** 1400.00*|    66.7995       -174.3539        72.0037     172.2524   |    -611.0385 | 
 |** 1500.00*|    74.1075       -191.8328        74.1582     177.2936   |    -628.5174 | 
 |** 1600.00*|    81.6312       -209.8064        76.3166     182.1485   |    -646.4910 | 
----------------------------------------------------------------------------------------
-----------------------------------------------------------------
- Dump of Mixture properties: 
-Bath Species set to KCl(S)_nist
-Bath Species set to KCl(S)_nist
-     ====================================================================================================
-      Bath Composition for Phase id, "KCl(S)_nist", with name, "KCl(S)_nist", with eosType, "StoichSubstance"
-     
-        Total pressure = 760 torr 
-        Temperature (where needed) = 298.15 Kelvin
-        Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = KCl(S)_nist
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
-          -----------------------------------------------------------------------------
-              1     KCl(S)_nist          1.0000       2.661E-02       1.000E+00
-          ------------------------------------------------------------------------------
-EOS type = 5
-PrintOut of Phase, "KCl(S)_nist", using Generic Thermodynamics Functions:
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "KCl(S)_nist" IN PHASE "KCl(S)_nist"
-        Overall, this is the 1th species in mechanism
-        It is the 1th species in the phase
-        Elemental Composition:
-                  K: 1
-                  Cl: 1
-        Electronic Charge = 0.00
-        Molecular Weight = 74.551 gm/mol
-        Heat of formation (298.15K) = -436.6824  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
-        Minimum Temperature = 250 K
-        Maximum Temperature = 1044 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 0.0375761 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 0.0375761 m3/kmol
-        StoichSubstance constant density = 1984 kg m-3 
-        species Molar Volume = 6.76091E-06 m**3 / kmol <- constant
-        Press dependence -> (U, S, V, and Cp are independent)
-                         -> (H and G dependent): h(T) = u(T) + pv
-        standard Concentration value =  unity
-        SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 900: 
-                        35.41597          70.03472         -91.38233          52.52426
-                         0.15346         -449.1357          108.9982
-               High temperature polynomials: 900 < T < 1044: 
-                       -717.3845          1247.861         -708.5144          141.4435
-                        103.6712          1.760084         -738.1329
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
-|-----------|----------------------------------------------------------|--------------|
-|    293.15 |    -0.2562        -24.2045        51.2025      81.6927   |    -460.8869 | 
-|    298.15 |     0.0000        -24.6151        51.2920      82.5594   |    -461.2975 | 
-|    300.00 |     0.0949        -24.7681        51.3253      82.8768   |    -461.4505 | 
-|    373.15 |     3.8982        -31.2586        52.6565      94.2161   |    -467.9410 | 
-|    400.00 |     5.3184        -33.8381        53.1294      97.8912   |    -470.5205 | 
-|    500.00 |    10.7147        -44.2483        54.7672     109.9260   |    -480.9307 | 
-|    600.00 |    16.2685        -55.7600        56.3107     120.0476   |    -492.4424 | 
-|    700.00 |    21.9814        -68.2141        57.9920     128.8507   |    -504.8965 | 
-|    800.00 |    27.8808        -81.4993        60.0913     136.7252   |    -518.1817 | 
-|    900.00 |    34.0235        -95.5378        62.9072     143.9570   |    -532.2202 | 
-|   1000.00 |    40.5062       -110.2771        67.0769     150.7833   |    -546.9595 | 
-|** 1100.00*|    47.4561       -125.6878        71.9002     157.4036   |    -562.3702 | 
-|** 1200.00*|    54.8679       -141.7521        76.1963     163.8500   |    -578.4345 | 
-|** 1300.00*|    62.6631       -158.4509        79.5408     170.0877   |    -595.1333 | 
-|** 1400.00*|    70.7445       -175.7613        81.9472     176.0756   |    -612.4437 | 
-|** 1500.00*|    79.0305       -193.6569        83.6976     181.7916   |    -630.3393 | 
-|** 1600.00*|    87.4772       -212.1107        85.2455     187.2424   |    -648.7931 | 
 ---------------------------------------------------------------------------------------

@@ -453,7 +453,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
         Reaction Type = Surface rxn
         Reaction is reversible
 
-        This reaction is charge transfer reaction, n = 2
+        This reaction is charge transfer reaction, nStoich = 2
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |

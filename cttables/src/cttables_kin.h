@@ -124,6 +124,40 @@ void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc,
 				 Cantera::Kinetics &kin,  
 				 Cantera::ExtraGlobalRxn &egr,
 				 RxnTempTableStuff &rts);
+
+void printAffinityHeader(Cantera::RxnMolChange *rmc,
+                              Cantera::PhaseList *pl, int irxn,
+                              TemperatureTable &TT,
+                              Cantera::Kinetics &kin,
+                              Cantera::DenseMatrix& kfwd_Table,
+                              Cantera::DenseMatrix& krev_Table,
+                              Cantera::DenseMatrix& deltaG_Table,
+                              Cantera::DenseMatrix& deltaH_Table,
+                              Cantera::DenseMatrix& deltaS_Table,
+                              Cantera::DenseMatrix& Afwd_Table,
+                              Cantera::DenseMatrix& EafwddivR_Table,
+                              Cantera::DenseMatrix& Arev_Table,
+                              Cantera::DenseMatrix& EarevdivR_Table,
+                              Cantera::DenseMatrix& kfwdPrime_Table,
+                              Cantera::DenseMatrix& krevPrime_Table, double *unitsfwd, double* unitsRev);
+
+void processAffinityTable(Cantera::RxnMolChange *rmc,
+                              Cantera::PhaseList *pl, int irxn,
+                              TemperatureTable &TT,
+                              Cantera::Kinetics &kin,
+                              Cantera::DenseMatrix& kfwd_Table,
+                              Cantera::DenseMatrix& krev_Table,
+                              Cantera::DenseMatrix& deltaG_Table,
+                              Cantera::DenseMatrix& deltaH_Table,
+                              Cantera::DenseMatrix& deltaS_Table,
+                              Cantera::DenseMatrix& Afwd_Table,
+                              Cantera::DenseMatrix& EafwddivR_Table,
+                              Cantera::DenseMatrix& Arev_Table,
+                              Cantera::DenseMatrix& EarevdivR_Table,
+                              Cantera::DenseMatrix& kfwdPrime_Table,
+                              Cantera::DenseMatrix& krevPrime_Table);
+
+
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/

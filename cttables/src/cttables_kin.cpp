@@ -160,7 +160,7 @@ void calcBF(double i1, double V1, double i2,
 	i1 = -i1;
 	i2 = -i2;
       } else {
-	throw CanteraError("calcBF"," two currents have different signs");
+	throw CanteraError("calcBF", " two currents have different signs");
       }
     }
     double alpha_prime = - (log(i1) - log(i2)) / (n1 - n2);
@@ -436,10 +436,8 @@ getKineticsTables(TemperatureTable& TT, PhaseList *pl,
     return val;
   }
 
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-/**
+//==================================================================================================================================
+/*
  *  This routine will print out a table of information a single
  *  reaction, j.
  *
@@ -459,8 +457,8 @@ void printKineticsTable(PhaseList *pl, int j,
 			DenseMatrix& EarevdivR_Table,
 			DenseMatrix& kfwdPrime_Table, 
 			DenseMatrix& krevPrime_Table,
-			Cantera::RxnMolChange *rmc) {
-
+			Cantera::RxnMolChange *rmc) 
+{
     /*
      *  Get the species data object from the Mixture object
      *  this is defined in the constituents.h file, and is 
@@ -583,6 +581,18 @@ void printKineticsTable(PhaseList *pl, int j,
     case SURFACE_RXN:
 	cout << "Surface rxn" << endl;
 	break;
+    case BUTLERVOLMER_NOACTIVITYCOEFFS_RXN:
+	cout << "Butler Volmer rxn without Activity Coefficients" << endl;
+	break;
+    case BUTLERVOLMER_RXN:
+	cout << "Butler Volmer rxn" << endl;
+	break;
+    case SURFACEAFFINITY_RXN:
+	cout << "Surface Affinity rxn" << endl;
+	break;
+    case EDGE_RXN:
+	cout << "Edge Rxn" << endl;
+	break;
     case GLOBAL_RXN:
 	cout << "Global Rxn" << endl;
 	break;
@@ -604,6 +614,8 @@ void printKineticsTable(PhaseList *pl, int j,
     }
 
     cout << endl;
+
+
 
     /*
      * Figure out the units for the forward reaction rate constant
@@ -647,7 +659,7 @@ void printKineticsTable(PhaseList *pl, int j,
     int pwidth = 52;
     if (rmc->m_ChargeTransferInRxn != 0.0) {
       dnt(1);
-      printf("This reaction is charge transfer reaction, n = %g\n",
+      printf("This reaction is charge transfer reaction, nStoich = %g\n",
 	     rmc->m_ChargeTransferInRxn);
       dnt(1); printf("Electrochemical Beta = %g\n", rmc->m_beta); 
       pwidth = 86;
@@ -680,6 +692,12 @@ void printKineticsTable(PhaseList *pl, int j,
     
     dnt(2);  print_char('-', pwidth); printf("\n\n");
  
+    if (rType == SURFACEAFFINITY_RXN) {
+	printAffinityHeader(rmc, pl, j, TT, kin, kfwd_Table, krev_Table,  deltaG_Table, deltaH_Table, deltaS_Table,
+			    Afwd_Table, EafwddivR_Table,   Arev_Table, EarevdivR_Table,
+			    kfwdPrime_Table, krevPrime_Table, &unitskfwd[0], &unitskrev[0]);
+    }
+    
 
     /*******************************************************************/
 
@@ -761,14 +779,12 @@ void printKineticsTable(PhaseList *pl, int j,
     cout << "|" << endl;
 }
 /*************************************************************************/
-/*************************************************************************/
+/**********************************************************************************************************************************/
 /*************************************************************************/
 
-void doKineticsTablesHetero(PhaseList *pl, 
-			    InterfaceKinetics *gKinetics,   
-			    TemperatureTable &TT) {
+void doKineticsTablesHetero(PhaseList *pl,  InterfaceKinetics *gKinetics, TemperatureTable &TT) {
     
-    int nReactions = gKinetics->nReactions();
+    size_t nReactions = gKinetics->nReactions();
     // int nPhases = gKinetics->nPhases();
     DenseMatrix kfwd_Table(TT.size(), nReactions);
     DenseMatrix krev_Table(TT.size(), nReactions);
@@ -783,77 +799,80 @@ void doKineticsTablesHetero(PhaseList *pl,
     DenseMatrix krevPrime_Table(TT.size(), nReactions);
 
 
-    getKineticsTables(TT, pl,
-		      *gKinetics, kfwd_Table, krev_Table,
-		      deltaG_Table, deltaH_Table, deltaS_Table,
-		      Afwd_Table, EafwddivR_Table, 
-		      Arev_Table, EarevdivR_Table,
-		      kfwdPrime_Table, krevPrime_Table);
+    getKineticsTables(TT, pl, *gKinetics, kfwd_Table, krev_Table, deltaG_Table, deltaH_Table, deltaS_Table,
+		      Afwd_Table, EafwddivR_Table, Arev_Table, EarevdivR_Table, kfwdPrime_Table, krevPrime_Table);
 
     vector<RxnMolChange *> rmcVector;
     rmcVector.resize(nReactions,0);
 
-    for (int i = 0; i < nReactions; i++) {
-      rmcVector[i] = new RxnMolChange(gKinetics, i);
+    for (size_t i = 0; i < nReactions; i++) {
+	rmcVector[i] = new RxnMolChange(gKinetics, i);
 
-      printKineticsTable(pl, i, TT,
-			 *gKinetics, kfwd_Table, krev_Table,
-			 deltaG_Table, deltaH_Table, deltaS_Table,
-			 Afwd_Table, EafwddivR_Table, 
-			 Arev_Table, EarevdivR_Table,
-			 kfwdPrime_Table, krevPrime_Table,
-			 rmcVector[i]);
+	printKineticsTable(pl, i, TT, *gKinetics, kfwd_Table, krev_Table,
+			   deltaG_Table, deltaH_Table, deltaS_Table,
+			   Afwd_Table, EafwddivR_Table, 
+			   Arev_Table, EarevdivR_Table,
+			   kfwdPrime_Table, krevPrime_Table, rmcVector[i]);
 
-      if ((rmcVector[i])->m_ChargeTransferInRxn != 0.0) {
-	processCurrentVsPotTable(rmcVector[i],
-				 pl, i, TT,
-				 *gKinetics, kfwd_Table, krev_Table,
-				 deltaG_Table, deltaH_Table, deltaS_Table,
-				 Afwd_Table, EafwddivR_Table, 
-				 Arev_Table, EarevdivR_Table,
+
+	if ((rmcVector[i])->m_ChargeTransferInRxn != 0.0) {
+	    processCurrentVsPotTable(rmcVector[i],
+				     pl, i, TT,
+				     *gKinetics, kfwd_Table, krev_Table,
+				     deltaG_Table, deltaH_Table, deltaS_Table,
+				     Afwd_Table, EafwddivR_Table, 
+				     Arev_Table, EarevdivR_Table,
+				     kfwdPrime_Table, krevPrime_Table);
+	}
+
+	int rType = gKinetics->reactionType(i);
+	if (rType == SURFACEAFFINITY_RXN) {
+	    processAffinityTable(rmcVector[i], pl, i, TT, *gKinetics, kfwd_Table, krev_Table,  deltaG_Table, deltaH_Table, deltaS_Table,
+				 Afwd_Table, EafwddivR_Table,   Arev_Table, EarevdivR_Table,
 				 kfwdPrime_Table, krevPrime_Table);
-      }
+	}
+	
 
     }
     setAllBathSpeciesConditions(pl);
 
     for (int iextra = 0; iextra < IOO.numExtraGlobalRxns; iextra++) {
-      struct EGRInput * egr_ptr = IOO.m_EGRList[iextra];
-      ExtraGlobalRxn *egr = new ExtraGlobalRxn(gKinetics);
-      double *RxnVector  = new double[nReactions];
-      for (int i = 0; i < nReactions; i++) {
-	RxnVector[i] = 0.0;
-      }
-      for (int iErxn = 0; iErxn < egr_ptr->m_numElemReactions; iErxn++) {
-	struct ERSSpec * ers_ptr = egr_ptr->m_ERSList[iErxn];
-	RxnVector[ers_ptr->m_reactionIndex] = ers_ptr->m_reactionMultiplier;
-      }
-      egr->setupElemRxnVector(RxnVector, 
-			      egr_ptr->m_SS_KinSpeciesKindex);
+	struct EGRInput * egr_ptr = IOO.m_EGRList[iextra];
+	ExtraGlobalRxn *egr = new ExtraGlobalRxn(gKinetics);
+	double *RxnVector  = new double[nReactions];
+	for (size_t i = 0; i < nReactions; i++) {
+	    RxnVector[i] = 0.0;
+	}
+	for (int iErxn = 0; iErxn < egr_ptr->m_numElemReactions; iErxn++) {
+	    struct ERSSpec * ers_ptr = egr_ptr->m_ERSList[iErxn];
+	    RxnVector[ers_ptr->m_reactionIndex] = ers_ptr->m_reactionMultiplier;
+	}
+	egr->setupElemRxnVector(RxnVector, 
+				egr_ptr->m_SS_KinSpeciesKindex);
 
-      RxnMolChange *rmcEGR = new RxnMolChange(gKinetics, egr);
-      RxnTempTableStuff * rts = new RxnTempTableStuff(-1,0);
-      getGERKineticsTables(TT, pl, *gKinetics, *egr, *rts); 
-      setAllBathSpeciesConditions(pl);
-      printAllBathSpeciesConditions(pl);
-      printGERKineticsTable(pl, -1, TT, *gKinetics, *egr, rmcEGR, *rts);
-      if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
-	processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
-				    *gKinetics, *egr, *rts);
-      }
+	RxnMolChange *rmcEGR = new RxnMolChange(gKinetics, egr);
+	RxnTempTableStuff * rts = new RxnTempTableStuff(-1,0);
+	getGERKineticsTables(TT, pl, *gKinetics, *egr, *rts); 
+	setAllBathSpeciesConditions(pl);
+	printAllBathSpeciesConditions(pl);
+	printGERKineticsTable(pl, -1, TT, *gKinetics, *egr, rmcEGR, *rts);
+	if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
+	    processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
+					*gKinetics, *egr, *rts);
+	}
 
-      delete egr; egr=0;
-      delete [] RxnVector;
-      delete rmcEGR; rmcEGR = 0;
-      delete rts; rts=0;
+	delete egr; egr=0;
+	delete [] RxnVector;
+	delete rmcEGR; rmcEGR = 0;
+	delete rts; rts=0;
     }
   
 
-    for (int i = 0; i < nReactions; i++) {
-      delete  rmcVector[i];
+    for (size_t i = 0; i < nReactions; i++) {
+	delete  rmcVector[i];
     }
 }
-
+//==================================================================================================================================
 
 void doKineticsTablesHomog(PhaseList *pl, Cantera::Kinetics *gKinetics,   
 			   TemperatureTable &TT) {
@@ -886,7 +905,7 @@ void doKineticsTablesHomog(PhaseList *pl, Cantera::Kinetics *gKinetics,
 		       deltaG_Table, deltaH_Table, deltaS_Table,
 		       Afwd_Table, EafwddivR_Table, 
 		       Arev_Table, EarevdivR_Table,
-		       kfwdPrime_Table, krevPrime_Table,	 rmcVector[i]);
+		       kfwdPrime_Table, krevPrime_Table, rmcVector[i]);
   }
 
   for (int i = 0; i < nReactions; i++) {
@@ -1459,10 +1478,321 @@ getGERKineticsTables(TemperatureTable& TT, PhaseList *pl,
   delete [] Rarray;
   delete [] R2array;
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-/**
+
+//===============================================================================================
+struct StoichVectors {
+    StoichVectors() :
+	kKinV(0),
+	sCoeffV(0)
+    {
+    }
+    size_t num() const {
+	return kKinV.size();
+    }
+    void add(size_t k, double p, bool force=false) {
+	if (p != 0.0 || force) {
+	    kKinV.push_back(k);
+	    sCoeffV.push_back(p);
+	}
+    }
+    double coeff(size_t kFind) const {
+	for (size_t k = 0; k < kKinV.size(); ++k) {
+	    if (kKinV[k] == kFind) {
+		return sCoeffV[k];
+	    } 
+	}
+	return 0.0;
+    }
+    size_t index(size_t kFind) const {
+	for (size_t k = 0; k < kKinV.size(); ++k) {
+	    if (kKinV[k] == kFind) {
+		return k;
+	    } 
+	}
+	return npos;
+    }
+    std::vector<size_t> kKinV;
+    std::vector<double> sCoeffV;
+};
+//==================================================================================================================================
+void printAffinityHeader(Cantera::RxnMolChange *rmc, PhaseList *pl, int iRxn, TemperatureTable &TT,
+			 Kinetics &kin,  DenseMatrix& kfwd_Table,   DenseMatrix& krev_Table,
+			 DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table,  DenseMatrix& deltaS_Table,
+			 DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table,  DenseMatrix& Arev_Table,
+			 DenseMatrix& EarevdivR_Table, DenseMatrix& kfwdPrime_Table, DenseMatrix& krevPrime_Table,
+			 double* unitskfwd, double* unitskrev)
+{
+    size_t nTotSpecies = kin.nTotalSpecies();
+  
+     double affinity;
+     affinityRxnData aj;
+     bool hasElectricalTerm;
+     double betaf;
+     double kc;
+     //double phiSoln;
+     double perturb;
+     //double deltaM[10];
+     Cantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
+     if (!iKin) {
+	 throw CanteraError("processAffinityTable", "failure");
+     }
+
+
+    double *actConc = new double [nTotSpecies];
+    iKin->getActivityConcentrations(actConc);
+    bool ok = iKin->getAffinityRxnFormulation(iRxn, affinity, kc, perturb, aj, hasElectricalTerm, betaf);
+    if (!ok) {
+	throw CanteraError("printAffinityHeader()",  "error calling getAffinityRxnFormulation");
+    }
+    
+    const doublereal affinityPowerFwd = aj.affinityPowerFwd;
+    const doublereal equilibPowerFwd = aj.equilibPowerFwd;
+    const size_t numForwardRxnSpecies = aj.numForwardRxnSpecies;
+    const size_t numRevFwdRxnSpecies = aj.numRevFwdRxnSpecies;
+    const std::vector<size_t>& affinSpec_FRC = aj.affinSpec_FRC;
+    const std::vector<doublereal>&  affinOrder_FRC = aj.affinOrder_FRC;
+    const std::vector<size_t>& affinSpec_RFRC = aj.affinSpec_RFRC;
+    const std::vector<doublereal>&  affinOrder_RFRC = aj.affinOrder_RFRC;
+
+    dnt(1); printf("Forward Affinity Power = %g \n", affinityPowerFwd);
+    dnt(1); printf("Equlibrium Power Value = %g \n", equilibPowerFwd);
+    dnt(1); printf("Number of Forward Rxn Species  = %d \n", (int) numForwardRxnSpecies);
+
+
+    size_t jRevIndex = aj.index_RevRateConstant;
+    if (jRevIndex != npos) {
+	dnt(1); printf("Has a different reverse reaction rate constant, index  = %d \n", (int) jRevIndex);
+    }
+  
+    StoichVectors rstoichVec;
+    StoichVectors pstoichVec;
+    for (size_t k = 0; k < nTotSpecies; ++k) {
+	double val = kin.reactantStoichCoeff(k, iRxn);
+	if (val != 0.0 ) {
+	    rstoichVec.add(k, val);
+	}
+	val = kin.productStoichCoeff(k, iRxn);
+	if (val != 0.0) {
+	    pstoichVec.add(k, val);
+	}
+    }
+    dnt(2); printf("        Rate form in forward direction: ");
+    iKin->write_one(iRxn, cout, false);
+
+    dnt(2); printf("        Reaction Orders in the Forwards Direction Far from Equilibrium:\n");
+    int pwidth = 111;
+    dnt(2); print_char('-', pwidth); printf("\n");
+    dnt(2);
+    printf("|      Species  Name | FStoichCoeffient | ForwardRxnPower|StandardConc|  moleFrac  |  ActCoeff  | RateContrib|\n");
+    double uA[6];
+
+    std::vector<bool> kStoichHandled(rstoichVec.num(), false);
+    for (size_t kk = 0; kk <  numForwardRxnSpecies; ++kk) {
+	size_t kKin = affinSpec_FRC[kk];
+	string kname = kin.kineticsSpeciesName(kKin);
+	double stoichV = kin.reactantStoichCoeff(kKin, iRxn);
+	double forwP = affinOrder_FRC[kk];
+
+	size_t kThermo;
+	size_t n = kin.speciesPhaseSpeciesIndex(kKin, kThermo);
+	double sConc = kin.thermo(n).standardConcentration(kThermo);
+	ThermoPhase& tp = kin.thermo(n);
+
+	tp.getUnitsStandardConc(uA, kThermo);
+	for (size_t jj = 0; jj < 6; ++jj) {
+	    unitskfwd[jj] += forwP * uA[jj];
+	}
+
+	double xMol = tp.moleFraction(kThermo);
+	vector<double> ac(tp.nSpecies());
+        tp.getActivityCoefficients(DATA_PTR(ac));
+	double a = ac[kThermo] * xMol * sConc;
+        double value = pow(a, forwP);
+ 
+	dnt(2); printf("| %17.17s  |     %9.4f    |     %9.4f   |%11.4E |%11.4E |%11.4E |%11.4E |\n", 
+		       kname.c_str(), stoichV, forwP, sConc, xMol, ac[kThermo], value);
+	size_t index = rstoichVec.index(kKin);
+	if (index != npos) {
+	    kStoichHandled[index] = true;
+	}
+    }
+    for (size_t  kk = 0; kk < rstoichVec.num(); ++kk) {
+	if (! kStoichHandled[kk]) {
+	    size_t kKin = rstoichVec.kKinV[kk];	
+	    string kname = kin.kineticsSpeciesName(kKin);
+	    double stoichV = rstoichVec.sCoeffV[kk];
+	    double forwP = 0.0;
+	    size_t kThermo;
+	    size_t n = kin.speciesPhaseSpeciesIndex(kKin, kThermo);
+	    ThermoPhase& tp = kin.thermo(n);
+	    double sConc = tp.standardConcentration(kThermo);
+	    double xMol = tp.moleFraction(kThermo);
+	    vector<double> ac(tp.nSpecies());
+	    tp.getActivityCoefficients(DATA_PTR(ac));
+	    dnt(1); printf("| %17.17s  |     %9.4f    |     %9.4f   |%11.4E |%11.4E |%11.4E |     NA     |\n", 
+			   kname.c_str() , stoichV, forwP,  sConc, xMol, ac[kThermo]);  
+	}
+    }
+    dnt(2); print_char('-', pwidth); printf("\n");
+    for (size_t  kk = 0; kk < rstoichVec.num(); ++kk) {
+	kStoichHandled[kk] = false;
+    }
+    //
+    // Here we will assume that 1-exp(-A/RT) < 0 and that the reverse direction is larger
+    // 
+    dnt(2); printf("        Rate form in reverse direction: ");
+    iKin->write_one(iRxn, cout, false);
+    dnt(2); printf("        Reaction Orders in the Reverse Direction Far from Equilibrium:\n");
+    dnt(2); print_char('-', pwidth); printf("\n");
+    dnt(2);
+    printf("|      Species  Name |NetStoichCoeffient| ForwardRxnPower | EffReversePower|StandardConc|  moleFrac  |  ActCoeff  |RevRateContr|\n");
+    double multiplier = 1.0 * aj.affinityPowerFwd *  aj.equilibPowerFwd;
+    std::vector<bool> kpStoichHandled(pstoichVec.num(), false);
+    for (size_t kk = 0; kk < numRevFwdRxnSpecies; ++kk) {
+	size_t kKin = affinSpec_RFRC[kk];
+	string kname = kin.kineticsSpeciesName(kKin);
+	//double stoichV = kin.productStoichCoeff(kKin, iRxn) - kin.reactantStoichCoeff(kKin, iRxn);
+	double forwP = affinOrder_RFRC[kk];
+	double netStoich = kin.productStoichCoeff(kKin, iRxn) - kin.reactantStoichCoeff(kKin, iRxn);
+	double effReversePower = forwP + netStoich * multiplier;
+
+	size_t kThermo;
+	size_t n = kin.speciesPhaseSpeciesIndex(kKin, kThermo);
+	ThermoPhase& tp = kin.thermo(n);
+	double sConc = tp.standardConcentration(kThermo);
+	double xMol = tp.moleFraction(kThermo);
+	vector<double> ac(tp.nSpecies());
+        tp.getActivityCoefficients(DATA_PTR(ac));
+	double act = ac[kThermo] * xMol * sConc;
+	double actConc = ac[kThermo] * xMol * sConc;
+        double value = pow(act, netStoich * multiplier) * pow(actConc, forwP);
+
+	tp.getUnitsStandardConc(uA, kThermo);
+	for (size_t jj = 0; jj < 6; ++jj) {
+	    unitskrev[jj] += forwP * uA[jj];
+	}
+ 
+	dnt(2); printf("| %17.17s  |     %9.4f    |     %9.4f   |    %9.4f   |%11.4E |%11.4E |%11.4E ", 
+		       kname.c_str(), netStoich, forwP, effReversePower, sConc, xMol, ac[kThermo]);
+	if (effReversePower == 0.0 && value == 1.0) {
+	    printf("|     NA     |\n");
+	} else {
+	    printf("|%11.4E |\n", value);
+	}
+	size_t index = pstoichVec.index(kKin);
+	if (index != npos) {
+	    kpStoichHandled[index] = true;
+	}
+	index = rstoichVec.index(kKin);
+	if (index != npos) {
+	    kStoichHandled[index] = true;
+	}
+    }
+    for (size_t  kk = 0; kk < pstoichVec.num(); ++kk) {
+	if (! kpStoichHandled[kk]) {
+	    size_t kKin = pstoichVec.kKinV[kk];	
+	    string kname = kin.kineticsSpeciesName(kKin);
+	    // double stoichV = rstoichVec.sCoeffV[kk];
+	    double forwP = 0.0;
+	    double netStoich = kin.productStoichCoeff(kKin, iRxn) - kin.reactantStoichCoeff(kKin, iRxn);
+	    double effReversePower = forwP + netStoich * multiplier;
+	    size_t kThermo;
+	    size_t n = kin.speciesPhaseSpeciesIndex(kKin, kThermo);
+	    ThermoPhase& tp = kin.thermo(n);
+	    double sConc = tp.standardConcentration(kThermo);
+	    double xMol = tp.moleFraction(kThermo);
+	    vector<double> ac(tp.nSpecies());
+	    tp.getActivityCoefficients(DATA_PTR(ac));
+
+	    double act = ac[kThermo] * xMol;
+	    double value = pow(act, effReversePower);
+	    dnt(2); printf("| %17.17s  |     %9.4f    |     %9.4f   |    %9.4f   |%11.4E |%11.4E |%11.4E ", 
+			   kname.c_str(), netStoich, forwP, effReversePower, sConc, xMol, ac[kThermo]);
+	    if (effReversePower == 0.0 && value == 1.0) {
+		printf("|   NA     |\n");
+	    } else {
+		printf("|%11.4E |\n", value);
+	    }
+	}
+    }
+    for (size_t  kk = 0; kk < rstoichVec.num(); ++kk) {
+	if (! kStoichHandled[kk]) {
+	    size_t kKin = rstoichVec.kKinV[kk];	
+	    string kname = kin.kineticsSpeciesName(kKin);
+	    // double stoichV = rstoichVec.sCoeffV[kk];
+	    double forwP = 0.0;
+	    double netStoich = kin.productStoichCoeff(kKin, iRxn) - kin.reactantStoichCoeff(kKin, iRxn);
+	    double effReversePower = forwP + netStoich * multiplier;
+	    size_t kThermo;
+	    size_t n = kin.speciesPhaseSpeciesIndex(kKin, kThermo);
+	    ThermoPhase& tp = kin.thermo(n);
+	    double sConc = tp.standardConcentration(kThermo);
+	    double xMol = tp.moleFraction(kThermo);
+	    vector<double> ac(tp.nSpecies());
+	    tp.getActivityCoefficients(DATA_PTR(ac));
+
+	    double act = ac[kThermo] * xMol;
+	    double value = pow(act, effReversePower);
+	    dnt(2); printf("| %17.17s  |     %9.4f    |     %9.4f   |    %9.4f   |%11.4E |%11.4E |%11.4E ", 
+			   kname.c_str(), netStoich, forwP, effReversePower, sConc, xMol, ac[kThermo]);
+	    if (effReversePower == 0.0) {
+		printf("|   NA     |\n");
+	    } else {
+		printf("|%11.4E |\n", value);
+	    }
+	}
+    }
+
+
+    dnt(2); print_char('-', pwidth); printf("\n");
+
+
+    
+    delete [] actConc;
+
+}
+//==================================================================================================================================
+void processAffinityTable(Cantera::RxnMolChange *rmc, PhaseList *pl, int irxn, TemperatureTable &TT,
+			  Kinetics &kin,  DenseMatrix& kfwd_Table,   DenseMatrix& krev_Table,
+			  DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table,  DenseMatrix& deltaS_Table,
+			  DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table,  DenseMatrix& Arev_Table,
+			  DenseMatrix& EarevdivR_Table, DenseMatrix& kfwdPrime_Table,   DenseMatrix& krevPrime_Table)
+{
+    int nTotSpecies = kin.nTotalSpecies();
+  
+     double affinity;
+     affinityRxnData aj;
+     bool hasElectricalTerm;
+     double betaf;
+     double kc;
+     //double phiSoln;
+     double perturb;
+     //double deltaM[10];
+     Cantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
+     if (!iKin) {
+	 throw CanteraError("processAffinityTable", "failure");
+     }
+
+
+    double *actConc = new double [nTotSpecies];
+    iKin->getActivityConcentrations(actConc);
+    bool ok = iKin->getAffinityRxnFormulation(irxn, affinity, kc, perturb, aj, hasElectricalTerm, betaf);
+    if (!ok) {
+	throw CanteraError(" processAffinityTable()",
+			   " >getAffinityRxnFormulation() failed ");
+    }
+    /*
+     const doublereal affinityPowerFwd = aj.affinityPowerFwd;
+     const doublereal equilibPowerFwd = aj.equilibPowerFwd;
+     const size_t numForwardRxnSpecies = aj.numForwardRxnSpecies;
+     const std::vector<size_t>& affinSpec_FRC = aj.affinSpec_FRC;
+     const std::vector<doublereal>&  affinOrder_FRC = aj.affinOrder_FRC;
+    */
+   
+    delete [] actConc;
+}
+//==================================================================================================================================
+/*
  *  This routine will print out a table of information a single
  *  reaction, j.
  *

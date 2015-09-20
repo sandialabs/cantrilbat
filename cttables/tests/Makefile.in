@@ -85,7 +85,7 @@ rebaseline:
 	cd LiSi_2_LiCl_electrode_rxn; ./rebaseline
 	cd LiSi_3_LiCl_electrode_rxn; ./rebaseline
 	cd LiMetal_LiIon_electrode_rxn; ./rebaseline
-	cd MCMBAnode_LiIon_electrode_rxn; ./rebasline
+	cd MCMBAnode_LiIon_electrode_rxn; ./rebaseline
 	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
 	cd FeS_electrode_rxn;  ./rebaseline
 	cd NewmanFeS2Electrode_rxn; ./rebaseline
