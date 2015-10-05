@@ -16,6 +16,8 @@ BLESSED_FILES = good_out.txt soln_0_0_blessed.xml \
 DATA = anode.inp problem_setup.sh \
 ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml
 
+OBJ_PROG = $(PROGRAM).o
+
 all: .depends $(PROGRAM)
 #
 ################################################################################################################
@@ -91,12 +93,11 @@ CXXLDR = $(CXX)
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
 #
-OBJ = $(PROGRAM).o
-$(OBJ): Makefile
+$(OBJ_PROG): Makefile
 #
-$(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+$(PROGRAM): $(OBJ_PROG) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_PROG) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
@@ -108,7 +109,7 @@ $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-DEPENDS = $(OBJ_ANODE:.o=.d) 
+DEPENDS = $(OBJ_PROG:.o=.d) 
 
 $(DEPENDS): Makefile
 
