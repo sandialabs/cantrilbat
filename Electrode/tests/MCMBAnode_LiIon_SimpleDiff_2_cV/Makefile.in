@@ -1,13 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/02/22 20:32:47 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -76,10 +68,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
-
 OBJ_ANODE =  $(OBJ)
-
-OBJ_CANTERA_ADDONS =  
 
 ############################################################################
 # section to set up compiler rules
