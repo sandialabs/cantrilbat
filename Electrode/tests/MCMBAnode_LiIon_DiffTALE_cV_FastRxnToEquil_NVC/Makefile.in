@@ -160,8 +160,11 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
+test_clean:
+	$(RM) diff_out.txt   diff_summary.txtdiff_xml.txt  diff_csv.txt   \
+              diff_gcsv.txtdiff_icsv.txt  runGood runBad runInProgress.txt out.txt \
+	      err_out.txt  MCMB_globalResults_0_0.csv MCMB_intResults_0_0.csv soln_0_0.xml
 
 clean:
+	@MAKE@ test_clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
-
