@@ -1,0 +1,389 @@
+                          <lambdaNeutral species1="CO2(aq)" species2="Ca++">
+	                    <lambda> 0.230880472, -0.002536472, 0.0, 554.029976, 2.3615659 </lambda>
+			    <source> Corti, H.R., de Pablo, J.J., and Prausnitz, J.M. 1990, Phase equilibria
+					for aqueous systems containing salts and carbon dioxide. Application to
+					Pitzer's theory for electrolyte solutions. Journal of Physical Chemistry,
+					1990, Vol. 94, p. 7876-7880. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="H+">
+	                    <lambda> 0.0, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> He, S. and Morse, J.W., 1993, The carbonic acid system and calcite
+				      solubility in aqueous Na-K-Ca-Mg-Cl-SO4 solutions from 0 to 90 deg.C.
+				      Geochimica Cosmochimica Acta, Vol. 57, p. 3533-3554.TIC: 253894.
+				      (Table 4) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="K+">
+	                    <lambda> 0.115440236, -0.001268236, 0.0, 277.014988, 1.18078295 </lambda>
+			    <source> Corti, H.R., de Pablo, J.J., and Prausnitz, J.M. 1990, Phase equilibria
+					for aqueous systems containing salts and carbon dioxide. Application to
+					Pitzer's theory for electrolyte solutions. Journal of Physical Chemistry,
+					1990, Vol. 94, p. 7876-7880.. Same as CO2(aq)-Na+ </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="Mg++">
+	                    <lambda> 0.230880472, -0.002536472, 0.0, 554.029976, 2.3615659 </lambda>
+			    <source> Corti, H.R., de Pablo, J.J., and Prausnitz, J.M. 1990, Phase equilibria
+					for aqueous systems containing salts and carbon dioxide. Application to
+					Pitzer's theory for electrolyte solutions. Journal of Physical Chemistry,
+					1990, Vol. 94, p. 7876-7880. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="Na+">
+	                    <lambda> 0.115440236, -0.001268236, 0.0, 277.014988, 1.18078295 </lambda>
+			    <source> Corti, H.R., de Pablo, J.J., and Prausnitz, J.M. 1990, Phase equilibria
+					for aqueous systems containing salts and carbon dioxide. Application to
+					Pitzer's theory for electrolyte solutions. Journal of Physical Chemistry,
+					1990, Vol. 94, p. 7876-7880. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Al+++">
+	                    <lambda> 0.3095, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Ba++">
+	                    <lambda> 0.285, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Ca++">
+	                    <lambda> 0.2497, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="H+">
+	                    <lambda> 0.035284639, 1.21206E-13, 0.0, 81.44999999, -8.09461E-11 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="K+">
+	                    <lambda> 0.151915, -1.14341E-12, 0.0, 199.431, 7.64677E-10 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Li+">
+	                    <lambda> 0.149, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Mg++">
+	                    <lambda> 0.229806, 3.23403E-13, 0.0, 305.513, -2.15815E-10 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Na+">
+	                    <lambda> 0.160236, 0.0018462, 0.0, 72.8644, -0.616311 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="NH4+">
+	                    <lambda> 0.0751, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="SiO2(aq)" species2="H+">
+	                    <lambda> 0.0, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> 94Fel/Sch (thermodynamic convention) 
+				    Felmy, A.R., Schroeder, C.C., Mason, M.J., 1994, A solubility model for
+				    amorphous silica in concentrated electrolytes, PNL-SA-25345 (Conf-940813-33),
+				    Pacific Northwest National Laboratory, Richland, Washington. TIC: 253270.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="SiO2(aq)" species2="Mg++">
+	                    <lambda> 0.082109605, -0.0018133, 0.0, -3.83318E-09, -2.32691E-11 </lambda>
+			    <source> 94Fel/Sch 
+				    Felmy, A.R., Schroeder, C.C., Mason, M.J., 1994, A solubility model for
+				    amorphous silica in concentrated electrolytes, PNL-SA-25345 (Conf-940813-33),
+				    Pacific Northwest National Laboratory, Richland, Washington. TIC: 253270.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="SiO2(aq)" species2="Na+">
+	                    <lambda> -0.0788994, 0.000118667, 0.0, -1.43923E-07, -8.63577E-10 </lambda>
+			    <source> 94Fel/Sch 
+				    Felmy, A.R., Schroeder, C.C., Mason, M.J., 1994, A solubility model for
+				    amorphous silica in concentrated electrolytes, PNL-SA-25345 (Conf-940813-33),
+				    Pacific Northwest National Laboratory, Richland, Washington. TIC: 253270.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="H3PO4(aq)" species2="H+">
+	                    <lambda> 0.29, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> 95Rai/Fel (Table IV) 
+			           Rai, D., Felmy, A.R., Fulton, R.W., 1995. "Nd+++ and Am+++ ion interactions
+			           with sulfate and their influence on NdPO4(c) solubility, Journal of
+				   Solution Chemistry, Vol. 24, No. 9, p. 879-895 </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Pu(OH)3(aq)" species2="Na+">
+	                    <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Nd(OH)3(aq)" species2="Na+">
+	                    <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Cm(OH)3(aq)" species2="Na+">
+	                    <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Am(OH)3(aq)" species2="Na+">
+	                    <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="UO2CO3(aq)" species2="Na+">
+	                    <lambda> 0.05, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Pashalidis, I., Czerwinski, K.R., Fanghänel, Th., and Kim, J.I., 1997.
+					Solid-liquid phase equilibria of Pu(VI) and U(VI) in aqueous carbonate
+					systems. Determination of stability constants, Radiochimica Acta, 76,
+					p. 55-62. (Table 6) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="PuO2CO3(aq)" species2="Na+">
+	                    <lambda> 0.05, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Pashalidis, I., Czerwinski, K.R., Fanghänel, Th., and Kim, J.I., 1997.
+					Solid-liquid phase equilibria of Pu(VI) and U(VI) in aqueous carbonate
+					systems. Determination of stability constants, Radiochimica Acta, 76,
+					p. 55-62. (Table 6) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="NpO2OH(aq)" species2="Na+">
+	                    <lambda> 0, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> 95Fan/Nec (Table 3) 
+			           Thermodynamics of Neptunium(V) in concentrated salt solutions: II.
+			           Ion interaction (Pizer) Parameters for Np(V) hydrolysis species and carbonate
+			           complexes, Radiochimica Acta, 69, 169-176.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="Cl-">
+                            <lambda> 0, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Corti, H.R., de Pablo, J.J., and Prausnitz, J.M. 1990, Phase equilibria
+					for aqueous systems containing salts and carbon dioxide. Application to
+					Pitzer's theory for electrolyte solutions. Journal of Physical Chemistry,
+					1990, Vol. 94, p. 7876-7880. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="SO4--">
+                            <lambda> 0.093855057, -0.001833263, 0.0, 640.651636, 2.19629464 </lambda>
+			    <source> 93Rum/Mau 
+				 Rumpf, B. and Maurer, G. 1993, An experimental and theoretical investigation on
+				 the solubility of carbon dioxide in aqueous solutions of strong electrolytes
+			         Berichte Der Bunsen-Gesellschaft-Physical Chemistry Chemical Physics 97 (1): p. 85-97. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Cl-">
+                            <lambda> 0.0, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="Br-">
+                            <lambda> -0.0347, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="CO3--">
+                            <lambda> 0.09648925, -3.0343E-13, 0.0, -277.074, 2.03006E-10 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="HCO3-">
+                            <lambda> 0.0854, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="I-">
+                            <lambda> -0.0744, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="NO3-">
+                            <lambda> -0.0377, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="OH-">
+                            <lambda> 0.05222539, 4.10103E-13, 0.0, 15.571, -2.74032E-10 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="O2(aq)" species2="SO4--">
+                            <lambda> 0.087774406, -1.98728E-12, 0.0, -274.085, 1.32907E-09 </lambda>
+			    <source> Clegg, S.L. and Brimblecombe, P., 1990, The solubility and activity
+					coefficient of oxygen in salt solutions, Geochimica Cosmochimica Acta,
+					v. 54, p. 3315-3328. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="ClO4-">
+                            <lambda> -0.07, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source>  Konigsberger, E., Konigsberger, L-C, and Gamsjager, H., 1999. Low-temperature
+				      thermodynamic model for the system Na2CO3-MgCO3-CaCO3-H2O, Geochimica
+				      Cosmochimica Acta, Vol. 63, No. 19/20, p. 3105-3119. (Table 4; 25C value) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="SiO2(aq)" species2="Cl-">
+                            <lambda> 0.142309, -0.00321903, 0.0, 167.356, 1.50701 </lambda>
+			    <source> 94Fel/Sch 
+				    Felmy, A.R., Schroeder, C.C., Mason, M.J., 1994, A solubility model for
+				    amorphous silica in concentrated electrolytes, PNL-SA-25345 (Conf-940813-33),
+				    Pacific Northwest National Laboratory, Richland, Washington. TIC: 253270.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="SiO2(aq)" species2="NO3-">
+                            <lambda> 0.134079, -0.0502191, 0.0, 6301.5, 35.5262 </lambda>
+			    <source> 94Fel/Sch 
+				    Felmy, A.R., Schroeder, C.C., Mason, M.J., 1994, A solubility model for
+				    amorphous silica in concentrated electrolytes, PNL-SA-25345 (Conf-940813-33),
+				    Pacific Northwest National Laboratory, Richland, Washington. TIC: 253270.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="SiO2(aq)" species2="SO4--">
+                            <lambda> 0.07759934, 0.00055333, 0.0, 1.55517E-07, 9.33172E-10 </lambda>
+			    <source> 94Fel/Sch 
+				    Felmy, A.R., Schroeder, C.C., Mason, M.J., 1994, A solubility model for
+				    amorphous silica in concentrated electrolytes, PNL-SA-25345 (Conf-940813-33),
+				    Pacific Northwest National Laboratory, Richland, Washington. TIC: 253270.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="H3PO4(aq)" species2="H2PO4-">
+                            <lambda> -0.4, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> 95Rai/Fel (Table IV)
+			           Rai, D., Felmy, A.R., Fulton, R.W., 1995. "Nd+++ and Am+++ ion interactions
+			           with sulfate and their influence on NdPO4(c) solubility, Journal of
+				   Solution Chemistry, Vol. 24, No. 9, p. 879-895 </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Pu(OH)3(aq)" species2="Cl-">
+                            <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Nd(OH)3(aq)" species2="Cl-">
+                            <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Cm(OH)3(aq)" species2="Cl-">
+                            <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Am(OH)3(aq)" species2="Cl-">
+                            <lambda> -0.2, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Fanghänel, Th. and Kim J-I, 1998.  Spectroscopic evaluation of
+					thermodynamics of trivalent actinides in brines, Journal of Alloys and
+					Compounds, 271-273, p. 728-737. (Table 1). </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="UO2CO3(aq)" species2="ClO4-">
+                            <lambda> 0.05, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Pashalidis, I., Czerwinski, K.R., Fanghänel, Th., and Kim, J.I., 1997.
+					Solid-liquid phase equilibria of Pu(VI) and U(VI) in aqueous carbonate
+					systems. Determination of stability constants, Radiochimica Acta, 76,
+					p. 55-62. (Table 6) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="PuO2CO3(aq)" species2="ClO4-">
+                            <lambda> 0.05, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Pashalidis, I., Czerwinski, K.R., Fanghänel, Th., and Kim, J.I., 1997.
+					Solid-liquid phase equilibria of Pu(VI) and U(VI) in aqueous carbonate
+					systems. Determination of stability constants, Radiochimica Acta, 76,
+					p. 55-62. (Table 6) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Th(SO4)2(aq)" species2="Cl-">
+                            <lambda> 0.29, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Felmy, A.R. and Rai D., 1999. Application of Pitzer's equations for
+					modeling the aqueous thermodynamics of actinide species in natural waters:
+					a review, Journal of Solution Chemistry, Vol. 28, No. 5, p. 533-553. (Table III) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="Th(SO4)2(aq)" species2="HSO4-">
+                            <lambda> 0.68, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> Felmy, A.R. and Rai D., 1999. Application of Pitzer's equations for
+					modeling the aqueous thermodynamics of actinide species in natural waters:
+					a review, Journal of Solution Chemistry, Vol. 28, No. 5, p. 533-553. (Table III) </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="NpO2OH(aq)" species2="Cl-">
+                            <lambda> -0.19, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> 95Fan/Nec (Table 3) 
+			           Thermodynamics of Neptunium(V) in concentrated salt solutions: II.
+			           Ion interaction (Pizer) Parameters for Np(V) hydrolysis species and carbonate
+			           complexes, Radiochimica Acta, 69, 169-176.</source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CO2(aq)" species2="CO2(aq)">
+                            <lambda> -0.011485622, -0.006800127, 0.0, 1172.99112, 5.62470009 </lambda>
+			    <source>  Corti, H.R., de Pablo, J.J., and Prausnitz, J.M. 1990, Phase equilibria
+					for aqueous systems containing salts and carbon dioxide. Application to
+					Pitzer's theory for electrolyte solutions. Journal of Physical Chemistry,
+					1990, Vol. 94, p. 7876-7880. </source>
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="CaCl2(aq)" species2="CaCl2(aq)">
+                            <lambda> 3.7093994, 0.019903147, 0.0, 5485.617426, -1.01905E-10 </lambda>
+			    <source> 98ste/fel (Model 3) </source>
+			             Sterner, S.M.; Felmy, A.R.; Oakes, C.S.; and Pitzer, K.S. 1998. "Correlation of
+			             Thermodynamic Data for Aqueous Electrolyte Solutions to Very High Ionic Strength
+			             Using INSIGHT: Vapor Saturated Water Activity in the System CaCl2}-H2O
+			             to 250°C and Solid Saturation." International Journal of Thermophysics, 19, (3), 761-770.
+			             [New York, New York]: Plenum Publishing. TIC: 253387.
+                          </lambdaNeutral> 
+
+                          <lambdaNeutral species1="H3PO4(aq)" species2="H3PO4(aq)">
+                            <lambda> 0.0503, 0.0, 0.0, 0.0, 0.0 </lambda>
+			    <source> 95Rai/Fel (Table IV) 
+			           Rai, D., Felmy, A.R., Fulton, R.W., 1995. "Nd+++ and Am+++ ion interactions
+			           with sulfate and their influence on NdPO4(c) solubility, Journal of
+				   Solution Chemistry, Vol. 24, No. 9, p. 879-895 </source>
+                          </lambdaNeutral> 

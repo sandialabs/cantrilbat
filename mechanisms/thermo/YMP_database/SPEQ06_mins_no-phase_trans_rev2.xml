@@ -1,0 +1,3523 @@
+
+  <species name="Pargasite">
+    <speciesChemFormula> Na(Ca2Mg4Al)(Al2Si6)O22(OH)2 </speciesChemFormula>
+    <atomArray> Na:1 Ca:2 Mg:4 Al:3 Si:6 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2846728 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -3016624 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 160 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 205.8 </a>
+        <b units="cal/gmol/K2"> 0.04166  </b>
+        <c units="cal-K/gmol"> -5021000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 273.5 </V0_Pr_Tr>
+    </standardState>
+    <source>
+    	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+     </source>
+  </species>
+
+  <species name="Tremolite">
+    <speciesChemFormula> (Ca2Mg5)Si8O22(OH)2 </speciesChemFormula>
+    <atomArray> Ca:2 Mg:5 Si:8 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2770245 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2944038 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 131.19 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 188.222 </a>
+        <b units="cal/gmol/K2"> 0.057294  </b>
+        <c units="cal-K/gmol"> -4482200 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 272.92 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+     </source>
+  </species>
+  <species name="Ferropargasite">
+    <speciesChemFormula> Na(Ca2Fe4Al)(Al2Si6)O22(OH)2 </speciesChemFormula>
+    <atomArray> Na:1 Ca:2 Fe:4 Al:3 Si:6 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2526187 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2686900 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 185.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 213.57 </a>
+        <b units="cal/gmol/K2"> 0.04299  </b>
+        <c units="cal-K/gmol"> -4729000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 279.89 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. - Note: Added H estimated from Vieillard 1994
+     </source>
+  </species>
+  <species name="Ferrotremolite">
+    <speciesChemFormula> (Ca2Fe5)Si8O22(OH)2 </speciesChemFormula>
+    <atomArray> Ca:2 Fe:5 Si:8 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2349100 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2511300 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 163.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 197.93 </a>
+        <b units="cal/gmol/K2"> 0.05895  </b>
+        <c units="cal-K/gmol"> -4117000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 282.8 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. - Note: Added H estimated from Vieillard 1994
+     </source>
+  </species>
+  <species name="Sepiolite">
+    <speciesChemFormula> Mg4Si6O15(OH)2(H2O)2*4H2O </speciesChemFormula>
+    <atomArray> Mg:4 Si:6 O:23 H:14  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2211192 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2418000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 146.6 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 157.92 </a>
+        <b units="cal/gmol/K2"> 0.1043  </b>
+        <c units="cal-K/gmol"> -1868000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 285.6 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+     </source>
+  </species>
+  <species name="Cordierite_hydr">
+    <speciesChemFormula> Mg2Al3(AlSi5)O18*H20 </speciesChemFormula>
+    <atomArray> Mg:2 Al:4 Si:5 O:19 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2121350 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2255676 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 111.43 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 155.23 </a>
+        <b units="cal/gmol/K2"> 0.0258  </b>
+        <c units="cal-K/gmol"> -3860000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 241.22 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cordierite_anhyd">
+    <speciesChemFormula> Mg2Al3(AlSi5)O18 </speciesChemFormula>
+    <atomArray> Mg:2 Al:4 Si:5 O:18  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -2061279 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2183199 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 97.33 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 143.83 </a>
+        <b units="cal/gmol/K2"> 0.0258  </b>
+        <c units="cal-K/gmol"> -3860000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 233.22 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Clinochlore-14A">
+    <speciesChemFormula> Mg5Al(AlSi3)O10(OH)8 </speciesChemFormula>
+    <atomArray> Mg:5 Al:2 Si:3 O:18 H:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="900" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1961703 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -2116964 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 111.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 166.5 </a>
+        <b units="cal/gmol/K2"> 0.0421  </b>
+        <c units="cal-K/gmol"> -3747000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 207.11 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Laumontite">
+    <speciesChemFormula> Ca(Al2Si4)O12*4H2O </speciesChemFormula>
+    <atomArray> Ca:1 Al:2 Si:4 O:16 H:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1596823 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1728664 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 116.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 123.2 </a>
+        <b units="cal/gmol/K2"> 0.04447  </b>
+        <c units="cal-K/gmol"> -1643000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 207.55 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Daphnite-14A">
+    <speciesChemFormula> Fe5Al(AlSi3)O10(OH)8 </speciesChemFormula>
+    <atomArray> Fe:5 Al:2 Si:3 O:18 H:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1550482 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1695426 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 142.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 176.21 </a>
+        <b units="cal/gmol/K2"> 0.04376  </b>
+        <c units="cal-K/gmol"> -3382000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 213.42 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. - Note: Gf and Hf from Saccocia and Seyfried(1993)
+    </source>
+  </species>
+  <species name="Clinozoisite">
+    <speciesChemFormula> Ca2Al3Si3O12(OH) </speciesChemFormula>
+    <atomArray> Ca:2 Al:3 Si:3 O:13 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1549240 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1643781 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 70.64 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 106.118 </a>
+        <b units="cal/gmol/K2"> 0.025214  </b>
+        <c units="cal-K/gmol"> -2714500 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 136.2 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Zoisite">
+    <speciesChemFormula> Ca2Al3Si3O12(OH) </speciesChemFormula>
+    <atomArray> Ca:2 Al:3 Si:3 O:13 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1549179 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1643691 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 70.74 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 106.118 </a>
+        <b units="cal/gmol/K2"> 0.025214  </b>
+        <c units="cal-K/gmol"> -2714500 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 135.9 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Grossular">
+    <speciesChemFormula> Ca3Al2Si3O12 </speciesChemFormula>
+    <atomArray> Ca:3 Al:2 Si:3 O:12  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1496307 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1582737 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 60.87 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 104.017 </a>
+        <b units="cal/gmol/K2"> 0.017013  </b>
+        <c units="cal-K/gmol"> -2731800 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 125.3 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Wairakite">
+    <speciesChemFormula> Ca(Al2Si4)O12*2H2O </speciesChemFormula>
+    <atomArray> Ca:1 Al:2 Si:4 O:14 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1477432 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1579333 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 105.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 100.4 </a>
+        <b units="cal/gmol/K2"> 0.04447  </b>
+        <c units="cal-K/gmol"> -1643000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 186.87 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Epidote">
+    <speciesChemFormula> Ca2FeAl2Si3O12(OH) </speciesChemFormula>
+    <atomArray> Ca:2 Fe:1 Al:2 Si:3 O:13 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1100" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1450906 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1543992 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 75.28 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 117.622 </a>
+        <b units="cal/gmol/K2"> 0.012816  </b>
+        <c units="cal-K/gmol"> -3186400 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 139.2 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Epidote-ord">
+    <speciesChemFormula> Ca2FeAl2Si3O12(OH) </speciesChemFormula>
+    <atomArray> Ca:2 Fe:1 Al:2 Si:3 O:13 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1100" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1450906 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1544016 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 75.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 113.78 </a>
+        <b units="cal/gmol/K2"> 0.01469  </b>
+        <c units="cal-K/gmol"> -2892000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 139.2 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Hydromagnesite">
+    <speciesChemFormula> Mg5(OH)2(CO3)4*4H20 </speciesChemFormula>
+    <atomArray> Mg:5 C:4 O:18 H:10  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1401687 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1557090 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 129.38 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 141.46 </a>
+        <b units="cal/gmol/K2"> 0.06528  </b>
+        <c units="cal-K/gmol"> -2167000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 208.8 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Phlogopite">
+    <speciesChemFormula> KMg3(AlSi3)O10(OH)2 </speciesChemFormula>
+    <atomArray> K:1 Mg:3 Al:1 Si:3 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1396187 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1488067 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 76.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 100.61 </a>
+        <b units="cal/gmol/K2"> 0.02878  </b>
+        <c units="cal-K/gmol"> -2150000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 149.66 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Muscovite">
+    <speciesChemFormula> KAl2(AlSi3)O10(OH)2 </speciesChemFormula>
+    <atomArray> K:1 Al:3 Si:3 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1336301 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1427408 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 68.8 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 97.56 </a>
+        <b units="cal/gmol/K2"> 0.02638  </b>
+        <c units="cal-K/gmol"> -2544000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 140.71 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Paragonite">
+    <speciesChemFormula> NaAl2(AlSi3)O10(OH)2 </speciesChemFormula>
+    <atomArray> Na:1 Al:3 Si:3 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1326012 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1416963 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 66.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 97.43 </a>
+        <b units="cal/gmol/K2"> 0.0245  </b>
+        <c units="cal-K/gmol"> -2644000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 132.53 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Talc">
+    <speciesChemFormula> Mg3Si4O10(OH)2 </speciesChemFormula>
+    <atomArray> Mg:3 Si:4 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1320188 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1410920 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 62.34 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 82.482 </a>
+        <b units="cal/gmol/K2"> 0.041614  </b>
+        <c units="cal-K/gmol"> -1334200 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 136.25 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Andradite">
+    <speciesChemFormula> Ca3Fe2Si3O12 </speciesChemFormula>
+    <atomArray> Ca:3 Fe:2 Si:3 O:12  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1100" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1296819 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1380345 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 70.13 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 113.532 </a>
+        <b units="cal/gmol/K2"> 0.015636  </b>
+        <c units="cal-K/gmol"> -3088900 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 131.85 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Pyrophyllite">
+    <speciesChemFormula> Al2Si4O10(OH)2 </speciesChemFormula>
+    <atomArray> Al:2 Si:4 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1255997 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1345313 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 57.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 79.432 </a>
+        <b units="cal/gmol/K2"> 0.039214  </b>
+        <c units="cal-K/gmol"> -1728200 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 126.6 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Annite">
+    <speciesChemFormula> KFe3(AlSi3)O10(OH)2 </speciesChemFormula>
+    <atomArray> K:1 Fe:3 Al:1 Si:3 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1147156 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1232195 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 95.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 106.43 </a>
+        <b units="cal/gmol/K2"> 0.02977  </b>
+        <c units="cal-K/gmol"> -1931000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 154.32 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Alunite">
+    <speciesChemFormula> KAl3(OH)6(SO4)2 </speciesChemFormula>
+    <atomArray> K:1 Al:3 S:2 O:14 H:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="650" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1113600 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1235600 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 78.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 153.45 </a>
+        <b units="cal/gmol/K2"> 0  </b>
+        <c units="cal-K/gmol"> -5495000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 293.6 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Merwinite">
+    <speciesChemFormula> Ca3Mg(SiO4)2 </speciesChemFormula>
+    <atomArray> Ca:3 Mg:1 Si:2 O:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1036526 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1090796 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 60.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 72.97 </a>
+        <b units="cal/gmol/K2"> 0.01196  </b>
+        <c units="cal-K/gmol"> -1444000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 104.4 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Huntite">
+    <speciesChemFormula> CaMg3(CO3)4 </speciesChemFormula>
+    <atomArray> Ca:1 Mg:3 C:4 O:12  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -1004710 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1082600 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 71.59 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 84.17 </a>
+        <b units="cal/gmol/K2"> 0.04286  </b>
+        <c units="cal-K/gmol"> -2044000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 122.9 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Chrysotile">
+    <speciesChemFormula> Mg3Si2O5(OH)4 </speciesChemFormula>
+    <atomArray> Mg:3 Si:2 O:9 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -964871 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1043123 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 52.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 75.82 </a>
+        <b units="cal/gmol/K2"> 0.0316  </b>
+        <c units="cal-K/gmol"> -1758000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 108.5 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Anorthite">
+    <speciesChemFormula> Ca(Al2Si2)O8 </speciesChemFormula>
+    <atomArray> Ca:1 Al:2 Si:2 O:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -954078 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -1007552 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 49.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 63.311 </a>
+        <b units="cal/gmol/K2"> 0.014794  </b>
+        <c units="cal-K/gmol"> -1544000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 100.79 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Kaolinite">
+    <speciesChemFormula> Al2Si2O5(OH)4 </speciesChemFormula>
+    <atomArray> Al:2 Si:2 O:9 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -905614 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -982221 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 48.53 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 72.77 </a>
+        <b units="cal/gmol/K2"> 0.0292  </b>
+        <c units="cal-K/gmol"> -2152000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 99.52 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Gehlenite">
+    <speciesChemFormula> Ca2(Al2Si)O7 </speciesChemFormula>
+    <atomArray> Ca:2 Al:2 Si:1 O:7  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -903148 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -951225 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 48.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 63.74 </a>
+        <b units="cal/gmol/K2"> 0.008  </b>
+        <c units="cal-K/gmol"> -1512000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 90.24 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="K-Feldspar">
+    <speciesChemFormula> K(AlSi3)O8 </speciesChemFormula>
+    <atomArray> K:1 Al:1 Si:3 O:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -895374 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -949188 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 51.13 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 76.617 </a>
+        <b units="cal/gmol/K2"> 0.004311  </b>
+        <c units="cal-K/gmol"> -2994500 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 108.87 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Maximum_Microcline">
+    <speciesChemFormula> K(AlSi3)O8 </speciesChemFormula>
+    <atomArray> K:1 Al:1 Si:3 O:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -895374 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -949188 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 51.13 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 63.83 </a>
+        <b units="cal/gmol/K2"> 0.0129  </b>
+        <c units="cal-K/gmol"> -1705000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 108.741 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Sanidine_high">
+    <speciesChemFormula> K(AlSi3)O8 </speciesChemFormula>
+    <atomArray> K:1 Al:1 Si:3 O:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -893738 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -946538 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 54.53 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 63.83 </a>
+        <b units="cal/gmol/K2"> 0.0129  </b>
+        <c units="cal-K/gmol"> -1705000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 109.008 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Albite_low">
+    <speciesChemFormula> Na(AlSi3)O8 </speciesChemFormula>
+    <atomArray> Na:1 Al:1 Si:3 O:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -886308 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -939680 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 49.51 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 61.7 </a>
+        <b units="cal/gmol/K2"> 0.0139  </b>
+        <c units="cal-K/gmol"> -1501000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 100.07 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Akermanite">
+    <speciesChemFormula> Ca2MgSi2O7 </speciesChemFormula>
+    <atomArray> Ca:2 Mg:1 Si:2 O:7  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -879362 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -926497 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 50.03 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 60.09 </a>
+        <b units="cal/gmol/K2"> 0.0114  </b>
+        <c units="cal-K/gmol"> -1140000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 92.81 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Ca-Al-Pyroxene">
+    <speciesChemFormula> CaAl(AlSi)O6 </speciesChemFormula>
+    <atomArray> Ca:1 Al:2 Si:1 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -742067 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -783793 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 35 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 54.13 </a>
+        <b units="cal/gmol/K2"> 0.00642  </b>
+        <c units="cal-K/gmol"> -1490000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 63.5 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Analcime-s92">
+    <speciesChemFormula> NaAlSi2O6*H2O </speciesChemFormula>
+    <atomArray> Na:1 Al:1 Si:2 O:7 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -738098 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -790193 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 56 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 53.49 </a>
+        <b units="cal/gmol/K2"> 0.02414  </b>
+        <c units="cal-K/gmol"> -888000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 97.1 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Diopside">
+    <speciesChemFormula> CaMg(SiO3)2 </speciesChemFormula>
+    <atomArray> Ca:1 Mg:1 Si:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1600" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -723780 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -765378 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 34.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 52.87 </a>
+        <b units="cal/gmol/K2"> 0.00784  </b>
+        <c units="cal-K/gmol"> -1574000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 66.09 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Greenalite">
+    <speciesChemFormula> Fe3Si2O5(OH)4 </speciesChemFormula>
+    <atomArray> Fe:3 Si:2 O:9 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -715340 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -644110 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 72.6 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 81.65 </a>
+        <b units="cal/gmol/K2"> 0.0326  </b>
+        <c units="cal-K/gmol"> -1539000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 115 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Jadeite">
+    <speciesChemFormula> NaAl(SiO3)2 </speciesChemFormula>
+    <atomArray> Na:1 Al:1 Si:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -679445 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -722116 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 31.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 48.16 </a>
+        <b units="cal/gmol/K2"> 0.01142  </b>
+        <c units="cal-K/gmol"> -1187000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 60.4 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Analcime-dehy-s92 D">
+    <speciesChemFormula> NaAlSi2O6 </speciesChemFormula>
+    <atomArray> Na:1 Al:1 Si:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -674989 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -714678 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 41.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 42.09 </a>
+        <b units="cal/gmol/K2"> 0.02414  </b>
+        <c units="cal-K/gmol"> -888000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 89.1 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Hedenbergite">
+    <speciesChemFormula> CaFe(SiO3)2 </speciesChemFormula>
+    <atomArray> Ca:1 Fe:1 Si:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1600" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -638998 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -678276 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 40.7 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 54.81 </a>
+        <b units="cal/gmol/K2"> 0.00817  </b>
+        <c units="cal-K/gmol"> -1501000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 68.27 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Artinite">
+    <speciesChemFormula> Mg2(OH)2(CO3)*3H2O </speciesChemFormula>
+    <atomArray> Mg:2 C:1  O:8 H:8  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -613915 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -698043 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 55.67 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 70.87 </a>
+        <b units="cal/gmol/K2"> 0.02766  </b>
+        <c units="cal-K/gmol"> -743000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 96.9 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Kyanite">
+    <speciesChemFormula> Al2SiO5 </speciesChemFormula>
+    <atomArray> Al:2 Si:1 O:5  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="466" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -580956 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -616897 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 20 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 41.393132 </a>
+        <b units="cal/gmol/K2"> 0.006816463  </b>
+        <c units="cal-K/gmol"> -1288210.4 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 44.09 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Andalusite">
+    <speciesChemFormula> Al2SiO5 </speciesChemFormula>
+    <atomArray> Al:2 Si:1 O:5  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1043" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -580587 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -615866 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 22.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 41.310833 </a>
+        <b units="cal/gmol/K2"> 0.006292556  </b>
+        <c units="cal-K/gmol"> -1239206.3 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 51.53 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Sillimanite">
+    <speciesChemFormula> Al2SiO5 </speciesChemFormula>
+    <atomArray> Al:2 Si:1 O:5  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1200" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -580091 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -615099 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 23.13 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 40.023988 </a>
+        <b units="cal/gmol/K2"> 0.007390511  </b>
+        <c units="cal-K/gmol"> -1167405.3 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 49.9 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Dolomite">
+    <speciesChemFormula> CaMg(CO3)2 </speciesChemFormula>
+    <atomArray> Ca:1 Mg:1 C:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -517760 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -556631 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 37.09 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 41.557 </a>
+        <b units="cal/gmol/K2"> 0.023952  </b>
+        <c units="cal-K/gmol"> -988400 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 64.365 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Dolomite-ord">
+    <speciesChemFormula> CaMg(CO3)2 </speciesChemFormula>
+    <atomArray> Ca:1 Mg:1 C:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -517760 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -556631 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 37.09 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 44.711 </a>
+        <b units="cal/gmol/K2"> 0.017779  </b>
+        <c units="cal-K/gmol"> -1094800 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 64.34 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Spinel">
+    <speciesChemFormula> MgAl2O4 </speciesChemFormula>
+    <atomArray> Mg:1 Al:2 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -517006 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -546847 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 19.27 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 36.772808 </a>
+        <b units="cal/gmol/K2"> 0.006415456  </b>
+        <c units="cal-K/gmol"> -970879.2 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 39.71 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Dolomite-dis D">
+    <speciesChemFormula> CaMg(CO3)2 </speciesChemFormula>
+    <atomArray> Ca:1 Mg:1 C:2 O:6  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -515653 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -553704 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 39.84 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 44.711 </a>
+        <b units="cal/gmol/K2"> 0.017779  </b>
+        <c units="cal-K/gmol"> -1094800 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 64.39 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982)
+    </source>
+  </species>
+  <species name="Monticellite">
+    <speciesChemFormula> CaMgSiO4 </speciesChemFormula>
+    <atomArray> Ca:1 Mg:1 Si:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -512829 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -540800 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 26.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 36.82 </a>
+        <b units="cal/gmol/K2"> 0.00534  </b>
+        <c units="cal-K/gmol"> -800000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 51.47 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Forsterite">
+    <speciesChemFormula> Mg2SiO4 </speciesChemFormula>
+    <atomArray> Mg:2 Si:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -491564 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -520000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 22.75 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 35.81 </a>
+        <b units="cal/gmol/K2"> 0.00654  </b>
+        <c units="cal-K/gmol"> -852000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 43.79 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Nepheline">
+    <speciesChemFormula> Na(AlSi)O4 </speciesChemFormula>
+    <atomArray> Na:1 Al:1 Si:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -472872 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -500241 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 29.72 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 35.908062 </a>
+        <b units="cal/gmol/K2"> 0.006457918  </b>
+        <c units="cal-K/gmol"> -732796.5 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 54.16 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Corundum">
+    <speciesChemFormula> Al2O3 </speciesChemFormula>
+    <atomArray> Al:2 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -374824 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -397145 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 12.18 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 27.49 </a>
+        <b units="cal/gmol/K2"> 0.00282  </b>
+        <c units="cal-K/gmol"> -838000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 25.575 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Wollastonite">
+    <speciesChemFormula> CaSiO3 </speciesChemFormula>
+    <atomArray> Ca:1 Si:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -369225 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -389590 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 19.6 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 26.64 </a>
+        <b units="cal/gmol/K2"> 0.0036  </b>
+        <c units="cal-K/gmol"> -652000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 39.93 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies and enthalpies were corrected to be
+	consistent with updated values of Gibbs free
+	energies of Ca++ and CO3-- (Shock and Helgeson 1988)
+	together with the solubilities of calcite and
+	aragonite reported by Busenberg and Plummer (1982) - Added H estimated from Vieillard 1994
+    </source>
+  </species>
+  <species name="Azurite">
+    <speciesChemFormula> Cu3(OH)2(CO3)2 </speciesChemFormula>
+    <atomArray> Cu:3 C:2 O:8 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="780" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -334417 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -390100 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 66.97 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 36.88 </a>
+        <b units="cal/gmol/K2"> 0.07744  </b>
+        <c units="cal-K/gmol"> -92000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 91.01 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.  - Note: Added H estimated from Vieillard 1995
+    </source>
+  </species>
+  <species name="Fayalite">
+    <speciesChemFormula> Fe2SiO4 </speciesChemFormula>
+    <atomArray> Fe:2 Si:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1490" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -330233 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -354119 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 35.45 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 36.51 </a>
+        <b units="cal/gmol/K2"> 0.00936  </b>
+        <c units="cal-K/gmol"> -670000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 46.39 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Barite">
+    <speciesChemFormula> BaSO4 </speciesChemFormula>
+    <atomArray> Ba:1 S:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1422" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -325563 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -352100 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 31.6 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 33.8 </a>
+        <b units="cal/gmol/K2"> 0  </b>
+        <c units="cal-K/gmol"> -843000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 52.1 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Celestite">
+    <speciesChemFormula> SrSO4 </speciesChemFormula>
+    <atomArray> Sr:1 S:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -320435 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -347300 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 28 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 21.8 </a>
+        <b units="cal/gmol/K2"> 0.0133  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 46.25 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Anhydrite">
+    <speciesChemFormula> CaSO4 </speciesChemFormula>
+    <atomArray> Ca:1 S:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1453" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -315925 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -342760 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 25.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 16.78 </a>
+        <b units="cal/gmol/K2"> 0.0236  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 45.94 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Fluorite">
+    <speciesChemFormula> CaF2 </speciesChemFormula>
+    <atomArray> Ca:1 F:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1424" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -280493 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -293000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 16.39 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 14.3 </a>
+        <b units="cal/gmol/K2"> 0.00728  </b>
+        <c units="cal-K/gmol"> 47000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 24.542 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Gibbsite">
+    <speciesChemFormula> Al(OH)3 </speciesChemFormula>
+    <atomArray> Al:1 O:3 H:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="425" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -276168 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -309065 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 16.75 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 8.65 </a>
+        <b units="cal/gmol/K2"> 0.0456  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 31.956 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Strontianite">
+    <speciesChemFormula> SrCO3 </speciesChemFormula>
+    <atomArray> Sr:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1197" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -275470 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -294600 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 23.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 23.52 </a>
+        <b units="cal/gmol/K2"> 0.00632  </b>
+        <c units="cal-K/gmol"> -508000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 39.01 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Calcite">
+    <speciesChemFormula> CaCO3 </speciesChemFormula>
+    <atomArray> Ca:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1200" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -269880 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -288552 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 22.15 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 24.98 </a>
+        <b units="cal/gmol/K2"> 0.00524  </b>
+        <c units="cal-K/gmol"> -620000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 36.934 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies calculated from solubility data reported by
+	Plummer, L.N. and Busenberg, E., 1982. The Solubilities"
+	of Calcite, Aragonite, and Vaterite in CO2-H2O Solutions"
+	Between 0 and 90 C and an Evaluation of the Aqueous
+	Model of the System CaCO3-CO2-H2O. Geochimica et
+	Cosmochimica Acta, Vol. 46, p. 1011-1040. Enthalpies"
+	adjusted for the correction in the Gibbs free energy.
+    </source>
+  </species>
+  <species name="Aragonite">
+    <speciesChemFormula> CaCO3 </speciesChemFormula>
+    <atomArray> Ca:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="600" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -269683 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -288531 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 21.56 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 20.13 </a>
+        <b units="cal/gmol/K2"> 0.01024  </b>
+        <c units="cal-K/gmol"> -334000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 34.15 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Gibbs free energies calculated from solubility data reported by
+	Plummer, L.N. and Busenberg, E., 1982. The Solubilities"
+	of Calcite, Aragonite, and Vaterite in CO2-H2O Solutions"
+	Between 0 and 90 C and an Evaluation of the Aqueous
+	Model of the System CaCO3-CO2-H2O. Geochimica et
+	Cosmochimica Acta, Vol. 46, p. 1011-1040. Enthalpies"
+	adjusted for the correction in the Gibbs free energy.
+    </source>
+  </species>
+  <species name="Uraninite">
+    <speciesChemFormula> UO2 </speciesChemFormula>
+    <atomArray> U:1 O:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="600" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -246610 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -259320 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 18.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 15.0033 </a>
+        <b units="cal/gmol/K2"> 0.007586  </b>
+        <c units="cal-K/gmol"> -183867 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 24.638 </V0_Pr_Tr>
+    </standardState>
+    <source>
+    	Shock, E.L., Sassani, D.C., and Betz, H., 1997, Uranium in geologic"
+    	fluids:  Estimates of standard partial molal properties, oxidation"
+    	potentials, and hydrolysis constants at high temperatures and"
+    	pressures:  Geohim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266."
+    </source>
+  </species>
+  <species name="Magnesite">
+    <speciesChemFormula> MgCO3 </speciesChemFormula>
+    <atomArray> Mg:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -245658 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -265630 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 15.7 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 19.731 </a>
+        <b units="cal/gmol/K2"> 0.012539  </b>
+        <c units="cal-K/gmol"> -474800 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 28.018 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Diaspore">
+    <speciesChemFormula> AlO(OH) </speciesChemFormula>
+    <atomArray> Al:1 O:2 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -218402 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -237170 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 8.43 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 14.435 </a>
+        <b units="cal/gmol/K2"> 0.0042  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 17.76 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+    </source>
+  </species>
+  <species name="Boehmite">
+    <speciesChemFormula> AlO(OH) </speciesChemFormula>
+    <atomArray> Al:1 O:2 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -217250 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -235078 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 11.58 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 14.435 </a>
+        <b units="cal/gmol/K2"> 0.0042  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 19.535 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Malachite">
+    <speciesChemFormula> Cu2(OH)2(CO3) </speciesChemFormula>
+    <atomArray> Cu:2 C:1 O:5 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="780" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -214204 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -251900 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 44.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 27.76 </a>
+        <b units="cal/gmol/K2"> 0.04378  </b>
+        <c units="cal-K/gmol"> -134000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 54.86 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Chalcedony">
+    <speciesChemFormula> SiO2 </speciesChemFormula>
+    <atomArray> Si:1 O:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="848" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -204276 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -217282 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 9.88 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.22 </a>
+        <b units="cal/gmol/K2"> 0.0082  </b>
+        <c units="cal-K/gmol"> -270000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 22.688 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cristobalite(alpha">
+    <speciesChemFormula> SiO2 </speciesChemFormula>
+    <atomArray> Si:1 O:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -203895 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -216755 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 10.372 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 13.98 </a>
+        <b units="cal/gmol/K2"> 0.00334  </b>
+        <c units="cal-K/gmol"> -381000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 25.74 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cristobalite(beta)">
+    <speciesChemFormula> SiO2 </speciesChemFormula>
+    <atomArray> Si:1 O:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -203290 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -215675 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 11.963 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 17.39 </a>
+        <b units="cal/gmol/K2"> 0.00031  </b>
+        <c units="cal-K/gmol"> -989000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 27.38 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="SiO2(am)">
+    <speciesChemFormula> SiO2*NH2O </speciesChemFormula>
+    <atomArray> Si:1 O:2 H:2N O:N  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="622" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -202892 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -214568 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 14.34 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.93 </a>
+        <b units="cal/gmol/K2"> 0.0472  </b>
+        <c units="cal-K/gmol"> -2278000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 29 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Brucite">
+    <speciesChemFormula> Mg(OH)2 </speciesChemFormula>
+    <atomArray> Mg:1 O:2 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="900" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -199646 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -221390 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 15.09 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 24.147 </a>
+        <b units="cal/gmol/K2"> 0.0040124  </b>
+        <c units="cal-K/gmol"> -611000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 24.63 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Rhodochrosite">
+    <speciesChemFormula> MnCO3 </speciesChemFormula>
+    <atomArray> Mn:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="700" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -195045 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -212521 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 23.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 21.99 </a>
+        <b units="cal/gmol/K2"> 0.0093  </b>
+        <c units="cal-K/gmol"> -469000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 31.075 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Anglesite">
+    <speciesChemFormula> PbSO4 </speciesChemFormula>
+    <atomArray> Pb:1 S:1 O:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1100" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -194353 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -219870 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 35.51 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.96 </a>
+        <b units="cal/gmol/K2"> 0.031  </b>
+        <c units="cal-K/gmol"> 420000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 47.95 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Smithsonite">
+    <speciesChemFormula> ZnCO3 </speciesChemFormula>
+    <atomArray> Zn:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="780" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -174850 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -194260 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 19.7 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 9.3 </a>
+        <b units="cal/gmol/K2"> 0.033  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 28.275 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Siderite">
+    <speciesChemFormula> FeCO3 </speciesChemFormula>
+    <atomArray> Fe:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="885" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -162414 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -179173 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 25.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.63 </a>
+        <b units="cal/gmol/K2"> 0.0268  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 29.378 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Helgeson, H.C., 1985, Errata II. Thermodynamics of minerals,
+	reactions, and aqueous solutions at high pressures and"
+	temperatures: Amer. Jour. Sci., v. 285, pp. 845-855.
+    </source>
+  </species>
+  <species name="Cerussite">
+    <speciesChemFormula> PbCO3 </speciesChemFormula>
+    <atomArray> Pb:1 C:1 O:3  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -150370 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -168000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 31.3 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 12.39 </a>
+        <b units="cal/gmol/K2"> 0.0286  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 40.59 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Lime">
+    <speciesChemFormula> CaO </speciesChemFormula>
+    <atomArray> Ca:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -144366 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -151790 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 9.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.67 </a>
+        <b units="cal/gmol/K2"> 0.00108  </b>
+        <c units="cal-K/gmol"> -156000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 16.764 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Periclase">
+    <speciesChemFormula> MgO </speciesChemFormula>
+    <atomArray> Mg:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2100" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -136086 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -143800 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 6.44 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.18 </a>
+        <b units="cal/gmol/K2"> 0.00174  </b>
+        <c units="cal-K/gmol"> -148000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 11.248 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cassiterite">
+    <speciesChemFormula> SnO2 </speciesChemFormula>
+    <atomArray> Sn:1 O:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -124260 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -138800 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 12.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 17.246 </a>
+        <b units="cal/gmol/K2"> 0.0028026  </b>
+        <c units="cal-K/gmol"> -490010 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 21.55 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Jackson, K.J., and Helgeson, H.C., 1985, Chemical and"
+	thermodynamic constraints on the hydrothermal transport
+	and deposition of tin: II. Interpretation of phase
+	relations in the Southeast Asian tin belt: Econ. Geol.,
+	v. 80, no. 5, pp. 1365-1378.
+    </source>
+  </species>
+  <species name="Sylvite">
+    <speciesChemFormula> KCl </speciesChemFormula>
+    <atomArray> K:1 Cl:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1043" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -97735 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -104370 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 19.73 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 9.89 </a>
+        <b units="cal/gmol/K2"> 0.0052  </b>
+        <c units="cal-K/gmol"> 77000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 37.524 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Halite">
+    <speciesChemFormula> NaCl </speciesChemFormula>
+    <atomArray> Na:1 Cl:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1073" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -91807 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -98260 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 17.24 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.98 </a>
+        <b units="cal/gmol/K2"> 0.0039  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 27.015 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Na2O">
+    <speciesChemFormula> Na2O </speciesChemFormula>
+    <atomArray> Na:2 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -89883 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -99140 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 17.935 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 18.25 </a>
+        <b units="cal/gmol/K2"> 0.00489  </b>
+        <c units="cal-K/gmol"> -289000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 25 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Manganosite">
+    <speciesChemFormula> MnO </speciesChemFormula>
+    <atomArray> Mn:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -86735 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -92070 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 14.27 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.11 </a>
+        <b units="cal/gmol/K2"> 0.00194  </b>
+        <c units="cal-K/gmol"> -88000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 13.221 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.and 6
+    </source>
+  </species>
+  <species name="K2O">
+    <speciesChemFormula> K2O </speciesChemFormula>
+    <atomArray> K:2 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1100" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -77056 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -86800 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 22.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 18.51 </a>
+        <b units="cal/gmol/K2"> 0.00865  </b>
+        <c units="cal-K/gmol"> -88000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 40.38 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Zincite">
+    <speciesChemFormula> ZnO </speciesChemFormula>
+    <atomArray> Zn:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -76596 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -83762 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 10.43 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.71 </a>
+        <b units="cal/gmol/K2"> 0.00122  </b>
+        <c units="cal-K/gmol"> -218000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 14.338 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	    Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+	    Inorganic species in geologic fluids:  Correlations among
+	    standard molal thermodynamic properties of aqueous ions and
+	    hydroxide complexes:  Geochim. Cosmo. Acta, v. 61, no. 5, p. 907-950.
+    </source>
+  </species>
+  <species name="Pd(OH)2">
+    <speciesChemFormula> Pd(OH)2(s) </speciesChemFormula>
+    <atomArray> Pd:1 O:2 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -72000 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -92100 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 21.7 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 17.75 </a>
+        <b units="cal/gmol/K2"> 0.01008  </b>
+        <c units="cal-K/gmol"> -27300 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 28.38 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Romarchite">
+    <speciesChemFormula> SnO </speciesChemFormula>
+    <atomArray> Sn:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1237" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -61459 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -68340 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 13.66 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 9.55 </a>
+        <b units="cal/gmol/K2"> 0.0035  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 20.895 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Jackson, K.J., and Helgeson, H.C., 1985, Chemical and"
+	thermodynamic constraints on the hydrothermal transport
+	and deposition of tin: II. Interpretation of phase
+	relations in the Southeast Asian tin belt: Econ. Geol.,
+	v. 80, no. 5, pp. 1365-1378.
+    </source>
+  </species>
+  <species name="RuO2">
+    <speciesChemFormula> Ru(1)O(2) </speciesChemFormula>
+    <atomArray> Ru:1 O:2   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1300" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -60490 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -73420 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 12.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 16.7 </a>
+        <b units="cal/gmol/K2"> 0.0025  </b>
+        <c units="cal-K/gmol"> -355000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 19.05 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="FeO">
+    <speciesChemFormula> FeO </speciesChemFormula>
+    <atomArray> Fe:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1600" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -60097 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -65020 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 14.52 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 12.122 </a>
+        <b units="cal/gmol/K2"> 0.002072  </b>
+        <c units="cal-K/gmol"> -75000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 12 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Alabandite">
+    <speciesChemFormula> MnS </speciesChemFormula>
+    <atomArray> Mn:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1803" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -52178 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -51000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 19.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.4 </a>
+        <b units="cal/gmol/K2"> 0.0018  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 21.46 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Rh2O3">
+    <speciesChemFormula> Rh2O3 </speciesChemFormula>
+    <atomArray> Rh:2 O:3   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1300" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -48300 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -68300 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 21.53 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 20.74 </a>
+        <b units="cal/gmol/K2"> 0.0138  </b>
+        <c units="cal-K/gmol"> 110 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 31.37 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Sphalerite">
+    <speciesChemFormula> ZnS </speciesChemFormula>
+    <atomArray> Zn:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1300" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -47947 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -49000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 14.019 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.77 </a>
+        <b units="cal/gmol/K2"> 0.00126  </b>
+        <c units="cal-K/gmol"> -116000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 23.83 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Litharge">
+    <speciesChemFormula> PbO </speciesChemFormula>
+    <atomArray> Pb:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -45220 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -52540 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 15.85 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 12.193 </a>
+        <b units="cal/gmol/K2"> 0.002455  </b>
+        <c units="cal-K/gmol"> -176560 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 23.91 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	    Shock, E.L., Sassani, D.C., Willis, M., and Sverjensky, D.A., 1997,
+	    Inorganic species in geologic fluids:  Correlations among
+	    standard molal thermodynamic properties of aqueous ions and
+	    hydroxide complexes:  Geochim. Cosmo. Acta, v. 61, no. 5, p. 907-950.
+    </source>
+  </species>
+  <species name="Laurite">
+    <speciesChemFormula> RuS2(s) </speciesChemFormula>
+    <atomArray> RU:1 S:2   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -45030 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -47680 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 13.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 17.012 </a>
+        <b units="cal/gmol/K2"> 0.001618  </b>
+        <c units="cal-K/gmol"> -146200 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 25.56 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Wurtzite">
+    <speciesChemFormula> ZnS </speciesChemFormula>
+    <atomArray> Zn:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1300" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -44810 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -45850 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 14.064 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.82 </a>
+        <b units="cal/gmol/K2"> 0.00116  </b>
+        <c units="cal-K/gmol"> -104000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 23.846 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Pyrite">
+    <speciesChemFormula> FeS2 </speciesChemFormula>
+    <atomArray> Fe:1 S:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -38293 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -41000 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 12.65 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 17.88 </a>
+        <b units="cal/gmol/K2"> 0.00132  </b>
+        <c units="cal-K/gmol"> -305000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 23.94 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cuprite">
+    <speciesChemFormula> Cu2O </speciesChemFormula>
+    <atomArray> Cu:2 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1515" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -35384 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -40830 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 22.08 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 14.08 </a>
+        <b units="cal/gmol/K2"> 0.00588  </b>
+        <c units="cal-K/gmol"> -76000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 23.437 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Berndtite">
+    <speciesChemFormula> SnS2 </speciesChemFormula>
+    <atomArray> Sn:1 S:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -34750 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -36700 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 20.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 15.51 </a>
+        <b units="cal/gmol/K2"> 0.0042  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 40.96 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Jackson, K.J., and Helgeson, H.C., 1985, Chemical and"
+	thermodynamic constraints on the hydrothermal transport
+	and deposition of tin: II. Interpretation of phase
+	relations in the Southeast Asian tin belt: Econ. Geol.,
+	v. 80, no. 5, pp. 1365-1378.
+    </source>
+  </species>
+  <species name="Tenorite">
+    <speciesChemFormula> CuO </speciesChemFormula>
+    <atomArray> Cu:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1600" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -30568 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -37200 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 10.18 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.53 </a>
+        <b units="cal/gmol/K2"> 0.00188  </b>
+        <c units="cal-K/gmol"> -176000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 12.22 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Chlorargyrite">
+    <speciesChemFormula> AgCl </speciesChemFormula>
+    <atomArray> Ag:1 Cl:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="728" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -26247 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -30370 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 23 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 14.33 </a>
+        <b units="cal/gmol/K2"> 0.001821  </b>
+        <c units="cal-K/gmol"> -243000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 25.727 </V0_Pr_Tr>
+    </standardState>
+    <source>
+    	Robie, R.A., Hemingway, B.S., and Fisher, J.S., 1979,"
+    	Thermodynamic Properties of Minerals and Related
+    	Substances at 298.15 K and 1 Bar (10**5 Pascals)
+    	Pressure and at Higher Temperatures: U.S. Geol. Surv.
+    	Bull. 1452, 456 pp.
+	Pankratz, L.B., 1970, Thermodynamic Data for Silver Chloride
+	and Silver Bromide: U.S. Bureau of Mines Report of
+	Investigations #7430, 12 pp.
+    </source>
+  </species>
+  <species name="PtS2">
+    <speciesChemFormula> PtS2 </speciesChemFormula>
+    <atomArray> Pt:1 S:2   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -24200 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -26400 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 17.85 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 16.39 </a>
+        <b units="cal/gmol/K2"> 0.00377  </b>
+        <c units="cal-K/gmol"> -157000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 32.746 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Galena">
+    <speciesChemFormula> PbS </speciesChemFormula>
+    <atomArray> Pb:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1388" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -23115 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -23500 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 21.8 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.17 </a>
+        <b units="cal/gmol/K2"> 0.0022  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 31.49 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Rh2O">
+    <speciesChemFormula> RH2O </speciesChemFormula>
+    <atomArray> Rh:2 O:1   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1273" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -19100 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -22700 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 27.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 15.59 </a>
+        <b units="cal/gmol/K2"> 0.00647  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 0 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="PtS">
+    <speciesChemFormula> Cooperite </speciesChemFormula>
+    <atomArray> Pt:1 S:1   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -18600 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -19900 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 13.16 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 9.97 </a>
+        <b units="cal/gmol/K2"> 0.00411  </b>
+        <c units="cal-K/gmol"> -73000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 22.15 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="PdS2">
+    <speciesChemFormula> PdS2 </speciesChemFormula>
+    <atomArray> Pd:1 S:2   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1245" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -17700 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -18700 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 21 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 16.39 </a>
+        <b units="cal/gmol/K2"> 0.00377  </b>
+        <c units="cal-K/gmol"> -157000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 34.3 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Pd4S">
+    <speciesChemFormula> Pd4S </speciesChemFormula>
+    <atomArray> Pd:4 S:1 +:0   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1034" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -16300 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -16500 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 43.18 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 24 </a>
+        <b units="cal/gmol/K2"> 0.01166  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 44.03 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="PdS">
+    <speciesChemFormula> Vysotskite </speciesChemFormula>
+    <atomArray> Pd:1 S:1 +:0   </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1245" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -16000 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -16900 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 13.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 9.97 </a>
+        <b units="cal/gmol/K2"> 0.00411  </b>
+        <c units="cal-K/gmol"> -73000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 20.65 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="PdO">
+    <speciesChemFormula> PdO(s) </speciesChemFormula>
+    <atomArray> Pd:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1143" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -14330 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -20400 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 13.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.753 </a>
+        <b units="cal/gmol/K2"> 0.001844  </b>
+        <c units="cal-K/gmol"> -27300 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 14.68 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Covellite">
+    <speciesChemFormula> CuS </speciesChemFormula>
+    <atomArray> Cu:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1273" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -12612 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -12500 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 15.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.6 </a>
+        <b units="cal/gmol/K2"> 0.00264  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 20.42 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cinnabar">
+    <speciesChemFormula> HgS </speciesChemFormula>
+    <atomArray> Hg:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="618" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -10940 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -12750 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 19.7 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.46 </a>
+        <b units="cal/gmol/K2"> 0.00372  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 28.416 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Metacinnabar">
+    <speciesChemFormula> HgS </speciesChemFormula>
+    <atomArray> Hg:1 S:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -10437 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -11800 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 21.2 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 10.52 </a>
+        <b units="cal/gmol/K2"> 0.00363  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 30.169 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Copper">
+    <speciesChemFormula> Cu </speciesChemFormula>
+    <atomArray> Cu:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1357" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 7.923 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.41 </a>
+        <b units="cal/gmol/K2"> 0.0015  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 7.113 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Gold">
+    <speciesChemFormula> Au </speciesChemFormula>
+    <atomArray> Au:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1336" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 11.33 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.66 </a>
+        <b units="cal/gmol/K2"> 0.00124  </b>
+        <c units="cal-K/gmol"> 0 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 10.215 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Graphite">
+    <speciesChemFormula> C </speciesChemFormula>
+    <atomArray> C:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2500" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 1.372 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 4.03 </a>
+        <b units="cal/gmol/K2"> 0.00114  </b>
+        <c units="cal-K/gmol"> -204000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 5.298 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Palladium">
+    <speciesChemFormula> Pd </speciesChemFormula>
+    <atomArray> Pd:1 </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 9.04 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.73 </a>
+        <b units="cal/gmol/K2"> 0.001418  </b>
+        <c units="cal-K/gmol"> -8500 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 8.861 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Platinum">
+    <speciesChemFormula> Pt </speciesChemFormula>
+    <atomArray> Pt:1 </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="2000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 9.95 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.831 </a>
+        <b units="cal/gmol/K2"> 0.001255  </b>
+        <c units="cal-K/gmol"> -1900 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 9.09 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Rhodium">
+    <speciesChemFormula> Rh </speciesChemFormula>
+    <atomArray> Rh:1 </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 7.53 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.73 </a>
+        <b units="cal/gmol/K2"> 0.001895  </b>
+        <c units="cal-K/gmol"> -33300 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 8.281 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Ruthenium">
+    <speciesChemFormula> Ru </speciesChemFormula>
+    <atomArray> Ru:1 </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1400" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 6.82 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5 </a>
+        <b units="cal/gmol/K2"> 0.001696  </b>
+        <c units="cal-K/gmol"> 22300 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 8.175 </V0_Pr_Tr>
+    </standardState>
+    <source>
+       	Sassani, D.C., and Shock, E.L., Solubility and Transport of
+	Platinum-Group Elements in Supercritical Fluids:  Summary and
+	Estimates of Thermodynamic Properties for Ru, Rh, Pd, and Pt
+	Solids, Aqueous Ions, and Complexes to 1000 C and 5 kbar:
+	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
+    </source>
+  </species>
+  <species name="Silver">
+    <speciesChemFormula> Ag </speciesChemFormula>
+    <atomArray> Ag:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1234" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 0 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 0 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 10.17 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 5.09 </a>
+        <b units="cal/gmol/K2"> 0.00204  </b>
+        <c units="cal-K/gmol"> 36000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 10.272 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Amesite-7A">
+    <speciesChemFormula> Mg2Al(AlSi)O5(OH)4 </speciesChemFormula>
+    <atomArray> Mg:2 Al:2 Si:1 O:9 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 52 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 81.03 </a>
+        <b units="cal/gmol/K2"> 0.024738  </b>
+        <c units="cal-K/gmol"> -2023000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 103 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Bromellite">
+    <speciesChemFormula> BeO </speciesChemFormula>
+    <atomArray> Be:1 O:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1200" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 3.38 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 8.45 </a>
+        <b units="cal/gmol/K2"> 0.004  </b>
+        <c units="cal-K/gmol"> -317000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 8.309 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Celadonite">
+    <speciesChemFormula> K(MgAl)Si4O10(OH)2 </speciesChemFormula>
+    <atomArray> K:1 Mg:1 Al:1 Si:4 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 74.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 80.25 </a>
+        <b units="cal/gmol/K2"> 0.0253  </b>
+        <c units="cal-K/gmol"> -1854000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 157.1 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Chabazite">
+    <speciesChemFormula> Ca(Al2Si4)O12*6H2O </speciesChemFormula>
+    <atomArray> Ca:1 Al:2 Si:4 O:18 H:12  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 152.9 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 146 </a>
+        <b units="cal/gmol/K2"> 0.04447  </b>
+        <c units="cal-K/gmol"> -1643000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 247.76 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Chloritoid">
+    <speciesChemFormula> FeAl2SiO5(OH)2 </speciesChemFormula>
+    <atomArray> Fe:1 Al:2 Si:1 O:7 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 42.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 60.63 </a>
+        <b units="cal/gmol/K2"> 0.01713  </b>
+        <c units="cal-K/gmol"> -1363000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 69.8 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Cummingtonite">
+    <speciesChemFormula> Mg7Si8O22(OH)2 </speciesChemFormula>
+    <atomArray> Mg:7 Si:8 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 127.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 185.24 </a>
+        <b units="cal/gmol/K2"> 0.05861  </b>
+        <c units="cal-K/gmol"> -4466000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 271.9 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Dickite">
+    <speciesChemFormula> Al2Si2O5(OH)4 </speciesChemFormula>
+    <atomArray> Al:2 Si:2 O:9 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 47.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 72.77 </a>
+        <b units="cal/gmol/K2"> 0.0292  </b>
+        <c units="cal-K/gmol"> -2152000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 99.3 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+	Robie, R.A., Hemingway, B.S., and Fisher, J.S., 1979,
+	Thermodynamic Properties of Minerals and Related
+	Substances at 298.15 K and 1 Bar (10**5 Pascals)
+	Pressure and at Higher Temperatures: U.S. Geol. Surv.
+	Bull. 1452, 456 pp.
+    </source>
+  </species>
+  <species name="Fluorphlogopite">
+    <speciesChemFormula> KMg3(AlSi3)O10(F)2 </speciesChemFormula>
+    <atomArray> K:1 Mg:3 Al:1 Si:3 O:10 F:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 80.38 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 96.13 </a>
+        <b units="cal/gmol/K2"> 0.02674  </b>
+        <c units="cal-K/gmol"> -2041000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 146.37 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+	Robie, R.A., Hemingway, B.S., and Fisher, J.S., 1979,
+	Thermodynamic Properties of Minerals and Related
+	Substances at 298.15 K and 1 Bar (10**5 Pascals)
+	Pressure and at Higher Temperatures: U.S. Geol. Surv.
+	Bull. 1452, 456 pp.
+    </source>
+  </species>
+  <species name="Fluortremolite">
+    <speciesChemFormula> (Ca2Mg5)Si8O22(F)2 </speciesChemFormula>
+    <atomArray> Ca:2 Mg:5 Si:8 O:22 F:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 129.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 183.74 </a>
+        <b units="cal/gmol/K2"> 0.05525  </b>
+        <c units="cal-K/gmol"> -4373000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 270.45 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Glaucophane">
+    <speciesChemFormula> Na2(Mg3Al2)Si8O22(OH)2 </speciesChemFormula>
+    <atomArray> Na:2 Mg:3 Al:2 Si:8 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 130 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 190.26 </a>
+        <b units="cal/gmol/K2"> 0.05936  </b>
+        <c units="cal-K/gmol"> -5001000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 269.7 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Grunerite">
+    <speciesChemFormula> Fe7Si8O22(OH)2 </speciesChemFormula>
+    <atomArray> Fe:7 Si:8 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 163.3 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 198.83 </a>
+        <b units="cal/gmol/K2"> 0.06093  </b>
+        <c units="cal-K/gmol"> -3955000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 256.67 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Halloysite">
+    <speciesChemFormula> Al2Si2O5(OH)4 </speciesChemFormula>
+    <atomArray> Al:2 Si:2 O:9 H:4  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 48.52 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 72.77 </a>
+        <b units="cal/gmol/K2"> 0.0292  </b>
+        <c units="cal-K/gmol"> -2152000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 99.3 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp. 
+	Robie, R.A., Hemingway, B.S., and Fisher, J.S., 1979,
+	Thermodynamic Properties of Minerals and Related
+	Substances at 298.15 K and 1 Bar (10**5 Pascals)
+	Pressure and at Higher Temperatures: U.S. Geol. Surv.
+	Bull. 1452, 456 pp.
+    </source>
+  </species>
+  <species name="Leonhardite">
+    <speciesChemFormula> Ca2(Al4Si8)O24*7H2O </speciesChemFormula>
+    <atomArray> Ca:2 Al:4 Si:8 O:31 H:14  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 220.4 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 235 </a>
+        <b units="cal/gmol/K2"> 0.08894  </b>
+        <c units="cal-K/gmol"> -3286000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 407.86 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Minnesotaite">
+    <speciesChemFormula> Fe3Si4O10(OH)2 </speciesChemFormula>
+    <atomArray> Fe:3 Si:4 O:12 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 83.5 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 88.31 </a>
+        <b units="cal/gmol/K2"> 0.04261  </b>
+        <c units="cal-K/gmol"> -1115000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 147.86 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+  <species name="Richterite">
+    <speciesChemFormula> Na2(CaMg5)Si8O22(OH)2 </speciesChemFormula>
+    <atomArray> Na:2 Ca:1 Mg:5 Si:8 O:24 H:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="800" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 137.6 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 194.8 </a>
+        <b units="cal/gmol/K2"> 0.0611  </b>
+        <c units="cal-K/gmol"> -4615000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 272.8 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+
+  <species name="Staurolite">
+    <speciesChemFormula> Fe2Al9Si4O23(OH) </speciesChemFormula>
+    <atomArray> Fe:2 Al:9 Si:4 O:24 H:1  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="1000" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> 999999 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> 999999 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 117.1 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 207.12 </a>
+        <b units="cal/gmol/K2"> 0.03694  </b>
+        <c units="cal-K/gmol"> -5722000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 224.4 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Helgeson, H.C., Delany, J.M, Nesbitt, H.W., and Bird, D.K.,
+	1978, Summary and Critique of the Thermodynamic
+	Properties of Rock-Forming Minerals: Amer. Jour. Sci.,
+	v. 278A, 229 pp.
+    </source>
+  </species>
+

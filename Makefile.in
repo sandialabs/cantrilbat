@@ -133,6 +133,7 @@ test:
 
 #
 # testBack:       Carries out back tests
+#                      skips the Electrode and 1Delectrode tests
 #
 testBack:
 	cd batteryDevelop;		  @MAKE@ -s test
