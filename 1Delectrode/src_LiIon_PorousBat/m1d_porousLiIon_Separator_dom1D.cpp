@@ -1047,8 +1047,10 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
       BulkMod*=1.0e6; // in MPa
       Eyoung =       3*BulkMod*(1.0 - 2*poisson);
 
-      xratio[iCell] =  (Thermal_Expansion+1.0)*valTmps.Temperature.center/ TemperatureReference_;
-      
+      if(iCell !=  NumLcCells-1)
+	xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.right)*0.5/ TemperatureReference_;
+      else 
+	xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.left)*0.5/ TemperatureReference_;
       // the divergence of the pressure == - the trace of the STRESS tensor No factor of 3 as we are 1 d
 
       // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
@@ -1250,7 +1252,6 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	  int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 	  double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  nodeLeft->changeNodePosition(new_node_position);
-
 	  double &stmp = (double&) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  stmp = 0.0;
 	}
