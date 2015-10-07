@@ -82,6 +82,10 @@ LCXX_FLAGS = @CXXFLAGS@
 # List of dependency files to be created
 DEPENDS=$(TOBJS:.o=.d)
 
+$(TOBJS): Makefile
+
+$(DEPENDS): Makefile
+
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
@@ -89,9 +93,9 @@ all: $(PROGRAM) .depends
 
 rebaseline:
 
-$(PROGRAM): $(OBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
+$(PROGRAM): $(TOBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
               $(CTPADDS_DEP)
-	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
+	$(CXX) -o $(PROGRAM) $(TOBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
                   $(ELECTRODE_LIB) $(UTILSRC_LIB) $(CTPADDS_LIB) \
                   $(CANTERA_TOTAL_LIBS) $(LCXX_END_LIBS)
 
