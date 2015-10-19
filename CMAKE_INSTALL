@@ -1,0 +1,5 @@
+You must set the following environment variables, or edit the CMakeLists.txt
+file to set the correct paths:
+
+Trilinos_PREFIX           Path to Trilinos directory made with cmake
+Cantera_PREFIX            Path to Cantera directory made with cmake

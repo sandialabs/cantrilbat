@@ -1,0 +1,11 @@
+add_subdirectory(src)
+add_subdirectory(src_CanteraElectrode)
+add_subdirectory(src_Cu2S)
+add_subdirectory(src_LiKCl_PorousBat)
+add_subdirectory(src_LiKCl_infPorousBat)
+add_subdirectory(src_LiIon_PorousBat)
+add_subdirectory(src_LiKCl_infPlateBat)
+
+add_subdirectory(src_test)
+add_subdirectory(test_suite)
+add_subdirectory(test_develop)
