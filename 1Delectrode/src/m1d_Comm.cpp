@@ -7,6 +7,7 @@
  *  $Id: m1d_Comm.cpp 5 2012-02-23 21:34:18Z hkmoffa $
  */
 //#include <cstdarg>
+#include <cstdarg>
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>

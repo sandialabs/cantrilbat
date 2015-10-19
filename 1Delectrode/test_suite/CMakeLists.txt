@@ -1,0 +1,13 @@
+add_subdirectory(CAEBAT_restart_cycle)
+add_subdirectory(LiIon_MCMB_LiCoO2)
+add_subdirectory(LiIon_MCMB_LiCoO2_Diff2)
+add_subdirectory(LiIon_MCMB_LiCoO2_Diff2_restart)
+add_subdirectory(LiIon_MCMB_LiCoO2_DiffTALE2)
+add_subdirectory(LiKCl_PorousBat_SPCD_MPNewman)
+add_subdirectory(DualfoilComparison)
+add_subdirectory(LiIon_MCMB_LiCoO2_2)
+add_subdirectory(LiIon_MCMB_LiCoO2_Diff2_heatSource)
+add_subdirectory(LiIon_MCMB_LiCoO2_Diff3)
+add_subdirectory(LiIon_MCMB_LiCoO2_collectors)
+
+
