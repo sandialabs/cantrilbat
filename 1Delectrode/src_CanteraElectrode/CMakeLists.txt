@@ -1,6 +1,7 @@
 include_directories(${CURRENT_SOURCE_DIR})
 include_directories(${Trilinos_INCLUDE_DIRS})
 include_directories(${Cantera_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/1Delectrode/src)
 
 file(GLOB M1DCantera_SOURCES m1d*.cpp)
 list(APPEND M1DCantera_SOURCES BEulerInt_Battery.cpp)
