@@ -1,7 +1,7 @@
 include_directories(${CURRENT_SOURCE_DIR})
 include_directories(${Trilinos_INCLUDE_DIRS})
 include_directories(${CURRENT_SOURCE_DIR}/../src_CanteraElectrode)
-
+include_directories(${PROJECT_SOURCE_DIR}/1Delectrode/src)
 file(GLOB SOURCES *.cpp)
 file(GLOB HEADERS *.h)
 
