@@ -928,13 +928,15 @@ AC_OUTPUT(Makefile \
           1Delectrode/src_LiKCl_PorousBat/Makefile \
 	  1Delectrode/src_LiIon_PorousBat/Makefile \
           1Delectrode/test_develop/Makefile \
+          1Delectrode/test_develop/LiIon_MCMB_LiCoO2_DarcyFirst/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_Enthalpy/Makefile \
-          1Delectrode/test_develop/LiIon_MCMB_LiCoO2_tempFirst/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_enthFirst/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_mechFirst/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_mechSecond/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_mechThird/Makefile \
-          1Delectrode/test_develop/LiIon_MCMB_LiCoO2_DarcyFirst/Makefile \
+          1Delectrode/test_develop/LiIon_MCMB_LiCoO2_noChange/Makefile \
+          1Delectrode/test_develop/LiIon_MCMB_LiCoO2_noChange2/Makefile \
+          1Delectrode/test_develop/LiIon_MCMB_LiCoO2_tempFirst/Makefile \
           1Delectrode/test_suite/Makefile \
           1Delectrode/test_suite/runtest \
           1Delectrode/test_suite/LiKCl_PorousBat_SPCD_MPNewman/Makefile \

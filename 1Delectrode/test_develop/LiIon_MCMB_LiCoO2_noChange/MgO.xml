@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+ <!-- phase MgO(S)    -->
+  <phase dim="3" id="MgO(S)">
+    <elementArray datasrc="elements.xml">
+      Mg O
+    </elementArray>
+    <speciesArray datasrc="#species_MgO(S)"> MgO(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 3.58 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_MgO(S)">
+
+    <!-- species MgO(S)   -->
+    <!--      melting temperature = 3125 K -->
+    <species name="MgO(S)">
+      <atomArray> Mg:1 O:1 </atomArray>
+     <standardState  model="constant_incompressible">
+        <!--   molar volume from density and molar mass -->
+        <molarVolume units="m3/kmol"> 0.011258 </molarVolume>
+      </standardState>
+      <thermo> 
+        <Shomate Pref="1 bar" Tmax="3125.0" Tmin="250.0">
+          <!-- source : http://webbook.nist.gov MgO solid phase heat
+          capacity -->
+          <floatArray size="8">
+             47.25995,
+             5.681621,
+            -0.872665,
+             0.104300,
+            -1.053955,
+            -619.1316,
+             76.46176,
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <!-- density from wikipedia, 05-07-2010 -->
+      <density units="g/cm3"> 3.58 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>
