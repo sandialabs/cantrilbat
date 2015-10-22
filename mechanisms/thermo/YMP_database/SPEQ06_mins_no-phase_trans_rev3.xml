@@ -1,4 +1,5 @@
-
+<?xml version="1.0"?>
+<ctml>
   <species name="Pargasite">
     <speciesChemFormula> Na(Ca2Mg4Al)(Al2Si6)O22(OH)2 </speciesChemFormula>
     <atomArray> Na:1 Ca:2 Mg:4 Al:3 Si:6 O:24 H:2  </atomArray>
@@ -58,6 +59,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
      </source>
   </species>
+
   <species name="Ferropargasite">
     <speciesChemFormula> Na(Ca2Fe4Al)(Al2Si6)O22(OH)2 </speciesChemFormula>
     <atomArray> Na:1 Ca:2 Fe:4 Al:3 Si:6 O:24 H:2  </atomArray>
@@ -82,6 +84,7 @@
 	v. 278A, 229 pp. - Note: Added H estimated from Vieillard 1994
      </source>
   </species>
+
   <species name="Ferrotremolite">
     <speciesChemFormula> (Ca2Fe5)Si8O22(OH)2 </speciesChemFormula>
     <atomArray> Ca:2 Fe:5 Si:8 O:24 H:2  </atomArray>
@@ -106,6 +109,7 @@
 	v. 278A, 229 pp. - Note: Added H estimated from Vieillard 1994
      </source>
   </species>
+
   <species name="Sepiolite">
     <speciesChemFormula> Mg4Si6O15(OH)2(H2O)2*4H2O </speciesChemFormula>
     <atomArray> Mg:4 Si:6 O:23 H:14  </atomArray>
@@ -130,6 +134,7 @@
 	v. 278A, 229 pp.
      </source>
   </species>
+
   <species name="Cordierite_hydr">
     <speciesChemFormula> Mg2Al3(AlSi5)O18*H20 </speciesChemFormula>
     <atomArray> Mg:2 Al:4 Si:5 O:19 H:2  </atomArray>
@@ -154,6 +159,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Cordierite_anhyd">
     <speciesChemFormula> Mg2Al3(AlSi5)O18 </speciesChemFormula>
     <atomArray> Mg:2 Al:4 Si:5 O:18  </atomArray>
@@ -178,6 +184,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Clinochlore-14A">
     <speciesChemFormula> Mg5Al(AlSi3)O10(OH)8 </speciesChemFormula>
     <atomArray> Mg:5 Al:2 Si:3 O:18 H:8  </atomArray>
@@ -202,6 +209,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Laumontite">
     <speciesChemFormula> Ca(Al2Si4)O12*4H2O </speciesChemFormula>
     <atomArray> Ca:1 Al:2 Si:4 O:16 H:8  </atomArray>
@@ -231,6 +239,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Daphnite-14A">
     <speciesChemFormula> Fe5Al(AlSi3)O10(OH)8 </speciesChemFormula>
     <atomArray> Fe:5 Al:2 Si:3 O:18 H:8  </atomArray>
@@ -255,6 +264,7 @@
 	v. 278A, 229 pp. - Note: Gf and Hf from Saccocia and Seyfried(1993)
     </source>
   </species>
+
   <species name="Clinozoisite">
     <speciesChemFormula> Ca2Al3Si3O12(OH) </speciesChemFormula>
     <atomArray> Ca:2 Al:3 Si:3 O:13 H:1  </atomArray>
@@ -284,6 +294,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Zoisite">
     <speciesChemFormula> Ca2Al3Si3O12(OH) </speciesChemFormula>
     <atomArray> Ca:2 Al:3 Si:3 O:13 H:1  </atomArray>
@@ -313,6 +324,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Grossular">
     <speciesChemFormula> Ca3Al2Si3O12 </speciesChemFormula>
     <atomArray> Ca:3 Al:2 Si:3 O:12  </atomArray>
@@ -342,6 +354,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Wairakite">
     <speciesChemFormula> Ca(Al2Si4)O12*2H2O </speciesChemFormula>
     <atomArray> Ca:1 Al:2 Si:4 O:14 H:4  </atomArray>
@@ -371,6 +384,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Epidote">
     <speciesChemFormula> Ca2FeAl2Si3O12(OH) </speciesChemFormula>
     <atomArray> Ca:2 Fe:1 Al:2 Si:3 O:13 H:1  </atomArray>
@@ -400,6 +414,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Epidote-ord">
     <speciesChemFormula> Ca2FeAl2Si3O12(OH) </speciesChemFormula>
     <atomArray> Ca:2 Fe:1 Al:2 Si:3 O:13 H:1  </atomArray>
@@ -429,6 +444,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Hydromagnesite">
     <speciesChemFormula> Mg5(OH)2(CO3)4*4H20 </speciesChemFormula>
     <atomArray> Mg:5 C:4 O:18 H:10  </atomArray>
@@ -453,6 +469,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Phlogopite">
     <speciesChemFormula> KMg3(AlSi3)O10(OH)2 </speciesChemFormula>
     <atomArray> K:1 Mg:3 Al:1 Si:3 O:12 H:2  </atomArray>
@@ -477,6 +494,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Muscovite">
     <speciesChemFormula> KAl2(AlSi3)O10(OH)2 </speciesChemFormula>
     <atomArray> K:1 Al:3 Si:3 O:12 H:2  </atomArray>
@@ -501,6 +519,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Paragonite">
     <speciesChemFormula> NaAl2(AlSi3)O10(OH)2 </speciesChemFormula>
     <atomArray> Na:1 Al:3 Si:3 O:12 H:2  </atomArray>
@@ -525,6 +544,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Talc">
     <speciesChemFormula> Mg3Si4O10(OH)2 </speciesChemFormula>
     <atomArray> Mg:3 Si:4 O:12 H:2  </atomArray>
@@ -549,6 +569,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Andradite">
     <speciesChemFormula> Ca3Fe2Si3O12 </speciesChemFormula>
     <atomArray> Ca:3 Fe:2 Si:3 O:12  </atomArray>
@@ -578,6 +599,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Pyrophyllite">
     <speciesChemFormula> Al2Si4O10(OH)2 </speciesChemFormula>
     <atomArray> Al:2 Si:4 O:12 H:2  </atomArray>
@@ -602,6 +624,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Annite">
     <speciesChemFormula> KFe3(AlSi3)O10(OH)2 </speciesChemFormula>
     <atomArray> K:1 Fe:3 Al:1 Si:3 O:12 H:2  </atomArray>
@@ -626,6 +649,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Alunite">
     <speciesChemFormula> KAl3(OH)6(SO4)2 </speciesChemFormula>
     <atomArray> K:1 Al:3 S:2 O:14 H:6  </atomArray>
@@ -650,6 +674,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Merwinite">
     <speciesChemFormula> Ca3Mg(SiO4)2 </speciesChemFormula>
     <atomArray> Ca:3 Mg:1 Si:2 O:8  </atomArray>
@@ -679,6 +704,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Huntite">
     <speciesChemFormula> CaMg3(CO3)4 </speciesChemFormula>
     <atomArray> Ca:1 Mg:3 C:4 O:12  </atomArray>
@@ -703,6 +729,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Chrysotile">
     <speciesChemFormula> Mg3Si2O5(OH)4 </speciesChemFormula>
     <atomArray> Mg:3 Si:2 O:9 H:4  </atomArray>
@@ -727,6 +754,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Anorthite">
     <speciesChemFormula> Ca(Al2Si2)O8 </speciesChemFormula>
     <atomArray> Ca:1 Al:2 Si:2 O:8  </atomArray>
@@ -756,6 +784,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Kaolinite">
     <speciesChemFormula> Al2Si2O5(OH)4 </speciesChemFormula>
     <atomArray> Al:2 Si:2 O:9 H:4  </atomArray>
@@ -780,6 +809,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Gehlenite">
     <speciesChemFormula> Ca2(Al2Si)O7 </speciesChemFormula>
     <atomArray> Ca:2 Al:2 Si:1 O:7  </atomArray>
@@ -809,6 +839,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="K-Feldspar">
     <speciesChemFormula> K(AlSi3)O8 </speciesChemFormula>
     <atomArray> K:1 Al:1 Si:3 O:8  </atomArray>
@@ -833,6 +864,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Maximum_Microcline">
     <speciesChemFormula> K(AlSi3)O8 </speciesChemFormula>
     <atomArray> K:1 Al:1 Si:3 O:8  </atomArray>
@@ -857,6 +889,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Sanidine_high">
     <speciesChemFormula> K(AlSi3)O8 </speciesChemFormula>
     <atomArray> K:1 Al:1 Si:3 O:8  </atomArray>
@@ -881,6 +914,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Albite_low">
     <speciesChemFormula> Na(AlSi3)O8 </speciesChemFormula>
     <atomArray> Na:1 Al:1 Si:3 O:8  </atomArray>
@@ -905,6 +939,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Akermanite">
     <speciesChemFormula> Ca2MgSi2O7 </speciesChemFormula>
     <atomArray> Ca:2 Mg:1 Si:2 O:7  </atomArray>
@@ -934,6 +969,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Ca-Al-Pyroxene">
     <speciesChemFormula> CaAl(AlSi)O6 </speciesChemFormula>
     <atomArray> Ca:1 Al:2 Si:1 O:6  </atomArray>
@@ -963,6 +999,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Analcime-s92">
     <speciesChemFormula> NaAlSi2O6*H2O </speciesChemFormula>
     <atomArray> Na:1 Al:1 Si:2 O:7 H:2  </atomArray>
@@ -987,6 +1024,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Diopside">
     <speciesChemFormula> CaMg(SiO3)2 </speciesChemFormula>
     <atomArray> Ca:1 Mg:1 Si:2 O:6  </atomArray>
@@ -1016,6 +1054,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Greenalite">
     <speciesChemFormula> Fe3Si2O5(OH)4 </speciesChemFormula>
     <atomArray> Fe:3 Si:2 O:9 H:4  </atomArray>
@@ -1040,6 +1079,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Jadeite">
     <speciesChemFormula> NaAl(SiO3)2 </speciesChemFormula>
     <atomArray> Na:1 Al:1 Si:2 O:6  </atomArray>
@@ -1064,6 +1104,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Analcime-dehy-s92 D">
     <speciesChemFormula> NaAlSi2O6 </speciesChemFormula>
     <atomArray> Na:1 Al:1 Si:2 O:6  </atomArray>
@@ -1088,6 +1129,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Hedenbergite">
     <speciesChemFormula> CaFe(SiO3)2 </speciesChemFormula>
     <atomArray> Ca:1 Fe:1 Si:2 O:6  </atomArray>
@@ -1117,6 +1159,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Artinite">
     <speciesChemFormula> Mg2(OH)2(CO3)*3H2O </speciesChemFormula>
     <atomArray> Mg:2 C:1  O:8 H:8  </atomArray>
@@ -1141,6 +1184,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Kyanite">
     <speciesChemFormula> Al2SiO5 </speciesChemFormula>
     <atomArray> Al:2 Si:1 O:5  </atomArray>
@@ -1165,6 +1209,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Andalusite">
     <speciesChemFormula> Al2SiO5 </speciesChemFormula>
     <atomArray> Al:2 Si:1 O:5  </atomArray>
@@ -1189,6 +1234,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Sillimanite">
     <speciesChemFormula> Al2SiO5 </speciesChemFormula>
     <atomArray> Al:2 Si:1 O:5  </atomArray>
@@ -1213,6 +1259,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Dolomite">
     <speciesChemFormula> CaMg(CO3)2 </speciesChemFormula>
     <atomArray> Ca:1 Mg:1 C:2 O:6  </atomArray>
@@ -1242,6 +1289,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Dolomite-ord">
     <speciesChemFormula> CaMg(CO3)2 </speciesChemFormula>
     <atomArray> Ca:1 Mg:1 C:2 O:6  </atomArray>
@@ -1271,6 +1319,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Spinel">
     <speciesChemFormula> MgAl2O4 </speciesChemFormula>
     <atomArray> Mg:1 Al:2 O:4  </atomArray>
@@ -1295,6 +1344,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Dolomite-dis D">
     <speciesChemFormula> CaMg(CO3)2 </speciesChemFormula>
     <atomArray> Ca:1 Mg:1 C:2 O:6  </atomArray>
@@ -1324,6 +1374,7 @@
 	aragonite reported by Busenberg and Plummer (1982)
     </source>
   </species>
+
   <species name="Monticellite">
     <speciesChemFormula> CaMgSiO4 </speciesChemFormula>
     <atomArray> Ca:1 Mg:1 Si:1 O:4  </atomArray>
@@ -1348,6 +1399,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Forsterite">
     <speciesChemFormula> Mg2SiO4 </speciesChemFormula>
     <atomArray> Mg:2 Si:1 O:4  </atomArray>
@@ -1372,6 +1424,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Nepheline">
     <speciesChemFormula> Na(AlSi)O4 </speciesChemFormula>
     <atomArray> Na:1 Al:1 Si:1 O:4  </atomArray>
@@ -1396,6 +1449,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Corundum">
     <speciesChemFormula> Al2O3 </speciesChemFormula>
     <atomArray> Al:2 O:3  </atomArray>
@@ -1420,6 +1474,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Wollastonite">
     <speciesChemFormula> CaSiO3 </speciesChemFormula>
     <atomArray> Ca:1 Si:1 O:3  </atomArray>
@@ -1449,6 +1504,7 @@
 	aragonite reported by Busenberg and Plummer (1982) - Added H estimated from Vieillard 1994
     </source>
   </species>
+
   <species name="Azurite">
     <speciesChemFormula> Cu3(OH)2(CO3)2 </speciesChemFormula>
     <atomArray> Cu:3 C:2 O:8 H:2  </atomArray>
@@ -1473,6 +1529,7 @@
 	v. 278A, 229 pp.  - Note: Added H estimated from Vieillard 1995
     </source>
   </species>
+
   <species name="Fayalite">
     <speciesChemFormula> Fe2SiO4 </speciesChemFormula>
     <atomArray> Fe:2 Si:1 O:4  </atomArray>
@@ -1497,6 +1554,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Barite">
     <speciesChemFormula> BaSO4 </speciesChemFormula>
     <atomArray> Ba:1 S:1 O:4  </atomArray>
@@ -1521,6 +1579,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Celestite">
     <speciesChemFormula> SrSO4 </speciesChemFormula>
     <atomArray> Sr:1 S:1 O:4  </atomArray>
@@ -1545,6 +1604,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Anhydrite">
     <speciesChemFormula> CaSO4 </speciesChemFormula>
     <atomArray> Ca:1 S:1 O:4  </atomArray>
@@ -1569,6 +1629,71 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
+    <species name="Bassanite">
+    <speciesChemFormula> CaSO4*0.5H2O </speciesChemFormula>
+    <atomArray> Ca:1 S:1 O:4.5 H:1 </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="526.85" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -429534.89 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -483419.93 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 46.391 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 16.57 </a>
+        <b units="cal/gmol/K2"> 0.03899 </b>
+        <c units="cal-K/gmol"> 8.1725 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 52.998 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Thermodynamic data extracted from the YMP thermodynamic database spreadsheets:
+	Solids_j_Ca_TJW__CFJC_1.xls, Cp_Solids_j_Ca_CFJC_TJW_1.xls
+	Source data from Barin, I., 1995, Thermochemical Data of Pure Substances, 
+	3rd ed., VCH, New York, p. 484. Molar volume data from crystal cell parameters. 
+        The Barin (1995) data is adopted for consistency with Cp coefficient data.	
+	NOTE: The adopted bassanite data was not used to generate the logK values found in the YMP Pitzer 
+	database data0.ypf.R2. The logK values were based on the work by Greeenberg and Moller 
+	(1989) for consistency with their Pitzer parameters for the Ca-SO4-H2O system. 
+    </source>
+  </species>
+
+  <species name="Gypsum">
+    <speciesChemFormula> CaSO4*2H2O </speciesChemFormula>
+    <atomArray> Ca:1 S:1 O:6 H:4 </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="526.85" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -429534.89 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -483419.93 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 46.391 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 21.7999 </a>
+        <b units="cal/gmol/K2"> 0.076  </b>
+        <c units="cal-K/gmol"> -2.834 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 74.69 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Thermodynamic data extracted from the YMP thermodynamic database spreadsheets:
+	Solids_j_Ca_TJW__CFJC_1.xls, Cp_Solids_j_Ca_CFJC_TJW_1.xls
+	Source data from Barin, I., 1995, Thermochemical Data of Pure Substances, 
+	3rd ed., VCH, New York, p. 485. Molar volume data is from Robie et al. (1995).
+	The standard G, H, and S values tabulated by Robie and Hemingway (1995) are fairly close 
+	to those of Barin (1995) but these still need some testing. No Cp data is given by
+	Robie and Hemingway (1995). The Barin (1995) data is adopted for consistency with Cp coefficient
+	data.	
+	NOTE: The adopted gypsum data was not used to generate the logK values found in the YMP Pitzer 
+	database data0.ypf.R2. The logK values were based on the work by Greeenberg and Moller 
+	(1989) for consistency with their Pitzer parameters for the Ca-SO4-H2O system. 
+	Robie, R.A. and Hemingway, B.S. 1995. Thermodynamic Properties of Minerals
+	and Related Substances at 298.15 K and 1 Bar (105 Pascals) Pressure and at Higher
+	Temperatures. Bulletin 2131. Reston, Virginia: U.S. Geological Survey.
+    </source>
+  </species>
+
   <species name="Fluorite">
     <speciesChemFormula> CaF2 </speciesChemFormula>
     <atomArray> Ca:1 F:2  </atomArray>
@@ -1593,6 +1718,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Gibbsite">
     <speciesChemFormula> Al(OH)3 </speciesChemFormula>
     <atomArray> Al:1 O:3 H:3  </atomArray>
@@ -1617,6 +1743,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Strontianite">
     <speciesChemFormula> SrCO3 </speciesChemFormula>
     <atomArray> Sr:1 C:1 O:3  </atomArray>
@@ -1641,6 +1768,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Calcite">
     <speciesChemFormula> CaCO3 </speciesChemFormula>
     <atomArray> Ca:1 C:1 O:3  </atomArray>
@@ -1672,6 +1800,7 @@
 	adjusted for the correction in the Gibbs free energy.
     </source>
   </species>
+
   <species name="Aragonite">
     <speciesChemFormula> CaCO3 </speciesChemFormula>
     <atomArray> Ca:1 C:1 O:3  </atomArray>
@@ -1703,6 +1832,7 @@
 	adjusted for the correction in the Gibbs free energy.
     </source>
   </species>
+
   <species name="Uraninite">
     <speciesChemFormula> UO2 </speciesChemFormula>
     <atomArray> U:1 O:2  </atomArray>
@@ -1727,6 +1857,7 @@
     	pressures:  Geohim. Cosmo. Acta, v. 61, no. 20, pp. 4245-4266."
     </source>
   </species>
+
   <species name="Magnesite">
     <speciesChemFormula> MgCO3 </speciesChemFormula>
     <atomArray> Mg:1 C:1 O:3  </atomArray>
@@ -1751,6 +1882,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Diaspore">
     <speciesChemFormula> AlO(OH) </speciesChemFormula>
     <atomArray> Al:1 O:2 H:1  </atomArray>
@@ -1775,6 +1907,7 @@
 	v. 278A, 229 pp. 
     </source>
   </species>
+
   <species name="Boehmite">
     <speciesChemFormula> AlO(OH) </speciesChemFormula>
     <atomArray> Al:1 O:2 H:1  </atomArray>
@@ -1799,6 +1932,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Malachite">
     <speciesChemFormula> Cu2(OH)2(CO3) </speciesChemFormula>
     <atomArray> Cu:2 C:1 O:5 H:2  </atomArray>
@@ -1823,6 +1957,40 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
+  <species name="Quartz">
+    <speciesChemFormula> SiO2 </speciesChemFormula>
+    <atomArray> Si:1 O:2  </atomArray>
+    <charge> 0 </charge>
+    <thermo model="MineralEQ3">
+      <MinEQ3 Pref="1 atm" Tmax="848" Tmin="298.15">
+        <DG0_f_Pr_Tr units="cal/gmol"> -204656 </DG0_f_Pr_Tr>
+        <DH0_f_Pr_Tr units="cal/gmol"> -217663 </DH0_f_Pr_Tr>
+        <S0_Pr_Tr units="cal/gmol/K"> 9.904 </S0_Pr_Tr>
+        <a units="cal/gmol/K"> 11.22 </a>
+        <b units="cal/gmol/K2"> 0.0082  </b>
+        <c units="cal-K/gmol"> -270000 </c>
+      </MinEQ3>
+    </thermo>
+    <standardState model="constantVolume">
+      <V0_Pr_Tr units="cm3/gmol"> 22.688 </V0_Pr_Tr>
+    </standardState>
+    <source>
+	Gibbs energy of formation of (alpha) quartz data obtained from fitting solubility data in accord with the
+	dissolution reaction SiO2(s) = SiO2(aq) using Cantera. The solubility data was obtained from 
+	Rimstidt (1999). The retrieved Gibbs energy of formation is consistent with thermodynamic data 
+	for SiO2(aq) from the SPEQ06.dat database in accord with the Rimstidt paradigm.  
+	The enthalpy of formation for quartz was obtained from SPEQ06.dat database file for the SUPCRT92 code.
+	The Maier-Kelley Cp coefficients were also obtained from SPEQ06.dat database file.  The standard 
+	entropy and molar volume are the same as those given by SPEQ06.dat database file.
+	See Wolery, T.J. and Jove Colon, C.F., 2007, Qualification of Thermodynamic Data for Geochemical Modeling 
+	of Mineral Water Interactions in Dilute Systems, ANL-WIS-GS-000003 REV 01, Report prepared by Sandia
+       	National Laboratories, OCRWM Lead Laboratory for Repository Systems, DOC.20070619.0007, 412 pp.  
+	Rimstidt, J.D. 1997. Quartz Solubility at Low Temperatures, Geochimica et Cosmochimica Acta, 61, 
+	(13), 2553-2558. New York, New York: Pergamon Press.
+    </source>
+  </species>
+
   <species name="Chalcedony">
     <speciesChemFormula> SiO2 </speciesChemFormula>
     <atomArray> Si:1 O:2  </atomArray>
@@ -1847,7 +2015,8 @@
 	v. 278A, 229 pp.
     </source>
   </species>
-  <species name="Cristobalite(alpha">
+
+  <species name="Cristobalite(alpha)">
     <speciesChemFormula> SiO2 </speciesChemFormula>
     <atomArray> Si:1 O:2  </atomArray>
     <charge> 0 </charge>
@@ -1871,6 +2040,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Cristobalite(beta)">
     <speciesChemFormula> SiO2 </speciesChemFormula>
     <atomArray> Si:1 O:2  </atomArray>
@@ -1895,6 +2065,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="SiO2(am)">
     <speciesChemFormula> SiO2*NH2O </speciesChemFormula>
     <atomArray> Si:1 O:2 H:2N O:N  </atomArray>
@@ -1919,6 +2090,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Brucite">
     <speciesChemFormula> Mg(OH)2 </speciesChemFormula>
     <atomArray> Mg:1 O:2 H:2  </atomArray>
@@ -1943,6 +2115,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Rhodochrosite">
     <speciesChemFormula> MnCO3 </speciesChemFormula>
     <atomArray> Mn:1 C:1 O:3  </atomArray>
@@ -1967,6 +2140,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Anglesite">
     <speciesChemFormula> PbSO4 </speciesChemFormula>
     <atomArray> Pb:1 S:1 O:4  </atomArray>
@@ -1991,6 +2165,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Smithsonite">
     <speciesChemFormula> ZnCO3 </speciesChemFormula>
     <atomArray> Zn:1 C:1 O:3  </atomArray>
@@ -2015,6 +2190,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Siderite">
     <speciesChemFormula> FeCO3 </speciesChemFormula>
     <atomArray> Fe:1 C:1 O:3  </atomArray>
@@ -2042,6 +2218,7 @@
 	temperatures: Amer. Jour. Sci., v. 285, pp. 845-855.
     </source>
   </species>
+
   <species name="Cerussite">
     <speciesChemFormula> PbCO3 </speciesChemFormula>
     <atomArray> Pb:1 C:1 O:3  </atomArray>
@@ -2066,6 +2243,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Lime">
     <speciesChemFormula> CaO </speciesChemFormula>
     <atomArray> Ca:1 O:1  </atomArray>
@@ -2090,6 +2268,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Periclase">
     <speciesChemFormula> MgO </speciesChemFormula>
     <atomArray> Mg:1 O:1  </atomArray>
@@ -2114,6 +2293,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Cassiterite">
     <speciesChemFormula> SnO2 </speciesChemFormula>
     <atomArray> Sn:1 O:2  </atomArray>
@@ -2139,6 +2319,7 @@
 	v. 80, no. 5, pp. 1365-1378.
     </source>
   </species>
+
   <species name="Sylvite">
     <speciesChemFormula> KCl </speciesChemFormula>
     <atomArray> K:1 Cl:1  </atomArray>
@@ -2163,6 +2344,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Halite">
     <speciesChemFormula> NaCl </speciesChemFormula>
     <atomArray> Na:1 Cl:1  </atomArray>
@@ -2187,6 +2369,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Na2O">
     <speciesChemFormula> Na2O </speciesChemFormula>
     <atomArray> Na:2 O:1  </atomArray>
@@ -2211,6 +2394,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Manganosite">
     <speciesChemFormula> MnO </speciesChemFormula>
     <atomArray> Mn:1 O:1  </atomArray>
@@ -2235,6 +2419,7 @@
 	v. 278A, 229 pp.and 6
     </source>
   </species>
+
   <species name="K2O">
     <speciesChemFormula> K2O </speciesChemFormula>
     <atomArray> K:2 O:1  </atomArray>
@@ -2259,6 +2444,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Zincite">
     <speciesChemFormula> ZnO </speciesChemFormula>
     <atomArray> Zn:1 O:1  </atomArray>
@@ -2283,6 +2469,7 @@
 	    hydroxide complexes:  Geochim. Cosmo. Acta, v. 61, no. 5, p. 907-950.
     </source>
   </species>
+
   <species name="Pd(OH)2">
     <speciesChemFormula> Pd(OH)2(s) </speciesChemFormula>
     <atomArray> Pd:1 O:2 H:2  </atomArray>
@@ -2308,6 +2495,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Romarchite">
     <speciesChemFormula> SnO </speciesChemFormula>
     <atomArray> Sn:1 O:1  </atomArray>
@@ -2333,6 +2521,7 @@
 	v. 80, no. 5, pp. 1365-1378.
     </source>
   </species>
+
   <species name="RuO2">
     <speciesChemFormula> Ru(1)O(2) </speciesChemFormula>
     <atomArray> Ru:1 O:2   </atomArray>
@@ -2358,6 +2547,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="FeO">
     <speciesChemFormula> FeO </speciesChemFormula>
     <atomArray> Fe:1 O:1  </atomArray>
@@ -2382,6 +2572,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Alabandite">
     <speciesChemFormula> MnS </speciesChemFormula>
     <atomArray> Mn:1 S:1  </atomArray>
@@ -2406,6 +2597,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Rh2O3">
     <speciesChemFormula> Rh2O3 </speciesChemFormula>
     <atomArray> Rh:2 O:3   </atomArray>
@@ -2431,6 +2623,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Sphalerite">
     <speciesChemFormula> ZnS </speciesChemFormula>
     <atomArray> Zn:1 S:1  </atomArray>
@@ -2455,6 +2648,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Litharge">
     <speciesChemFormula> PbO </speciesChemFormula>
     <atomArray> Pb:1 O:1  </atomArray>
@@ -2479,6 +2673,7 @@
 	    hydroxide complexes:  Geochim. Cosmo. Acta, v. 61, no. 5, p. 907-950.
     </source>
   </species>
+
   <species name="Laurite">
     <speciesChemFormula> RuS2(s) </speciesChemFormula>
     <atomArray> RU:1 S:2   </atomArray>
@@ -2504,6 +2699,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Wurtzite">
     <speciesChemFormula> ZnS </speciesChemFormula>
     <atomArray> Zn:1 S:1  </atomArray>
@@ -2528,6 +2724,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Pyrite">
     <speciesChemFormula> FeS2 </speciesChemFormula>
     <atomArray> Fe:1 S:2  </atomArray>
@@ -2552,6 +2749,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Cuprite">
     <speciesChemFormula> Cu2O </speciesChemFormula>
     <atomArray> Cu:2 O:1  </atomArray>
@@ -2576,6 +2774,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Berndtite">
     <speciesChemFormula> SnS2 </speciesChemFormula>
     <atomArray> Sn:1 S:2  </atomArray>
@@ -2601,6 +2800,7 @@
 	v. 80, no. 5, pp. 1365-1378.
     </source>
   </species>
+
   <species name="Tenorite">
     <speciesChemFormula> CuO </speciesChemFormula>
     <atomArray> Cu:1 O:1  </atomArray>
@@ -2625,6 +2825,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Chlorargyrite">
     <speciesChemFormula> AgCl </speciesChemFormula>
     <atomArray> Ag:1 Cl:1  </atomArray>
@@ -2653,6 +2854,7 @@
 	Investigations #7430, 12 pp.
     </source>
   </species>
+
   <species name="PtS2">
     <speciesChemFormula> PtS2 </speciesChemFormula>
     <atomArray> Pt:1 S:2   </atomArray>
@@ -2678,6 +2880,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Galena">
     <speciesChemFormula> PbS </speciesChemFormula>
     <atomArray> Pb:1 S:1  </atomArray>
@@ -2702,6 +2905,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Rh2O">
     <speciesChemFormula> RH2O </speciesChemFormula>
     <atomArray> Rh:2 O:1   </atomArray>
@@ -2727,6 +2931,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="PtS">
     <speciesChemFormula> Cooperite </speciesChemFormula>
     <atomArray> Pt:1 S:1   </atomArray>
@@ -2752,6 +2957,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="PdS2">
     <speciesChemFormula> PdS2 </speciesChemFormula>
     <atomArray> Pd:1 S:2   </atomArray>
@@ -2777,6 +2983,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Pd4S">
     <speciesChemFormula> Pd4S </speciesChemFormula>
     <atomArray> Pd:4 S:1 +:0   </atomArray>
@@ -2802,6 +3009,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="PdS">
     <speciesChemFormula> Vysotskite </speciesChemFormula>
     <atomArray> Pd:1 S:1 +:0   </atomArray>
@@ -2827,6 +3035,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="PdO">
     <speciesChemFormula> PdO(s) </speciesChemFormula>
     <atomArray> Pd:1 O:1  </atomArray>
@@ -2852,6 +3061,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Covellite">
     <speciesChemFormula> CuS </speciesChemFormula>
     <atomArray> Cu:1 S:1  </atomArray>
@@ -2876,6 +3086,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Cinnabar">
     <speciesChemFormula> HgS </speciesChemFormula>
     <atomArray> Hg:1 S:1  </atomArray>
@@ -2900,6 +3111,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Metacinnabar">
     <speciesChemFormula> HgS </speciesChemFormula>
     <atomArray> Hg:1 S:1  </atomArray>
@@ -2924,6 +3136,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Copper">
     <speciesChemFormula> Cu </speciesChemFormula>
     <atomArray> Cu:1  </atomArray>
@@ -2948,6 +3161,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Gold">
     <speciesChemFormula> Au </speciesChemFormula>
     <atomArray> Au:1  </atomArray>
@@ -2972,6 +3186,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Graphite">
     <speciesChemFormula> C </speciesChemFormula>
     <atomArray> C:1  </atomArray>
@@ -2996,6 +3211,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Palladium">
     <speciesChemFormula> Pd </speciesChemFormula>
     <atomArray> Pd:1 </atomArray>
@@ -3021,6 +3237,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Platinum">
     <speciesChemFormula> Pt </speciesChemFormula>
     <atomArray> Pt:1 </atomArray>
@@ -3046,6 +3263,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Rhodium">
     <speciesChemFormula> Rh </speciesChemFormula>
     <atomArray> Rh:1 </atomArray>
@@ -3071,6 +3289,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Ruthenium">
     <speciesChemFormula> Ru </speciesChemFormula>
     <atomArray> Ru:1 </atomArray>
@@ -3096,6 +3315,7 @@
 	Geochim. Cosmo. Acta, Vol. 62, issue 15, p. 2643-2671.
     </source>
   </species>
+
   <species name="Silver">
     <speciesChemFormula> Ag </speciesChemFormula>
     <atomArray> Ag:1  </atomArray>
@@ -3120,6 +3340,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Amesite-7A">
     <speciesChemFormula> Mg2Al(AlSi)O5(OH)4 </speciesChemFormula>
     <atomArray> Mg:2 Al:2 Si:1 O:9 H:4  </atomArray>
@@ -3144,6 +3365,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Bromellite">
     <speciesChemFormula> BeO </speciesChemFormula>
     <atomArray> Be:1 O:1  </atomArray>
@@ -3168,6 +3390,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Celadonite">
     <speciesChemFormula> K(MgAl)Si4O10(OH)2 </speciesChemFormula>
     <atomArray> K:1 Mg:1 Al:1 Si:4 O:12 H:2  </atomArray>
@@ -3192,6 +3415,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Chabazite">
     <speciesChemFormula> Ca(Al2Si4)O12*6H2O </speciesChemFormula>
     <atomArray> Ca:1 Al:2 Si:4 O:18 H:12  </atomArray>
@@ -3216,6 +3440,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Chloritoid">
     <speciesChemFormula> FeAl2SiO5(OH)2 </speciesChemFormula>
     <atomArray> Fe:1 Al:2 Si:1 O:7 H:2  </atomArray>
@@ -3240,6 +3465,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Cummingtonite">
     <speciesChemFormula> Mg7Si8O22(OH)2 </speciesChemFormula>
     <atomArray> Mg:7 Si:8 O:24 H:2  </atomArray>
@@ -3264,6 +3490,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Dickite">
     <speciesChemFormula> Al2Si2O5(OH)4 </speciesChemFormula>
     <atomArray> Al:2 Si:2 O:9 H:4  </atomArray>
@@ -3293,6 +3520,7 @@
 	Bull. 1452, 456 pp.
     </source>
   </species>
+
   <species name="Fluorphlogopite">
     <speciesChemFormula> KMg3(AlSi3)O10(F)2 </speciesChemFormula>
     <atomArray> K:1 Mg:3 Al:1 Si:3 O:10 F:2  </atomArray>
@@ -3322,6 +3550,7 @@
 	Bull. 1452, 456 pp.
     </source>
   </species>
+
   <species name="Fluortremolite">
     <speciesChemFormula> (Ca2Mg5)Si8O22(F)2 </speciesChemFormula>
     <atomArray> Ca:2 Mg:5 Si:8 O:22 F:2  </atomArray>
@@ -3346,6 +3575,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Glaucophane">
     <speciesChemFormula> Na2(Mg3Al2)Si8O22(OH)2 </speciesChemFormula>
     <atomArray> Na:2 Mg:3 Al:2 Si:8 O:24 H:2  </atomArray>
@@ -3370,6 +3600,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Grunerite">
     <speciesChemFormula> Fe7Si8O22(OH)2 </speciesChemFormula>
     <atomArray> Fe:7 Si:8 O:24 H:2  </atomArray>
@@ -3394,6 +3625,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Halloysite">
     <speciesChemFormula> Al2Si2O5(OH)4 </speciesChemFormula>
     <atomArray> Al:2 Si:2 O:9 H:4  </atomArray>
@@ -3423,6 +3655,7 @@
 	Bull. 1452, 456 pp.
     </source>
   </species>
+
   <species name="Leonhardite">
     <speciesChemFormula> Ca2(Al4Si8)O24*7H2O </speciesChemFormula>
     <atomArray> Ca:2 Al:4 Si:8 O:31 H:14  </atomArray>
@@ -3447,6 +3680,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Minnesotaite">
     <speciesChemFormula> Fe3Si4O10(OH)2 </speciesChemFormula>
     <atomArray> Fe:3 Si:4 O:12 H:2  </atomArray>
@@ -3471,6 +3705,7 @@
 	v. 278A, 229 pp.
     </source>
   </species>
+
   <species name="Richterite">
     <speciesChemFormula> Na2(CaMg5)Si8O22(OH)2 </speciesChemFormula>
     <atomArray> Na:2 Ca:1 Mg:5 Si:8 O:24 H:2  </atomArray>
@@ -3521,3 +3756,4 @@
     </source>
   </species>
 
+</ctml>
