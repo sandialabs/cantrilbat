@@ -1501,8 +1501,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double nc_pos = nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    double nl_pos = nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ];
 	    double vol_lc_now = nc_pos - nl_pos;
-
+// todo Fix this. 
+// xn' = (chemexpansion-lastChemEx)*xn
+// xn1' = (chemexpansion)xn1
+// xratio *= (xn1'-nx')(vol_lc_now)
 	    xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
+
 	    if(iCell == NumLcCells-1)  {
 	      xratio[iCell] =  (Thermal_Expansion+1.0)*lastTemp/TemperatureReference_;
 	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (lastChemEx/(0.5*vol_lc_now));
