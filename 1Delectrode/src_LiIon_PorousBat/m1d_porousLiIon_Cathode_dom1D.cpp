@@ -1475,29 +1475,29 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	  if(iCell>=0) {
   // cellsize takes into account that the SolidVolume of the 1/2 control volumes at the edges of the layer are 1/2 size. 
-	    double cellsize = 1;
-	    if(iCell == 1) cellsize = .5;
+	    double full_or_half_cell = 1;
+	    if(iCell == 1) full_or_half_cell = .5;
 
 	    // NOTE!!! This assumes that density of the SolidVol is constant. 
-	    double aveTempE = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*Electrode_Cell_[iCell-1]->SolidHeatCapacityCV()*0.5/cellsize;
+	    double aveTempE = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*Electrode_Cell_[iCell-1]->SolidHeatCapacityCV()*0.5/full_or_half_cell;
 	    // need to add the non-solid contribution. 	    // ????;
-	    double mass = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
+	    double mass = Electrode_Cell_[iCell-1]->SolidVol()*0.5/full_or_half_cell;
 	    // need to add the non-solid contribution. 	    // ????;
-	    double chemexpansion = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
+	    double leftChemEx = Electrode_Cell_[iCell-1]->SolidVol()*0.5/full_or_half_cell;
 
-	    cellsize = 1.0;
+	    full_or_half_cell = 1.0;
 
-	    if(iCell == NumLcCells-1) cellsize = 0.5;
+	    if(iCell == NumLcCells-1) full_or_half_cell = 0.5;
 	    // need to add the non-solid contribution. 	    // ????;
-	    double lastTemp = valTmps.Temperature.center*Electrode_Cell_[iCell]->SolidVol()*Electrode_Cell_[iCell]->SolidHeatCapacityCV()*0.5/cellsize;
+	    double lastTemp = valTmps.Temperature.center*Electrode_Cell_[iCell]->SolidVol()*Electrode_Cell_[iCell]->SolidHeatCapacityCV()*0.5/full_or_half_cell;
 	    aveTempE +=  lastTemp;
 	    // need to add the non-solid contribution. 	    // ????;
-	    double lastMass = Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
+	    double lastMass = Electrode_Cell_[iCell]->SolidVol()*0.5/full_or_half_cell;
 	    mass += lastMass;
 	    aveTempE/= mass;
 	    lastTemp/=lastMass;
-	    double lastChemEx = Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
-	    chemexpansion += lastChemEx;
+	    double rightChemEx = Electrode_Cell_[iCell]->SolidVol()*0.5/full_or_half_cell;
+	    double chemexpansion = leftChemEx+rightChemEx;  // checmexpansion is the new volume of cell, _not_ a ratio 
 	    
 	    xratio[iCell-1] =  (Thermal_Expansion+1.0)*aveTempE/ TemperatureReference_;
 
