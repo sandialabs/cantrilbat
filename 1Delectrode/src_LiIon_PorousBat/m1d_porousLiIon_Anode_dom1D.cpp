@@ -1466,20 +1466,23 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ == 1) {
 
-	  // we compute the mass and [ in the future heat capacity] weighted temperture of the volume between the nodes,
+	  // we compute the mass and [ in the future heat capacity] 
+	  //weighted temperture of the volume between the nodes,
 	  
 	  if(iCell>=1) {
 	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	    // cellsize takes into account that the SolidVolume of the 1/2 control volumes at the edges of the layer are 1/2 size. 
+	    // cellsize takes into account that the SolidVolume of the 1/2 
+	    //control volumes at the edges of the layer are 1/2 size. 
 	    double cellsize = 1;
 	    if(iCell == 1) cellsize = .5;
 
 	    // NOTE!!! This assumes that density of the SolidVol is constant. 
-	    double aveTempE = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*Electrode_Cell_[iCell-1]->SolidHeatCapacityCV()*0.5/cellsize;
+	    double aveTempE = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*
+	      Electrode_Cell_[iCell-1]->SolidHeatCapacityCV()*0.5/cellsize;
 	    // need to add the non-solid contribution. 	    // ????;
 	    double mass = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
 	    // need to add the non-solid contribution. 	    // ????;
-	    double chemexpansion = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
+	    double leftChemEx = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
 
 	    cellsize = 1.0;
 	    if(iCell == NumLcCells-1) cellsize = 0.5;
@@ -1493,8 +1496,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    aveTempE/= mass;
 	    lastTemp/=lastMass;
 
-	    double lastChemEx =  Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
-	    chemexpansion += lastChemEx;
+	    double rightChemEx =  Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
+	    double chemexpansion = rightChemEx+leftChemEx;
 
 	    xratio[iCell-1] =  (Thermal_Expansion+1.0)*aveTempE/ TemperatureReference_;
 
