@@ -14,25 +14,19 @@ include(CMakeForceCompiler)
 cmake_force_c_compiler(${Trilinos_C_COMPILER} GNU)
 cmake_force_cxx_compiler(${Trilinos_CXX_COMPILER} GNU)
 
-message ( " c compiler " ${Trilinos_C_COMPILER})
-message ( " cxx compiler " ${Trilinos_CXX_COMPILER})
-
-
 project(Cantrilbat C CXX Fortran)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_FLAGS -std=c++11 ${CMAKE_CXX_FLAGS})
 
-message(${CMAKE_CXX_FLAGS})
-
 include(options)
 
 find_package(Cantera  REQUIRED)
 
 #include_directories(${Trilinos_INCLUDE_DIRS})
-#include_directories(${Cantera_INCLUDE_DIRS})
+include_directories(${Cantera_INCLUDE_DIRS})
 
 add_subdirectory(1Delectrode)
-
-
+add_subdirectory(util_src)
+add_subdirectory(Electrode)
