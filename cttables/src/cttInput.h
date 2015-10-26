@@ -141,6 +141,12 @@ public:
    */
   bool IntEnergyColumn;
     
+  //! Skip the transport calculations if true
+  /*!
+   * The default is false
+   */
+  bool SkipTransport;
+
   /*
    * Number of points in the temperature table, not including
    * the explicitly added points

@@ -56,6 +56,15 @@ Add Chemical Potential Column = false
 !  the relative value of the internal energy.
 !----------------------------------------------------------------
 Add Internal Energy Column = false
+
+!----------------------------------------------------------------
+!   Skip Transport = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!   If true we will skip the calculation and display of transport
+!   related quantities
+!----------------------------------------------------------------
+Skip Transport = true
 !----------------------------------------------------------------
 #
 ###########################################################
@@ -270,6 +279,13 @@ Start block Thermodynamics Tables
 ! Remove Species = all
 End block Thermodynamics Tables
 
+#########################################################################
+# Thermodynamics Tables (UNIMPLEMENTED)
+#  (optional)
+# Specification for turning on and off the printing of 
+# Thermodynamics Tables for the species.
+# default -> All Thermodynamics tables are turned ON by default.
+#########################################################################
 start block Kinetics Tables
   #
   #  Add Reactions = [all, none, (species_name, ...)

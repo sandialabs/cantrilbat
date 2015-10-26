@@ -458,17 +458,17 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
       print_char('-', 15);
     }
     if (IOO.ChemPotColumn) {
-      tableWidth += 15;
-      print_char('-', 15);
+	tableWidth += 15;
+	print_char('-', 15);
     }
     printf("\n");
 
     double ptable = presRef;
     if (IOO.UseRefPressureInThermoTables) {
-      printf("|------------ Thermo Functions for Reference Pressure");
+	printf("|------------ Thermo Functions for Reference Pressure");
     } else {
-      printf("|----------- Thermo Functions for BathSpecies Pressure");
-      ptable = BG.Pressure;
+	printf("|----------- Thermo Functions for BathSpecies Pressure");
+	ptable = BG.Pressure;
     }
     if (IOO.OutputUnits == UNITS_KCAL_CGS) {
       printf(" %11.3g erg cm-2", ptable * 10.0);
@@ -479,91 +479,91 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
     printf("----|\n");
 
     if (haveSpeciesTransportProps) {
-      printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
-	     "   S       ");
-      if (IOO.IntEnergyColumn) {
-	printf("|  (U - U298)  ");   
-      }
-      if (IOO.ChemPotColumn) {
-	printf("|     G_abs    ");   
-      }
-      printf("|  Viscosity  Therm_Cond   Dif_Co_with_");;
-      string tmp = g.speciesName(BG.BathSpeciesID);
-      pr_sf_lj(tmp, 9, 1);
-      cout << "|" << endl;
-      if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-	printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
-	       "(cal/mol*K)");
+	printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
+	       "   S       ");
 	if (IOO.IntEnergyColumn) {
-	  printf("|  (kcal/mol)  ");   
+	    printf("|  (U - U298)  ");   
 	}
 	if (IOO.ChemPotColumn) {
-	  printf("|  (kcal/mol)  ");   
+	    printf("|     G_abs    ");   
 	}
-        printf("|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    ");
-	printf("|\n");
-      } else  if (IOO.OutputUnits == UNITS_KJOULE) {
-	printf("|      (K)  |  (kJ/gmol)      (kJ/gmol)      (J/gmol*K)     "
-	       "(J/gmol*K) ");
+	printf("|  Viscosity  Therm_Cond   Dif_Co_with_");;
+	string tmp = g.speciesName(BG.BathSpeciesID);
+	pr_sf_lj(tmp, 9, 1);
+	cout << "|" << endl;
+	if (IOO.OutputUnits == UNITS_KCAL_CGS) {
+	    printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
+		   "(cal/mol*K)");
+	    if (IOO.IntEnergyColumn) {
+		printf("|  (kcal/mol)  ");   
+	    }
+	    if (IOO.ChemPotColumn) {
+		printf("|  (kcal/mol)  ");   
+	    }
+	    printf("|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    ");
+	    printf("|\n");
+	} else  if (IOO.OutputUnits == UNITS_KJOULE) {
+	    printf("|      (K)  |  (kJ/gmol)      (kJ/gmol)      (J/gmol*K)     "
+		   "(J/gmol*K) ");
+	    if (IOO.IntEnergyColumn) {
+		printf("|  (kJ/gmol)  ");   
+	    }
+	    if (IOO.ChemPotColumn) {
+		printf("|  (kJ/gmol)  ");   
+	    }
+	    printf("|   (kg/m*sec)    (J/m*sec*K)     (m**2/sec)    ");
+	    printf("|\n");
+	}
+	printf("|-----------|-----------------------------------------------"
+	       "-----------");
 	if (IOO.IntEnergyColumn) {
-	  printf("|  (kJ/gmol)  ");   
+	    printf("|--------------");   
 	}
 	if (IOO.ChemPotColumn) {
-	  printf("|  (kJ/gmol)  ");   
+	    printf("|--------------");   
 	}
-        printf("|   (kg/m*sec)    (J/m*sec*K)     (m**2/sec)    ");
+	printf("|-----------------------------------------------");
 	printf("|\n");
-      }
-      printf("|-----------|-----------------------------------------------"
-	     "-----------");
-      if (IOO.IntEnergyColumn) {
-	printf("|--------------");   
-      }
-      if (IOO.ChemPotColumn) {
-	printf("|--------------");   
-      }
-      printf("|-----------------------------------------------");
-      printf("|\n");
     } else {
-      printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
-	     "   S       ");
-      if (IOO.IntEnergyColumn) {
-	printf("|  (U - U298)    ");   
-      }
-      if (IOO.ChemPotColumn) {
-	printf("|      G_abs     ");   
-      }
-      printf("|\n");
-      if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-	printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
-	       "(cal/mol*K)");
+	printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
+	       "   S       ");
 	if (IOO.IntEnergyColumn) {
-	  printf("|   (kcal/mol)  ");   
+	    printf("|  (U - U298)    ");   
 	}
 	if (IOO.ChemPotColumn) {
-	  printf("|   (kcal/mol)  ");   
+	    printf("|      G_abs     ");   
 	}
 	printf("|\n");
-      } else  if (IOO.OutputUnits == UNITS_KJOULE) {
-	printf("|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    "
-	       "(J/gmol*K) ");
+	if (IOO.OutputUnits == UNITS_KCAL_CGS) {
+	    printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
+		   "(cal/mol*K)");
+	    if (IOO.IntEnergyColumn) {
+		printf("|   (kcal/mol)  ");   
+	    }
+	    if (IOO.ChemPotColumn) {
+		printf("|   (kcal/mol)  ");   
+	    }
+	    printf("|\n");
+	} else  if (IOO.OutputUnits == UNITS_KJOULE) {
+	    printf("|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    "
+		   "(J/gmol*K) ");
+	    if (IOO.IntEnergyColumn) {
+		printf("|   (kJ/gmol)  ");   
+	    }
+	    if (IOO.ChemPotColumn) {
+		printf("|   (kJ/gmol)  ");   
+	    }
+	    printf("|\n");
+	}
+	printf("|-----------|-----------------------------------------------"
+	       "-----------");
 	if (IOO.IntEnergyColumn) {
-	  printf("|   (kJ/gmol)  ");   
+	    printf("|--------------");   
 	}
 	if (IOO.ChemPotColumn) {
-	  printf("|   (kJ/gmol)  ");   
+	    printf("|--------------");   
 	}
 	printf("|\n");
-      }
-      printf("|-----------|-----------------------------------------------"
-	     "-----------");
-      if (IOO.IntEnergyColumn) {
-	printf("|--------------");   
-      }
-      if (IOO.ChemPotColumn) {
-	printf("|--------------");   
-      }
-      printf("|\n");
     }
     
     bool outOfRange = false;
@@ -1731,12 +1731,14 @@ int main(int argc, char** argv) {
       /*
        *  Import and set up the transport properties
        */
+      if (IOO.SkipTransport) {
+          skipTransport = true;
+      }
       if (! skipTransport) {
 	xmlPhase = rVolDomain->xmlList[0];
-	haveSpeciesTransportProps =
-	  setupGasTransport(xmlPhase, *gThermoMainPhase);
+	haveSpeciesTransportProps = setupGasTransport(xmlPhase, *gThermoMainPhase);
 	if (!haveSpeciesTransportProps) {
-	  skipTransport = true;
+	    skipTransport = true;
 	}
       }
 

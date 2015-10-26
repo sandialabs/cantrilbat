@@ -189,6 +189,18 @@ void setup_input_pass3(BlockEntry *cf,
   bIEC->set_default(false);
   cf->addLineEntry(bIEC);
   bIEC = 0;
+
+
+  /* --------------------------------------------------------------
+   * Skip Transport = [ true, false ]
+   *
+   * Specify whether you want to skip the inclusion of transport numbers into the thermodynamics
+   * tables for each species. Default = false , i.e., the transport is included
+   */
+  LE_OneBool *bITR = new LE_OneBool("Skip Transport", &IOO.SkipTransport, 0, "SkipTransport");
+  bITR->set_default(false);
+  cf->addLineEntry(bITR);
+  bITR = 0;
     
   /* --------------------------------------------------------------
    * BG.Temperature - 
@@ -739,6 +751,7 @@ IOoptions::IOoptions() :
   OutputUnits(UNITS_KCAL_CGS),
   ChemPotColumn(false),
   IntEnergyColumn(false),
+  SkipTransport(false),
   m_TTnpts(14),
   m_TTDeltaT(100),
   TTinc298(true),
