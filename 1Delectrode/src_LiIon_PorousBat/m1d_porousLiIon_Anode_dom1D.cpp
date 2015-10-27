@@ -1508,7 +1508,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
 	    if(iCell == NumLcCells-1)  {
 	      xratio[iCell] =  (Thermal_Expansion+1.0)*lastTemp/TemperatureReference_;
-	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (lastChemEx/(0.5*vol_lc_now));
+	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (chemexpansion/(0.5*vol_lc_now));
 	    }
 	    
 	    // the divergence of the pressure == the trace of the STRESS tensor
