@@ -662,8 +662,15 @@ public:
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
 
     
+    //!  Returns the phase molar production rates given the species production rates
+    /*!
+     *   Returns the net production rates of all phases from reactions given the species production rates
+     *
+     *   @param[in] speciesProductionRates  Input species production rates (kmol sec-1)
+     *
+     *   @param[out] phaseMoleFlux          Vector of phase production rates (kmol sec-1)
+     */
     void getPhaseProductionRates(const doublereal * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
-
 
     //! Overpotential term for the heat generation from a single surface
     /*!
@@ -872,7 +879,15 @@ public:
     double reportStateVariableIntegrationError(int& numSV, double* const errorVector) const;
 
 
-    
+    //! Report the time limit
+    /*!
+     *  @param[in]  allowedSubSteps             integer
+     *  @param[in]  allowedErrorStateVariables double
+     *  @param[in]  allowedSourceTermError     double           
+     *  @return                         Returns a double
+     *
+     * /deprecated Not sure this is used anywhere!
+     */
     double reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError);
 
     //! Given a guest, are the two local intervals the same
