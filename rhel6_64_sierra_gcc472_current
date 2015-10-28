@@ -3,7 +3,8 @@
 # Installation from the CAB_3279 trunk
 #
 #CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/cab_3279_dbg
-CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/zuzax_trunk_dbg
+#CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/zuzax_trunk_dbg
+CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/zuzax_master_dbg
 #CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc472/zuzax_absIonicEntropies_dbg
 export CANTERA_INSTALL_DIR
 #
