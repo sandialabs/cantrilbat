@@ -89,7 +89,7 @@ public:
              const Epetra_Vector * const solnDotBase,
              const double t,
              const double rdelta_t,
-	     const Solve_Type_Enum solveType);
+	     const m1d::Solve_Type_Enum solveType);
 
   //! Calculate a Jacobian and a residual
   /*!
@@ -106,7 +106,7 @@ public:
                 Epetra_Vector * const resBase,
                 const double t,
                 const double rdelta_t,
-		const Solve_Type_Enum solveType);
+		const m1d::Solve_Type_Enum solveType);
 
   //! Calculate a Jacobian -> internal
   /*!
@@ -123,7 +123,7 @@ public:
               Epetra_Vector * const resBase,
               const double t,
               const double rdelta_t,
-	      const Solve_Type_Enum solveType);
+	      const m1d::Solve_Type_Enum solveType);
 
 private:
   //! Evaluate the Jacobian at x0.
@@ -465,7 +465,7 @@ public:
    *      2    TimeDependentRelax_Solve,
    *      3    DAESystemInitial_Solve
    */
-  Solve_Type_Enum solveType_;
+  m1d::Solve_Type_Enum solveType_;
 };
 
 //! Write the contents of a matrix to an ostream
