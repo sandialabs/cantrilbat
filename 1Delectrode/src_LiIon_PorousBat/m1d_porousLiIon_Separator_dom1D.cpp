@@ -1047,10 +1047,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
       BulkMod*=1.0e6; // in MPa
       Eyoung =       3*BulkMod*(1.0 - 2*poisson);
 
+#ifndef CHEM_EX_ONLY
       if(iCell !=  NumLcCells-1)
 	xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.right)*0.5/ TemperatureReference_;
       else 
 	xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.left)*0.5/ TemperatureReference_;
+#endif
       // the divergence of the pressure == - the trace of the STRESS tensor No factor of 3 as we are 1 d
 
       // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
@@ -1078,7 +1080,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	}
       }
       double pressure_strain = pressure_STRESS/Eyoung;
+#ifndef CHEM_EX_ONLY
       xratio[iCell]*= (1.0+pressure_strain);
+#endif
       // now do the Solid Stess calculation
       nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
       if(nodeLeft) 

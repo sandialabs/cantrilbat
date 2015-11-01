@@ -1499,8 +1499,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    double rightChemEx = Electrode_Cell_[iCell]->SolidVol()*0.5/full_or_half_cell;
 	    double chemexpansion = leftChemEx+rightChemEx;  // checmexpansion is the new volume of cell, _not_ a ratio 
 	    
+#ifndef CHEM_EX_ONLY
 	    xratio[iCell-1] =  (Thermal_Expansion+1.0)*aveTempE/ TemperatureReference_;
-
+#endif
 	    double nc_pos = nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    double nl_pos = nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ];
 	    double vol_lc_now = nc_pos - nl_pos;
@@ -1508,7 +1509,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
 	    if(iCell == NumLcCells-1)  {
 	      xratio[iCell] =  (Thermal_Expansion+1.0)*lastTemp/TemperatureReference_;
+#ifndef CHEM_EX_ONLY
 	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (chemexpansion/(0.5*vol_lc_now));
+#endif
 	    }
 
 	  // the divergence of the pressure == - the trace of the STRESS tensor
@@ -1536,9 +1539,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	  } // pressure exists
 	  double pressure_strain = pressure_STRESS/Eyoung;
+#ifndef CHEM_EX_ONLY
 	  xratio[iCell-1]*= (1.0+pressure_strain); 
 	  if(iCell == NumLcCells-1)
 	    xratio[iCell] *= (1+pressure_strain/2.0);
+#endif
 	  // now do the Solid Stess calculation
 	  nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
 	  if(nodeLeft) 

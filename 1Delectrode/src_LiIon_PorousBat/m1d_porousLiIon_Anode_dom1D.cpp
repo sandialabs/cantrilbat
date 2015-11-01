@@ -1481,8 +1481,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	      Electrode_Cell_[iCell-1]->SolidHeatCapacityCV()*0.5/cellsize;
 	    // need to add the non-solid contribution. 	    // ????;
 	    double mass = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
-	    // need to add the non-solid contribution. 	    // ????;
-	    double leftChemEx = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
+
 
 	    cellsize = 1.0;
 	    if(iCell == NumLcCells-1) cellsize = 0.5;
@@ -1496,11 +1495,14 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    aveTempE/= mass;
 	    lastTemp/=lastMass;
 
+	    // need to add the non-solid contribution. 	    // ????;
+	    double leftChemEx = Electrode_Cell_[iCell-1]->SolidVol()*0.5/cellsize;
 	    double rightChemEx =  Electrode_Cell_[iCell]->SolidVol()*0.5/cellsize;
 	    double chemexpansion = rightChemEx+leftChemEx;
 
+#ifndef CHEM_EX_ONLY
 	    xratio[iCell-1] =  (Thermal_Expansion+1.0)*aveTempE/ TemperatureReference_;
-
+#endif
 	    double nc_pos = nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    double nl_pos = nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ];
 	    double vol_lc_now = nc_pos - nl_pos;
@@ -1508,12 +1510,17 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 // xn' = (chemexpansion-lastChemEx)*xn
 // xn1' = (chemexpansion)xn1
 // xratio *= (xn1'-nx')(vol_lc_now)
+
 	    xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
 
+
 	    if(iCell == NumLcCells-1)  {
+#ifndef CHEM_EX_ONLY
 	      xratio[iCell] =  (Thermal_Expansion+1.0)*lastTemp/TemperatureReference_;
+#endif
 	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (chemexpansion/(0.5*vol_lc_now));
 	    }
+
 	    
 	    // the divergence of the pressure == the trace of the STRESS tensor
 	    // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
@@ -1540,10 +1547,13 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	      }	 
 	    } // pressure exists
 	    double pressure_strain = pressure_STRESS/Eyoung;
+
+#ifndef CHEM_EX_ONLY
 	    xratio[iCell-1]*= (1+pressure_strain);
 	    if(iCell == NumLcCells-1)
 	      xratio[iCell] *= (1+pressure_strain/2.0);
 	    //
+#endif
 	    nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
 	    if(nodeLeft) 
 	      nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
@@ -1560,10 +1570,12 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double matrix_pressure_left = - (left_matrix_stress- center_matrix_stress);
 	    double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
 	    double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
+// this is matrix stress calculation, must be done even with CHEM_EX_ONLY
 	    xratio[iCell-1] *= (1+ matrix_LP_center/Eyoung);
 	    if(iCell == NumLcCells-1)
 	      xratio[iCell] *= (1+ (0.5*matrix_LP_center/Eyoung));
 	    avg_delta_matrix_pressure += matrix_pressure_left;
+
 	}
 	  // since we have the half control volumes at the right and left hand boundaries the divisor is NumLcCells-1
 	  avg_delta_matrix_pressure /= (NumLcCells-1);
