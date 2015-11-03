@@ -18,6 +18,7 @@
 #include "m1d_exception.h"
 
 using namespace std;
+using namespace Cantera;
 
 namespace m1d
 {

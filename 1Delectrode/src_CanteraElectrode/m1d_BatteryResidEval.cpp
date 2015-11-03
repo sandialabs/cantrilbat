@@ -27,6 +27,7 @@
 #include "m1d_SurfDomainDescription.h"
 
 using namespace std;
+using namespace Cantera;
 
 namespace m1d
 {

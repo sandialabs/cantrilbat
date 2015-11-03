@@ -19,6 +19,7 @@
 #include "m1d_DomainLayout.h"
 
 using namespace std;
+using namespace Cantera;
 
 namespace m1d
 {

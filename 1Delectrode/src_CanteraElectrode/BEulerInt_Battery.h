@@ -26,8 +26,7 @@ namespace m1d
 namespace beuler
 {
 
-
-  class BEulerInt_Battery : public BEulerInt {
+  class BEulerInt_Battery : public beuler::BEulerInt {
 
   public:
 

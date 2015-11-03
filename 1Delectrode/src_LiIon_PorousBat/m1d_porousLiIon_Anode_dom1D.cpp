@@ -26,6 +26,8 @@
 #include "cantera/transport/Tortuosity.h"
 
 using namespace std;
+using namespace Cantera;
+
 //
 //  Necessary expediency until we model dUdT correctly and fully, matching to experiment
 //

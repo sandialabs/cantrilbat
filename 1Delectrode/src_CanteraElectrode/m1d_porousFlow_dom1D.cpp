@@ -26,6 +26,7 @@ extern m1d::ProblemStatementCell PSinput;
 
 
 using namespace std;
+using namespace Cantera;
 
 namespace m1d
 {

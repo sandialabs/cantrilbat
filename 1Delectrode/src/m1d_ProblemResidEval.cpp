@@ -38,7 +38,7 @@
 #include <fstream>
 
 using namespace std;
-
+using namespace Cantera;
 
 namespace m1d
 {
@@ -85,7 +85,7 @@ ProblemResidEval::ProblemResidEval(double atol) :
     } else {
      try {
        string rr(resp_str) ;
-       double ff = fpValueCheck(rr);
+       double ff = Cantera::fpValueCheck(rr);
        s_printFlagEnv  = ff;
      } catch (Cantera::CanteraError &cE) {
        Cantera::showErrors();
@@ -1032,11 +1032,11 @@ ProblemResidEval::saveSolutionEnd(const int itype,
 	ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
     }
 
-    Cantera::XML_Node root("--");
+    XML_Node root("--");
 
-    Cantera::XML_Node& ct = root.addChild("ctml");
+    XML_Node& ct = root.addChild("ctml");
 
-    Cantera::XML_Node& sim = ct.addChild("simulation");
+    XML_Node& sim = ct.addChild("simulation");
     //
     // Initially define the 
     std::string simulationID = "0";

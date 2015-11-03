@@ -44,6 +44,7 @@
 #include <math.h>
 
 using namespace std;
+using namespace Cantera;
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))

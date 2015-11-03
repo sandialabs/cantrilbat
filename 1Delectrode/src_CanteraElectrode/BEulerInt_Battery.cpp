@@ -17,6 +17,7 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace std;
+using namespace Cantera;
 
 namespace beuler
 {
