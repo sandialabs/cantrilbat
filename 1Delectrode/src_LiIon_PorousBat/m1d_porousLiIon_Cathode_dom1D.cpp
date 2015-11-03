@@ -1471,7 +1471,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	}
     
 #ifdef MECH_MODEL
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0) {
 	  // use the average temp of the center and right nodes. 
 	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	  if(iCell>=0) {
@@ -1573,7 +1573,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
     } // end of iCell loop 
 #ifdef MECH_MODEL
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0) {
 	  new_node_pos.resize(NumLcCells+1,0.0);
 	  // node that this is offset by one node. 
 	  for (int iCell = 1; iCell < NumLcCells-1; iCell++) {
@@ -1737,7 +1737,7 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	if (energyEquationProbType_) {
 	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
 	}
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0) {
 	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	  NodalVars* nodeLeft  = cTmps.nvLeft_; 
 	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
@@ -3693,7 +3693,6 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                                         int indentSpaces,
                                         bool duplicateOnAllProcs)
 {
-
     // nn is the number of block rows in the printout
     int nn = NumDomainEqns / 5;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
@@ -3726,6 +3725,16 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
         ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
         ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+#ifdef MECH_MODEL
+	int firstGbNode = BDD_.FirstGbNode;
+	int lastGbNode = BDD_.LastGbNode;
+
+	for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
+	  NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+	  double diff = nv->xNodePos() -nv->x0NodePos();
+	  ss.print0("%s                                         : Node[ %d ] displacement %g\n", ind, iGbNode,diff);
+	}
+#endif
     }
     if (do0Write) {
         for (iBlock = 0; iBlock < nn; iBlock++) {
@@ -3999,7 +4008,28 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         }
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
     }
+#ifdef MECH_MODEL
+    if (do0Write) {
+      drawline0(indentSpaces, 80);
+      ss.print0("%s    CellBound    SolidStressAxial ", ind);
+      ss.print0("\n");
+      drawline(indentSpaces, 80);
 
+      const Epetra_Vector& soln = *soln_ptr;
+     
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
+      	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+      	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+      	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+      	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+      	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+      	double Solid_Stress_Axial = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+      	ss.print0("%s %d-%d   %11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
+      	ss.print0("\n");
+      }
+      
+    }
+#endif 
     if (do0Write) {
         // ----------------------------------------------------
         // --             PRINT FLUXES AT THE CELL BOUNDARIES --

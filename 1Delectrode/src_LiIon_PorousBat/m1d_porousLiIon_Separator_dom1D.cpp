@@ -1029,7 +1029,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	       
     }
 #ifdef MECH_MODEL
-    if (solidMechanicsProbType_ == 1) {
+    if (solidMechanicsProbType_ > 0) {
       valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
       // need the average temp to get the correct K
       double AverageTemperature =    valTmps.Temperature.center;
@@ -1110,7 +1110,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   } // end of iCell loop
 
 #ifdef MECH_MODEL
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0 ) {
 	  new_node_pos.resize(NumLcCells+1,0.0);
 	  // node that this is offset by one node. 
 	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
@@ -1125,7 +1125,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    nodeLeft = cTmps.nvLeft_;
 	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 
-	    // NOTE new_node_pos[0] must be set, using the information from the Anode???? 
+	    // NOTE new_node_pos[0] must be set, using the information from the Anode
 
 	    double delta_0 =  nodeCent->xNodePos() - nodeLeft->xNodePos();
 	    double new_delta = delta_0 *  xratio[iCell-1]; // 
@@ -1174,8 +1174,6 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         haveTemp = false;
     }
 
-
-    
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
 
@@ -1250,7 +1248,7 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	    //
 	    thermalCond_Cell_[iCell] = thermalCondCalc_PorMatrix();
 	}
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0 ) {
 	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	  NodalVars* nodeLeft  = cTmps.nvLeft_; 
 	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
@@ -2538,7 +2536,6 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                                           int indentSpaces,
                                           bool duplicateOnAllProcs)
 {
-
     // nn is the number of block rows in the printout
     int nn = NumDomainEqns / 5;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
@@ -2571,6 +2568,17 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
         ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
         ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+#ifdef MECH_MODEL
+	int firstGbNode = BDD_.FirstGbNode;
+	int lastGbNode = BDD_.LastGbNode;
+
+	for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
+	  NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+	  double diff = nv->xNodePos() -nv->x0NodePos();
+	  ss.print0("%s                                         : Node[ %d ] displacement %g\n", ind, iGbNode,diff);
+	}
+#endif 
+
     }
     if (do0Write) {
         for (iBlock = 0; iBlock < nn; iBlock++) {
@@ -2678,6 +2686,28 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 ss.print0("\n");
             }
         }
+#ifdef MECH_MODEL
+    if (do0Write) {
+      drawline0(indentSpaces, 80);
+      ss.print0("%s    CellBound    SolidStressAxial ", ind);
+      ss.print0("\n");
+      drawline(indentSpaces, 80);
+
+      const Epetra_Vector& soln = *soln_ptr;
+     
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
+      	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+      	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+      	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+      	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+      	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+      	double Solid_Stress_Axial = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+      	ss.print0("%s %d-%d   %11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
+      	ss.print0("\n");
+      }
+      
+    }
+#endif 
         drawline(indentSpaces, 80);
         // ----------------------------------------------------
         // --             PRINT FLUXES AT THE CELL BOUNDARIES --

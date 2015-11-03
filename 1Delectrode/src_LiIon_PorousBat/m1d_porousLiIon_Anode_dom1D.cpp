@@ -1466,7 +1466,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0) {
 
 	  // we compute the mass and [ in the future heat capacity] 
 	  //weighted temperture of the volume between the nodes,
@@ -1508,10 +1508,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double nc_pos = nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    double nl_pos = nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ];
 	    double vol_lc_now = nc_pos - nl_pos;
-// todo Fix this. 
-// xn' = (chemexpansion-lastChemEx)*xn
-// xn1' = (chemexpansion)xn1
-// xratio *= (xn1'-nx')(vol_lc_now)
 
 	    xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
 
@@ -1587,7 +1583,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 #ifdef MECH_MODEL
   
-    if (solidMechanicsProbType_ == 1) {
+    if (solidMechanicsProbType_ > 0) {
       //  We have node[0] pinned so it never moves. 
       for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
@@ -1728,7 +1724,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 
 	}
 	// update the node position at the beginning of the time step. 
-	if (solidMechanicsProbType_ == 1) {
+	if (solidMechanicsProbType_ > 0) {
 	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	  NodalVars* nodeLeft  = cTmps.nvLeft_;
 	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
@@ -3663,7 +3659,6 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                                       int indentSpaces,
                                       bool duplicateOnAllProcs)
 {
-
     // nn is the number of block rows in the printout
     int nn = NumDomainEqns / 5;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
@@ -3693,6 +3688,17 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
         ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
         ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+
+#ifdef MECH_MODEL
+	int firstGbNode = BDD_.FirstGbNode;
+	int lastGbNode = BDD_.LastGbNode;
+
+	for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
+	  NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+	  double diff = nv->xNodePos() -nv->x0NodePos();
+	  ss.print0("%s                                         : Node[ %d ] displacement %g\n", ind, iGbNode,diff);
+	}
+#endif 
     }
     if (do0Write) {
         for (iBlock = 0; iBlock < nn; iBlock++) {
@@ -3979,6 +3985,28 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
     }
 
+#ifdef MECH_MODEL
+    if (do0Write) {
+      drawline0(indentSpaces, 80);
+      ss.print0("%s    CellBound    SolidStressAxial ", ind);
+      ss.print0("\n");
+      drawline(indentSpaces, 80);
+
+      const Epetra_Vector& soln = *soln_ptr;
+     
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
+      	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+      	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+      	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+      	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+      	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+      	double Solid_Stress_Axial = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+      	ss.print0("%s %d-%d   %11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
+      	ss.print0("\n");
+      }
+      
+    }
+#endif 
 
     if (do0Write) {
         // ----------------------------------------------------
@@ -3990,6 +4018,8 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("\n");
         drawline(indentSpaces, 80);
     }
+
+
 
     NodalVars* nvl;
     NodalVars* nvr;
