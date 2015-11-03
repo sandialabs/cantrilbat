@@ -294,7 +294,7 @@ Cu2S_TopSurface::residEval(Epetra_Vector &res,
     exit(-1);
   } else if (coordinateSystemType_ == Spherical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = 2 * Pi;
+    area_cvb = 2 * Cantera::Pi;
     exit(-1);
   }
   double stoicCoeffC0;
@@ -775,7 +775,7 @@ Cu2S_BotSurface::residEval(Epetra_Vector &res,
     exit(-1);
   } else if (coordinateSystemType_ == Spherical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = 2 * Pi;
+    area_cvb = 2 * Cantera::Pi;
     // the whole program needs to get fixed for different coordinate systems
     exit(-1);
   }

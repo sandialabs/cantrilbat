@@ -30,7 +30,6 @@
 #define SAFE_DELETE(a) if (a) { delete (a); a = 0; }
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 
-using namespace Cantera;
 using namespace std;
 //using namespace BEInput;
 //using namespace TKInput;
