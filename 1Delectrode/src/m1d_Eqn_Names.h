@@ -34,13 +34,7 @@ enum Var_Name_Enum
   Voltage,                 // 10
   Temperature,             // 11      //!< Temperature
 #ifdef MECH_MODEL
-  // \todo CBL I think these can be computed from VolumeFraction_Species
-  //  Solid_Density, 
-  //  Electrolyte_Density,
-  //  Gas_Density,
   Solid_Stress_Axial, // scalar, for 1 d
-  // CBL this is not something this solved for, it's an initial state
-  //  IStress_Free_Strain_Axial, // this initial state may _not_ be uniform at t=0.
   // things like Bulk Modulus, Poisson's Ratio, Cv/Cp, thermal expansion coeffs
   //  are stored in hard coded functions, for anode/spacer/cathode materials   
   Solid_Stress_Transverse,

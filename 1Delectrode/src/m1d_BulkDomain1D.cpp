@@ -1288,6 +1288,8 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
                                int indentSpaces,
                                bool duplicateOnAllProcs)
 {
+ m1d::m1d_Error(" BulkDomain1D showSolution0All","drop dead");
+
   // nn is the number of block rows in the printout
   int nn = NumDomainEqns / 5;
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
