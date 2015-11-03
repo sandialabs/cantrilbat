@@ -26,8 +26,6 @@
 
 #include <vector>
 
-using namespace Cantera;
-
 //#include "PhaseList.h"
 #include "cantera/kinetics/RxnMolChange.h"
  
@@ -118,7 +116,7 @@ void printGERKineticsTable(Cantera::Electrode *electrode, int j,
 
 double processGERCurrent(Cantera::RxnMolChange *rmc,
 			 Cantera::Electrode *electrode, int iGERrxn,
-			 Kinetics &kin,
+			 Cantera::Kinetics &kin,
 			 Cantera::ExtraGlobalRxn &egr);
 
 void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc, Cantera::Electrode *electrode,
