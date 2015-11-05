@@ -635,7 +635,6 @@ public:
    */
   int solidMechanicsProbType_;
 
-
 protected:
 
   //! Current value of the residual type
@@ -651,6 +650,13 @@ private:
   err(const char *msg) const;
 
 public:
+  enum SolidMechEqn {
+    None =        0x00,
+    All  =        0x01,  
+    ChemEx =      0x02,
+    TempEx =      0x04,
+    FluidPr =     0x08
+    };
 
   //! Counter for the total number of base residual calculations undertaken
   int counterResBaseCalcs_;
