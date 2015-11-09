@@ -14,7 +14,6 @@ all:
 
 test:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               @MAKE@ test
-	cd LiIon_MCMB_LiCoO2_tempFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_mechSecond ;               @MAKE@ test
@@ -22,7 +21,6 @@ test:
 
 clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               @MAKE@ clean
-	cd LiIon_MCMB_LiCoO2_tempFirst ;               @MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               @MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               @MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_mechSecond ;               @MAKE@ clean
@@ -30,7 +28,6 @@ clean:
 
 test_clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               @MAKE@ test_clean
-	cd LiIon_MCMB_LiCoO2_tempFirst ;               @MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               @MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               @MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_mechSecond ;               @MAKE@ test_clean
@@ -38,7 +35,6 @@ test_clean:
 
 dist_clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               @MAKE@ dist_clean
-	cd LiIon_MCMB_LiCoO2_tempFirst ;               @MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               @MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               @MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_mechSecond ;               @MAKE@ dist_clean
@@ -46,7 +42,6 @@ dist_clean:
 
 test_bat:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               @MAKE@ test
-	cd LiIon_MCMB_LiCoO2_tempFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_mechSecond ;               @MAKE@ test
@@ -54,7 +49,6 @@ test_bat:
 
 rebaseline:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               ./rebaseline
-	cd LiIon_MCMB_LiCoO2_tempFirst ;               ./rebaseline
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               ./rebaseline
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               ./rebaseline
 	cd LiIon_MCMB_LiCoO2_mechSecond ;              ./rebaseline 
