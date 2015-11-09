@@ -57,7 +57,7 @@ depends:
 test:
 	@@MAKE@ -s
 	@echo -n 'Checking need to run test $(TEST_NAME): '
-	@ if test -f runBad ; /bin/rm -rf runGood ; fi
+	@ if test -f runBad ; then /bin/rm -rf runGood ; fi
 	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
 runGood: $(PROGRAM_ORIGIN) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES) $(INPUT_FILES)
