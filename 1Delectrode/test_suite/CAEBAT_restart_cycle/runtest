@@ -218,9 +218,11 @@ then
       echo "  but other comparisons failed: " `date` > runBad
   fi
   echo "  Test Passed: " `date` > runGood
+  /bin/rm -rf runBad
 else
   echo "Unsuccessful test comparison on "`pwd`
   echo "  Test failed: " `date` > runBad
+  /bin/rm -rf runGood
 fi
 
 #
