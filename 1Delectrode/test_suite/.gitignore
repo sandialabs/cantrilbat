@@ -8,3 +8,4 @@ runtest
 solution_multiBulk.dat
 diff_summary.txt
 out_raw.txt
+.nfs*
