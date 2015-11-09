@@ -1,3 +1,5 @@
 LiIon_MCMB_LiCoO2_Enth_Adiabatic
 solution_multiBulk.dat
 .nfs*
+out_raw.txt
+runInProgress.txt

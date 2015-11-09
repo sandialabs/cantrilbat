@@ -13,7 +13,7 @@
 .SUFFIXES: .d
 
 PROGRAM = LiIon_PorousBat
-TEST_NAME =  LiIon_MCMB_LiCoO2_tempFirst
+TEST_NAME =  LiIon_MCMB_LiCoO2_enthFirst
 
 DATA =  ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
         MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml \
@@ -54,11 +54,12 @@ depends:
 test:
 	@@MAKE@ -s
 	@echo -n 'Checking need to run test $(TEST_NAME): '
+	@if test -f runBad  ; then /bin/rm -rf runGood ; fi
 	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
 runGood: $(PROGRAM_ORIGIN) $(DATA) $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
-	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ./runtest)
+	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../../test_suite/runtest )
 
 rebaseline:
 	./rebaseline
