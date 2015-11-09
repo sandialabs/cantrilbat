@@ -3,3 +3,9 @@ solution_multiBulk.dat
 .nfs*
 out_raw.txt
 runInProgress.txt
+runGood
+runBad
+diff_ahs.txt
+diff_shs.txt
+diff_summary.txt
+
