@@ -102,8 +102,8 @@ ProblemResidEval::ProblemResidEval(double atol) :
   if (PSinput_ptr->Energy_equation_prob_type_ == 3) {
        energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
   } else if (PSinput_ptr->Energy_equation_prob_type_ != 0) {
-       printf("unimplemetned\n");
-       exit(-1);
+       throw m1d_Error("ProblemResidEval::ProblemResidEval()",
+                       "Energy equation types other than 3 and 0 are unimplemented: " + int2str(PSinput_ptr->Energy_equation_prob_type_));
   }
 
   solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;

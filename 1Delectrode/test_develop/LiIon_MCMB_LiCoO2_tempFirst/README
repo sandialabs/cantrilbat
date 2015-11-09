@@ -1,10 +1,12 @@
 
-
+11/10/2015
 
 Simple test problem designed with Dirichelet boundary conditions between 302 and 298.
 A temperature ramp is the expected solution.
 
 
-this is a first problem that uses the temperature equation.
+This is a first problem that uses the temperature equation, as opposed to the enthalpy equation.
+Note there is a strict way to go from one to the other, that is correct up to round-off error,
+i.e., it's better than discretization error and only differs based on the accuracy of the solution.
 
 Currently, this is unimplemented and will give an error.
