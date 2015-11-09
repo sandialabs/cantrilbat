@@ -874,9 +874,10 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     drawline0(ss, indentSpaces, 80);
     ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
     ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
-
+#ifdef MECH_MODEL
     ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-    ss.print0( "%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+    ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+#endif
   }
   print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
 

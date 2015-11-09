@@ -1270,11 +1270,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          */
         res[indexCent_EqnStart + nodeTmpsCenter.RO_Current_Conservation + 1] += icurrInterface_Cell_[iCell];
 
-#ifdef MECH_MODEL
-	//	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = ???
-#endif
-
-
         /*
          * Special section if we own the left node of the domain. If we do
          * it will be cell 0. Store currents for later use.

@@ -1479,8 +1479,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    // Even if temperature expansion is turned off (m1d::Domain1D::SolidMechEqn::TempEx | solidMechanicsProbType_) ==0
 	    // the temperature is still used to calculate aveTemp to calculate Youngs modulus for some materials. 
 
-	    // if iCell==1, iCell-1 is a 1/2 cell, so double it's volume for correct average. 
-	    // The trailing 'M' indicates it is a mass weighted temperature. 
 	    double leftTempM = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*Electrode_Cell_[iCell-1]->SolidHeatCapacityCV();
 	    double rightTempM = valTmps.Temperature.center*Electrode_Cell_[iCell]->SolidVol()*Electrode_Cell_[iCell]->SolidHeatCapacityCV();
 	    // need to add the non-solid contribution. 	    
