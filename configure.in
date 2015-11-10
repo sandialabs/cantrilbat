@@ -828,6 +828,8 @@ AC_OUTPUT(Makefile \
           batteryDevelop/MCMBAnode/MCMB_Mao/Makefile
           batteryDevelop/LiCoO2Cathode//Makefile
           batteryDevelop/LiCoO2Cathode/LiCoO2_Enth/Makefile
+          batteryDevelop/LiRefElectrode/Makefile
+          batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn/Makefile
           ctpadds/Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \

@@ -1,0 +1,19 @@
+#/bin/sh
+
+all:
+	cd LiMetal_LiIon_electrode_rxn;               	@MAKE@
+
+test:
+	cd LiMetal_LiIon_electrode_rxn;               	@MAKE@ test
+
+testd:
+	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ test
+
+clean:
+	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ clean
+
+depends:
+	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ depends
+
+install:
+	cd LiMetal_LiIon_electrode_rxn;                	@MAKE@ install

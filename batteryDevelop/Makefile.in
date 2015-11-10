@@ -3,24 +3,30 @@
 all:
 	cd MCMBAnode;                       	@MAKE@
 	cd LiCoO2Cathode; 			@MAKE@
+	cd LiRefElectrode; 			@MAKE@
 
 test:
 	cd MCMBAnode;                       	@MAKE@ test
 	cd LiCoO2Cathode; 			@MAKE@ test
+	cd LiRefElectrode; 			@MAKE@ test
 
 testd:
 	cd MCMBAnode;                       	@MAKE@ test
 	cd LiCoO2Cathode; 			@MAKE@ test
+	cd LiRefElectrode; 			@MAKE@ test
 
 clean:
 	cd MCMBAnode;                       	@MAKE@ clean
 	cd LiCoO2Cathode; 			@MAKE@ clean
+	cd LiRefElectrode; 			@MAKE@ clean
 
 depends:
 	cd MCMBAnode;                       	@MAKE@ depends
 	cd LiCoO2Cathode; 			@MAKE@ depends
+	cd LiRefElectrode; 			@MAKE@ depends
 
 install:
 	cd MCMBAnode;                       	@MAKE@ install
 	cd LiCoO2Cathode; 			@MAKE@ install
+	cd LiRefElectrode; 			@MAKE@ install
 

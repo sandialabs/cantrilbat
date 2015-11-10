@@ -1,0 +1,78 @@
+#!/bin/sh
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = cttables
+TESTNAME = cttables_LiMetal_LiIon_electrode_rxn
+
+BLESSED_FILES = good_cout.txt
+
+DATA =  problem_setup.sh \
+        ECsoln_ion.xml  Li_electrode.xml  Li_Metal.xml  metal_Li_LiIon_electrons.xml
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+ABSTOP_DIR = @abs_top_builddir@
+
+all: $(PROGRAM)
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+#
+############################################################################
+# section to set up depends
+###########################################################################
+
+PROGRAM_ORIGIN =  $(ABSTOP_DIR)/cttables/src/cttables
+
+
+$(PROGRAM): Makefile
+	/bin/rm -rf cttables
+	ln -s $(PROGRAM_ORIGIN) .
+
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	export PROGRAM_SETUP=problem_setup.sh; $(ABSTOP_DIR)/bin/runtest_Exec
+
+rebaseline:
+	cp out.txt good_out.txt
+
+##############################################################################
+
+
+#
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+#
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+test_clean:
+	$(RM) err_out.txt out.txt diff_aout.txt diff_cout.txt cttables_out.txt diff_tout.txt diff_summary.txt \
+	      thermo.csv runGood runBad runBad_1 runBad_2 runInProgress.txt polarizationData.csv
+
+clean:
+	@MAKE@ test_clean
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)
+
