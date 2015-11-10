@@ -1479,19 +1479,23 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    // Even if temperature expansion is turned off (m1d::Domain1D::SolidMechEqn::TempEx | solidMechanicsProbType_) ==0
 	    // the temperature is still used to calculate aveTemp to calculate Youngs modulus for some materials. 
 
-	    double leftTempM = valTmps.Temperature.center*Electrode_Cell_[iCell-1]->SolidVol()*Electrode_Cell_[iCell-1]->SolidHeatCapacityCV();
-	    double rightTempM = valTmps.Temperature.center*Electrode_Cell_[iCell]->SolidVol()*Electrode_Cell_[iCell]->SolidHeatCapacityCV();
+	    double leftTempM = valTmps.Temperature.center*
+	      Electrode_Cell_[iCell-1]->SolidVol()*
+	      Electrode_Cell_[iCell-1]->SolidHeatCapacityCV();
+	    double rightTempM = valTmps.Temperature.center*
+	      Electrode_Cell_[iCell]->SolidVol()*
+	      Electrode_Cell_[iCell]->SolidHeatCapacityCV();
 	    // need to add the non-solid contribution. 	    
 	    double leftMass = Electrode_Cell_[iCell-1]->SolidVol();
 	    double rightMass = Electrode_Cell_[iCell]->SolidVol();
-	    if(iCell == 1) {
-	      leftTempM*=2;	    
-	      leftMass*=2;
-	    }
-	    if(iCell == NumLcCells-1 ) {
-	      rightTempM*=2;	    
-	      rightMass*=2;
-	    }
+	    // if(iCell == 1) {
+	    //   leftTempM*=2;	    
+	    //   leftMass*=2;
+	    // }
+	    // if(iCell == NumLcCells-1 ) {
+	    //   rightTempM*=2;	    
+	    //   rightMass*=2;
+	    // }
 	    // \todo need to add the electrolyte contribution to mass and temp
 	    double aveTempE = leftTempM+rightTempM;
 	    double aveMass     = leftMass+rightMass;
@@ -1513,8 +1517,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    // need to add the non-solid contribution. 	    // ????;
 	    double leftChemEx = Electrode_Cell_[iCell-1]->SolidVol();
 	    double rightChemEx = Electrode_Cell_[iCell]->SolidVol();
-	    if(iCell == 1) leftChemEx*=2;
-	    if(iCell == NumLcCells-1) rightChemEx*=2;
+	    // if(iCell == 1) leftChemEx*=2;
+	    // if(iCell == NumLcCells-1) rightChemEx*=2;
 
 	    double chemexpansion = leftChemEx+rightChemEx;  // checmexpansion is the new volume of cell, _not_ a ratio 
 	    // All on or Temperature expansion is turned on. {
@@ -1571,11 +1575,11 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  double matrix_pressure_left = - (left_matrix_stress- center_matrix_stress);
 	  double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
 	  double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
-	  if(iCell == 1) xratio[iCell-1] *= (1+ 0.5*matrix_LP_center/Eyoung);
+	  if(iCell == 1) xratio[iCell-1] *= (1.0+ 0.5*matrix_LP_center/Eyoung);
 	  if(iCell == NumLcCells-1)
-	    xratio[iCell] *= (1+ (0.5*matrix_LP_center/Eyoung));
+	    xratio[iCell] *= (1.0+ (0.5*matrix_LP_center/Eyoung));
 	  else
-	    xratio[iCell] *= (1+ (matrix_LP_center/Eyoung));
+	    xratio[iCell] *= (1.0+ (matrix_LP_center/Eyoung));
 	  avg_delta_matrix_pressure += matrix_pressure_left;
 	  } //  since we have the half control volumes at the right and left hand boundaries the divisor is NumLcCells-1
 	  avg_delta_matrix_pressure /= (NumLcCells-1);
