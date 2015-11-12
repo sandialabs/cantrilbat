@@ -1,0 +1,60 @@
+#
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = cu_Li_LiIon_electrons.xml
+#
+#
+!Debugging = true
+Bath Temperature = 300.
+Bath Pressure =  1 atm
+Output Units = KJoule
+Skip Transport = true
+#
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 20
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 50.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures =  273.15 
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+
+
+
+
+# the above were empty lines

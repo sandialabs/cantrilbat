@@ -1,0 +1,65 @@
+#
+#
+#
+Number of Cantera Files = 1
+Cantera File Name = Li_Liquid.xml
+#
+#
+!Debugging = true
+Bath Temperature = 300.
+Bath Pressure =  1 atm
+Output Units = KJoule
+#
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 20
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 50.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 300.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  Added Temperatures = 298.15 273.15 453.69 699.9 700.1
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+
+
+start block Bath Specification for Phase Li(L)
+   Bath Species ID = Li(L)
+   start block Bath Species Mole Fraction
+       Li(L) = 1.0
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase Li(L)
+
+
+# the above were empty lines

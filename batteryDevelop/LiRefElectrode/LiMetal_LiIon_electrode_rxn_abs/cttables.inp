@@ -1,0 +1,80 @@
+#
+#
+#
+Number of Cantera Files = 4
+Cantera File Name = Li_electrode.xml
+Cantera File Name = cu_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion_abs.xml
+Cantera File Name = Li_Metal.xml
+#
+#
+!Debugging = true
+Bath Temperature = 700.
+Bath Pressure =  1 atm
+!-----------------------------------------------------------------
+!  Add Chemical Potential Column = [ true ] [ false ]
+!
+!     (optional) (default = false )
+!  Add an extra column to thermodynamics tables containing
+!  the raw value of thermodynamics variables.
+!----------------------------------------------------------------
+Add Chemical Potential Column = true
+####################################################################
+# Output Units = [Kcal_cgs] , [KJoule]
+#
+####################################################################
+Output Units = KJoule
+
+
+START BLOCK Temperature Table Format
+  !-----------------------------------------------------------
+  ! Number of Points = [int]
+  !    (optional)
+  !    (default = 14)
+  !    Number of points in the temperature table
+  !----------------------------------------------------------
+  Number of Points = 8
+  !----------------------------------------------------------
+  ! Delta Temperature = [double]
+  !    (optional)
+  !    (default = 100.)
+  !    Delta temperature for the temperature values in the
+  !    table
+  !----------------------------------------------------------
+  Delta Temperature = 10.
+  !----------------------------------------------------------
+  ! Low Temperature = [double]
+  !    (optional)
+  !    (default = 300.)
+  !    Low temperature for the temperature table
+  !----------------------------------------------------------
+  Low Temperature = 290.
+  !----------------------------------------------------------
+  !
+  !  Added Temperatures = Variable length list of dbles
+  !
+  !----------------------------------------------------------
+  ! Added Temperatures = 723.
+  !---------------------------------------------------------
+END BLOCK Temperature Table Format
+
+
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Bath Species ID = ECDMC
+   start block Bath Species Mole Fraction
+       Li+ = 0.08
+       PF6- =  0.08
+       ECDMC = 0.84
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase ECDMC_LiPF6
+
+Start block Extra Global Reaction
+   Special Species = cu_electron_Li_LiIon
+   Start block Elementary Reaction Specification
+     Reaction Index = 0
+     Reaction multiplier = -1.0
+   End block Elementary Reaction Specification
+End block Extra Global Reaction
+
+# the above were empty lines

@@ -1,0 +1,53 @@
+ <?xml version="1.0"?>
+ <ctml>
+   <validate reactions="yes" species="yes"/>
+    
+   <!-- phase metal_Li_LiIon_electrons    -->
+   <phase dim="3" id="cu_Li_LiIon_electrons">
+       <!--      -->
+     <elementArray datasrc="elements.xml">
+          E 
+     </elementArray>
+     <speciesArray datasrc="#species_electrode"> 
+          cu_electron_Li_LiIon
+     </speciesArray>
+     <thermo model="StoichSubstance">
+     <density units="g/cm3"> 
+          1.0E-6 
+     </density>
+     </thermo>
+     <transport model="None"/>
+     <kinetics model="none"/>
+   </phase>
+           
+          
+   <!-- species definitions     -->
+   <speciesData id="species_electrode">
+        
+      <!-- species electron_Li_LiIon -->
+      <! --   temperature 250 K to 500 K K -->
+      <species name="cu_electron_Li_LiIon">
+       <atomArray> E:1.0  </atomArray>
+       <charge> -1 </charge>
+       <thermo>
+       <Shomate Pref="1 bar" Tmax="1500.0" Tmin="250.0">
+          <floatArray size="7">
+             0.0 ,
+             5.31393,
+             0.0,
+            0.0,
+            0.0,
+            -5.360205121624,
+            0.28162
+          </floatArray>
+        </Shomate>
+
+       </thermo>
+        <density units="g/cm3"> 1.0E-6 </density>
+      </species>
+                
+                
+    </speciesData>
+        
+  </ctml>
+        
