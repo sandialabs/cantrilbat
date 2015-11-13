@@ -11,7 +11,7 @@
 .SUFFIXES : .d
 
 # the name of the executable program to be created
-PROG_NAME = xmlElectrodeDiff
+PROGRAM = xmlElectrodeDiff
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
@@ -71,6 +71,8 @@ LCXX_END_LIBS = @LCXX_END_LIBS@
 # flags passed to the C++ compiler/linker for the linking step
 LCXX_FLAGS = @CXXFLAGS@
 
+all: $(PROGRAM) .depends
+
 # How to compile C++ source files to object files
 .cpp.o:
 	$(CXX) $(CXX_FLAGS) -c $< 
@@ -86,10 +88,6 @@ $(TOBJS): Makefile
 
 $(DEPENDS): Makefile
 
-# Program Name
-PROGRAM = $(PROG_NAME)$(EXE_EXT)
-
-all: $(PROGRAM) .depends
 
 rebaseline:
 
