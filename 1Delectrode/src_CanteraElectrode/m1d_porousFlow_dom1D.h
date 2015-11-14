@@ -128,7 +128,6 @@ public:
     virtual void SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
 
 
-
     //! Function updates the ThermoPhase object for the electrolyte given the solution vector
     /*!
      *  This function calculates the values at the cell center
@@ -204,12 +203,21 @@ public:
                       const double t, const double delta_t);
 
     //! Calculate the thermal conductivity of the porous matrix at the current cell.
-    virtual double
-    thermalCondCalc_PorMatrix();
+    virtual double thermalCondCalc_PorMatrix();
 
-    // -------------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------   DATA   ----------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------------------
+    //! Volume fraction of other components than the Electrode object and the electrolyte phase
+    /*!
+     *   Calculates the volume fraction at a given cell.
+     *
+     *   @param[in]       iCell       Cell number
+     *
+     *   @return                      Returns the volume fraction 
+     */
+    virtual double volumeFractionOther(size_t iCell);
+
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------   DATA   --------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
 
     //! Pointer to the BDD object that is most derived
     BDD_porousFlow* BDT_ptr_;
@@ -266,6 +274,19 @@ protected:
      *  Length is number of cells on the processor.
      */
     std::vector<double> Temp_Cell_old_;
+
+    //!  Number of extra condensed phases
+    size_t numExtraCondensedPhases_;
+
+    //!  Volume fraction of Extra Condensed phases in each phase.
+    /*!
+     *  
+     *
+     *   volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell_ + jPhase]
+     *    
+     */
+    std::vector<double> volumeFraction_Phases_Cell_;
+     
 
     //
     // --------------------- Cell Storage -------------------------------------------------------------------------------

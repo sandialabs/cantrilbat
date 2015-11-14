@@ -38,6 +38,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
+    numExtraCondensedPhases_(0),
+    volumeFraction_Phases_Cell_(0),
     cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
 #ifdef MECH_MODEL
@@ -68,6 +70,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
       porosity_Cell_(0),
       porosity_Cell_old_(0),
       Temp_Cell_old_(0),
+      numExtraCondensedPhases_(0),
+      volumeFraction_Phases_Cell_(0),
       cIndex_cc_(-1),
       temp_Curr_(TemperatureReference_),
 #ifdef MECH_MODEL
@@ -108,6 +112,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     porosity_Cell_            = r.porosity_Cell_;
     porosity_Cell_old_        = r.porosity_Cell_old_;
     Temp_Cell_old_            = r.Temp_Cell_old_;
+    numExtraCondensedPhases_  = r.numExtraCondensedPhases_;
+    volumeFraction_Phases_Cell_=r.volumeFraction_Phases_Cell_;
     cIndex_cc_                = r.cIndex_cc_;
     temp_Curr_                = r.temp_Curr_;
     pres_Curr_                = r.pres_Curr_;
@@ -173,6 +179,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
     Temp_Cell_old_.resize(NumLcCells, TemperatureReference_);
+    volumeFraction_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
 
     cellTmpsVect_Cell_.resize(NumLcCells);
 
@@ -764,34 +771,43 @@ void porousFlow_dom1D::calcMFElectrolyte_Thermo(const double* const mf, double* 
 	}
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathodic, double &voltOCV, double &current)
 {
     voltOCV=0.0;
     return 0.0;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Calculate the thermal conductivity of the porous matrix at the current cell.
 
- double
- porousFlow_dom1D::thermalCondCalc_PorMatrix()
- {
-     // Brief research
-     //   Thermal conductivity of polycrystalline graphite = 80 Watts m-1 K-1
-     //   Thermal conductivity of water = 0.58 Watts m-1 K-1
-     //   Thermal conductivity of paper = 0.05 Watts m-1 K-1
-     //   Thermal conductivity of ethylene glycol = 0.25 Watts m-1 K-1
-     //   Thermal conductivity of glass = 1.05 Watts m-1 K-1
-     //   Thermal conductivity of copper = 400. Watts m-1 K-1
-     //   Thermal conductivity of aluminum = 200. Watts m-1 K-1
-     //                        of olive oil = 0.16 Watts m-1 K-1
-     //                        of gravel = 0.7  .7  .7  .7  .7  .7  .7  Watts m-1 K-1
-     // temp value
-     //  Judging from above, we are not more that a factor of 2-3 off here. This may not be necessary to go into much
-     //  more detail.
-     //
-     return 0.5;
- }
-//=====================================================================================================================
+double
+porousFlow_dom1D::thermalCondCalc_PorMatrix()
+{
+    // Brief research
+    //   Thermal conductivity of polycrystalline graphite = 80 Watts m-1 K-1
+    //   Thermal conductivity of water = 0.58 Watts m-1 K-1
+    //   Thermal conductivity of paper = 0.05 Watts m-1 K-1
+    //   Thermal conductivity of ethylene glycol = 0.25 Watts m-1 K-1
+    //   Thermal conductivity of glass = 1.05 Watts m-1 K-1
+    //   Thermal conductivity of copper = 400. Watts m-1 K-1
+    //   Thermal conductivity of aluminum = 200. Watts m-1 K-1
+    //                        of olive oil = 0.16 Watts m-1 K-1
+    //                        of gravel = 0.7  .7  .7  .7  .7  .7  .7  Watts m-1 K-1
+    // temp value
+    //  Judging from above, we are not more that a factor of 2-3 off here. This may not be necessary to go into much
+    //  more detail.
+    //
+    return 0.5;
+}
+//==================================================================================================================================
+double porousFlow_dom1D::volumeFractionOther(size_t iCell)
+{
+    double vf = 0.0;
+    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+	vf += volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+    }
+    return vf;
+}
+//==================================================================================================================================
 } //namespace m1d
-//=====================================================================================================================
+//==================================================================================================================================
