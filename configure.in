@@ -824,13 +824,14 @@ dnl
 
 AC_OUTPUT(Makefile \
           batteryDevelop/Makefile \
-          batteryDevelop/MCMBAnode/Makefile
-          batteryDevelop/MCMBAnode/MCMB_Mao/Makefile
-          batteryDevelop/LiCoO2Cathode//Makefile
-          batteryDevelop/LiCoO2Cathode/LiCoO2_Enth/Makefile
-          batteryDevelop/LiRefElectrode/Makefile
-          batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn/Makefile
-          batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn_abs/Makefile
+          batteryDevelop/MCMBAnode/Makefile \
+          batteryDevelop/MCMBAnode/MCMB_Mao/Makefile \
+          batteryDevelop/LiCoO2Cathode//Makefile \
+          batteryDevelop/LiCoO2Cathode/LiCoO2_Enth/Makefile \
+          batteryDevelop/LiRefElectrode/Makefile \
+          batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn/Makefile \
+          batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn_abs/Makefile \
+          batterySampleRuns/Mao_Paper/Makefile \
           ctpadds/Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \
