@@ -210,8 +210,8 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child2(BEInput::BlockEntr
       int numT = be_cand->get_NumTimesProcessed(); 
       if (numT > 0) {
           be = *cc_ptr;
+          // be_cand->print_usage(0);
       }
-      be_cand->print_usage(0);
     }
 
     const BEInput::BE_MultiBlockNested* be_rdr = dynamic_cast<const BE_MultiBlockNested*>(be);

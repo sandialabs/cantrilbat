@@ -1498,7 +1498,9 @@ std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN* cons
             for (int i = 0; i < numSubBlocks; i++) {
                 BlockEntry* sbi = SubBlocks[i];
                 cc_sub = sbi->collectBlockEntries(nameBN, true, contribIndex, blockArgName);
-                cc.insert(cc_sub.begin(), cc_sub.end());
+                if (cc_sub.size() > 0) {
+                    cc.insert(cc_sub.begin(), cc_sub.end());
+                }
             }
         }
     }
