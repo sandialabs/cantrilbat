@@ -884,6 +884,12 @@ void Electrode::setCapacityCoeff_MCMB() const
                 found = true;
             }
 
+	    if (sss == "Li(S)") {
+                capacityLeftSpeciesCoeff_[iGlobSpeciesIndex]    = 0.0;
+                capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = 0.0;
+                found = true;
+            }
+
             if (!found) {
                 printf(":setCapacityCoeff_MCMB(): unknown species: %s  in phase  %s Setting Capacity to zero\n",
                        sss.c_str(), pname.c_str());
