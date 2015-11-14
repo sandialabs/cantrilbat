@@ -150,15 +150,20 @@ porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
    */
 
   int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
-  ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
-  StoichSubstance* inert = dynamic_cast<Cantera::StoichSubstance *>( tmpPhase );
+  ThermoPhase* solidSkeleton = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+
+  BDD_porousFlow *bpf =  dynamic_cast<BDD_porousFlow *>(&BDD_);
+  ThermoPhase* bb = bpf->solidSkeleton_;
+  AssertTrace(bb == solidSkeleton);
+
+  AssertTrace(bb == solidSkeleton_);
 
   double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
-  double volumeInert = PSCinput_ptr->separatorMass_ / inert->density() ;
+  double volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton->density() ;
   double porosity = 1.0 - volumeInert / volumeSeparator;
 
   std::cout << "Separator volume is " << volumeSeparator << " m^3 with "
-            << volumeInert << " m^3 inert and porosity " << porosity <<  std::endl;
+            << volumeInert << " m^3 solidSkeleton and porosity " << porosity <<  std::endl;
 
   for (int i = 0; i < NumLcCells; i++) {
     porosity_Cell_[i] = porosity;

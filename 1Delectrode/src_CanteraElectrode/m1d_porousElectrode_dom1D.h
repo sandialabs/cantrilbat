@@ -2,10 +2,6 @@
  * @file m1d_porousElectrode_dom1D.h
  */
 
-/*
- *   $Id: m1d_porousElectrode_dom1D.h 564 2013-03-08 23:35:51Z hkmoffa $
- */
-
 #ifndef M1D_POROUSELECTRODE_DOM1D_H_
 #define M1D_POROUSELECTRODE_DOM1D_H_
 
@@ -25,7 +21,7 @@ namespace m1d
 class LocalNodeIndices;
 class BDD_porousElectrode;
 
-//======================================================================================================================
+//=================================================================================================================================
 //! This is derived class  provides the function
 //! evaluation for a porous electrode.
 /*!

@@ -40,6 +40,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     Temp_Cell_old_(0),
     numExtraCondensedPhases_(0),
     volumeFraction_Phases_Cell_(0),
+    volumeFraction_Phases_Cell_old_(0),
+    moleNumber_Phases_Cell_(0),
+    moleNumber_Phases_Cell_old_(0),
     cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
 #ifdef MECH_MODEL
@@ -64,40 +67,43 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     solidMechanicsProbType_ = PSinput.Solid_Mechanics_prob_type_;
 }
 //=====================================================================================================================
-  porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
-      BulkDomain1D(r.BDD_),
-      BDT_ptr_(0),
-      porosity_Cell_(0),
-      porosity_Cell_old_(0),
-      Temp_Cell_old_(0),
-      numExtraCondensedPhases_(0),
-      volumeFraction_Phases_Cell_(0),
-      cIndex_cc_(-1),
-      temp_Curr_(TemperatureReference_),
+porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
+    BulkDomain1D(r.BDD_),
+    BDT_ptr_(0),
+    porosity_Cell_(0),
+    porosity_Cell_old_(0),
+    Temp_Cell_old_(0),
+    numExtraCondensedPhases_(0),
+    volumeFraction_Phases_Cell_(0),
+    volumeFraction_Phases_Cell_old_(0),
+    moleNumber_Phases_Cell_(0),
+    moleNumber_Phases_Cell_old_(0),
+    cIndex_cc_(-1),
+    temp_Curr_(TemperatureReference_),
 #ifdef MECH_MODEL
-      mm_stress_Curr_(SolidStressAxialRef_),
+    mm_stress_Curr_(SolidStressAxialRef_),
 #endif
-      pres_Curr_(PressureReference_),
-      concTot_Curr_(0.0),
-      phiElectrolyte_Curr_(0.0),
-      porosity_Curr_(0.0),
-      thermalCond_Curr_(0.0),
-      heatFlux_Curr_(0.0),
-      jFlux_EnthalpyPhi_Curr_(0.0),
-      EnthalpyMolar_lyte_Curr_(0.0),
-      ivb_(VB_MOLEAVG)
-  {
-      BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
-      porousFlow_dom1D::operator=(r);
-  }
+    pres_Curr_(PressureReference_),
+    concTot_Curr_(0.0),
+    phiElectrolyte_Curr_(0.0),
+    porosity_Curr_(0.0),
+    thermalCond_Curr_(0.0),
+    heatFlux_Curr_(0.0),
+    jFlux_EnthalpyPhi_Curr_(0.0),
+    EnthalpyMolar_lyte_Curr_(0.0),
+    ivb_(VB_MOLEAVG)
+{
+    BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
+    porousFlow_dom1D::operator=(r);
+}
 //=====================================================================================================================
-  porousFlow_dom1D::~porousFlow_dom1D()
-  {
-  }
-  //=====================================================================================================================
-  porousFlow_dom1D &
-  porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
-  {
+porousFlow_dom1D::~porousFlow_dom1D()
+{
+}
+//=====================================================================================================================
+porousFlow_dom1D &
+porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
+{
     if (this == &r) {
       return *this;
     }
@@ -114,6 +120,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     Temp_Cell_old_            = r.Temp_Cell_old_;
     numExtraCondensedPhases_  = r.numExtraCondensedPhases_;
     volumeFraction_Phases_Cell_=r.volumeFraction_Phases_Cell_;
+    volumeFraction_Phases_Cell_old_=r.volumeFraction_Phases_Cell_old_;
+    moleNumber_Phases_Cell_   =r.moleNumber_Phases_Cell_;
+    moleNumber_Phases_Cell_old_=r.moleNumber_Phases_Cell_old_;
     cIndex_cc_                = r.cIndex_cc_;
     temp_Curr_                = r.temp_Curr_;
     pres_Curr_                = r.pres_Curr_;
@@ -152,8 +161,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     solidSkeleton_             = r.solidSkeleton_;
 
     return *this;
-  }
-  //=====================================================================================================================
+}
+//=====================================================================================================================
   // Prepare all of the indices for fast calculation of the residual
   /*
    *  Ok, at this point, we will have figured out the number of equations
@@ -166,9 +175,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
    *  Child objects of this one will normally call this routine in a
    *  recursive fashion.
    */
-  void
-  porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
-  {
+void
+porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
+{
     /*
      * First call the parent domain prep to get the node information
      */
@@ -176,10 +185,21 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 
     double porosity = -1.0;
 
+    //
+    // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
+    // We'll keep the mole number and volume fraction in the extra phases lists.
+    //
+    if (solidSkeleton_) {
+        numExtraCondensedPhases_++;
+    }
+
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
     Temp_Cell_old_.resize(NumLcCells, TemperatureReference_);
     volumeFraction_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
+    volumeFraction_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
+    moleNumber_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
+    moleNumber_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
 
     cellTmpsVect_Cell_.resize(NumLcCells);
 
@@ -212,8 +232,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 	EnthalpyPM_lyte_Cell_.resize(NumLcCells * nsp, 0.0);
 	EnthalpyMolar_lyte_Cell_.resize(NumLcCells, 0.0);
     }
-  }
-//=====================================================================================================================
+}
+//==================================================================================================================================
 double porousFlow_dom1D::heatSourceLastStep() const
 {
     double q = 0.0;
@@ -543,7 +563,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         //
 	//   getMFElectrolyte_soln(nodeCent, solnCentStart);
         //
-       //
+        //
         // update porosity as computed from electrode input
         //
 	//  porosity_Cell_[iCell] = porosity;
@@ -647,8 +667,7 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     }
 
 }
-
-//=====================================================================================================================
+//=================================================================================================================================
 //  Setup shop at a particular point in the domain, calculating intermediate quantites
 //  and updating Cantera's objects
 /*
@@ -663,7 +682,7 @@ porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* 
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, soln_Curr);
 }
-//=====================================================================================================================
+//=================================================================================================================================
 void
 porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {

@@ -255,6 +255,7 @@ public:
     //
     // ------------------- Porosity of the Domain -----------------------------------------------------------------------
     //
+
 protected:
     //! Volume Fraction of the electrolyte within each control volume
     /*!
@@ -276,17 +277,45 @@ protected:
     std::vector<double> Temp_Cell_old_;
 
     //!  Number of extra condensed phases
+    /*!
+     *   The first phase refers to the ThermoPhase solidSkeleton. Other phases are problem dependent.
+     *   For electrode phases, the solidSkeleton phase is normally the binder.
+     */
     size_t numExtraCondensedPhases_;
 
     //!  Volume fraction of Extra Condensed phases in each phase.
     /*!
-     *  
+     *  The first phase refers to the ThermoPhase solidSkeleton. Other phases are problem dependent.
      *
-     *   volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell_ + jPhase]
-     *    
+     *      volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell_ + jPhase]
      */
     std::vector<double> volumeFraction_Phases_Cell_;
-     
+
+    //!  Volume fraction of Extra Condensed phases in each phase at the last time step
+    /*!
+     *  The first phase refers to the ThermoPhase solidSkeleton. Other phases are problem dependent.
+     *
+     *      volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell_ + jPhase]
+     */
+    std::vector<double> volumeFraction_Phases_Cell_old_;
+
+    //!  Mole number of each extra phase (kmol / m2)
+    /*!
+     *  This is a per cross-sectional area quantity. 
+     *  The first phase refers to the ThermoPhase solidSkeleton. Other phases are problem dependent.
+     *
+     *      moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell_ + jPhase]
+     */
+    std::vector<double> moleNumber_Phases_Cell_;
+
+    //!  Mole number of each extra phase at the old time step (kmol / m2)
+    /*!
+     *  This is a per cross-sectional area quantity. 
+     *  The first phase refers to the ThermoPhase solidSkeleton. Other phases are problem dependent.
+     *
+     *      moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell_ + jPhase]
+     */
+    std::vector<double> moleNumber_Phases_Cell_old_;
 
     //
     // --------------------- Cell Storage -------------------------------------------------------------------------------
@@ -295,7 +324,6 @@ protected:
 
     //! Cell index number
     int cIndex_cc_;
-
 
     //
     // ------------------- Locally derived quantities that are valid at the point of current interest --------------------

@@ -257,10 +257,24 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     nSpeciesElectrode_ = ee->nSpecies();
     nSurfsElectrode_ = ee->nSurfaces();
 
-    for (int i = 0; i < NumLcCells; i++) {
-        porosity_Cell_[i] = 0.5;
-        porosity_Cell_old_[i] = 0.5;
+    //
+    //  Placeholder for adding info about the solidSkeleton mole numbers in each cell
+    //
+    if (solidSkeleton_) {
     }
+
+    //
+    //  Put a number into the porosity_Cell_ It will be overwritten in the initialization
+    //
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+        porosity_Cell_[iCell] = 0.5;
+        porosity_Cell_old_[iCell] = 0.5;
+        moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 0.0;
+	moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 0.0;
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 0.0;
+	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 0.0;
+    }
+
     /*
      * Porous electrode domain prep
      */

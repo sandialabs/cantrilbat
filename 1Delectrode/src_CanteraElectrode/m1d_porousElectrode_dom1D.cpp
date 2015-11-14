@@ -2,9 +2,6 @@
  * @file m1d_porousElectrode_dom1D.cpp
  */
 
-/*
- *   $Id: m1d_porousElectrode_dom1D.cpp 564 2013-03-08 23:35:51Z hkmoffa $
- */
 
 #include "m1d_porousElectrode_dom1D.h"
 

@@ -189,17 +189,22 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
 
     //need to convert inputs from cgs to SI
-    double volumeSeparator =
-        PSinput.separatorArea_ * PSinput.separatorThickness_;
-    double volumeInert = PSinput.separatorMass_ / solidSkeleton_->density() ;
+    double volumeSeparator = PSinput.separatorArea_ * PSinput.separatorThickness_;
+    double volumeInert = PSinput.separatorMass_ / solidSkeleton_->density();
     double porosity = 1.0 - volumeInert / volumeSeparator;
 
     std::cout << "Separator volume is " << volumeSeparator << " m^3 with "
               << volumeInert << " m^3 inert and porosity " << porosity <<  std::endl;
 
-    for (int i = 0; i < NumLcCells; i++) {
-        porosity_Cell_[i] = porosity;
-        porosity_Cell_old_[i] = porosity;
+    double moleNum = volumeInert * solidSkeleton_->molarDensity();
+
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+        porosity_Cell_[iCell] = porosity;
+        porosity_Cell_old_[iCell] = porosity;
+        moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = moleNum;
+	moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = moleNum;
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 1.0 - porosity;
+	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 1.0 - porosity;
     }
 
     /*
@@ -2005,9 +2010,11 @@ void
 porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {
     updateElectrolyte(nv, solnElectrolyte_Curr);
-    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-
+  
     solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
+
+    porosity_Curr_ = porosity_Cell_[cIndex_cc_];
+    
 }
 //==================================================================================================================================
 void
