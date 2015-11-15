@@ -24,14 +24,26 @@ using namespace Cantera;
 
 namespace m1d
 {
-//=====================================================================================================================
+//==================================================================================================================================
 //!  Global storage for this global pointer
 /*!
  *   This pointer needs to be properly taken care of in the calling program
  */
 ProblemStatementCell* PSCinput_ptr = 0;
 
-//=====================================================================================================================
+//==================================================================================================================================
+ExtraPhase::ExtraPhase() :
+    phaseName(""),
+    canteraFileName(""),
+    regions("all"),
+    volFraction(0.0)
+{    
+    for (size_t i = 0; i < 10; ++i) {
+        bregionID[i] = npos;
+        sregionID[i] = npos;
+    }
+}
+//==================================================================================================================================
 ProblemStatementCell::ProblemStatementCell() :
   ProblemStatement(), 
   NumberCanteraFiles(0), CanteraFileNames(0),
@@ -70,40 +82,49 @@ ProblemStatementCell::ProblemStatementCell() :
   cathodeTempRef_(298.15),
   cathodeHeatTranCoeff_(1000.),
   Pressure_formulation_prob_type_(0),
-  artificialCompressibilityInvAtm_(0.0)
+  artificialCompressibilityInvAtm_(0.0),
+  numExtraPhases_(0),
+  ExtraPhaseList_(0)
 {
-  PhaseList_ = new Cantera::PhaseList();
+    PhaseList_ = new Cantera::PhaseList();
+
+    struct ExtraPhase* ep = new ExtraPhase();
+    ExtraPhaseList_.push_back(ep); 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 ProblemStatementCell::~ProblemStatementCell()
 {
-  if (CanteraFileNames) {
-    for (int i = 0; CanteraFileNames[i] != 0; i++) {
-      mdpUtil::mdp_safe_free((void **) &(CanteraFileNames[i]));
+    if (CanteraFileNames) {
+        for (int i = 0; CanteraFileNames[i] != 0; i++) {
+            mdpUtil::mdp_safe_free((void **) &(CanteraFileNames[i]));
+        }
+        mdpUtil::mdp_safe_free((void **) &(CanteraFileNames));
     }
-    mdpUtil::mdp_safe_free((void **) &(CanteraFileNames));
-  }
 
-  if (PhaseList_){
-    delete PhaseList_;
-    PhaseList_ = 0;
-  }
+    if (PhaseList_){
+        delete PhaseList_;
+        PhaseList_ = 0;
+    }
 
-  if (anode_input_) {
-    delete anode_input_;
-    anode_input_ = 0;
-  }
+    if (anode_input_) {
+        delete anode_input_;
+        anode_input_ = 0;
+    }
 
-  if (cathode_input_) {
-    delete cathode_input_;
-    cathode_input_ = 0;
-  }
-  if (BC_TimeDep_) {
-    delete BC_TimeDep_;
-    BC_TimeDep_ = 0;
-  }
+    if (cathode_input_) {
+        delete cathode_input_;
+        cathode_input_ = 0;
+    }
+    if (BC_TimeDep_) {
+        delete BC_TimeDep_;
+        BC_TimeDep_ = 0;
+    }
+
+    for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
+        delete ExtraPhaseList_[i];
+    }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
 {
@@ -169,114 +190,153 @@ ProblemStatementCell::setup_input_pass1(BlockEntry *cf)
   cf->addLineEntry(lepkp);
 
 }
-//=====================================================================================================================
+//===================================================================================================================================
 void
 ProblemStatementCell::setup_input_pass2(BlockEntry *cf)
 {
-  ProblemStatement::setup_input_pass2(cf);
+    ProblemStatement::setup_input_pass2(cf);
 
-  LineEntry *sle1 = 0;
-  /*
-   *  Get the input deck for
-   *  Cantera description of the model.
-   */
-  LE_MultiCStr *s1 = new LE_MultiCStr("Cantera File Name",
-				      &CanteraFileNames, 1, 1, 0,
-				      "CanteraFileNames");
-  s1->set_default("gas.cti");
-  /*
-   * Set up a dependency on the input from the Number of cantera
-   * Files card
-   */
-  sle1 = cf->searchLineEntry("Number of Cantera Files");
-  int numF = 1;
-  bool okbefore = sle1->ansDepCheckOneInt(numF);
-  if (okbefore) {
-    // printf("Found it before\n");
-    s1->set_NumTimesRequired(numF);
-  } else {
-    printf("Num Lines not in input deck -> no dependency\n");
-    // Note -> this is not right -> should be one or more dependencies.
-  }
-  cf->addLineEntry(s1);
+    LineEntry *sle1 = 0;
+    /*
+     *  Get the input deck for
+     *  Cantera description of the model.
+     */
+    LE_MultiCStr *s1 = new LE_MultiCStr("Cantera File Name", &CanteraFileNames, 1, 1, 0, "CanteraFileNames");
+    s1->set_default("gas.cti");
+    /*
+     * Set up a dependency on the input from the Number of cantera
+     * Files card
+     */
+    sle1 = cf->searchLineEntry("Number of Cantera Files");
+    int numF = 1;
+    bool okbefore = sle1->ansDepCheckOneInt(numF);
+    if (okbefore) {
+	// printf("Found it before\n");
+	s1->set_NumTimesRequired(numF);
+    } else {
+	printf("Num Lines not in input deck -> no dependency\n");
+	// Note -> this is not right -> should be one or more dependencies.
+    }
+    cf->addLineEntry(s1);
 
-  /* ------------------------------------------------------------------------
-   *  Option to specify if you want to use the root finder for constant current applications
-   *        0  - no
-   *        1  - yes
-   *        2  - Yes, but only when in trouble (under construction)
-   */
-  int reqd = 0;
-  LE_OneInt *iRoot = new LE_OneInt("Root Finder for Constant Current", &(rootFinderForConstantCurrent_), reqd,
-                                   "rootFinderForConstantCurrent");
-  iRoot->set_default(0);
-  iRoot->set_limits(2, 0);
-  cf->addLineEntry(iRoot);
+    /* ------------------------------------------------------------------------
+     *  Option to specify if you want to use the root finder for constant current applications
+     *        0  - no
+     *        1  - yes
+     *        2  - Yes, but only when in trouble (under construction)
+     */
+    int reqd = 0;
+    LE_OneInt *iRoot = new LE_OneInt("Root Finder for Constant Current", &(rootFinderForConstantCurrent_), reqd,
+				     "rootFinderForConstantCurrent");
+    iRoot->set_default(0);
+    iRoot->set_limits(2, 0);
+    cf->addLineEntry(iRoot);
 
-  /* -------------------------------------------------------------------------
-   *
-   * Anode Temp BC Type - int (not required)
-   *    -1 - not set
-   *     0 - Specify a fixed temperature at the anode
-   *     1 - Specify a fixed heat flux through the battery
-   *     2 - Time dependent temp at the anode
-   *    10 - Specify heat transfer coeff temperature bc.
-   */
-  reqd = 0;
-  LE_OneInt *at = new LE_OneInt("Anode TemperatureBC Type", &(anodeTempBCType_), reqd, "anodeTemp_bc_type");
-  at->set_default(-1);
-  at->set_limits(10, 0);
-  cf->addLineEntry(at);
+    /* -------------------------------------------------------------------------
+     *
+     * Anode Temp BC Type - int (not required)
+     *    -1 - not set
+     *     0 - Specify a fixed temperature at the anode
+     *     1 - Specify a fixed heat flux through the battery
+     *     2 - Time dependent temp at the anode
+     *    10 - Specify heat transfer coeff temperature bc.
+     */
+    reqd = 0;
+    LE_OneInt *at = new LE_OneInt("Anode TemperatureBC Type", &(anodeTempBCType_), reqd, "anodeTemp_bc_type");
+    at->set_default(-1);
+    at->set_limits(10, 0);
+    cf->addLineEntry(at);
 
-  /* -------------------------------------------------------------------------
-   *  Anode Collector Temperature
-   */
-  reqd = 0;
-  LE_OneDbl *datemp = new LE_OneDbl("Anode Collector Temperature", &(anodeTempRef_), reqd, "anodeTempCollector");
-  datemp->set_default(298.15);
-  cf->addLineEntry(datemp);
+    /* -------------------------------------------------------------------------
+     *  Anode Collector Temperature
+     */
+    reqd = 0;
+    LE_OneDbl *datemp = new LE_OneDbl("Anode Collector Temperature", &(anodeTempRef_), reqd, "anodeTempCollector");
+    datemp->set_default(298.15);
+    cf->addLineEntry(datemp);
 
-  /* -------------------------------------------------------------------------
-   *  Anode Heat Transfer Coeff
-   */
-  reqd = 0;
-  LE_OneDbl *dacoeff = new LE_OneDbl("Anode Heat Transfer Coefficient", &(anodeHeatTranCoeff_), reqd, "anodeHeatTranCoeff");
-  dacoeff->set_default(1000.);
-  cf->addLineEntry(dacoeff);
+    /* -------------------------------------------------------------------------
+     *  Anode Heat Transfer Coeff
+     */
+    reqd = 0;
+    LE_OneDbl *dacoeff = new LE_OneDbl("Anode Heat Transfer Coefficient", &(anodeHeatTranCoeff_), reqd, "anodeHeatTranCoeff");
+    dacoeff->set_default(1000.);
+    cf->addLineEntry(dacoeff);
 
-  /* -------------------------------------------------------------------------
-   *
-   * Cathode Temp BC Type - int (not required)
-   *    -1 - not set
-   *     0 - Specify a fixed temperature at the anode
-   *     1 - Specify a fixed heat flux through the battery
-   *     2 - Time dependent temp at the cathode
-   *    10 - Specify heat transfer coeff temperature bc.
-   */
-  reqd = 0;
-  LE_OneInt *ct = new LE_OneInt("Cathode TemperatureBC Type", &(cathodeTempBCType_), reqd, "cathodeTemp_bc_type");
-  ct->set_default(-1);
-  ct->set_limits(10, 0);
-  cf->addLineEntry(ct);
+    /* -------------------------------------------------------------------------
+     *
+     * Cathode Temp BC Type - int (not required)
+     *    -1 - not set
+     *     0 - Specify a fixed temperature at the anode
+     *     1 - Specify a fixed heat flux through the battery
+     *     2 - Time dependent temp at the cathode
+     *    10 - Specify heat transfer coeff temperature bc.
+     */
+    reqd = 0;
+    LE_OneInt *ct = new LE_OneInt("Cathode TemperatureBC Type", &(cathodeTempBCType_), reqd, "cathodeTemp_bc_type");
+    ct->set_default(-1);
+    ct->set_limits(10, 0);
+    cf->addLineEntry(ct);
 
-  /* -------------------------------------------------------------------------
-   *  Cathode Collector Temperature
-   */
-  reqd = 0;
-  LE_OneDbl *dctemp = new LE_OneDbl("Cathode Collector Temperature", &(cathodeTempRef_), reqd, "cathodeTempCollector");
-  dctemp->set_default(298.15);
-  cf->addLineEntry(dctemp);
+    /* -------------------------------------------------------------------------
+     *  Cathode Collector Temperature
+     */
+    reqd = 0;
+    LE_OneDbl *dctemp = new LE_OneDbl("Cathode Collector Temperature", &(cathodeTempRef_), reqd, "cathodeTempCollector");
+    dctemp->set_default(298.15);
+    cf->addLineEntry(dctemp);
 
-  /* -------------------------------------------------------------------------
-   *  Cathode Heat Transfer Coeff
-   */
-  reqd = 0;
-  LE_OneDbl *dccoeff = new LE_OneDbl("Cathode Heat Transfer Coefficient", &(cathodeHeatTranCoeff_), reqd, "cathodeHeatTranCoeff_");
-  dccoeff->set_default(1000.);
-  cf->addLineEntry(dccoeff);
+    /* -------------------------------------------------------------------------
+     *  Cathode Heat Transfer Coeff
+     */
+    reqd = 0;
+    LE_OneDbl *dccoeff = new LE_OneDbl("Cathode Heat Transfer Coefficient", &(cathodeHeatTranCoeff_), reqd, "cathodeHeatTranCoeff_");
+    dccoeff->set_default(1000.);
+    cf->addLineEntry(dccoeff);
+
+    /* ------------------------------------------------------------------------------------------------------------
+     *  Extra Phase
+     */
+    int numPhasesRequired = 0;
+    BE_MultiBlockNested* be_exPh = new BE_MultiBlockNested("Extra Phase", &numExtraPhases_, numPhasesRequired, cf);
+    cf->addSubBlock(be_exPh);
+    ExtraPhase* ep_ptr = ExtraPhaseList_[0];
+    /* ------------------------------------------------------------------------------------------------------------
+     * Extra Phases: Phase Name
+     *          name of the phases
+     */
+    LE_OneStr* ppn = new LE_OneStr("Phase Name", &(ep_ptr->phaseName), 10, 1, 1, "epPhaseName");
+    be_exPh->addLineEntry(ppn);
+
+    /* ------------------------------------------------------------------------------------------------------------
+     * Extra Phases: Phase Name
+     *          name of the phases
+     */
+    LE_OneStr* pcfn = new LE_OneStr("Cantera File Name ", &(ep_ptr->canteraFileName), 10, 1, 1, "epCanteraFileName");
+    be_exPh->addLineEntry(pcfn);
+
+    /* ------------------------------------------------------------------------------------------------------------
+     * Extra Phases: Regions
+     *          name of the regions
+     *             anode, cathode, separator, all
+     *             default = "all"
+     */
+    LE_OneStr* pcreg = new LE_OneStr("Region", &(ep_ptr->regions), 10, 1, 1, "epCanteraFileName");
+    pcreg->set_default("all");
+    be_exPh->addLineEntry(pcreg);
+
+    /* ------------------------------------------------------------------------------------------------------------
+     * Extra Phases: Regions
+     *          name of the regions
+     *             anode, cathode, separator, all
+     *             default = "all"
+     */
+    LE_OneDbl* pvf = new LE_OneDbl("Volume Fraction", &(ep_ptr->volFraction), 1, "epVolumeFraction");
+    pvf->set_default(0.0);
+    be_exPh->addLineEntry(pvf);
 
 }
-//=====================================================================================================================
+//===================================================================================================================================
 void
 ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
 {
@@ -581,95 +641,171 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
 
   BaseEntry::set_SkipUnknownEntries(0);
 }
-//=====================================================================================================================
+//===================================================================================================================================
 /**
  * Do any post processing required.
  * This might include unit conversions, opening files, etc.
  */
 void
-ProblemStatementCell::post_process_input()
+ProblemStatementCell::post_process_input(BEInput::BlockEntry *cf)
 {
-  /*
-   * Setup Dakota interface if required
-   * This parses the file fromDakotaFileName_
-   * and then looks for variable names in that which
-   * match the member data in this class.
-   * Note that you need to go in and manually align variable
-   * names in fromDakotaFileName_ with the
-   *    if ( di.hasParam("variableName" )
-   * statements below.
-   */
+    /*
+     * Setup Dakota interface if required
+     * This parses the file fromDakotaFileName_
+     * and then looks for variable names in that which
+     * match the member data in this class.
+     * Note that you need to go in and manually align variable
+     * names in fromDakotaFileName_ with the
+     *    if ( di.hasParam("variableName" )
+     * statements below.
+     */
 #ifdef USE_DAKOTA
-  if ( useDakota_ ) {
-    DakotaInterface di( fromDakotaFileName_, toDakotaFileName_ );
+    if ( useDakota_ ) {
+	DakotaInterface di( fromDakotaFileName_, toDakotaFileName_ );
 
-    if ( di.hasParam( "temperature" ) ) {
-      TemperatureReference_ = di.value( "temperature" );
+	if ( di.hasParam( "temperature" ) ) {
+	    TemperatureReference_ = di.value( "temperature" );
+	}
+	if ( di.hasParam( "current" ) ) {
+	    icurrDischargeSpecified_ = di.value( "current" );
+	}
+	if ( di.hasParam( "separatorThickness" ) ) {
+	    separatorThickness_ = di.value( "separatorThickness" );
+	}
     }
-    if ( di.hasParam( "current" ) ) {
-      icurrDischargeSpecified_ = di.value( "current" );
-    }
-    if ( di.hasParam( "separatorThickness" ) ) {
-      separatorThickness_ = di.value( "separatorThickness" );
-    }
-  }
 #endif
-  /*
-   * Conversions to SI units
-   * NOT NEEDED now that we use unit converters above
-   */
-  /*
-  separatorMass_ *= 1e-3;          // [g] to [kg]
-  separatorThickness_ *= 1e-2;     // [cm] to [m]
-  separatorArea_ *= 1e-4;          // [cm^2] to [m^2]
-  icurrDischargeSpecified_ *= 1e4; // [A/cm^2] to [A/m^2]
-  */
+    /*
+     * Conversions to SI units
+     * NOT NEEDED now that we use unit converters above
+     */
+    /*
+      separatorMass_ *= 1e-3;          // [g] to [kg]
+      separatorThickness_ *= 1e-2;     // [cm] to [m]
+      separatorArea_ *= 1e-4;          // [cm^2] to [m^2]
+      icurrDischargeSpecified_ *= 1e4; // [A/cm^2] to [A/m^2]
+    */
 
  
 
-  // Next check to see if we have area or diameter for each layer
-  if (!(separatorArea_ > 0.0)) {
-      std::cout << "Warning::ProblemStatementCell() : separator area or diameter not specified" << std::endl;
-  } 
+    // Next check to see if we have area or diameter for each layer
+    if (!(separatorArea_ > 0.0)) {
+	std::cout << "Warning::ProblemStatementCell() : separator area or diameter not specified" << std::endl;
+    } 
 
-  if (anodeCCThickness_ > 0.0) {
-     if (anodeBCType_ == 0) {
-         anodeBCType_ = 10;
-     }
-  }
+    if (anodeCCThickness_ > 0.0) {
+	if (anodeBCType_ == 0) {
+	    anodeBCType_ = 10;
+	}
+    }
 
-  if (cathodeCCThickness_ > 0.0 ||  extraCathodeResistance_ > 0.0) {
-     if (cathodeBCType_ == 0) {
-         cathodeBCType_ = 10;
-     }
-  }
+    if (cathodeCCThickness_ > 0.0 ||  extraCathodeResistance_ > 0.0) {
+	if (cathodeBCType_ == 0) {
+	    cathodeBCType_ = 10;
+	}
+    }
 
-  /**
-   * If we are using time dependent boundary conditions,
-   * read in appropriate XML files and generate BoundaryConditions.
-   * Note that an alternate means of generating these objects is with an XML node
-   */
-  if (cathodeBCType_ == 6 || cathodeBCType_ == 7 ) {
-      BC_TimeDep_ = new BCsteptable( cathodeBCFile_ );
-  }
-  if ( cathodeBCType_ == 8 || cathodeBCType_ == 9 ) {
-    BC_TimeDep_ = new BClineartable( cathodeBCFile_ );
-  }
+    /*
+     *  Search for the radial diffusion region block in the block entries
+     */
+    const BEInput::BlockEntry* be = cf->searchBlockEntry("Extra Phase", false);
   
-  if ( cathodeBCType_ == 4 ) {
-    BC_TimeDep_ = new BCconstant( CathodeVoltageSpecified_, 
-				  "Cathode Voltage", "s", "V" ) ;
-    BC_TimeDep_->setLowerLimit( startTime_ );
-    BC_TimeDep_->setUpperLimit( endTime_ );
-  }
-  if ( cathodeBCType_ == 5 ) {
-    BC_TimeDep_ = new BCconstant( icurrDischargeSpecified_, 
-				  "Cathode Current", "s", "Amp/m2" ) ;
-    BC_TimeDep_->setLowerLimit( startTime_ );
-    BC_TimeDep_->setUpperLimit( endTime_ );
-  }
+    const BEInput::BlockEntry* be_cand;
+    /*
+     *  Collect a set of block entries for the Extra Phase
+     */
+    std::set<const BlockEntry*> cc = cf->collectBlockEntries("Extra Phase", false);
+
+    std::set<const BlockEntry*>::iterator cc_ptr;
+
+    ExtraPhaseList_.resize(numExtraPhases_);
+  
+    for (size_t k = 0; k < (size_t) numExtraPhases_; ++k) {
+	if (!ExtraPhaseList_[k]) {
+	    ExtraPhaseList_[k] = new ExtraPhase();
+	}
+	ExtraPhase* ep = ExtraPhaseList_[k];
+	bool found = false;
+	for (cc_ptr = cc.begin(); cc_ptr != cc.end(); cc_ptr++) {
+	    be_cand = *cc_ptr;
+	    int numT = be_cand->get_NumTimesProcessed();
+	    if (numT > 0) {
+		be = *cc_ptr;
+		int ii = be->multiContribIndex();
+		if ((int) k == ii) {
+		    found = true;
+		    BEInput::LineEntry *le = be->searchLineEntry("Phase Name");
+		    BEInput::LE_OneStr* le_str = dynamic_cast<LE_OneStr*>(le);
+		    ep->phaseName = le_str->currentTypedValue();
+
+		    le = be->searchLineEntry("Cantera File Name");
+		    le_str = dynamic_cast<LE_OneStr*>(le);
+		    ep->canteraFileName = le_str->currentTypedValue();
+
+		    le = be->searchLineEntry("Region");
+		    le_str = dynamic_cast<LE_OneStr*>(le);
+		    ep->regions = le_str->currentTypedValue();
+		    string ss = lowercase( ep->regions);
+
+		    le = be->searchLineEntry("Volume Fraction");
+		    BEInput::LE_OneDbl*  le_dbl = dynamic_cast<LE_OneDbl*>(le);
+		    ep->volFraction = le_dbl->currentTypedValue();
+
+		    std::vector<std::string> v;
+		    tokenizeString(ss, v);
+		    for (size_t i = 0; i < v.size(); ++i) {
+			if (v[i] == "all") {
+			    ep->bregionID[0] = 0;
+			    ep->bregionID[1] = 1;
+			    ep->bregionID[2] = 2;
+			} else if (v[i] == "anode") {
+			    ep->bregionID[0] = 0;
+			} else if (v[i] == "separator") {
+			    ep->bregionID[0] = 1;
+			} else if (v[i] == "cathode") {
+			    ep->bregionID[0] = 2;
+			} else {
+			    throw m1d_Error("ProblemStatementCell::post_process_input()", "unknown region: " + ep->regions);
+			}
+		    }
+	
+		}
+	    }
+	    if (found) {
+		break;
+	    }
+	}
+	if (!found) {
+	    throw m1d_Error("post_process", "didn't find the extra phase " + int2str(k));
+	}
+    }
+
+
+    /**
+     * If we are using time dependent boundary conditions,
+     * read in appropriate XML files and generate BoundaryConditions.
+     * Note that an alternate means of generating these objects is with an XML node
+     */
+    if (cathodeBCType_ == 6 || cathodeBCType_ == 7 ) {
+	BC_TimeDep_ = new BCsteptable( cathodeBCFile_ );
+    }
+    if ( cathodeBCType_ == 8 || cathodeBCType_ == 9 ) {
+	BC_TimeDep_ = new BClineartable( cathodeBCFile_ );
+    }
+  
+    if ( cathodeBCType_ == 4 ) {
+	BC_TimeDep_ = new BCconstant( CathodeVoltageSpecified_, 
+				      "Cathode Voltage", "s", "V" ) ;
+	BC_TimeDep_->setLowerLimit( startTime_ );
+	BC_TimeDep_->setUpperLimit( endTime_ );
+    }
+    if ( cathodeBCType_ == 5 ) {
+	BC_TimeDep_ = new BCconstant( icurrDischargeSpecified_, 
+				      "Cathode Current", "s", "Amp/m2" ) ;
+	BC_TimeDep_->setLowerLimit( startTime_ );
+	BC_TimeDep_->setUpperLimit( endTime_ );
+    }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 void ProblemStatementCell::readAnodeInputFile(Electrode_Factory *f )
 {
   /**
@@ -719,7 +855,7 @@ void ProblemStatementCell::readAnodeInputFile(Electrode_Factory *f )
   }
 
 }
-//=====================================================================================================================
+//===================================================================================================================================
 void ProblemStatementCell::readCathodeInputFile(Electrode_Factory *f )
 {
   /**
@@ -767,7 +903,7 @@ void ProblemStatementCell::readCathodeInputFile(Electrode_Factory *f )
   }
 
 }
-//=====================================================================================================================
+//===================================================================================================================================
 bool ProblemStatementCell::AnodeCathodeCompatibility()
 {
     double electrodeGrossAreaA;
@@ -797,7 +933,7 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
                       
     return true;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 /**
  *  This processes the phases in the Cantera input files,
  * fills the PhaseList_ object and other auxiliary data like
@@ -873,4 +1009,4 @@ ProblemStatementCell::InitForInput()
 
 
 } //namespace m1d
-//=====================================================================================================================
+//===================================================================================================================================

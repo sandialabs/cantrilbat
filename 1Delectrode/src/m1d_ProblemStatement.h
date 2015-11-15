@@ -85,7 +85,7 @@ public:
 	 * Do any post processing required.
 	 * This might include unit conversions, opening files, etc.
 	 */
-	virtual void post_process_input();
+	virtual void post_process_input(BEInput::BlockEntry *cf);
 
         //============================================================================================================
 	//!        DATA FROM INPUT FILES
@@ -143,14 +143,14 @@ public:
 	 */
 	int Solid_Mechanics_prob_type_;
 
-
 	//! Porosity Equation Problem Type
 	/*! 
 	 *   List of available options : 
-	 *     Constant =                                            0
-	 *     Calculated Out Of Equation System =                   1
-	 *     Calculated in equation system =                       2
-	 *     Calculated in equation System as  part Of Mechanics = 3
+	 *    0 ->  Constant                   
+	 *    1 ->  Calculated Out Of Equation System                    
+	 *    2 ->  Calculated in equation system    
+	 *    3 ->  Calculated in equation System as  part Of Mechanics system
+	 *          Stress equation causes change in strains causing change of geometry
 	 */
         int Porosity_prob_type_;
 

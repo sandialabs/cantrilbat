@@ -40,10 +40,8 @@ namespace BEInput
 //!  BlockEntry of a vector of related double values into a common  vector of doubles
 /*!
  *   This sets up the <b>BlockEntry</b> special case for the entry of
- *    multiple
- *   double inputs into a common vector.  It declares interfaces
- *   for specifying the
- *   entry and for processing the entry once a match is
+ *   multiple double inputs into a common vector.  It declares interfaces
+ *   for specifying the entry and for processing the entry once a match is
  *   made in the input deck. The general form of the input is
  *
  *   \f[
@@ -66,8 +64,7 @@ namespace BEInput
  *  compared on a case insensitive format.
  *
  *  \f$ \mathrm{double} \f$ represents a single double.
- *  The code will check that
- *  the rhs consists of single tokens.
+ *  The code will check that the rhs consists of single tokens.
  *  The token must be a well formed double value.
  *  The following tokens are understood and accepted in
  *  place of \f$ \mathrm{double} \f$ : <tt>DBL_MAX</tt>,  <tt>DBL_MIN</tt>,

@@ -15,7 +15,7 @@
 #include "m1d_BoundaryCondition.h"
 #include "Electrode_input.h"
 
-//=======================================================================================================
+//===================================================================================================================================
 namespace Cantera
 {
 class Electrode_Factory;
@@ -25,10 +25,27 @@ namespace BEInput
 {
 class BlockEntry;
 }
-//=======================================================================================================
+//===================================================================================================================================
 namespace m1d
 {
-//=======================================================================================================
+//===================================================================================================================================
+//! Storage for extra phases
+struct ExtraPhase {
+    //! Constructor
+    ExtraPhase();
+    //!  Name of the phase in the cantera file and in this 
+    std::string phaseName; 
+    //! Name of the Cantera file
+    std::string canteraFileName;
+    //! Regions (all, anode, separator, cathode)
+    std::string regions;
+    //! Initial volume fraction
+    double volFraction;
+    //! region id, 
+    size_t bregionID[10];
+    size_t sregionID[10];
+};
+//===================================================================================================================================
 //! Storage for Command file input
 /*!
  * Complete problem statement
@@ -42,8 +59,7 @@ public:
   ProblemStatementCell();
 
   //! Destructor
-  virtual
-  ~ProblemStatementCell();
+  virtual ~ProblemStatementCell();
 
   /** 
    * The first pass through the input file determines
@@ -75,9 +91,9 @@ public:
    * Do any post processing required.
    * This might include unit conversions, opening files, etc.
    */
-  virtual void post_process_input();
+  virtual void post_process_input(BEInput::BlockEntry *cf);
 
-
+  //! Read the input file
   virtual void readAnodeInputFile(Cantera::Electrode_Factory* f = 0);
   virtual void readCathodeInputFile(Cantera::Electrode_Factory* f = 0);
 
@@ -335,6 +351,13 @@ public:
    *    This will make the liquid squishy, and the time constants non-stiff. 
    */
   double artificialCompressibilityInvAtm_;
+
+  //! Number of extra phases
+  int numExtraPhases_;
+
+  //! Vector of extra phases
+  std::vector<ExtraPhase*> ExtraPhaseList_;
+  
 
 };
 //=====================================================================================================================

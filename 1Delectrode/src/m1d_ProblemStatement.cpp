@@ -163,7 +163,7 @@ ProblemStatement* PSinput_ptr = 0;
  * This includes any fatal inconsistency errors that may have occurred.
  */
 void 
-ProblemStatement::post_process_input()
+ProblemStatement::post_process_input(BEInput::BlockEntry *cf)
 {
    if (Energy_equation_prob_type_ != 0) {
       throw m1d_Error("ProblemStatement::post_process_input()", "Unimplemented Energy Equation Problem Type");
@@ -743,7 +743,7 @@ ProblemStatement::parse_input_1(std::string commandFile)
 
 
 
-   post_process_input();
+   post_process_input(cf_);
 
 
    return retn;

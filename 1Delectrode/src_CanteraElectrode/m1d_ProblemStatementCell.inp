@@ -378,4 +378,13 @@ Pressure Formulation Problem Type = None
 !---------------------------------------------------------------------------------------------------------
 !  Artificial Compressibility = 0.69
 !---------------------------------------------------------------------------------------------------------
+!
+! Extra blocks of phases
+!
+Start Block Extra Phase
+    Phase Name = Binder
+    Cantera File Name = LiO.xml    
+    Region =  anode 
+    Volume Fraction =  0.03
+Edn Block Extra Phase
 

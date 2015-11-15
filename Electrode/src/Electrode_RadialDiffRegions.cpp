@@ -136,23 +136,20 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::setup_input_child2(BEInput::BlockEnt
      */ 
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     BE_MultiBlockNested* be_rdr = new BE_MultiBlockNested("Radial Diffusion Region", &numRegionsEntered_, 1, cf);
-
     cf->addSubBlock(be_rdr);
 
-    int iCell = 0;
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     LE_OneInt* s1 = new LE_OneInt("Index of the Region", 0, 0, "indexRegion");
     s1->set_default(0);
     be_rdr->addLineEntry(s1);
 
-
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    int iCell = 0;
     LE_OneInt* nRm = new LE_OneInt("Number of Cells in Region", &(numRadialCellsRegions_[iCell]), 0, "numRadialCellsRegions");
     nRm->set_default(5);
     be_rdr->addLineEntry(nRm);
 
     // - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     LE_MultiCStr* pid = new LE_MultiCStr("Phase Names within Distributed region", 0, 10, 1, 1, "phaseNames");
     be_rdr->addLineEntry(pid);
 
