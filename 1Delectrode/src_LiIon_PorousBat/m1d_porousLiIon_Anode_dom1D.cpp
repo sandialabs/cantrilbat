@@ -3521,9 +3521,15 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 		int nspPhase = tp->nSpecies();
 		int kStart = ee->getGlobalSpeciesIndex(iph, 0);
 		for (size_t k = 0; k < (size_t) nspPhase; k++) {
-		    for (size_t iCell = 0; iCell <= (size_t) NumLcCells;  ++iCell) {
-			vars[iCell] =
-			  spmoles_Cell[nSpeciesElectrode_*iCell + kStart + k] / (crossSectionalArea_ * xdelCell_Cell_[iCell]);
+		    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+                        if (spmoles_Cell.size() -1 < nSpeciesElectrode_*iCell + kStart + k) {
+                            exit(-1); 
+                        }
+                        if (kStart < 0) {
+                            exit(-1);
+                        }
+			vars[iCell] = 
+                          spmoles_Cell[nSpeciesElectrode_*iCell + kStart + k] / (crossSectionalArea_ * xdelCell_Cell_[iCell]);
 		    }
 		    fwriteTecplotVector(ofp, vars, 13);
 		}

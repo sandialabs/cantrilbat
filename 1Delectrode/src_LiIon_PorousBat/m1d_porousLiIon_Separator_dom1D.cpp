@@ -2363,7 +2363,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid ; //only proc 0 should write
-    int rsize;
+    int rsize = 0;
     if (doWrite) {
 
  
