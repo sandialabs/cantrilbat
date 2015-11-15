@@ -18,6 +18,8 @@
 
 #include "m1d_DomainLayout.h"
 
+#include "cantera/thermo.h"
+
 using namespace std;
 using namespace Cantera;
 
@@ -118,6 +120,29 @@ BDD_porousFlow::ReadModelDescriptions()
                            "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
     }
     solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
+
+    int numE = PSCinput_ptr->numExtraPhases_;
+
+    for (size_t i = 0; i < (size_t) numE; ++i) {
+	ExtraPhase* ep = PSCinput_ptr->ExtraPhaseList_[i];
+	size_t* ba = ep->bregionID;
+	int h = 0;
+        while (ba[h] != npos) {
+	    if (ba[h] == (size_t) IDBulkDomain) {
+		ExtraPhaseList_.push_back(new ExtraPhase(*ep));
+	    }
+	    h++;
+	}
+    }
+
+    for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
+        ExtraPhase* ep = ExtraPhaseList_[i];
+        ep->tp_ptr = Cantera::newPhase(ep->canteraFileName, ep->phaseName); 
+        if (! ep->tp_ptr) {
+	    throw m1d_Error("BDD_porousFlow::ReadModelDescriptions()", 
+			    "Can't find " + ep->canteraFileName + " with name " +  ep->phaseName);
+        }
+    }
 }
 //=====================================================================================================================
 //  Make list of the equations and variables

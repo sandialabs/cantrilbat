@@ -16,6 +16,8 @@ namespace Cantera {
 
 namespace m1d
 {
+class ExtraPhase;
+
 //! This class consists of multiple species diffusing in a time
 //! dependent manner.  There is a net flow and a net electric current.
 /*!
@@ -119,6 +121,10 @@ public:
 
   //!  Identity of the species index to be used for charge neutrality summation equation
   size_t iCN_index_;
+
+  //! Vector of extra phases
+  std::vector<ExtraPhase*> ExtraPhaseList_;
+
 };
 //=====================================================================================================================
 }

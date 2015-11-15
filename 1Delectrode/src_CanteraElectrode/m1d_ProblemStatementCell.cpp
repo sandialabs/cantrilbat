@@ -36,11 +36,28 @@ ExtraPhase::ExtraPhase() :
     phaseName(""),
     canteraFileName(""),
     regions("all"),
-    volFraction(0.0)
+    volFraction(0.0),
+    tp_ptr(0)
 {    
     for (size_t i = 0; i < 10; ++i) {
         bregionID[i] = npos;
         sregionID[i] = npos;
+    }
+}
+//==================================================================================================================================
+ExtraPhase::ExtraPhase(const ExtraPhase& b) :
+    phaseName(b.phaseName),
+    canteraFileName(b.canteraFileName),
+    regions(b.regions),
+    volFraction(b.volFraction),
+    tp_ptr(b.tp_ptr)
+{    
+    for (size_t i = 0; i < 10; ++i) {
+        bregionID[i] = b.bregionID[i];
+        sregionID[i] = b.sregionID[i];
+    }
+    if (b.tp_ptr) {
+        tp_ptr = (b.tp_ptr)->duplMyselfAsThermoPhase();
     }
 }
 //==================================================================================================================================

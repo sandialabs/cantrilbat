@@ -19,8 +19,9 @@
 namespace Cantera
 {
 class Electrode_Factory;
+class ThermoPhase;
 }
-
+//===================================================================================================================================
 namespace BEInput
 {
 class BlockEntry;
@@ -33,6 +34,8 @@ namespace m1d
 struct ExtraPhase {
     //! Constructor
     ExtraPhase();
+    //! Copy Constructor
+    ExtraPhase(const ExtraPhase& right);
     //!  Name of the phase in the cantera file and in this 
     std::string phaseName; 
     //! Name of the Cantera file
@@ -44,6 +47,8 @@ struct ExtraPhase {
     //! region id, 
     size_t bregionID[10];
     size_t sregionID[10];
+    //! ThermoPhase pointer for the phase
+    Cantera::ThermoPhase* tp_ptr;
 };
 //===================================================================================================================================
 //! Storage for Command file input

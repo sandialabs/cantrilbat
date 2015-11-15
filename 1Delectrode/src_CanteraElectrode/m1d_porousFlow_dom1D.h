@@ -22,6 +22,7 @@ namespace m1d
 {
 class LocalNodeIndices;
 class cellTmps;
+class ExtraPhase;
 
 //======================================================================================================================
 //! This is derived class  provides the function
@@ -540,6 +541,10 @@ protected:
 
     //! Pointer to the solid skeleton
     Cantera::ThermoPhase* solidSkeleton_;
+
+    //! Vector of extra phases
+    std::vector<ExtraPhase*> ExtraPhaseList_;
+  
 
 };
 //======================================================================================================================
