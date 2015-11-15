@@ -143,6 +143,17 @@ public:
 	 */
 	int Solid_Mechanics_prob_type_;
 
+
+	//! Porosity Equation Problem Type
+	/*! 
+	 *   List of available options : 
+	 *     Constant =                                            0
+	 *     Calculated Out Of Equation System =                   1
+	 *     Calculated in equation system =                       2
+	 *     Calculated in equation System as  part Of Mechanics = 3
+	 */
+        int Porosity_prob_type_;
+
 	//! Level of solution printing done to stdout
 	/*!
 	 *   0 -> Don't print anything

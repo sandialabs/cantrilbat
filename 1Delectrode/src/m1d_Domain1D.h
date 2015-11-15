@@ -635,6 +635,20 @@ public:
    */
   int solidMechanicsProbType_;
 
+  //! Porosity equation type
+  /*!
+   *  This turns on the calculation of the porosity volume fraction in the equation system.
+   *  This also
+   *
+   *  None     =                   0x00,
+   *  Constant =                   0x01,
+   *  CalculatedOutOfEqnSystem =   0x02,
+   *  CalculatedInEqnSystem  =     0x04,
+   *  PartOfMechanics =            0x08,
+   *  AddedPhasesInEqnSystem =     0x16
+   */
+  int porosityEquationProbType_;
+
 protected:
 
   //! Current value of the residual type
@@ -650,6 +664,7 @@ private:
   err(const char *msg) const;
 
 public:
+  //!  Solid mechanics equation type enum
   enum SolidMechEqn {
     None =        0x00,
     All  =        0x01,  

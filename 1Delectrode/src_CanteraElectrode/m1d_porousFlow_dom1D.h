@@ -2,9 +2,6 @@
  * @file m1d_porousFlow_dom1D.h
  */
 
-/*
- *   $Id: m1d_porousFlow_dom1D.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #ifndef M1D_POROUSFLOW_DOM1D_H_
 #define M1D_POROUSFLOW_DOM1D_H_
@@ -528,7 +525,6 @@ protected:
 
     //! Vector of temporary solution variables
     std::vector<valCellTmps> valCellTmpsVect_Cell_;
-
 
     //! Velocity basis of the transport equations
     Cantera::VelocityBasis ivb_;

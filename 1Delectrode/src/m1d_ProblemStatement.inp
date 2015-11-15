@@ -131,6 +131,26 @@ Energy Equation Problem Type = None
 !--------------------------------------------------------------------------------------------------------
 Solid Mechanics Problem Type = None
 !--------------------------------------------------------------------------------------------------------
+!
+! Porosity Equation Problem Type
+!
+!    List of available options : boolean
+!     There is no porosity
+!	None     =                   0x00,
+!    There is a constant porosity
+!	Constant =                   0x01,
+!    It is not constant, but calculated outside of equation system
+!	CalculatedOutOfEqnSystem =   0x02,
+!    Calculated as a function of the equation system
+!	CalculatedInEqnSystem  =     0x04,
+!    There are mechanics calculations which change the porosity
+!	PartOfMechanics =            0x08,
+!    Added phases are in the equation system. These may be nucleation phases
+!	AddedPhasesInEqnSystem =     0x16
+!
+!--------------------------------------------------------------------------------------------------------
+Porosity Equation Type = Constant
+!--------------------------------------------------------------------------------------------------------
 ! Start Time - double (not required)
 !               Default = 0.0
 !

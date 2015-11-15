@@ -44,6 +44,7 @@ ProblemStatement* PSinput_ptr = 0;
     writeStartEndFile_(0),
     Energy_equation_prob_type_(0),
     Solid_Mechanics_prob_type_(0),
+    Porosity_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
@@ -77,6 +78,7 @@ ProblemStatement* PSinput_ptr = 0;
     writeStartEndFile_(0),
     Energy_equation_prob_type_(0),
     Solid_Mechanics_prob_type_(0),
+    Porosity_prob_type_(0),
     SolutionBehavior_printLvl_(4),
     TimeStepper_printLvl_(1),
     NonlinSolver_printLvl_(-1),
@@ -127,6 +129,7 @@ ProblemStatement* PSinput_ptr = 0;
     writeStartEndFile_         = right.writeStartEndFile_;
     Energy_equation_prob_type_ = right.Energy_equation_prob_type_;
     Solid_Mechanics_prob_type_ = right.Solid_Mechanics_prob_type_;
+    Porosity_prob_type_        = right.Porosity_prob_type_;
     SolutionBehavior_printLvl_ = right.SolutionBehavior_printLvl_;
     TimeStepper_printLvl_      = right.TimeStepper_printLvl_;
     NonlinSolver_printLvl_     = right.NonlinSolver_printLvl_;
@@ -263,6 +266,22 @@ ProblemStatement::setup_input_pass1(BlockEntry *cf)
                                          smEqList, 2, 0, "Solid_Mechanics_prob_type_");
     lepsm->set_default(0);
     cf->addLineEntry(lepsm);
+
+    /* ----------------------------------------------------------------------------------------------------------------
+     * Porosity Equation Problem Type
+     * 
+     *   List of available options : 
+     *     Constant =                                            0
+     *     Calculated Out Of Equation System =                   1
+     *     Calculated in equation system =                       2
+     *     Calculated in equation System as  part Of Mechanics = 3
+     */
+    const char *poEqList[4] = {"Constant", "Calculated Out Of Equation System", 
+                               "Calculated in Equation System", "Calculated in Equation System as part Of Mechanics"};
+    LE_PickList *leppo = new LE_PickList("Porosity Equation Type", &Porosity_prob_type_,
+                                         poEqList, 4, 0, "Porosity_prob_type");
+    leppo->set_default(0);
+    cf->addLineEntry(leppo);
 
     /* -----------------------------------------------------------------
      *   Write a start and end solution file

@@ -27,6 +27,7 @@
 #include "m1d_EqnVarTypes.h"
 #include "cantera/base/xml.h"
 
+
 namespace m1d
 {
 // Forward declarations of m1d Classes
@@ -53,8 +54,8 @@ typedef Epetra_Vector Epetra_Vector_Ghosted;
 //! This is an Epetra_Vector consisting of a global vector of all nodes/equations on all processors.
 typedef Epetra_Vector Epetra_Vector_GlAll;
 
-  //! The types of solution problems that are solved.
-  enum Solve_Type_Enum {
+//! The types of solution problems that are solved.
+enum Solve_Type_Enum {
     SteadyState_Solve = 0,
     TimeDependentAccurate_Solve,
     //! Specify this when we don't have a previous initially solved solution
@@ -63,23 +64,23 @@ typedef Epetra_Vector Epetra_Vector_GlAll;
     TimeDependentRelax_Solve,
     //! Initial conditions for a DAE system
     DAESystemInitial_Solve
-  };
+};
   
 
 //! Differentiates the type of residual evaluations according to functionality
 enum ResidEval_Type_Enum
 {
-  //! Base residual calculation for the time-stepping function
-  Base_ResidEval = 0,
-  //! Base residual calculation for the Jacobian calculation
-  JacBase_ResidEval,
-  //! Delta residual calculation for the Jacbobian calculation
-  JacDelta_ResidEval,
-  //! Base residual calculation for the showSolution routine
-  /*!
-   *    We calculate this when we want to display a solution
-   */
-  Base_ShowSolution
+    //! Base residual calculation for the time-stepping function
+    Base_ResidEval = 0,
+    //! Base residual calculation for the Jacobian calculation
+    JacBase_ResidEval,
+    //! Delta residual calculation for the Jacbobian calculation
+    JacDelta_ResidEval,
+    //! Base residual calculation for the showSolution routine
+    /*!
+     *    We calculate this when we want to display a solution
+     */
+    Base_ShowSolution
 };
 
 //! Differentiates the type of coordinate system
@@ -95,6 +96,32 @@ enum CoordinateSystem_Type_Enum
     Spherical_Coordinates
 };
 
+//! Class to hold Porosity equation status
+struct Porosity_EqnType_Status
+{
+    //! Enum indicating the porosity equation properties
+    enum Porosity_EqnType_Enum
+    {
+	//! There is no porosity
+	None     =                   0x00,
+	
+	//! There is a constant porosity
+	Constant =                   0x01,
+	
+	//! It is not constant, but calculated outside of equation system
+	CalculatedOutOfEqnSystem =   0x02,
+	
+	//! Calculated as a function of the equation system
+	CalculatedInEqnSystem  =     0x04,
+	
+	//! There are mechanics calculations which change the porosity
+	PartOfMechanics =            0x08,
+	
+	//! Added phases are in the equation system. These may be nucleation phases
+	AddedPhasesInEqnSystem =     0x16
+    }; 
+};
+
 /**
  *  A class for the description of 1D problems that
  *  encompass multiple regions in 1D and multiple time regions
@@ -104,12 +131,12 @@ class ProblemResidEval
 
 public:
 
-  //! Default constructor
-  /*!
-   *
-   * @param atol   Absolute tolerance for calculation
-   */
-  ProblemResidEval(double atol = 1.0e-13);
+    //! Default constructor
+    /*!
+     *
+     * @param atol   Absolute tolerance for calculation
+     */
+    ProblemResidEval(double atol = 1.0e-13);
 
   //! Destructor
   /*!

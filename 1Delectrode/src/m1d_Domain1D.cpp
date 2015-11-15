@@ -36,6 +36,7 @@ Domain1D::Domain1D() :
     PressureReference_(1.01325e5),
     energyEquationProbType_(0),
     solidMechanicsProbType_(0),
+    porosityEquationProbType_(  Porosity_EqnType_Status::None ),
     residType_Curr_(Base_ResidEval), 
     counterResBaseCalcs_(0), 
     counterJacBaseCalcs_(0),
