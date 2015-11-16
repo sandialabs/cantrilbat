@@ -1453,7 +1453,7 @@ int Electrode::electrode_stateSave_create()
  *
  * @param electrodeArea   Area of the electrode
  * @param electrodeThickness  Width of the electrode
- * @param porosity        Volume of the electrolyte phase
+ * @param porosity        Volume of the electrolyte phase and other non-electrode volume phases
  */
 void Electrode::setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness, doublereal porosity)
 {

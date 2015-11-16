@@ -304,10 +304,9 @@ public:
      *
      * @param electrodeArea       Area of the electrode
      * @param electrodeThickness  Width of the electrode
-     * @param porosity            Volume of the electrolyte phase
+     * @param porosity            Volume of the electrolyte phase and other non-electrode phases.
      */
-    virtual void setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness,
-                                        doublereal porosity);
+    virtual void setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness, doublereal porosity);
 
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
@@ -395,6 +394,10 @@ public:
     double pressure() const;
 
     //! Return the current porosity
+    /*!
+     *     Note that this object doesn't keep track of multiple non-electrode phases. Thus porosity here refers to the
+     *     volume fraction of all phases which aren't part of the Electrode object.
+     */
     double porosity() const;
 
     //
