@@ -258,7 +258,10 @@ void
 porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
 {
     /*
-     * First call the parent domain prep to get the node information
+     * First call the parent domain prep to get the node information.
+     * Also all arrays defined by parent objects are sized appropriately.
+     * Also, an initial attempt is made to calculate the porosity and the volumeFraction_Phases and molaNumber_Phases
+     * is made using the reference temperature and pressure to calculate molar volumes.
      */
     porousElectrode_dom1D::domain_prep(li_ptr);
 
@@ -280,6 +283,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     //
     //  Put a number into the porosity_Cell_ It will be overwritten in the initialization
     //
+/*
     for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
         porosity_Cell_[iCell] = 0.5;
         porosity_Cell_old_[iCell] = 0.5;
@@ -288,7 +292,7 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
 	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 0.0;
 	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 0.0;
     }
-
+*/
     /*
      * Porous electrode domain prep
      */
