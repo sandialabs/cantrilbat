@@ -25,10 +25,10 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     EnthalpyPhiPM_metal_Curr_(0),
     elem_Solid_Old_Cell_()
 {
+    // assign the BDD_porousElectrode object pointer associated with this child object to a dedicated variable
     BDD_PE_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
 
-    BDD_porousElectrode* bdd_pe_ptr = &bdd;
-    
+    // Assign the metal phase pointer 
     metalPhase_ = BDD_PE_ptr_->metalPhase_;
 }
 //=====================================================================================================================
@@ -101,9 +101,14 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
     /*
      * First call the parent domain prep to get the node information
+     * Also all arrays defined by parent objects are sized appropriately.
+     * Also, an initial attempt is made to calculate the porosity and the volumeFraction_Phases is made using the reference
+     * temperature and pressure to calculate molar volumes.
      */
     porousFlow_dom1D::domain_prep(li_ptr);
-    
+    /*
+     *  Size the arrays that are defined in this object
+     */
     Electrode_Cell_.resize(NumLcCells, 0);
     surfaceArea_Cell_.resize(NumLcCells, 0.0);
     nEnthalpy_Electrode_New_Cell_.resize(NumLcCells, 0.0);
@@ -111,17 +116,19 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
  
     BDD_porousElectrode* bdde = static_cast<BDD_porousElectrode*>(&BDD_);
-    Electrode*ee = bdde->Electrode_;
+    Electrode* ee = bdde->Electrode_;
     int neSolid = ee->nElements();
     elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
+    /*
+     *  Note, in child objects we would call instantiate_ElectrodeCells(). However, we don't have enough
+     *  information to create electrode objects here.
+     */
 }
 //====================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
 /*
- * Create electrode objects for every cell.  
- * Correct the volume and number of moles of 
- * active material within each of these electrode 
- * objects to correspond to the discretized volume.
+ * Create electrode objects for every cell. Correct the volume and number of moles of 
+ * active material within each of these electrode objects to correspond to the discretized volume.
  */
 void
 porousElectrode_dom1D::instantiateElectrodeCells() 

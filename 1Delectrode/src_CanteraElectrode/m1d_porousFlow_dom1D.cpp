@@ -223,13 +223,14 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 	volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
     }
     double mv = solidSkeleton_->molarVolume();
-
+    size_t offS = 0;
     //
     // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
     // We'll keep the mole number and volume fraction in the extra phases lists.
     //
     if (solidSkeleton_) {
         numExtraCondensedPhases_++;
+        offS = 1;
     }
     numExtraCondensedPhases_ += ExtraPhaseList_.size();
 
@@ -252,10 +253,10 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 	    ThermoPhase* tp = ep->tp_ptr;
 	    tp->setState_TP(temp_Curr_, pres_Curr_);
 	    double mvp = tp->molarVolume();
-	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction;
-	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction * mvp;
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
 	    porosity -= ep->volFraction;
 	}
 	porosity_Cell_[iCell] = porosity;

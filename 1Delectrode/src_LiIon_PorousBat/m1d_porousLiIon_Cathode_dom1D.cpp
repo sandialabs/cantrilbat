@@ -4260,11 +4260,8 @@ porousLiIon_Cathode_dom1D::setStateFromSolution(const bool doTimeDependentResid,
  *
  */
 void
-porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid,
-                                             Epetra_Vector* soln_ptr,
-                                             Epetra_Vector* solnDot,
-                                             const double t,
-                                             const double delta_t)
+porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln_ptr,
+                                             Epetra_Vector* solnDot, const double t, const double delta_t)
 {
     Epetra_Vector& soln = *soln_ptr;
 
