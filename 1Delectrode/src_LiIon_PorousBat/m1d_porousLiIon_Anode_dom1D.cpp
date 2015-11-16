@@ -1702,7 +1702,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
-	
+
         /*
          * Setup the thermo
          */
@@ -4329,10 +4329,25 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
 	ee->setInitStateFromFinal(true);
 	ee->setFinalFinalStateFromFinal();
 
-
-
+        //
+        // Porosity Setup
+        //
 	double solidVolCell = ee->SolidVol();
-        porosity_Curr_ = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
+        int offS = 0;
+        double vfe = solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
+        porosity_Curr_ = 1.0 - vfe;
+
+        for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+	    ExtraPhase* ep = ExtraPhaseList_[k];
+	    ThermoPhase* tp = ep->tp_ptr;
+	    tp->setState_TP(temp_Curr_, pres_Curr_);
+	    double mvp = tp->molarVolume();
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    porosity_Curr_ -= ep->volFraction;
+	}
 
         if (porosity_Curr_ <= 0.0) {
             throw m1d_Error("porousLiIon_Anode_dom1D::initialConditions() ERROR",
@@ -4343,7 +4358,8 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         // update porosity as computed from electrode input
 	//
         porosity_Cell_[iCell] = porosity_Curr_;
-
+        porosity_Cell_old_[iCell] = porosity_Curr_;
+          
 	if (energyEquationProbType_ == 3) { 
 	    double volCellNew = xdelCell_Cell_[iCell];
 	    // double volElectrodeCell = solidVolCell / crossSectionalArea_;

@@ -2889,13 +2889,52 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
 
         cIndex_cc_ = iCell;
-       
-      
+
+	//
+	// Porosity Set up
+	// 
+	double volumeSeparator = PSinput.separatorArea_ * PSinput.separatorThickness_;
+	double volumeInert = 0.0;
+	double volumeFractionInert = 0.0;
+        int offS = 0;
+	double mv = 0.0;
+	double porosity = 1.0;
+	if (solidSkeleton_) {
+	    offS = 1;
+	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
+	    if (PSinput.separatorMass_ > 0.0 ) {
+		volumeInert = PSinput.separatorMass_ / solidSkeleton_->density() ;
+		volumeFractionInert = volumeInert / volumeSeparator;
+	    } else if (PSinput.separatorSolid_vf_ > 0.0) {
+		volumeFractionInert = PSinput.separatorSolid_vf_;
+	    } else {
+		throw m1d_Error("initial_conditions", "volumeFractionInert not set");
+	    }
+	    mv = solidSkeleton_->molarVolume();
+	    porosity = 1.0 - volumeFractionInert;
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	}
+
+	for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+	    ExtraPhase* ep = ExtraPhaseList_[k];
+	    ThermoPhase* tp = ep->tp_ptr;
+	    tp->setState_TP(temp_Curr_, pres_Curr_);
+	    double mvp = tp->molarVolume();
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    porosity -= ep->volFraction;
+	}
+	porosity_Cell_[iCell] = porosity;
+	porosity_Cell_old_[iCell] = porosity;
 
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
-        concTot_Cell_old_[iCell] = concTot_Curr_;
-        porosity_Cell_old_[iCell] = porosity_Curr_;
+        concTot_Cell_old_[iCell] = concTot_Curr_;     
 
         double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
         for (size_t k = 0; k < (size_t) nsp_; ++k) {

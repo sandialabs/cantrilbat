@@ -769,7 +769,7 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     }
 
 }
-//=================================================================================================================================
+//===================================================================================================================================
 //  Setup shop at a particular point in the domain, calculating intermediate quantites
 //  and updating Cantera's objects
 /*
@@ -781,10 +781,14 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 void
 porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr)
 {
+    if (porosityEquationProbType_  &  Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
+	double vfo = volumeFractionOther(cIndex_cc_);
+	porosity_Cell_[cIndex_cc_] = 1.0 - vfo;
+    }
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, soln_Curr);
 }
-//=================================================================================================================================
+//===================================================================================================================================
 void
 porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
 {

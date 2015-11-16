@@ -2,7 +2,6 @@
  * @file m1d_porousElectrode_dom1D.cpp
  */
 
-
 #include "m1d_porousElectrode_dom1D.h"
 
 #include "Electrode.h"
