@@ -544,7 +544,17 @@ protected:
 
     //! Vector of extra phases
     std::vector<ExtraPhase*> ExtraPhaseList_;
-  
+
+    //! Porosity Equation Problem Type
+    /*! 
+     *   List of available options : 
+     *    0 ->  Constant                   
+     *    1 ->  Calculated Out Of Equation System                    
+     *    2 ->  Calculated in equation system    
+     *    3 ->  Calculated in equation System as  part Of Mechanics system
+     *          Stress equation causes change in strains causing change of geometry
+     */
+    int Porosity_prob_type_;
 
 };
 //======================================================================================================================

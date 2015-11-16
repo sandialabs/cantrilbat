@@ -35,7 +35,8 @@ BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr,
     solidSkeleton_(0),
     nSpeciesElectrolyte_(npos),
     iMFS_index_(npos),
-    iCN_index_(npos)
+    iCN_index_(npos),
+    Porosity_prob_type_(PSCinput_ptr->Porosity_prob_type_)
 {
     IsAlgebraic_NE.resize(7,0);
     IsArithmeticScaled_NE.resize(7,0);
@@ -48,7 +49,8 @@ BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
     solidSkeleton_(0),
     nSpeciesElectrolyte_(npos),
     iMFS_index_(npos),
-    iCN_index_(npos)
+    iCN_index_(npos),
+    Porosity_prob_type_(PSCinput_ptr->Porosity_prob_type_)
 {
     *this = r;
 }
@@ -90,10 +92,12 @@ BDD_porousFlow::operator=(const BDD_porousFlow &r)
   nSpeciesElectrolyte_  = r.nSpeciesElectrolyte_;
   iMFS_index_           = r.iMFS_index_;
   iCN_index_            = r.iCN_index_;
+  ExtraPhaseList_       = r.ExtraPhaseList_;
+  Porosity_prob_type_   = r.Porosity_prob_type_;
 
   return *this;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 BDD_porousFlow::ReadModelDescriptions()
 {
@@ -143,8 +147,19 @@ BDD_porousFlow::ReadModelDescriptions()
 			    "Can't find " + ep->canteraFileName + " with name " +  ep->phaseName);
         }
     }
+
+    if (Porosity_prob_type_ == 0) {
+        porosityEquationProbType_ = Porosity_EqnType_Status::Constant;
+    } else if (Porosity_prob_type_ == 1) {
+        porosityEquationProbType_ = Porosity_EqnType_Status::CalculatedOutOfEqnSystem;
+    } else if (Porosity_prob_type_ == 2) {
+        porosityEquationProbType_ = Porosity_EqnType_Status::CalculatedInEqnSystem;
+    } else if (Porosity_prob_type_ == 3) {
+        porosityEquationProbType_ = Porosity_EqnType_Status::PartOfMechanics;
+    }
+
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  Make list of the equations and variables
 /*
  *  We also set the ordering here.

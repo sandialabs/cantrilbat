@@ -75,6 +75,7 @@ ProblemStatementCell::ProblemStatementCell() :
   separatorMass_(0.0), separatorArea_(-1.0),
   separatorThickness_(70.0E-6), 
   separatorDiameter_(-1.0),
+  separatorSolid_vf_(-1.0),
   conductivityAnode_(1.0E6),
   conductivityCathode_(100.),
   anodeCCThickness_(0.0),
@@ -497,6 +498,7 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   d3->set_default(0.0);
   cf->addLineEntry(d3);
 
+
   /* -------------------------------------------------------------------------
    * Separator Area
    */
@@ -528,6 +530,23 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   // If we specify the area we cannot specify the diameter
   BI_Dependency * dep_sepDia_sepArea = new BI_Dependency(d4, BIDT_ENTRYPROCESSED, BIDRT_ANTITHETICAL_ERROR);
   d6->declareDependency(dep_sepDia_sepArea);
+
+  /* -------------------------------------------------------------------------
+   * Separator Solid Skeleton Volume Fraction
+   * This is one way to specify the porosity
+   */
+  reqd = 0;
+  LE_OneDbl *dvf = new LE_OneDbl("Separator Solid Skeleton Volume Fraction", &(separatorSolid_vf_), reqd, "separatorSoild_vf");
+  dvf->set_default(-1.0);
+  cf->addLineEntry(dvf);
+
+  // If we specify the separator mass we cannot specify the volume fraction
+  BI_Dependency* dep_sepMass_sepVF = new BI_Dependency(d3, BIDT_ENTRYPROCESSED, BIDRT_ANTITHETICAL_ERROR);
+  dvf->declareDependency(dep_sepMass_sepVF);
+
+  // If we specify the separator vf we cannot specify the mass
+  BI_Dependency* dep_sepVF_sepMass = new BI_Dependency(dvf, BIDT_ENTRYPROCESSED, BIDRT_ANTITHETICAL_ERROR);
+  d3->declareDependency(dep_sepVF_sepMass);
 
   /* ------------------------------------------------------------------------------------------------------------------
    *  Anode Current Collector thickness

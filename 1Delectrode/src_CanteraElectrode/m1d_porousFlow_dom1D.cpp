@@ -56,7 +56,12 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     heatFlux_Curr_(0.0), 
     jFlux_EnthalpyPhi_Curr_(0.0),
     EnthalpyMolar_lyte_Curr_(0.0),
-    ivb_(VB_MOLEAVG)
+    ivb_(VB_MOLEAVG),
+    ionicLiquid_(0),
+    trans_(0),
+    solidSkeleton_(0),
+    ExtraPhaseList_(0),
+    Porosity_prob_type_(0)
 {
     BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
     ionicLiquid_ = BDT_ptr_->ionicLiquid_;
@@ -65,6 +70,13 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 
     energyEquationProbType_ = PSinput.Energy_equation_prob_type_;
     solidMechanicsProbType_ = PSinput.Solid_Mechanics_prob_type_;
+
+    ExtraPhaseList_  = BDT_ptr_->ExtraPhaseList_;
+    for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
+        ExtraPhaseList_[i] = new ExtraPhase(*(BDT_ptr_->ExtraPhaseList_[i]));
+    }
+    Porosity_prob_type_        = BDT_ptr_->Porosity_prob_type_;
+    porosityEquationProbType_  = BDT_ptr_->porosityEquationProbType_;
 }
 //=====================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
@@ -91,7 +103,12 @@ porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     heatFlux_Curr_(0.0),
     jFlux_EnthalpyPhi_Curr_(0.0),
     EnthalpyMolar_lyte_Curr_(0.0),
-    ivb_(VB_MOLEAVG)
+    ivb_(VB_MOLEAVG),
+    ionicLiquid_(0),
+    trans_(0),
+    solidSkeleton_(0),
+    ExtraPhaseList_(0),
+    Porosity_prob_type_(0)
 {
     BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
     porousFlow_dom1D::operator=(r);
@@ -125,6 +142,9 @@ porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
     moleNumber_Phases_Cell_old_=r.moleNumber_Phases_Cell_old_;
     cIndex_cc_                = r.cIndex_cc_;
     temp_Curr_                = r.temp_Curr_;
+#ifdef MECH_MODEL
+    mm_stress_Curr_           = r.mm_stress_Curr_;
+#endif
     pres_Curr_                = r.pres_Curr_;
     concTot_Curr_             = r.concTot_Curr_;
     phiElectrolyte_Curr_      = r.phiElectrolyte_Curr_;
@@ -156,9 +176,18 @@ porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
     valCellTmpsVect_Cell_      = r.valCellTmpsVect_Cell_;
     ivb_                       = r.ivb_;
   
-    ionicLiquid_               = r.ionicLiquid_;
-    trans_                     = r.trans_;
-    solidSkeleton_             = r.solidSkeleton_;
+    ionicLiquid_               = r.ionicLiquid_->duplMyselfAsThermoPhase();
+    trans_                     = r.trans_->duplMyselfAsTransport();
+    solidSkeleton_             = r.solidSkeleton_->duplMyselfAsThermoPhase();
+
+    for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
+       delete ExtraPhaseList_[i];
+    }
+    ExtraPhaseList_            = r.ExtraPhaseList_;
+    for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
+        ExtraPhaseList_[i]     = new ExtraPhase(*(r.ExtraPhaseList_[i]));
+    }
+    Porosity_prob_type_        = r.Porosity_prob_type_;
 
     return *this;
 }
@@ -184,6 +213,16 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     BulkDomain1D::domain_prep(li_ptr);
 
     double porosity = -1.0;
+    double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
+    double volumeInert = 0.0;
+    double volumeFractionInert = 0.0;
+    if (PSCinput_ptr->separatorMass_ > 0.0) {
+	volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
+	volumeFractionInert = volumeInert / volumeSeparator;
+    } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
+	volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+    }
+    double mv = solidSkeleton_->molarVolume();
 
     //
     // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
@@ -192,6 +231,7 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     if (solidSkeleton_) {
         numExtraCondensedPhases_++;
     }
+    numExtraCondensedPhases_ += ExtraPhaseList_.size();
 
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
@@ -200,6 +240,27 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     volumeFraction_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
     moleNumber_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
     moleNumber_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
+
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+	porosity = 1.0 - volumeFractionInert;
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+        for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+	    ExtraPhase* ep = ExtraPhaseList_[k];
+	    ThermoPhase* tp = ep->tp_ptr;
+	    tp->setState_TP(temp_Curr_, pres_Curr_);
+	    double mvp = tp->molarVolume();
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + 1 + k] = ep->volFraction * mvp;
+	    porosity -= ep->volFraction;
+	}
+	porosity_Cell_[iCell] = porosity;
+	porosity_Cell_old_[iCell] = porosity;
+    }
 
     cellTmpsVect_Cell_.resize(NumLcCells);
 
@@ -519,7 +580,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         if (iVar_Temperature != npos) {
             soln[indexCent_EqnStart + iVar_Temperature] = PSinput.TemperatureReference_;
         }
-  //
+	//
         // Set the pressure if it is part of the solution vector
         //
         pres_Curr_ = PSinput.PressureReference_;
@@ -568,8 +629,49 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         //
 	//  porosity_Cell_[iCell] = porosity;
 
+	//
+	// Porosity Set up
+	// 
+	double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
+	double volumeInert = 0.0;
+	double volumeFractionInert = 0.0;
+        int offS = 0;
+	double mv = 0.0;
+	double porosity = 1.0;
+        if (solidSkeleton_) {
+	    offS = 1;
+	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
+	    if (PSCinput_ptr->separatorMass_ > 0.0 ) {
+		volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
+		volumeFractionInert = volumeInert / volumeSeparator;
+	    } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
+		volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+	    } else {
+		throw m1d_Error("initial_conditions", "volumeFractionInert not set");
+	    }
+	    mv = solidSkeleton_->molarVolume();
+	    porosity = 1.0 - volumeFractionInert;
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	}
 
-    }
+	for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+	    ExtraPhase* ep = ExtraPhaseList_[k];
+	    ThermoPhase* tp = ep->tp_ptr;
+	    tp->setState_TP(temp_Curr_, pres_Curr_);
+	    double mvp = tp->molarVolume();
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    porosity -= ep->volFraction;
+	}
+	porosity_Cell_[iCell] = porosity;
+	porosity_Cell_old_[iCell] = porosity;
+
+    } // iCell
 }
 //====================================================================================================================
 // Function that gets called at end the start of every time step

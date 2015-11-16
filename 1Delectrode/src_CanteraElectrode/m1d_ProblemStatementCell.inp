@@ -187,6 +187,12 @@ Separator Thickness = 70.0E-6
 ! Separator Diameter = 0.01 m
 !---------------------------------------------------------------------------------------------------------
 !
+!     Separator Volume Fraction - double optional (default = -1)
+!
+!---------------------------------------------------------------------------------------------------------
+Separator Solid Skeleton Volume Fraction = 0.5
+!---------------------------------------------------------------------------------------------------------
+!
 !      Electrical Conductivity of the Anode Electrode 
 !      This is the conductivity in the solid limit.  The effective conductivity is 
 ! 

@@ -217,6 +217,9 @@ public:
   //! Separator diameter (m)
   double separatorDiameter_;
 
+  //! Separator Solid Skeleton Volume Fraction
+  double separatorSolid_vf_;
+
   //! Electrical conductivity of the anode
   /*!
    *    units are S/m

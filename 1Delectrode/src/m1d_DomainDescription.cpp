@@ -21,10 +21,13 @@ namespace m1d
 
 //===========================================================================
   DomainDescription::DomainDescription(DomainLayout *dl_ptr, std::string domainName) :
-  NumEquationsPerNode(0), IsArithmeticScaled_NE(0), DomainName(domainName),
+  NumEquationsPerNode(0), 
+  IsArithmeticScaled_NE(0), 
+  DomainName(domainName),
   DL_ptr_(dl_ptr),
   SolutionBehavior_printLvl_(0),
-  Residual_printLvl_(0)
+  Residual_printLvl_(0),
+  porosityEquationProbType_( Porosity_EqnType_Status::None)
 {
     EquationIndexStart_EqName.resize((int) Max_Eqn_Name, -1);
     VariableIndexStart_VarName.resize((int) Max_Var_Name, -1);
@@ -70,6 +73,7 @@ DomainDescription::operator=(const DomainDescription &r)
   DL_ptr_ = r.DL_ptr_;
   SolutionBehavior_printLvl_ = r.SolutionBehavior_printLvl_;
   Residual_printLvl_ = r.Residual_printLvl_;
+  porosityEquationProbType_ = r.porosityEquationProbType_;
 
   return *this;
 }

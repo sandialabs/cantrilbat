@@ -195,6 +195,19 @@ public:
    */
    int Residual_printLvl_;
 
+  //! Porosity equation type
+  /*!
+   *  This turns on the calculation of the porosity volume fraction in the equation system.
+   *  This also
+   *
+   *  None     =                   0x00,
+   *  Constant =                   0x01,
+   *  CalculatedOutOfEqnSystem =   0x02,
+   *  CalculatedInEqnSystem  =     0x04,
+   *  PartOfMechanics =            0x08,
+   *  AddedPhasesInEqnSystem =     0x16
+   */
+  int porosityEquationProbType_;
 
 };
 
