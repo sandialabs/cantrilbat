@@ -533,9 +533,9 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
 
   /* -------------------------------------------------------------------------
    * Separator Solid Skeleton Volume Fraction
-   * This is one way to specify the porosity
+   * This is one way to specify the porosity - we make it the default unless Separator Mass is specified.
    */
-  reqd = 0;
+  reqd = 1;
   LE_OneDbl *dvf = new LE_OneDbl("Separator Solid Skeleton Volume Fraction", &(separatorSolid_vf_), reqd, "separatorSoild_vf");
   dvf->set_default(-1.0);
   cf->addLineEntry(dvf);
@@ -547,6 +547,10 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
   // If we specify the separator vf we cannot specify the mass
   BI_Dependency* dep_sepVF_sepMass = new BI_Dependency(dvf, BIDT_ENTRYPROCESSED, BIDRT_ANTITHETICAL_ERROR);
   d3->declareDependency(dep_sepVF_sepMass);
+
+  // If we specify the separator mass, then this card becomes optional
+  BI_Dependency* dep_sepMassOpt_sepVF = new BI_Dependency(d3, BIDT_ENTRYPROCESSED, BIDRT_ZERONUMTIMESREQUIRED);
+  dvf->declareDependency(dep_sepMassOpt_sepVF);
 
   /* ------------------------------------------------------------------------------------------------------------------
    *  Anode Current Collector thickness
