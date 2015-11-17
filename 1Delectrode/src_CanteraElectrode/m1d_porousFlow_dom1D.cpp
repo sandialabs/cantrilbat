@@ -212,8 +212,9 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
      */
     BulkDomain1D::domain_prep(li_ptr);
 
+    double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
     double porosity = -1.0;
-    double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
+    double volumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
     double volumeInert = 0.0;
     double volumeFractionInert = 0.0;
     double mv = 0.0;
@@ -250,8 +251,8 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 	    porosity = 1.0 - volumeFractionInert;
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
 	    for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
 		ExtraPhase* ep = ExtraPhaseList_[k];
 		ThermoPhase* tp = ep->tp_ptr;
@@ -259,8 +260,10 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 		double mvp = tp->molarVolume();
 		volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
 		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
-		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction *
+		  thickness * mvp;
+		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction
+		  * thickness * mvp;
 		porosity -= ep->volFraction;
 	    }
 	    porosity_Cell_[iCell] = porosity;

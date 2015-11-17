@@ -17,6 +17,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_SurfDomainDescription.h"
+#include "m1d_CanteraElectrodeGlobals.h"
 
 #include "cantera/transport/Tortuosity.h"
 
@@ -179,33 +180,63 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
-    // BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
 
-    /*
-     * Figure out what the mass of the separator is
-     * and then figure out its volume fraction to
-     * determine the cell porosity.
-     *
-     */
-
-    //need to convert inputs from cgs to SI
-    double volumeSeparator = PSinput.separatorArea_ * PSinput.separatorThickness_;
-    double volumeInert = PSinput.separatorMass_ / solidSkeleton_->density();
-    double porosity = 1.0 - volumeInert / volumeSeparator;
-
-    std::cout << "Separator volume is " << volumeSeparator << " m^3 with "
-              << volumeInert << " m^3 inert and porosity " << porosity <<  std::endl;
-
-    double moleNum = volumeInert * solidSkeleton_->molarDensity();
-
-    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-        porosity_Cell_[iCell] = porosity;
-        porosity_Cell_old_[iCell] = porosity;
-        moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = moleNum;
-	moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = moleNum;
-	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 1.0 - porosity;
-	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 1.0 - porosity;
+  
+    double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+    double porosity = -1.0;
+    double grossVolumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
+    double volumeInert = 0.0;
+    double volumeFractionInert = 0.0;
+    double mv = 0.0;
+    if (solidSkeleton_) {
+        if (PSCinput_ptr->separatorMass_ > 0.0) {
+            volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
+	    volumeFractionInert = volumeInert / grossVolumeSeparator;
+        } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
+	    volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+        }
+        mv = solidSkeleton_->molarVolume();
     }
+    size_t offS = 0;
+    //
+    // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
+    // We'll keep the mole number and volume fraction in the extra phases lists.
+    //
+    if (solidSkeleton_) {   
+        offS = 1;
+    }
+   
+    if (numExtraCondensedPhases_ > 0) {
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+	    porosity = 1.0 - volumeFractionInert;
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
+	    for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+		ExtraPhase* ep = ExtraPhaseList_[k];
+		ThermoPhase* tp = ep->tp_ptr;
+		tp->setState_TP(temp_Curr_, pres_Curr_);
+		double mvp = tp->molarVolume();
+		volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp 
+		  / PSCinput_ptr->separatorArea_;
+		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction *thickness * mvp
+		  / PSCinput_ptr->separatorArea_;
+		porosity -= ep->volFraction;
+	    }
+	    porosity_Cell_[iCell] = porosity;
+	    porosity_Cell_old_[iCell] = porosity;
+	}
+    } else {
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+	    porosity_Cell_[iCell] = 1.0;
+	    porosity_Cell_old_[iCell] = 1.0;
+	}
+    }
+
+
 
     /*
      * Porous electrode domain prep

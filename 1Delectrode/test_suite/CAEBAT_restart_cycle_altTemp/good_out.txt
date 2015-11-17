@@ -234,7 +234,8 @@ Species name 3 is MgO(S)
     START BLOCK Open Circuit Potential Override for interface anode_surface           (OPTIONAL BLOCK)
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
         Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
-        Identify Reaction for OCV Model = (integer) with default 0
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
         Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
             LIST = 
                 zero : 0
@@ -294,27 +295,6 @@ Species name 3 is MgO(S)
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
-    => timesProcessed = 1 multiContribIndex = 0 
-    Index of the Region = (integer) with default 0
-    Number of Cells in Region = (integer) with default 5
-         => Number of Cells in Region ====> numRadialCellsRegions = 3
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-         ====> phaseNames =  MCMB_Interstitials_anode
-    Default Diffusion Coefficient = (double) with default 1e-12
-         ====> defaultDiffusionCoefficient = 1e-09
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
-START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
-    => timesProcessed = 0 multiContribIndex = 1 
-    Index of the Region = (integer) with default -2147483647
-    Number of Cells in Region = (integer) with default -2147483647
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-    Default Diffusion Coefficient = (double) with default 1e-12
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
     Electrode Name = (string) with Token limits(15, 1)
@@ -426,7 +406,8 @@ END BLOCK Radial Diffusion Region
     START BLOCK Open Circuit Potential Override for interface anode_surface           (OPTIONAL BLOCK)
         Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
         Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
-        Identify Reaction for OCV Model = (integer) with default 0
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
         Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
             LIST = 
                 zero : 0
@@ -486,27 +467,6 @@ END BLOCK Radial Diffusion Region
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
-    => timesProcessed = 1 multiContribIndex = 0 
-    Index of the Region = (integer) with default 0
-    Number of Cells in Region = (integer) with default 5
-         => Number of Cells in Region ====> numRadialCellsRegions = 3
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-         ====> phaseNames =  MCMB_Interstitials_anode
-    Default Diffusion Coefficient = (double) with default 1e-12
-         ====> defaultDiffusionCoefficient = 1e-09
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
-START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
-    => timesProcessed = 0 multiContribIndex = 1 
-    Index of the Region = (integer) with default -2147483647
-    Number of Cells in Region = (integer) with default -2147483647
-    Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-    Default Diffusion Coefficient = (double) with default 1e-12
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
 --------------------------------------------------------------------------------------------------------------------------------------------------------
     Equation Order for Global Node 9          numbulkdomains = 2          numsurfdomains = 1
                  EQUATION                         |                 LEFT BULK DOMAIN                |              RIGHT BULK DOMAIN                   |
@@ -529,7 +489,6 @@ END BLOCK Radial Diffusion Region
      4    Volt(Electrolyte)                       |    4    Volt(Electrolyte)                       |     4    Volt(Electrolyte)                       |
      5 Volt(CathodeVoltage)                       |                                                 |     5 Volt(CathodeVoltage)                       |
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
 Solution saved to file solution.xml as solution 0.
 Solution saved to file solutionStartEnd.xml as solution 0.
     ----------------------------------------------------------------------------------------------------

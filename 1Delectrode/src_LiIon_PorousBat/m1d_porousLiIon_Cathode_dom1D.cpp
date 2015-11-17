@@ -321,11 +321,8 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     instantiateElectrodeCells();
 
-     //int neSolid = Electrode_Cell_[0]->nElements();
-     //elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
-
 }
-//=================================================================================================================================
+//===================================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
 /*
  * Create electrode objects for every cell.
@@ -446,44 +443,28 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
          * Calculate the cell width
          */
         xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
-
+	//
         // Compute total electrode volume
-        double totalElectrodeVolume;
+	//
+        double totalElectrodeGrossVolume;
         double electrodeGrossArea = -1.0;
         double porosity = -1.0;
-        //
-        //  see if we know the electrode area
-        //
+	double nonElectrodeVF = -1.0;
+	//
+        // Calculate the volume fraction of other phases than the electrode.
+        // - Here we assume that the cells are all uniform. we can do this because we are in domain_prep()
+	//
+	double vfOther = volumeFractionOther(0);
+	//
+	// Calculate the gross electrode area
+	//
         if (PSinput.cathode_input_->electrodeGrossArea > 0.0) {
             electrodeGrossArea = PSinput.cathode_input_->electrodeGrossArea;
         } else if (PSinput.cathode_input_->electrodeGrossDiameter > 0.0) {
             electrodeGrossArea = Pi * 0.25 * PSinput.cathode_input_->electrodeGrossDiameter *
                                  PSinput.cathode_input_->electrodeGrossDiameter ;
         }
-
-       /*
-         * if we know the solid and electrode volume, compute porosity
-         * otherwise, hopefully we know the porosity
-         */
-	if (PSinput.cathode_input_->porosity > 0.0) {
-	    porosity = PSinput.cathode_input_->porosity;
-	} else {
-            if (PSinput.cathode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
-               totalElectrodeVolume = electrodeGrossArea * PSinput.cathode_input_->electrodeGrossThickness;
-               porosity = 1.0 - ee->SolidVol() / totalElectrodeVolume;
-               printf("Cathode porosity is %f with %g m^3 solid volume and %g m^3 electrode volume.\n",porosity, ee->SolidVol(),
-                      totalElectrodeVolume);
-               if (porosity <= 0.0) {
-                   throw CanteraError("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()",
-                                      "Computed porosity is not positive.");
-               }
-            } else {
-               throw m1d_Error("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()",
-                               "Unknown Porosity");
-            }
-        } 
-
-        /*
+	/*
          *  Save the cross-sectional area of the electrode to use throughout the code. It does not change within
          *  this calculation
          */
@@ -491,27 +472,55 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
 	    if (!doubleEqual(crossSectionalArea_, electrodeGrossArea, 1.0E-30, 9)) {
 		throw m1d_Error("porousLiIon_Cathode_dom1D::initialConditions()",
 				"crossSectional Area, " + fp2str(crossSectionalArea_) + 
-				", differs from cross sectional area input from cathode file, " + fp2str(electrodeGrossArea));
+				", differs from cross sectional area input from anode file, " + fp2str(electrodeGrossArea));
 	    }
 	    electrodeGrossArea = crossSectionalArea_;
         } else {
 	    electrodeGrossArea = crossSectionalArea_;
 	}
+	/*
+         * If we have input the porosity directly, then we will honor that and calculate the electrode solid volume.
+         * If we have input the electrode solid volume, then we will honor that calculation and calculate the resultant porosity.
+         */
+	if (PSinput.cathode_input_->porosity > 0.0) {
+	    porosity = PSinput.cathode_input_->porosity;
+	} else {
+            if (PSinput.cathode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
+               totalElectrodeGrossVolume = electrodeGrossArea * PSinput.cathode_input_->electrodeGrossThickness;
+	       double totalSolidGrossVolume =  ee->SolidVol();
+               porosity = 1.0 - totalSolidGrossVolume / totalElectrodeGrossVolume - vfOther;
+               //printf("Cathode porosity is %f with %g m^3 solid volume and %g m^3 electrode volume.\n",porosity, ee->SolidVol(),
+               //       totalElectrodeVolume);
+               if (porosity <= 0.0) {
+                   throw CanteraError("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()", "Computed porosity is not positive.");
+               }
+            } else {
+               throw m1d_Error("porousLiIon_Cathode_dom1D::instantiateElectrodeCells()", "Unknown Porosity");
+            }
+        }
+     
+	nonElectrodeVF = porosity + vfOther; 
+	if (nonElectrodeVF < 0.0) {
+	    throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "nonElectrodeVF < 0");
+	}        if (nonElectrodeVF > 1.0) {
+ 	    throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "nonElectrodeVF > 1");
+	}
 
 	/*
-	 *  reset the moles in the electrode using the computed porosity
-	 * and the electrodeWidth FOR THIS node.
+	 *   Reset the moles in the electrode using the computed porosity
+	 *   and the electrodeWidth FOR THIS node.
 	 */
-	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
-
-        // update porosity as computed from electrode input
+	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], nonElectrodeVF);
+	//
+        // Update porosity as computed from electrode input
+	//
         porosity_Cell_[iCell] = porosity;
-        // porosity_Cell_[iCell] = 0.64007;
-
+	porosity_Cell_old_[iCell] = porosity;
+    
         Electrode_Cell_[iCell] = ee;
     }
 }
-//==================================================================================================================================
+//===================================================================================================================================
 // Function that gets called at end the start of every time step
 /*
  *  This function provides a hook for a residual that gets called whenever a

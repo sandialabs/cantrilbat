@@ -338,8 +338,6 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     instantiateElectrodeCells();
 
-     //int neSolid = Electrode_Cell_[0]->nElements();
-     //elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
 }
 //==================================================================================================================================
 //  An electrode object must be created and initialized for every cell in the domain
@@ -528,13 +526,14 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
 	}
 
 	/*
-	 * reset the moles in the electrode using the computed porosity
+	 * Reset the moles in the electrode using the computed porosity
 	 * and the electrodeWidth FOR THIS node.
 	 */
 	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], nonElectrodeVF);
 
         // update porosity as computed from electrode input
         porosity_Cell_[iCell] = porosity;
+	porosity_Cell_old_[iCell] = porosity;
 
         Electrode_Cell_[iCell] = ee;
     }

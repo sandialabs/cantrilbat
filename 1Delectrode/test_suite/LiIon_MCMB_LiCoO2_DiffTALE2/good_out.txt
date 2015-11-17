@@ -459,7 +459,6 @@ Species name 3 is MgO(S)
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
 Solution saved to file solution.xml as solution 0.
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       0.000E+00   
