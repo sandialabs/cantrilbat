@@ -112,7 +112,6 @@ Species name 3 is MgO(S)
 ==================== m1d_input: END OF PROBLEM STATEMENT =======================
 ================================================================================
 
-Separator volume is 1.22918e-06 m^3 with 2.34637e-07 m^3 inert and porosity 0.809111
 Solution saved to file solution.xml as solution 0.
     ----------------------------------------------------------------------------------------------------
      ShowProblemSolution : Time       0.000E+00   

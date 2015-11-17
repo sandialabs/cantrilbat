@@ -46,7 +46,6 @@
             </excessEntropy>
           </binaryNeutralSpeciesParameters>
        </activityCoefficients> 
-       <density units="kg/m3"> 1.0 </density>
     </thermo>
     <kinetics model="none"/>
     <state>
@@ -73,6 +72,10 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+          <!-- <molarVolume units="m3/kmol"> 0.03431714 </molarVolume> -->
+          <molarVolume units="m3/kmol"> 0.040 </molarVolume>
+      </standardState>
     </species>
 
     <species name="V_C6-bulk">
@@ -85,6 +88,9 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.03431714 </molarVolume>
+      </standardState>
     </species>
 
 

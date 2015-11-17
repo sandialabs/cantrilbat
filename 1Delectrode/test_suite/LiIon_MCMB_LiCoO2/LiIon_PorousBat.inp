@@ -183,6 +183,7 @@ Start Time = 0.0
 ! 
 ! Simulation end time  [s]
 End Time = 30000.0
+! End Time = 3.0
 !-------------------------------------------------------------------------
 !
 ! Initial Time Step [s]

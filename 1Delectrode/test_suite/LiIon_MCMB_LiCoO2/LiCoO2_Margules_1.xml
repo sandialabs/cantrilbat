@@ -52,6 +52,10 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+          <!--  Based on a 10% increase in vol -->
+          <molarVolume units="m3/kmol"> 0.021 </molarVolume>
+      </standardState>
     </species>
 
     <species name="CoO2">
@@ -64,6 +68,11 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+          <!--   Based on a density of 5.01 gm cm-3 for CoO2 -->
+          <molarVolume units="m3/kmol"> 0.01947544 </molarVolume>
+      </standardState>
+
     </species>
 
 
