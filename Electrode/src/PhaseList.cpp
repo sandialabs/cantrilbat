@@ -489,7 +489,7 @@ int PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
     }
     return -1;
 }
-//================================================================================================
+//===================================================================================================================
 int  PhaseList::globalPhaseIndex(std::string phaseName, bool phaseIDAfter) const
 {
     size_t ip;

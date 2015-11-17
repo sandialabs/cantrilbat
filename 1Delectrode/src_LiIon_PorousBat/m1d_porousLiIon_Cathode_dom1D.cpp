@@ -4333,27 +4333,13 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid, Ep
         /*
          * Get initial mole fractions from PSinput
          */
-        int igECDMC  = PSinput.PhaseList_->globalSpeciesIndex("ECDMC");
-        if (igECDMC < 0) {
-            throw CanteraError("confused", "confused");
-        }
-        int igLip = PSinput.PhaseList_->globalSpeciesIndex("Li+");
-        if (igLip < 0) {
-            throw CanteraError("confused", "confused");
-        }
-        int igPF6m = PSinput.PhaseList_->globalSpeciesIndex("PF6-");
-        if (igPF6m < 0) {
-            throw CanteraError("confused", "confused");
-        }
-
-        soln[indexCent_EqnStart + iVar_Species + iECDMC_] = PSinput.electrolyteMoleFracs_[igECDMC];
-        soln[indexCent_EqnStart + iVar_Species + iLip_  ] = PSinput.electrolyteMoleFracs_[igLip];
-        soln[indexCent_EqnStart + iVar_Species + iPF6m_ ] = PSinput.electrolyteMoleFracs_[igPF6m];
-
-
+	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	    soln[indexCent_EqnStart + iVar_Species + k] = PSinput.electrolyteMoleFracs_[k];
+	}
+	//
+	// Set some arbitrary values for the two voltages
+	//
         soln[indexCent_EqnStart + iVar_Voltage] = -0.07;
-
-        //double icurr = PSinput.icurrDischargeSpecified_;
         double volt = PSinput.CathodeVoltageSpecified_;
         soln[indexCent_EqnStart + iVar_Voltage_ED] = volt;
 	//
