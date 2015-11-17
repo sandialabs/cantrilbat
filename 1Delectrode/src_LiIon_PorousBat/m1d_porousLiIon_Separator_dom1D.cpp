@@ -180,8 +180,6 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
-
-  
     double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
     double porosity = -1.0;
     double grossVolumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
@@ -235,8 +233,6 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
 	    porosity_Cell_old_[iCell] = 1.0;
 	}
     }
-
-
 
     /*
      * Porous electrode domain prep

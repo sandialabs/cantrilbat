@@ -472,10 +472,8 @@ Domain1D::reportSolutionVector(const std::string& requestID, const int requestTy
  */
 void
 Domain1D::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, 
-			       const Epetra_Vector_Ghosted *solnDot,
-			       const double t, const double delta_t, const double t_old)
+			       const Epetra_Vector_Ghosted *solnDot, const double t, const double delta_t, const double t_old)
 {
-
 }
 //====================================================================================================================
 // Generate the initial conditions

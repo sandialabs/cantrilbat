@@ -626,17 +626,36 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
  */
 void
 ProblemResidEval::setStateFromSolution(const bool doTimeDependentResid,
-                                       const Epetra_Vector *soln,
-                                       const Epetra_Vector *solnDot,
+                                       const Epetra_Vector *soln_ptr,
+                                       const Epetra_Vector *solnDot_ptr,
                                        const double t,
                                        const double rdelta_t, const double t_old)
 {
-  // Get a local copy of the domain layout
-  // DomainLayout &DL = *DL_ptr_;
+  double delta_t = t - t_old;
 
-  LI_ptr_->ExtractPositionsFromSolution(soln);
+  // Get a local copy of the domain layout
+  DomainLayout &DL = *DL_ptr_;
+
+  LI_ptr_->ExtractPositionsFromSolution(soln_ptr);
 
   GI_ptr_->updateGlobalPositions(LI_ptr_->Xpos_LcOwnedNode_p);
+
+   /*
+   *   Loop over the Volume Domains
+   */
+  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+    d_ptr->setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+
+  }
+  /*
+   *    Loop over the Surface Domains
+   */
+  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+    d_ptr->setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+  }
+
 
   /*
    *  Update the nodal values in the LocalNodeIndices structure

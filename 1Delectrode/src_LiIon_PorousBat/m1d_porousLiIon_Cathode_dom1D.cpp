@@ -263,7 +263,6 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     if (solidSkeleton_) {
     }
 
-
     /*
      * Porous electrode domain prep
      */
@@ -1688,7 +1687,7 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
     }
  
     porousFlow_dom1D::residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr,
-                      solnOld_ptr, t, rdelta_t, residType, solveType);
+					solnOld_ptr, t, rdelta_t, residType, solveType);
 
     residType_Curr_ = residType;
     const Epetra_Vector& soln = *soln_ptr;
