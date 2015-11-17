@@ -24,6 +24,9 @@ VarType::VarMainName(const VAR_TYPE variableType)
 {
   switch (variableType)
   {
+    case Displacement_Axial:
+      return string("d_axial");
+      break;
     case Velocity_Axial:
       return string("Vel_axial");
       break;
@@ -32,9 +35,6 @@ VarType::VarMainName(const VAR_TYPE variableType)
       break;
     case Velocity_Swirl:
       return string("Vel_swirl");
-      break;
-    case Displacement_Axial:
-      return string("d_axial");
       break;
     case Temperature:
       return string("Temperature");
@@ -152,9 +152,12 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
     case Mechanical_Model_Axial:
       return std::string("Mechanical_Model_Axial");
       break;
-    case Mechanical_Model_Transverse:
-      return std::string("Mechanical_Model_Transverse");
-      break;
+    case Mechanical_Displacement_Axial:
+     return std::string("Mechanical_Displacement_Axial");
+     break;
+    // case Mechanical_Model_Transverse:
+    //   return std::string("Mechanical_Model_Transverse");
+    //   break;
 #endif 
     case Max_Eqn_Name:
       return std::string("Max_Eqn_Name");

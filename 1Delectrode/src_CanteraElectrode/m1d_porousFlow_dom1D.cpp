@@ -379,12 +379,15 @@ porousFlow_dom1D::residSetupTmps()
          */
         nodeTmpsCenter.Offset_Voltage              = nodeCent->indexBulkDomainVar0((size_t) Voltage);
         nodeTmpsCenter.Offset_MoleFraction_Species = nodeCent->indexBulkDomainVar0((size_t) MoleFraction_Species);
+	nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
         nodeTmpsCenter.Offset_Velocity_Axial       = nodeCent->indexBulkDomainVar0((size_t) Velocity_Axial);
         nodeTmpsCenter.Offset_Temperature          = nodeCent->indexBulkDomainVar0((size_t) Temperature);
         nodeTmpsCenter.Offset_Pressure             = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
 
+
 #ifdef MECH_MODEL
 	nodeTmpsCenter.Offset_Solid_Stress_Axial   = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+
 #endif
         nodeTmpsCenter.RO_Current_Conservation     = nodeCent->indexBulkDomainEqn0((size_t) Current_Conservation);
         nodeTmpsCenter.RO_Electrolyte_Continuity   = nodeCent->indexBulkDomainEqn0((size_t) Continuity);
@@ -412,6 +415,7 @@ porousFlow_dom1D::residSetupTmps()
 
             nodeTmpsLeft.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
             nodeTmpsLeft.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
+            nodeTmpsLeft.Offset_Displacement_Axial   = nodeTmpsCenter.Offset_Displacement_Axial;
             nodeTmpsLeft.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
             nodeTmpsLeft.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
             nodeTmpsLeft.Offset_Pressure             = nodeTmpsCenter.Offset_Pressure;
@@ -433,6 +437,7 @@ porousFlow_dom1D::residSetupTmps()
 
             nodeTmpsLeft.Offset_Voltage              = nodeLeft->indexBulkDomainVar0((size_t) Voltage);
             nodeTmpsLeft.Offset_MoleFraction_Species = nodeLeft->indexBulkDomainVar0((size_t) MoleFraction_Species);
+            nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
             nodeTmpsLeft.Offset_Velocity_Axial       = nodeLeft->indexBulkDomainVar0((size_t) Velocity_Axial);
             nodeTmpsLeft.Offset_Temperature          = nodeLeft->indexBulkDomainVar0((size_t) Temperature);
             nodeTmpsLeft.Offset_Pressure             = nodeLeft->indexBulkDomainVar0((size_t) Pressure_Axial);
@@ -461,6 +466,7 @@ porousFlow_dom1D::residSetupTmps()
 
             nodeTmpsRight.Offset_Voltage              = nodeTmpsCenter.Offset_Voltage;
             nodeTmpsRight.Offset_MoleFraction_Species = nodeTmpsCenter.Offset_MoleFraction_Species;
+            nodeTmpsRight.Offset_Displacement_Axial   = nodeTmpsCenter.Offset_Displacement_Axial;
             nodeTmpsRight.Offset_Velocity_Axial       = nodeTmpsCenter.Offset_Velocity_Axial;
             nodeTmpsRight.Offset_Temperature          = nodeTmpsCenter.Offset_Temperature;
             nodeTmpsRight.Offset_Pressure             = nodeTmpsCenter.Offset_Pressure;
@@ -482,6 +488,7 @@ porousFlow_dom1D::residSetupTmps()
 
             nodeTmpsRight.Offset_Voltage              = nodeRight->indexBulkDomainVar0((size_t) Voltage);
             nodeTmpsRight.Offset_MoleFraction_Species = nodeRight->indexBulkDomainVar0((size_t) MoleFraction_Species);
+            nodeTmpsRight.Offset_Displacement_Axial   = nodeRight->indexBulkDomainVar0((size_t) Displacement_Axial);
             nodeTmpsRight.Offset_Velocity_Axial       = nodeRight->indexBulkDomainVar0((size_t) Velocity_Axial);
             nodeTmpsRight.Offset_Temperature          = nodeRight->indexBulkDomainVar0((size_t) Temperature);
             nodeTmpsRight.Offset_Pressure             = nodeRight->indexBulkDomainVar0((size_t) Pressure_Axial);
@@ -561,7 +568,9 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
     }
     //ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
     //int nSp = tmpPhase->nSpecies();
-
+#ifdef TRACK_LOCATION
+    std::cout << " porousFlow_dom1D::initialConditions after pl_ptr->globalPhaseIndex(PSCinput_ptr->electrolytePhase_) "<<std::endl;
+#endif
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
     

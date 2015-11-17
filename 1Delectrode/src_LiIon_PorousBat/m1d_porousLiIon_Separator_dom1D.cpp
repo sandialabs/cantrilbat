@@ -266,6 +266,10 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      *  mole-averaged velocities as the basis.
      */
     trans_->setVelocityBasis(ivb_);
+#ifdef TRACK_LOCATION
+    std::cout << "Leaving porousLiIon_Separator_dom1D::domain_prep"<<std::endl;
+#endif
+
 }
 //==================================================================================================================================
 // Function that gets called at end the start of every time step
@@ -1280,16 +1284,22 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	    //
 	    thermalCond_Cell_[iCell] = thermalCondCalc_PorMatrix();
 	}
+#ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0 ) {
-	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	  NodalVars* nodeLeft  = cTmps.nvLeft_; 
-	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	  int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	  double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-	  nodeLeft->changeNodePosition(new_node_position);
-	  double &stmp = (double&) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-	  stmp = 0.0;
+	  if(iCell>0) {
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodalVars* nodeLeft  = cTmps.nvLeft_; 
+	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	    double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	    nodeLeft->changeNodePosition(new_node_position);
+	    double &stmp = (double&) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	    stmp = 0.0;
+	  }
 	}
+	else	
+	  throw m1d_Error("porousLiIon_Separator_dom1D::residEval_PreCalc"," MECH_MODEL defined but solidMechanicsProbType_ !>0" );
+#endif
     } // end of icell loop
 }
 //==================================================================================================================================

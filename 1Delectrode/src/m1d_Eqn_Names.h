@@ -68,7 +68,8 @@ enum EQ_Name_Enum
   Dirichlet_Specification,
 #ifdef MECH_MODEL
   Mechanical_Model_Axial,
-  Mechanical_Model_Transverse,
+  Mechanical_Displacement_Axial,
+  //  Mechanical_Model_Transverse,
 #endif
   Species_Eqn_Offset,   //! Special equation name representing the first species equation offset
   Max_Eqn_Name
