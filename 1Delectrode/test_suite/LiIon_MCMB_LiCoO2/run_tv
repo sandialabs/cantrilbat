@@ -4,5 +4,10 @@
 #MP_MACHINEFILE=${MP_MACHINEFILE:=/home/cbluchi/machinefile}
 #
 #
+if test ! -f  LiIon_PorousBat
+then
+  ln -s ../../src_LiIon_PorousBat/LiIon_PorousBat .
+fi
+
 mpirun -tv -np 1 LiIon_PorousBat LiIon_PorousBat.inp 
 
