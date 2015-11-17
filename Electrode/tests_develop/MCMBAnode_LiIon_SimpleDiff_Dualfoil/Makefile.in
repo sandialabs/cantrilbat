@@ -148,8 +148,9 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-test_clean: $(RM) runGood runBad runInProgress.txt out.txt diff_out.txt diff_summary.txt diff_xml.txt err_out.txt \
-                  diff_csv.txt  MCMB_globalResults_0_0.csv MCMB_intResults_0_0.csv  soln_0_0.xml
+test_clean: 
+	$(RM) runGood runBad runInProgress.txt out.txt diff_out.txt diff_summary.txt diff_xml.txt err_out.txt \
+              diff_csv.txt  MCMB_globalResults_0_0.csv MCMB_intResults_0_0.csv  soln_0_0.xml
 
 clean:
 	@MAKE@ -s test_clean
