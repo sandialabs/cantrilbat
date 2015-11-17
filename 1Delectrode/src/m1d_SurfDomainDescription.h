@@ -46,7 +46,7 @@ public:
    * and what the equations are, that are solved within the domain.
    *
    */
-  SurfDomainDescription(DomainLayout *dl_ptr, std::string domainName = "");
+  SurfDomainDescription(DomainLayout *dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 
   //! Copy Constructor
   /*!

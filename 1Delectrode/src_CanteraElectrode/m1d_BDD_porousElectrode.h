@@ -42,7 +42,7 @@ public:
    *
    * @param dl_ptr   Pointer to the domain layout object
    */
-  BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType, std::string domainName = "");
+  BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType, std::string domainFunctionName = "", std::string domainName = "");
 
   //! Destructor
   virtual

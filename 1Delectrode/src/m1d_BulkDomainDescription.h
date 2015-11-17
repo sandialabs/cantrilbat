@@ -22,7 +22,7 @@ class BulkDomainDescription : public DomainDescription {
 public:
 
   //! Constructor
-  BulkDomainDescription(DomainLayout *dl_ptr, std::string domainName = "");
+  BulkDomainDescription(DomainLayout *dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 
   //! Copy Constructor
   /*!

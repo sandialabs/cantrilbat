@@ -19,16 +19,15 @@ using namespace std;
 namespace m1d
 {
 
-//======================================================================================================================
-
-BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr) :
-    BDD_porousFlow(dl_ptr)
+//==================================================================================================================================
+BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr, std::string domainName) :
+     BDD_porousFlow(dl_ptr, "separator", domainName)
 {
     //int eqnIndex = 0;
     IsAlgebraic_NE.resize(6,0);
     IsArithmeticScaled_NE.resize(6,0);
 }
-//======================================================================================================================================
+//===================================================================================================================================
 BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(const BDT_porSeparator_LiIon& r) :
     BDD_porousFlow(r.DL_ptr_)
 {

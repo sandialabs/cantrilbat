@@ -118,7 +118,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     //ELECTRODE_KEY_INPUT* ci = psc_ptr->cathode_input_;
 
 
-    BulkDomainDescription* bdd = new BDT_porAnode_LiIon(this);
+    BulkDomainDescription* bdd = new BDT_porAnode_LiIon(this, "PorousLiIonAnode");
     // We refine the grid in the anode to get rid of stair step profiles
     //addBulkDomainToRightEnd(bdd, numNodesEach, startZ, endZ);
     int numNodesA = pscInput_ptr_->initDefaultNumCVsAnode_;

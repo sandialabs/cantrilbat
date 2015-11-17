@@ -20,10 +20,11 @@ namespace m1d
 {
 
 //===========================================================================
-  DomainDescription::DomainDescription(DomainLayout *dl_ptr, std::string domainName) :
+  DomainDescription::DomainDescription(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
   NumEquationsPerNode(0), 
   IsArithmeticScaled_NE(0), 
   DomainName(domainName),
+  DomainFunctionName_(domainFunctionName),
   DL_ptr_(dl_ptr),
   SolutionBehavior_printLvl_(0),
   Residual_printLvl_(0),
@@ -50,7 +51,10 @@ DomainDescription::~DomainDescription()
 }
 //===========================================================================
 DomainDescription::DomainDescription(const DomainDescription &r) :
-  NumEquationsPerNode(0), DomainName(""), DL_ptr_(0)
+  NumEquationsPerNode(0), 
+  DomainName(""), 
+  DomainFunctionName_(""), 
+  DL_ptr_(0)
 {
   *this = r;
 }
@@ -70,6 +74,7 @@ DomainDescription::operator=(const DomainDescription &r)
   IsAlgebraic_NE = r.IsAlgebraic_NE;
   IsArithmeticScaled_NE = r.IsArithmeticScaled_NE;
   DomainName = r.DomainName;
+  DomainFunctionName_ = r.DomainFunctionName_;
   DL_ptr_ = r.DL_ptr_;
   SolutionBehavior_printLvl_ = r.SolutionBehavior_printLvl_;
   Residual_printLvl_ = r.Residual_printLvl_;

@@ -216,13 +216,16 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
     double volumeInert = 0.0;
     double volumeFractionInert = 0.0;
-    if (PSCinput_ptr->separatorMass_ > 0.0) {
-	volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
-	volumeFractionInert = volumeInert / volumeSeparator;
-    } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
-	volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+    double mv = 0.0;
+    if (solidSkeleton_) {
+        if (PSCinput_ptr->separatorMass_ > 0.0) {
+            volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
+	    volumeFractionInert = volumeInert / volumeSeparator;
+        } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
+	    volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+        }
+        mv = solidSkeleton_->molarVolume();
     }
-    double mv = solidSkeleton_->molarVolume();
     size_t offS = 0;
     //
     // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
@@ -242,29 +245,35 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     moleNumber_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
     moleNumber_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
 
-    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-	porosity = 1.0 - volumeFractionInert;
-	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
-	moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
-        for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
-	    ExtraPhase* ep = ExtraPhaseList_[k];
-	    ThermoPhase* tp = ep->tp_ptr;
-	    tp->setState_TP(temp_Curr_, pres_Curr_);
-	    double mvp = tp->molarVolume();
-	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
-	    porosity -= ep->volFraction;
+    if (numExtraCondensedPhases_ > 0) {
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+	    porosity = 1.0 - volumeFractionInert;
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+		ExtraPhase* ep = ExtraPhaseList_[k];
+		ThermoPhase* tp = ep->tp_ptr;
+		tp->setState_TP(temp_Curr_, pres_Curr_);
+		double mvp = tp->molarVolume();
+		volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+		porosity -= ep->volFraction;
+	    }
+	    porosity_Cell_[iCell] = porosity;
+	    porosity_Cell_old_[iCell] = porosity;
 	}
-	porosity_Cell_[iCell] = porosity;
-	porosity_Cell_old_[iCell] = porosity;
+    } else {
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+	    porosity_Cell_[iCell] = 1.0;
+	    porosity_Cell_old_[iCell] = 1.0;
+	}
     }
 
     cellTmpsVect_Cell_.resize(NumLcCells);
-
     qSource_Cell_curr_.resize(NumLcCells, 0.0);
     qSource_Cell_accumul_.resize(NumLcCells, 0.0);
     jouleHeat_lyte_Cell_curr_.resize(NumLcCells, 0.0);

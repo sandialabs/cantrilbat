@@ -37,7 +37,15 @@ class DomainDescription {
 public:
 
   //! Constructor
-  DomainDescription(DomainLayout* dl_ptr, std::string domainName = "");
+  /*!
+   *   Functional names of domain may be used to define objects that may be mapped to input file parameters
+   *   For example, functional names for bulk domains are "anode", "separator", and "cathode". 
+   *
+   *   @param[in] dl_ptr                Domain layout pointer
+   *   @param[in] domainFunctionName    Functional name of domain
+   *   @param[in] domainFunctionName    name of domain
+   */
+  DomainDescription(DomainLayout* dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 
   //! Copy Constructor
   /*!
@@ -162,6 +170,9 @@ public:
 
   //! Name of the domain.
   std::string DomainName;
+
+  //! Functional name of the domain
+  std::string DomainFunctionName_;
 
   //! Shallow pointer to the domain layout for this Domain Description
   DomainLayout *DL_ptr_;

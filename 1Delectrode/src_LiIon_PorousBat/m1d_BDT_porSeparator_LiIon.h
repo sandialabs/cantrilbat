@@ -42,7 +42,7 @@ public:
      *
      * @param dl_ptr   Pointer to the domain layout object
      */
-    BDT_porSeparator_LiIon(DomainLayout* dl_ptr);
+    BDT_porSeparator_LiIon(DomainLayout* dl_ptr, std::string domainName = "");
 
     //! Destructor
     virtual

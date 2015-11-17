@@ -280,21 +280,8 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     if (solidSkeleton_) {
     }
 
-    //
-    //  Put a number into the porosity_Cell_ It will be overwritten in the initialization
-    //
-/*
-    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-        porosity_Cell_[iCell] = 0.5;
-        porosity_Cell_old_[iCell] = 0.5;
-        moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 0.0;
-	moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 0.0;
-	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = 0.0;
-	volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = 0.0;
-    }
-*/
     /*
-     * Porous electrode domain prep
+     * Resize vectors associated with this object
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
     xdelCell_Cell_.resize(NumLcCells, 0.0);
@@ -476,43 +463,29 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
          */
         xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
 
-
+	//
         // Compute total electrode volume
+	//
         double totalElectrodeGrossVolume = -1.0;;
         double electrodeGrossArea = -1.0;
         double porosity = -1.0;
+	double nonElectrodeVF = -1.0;
+	//
+        // Calculate the volume fraction of other phases than the electrode.
+        // - Here we assume that the cells are all uniform. we can do this because we are in domain_prep()
+	//
+	double vfOther = volumeFractionOther(0);
+        //
+	// Calculate the gross electrode area
+	//
 
-        //see if we know the electrode area
         if (PSinput.anode_input_->electrodeGrossArea > 0.0) {
             electrodeGrossArea = PSinput.anode_input_->electrodeGrossArea;
         } else if (PSinput.anode_input_->electrodeGrossDiameter > 0.0) {
             electrodeGrossArea = Pi * 0.25 * PSinput.anode_input_->electrodeGrossDiameter *
                                  PSinput.anode_input_->electrodeGrossDiameter;
         }
-
-        /*
-         * if we know the solid and electrode volume, compute porosity
-         * otherwise, hopefully we know the porosity
-         */
-	if (PSinput.anode_input_->porosity > 0.0) {
-	    porosity = PSinput.anode_input_->porosity;
-	} else {
-	    if (PSinput.anode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
-		totalElectrodeGrossVolume = electrodeGrossArea * PSinput.anode_input_->electrodeGrossThickness;
-		double totalSolidGrossVolume =  ee->SolidVol();
-		porosity = 1.0 - totalSolidGrossVolume / totalElectrodeGrossVolume;
-		printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
-		       porosity, ee->SolidVol(), totalElectrodeGrossVolume);
-		if (porosity <= 0.0) {
-		    throw CanteraError("porousLiIon_Anode_dom1D::initialConditions()",
-				       "Computed porosity is not positive.");
-		}
-	    } else {
-		throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()",
-				"Unknown Porosity");
-            }
-	}
-        /*
+	/*
          *  Save the cross-sectional area of the electrode to use throughout the code. It does not change within
          *  this calculation
          */
@@ -526,12 +499,39 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
         } else {
 	    electrodeGrossArea = crossSectionalArea_;
 	}
+        /*
+         * If we have input the porosity directly, then we will honor that and calculate the electrode solid volume.
+         * If we have input the electrode solid volume, then we will honor that calculation and calculate the resultant porosity.
+         */
+	if (PSinput.anode_input_->porosity > 0.0) {
+	    porosity = PSinput.anode_input_->porosity;
+	} else {
+	    if (PSinput.anode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
+		totalElectrodeGrossVolume = electrodeGrossArea * PSinput.anode_input_->electrodeGrossThickness;
+		double totalSolidGrossVolume =  ee->SolidVol();
+		porosity = 1.0 - totalSolidGrossVolume / totalElectrodeGrossVolume - vfOther;
+		//printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
+		//       porosity, ee->SolidVol(), totalElectrodeGrossVolume);
+		if (porosity <= 0.0) {
+		    throw CanteraError("porousLiIon_Anode_dom1D::initialConditions()", "Computed porosity is not positive.");
+		}
+	    } else {
+		throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()","Unknown Porosity");
+            }
+	}
+  
+	nonElectrodeVF = porosity + vfOther; 
+	if (nonElectrodeVF < 0.0) {
+	    throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "nonElectrodeVF < 0");
+	}        if (nonElectrodeVF > 1.0) {
+ 	    throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "nonElectrodeVF > 1");
+	}
 
 	/*
 	 * reset the moles in the electrode using the computed porosity
 	 * and the electrodeWidth FOR THIS node.
 	 */
-	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], porosity);
+	ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], nonElectrodeVF);
 
         // update porosity as computed from electrode input
         porosity_Cell_[iCell] = porosity;

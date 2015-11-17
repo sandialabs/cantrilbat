@@ -18,9 +18,13 @@
 namespace m1d
 {
 //=====================================================================================================================
-  BulkDomainDescription::BulkDomainDescription(DomainLayout *dl_ptr, std::string domainName) :
-    DomainDescription(dl_ptr, domainName), 
-    IDBulkDomain(-1), FirstGbNode(-1), LastGbNode(-1), Xpos_end(0.0), BulkDomainPtr_(0)
+BulkDomainDescription::BulkDomainDescription(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
+    DomainDescription(dl_ptr, domainFunctionName, domainName), 
+    IDBulkDomain(-1), 
+    FirstGbNode(-1),
+    LastGbNode(-1), 
+    Xpos_end(0.0), 
+    BulkDomainPtr_(0)
 {
 }
 //=====================================================================================================================

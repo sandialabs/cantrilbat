@@ -14,16 +14,24 @@ namespace m1d
 {
 
 //=====================================================================================================================
-  SDT_Dirichlet::SDT_Dirichlet(DomainLayout *dl_ptr, std::string domainName) :
-    SurfDomainDescription(dl_ptr, domainName), NumConditions(0), EquationID(0), Value(0), TimeDep(0), 
-    BC_TimeDep_(0), BC_Type_(0)
+  SDT_Dirichlet::SDT_Dirichlet(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
+    SurfDomainDescription(dl_ptr, domainFunctionName, domainName), 
+    NumConditions(0), 
+    EquationID(0), 
+    Value(0), 
+    TimeDep(0), 
+    BC_TimeDep_(0), 
+    BC_Type_(0)
 {
 }
 //=====================================================================================================================
-SDT_Dirichlet::SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string domainName) :
-  SurfDomainDescription(dl_ptr,domainName), BC_Type_(0)
+SDT_Dirichlet::SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string domainFunctionName, std::string domainName) :
+    SurfDomainDescription(dl_ptr, domainFunctionName, domainName), 
+    NumConditions(1), 
+    TimeDep(0), 
+    BC_TimeDep_(0), 
+    BC_Type_(0)
 {
-  NumConditions = 1;
   EquationID.resize(1);
   VariableID.resize(1);
   Value.resize(1);
@@ -36,7 +44,8 @@ SDT_Dirichlet::SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string dom
 }
 //=====================================================================================================================
 SDT_Dirichlet::SDT_Dirichlet(const SDT_Dirichlet &r) :
-  SurfDomainDescription(r.DL_ptr_), NumConditions(0), EquationID(0), Value(0), TimeDep(0), BC_TimeDep_(0), BC_Type_(0)
+  SurfDomainDescription(r.DL_ptr_), 
+  NumConditions(0), EquationID(0), Value(0), TimeDep(0), BC_TimeDep_(0), BC_Type_(0)
 {
   *this = r;
 }
@@ -182,8 +191,8 @@ SDT_Dirichlet::mallocDomain1D()
 //=====================================================================================================================
 //=====================================================================================================================
 //=====================================================================================================================
-SDT_Mixed::SDT_Mixed(DomainLayout *dl_ptr, std::string domainName) :
-    SDT_Dirichlet(dl_ptr, domainName), 
+SDT_Mixed::SDT_Mixed(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
+    SDT_Dirichlet(dl_ptr, domainFunctionName, domainName), 
     SBC_Type_(0)
 {
 }

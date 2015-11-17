@@ -23,9 +23,8 @@ namespace m1d
 {
 
 //====================================================================================================================
-BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr,
-				       std::string domainName) :
-    BDD_porousElectrode(dl_ptr, 0, domainName),
+BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr, std::string domainName) :
+    BDD_porousElectrode(dl_ptr, 0, "anode", domainName),
     m_position(0),
     Capacity_initial_(0.0),
     CapacityDischarged_initial_(0.0),

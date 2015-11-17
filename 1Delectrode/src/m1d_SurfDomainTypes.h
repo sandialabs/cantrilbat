@@ -30,7 +30,7 @@ public:
      *
      * @param dl_ptr  Domain Layout object that owns this description.
      */
-    SDT_Dirichlet(DomainLayout *dl_ptr,  std::string domainName = "");
+    SDT_Dirichlet(DomainLayout *dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 
     //! In this constructor, we set all variables in
     //! adjoining bulk domains to a single constant value
@@ -40,7 +40,7 @@ public:
      *
      * @param value    Value to set all boundary conditions to.
      */
-    SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string domainName = "");
+    SDT_Dirichlet(DomainLayout *dl_ptr, double value, std::string domainFunctionName = "", std::string domainName = "");
 
     //! Destructor
     virtual
@@ -191,7 +191,7 @@ public:
      *
      * @param dl_ptr  Domain Layout object that owns this description.
      */
-    SDT_Mixed(DomainLayout *dl_ptr, std::string domainName = "");
+    SDT_Mixed(DomainLayout *dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 
     //! Destructor
     virtual ~SDT_Mixed();

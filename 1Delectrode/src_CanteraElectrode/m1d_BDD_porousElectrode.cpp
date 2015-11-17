@@ -24,8 +24,8 @@ namespace m1d
 {
 //====================================================================================================================
 BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType,
-					 std::string domainName) :
-  BDD_porousFlow(dl_ptr, domainName),
+					 std::string domainFunctionName, std::string domainName) :
+  BDD_porousFlow(dl_ptr, domainFunctionName, domainName),
   Electrode_(0),
   metalPhase_(0),
   electrodeType_(electrodeType)

@@ -29,9 +29,8 @@ namespace m1d
 {
 
 //=====================================================================================================================
-BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout *dl_ptr,
-                                         std::string domainName) :
-    BDD_porousElectrode(dl_ptr, 1, domainName),
+BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout *dl_ptr, std::string domainName) :
+    BDD_porousElectrode(dl_ptr, 1, "cathode", domainName),
     m_position(1),
     Capacity_initial_(0.0),
     CapacityDischarged_initial_(0.0),

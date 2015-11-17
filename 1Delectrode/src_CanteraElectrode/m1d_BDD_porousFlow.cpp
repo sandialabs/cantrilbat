@@ -23,13 +23,13 @@
 using namespace std;
 using namespace Cantera;
 
+
 namespace m1d
 {
 
 //====================================================================================================================
-BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr,
-			       std::string domainName) :
-    BulkDomainDescription(dl_ptr, domainName),
+BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
+    BulkDomainDescription(dl_ptr, domainFunctionName, domainName),
     ionicLiquid_(0),
     trans_(0),
     solidSkeleton_(0),
@@ -54,49 +54,47 @@ BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
 {
     *this = r;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 BDD_porousFlow::~BDD_porousFlow()
 {
-  /*
-   * Delete objects that we own
-   */
-  safeDelete(ionicLiquid_);
-
-  safeDelete(trans_);
-
-  safeDelete(solidSkeleton_);
- 
+    /*
+     * Delete objects that we own
+     */
+    safeDelete(ionicLiquid_);
+    safeDelete(trans_);
+    safeDelete(solidSkeleton_);
 }
-//=====================================================================================================================
+//===================================================================================================================================
 BDD_porousFlow &
 BDD_porousFlow::operator=(const BDD_porousFlow &r)
 {
-  if (this == &r) {
+    if (this == &r) {
+	return *this;
+    }
+    BulkDomainDescription::operator=(r);
+
+    safeDelete(ionicLiquid_);
+    if (r.ionicLiquid_) {
+	ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();
+    }
+    safeDelete(trans_);
+    if (r.trans_) {
+	trans_ = (r.trans_)->duplMyselfAsTransport();
+    }
+    safeDelete(solidSkeleton_);
+    if (r.solidSkeleton_) {
+	solidSkeleton_ = (r.solidSkeleton_)->duplMyselfAsThermoPhase();
+    }
+
+    nSpeciesElectrolyte_  = r.nSpeciesElectrolyte_;
+    iMFS_index_           = r.iMFS_index_;
+    iCN_index_            = r.iCN_index_;
+    ExtraPhaseList_       = r.ExtraPhaseList_;
+    Porosity_prob_type_   = r.Porosity_prob_type_;
+
     return *this;
-  }
-  BulkDomainDescription::operator=(r);
-
-  safeDelete(ionicLiquid_);
-  if (r.ionicLiquid_) {
-      ionicLiquid_ = (r.ionicLiquid_)->duplMyselfAsThermoPhase();
-  }
-  safeDelete(trans_);
-  if (r.trans_) {
-       trans_ = (r.trans_)->duplMyselfAsTransport();
-  }
-  safeDelete(solidSkeleton_);
-  if (r.solidSkeleton_) {
-       solidSkeleton_ = (r.solidSkeleton_)->duplMyselfAsThermoPhase();
-  }
-
-  nSpeciesElectrolyte_  = r.nSpeciesElectrolyte_;
-  iMFS_index_           = r.iMFS_index_;
-  iCN_index_            = r.iCN_index_;
-  ExtraPhaseList_       = r.ExtraPhaseList_;
-  Porosity_prob_type_   = r.Porosity_prob_type_;
-
-  return *this;
 }
+
 //==================================================================================================================================
 void
 BDD_porousFlow::ReadModelDescriptions()
@@ -106,24 +104,26 @@ BDD_porousFlow::ReadModelDescriptions()
      */
     int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
     if (iph < 0) {
-      throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
-                         "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
+	throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
+			   "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
     }
     ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
     ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
     nSpeciesElectrolyte_ =  ionicLiquid_->nSpecies();
     
-    iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
-    if (iph < 0) {
-      throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
-                         "Can't find the phase in the phase list: " + PSCinput_ptr->separatorPhase_);
+    if (IDBulkDomain == 1) {
+	iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
+	if (iph < 0) {
+	    throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
+			       "Can't find the phase in the phase list: " + PSCinput_ptr->separatorPhase_);
+	}
+	tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+	if (!tmpPhase) {
+	    throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
+			       "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
+	}
+	solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
     }
-    tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
-    if (!tmpPhase) {
-        throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
-                           "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
-    }
-    solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
 
     int numE = PSCinput_ptr->numExtraPhases_;
 
@@ -162,7 +162,7 @@ BDD_porousFlow::ReadModelDescriptions()
 //==================================================================================================================================
 //  Make list of the equations and variables
 /*
- *  We also set the ordering here.
+ *  We also set the ordering here
  */
 void
 BDD_porousFlow::SetEquationsVariablesList()
