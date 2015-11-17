@@ -3727,10 +3727,12 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
 
     // \todo remove this. 
+#ifdef DEBUG_MECH_MODEL 
     if (do0Write) for (int iCell = 0; iCell < NumLcCells; iCell++) {
       Electrode* ee = Electrode_Cell_[iCell];
       ss.print0("[%d ]  SolidVolume %g \n",iCell,ee->SolidVol());
     }
+#endif 
     
 
     if (do0Write) {
