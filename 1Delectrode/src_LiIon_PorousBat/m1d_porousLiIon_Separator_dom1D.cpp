@@ -2921,6 +2921,7 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         int offS = 0;
 	double mv = 0.0;
 	double porosity = 1.0;
+	double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
 	if (solidSkeleton_) {
 	    offS = 1;
 	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
@@ -2936,8 +2937,8 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 	    porosity = 1.0 - volumeFractionInert;
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
 	}
 
 	for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
@@ -2947,8 +2948,8 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 	    double mvp = tp->molarVolume();
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp;
 	    porosity -= ep->volFraction;
 	}
 	porosity_Cell_[iCell] = porosity;

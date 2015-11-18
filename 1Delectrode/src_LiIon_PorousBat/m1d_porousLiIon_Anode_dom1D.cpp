@@ -581,7 +581,13 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
+	//
+	//  Advance the value of the old cell porosity
+	//
         porosity_Cell_old_[iCell] = porosity_Curr_;
+	//
+	//  Advance the value of the old cell temperature
+	//
 	Temp_Cell_old_[iCell] = temp_Curr_;
 
         double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
@@ -1234,7 +1240,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
          */
 
-        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+        SetupThermoShop1(nZZodeCent, &(soln[indexCent_EqnStart]));
 
         /*
          *    Source terms for the species production rate of Li+.
@@ -4325,8 +4331,6 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         //  fill in mfElectrolyte_Soln_Curr[]  mfElectrolyte_Thermo_Curr_[]
         //
         getMFElectrolyte_soln(nodeCent, solnCentStart);
-
-
         //
         // Need to update the Electrode objects with the state of the solution
         //
@@ -4351,12 +4355,15 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
 	ee->setFinalFinalStateFromFinal();
 
         //
-        // Porosity Setup
+        // Porosity Setup - We have essentially already done this. However, just to make sure that
+	//                  we don't have unknown errors, we'll calculate the porosity given the
+	//                  current conditions and the store it in the porosity_Cell_[] vector
         //
 	double solidVolCell = ee->SolidVol();
         int offS = 0;
         double vfe = solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
         porosity_Curr_ = 1.0 - vfe;
+	double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
 
         for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
 	    ExtraPhase* ep = ExtraPhaseList_[k];
@@ -4365,8 +4372,8 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
 	    double mvp = tp->molarVolume();
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction* thickness * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction* thickness * mvp;
 	    porosity_Curr_ -= ep->volFraction;
 	}
 

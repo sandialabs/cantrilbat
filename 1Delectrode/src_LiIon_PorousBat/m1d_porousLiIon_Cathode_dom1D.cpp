@@ -4372,21 +4372,42 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid, Ep
         //
 	ee->setInitStateFromFinal(true);
 	ee->setFinalFinalStateFromFinal();
-        //
-        // Calculate the solid volume of the electrode
+	//
+        // Porosity Setup - We have essentially already done this. However, just to make sure that
+	//                  we don't have unknown errors, we'll calculate the porosity given the
+	//                  current conditions and the store it in the porosity_Cell_[] vector
         //
 	double solidVolCell = ee->SolidVol();
-        double porosity = 1.0 - solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
-        if (porosity <= 0.0) {
-            throw m1d_Error("porousLiIon_Cathode_dom1D::initialConditions() ERROR",
-                            "Calculated porosity, " + fp2str(porosity) + ", is less than zero\n"
+        int offS = 0;
+        double vfe = solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
+        porosity_Curr_ = 1.0 - vfe;
+	double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+
+        for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+	    ExtraPhase* ep = ExtraPhaseList_[k];
+	    ThermoPhase* tp = ep->tp_ptr;
+	    tp->setState_TP(temp_Curr_, pres_Curr_);
+	    double mvp = tp->molarVolume();
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp;
+	    porosity_Curr_ -= ep->volFraction;
+	}
+
+        if (porosity_Curr_ <= 0.0) {
+            throw m1d_Error("porousLiIon_Anode_dom1D::initialConditions() ERROR",
+                            "Calculated porosity, " + fp2str(porosity_Curr_) + ", is less than zero\n"
                             "           There is an error in the setup of the anode");
         }    
-        //
+	//
         // update porosity as computed from electrode input
-        //
-        porosity_Cell_[iCell] = porosity;
-
+	//
+        porosity_Cell_[iCell] = porosity_Curr_;
+        porosity_Cell_old_[iCell] = porosity_Curr_;
+	//
+	// Update enthalpy fields
+	//
 	if (energyEquationProbType_ == 3) { 
 	    double volCellNew = xdelCell_Cell_[iCell];
 	    // double volElectrodeCell = solidVolCell / crossSectionalArea_;
