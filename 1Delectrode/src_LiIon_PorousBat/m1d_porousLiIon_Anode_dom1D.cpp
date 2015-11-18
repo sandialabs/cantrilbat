@@ -1240,7 +1240,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
          *   ------------------- ADD SOURCE TERMS TO THE CURRENT CELL CENTER --------------------------------------
          */
 
-        SetupThermoShop1(nZZodeCent, &(soln[indexCent_EqnStart]));
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
         /*
          *    Source terms for the species production rate of Li+.
