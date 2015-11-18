@@ -659,7 +659,8 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	double volumeFractionInert = 0.0;
         int offS = 0;
 	double mv = 0.0;
-	double porosity = 1.0;
+	double porosity = 1.0;	
+	double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
         if (solidSkeleton_) {
 	    offS = 1;
 	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
@@ -675,8 +676,8 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	    porosity = 1.0 - volumeFractionInert;
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * mv;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness  * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness  * mv;
 	}
 
 	for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
@@ -686,8 +687,8 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	    double mvp = tp->molarVolume();
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * mvp;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness  * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness  * mvp;
 	    porosity -= ep->volFraction;
 	}
 	porosity_Cell_[iCell] = porosity;
@@ -954,6 +955,46 @@ double porousFlow_dom1D::volumeFractionOther(size_t iCell)
 	vf += volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
     }
     return vf;
+}
+//==================================================================================================================================
+//
+// Calculate the porosity of a single cell
+//     This routine can handle thermal expansion of the stoichiometric phases
+//      Uses:
+//             temp_Curr_          Needs the current temperature and pressuer
+//             pres_Curr_
+//             cTmps.xdelCell_     Needs geometry of cell
+//             crossSectionalArea_
+//             moleNumber_Phases_Cell_[]  Needs to know current moles of Skeletal and Other Phases
+//
+double porousFlow_dom1D::calcPorosity(size_t iCell) 
+{
+   cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+   double xdelCell = cTmps.xdelCell_;
+   double volCell = crossSectionalArea_ * xdelCell;
+   size_t offS = 0;
+   double mv, volS;
+   double vf = 0.0;
+   if (solidSkeleton_) {
+        offS = 1;
+      	solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
+        mv = solidSkeleton_->molarVolume();
+        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell];
+        vf = volumeFraction_Phases_Cell_[iCell*numExtraCondensedPhases_] = volS / volCell;
+    }
+   
+   for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+        ExtraPhase* ep = ExtraPhaseList_[jPhase];
+	ThermoPhase* tp = ep->tp_ptr;
+	tp->setState_TP(temp_Curr_, pres_Curr_);
+	mv = tp->molarVolume();
+        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase];
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] = volS / volCell;
+        vf += volS / volCell;
+    }
+    double p = 1.0 - vf;
+    porosity_Cell_[iCell] = p;
+    return p; 
 }
 //==================================================================================================================================
 } //namespace m1d
