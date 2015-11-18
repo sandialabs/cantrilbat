@@ -65,7 +65,7 @@ Restart Record Number = -1
 !  due to a global elastic stress-strain relationship.
 !
 !--------------------------------------------------------------------------------------------------------
-Solid Mechanics Problem Type = Linear Elastic
+Solid Mechanics Problem Type = ChemEx
 !-----------------------------------------------------------------------
 ! 
 ! Specify electrolyte phase mole fractions 

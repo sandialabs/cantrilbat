@@ -1525,7 +1525,15 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double rightChemEx = Electrode_Cell_[iCell]->SolidVol();
 // chem expansion is the new volume of cell, _not_ a ratio 
 	    double chemexpansion = leftChemEx+rightChemEx;  
-	    // All on or Temperature expansion is turned on. {
+	    //*****************************************************************************
+	    //
+	    //Note that Particle_SFS_v_Porosity_Factor is the Chi in equation (17)
+	    // Since we are in 1-D, equation (16) had V_particle reduced to V0_particle(1+epsilon_sf)^1 instead of ^3 for 3D
+	    //
+	    //
+	    //***************************************************************
+
+	    // All on or ChemEx expansion is turned on. 
 	    if ( (Domain1D::ChemEx | Domain1D::All)  & solidMechanicsProbType_) {
 	      xratio[iCell] *= Particle_SFS_v_Porosity_Factor * (chemexpansion/vol_lc_now);
 	      if(iCell==1) xratio[iCell-1] *=  Particle_SFS_v_Porosity_Factor *(chemexpansion / vol_lc_now);
