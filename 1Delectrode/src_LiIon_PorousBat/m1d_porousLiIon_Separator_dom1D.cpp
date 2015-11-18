@@ -1297,8 +1297,6 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	    stmp = 0.0;
 	  }
 	}
-	else	
-	  throw m1d_Error("porousLiIon_Separator_dom1D::residEval_PreCalc"," MECH_MODEL defined but solidMechanicsProbType_ !>0" );
 #endif
     } // end of icell loop
 }

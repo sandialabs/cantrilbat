@@ -1662,10 +1662,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	   res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] +=last_node_confining_stress;
 					 
 	}
-	else {
-	  throw m1d_Error("porousLiIon_Cathode_dom1D:: ERROR",
-			  "-DMECH_MODEL but solidMechanicsProbType_ is not > 0" );
-	}
 #endif
 }
 //==================================================================================================================================
@@ -1792,8 +1788,6 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	      stmp = 0.0;
 	  }
 	}
-	else	
-	  throw m1d_Error("porousLiIon_Cathode_dom1D::residEval_PreCalc","MECH_MODEL defined but solidMechanicsProbType_ !>0" );
 #endif
     } // end of iCell loop
 

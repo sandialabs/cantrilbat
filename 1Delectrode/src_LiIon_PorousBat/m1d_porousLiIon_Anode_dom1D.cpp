@@ -1596,8 +1596,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  // since we have the half control volumes at the right and left hand boundaries the divisor is NumLcCells-1
 	  avg_delta_matrix_pressure /= (NumLcCells-1);
 	}
-	else	
-	  throw m1d_Error("porousLiIon_Anode_dom1D::residEval part I ","MECH_MODEL defined but solidMechanicsProbType_ !>0" );
 
 #endif
     }
@@ -1645,10 +1643,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
       }
       //impose that -grad trace Solid_Stress == the average across this part of the battery.
 
-    }
-    else {
-        throw m1d_Error("porousLiIon_Anode_dom1D:: ERROR",
-                            "-DMECH_MODEL but solidMechanicsProbType_ is not > 0" );
     }
 #endif
 }
@@ -1764,8 +1758,6 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	  stmp = 0.0;
 	  
 	}
-	else	
-	  throw m1d_Error("porousLiIon_Anode_dom1D::residEval_PreCalc","MECH_MODEL defined but solidMechanicsProbType_ !>0" );
 #endif
     } // loop over cell
 }
