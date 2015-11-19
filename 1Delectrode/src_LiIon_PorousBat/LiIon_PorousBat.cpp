@@ -265,9 +265,7 @@ main(int argc, char** argv)
 
         // Declare a matrix and two vectors, to form a linear system: A * v = b.
 
-
         Epetra_Vector* v = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoLcBlockNodeEqnsColMap));
-
         Epetra_Vector* b = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
         Epetra_Vector* res = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
         Epetra_Vector* soln = new Epetra_Vector(*((ps->LI_ptr_)->GbBlockNodeEqnstoLcBlockNodeEqnsColMap));
@@ -330,7 +328,6 @@ main(int argc, char** argv)
 #endif
         BEulerInt_Battery t1;
 
-        
 #ifdef DO_INIT_CALC
         /*
          * Section to turn on DAEINIT capability - experimental
@@ -370,8 +367,6 @@ main(int argc, char** argv)
 
         SolNonlinear::s_print_NumJac = true;
 #endif
-
-
 
         t1.determineInitialConditions(PSinput.startTime_, delta_t);
 
@@ -479,15 +474,7 @@ main(int argc, char** argv)
                 Tstop = t1.integratePRE(TFinal);
             }
 
-
         }
-
-        //double tend = second();
-        // fprintf(stderr, "Total time = %g seconds\n", tend - tstart);
-        //printf("Total time = %g seconds\n", tend - tstart);
-
-
-        // safeDelete(wAll);
 
         /*
          * Cleanup

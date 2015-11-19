@@ -524,6 +524,8 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
 	//
         porosity_Cell_[iCell] = porosity;
 	porosity_Cell_old_[iCell] = porosity;
+	nVol_zeroStress_Electrode_Cell_[iCell] = ee->SolidVol();
+	nVol_zeroStress_Electrode_Old_Cell_[iCell] = nVol_zeroStress_Electrode_Cell_[iCell];
     
         Electrode_Cell_[iCell] = ee;
     }
@@ -621,7 +623,15 @@ porousLiIon_Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, 
 	    nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
 	}
 
-      
+        nVol_zeroStress_Electrode_Old_Cell_[iCell] = nVol_zeroStress_Electrode_Old_Cell_[iCell];
+        if (numExtraCondensedPhases_> 0) {
+	for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; jPhase++) {
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+	      moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+	      volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];  
+	 }
+         }
     }
 }
 //==================================================================================================================================

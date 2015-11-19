@@ -234,6 +234,9 @@ public:
      */ 
     virtual double openCircuitPotentialQuick() const;
 
+    //! Calculate the porosity
+    virtual double calcPorosity(size_t iCell);
+
     // -------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------   DATA   ----------------------------------------------------------------
     // -------------------------------------------------------------------------------------------------------------------
@@ -282,7 +285,23 @@ protected:
      */
     std::vector<double> nEnthalpy_Electrode_Old_Cell_;
 
+    //!  Total volume of the electrode in each cell at the no stress condition (m3)
+    /*!
+     *   This only depends on the current conditions of temperatue, pressure, mole numbers of species.
+     *   It is an extensive quantity. It is calculated from electrode->SolidVol()
+     *
+     *   Length = total number of cells.
+     */
+    std::vector<double> nVol_zeroStress_Electrode_Cell_;
 
+    //!  Total volume of the electrode in each cell at the no stress condition from old time step (m3)
+    /*!
+     *   This only depends on the current conditions of temperatue, pressure, mole numbers of species.
+     *   It is an extensive quantity. It is calculated from electrode->SolidVol()
+     *
+     *   Length = total number of cells.
+     */
+    std::vector<double> nVol_zeroStress_Electrode_Old_Cell_;
 
     //
     // ------------------- Locally derived quantities that are valid at the point of current interest --------------------

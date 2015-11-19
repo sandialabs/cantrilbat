@@ -3,8 +3,12 @@
  */
 
 #include "m1d_porousElectrode_dom1D.h"
-
+#include "m1d_cellTmps_PorousFlow.h"
+#include "m1d_valCellTmps_porousFlow.h"
+#include "m1d_ProblemStatementCell.h"
 #include "Electrode.h"
+#include "m1d_exception.h"
+#include "m1d_globals.h"
 
 using namespace std;
 using namespace Cantera;
@@ -21,6 +25,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     surfaceArea_Cell_(0),
     nEnthalpy_Electrode_New_Cell_(0),
     nEnthalpy_Electrode_Old_Cell_(0),
+    nVol_zeroStress_Electrode_Cell_(0),
+    nVol_zeroStress_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
     EnthalpyPhiPM_metal_Curr_(0),
     elem_Solid_Old_Cell_()
@@ -40,6 +46,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     surfaceArea_Cell_(0),
     nEnthalpy_Electrode_New_Cell_(0),
     nEnthalpy_Electrode_Old_Cell_(0),
+    nVol_zeroStress_Electrode_Cell_(0),
+    nVol_zeroStress_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
     EnthalpyPhiPM_metal_Curr_(0),
     elem_Solid_Old_Cell_()
@@ -76,6 +84,8 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     surfaceArea_Cell_                = r.surfaceArea_Cell_;
     nEnthalpy_Electrode_New_Cell_    = r.nEnthalpy_Electrode_New_Cell_;
     nEnthalpy_Electrode_Old_Cell_    = r.nEnthalpy_Electrode_Old_Cell_;
+    nVol_zeroStress_Electrode_Cell_  = r. nVol_zeroStress_Electrode_Cell_;
+    nVol_zeroStress_Electrode_Old_Cell_ = r.nVol_zeroStress_Electrode_Old_Cell_;
     jFlux_EnthalpyPhi_metal_trCurr_  = r.jFlux_EnthalpyPhi_metal_trCurr_;
     EnthalpyPhiPM_metal_Curr_        = r.EnthalpyPhiPM_metal_Curr_;
     metalPhase_                      = r.metalPhase_;
@@ -113,6 +123,8 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     surfaceArea_Cell_.resize(NumLcCells, 0.0);
     nEnthalpy_Electrode_New_Cell_.resize(NumLcCells, 0.0);
     nEnthalpy_Electrode_Old_Cell_.resize(NumLcCells, 0.0);
+    nVol_zeroStress_Electrode_Cell_.resize(NumLcCells, 0.0);
+    nVol_zeroStress_Electrode_Old_Cell_.resize(NumLcCells, 0.0);
     EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
  
     BDD_porousElectrode* bdde = static_cast<BDD_porousElectrode*>(&BDD_);
@@ -158,6 +170,94 @@ porousElectrode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, cons
                                              const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                                              const double t, const double t_old)
 {
+
+    porousFlow_dom1D::advanceTimeBaseline(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr, t, t_old);
+
+    const Epetra_Vector& soln = *soln_ptr;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell; 
+
+	cellTmps& cTmps      = cellTmpsVect_Cell_[iCell];
+
+	/*
+         *  ---------------- Get the index for the center node ---------------------------------
+         */
+        int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+        /*
+         *   Get the pointer to the NodalVars object for the center node
+         */
+        NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+        /*
+         *  Index of the first equation in the bulk domain of center node
+         */
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+        //concTot_Cell_old_[iCell] = concTot_Curr_;
+        porosity_Cell_old_[iCell] = porosity_Curr_;
+        Temp_Cell_old_[iCell] = temp_Curr_;
+
+	/*
+        double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
+        for (size_t k = 0; k < (size_t) nsp_; ++k) {
+            mfElectrolyte_Soln_old[k] = mfElectrolyte_Soln_Curr_[k];
+        }
+	*/
+	/*
+         * Tell the electrode object to accept the current step and prep for the next step.
+         *
+         * We might at this point do a final integration to make sure we nailed the conditions of the last step.
+         * However, we will hold off at implementing this right now
+         */
+        Electrode* ee = Electrode_Cell_[iCell];
+        ee->resetStartingCondition(t);
+
+        size_t neSolid = ee->nElements();
+        for (size_t elem = 0; elem < neSolid; ++elem) {
+            elem_Solid_Old_Cell_(elem,iCell) = ee->elementSolidMoles("Li");
+        }
+        //
+        //  this is needed for a proper startup 
+        //
+        ee->updateState();
+        //
+        //  this is needed for a proper startup - sync initinit with final
+        //
+        ee->setInitStateFromFinal(true);
+
+        if (energyEquationProbType_ == 3) {
+            double volCellNew = cTmps.xdelCell_;
+            // double volElectrodeCell = solidVolCell / crossSectionalArea_;
+            double solidEnthalpy = ee->SolidEnthalpy() / crossSectionalArea_;
+            double solidEnthalpyNew = solidEnthalpy;
+
+            double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+            double volLyteNew = porosity_Curr_ * volCellNew;
+            double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+
+            double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
+
+            if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
+                throw m1d_Error("", "Disagreement on new enthalpy calc");
+            }
+
+            nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New_Cell_[iCell];
+            nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
+        }
+
+	nVol_zeroStress_Electrode_Old_Cell_[iCell] = nVol_zeroStress_Electrode_Old_Cell_[iCell];
+
+	if (numExtraCondensedPhases_ > 0) {
+	    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; jPhase++) {
+		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+		  moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+		  volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];  
+	    }
+	}
+    }
+    
 }
 //====================================================================================================================
 int porousElectrode_dom1D::getMaxSubGridTimeSteps() const
@@ -203,6 +303,48 @@ void porousElectrode_dom1D::resetCapacityDischargedToDate()
 double porousElectrode_dom1D::openCircuitPotentialQuick() const
 {
     return 0.0;
+}
+//==================================================================================================================================
+//
+// Calculate the porosity of a single cell
+//     This routine can handle thermal expansion of the stoichiometric phases
+//      Uses:
+//             temp_Curr_          Needs the current temperature and pressuer
+//             pres_Curr_
+//             cTmps.xdelCell_     Needs geometry of cell
+//             crossSectionalArea_
+//             moleNumber_Phases_Cell_[]  Needs to know current moles of Skeletal and Other Phases
+//
+double porousElectrode_dom1D::calcPorosity(size_t iCell) 
+{
+    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+    double xdelCell = cTmps.xdelCell_;
+    double volCell = crossSectionalArea_ * xdelCell;
+    size_t offS = 0;
+    double mv, volS;
+    double vf = 0.0;
+    double vfE =  nVol_zeroStress_Electrode_Cell_[iCell] / volCell;
+    double p = 1.0 - vfE;
+    if (solidSkeleton_) {
+        offS = 1;
+      	solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
+        mv = solidSkeleton_->molarVolume();
+        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell];
+        vf = volumeFraction_Phases_Cell_[iCell*numExtraCondensedPhases_] = volS / volCell;
+    }
+    
+    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+        ExtraPhase* ep = ExtraPhaseList_[jPhase];
+	ThermoPhase* tp = ep->tp_ptr;
+	tp->setState_TP(temp_Curr_, pres_Curr_);
+	mv = tp->molarVolume();
+        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase];
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] = volS / volCell;
+        vf += volS / volCell;
+    }
+    p -= vf;
+    porosity_Cell_[iCell] = p;
+   return p; 
 }
 //=====================================================================================================================
 } //namespace m1d

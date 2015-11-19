@@ -535,6 +535,10 @@ porousLiIon_Anode_dom1D::instantiateElectrodeCells()
         porosity_Cell_[iCell] = porosity;
 	porosity_Cell_old_[iCell] = porosity;
 
+	nVol_zeroStress_Electrode_Cell_[iCell] = ee->SolidVol();
+	nVol_zeroStress_Electrode_Old_Cell_[iCell] = nVol_zeroStress_Electrode_Cell_[iCell];
+
+
         Electrode_Cell_[iCell] = ee;
     }
 }
@@ -638,6 +642,16 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
 	    nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
 	}
 
+ 	nVol_zeroStress_Electrode_Old_Cell_[iCell] = nVol_zeroStress_Electrode_Old_Cell_[iCell];
+
+        if (numExtraCondensedPhases_ > 0) {
+	for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; jPhase++) {
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+	      moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+	      volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];  
+	}
+        }
     }
 }
 
@@ -1731,7 +1745,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          */
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
         /*
-         *  Calculate the electrode reactions.  Also update porosity.
+         *  ----------- Integrate the electrode object during the current time step ------------------------------------------
          */
         int numSubcycles = calcElectrode();
         maxElectrodeSubIntegrationSteps_ = std::max(maxElectrodeSubIntegrationSteps_, numSubcycles);
@@ -1743,8 +1757,20 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
 
 	    EnthalpyMolar_lyte_Cell_[iCell] = ionicLiquid_->enthalpy_mole();
-
 	}
+        //
+        //  Alter the porosity here for some problem types. Other problem types involve calculating an equation 
+        //      -> we do this here when the porosity is not a formal variable.
+        //
+        if (porosityEquationProbType_  & Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
+            if (porosityEquationProbType_  & Porosity_EqnType_Status::PartOfMechanics) {
+               // do something different
+            } else {
+                porosity_Cell_[iCell] = calcPorosity(iCell);
+            }
+        }
+
+
 #ifdef MECH_MODEL
 	// update the node position at the beginning of the time step. 
 	if (solidMechanicsProbType_ > 0) {
@@ -2534,7 +2560,7 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
     }
 }
 //==================================================================================================================================
-//
+//   Main routine to integrate the electrode for the current residual
 /*
  *  This routine has been moved to the precalc category.
  */
@@ -2647,18 +2673,19 @@ porousLiIon_Anode_dom1D::calcElectrode()
      */
     surfaceArea_Cell_[cIndex_cc_] = saExternal / (crossSectionalArea_);
 
+    //
+    //  Get the extrinsic volume of the electrode at the current T, and isotropic P without any stress terms
+    //
+    if (! (porosityEquationProbType_ & Porosity_EqnType_Status::Constant)) { 
+        nVol_zeroStress_Electrode_Cell_[cIndex_cc_] = Electrode_ptr->SolidVol();
+    }
+
     /*
      *  Calculate the current per external surface area of electrode. To do this calculation
      *  we divide the total extrinsic current by the total extrinsic surface area
      */
     icurrInterfacePerSurfaceArea_Cell_[cIndex_cc_] = icurrInterface_Cell_[cIndex_cc_] * crossSectionalArea_ /
                                                      saExternal;
-
-    /*
-     * Compute new porosity based on a possibily different volume of the solid electrode
-     */
-    // porosity_Cell_[cIndex_cc_] =
-    // 1 -  Electrode_ptr->SolidVol() / (xdelCell_Cell_[cIndex_cc_] * crossSectionalArea_);
 
     if (energyEquationProbType_ == 3) {
 	nEnthalpy_Electrode_New_Cell_[cIndex_cc_] = Electrode_ptr->SolidEnthalpy();
@@ -4337,6 +4364,7 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         Electrode* ee = Electrode_Cell_[iCell];
 	//
         //  Set the temperature and pressure and voltages in the final_ state
+	//      (NOTE, we are not setting the internal state here! This may have to change)
         //
         ee->setState_TP(temp_Curr_, pres_Curr_);
         ee->setVoltages(phiElectrode_Curr_, phiElectrolyte_Curr_);

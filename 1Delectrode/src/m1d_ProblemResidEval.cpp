@@ -708,10 +708,6 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
     BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
     d_ptr->initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
-
-    //JCH adding tecplot output call here.
-    //probably want to change this later
-    //d_ptr->writeSolutionTecplotHeader();
   }
   /*
    *    Loop over ths Surface Domains
@@ -719,10 +715,6 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
   for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
     SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
     d_ptr->initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
-
-    //JCH adding tecplot output call here.
-    //probably want to change this later
-    //d_ptr->writeSolutionTecplotHeader();
   }
 
   // Find the restart record number. If this is greater than zero, then the user has

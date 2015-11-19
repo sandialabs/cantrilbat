@@ -342,6 +342,14 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
 		
 		nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
         }
+        if (numExtraCondensedPhases_ > 0) {
+	for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; jPhase++) {
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+	      moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =  
+	      volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];  
+	}
+        }
     }
 }
 //==================================================================================================================================
