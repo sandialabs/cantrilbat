@@ -110,7 +110,9 @@ BDD_porousFlow::ReadModelDescriptions()
     ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
     ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
     nSpeciesElectrolyte_ =  ionicLiquid_->nSpecies();
-    
+    int numE = PSCinput_ptr->numExtraPhases_;
+ 
+    size_t offS = 0;
     if (IDBulkDomain == 1) {
 	iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
 	if (iph < 0) {
@@ -123,9 +125,32 @@ BDD_porousFlow::ReadModelDescriptions()
 			       "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
 	}
 	solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
+	double thickness = Xpos_end -Xpos_start;
+	double porosity = -1.0;
+	double volumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
+	double volumeInert = 0.0;
+	double volumeFractionInert = 0.0;
+	double mv = 0.0;
+	if (solidSkeleton_) {
+	    if (PSCinput_ptr->separatorMass_ > 0.0) {
+		volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
+		volumeFractionInert = volumeInert / volumeSeparator;
+	    } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
+		volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+	    }
+	}
+
+	ExtraPhase* ep = new ExtraPhase();
+	ep->bregionID[0] = 1;
+	ep->phaseName = solidSkeleton_->id();
+        ep->regions = "separator";
+	ep->canteraFileName = "";
+	ep->volFraction = volumeFractionInert;
+	ep->tp_ptr = solidSkeleton_->duplMyselfAsThermoPhase();
+	ExtraPhaseList_.push_back(ep);
+	offS = 1;
     }
 
-    int numE = PSCinput_ptr->numExtraPhases_;
 
     for (size_t i = 0; i < (size_t) numE; ++i) {
 	ExtraPhase* ep = PSCinput_ptr->ExtraPhaseList_[i];
@@ -139,7 +164,7 @@ BDD_porousFlow::ReadModelDescriptions()
 	}
     }
 
-    for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
+    for (size_t i = offS; i < ExtraPhaseList_.size(); ++i) {
         ExtraPhase* ep = ExtraPhaseList_[i];
         ep->tp_ptr = Cantera::newPhase(ep->canteraFileName, ep->phaseName); 
         if (! ep->tp_ptr) {

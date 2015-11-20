@@ -233,10 +233,9 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     // We'll keep the mole number and volume fraction in the extra phases lists.
     //
     if (solidSkeleton_) {
-        numExtraCondensedPhases_++;
-        offS = 1;
+	offS = 1;
     }
-    numExtraCondensedPhases_ += ExtraPhaseList_.size();
+    numExtraCondensedPhases_ = ExtraPhaseList_.size();
 
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
@@ -253,7 +252,7 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
 	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
 	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
-	    for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+	    for (size_t k = 1; k < ExtraPhaseList_.size(); ++k) {
 		ExtraPhase* ep = ExtraPhaseList_[k];
 		ThermoPhase* tp = ep->tp_ptr;
 		tp->setState_TP(temp_Curr_, pres_Curr_);
@@ -672,6 +671,8 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	    } else {
 		throw m1d_Error("initial_conditions", "volumeFractionInert not set");
 	    }
+            ExtraPhase* ep = ExtraPhaseList_[0];
+            ep->volFraction = volumeFractionInert;
 	    mv = solidSkeleton_->molarVolume();
 	    porosity = 1.0 - volumeFractionInert;
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
@@ -975,13 +976,15 @@ double porousFlow_dom1D::calcPorosity(size_t iCell)
    size_t offS = 0;
    double mv, volS;
    double vf = 0.0;
+  /*
    if (solidSkeleton_) {
-        offS = 1;
+        offS = 0;
       	solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
         mv = solidSkeleton_->molarVolume();
         volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell];
         vf = volumeFraction_Phases_Cell_[iCell*numExtraCondensedPhases_] = volS / volCell;
     }
+  */
    
    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
         ExtraPhase* ep = ExtraPhaseList_[jPhase];

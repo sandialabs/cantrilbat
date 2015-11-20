@@ -314,7 +314,7 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
         concTot_Cell_old_[iCell] = concTot_Curr_;
-        porosity_Cell_old_[iCell] = porosity_Curr_;
+        porosity_Cell_old_[iCell] = porosity_Cell_[iCell] ;
 	Temp_Cell_old_[iCell] = temp_Curr_;
 
         double* mfElectrolyte_Soln_old = mfElectrolyte_Soln_Cell_old_.ptrColumn(iCell);
@@ -1275,6 +1275,18 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
             Xcent_cc_[k] = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_MoleFraction_Species + k];
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
+
+        //
+        //  Alter the porosity here for some problem types. Other problem types involve calculating an equation 
+        //      -> we do this here when the porosity is not a formal variable.
+        //
+        if (porosityEquationProbType_  & Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
+            if (porosityEquationProbType_  & Porosity_EqnType_Status::PartOfMechanics) {
+               // do something different
+            } else {
+                porosity_Cell_[iCell] = calcPorosity(iCell);
+            }
+        }
       
         /*
          * Setup the thermo
@@ -2736,27 +2748,60 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 ss.print0("\n");
             }
         }
-#ifdef MECH_MODEL
-    if (do0Write) {
-      drawline0(indentSpaces, 80);
-      ss.print0("%s    CellBound    SolidStressAxial ", ind);
-      ss.print0("\n");
-      drawline(indentSpaces, 80);
+	print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
+	if (do0Write) {
+	    // -----------------------------------------------------------------------------------------------------------------
+	    // --             print porosity within the cell --
+	    // -----------------------------------------------------------------------------------------------------------------
+	    ss.print0("\n");
+	    drawline0(indentSpaces, 80);
+	    ss.print0("%s        z      Porosity  ", ind);
+	    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+		ExtraPhase* ep = ExtraPhaseList_[jPhase];
+		ss.print0("%-11.11s ", ep->phaseName.c_str());
+	    }
+	    ss.print0("\n");
+	    drawline0(indentSpaces, 80);
+	}
+	print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
+	for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+	    print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
+	    if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
+		int iCell = iGbNode - BDD_.FirstGbNode;
+		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+		double volCell =  crossSectionalArea_ * xdelCell_Cell_[iCell];
+		double x = nv->xNodePos();
+		ss.print0("%s    %-10.4E ", ind, x);
+		ss.print0("%11.4E ", porosity_Cell_[iCell]);
+		for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+		    ss.print0("%11.4E ", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase]);
+		}
+		ss.print0("\n");
+	    }
+	    print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
+	}
 
-      const Epetra_Vector& soln = *soln_ptr;
+#ifdef MECH_MODEL
+	if (do0Write) {
+	    drawline0(indentSpaces, 80);
+	    ss.print0("%s    CellBound    SolidStressAxial ", ind);
+	    ss.print0("\n");
+	    drawline(indentSpaces, 80);
+
+	    const Epetra_Vector& soln = *soln_ptr;
      
-      for (int iCell = 1; iCell < NumLcCells; iCell++) {
-      	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-      	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
-      	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-      	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-      	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-      	double Solid_Stress_Axial = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
-      	ss.print0("%s %d-%d   %11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
-      	ss.print0("\n");
-      }
+	    for (int iCell = 1; iCell < NumLcCells; iCell++) {
+		int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+		int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+		cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+		NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+		indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+		double Solid_Stress_Axial = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
+		ss.print0("%s %d-%d   %11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
+		ss.print0("\n");
+	    }
       
-    }
+	}
 #endif 
         drawline(indentSpaces, 80);
         // ----------------------------------------------------

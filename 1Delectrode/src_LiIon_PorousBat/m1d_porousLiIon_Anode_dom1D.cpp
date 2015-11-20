@@ -1739,7 +1739,17 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         }
         Vcent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage];
         VElectrodeCent_cc_ = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Voltage + 1];
-
+	//
+        //  Alter the porosity here for some problem types. Other problem types involve calculating an equation 
+        //      -> we do this here when the porosity is not a formal variable.
+        //
+        if (porosityEquationProbType_  & Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
+            if (porosityEquationProbType_  & Porosity_EqnType_Status::PartOfMechanics) {
+               // do something different
+            } else {
+                porosity_Cell_[iCell] = calcPorosity(iCell);
+            }
+        }
         /*
          * Setup the thermo
          */
@@ -1758,17 +1768,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 
 	    EnthalpyMolar_lyte_Cell_[iCell] = ionicLiquid_->enthalpy_mole();
 	}
-        //
-        //  Alter the porosity here for some problem types. Other problem types involve calculating an equation 
-        //      -> we do this here when the porosity is not a formal variable.
-        //
-        if (porosityEquationProbType_  & Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
-            if (porosityEquationProbType_  & Porosity_EqnType_Status::PartOfMechanics) {
-               // do something different
-            } else {
-                porosity_Cell_[iCell] = calcPorosity(iCell);
-            }
-        }
+    
 
 
 #ifdef MECH_MODEL
@@ -3883,7 +3883,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
     if (do0Write) {
         // ----------------------------------------------------
-        // --             print potentials within the cell --
+        // --             print surface potentials within the cell --
         // ----------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
@@ -3917,7 +3917,11 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // -----------------------------------------------------------------------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
-        ss.print0("%s        z      Porosity", ind);
+        ss.print0("%s        z      Porosity    VF_Electrode", ind);
+	for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+	    ExtraPhase* ep = ExtraPhaseList_[jPhase];
+	    ss.print0("%-11.11s ", ep->phaseName.c_str());
+	}
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
@@ -3927,9 +3931,16 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
             iCell = iGbNode - BDD_.FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+	    double volCell =  crossSectionalArea_ * xdelCell_Cell_[iCell];
             x = nv->xNodePos();
             ss.print0("%s    %-10.4E ", ind, x);
             ss.print0("%11.4E ", porosity_Cell_[iCell]);
+	    double vole = nVol_zeroStress_Electrode_Cell_[iCell];
+	    double vfE = vole / volCell;
+	    ss.print0("%11.4E ", vfE);
+	    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+		ss.print0("%11.4E ", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase]);
+	    }
             ss.print0("\n");
         }
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
