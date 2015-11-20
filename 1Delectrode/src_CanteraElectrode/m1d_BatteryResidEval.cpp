@@ -939,7 +939,7 @@ BatteryResidEval::writeGlobalTecplot(const int ievent,
 		    numRtn = d_ptr->reportSolutionVector(requestID, requestType, &y_n, volInfoVector);
 		}
 		/// CBL This is a hack. Fix it for real \todo
-		if(numRtn != numNodesDD && ( name == "S_Stress_Axial" || name == "d_axial"))
+		if(numRtn != numNodesDD && ( name == "Displacement_Axial"))
 		  numRtn = numNodesDD;
 		if (numRtn != numNodesDD) {
 		    throw m1d_Error("BatteryResidEval::writeGlobalTecplot", 

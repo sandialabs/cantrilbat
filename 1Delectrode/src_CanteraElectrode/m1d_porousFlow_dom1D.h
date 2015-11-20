@@ -339,7 +339,7 @@ protected:
 
 #ifdef MECH_MODEL
     //! 1d stress at the current point pa
-    double mm_stress_Curr_;
+    //    double mm_stress_Curr_;
 #endif
 
     //! Local value of the pressure (Pascal)

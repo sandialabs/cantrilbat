@@ -56,9 +56,12 @@ public:
     //! Offset of the pressure equation wrt the start of the nodal solution vector
     size_t Offset_Pressure;
 
-#ifdef MECH_MODEL    
+#ifdef MECH_MODEL  
+    // **** Reusing the Displacement_Axial from above.
+
+    //    size_t Offset_Displacement_Axial;
     //! Offset of the stress equation wrt the start of the nodal solution vector
-    size_t Offset_Solid_Stress_Axial;
+    //    size_t Offset_Solid_Stress_Axial;
 #endif
 
     //!  Offset of Residual for the current conservation equation

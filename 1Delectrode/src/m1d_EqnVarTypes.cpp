@@ -13,6 +13,8 @@
 
 #include <cstring>
 #include <cstdio>
+#include <sstream>
+#include <ostream>
 
 using namespace std;
 
@@ -25,7 +27,7 @@ VarType::VarMainName(const VAR_TYPE variableType)
   switch (variableType)
   {
     case Displacement_Axial:
-      return string("d_axial");
+      return string("Displacement_Axial");
       break;
     case Velocity_Axial:
       return string("Vel_axial");
@@ -60,24 +62,11 @@ VarType::VarMainName(const VAR_TYPE variableType)
     case Voltage:
       return string("Volt");
       break;
+ 
 #ifdef MECH_MODEL
-    // case Solid_Density:
-    //   return string("Solid_Density");
-    //   break;
-    // case Electrolyte_Density:
-    //   return string("Elyte_Density");
-    //   break;
-    // case Gas_Density:
-    //   return string("Gas_Density");
-    //   break;
-    case Solid_Stress_Axial:
-      return string("S_Stress_Axial");
-      break;
-    case Solid_Stress_Transverse:
-      return string("S_Stress_Trans");
-      break;
-    // case  IStress_Free_Strain_Axial:  
-    //   return string("ISFS_Axial");
+      //note that we will use the Displacement_Axial variable already defined. 
+    // case Solid_Stress_Axial:
+    //   return string("S_Stress_Axial");
     //   break;
 #endif
     case Max_Var_Name:
@@ -152,19 +141,18 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
     case Mechanical_Model_Axial:
       return std::string("Mechanical_Model_Axial");
       break;
-    case Mechanical_Displacement_Axial:
-     return std::string("Mechanical_Displacement_Axial");
-     break;
-    // case Mechanical_Model_Transverse:
-    //   return std::string("Mechanical_Model_Transverse");
-    //   break;
 #endif 
     case Max_Eqn_Name:
       return std::string("Max_Eqn_Name");
       break;
     default:
-      throw m1d_Error("EqnMainName", "unknown");
-      break;
+      {
+	ostringstream oss;
+	oss << " eqn num "<<equationType;
+
+	throw m1d_Error("EqnMainName", oss.str() );
+	break;
+      }
   }
   return string("");
 }
@@ -435,8 +423,8 @@ EqnToVarEnum(EQ_TYPE eqType)
     return Velocity_Axial;
   } else if (eqType == Momentum_Swirl) {
     return Velocity_Swirl;
-  } else if (eqType == MeshDisplacement_Axial) {
-    return Displacement_Axial;
+  } else if (eqType == MeshDisplacement_Axial ||eqType == Mechanical_Model_Axial ) {
+    return Displacement_Axial; 
   } else if (eqType == Enthalpy_Conservation) {
     return Temperature;
   } else if (eqType == Thermal_Conservation) {
