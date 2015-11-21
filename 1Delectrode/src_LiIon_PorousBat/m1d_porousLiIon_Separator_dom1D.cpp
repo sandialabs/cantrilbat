@@ -180,12 +180,11 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
-    double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+    double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
     double porosity = -1.0;
-    double grossVolumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
+    double grossVolumeSeparator = PSCinput_ptr->separatorArea_ * domainThickness;
     double volumeInert = 0.0;
     double volumeFractionInert = 0.0;
-    double mv = 0.0;
     if (solidSkeleton_) {
         if (PSCinput_ptr->separatorMass_ > 0.0) {
             volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
@@ -193,35 +192,41 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
         } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
 	    volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
         }
-        mv = solidSkeleton_->molarVolume();
+        if (volumeFractionInert >= 1.0) {
+            throw m1d_Error("porousLiIon_Separator_dom1D::domain_prep()",
+                            "Volume fraction of separator solid more than 1.0: " + fp2str(volumeFractionInert));
+        }
     }
-    size_t offS = 0;
     //
     // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
     // We'll keep the mole number and volume fraction in the extra phases lists.
     //
-    if (solidSkeleton_) {   
-        offS = 1;
-    }
    
     if (numExtraCondensedPhases_ > 0) {
 	for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-	    porosity = 1.0 - volumeFractionInert;
-	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
+            int  index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+            NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+            NodalVars* nodeLeft = nodeCent;
+            NodalVars* nodeRight = nodeCent;
+            if (iCell !=0) {
+                   int index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+               nodeLeft =  LI_ptr_->NodalVars_LcNode[ index_LeftLcNode];
+            }
+            if ((int) iCell !=NumLcCells - 1) {
+                   int index_RightLcNode = Index_RightLcNode_LCO[iCell];
+               nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+            }
+            double cellThickness = 0.5*(nodeRight->xNodePos() - nodeLeft->xNodePos());
+	    porosity = 1.0;
 	    for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
 		ExtraPhase* ep = ExtraPhaseList_[k];
 		ThermoPhase* tp = ep->tp_ptr;
 		tp->setState_TP(temp_Curr_, pres_Curr_);
 		double mvp = tp->molarVolume();
-		volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp 
-		  / PSCinput_ptr->separatorArea_;
-		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction *thickness * mvp
-		  / PSCinput_ptr->separatorArea_;
+		volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction;
+		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction;
+		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction * cellThickness * mvp ;
+		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction * cellThickness * mvp;
 		porosity -= ep->volFraction;
 	    }
 	    porosity_Cell_[iCell] = porosity;
@@ -324,16 +329,26 @@ porousLiIon_Separator_dom1D::advanceTimeBaseline(const bool doTimeDependentResid
 
         if (energyEquationProbType_ == 3) { 
 	        double volCellNew = xdelCell_Cell_[iCell];
+		/*
                 double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
                 double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
                 double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
                 double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
-
+		*/
                 double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
                 double volLyteNew = porosity_Curr_ * volCellNew;
                 double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
-
-                double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;
+		double nEnthalpyInertNew = 0.0;
+		for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+		    ExtraPhase* ep = ExtraPhaseList_[jPhase];
+		    ThermoPhase* tp = ep->tp_ptr;
+		    tp->setState_TP(temp_Curr_, pres_Curr_);
+		    double mEnth = tp->enthalpy_mole();
+		    double mn = moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+		    nEnthalpyInertNew += mEnth * mn;
+		}
+		
+                double nEnthalpy_New  = lyteEnthalpyNew + nEnthalpyInertNew;
 
 		if (! checkDblAgree( nEnthalpy_New, nEnthalpy_New_Cell_[iCell] ) ) {
                     throw m1d_Error("porousLiIon_Separator_dom1D::advanceTimeBaseline", 
@@ -944,6 +959,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	//
 	// Do old time enthalpy calculation -> will be replaced
 	//   (volcell might have changed -> this will work if it hasn't)
+	  /*
 	double volCellOld = xdelCell;
 	double solidMolarEnthalpyOld = solidSkeleton_->enthalpy_mole();
 	double solidConcOld =  1.0 / solidSkeleton_->molarVolume();
@@ -960,20 +976,27 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	if (! checkDblAgree( nEnthalpy_Old, nEnthalpy_Old_Cell_[iCell] ) ) {
 	  throw m1d_Error("", "Disagreement on old enthalpy calc");
 	}
+	  */
 
 	SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
-	double volCellNew = xdelCell;
-	double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
-	double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
-	double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
-	double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
-
 	double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
-	double volLyteNew = porosity_Curr_ * volCellNew;
+	double volLyteNew = porosity_Curr_ * xdelCell;
 	double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+	// 
+	// Calculate the enthalpy of other phases that may be present
+	//
+	double nEnthalpyInertNew = 0.0;
+	for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+	    ExtraPhase* ep = ExtraPhaseList_[jPhase];
+	    ThermoPhase* tp = ep->tp_ptr;
+	    tp->setState_TP(temp_Curr_, pres_Curr_);
+	    double mEnth = tp->enthalpy_mole();
+	    double mn = moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+	    nEnthalpyInertNew += mEnth * mn;
+	}
 	
-	nEnthalpy_New_Cell_[iCell] = solidEnthalpyNew + lyteEnthalpyNew;
+	nEnthalpy_New_Cell_[iCell] = lyteEnthalpyNew + nEnthalpyInertNew;
 
 	double tmp = (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
 	res[indexCent_EqnStart + nodeTmpsCenter.RO_Enthalpy_Conservation] += tmp;
@@ -2769,7 +2792,6 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	    if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
 		int iCell = iGbNode - BDD_.FirstGbNode;
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-		double volCell =  crossSectionalArea_ * xdelCell_Cell_[iCell];
 		double x = nv->xNodePos();
 		ss.print0("%s    %-10.4E ", ind, x);
 		ss.print0("%11.4E ", porosity_Cell_[iCell]);
@@ -2899,7 +2921,6 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
                                                const double delta_t)
 {
     Epetra_Vector& soln = *soln_ptr;
-    BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
 
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -2913,6 +2934,18 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
          *   Get the pointer to the NodalVars object for the center node
          */
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+	NodalVars* nodeLeft = nodeCent;
+	NodalVars* nodeRight = nodeCent;
+	if (iCell !=0) {
+	    int index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+	    nodeLeft =  LI_ptr_->NodalVars_LcNode[ index_LeftLcNode];
+	}
+	if ((int) iCell !=NumLcCells - 1) {
+	    int index_RightLcNode = Index_RightLcNode_LCO[iCell];
+	    nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+	}
+	double cellThickness = 0.5*(nodeRight->xNodePos() - nodeLeft->xNodePos());
+
         /*
          *  Index of the first equation in the bulk domain of center node
          */
@@ -2966,41 +2999,16 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 	//
 	// Porosity Set up
 	// 
-	double volumeSeparator = PSinput.separatorArea_ * PSinput.separatorThickness_;
-	double volumeInert = 0.0;
-	double volumeFractionInert = 0.0;
-        int offS = 0;
-	double mv = 0.0;
 	double porosity = 1.0;
-	double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
-	if (solidSkeleton_) {
-	    offS = 1;
-	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
-	    if (PSinput.separatorMass_ > 0.0 ) {
-		volumeInert = PSinput.separatorMass_ / solidSkeleton_->density() ;
-		volumeFractionInert = volumeInert / volumeSeparator;
-	    } else if (PSinput.separatorSolid_vf_ > 0.0) {
-		volumeFractionInert = PSinput.separatorSolid_vf_;
-	    } else {
-		throw m1d_Error("initial_conditions", "volumeFractionInert not set");
-	    }
-	    mv = solidSkeleton_->molarVolume();
-	    porosity = 1.0 - volumeFractionInert;
-	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
-	}
-
 	for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
 	    ExtraPhase* ep = ExtraPhaseList_[k];
 	    ThermoPhase* tp = ep->tp_ptr;
 	    tp->setState_TP(temp_Curr_, pres_Curr_);
 	    double mvp = tp->molarVolume();
-	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness * mvp;
+	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction;
+	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction * cellThickness * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction * cellThickness * mvp;
 	    porosity -= ep->volFraction;
 	}
 	porosity_Cell_[iCell] = porosity;
@@ -3017,16 +3025,20 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
 
         if (energyEquationProbType_ == 3) { 
 	    double volCellNew = xdelCell_Cell_[iCell];
-	    double solidMolarEnthalpyNew = solidSkeleton_->enthalpy_mole();
-	    double solidConcNew =  1.0 / solidSkeleton_->molarVolume();
-	    double volSolidNew = (1.0 - porosity_Curr_) * volCellNew;
-	    double solidEnthalpyNew = solidMolarEnthalpyNew * solidConcNew *  volSolidNew;
-	    
 	    double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
 	    double volLyteNew = porosity_Curr_ * volCellNew;
 	    double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+	    double nEnthalpyInertNew = 0.0;
+            for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+                ExtraPhase* ep = ExtraPhaseList_[jPhase];
+                ThermoPhase* tp = ep->tp_ptr;
+                tp->setState_TP(temp_Curr_, pres_Curr_);
+                double mEnth = tp->enthalpy_mole();
+                double mn = moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase];
+                nEnthalpyInertNew += mEnth * mn;
+            }
 
-	    double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew;	    
+	    double nEnthalpy_New  = lyteEnthalpyNew + nEnthalpyInertNew;	    
 	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New; 
 	    nEnthalpy_New_Cell_[iCell] = nEnthalpy_New; 
         }

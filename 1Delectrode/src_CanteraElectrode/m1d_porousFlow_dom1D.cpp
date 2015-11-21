@@ -212,9 +212,9 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
      */
     BulkDomain1D::domain_prep(li_ptr);
 
-    double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+    double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
     double porosity = -1.0;
-    double volumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
+    double volumeSeparator = PSCinput_ptr->separatorArea_ * domainThickness;
     double volumeInert = 0.0;
     double volumeFractionInert = 0.0;
     double mv = 0.0;
@@ -225,7 +225,15 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
         } else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
 	    volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
         }
-        mv = solidSkeleton_->molarVolume();
+        if (volumeFractionInert >= 1.0) {
+            throw m1d_Error("porousFlow_dom1D::domain_prep()", 
+                            "Input volume fraction of separator solid is greater than one: " + fp2str(volumeFractionInert));
+        }
+	ExtraPhase* ep = ExtraPhaseList_[0];
+	if (!doubleEqual(ep->volFraction, volumeFractionInert)) {
+	    throw m1d_Error("porousFlow_dom1D::domain_prep", "solidSkel");
+	}
+	ep->volFraction = volumeFractionInert;
     }
     size_t offS = 0;
     //
@@ -245,24 +253,39 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     moleNumber_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
     moleNumber_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
 
+    double cellThickness = 0.0;
     if (numExtraCondensedPhases_ > 0) {
 	for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
-	    porosity = 1.0 - volumeFractionInert;
+            int  index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+            NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+            NodalVars* nodeLeft = nodeCent;
+            NodalVars* nodeRight = nodeCent;
+            if (iCell !=0) {
+                   int index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+               nodeLeft =  LI_ptr_->NodalVars_LcNode[ index_LeftLcNode];
+            }
+            if ((int) iCell !=NumLcCells - 1) {
+                   int index_RightLcNode = Index_RightLcNode_LCO[iCell];
+               nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+            }
+            cellThickness = 0.5*(nodeRight->xNodePos() - nodeLeft->xNodePos());
+      
+	    porosity = 1.0;
+	    /*
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness * mv;
-	    for (size_t k = 1; k < ExtraPhaseList_.size(); ++k) {
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * cellThickness * mv;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * cellThickness * mv;
+	    */
+	    for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
 		ExtraPhase* ep = ExtraPhaseList_[k];
 		ThermoPhase* tp = ep->tp_ptr;
 		tp->setState_TP(temp_Curr_, pres_Curr_);
 		double mvp = tp->molarVolume();
 		volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
 		volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction *
-		  thickness * mvp;
-		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction
-		  * thickness * mvp;
+		moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * cellThickness * mvp;
+		moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * cellThickness * mvp;
 		porosity -= ep->volFraction;
 	    }
 	    porosity_Cell_[iCell] = porosity;
@@ -579,6 +602,18 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         // Index of the first equation in the bulk domain of center node
         indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
 
+	NodalVars* nodeLeft = nodeCent;
+	NodalVars* nodeRight = nodeCent;
+	if (iCell !=0) {
+	    int index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+	    nodeLeft =  LI_ptr_->NodalVars_LcNode[ index_LeftLcNode];
+	}
+	if ((int) iCell !=NumLcCells - 1) {
+	    int index_RightLcNode = Index_RightLcNode_LCO[iCell];
+	    nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+	}
+	double cellThickness = 0.5*(nodeRight->xNodePos() - nodeLeft->xNodePos());
+
         /*
          * Offsets for the variable unknowns in the solution vector for the electrolyte domain
          */
@@ -659,7 +694,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         int offS = 0;
 	double mv = 0.0;
 	double porosity = 1.0;	
-	double thickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+	double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
         if (solidSkeleton_) {
 	    offS = 1;
 	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
@@ -673,12 +708,6 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	    }
             ExtraPhase* ep = ExtraPhaseList_[0];
             ep->volFraction = volumeFractionInert;
-	    mv = solidSkeleton_->molarVolume();
-	    porosity = 1.0 - volumeFractionInert;
-	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness  * mv;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell] = volumeFractionInert * thickness  * mv;
 	}
 
 	for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
@@ -688,8 +717,8 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	    double mvp = tp->molarVolume();
 	    volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
 	    volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction;
-	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness  * mvp;
-	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * thickness  * mvp;
+	    moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * cellThickness  * mvp;
+	    moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + offS + k] = ep->volFraction * cellThickness  * mvp;
 	    porosity -= ep->volFraction;
 	}
 	porosity_Cell_[iCell] = porosity;
@@ -972,32 +1001,17 @@ double porousFlow_dom1D::calcPorosity(size_t iCell)
 {
    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
    double xdelCell = cTmps.xdelCell_;
-   double volCell = crossSectionalArea_ * xdelCell;
-   size_t offS = 0;
-   double mv, volS;
-   double vf = 0.0;
-  /*
-   if (solidSkeleton_) {
-        offS = 0;
-      	solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
-        mv = solidSkeleton_->molarVolume();
-        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell];
-        vf = volumeFraction_Phases_Cell_[iCell*numExtraCondensedPhases_] = volS / volCell;
-    }
-  */
-   
+   double p = 1.0;
    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
         ExtraPhase* ep = ExtraPhaseList_[jPhase];
 	ThermoPhase* tp = ep->tp_ptr;
 	tp->setState_TP(temp_Curr_, pres_Curr_);
-	mv = tp->molarVolume();
-        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase];
-	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] = volS / volCell;
-        vf += volS / volCell;
-    }
-    double p = 1.0 - vf;
-    porosity_Cell_[iCell] = p;
-    return p; 
+	double mv = tp->molarVolume();
+        double vf = moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase] / (mv * xdelCell);
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase] = vf;
+        p -= vf;
+   }
+   return p;
 }
 //==================================================================================================================================
 } //namespace m1d

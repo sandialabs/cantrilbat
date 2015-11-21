@@ -319,7 +319,7 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
 {
     cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
     double xdelCell = cTmps.xdelCell_;
-    double volCell = crossSectionalArea_ * xdelCell;
+    double volCell = xdelCell * crossSectionalArea_;
     size_t offS = 0;
     double mv, volS;
     double vf = 0.0;
@@ -329,7 +329,7 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
         offS = 1;
       	solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
         mv = solidSkeleton_->molarVolume();
-        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell];
+        volS = moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell] / mv;
         vf = volumeFraction_Phases_Cell_[iCell*numExtraCondensedPhases_] = volS / volCell;
     }
     
@@ -338,12 +338,11 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
 	ThermoPhase* tp = ep->tp_ptr;
 	tp->setState_TP(temp_Curr_, pres_Curr_);
 	mv = tp->molarVolume();
-        volS = mv * moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase];
-	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] = volS / volCell;
-        vf += volS / volCell;
+        volS = moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] / mv;
+	volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + offS + jPhase] = volS / xdelCell;
+        vf += volS / xdelCell;
     }
     p -= vf;
-    porosity_Cell_[iCell] = p;
    return p; 
 }
 //=====================================================================================================================
